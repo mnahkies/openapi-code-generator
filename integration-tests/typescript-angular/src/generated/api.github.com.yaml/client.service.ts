@@ -656,6 +656,15 @@ export type QueryParams = {
     | QueryParams[]
 }
 
+export type Style = "deepObject" | "form" | "pipeDelimited" | "spaceDelimited"
+
+export type Encoding = {
+  // allowReserved?: boolean;
+  // contentType?: string;
+  explode?: boolean
+  style?: Style
+}
+
 export type Server<T> = string & {__server__: T}
 
 @Injectable({
@@ -677,7 +686,11 @@ export class GitHubV3RestApiService {
     )
   }
 
-  private _queryParams(queryParams: QueryParams): HttpParams {
+  private _query(
+    queryParams: QueryParams,
+    // todo: use encodings
+    _encodings?: Record<string, Encoding>,
+  ): HttpParams {
     return Object.entries(queryParams).reduce((result, [name, value]) => {
       if (
         typeof value === "string" ||
@@ -745,26 +758,38 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
-      ghsa_id: p["ghsaId"],
-      type: p["type"],
-      cve_id: p["cveId"],
-      ecosystem: p["ecosystem"],
-      severity: p["severity"],
-      cwes: p["cwes"],
-      is_withdrawn: p["isWithdrawn"],
-      affects: p["affects"],
-      published: p["published"],
-      updated: p["updated"],
-      modified: p["modified"],
-      epss_percentage: p["epssPercentage"],
-      epss_percentile: p["epssPercentile"],
-      before: p["before"],
-      after: p["after"],
-      direction: p["direction"],
-      per_page: p["perPage"],
-      sort: p["sort"],
-    })
+    const params = this._query(
+      {
+        ghsa_id: p["ghsaId"],
+        type: p["type"],
+        cve_id: p["cveId"],
+        ecosystem: p["ecosystem"],
+        severity: p["severity"],
+        cwes: p["cwes"],
+        is_withdrawn: p["isWithdrawn"],
+        affects: p["affects"],
+        published: p["published"],
+        updated: p["updated"],
+        modified: p["modified"],
+        epss_percentage: p["epssPercentage"],
+        epss_percentile: p["epssPercentile"],
+        before: p["before"],
+        after: p["after"],
+        direction: p["direction"],
+        per_page: p["perPage"],
+        sort: p["sort"],
+      },
+      {
+        cwes: {
+          style: "form",
+          explode: true,
+        },
+        affects: {
+          style: "form",
+          explode: true,
+        },
+      },
+    )
 
     return this.httpClient.request<any>(
       "GET",
@@ -885,7 +910,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       per_page: p["perPage"],
       cursor: p["cursor"],
     })
@@ -953,7 +978,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -978,7 +1006,7 @@ export class GitHubV3RestApiService {
     (HttpResponse<t_installation[]> & {status: 200}) | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       per_page: p["perPage"],
       page: p["page"],
       since: p["since"],
@@ -1294,7 +1322,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({page: p["page"], per_page: p["perPage"]})
+    const params = this._query({
+      page: p["page"],
+      per_page: p["perPage"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -1335,7 +1366,10 @@ export class GitHubV3RestApiService {
     (HttpResponse<t_simple_classroom[]> & {status: 200}) | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({page: p["page"], per_page: p["perPage"]})
+    const params = this._query({
+      page: p["page"],
+      per_page: p["perPage"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -1378,7 +1412,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({page: p["page"], per_page: p["perPage"]})
+    const params = this._query({
+      page: p["page"],
+      per_page: p["perPage"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -1491,7 +1528,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       per_page: p["perPage"],
       before: p["before"],
       after: p["after"],
@@ -1724,7 +1761,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       per_page: p["perPage"],
       before: p["before"],
       after: p["after"],
@@ -1769,22 +1806,30 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
-      state: p["state"],
-      severity: p["severity"],
-      ecosystem: p["ecosystem"],
-      package: p["package"],
-      epss_percentage: p["epssPercentage"],
-      has: p["has"],
-      scope: p["scope"],
-      sort: p["sort"],
-      direction: p["direction"],
-      before: p["before"],
-      after: p["after"],
-      first: p["first"],
-      last: p["last"],
-      per_page: p["perPage"],
-    })
+    const params = this._query(
+      {
+        state: p["state"],
+        severity: p["severity"],
+        ecosystem: p["ecosystem"],
+        package: p["package"],
+        epss_percentage: p["epssPercentage"],
+        has: p["has"],
+        scope: p["scope"],
+        sort: p["sort"],
+        direction: p["direction"],
+        before: p["before"],
+        after: p["after"],
+        first: p["first"],
+        last: p["last"],
+        per_page: p["perPage"],
+      },
+      {
+        has: {
+          style: "form",
+          explode: true,
+        },
+      },
+    )
 
     return this.httpClient.request<any>(
       "GET",
@@ -1824,7 +1869,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       state: p["state"],
       secret_type: p["secretType"],
       resolution: p["resolution"],
@@ -1866,7 +1911,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -1905,7 +1953,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       since: p["since"],
       per_page: p["perPage"],
       page: p["page"],
@@ -1961,7 +2009,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       since: p["since"],
       per_page: p["perPage"],
       page: p["page"],
@@ -1989,7 +2037,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       since: p["since"],
       per_page: p["perPage"],
       page: p["page"],
@@ -2096,7 +2144,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -2228,7 +2279,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -2254,7 +2308,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -2432,7 +2489,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -2492,7 +2552,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       filter: p["filter"],
       state: p["state"],
       labels: p["labels"],
@@ -2527,7 +2587,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       featured: p["featured"],
       per_page: p["perPage"],
       page: p["page"],
@@ -2647,7 +2707,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -2675,7 +2738,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       sort: p["sort"],
       direction: p["direction"],
       per_page: p["perPage"],
@@ -2725,7 +2788,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -2751,7 +2817,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       sort: p["sort"],
       direction: p["direction"],
       per_page: p["perPage"],
@@ -2799,7 +2865,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -2831,7 +2900,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       all: p["all"],
       participating: p["participating"],
       since: p["since"],
@@ -3024,7 +3093,9 @@ export class GitHubV3RestApiService {
     (HttpResponse<string> & {status: 200}) | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({s: p["s"]})
+    const params = this._query({
+      s: p["s"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -3046,7 +3117,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       since: p["since"],
       per_page: p["perPage"],
     })
@@ -3074,7 +3145,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({page: p["page"], per_page: p["perPage"]})
+    const params = this._query({
+      page: p["page"],
+      per_page: p["perPage"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -3164,7 +3238,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       year: p["year"],
       month: p["month"],
       day: p["day"],
@@ -3286,7 +3360,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -3313,7 +3390,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -3622,7 +3702,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -3794,7 +3877,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       per_page: p["perPage"],
       page: p["page"],
       visible_to_repository: p["visibleToRepository"],
@@ -3913,7 +3996,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -3941,7 +4027,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({page: p["page"], per_page: p["perPage"]})
+    const params = this._query({
+      page: p["page"],
+      per_page: p["perPage"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -4031,7 +4120,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -4121,7 +4213,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       name: p["name"],
       per_page: p["perPage"],
       page: p["page"],
@@ -4424,7 +4516,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -4536,7 +4631,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({page: p["page"], per_page: p["perPage"]})
+    const params = this._query({
+      page: p["page"],
+      per_page: p["perPage"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -4633,7 +4731,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -4745,7 +4846,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({page: p["page"], per_page: p["perPage"]})
+    const params = this._query({
+      page: p["page"],
+      per_page: p["perPage"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -4875,7 +4979,7 @@ export class GitHubV3RestApiService {
       Accept: "application/json",
       "Content-Type": "application/json",
     })
-    const params = this._queryParams({
+    const params = this._query({
       per_page: p["perPage"],
       before: p["before"],
       after: p["after"],
@@ -4994,7 +5098,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       per_page: p["perPage"],
       before: p["before"],
       after: p["after"],
@@ -5022,7 +5126,10 @@ export class GitHubV3RestApiService {
     (HttpResponse<t_simple_user[]> & {status: 200}) | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -5118,7 +5225,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       page: p["page"],
       per_page: p["perPage"],
       direction: p["direction"],
@@ -5282,7 +5389,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       tool_name: p["toolName"],
       tool_guid: p["toolGuid"],
       before: p["before"],
@@ -5320,7 +5427,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       target_type: p["targetType"],
       per_page: p["perPage"],
       before: p["before"],
@@ -5576,7 +5683,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       per_page: p["perPage"],
       before: p["before"],
       after: p["after"],
@@ -5613,7 +5720,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -5731,7 +5841,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -5851,7 +5964,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({page: p["page"], per_page: p["perPage"]})
+    const params = this._query({
+      page: p["page"],
+      per_page: p["perPage"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -5985,7 +6101,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({page: p["page"], per_page: p["perPage"]})
+    const params = this._query({
+      page: p["page"],
+      per_page: p["perPage"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -6142,7 +6261,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       since: p["since"],
       until: p["until"],
       page: p["page"],
@@ -6187,22 +6306,30 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
-      state: p["state"],
-      severity: p["severity"],
-      ecosystem: p["ecosystem"],
-      package: p["package"],
-      epss_percentage: p["epssPercentage"],
-      has: p["has"],
-      scope: p["scope"],
-      sort: p["sort"],
-      direction: p["direction"],
-      before: p["before"],
-      after: p["after"],
-      first: p["first"],
-      last: p["last"],
-      per_page: p["perPage"],
-    })
+    const params = this._query(
+      {
+        state: p["state"],
+        severity: p["severity"],
+        ecosystem: p["ecosystem"],
+        package: p["package"],
+        epss_percentage: p["epssPercentage"],
+        has: p["has"],
+        scope: p["scope"],
+        sort: p["sort"],
+        direction: p["direction"],
+        before: p["before"],
+        after: p["after"],
+        first: p["first"],
+        last: p["last"],
+        per_page: p["perPage"],
+      },
+      {
+        has: {
+          style: "form",
+          explode: true,
+        },
+      },
+    )
 
     return this.httpClient.request<any>(
       "GET",
@@ -6228,7 +6355,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -6341,7 +6471,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({page: p["page"], per_page: p["perPage"]})
+    const params = this._query({
+      page: p["page"],
+      per_page: p["perPage"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -6455,7 +6588,10 @@ export class GitHubV3RestApiService {
     (HttpResponse<t_event[]> & {status: 200}) | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -6479,7 +6615,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -6503,7 +6642,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -6672,7 +6814,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       per_page: p["perPage"],
       cursor: p["cursor"],
     })
@@ -6791,15 +6933,23 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
-      min_timestamp: p["minTimestamp"],
-      max_timestamp: p["maxTimestamp"],
-      page: p["page"],
-      per_page: p["perPage"],
-      direction: p["direction"],
-      sort: p["sort"],
-      api_route_substring: p["apiRouteSubstring"],
-    })
+    const params = this._query(
+      {
+        min_timestamp: p["minTimestamp"],
+        max_timestamp: p["maxTimestamp"],
+        page: p["page"],
+        per_page: p["perPage"],
+        direction: p["direction"],
+        sort: p["sort"],
+        api_route_substring: p["apiRouteSubstring"],
+      },
+      {
+        sort: {
+          style: "form",
+          explode: true,
+        },
+      },
+    )
 
     return this.httpClient.request<any>(
       "GET",
@@ -6835,15 +6985,23 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
-      min_timestamp: p["minTimestamp"],
-      max_timestamp: p["maxTimestamp"],
-      page: p["page"],
-      per_page: p["perPage"],
-      direction: p["direction"],
-      sort: p["sort"],
-      subject_name_substring: p["subjectNameSubstring"],
-    })
+    const params = this._query(
+      {
+        min_timestamp: p["minTimestamp"],
+        max_timestamp: p["maxTimestamp"],
+        page: p["page"],
+        per_page: p["perPage"],
+        direction: p["direction"],
+        sort: p["sort"],
+        subject_name_substring: p["subjectNameSubstring"],
+      },
+      {
+        sort: {
+          style: "form",
+          explode: true,
+        },
+      },
+    )
 
     return this.httpClient.request<any>(
       "GET",
@@ -6866,7 +7024,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       min_timestamp: p["minTimestamp"],
       max_timestamp: p["maxTimestamp"],
     })
@@ -6893,7 +7051,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       min_timestamp: p["minTimestamp"],
       max_timestamp: p["maxTimestamp"],
     })
@@ -6928,7 +7086,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       min_timestamp: p["minTimestamp"],
       max_timestamp: p["maxTimestamp"],
     })
@@ -6956,7 +7114,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       min_timestamp: p["minTimestamp"],
       max_timestamp: p["maxTimestamp"],
       timestamp_increment: p["timestampIncrement"],
@@ -6985,7 +7143,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       min_timestamp: p["minTimestamp"],
       max_timestamp: p["maxTimestamp"],
       timestamp_increment: p["timestampIncrement"],
@@ -7022,7 +7180,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       min_timestamp: p["minTimestamp"],
       max_timestamp: p["maxTimestamp"],
       timestamp_increment: p["timestampIncrement"],
@@ -7063,15 +7221,23 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
-      min_timestamp: p["minTimestamp"],
-      max_timestamp: p["maxTimestamp"],
-      page: p["page"],
-      per_page: p["perPage"],
-      direction: p["direction"],
-      sort: p["sort"],
-      actor_name_substring: p["actorNameSubstring"],
-    })
+    const params = this._query(
+      {
+        min_timestamp: p["minTimestamp"],
+        max_timestamp: p["maxTimestamp"],
+        page: p["page"],
+        per_page: p["perPage"],
+        direction: p["direction"],
+        sort: p["sort"],
+        actor_name_substring: p["actorNameSubstring"],
+      },
+      {
+        sort: {
+          style: "form",
+          explode: true,
+        },
+      },
+    )
 
     return this.httpClient.request<any>(
       "GET",
@@ -7116,7 +7282,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -7209,7 +7378,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       per_page: p["perPage"],
       page: p["page"],
       role: p["role"],
@@ -7290,7 +7459,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -7428,7 +7600,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       filter: p["filter"],
       state: p["state"],
       labels: p["labels"],
@@ -7464,7 +7636,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       filter: p["filter"],
       role: p["role"],
       per_page: p["perPage"],
@@ -7544,7 +7716,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -7723,11 +7898,19 @@ export class GitHubV3RestApiService {
     (HttpResponse<t_migration[]> & {status: 200}) | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-      exclude: p["exclude"],
-    })
+    const params = this._query(
+      {
+        per_page: p["perPage"],
+        page: p["page"],
+        exclude: p["exclude"],
+      },
+      {
+        exclude: {
+          style: "form",
+          explode: true,
+        },
+      },
+    )
 
     return this.httpClient.request<any>(
       "GET",
@@ -7778,7 +7961,17 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({exclude: p["exclude"]})
+    const params = this._query(
+      {
+        exclude: p["exclude"],
+      },
+      {
+        exclude: {
+          style: "form",
+          explode: true,
+        },
+      },
+    )
 
     return this.httpClient.request<any>(
       "GET",
@@ -7870,7 +8063,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -8064,7 +8260,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -8091,7 +8290,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -8115,7 +8317,7 @@ export class GitHubV3RestApiService {
     (HttpResponse<t_simple_user[]> & {status: 200}) | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       filter: p["filter"],
       per_page: p["perPage"],
       page: p["page"],
@@ -8207,7 +8409,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       package_type: p["packageType"],
       visibility: p["visibility"],
       page: p["page"],
@@ -8306,7 +8508,9 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({token: p["token"]})
+    const params = this._query({
+      token: p["token"],
+    })
 
     return this.httpClient.request<any>(
       "POST",
@@ -8343,7 +8547,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       page: p["page"],
       per_page: p["perPage"],
       state: p["state"],
@@ -8480,18 +8684,30 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-      sort: p["sort"],
-      direction: p["direction"],
-      owner: p["owner"],
-      repository: p["repository"],
-      permission: p["permission"],
-      last_used_before: p["lastUsedBefore"],
-      last_used_after: p["lastUsedAfter"],
-      token_id: p["tokenId"],
-    })
+    const params = this._query(
+      {
+        per_page: p["perPage"],
+        page: p["page"],
+        sort: p["sort"],
+        direction: p["direction"],
+        owner: p["owner"],
+        repository: p["repository"],
+        permission: p["permission"],
+        last_used_before: p["lastUsedBefore"],
+        last_used_after: p["lastUsedAfter"],
+        token_id: p["tokenId"],
+      },
+      {
+        owner: {
+          style: "form",
+          explode: true,
+        },
+        token_id: {
+          style: "form",
+          explode: true,
+        },
+      },
+    )
 
     return this.httpClient.request<any>(
       "GET",
@@ -8580,7 +8796,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -8616,18 +8835,30 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-      sort: p["sort"],
-      direction: p["direction"],
-      owner: p["owner"],
-      repository: p["repository"],
-      permission: p["permission"],
-      last_used_before: p["lastUsedBefore"],
-      last_used_after: p["lastUsedAfter"],
-      token_id: p["tokenId"],
-    })
+    const params = this._query(
+      {
+        per_page: p["perPage"],
+        page: p["page"],
+        sort: p["sort"],
+        direction: p["direction"],
+        owner: p["owner"],
+        repository: p["repository"],
+        permission: p["permission"],
+        last_used_before: p["lastUsedBefore"],
+        last_used_after: p["lastUsedAfter"],
+        token_id: p["tokenId"],
+      },
+      {
+        owner: {
+          style: "form",
+          explode: true,
+        },
+        token_id: {
+          style: "form",
+          explode: true,
+        },
+      },
+    )
 
     return this.httpClient.request<any>(
       "GET",
@@ -8716,7 +8947,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -8745,7 +8979,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -8894,7 +9131,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       state: p["state"],
       per_page: p["perPage"],
       page: p["page"],
@@ -9077,7 +9314,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       per_page: p["perPage"],
       page: p["page"],
       repository_query: p["repositoryQuery"],
@@ -9131,7 +9368,10 @@ export class GitHubV3RestApiService {
     (HttpResponse<t_simple_user[]> & {status: 200}) | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -9231,7 +9471,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       type: p["type"],
       sort: p["sort"],
       direction: p["direction"],
@@ -9290,7 +9530,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       per_page: p["perPage"],
       page: p["page"],
       targets: p["targets"],
@@ -9356,7 +9596,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       ref: p["ref"],
       repository_name: p["repositoryName"],
       time_period: p["timePeriod"],
@@ -9486,7 +9726,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -9551,7 +9794,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       state: p["state"],
       secret_type: p["secretType"],
       resolution: p["resolution"],
@@ -9594,7 +9837,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       direction: p["direction"],
       sort: p["sort"],
       before: p["before"],
@@ -9739,7 +9982,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -9882,7 +10128,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       since: p["since"],
       until: p["until"],
       page: p["page"],
@@ -9912,7 +10158,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -10033,7 +10282,7 @@ export class GitHubV3RestApiService {
     (HttpResponse<t_team_discussion[]> & {status: 200}) | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       direction: p["direction"],
       per_page: p["perPage"],
       page: p["page"],
@@ -10159,7 +10408,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       direction: p["direction"],
       per_page: p["perPage"],
       page: p["page"],
@@ -10299,7 +10548,7 @@ export class GitHubV3RestApiService {
     (HttpResponse<t_reaction[]> & {status: 200}) | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       content: p["content"],
       per_page: p["perPage"],
       page: p["page"],
@@ -10389,7 +10638,7 @@ export class GitHubV3RestApiService {
     (HttpResponse<t_reaction[]> & {status: 200}) | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       content: p["content"],
       per_page: p["perPage"],
       page: p["page"],
@@ -10467,7 +10716,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -10492,7 +10744,7 @@ export class GitHubV3RestApiService {
     (HttpResponse<t_simple_user[]> & {status: 200}) | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       role: p["role"],
       per_page: p["perPage"],
       page: p["page"],
@@ -10596,7 +10848,10 @@ export class GitHubV3RestApiService {
     (HttpResponse<t_team_project[]> & {status: 200}) | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -10696,7 +10951,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -10791,7 +11049,10 @@ export class GitHubV3RestApiService {
     (HttpResponse<t_team[]> & {status: 200}) | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -11055,7 +11316,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       archived_state: p["archivedState"],
       per_page: p["perPage"],
       page: p["page"],
@@ -11241,7 +11502,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       affiliation: p["affiliation"],
       per_page: p["perPage"],
       page: p["page"],
@@ -11356,7 +11617,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -11510,7 +11774,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       per_page: p["perPage"],
       page: p["page"],
       name: p["name"],
@@ -11631,7 +11895,7 @@ export class GitHubV3RestApiService {
     (HttpResponse<t_actions_cache_list> & {status: 200}) | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       per_page: p["perPage"],
       page: p["page"],
       ref: p["ref"],
@@ -11661,7 +11925,10 @@ export class GitHubV3RestApiService {
     (HttpResponse<t_actions_cache_list> & {status: 200}) | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({key: p["key"], ref: p["ref"]})
+    const params = this._query({
+      key: p["key"],
+      ref: p["ref"],
+    })
 
     return this.httpClient.request<any>(
       "DELETE",
@@ -11830,7 +12097,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -11858,7 +12128,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -12071,7 +12344,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       name: p["name"],
       per_page: p["perPage"],
       page: p["page"],
@@ -12412,7 +12685,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       actor: p["actor"],
       branch: p["branch"],
       event: p["event"],
@@ -12446,7 +12719,7 @@ export class GitHubV3RestApiService {
     (HttpResponse<t_workflow_run> & {status: 200}) | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       exclude_pull_requests: p["excludePullRequests"],
     })
 
@@ -12543,7 +12816,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       per_page: p["perPage"],
       page: p["page"],
       name: p["name"],
@@ -12572,7 +12845,7 @@ export class GitHubV3RestApiService {
     (HttpResponse<t_workflow_run> & {status: 200}) | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       exclude_pull_requests: p["excludePullRequests"],
     })
 
@@ -12605,7 +12878,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -12726,7 +13002,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       filter: p["filter"],
       per_page: p["perPage"],
       page: p["page"],
@@ -12927,7 +13203,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -13044,7 +13323,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -13163,7 +13445,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -13299,7 +13584,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       actor: p["actor"],
       branch: p["branch"],
       event: p["event"],
@@ -13376,7 +13661,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       direction: p["direction"],
       per_page: p["perPage"],
       before: p["before"],
@@ -13410,7 +13695,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -13504,7 +13792,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       per_page: p["perPage"],
       before: p["before"],
       after: p["after"],
@@ -13686,7 +13974,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       protected: p["protected"],
       per_page: p["perPage"],
       page: p["page"],
@@ -14693,7 +14981,10 @@ export class GitHubV3RestApiService {
     (HttpResponse<t_check_annotation[]> & {status: 200}) | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -14825,7 +15116,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       check_name: p["checkName"],
       status: p["status"],
       filter: p["filter"],
@@ -14895,7 +15186,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       tool_name: p["toolName"],
       tool_guid: p["toolGuid"],
       page: p["page"],
@@ -15109,7 +15400,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       page: p["page"],
       per_page: p["perPage"],
       ref: p["ref"],
@@ -15153,7 +15444,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       tool_name: p["toolName"],
       tool_guid: p["toolGuid"],
       page: p["page"],
@@ -15228,7 +15519,9 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({confirm_delete: p["confirmDelete"]})
+    const params = this._query({
+      confirm_delete: p["confirmDelete"],
+    })
 
     return this.httpClient.request<any>(
       "DELETE",
@@ -15585,7 +15878,9 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({ref: p["ref"]})
+    const params = this._query({
+      ref: p["ref"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -15617,7 +15912,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -15689,7 +15987,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -15723,7 +16024,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       location: p["location"],
       client_ip: p["clientIp"],
       ref: p["ref"],
@@ -15761,7 +16062,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({ref: p["ref"], client_ip: p["clientIp"]})
+    const params = this._query({
+      ref: p["ref"],
+      client_ip: p["clientIp"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -15796,7 +16100,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       ref: p["ref"],
       devcontainer_path: p["devcontainerPath"],
     })
@@ -15827,7 +16131,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -15952,7 +16259,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       affiliation: p["affiliation"],
       permission: p["permission"],
       per_page: p["perPage"],
@@ -16082,7 +16389,10 @@ export class GitHubV3RestApiService {
     (HttpResponse<t_commit_comment[]> & {status: 200}) | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -16193,7 +16503,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       content: p["content"],
       per_page: p["perPage"],
       page: p["page"],
@@ -16282,7 +16592,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       sha: p["sha"],
       path: p["path"],
       author: p["author"],
@@ -16339,7 +16649,10 @@ export class GitHubV3RestApiService {
     (HttpResponse<t_commit_comment[]> & {status: 200}) | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -16396,7 +16709,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -16431,7 +16747,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({page: p["page"], per_page: p["perPage"]})
+    const params = this._query({
+      page: p["page"],
+      per_page: p["perPage"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -16464,7 +16783,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       check_name: p["checkName"],
       status: p["status"],
       filter: p["filter"],
@@ -16502,7 +16821,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       app_id: p["appId"],
       check_name: p["checkName"],
       per_page: p["perPage"],
@@ -16534,7 +16853,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -16561,7 +16883,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -16614,7 +16939,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({page: p["page"], per_page: p["perPage"]})
+    const params = this._query({
+      page: p["page"],
+      per_page: p["perPage"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -16648,7 +16976,9 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({ref: p["ref"]})
+    const params = this._query({
+      ref: p["ref"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -16747,7 +17077,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       anon: p["anon"],
       per_page: p["perPage"],
       page: p["page"],
@@ -16794,24 +17124,32 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
-      state: p["state"],
-      severity: p["severity"],
-      ecosystem: p["ecosystem"],
-      package: p["package"],
-      manifest: p["manifest"],
-      epss_percentage: p["epssPercentage"],
-      has: p["has"],
-      scope: p["scope"],
-      sort: p["sort"],
-      direction: p["direction"],
-      page: p["page"],
-      per_page: p["perPage"],
-      before: p["before"],
-      after: p["after"],
-      first: p["first"],
-      last: p["last"],
-    })
+    const params = this._query(
+      {
+        state: p["state"],
+        severity: p["severity"],
+        ecosystem: p["ecosystem"],
+        package: p["package"],
+        manifest: p["manifest"],
+        epss_percentage: p["epssPercentage"],
+        has: p["has"],
+        scope: p["scope"],
+        sort: p["sort"],
+        direction: p["direction"],
+        page: p["page"],
+        per_page: p["perPage"],
+        before: p["before"],
+        after: p["after"],
+        first: p["first"],
+        last: p["last"],
+      },
+      {
+        has: {
+          style: "form",
+          explode: true,
+        },
+      },
+    )
 
     return this.httpClient.request<any>(
       "GET",
@@ -16897,7 +17235,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -17014,7 +17355,9 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({name: p["name"]})
+    const params = this._query({
+      name: p["name"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -17097,7 +17440,7 @@ export class GitHubV3RestApiService {
     (HttpResponse<t_deployment[]> & {status: 200}) | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       sha: p["sha"],
       ref: p["ref"],
       task: p["task"],
@@ -17208,7 +17551,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -17317,7 +17663,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -17415,7 +17764,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -17599,7 +17951,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({page: p["page"], per_page: p["perPage"]})
+    const params = this._query({
+      page: p["page"],
+      per_page: p["perPage"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -17671,7 +18026,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -17793,7 +18151,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -17912,7 +18273,10 @@ export class GitHubV3RestApiService {
     (HttpResponse<t_event[]> & {status: 200}) | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -17943,7 +18307,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       sort: p["sort"],
       per_page: p["perPage"],
       page: p["page"],
@@ -18327,7 +18691,9 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({recursive: p["recursive"]})
+    const params = this._query({
+      recursive: p["recursive"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -18353,7 +18719,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -18535,7 +18904,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       per_page: p["perPage"],
       cursor: p["cursor"],
     })
@@ -18762,7 +19131,9 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({since: p["since"]})
+    const params = this._query({
+      since: p["since"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -18961,7 +19332,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -19046,7 +19420,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       milestone: p["milestone"],
       state: p["state"],
       assignee: p["assignee"],
@@ -19124,7 +19498,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       sort: p["sort"],
       direction: p["direction"],
       since: p["since"],
@@ -19238,7 +19612,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       content: p["content"],
       per_page: p["perPage"],
       page: p["page"],
@@ -19318,7 +19692,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -19515,7 +19892,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       since: p["since"],
       per_page: p["perPage"],
       page: p["page"],
@@ -19578,7 +19955,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -19607,7 +19987,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -19819,7 +20202,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       content: p["content"],
       per_page: p["perPage"],
       page: p["page"],
@@ -19931,7 +20314,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -20027,7 +20413,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -20051,7 +20440,10 @@ export class GitHubV3RestApiService {
     (HttpResponse<t_deploy_key[]> & {status: 200}) | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -20145,7 +20537,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -20286,7 +20681,9 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({ref: p["ref"]})
+    const params = this._query({
+      ref: p["ref"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -20373,7 +20770,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       state: p["state"],
       sort: p["sort"],
       direction: p["direction"],
@@ -20505,7 +20902,10 @@ export class GitHubV3RestApiService {
     (HttpResponse<t_label[]> & {status: 200}) | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -20533,7 +20933,7 @@ export class GitHubV3RestApiService {
     (HttpResponse<t_thread[]> & {status: 200}) | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       all: p["all"],
       participating: p["participating"],
       since: p["since"],
@@ -20695,7 +21095,10 @@ export class GitHubV3RestApiService {
     (HttpResponse<t_page_build[]> & {status: 200}) | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -20953,7 +21356,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       state: p["state"],
       per_page: p["perPage"],
       page: p["page"],
@@ -21077,7 +21480,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       state: p["state"],
       head: p["head"],
       base: p["base"],
@@ -21140,7 +21543,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       sort: p["sort"],
       direction: p["direction"],
       since: p["since"],
@@ -21256,7 +21659,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       content: p["content"],
       per_page: p["perPage"],
       page: p["page"],
@@ -21434,7 +21837,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       sort: p["sort"],
       direction: p["direction"],
       since: p["since"],
@@ -21525,7 +21928,10 @@ export class GitHubV3RestApiService {
     (HttpResponse<t_commit[]> & {status: 200}) | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -21558,7 +21964,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -21729,7 +22138,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -21867,7 +22279,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -21991,7 +22406,9 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({ref: p["ref"]})
+    const params = this._query({
+      ref: p["ref"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -22017,7 +22434,9 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({ref: p["ref"]})
+    const params = this._query({
+      ref: p["ref"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -22043,7 +22462,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -22309,7 +22731,10 @@ export class GitHubV3RestApiService {
     (HttpResponse<t_release_asset[]> & {status: 200}) | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -22344,7 +22769,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({name: p["name"], label: p["label"]})
+    const params = this._query({
+      name: p["name"],
+      label: p["label"],
+    })
 
     return this.httpClient.request<any>(
       "POST",
@@ -22380,7 +22808,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       content: p["content"],
       per_page: p["perPage"],
       page: p["page"],
@@ -22460,7 +22888,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -22489,7 +22920,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       per_page: p["perPage"],
       page: p["page"],
       includes_parents: p["includesParents"],
@@ -22557,7 +22988,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       ref: p["ref"],
       time_period: p["timePeriod"],
       actor_name: p["actorName"],
@@ -22615,7 +23046,9 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({includes_parents: p["includesParents"]})
+    const params = this._query({
+      includes_parents: p["includesParents"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -22698,7 +23131,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -22765,7 +23201,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       state: p["state"],
       secret_type: p["secretType"],
       resolution: p["resolution"],
@@ -22811,7 +23247,9 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({hide_secret: p["hideSecret"]})
+    const params = this._query({
+      hide_secret: p["hideSecret"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -22879,7 +23317,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({page: p["page"], per_page: p["perPage"]})
+    const params = this._query({
+      page: p["page"],
+      per_page: p["perPage"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -22969,7 +23410,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       direction: p["direction"],
       sort: p["sort"],
       before: p["before"],
@@ -23171,7 +23612,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -23332,7 +23776,10 @@ export class GitHubV3RestApiService {
     (HttpResponse<t_simple_user[]> & {status: 200}) | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -23421,7 +23868,10 @@ export class GitHubV3RestApiService {
     (HttpResponse<t_tag[]> & {status: 200}) | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -23541,7 +23991,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -23566,7 +24019,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({page: p["page"], per_page: p["perPage"]})
+    const params = this._query({
+      page: p["page"],
+      per_page: p["perPage"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -23618,7 +24074,9 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per: p["per"]})
+    const params = this._query({
+      per: p["per"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -23686,7 +24144,9 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per: p["per"]})
+    const params = this._query({
+      per: p["per"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -23837,7 +24297,9 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({since: p["since"]})
+    const params = this._query({
+      since: p["since"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -23874,7 +24336,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       q: p["q"],
       sort: p["sort"],
       order: p["order"],
@@ -23910,7 +24372,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       q: p["q"],
       sort: p["sort"],
       order: p["order"],
@@ -23966,7 +24428,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       q: p["q"],
       sort: p["sort"],
       order: p["order"],
@@ -24007,7 +24469,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       repository_id: p["repositoryId"],
       q: p["q"],
       sort: p["sort"],
@@ -24055,7 +24517,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       q: p["q"],
       sort: p["sort"],
       order: p["order"],
@@ -24085,7 +24547,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       q: p["q"],
       per_page: p["perPage"],
       page: p["page"],
@@ -24125,7 +24587,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       q: p["q"],
       sort: p["sort"],
       order: p["order"],
@@ -24224,7 +24686,7 @@ export class GitHubV3RestApiService {
     (HttpResponse<t_team_discussion[]> & {status: 200}) | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       direction: p["direction"],
       per_page: p["perPage"],
       page: p["page"],
@@ -24342,7 +24804,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       direction: p["direction"],
       per_page: p["perPage"],
       page: p["page"],
@@ -24477,7 +24939,7 @@ export class GitHubV3RestApiService {
     (HttpResponse<t_reaction[]> & {status: 200}) | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       content: p["content"],
       per_page: p["perPage"],
       page: p["page"],
@@ -24542,7 +25004,7 @@ export class GitHubV3RestApiService {
     (HttpResponse<t_reaction[]> & {status: 200}) | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       content: p["content"],
       per_page: p["perPage"],
       page: p["page"],
@@ -24596,7 +25058,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -24621,7 +25086,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       role: p["role"],
       per_page: p["perPage"],
       page: p["page"],
@@ -24789,7 +25254,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -24889,7 +25357,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -24989,7 +25460,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -25060,7 +25534,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -25159,7 +25636,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       per_page: p["perPage"],
       page: p["page"],
       repository_id: p["repositoryId"],
@@ -25220,7 +25697,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -25705,7 +26185,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -25788,7 +26271,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -25812,7 +26298,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -25907,7 +26396,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -26010,7 +26502,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -26040,7 +26535,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -26188,7 +26686,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       filter: p["filter"],
       state: p["state"],
       labels: p["labels"],
@@ -26222,7 +26720,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -26321,7 +26822,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -26344,7 +26848,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -26373,7 +26880,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       state: p["state"],
       per_page: p["perPage"],
       page: p["page"],
@@ -26450,7 +26957,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -26504,7 +27014,17 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({exclude: p["exclude"]})
+    const params = this._query(
+      {
+        exclude: p["exclude"],
+      },
+      {
+        exclude: {
+          style: "form",
+          explode: true,
+        },
+      },
+    )
 
     return this.httpClient.request<any>(
       "GET",
@@ -26598,7 +27118,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -26623,7 +27146,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -26655,7 +27181,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       package_type: p["packageType"],
       visibility: p["visibility"],
       page: p["page"],
@@ -26751,7 +27277,9 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({token: p["token"]})
+    const params = this._query({
+      token: p["token"],
+    })
 
     return this.httpClient.request<any>(
       "POST",
@@ -26787,7 +27315,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       page: p["page"],
       per_page: p["perPage"],
       state: p["state"],
@@ -26937,7 +27465,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -26983,7 +27514,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       visibility: p["visibility"],
       affiliation: p["affiliation"],
       type: p["type"],
@@ -27048,7 +27579,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -27121,7 +27655,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -27204,7 +27741,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -27308,7 +27848,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       sort: p["sort"],
       direction: p["direction"],
       per_page: p["perPage"],
@@ -27409,7 +27949,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -27433,7 +27976,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -27475,7 +28021,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       since: p["since"],
       per_page: p["perPage"],
     })
@@ -27553,7 +28099,7 @@ export class GitHubV3RestApiService {
       Accept: "application/json",
       "Content-Type": "application/json",
     })
-    const params = this._queryParams({
+    const params = this._query({
       per_page: p["perPage"],
       before: p["before"],
       after: p["after"],
@@ -27676,7 +28222,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       per_page: p["perPage"],
       before: p["before"],
       after: p["after"],
@@ -27725,7 +28271,10 @@ export class GitHubV3RestApiService {
     (HttpResponse<t_event[]> & {status: 200}) | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -27748,7 +28297,10 @@ export class GitHubV3RestApiService {
     (HttpResponse<t_event[]> & {status: 200}) | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -27770,7 +28322,10 @@ export class GitHubV3RestApiService {
     (HttpResponse<t_event[]> & {status: 200}) | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -27792,7 +28347,10 @@ export class GitHubV3RestApiService {
     (HttpResponse<t_simple_user[]> & {status: 200}) | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -27814,7 +28372,10 @@ export class GitHubV3RestApiService {
     (HttpResponse<t_simple_user[]> & {status: 200}) | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -27861,7 +28422,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       since: p["since"],
       per_page: p["perPage"],
       page: p["page"],
@@ -27887,7 +28448,10 @@ export class GitHubV3RestApiService {
     (HttpResponse<t_gpg_key[]> & {status: 200}) | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -27917,7 +28481,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       subject_type: p["subjectType"],
       subject_id: p["subjectId"],
     })
@@ -27960,7 +28524,10 @@ export class GitHubV3RestApiService {
     (HttpResponse<t_key_simple[]> & {status: 200}) | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -27983,7 +28550,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -28018,7 +28588,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       package_type: p["packageType"],
       visibility: p["visibility"],
       page: p["page"],
@@ -28117,7 +28687,9 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({token: p["token"]})
+    const params = this._query({
+      token: p["token"],
+    })
 
     return this.httpClient.request<any>(
       "POST",
@@ -28270,7 +28842,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       state: p["state"],
       per_page: p["perPage"],
       page: p["page"],
@@ -28296,7 +28868,10 @@ export class GitHubV3RestApiService {
     (HttpResponse<t_event[]> & {status: 200}) | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -28318,7 +28893,10 @@ export class GitHubV3RestApiService {
     (HttpResponse<t_event[]> & {status: 200}) | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -28349,7 +28927,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       type: p["type"],
       sort: p["sort"],
       direction: p["direction"],
@@ -28447,7 +29025,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       year: p["year"],
       month: p["month"],
       day: p["day"],
@@ -28474,7 +29052,10 @@ export class GitHubV3RestApiService {
     (HttpResponse<t_social_account[]> & {status: 200}) | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -28496,7 +29077,10 @@ export class GitHubV3RestApiService {
     (HttpResponse<t_ssh_signing_key[]> & {status: 200}) | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -28521,7 +29105,7 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       sort: p["sort"],
       direction: p["direction"],
       per_page: p["perPage"],
@@ -28549,7 +29133,10 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",

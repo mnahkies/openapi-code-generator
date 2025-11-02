@@ -85,7 +85,9 @@ export class OktaOpenIdConnectOAuth20 extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_OidcMetadata>> {
     const url = `/.well-known/openid-configuration`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({client_id: p["clientId"]})
+    const query = this._query({
+      client_id: p["clientId"],
+    })
 
     return this._request({
       url: url + query,
@@ -248,7 +250,11 @@ export class OktaOpenIdConnectOAuth20 extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_Client[]>> {
     const url = `/oauth2/v1/clients`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({after: p["after"], limit: p["limit"], q: p["q"]})
+    const query = this._query({
+      after: p["after"],
+      limit: p["limit"],
+      q: p["q"],
+    })
 
     return this._request({
       url: url + query,
@@ -452,7 +458,9 @@ export class OktaOpenIdConnectOAuth20 extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_OAuthKeys>> {
     const url = `/oauth2/v1/keys`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({client_id: p["clientId"]})
+    const query = this._query({
+      client_id: p["clientId"],
+    })
 
     return this._request({
       url: url + query,
@@ -688,7 +696,9 @@ export class OktaOpenIdConnectOAuth20 extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_OAuthMetadata>> {
     const url = `/oauth2/${p["authorizationServerId"]}/.well-known/oauth-authorization-server`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({client_id: p["clientId"]})
+    const query = this._query({
+      client_id: p["clientId"],
+    })
 
     return this._request({
       url: url + query,
@@ -709,7 +719,9 @@ export class OktaOpenIdConnectOAuth20 extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_OidcMetadata>> {
     const url = `/oauth2/${p["authorizationServerId"]}/.well-known/openid-configuration`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({client_id: p["clientId"]})
+    const query = this._query({
+      client_id: p["clientId"],
+    })
 
     return this._request({
       url: url + query,

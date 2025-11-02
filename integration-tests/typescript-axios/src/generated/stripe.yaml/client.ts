@@ -532,7 +532,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_account>> {
     const url = `/v1/account`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -630,13 +640,25 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/accounts`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      created: p["created"],
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      starting_after: p["startingAfter"],
-    })
+    const query = this._query(
+      {
+        created: p["created"],
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        starting_after: p["startingAfter"],
+      },
+      {
+        created: {
+          style: "deepObject",
+          explode: true,
+        },
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -722,7 +744,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_account>> {
     const url = `/v1/accounts/${p["account"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -847,7 +879,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_external_account>> {
     const url = `/v1/accounts/${p["account"]}/bank_accounts/${p["id"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -914,7 +956,17 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/accounts/${p["account"]}/capabilities`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -936,7 +988,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_capability>> {
     const url = `/v1/accounts/${p["account"]}/capabilities/${p["capability"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -1005,13 +1067,21 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/accounts/${p["account"]}/external_accounts`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      object: p["object"],
-      starting_after: p["startingAfter"],
-    })
+    const query = this._query(
+      {
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        object: p["object"],
+        starting_after: p["startingAfter"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -1091,7 +1161,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_external_account>> {
     const url = `/v1/accounts/${p["account"]}/external_accounts/${p["id"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -1205,13 +1285,25 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/accounts/${p["account"]}/people`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      relationship: p["relationship"],
-      starting_after: p["startingAfter"],
-    })
+    const query = this._query(
+      {
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        relationship: p["relationship"],
+        starting_after: p["startingAfter"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+        relationship: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -1301,7 +1393,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_person>> {
     const url = `/v1/accounts/${p["account"]}/people/${p["person"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -1389,13 +1491,25 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/accounts/${p["account"]}/persons`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      relationship: p["relationship"],
-      starting_after: p["startingAfter"],
-    })
+    const query = this._query(
+      {
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        relationship: p["relationship"],
+        starting_after: p["startingAfter"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+        relationship: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -1485,7 +1599,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_person>> {
     const url = `/v1/accounts/${p["account"]}/persons/${p["person"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -1595,13 +1719,21 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/apple_pay/domains`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      domain_name: p["domainName"],
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      starting_after: p["startingAfter"],
-    })
+    const query = this._query(
+      {
+        domain_name: p["domainName"],
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        starting_after: p["startingAfter"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -1670,7 +1802,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_apple_pay_domain>> {
     const url = `/v1/apple_pay/domains/${p["domain"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -1709,14 +1851,26 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/application_fees`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      charge: p["charge"],
-      created: p["created"],
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      starting_after: p["startingAfter"],
-    })
+    const query = this._query(
+      {
+        charge: p["charge"],
+        created: p["created"],
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        starting_after: p["startingAfter"],
+      },
+      {
+        created: {
+          style: "deepObject",
+          explode: true,
+        },
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -1738,7 +1892,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_fee_refund>> {
     const url = `/v1/application_fees/${p["fee"]}/refunds/${p["id"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -1797,7 +1961,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_application_fee>> {
     const url = `/v1/application_fees/${p["id"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -1864,12 +2038,20 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/application_fees/${p["id"]}/refunds`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      starting_after: p["startingAfter"],
-    })
+    const query = this._query(
+      {
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        starting_after: p["startingAfter"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -1940,13 +2122,25 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/apps/secrets`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      scope: p["scope"],
-      starting_after: p["startingAfter"],
-    })
+    const query = this._query(
+      {
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        scope: p["scope"],
+        starting_after: p["startingAfter"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+        scope: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -2031,11 +2225,23 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_apps_secret>> {
     const url = `/v1/apps/secrets/find`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      expand: p["expand"],
-      name: p["name"],
-      scope: p["scope"],
-    })
+    const query = this._query(
+      {
+        expand: p["expand"],
+        name: p["name"],
+        scope: p["scope"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+        scope: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -2055,7 +2261,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_balance>> {
     const url = `/v1/balance`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -2097,17 +2313,29 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/balance/history`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      created: p["created"],
-      currency: p["currency"],
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      payout: p["payout"],
-      source: p["source"],
-      starting_after: p["startingAfter"],
-      type: p["type"],
-    })
+    const query = this._query(
+      {
+        created: p["created"],
+        currency: p["currency"],
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        payout: p["payout"],
+        source: p["source"],
+        starting_after: p["startingAfter"],
+        type: p["type"],
+      },
+      {
+        created: {
+          style: "deepObject",
+          explode: true,
+        },
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -2128,7 +2356,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_balance_transaction>> {
     const url = `/v1/balance/history/${p["id"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -2170,17 +2408,29 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/balance_transactions`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      created: p["created"],
-      currency: p["currency"],
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      payout: p["payout"],
-      source: p["source"],
-      starting_after: p["startingAfter"],
-      type: p["type"],
-    })
+    const query = this._query(
+      {
+        created: p["created"],
+        currency: p["currency"],
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        payout: p["payout"],
+        source: p["source"],
+        starting_after: p["startingAfter"],
+        type: p["type"],
+      },
+      {
+        created: {
+          style: "deepObject",
+          explode: true,
+        },
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -2201,7 +2451,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_balance_transaction>> {
     const url = `/v1/balance_transactions/${p["id"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -2233,14 +2493,22 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/billing/alerts`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      alert_type: p["alertType"],
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      meter: p["meter"],
-      starting_after: p["startingAfter"],
-    })
+    const query = this._query(
+      {
+        alert_type: p["alertType"],
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        meter: p["meter"],
+        starting_after: p["startingAfter"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -2291,7 +2559,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_billing_alert>> {
     const url = `/v1/billing/alerts/${p["id"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -2434,11 +2712,23 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_billing_credit_balance_summary>> {
     const url = `/v1/billing/credit_balance_summary`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      customer: p["customer"],
-      expand: p["expand"],
-      filter: p["filter"],
-    })
+    const query = this._query(
+      {
+        customer: p["customer"],
+        expand: p["expand"],
+        filter: p["filter"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+        filter: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -2470,14 +2760,22 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/billing/credit_balance_transactions`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      credit_grant: p["creditGrant"],
-      customer: p["customer"],
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      starting_after: p["startingAfter"],
-    })
+    const query = this._query(
+      {
+        credit_grant: p["creditGrant"],
+        customer: p["customer"],
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        starting_after: p["startingAfter"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -2498,7 +2796,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_billing_credit_balance_transaction>> {
     const url = `/v1/billing/credit_balance_transactions/${p["id"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -2529,13 +2837,21 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/billing/credit_grants`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      customer: p["customer"],
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      starting_after: p["startingAfter"],
-    })
+    const query = this._query(
+      {
+        customer: p["customer"],
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        starting_after: p["startingAfter"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -2588,7 +2904,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_billing_credit_grant>> {
     const url = `/v1/billing/credit_grants/${p["id"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -2789,13 +3115,21 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/billing/meters`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      starting_after: p["startingAfter"],
-      status: p["status"],
-    })
+    const query = this._query(
+      {
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        starting_after: p["startingAfter"],
+        status: p["status"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -2848,7 +3182,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_billing_meter>> {
     const url = `/v1/billing/meters/${p["id"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -2955,16 +3299,24 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/billing/meters/${p["id"]}/event_summaries`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      customer: p["customer"],
-      end_time: p["endTime"],
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      start_time: p["startTime"],
-      starting_after: p["startingAfter"],
-      value_grouping_window: p["valueGroupingWindow"],
-    })
+    const query = this._query(
+      {
+        customer: p["customer"],
+        end_time: p["endTime"],
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        start_time: p["startTime"],
+        starting_after: p["startingAfter"],
+        value_grouping_window: p["valueGroupingWindow"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -3032,14 +3384,22 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/billing_portal/configurations`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      active: p["active"],
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      is_default: p["isDefault"],
-      limit: p["limit"],
-      starting_after: p["startingAfter"],
-    })
+    const query = this._query(
+      {
+        active: p["active"],
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        is_default: p["isDefault"],
+        limit: p["limit"],
+        starting_after: p["startingAfter"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -3094,7 +3454,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_billing_portal_configuration>> {
     const url = `/v1/billing_portal/configurations/${p["configuration"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -3206,16 +3576,28 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/charges`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      created: p["created"],
-      customer: p["customer"],
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      payment_intent: p["paymentIntent"],
-      starting_after: p["startingAfter"],
-      transfer_group: p["transferGroup"],
-    })
+    const query = this._query(
+      {
+        created: p["created"],
+        customer: p["customer"],
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        payment_intent: p["paymentIntent"],
+        starting_after: p["startingAfter"],
+        transfer_group: p["transferGroup"],
+      },
+      {
+        created: {
+          style: "deepObject",
+          explode: true,
+        },
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -3288,12 +3670,20 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/charges/search`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      expand: p["expand"],
-      limit: p["limit"],
-      page: p["page"],
-      query: p["query"],
-    })
+    const query = this._query(
+      {
+        expand: p["expand"],
+        limit: p["limit"],
+        page: p["page"],
+        query: p["query"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -3314,7 +3704,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_charge>> {
     const url = `/v1/charges/${p["charge"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -3411,7 +3811,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_dispute>> {
     const url = `/v1/charges/${p["charge"]}/dispute`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -3553,12 +3963,20 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/charges/${p["charge"]}/refunds`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      starting_after: p["startingAfter"],
-    })
+    const query = this._query(
+      {
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        starting_after: p["startingAfter"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -3617,7 +4035,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_refund>> {
     const url = `/v1/charges/${p["charge"]}/refunds/${p["refund"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -3701,19 +4129,35 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/checkout/sessions`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      created: p["created"],
-      customer: p["customer"],
-      customer_details: p["customerDetails"],
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      payment_intent: p["paymentIntent"],
-      payment_link: p["paymentLink"],
-      starting_after: p["startingAfter"],
-      status: p["status"],
-      subscription: p["subscription"],
-    })
+    const query = this._query(
+      {
+        created: p["created"],
+        customer: p["customer"],
+        customer_details: p["customerDetails"],
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        payment_intent: p["paymentIntent"],
+        payment_link: p["paymentLink"],
+        starting_after: p["startingAfter"],
+        status: p["status"],
+        subscription: p["subscription"],
+      },
+      {
+        created: {
+          style: "deepObject",
+          explode: true,
+        },
+        customer_details: {
+          style: "deepObject",
+          explode: true,
+        },
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -3794,7 +4238,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_checkout_session>> {
     const url = `/v1/checkout/sessions/${p["session"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -3900,12 +4354,20 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/checkout/sessions/${p["session"]}/line_items`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      starting_after: p["startingAfter"],
-    })
+    const query = this._query(
+      {
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        starting_after: p["startingAfter"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -3935,12 +4397,20 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/climate/orders`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      starting_after: p["startingAfter"],
-    })
+    const query = this._query(
+      {
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        starting_after: p["startingAfter"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -3992,7 +4462,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_climate_order>> {
     const url = `/v1/climate/orders/${p["order"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -4096,12 +4576,20 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/climate/products`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      starting_after: p["startingAfter"],
-    })
+    const query = this._query(
+      {
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        starting_after: p["startingAfter"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -4122,7 +4610,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_climate_product>> {
     const url = `/v1/climate/products/${p["product"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -4152,12 +4650,20 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/climate/suppliers`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      starting_after: p["startingAfter"],
-    })
+    const query = this._query(
+      {
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        starting_after: p["startingAfter"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -4178,7 +4684,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_climate_supplier>> {
     const url = `/v1/climate/suppliers/${p["supplier"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -4199,7 +4715,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_confirmation_token>> {
     const url = `/v1/confirmation_tokens/${p["confirmationToken"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -4229,12 +4755,20 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/country_specs`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      starting_after: p["startingAfter"],
-    })
+    const query = this._query(
+      {
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        starting_after: p["startingAfter"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -4255,7 +4789,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_country_spec>> {
     const url = `/v1/country_specs/${p["country"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -4293,13 +4837,25 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/coupons`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      created: p["created"],
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      starting_after: p["startingAfter"],
-    })
+    const query = this._query(
+      {
+        created: p["created"],
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        starting_after: p["startingAfter"],
+      },
+      {
+        created: {
+          style: "deepObject",
+          explode: true,
+        },
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -4377,7 +4933,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_coupon>> {
     const url = `/v1/coupons/${p["coupon"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -4455,15 +5021,27 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/credit_notes`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      created: p["created"],
-      customer: p["customer"],
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      invoice: p["invoice"],
-      limit: p["limit"],
-      starting_after: p["startingAfter"],
-    })
+    const query = this._query(
+      {
+        created: p["created"],
+        customer: p["customer"],
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        invoice: p["invoice"],
+        limit: p["limit"],
+        starting_after: p["startingAfter"],
+      },
+      {
+        created: {
+          style: "deepObject",
+          explode: true,
+        },
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -4561,22 +5139,46 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_credit_note>> {
     const url = `/v1/credit_notes/preview`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      amount: p["amount"],
-      credit_amount: p["creditAmount"],
-      effective_at: p["effectiveAt"],
-      email_type: p["emailType"],
-      expand: p["expand"],
-      invoice: p["invoice"],
-      lines: p["lines"],
-      memo: p["memo"],
-      metadata: p["metadata"],
-      out_of_band_amount: p["outOfBandAmount"],
-      reason: p["reason"],
-      refund_amount: p["refundAmount"],
-      refunds: p["refunds"],
-      shipping_cost: p["shippingCost"],
-    })
+    const query = this._query(
+      {
+        amount: p["amount"],
+        credit_amount: p["creditAmount"],
+        effective_at: p["effectiveAt"],
+        email_type: p["emailType"],
+        expand: p["expand"],
+        invoice: p["invoice"],
+        lines: p["lines"],
+        memo: p["memo"],
+        metadata: p["metadata"],
+        out_of_band_amount: p["outOfBandAmount"],
+        reason: p["reason"],
+        refund_amount: p["refundAmount"],
+        refunds: p["refunds"],
+        shipping_cost: p["shippingCost"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+        lines: {
+          style: "deepObject",
+          explode: true,
+        },
+        metadata: {
+          style: "deepObject",
+          explode: true,
+        },
+        refunds: {
+          style: "deepObject",
+          explode: true,
+        },
+        shipping_cost: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -4651,25 +5253,49 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/credit_notes/preview/lines`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      amount: p["amount"],
-      credit_amount: p["creditAmount"],
-      effective_at: p["effectiveAt"],
-      email_type: p["emailType"],
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      invoice: p["invoice"],
-      limit: p["limit"],
-      lines: p["lines"],
-      memo: p["memo"],
-      metadata: p["metadata"],
-      out_of_band_amount: p["outOfBandAmount"],
-      reason: p["reason"],
-      refund_amount: p["refundAmount"],
-      refunds: p["refunds"],
-      shipping_cost: p["shippingCost"],
-      starting_after: p["startingAfter"],
-    })
+    const query = this._query(
+      {
+        amount: p["amount"],
+        credit_amount: p["creditAmount"],
+        effective_at: p["effectiveAt"],
+        email_type: p["emailType"],
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        invoice: p["invoice"],
+        limit: p["limit"],
+        lines: p["lines"],
+        memo: p["memo"],
+        metadata: p["metadata"],
+        out_of_band_amount: p["outOfBandAmount"],
+        reason: p["reason"],
+        refund_amount: p["refundAmount"],
+        refunds: p["refunds"],
+        shipping_cost: p["shippingCost"],
+        starting_after: p["startingAfter"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+        lines: {
+          style: "deepObject",
+          explode: true,
+        },
+        metadata: {
+          style: "deepObject",
+          explode: true,
+        },
+        refunds: {
+          style: "deepObject",
+          explode: true,
+        },
+        shipping_cost: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -4700,12 +5326,20 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/credit_notes/${p["creditNote"]}/lines`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      starting_after: p["startingAfter"],
-    })
+    const query = this._query(
+      {
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        starting_after: p["startingAfter"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -4726,7 +5360,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_credit_note>> {
     const url = `/v1/credit_notes/${p["id"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -4869,15 +5513,27 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/customers`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      created: p["created"],
-      email: p["email"],
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      starting_after: p["startingAfter"],
-      test_clock: p["testClock"],
-    })
+    const query = this._query(
+      {
+        created: p["created"],
+        email: p["email"],
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        starting_after: p["startingAfter"],
+        test_clock: p["testClock"],
+      },
+      {
+        created: {
+          style: "deepObject",
+          explode: true,
+        },
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -4952,12 +5608,20 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/customers/search`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      expand: p["expand"],
-      limit: p["limit"],
-      page: p["page"],
-      query: p["query"],
-    })
+    const query = this._query(
+      {
+        expand: p["expand"],
+        limit: p["limit"],
+        page: p["page"],
+        query: p["query"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -4997,7 +5661,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_customer | t_deleted_customer>> {
     const url = `/v1/customers/${p["customer"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -5073,12 +5747,20 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/customers/${p["customer"]}/balance_transactions`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      starting_after: p["startingAfter"],
-    })
+    const query = this._query(
+      {
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        starting_after: p["startingAfter"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -5131,7 +5813,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_customer_balance_transaction>> {
     const url = `/v1/customers/${p["customer"]}/balance_transactions/${p["transaction"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -5200,12 +5892,20 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/customers/${p["customer"]}/bank_accounts`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      starting_after: p["startingAfter"],
-    })
+    const query = this._query(
+      {
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        starting_after: p["startingAfter"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -5303,7 +6003,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_bank_account>> {
     const url = `/v1/customers/${p["customer"]}/bank_accounts/${p["id"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -5411,12 +6121,20 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/customers/${p["customer"]}/cards`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      starting_after: p["startingAfter"],
-    })
+    const query = this._query(
+      {
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        starting_after: p["startingAfter"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -5514,7 +6232,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_card>> {
     const url = `/v1/customers/${p["customer"]}/cards/${p["id"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -5574,7 +6302,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_cash_balance>> {
     const url = `/v1/customers/${p["customer"]}/cash_balance`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -5642,12 +6380,20 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/customers/${p["customer"]}/cash_balance_transactions`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      starting_after: p["startingAfter"],
-    })
+    const query = this._query(
+      {
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        starting_after: p["startingAfter"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -5669,7 +6415,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_customer_cash_balance_transaction>> {
     const url = `/v1/customers/${p["customer"]}/cash_balance_transactions/${p["transaction"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -5709,7 +6465,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_discount>> {
     const url = `/v1/customers/${p["customer"]}/discount`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -5826,14 +6592,22 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/customers/${p["customer"]}/payment_methods`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      allow_redisplay: p["allowRedisplay"],
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      starting_after: p["startingAfter"],
-      type: p["type"],
-    })
+    const query = this._query(
+      {
+        allow_redisplay: p["allowRedisplay"],
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        starting_after: p["startingAfter"],
+        type: p["type"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -5855,7 +6629,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_payment_method>> {
     const url = `/v1/customers/${p["customer"]}/payment_methods/${p["paymentMethod"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -5887,13 +6671,21 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/customers/${p["customer"]}/sources`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      object: p["object"],
-      starting_after: p["startingAfter"],
-    })
+    const query = this._query(
+      {
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        object: p["object"],
+        starting_after: p["startingAfter"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -5991,7 +6783,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_payment_source>> {
     const url = `/v1/customers/${p["customer"]}/sources/${p["id"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -6099,12 +6901,20 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/customers/${p["customer"]}/subscriptions`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      starting_after: p["startingAfter"],
-    })
+    const query = this._query(
+      {
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        starting_after: p["startingAfter"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -6214,7 +7024,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_subscription>> {
     const url = `/v1/customers/${p["customer"]}/subscriptions/${p["subscriptionExposedId"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -6311,7 +7131,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_discount>> {
     const url = `/v1/customers/${p["customer"]}/subscriptions/${p["subscriptionExposedId"]}/discount`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -6342,12 +7172,20 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/customers/${p["customer"]}/tax_ids`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      starting_after: p["startingAfter"],
-    })
+    const query = this._query(
+      {
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        starting_after: p["startingAfter"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -6419,7 +7257,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_tax_id>> {
     const url = `/v1/customers/${p["customer"]}/tax_ids/${p["id"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -6459,15 +7307,27 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/disputes`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      charge: p["charge"],
-      created: p["created"],
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      payment_intent: p["paymentIntent"],
-      starting_after: p["startingAfter"],
-    })
+    const query = this._query(
+      {
+        charge: p["charge"],
+        created: p["created"],
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        payment_intent: p["paymentIntent"],
+        starting_after: p["startingAfter"],
+      },
+      {
+        created: {
+          style: "deepObject",
+          explode: true,
+        },
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -6488,7 +7348,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_dispute>> {
     const url = `/v1/disputes/${p["dispute"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -6593,13 +7463,21 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/entitlements/active_entitlements`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      customer: p["customer"],
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      starting_after: p["startingAfter"],
-    })
+    const query = this._query(
+      {
+        customer: p["customer"],
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        starting_after: p["startingAfter"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -6620,7 +7498,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_entitlements_active_entitlement>> {
     const url = `/v1/entitlements/active_entitlements/${p["id"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -6652,14 +7540,22 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/entitlements/features`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      archived: p["archived"],
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      lookup_key: p["lookupKey"],
-      starting_after: p["startingAfter"],
-    })
+    const query = this._query(
+      {
+        archived: p["archived"],
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        lookup_key: p["lookupKey"],
+        starting_after: p["startingAfter"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -6710,7 +7606,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_entitlements_feature>> {
     const url = `/v1/entitlements/features/${p["id"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -6859,16 +7765,32 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/events`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      created: p["created"],
-      delivery_success: p["deliverySuccess"],
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      starting_after: p["startingAfter"],
-      type: p["type"],
-      types: p["types"],
-    })
+    const query = this._query(
+      {
+        created: p["created"],
+        delivery_success: p["deliverySuccess"],
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        starting_after: p["startingAfter"],
+        type: p["type"],
+        types: p["types"],
+      },
+      {
+        created: {
+          style: "deepObject",
+          explode: true,
+        },
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+        types: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -6889,7 +7811,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_event>> {
     const url = `/v1/events/${p["id"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -6919,12 +7851,20 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/exchange_rates`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      starting_after: p["startingAfter"],
-    })
+    const query = this._query(
+      {
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        starting_after: p["startingAfter"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -6945,7 +7885,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_exchange_rate>> {
     const url = `/v1/exchange_rates/${p["rateId"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -7023,15 +7973,27 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/file_links`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      created: p["created"],
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      expired: p["expired"],
-      file: p["file"],
-      limit: p["limit"],
-      starting_after: p["startingAfter"],
-    })
+    const query = this._query(
+      {
+        created: p["created"],
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        expired: p["expired"],
+        file: p["file"],
+        limit: p["limit"],
+        starting_after: p["startingAfter"],
+      },
+      {
+        created: {
+          style: "deepObject",
+          explode: true,
+        },
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -7082,7 +8044,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_file_link>> {
     const url = `/v1/file_links/${p["link"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -7177,14 +8149,26 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/files`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      created: p["created"],
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      purpose: p["purpose"],
-      starting_after: p["startingAfter"],
-    })
+    const query = this._query(
+      {
+        created: p["created"],
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        purpose: p["purpose"],
+        starting_after: p["startingAfter"],
+      },
+      {
+        created: {
+          style: "deepObject",
+          explode: true,
+        },
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -7229,7 +8213,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_file>> {
     const url = `/v1/files/${p["file"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -7264,14 +8258,26 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/financial_connections/accounts`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      account_holder: p["accountHolder"],
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      session: p["session"],
-      starting_after: p["startingAfter"],
-    })
+    const query = this._query(
+      {
+        account_holder: p["accountHolder"],
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        session: p["session"],
+        starting_after: p["startingAfter"],
+      },
+      {
+        account_holder: {
+          style: "deepObject",
+          explode: true,
+        },
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -7292,7 +8298,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_financial_connections_account>> {
     const url = `/v1/financial_connections/accounts/${p["account"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -7360,13 +8376,21 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/financial_connections/accounts/${p["account"]}/owners`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      ownership: p["ownership"],
-      starting_after: p["startingAfter"],
-    })
+    const query = this._query(
+      {
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        ownership: p["ownership"],
+        starting_after: p["startingAfter"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -7513,7 +8537,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_financial_connections_session>> {
     const url = `/v1/financial_connections/sessions/${p["session"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -7555,15 +8589,31 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/financial_connections/transactions`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      account: p["account"],
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      starting_after: p["startingAfter"],
-      transacted_at: p["transactedAt"],
-      transaction_refresh: p["transactionRefresh"],
-    })
+    const query = this._query(
+      {
+        account: p["account"],
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        starting_after: p["startingAfter"],
+        transacted_at: p["transactedAt"],
+        transaction_refresh: p["transactionRefresh"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+        transacted_at: {
+          style: "deepObject",
+          explode: true,
+        },
+        transaction_refresh: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -7584,7 +8634,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_financial_connections_transaction>> {
     const url = `/v1/financial_connections/transactions/${p["transaction"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -7620,13 +8680,25 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/forwarding/requests`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      created: p["created"],
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      starting_after: p["startingAfter"],
-    })
+    const query = this._query(
+      {
+        created: p["created"],
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        starting_after: p["startingAfter"],
+      },
+      {
+        created: {
+          style: "deepObject",
+          explode: true,
+        },
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -7679,7 +8751,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_forwarding_request>> {
     const url = `/v1/forwarding/requests/${p["id"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -7720,16 +8802,28 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/identity/verification_reports`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      client_reference_id: p["clientReferenceId"],
-      created: p["created"],
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      starting_after: p["startingAfter"],
-      type: p["type"],
-      verification_session: p["verificationSession"],
-    })
+    const query = this._query(
+      {
+        client_reference_id: p["clientReferenceId"],
+        created: p["created"],
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        starting_after: p["startingAfter"],
+        type: p["type"],
+        verification_session: p["verificationSession"],
+      },
+      {
+        created: {
+          style: "deepObject",
+          explode: true,
+        },
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -7750,7 +8844,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_identity_verification_report>> {
     const url = `/v1/identity/verification_reports/${p["report"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -7796,16 +8900,28 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/identity/verification_sessions`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      client_reference_id: p["clientReferenceId"],
-      created: p["created"],
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      related_customer: p["relatedCustomer"],
-      starting_after: p["startingAfter"],
-      status: p["status"],
-    })
+    const query = this._query(
+      {
+        client_reference_id: p["clientReferenceId"],
+        created: p["created"],
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        related_customer: p["relatedCustomer"],
+        starting_after: p["startingAfter"],
+        status: p["status"],
+      },
+      {
+        created: {
+          style: "deepObject",
+          explode: true,
+        },
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -7865,7 +8981,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_identity_verification_session>> {
     const url = `/v1/identity/verification_sessions/${p["session"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -8012,15 +9138,27 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/invoice_payments`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      invoice: p["invoice"],
-      limit: p["limit"],
-      payment: p["payment"],
-      starting_after: p["startingAfter"],
-      status: p["status"],
-    })
+    const query = this._query(
+      {
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        invoice: p["invoice"],
+        limit: p["limit"],
+        payment: p["payment"],
+        starting_after: p["startingAfter"],
+        status: p["status"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+        payment: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -8041,7 +9179,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_invoice_payment>> {
     const url = `/v1/invoice_payments/${p["invoicePayment"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -8072,13 +9220,21 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/invoice_rendering_templates`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      starting_after: p["startingAfter"],
-      status: p["status"],
-    })
+    const query = this._query(
+      {
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        starting_after: p["startingAfter"],
+        status: p["status"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -8100,7 +9256,18 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_invoice_rendering_template>> {
     const url = `/v1/invoice_rendering_templates/${p["template"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"], version: p["version"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+        version: p["version"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -8213,16 +9380,28 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/invoiceitems`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      created: p["created"],
-      customer: p["customer"],
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      invoice: p["invoice"],
-      limit: p["limit"],
-      pending: p["pending"],
-      starting_after: p["startingAfter"],
-    })
+    const query = this._query(
+      {
+        created: p["created"],
+        customer: p["customer"],
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        invoice: p["invoice"],
+        limit: p["limit"],
+        pending: p["pending"],
+        starting_after: p["startingAfter"],
+      },
+      {
+        created: {
+          style: "deepObject",
+          explode: true,
+        },
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -8298,7 +9477,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_invoiceitem>> {
     const url = `/v1/invoiceitems/${p["invoiceitem"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -8400,18 +9589,34 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/invoices`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      collection_method: p["collectionMethod"],
-      created: p["created"],
-      customer: p["customer"],
-      due_date: p["dueDate"],
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      starting_after: p["startingAfter"],
-      status: p["status"],
-      subscription: p["subscription"],
-    })
+    const query = this._query(
+      {
+        collection_method: p["collectionMethod"],
+        created: p["created"],
+        customer: p["customer"],
+        due_date: p["dueDate"],
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        starting_after: p["startingAfter"],
+        status: p["status"],
+        subscription: p["subscription"],
+      },
+      {
+        created: {
+          style: "deepObject",
+          explode: true,
+        },
+        due_date: {
+          style: "deepObject",
+          explode: true,
+        },
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -8534,12 +9739,20 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/invoices/search`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      expand: p["expand"],
-      limit: p["limit"],
-      page: p["page"],
-      query: p["query"],
-    })
+    const query = this._query(
+      {
+        expand: p["expand"],
+        limit: p["limit"],
+        page: p["page"],
+        query: p["query"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -8579,7 +9792,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_invoice>> {
     const url = `/v1/invoices/${p["invoice"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -8766,12 +9989,20 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/invoices/${p["invoice"]}/lines`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      starting_after: p["startingAfter"],
-    })
+    const query = this._query(
+      {
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        starting_after: p["startingAfter"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -9070,16 +10301,28 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/issuing/authorizations`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      card: p["card"],
-      cardholder: p["cardholder"],
-      created: p["created"],
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      starting_after: p["startingAfter"],
-      status: p["status"],
-    })
+    const query = this._query(
+      {
+        card: p["card"],
+        cardholder: p["cardholder"],
+        created: p["created"],
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        starting_after: p["startingAfter"],
+        status: p["status"],
+      },
+      {
+        created: {
+          style: "deepObject",
+          explode: true,
+        },
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -9100,7 +10343,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_issuing_authorization>> {
     const url = `/v1/issuing/authorizations/${p["authorization"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -9253,17 +10506,29 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/issuing/cardholders`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      created: p["created"],
-      email: p["email"],
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      phone_number: p["phoneNumber"],
-      starting_after: p["startingAfter"],
-      status: p["status"],
-      type: p["type"],
-    })
+    const query = this._query(
+      {
+        created: p["created"],
+        email: p["email"],
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        phone_number: p["phoneNumber"],
+        starting_after: p["startingAfter"],
+        status: p["status"],
+        type: p["type"],
+      },
+      {
+        created: {
+          style: "deepObject",
+          explode: true,
+        },
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -9319,7 +10584,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_issuing_cardholder>> {
     const url = `/v1/issuing/cardholders/${p["cardholder"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -9406,20 +10681,32 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/issuing/cards`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      cardholder: p["cardholder"],
-      created: p["created"],
-      ending_before: p["endingBefore"],
-      exp_month: p["expMonth"],
-      exp_year: p["expYear"],
-      expand: p["expand"],
-      last4: p["last4"],
-      limit: p["limit"],
-      personalization_design: p["personalizationDesign"],
-      starting_after: p["startingAfter"],
-      status: p["status"],
-      type: p["type"],
-    })
+    const query = this._query(
+      {
+        cardholder: p["cardholder"],
+        created: p["created"],
+        ending_before: p["endingBefore"],
+        exp_month: p["expMonth"],
+        exp_year: p["expYear"],
+        expand: p["expand"],
+        last4: p["last4"],
+        limit: p["limit"],
+        personalization_design: p["personalizationDesign"],
+        starting_after: p["startingAfter"],
+        status: p["status"],
+        type: p["type"],
+      },
+      {
+        created: {
+          style: "deepObject",
+          explode: true,
+        },
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -9474,7 +10761,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_issuing_card>> {
     const url = `/v1/issuing/cards/${p["card"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -9560,15 +10857,27 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/issuing/disputes`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      created: p["created"],
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      starting_after: p["startingAfter"],
-      status: p["status"],
-      transaction: p["transaction"],
-    })
+    const query = this._query(
+      {
+        created: p["created"],
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        starting_after: p["startingAfter"],
+        status: p["status"],
+        transaction: p["transaction"],
+      },
+      {
+        created: {
+          style: "deepObject",
+          explode: true,
+        },
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -9627,7 +10936,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_issuing_dispute>> {
     const url = `/v1/issuing/disputes/${p["dispute"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -9743,15 +11062,31 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/issuing/personalization_designs`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      lookup_keys: p["lookupKeys"],
-      preferences: p["preferences"],
-      starting_after: p["startingAfter"],
-      status: p["status"],
-    })
+    const query = this._query(
+      {
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        lookup_keys: p["lookupKeys"],
+        preferences: p["preferences"],
+        starting_after: p["startingAfter"],
+        status: p["status"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+        lookup_keys: {
+          style: "deepObject",
+          explode: true,
+        },
+        preferences: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -9804,7 +11139,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_issuing_personalization_design>> {
     const url = `/v1/issuing/personalization_designs/${p["personalizationDesign"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -9878,14 +11223,22 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/issuing/physical_bundles`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      starting_after: p["startingAfter"],
-      status: p["status"],
-      type: p["type"],
-    })
+    const query = this._query(
+      {
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        starting_after: p["startingAfter"],
+        status: p["status"],
+        type: p["type"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -9906,7 +11259,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_issuing_physical_bundle>> {
     const url = `/v1/issuing/physical_bundles/${p["physicalBundle"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -9927,7 +11290,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_issuing_settlement>> {
     const url = `/v1/issuing/settlements/${p["settlement"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -10009,15 +11382,27 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/issuing/tokens`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      card: p["card"],
-      created: p["created"],
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      starting_after: p["startingAfter"],
-      status: p["status"],
-    })
+    const query = this._query(
+      {
+        card: p["card"],
+        created: p["created"],
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        starting_after: p["startingAfter"],
+        status: p["status"],
+      },
+      {
+        created: {
+          style: "deepObject",
+          explode: true,
+        },
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -10038,7 +11423,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_issuing_token>> {
     const url = `/v1/issuing/tokens/${p["token"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -10109,16 +11504,28 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/issuing/transactions`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      card: p["card"],
-      cardholder: p["cardholder"],
-      created: p["created"],
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      starting_after: p["startingAfter"],
-      type: p["type"],
-    })
+    const query = this._query(
+      {
+        card: p["card"],
+        cardholder: p["cardholder"],
+        created: p["created"],
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        starting_after: p["startingAfter"],
+        type: p["type"],
+      },
+      {
+        created: {
+          style: "deepObject",
+          explode: true,
+        },
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -10139,7 +11546,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_issuing_transaction>> {
     const url = `/v1/issuing/transactions/${p["transaction"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -10230,7 +11647,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_financial_connections_session>> {
     const url = `/v1/link_account_sessions/${p["session"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -10265,14 +11692,26 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/linked_accounts`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      account_holder: p["accountHolder"],
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      session: p["session"],
-      starting_after: p["startingAfter"],
-    })
+    const query = this._query(
+      {
+        account_holder: p["accountHolder"],
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        session: p["session"],
+        starting_after: p["startingAfter"],
+      },
+      {
+        account_holder: {
+          style: "deepObject",
+          explode: true,
+        },
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -10293,7 +11732,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_financial_connections_account>> {
     const url = `/v1/linked_accounts/${p["account"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -10361,13 +11810,21 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/linked_accounts/${p["account"]}/owners`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      ownership: p["ownership"],
-      starting_after: p["startingAfter"],
-    })
+    const query = this._query(
+      {
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        ownership: p["ownership"],
+        starting_after: p["startingAfter"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -10419,7 +11876,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_mandate>> {
     const url = `/v1/mandates/${p["mandate"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -10458,14 +11925,26 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/payment_intents`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      created: p["created"],
-      customer: p["customer"],
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      starting_after: p["startingAfter"],
-    })
+    const query = this._query(
+      {
+        created: p["created"],
+        customer: p["customer"],
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        starting_after: p["startingAfter"],
+      },
+      {
+        created: {
+          style: "deepObject",
+          explode: true,
+        },
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -10536,12 +12015,20 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/payment_intents/search`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      expand: p["expand"],
-      limit: p["limit"],
-      page: p["page"],
-      query: p["query"],
-    })
+    const query = this._query(
+      {
+        expand: p["expand"],
+        limit: p["limit"],
+        page: p["page"],
+        query: p["query"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -10563,10 +12050,18 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_payment_intent>> {
     const url = `/v1/payment_intents/${p["intent"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      client_secret: p["clientSecret"],
-      expand: p["expand"],
-    })
+    const query = this._query(
+      {
+        client_secret: p["clientSecret"],
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -10864,13 +12359,21 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/payment_links`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      active: p["active"],
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      starting_after: p["startingAfter"],
-    })
+    const query = this._query(
+      {
+        active: p["active"],
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        starting_after: p["startingAfter"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -10938,7 +12441,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_payment_link>> {
     const url = `/v1/payment_links/${p["paymentLink"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -11020,12 +12533,20 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/payment_links/${p["paymentLink"]}/line_items`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      starting_after: p["startingAfter"],
-    })
+    const query = this._query(
+      {
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        starting_after: p["startingAfter"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -11056,13 +12577,25 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/payment_method_configurations`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      application: p["application"],
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      starting_after: p["startingAfter"],
-    })
+    const query = this._query(
+      {
+        application: p["application"],
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        starting_after: p["startingAfter"],
+      },
+      {
+        application: {
+          style: "deepObject",
+          explode: true,
+        },
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -11170,7 +12703,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_payment_method_configuration>> {
     const url = `/v1/payment_method_configurations/${p["configuration"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -11290,14 +12833,22 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/payment_method_domains`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      domain_name: p["domainName"],
-      enabled: p["enabled"],
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      starting_after: p["startingAfter"],
-    })
+    const query = this._query(
+      {
+        domain_name: p["domainName"],
+        enabled: p["enabled"],
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        starting_after: p["startingAfter"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -11347,7 +12898,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_payment_method_domain>> {
     const url = `/v1/payment_method_domains/${p["paymentMethodDomain"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -11500,14 +13061,22 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/payment_methods`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      customer: p["customer"],
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      starting_after: p["startingAfter"],
-      type: p["type"],
-    })
+    const query = this._query(
+      {
+        customer: p["customer"],
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        starting_after: p["startingAfter"],
+        type: p["type"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -11615,7 +13184,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_payment_method>> {
     const url = `/v1/payment_methods/${p["paymentMethod"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -11771,16 +13350,32 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/payouts`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      arrival_date: p["arrivalDate"],
-      created: p["created"],
-      destination: p["destination"],
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      starting_after: p["startingAfter"],
-      status: p["status"],
-    })
+    const query = this._query(
+      {
+        arrival_date: p["arrivalDate"],
+        created: p["created"],
+        destination: p["destination"],
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        starting_after: p["startingAfter"],
+        status: p["status"],
+      },
+      {
+        arrival_date: {
+          style: "deepObject",
+          explode: true,
+        },
+        created: {
+          style: "deepObject",
+          explode: true,
+        },
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -11831,7 +13426,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_payout>> {
     const url = `/v1/payouts/${p["payout"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -11981,15 +13586,27 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/plans`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      active: p["active"],
-      created: p["created"],
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      product: p["product"],
-      starting_after: p["startingAfter"],
-    })
+    const query = this._query(
+      {
+        active: p["active"],
+        created: p["created"],
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        product: p["product"],
+        starting_after: p["startingAfter"],
+      },
+      {
+        created: {
+          style: "deepObject",
+          explode: true,
+        },
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -12062,7 +13679,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_plan>> {
     const url = `/v1/plans/${p["plan"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -12151,19 +13778,39 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/prices`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      active: p["active"],
-      created: p["created"],
-      currency: p["currency"],
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      lookup_keys: p["lookupKeys"],
-      product: p["product"],
-      recurring: p["recurring"],
-      starting_after: p["startingAfter"],
-      type: p["type"],
-    })
+    const query = this._query(
+      {
+        active: p["active"],
+        created: p["created"],
+        currency: p["currency"],
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        lookup_keys: p["lookupKeys"],
+        product: p["product"],
+        recurring: p["recurring"],
+        starting_after: p["startingAfter"],
+        type: p["type"],
+      },
+      {
+        created: {
+          style: "deepObject",
+          explode: true,
+        },
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+        lookup_keys: {
+          style: "deepObject",
+          explode: true,
+        },
+        recurring: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -12231,12 +13878,20 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/prices/search`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      expand: p["expand"],
-      limit: p["limit"],
-      page: p["page"],
-      query: p["query"],
-    })
+    const query = this._query(
+      {
+        expand: p["expand"],
+        limit: p["limit"],
+        page: p["page"],
+        query: p["query"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -12257,7 +13912,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_price>> {
     const url = `/v1/prices/${p["price"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -12337,17 +14002,33 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/products`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      active: p["active"],
-      created: p["created"],
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      ids: p["ids"],
-      limit: p["limit"],
-      shippable: p["shippable"],
-      starting_after: p["startingAfter"],
-      url: p["url"],
-    })
+    const query = this._query(
+      {
+        active: p["active"],
+        created: p["created"],
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        ids: p["ids"],
+        limit: p["limit"],
+        shippable: p["shippable"],
+        starting_after: p["startingAfter"],
+        url: p["url"],
+      },
+      {
+        created: {
+          style: "deepObject",
+          explode: true,
+        },
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+        ids: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -12413,12 +14094,20 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/products/search`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      expand: p["expand"],
-      limit: p["limit"],
-      page: p["page"],
-      query: p["query"],
-    })
+    const query = this._query(
+      {
+        expand: p["expand"],
+        limit: p["limit"],
+        page: p["page"],
+        query: p["query"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -12458,7 +14147,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_product>> {
     const url = `/v1/products/${p["id"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -12533,12 +14232,20 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/products/${p["product"]}/features`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      starting_after: p["startingAfter"],
-    })
+    const query = this._query(
+      {
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        starting_after: p["startingAfter"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -12610,7 +14317,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_product_feature>> {
     const url = `/v1/products/${p["product"]}/features/${p["id"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -12652,17 +14369,29 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/promotion_codes`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      active: p["active"],
-      code: p["code"],
-      coupon: p["coupon"],
-      created: p["created"],
-      customer: p["customer"],
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      starting_after: p["startingAfter"],
-    })
+    const query = this._query(
+      {
+        active: p["active"],
+        code: p["code"],
+        coupon: p["coupon"],
+        created: p["created"],
+        customer: p["customer"],
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        starting_after: p["startingAfter"],
+      },
+      {
+        created: {
+          style: "deepObject",
+          explode: true,
+        },
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -12714,7 +14443,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_promotion_code>> {
     const url = `/v1/promotion_codes/${p["promotionCode"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -12790,15 +14529,23 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/quotes`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      customer: p["customer"],
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      starting_after: p["startingAfter"],
-      status: p["status"],
-      test_clock: p["testClock"],
-    })
+    const query = this._query(
+      {
+        customer: p["customer"],
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        starting_after: p["startingAfter"],
+        status: p["status"],
+        test_clock: p["testClock"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -12869,7 +14616,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_quote>> {
     const url = `/v1/quotes/${p["quote"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -13022,12 +14779,20 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/quotes/${p["quote"]}/computed_upfront_line_items`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      starting_after: p["startingAfter"],
-    })
+    const query = this._query(
+      {
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        starting_after: p["startingAfter"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -13094,12 +14859,20 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/quotes/${p["quote"]}/line_items`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      starting_after: p["startingAfter"],
-    })
+    const query = this._query(
+      {
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        starting_after: p["startingAfter"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -13123,7 +14896,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<string>> {
     const url = `/v1/quotes/${p["quote"]}/pdf`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -13164,15 +14947,27 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/radar/early_fraud_warnings`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      charge: p["charge"],
-      created: p["created"],
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      payment_intent: p["paymentIntent"],
-      starting_after: p["startingAfter"],
-    })
+    const query = this._query(
+      {
+        charge: p["charge"],
+        created: p["created"],
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        payment_intent: p["paymentIntent"],
+        starting_after: p["startingAfter"],
+      },
+      {
+        created: {
+          style: "deepObject",
+          explode: true,
+        },
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -13193,7 +14988,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_radar_early_fraud_warning>> {
     const url = `/v1/radar/early_fraud_warnings/${p["earlyFraudWarning"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -13233,15 +15038,27 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/radar/value_list_items`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      created: p["created"],
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      starting_after: p["startingAfter"],
-      value: p["value"],
-      value_list: p["valueList"],
-    })
+    const query = this._query(
+      {
+        created: p["created"],
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        starting_after: p["startingAfter"],
+        value: p["value"],
+        value_list: p["valueList"],
+      },
+      {
+        created: {
+          style: "deepObject",
+          explode: true,
+        },
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -13310,7 +15127,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_radar_value_list_item>> {
     const url = `/v1/radar/value_list_items/${p["item"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -13350,15 +15177,27 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/radar/value_lists`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      alias: p["alias"],
-      contains: p["contains"],
-      created: p["created"],
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      starting_after: p["startingAfter"],
-    })
+    const query = this._query(
+      {
+        alias: p["alias"],
+        contains: p["contains"],
+        created: p["created"],
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        starting_after: p["startingAfter"],
+      },
+      {
+        created: {
+          style: "deepObject",
+          explode: true,
+        },
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -13428,7 +15267,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_radar_value_list>> {
     const url = `/v1/radar/value_lists/${p["valueList"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -13505,15 +15354,27 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/refunds`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      charge: p["charge"],
-      created: p["created"],
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      payment_intent: p["paymentIntent"],
-      starting_after: p["startingAfter"],
-    })
+    const query = this._query(
+      {
+        charge: p["charge"],
+        created: p["created"],
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        payment_intent: p["paymentIntent"],
+        starting_after: p["startingAfter"],
+      },
+      {
+        created: {
+          style: "deepObject",
+          explode: true,
+        },
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -13570,7 +15431,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_refund>> {
     const url = `/v1/refunds/${p["refund"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -13681,13 +15552,25 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/reporting/report_runs`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      created: p["created"],
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      starting_after: p["startingAfter"],
-    })
+    const query = this._query(
+      {
+        created: p["created"],
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        starting_after: p["startingAfter"],
+      },
+      {
+        created: {
+          style: "deepObject",
+          explode: true,
+        },
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -13738,7 +15621,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_reporting_report_run>> {
     const url = `/v1/reporting/report_runs/${p["reportRun"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -13765,7 +15658,17 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/reporting/report_types`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -13786,7 +15689,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_reporting_report_type>> {
     const url = `/v1/reporting/report_types/${p["reportType"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -13824,13 +15737,25 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/reviews`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      created: p["created"],
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      starting_after: p["startingAfter"],
-    })
+    const query = this._query(
+      {
+        created: p["created"],
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        starting_after: p["startingAfter"],
+      },
+      {
+        created: {
+          style: "deepObject",
+          explode: true,
+        },
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -13851,7 +15776,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_review>> {
     const url = `/v1/reviews/${p["review"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -13926,14 +15861,26 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/setup_attempts`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      created: p["created"],
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      setup_intent: p["setupIntent"],
-      starting_after: p["startingAfter"],
-    })
+    const query = this._query(
+      {
+        created: p["created"],
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        setup_intent: p["setupIntent"],
+        starting_after: p["startingAfter"],
+      },
+      {
+        created: {
+          style: "deepObject",
+          explode: true,
+        },
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -13974,16 +15921,28 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/setup_intents`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      attach_to_self: p["attachToSelf"],
-      created: p["created"],
-      customer: p["customer"],
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      payment_method: p["paymentMethod"],
-      starting_after: p["startingAfter"],
-    })
+    const query = this._query(
+      {
+        attach_to_self: p["attachToSelf"],
+        created: p["created"],
+        customer: p["customer"],
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        payment_method: p["paymentMethod"],
+        starting_after: p["startingAfter"],
+      },
+      {
+        created: {
+          style: "deepObject",
+          explode: true,
+        },
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -14048,10 +16007,18 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_setup_intent>> {
     const url = `/v1/setup_intents/${p["intent"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      client_secret: p["clientSecret"],
-      expand: p["expand"],
-    })
+    const query = this._query(
+      {
+        client_secret: p["clientSecret"],
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -14244,15 +16211,27 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/shipping_rates`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      active: p["active"],
-      created: p["created"],
-      currency: p["currency"],
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      starting_after: p["startingAfter"],
-    })
+    const query = this._query(
+      {
+        active: p["active"],
+        created: p["created"],
+        currency: p["currency"],
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        starting_after: p["startingAfter"],
+      },
+      {
+        created: {
+          style: "deepObject",
+          explode: true,
+        },
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -14305,7 +16284,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_shipping_rate>> {
     const url = `/v1/shipping_rates/${p["shippingRateToken"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -14409,12 +16398,20 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/sigma/scheduled_query_runs`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      starting_after: p["startingAfter"],
-    })
+    const query = this._query(
+      {
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        starting_after: p["startingAfter"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -14435,7 +16432,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_scheduled_query_run>> {
     const url = `/v1/sigma/scheduled_query_runs/${p["scheduledQueryRun"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -14498,10 +16505,18 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_source>> {
     const url = `/v1/sources/${p["source"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      client_secret: p["clientSecret"],
-      expand: p["expand"],
-    })
+    const query = this._query(
+      {
+        client_secret: p["clientSecret"],
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -14563,7 +16578,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_source_mandate_notification>> {
     const url = `/v1/sources/${p["source"]}/mandate_notifications/${p["mandateNotification"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -14594,12 +16619,20 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/sources/${p["source"]}/source_transactions`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      starting_after: p["startingAfter"],
-    })
+    const query = this._query(
+      {
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        starting_after: p["startingAfter"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -14621,7 +16654,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_source_transaction>> {
     const url = `/v1/sources/${p["source"]}/source_transactions/${p["sourceTransaction"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -14683,13 +16726,21 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/subscription_items`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      starting_after: p["startingAfter"],
-      subscription: p["subscription"],
-    })
+    const query = this._query(
+      {
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        starting_after: p["startingAfter"],
+        subscription: p["subscription"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -14778,7 +16829,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_subscription_item>> {
     const url = `/v1/subscription_items/${p["item"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -14883,18 +16944,42 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/subscription_schedules`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      canceled_at: p["canceledAt"],
-      completed_at: p["completedAt"],
-      created: p["created"],
-      customer: p["customer"],
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      released_at: p["releasedAt"],
-      scheduled: p["scheduled"],
-      starting_after: p["startingAfter"],
-    })
+    const query = this._query(
+      {
+        canceled_at: p["canceledAt"],
+        completed_at: p["completedAt"],
+        created: p["created"],
+        customer: p["customer"],
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        released_at: p["releasedAt"],
+        scheduled: p["scheduled"],
+        starting_after: p["startingAfter"],
+      },
+      {
+        canceled_at: {
+          style: "deepObject",
+          explode: true,
+        },
+        completed_at: {
+          style: "deepObject",
+          explode: true,
+        },
+        created: {
+          style: "deepObject",
+          explode: true,
+        },
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+        released_at: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -14955,7 +17040,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_subscription_schedule>> {
     const url = `/v1/subscription_schedules/${p["schedule"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -15142,21 +17237,45 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/subscriptions`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      automatic_tax: p["automaticTax"],
-      collection_method: p["collectionMethod"],
-      created: p["created"],
-      current_period_end: p["currentPeriodEnd"],
-      current_period_start: p["currentPeriodStart"],
-      customer: p["customer"],
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      price: p["price"],
-      starting_after: p["startingAfter"],
-      status: p["status"],
-      test_clock: p["testClock"],
-    })
+    const query = this._query(
+      {
+        automatic_tax: p["automaticTax"],
+        collection_method: p["collectionMethod"],
+        created: p["created"],
+        current_period_end: p["currentPeriodEnd"],
+        current_period_start: p["currentPeriodStart"],
+        customer: p["customer"],
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        price: p["price"],
+        starting_after: p["startingAfter"],
+        status: p["status"],
+        test_clock: p["testClock"],
+      },
+      {
+        automatic_tax: {
+          style: "deepObject",
+          explode: true,
+        },
+        created: {
+          style: "deepObject",
+          explode: true,
+        },
+        current_period_end: {
+          style: "deepObject",
+          explode: true,
+        },
+        current_period_start: {
+          style: "deepObject",
+          explode: true,
+        },
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -15235,12 +17354,20 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/subscriptions/search`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      expand: p["expand"],
-      limit: p["limit"],
-      page: p["page"],
-      query: p["query"],
-    })
+    const query = this._query(
+      {
+        expand: p["expand"],
+        limit: p["limit"],
+        page: p["page"],
+        query: p["query"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -15298,7 +17425,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_subscription>> {
     const url = `/v1/subscriptions/${p["subscriptionExposedId"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -15494,7 +17631,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_tax_calculation>> {
     const url = `/v1/tax/calculations/${p["calculation"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -15525,12 +17672,20 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/tax/calculations/${p["calculation"]}/line_items`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      starting_after: p["startingAfter"],
-    })
+    const query = this._query(
+      {
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        starting_after: p["startingAfter"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -15566,13 +17721,21 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/tax/registrations`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      starting_after: p["startingAfter"],
-      status: p["status"],
-    })
+    const query = this._query(
+      {
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        starting_after: p["startingAfter"],
+        status: p["status"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -15624,7 +17787,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_tax_registration>> {
     const url = `/v1/tax/registrations/${p["id"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -15682,7 +17855,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_tax_settings>> {
     const url = `/v1/tax/settings`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -15802,7 +17985,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_tax_transaction>> {
     const url = `/v1/tax/transactions/${p["transaction"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -15833,12 +18026,20 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/tax/transactions/${p["transaction"]}/line_items`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      starting_after: p["startingAfter"],
-    })
+    const query = this._query(
+      {
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        starting_after: p["startingAfter"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -15868,12 +18069,20 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/tax_codes`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      starting_after: p["startingAfter"],
-    })
+    const query = this._query(
+      {
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        starting_after: p["startingAfter"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -15894,7 +18103,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_tax_code>> {
     const url = `/v1/tax_codes/${p["id"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -15934,13 +18153,25 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/tax_ids`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      owner: p["owner"],
-      starting_after: p["startingAfter"],
-    })
+    const query = this._query(
+      {
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        owner: p["owner"],
+        starting_after: p["startingAfter"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+        owner: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -16010,7 +18241,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_tax_id>> {
     const url = `/v1/tax_ids/${p["id"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -16050,15 +18291,27 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/tax_rates`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      active: p["active"],
-      created: p["created"],
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      inclusive: p["inclusive"],
-      limit: p["limit"],
-      starting_after: p["startingAfter"],
-    })
+    const query = this._query(
+      {
+        active: p["active"],
+        created: p["created"],
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        inclusive: p["inclusive"],
+        limit: p["limit"],
+        starting_after: p["startingAfter"],
+      },
+      {
+        created: {
+          style: "deepObject",
+          explode: true,
+        },
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -16109,7 +18362,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_tax_rate>> {
     const url = `/v1/tax_rates/${p["taxRate"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -16177,13 +18440,21 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/terminal/configurations`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      is_account_default: p["isAccountDefault"],
-      limit: p["limit"],
-      starting_after: p["startingAfter"],
-    })
+    const query = this._query(
+      {
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        is_account_default: p["isAccountDefault"],
+        limit: p["limit"],
+        starting_after: p["startingAfter"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -16267,7 +18538,17 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/terminal/configurations/${p["configuration"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -16377,12 +18658,20 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/terminal/locations`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      starting_after: p["startingAfter"],
-    })
+    const query = this._query(
+      {
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        starting_after: p["startingAfter"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -16453,7 +18742,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_terminal_location | t_deleted_terminal_location>> {
     const url = `/v1/terminal/locations/${p["location"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -16537,16 +18836,24 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/terminal/readers`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      device_type: p["deviceType"],
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      location: p["location"],
-      serial_number: p["serialNumber"],
-      starting_after: p["startingAfter"],
-      status: p["status"],
-    })
+    const query = this._query(
+      {
+        device_type: p["deviceType"],
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        location: p["location"],
+        serial_number: p["serialNumber"],
+        starting_after: p["startingAfter"],
+        status: p["status"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -16616,7 +18923,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_terminal_reader | t_deleted_terminal_reader>> {
     const url = `/v1/terminal/readers/${p["reader"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -17841,12 +20158,20 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/test_helpers/test_clocks`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      starting_after: p["startingAfter"],
-    })
+    const query = this._query(
+      {
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        starting_after: p["startingAfter"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -17915,7 +20240,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_test_helpers_test_clock>> {
     const url = `/v1/test_helpers/test_clocks/${p["testClock"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -18456,7 +20791,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_token>> {
     const url = `/v1/tokens/${p["token"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -18508,15 +20853,31 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/topups`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      amount: p["amount"],
-      created: p["created"],
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      starting_after: p["startingAfter"],
-      status: p["status"],
-    })
+    const query = this._query(
+      {
+        amount: p["amount"],
+        created: p["created"],
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        starting_after: p["startingAfter"],
+        status: p["status"],
+      },
+      {
+        amount: {
+          style: "deepObject",
+          explode: true,
+        },
+        created: {
+          style: "deepObject",
+          explode: true,
+        },
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -18567,7 +20928,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_topup>> {
     const url = `/v1/topups/${p["topup"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -18680,15 +21051,27 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/transfers`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      created: p["created"],
-      destination: p["destination"],
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      starting_after: p["startingAfter"],
-      transfer_group: p["transferGroup"],
-    })
+    const query = this._query(
+      {
+        created: p["created"],
+        destination: p["destination"],
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        starting_after: p["startingAfter"],
+        transfer_group: p["transferGroup"],
+      },
+      {
+        created: {
+          style: "deepObject",
+          explode: true,
+        },
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -18749,12 +21132,20 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/transfers/${p["id"]}/reversals`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      starting_after: p["startingAfter"],
-    })
+    const query = this._query(
+      {
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        starting_after: p["startingAfter"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -18812,7 +21203,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_transfer>> {
     const url = `/v1/transfers/${p["transfer"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -18871,7 +21272,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_transfer_reversal>> {
     const url = `/v1/transfers/${p["transfer"]}/reversals/${p["id"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -18942,15 +21353,23 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/treasury/credit_reversals`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      financial_account: p["financialAccount"],
-      limit: p["limit"],
-      received_credit: p["receivedCredit"],
-      starting_after: p["startingAfter"],
-      status: p["status"],
-    })
+    const query = this._query(
+      {
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        financial_account: p["financialAccount"],
+        limit: p["limit"],
+        received_credit: p["receivedCredit"],
+        starting_after: p["startingAfter"],
+        status: p["status"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -19001,7 +21420,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_treasury_credit_reversal>> {
     const url = `/v1/treasury/credit_reversals/${p["creditReversal"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -19035,16 +21464,24 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/treasury/debit_reversals`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      financial_account: p["financialAccount"],
-      limit: p["limit"],
-      received_debit: p["receivedDebit"],
-      resolution: p["resolution"],
-      starting_after: p["startingAfter"],
-      status: p["status"],
-    })
+    const query = this._query(
+      {
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        financial_account: p["financialAccount"],
+        limit: p["limit"],
+        received_debit: p["receivedDebit"],
+        resolution: p["resolution"],
+        starting_after: p["startingAfter"],
+        status: p["status"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -19095,7 +21532,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_treasury_debit_reversal>> {
     const url = `/v1/treasury/debit_reversals/${p["debitReversal"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -19134,14 +21581,26 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/treasury/financial_accounts`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      created: p["created"],
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      starting_after: p["startingAfter"],
-      status: p["status"],
-    })
+    const query = this._query(
+      {
+        created: p["created"],
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        starting_after: p["startingAfter"],
+        status: p["status"],
+      },
+      {
+        created: {
+          style: "deepObject",
+          explode: true,
+        },
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -19196,7 +21655,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_treasury_financial_account>> {
     const url = `/v1/treasury/financial_accounts/${p["financialAccount"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -19295,7 +21764,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_treasury_financial_account_features>> {
     const url = `/v1/treasury/financial_accounts/${p["financialAccount"]}/features`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -19375,14 +21854,22 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/treasury/inbound_transfers`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      financial_account: p["financialAccount"],
-      limit: p["limit"],
-      starting_after: p["startingAfter"],
-      status: p["status"],
-    })
+    const query = this._query(
+      {
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        financial_account: p["financialAccount"],
+        limit: p["limit"],
+        starting_after: p["startingAfter"],
+        status: p["status"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -19433,7 +21920,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_treasury_inbound_transfer>> {
     const url = `/v1/treasury/inbound_transfers/${p["id"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -19516,16 +22013,28 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/treasury/outbound_payments`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      created: p["created"],
-      customer: p["customer"],
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      financial_account: p["financialAccount"],
-      limit: p["limit"],
-      starting_after: p["startingAfter"],
-      status: p["status"],
-    })
+    const query = this._query(
+      {
+        created: p["created"],
+        customer: p["customer"],
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        financial_account: p["financialAccount"],
+        limit: p["limit"],
+        starting_after: p["startingAfter"],
+        status: p["status"],
+      },
+      {
+        created: {
+          style: "deepObject",
+          explode: true,
+        },
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -19579,7 +22088,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_treasury_outbound_payment>> {
     const url = `/v1/treasury/outbound_payments/${p["id"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -19653,14 +22172,22 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/treasury/outbound_transfers`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      financial_account: p["financialAccount"],
-      limit: p["limit"],
-      starting_after: p["startingAfter"],
-      status: p["status"],
-    })
+    const query = this._query(
+      {
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        financial_account: p["financialAccount"],
+        limit: p["limit"],
+        starting_after: p["startingAfter"],
+        status: p["status"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -19713,7 +22240,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_treasury_outbound_transfer>> {
     const url = `/v1/treasury/outbound_transfers/${p["outboundTransfer"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -19790,15 +22327,27 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/treasury/received_credits`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      financial_account: p["financialAccount"],
-      limit: p["limit"],
-      linked_flows: p["linkedFlows"],
-      starting_after: p["startingAfter"],
-      status: p["status"],
-    })
+    const query = this._query(
+      {
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        financial_account: p["financialAccount"],
+        limit: p["limit"],
+        linked_flows: p["linkedFlows"],
+        starting_after: p["startingAfter"],
+        status: p["status"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+        linked_flows: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -19819,7 +22368,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_treasury_received_credit>> {
     const url = `/v1/treasury/received_credits/${p["id"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -19851,14 +22410,22 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/treasury/received_debits`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      financial_account: p["financialAccount"],
-      limit: p["limit"],
-      starting_after: p["startingAfter"],
-      status: p["status"],
-    })
+    const query = this._query(
+      {
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        financial_account: p["financialAccount"],
+        limit: p["limit"],
+        starting_after: p["startingAfter"],
+        status: p["status"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -19879,7 +22446,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_treasury_received_debit>> {
     const url = `/v1/treasury/received_debits/${p["id"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -19928,17 +22505,33 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/treasury/transaction_entries`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      created: p["created"],
-      effective_at: p["effectiveAt"],
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      financial_account: p["financialAccount"],
-      limit: p["limit"],
-      order_by: p["orderBy"],
-      starting_after: p["startingAfter"],
-      transaction: p["transaction"],
-    })
+    const query = this._query(
+      {
+        created: p["created"],
+        effective_at: p["effectiveAt"],
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        financial_account: p["financialAccount"],
+        limit: p["limit"],
+        order_by: p["orderBy"],
+        starting_after: p["startingAfter"],
+        transaction: p["transaction"],
+      },
+      {
+        created: {
+          style: "deepObject",
+          explode: true,
+        },
+        effective_at: {
+          style: "deepObject",
+          explode: true,
+        },
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -19959,7 +22552,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_treasury_transaction_entry>> {
     const url = `/v1/treasury/transaction_entries/${p["id"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -20013,17 +22616,33 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/treasury/transactions`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      created: p["created"],
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      financial_account: p["financialAccount"],
-      limit: p["limit"],
-      order_by: p["orderBy"],
-      starting_after: p["startingAfter"],
-      status: p["status"],
-      status_transitions: p["statusTransitions"],
-    })
+    const query = this._query(
+      {
+        created: p["created"],
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        financial_account: p["financialAccount"],
+        limit: p["limit"],
+        order_by: p["orderBy"],
+        starting_after: p["startingAfter"],
+        status: p["status"],
+        status_transitions: p["statusTransitions"],
+      },
+      {
+        created: {
+          style: "deepObject",
+          explode: true,
+        },
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+        status_transitions: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -20044,7 +22663,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_treasury_transaction>> {
     const url = `/v1/treasury/transactions/${p["id"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -20074,12 +22703,20 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/webhook_endpoints`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      starting_after: p["startingAfter"],
-    })
+    const query = this._query(
+      {
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        starting_after: p["startingAfter"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -20151,7 +22788,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_webhook_endpoint>> {
     const url = `/v1/webhook_endpoints/${p["webhookEndpoint"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query(
+      {
+        expand: p["expand"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,

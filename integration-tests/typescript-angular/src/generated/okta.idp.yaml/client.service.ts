@@ -105,6 +105,15 @@ export type QueryParams = {
     | QueryParams[]
 }
 
+export type Style = "deepObject" | "form" | "pipeDelimited" | "spaceDelimited"
+
+export type Encoding = {
+  // allowReserved?: boolean;
+  // contentType?: string;
+  explode?: boolean
+  style?: Style
+}
+
 export type Server<T> = string & {__server__: T}
 
 @Injectable({
@@ -126,7 +135,11 @@ export class MyAccountManagementService {
     )
   }
 
-  private _queryParams(queryParams: QueryParams): HttpParams {
+  private _query(
+    queryParams: QueryParams,
+    // todo: use encodings
+    _encodings?: Record<string, Encoding>,
+  ): HttpParams {
     return Object.entries(queryParams).reduce((result, [name, value]) => {
       if (
         typeof value === "string" ||
@@ -281,7 +294,9 @@ export class MyAccountManagementService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({expand: p["expand"]})
+    const params = this._query({
+      expand: p["expand"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -306,7 +321,9 @@ export class MyAccountManagementService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({expand: p["expand"]})
+    const params = this._query({
+      expand: p["expand"],
+    })
 
     return this.httpClient.request<any>(
       "GET",

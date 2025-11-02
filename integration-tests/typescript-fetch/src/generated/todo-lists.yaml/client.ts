@@ -169,11 +169,23 @@ export class TodoListsExampleApi extends AbstractFetchClient {
   ): Promise<Res<200, t_TodoList[]>> {
     const url = this.basePath + `/list`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      created: p["created"],
-      statuses: p["statuses"],
-      tags: p["tags"],
-    })
+    const query = this._query(
+      {
+        created: p["created"],
+        statuses: p["statuses"],
+        tags: p["tags"],
+      },
+      {
+        statuses: {
+          style: "form",
+          explode: true,
+        },
+        tags: {
+          style: "form",
+          explode: true,
+        },
+      },
+    )
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }

@@ -672,26 +672,38 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_global_advisory[]>> {
     const url = `/advisories`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      ghsa_id: p["ghsaId"],
-      type: p["type"],
-      cve_id: p["cveId"],
-      ecosystem: p["ecosystem"],
-      severity: p["severity"],
-      cwes: p["cwes"],
-      is_withdrawn: p["isWithdrawn"],
-      affects: p["affects"],
-      published: p["published"],
-      updated: p["updated"],
-      modified: p["modified"],
-      epss_percentage: p["epssPercentage"],
-      epss_percentile: p["epssPercentile"],
-      before: p["before"],
-      after: p["after"],
-      direction: p["direction"],
-      per_page: p["perPage"],
-      sort: p["sort"],
-    })
+    const query = this._query(
+      {
+        ghsa_id: p["ghsaId"],
+        type: p["type"],
+        cve_id: p["cveId"],
+        ecosystem: p["ecosystem"],
+        severity: p["severity"],
+        cwes: p["cwes"],
+        is_withdrawn: p["isWithdrawn"],
+        affects: p["affects"],
+        published: p["published"],
+        updated: p["updated"],
+        modified: p["modified"],
+        epss_percentage: p["epssPercentage"],
+        epss_percentile: p["epssPercentile"],
+        before: p["before"],
+        after: p["after"],
+        direction: p["direction"],
+        per_page: p["perPage"],
+        sort: p["sort"],
+      },
+      {
+        cwes: {
+          style: "form",
+          explode: true,
+        },
+        affects: {
+          style: "form",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -816,7 +828,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_hook_delivery_item[]>> {
     const url = `/app/hook/deliveries`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], cursor: p["cursor"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      cursor: p["cursor"],
+    })
 
     return this._request({
       url: url + query,
@@ -879,7 +894,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_integration_installation_request[]>> {
     const url = `/app/installation-requests`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -1198,7 +1216,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_classroom_accepted_assignment[]>> {
     const url = `/assignments/${p["assignmentId"]}/accepted_assignments`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({page: p["page"], per_page: p["perPage"]})
+    const query = this._query({
+      page: p["page"],
+      per_page: p["perPage"],
+    })
 
     return this._request({
       url: url + query,
@@ -1238,7 +1259,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_simple_classroom[]>> {
     const url = `/classrooms`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({page: p["page"], per_page: p["perPage"]})
+    const query = this._query({
+      page: p["page"],
+      per_page: p["perPage"],
+    })
 
     return this._request({
       url: url + query,
@@ -1279,7 +1303,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_simple_classroom_assignment[]>> {
     const url = `/classrooms/${p["classroomId"]}/assignments`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({page: p["page"], per_page: p["perPage"]})
+    const query = this._query({
+      page: p["page"],
+      per_page: p["perPage"],
+    })
 
     return this._request({
       url: url + query,
@@ -1632,22 +1659,30 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_dependabot_alert_with_repository[]>> {
     const url = `/enterprises/${p["enterprise"]}/dependabot/alerts`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      state: p["state"],
-      severity: p["severity"],
-      ecosystem: p["ecosystem"],
-      package: p["package"],
-      epss_percentage: p["epssPercentage"],
-      has: p["has"],
-      scope: p["scope"],
-      sort: p["sort"],
-      direction: p["direction"],
-      before: p["before"],
-      after: p["after"],
-      first: p["first"],
-      last: p["last"],
-      per_page: p["perPage"],
-    })
+    const query = this._query(
+      {
+        state: p["state"],
+        severity: p["severity"],
+        ecosystem: p["ecosystem"],
+        package: p["package"],
+        epss_percentage: p["epssPercentage"],
+        has: p["has"],
+        scope: p["scope"],
+        sort: p["sort"],
+        direction: p["direction"],
+        before: p["before"],
+        after: p["after"],
+        first: p["first"],
+        last: p["last"],
+        per_page: p["perPage"],
+      },
+      {
+        has: {
+          style: "form",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -1713,7 +1748,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_event[]>> {
     const url = `/events`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -1916,7 +1954,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_gist_comment[]>> {
     const url = `/gists/${p["gistId"]}/comments`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -2029,7 +2070,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_gist_commit[]>> {
     const url = `/gists/${p["gistId"]}/commits`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -2051,7 +2095,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_gist_simple[]>> {
     const url = `/gists/${p["gistId"]}/forks`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -2209,7 +2256,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/installation/repositories`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -2412,7 +2462,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_marketplace_listing_plan[]>> {
     const url = `/marketplace_listing/plans`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -2481,7 +2534,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_marketplace_listing_plan[]>> {
     const url = `/marketplace_listing/stubbed/plans`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -2549,7 +2605,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_event[]>> {
     const url = `/networks/${p["owner"]}/${p["repo"]}/events`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -2760,7 +2819,9 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<string>> {
     const url = `/octocat`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({s: p["s"]})
+    const query = this._query({
+      s: p["s"],
+    })
 
     return this._request({
       url: url + query,
@@ -2781,7 +2842,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_organization_simple[]>> {
     const url = `/organizations`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({since: p["since"], per_page: p["perPage"]})
+    const query = this._query({
+      since: p["since"],
+      per_page: p["perPage"],
+    })
 
     return this._request({
       url: url + query,
@@ -2803,7 +2867,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_dependabot_repository_access_details>> {
     const url = `/organizations/${p["org"]}/dependabot/repository-access`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({page: p["page"], per_page: p["perPage"]})
+    const query = this._query({
+      page: p["page"],
+      per_page: p["perPage"],
+    })
 
     return this._request({
       url: url + query,
@@ -3000,7 +3067,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/orgs/${p["org"]}/actions/cache/usage-by-repository`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -3027,7 +3097,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/orgs/${p["org"]}/actions/hosted-runners`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -3348,7 +3421,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/orgs/${p["org"]}/actions/permissions/repositories`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -3662,7 +3738,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}/hosted-runners`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -3690,7 +3769,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}/repositories`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({page: p["page"], per_page: p["perPage"]})
+    const query = this._query({
+      page: p["page"],
+      per_page: p["perPage"],
+    })
 
     return this._request({
       url: url + query,
@@ -3786,7 +3868,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}/runners`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -4178,7 +4263,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/orgs/${p["org"]}/actions/secrets`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -4291,7 +4379,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/orgs/${p["org"]}/actions/secrets/${p["secretName"]}/repositories`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({page: p["page"], per_page: p["perPage"]})
+    const query = this._query({
+      page: p["page"],
+      per_page: p["perPage"],
+    })
 
     return this._request({
       url: url + query,
@@ -4386,7 +4477,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/orgs/${p["org"]}/actions/variables`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -4505,7 +4599,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/orgs/${p["org"]}/actions/variables/${p["name"]}/repositories`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({page: p["page"], per_page: p["perPage"]})
+    const query = this._query({
+      page: p["page"],
+      per_page: p["perPage"],
+    })
 
     return this._request({
       url: url + query,
@@ -4786,7 +4883,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_simple_user[]>> {
     const url = `/orgs/${p["org"]}/blocks`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -5306,7 +5406,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/orgs/${p["org"]}/codespaces`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -5408,7 +5511,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/orgs/${p["org"]}/codespaces/secrets`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -5521,7 +5627,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/orgs/${p["org"]}/codespaces/secrets/${p["secretName"]}/repositories`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({page: p["page"], per_page: p["perPage"]})
+    const query = this._query({
+      page: p["page"],
+      per_page: p["perPage"],
+    })
 
     return this._request({
       url: url + query,
@@ -5635,7 +5744,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/orgs/${p["org"]}/copilot/billing/seats`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({page: p["page"], per_page: p["perPage"]})
+    const query = this._query({
+      page: p["page"],
+      per_page: p["perPage"],
+    })
 
     return this._request({
       url: url + query,
@@ -5814,22 +5926,30 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_dependabot_alert_with_repository[]>> {
     const url = `/orgs/${p["org"]}/dependabot/alerts`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      state: p["state"],
-      severity: p["severity"],
-      ecosystem: p["ecosystem"],
-      package: p["package"],
-      epss_percentage: p["epssPercentage"],
-      has: p["has"],
-      scope: p["scope"],
-      sort: p["sort"],
-      direction: p["direction"],
-      before: p["before"],
-      after: p["after"],
-      first: p["first"],
-      last: p["last"],
-      per_page: p["perPage"],
-    })
+    const query = this._query(
+      {
+        state: p["state"],
+        severity: p["severity"],
+        ecosystem: p["ecosystem"],
+        package: p["package"],
+        epss_percentage: p["epssPercentage"],
+        has: p["has"],
+        scope: p["scope"],
+        sort: p["sort"],
+        direction: p["direction"],
+        before: p["before"],
+        after: p["after"],
+        first: p["first"],
+        last: p["last"],
+        per_page: p["perPage"],
+      },
+      {
+        has: {
+          style: "form",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -5856,7 +5976,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/orgs/${p["org"]}/dependabot/secrets`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -5969,7 +6092,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/orgs/${p["org"]}/dependabot/secrets/${p["secretName"]}/repositories`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({page: p["page"], per_page: p["perPage"]})
+    const query = this._query({
+      page: p["page"],
+      per_page: p["perPage"],
+    })
 
     return this._request({
       url: url + query,
@@ -6078,7 +6204,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_event[]>> {
     const url = `/orgs/${p["org"]}/events`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -6100,7 +6229,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_organization_invitation[]>> {
     const url = `/orgs/${p["org"]}/failed_invitations`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -6122,7 +6254,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_org_hook[]>> {
     const url = `/orgs/${p["org"]}/hooks`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -6292,7 +6427,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_hook_delivery_item[]>> {
     const url = `/orgs/${p["org"]}/hooks/${p["hookId"]}/deliveries`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], cursor: p["cursor"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      cursor: p["cursor"],
+    })
 
     return this._request({
       url: url + query,
@@ -6401,15 +6539,23 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_api_insights_route_stats>> {
     const url = `/orgs/${p["org"]}/insights/api/route-stats/${p["actorType"]}/${p["actorId"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      min_timestamp: p["minTimestamp"],
-      max_timestamp: p["maxTimestamp"],
-      page: p["page"],
-      per_page: p["perPage"],
-      direction: p["direction"],
-      sort: p["sort"],
-      api_route_substring: p["apiRouteSubstring"],
-    })
+    const query = this._query(
+      {
+        min_timestamp: p["minTimestamp"],
+        max_timestamp: p["maxTimestamp"],
+        page: p["page"],
+        per_page: p["perPage"],
+        direction: p["direction"],
+        sort: p["sort"],
+        api_route_substring: p["apiRouteSubstring"],
+      },
+      {
+        sort: {
+          style: "form",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -6443,15 +6589,23 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_api_insights_subject_stats>> {
     const url = `/orgs/${p["org"]}/insights/api/subject-stats`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      min_timestamp: p["minTimestamp"],
-      max_timestamp: p["maxTimestamp"],
-      page: p["page"],
-      per_page: p["perPage"],
-      direction: p["direction"],
-      sort: p["sort"],
-      subject_name_substring: p["subjectNameSubstring"],
-    })
+    const query = this._query(
+      {
+        min_timestamp: p["minTimestamp"],
+        max_timestamp: p["maxTimestamp"],
+        page: p["page"],
+        per_page: p["perPage"],
+        direction: p["direction"],
+        sort: p["sort"],
+        subject_name_substring: p["subjectNameSubstring"],
+      },
+      {
+        sort: {
+          style: "form",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -6660,15 +6814,23 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_api_insights_user_stats>> {
     const url = `/orgs/${p["org"]}/insights/api/user-stats/${p["userId"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      min_timestamp: p["minTimestamp"],
-      max_timestamp: p["maxTimestamp"],
-      page: p["page"],
-      per_page: p["perPage"],
-      direction: p["direction"],
-      sort: p["sort"],
-      actor_name_substring: p["actorNameSubstring"],
-    })
+    const query = this._query(
+      {
+        min_timestamp: p["minTimestamp"],
+        max_timestamp: p["maxTimestamp"],
+        page: p["page"],
+        per_page: p["perPage"],
+        direction: p["direction"],
+        sort: p["sort"],
+        actor_name_substring: p["actorNameSubstring"],
+      },
+      {
+        sort: {
+          style: "form",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -6714,7 +6876,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/orgs/${p["org"]}/installations`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -6885,7 +7050,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_team[]>> {
     const url = `/orgs/${p["org"]}/invitations/${p["invitationId"]}/teams`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -7118,7 +7286,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/orgs/${p["org"]}/members/${p["username"]}/codespaces`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -7278,11 +7449,19 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_migration[]>> {
     const url = `/orgs/${p["org"]}/migrations`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      per_page: p["perPage"],
-      page: p["page"],
-      exclude: p["exclude"],
-    })
+    const query = this._query(
+      {
+        per_page: p["perPage"],
+        page: p["page"],
+        exclude: p["exclude"],
+      },
+      {
+        exclude: {
+          style: "form",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -7329,7 +7508,17 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_migration>> {
     const url = `/orgs/${p["org"]}/migrations/${p["migrationId"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({exclude: p["exclude"]})
+    const query = this._query(
+      {
+        exclude: p["exclude"],
+      },
+      {
+        exclude: {
+          style: "form",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -7413,7 +7602,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_minimal_repository[]>> {
     const url = `/orgs/${p["org"]}/migrations/${p["migrationId"]}/repositories`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -7604,7 +7796,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_team_role_assignment[]>> {
     const url = `/orgs/${p["org"]}/organization-roles/${p["roleId"]}/teams`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -7627,7 +7822,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_user_role_assignment[]>> {
     const url = `/orgs/${p["org"]}/organization-roles/${p["roleId"]}/users`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -7827,7 +8025,9 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/packages/${p["packageType"]}/${p["packageName"]}/restore`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({token: p["token"]})
+    const query = this._query({
+      token: p["token"],
+    })
 
     return this._request({
       url: url + query,
@@ -7982,18 +8182,30 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/orgs/${p["org"]}/personal-access-token-requests`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      per_page: p["perPage"],
-      page: p["page"],
-      sort: p["sort"],
-      direction: p["direction"],
-      owner: p["owner"],
-      repository: p["repository"],
-      permission: p["permission"],
-      last_used_before: p["lastUsedBefore"],
-      last_used_after: p["lastUsedAfter"],
-      token_id: p["tokenId"],
-    })
+    const query = this._query(
+      {
+        per_page: p["perPage"],
+        page: p["page"],
+        sort: p["sort"],
+        direction: p["direction"],
+        owner: p["owner"],
+        repository: p["repository"],
+        permission: p["permission"],
+        last_used_before: p["lastUsedBefore"],
+        last_used_after: p["lastUsedAfter"],
+        token_id: p["tokenId"],
+      },
+      {
+        owner: {
+          style: "form",
+          explode: true,
+        },
+        token_id: {
+          style: "form",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -8071,7 +8283,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_minimal_repository[]>> {
     const url = `/orgs/${p["org"]}/personal-access-token-requests/${p["patRequestId"]}/repositories`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -8101,18 +8316,30 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_organization_programmatic_access_grant[]>> {
     const url = `/orgs/${p["org"]}/personal-access-tokens`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      per_page: p["perPage"],
-      page: p["page"],
-      sort: p["sort"],
-      direction: p["direction"],
-      owner: p["owner"],
-      repository: p["repository"],
-      permission: p["permission"],
-      last_used_before: p["lastUsedBefore"],
-      last_used_after: p["lastUsedAfter"],
-      token_id: p["tokenId"],
-    })
+    const query = this._query(
+      {
+        per_page: p["perPage"],
+        page: p["page"],
+        sort: p["sort"],
+        direction: p["direction"],
+        owner: p["owner"],
+        repository: p["repository"],
+        permission: p["permission"],
+        last_used_before: p["lastUsedBefore"],
+        last_used_after: p["lastUsedAfter"],
+        token_id: p["tokenId"],
+      },
+      {
+        owner: {
+          style: "form",
+          explode: true,
+        },
+        token_id: {
+          style: "form",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -8190,7 +8417,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_minimal_repository[]>> {
     const url = `/orgs/${p["org"]}/personal-access-tokens/${p["patId"]}/repositories`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -8217,7 +8447,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/orgs/${p["org"]}/private-registries`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -8570,7 +8803,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_simple_user[]>> {
     const url = `/orgs/${p["org"]}/public_members`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -8904,7 +9140,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_ruleset_version[]>> {
     const url = `/orgs/${p["org"]}/rulesets/${p["rulesetId"]}/history`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -9153,7 +9392,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/orgs/${p["org"]}/settings/network-configurations`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -9316,7 +9558,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_team[]>> {
     const url = `/orgs/${p["org"]}/teams`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -9870,7 +10115,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_organization_invitation[]>> {
     const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/invitations`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -9995,7 +10243,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_team_project[]>> {
     const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/projects`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -10092,7 +10343,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_minimal_repository[]>> {
     const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/repos`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -10192,7 +10446,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_team[]>> {
     const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/teams`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -10657,7 +10914,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_project_column[]>> {
     const url = `/projects/${p["projectId"]}/columns`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -10947,7 +11207,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_actions_cache_list>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/caches`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({key: p["key"], ref: p["ref"]})
+    const query = this._query({
+      key: p["key"],
+      ref: p["ref"],
+    })
 
     return this._request({
       url: url + query,
@@ -11116,7 +11379,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/organization-secrets`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -11144,7 +11410,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/organization-variables`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -11727,7 +11996,9 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_workflow_run>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({exclude_pull_requests: p["excludePullRequests"]})
+    const query = this._query({
+      exclude_pull_requests: p["excludePullRequests"],
+    })
 
     return this._request({
       url: url + query,
@@ -11848,7 +12119,9 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_workflow_run>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/attempts/${p["attemptNumber"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({exclude_pull_requests: p["excludePullRequests"]})
+    const query = this._query({
+      exclude_pull_requests: p["excludePullRequests"],
+    })
 
     return this._request({
       url: url + query,
@@ -11878,7 +12151,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/attempts/${p["attemptNumber"]}/jobs`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -12206,7 +12482,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/secrets`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -12323,7 +12602,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/variables`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -12446,7 +12728,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/workflows`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -12694,7 +12979,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_simple_user[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/assignees`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -13935,7 +14223,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_check_annotation[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/check-runs/${p["checkRunId"]}/annotations`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -14375,7 +14666,9 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_code_scanning_analysis_deletion>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/code-scanning/analyses/${p["analysisId"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({confirm_delete: p["confirmDelete"]})
+    const query = this._query({
+      confirm_delete: p["confirmDelete"],
+    })
 
     return this._request({
       url: url + query,
@@ -14648,7 +14941,9 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_codeowners_errors>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/codeowners/errors`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({ref: p["ref"]})
+    const query = this._query({
+      ref: p["ref"],
+    })
 
     return this._request({
       url: url + query,
@@ -14676,7 +14971,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/codespaces`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -14734,7 +15032,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/codespaces/devcontainers`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -14800,7 +15101,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/codespaces/new`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({ref: p["ref"], client_ip: p["clientIp"]})
+    const query = this._query({
+      ref: p["ref"],
+      client_ip: p["clientIp"],
+    })
 
     return this._request({
       url: url + query,
@@ -14854,7 +15158,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/codespaces/secrets`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -15097,7 +15404,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_commit_comment[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/comments`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -15336,7 +15646,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_commit_comment[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/commits/${p["commitSha"]}/comments`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -15387,7 +15700,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_pull_request_simple[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/commits/${p["commitSha"]}/pulls`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -15411,7 +15727,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_commit>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/commits/${p["ref"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({page: p["page"], per_page: p["perPage"]})
+    const query = this._query({
+      page: p["page"],
+      per_page: p["perPage"],
+    })
 
     return this._request({
       url: url + query,
@@ -15511,7 +15830,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_combined_commit_status>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/commits/${p["ref"]}/status`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -15535,7 +15857,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_status[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/commits/${p["ref"]}/statuses`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -15579,7 +15904,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_commit_comparison>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/compare/${p["basehead"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({page: p["page"], per_page: p["perPage"]})
+    const query = this._query({
+      page: p["page"],
+      per_page: p["perPage"],
+    })
 
     return this._request({
       url: url + query,
@@ -15609,7 +15937,9 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/contents/${p["path"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({ref: p["ref"]})
+    const query = this._query({
+      ref: p["ref"],
+    })
 
     return this._request({
       url: url + query,
@@ -15728,24 +16058,32 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_dependabot_alert[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/dependabot/alerts`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      state: p["state"],
-      severity: p["severity"],
-      ecosystem: p["ecosystem"],
-      package: p["package"],
-      manifest: p["manifest"],
-      epss_percentage: p["epssPercentage"],
-      has: p["has"],
-      scope: p["scope"],
-      sort: p["sort"],
-      direction: p["direction"],
-      page: p["page"],
-      per_page: p["perPage"],
-      before: p["before"],
-      after: p["after"],
-      first: p["first"],
-      last: p["last"],
-    })
+    const query = this._query(
+      {
+        state: p["state"],
+        severity: p["severity"],
+        ecosystem: p["ecosystem"],
+        package: p["package"],
+        manifest: p["manifest"],
+        epss_percentage: p["epssPercentage"],
+        has: p["has"],
+        scope: p["scope"],
+        sort: p["sort"],
+        direction: p["direction"],
+        page: p["page"],
+        per_page: p["perPage"],
+        before: p["before"],
+        after: p["after"],
+        first: p["first"],
+        last: p["last"],
+      },
+      {
+        has: {
+          style: "form",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -15821,7 +16159,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/dependabot/secrets`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -15933,7 +16274,9 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_dependency_graph_diff>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/dependency-graph/compare/${p["basehead"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({name: p["name"]})
+    const query = this._query({
+      name: p["name"],
+    })
 
     return this._request({
       url: url + query,
@@ -16117,7 +16460,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_deployment_status[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/deployments/${p["deploymentId"]}/statuses`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -16220,7 +16566,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/environments`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -16323,7 +16672,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/deployment-branch-policies`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -16508,7 +16860,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/deployment_protection_rules/apps`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({page: p["page"], per_page: p["perPage"]})
+    const query = this._query({
+      page: p["page"],
+      per_page: p["perPage"],
+    })
 
     return this._request({
       url: url + query,
@@ -16581,7 +16936,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/secrets`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -16703,7 +17061,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/variables`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -16825,7 +17186,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_event[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/events`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -17195,7 +17559,9 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_git_tree>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/git/trees/${p["treeSha"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({recursive: p["recursive"]})
+    const query = this._query({
+      recursive: p["recursive"],
+    })
 
     return this._request({
       url: url + query,
@@ -17218,7 +17584,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_hook[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/hooks`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -17395,7 +17764,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_hook_delivery_item[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}/deliveries`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], cursor: p["cursor"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      cursor: p["cursor"],
+    })
 
     return this._request({
       url: url + query,
@@ -17604,7 +17976,9 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_porter_author[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/import/authors`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({since: p["since"]})
+    const query = this._query({
+      since: p["since"],
+    })
 
     return this._request({
       url: url + query,
@@ -17791,7 +18165,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_repository_invitation[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/invitations`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -18127,7 +18504,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_issue_event[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/issues/events`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -18362,7 +18742,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_issue_event_for_issue[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/events`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -18386,7 +18769,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_label[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/labels`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -18684,7 +19070,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_issue[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/sub_issues`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -18762,7 +19151,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_timeline_issue_events[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/timeline`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -18785,7 +19177,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_deploy_key[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/keys`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -18876,7 +19271,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_label[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/labels`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -19018,7 +19416,9 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_license_content>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/license`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({ref: p["ref"]})
+    const query = this._query({
+      ref: p["ref"],
+    })
 
     return this._request({
       url: url + query,
@@ -19226,7 +19626,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_label[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/milestones/${p["milestoneNumber"]}/labels`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -19412,7 +19815,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_page_build[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pages/builds`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -20174,7 +20580,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_commit[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/commits`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -20198,7 +20607,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_diff_entry[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/files`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -20355,7 +20767,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_pull_request_review[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/reviews`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -20484,7 +20899,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_review_comment[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/reviews/${p["reviewId"]}/comments`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -20599,7 +21017,9 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_content_file>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/readme`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({ref: p["ref"]})
+    const query = this._query({
+      ref: p["ref"],
+    })
 
     return this._request({
       url: url + query,
@@ -20622,7 +21042,9 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_content_file>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/readme/${p["dir"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({ref: p["ref"]})
+    const query = this._query({
+      ref: p["ref"],
+    })
 
     return this._request({
       url: url + query,
@@ -20645,7 +21067,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_release[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/releases`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -20910,7 +21335,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_release_asset[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/releases/${p["releaseId"]}/assets`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -20940,7 +21368,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_release_asset>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/releases/${p["releaseId"]}/assets`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({name: p["name"], label: p["label"]})
+    const query = this._query({
+      name: p["name"],
+      label: p["label"],
+    })
 
     return this._request({
       url: url + query,
@@ -21051,7 +21482,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_repository_rule_detailed[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/rules/branches/${p["branch"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -21190,7 +21624,9 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_repository_ruleset>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/rulesets/${p["rulesetId"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({includes_parents: p["includesParents"]})
+    const query = this._query({
+      includes_parents: p["includesParents"],
+    })
 
     return this._request({
       url: url + query,
@@ -21267,7 +21703,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_ruleset_version[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/rulesets/${p["rulesetId"]}/history`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -21360,7 +21799,9 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_secret_scanning_alert>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/secret-scanning/alerts/${p["alertNumber"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({hide_secret: p["hideSecret"]})
+    const query = this._query({
+      hide_secret: p["hideSecret"],
+    })
 
     return this._request({
       url: url + query,
@@ -21411,7 +21852,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_secret_scanning_location[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/secret-scanning/alerts/${p["alertNumber"]}/locations`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({page: p["page"], per_page: p["perPage"]})
+    const query = this._query({
+      page: p["page"],
+      per_page: p["perPage"],
+    })
 
     return this._request({
       url: url + query,
@@ -21665,7 +22109,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_simple_user[] | t_stargazer[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/stargazers`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -21833,7 +22280,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_simple_user[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/subscribers`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -21927,7 +22377,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_tag[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/tags`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -22038,7 +22491,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_team[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/teams`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -22061,7 +22517,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_topic>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/topics`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({page: p["page"], per_page: p["perPage"]})
+    const query = this._query({
+      page: p["page"],
+      per_page: p["perPage"],
+    })
 
     return this._request({
       url: url + query,
@@ -22109,7 +22568,9 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_clone_traffic>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/traffic/clones`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per: p["per"]})
+    const query = this._query({
+      per: p["per"],
+    })
 
     return this._request({
       url: url + query,
@@ -22171,7 +22632,9 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_view_traffic>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/traffic/views`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per: p["per"]})
+    const query = this._query({
+      per: p["per"],
+    })
 
     return this._request({
       url: url + query,
@@ -22324,7 +22787,9 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_minimal_repository[]>> {
     const url = `/repositories`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({since: p["since"]})
+    const query = this._query({
+      since: p["since"],
+    })
 
     return this._request({
       url: url + query,
@@ -23052,7 +23517,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_organization_invitation[]>> {
     const url = `/teams/${p["teamId"]}/invitations`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -23232,7 +23700,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_team_project[]>> {
     const url = `/teams/${p["teamId"]}/projects`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -23325,7 +23796,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_minimal_repository[]>> {
     const url = `/teams/${p["teamId"]}/repos`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -23421,7 +23895,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_team[]>> {
     const url = `/teams/${p["teamId"]}/teams`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -23487,7 +23964,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_simple_user[]>> {
     const url = `/user/blocks`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -23625,7 +24105,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/user/codespaces/secrets`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -24052,7 +24535,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_email[]>> {
     const url = `/user/emails`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -24126,7 +24612,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_simple_user[]>> {
     const url = `/user/followers`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -24147,7 +24636,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_simple_user[]>> {
     const url = `/user/following`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -24225,7 +24717,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_gpg_key[]>> {
     const url = `/user/gpg_keys`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -24313,7 +24808,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/user/installations`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -24341,7 +24839,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/user/installations/${p["installationId"]}/repositories`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -24504,7 +25005,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_key[]>> {
     const url = `/user/keys`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -24587,7 +25091,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_user_marketplace_purchase[]>> {
     const url = `/user/marketplace_purchases`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -24608,7 +25115,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_user_marketplace_purchase[]>> {
     const url = `/user/marketplace_purchases/stubbed`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -24699,7 +25209,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_migration[]>> {
     const url = `/user/migrations`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -24744,7 +25257,17 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_migration>> {
     const url = `/user/migrations/${p["migrationId"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({exclude: p["exclude"]})
+    const query = this._query(
+      {
+        exclude: p["exclude"],
+      },
+      {
+        exclude: {
+          style: "form",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -24824,7 +25347,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_minimal_repository[]>> {
     const url = `/user/migrations/${p["migrationId"]}/repositories`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -24845,7 +25371,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_organization_simple[]>> {
     const url = `/user/orgs`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -24963,7 +25492,9 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/user/packages/${p["packageType"]}/${p["packageName"]}/restore`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({token: p["token"]})
+    const query = this._query({
+      token: p["token"],
+    })
 
     return this._request({
       url: url + query,
@@ -25127,7 +25658,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_email[]>> {
     const url = `/user/public_emails`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -25221,7 +25755,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_repository_invitation[]>> {
     const url = `/user/repository_invitations`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -25280,7 +25817,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_social_account[]>> {
     const url = `/user/social_accounts`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -25349,7 +25889,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_ssh_signing_key[]>> {
     const url = `/user/ssh_signing_keys`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -25520,7 +26063,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_minimal_repository[]>> {
     const url = `/user/subscriptions`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -25541,7 +26087,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_team_full[]>> {
     const url = `/user/teams`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -25581,7 +26130,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_simple_user[]>> {
     const url = `/users`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({since: p["since"], per_page: p["perPage"]})
+    const query = this._query({
+      since: p["since"],
+      per_page: p["perPage"],
+    })
 
     return this._request({
       url: url + query,
@@ -25834,7 +26386,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_event[]>> {
     const url = `/users/${p["username"]}/events`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -25857,7 +26412,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_event[]>> {
     const url = `/users/${p["username"]}/events/orgs/${p["org"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -25879,7 +26437,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_event[]>> {
     const url = `/users/${p["username"]}/events/public`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -25901,7 +26462,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_simple_user[]>> {
     const url = `/users/${p["username"]}/followers`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -25923,7 +26487,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_simple_user[]>> {
     const url = `/users/${p["username"]}/following`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -25992,7 +26559,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_gpg_key[]>> {
     const url = `/users/${p["username"]}/gpg_keys`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -26063,7 +26633,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_key_simple[]>> {
     const url = `/users/${p["username"]}/keys`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -26085,7 +26658,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_organization_simple[]>> {
     const url = `/users/${p["username"]}/orgs`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -26207,7 +26783,9 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/users/${p["username"]}/packages/${p["packageType"]}/${p["packageName"]}/restore`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({token: p["token"]})
+    const query = this._query({
+      token: p["token"],
+    })
 
     return this._request({
       url: url + query,
@@ -26371,7 +26949,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_event[]>> {
     const url = `/users/${p["username"]}/received_events`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -26393,7 +26974,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_event[]>> {
     const url = `/users/${p["username"]}/received_events/public`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -26537,7 +27121,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_social_account[]>> {
     const url = `/users/${p["username"]}/social_accounts`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -26559,7 +27146,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_ssh_signing_key[]>> {
     const url = `/users/${p["username"]}/ssh_signing_keys`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,
@@ -26610,7 +27200,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_minimal_repository[]>> {
     const url = `/users/${p["username"]}/subscriptions`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._request({
       url: url + query,

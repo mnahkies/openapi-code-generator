@@ -675,26 +675,38 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   > {
     const url = this.basePath + `/advisories`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      ghsa_id: p["ghsaId"],
-      type: p["type"],
-      cve_id: p["cveId"],
-      ecosystem: p["ecosystem"],
-      severity: p["severity"],
-      cwes: p["cwes"],
-      is_withdrawn: p["isWithdrawn"],
-      affects: p["affects"],
-      published: p["published"],
-      updated: p["updated"],
-      modified: p["modified"],
-      epss_percentage: p["epssPercentage"],
-      epss_percentile: p["epssPercentile"],
-      before: p["before"],
-      after: p["after"],
-      direction: p["direction"],
-      per_page: p["perPage"],
-      sort: p["sort"],
-    })
+    const query = this._query(
+      {
+        ghsa_id: p["ghsaId"],
+        type: p["type"],
+        cve_id: p["cveId"],
+        ecosystem: p["ecosystem"],
+        severity: p["severity"],
+        cwes: p["cwes"],
+        is_withdrawn: p["isWithdrawn"],
+        affects: p["affects"],
+        published: p["published"],
+        updated: p["updated"],
+        modified: p["modified"],
+        epss_percentage: p["epssPercentage"],
+        epss_percentile: p["epssPercentile"],
+        before: p["before"],
+        after: p["after"],
+        direction: p["direction"],
+        per_page: p["perPage"],
+        sort: p["sort"],
+      },
+      {
+        cwes: {
+          style: "form",
+          explode: true,
+        },
+        affects: {
+          style: "form",
+          explode: true,
+        },
+      },
+    )
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -789,7 +801,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   > {
     const url = this.basePath + `/app/hook/deliveries`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], cursor: p["cursor"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      cursor: p["cursor"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -848,7 +863,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   > {
     const url = this.basePath + `/app/installation-requests`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -1099,7 +1117,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     const url =
       this.basePath + `/assignments/${p["assignmentId"]}/accepted_assignments`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({page: p["page"], per_page: p["perPage"]})
+    const query = this._query({
+      page: p["page"],
+      per_page: p["perPage"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -1129,7 +1150,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   ): Promise<Res<200, t_simple_classroom[]>> {
     const url = this.basePath + `/classrooms`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({page: p["page"], per_page: p["perPage"]})
+    const query = this._query({
+      page: p["page"],
+      per_page: p["perPage"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -1158,7 +1182,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   ): Promise<Res<200, t_simple_classroom_assignment[]>> {
     const url = this.basePath + `/classrooms/${p["classroomId"]}/assignments`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({page: p["page"], per_page: p["perPage"]})
+    const query = this._query({
+      page: p["page"],
+      per_page: p["perPage"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -1496,22 +1523,30 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     const url =
       this.basePath + `/enterprises/${p["enterprise"]}/dependabot/alerts`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      state: p["state"],
-      severity: p["severity"],
-      ecosystem: p["ecosystem"],
-      package: p["package"],
-      epss_percentage: p["epssPercentage"],
-      has: p["has"],
-      scope: p["scope"],
-      sort: p["sort"],
-      direction: p["direction"],
-      before: p["before"],
-      after: p["after"],
-      first: p["first"],
-      last: p["last"],
-      per_page: p["perPage"],
-    })
+    const query = this._query(
+      {
+        state: p["state"],
+        severity: p["severity"],
+        ecosystem: p["ecosystem"],
+        package: p["package"],
+        epss_percentage: p["epssPercentage"],
+        has: p["has"],
+        scope: p["scope"],
+        sort: p["sort"],
+        direction: p["direction"],
+        before: p["before"],
+        after: p["after"],
+        first: p["first"],
+        last: p["last"],
+        per_page: p["perPage"],
+      },
+      {
+        has: {
+          style: "form",
+          explode: true,
+        },
+      },
+    )
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -1589,7 +1624,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   > {
     const url = this.basePath + `/events`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -1784,7 +1822,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   > {
     const url = this.basePath + `/gists/${p["gistId"]}/comments`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -1899,7 +1940,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   > {
     const url = this.basePath + `/gists/${p["gistId"]}/commits`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -1920,7 +1964,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   > {
     const url = this.basePath + `/gists/${p["gistId"]}/forks`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -2062,7 +2109,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   > {
     const url = this.basePath + `/installation/repositories`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -2234,7 +2284,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   > {
     const url = this.basePath + `/marketplace_listing/plans`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -2294,7 +2347,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   ): Promise<Res<200, t_marketplace_listing_plan[]> | Res<401, t_basic_error>> {
     const url = this.basePath + `/marketplace_listing/stubbed/plans`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -2352,7 +2408,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   > {
     const url = this.basePath + `/networks/${p["owner"]}/${p["repo"]}/events`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -2542,7 +2601,9 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   ): Promise<Res<200, string>> {
     const url = this.basePath + `/octocat`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({s: p["s"]})
+    const query = this._query({
+      s: p["s"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -2557,7 +2618,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   ): Promise<Res<200, t_organization_simple[]> | Res<304, void>> {
     const url = this.basePath + `/organizations`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({since: p["since"], per_page: p["perPage"]})
+    const query = this._query({
+      since: p["since"],
+      per_page: p["perPage"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -2578,7 +2642,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     const url =
       this.basePath + `/organizations/${p["org"]}/dependabot/repository-access`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({page: p["page"], per_page: p["perPage"]})
+    const query = this._query({
+      page: p["page"],
+      per_page: p["perPage"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -2758,7 +2825,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     const url =
       this.basePath + `/orgs/${p["org"]}/actions/cache/usage-by-repository`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -2782,7 +2852,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   > {
     const url = this.basePath + `/orgs/${p["org"]}/actions/hosted-runners`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -3047,7 +3120,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     const url =
       this.basePath + `/orgs/${p["org"]}/actions/permissions/repositories`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -3299,7 +3375,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}/hosted-runners`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -3326,7 +3405,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}/repositories`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({page: p["page"], per_page: p["perPage"]})
+    const query = this._query({
+      page: p["page"],
+      per_page: p["perPage"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -3408,7 +3490,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}/runners`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -3755,7 +3840,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   > {
     const url = this.basePath + `/orgs/${p["org"]}/actions/secrets`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -3845,7 +3933,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/orgs/${p["org"]}/actions/secrets/${p["secretName"]}/repositories`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({page: p["page"], per_page: p["perPage"]})
+    const query = this._query({
+      page: p["page"],
+      per_page: p["perPage"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -3924,7 +4015,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   > {
     const url = this.basePath + `/orgs/${p["org"]}/actions/variables`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -4020,7 +4114,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/orgs/${p["org"]}/actions/variables/${p["name"]}/repositories`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({page: p["page"], per_page: p["perPage"]})
+    const query = this._query({
+      page: p["page"],
+      per_page: p["perPage"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -4251,7 +4348,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   ): Promise<Res<200, t_simple_user[]>> {
     const url = this.basePath + `/orgs/${p["org"]}/blocks`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -4774,7 +4874,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   > {
     const url = this.basePath + `/orgs/${p["org"]}/codespaces`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -4875,7 +4978,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   > {
     const url = this.basePath + `/orgs/${p["org"]}/codespaces/secrets`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -4972,7 +5078,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/orgs/${p["org"]}/codespaces/secrets/${p["secretName"]}/repositories`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({page: p["page"], per_page: p["perPage"]})
+    const query = this._query({
+      page: p["page"],
+      per_page: p["perPage"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -5085,7 +5194,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   > {
     const url = this.basePath + `/orgs/${p["org"]}/copilot/billing/seats`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({page: p["page"], per_page: p["perPage"]})
+    const query = this._query({
+      page: p["page"],
+      per_page: p["perPage"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -5273,22 +5385,30 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   > {
     const url = this.basePath + `/orgs/${p["org"]}/dependabot/alerts`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      state: p["state"],
-      severity: p["severity"],
-      ecosystem: p["ecosystem"],
-      package: p["package"],
-      epss_percentage: p["epssPercentage"],
-      has: p["has"],
-      scope: p["scope"],
-      sort: p["sort"],
-      direction: p["direction"],
-      before: p["before"],
-      after: p["after"],
-      first: p["first"],
-      last: p["last"],
-      per_page: p["perPage"],
-    })
+    const query = this._query(
+      {
+        state: p["state"],
+        severity: p["severity"],
+        ecosystem: p["ecosystem"],
+        package: p["package"],
+        epss_percentage: p["epssPercentage"],
+        has: p["has"],
+        scope: p["scope"],
+        sort: p["sort"],
+        direction: p["direction"],
+        before: p["before"],
+        after: p["after"],
+        first: p["first"],
+        last: p["last"],
+        per_page: p["perPage"],
+      },
+      {
+        has: {
+          style: "form",
+          explode: true,
+        },
+      },
+    )
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -5312,7 +5432,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   > {
     const url = this.basePath + `/orgs/${p["org"]}/dependabot/secrets`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -5403,7 +5526,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/orgs/${p["org"]}/dependabot/secrets/${p["secretName"]}/repositories`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({page: p["page"], per_page: p["perPage"]})
+    const query = this._query({
+      page: p["page"],
+      per_page: p["perPage"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -5489,7 +5615,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   ): Promise<Res<200, t_event[]>> {
     const url = this.basePath + `/orgs/${p["org"]}/events`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -5505,7 +5634,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   ): Promise<Res<200, t_organization_invitation[]> | Res<404, t_basic_error>> {
     const url = this.basePath + `/orgs/${p["org"]}/failed_invitations`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -5521,7 +5653,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   ): Promise<Res<200, t_org_hook[]> | Res<404, t_basic_error>> {
     const url = this.basePath + `/orgs/${p["org"]}/hooks`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -5659,7 +5794,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     const url =
       this.basePath + `/orgs/${p["org"]}/hooks/${p["hookId"]}/deliveries`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], cursor: p["cursor"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      cursor: p["cursor"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -5759,15 +5897,23 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/orgs/${p["org"]}/insights/api/route-stats/${p["actorType"]}/${p["actorId"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      min_timestamp: p["minTimestamp"],
-      max_timestamp: p["maxTimestamp"],
-      page: p["page"],
-      per_page: p["perPage"],
-      direction: p["direction"],
-      sort: p["sort"],
-      api_route_substring: p["apiRouteSubstring"],
-    })
+    const query = this._query(
+      {
+        min_timestamp: p["minTimestamp"],
+        max_timestamp: p["maxTimestamp"],
+        page: p["page"],
+        per_page: p["perPage"],
+        direction: p["direction"],
+        sort: p["sort"],
+        api_route_substring: p["apiRouteSubstring"],
+      },
+      {
+        sort: {
+          style: "form",
+          explode: true,
+        },
+      },
+    )
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -5795,15 +5941,23 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   ): Promise<Res<200, t_api_insights_subject_stats>> {
     const url = this.basePath + `/orgs/${p["org"]}/insights/api/subject-stats`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      min_timestamp: p["minTimestamp"],
-      max_timestamp: p["maxTimestamp"],
-      page: p["page"],
-      per_page: p["perPage"],
-      direction: p["direction"],
-      sort: p["sort"],
-      subject_name_substring: p["subjectNameSubstring"],
-    })
+    const query = this._query(
+      {
+        min_timestamp: p["minTimestamp"],
+        max_timestamp: p["maxTimestamp"],
+        page: p["page"],
+        per_page: p["perPage"],
+        direction: p["direction"],
+        sort: p["sort"],
+        subject_name_substring: p["subjectNameSubstring"],
+      },
+      {
+        sort: {
+          style: "form",
+          explode: true,
+        },
+      },
+    )
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -5979,15 +6133,23 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     const url =
       this.basePath + `/orgs/${p["org"]}/insights/api/user-stats/${p["userId"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      min_timestamp: p["minTimestamp"],
-      max_timestamp: p["maxTimestamp"],
-      page: p["page"],
-      per_page: p["perPage"],
-      direction: p["direction"],
-      sort: p["sort"],
-      actor_name_substring: p["actorNameSubstring"],
-    })
+    const query = this._query(
+      {
+        min_timestamp: p["minTimestamp"],
+        max_timestamp: p["maxTimestamp"],
+        page: p["page"],
+        per_page: p["perPage"],
+        direction: p["direction"],
+        sort: p["sort"],
+        actor_name_substring: p["actorNameSubstring"],
+      },
+      {
+        sort: {
+          style: "form",
+          explode: true,
+        },
+      },
+    )
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -6024,7 +6186,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   > {
     const url = this.basePath + `/orgs/${p["org"]}/installations`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -6161,7 +6326,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     const url =
       this.basePath + `/orgs/${p["org"]}/invitations/${p["invitationId"]}/teams`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -6361,7 +6529,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     const url =
       this.basePath + `/orgs/${p["org"]}/members/${p["username"]}/codespaces`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -6515,11 +6686,19 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   ): Promise<Res<200, t_migration[]>> {
     const url = this.basePath + `/orgs/${p["org"]}/migrations`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      per_page: p["perPage"],
-      page: p["page"],
-      exclude: p["exclude"],
-    })
+    const query = this._query(
+      {
+        per_page: p["perPage"],
+        page: p["page"],
+        exclude: p["exclude"],
+      },
+      {
+        exclude: {
+          style: "form",
+          explode: true,
+        },
+      },
+    )
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -6558,7 +6737,17 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     const url =
       this.basePath + `/orgs/${p["org"]}/migrations/${p["migrationId"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({exclude: p["exclude"]})
+    const query = this._query(
+      {
+        exclude: p["exclude"],
+      },
+      {
+        exclude: {
+          style: "form",
+          explode: true,
+        },
+      },
+    )
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -6624,7 +6813,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/orgs/${p["org"]}/migrations/${p["migrationId"]}/repositories`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -6787,7 +6979,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/orgs/${p["org"]}/organization-roles/${p["roleId"]}/teams`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -6808,7 +7003,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/orgs/${p["org"]}/organization-roles/${p["roleId"]}/users`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -7002,7 +7200,9 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/orgs/${p["org"]}/packages/${p["packageType"]}/${p["packageName"]}/restore`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({token: p["token"]})
+    const query = this._query({
+      token: p["token"],
+    })
 
     return this._fetch(url + query, {method: "POST", ...opts, headers}, timeout)
   }
@@ -7155,18 +7355,30 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     const url =
       this.basePath + `/orgs/${p["org"]}/personal-access-token-requests`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      per_page: p["perPage"],
-      page: p["page"],
-      sort: p["sort"],
-      direction: p["direction"],
-      owner: p["owner"],
-      repository: p["repository"],
-      permission: p["permission"],
-      last_used_before: p["lastUsedBefore"],
-      last_used_after: p["lastUsedAfter"],
-      token_id: p["tokenId"],
-    })
+    const query = this._query(
+      {
+        per_page: p["perPage"],
+        page: p["page"],
+        sort: p["sort"],
+        direction: p["direction"],
+        owner: p["owner"],
+        repository: p["repository"],
+        permission: p["permission"],
+        last_used_before: p["lastUsedBefore"],
+        last_used_after: p["lastUsedAfter"],
+        token_id: p["tokenId"],
+      },
+      {
+        owner: {
+          style: "form",
+          explode: true,
+        },
+        token_id: {
+          style: "form",
+          explode: true,
+        },
+      },
+    )
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -7247,7 +7459,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/orgs/${p["org"]}/personal-access-token-requests/${p["patRequestId"]}/repositories`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -7277,18 +7492,30 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   > {
     const url = this.basePath + `/orgs/${p["org"]}/personal-access-tokens`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      per_page: p["perPage"],
-      page: p["page"],
-      sort: p["sort"],
-      direction: p["direction"],
-      owner: p["owner"],
-      repository: p["repository"],
-      permission: p["permission"],
-      last_used_before: p["lastUsedBefore"],
-      last_used_after: p["lastUsedAfter"],
-      token_id: p["tokenId"],
-    })
+    const query = this._query(
+      {
+        per_page: p["perPage"],
+        page: p["page"],
+        sort: p["sort"],
+        direction: p["direction"],
+        owner: p["owner"],
+        repository: p["repository"],
+        permission: p["permission"],
+        last_used_before: p["lastUsedBefore"],
+        last_used_after: p["lastUsedAfter"],
+        token_id: p["tokenId"],
+      },
+      {
+        owner: {
+          style: "form",
+          explode: true,
+        },
+        token_id: {
+          style: "form",
+          explode: true,
+        },
+      },
+    )
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -7367,7 +7594,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/orgs/${p["org"]}/personal-access-tokens/${p["patId"]}/repositories`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -7393,7 +7623,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   > {
     const url = this.basePath + `/orgs/${p["org"]}/private-registries`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -7706,7 +7939,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   ): Promise<Res<200, t_simple_user[]>> {
     const url = this.basePath + `/orgs/${p["org"]}/public_members`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -7995,7 +8231,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     const url =
       this.basePath + `/orgs/${p["org"]}/rulesets/${p["rulesetId"]}/history`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -8214,7 +8453,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     const url =
       this.basePath + `/orgs/${p["org"]}/settings/network-configurations`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -8349,7 +8591,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   ): Promise<Res<200, t_team[]> | Res<403, t_basic_error>> {
     const url = this.basePath + `/orgs/${p["org"]}/teams`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -8810,7 +9055,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     const url =
       this.basePath + `/orgs/${p["org"]}/teams/${p["teamSlug"]}/invitations`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -8912,7 +9160,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     const url =
       this.basePath + `/orgs/${p["org"]}/teams/${p["teamSlug"]}/projects`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -8999,7 +9250,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   ): Promise<Res<200, t_minimal_repository[]>> {
     const url = this.basePath + `/orgs/${p["org"]}/teams/${p["teamSlug"]}/repos`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -9080,7 +9334,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   ): Promise<Res<200, t_team[]>> {
     const url = this.basePath + `/orgs/${p["org"]}/teams/${p["teamSlug"]}/teams`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -9599,7 +9856,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   > {
     const url = this.basePath + `/projects/${p["projectId"]}/columns`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -9859,7 +10119,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/actions/caches`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({key: p["key"], ref: p["ref"]})
+    const query = this._query({
+      key: p["key"],
+      ref: p["ref"],
+    })
 
     return this._fetch(
       url + query,
@@ -10014,7 +10277,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/organization-secrets`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -10041,7 +10307,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/organization-variables`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -10559,7 +10828,9 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({exclude_pull_requests: p["excludePullRequests"]})
+    const query = this._query({
+      exclude_pull_requests: p["excludePullRequests"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -10665,7 +10936,9 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/attempts/${p["attemptNumber"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({exclude_pull_requests: p["excludePullRequests"]})
+    const query = this._query({
+      exclude_pull_requests: p["excludePullRequests"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -10695,7 +10968,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/attempts/${p["attemptNumber"]}/jobs`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -10974,7 +11250,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/actions/secrets`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -11072,7 +11351,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/actions/variables`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -11174,7 +11456,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/actions/workflows`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -11388,7 +11673,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   ): Promise<Res<200, t_simple_user[]> | Res<404, t_basic_error>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/assignees`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -12433,7 +12721,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/check-runs/${p["checkRunId"]}/annotations`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -12941,7 +13232,9 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/code-scanning/analyses/${p["analysisId"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({confirm_delete: p["confirmDelete"]})
+    const query = this._query({
+      confirm_delete: p["confirmDelete"],
+    })
 
     return this._fetch(
       url + query,
@@ -13289,7 +13582,9 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/codeowners/errors`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({ref: p["ref"]})
+    const query = this._query({
+      ref: p["ref"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -13318,7 +13613,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/codespaces`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -13388,7 +13686,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/codespaces/devcontainers`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -13456,7 +13757,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/codespaces/new`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({ref: p["ref"], client_ip: p["clientIp"]})
+    const query = this._query({
+      ref: p["ref"],
+      client_ip: p["clientIp"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -13518,7 +13822,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/codespaces/secrets`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -13725,7 +14032,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   ): Promise<Res<200, t_commit_comment[]>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/comments`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -13936,7 +14246,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/commits/${p["commitSha"]}/comments`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -13982,7 +14295,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/commits/${p["commitSha"]}/pulls`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -14015,7 +14331,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/commits/${p["ref"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({page: p["page"], per_page: p["perPage"]})
+    const query = this._query({
+      page: p["page"],
+      per_page: p["perPage"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -14109,7 +14428,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/commits/${p["ref"]}/status`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -14129,7 +14451,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/commits/${p["ref"]}/statuses`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -14176,7 +14501,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/compare/${p["basehead"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({page: p["page"], per_page: p["perPage"]})
+    const query = this._query({
+      page: p["page"],
+      per_page: p["perPage"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -14206,7 +14534,9 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/contents/${p["path"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({ref: p["ref"]})
+    const query = this._query({
+      ref: p["ref"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -14333,24 +14663,32 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/dependabot/alerts`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      state: p["state"],
-      severity: p["severity"],
-      ecosystem: p["ecosystem"],
-      package: p["package"],
-      manifest: p["manifest"],
-      epss_percentage: p["epssPercentage"],
-      has: p["has"],
-      scope: p["scope"],
-      sort: p["sort"],
-      direction: p["direction"],
-      page: p["page"],
-      per_page: p["perPage"],
-      before: p["before"],
-      after: p["after"],
-      first: p["first"],
-      last: p["last"],
-    })
+    const query = this._query(
+      {
+        state: p["state"],
+        severity: p["severity"],
+        ecosystem: p["ecosystem"],
+        package: p["package"],
+        manifest: p["manifest"],
+        epss_percentage: p["epssPercentage"],
+        has: p["has"],
+        scope: p["scope"],
+        sort: p["sort"],
+        direction: p["direction"],
+        page: p["page"],
+        per_page: p["perPage"],
+        before: p["before"],
+        after: p["after"],
+        first: p["first"],
+        last: p["last"],
+      },
+      {
+        has: {
+          style: "form",
+          explode: true,
+        },
+      },
+    )
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -14427,7 +14765,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/dependabot/secrets`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -14522,7 +14863,9 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/dependency-graph/compare/${p["basehead"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({name: p["name"]})
+    const query = this._query({
+      name: p["name"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -14687,7 +15030,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/deployments/${p["deploymentId"]}/statuses`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -14773,7 +15119,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/environments`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -14862,7 +15211,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/deployment-branch-policies`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -15020,7 +15372,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/deployment_protection_rules/apps`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({page: p["page"], per_page: p["perPage"]})
+    const query = this._query({
+      page: p["page"],
+      per_page: p["perPage"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -15084,7 +15439,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/secrets`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -15188,7 +15546,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/variables`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -15286,7 +15647,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   ): Promise<Res<200, t_event[]>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/events`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -15618,7 +15982,9 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/git/trees/${p["treeSha"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({recursive: p["recursive"]})
+    const query = this._query({
+      recursive: p["recursive"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -15635,7 +16001,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   ): Promise<Res<200, t_hook[]> | Res<404, t_basic_error>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/hooks`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -15787,7 +16156,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}/deliveries`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], cursor: p["cursor"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      cursor: p["cursor"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -15969,7 +16341,9 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/import/authors`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({since: p["since"]})
+    const query = this._query({
+      since: p["since"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -16120,7 +16494,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   ): Promise<Res<200, t_repository_invitation[]>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/invitations`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -16424,7 +16801,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/issues/events`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -16655,7 +17035,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/events`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -16680,7 +17063,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/labels`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -16967,7 +17353,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/sub_issues`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -17054,7 +17443,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/timeline`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -17071,7 +17463,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   ): Promise<Res<200, t_deploy_key[]>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/keys`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -17139,7 +17534,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   ): Promise<Res<200, t_label[]> | Res<404, t_basic_error>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/labels`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -17248,7 +17646,9 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   ): Promise<Res<200, t_license_content> | Res<404, t_basic_error>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/license`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({ref: p["ref"]})
+    const query = this._query({
+      ref: p["ref"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -17424,7 +17824,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/milestones/${p["milestoneNumber"]}/labels`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -17582,7 +17985,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   ): Promise<Res<200, t_page_build[]>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/pages/builds`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -18283,7 +18689,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/commits`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -18315,7 +18724,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/files`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -18466,7 +18878,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/reviews`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -18583,7 +18998,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/reviews/${p["reviewId"]}/comments`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -18696,7 +19114,9 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/readme`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({ref: p["ref"]})
+    const query = this._query({
+      ref: p["ref"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -18718,7 +19138,9 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/readme/${p["dir"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({ref: p["ref"]})
+    const query = this._query({
+      ref: p["ref"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -18735,7 +19157,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   ): Promise<Res<200, t_release[]> | Res<404, t_basic_error>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/releases`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -18953,7 +19378,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/releases/${p["releaseId"]}/assets`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -18979,7 +19407,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       basePath +
       `/repos/${p["owner"]}/${p["repo"]}/releases/${p["releaseId"]}/assets`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({name: p["name"], label: p["label"]})
+    const query = this._query({
+      name: p["name"],
+      label: p["label"],
+    })
 
     return this._fetch(
       url + query,
@@ -19082,7 +19513,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/rules/branches/${p["branch"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -19211,7 +19645,9 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/rulesets/${p["rulesetId"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({includes_parents: p["includesParents"]})
+    const query = this._query({
+      includes_parents: p["includesParents"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -19285,7 +19721,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/rulesets/${p["rulesetId"]}/history`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -19392,7 +19831,9 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/secret-scanning/alerts/${p["alertNumber"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({hide_secret: p["hideSecret"]})
+    const query = this._query({
+      hide_secret: p["hideSecret"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -19458,7 +19899,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/secret-scanning/alerts/${p["alertNumber"]}/locations`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({page: p["page"], per_page: p["perPage"]})
+    const query = this._query({
+      page: p["page"],
+      per_page: p["perPage"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -19726,7 +20170,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/stargazers`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -19867,7 +20314,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   ): Promise<Res<200, t_simple_user[]>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/subscribers`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -19940,7 +20390,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   ): Promise<Res<200, t_tag[]>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/tags`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -20035,7 +20488,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   ): Promise<Res<200, t_team[]> | Res<404, t_basic_error>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/teams`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -20052,7 +20508,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   ): Promise<Res<200, t_topic> | Res<404, t_basic_error>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/topics`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({page: p["page"], per_page: p["perPage"]})
+    const query = this._query({
+      page: p["page"],
+      per_page: p["perPage"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -20092,7 +20551,9 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/traffic/clones`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per: p["per"]})
+    const query = this._query({
+      per: p["per"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -20140,7 +20601,9 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/traffic/views`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per: p["per"]})
+    const query = this._query({
+      per: p["per"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -20259,7 +20722,9 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   > {
     const url = this.basePath + `/repositories`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({since: p["since"]})
+    const query = this._query({
+      since: p["since"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -20931,7 +21396,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   ): Promise<Res<200, t_organization_invitation[]>> {
     const url = this.basePath + `/teams/${p["teamId"]}/invitations`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -21072,7 +21540,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   ): Promise<Res<200, t_team_project[]> | Res<404, t_basic_error>> {
     const url = this.basePath + `/teams/${p["teamId"]}/projects`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -21156,7 +21627,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   ): Promise<Res<200, t_minimal_repository[]> | Res<404, t_basic_error>> {
     const url = this.basePath + `/teams/${p["teamId"]}/repos`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -21237,7 +21711,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   > {
     const url = this.basePath + `/teams/${p["teamId"]}/teams`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -21302,7 +21779,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   > {
     const url = this.basePath + `/user/blocks`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -21447,7 +21927,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   > {
     const url = this.basePath + `/user/codespaces/secrets`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -21858,7 +22341,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   > {
     const url = this.basePath + `/user/emails`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -21931,7 +22417,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   > {
     const url = this.basePath + `/user/followers`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -21951,7 +22440,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   > {
     const url = this.basePath + `/user/following`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -22030,7 +22522,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   > {
     const url = this.basePath + `/user/gpg_keys`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -22119,7 +22614,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   > {
     const url = this.basePath + `/user/installations`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -22148,7 +22646,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     const url =
       this.basePath + `/user/installations/${p["installationId"]}/repositories`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -22290,7 +22791,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   > {
     const url = this.basePath + `/user/keys`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -22372,7 +22876,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   > {
     const url = this.basePath + `/user/marketplace_purchases`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -22391,7 +22898,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   > {
     const url = this.basePath + `/user/marketplace_purchases/stubbed`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -22477,7 +22987,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   > {
     const url = this.basePath + `/user/migrations`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -22521,7 +23034,17 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   > {
     const url = this.basePath + `/user/migrations/${p["migrationId"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({exclude: p["exclude"]})
+    const query = this._query(
+      {
+        exclude: p["exclude"],
+      },
+      {
+        exclude: {
+          style: "form",
+          explode: true,
+        },
+      },
+    )
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -22597,7 +23120,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     const url =
       this.basePath + `/user/migrations/${p["migrationId"]}/repositories`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -22617,7 +23143,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   > {
     const url = this.basePath + `/user/orgs`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -22725,7 +23254,9 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/user/packages/${p["packageType"]}/${p["packageName"]}/restore`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({token: p["token"]})
+    const query = this._query({
+      token: p["token"],
+    })
 
     return this._fetch(url + query, {method: "POST", ...opts, headers}, timeout)
   }
@@ -22887,7 +23418,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   > {
     const url = this.basePath + `/user/public_emails`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -22982,7 +23516,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   > {
     const url = this.basePath + `/user/repository_invitations`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -23043,7 +23580,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   > {
     const url = this.basePath + `/user/social_accounts`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -23112,7 +23652,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   > {
     const url = this.basePath + `/user/ssh_signing_keys`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -23281,7 +23824,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   > {
     const url = this.basePath + `/user/subscriptions`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -23301,7 +23847,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   > {
     const url = this.basePath + `/user/teams`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -23331,7 +23880,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   ): Promise<Res<200, t_simple_user[]> | Res<304, void>> {
     const url = this.basePath + `/users`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({since: p["since"], per_page: p["perPage"]})
+    const query = this._query({
+      since: p["since"],
+      per_page: p["perPage"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -23543,7 +24095,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   ): Promise<Res<200, t_event[]>> {
     const url = this.basePath + `/users/${p["username"]}/events`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -23561,7 +24116,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     const url =
       this.basePath + `/users/${p["username"]}/events/orgs/${p["org"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -23577,7 +24135,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   ): Promise<Res<200, t_event[]>> {
     const url = this.basePath + `/users/${p["username"]}/events/public`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -23593,7 +24154,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   ): Promise<Res<200, t_simple_user[]>> {
     const url = this.basePath + `/users/${p["username"]}/followers`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -23609,7 +24173,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   ): Promise<Res<200, t_simple_user[]>> {
     const url = this.basePath + `/users/${p["username"]}/following`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -23661,7 +24228,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   ): Promise<Res<200, t_gpg_key[]>> {
     const url = this.basePath + `/users/${p["username"]}/gpg_keys`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -23718,7 +24288,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   ): Promise<Res<200, t_key_simple[]>> {
     const url = this.basePath + `/users/${p["username"]}/keys`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -23734,7 +24307,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   ): Promise<Res<200, t_organization_simple[]>> {
     const url = this.basePath + `/users/${p["username"]}/orgs`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -23853,7 +24429,9 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/users/${p["username"]}/packages/${p["packageType"]}/${p["packageName"]}/restore`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({token: p["token"]})
+    const query = this._query({
+      token: p["token"],
+    })
 
     return this._fetch(url + query, {method: "POST", ...opts, headers}, timeout)
   }
@@ -24004,7 +24582,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   ): Promise<Res<200, t_event[]>> {
     const url = this.basePath + `/users/${p["username"]}/received_events`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -24020,7 +24601,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   ): Promise<Res<200, t_event[]>> {
     const url = this.basePath + `/users/${p["username"]}/received_events/public`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -24144,7 +24728,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   ): Promise<Res<200, t_social_account[]>> {
     const url = this.basePath + `/users/${p["username"]}/social_accounts`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -24160,7 +24747,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   ): Promise<Res<200, t_ssh_signing_key[]>> {
     const url = this.basePath + `/users/${p["username"]}/ssh_signing_keys`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -24199,7 +24789,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   ): Promise<Res<200, t_minimal_repository[]>> {
     const url = this.basePath + `/users/${p["username"]}/subscriptions`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }

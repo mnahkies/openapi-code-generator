@@ -202,7 +202,9 @@ export class MyAccountManagement extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_Authenticator[]>> {
     const url = `/idp/myaccount/authenticators`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query({
+      expand: p["expand"],
+    })
 
     return this._request({
       url: url + query,
@@ -223,7 +225,9 @@ export class MyAccountManagement extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_Authenticator>> {
     const url = `/idp/myaccount/authenticators/${p["authenticatorId"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({expand: p["expand"]})
+    const query = this._query({
+      expand: p["expand"],
+    })
 
     return this._request({
       url: url + query,
