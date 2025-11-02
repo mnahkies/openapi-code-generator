@@ -17,7 +17,7 @@ pnpm ci-pipeline
 
 ./scripts/assert-clean-working-directory.sh
 
-pnpm exec lerna version \
+pnpm exec lerna version minor \
   --no-private \
   --force-publish \
   --no-push \

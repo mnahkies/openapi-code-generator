@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.22.0](https://github.com/mnahkies/openapi-code-generator/compare/v0.22.0-alpha.0...v0.22.0) (2025-11-02)
+
+**Note:** Version bump only for package @nahkies/typescript-fetch-runtime
+
 # [0.22.0-alpha.0](https://github.com/mnahkies/openapi-code-generator/compare/v0.21.1...v0.22.0-alpha.0) (2025-10-26)
 
 - feat!: support both zod v3 and zod v4 (#366) ([f7e374f](https://github.com/mnahkies/openapi-code-generator/commit/f7e374fd3c5193e57e71caf5aa6b51b6558ed1f0)), closes [#366](https://github.com/mnahkies/openapi-code-generator/issues/366)
