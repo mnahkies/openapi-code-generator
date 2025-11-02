@@ -9,6 +9,7 @@ import {extractPlaceholders} from "../../core/openapi-utils"
 import {camelCase, isDefined} from "../../core/utils"
 import type {SchemaBuilder} from "../common/schema-builders/schema-builder"
 import type {TypeBuilder} from "../common/type-builder"
+import {object, quotedStringLiteral} from "../common/type-utils"
 import {
   combineParams,
   type MethodParameterDefinition,
@@ -133,13 +134,45 @@ export class ClientOperationBuilder {
     return result
   }
 
-  queryString(): string {
-    const {parameters} = this.operation
+  query(): {paramsObject: string; encodings: string} | null {
+    const parameters = this.operation.parameters.query.list
 
-    // todo: consider style / explode / allowReserved etc here
-    return parameters.query.list
-      .map((it) => `'${it.name}': ${this.paramName(it.name)}`)
-      .join(",\n")
+    if (parameters.length === 0) {
+      return null
+    }
+
+    const paramsObject = object(
+      parameters.map(
+        (it) => `${quotedStringLiteral(it.name)}: ${this.paramName(it.name)}`,
+      ),
+    )
+
+    const encodings = object(
+      parameters
+        .filter((it) => it.style !== undefined || it.explode !== undefined)
+        .filter((it) => {
+          const schema = it.schema && this.input.schema(it.schema)
+          // primitive values don't get influenced by encoding, so we can avoid putting it in the generated code.
+          return (
+            schema.type !== "string" &&
+            schema.type !== "boolean" &&
+            schema.type !== "number"
+          )
+        })
+        .map(
+          (it) =>
+            `${quotedStringLiteral(it.name)}: ${object(
+              [
+                it.style !== undefined
+                  ? `style: ${quotedStringLiteral(it.style)}`
+                  : undefined,
+                it.explode !== undefined ? `explode: ${it.explode}` : undefined,
+              ].filter(isDefined),
+            )}`,
+        ),
+    )
+
+    return {paramsObject, encodings}
   }
 
   headers({
