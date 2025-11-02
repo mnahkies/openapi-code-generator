@@ -2,7 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import {z} from "zod/v4"
+import {z} from "zod/v3"
 
 export const PermissiveBoolean = z.preprocess((value) => {
   if (typeof value === "string" && (value === "true" || value === "false")) {
@@ -45,6 +45,19 @@ export const s_getHeadersUndeclaredJson200Response = z.object({
 export const s_getHeadersRequestJson200Response = z.object({
   rawHeaders: z.unknown().optional(),
   typedHeaders: z.unknown().optional(),
+})
+
+export const s_getParamsSimpleQueryJson200Response = z.object({
+  orderBy: z.string(),
+  limit: z.coerce.number(),
+})
+
+export const s_getParamsDefaultObjectQueryJson200Response = z.object({
+  filter: z.object({name: z.string(), age: z.coerce.number()}),
+})
+
+export const s_getParamsUnexplodedObjectQueryJson200Response = z.object({
+  filter: z.object({name: z.string(), age: z.coerce.number()}),
 })
 
 export const s_postValidationOptionalBodyJsonRequestBody = z.object({

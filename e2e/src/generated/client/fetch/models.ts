@@ -47,6 +47,25 @@ export type t_getHeadersUndeclaredJson200Response = {
   typedHeaders?: unknown | undefined
 }
 
+export type t_getParamsDefaultObjectQueryJson200Response = {
+  filter: {
+    age: number
+    name: string
+  }
+}
+
+export type t_getParamsSimpleQueryJson200Response = {
+  limit: number
+  orderBy: string
+}
+
+export type t_getParamsUnexplodedObjectQueryJson200Response = {
+  filter: {
+    age: number
+    name: string
+  }
+}
+
 export type t_postValidationOptionalBodyJson200Response = {
   id?: string | undefined
 }

@@ -54,6 +54,115 @@ paths:
         200:
           $ref: '#/components/responses/GetHeaders'
 
+  /params/simple-query:
+    get:
+      tags:
+        - query-parameters
+      parameters:
+        - name: orderBy
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [ asc, desc ]
+        - name: limit
+          in: query
+          required: true
+          schema:
+            type: number
+      responses:
+        200:
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - orderBy
+                  - limit
+                properties:
+                  orderBy:
+                    type: string
+                  limit:
+                    type: number
+  /params/default-object-query:
+    get:
+      tags:
+        - query-parameters
+      parameters:
+        - name: filter
+          in: query
+          required: true
+          schema:
+            type: object
+            required:
+              - name
+              - age
+            properties:
+              name:
+                type: string
+              age:
+                type: number
+      responses:
+        200:
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - filter
+                properties:
+                  filter:
+                    type: object
+                    required:
+                      - name
+                      - age
+                    properties:
+                      name:
+                        type: string
+                      age:
+                        type: number
+  /params/unexploded-object-query:
+    get:
+      tags:
+        - query-parameters
+      parameters:
+        - name: filter
+          in: query
+          required: true
+          explode: false
+          schema:
+            type: object
+            required:
+              - name
+              - age
+            properties:
+              name:
+                type: string
+              age:
+                type: number
+      responses:
+        200:
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - filter
+                properties:
+                  filter:
+                    type: object
+                    required:
+                      - name
+                      - age
+                    properties:
+                      name:
+                        type: string
+                      age:
+                        type: number
+
   /validation/numbers/random-number:
     get:
       tags:
@@ -127,6 +236,7 @@ paths:
                     type: string
         204:
           description: ok
+
   /responses/500:
     get:
       tags:

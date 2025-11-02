@@ -18,9 +18,9 @@ import {
 import {
   parseRequestInput,
   responseValidationFactory,
-} from "@nahkies/typescript-koa-runtime/zod-v4"
+} from "@nahkies/typescript-koa-runtime/zod-v3"
 import type {Next} from "koa"
-import {z} from "zod/v4"
+import {z} from "zod/v3"
 import type {
   t_Enumerations,
   t_GetValidationNumbersRandomNumberQuerySchema,

@@ -10,9 +10,9 @@ import {
   SkipResponse,
   type StatusCode,
 } from "@nahkies/typescript-express-runtime/server"
-import {responseValidationFactory} from "@nahkies/typescript-express-runtime/zod-v4"
+import {responseValidationFactory} from "@nahkies/typescript-express-runtime/zod-v3"
 import {type NextFunction, type Request, type Response, Router} from "express"
-import {z} from "zod/v4"
+import {z} from "zod/v3"
 
 export type GetEscapeHatchesPlainTextResponder = {
   with200(): ExpressRuntimeResponse<string>

@@ -427,5 +427,42 @@ describe.each(startServerFunctions)(
         expect(res.data).toStrictEqual(productOrder)
       })
     })
+
+    describe("query parameters", () => {
+      it("GET /params/simple-query", async () => {
+        const {status, data} = await client.getParamsSimpleQuery({
+          orderBy: "asc",
+          limit: 10,
+        })
+
+        expect(status).toBe(200)
+        expect(data).toEqual({
+          orderBy: "asc",
+          limit: 10,
+        })
+      })
+
+      it("GET /params/default-object-query", async () => {
+        const {status, data} = await client.getParamsDefaultObjectQuery({
+          filter: {name: "John", age: 30},
+        })
+
+        expect(status).toBe(200)
+        expect(data).toEqual({
+          filter: {name: "John", age: 30},
+        })
+      })
+
+      it("GET /params/unexploded-object-query", async () => {
+        const {status, data} = await client.getParamsUnexplodedObjectQuery({
+          filter: {name: "John", age: 30},
+        })
+
+        expect(status).toBe(200)
+        expect(data).toEqual({
+          filter: {name: "John", age: 30},
+        })
+      })
+    })
   },
 )

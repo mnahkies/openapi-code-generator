@@ -47,6 +47,44 @@ export type t_getHeadersUndeclaredJson200Response = {
   typedHeaders?: unknown | undefined
 }
 
+export type t_GetParamsDefaultObjectQueryQuerySchema = {
+  filter: {
+    age: number
+    name: string
+  }
+}
+
+export type t_getParamsDefaultObjectQueryJson200Response = {
+  filter: {
+    age: number
+    name: string
+  }
+}
+
+export type t_GetParamsSimpleQueryQuerySchema = {
+  limit: number
+  orderBy: "asc" | "desc"
+}
+
+export type t_getParamsSimpleQueryJson200Response = {
+  limit: number
+  orderBy: string
+}
+
+export type t_GetParamsUnexplodedObjectQueryQuerySchema = {
+  filter: {
+    age: number
+    name: string
+  }
+}
+
+export type t_getParamsUnexplodedObjectQueryJson200Response = {
+  filter: {
+    age: number
+    name: string
+  }
+}
+
 export type t_GetValidationNumbersRandomNumberQuerySchema = {
   forbidden?: number[] | undefined
   max?: number | undefined
