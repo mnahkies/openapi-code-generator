@@ -14,15 +14,22 @@ import type {
   t_Enumerations,
   t_GetHeadersRequest200Response,
   t_GetHeadersUndeclared200Response,
+  t_GetParamsDefaultObjectQuery200Response,
+  t_GetParamsSimpleQuery200Response,
+  t_GetParamsUnexplodedObjectQuery200Response,
   t_PostValidationOptionalBody200Response,
   t_PostValidationOptionalBodyRequestBody,
   t_ProductOrder,
   t_RandomNumber,
+  UnknownEnumStringValue,
 } from "./models.ts"
 import {
   s_Enumerations,
   s_GetHeadersRequest200Response,
   s_GetHeadersUndeclared200Response,
+  s_GetParamsDefaultObjectQuery200Response,
+  s_GetParamsSimpleQuery200Response,
+  s_GetParamsUnexplodedObjectQuery200Response,
   s_PostValidationOptionalBody200Response,
   s_ProductOrder,
   s_RandomNumber,
@@ -119,6 +126,105 @@ export class E2ETestClient extends AbstractFetchClient {
     )(res)
   }
 
+  async getParamsSimpleQuery(
+    p: {
+      orderBy: "asc" | "desc" | UnknownEnumStringValue
+      limit: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_GetParamsSimpleQuery200Response>> {
+    const url = this.basePath + `/params/simple-query`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query({
+      orderBy: p["orderBy"],
+      limit: p["limit"],
+    })
+
+    const res = this._fetch(
+      url + query,
+      {method: "GET", ...opts, headers},
+      timeout,
+    )
+
+    return responseValidationFactory(
+      [["200", s_GetParamsSimpleQuery200Response]],
+      undefined,
+    )(res)
+  }
+
+  async getParamsDefaultObjectQuery(
+    p: {
+      filter: {
+        age: number
+        name: string
+      }
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_GetParamsDefaultObjectQuery200Response>> {
+    const url = this.basePath + `/params/default-object-query`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query(
+      {
+        filter: p["filter"],
+      },
+      {
+        filter: {
+          style: "form",
+          explode: true,
+        },
+      },
+    )
+
+    const res = this._fetch(
+      url + query,
+      {method: "GET", ...opts, headers},
+      timeout,
+    )
+
+    return responseValidationFactory(
+      [["200", s_GetParamsDefaultObjectQuery200Response]],
+      undefined,
+    )(res)
+  }
+
+  async getParamsUnexplodedObjectQuery(
+    p: {
+      filter: {
+        age: number
+        name: string
+      }
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_GetParamsUnexplodedObjectQuery200Response>> {
+    const url = this.basePath + `/params/unexploded-object-query`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query(
+      {
+        filter: p["filter"],
+      },
+      {
+        filter: {
+          style: "form",
+          explode: false,
+        },
+      },
+    )
+
+    const res = this._fetch(
+      url + query,
+      {method: "GET", ...opts, headers},
+      timeout,
+    )
+
+    return responseValidationFactory(
+      [["200", s_GetParamsUnexplodedObjectQuery200Response]],
+      undefined,
+    )(res)
+  }
+
   async getValidationNumbersRandomNumber(
     p: {
       max?: number
@@ -130,11 +236,19 @@ export class E2ETestClient extends AbstractFetchClient {
   ): Promise<Res<200, t_RandomNumber>> {
     const url = this.basePath + `/validation/numbers/random-number`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      max: p["max"],
-      min: p["min"],
-      forbidden: p["forbidden"],
-    })
+    const query = this._query(
+      {
+        max: p["max"],
+        min: p["min"],
+        forbidden: p["forbidden"],
+      },
+      {
+        forbidden: {
+          style: "form",
+          explode: true,
+        },
+      },
+    )
 
     const res = this._fetch(
       url + query,
