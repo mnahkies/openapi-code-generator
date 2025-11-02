@@ -41,7 +41,7 @@ export class TypescriptAxiosClientBuilder extends AbstractClientBuilder {
 
     const operationParameter = builder.methodParameter()
 
-    const queryString = builder.queryString()
+    const query = builder.query()
     const headers = builder.headers({nullContentTypeValue: "false"})
 
     const returnType =
@@ -67,7 +67,7 @@ export class TypescriptAxiosClientBuilder extends AbstractClientBuilder {
       : null
 
     const axiosFragment = `this._request({${[
-      `url: url ${queryString ? "+ query" : ""}`,
+      `url: url ${query ? "+ query" : ""}`,
       `method: "${method}"`,
       requestBody?.parameter
         ? requestBody.isSupported
@@ -90,7 +90,9 @@ export class TypescriptAxiosClientBuilder extends AbstractClientBuilder {
       headers
         ? `const headers = this._headers(${headers}, opts.headers)`
         : "const headers = this._headers({}, opts.headers)",
-      queryString ? `const query = this._query({ ${queryString} })` : "",
+      query
+        ? `const query = this._query(${[query.paramsObject, query.encodings].filter(Boolean).join(",")})`
+        : "",
       requestBody?.parameter && requestBody.isSupported
         ? `const body = ${this.serializeRequestBody(requestBody)}`
         : "",

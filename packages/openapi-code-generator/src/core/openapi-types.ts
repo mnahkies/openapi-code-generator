@@ -203,6 +203,12 @@ export interface Parameter {
   name: string
   in: "path" | "query" | "header" | "cookie"
   schema: Schema | Reference
+  // todo: support content
+  // content?: {
+  //   [contentType: string]: MediaType
+  // }
+  style?: Style
+  explode?: boolean
   description?: string
   required?: boolean
   deprecated?: boolean
