@@ -17,8 +17,8 @@
     "maxSize": 10485760,
     "includes": [
       "**",
-      "!**/packages/openapi-code-generator/src/core/schemas/openapi-3.0-specification-validator.js",
-      "!**/packages/openapi-code-generator/src/core/schemas/openapi-3.1-specification-validator.js",
+      "!**/packages/openapi-code-generator/src/core/schemas/openapi-3.0-specification-validator.ts",
+      "!**/packages/openapi-code-generator/src/core/schemas/openapi-3.1-specification-validator.ts",
       "!**/integration-tests/typescript-angular/src/generated/**/*",
       "!**/integration-tests-definitions/**/*",
       "!**/schemas/**/*.json",
@@ -61,8 +61,8 @@
     },
     "includes": [
       "**",
-      "!**/packages/openapi-code-generator/src/core/schemas/openapi-3.0-specification-validator.js",
-      "!**/packages/openapi-code-generator/src/core/schemas/openapi-3.1-specification-validator.js",
+      "!**/packages/openapi-code-generator/src/core/schemas/openapi-3.0-specification-validator.ts",
+      "!**/packages/openapi-code-generator/src/core/schemas/openapi-3.1-specification-validator.ts",
       "!**/integration-tests/typescript-angular/src/generated/**/*",
       "!**/integration-tests-definitions/**/*",
       "!**/schemas/**/*.json",

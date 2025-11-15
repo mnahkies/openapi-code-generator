@@ -159,14 +159,14 @@ function validate(){
 
 compileOpenapi30Standalone().then((output) =>
   writeOutput(
-    path.join(outputDir, "openapi-3.0-specification-validator.js"),
+    path.join(outputDir, "openapi-3.0-specification-validator.ts"),
     output,
   ),
 )
 
 compileOpenapi31Standalone(true).then((output) =>
   writeOutput(
-    path.join(outputDir, "openapi-3.1-specification-validator.js"),
+    path.join(outputDir, "openapi-3.1-specification-validator.ts"),
     output,
   ),
 )
