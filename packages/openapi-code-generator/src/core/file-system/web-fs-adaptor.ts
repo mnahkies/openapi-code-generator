@@ -1,3 +1,4 @@
+import pathModule from "node:path"
 import type {IFsAdaptor} from "./fs-adaptor"
 
 export class WebFsAdaptor implements IFsAdaptor {
@@ -29,5 +30,9 @@ export class WebFsAdaptor implements IFsAdaptor {
 
   async mkDir() {
     /*noop*/
+  }
+
+  resolve(request: string, fromDir: string): string {
+    return pathModule.normalize(pathModule.resolve(fromDir, request))
   }
 }

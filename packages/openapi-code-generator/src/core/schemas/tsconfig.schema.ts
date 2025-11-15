@@ -38,5 +38,7 @@ export const tsconfigSchema = z.object({
       rewriteRelativeImportExtensions: z.boolean(),
       verbatimModuleSyntax: z.boolean(),
     })
-    .partial(),
+    .partial()
+    .optional()
+    .default({}),
 })
