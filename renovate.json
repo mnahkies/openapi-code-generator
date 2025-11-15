@@ -1,4 +1,9 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:semverAllMonthly"]
+  "extends": ["config:semverAllMonthly"],
+  "npm": {
+    "minimumReleaseAge": "7 days",
+    "internalChecksFilter": "strict",
+    "prCreation": "not-pending"
+  }
 }
