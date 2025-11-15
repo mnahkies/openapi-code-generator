@@ -1,14 +1,7 @@
-import type {ErrorObject} from "ajv"
 import {logger} from "./logger"
-
-import validate3_0 = require("./schemas/openapi-3.0-specification-validator")
-import validate3_1 = require("./schemas/openapi-3.1-specification-validator")
-
-interface ValidateFunction {
-  (data: unknown): boolean
-
-  errors?: null | ErrorObject[]
-}
+import type {ValidateFunction} from "./schemas/IValidateFunction"
+import validate3_0 from "./schemas/openapi-3.0-specification-validator"
+import validate3_1 from "./schemas/openapi-3.1-specification-validator"
 
 export class OpenapiValidator {
   private constructor(
