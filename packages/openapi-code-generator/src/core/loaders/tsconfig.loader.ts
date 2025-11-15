@@ -27,7 +27,9 @@ export async function loadTsConfigCompilerOptions(
     const path = ts.findConfigFile(searchPath, (it) => fsAdaptor.existsSync(it))
 
     if (path) {
-      return (await loadTsConfig(path, fsAdaptor)).compilerOptions
+      const compilerOptions = (await loadTsConfig(path, fsAdaptor))
+        .compilerOptions
+      return {...defaults, ...compilerOptions}
     }
 
     logger.warn(`no tsconfig.json found for ${searchPath}, using defaults`, {
@@ -59,7 +61,7 @@ async function loadTsConfig(
       ? [config.extends]
       : (config.extends ?? [])
     )
-      .map((it) => require.resolve(it, {paths: [path.dirname(configPath)]}))
+      .map((it) => fsAdaptor.resolve(it, path.dirname(configPath)))
       .map((it) => loadTsConfig(it, fsAdaptor)),
   )
 

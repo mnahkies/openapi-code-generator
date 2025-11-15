@@ -8,4 +8,6 @@ export interface IFsAdaptor {
   existsSync(path: string): boolean
 
   mkDir(path: string, recursive: boolean): Promise<void>
+
+  resolve(request: string, fromDir: string): string
 }

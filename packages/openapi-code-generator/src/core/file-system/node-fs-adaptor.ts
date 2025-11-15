@@ -1,5 +1,4 @@
 import {existsSync} from "node:fs"
-
 import fs from "node:fs/promises"
 import type {IFsAdaptor} from "./fs-adaptor"
 
@@ -34,5 +33,9 @@ export class NodeFsAdaptor implements IFsAdaptor {
 
   async mkDir(path: string, recursive = true) {
     await fs.mkdir(path, {recursive})
+  }
+
+  resolve(request: string, fromDir: string): string {
+    return require.resolve(request, {paths: [fromDir]})
   }
 }
