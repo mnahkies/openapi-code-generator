@@ -8,21 +8,28 @@ import {
   type Res,
   type Server,
 } from "@nahkies/typescript-fetch-runtime/main"
-import {responseValidationFactory} from "@nahkies/typescript-fetch-runtime/zod-v4"
-import {z} from "zod/v4"
+import {responseValidationFactory} from "@nahkies/typescript-fetch-runtime/zod-v3"
+import {z} from "zod/v3"
 import type {
   t_Enumerations,
   t_getHeadersRequestJson200Response,
   t_getHeadersUndeclaredJson200Response,
+  t_getParamsDefaultObjectQueryJson200Response,
+  t_getParamsSimpleQueryJson200Response,
+  t_getParamsUnexplodedObjectQueryJson200Response,
   t_ProductOrder,
   t_postValidationOptionalBodyJson200Response,
   t_postValidationOptionalBodyJsonRequestBody,
   t_RandomNumber,
+  UnknownEnumStringValue,
 } from "./models.ts"
 import {
   s_Enumerations,
   s_getHeadersRequestJson200Response,
   s_getHeadersUndeclaredJson200Response,
+  s_getParamsDefaultObjectQueryJson200Response,
+  s_getParamsSimpleQueryJson200Response,
+  s_getParamsUnexplodedObjectQueryJson200Response,
   s_ProductOrder,
   s_postValidationOptionalBodyJson200Response,
   s_RandomNumber,
@@ -119,6 +126,105 @@ export class E2ETestClient extends AbstractFetchClient {
     )(res)
   }
 
+  async getParamsSimpleQuery(
+    p: {
+      orderBy: "asc" | "desc" | UnknownEnumStringValue
+      limit: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_getParamsSimpleQueryJson200Response>> {
+    const url = this.basePath + `/params/simple-query`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query({
+      orderBy: p["orderBy"],
+      limit: p["limit"],
+    })
+
+    const res = this._fetch(
+      url + query,
+      {method: "GET", ...opts, headers},
+      timeout,
+    )
+
+    return responseValidationFactory(
+      [["200", s_getParamsSimpleQueryJson200Response]],
+      undefined,
+    )(res)
+  }
+
+  async getParamsDefaultObjectQuery(
+    p: {
+      filter: {
+        age: number
+        name: string
+      }
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_getParamsDefaultObjectQueryJson200Response>> {
+    const url = this.basePath + `/params/default-object-query`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query(
+      {
+        filter: p["filter"],
+      },
+      {
+        filter: {
+          style: "form",
+          explode: true,
+        },
+      },
+    )
+
+    const res = this._fetch(
+      url + query,
+      {method: "GET", ...opts, headers},
+      timeout,
+    )
+
+    return responseValidationFactory(
+      [["200", s_getParamsDefaultObjectQueryJson200Response]],
+      undefined,
+    )(res)
+  }
+
+  async getParamsUnexplodedObjectQuery(
+    p: {
+      filter: {
+        age: number
+        name: string
+      }
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_getParamsUnexplodedObjectQueryJson200Response>> {
+    const url = this.basePath + `/params/unexploded-object-query`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query(
+      {
+        filter: p["filter"],
+      },
+      {
+        filter: {
+          style: "form",
+          explode: false,
+        },
+      },
+    )
+
+    const res = this._fetch(
+      url + query,
+      {method: "GET", ...opts, headers},
+      timeout,
+    )
+
+    return responseValidationFactory(
+      [["200", s_getParamsUnexplodedObjectQueryJson200Response]],
+      undefined,
+    )(res)
+  }
+
   async getValidationNumbersRandomNumber(
     p: {
       max?: number
@@ -130,11 +236,19 @@ export class E2ETestClient extends AbstractFetchClient {
   ): Promise<Res<200, t_RandomNumber>> {
     const url = this.basePath + `/validation/numbers/random-number`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      max: p["max"],
-      min: p["min"],
-      forbidden: p["forbidden"],
-    })
+    const query = this._query(
+      {
+        max: p["max"],
+        min: p["min"],
+        forbidden: p["forbidden"],
+      },
+      {
+        forbidden: {
+          style: "form",
+          explode: true,
+        },
+      },
+    )
 
     const res = this._fetch(
       url + query,

@@ -127,6 +127,8 @@ export interface IRParameter {
   name: string
   in: "path" | "query" | "header" | "cookie" | "body"
   schema: MaybeIRModel
+  style: Style | undefined
+  explode: boolean | undefined
   description: string | undefined
   required: boolean
   deprecated: boolean

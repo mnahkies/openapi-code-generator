@@ -58,7 +58,9 @@ export class ContosoProviderHubClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_OperationListResult>> {
     const url = `/providers/Microsoft.ContosoProviderHub/operations`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({"api-version": p["apiVersion"]})
+    const query = this._query({
+      "api-version": p["apiVersion"],
+    })
 
     return this._request({
       url: url + query,
@@ -81,7 +83,9 @@ export class ContosoProviderHubClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_Employee>> {
     const url = `/subscriptions/${p["subscriptionId"]}/resourceGroups/${p["resourceGroupName"]}/providers/Microsoft.ContosoProviderHub/employees/${p["employeeName"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({"api-version": p["apiVersion"]})
+    const query = this._query({
+      "api-version": p["apiVersion"],
+    })
 
     return this._request({
       url: url + query,
@@ -108,7 +112,9 @@ export class ContosoProviderHubClient extends AbstractAxiosClient {
       {Accept: "application/json", "Content-Type": "application/json"},
       opts.headers,
     )
-    const query = this._query({"api-version": p["apiVersion"]})
+    const query = this._query({
+      "api-version": p["apiVersion"],
+    })
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
@@ -137,7 +143,9 @@ export class ContosoProviderHubClient extends AbstractAxiosClient {
       {Accept: "application/json", "Content-Type": "application/json"},
       opts.headers,
     )
-    const query = this._query({"api-version": p["apiVersion"]})
+    const query = this._query({
+      "api-version": p["apiVersion"],
+    })
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
@@ -162,7 +170,9 @@ export class ContosoProviderHubClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/subscriptions/${p["subscriptionId"]}/resourceGroups/${p["resourceGroupName"]}/providers/Microsoft.ContosoProviderHub/employees/${p["employeeName"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({"api-version": p["apiVersion"]})
+    const query = this._query({
+      "api-version": p["apiVersion"],
+    })
 
     return this._request({
       url: url + query,
@@ -185,7 +195,9 @@ export class ContosoProviderHubClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/subscriptions/${p["subscriptionId"]}/resourceGroups/${p["resourceGroupName"]}/providers/Microsoft.ContosoProviderHub/employees/${p["employeeName"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({"api-version": p["apiVersion"]})
+    const query = this._query({
+      "api-version": p["apiVersion"],
+    })
 
     return this._request({
       url: url + query,
@@ -207,7 +219,9 @@ export class ContosoProviderHubClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_EmployeeListResult>> {
     const url = `/subscriptions/${p["subscriptionId"]}/resourceGroups/${p["resourceGroupName"]}/providers/Microsoft.ContosoProviderHub/employees`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({"api-version": p["apiVersion"]})
+    const query = this._query({
+      "api-version": p["apiVersion"],
+    })
 
     return this._request({
       url: url + query,
@@ -228,7 +242,9 @@ export class ContosoProviderHubClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_EmployeeListResult>> {
     const url = `/subscriptions/${p["subscriptionId"]}/providers/Microsoft.ContosoProviderHub/employees`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({"api-version": p["apiVersion"]})
+    const query = this._query({
+      "api-version": p["apiVersion"],
+    })
 
     return this._request({
       url: url + query,
@@ -255,7 +271,9 @@ export class ContosoProviderHubClient extends AbstractAxiosClient {
       {Accept: "application/json", "Content-Type": "application/json"},
       opts.headers,
     )
-    const query = this._query({"api-version": p["apiVersion"]})
+    const query = this._query({
+      "api-version": p["apiVersion"],
+    })
     const body = JSON.stringify(p.requestBody)
 
     return this._request({

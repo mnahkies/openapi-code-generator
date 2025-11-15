@@ -51,7 +51,18 @@ export class SwaggerPetstore extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_Pet[]>> {
     const url = `/pets`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({tags: p["tags"], limit: p["limit"]})
+    const query = this._query(
+      {
+        tags: p["tags"],
+        limit: p["limit"],
+      },
+      {
+        tags: {
+          style: "form",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,

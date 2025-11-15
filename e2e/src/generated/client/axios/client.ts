@@ -8,20 +8,27 @@ import {
   type Server,
 } from "@nahkies/typescript-axios-runtime/main"
 import type {AxiosRequestConfig, AxiosResponse} from "axios"
-import {z} from "zod/v4"
+import {z} from "zod/v3"
 import type {
   t_Enumerations,
   t_getHeadersRequestJson200Response,
   t_getHeadersUndeclaredJson200Response,
+  t_getParamsDefaultObjectQueryJson200Response,
+  t_getParamsSimpleQueryJson200Response,
+  t_getParamsUnexplodedObjectQueryJson200Response,
   t_ProductOrder,
   t_postValidationOptionalBodyJson200Response,
   t_postValidationOptionalBodyJsonRequestBody,
   t_RandomNumber,
+  UnknownEnumStringValue,
 } from "./models.ts"
 import {
   s_Enumerations,
   s_getHeadersRequestJson200Response,
   s_getHeadersUndeclaredJson200Response,
+  s_getParamsDefaultObjectQueryJson200Response,
+  s_getParamsSimpleQueryJson200Response,
+  s_getParamsUnexplodedObjectQueryJson200Response,
   s_ProductOrder,
   s_postValidationOptionalBodyJson200Response,
   s_RandomNumber,
@@ -124,6 +131,108 @@ export class E2ETestClient extends AbstractAxiosClient {
     return {...res, data: s_getHeadersRequestJson200Response.parse(res.data)}
   }
 
+  async getParamsSimpleQuery(
+    p: {
+      orderBy: "asc" | "desc" | UnknownEnumStringValue
+      limit: number
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_getParamsSimpleQueryJson200Response>> {
+    const url = `/params/simple-query`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query({
+      orderBy: p["orderBy"],
+      limit: p["limit"],
+    })
+
+    const res = await this._request({
+      url: url + query,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+
+    return {...res, data: s_getParamsSimpleQueryJson200Response.parse(res.data)}
+  }
+
+  async getParamsDefaultObjectQuery(
+    p: {
+      filter: {
+        age: number
+        name: string
+      }
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_getParamsDefaultObjectQueryJson200Response>> {
+    const url = `/params/default-object-query`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query(
+      {
+        filter: p["filter"],
+      },
+      {
+        filter: {
+          style: "form",
+          explode: true,
+        },
+      },
+    )
+
+    const res = await this._request({
+      url: url + query,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+
+    return {
+      ...res,
+      data: s_getParamsDefaultObjectQueryJson200Response.parse(res.data),
+    }
+  }
+
+  async getParamsUnexplodedObjectQuery(
+    p: {
+      filter: {
+        age: number
+        name: string
+      }
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_getParamsUnexplodedObjectQueryJson200Response>> {
+    const url = `/params/unexploded-object-query`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query(
+      {
+        filter: p["filter"],
+      },
+      {
+        filter: {
+          style: "form",
+          explode: false,
+        },
+      },
+    )
+
+    const res = await this._request({
+      url: url + query,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+
+    return {
+      ...res,
+      data: s_getParamsUnexplodedObjectQueryJson200Response.parse(res.data),
+    }
+  }
+
   async getValidationNumbersRandomNumber(
     p: {
       max?: number
@@ -135,11 +244,19 @@ export class E2ETestClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_RandomNumber>> {
     const url = `/validation/numbers/random-number`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      max: p["max"],
-      min: p["min"],
-      forbidden: p["forbidden"],
-    })
+    const query = this._query(
+      {
+        max: p["max"],
+        min: p["min"],
+        forbidden: p["forbidden"],
+      },
+      {
+        forbidden: {
+          style: "form",
+          explode: true,
+        },
+      },
+    )
 
     const res = await this._request({
       url: url + query,

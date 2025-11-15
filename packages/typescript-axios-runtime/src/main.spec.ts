@@ -9,6 +9,7 @@ import {
   type HeaderParams,
   type QueryParams,
 } from "./main"
+import type {Encoding} from "./request-bodies/url-search-params"
 
 class ConcreteAxiosClient extends AbstractAxiosClient {
   // biome-ignore lint/complexity/noUselessConstructor: make public
@@ -16,8 +17,11 @@ class ConcreteAxiosClient extends AbstractAxiosClient {
     super(config)
   }
 
-  query(params: QueryParams) {
-    return this._query(params)
+  query(
+    params: QueryParams,
+    encodings: Record<string, Encoding> | undefined = undefined,
+  ): string {
+    return this._query(params, encodings)
   }
 
   headers(
@@ -46,28 +50,40 @@ describe("typescript-axios-runtime/main", () => {
       expect(client.query({foo: ["bar", "baz"]})).toBe("?foo=bar&foo=baz")
     })
 
-    it("handles objects", () => {
-      expect(client.query({foo: {bar: "baz"}})).toBe(
-        `?${encodeURIComponent("foo[bar]")}=baz`,
-      )
+    it("objects are unnested by default", () => {
+      expect(client.query({foo: {bar: "baz"}})).toBe(`?bar=baz`)
+    })
+
+    it("handles exploded style deepObject", () => {
+      expect(
+        client.query(
+          {foo: {bar: "baz"}},
+          {foo: {explode: true, style: "deepObject"}},
+        ),
+      ).toBe(`?${encodeURIComponent("foo[bar]")}=baz`)
     })
 
     it("handles arrays of objects with multiple properties", () => {
       expect(
-        client.query({
-          foo: [
-            {prop1: "one", prop2: "two"},
-            {prop1: "foo", prop2: "bar"},
-          ],
-          limit: 10,
-          undefined: undefined,
-          includeSomething: false,
-        }),
+        client.query(
+          {
+            foo: [
+              {prop1: "one", prop2: "two"},
+              {prop1: "foo", prop2: "bar"},
+            ],
+            limit: 10,
+            undefined: undefined,
+            includeSomething: false,
+          },
+          {
+            foo: {explode: true, style: "deepObject"},
+          },
+        ),
       ).toBe(
-        `?${encodeURIComponent("foo[prop1]")}=one&${encodeURIComponent(
-          "foo[prop2]",
-        )}=two&${encodeURIComponent("foo[prop1]")}=foo&${encodeURIComponent(
-          "foo[prop2]",
+        `?${encodeURIComponent("foo[0][prop1]")}=one&${encodeURIComponent(
+          "foo[0][prop2]",
+        )}=two&${encodeURIComponent("foo[1][prop1]")}=foo&${encodeURIComponent(
+          "foo[1][prop2]",
         )}=bar&limit=10&includeSomething=false`,
       )
     })

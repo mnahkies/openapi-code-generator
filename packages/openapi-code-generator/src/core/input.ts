@@ -10,6 +10,7 @@ import type {
   Responses,
   Schema,
   Server,
+  Style,
   xInternalPreproccess,
 } from "./openapi-types"
 import type {
@@ -333,16 +334,55 @@ export class Input {
     return parameters
       .map((it) => this.loader.parameter(it))
       .map((it: Parameter): IRParameter => {
+        const style = this.styleForParameter(it)
+        const explode = this.explodeForParameter(it, style)
+
         return {
           name: it.name,
           in: it.in,
           schema: this.normalizeSchemaObject(it.schema),
+          style,
+          explode,
           description: it.description,
           required: it.required ?? false,
           deprecated: it.deprecated ?? false,
           allowEmptyValue: it.allowEmptyValue ?? false,
         }
       })
+  }
+
+  private styleForParameter(parameter: Parameter): Style {
+    if (parameter.style) {
+      return parameter.style
+    }
+
+    switch (parameter.in) {
+      case "query":
+        return "form"
+      case "path":
+        return "simple"
+      case "header":
+        return "simple"
+      case "cookie":
+        return "form"
+      default: {
+        throw new Error(
+          `unsupported parameter in '${parameter.in satisfies never}'`,
+        )
+      }
+    }
+  }
+
+  private explodeForParameter(parameter: Parameter, style: Style): boolean {
+    if (typeof parameter.explode === "boolean") {
+      return parameter.explode
+    }
+
+    if (style === "form") {
+      return true
+    }
+
+    return false
   }
 
   private normalizeOperationId(

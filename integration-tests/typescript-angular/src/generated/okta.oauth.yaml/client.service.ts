@@ -104,6 +104,15 @@ export type QueryParams = {
     | QueryParams[]
 }
 
+export type Style = "deepObject" | "form" | "pipeDelimited" | "spaceDelimited"
+
+export type Encoding = {
+  // allowReserved?: boolean;
+  // contentType?: string;
+  explode?: boolean
+  style?: Style
+}
+
 export type Server<T> = string & {__server__: T}
 
 @Injectable({
@@ -125,7 +134,11 @@ export class OktaOpenIdConnectOAuth20Service {
     )
   }
 
-  private _queryParams(queryParams: QueryParams): HttpParams {
+  private _query(
+    queryParams: QueryParams,
+    // todo: use encodings
+    _encodings?: Record<string, Encoding>,
+  ): HttpParams {
     return Object.entries(queryParams).reduce((result, [name, value]) => {
       if (
         typeof value === "string" ||
@@ -150,7 +163,9 @@ export class OktaOpenIdConnectOAuth20Service {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({client_id: p["clientId"]})
+    const params = this._query({
+      client_id: p["clientId"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -189,7 +204,7 @@ export class OktaOpenIdConnectOAuth20Service {
     (HttpResponse<t_Error> & {status: 429}) | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       acr_values: p["acrValues"],
       client_id: p["clientId"],
       code_challenge: p["codeChallenge"],
@@ -299,7 +314,7 @@ export class OktaOpenIdConnectOAuth20Service {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       after: p["after"],
       limit: p["limit"],
       q: p["q"],
@@ -521,7 +536,9 @@ export class OktaOpenIdConnectOAuth20Service {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({client_id: p["clientId"]})
+    const params = this._query({
+      client_id: p["clientId"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -545,7 +562,7 @@ export class OktaOpenIdConnectOAuth20Service {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       id_token_hint: p["idTokenHint"],
       post_logout_redirect_uri: p["postLogoutRedirectUri"],
       state: p["state"],
@@ -762,7 +779,9 @@ export class OktaOpenIdConnectOAuth20Service {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({client_id: p["clientId"]})
+    const params = this._query({
+      client_id: p["clientId"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -787,7 +806,9 @@ export class OktaOpenIdConnectOAuth20Service {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({client_id: p["clientId"]})
+    const params = this._query({
+      client_id: p["clientId"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -828,7 +849,7 @@ export class OktaOpenIdConnectOAuth20Service {
     (HttpResponse<t_Error> & {status: 429}) | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       acr_values: p["acrValues"],
       client_id: p["clientId"],
       code_challenge: p["codeChallenge"],
@@ -1017,7 +1038,7 @@ export class OktaOpenIdConnectOAuth20Service {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
+    const params = this._query({
       id_token_hint: p["idTokenHint"],
       post_logout_redirect_uri: p["postLogoutRedirectUri"],
       state: p["state"],
