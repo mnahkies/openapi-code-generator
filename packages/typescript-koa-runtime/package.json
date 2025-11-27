@@ -73,7 +73,7 @@
     "clean": "rm -rf ./dist && rm -f tsconfig.tsbuildinfo",
     "build": "tsc -p tsconfig.json",
     "bundle": "tsdown",
-    "test": "jest"
+    "test": "vitest run"
   },
   "dependencies": {
     "raw-body": "^3.0.2",
@@ -96,18 +96,17 @@
     }
   },
   "devDependencies": {
-    "@jest/globals": "^30.4.1",
     "@koa/cors": "^5.0.0",
     "@koa/router": "^15.5.0",
     "@nahkies/typescript-common-runtime": "workspace:^",
     "@types/koa": "^3.0.3",
     "@types/koa__cors": "^5.0.1",
-    "jest": "^30.4.2",
     "joi": "^18.2.1",
     "koa": "^3.2.1",
     "koa-body": "^8.0.0",
     "tsdown": "^0.22.0",
     "typescript": "^6.0.3",
+    "vitest": "^4.0.11",
     "zod": "^4.3.6"
   },
   "files": [

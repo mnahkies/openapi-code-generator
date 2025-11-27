@@ -28,7 +28,7 @@ This is a monorepo managed with `pnpm`. It produces a CLI tool for generating hi
 - **Install**: `pnpm install`
 - **Build**: `pnpm build` (generates validators, bundles packages, and runs `tsc -b`).
 - **Lint/Format**: `pnpm lint` (uses Biome). For CI-style checks, use `pnpm ci-lint`.
-- **Unit Tests**: `pnpm test` (uses Jest). For coverage, use `pnpm ci-test`.
+- **Unit Tests**: `pnpm test` (uses Vitest). For coverage, use `pnpm ci-test`.
 - **Integration Tests**:
     - Generate: `pnpm integration:generate`
     - Validate/Build: `pnpm integration:validate`
@@ -40,9 +40,9 @@ This is a monorepo managed with `pnpm`. It produces a CLI tool for generating hi
 ## Testing Standards
 
 - **Unit Testing**: Tests are co-located with source code (`.spec.ts`).
-- **Jest Globals**: You MUST explicitly import Jest globals in test files:
+- **Vitest Globals**: You MUST explicitly import Vitest globals in test files:
   ```typescript
-  import {describe, expect, it} from "@jest/globals"
+  import {describe, expect, it} from "vitest"
   ```
 - **Regression**: Always ensure `pnpm integration:validate` passes after changes to generation logic.
 

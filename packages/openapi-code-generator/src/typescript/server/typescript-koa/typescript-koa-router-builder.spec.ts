@@ -1,4 +1,4 @@
-import {describe, expect, it} from "@jest/globals"
+import {describe, expect, it} from "vitest"
 import type {ServerImplementationMethod} from "../../../templates.types.ts"
 import {unitTestInput} from "../../../test/input.test-utils.ts"
 import {ImportBuilder} from "../../common/import-builder.ts"

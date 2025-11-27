@@ -1,4 +1,4 @@
-import {describe, expect, it} from "@jest/globals"
+import {describe, expect, it} from "vitest"
 import {normalizeRef, pathFromRef} from "./openapi-loader.ts"
 
 describe("core/openapi-loader", () => {

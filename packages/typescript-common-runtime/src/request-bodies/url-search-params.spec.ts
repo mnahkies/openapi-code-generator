@@ -1,4 +1,4 @@
-import {describe, expect, it} from "@jest/globals"
+import {describe, expect, it} from "vitest"
 import {requestBodyToUrlSearchParams} from "./url-search-params.ts"
 
 describe("typescript-fetch-runtime/request-bodies/requestBodyToUrlSearchParams", () => {

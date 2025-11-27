@@ -1,6 +1,6 @@
 import {Blob} from "node:buffer"
-import {expect} from "@jest/globals"
 import {AsymmetricMatcher} from "expect"
+import {expect} from "vitest"
 
 class NumberInRange extends AsymmetricMatcher<number> {
   constructor(

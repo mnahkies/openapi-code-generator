@@ -1,5 +1,5 @@
 import vm from "node:vm"
-import {beforeAll, describe, expect, it} from "@jest/globals"
+import {beforeAll, describe, expect, it} from "vitest"
 import {testVersions} from "../../../test/input.test-utils.ts"
 import {TypescriptFormatterBiome} from "../typescript-formatter.biome.ts"
 import {

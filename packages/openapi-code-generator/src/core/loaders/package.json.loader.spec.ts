@@ -1,5 +1,5 @@
 import path from "node:path"
-import {describe, expect, it} from "@jest/globals"
+import {describe, expect, it} from "vitest"
 import {NodeFsAdaptor} from "../file-system/node-fs-adaptor.ts"
 import {loadPackageJson} from "./package.json.loader.ts"
 

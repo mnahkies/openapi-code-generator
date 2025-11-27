@@ -7,8 +7,9 @@ import {
   describe,
   expect,
   it,
-  jest,
-} from "@jest/globals"
+  type MockedFunction,
+  vi,
+} from "vitest"
 import {
   ApiClient,
   E2ETestClientServers,
@@ -569,10 +570,10 @@ describe.each(
   })
 
   describe("route matching", () => {
-    let logSpy: jest.SpiedFunction<typeof console.log>
+    let logSpy: MockedFunction<typeof console.log>
 
     beforeEach(() => {
-      logSpy = jest.spyOn(console, "log").mockImplementation(() => {})
+      logSpy = vi.spyOn(console, "log").mockImplementation(() => {})
     })
 
     afterEach(() => {
