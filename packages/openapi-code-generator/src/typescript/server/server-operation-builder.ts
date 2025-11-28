@@ -62,6 +62,7 @@ export type Parameters = {
     schema: string | undefined
     type: string
     parameters: QueryParameter[]
+    isSimpleQuery: boolean
   }
   header: {
     name: string
@@ -198,6 +199,7 @@ export class ServerOperationBuilder {
 
   private queryParameters(): Parameters["query"] {
     const $ref = this.operation.parameters.query.$ref
+    const parameters = this.operation.parameters.query.list
 
     const schema = $ref
       ? this.schemaBuilder.fromModel(this.input.schema($ref), true, true)
@@ -210,18 +212,25 @@ export class ServerOperationBuilder {
     }
 
 
+    const reflectionParameters = parameters.map((it) => ({
+      name: it.name,
+      explode: it.explode,
+      style: it.style,
+      schema: this.queryParameterRuntimeSchema(this.input.schema(it.schema)),
+    }))
+
+    // When all the query parameters are primitives, we don't need to do custom parsing, as server frameworks
+    // will already parse them naively.
+    const isSimpleQuery = reflectionParameters.every(
+      (it) => it.schema.type !== "object" && it.schema.type !== "array",
+    )
+
     return {
       name: this.operation.parameters.query.name,
       schema: schema,
       type,
-      parameters: this.operation.parameters.query.list.map((it) => ({
-        name: it.name,
-        // todo: only default true when style: form
-        // todo: remove defaulting - normalization does this
-        explode: it.explode ?? true,
-        style: it.style ?? "form",
-        schema: this.queryParameterRuntimeSchema(this.input.schema(it.schema)),
-      })),
+      parameters: reflectionParameters,
+      isSimpleQuery,
     }
   }
 

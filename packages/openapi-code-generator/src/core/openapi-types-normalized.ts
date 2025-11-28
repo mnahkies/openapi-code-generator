@@ -142,7 +142,7 @@ export interface IRParameterPath extends IRParameterBase {
 export interface IRParameterQuery extends IRParameterBase {
   in: "query"
   style: "form" | "spaceDelimited" | "pipeDelimited" | "deepObject" // default: form
-  explode: boolean | undefined // default: true for form/cookie, false for other styles
+  explode: boolean // default: true for form/cookie, false for other styles
   allowEmptyValue: boolean //default: false
 }
 
