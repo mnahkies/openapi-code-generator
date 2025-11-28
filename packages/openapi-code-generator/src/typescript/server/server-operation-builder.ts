@@ -227,19 +227,54 @@ export class ServerOperationBuilder {
 
   private queryParameterRuntimeSchema(schema: IRModel): SchemaStructure {
     const type = schema.type
+
     switch (type) {
       case "string":
       case "number":
       case "boolean":
+      case "null": {
         return {type}
-      case "array":
+      }
+      case "array": {
         return {
           type: "array",
           items: this.queryParameterRuntimeSchema(
             this.input.schema(schema.items),
           ),
         }
+      }
+
       case "object": {
+        const firstAnyOf = schema.anyOf[0]
+
+        if (firstAnyOf) {
+          logger.error(
+            `server templates only support parsing the **first** 'anyOf' in query parameters.`,
+            {anyOf: schema.anyOf},
+          )
+          return this.queryParameterRuntimeSchema(this.input.schema(firstAnyOf))
+        }
+
+        const firstOneOf = schema.oneOf[0]
+
+        if (firstOneOf) {
+          logger.error(
+            `server templates only support parsing the **first** 'oneOf' in query parameters.`,
+            {oneOf: schema.oneOf},
+          )
+          return this.queryParameterRuntimeSchema(this.input.schema(firstOneOf))
+        }
+
+        if (schema.allOf.length) {
+          logger.warn(
+            `server templates do not support allOf in query parameters. Consider keeping it simple.`,
+            {schema},
+          )
+          throw new Error(
+            "server templates do not support allOf in query parameters.",
+          )
+        }
+
         const properties: Record<string, SchemaStructure> = {}
 
         for (const key in schema.properties) {
@@ -254,7 +289,7 @@ export class ServerOperationBuilder {
         }
       }
       default: {
-        throw new Error(`unsupported query parameter type ${type}`)
+        throw new Error(`unsupported query parameter schema type '${type}'`)
       }
     }
   }

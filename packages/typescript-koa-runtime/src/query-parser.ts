@@ -162,6 +162,7 @@ export function parseQueryParameter(
   switch (type) {
     case "object":
       return parseObjectQueryParameter(name, schema, encoding, query)
+
     case "array":
       return parseArrayQueryParameter(name, schema, encoding, query)
 
