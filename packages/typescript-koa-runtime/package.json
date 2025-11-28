@@ -75,6 +75,7 @@
     }
   },
   "devDependencies": {
+    "@jest/globals": "^30.2.0",
     "@koa/cors": "^5.0.0",
     "@koa/router": "^14.0.0",
     "@types/koa": "^3.0.1",

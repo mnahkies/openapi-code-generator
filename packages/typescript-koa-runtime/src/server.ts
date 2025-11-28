@@ -21,6 +21,8 @@ export type {
   StatusCode5xx,
 } from "@nahkies/typescript-common-runtime/types"
 
+export {parseQueryParameters} from "./query-parser"
+
 export const SkipResponse = Symbol("skip response processing")
 
 export class KoaRuntimeResponse<Type> {

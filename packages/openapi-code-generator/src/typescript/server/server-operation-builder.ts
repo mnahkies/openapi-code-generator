@@ -1,6 +1,6 @@
 import type {Input} from "../../core/input"
 import {logger} from "../../core/logger"
-import type {IROperation} from "../../core/openapi-types-normalized"
+import type { IRModel, IROperation } from "../../core/openapi-types-normalized"
 import {extractPlaceholders} from "../../core/openapi-utils"
 import type {SchemaBuilder} from "../common/schema-builders/schema-builder"
 import type {TypeBuilder} from "../common/type-builder"
@@ -33,6 +33,23 @@ export type ServerOperationResponseSchemas = {
     | undefined
 }
 
+export type PrimitiveType = {type: "string" | "number" | "boolean" | "null"}
+export type ObjectSchema = {
+  type: "object"
+  properties: Record<string, SchemaStructure>
+}
+export type ArraySchema = {type: "array"; items: SchemaStructure}
+
+export type SchemaStructure = PrimitiveType | ObjectSchema | ArraySchema
+export type Style = "deepObject" | "form" | "pipeDelimited" | "spaceDelimited"
+export interface QueryParameter {
+  name: string
+  schema: SchemaStructure
+  style?: Style
+  explode?: boolean
+  // allowEmptyValue: boolean
+}
+
 export type Parameters = {
   type: string
   path: {
@@ -44,6 +61,7 @@ export type Parameters = {
     name: string
     schema: string | undefined
     type: string
+    parameters: QueryParameter[]
   }
   header: {
     name: string
@@ -191,7 +209,54 @@ export class ServerOperationBuilder {
       type = this.types.schemaObjectToType($ref)
     }
 
-    return {name: this.operation.parameters.query.name, schema: schema, type}
+
+    return {
+      name: this.operation.parameters.query.name,
+      schema: schema,
+      type,
+      parameters: this.operation.parameters.query.list.map((it) => ({
+        name: it.name,
+        // todo: only default true when style: form
+        // todo: remove defaulting - normalization does this
+        explode: it.explode ?? true,
+        style: it.style ?? "form",
+        schema: this.queryParameterRuntimeSchema(this.input.schema(it.schema)),
+      })),
+    }
+  }
+
+  private queryParameterRuntimeSchema(schema: IRModel): SchemaStructure {
+    const type = schema.type
+    switch (type) {
+      case "string":
+      case "number":
+      case "boolean":
+        return {type}
+      case "array":
+        return {
+          type: "array",
+          items: this.queryParameterRuntimeSchema(
+            this.input.schema(schema.items),
+          ),
+        }
+      case "object": {
+        const properties: Record<string, SchemaStructure> = {}
+
+        for (const key in schema.properties) {
+          properties[key] = this.queryParameterRuntimeSchema(
+            this.input.schema(schema.properties[key] ?? {isIRModel: true, nullable: false, readOnly: false, type: "any"}),
+          )
+        }
+
+        return {
+          type: "object",
+          properties,
+        }
+      }
+      default: {
+        throw new Error(`unsupported query parameter type ${type}`)
+      }
+    }
   }
 
   private headerParameters(): Parameters["header"] {
