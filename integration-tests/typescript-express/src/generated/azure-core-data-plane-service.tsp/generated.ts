@@ -19,6 +19,7 @@ import {
   parseRequestInput,
   responseValidationFactory,
 } from "@nahkies/typescript-express-runtime/zod-v4"
+import {parseQueryParameters} from "@nahkies/typescript-koa-runtime/server"
 import {type NextFunction, type Request, type Response, Router} from "express"
 import {z} from "zod/v4"
 import type {
@@ -1133,7 +1134,41 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             widgetsListWidgetsQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "api-version",
+                  explode: false,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "top",
+                  explode: false,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "skip",
+                  explode: false,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "maxpagesize",
+                  explode: false,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "select",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,

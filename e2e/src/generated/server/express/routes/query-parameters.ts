@@ -17,6 +17,7 @@ import {
   parseRequestInput,
   responseValidationFactory,
 } from "@nahkies/typescript-express-runtime/zod-v4"
+import {parseQueryParameters} from "@nahkies/typescript-koa-runtime/server"
 import {type NextFunction, type Request, type Response, Router} from "express"
 import {z} from "zod/v4"
 import type {
@@ -165,7 +166,20 @@ export function createQueryParametersRouter(
           params: undefined,
           query: parseRequestInput(
             getParamsDefaultObjectQueryQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "filter",
+                  explode: true,
+                  style: "form",
+                  schema: {
+                    type: "object",
+                    properties: {name: {type: "string"}, age: {type: "number"}},
+                  },
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -233,7 +247,20 @@ export function createQueryParametersRouter(
           params: undefined,
           query: parseRequestInput(
             getParamsUnexplodedObjectQueryQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "filter",
+                  explode: false,
+                  style: "form",
+                  schema: {
+                    type: "object",
+                    properties: {name: {type: "string"}, age: {type: "number"}},
+                  },
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,

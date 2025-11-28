@@ -11,6 +11,7 @@ import {
   type KoaRuntimeResponder,
   KoaRuntimeResponse,
   type Params,
+  parseQueryParameters,
   type Response,
   type ServerConfig,
   SkipResponse,
@@ -131,7 +132,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: parseRequestInput(
         findPetsQuerySchema,
-        ctx.query,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "tags",
+            explode: true,
+            style: "form",
+            schema: {type: "array", items: {type: "string"}},
+          },
+          {
+            name: "limit",
+            explode: true,
+            style: "form",
+            schema: {type: "number"},
+          },
+        ]),
         RequestInputType.QueryString,
       ),
       body: undefined,

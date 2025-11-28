@@ -11,6 +11,7 @@ import {
   type KoaRuntimeResponder,
   KoaRuntimeResponse,
   type Params,
+  parseQueryParameters,
   type Response,
   type ServerConfig,
   SkipResponse,
@@ -249,7 +250,26 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: parseRequestInput(
         getTodoListsQuerySchema,
-        ctx.query,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "created",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "statuses",
+            explode: true,
+            style: "form",
+            schema: {type: "array", items: {type: "string"}},
+          },
+          {
+            name: "tags",
+            explode: true,
+            style: "form",
+            schema: {type: "array", items: {type: "string"}},
+          },
+        ]),
         RequestInputType.QueryString,
       ),
       body: undefined,

@@ -11,6 +11,7 @@ import {
   type KoaRuntimeResponder,
   KoaRuntimeResponse,
   type Params,
+  parseQueryParameters,
   type Response,
   type ServerConfig,
   SkipResponse,
@@ -15545,7 +15546,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: parseRequestInput(
         getAccountQuerySchema,
-        ctx.query,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+        ]),
         RequestInputType.QueryString,
       ),
       body: undefined,
@@ -15726,7 +15734,46 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: parseRequestInput(
         getAccountsQuerySchema,
-        ctx.query,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "created",
+            explode: true,
+            style: "deepObject",
+            schema: {
+              type: "object",
+              properties: {
+                gt: {type: "number"},
+                gte: {type: "number"},
+                lt: {type: "number"},
+                lte: {type: "number"},
+              },
+            },
+          },
+          {
+            name: "ending_before",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+          {
+            name: "limit",
+            explode: true,
+            style: "form",
+            schema: {type: "number"},
+          },
+          {
+            name: "starting_after",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+        ]),
         RequestInputType.QueryString,
       ),
       body: undefined,
@@ -15903,7 +15950,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getAccountsAccountQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -16147,7 +16201,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getAccountsAccountBankAccountsIdQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -16289,7 +16350,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getAccountsAccountCapabilitiesQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -16362,7 +16430,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getAccountsAccountCapabilitiesCapabilityQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -16513,7 +16588,38 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getAccountsAccountExternalAccountsQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "ending_before",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+            {
+              name: "limit",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+            {
+              name: "object",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "starting_after",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -16708,7 +16814,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getAccountsAccountExternalAccountsIdQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -16923,7 +17036,48 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getAccountsAccountPeopleQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "ending_before",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+            {
+              name: "limit",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+            {
+              name: "relationship",
+              explode: true,
+              style: "deepObject",
+              schema: {
+                type: "object",
+                properties: {
+                  authorizer: {type: "boolean"},
+                  director: {type: "boolean"},
+                  executive: {type: "boolean"},
+                  legal_guardian: {type: "boolean"},
+                  owner: {type: "boolean"},
+                  representative: {type: "boolean"},
+                },
+              },
+            },
+            {
+              name: "starting_after",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -17114,7 +17268,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getAccountsAccountPeoplePersonQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -17265,7 +17426,48 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getAccountsAccountPersonsQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "ending_before",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+            {
+              name: "limit",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+            {
+              name: "relationship",
+              explode: true,
+              style: "deepObject",
+              schema: {
+                type: "object",
+                properties: {
+                  authorizer: {type: "boolean"},
+                  director: {type: "boolean"},
+                  executive: {type: "boolean"},
+                  legal_guardian: {type: "boolean"},
+                  owner: {type: "boolean"},
+                  representative: {type: "boolean"},
+                },
+              },
+            },
+            {
+              name: "starting_after",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -17456,7 +17658,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getAccountsAccountPersonsPersonQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -17650,7 +17859,38 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: parseRequestInput(
           getApplePayDomainsQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "domain_name",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "ending_before",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+            {
+              name: "limit",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+            {
+              name: "starting_after",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -17830,7 +18070,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getApplePayDomainsDomainQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -17916,7 +18163,52 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: parseRequestInput(
           getApplicationFeesQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "charge",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "created",
+              explode: true,
+              style: "deepObject",
+              schema: {
+                type: "object",
+                properties: {
+                  gt: {type: "number"},
+                  gte: {type: "number"},
+                  lt: {type: "number"},
+                  lte: {type: "number"},
+                },
+              },
+            },
+            {
+              name: "ending_before",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+            {
+              name: "limit",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+            {
+              name: "starting_after",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -17989,7 +18281,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getApplicationFeesFeeRefundsIdQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -18115,7 +18414,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getApplicationFeesIdQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -18256,7 +18562,32 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getApplicationFeesIdRefundsQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "ending_before",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+            {
+              name: "limit",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+            {
+              name: "starting_after",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -18394,7 +18725,41 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: parseRequestInput(
         getAppsSecretsQuerySchema,
-        ctx.query,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "ending_before",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+          {
+            name: "limit",
+            explode: true,
+            style: "form",
+            schema: {type: "number"},
+          },
+          {
+            name: "scope",
+            explode: true,
+            style: "deepObject",
+            schema: {
+              type: "object",
+              properties: {type: {type: "string"}, user: {type: "string"}},
+            },
+          },
+          {
+            name: "starting_after",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+        ]),
         RequestInputType.QueryString,
       ),
       body: undefined,
@@ -18564,7 +18929,29 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: parseRequestInput(
           getAppsSecretsFindQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+            {
+              name: "name",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "scope",
+              explode: true,
+              style: "deepObject",
+              schema: {
+                type: "object",
+                properties: {type: {type: "string"}, user: {type: "string"}},
+              },
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -18622,7 +19009,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: parseRequestInput(
         getBalanceQuerySchema,
-        ctx.query,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+        ]),
         RequestInputType.QueryString,
       ),
       body: undefined,
@@ -18710,7 +19104,70 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: parseRequestInput(
         getBalanceHistoryQuerySchema,
-        ctx.query,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "created",
+            explode: true,
+            style: "deepObject",
+            schema: {
+              type: "object",
+              properties: {
+                gt: {type: "number"},
+                gte: {type: "number"},
+                lt: {type: "number"},
+                lte: {type: "number"},
+              },
+            },
+          },
+          {
+            name: "currency",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "ending_before",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+          {
+            name: "limit",
+            explode: true,
+            style: "form",
+            schema: {type: "number"},
+          },
+          {
+            name: "payout",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "source",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "starting_after",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "type",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+        ]),
         RequestInputType.QueryString,
       ),
       body: undefined,
@@ -18781,7 +19238,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getBalanceHistoryIdQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -18873,7 +19337,70 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: parseRequestInput(
           getBalanceTransactionsQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "created",
+              explode: true,
+              style: "deepObject",
+              schema: {
+                type: "object",
+                properties: {
+                  gt: {type: "number"},
+                  gte: {type: "number"},
+                  lt: {type: "number"},
+                  lte: {type: "number"},
+                },
+              },
+            },
+            {
+              name: "currency",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "ending_before",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+            {
+              name: "limit",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+            {
+              name: "payout",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "source",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "starting_after",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "type",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -18947,7 +19474,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getBalanceTransactionsIdQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -19020,7 +19554,44 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: parseRequestInput(
         getBillingAlertsQuerySchema,
-        ctx.query,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "alert_type",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "ending_before",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+          {
+            name: "limit",
+            explode: true,
+            style: "form",
+            schema: {type: "number"},
+          },
+          {
+            name: "meter",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "starting_after",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+        ]),
         RequestInputType.QueryString,
       ),
       body: undefined,
@@ -19139,7 +19710,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getBillingAlertsIdQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -19388,7 +19966,45 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: parseRequestInput(
           getBillingCreditBalanceSummaryQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "customer",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+            {
+              name: "filter",
+              explode: true,
+              style: "deepObject",
+              schema: {
+                type: "object",
+                properties: {
+                  applicability_scope: {
+                    type: "object",
+                    properties: {
+                      price_type: {type: "string"},
+                      prices: {
+                        type: "array",
+                        items: {
+                          type: "object",
+                          properties: {id: {type: "string"}},
+                        },
+                      },
+                    },
+                  },
+                  credit_grant: {type: "string"},
+                  type: {type: "string"},
+                },
+              },
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -19468,7 +20084,44 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: parseRequestInput(
           getBillingCreditBalanceTransactionsQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "credit_grant",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "customer",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "ending_before",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+            {
+              name: "limit",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+            {
+              name: "starting_after",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -19546,7 +20199,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getBillingCreditBalanceTransactionsIdQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -19629,7 +20289,38 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: parseRequestInput(
           getBillingCreditGrantsQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "customer",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "ending_before",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+            {
+              name: "limit",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+            {
+              name: "starting_after",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -19755,7 +20446,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getBillingCreditGrantsIdQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -20108,7 +20806,38 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: parseRequestInput(
         getBillingMetersQuerySchema,
-        ctx.query,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "ending_before",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+          {
+            name: "limit",
+            explode: true,
+            style: "form",
+            schema: {type: "number"},
+          },
+          {
+            name: "starting_after",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "status",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+        ]),
         RequestInputType.QueryString,
       ),
       body: undefined,
@@ -20227,7 +20956,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getBillingMetersIdQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -20433,7 +21169,56 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getBillingMetersIdEventSummariesQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "customer",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "end_time",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+            {
+              name: "ending_before",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+            {
+              name: "limit",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+            {
+              name: "start_time",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+            {
+              name: "starting_after",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "value_grouping_window",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -20576,7 +21361,44 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: parseRequestInput(
           getBillingPortalConfigurationsQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "active",
+              explode: true,
+              style: "form",
+              schema: {type: "boolean"},
+            },
+            {
+              name: "ending_before",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+            {
+              name: "is_default",
+              explode: true,
+              style: "form",
+              schema: {type: "boolean"},
+            },
+            {
+              name: "limit",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+            {
+              name: "starting_after",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -20704,7 +21526,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getBillingPortalConfigurationsConfigurationQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -20918,7 +21747,64 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: parseRequestInput(
         getChargesQuerySchema,
-        ctx.query,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "created",
+            explode: true,
+            style: "deepObject",
+            schema: {
+              type: "object",
+              properties: {
+                gt: {type: "number"},
+                gte: {type: "number"},
+                lt: {type: "number"},
+                lte: {type: "number"},
+              },
+            },
+          },
+          {
+            name: "customer",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "ending_before",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+          {
+            name: "limit",
+            explode: true,
+            style: "form",
+            schema: {type: "number"},
+          },
+          {
+            name: "payment_intent",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "starting_after",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "transfer_group",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+        ]),
         RequestInputType.QueryString,
       ),
       body: undefined,
@@ -21043,7 +21929,32 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: parseRequestInput(
         getChargesSearchQuerySchema,
-        ctx.query,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+          {
+            name: "limit",
+            explode: true,
+            style: "form",
+            schema: {type: "number"},
+          },
+          {
+            name: "page",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "query",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+        ]),
         RequestInputType.QueryString,
       ),
       body: undefined,
@@ -21113,7 +22024,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       query: parseRequestInput(
         getChargesChargeQuerySchema,
-        ctx.query,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+        ]),
         RequestInputType.QueryString,
       ),
       body: undefined,
@@ -21295,7 +22213,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getChargesChargeDisputeQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -21553,7 +22478,32 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getChargesChargeRefundsQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "ending_before",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+            {
+              name: "limit",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+            {
+              name: "starting_after",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -21686,7 +22636,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getChargesChargeRefundsRefundQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -21836,7 +22793,82 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: parseRequestInput(
           getCheckoutSessionsQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "created",
+              explode: true,
+              style: "deepObject",
+              schema: {
+                type: "object",
+                properties: {
+                  gt: {type: "number"},
+                  gte: {type: "number"},
+                  lt: {type: "number"},
+                  lte: {type: "number"},
+                },
+              },
+            },
+            {
+              name: "customer",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "customer_details",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "object", properties: {email: {type: "string"}}},
+            },
+            {
+              name: "ending_before",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+            {
+              name: "limit",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+            {
+              name: "payment_intent",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "payment_link",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "starting_after",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "status",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "subscription",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -21962,7 +22994,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getCheckoutSessionsSessionQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -22164,7 +23203,32 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getCheckoutSessionsSessionLineItemsQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "ending_before",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+            {
+              name: "limit",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+            {
+              name: "starting_after",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -22243,7 +23307,32 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: parseRequestInput(
         getClimateOrdersQuerySchema,
-        ctx.query,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "ending_before",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+          {
+            name: "limit",
+            explode: true,
+            style: "form",
+            schema: {type: "number"},
+          },
+          {
+            name: "starting_after",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+        ]),
         RequestInputType.QueryString,
       ),
       body: undefined,
@@ -22364,7 +23453,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getClimateOrdersOrderQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -22556,7 +23652,32 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: parseRequestInput(
           getClimateProductsQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "ending_before",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+            {
+              name: "limit",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+            {
+              name: "starting_after",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -22630,7 +23751,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getClimateProductsProductQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -22704,7 +23832,32 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: parseRequestInput(
           getClimateSuppliersQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "ending_before",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+            {
+              name: "limit",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+            {
+              name: "starting_after",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -22776,7 +23929,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getClimateSuppliersSupplierQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -22843,7 +24003,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getConfirmationTokensConfirmationTokenQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -22917,7 +24084,32 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: parseRequestInput(
         getCountrySpecsQuerySchema,
-        ctx.query,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "ending_before",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+          {
+            name: "limit",
+            explode: true,
+            style: "form",
+            schema: {type: "number"},
+          },
+          {
+            name: "starting_after",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+        ]),
         RequestInputType.QueryString,
       ),
       body: undefined,
@@ -22990,7 +24182,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getCountrySpecsCountryQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -23072,7 +24271,46 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: parseRequestInput(
         getCouponsQuerySchema,
-        ctx.query,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "created",
+            explode: true,
+            style: "deepObject",
+            schema: {
+              type: "object",
+              properties: {
+                gt: {type: "number"},
+                gte: {type: "number"},
+                lt: {type: "number"},
+                lte: {type: "number"},
+              },
+            },
+          },
+          {
+            name: "ending_before",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+          {
+            name: "limit",
+            explode: true,
+            style: "form",
+            schema: {type: "number"},
+          },
+          {
+            name: "starting_after",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+        ]),
         RequestInputType.QueryString,
       ),
       body: undefined,
@@ -23244,7 +24482,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       query: parseRequestInput(
         getCouponsCouponQuerySchema,
-        ctx.query,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+        ]),
         RequestInputType.QueryString,
       ),
       body: undefined,
@@ -23381,7 +24626,58 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: parseRequestInput(
         getCreditNotesQuerySchema,
-        ctx.query,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "created",
+            explode: true,
+            style: "deepObject",
+            schema: {
+              type: "object",
+              properties: {
+                gt: {type: "number"},
+                gte: {type: "number"},
+                lt: {type: "number"},
+                lte: {type: "number"},
+              },
+            },
+          },
+          {
+            name: "customer",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "ending_before",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+          {
+            name: "invoice",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "limit",
+            explode: true,
+            style: "form",
+            schema: {type: "number"},
+          },
+          {
+            name: "starting_after",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+        ]),
         RequestInputType.QueryString,
       ),
       body: undefined,
@@ -23556,7 +24852,130 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: parseRequestInput(
           getCreditNotesPreviewQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "amount",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+            {
+              name: "credit_amount",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+            {
+              name: "effective_at",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+            {
+              name: "email_type",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+            {
+              name: "invoice",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "lines",
+              explode: true,
+              style: "deepObject",
+              schema: {
+                type: "array",
+                items: {
+                  type: "object",
+                  properties: {
+                    amount: {type: "number"},
+                    description: {type: "string"},
+                    invoice_line_item: {type: "string"},
+                    quantity: {type: "number"},
+                    tax_amounts: {
+                      type: "array",
+                      items: {
+                        type: "object",
+                        properties: {
+                          amount: {type: "number"},
+                          tax_rate: {type: "string"},
+                          taxable_amount: {type: "number"},
+                        },
+                      },
+                    },
+                    tax_rates: {type: "array", items: {type: "string"}},
+                    type: {type: "string"},
+                    unit_amount: {type: "number"},
+                    unit_amount_decimal: {type: "string"},
+                  },
+                },
+              },
+            },
+            {
+              name: "memo",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "metadata",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "object", properties: {}},
+            },
+            {
+              name: "out_of_band_amount",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+            {
+              name: "reason",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "refund_amount",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+            {
+              name: "refunds",
+              explode: true,
+              style: "deepObject",
+              schema: {
+                type: "array",
+                items: {
+                  type: "object",
+                  properties: {
+                    amount_refunded: {type: "number"},
+                    refund: {type: "string"},
+                  },
+                },
+              },
+            },
+            {
+              name: "shipping_cost",
+              explode: true,
+              style: "deepObject",
+              schema: {
+                type: "object",
+                properties: {shipping_rate: {type: "string"}},
+              },
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -23692,7 +25111,148 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: parseRequestInput(
           getCreditNotesPreviewLinesQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "amount",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+            {
+              name: "credit_amount",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+            {
+              name: "effective_at",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+            {
+              name: "email_type",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "ending_before",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+            {
+              name: "invoice",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "limit",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+            {
+              name: "lines",
+              explode: true,
+              style: "deepObject",
+              schema: {
+                type: "array",
+                items: {
+                  type: "object",
+                  properties: {
+                    amount: {type: "number"},
+                    description: {type: "string"},
+                    invoice_line_item: {type: "string"},
+                    quantity: {type: "number"},
+                    tax_amounts: {
+                      type: "array",
+                      items: {
+                        type: "object",
+                        properties: {
+                          amount: {type: "number"},
+                          tax_rate: {type: "string"},
+                          taxable_amount: {type: "number"},
+                        },
+                      },
+                    },
+                    tax_rates: {type: "array", items: {type: "string"}},
+                    type: {type: "string"},
+                    unit_amount: {type: "number"},
+                    unit_amount_decimal: {type: "string"},
+                  },
+                },
+              },
+            },
+            {
+              name: "memo",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "metadata",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "object", properties: {}},
+            },
+            {
+              name: "out_of_band_amount",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+            {
+              name: "reason",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "refund_amount",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+            {
+              name: "refunds",
+              explode: true,
+              style: "deepObject",
+              schema: {
+                type: "array",
+                items: {
+                  type: "object",
+                  properties: {
+                    amount_refunded: {type: "number"},
+                    refund: {type: "string"},
+                  },
+                },
+              },
+            },
+            {
+              name: "shipping_cost",
+              explode: true,
+              style: "deepObject",
+              schema: {
+                type: "object",
+                properties: {shipping_rate: {type: "string"}},
+              },
+            },
+            {
+              name: "starting_after",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -23780,7 +25340,32 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getCreditNotesCreditNoteLinesQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "ending_before",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+            {
+              name: "limit",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+            {
+              name: "starting_after",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -23849,7 +25434,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       query: parseRequestInput(
         getCreditNotesIdQuerySchema,
-        ctx.query,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+        ]),
         RequestInputType.QueryString,
       ),
       body: undefined,
@@ -24100,7 +25692,58 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: parseRequestInput(
         getCustomersQuerySchema,
-        ctx.query,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "created",
+            explode: true,
+            style: "deepObject",
+            schema: {
+              type: "object",
+              properties: {
+                gt: {type: "number"},
+                gte: {type: "number"},
+                lt: {type: "number"},
+                lte: {type: "number"},
+              },
+            },
+          },
+          {
+            name: "email",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "ending_before",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+          {
+            name: "limit",
+            explode: true,
+            style: "form",
+            schema: {type: "number"},
+          },
+          {
+            name: "starting_after",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "test_clock",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+        ]),
         RequestInputType.QueryString,
       ),
       body: undefined,
@@ -24228,7 +25871,32 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: parseRequestInput(
           getCustomersSearchQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+            {
+              name: "limit",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+            {
+              name: "page",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "query",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -24360,7 +26028,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getCustomersCustomerQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -24503,7 +26178,32 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getCustomersCustomerBalanceTransactionsQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "ending_before",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+            {
+              name: "limit",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+            {
+              name: "starting_after",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -24645,7 +26345,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getCustomersCustomerBalanceTransactionsTransactionQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -24809,7 +26516,32 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getCustomersCustomerBankAccountsQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "ending_before",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+            {
+              name: "limit",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+            {
+              name: "starting_after",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -25015,7 +26747,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getCustomersCustomerBankAccountsIdQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -25236,7 +26975,32 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getCustomersCustomerCardsQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "ending_before",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+            {
+              name: "limit",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+            {
+              name: "starting_after",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -25438,7 +27202,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getCustomersCustomerCardsIdQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -25576,7 +27347,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getCustomersCustomerCashBalanceQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -25717,7 +27495,32 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getCustomersCustomerCashBalanceTransactionsQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "ending_before",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+            {
+              name: "limit",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+            {
+              name: "starting_after",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -25800,7 +27603,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getCustomersCustomerCashBalanceTransactionsTransactionQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -25932,7 +27742,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getCustomersCustomerDiscountQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -26129,7 +27946,44 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getCustomersCustomerPaymentMethodsQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "allow_redisplay",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "ending_before",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+            {
+              name: "limit",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+            {
+              name: "starting_after",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "type",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -26205,7 +28059,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getCustomersCustomerPaymentMethodsPaymentMethodQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -26304,7 +28165,38 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getCustomersCustomerSourcesQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "ending_before",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+            {
+              name: "limit",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+            {
+              name: "object",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "starting_after",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -26504,7 +28396,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getCustomersCustomerSourcesIdQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -26720,7 +28619,32 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getCustomersCustomerSubscriptionsQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "ending_before",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+            {
+              name: "limit",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+            {
+              name: "starting_after",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -26928,7 +28852,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getCustomersCustomerSubscriptionsSubscriptionExposedIdQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -27141,7 +29072,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -27232,7 +29170,32 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getCustomersCustomerTaxIdsQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "ending_before",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+            {
+              name: "limit",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+            {
+              name: "starting_after",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -27418,7 +29381,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getCustomersCustomerTaxIdsIdQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -27502,7 +29472,58 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: parseRequestInput(
         getDisputesQuerySchema,
-        ctx.query,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "charge",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "created",
+            explode: true,
+            style: "deepObject",
+            schema: {
+              type: "object",
+              properties: {
+                gt: {type: "number"},
+                gte: {type: "number"},
+                lt: {type: "number"},
+                lte: {type: "number"},
+              },
+            },
+          },
+          {
+            name: "ending_before",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+          {
+            name: "limit",
+            explode: true,
+            style: "form",
+            schema: {type: "number"},
+          },
+          {
+            name: "payment_intent",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "starting_after",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+        ]),
         RequestInputType.QueryString,
       ),
       body: undefined,
@@ -27575,7 +29596,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getDisputesDisputeQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -27771,7 +29799,38 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: parseRequestInput(
           getEntitlementsActiveEntitlementsQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "customer",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "ending_before",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+            {
+              name: "limit",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+            {
+              name: "starting_after",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -27849,7 +29908,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getEntitlementsActiveEntitlementsIdQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -27931,7 +29997,44 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: parseRequestInput(
           getEntitlementsFeaturesQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "archived",
+              explode: true,
+              style: "form",
+              schema: {type: "boolean"},
+            },
+            {
+              name: "ending_before",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+            {
+              name: "limit",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+            {
+              name: "lookup_key",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "starting_after",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -28057,7 +30160,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getEntitlementsFeaturesIdQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -28315,7 +30425,64 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: parseRequestInput(
         getEventsQuerySchema,
-        ctx.query,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "created",
+            explode: true,
+            style: "deepObject",
+            schema: {
+              type: "object",
+              properties: {
+                gt: {type: "number"},
+                gte: {type: "number"},
+                lt: {type: "number"},
+                lte: {type: "number"},
+              },
+            },
+          },
+          {
+            name: "delivery_success",
+            explode: true,
+            style: "form",
+            schema: {type: "boolean"},
+          },
+          {
+            name: "ending_before",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+          {
+            name: "limit",
+            explode: true,
+            style: "form",
+            schema: {type: "number"},
+          },
+          {
+            name: "starting_after",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "type",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "types",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+        ]),
         RequestInputType.QueryString,
       ),
       body: undefined,
@@ -28383,7 +30550,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       query: parseRequestInput(
         getEventsIdQuerySchema,
-        ctx.query,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+        ]),
         RequestInputType.QueryString,
       ),
       body: undefined,
@@ -28453,7 +30627,32 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: parseRequestInput(
         getExchangeRatesQuerySchema,
-        ctx.query,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "ending_before",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+          {
+            name: "limit",
+            explode: true,
+            style: "form",
+            schema: {type: "number"},
+          },
+          {
+            name: "starting_after",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+        ]),
         RequestInputType.QueryString,
       ),
       body: undefined,
@@ -28526,7 +30725,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getExchangeRatesRateIdQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -28668,7 +30874,58 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: parseRequestInput(
         getFileLinksQuerySchema,
-        ctx.query,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "created",
+            explode: true,
+            style: "deepObject",
+            schema: {
+              type: "object",
+              properties: {
+                gt: {type: "number"},
+                gte: {type: "number"},
+                lt: {type: "number"},
+                lte: {type: "number"},
+              },
+            },
+          },
+          {
+            name: "ending_before",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+          {
+            name: "expired",
+            explode: true,
+            style: "form",
+            schema: {type: "boolean"},
+          },
+          {
+            name: "file",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "limit",
+            explode: true,
+            style: "form",
+            schema: {type: "number"},
+          },
+          {
+            name: "starting_after",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+        ]),
         RequestInputType.QueryString,
       ),
       body: undefined,
@@ -28784,7 +31041,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       query: parseRequestInput(
         getFileLinksLinkQuerySchema,
-        ctx.query,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+        ]),
         RequestInputType.QueryString,
       ),
       body: undefined,
@@ -28944,7 +31208,52 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: parseRequestInput(
         getFilesQuerySchema,
-        ctx.query,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "created",
+            explode: true,
+            style: "deepObject",
+            schema: {
+              type: "object",
+              properties: {
+                gt: {type: "number"},
+                gte: {type: "number"},
+                lt: {type: "number"},
+                lte: {type: "number"},
+              },
+            },
+          },
+          {
+            name: "ending_before",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+          {
+            name: "limit",
+            explode: true,
+            style: "form",
+            schema: {type: "number"},
+          },
+          {
+            name: "purpose",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "starting_after",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+        ]),
         RequestInputType.QueryString,
       ),
       body: undefined,
@@ -29061,7 +31370,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       query: parseRequestInput(
         getFilesFileQuerySchema,
-        ctx.query,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+        ]),
         RequestInputType.QueryString,
       ),
       body: undefined,
@@ -29145,7 +31461,50 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: parseRequestInput(
           getFinancialConnectionsAccountsQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "account_holder",
+              explode: true,
+              style: "deepObject",
+              schema: {
+                type: "object",
+                properties: {
+                  account: {type: "string"},
+                  customer: {type: "string"},
+                },
+              },
+            },
+            {
+              name: "ending_before",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+            {
+              name: "limit",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+            {
+              name: "session",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "starting_after",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -29220,7 +31579,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getFinancialConnectionsAccountsAccountQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -29377,7 +31743,38 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getFinancialConnectionsAccountsAccountOwnersQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "ending_before",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+            {
+              name: "limit",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+            {
+              name: "ownership",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "starting_after",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -29722,7 +32119,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getFinancialConnectionsSessionsSessionQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -29816,7 +32220,58 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: parseRequestInput(
           getFinancialConnectionsTransactionsQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "account",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "ending_before",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+            {
+              name: "limit",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+            {
+              name: "starting_after",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "transacted_at",
+              explode: true,
+              style: "deepObject",
+              schema: {
+                type: "object",
+                properties: {
+                  gt: {type: "number"},
+                  gte: {type: "number"},
+                  lt: {type: "number"},
+                  lte: {type: "number"},
+                },
+              },
+            },
+            {
+              name: "transaction_refresh",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "object", properties: {after: {type: "string"}}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -29894,7 +32349,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getFinancialConnectionsTransactionsTransactionQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -29987,7 +32449,46 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: parseRequestInput(
           getForwardingRequestsQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "created",
+              explode: true,
+              style: "deepObject",
+              schema: {
+                type: "object",
+                properties: {
+                  gt: {type: "number"},
+                  gte: {type: "number"},
+                  lt: {type: "number"},
+                  lte: {type: "number"},
+                },
+              },
+            },
+            {
+              name: "ending_before",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+            {
+              name: "limit",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+            {
+              name: "starting_after",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -30113,7 +32614,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getForwardingRequestsIdQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -30205,7 +32713,64 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: parseRequestInput(
           getIdentityVerificationReportsQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "client_reference_id",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "created",
+              explode: true,
+              style: "deepObject",
+              schema: {
+                type: "object",
+                properties: {
+                  gt: {type: "number"},
+                  gte: {type: "number"},
+                  lt: {type: "number"},
+                  lte: {type: "number"},
+                },
+              },
+            },
+            {
+              name: "ending_before",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+            {
+              name: "limit",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+            {
+              name: "starting_after",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "type",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "verification_session",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -30280,7 +32845,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getIdentityVerificationReportsReportQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -30377,7 +32949,64 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: parseRequestInput(
           getIdentityVerificationSessionsQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "client_reference_id",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "created",
+              explode: true,
+              style: "deepObject",
+              schema: {
+                type: "object",
+                properties: {
+                  gt: {type: "number"},
+                  gte: {type: "number"},
+                  lt: {type: "number"},
+                  lte: {type: "number"},
+                },
+              },
+            },
+            {
+              name: "ending_before",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+            {
+              name: "limit",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+            {
+              name: "related_customer",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "starting_after",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "status",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -30505,7 +33134,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getIdentityVerificationSessionsSessionQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -30792,7 +33428,56 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: parseRequestInput(
           getInvoicePaymentsQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "ending_before",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+            {
+              name: "invoice",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "limit",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+            {
+              name: "payment",
+              explode: true,
+              style: "deepObject",
+              schema: {
+                type: "object",
+                properties: {
+                  payment_intent: {type: "string"},
+                  type: {type: "string"},
+                },
+              },
+            },
+            {
+              name: "starting_after",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "status",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -30864,7 +33549,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getInvoicePaymentsInvoicePaymentQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -30940,7 +33632,38 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: parseRequestInput(
           getInvoiceRenderingTemplatesQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "ending_before",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+            {
+              name: "limit",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+            {
+              name: "starting_after",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "status",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -31013,7 +33736,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getInvoiceRenderingTemplatesTemplateQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+            {
+              name: "version",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -31234,7 +33970,64 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: parseRequestInput(
         getInvoiceitemsQuerySchema,
-        ctx.query,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "created",
+            explode: true,
+            style: "deepObject",
+            schema: {
+              type: "object",
+              properties: {
+                gt: {type: "number"},
+                gte: {type: "number"},
+                lt: {type: "number"},
+                lte: {type: "number"},
+              },
+            },
+          },
+          {
+            name: "customer",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "ending_before",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+          {
+            name: "invoice",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "limit",
+            explode: true,
+            style: "form",
+            schema: {type: "number"},
+          },
+          {
+            name: "pending",
+            explode: true,
+            style: "form",
+            schema: {type: "boolean"},
+          },
+          {
+            name: "starting_after",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+        ]),
         RequestInputType.QueryString,
       ),
       body: undefined,
@@ -31409,7 +34202,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getInvoiceitemsInvoiceitemQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -31568,7 +34368,84 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: parseRequestInput(
         getInvoicesQuerySchema,
-        ctx.query,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "collection_method",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "created",
+            explode: true,
+            style: "deepObject",
+            schema: {
+              type: "object",
+              properties: {
+                gt: {type: "number"},
+                gte: {type: "number"},
+                lt: {type: "number"},
+                lte: {type: "number"},
+              },
+            },
+          },
+          {
+            name: "customer",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "due_date",
+            explode: true,
+            style: "deepObject",
+            schema: {
+              type: "object",
+              properties: {
+                gt: {type: "number"},
+                gte: {type: "number"},
+                lt: {type: "number"},
+                lte: {type: "number"},
+              },
+            },
+          },
+          {
+            name: "ending_before",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+          {
+            name: "limit",
+            explode: true,
+            style: "form",
+            schema: {type: "number"},
+          },
+          {
+            name: "starting_after",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "status",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "subscription",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+        ]),
         RequestInputType.QueryString,
       ),
       body: undefined,
@@ -31745,7 +34622,32 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: parseRequestInput(
         getInvoicesSearchQuerySchema,
-        ctx.query,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+          {
+            name: "limit",
+            explode: true,
+            style: "form",
+            schema: {type: "number"},
+          },
+          {
+            name: "page",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "query",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+        ]),
         RequestInputType.QueryString,
       ),
       body: undefined,
@@ -31876,7 +34778,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getInvoicesInvoiceQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -32192,7 +35101,32 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getInvoicesInvoiceLinesQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "ending_before",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+            {
+              name: "limit",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+            {
+              name: "starting_after",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -32707,7 +35641,64 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: parseRequestInput(
           getIssuingAuthorizationsQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "card",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "cardholder",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "created",
+              explode: true,
+              style: "deepObject",
+              schema: {
+                type: "object",
+                properties: {
+                  gt: {type: "number"},
+                  gte: {type: "number"},
+                  lt: {type: "number"},
+                  lte: {type: "number"},
+                },
+              },
+            },
+            {
+              name: "ending_before",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+            {
+              name: "limit",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+            {
+              name: "starting_after",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "status",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -32779,7 +35770,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getIssuingAuthorizationsAuthorizationQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -33067,7 +36065,70 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: parseRequestInput(
           getIssuingCardholdersQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "created",
+              explode: true,
+              style: "deepObject",
+              schema: {
+                type: "object",
+                properties: {
+                  gt: {type: "number"},
+                  gte: {type: "number"},
+                  lt: {type: "number"},
+                  lte: {type: "number"},
+                },
+              },
+            },
+            {
+              name: "email",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "ending_before",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+            {
+              name: "limit",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+            {
+              name: "phone_number",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "starting_after",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "status",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "type",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -33191,7 +36252,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getIssuingCardholdersCardholderQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -33338,7 +36406,88 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: parseRequestInput(
         getIssuingCardsQuerySchema,
-        ctx.query,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "cardholder",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "created",
+            explode: true,
+            style: "deepObject",
+            schema: {
+              type: "object",
+              properties: {
+                gt: {type: "number"},
+                gte: {type: "number"},
+                lt: {type: "number"},
+                lte: {type: "number"},
+              },
+            },
+          },
+          {
+            name: "ending_before",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "exp_month",
+            explode: true,
+            style: "form",
+            schema: {type: "number"},
+          },
+          {
+            name: "exp_year",
+            explode: true,
+            style: "form",
+            schema: {type: "number"},
+          },
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+          {
+            name: "last4",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "limit",
+            explode: true,
+            style: "form",
+            schema: {type: "number"},
+          },
+          {
+            name: "personalization_design",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "starting_after",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "status",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "type",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+        ]),
         RequestInputType.QueryString,
       ),
       body: undefined,
@@ -33457,7 +36606,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getIssuingCardsCardQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -33604,7 +36760,58 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: parseRequestInput(
           getIssuingDisputesQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "created",
+              explode: true,
+              style: "deepObject",
+              schema: {
+                type: "object",
+                properties: {
+                  gt: {type: "number"},
+                  gte: {type: "number"},
+                  lt: {type: "number"},
+                  lte: {type: "number"},
+                },
+              },
+            },
+            {
+              name: "ending_before",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+            {
+              name: "limit",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+            {
+              name: "starting_after",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "status",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "transaction",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -33730,7 +36937,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getIssuingDisputesDisputeQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -33939,7 +37153,56 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: parseRequestInput(
           getIssuingPersonalizationDesignsQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "ending_before",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+            {
+              name: "limit",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+            {
+              name: "lookup_keys",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+            {
+              name: "preferences",
+              explode: true,
+              style: "deepObject",
+              schema: {
+                type: "object",
+                properties: {
+                  is_default: {type: "boolean"},
+                  is_platform_default: {type: "boolean"},
+                },
+              },
+            },
+            {
+              name: "starting_after",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "status",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -34070,7 +37333,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getIssuingPersonalizationDesignsPersonalizationDesignQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -34227,7 +37497,44 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: parseRequestInput(
           getIssuingPhysicalBundlesQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "ending_before",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+            {
+              name: "limit",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+            {
+              name: "starting_after",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "status",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "type",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -34299,7 +37606,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getIssuingPhysicalBundlesPhysicalBundleQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -34369,7 +37683,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getIssuingSettlementsSettlementQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -34511,7 +37832,58 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: parseRequestInput(
         getIssuingTokensQuerySchema,
-        ctx.query,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "card",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "created",
+            explode: true,
+            style: "deepObject",
+            schema: {
+              type: "object",
+              properties: {
+                gt: {type: "number"},
+                gte: {type: "number"},
+                lt: {type: "number"},
+                lte: {type: "number"},
+              },
+            },
+          },
+          {
+            name: "ending_before",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+          {
+            name: "limit",
+            explode: true,
+            style: "form",
+            schema: {type: "number"},
+          },
+          {
+            name: "starting_after",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "status",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+        ]),
         RequestInputType.QueryString,
       ),
       body: undefined,
@@ -34584,7 +37956,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getIssuingTokensTokenQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -34735,7 +38114,64 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: parseRequestInput(
           getIssuingTransactionsQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "card",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "cardholder",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "created",
+              explode: true,
+              style: "deepObject",
+              schema: {
+                type: "object",
+                properties: {
+                  gt: {type: "number"},
+                  gte: {type: "number"},
+                  lt: {type: "number"},
+                  lte: {type: "number"},
+                },
+              },
+            },
+            {
+              name: "ending_before",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+            {
+              name: "limit",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+            {
+              name: "starting_after",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "type",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -34807,7 +38243,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getIssuingTransactionsTransactionQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -34993,7 +38436,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getLinkAccountSessionsSessionQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -35074,7 +38524,50 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: parseRequestInput(
         getLinkedAccountsQuerySchema,
-        ctx.query,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "account_holder",
+            explode: true,
+            style: "deepObject",
+            schema: {
+              type: "object",
+              properties: {
+                account: {type: "string"},
+                customer: {type: "string"},
+              },
+            },
+          },
+          {
+            name: "ending_before",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+          {
+            name: "limit",
+            explode: true,
+            style: "form",
+            schema: {type: "number"},
+          },
+          {
+            name: "session",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "starting_after",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+        ]),
         RequestInputType.QueryString,
       ),
       body: undefined,
@@ -35147,7 +38640,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getLinkedAccountsAccountQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -35295,7 +38795,38 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getLinkedAccountsAccountOwnersQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "ending_before",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+            {
+              name: "limit",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+            {
+              name: "ownership",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "starting_after",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -35428,7 +38959,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getMandatesMandateQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -35511,7 +39049,52 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: parseRequestInput(
         getPaymentIntentsQuerySchema,
-        ctx.query,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "created",
+            explode: true,
+            style: "deepObject",
+            schema: {
+              type: "object",
+              properties: {
+                gt: {type: "number"},
+                gte: {type: "number"},
+                lt: {type: "number"},
+                lte: {type: "number"},
+              },
+            },
+          },
+          {
+            name: "customer",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "ending_before",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+          {
+            name: "limit",
+            explode: true,
+            style: "form",
+            schema: {type: "number"},
+          },
+          {
+            name: "starting_after",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+        ]),
         RequestInputType.QueryString,
       ),
       body: undefined,
@@ -35643,7 +39226,32 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: parseRequestInput(
           getPaymentIntentsSearchQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+            {
+              name: "limit",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+            {
+              name: "page",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "query",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -35720,7 +39328,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getPaymentIntentsIntentQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "client_secret",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -36225,7 +39846,38 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: parseRequestInput(
         getPaymentLinksQuerySchema,
-        ctx.query,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "active",
+            explode: true,
+            style: "form",
+            schema: {type: "boolean"},
+          },
+          {
+            name: "ending_before",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+          {
+            name: "limit",
+            explode: true,
+            style: "form",
+            schema: {type: "number"},
+          },
+          {
+            name: "starting_after",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+        ]),
         RequestInputType.QueryString,
       ),
       body: undefined,
@@ -36346,7 +39998,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getPaymentLinksPaymentLinkQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -36487,7 +40146,32 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getPaymentLinksPaymentLinkLineItemsQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "ending_before",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+            {
+              name: "limit",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+            {
+              name: "starting_after",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -36574,7 +40258,38 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: parseRequestInput(
           getPaymentMethodConfigurationsQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "application",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "string"},
+            },
+            {
+              name: "ending_before",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+            {
+              name: "limit",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+            {
+              name: "starting_after",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -36702,7 +40417,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getPaymentMethodConfigurationsConfigurationQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -36858,7 +40580,44 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: parseRequestInput(
           getPaymentMethodDomainsQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "domain_name",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "enabled",
+              explode: true,
+              style: "form",
+              schema: {type: "boolean"},
+            },
+            {
+              name: "ending_before",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+            {
+              name: "limit",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+            {
+              name: "starting_after",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -36982,7 +40741,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getPaymentMethodDomainsPaymentMethodDomainQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -37241,7 +41007,44 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: parseRequestInput(
         getPaymentMethodsQuerySchema,
-        ctx.query,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "customer",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "ending_before",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+          {
+            name: "limit",
+            explode: true,
+            style: "form",
+            schema: {type: "number"},
+          },
+          {
+            name: "starting_after",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "type",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+        ]),
         RequestInputType.QueryString,
       ),
       body: undefined,
@@ -37364,7 +41167,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getPaymentMethodsPaymentMethodQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -37639,7 +41449,72 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: parseRequestInput(
         getPayoutsQuerySchema,
-        ctx.query,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "arrival_date",
+            explode: true,
+            style: "deepObject",
+            schema: {
+              type: "object",
+              properties: {
+                gt: {type: "number"},
+                gte: {type: "number"},
+                lt: {type: "number"},
+                lte: {type: "number"},
+              },
+            },
+          },
+          {
+            name: "created",
+            explode: true,
+            style: "deepObject",
+            schema: {
+              type: "object",
+              properties: {
+                gt: {type: "number"},
+                gte: {type: "number"},
+                lt: {type: "number"},
+                lte: {type: "number"},
+              },
+            },
+          },
+          {
+            name: "destination",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "ending_before",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+          {
+            name: "limit",
+            explode: true,
+            style: "form",
+            schema: {type: "number"},
+          },
+          {
+            name: "starting_after",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "status",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+        ]),
         RequestInputType.QueryString,
       ),
       body: undefined,
@@ -37755,7 +41630,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       query: parseRequestInput(
         getPayoutsPayoutQuerySchema,
-        ctx.query,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+        ]),
         RequestInputType.QueryString,
       ),
       body: undefined,
@@ -38012,7 +41894,58 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: parseRequestInput(
         getPlansQuerySchema,
-        ctx.query,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "active",
+            explode: true,
+            style: "form",
+            schema: {type: "boolean"},
+          },
+          {
+            name: "created",
+            explode: true,
+            style: "deepObject",
+            schema: {
+              type: "object",
+              properties: {
+                gt: {type: "number"},
+                gte: {type: "number"},
+                lt: {type: "number"},
+                lte: {type: "number"},
+              },
+            },
+          },
+          {
+            name: "ending_before",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+          {
+            name: "limit",
+            explode: true,
+            style: "form",
+            schema: {type: "number"},
+          },
+          {
+            name: "product",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "starting_after",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+        ]),
         RequestInputType.QueryString,
       ),
       body: undefined,
@@ -38178,7 +42111,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       query: parseRequestInput(
         getPlansPlanQuerySchema,
-        ctx.query,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+        ]),
         RequestInputType.QueryString,
       ),
       body: undefined,
@@ -38330,7 +42270,89 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: parseRequestInput(
         getPricesQuerySchema,
-        ctx.query,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "active",
+            explode: true,
+            style: "form",
+            schema: {type: "boolean"},
+          },
+          {
+            name: "created",
+            explode: true,
+            style: "deepObject",
+            schema: {
+              type: "object",
+              properties: {
+                gt: {type: "number"},
+                gte: {type: "number"},
+                lt: {type: "number"},
+                lte: {type: "number"},
+              },
+            },
+          },
+          {
+            name: "currency",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "ending_before",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+          {
+            name: "limit",
+            explode: true,
+            style: "form",
+            schema: {type: "number"},
+          },
+          {
+            name: "lookup_keys",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+          {
+            name: "product",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "recurring",
+            explode: true,
+            style: "deepObject",
+            schema: {
+              type: "object",
+              properties: {
+                interval: {type: "string"},
+                meter: {type: "string"},
+                usage_type: {type: "string"},
+              },
+            },
+          },
+          {
+            name: "starting_after",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "type",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+        ]),
         RequestInputType.QueryString,
       ),
       body: undefined,
@@ -38455,7 +42477,32 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: parseRequestInput(
         getPricesSearchQuerySchema,
-        ctx.query,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+          {
+            name: "limit",
+            explode: true,
+            style: "form",
+            schema: {type: "number"},
+          },
+          {
+            name: "page",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "query",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+        ]),
         RequestInputType.QueryString,
       ),
       body: undefined,
@@ -38525,7 +42572,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       query: parseRequestInput(
         getPricesPriceQuerySchema,
-        ctx.query,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+        ]),
         RequestInputType.QueryString,
       ),
       body: undefined,
@@ -38669,7 +42723,65 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: parseRequestInput(
         getProductsQuerySchema,
-        ctx.query,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "active",
+            explode: true,
+            style: "form",
+            schema: {type: "boolean"},
+          },
+          {
+            name: "created",
+            explode: true,
+            style: "deepObject",
+            schema: {
+              type: "object",
+              properties: {
+                gt: {type: "number"},
+                gte: {type: "number"},
+                lt: {type: "number"},
+                lte: {type: "number"},
+              },
+            },
+          },
+          {
+            name: "ending_before",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+          {
+            name: "ids",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+          {
+            name: "limit",
+            explode: true,
+            style: "form",
+            schema: {type: "number"},
+          },
+          {
+            name: "shippable",
+            explode: true,
+            style: "form",
+            schema: {type: "boolean"},
+          },
+          {
+            name: "starting_after",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {name: "url", explode: true, style: "form", schema: {type: "string"}},
+        ]),
         RequestInputType.QueryString,
       ),
       body: undefined,
@@ -38794,7 +42906,32 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: parseRequestInput(
         getProductsSearchQuerySchema,
-        ctx.query,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+          {
+            name: "limit",
+            explode: true,
+            style: "form",
+            schema: {type: "number"},
+          },
+          {
+            name: "page",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "query",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+        ]),
         RequestInputType.QueryString,
       ),
       body: undefined,
@@ -38914,7 +43051,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       query: parseRequestInput(
         getProductsIdQuerySchema,
-        ctx.query,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+        ]),
         RequestInputType.QueryString,
       ),
       body: undefined,
@@ -39049,7 +43193,32 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getProductsProductFeaturesQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "ending_before",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+            {
+              name: "limit",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+            {
+              name: "starting_after",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -39235,7 +43404,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getProductsProductFeaturesIdQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -39321,7 +43497,70 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: parseRequestInput(
         getPromotionCodesQuerySchema,
-        ctx.query,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "active",
+            explode: true,
+            style: "form",
+            schema: {type: "boolean"},
+          },
+          {
+            name: "code",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "coupon",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "created",
+            explode: true,
+            style: "deepObject",
+            schema: {
+              type: "object",
+              properties: {
+                gt: {type: "number"},
+                gte: {type: "number"},
+                lt: {type: "number"},
+                lte: {type: "number"},
+              },
+            },
+          },
+          {
+            name: "customer",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "ending_before",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+          {
+            name: "limit",
+            explode: true,
+            style: "form",
+            schema: {type: "number"},
+          },
+          {
+            name: "starting_after",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+        ]),
         RequestInputType.QueryString,
       ),
       body: undefined,
@@ -39444,7 +43683,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getPromotionCodesPromotionCodeQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -39576,7 +43822,50 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: parseRequestInput(
         getQuotesQuerySchema,
-        ctx.query,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "customer",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "ending_before",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+          {
+            name: "limit",
+            explode: true,
+            style: "form",
+            schema: {type: "number"},
+          },
+          {
+            name: "starting_after",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "status",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "test_clock",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+        ]),
         RequestInputType.QueryString,
       ),
       body: undefined,
@@ -39692,7 +43981,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       query: parseRequestInput(
         getQuotesQuoteQuerySchema,
-        ctx.query,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+        ]),
         RequestInputType.QueryString,
       ),
       body: undefined,
@@ -39948,7 +44244,32 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getQuotesQuoteComputedUpfrontLineItemsQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "ending_before",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+            {
+              name: "limit",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+            {
+              name: "starting_after",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -40098,7 +44419,32 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getQuotesQuoteLineItemsQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "ending_before",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+            {
+              name: "limit",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+            {
+              name: "starting_after",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -40170,7 +44516,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getQuotesQuotePdfQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -40260,7 +44613,58 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: parseRequestInput(
           getRadarEarlyFraudWarningsQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "charge",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "created",
+              explode: true,
+              style: "deepObject",
+              schema: {
+                type: "object",
+                properties: {
+                  gt: {type: "number"},
+                  gte: {type: "number"},
+                  lt: {type: "number"},
+                  lte: {type: "number"},
+                },
+              },
+            },
+            {
+              name: "ending_before",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+            {
+              name: "limit",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+            {
+              name: "payment_intent",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "starting_after",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -40332,7 +44736,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getRadarEarlyFraudWarningsEarlyFraudWarningQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -40430,7 +44841,58 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: parseRequestInput(
           getRadarValueListItemsQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "created",
+              explode: true,
+              style: "deepObject",
+              schema: {
+                type: "object",
+                properties: {
+                  gt: {type: "number"},
+                  gte: {type: "number"},
+                  lt: {type: "number"},
+                  lte: {type: "number"},
+                },
+              },
+            },
+            {
+              name: "ending_before",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+            {
+              name: "limit",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+            {
+              name: "starting_after",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "value",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "value_list",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -40613,7 +45075,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getRadarValueListItemsItemQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -40700,7 +45169,58 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: parseRequestInput(
           getRadarValueListsQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "alias",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "contains",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "created",
+              explode: true,
+              style: "deepObject",
+              schema: {
+                type: "object",
+                properties: {
+                  gt: {type: "number"},
+                  gte: {type: "number"},
+                  lt: {type: "number"},
+                  lte: {type: "number"},
+                },
+              },
+            },
+            {
+              name: "ending_before",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+            {
+              name: "limit",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+            {
+              name: "starting_after",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -40878,7 +45398,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getRadarValueListsValueListQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -41020,7 +45547,58 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: parseRequestInput(
         getRefundsQuerySchema,
-        ctx.query,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "charge",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "created",
+            explode: true,
+            style: "deepObject",
+            schema: {
+              type: "object",
+              properties: {
+                gt: {type: "number"},
+                gte: {type: "number"},
+                lt: {type: "number"},
+                lte: {type: "number"},
+              },
+            },
+          },
+          {
+            name: "ending_before",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+          {
+            name: "limit",
+            explode: true,
+            style: "form",
+            schema: {type: "number"},
+          },
+          {
+            name: "payment_intent",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "starting_after",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+        ]),
         RequestInputType.QueryString,
       ),
       body: undefined,
@@ -41136,7 +45714,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       query: parseRequestInput(
         getRefundsRefundQuerySchema,
-        ctx.query,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+        ]),
         RequestInputType.QueryString,
       ),
       body: undefined,
@@ -41335,7 +45920,46 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: parseRequestInput(
           getReportingReportRunsQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "created",
+              explode: true,
+              style: "deepObject",
+              schema: {
+                type: "object",
+                properties: {
+                  gt: {type: "number"},
+                  gte: {type: "number"},
+                  lt: {type: "number"},
+                  lte: {type: "number"},
+                },
+              },
+            },
+            {
+              name: "ending_before",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+            {
+              name: "limit",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+            {
+              name: "starting_after",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -41459,7 +46083,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getReportingReportRunsReportRunQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -41530,7 +46161,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: parseRequestInput(
           getReportingReportTypesQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -41602,7 +46240,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getReportingReportTypesReportTypeQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -41687,7 +46332,46 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: parseRequestInput(
         getReviewsQuerySchema,
-        ctx.query,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "created",
+            explode: true,
+            style: "deepObject",
+            schema: {
+              type: "object",
+              properties: {
+                gt: {type: "number"},
+                gte: {type: "number"},
+                lt: {type: "number"},
+                lte: {type: "number"},
+              },
+            },
+          },
+          {
+            name: "ending_before",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+          {
+            name: "limit",
+            explode: true,
+            style: "form",
+            schema: {type: "number"},
+          },
+          {
+            name: "starting_after",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+        ]),
         RequestInputType.QueryString,
       ),
       body: undefined,
@@ -41755,7 +46439,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       query: parseRequestInput(
         getReviewsReviewQuerySchema,
-        ctx.query,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+        ]),
         RequestInputType.QueryString,
       ),
       body: undefined,
@@ -41897,7 +46588,52 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: parseRequestInput(
         getSetupAttemptsQuerySchema,
-        ctx.query,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "created",
+            explode: true,
+            style: "deepObject",
+            schema: {
+              type: "object",
+              properties: {
+                gt: {type: "number"},
+                gte: {type: "number"},
+                lt: {type: "number"},
+                lte: {type: "number"},
+              },
+            },
+          },
+          {
+            name: "ending_before",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+          {
+            name: "limit",
+            explode: true,
+            style: "form",
+            schema: {type: "number"},
+          },
+          {
+            name: "setup_intent",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "starting_after",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+        ]),
         RequestInputType.QueryString,
       ),
       body: undefined,
@@ -41986,7 +46722,64 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: parseRequestInput(
         getSetupIntentsQuerySchema,
-        ctx.query,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "attach_to_self",
+            explode: true,
+            style: "form",
+            schema: {type: "boolean"},
+          },
+          {
+            name: "created",
+            explode: true,
+            style: "deepObject",
+            schema: {
+              type: "object",
+              properties: {
+                gt: {type: "number"},
+                gte: {type: "number"},
+                lt: {type: "number"},
+                lte: {type: "number"},
+              },
+            },
+          },
+          {
+            name: "customer",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "ending_before",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+          {
+            name: "limit",
+            explode: true,
+            style: "form",
+            schema: {type: "number"},
+          },
+          {
+            name: "payment_method",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "starting_after",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+        ]),
         RequestInputType.QueryString,
       ),
       body: undefined,
@@ -42108,7 +46901,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getSetupIntentsIntentQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "client_secret",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -42429,7 +47235,58 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: parseRequestInput(
         getShippingRatesQuerySchema,
-        ctx.query,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "active",
+            explode: true,
+            style: "form",
+            schema: {type: "boolean"},
+          },
+          {
+            name: "created",
+            explode: true,
+            style: "deepObject",
+            schema: {
+              type: "object",
+              properties: {
+                gt: {type: "number"},
+                gte: {type: "number"},
+                lt: {type: "number"},
+                lte: {type: "number"},
+              },
+            },
+          },
+          {
+            name: "currency",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "ending_before",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+          {
+            name: "limit",
+            explode: true,
+            style: "form",
+            schema: {type: "number"},
+          },
+          {
+            name: "starting_after",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+        ]),
         RequestInputType.QueryString,
       ),
       body: undefined,
@@ -42548,7 +47405,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getShippingRatesShippingRateTokenQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -42749,7 +47613,32 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: parseRequestInput(
           getSigmaScheduledQueryRunsQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "ending_before",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+            {
+              name: "limit",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+            {
+              name: "starting_after",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -42821,7 +47710,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getSigmaScheduledQueryRunsScheduledQueryRunQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -42942,7 +47838,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       query: parseRequestInput(
         getSourcesSourceQuerySchema,
-        ctx.query,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "client_secret",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+        ]),
         RequestInputType.QueryString,
       ),
       body: undefined,
@@ -43065,7 +47974,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getSourcesSourceMandateNotificationsMandateNotificationQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -43157,7 +48073,32 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getSourcesSourceSourceTransactionsQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "ending_before",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+            {
+              name: "limit",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+            {
+              name: "starting_after",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -43235,7 +48176,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getSourcesSourceSourceTransactionsSourceTransactionQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -43382,7 +48330,38 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: parseRequestInput(
           getSubscriptionItemsQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "ending_before",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+            {
+              name: "limit",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+            {
+              name: "starting_after",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "subscription",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -43566,7 +48545,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getSubscriptionItemsItemQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -43749,7 +48735,100 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: parseRequestInput(
           getSubscriptionSchedulesQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "canceled_at",
+              explode: true,
+              style: "deepObject",
+              schema: {
+                type: "object",
+                properties: {
+                  gt: {type: "number"},
+                  gte: {type: "number"},
+                  lt: {type: "number"},
+                  lte: {type: "number"},
+                },
+              },
+            },
+            {
+              name: "completed_at",
+              explode: true,
+              style: "deepObject",
+              schema: {
+                type: "object",
+                properties: {
+                  gt: {type: "number"},
+                  gte: {type: "number"},
+                  lt: {type: "number"},
+                  lte: {type: "number"},
+                },
+              },
+            },
+            {
+              name: "created",
+              explode: true,
+              style: "deepObject",
+              schema: {
+                type: "object",
+                properties: {
+                  gt: {type: "number"},
+                  gte: {type: "number"},
+                  lt: {type: "number"},
+                  lte: {type: "number"},
+                },
+              },
+            },
+            {
+              name: "customer",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "ending_before",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+            {
+              name: "limit",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+            {
+              name: "released_at",
+              explode: true,
+              style: "deepObject",
+              schema: {
+                type: "object",
+                properties: {
+                  gt: {type: "number"},
+                  gte: {type: "number"},
+                  lt: {type: "number"},
+                  lte: {type: "number"},
+                },
+              },
+            },
+            {
+              name: "scheduled",
+              explode: true,
+              style: "form",
+              schema: {type: "boolean"},
+            },
+            {
+              name: "starting_after",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -43873,7 +48952,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getSubscriptionSchedulesScheduleQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -44181,7 +49267,110 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: parseRequestInput(
         getSubscriptionsQuerySchema,
-        ctx.query,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "automatic_tax",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "object", properties: {enabled: {type: "boolean"}}},
+          },
+          {
+            name: "collection_method",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "created",
+            explode: true,
+            style: "deepObject",
+            schema: {
+              type: "object",
+              properties: {
+                gt: {type: "number"},
+                gte: {type: "number"},
+                lt: {type: "number"},
+                lte: {type: "number"},
+              },
+            },
+          },
+          {
+            name: "current_period_end",
+            explode: true,
+            style: "deepObject",
+            schema: {
+              type: "object",
+              properties: {
+                gt: {type: "number"},
+                gte: {type: "number"},
+                lt: {type: "number"},
+                lte: {type: "number"},
+              },
+            },
+          },
+          {
+            name: "current_period_start",
+            explode: true,
+            style: "deepObject",
+            schema: {
+              type: "object",
+              properties: {
+                gt: {type: "number"},
+                gte: {type: "number"},
+                lt: {type: "number"},
+                lte: {type: "number"},
+              },
+            },
+          },
+          {
+            name: "customer",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "ending_before",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+          {
+            name: "limit",
+            explode: true,
+            style: "form",
+            schema: {type: "number"},
+          },
+          {
+            name: "price",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "starting_after",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "status",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "test_clock",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+        ]),
         RequestInputType.QueryString,
       ),
       body: undefined,
@@ -44309,7 +49498,32 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: parseRequestInput(
           getSubscriptionsSearchQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+            {
+              name: "limit",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+            {
+              name: "page",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "query",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -44444,7 +49658,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getSubscriptionsSubscriptionExposedIdQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -44812,7 +50033,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getTaxCalculationsCalculationQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -44898,7 +50126,32 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getTaxCalculationsCalculationLineItemsQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "ending_before",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+            {
+              name: "limit",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+            {
+              name: "starting_after",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -44981,7 +50234,38 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: parseRequestInput(
           getTaxRegistrationsQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "ending_before",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+            {
+              name: "limit",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+            {
+              name: "starting_after",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "status",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -45105,7 +50389,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getTaxRegistrationsIdQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -45221,7 +50512,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: parseRequestInput(
         getTaxSettingsQuerySchema,
-        ctx.query,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+        ]),
         RequestInputType.QueryString,
       ),
       body: undefined,
@@ -45441,7 +50739,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getTaxTransactionsTransactionQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -45527,7 +50832,32 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getTaxTransactionsTransactionLineItemsQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "ending_before",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+            {
+              name: "limit",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+            {
+              name: "starting_after",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -45606,7 +50936,32 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: parseRequestInput(
         getTaxCodesQuerySchema,
-        ctx.query,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "ending_before",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+          {
+            name: "limit",
+            explode: true,
+            style: "form",
+            schema: {type: "number"},
+          },
+          {
+            name: "starting_after",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+        ]),
         RequestInputType.QueryString,
       ),
       body: undefined,
@@ -45674,7 +51029,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       query: parseRequestInput(
         getTaxCodesIdQuerySchema,
-        ctx.query,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+        ]),
         RequestInputType.QueryString,
       ),
       body: undefined,
@@ -45751,7 +51113,45 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: parseRequestInput(
         getTaxIdsQuerySchema,
-        ctx.query,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "ending_before",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+          {
+            name: "limit",
+            explode: true,
+            style: "form",
+            schema: {type: "number"},
+          },
+          {
+            name: "owner",
+            explode: true,
+            style: "deepObject",
+            schema: {
+              type: "object",
+              properties: {
+                account: {type: "string"},
+                customer: {type: "string"},
+                type: {type: "string"},
+              },
+            },
+          },
+          {
+            name: "starting_after",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+        ]),
         RequestInputType.QueryString,
       ),
       body: undefined,
@@ -45917,7 +51317,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       query: parseRequestInput(
         getTaxIdsIdQuerySchema,
-        ctx.query,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+        ]),
         RequestInputType.QueryString,
       ),
       body: undefined,
@@ -46000,7 +51407,58 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: parseRequestInput(
         getTaxRatesQuerySchema,
-        ctx.query,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "active",
+            explode: true,
+            style: "form",
+            schema: {type: "boolean"},
+          },
+          {
+            name: "created",
+            explode: true,
+            style: "deepObject",
+            schema: {
+              type: "object",
+              properties: {
+                gt: {type: "number"},
+                gte: {type: "number"},
+                lt: {type: "number"},
+                lte: {type: "number"},
+              },
+            },
+          },
+          {
+            name: "ending_before",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+          {
+            name: "inclusive",
+            explode: true,
+            style: "form",
+            schema: {type: "boolean"},
+          },
+          {
+            name: "limit",
+            explode: true,
+            style: "form",
+            schema: {type: "number"},
+          },
+          {
+            name: "starting_after",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+        ]),
         RequestInputType.QueryString,
       ),
       body: undefined,
@@ -46121,7 +51579,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getTaxRatesTaxRateQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -46259,7 +51724,38 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: parseRequestInput(
           getTerminalConfigurationsQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "ending_before",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+            {
+              name: "is_account_default",
+              explode: true,
+              style: "form",
+              schema: {type: "boolean"},
+            },
+            {
+              name: "limit",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+            {
+              name: "starting_after",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -46454,7 +51950,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getTerminalConfigurationsConfigurationQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -46660,7 +52163,32 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: parseRequestInput(
           getTerminalLocationsQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "ending_before",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+            {
+              name: "limit",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+            {
+              name: "starting_after",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -46841,7 +52369,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getTerminalLocationsLocationQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -46996,7 +52531,56 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: parseRequestInput(
           getTerminalReadersQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "device_type",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "ending_before",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+            {
+              name: "limit",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+            {
+              name: "location",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "serial_number",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "starting_after",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "status",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -47181,7 +52765,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getTerminalReadersReaderQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -49509,7 +55100,32 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: parseRequestInput(
           getTestHelpersTestClocksQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "ending_before",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+            {
+              name: "limit",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+            {
+              name: "starting_after",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -49693,7 +55309,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getTestHelpersTestClocksTestClockQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -50699,7 +56322,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       query: parseRequestInput(
         getTokensTokenQuerySchema,
-        ctx.query,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+        ]),
         RequestInputType.QueryString,
       ),
       body: undefined,
@@ -50792,7 +56422,66 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: parseRequestInput(
         getTopupsQuerySchema,
-        ctx.query,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "amount",
+            explode: true,
+            style: "deepObject",
+            schema: {
+              type: "object",
+              properties: {
+                gt: {type: "number"},
+                gte: {type: "number"},
+                lt: {type: "number"},
+                lte: {type: "number"},
+              },
+            },
+          },
+          {
+            name: "created",
+            explode: true,
+            style: "deepObject",
+            schema: {
+              type: "object",
+              properties: {
+                gt: {type: "number"},
+                gte: {type: "number"},
+                lt: {type: "number"},
+                lte: {type: "number"},
+              },
+            },
+          },
+          {
+            name: "ending_before",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+          {
+            name: "limit",
+            explode: true,
+            style: "form",
+            schema: {type: "number"},
+          },
+          {
+            name: "starting_after",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "status",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+        ]),
         RequestInputType.QueryString,
       ),
       body: undefined,
@@ -50908,7 +56597,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       query: parseRequestInput(
         getTopupsTopupQuerySchema,
-        ctx.query,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+        ]),
         RequestInputType.QueryString,
       ),
       body: undefined,
@@ -51105,7 +56801,58 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: parseRequestInput(
         getTransfersQuerySchema,
-        ctx.query,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "created",
+            explode: true,
+            style: "deepObject",
+            schema: {
+              type: "object",
+              properties: {
+                gt: {type: "number"},
+                gte: {type: "number"},
+                lt: {type: "number"},
+                lte: {type: "number"},
+              },
+            },
+          },
+          {
+            name: "destination",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "ending_before",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+          {
+            name: "limit",
+            explode: true,
+            style: "form",
+            schema: {type: "number"},
+          },
+          {
+            name: "starting_after",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "transfer_group",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+        ]),
         RequestInputType.QueryString,
       ),
       body: undefined,
@@ -51239,7 +56986,32 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getTransfersIdReversalsQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "ending_before",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+            {
+              name: "limit",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+            {
+              name: "starting_after",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -51373,7 +57145,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getTransfersTransferQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -51501,7 +57280,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getTransfersTransferReversalsIdQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -51637,7 +57423,50 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: parseRequestInput(
           getTreasuryCreditReversalsQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "ending_before",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+            {
+              name: "financial_account",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "limit",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+            {
+              name: "received_credit",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "starting_after",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "status",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -51759,7 +57588,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getTreasuryCreditReversalsCreditReversalQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -51840,7 +57676,56 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: parseRequestInput(
           getTreasuryDebitReversalsQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "ending_before",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+            {
+              name: "financial_account",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "limit",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+            {
+              name: "received_debit",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "resolution",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "starting_after",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "status",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -51964,7 +57849,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getTreasuryDebitReversalsDebitReversalQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -52057,7 +57949,52 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: parseRequestInput(
           getTreasuryFinancialAccountsQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "created",
+              explode: true,
+              style: "deepObject",
+              schema: {
+                type: "object",
+                properties: {
+                  gt: {type: "number"},
+                  gte: {type: "number"},
+                  lt: {type: "number"},
+                  lte: {type: "number"},
+                },
+              },
+            },
+            {
+              name: "ending_before",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+            {
+              name: "limit",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+            {
+              name: "starting_after",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "status",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -52179,7 +58116,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getTreasuryFinancialAccountsFinancialAccountQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -52389,7 +58333,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getTreasuryFinancialAccountsFinancialAccountFeaturesQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -52550,7 +58501,44 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: parseRequestInput(
           getTreasuryInboundTransfersQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "ending_before",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+            {
+              name: "financial_account",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "limit",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+            {
+              name: "starting_after",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "status",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -52672,7 +58660,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getTreasuryInboundTransfersIdQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -52833,7 +58828,64 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: parseRequestInput(
           getTreasuryOutboundPaymentsQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "created",
+              explode: true,
+              style: "deepObject",
+              schema: {
+                type: "object",
+                properties: {
+                  gt: {type: "number"},
+                  gte: {type: "number"},
+                  lt: {type: "number"},
+                  lte: {type: "number"},
+                },
+              },
+            },
+            {
+              name: "customer",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "ending_before",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+            {
+              name: "financial_account",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "limit",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+            {
+              name: "starting_after",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "status",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -52955,7 +59007,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getTreasuryOutboundPaymentsIdQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -53095,7 +59154,44 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: parseRequestInput(
           getTreasuryOutboundTransfersQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "ending_before",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+            {
+              name: "financial_account",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "limit",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+            {
+              name: "starting_after",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "status",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -53217,7 +59313,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getTreasuryOutboundTransfersOutboundTransferQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -53378,7 +59481,53 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: parseRequestInput(
           getTreasuryReceivedCreditsQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "ending_before",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+            {
+              name: "financial_account",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "limit",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+            {
+              name: "linked_flows",
+              explode: true,
+              style: "deepObject",
+              schema: {
+                type: "object",
+                properties: {source_flow_type: {type: "string"}},
+              },
+            },
+            {
+              name: "starting_after",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "status",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -53450,7 +59599,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getTreasuryReceivedCreditsIdQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -53526,7 +59682,44 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: parseRequestInput(
           getTreasuryReceivedDebitsQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "ending_before",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+            {
+              name: "financial_account",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "limit",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+            {
+              name: "starting_after",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "status",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -53598,7 +59791,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getTreasuryReceivedDebitsIdQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -53701,7 +59901,78 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: parseRequestInput(
           getTreasuryTransactionEntriesQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "created",
+              explode: true,
+              style: "deepObject",
+              schema: {
+                type: "object",
+                properties: {
+                  gt: {type: "number"},
+                  gte: {type: "number"},
+                  lt: {type: "number"},
+                  lte: {type: "number"},
+                },
+              },
+            },
+            {
+              name: "effective_at",
+              explode: true,
+              style: "deepObject",
+              schema: {
+                type: "object",
+                properties: {
+                  gt: {type: "number"},
+                  gte: {type: "number"},
+                  lt: {type: "number"},
+                  lte: {type: "number"},
+                },
+              },
+            },
+            {
+              name: "ending_before",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+            {
+              name: "financial_account",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "limit",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+            {
+              name: "order_by",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "starting_after",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "transaction",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -53773,7 +60044,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getTreasuryTransactionEntriesIdQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -53876,7 +60154,83 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: parseRequestInput(
           getTreasuryTransactionsQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "created",
+              explode: true,
+              style: "deepObject",
+              schema: {
+                type: "object",
+                properties: {
+                  gt: {type: "number"},
+                  gte: {type: "number"},
+                  lt: {type: "number"},
+                  lte: {type: "number"},
+                },
+              },
+            },
+            {
+              name: "ending_before",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+            {
+              name: "financial_account",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "limit",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+            {
+              name: "order_by",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "starting_after",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "status",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "status_transitions",
+              explode: true,
+              style: "deepObject",
+              schema: {
+                type: "object",
+                properties: {
+                  posted_at: {
+                    type: "object",
+                    properties: {
+                      gt: {type: "number"},
+                      gte: {type: "number"},
+                      lt: {type: "number"},
+                      lte: {type: "number"},
+                    },
+                  },
+                },
+              },
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -53950,7 +60304,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getTreasuryTransactionsIdQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -54024,7 +60385,32 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: parseRequestInput(
           getWebhookEndpointsQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "ending_before",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+            {
+              name: "limit",
+              explode: true,
+              style: "form",
+              schema: {type: "number"},
+            },
+            {
+              name: "starting_after",
+              explode: true,
+              style: "form",
+              schema: {type: "string"},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -54205,7 +60591,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: parseRequestInput(
           getWebhookEndpointsWebhookEndpointQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "expand",
+              explode: true,
+              style: "deepObject",
+              schema: {type: "array", items: {type: "string"}},
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,

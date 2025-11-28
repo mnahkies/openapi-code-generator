@@ -11,6 +11,7 @@ import {
   type KoaRuntimeResponder,
   KoaRuntimeResponse,
   type Params,
+  parseQueryParameters,
   type Response,
   SkipResponse,
   type StatusCode,
@@ -163,7 +164,17 @@ export function createQueryParametersRouter(
         params: undefined,
         query: parseRequestInput(
           getParamsDefaultObjectQueryQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "filter",
+              explode: true,
+              style: "form",
+              schema: {
+                type: "object",
+                properties: {name: {type: "string"}, age: {type: "number"}},
+              },
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,
@@ -219,7 +230,17 @@ export function createQueryParametersRouter(
         params: undefined,
         query: parseRequestInput(
           getParamsUnexplodedObjectQueryQuerySchema,
-          ctx.query,
+          parseQueryParameters(ctx.querystring, [
+            {
+              name: "filter",
+              explode: false,
+              style: "form",
+              schema: {
+                type: "object",
+                properties: {name: {type: "string"}, age: {type: "number"}},
+              },
+            },
+          ]),
           RequestInputType.QueryString,
         ),
         body: undefined,

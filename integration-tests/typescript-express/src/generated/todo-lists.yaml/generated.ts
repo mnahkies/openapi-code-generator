@@ -21,6 +21,7 @@ import {
   parseRequestInput,
   responseValidationFactory,
 } from "@nahkies/typescript-express-runtime/zod-v4"
+import {parseQueryParameters} from "@nahkies/typescript-koa-runtime/server"
 import {type NextFunction, type Request, type Response, Router} from "express"
 import {z} from "zod/v4"
 import type {
@@ -210,7 +211,29 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getTodoListsQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "created",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "statuses",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "tags",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,

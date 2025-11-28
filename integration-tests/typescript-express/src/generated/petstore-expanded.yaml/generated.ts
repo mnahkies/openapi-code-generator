@@ -19,6 +19,7 @@ import {
   parseRequestInput,
   responseValidationFactory,
 } from "@nahkies/typescript-express-runtime/zod-v4"
+import {parseQueryParameters} from "@nahkies/typescript-koa-runtime/server"
 import {type NextFunction, type Request, type Response, Router} from "express"
 import {z} from "zod/v4"
 import type {
@@ -117,7 +118,23 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             findPetsQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "tags",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,

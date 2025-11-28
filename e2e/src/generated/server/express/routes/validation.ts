@@ -17,6 +17,7 @@ import {
   parseRequestInput,
   responseValidationFactory,
 } from "@nahkies/typescript-express-runtime/zod-v4"
+import {parseQueryParameters} from "@nahkies/typescript-koa-runtime/server"
 import {type NextFunction, type Request, type Response, Router} from "express"
 import {z} from "zod/v4"
 import type {
@@ -140,7 +141,29 @@ export function createValidationRouter(
           params: undefined,
           query: parseRequestInput(
             getValidationNumbersRandomNumberQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "max",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "min",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "forbidden",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "array", items: {type: "number"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
