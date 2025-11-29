@@ -3,7 +3,7 @@ import type {Encoding} from "../../core/openapi-types"
 import type {
   IRMediaType,
   IROperation,
-  IRParameter,
+  IRParameterRequestBody,
 } from "../../core/openapi-types-normalized"
 import {isDefined} from "../../core/utils"
 
@@ -148,7 +148,7 @@ export type Serializer = "JSON.stringify" | "String" | "URLSearchParams"
 
 export type RequestBodyAsParameter = {
   isSupported: boolean
-  parameter: IRParameter
+  parameter: IRParameterRequestBody
   contentType: string
   serializer: Serializer | undefined
   encoding?: Record<string, Encoding>
@@ -249,8 +249,8 @@ export function requestBodyAsParameter(
         description: requestBody.description,
         in: "body",
         required: requestBody.required,
+        explode: undefined,
         schema: result.mediaType.schema,
-        allowEmptyValue: false,
         deprecated: false,
       },
       serializer: result.serializer,
@@ -276,8 +276,8 @@ export function requestBodyAsParameter(
       description: requestBody.description,
       in: "body",
       required: requestBody.required,
+      explode: undefined,
       schema: {type: "never", nullable: false, readOnly: false},
-      allowEmptyValue: false,
       deprecated: false,
     },
     serializer: undefined,

@@ -10,6 +10,7 @@ import type {
   Responses,
   Schema,
   Server,
+  Style,
   xInternalPreproccess,
 } from "./openapi-types"
 import type {
@@ -22,6 +23,11 @@ import type {
   IRModelString,
   IROperation,
   IRParameter,
+  IRParameterBase,
+  IRParameterCookie,
+  IRParameterHeader,
+  IRParameterPath,
+  IRParameterQuery,
   IRPreprocess,
   IRRef,
   IRResponse,
@@ -333,16 +339,140 @@ export class Input {
     return parameters
       .map((it) => this.loader.parameter(it))
       .map((it: Parameter): IRParameter => {
-        return {
+        const base = {
           name: it.name,
-          in: it.in,
           schema: this.normalizeSchemaObject(it.schema),
           description: it.description,
           required: it.required ?? false,
           deprecated: it.deprecated ?? false,
-          allowEmptyValue: it.allowEmptyValue ?? false,
+        } satisfies Omit<IRParameterBase, "explode">
+
+        function throwUnsupportedStyle(style: Style): never {
+          throw new Error(
+            `unsupported parameter style: '${style}' for in: '${it.in}'`,
+          )
+        }
+
+        switch (it.in) {
+          case "path": {
+            const style = it.style ?? "simple"
+            const explode = this.explodeForParameter(it, style)
+
+            if (!this.isStyleForPathParameter(style)) {
+              throwUnsupportedStyle(style)
+            }
+
+            return {
+              ...base,
+              in: "path",
+              style,
+              explode,
+            } satisfies IRParameterPath
+          }
+
+          case "query": {
+            const style = it.style ?? "form"
+            const explode = this.explodeForParameter(it, style)
+
+            if (!this.isStyleForQueryParameter(style)) {
+              throwUnsupportedStyle(style)
+            }
+
+            return {
+              ...base,
+              in: "query",
+              style,
+              explode,
+              allowEmptyValue: it.allowEmptyValue ?? false,
+            } satisfies IRParameterQuery
+          }
+
+          case "header": {
+            const style = it.style ?? "simple"
+            const explode = this.explodeForParameter(it, style)
+
+            if (!this.isStyleForHeaderParameter(style)) {
+              throwUnsupportedStyle(style)
+            }
+
+            return {
+              ...base,
+              in: "header",
+              style,
+              explode,
+            } satisfies IRParameterHeader
+          }
+
+          case "cookie": {
+            const style = it.style ?? "form"
+            const explode = this.explodeForParameter(it, style)
+
+            if (!this.isStyleForCookieParameter(style)) {
+              throwUnsupportedStyle(style)
+            }
+
+            return {
+              ...base,
+              in: "cookie",
+              style,
+              explode,
+            } satisfies IRParameterCookie
+          }
+
+          default: {
+            throw new Error(
+              `unsupported parameter location: '${it.in satisfies never}'`,
+            )
+          }
         }
       })
+  }
+
+  private isStyleForPathParameter(
+    style: Style,
+  ): style is IRParameterPath["style"] {
+    return ["simple", "label", "matrix", "template"].includes(style)
+  }
+
+  private isStyleForQueryParameter(
+    style: Style,
+  ): style is IRParameterQuery["style"] {
+    return ["form", "spaceDelimited", "pipeDelimited", "deepObject"].includes(
+      style,
+    )
+  }
+
+  private isStyleForHeaderParameter(
+    style: Style,
+  ): style is IRParameterHeader["style"] {
+    return ["simple"].includes(style)
+  }
+
+  private isStyleForCookieParameter(
+    style: Style,
+  ): style is IRParameterCookie["style"] {
+    if (style === "cookie") {
+      // todo: openapi v3.2.0
+      throw new Error("support for style: cookie not implemented.")
+    }
+
+    return ["form"].includes(style)
+  }
+
+  private explodeForParameter(parameter: Parameter, style: Style): boolean {
+    if (typeof parameter.explode === "boolean") {
+      return parameter.explode
+    }
+
+    /**
+     * "When style is "form" or "cookie", the default value is true. For all other styles, the default value is false."
+     * ref: {@link https://spec.openapis.org/oas/v3.2.0.html#parameter-explode}
+     */
+    if (style === "form" || style === "cookie") {
+      return true
+    }
+
+    return false
   }
 
   private normalizeOperationId(
