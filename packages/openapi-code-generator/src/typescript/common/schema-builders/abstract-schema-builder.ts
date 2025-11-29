@@ -4,7 +4,7 @@ import {
 } from "../../../core/dependency-graph"
 import type {Input} from "../../../core/input"
 import {logger} from "../../../core/logger"
-import type {Reference} from "../../../core/openapi-types"
+import type {Reference, Schema} from "../../../core/openapi-types"
 import type {
   IRModelArray,
   IRModelBase,
@@ -157,7 +157,7 @@ export abstract class AbstractSchemaBuilder<
 
   // todo: rethink the isAnonymous parameter - it would be better to just provide more context
   fromModel(
-    maybeModel: MaybeIRModel,
+    maybeModel: Reference | Schema,
     required: boolean,
     isAnonymous = false,
     nullable = false,
