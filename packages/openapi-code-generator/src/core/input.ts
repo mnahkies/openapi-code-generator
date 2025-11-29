@@ -464,6 +464,10 @@ export class Input {
       return parameter.explode
     }
 
+    /**
+     * "When style is "form" or "cookie", the default value is true. For all other styles, the default value is false."
+     * ref: {@link https://spec.openapis.org/oas/v3.2.0.html#parameter-explode}
+     */
     if (style === "form" || style === "cookie") {
       return true
     }
