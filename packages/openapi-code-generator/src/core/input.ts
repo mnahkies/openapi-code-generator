@@ -374,20 +374,20 @@ export class Input {
 
     return Object.fromEntries(
       filtered.map(([contentType, mediaType]) => {
-        return [
-          contentType,
-          {
-            schema: this.normalizeMediaTypeSchema(
-              operationId,
-              contentType,
-              mediaType.schema,
-              suffix,
-              hasMultipleMediaTypes,
-            ),
-            encoding: mediaType.encoding,
-          },
-        ]
-      }),
+          return [
+            contentType,
+            {
+              schema: this.normalizeMediaTypeSchema(
+                operationId,
+                contentType,
+                mediaType.schema,
+                suffix,
+                hasMultipleMediaTypes,
+              ),
+              encoding: mediaType.encoding,
+            },
+          ]
+        }),
     )
   }
 
@@ -401,7 +401,6 @@ export class Input {
     const syntheticName = `${upperFirst(operationId)}${
       hasMultipleMediaTypes ? mediaTypeToIdentifier(mediaType) : ""
     }${suffix}`
-
 
     const result = this.schemaNormalizer.normalize(schema)
 
