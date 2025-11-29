@@ -28,6 +28,7 @@ ignoredBuiltDependencies:
   - '@swc/core'
   - esbuild
   - lmdb
+  - msgpackr-extract
   - nx
   - sharp
   - unrs-resolver
