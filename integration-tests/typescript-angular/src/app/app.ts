@@ -1,4 +1,4 @@
-import {Component} from "@angular/core"
+import {Component, signal} from "@angular/core"
 import {RouterOutlet} from "@angular/router"
 import {GitHubV3RestApiModule} from "../generated/api.github.com.yaml/api.module"
 import {ContosoWidgetManagerModule} from "../generated/azure-core-data-plane-service.tsp/api.module"
@@ -11,7 +11,6 @@ import {TodoListsExampleApiModule} from "../generated/todo-lists.yaml/api.module
 
 @Component({
   selector: "app-root",
-  standalone: true,
   imports: [
     RouterOutlet,
     ContosoProviderHubClientModule,
@@ -23,9 +22,13 @@ import {TodoListsExampleApiModule} from "../generated/todo-lists.yaml/api.module
     SwaggerPetstoreModule,
     TodoListsExampleApiModule,
   ],
-  templateUrl: "./app.component.html",
-  styleUrl: "./app.component.css",
+  template: `
+    <h1>Welcome to {{ title() }}!</h1>
+
+    <router-outlet />
+  `,
+  styles: [],
 })
-export class AppComponent {
-  title = "typescript-angular"
+export class App {
+  protected readonly title = signal("typescript-angular")
 }
