@@ -44,7 +44,7 @@
     "@biomejs/wasm-nodejs": "2.3.4",
     "@commander-js/extra-typings": "^14.0.0",
     "@jest/reporters": "^30.2.0",
-    "@swc/core": "^1.15.0",
+    "@swc/core": "^1.15.3",
     "@swc/jest": "^0.2.39",
     "@tsconfig/node24": "^24.0.1",
     "@tsconfig/strictest": "^2.0.7",
@@ -56,8 +56,8 @@
     "husky": "^9.1.7",
     "jest": "^30.2.0",
     "json5": "^2.2.3",
-    "lerna": "^9.0.0",
-    "lint-staged": "^16.2.6",
+    "lerna": "^9.0.1",
+    "lint-staged": "^16.2.7",
     "prettier": "^3.6.2",
     "remark": "^15.0.1",
     "remark-toc": "^9.0.0",
@@ -80,5 +80,5 @@
   "engines": {
     "node": ">=20 <25"
   },
-  "packageManager": "pnpm@10.22.0+sha512.bf049efe995b28f527fd2b41ae0474ce29186f7edcb3bf545087bd61fbbebb2bf75362d1307fda09c2d288e1e499787ac12d4fcb617a974718a6051f2eee741c"
+  "packageManager": "pnpm@10.24.0+sha512.01ff8ae71b4419903b65c60fb2dc9d34cf8bb6e06d03bde112ef38f7a34d6904c424ba66bea5cdcf12890230bf39f9580473140ed9c946fef328b6e5238a345a"
 }

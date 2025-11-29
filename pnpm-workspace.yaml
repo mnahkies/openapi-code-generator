@@ -9,12 +9,10 @@ dedupeInjectedDeps: true
 
 linkWorkspacePackages: deep
 
-onlyBuiltDependencies:
+ignoredBuiltDependencies:
   - '@parcel/watcher'
   - '@swc/core'
   - esbuild
-  - lmdb
-  - msgpackr-extract
   - nx
   - sharp
   - unrs-resolver
