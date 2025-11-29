@@ -152,6 +152,7 @@ export type Style =
   | "pipeDelimited"
   | "simple"
   | "spaceDelimited"
+  | "cookie"
 
 export interface Encoding {
   allowReserved?: boolean
@@ -202,7 +203,15 @@ export interface Header {
 export interface Parameter {
   name: string
   in: "path" | "query" | "header" | "cookie"
+  // todo: openapi v3.2.0 - support querystring
+  // | "querystring"
   schema: Schema | Reference
+  // todo: support content on parameters
+  // content?: {
+  //   [contentType: string]: MediaType
+  // }
+  style?: Style
+  explode?: boolean
   description?: string
   required?: boolean
   deprecated?: boolean

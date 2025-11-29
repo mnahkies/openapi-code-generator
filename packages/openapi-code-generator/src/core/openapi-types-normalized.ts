@@ -123,15 +123,51 @@ export interface IRServerVariable {
   description: string | undefined
 }
 
-export interface IRParameter {
+export interface IRParameterBase {
   name: string
-  in: "path" | "query" | "header" | "cookie" | "body"
-  schema: MaybeIRModel
   description: string | undefined
   required: boolean
   deprecated: boolean
-  allowEmptyValue: boolean
+  schema: MaybeIRModel
+  explode: boolean | undefined
 }
+
+export interface IRParameterPath extends IRParameterBase {
+  in: "path"
+  // todo: matrix/label not supported
+  style: "matrix" | "label" | "simple"
+}
+
+export interface IRParameterQuery extends IRParameterBase {
+  in: "query"
+  style: "form" | "spaceDelimited" | "pipeDelimited" | "deepObject" // default: form
+  explode: boolean | undefined // default: true for form/cookie, false for other styles
+  allowEmptyValue: boolean //default: false
+}
+
+export interface IRParameterHeader extends IRParameterBase {
+  in: "header"
+  style: "simple"
+}
+
+export interface IRParameterCookie extends IRParameterBase {
+  in: "cookie"
+  style: "form"
+  // todo: openapi v3.2.0 - support style: "cookie"
+  // | "cookie"
+}
+
+// note: not part of spec, but used internally
+export interface IRParameterRequestBody extends IRParameterBase {
+  in: "body"
+}
+
+export type IRParameter =
+  | IRParameterPath
+  | IRParameterQuery
+  | IRParameterHeader
+  | IRParameterCookie
+  | IRParameterRequestBody
 
 export interface IROperation {
   route: string
