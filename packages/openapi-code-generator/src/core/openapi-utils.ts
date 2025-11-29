@@ -31,7 +31,3 @@ export function extractPlaceholders(
     placeholder: match[1],
   }))
 }
-
-export function getSchemaNameFromRef(reference: Reference) {
-  return getNameFromRef(reference, "s_")
-}

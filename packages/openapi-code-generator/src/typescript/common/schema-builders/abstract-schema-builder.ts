@@ -15,7 +15,7 @@ import type {
   IRParameter,
   MaybeIRModel,
 } from "../../../core/openapi-types-normalized"
-import {getSchemaNameFromRef, isRef} from "../../../core/openapi-utils"
+import {getNameFromRef, isRef} from "../../../core/openapi-utils"
 import {hasSingleElement} from "../../../core/utils"
 import {CompilationUnit, type ICompilable} from "../compilation-units"
 import type {ImportBuilder} from "../import-builder"
@@ -51,7 +51,8 @@ export abstract class AbstractSchemaBuilder<
     private readonly parent?: SubClass,
   ) {
     this.graph =
-      parent?.graph ?? buildDependencyGraph(this.input, getSchemaNameFromRef)
+      parent?.graph ??
+      buildDependencyGraph(this.input, (it) => this.getSchemaNameFromRef(it))
     this.importHelpers(this.schemaBuilderImports)
     this.typeBuilder = typeBuilder.withImports(this.schemaBuilderImports)
   }
@@ -61,7 +62,7 @@ export abstract class AbstractSchemaBuilder<
   private add(reference: Reference): string {
     this.parent?.add(reference)
 
-    const name = getSchemaNameFromRef(reference)
+    const name = this.getSchemaNameFromRef(reference)
     this.referenced[name] = reference
 
     if (this.imports) {
@@ -147,6 +148,10 @@ export abstract class AbstractSchemaBuilder<
   }
 
   protected abstract importHelpers(importBuilder: ImportBuilder): void
+
+  public getSchemaNameFromRef(reference: Reference) {
+    return getNameFromRef(reference, "s_")
+  }
 
   public abstract schemaTypeForType(type: string): string
 

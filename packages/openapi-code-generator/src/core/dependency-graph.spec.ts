@@ -1,13 +1,13 @@
 import {describe, expect, it} from "@jest/globals"
 import {testVersions, unitTestInput} from "../test/input.test-utils"
 import {buildDependencyGraph} from "./dependency-graph"
-import {getSchemaNameFromRef} from "./openapi-utils"
+import {getNameFromRef} from "./openapi-utils"
 
 describe.each(testVersions)("%s - core/dependency-graph", (version) => {
   it("works", async () => {
     const {input} = await unitTestInput(version)
 
-    const graph = buildDependencyGraph(input, getSchemaNameFromRef)
+    const graph = buildDependencyGraph(input, (it) => getNameFromRef(it, "s_"))
 
     expect(graph.order.indexOf("s_Ordering")).toBeGreaterThan(
       graph.order.indexOf("s_AOrdering"),

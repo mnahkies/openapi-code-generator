@@ -1,5 +1,5 @@
 import {describe, expect, it} from "@jest/globals"
-import {getNameFromRef, isRef} from "./openapi-utils"
+import {extractPlaceholders, getNameFromRef, isRef} from "./openapi-utils"
 
 describe("core/openapi-utils", () => {
   describe("#isRef", () => {
@@ -9,6 +9,11 @@ describe("core/openapi-utils", () => {
 
     it("returns false if $ref is not defined", () => {
       expect(isRef({type: "number"})).toBe(false)
+    })
+
+    it("returns false if not passed an object", () => {
+      expect(isRef(null)).toBe(false)
+      expect(isRef(123)).toBe(false)
     })
   })
 
@@ -30,5 +35,29 @@ describe("core/openapi-utils", () => {
         "t_Foo_Bar",
       )
     })
+
+    it("throws on an invalid $ref", () => {
+      expect(() => getNameFromRef({$ref: "#/"}, "t_")).toThrow(
+        "no name found in $ref: '#/'",
+      )
+    })
+  })
+
+  describe("#extractPlaceholders", () => {
+    it("returns an empty array if no placeholders in input", () => {
+      expect(extractPlaceholders("/foo/bar")).toStrictEqual([])
+    })
+
+    it("extracts valid placeholders", () => {
+      expect(extractPlaceholders("/{foo/{id}/bar}/{type}")).toStrictEqual([
+        {
+          placeholder: "id",
+          wholeString: "{id}",
+        },
+        {placeholder: "type", wholeString: "{type}"},
+      ])
+    })
+
+    // todo: expand tests for special characters / escaping
   })
 })

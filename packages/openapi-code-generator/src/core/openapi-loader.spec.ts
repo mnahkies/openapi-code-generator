@@ -2,7 +2,7 @@ import {describe, expect, it} from "@jest/globals"
 import {normalizeRef, pathFromRef} from "./openapi-loader"
 
 describe("core/openapi-loader", () => {
-  describe("normalizeRef", () => {
+  describe("#normalizeRef", () => {
     it("rejects invalid $refs", () => {
       expect(() => normalizeRef("not a ref", "/some/path")).toThrow(
         /invalid \$ref '.+'/,
