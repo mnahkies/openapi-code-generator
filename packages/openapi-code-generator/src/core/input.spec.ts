@@ -70,8 +70,8 @@ describe("core/input - SchemaNormalizer", () => {
       enum: undefined,
       exclusiveMaximum: undefined,
       exclusiveMinimum: undefined,
-      maximum: undefined,
-      minimum: undefined,
+      inclusiveMaximum: undefined,
+      inclusiveMinimum: undefined,
       multipleOf: undefined,
       nullable: false,
       readOnly: false,
@@ -244,15 +244,14 @@ describe("core/input - SchemaNormalizer", () => {
           ...base.number,
           format: "int64",
           multipleOf: 2,
-          maximum: 4,
-          minimum: -2,
+          inclusiveMaximum: 4,
+          inclusiveMinimum: -2,
           exclusiveMaximum: 5,
           exclusiveMinimum: -3,
         })
       })
 
-      // todo: implement
-      it.skip("handles openapi 3.0 boolean exclusiveMaximum / exclusiveMinimum modifiers (true)", () => {
+      it("handles openapi 3.0 boolean exclusiveMaximum / exclusiveMinimum modifiers (true)", () => {
         const actual = schemaNormalizer.normalize({
           type: "number",
           format: "int64",
@@ -272,8 +271,7 @@ describe("core/input - SchemaNormalizer", () => {
         })
       })
 
-      // todo: implement
-      it.skip("handles openapi 3.0 boolean exclusiveMaximum / exclusiveMinimum modifiers (false)", () => {
+      it("handles openapi 3.0 boolean exclusiveMaximum / exclusiveMinimum modifiers (false)", () => {
         const actual = schemaNormalizer.normalize({
           type: "number",
           format: "int64",

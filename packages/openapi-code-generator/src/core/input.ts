@@ -799,18 +799,46 @@ export class SchemaNormalizer {
           Number.isFinite(it),
         )
 
-        let exclusiveMaximum = schemaObject.exclusiveMaximum
+        const calcMaximums = () => {
+          // draft-wright-json-schema-validation-01 changed "exclusiveMaximum"/"exclusiveMinimum" from boolean modifiers
+          // of "maximum"/"minimum" to independent numeric fields.
+          // we need to support both.
+          if (typeof schemaObject.exclusiveMaximum === "boolean") {
+            if (schemaObject.exclusiveMaximum) {
+              return {
+                exclusiveMaximum: schemaObject.maximum,
+                inclusiveMaximum: undefined,
+              }
+            } else {
+              return {
+                exclusiveMaximum: undefined,
+                inclusiveMaximum: schemaObject.maximum,
+              }
+            }
+          }
 
-        if (typeof exclusiveMaximum === "boolean") {
-          logger.warn("boolean exclusiveMaximum not yet supported - ignoring")
-          exclusiveMaximum = undefined
+          return {exclusiveMaximum: schemaObject.exclusiveMaximum}
         }
 
-        let exclusiveMinimum = schemaObject.exclusiveMinimum
+        const calcMinimums = () => {
+          // draft-wright-json-schema-validation-01 changed "exclusiveMaximum"/"exclusiveMinimum" from boolean modifiers
+          // of "maximum"/"minimum" to independent numeric fields.
+          // we need to support both.
+          if (typeof schemaObject.exclusiveMinimum === "boolean") {
+            if (schemaObject.exclusiveMinimum) {
+              return {
+                exclusiveMinimum: schemaObject.minimum,
+                inclusiveMinimum: undefined,
+              }
+            } else {
+              return {
+                exclusiveMinimum: undefined,
+                inclusiveMinimum: schemaObject.minimum,
+              }
+            }
+          }
 
-        if (typeof exclusiveMinimum === "boolean") {
-          logger.warn("boolean exclusiveMinimum not yet supported - ignoring")
-          exclusiveMinimum = undefined
+          return {exclusiveMinimum: schemaObject.exclusiveMinimum}
         }
 
         return {
@@ -820,12 +848,11 @@ export class SchemaNormalizer {
           // todo: https://github.com/mnahkies/openapi-code-generator/issues/51
           format: schemaObject.format,
           enum: enumValues.length ? enumValues : undefined,
-          exclusiveMaximum,
-          exclusiveMinimum,
-          maximum: schemaObject.maximum,
-          minimum: schemaObject.minimum,
+          inclusiveMaximum: schemaObject.maximum,
+          inclusiveMinimum: schemaObject.minimum,
           multipleOf: schemaObject.multipleOf,
-
+          ...calcMaximums(),
+          ...calcMinimums(),
           "x-enum-extensibility": enumValues.length
             ? (schemaObject["x-enum-extensibility"] ??
               self.config.enumExtensibility)

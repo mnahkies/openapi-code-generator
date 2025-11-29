@@ -35,8 +35,8 @@ export interface IRModelNumeric extends IRModelBase {
   enum?: number[] | undefined
   exclusiveMaximum?: number | undefined
   exclusiveMinimum?: number | undefined
-  maximum?: number | undefined
-  minimum?: number | undefined
+  inclusiveMaximum?: number | undefined
+  inclusiveMinimum?: number | undefined
   multipleOf?: number | undefined
 
   "x-enum-extensibility"?: "open" | "closed" | undefined
