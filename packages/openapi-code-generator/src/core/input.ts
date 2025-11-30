@@ -43,14 +43,7 @@ import {
   defaultSyntheticNameGenerator,
   type SyntheticNameGenerator,
 } from "./synthetic-name-generator"
-import {
-  camelCase,
-  coalesce,
-  deepEqual,
-  isDefined,
-  isHttpMethod,
-  upperFirst,
-} from "./utils"
+import {camelCase, coalesce, deepEqual, isDefined, isHttpMethod} from "./utils"
 
 export type OperationGroup = {name: string; operations: IROperation[]}
 export type OperationGroupStrategy = "none" | "first-tag" | "first-slug"

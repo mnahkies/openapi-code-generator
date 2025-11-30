@@ -10,9 +10,7 @@ import type {
   IRModelBase,
   IRModelBoolean,
   IRModelNumeric,
-  IRModelObject,
   IRModelString,
-  IRParameter,
   MaybeIRModel,
 } from "../../../core/openapi-types-normalized"
 import {getNameFromRef, isRef} from "../../../core/openapi-utils"

@@ -86,7 +86,7 @@ export class KoaRouterBuilder extends AbstractRouterBuilder {
     const statements: string[] = []
 
     const symbols = this.operationSymbols(builder.operationId)
-    const params = builder.parameters(symbols)
+    const params = builder.parameters()
 
     if (params.path.schema) {
       statements.push(constStatement(symbols.paramSchema, params.path.schema))
@@ -99,18 +99,6 @@ export class KoaRouterBuilder extends AbstractRouterBuilder {
     if (params.header.schema) {
       statements.push(
         constStatement(symbols.requestHeaderSchema, params.header.schema),
-      )
-    }
-
-    if (params.body.schema) {
-      if (!params.body.isSupported) {
-        statements.push(
-          `// todo: request bodies with content-type '${params.body.contentType}' not yet supported`,
-        )
-      }
-
-      statements.push(
-        constStatement(symbols.requestBodySchema, params.body.schema),
       )
     }
 
@@ -157,7 +145,7 @@ router.${builder.method.toLowerCase()}('${symbols.implPropName}','${builder.rout
    const input = {
     params: ${params.path.schema ? `parseRequestInput(${symbols.paramSchema}, ctx.params, RequestInputType.RouteParam)` : "undefined"},
     query: ${params.query.schema ? `parseRequestInput(${symbols.querySchema}, ctx.query, RequestInputType.QueryString)` : "undefined"},
-    body: ${params.body.schema ? `parseRequestInput(${symbols.requestBodySchema}, Reflect.get(ctx.request, "body"), RequestInputType.RequestBody)${!params.body.isSupported ? " as never" : ""}` : "undefined"},
+    ${params.body.schema && !params.body.isSupported ? `// todo: request bodies with content-type '${params.body.contentType}' not yet supported\n` : ""}body: ${params.body.schema ? `parseRequestInput(${params.body.schema}, Reflect.get(ctx.request, "body"), RequestInputType.RequestBody)${!params.body.isSupported ? " as never" : ""}` : "undefined"},
     headers: ${params.header.schema ? `parseRequestInput(${symbols.requestHeaderSchema}, Reflect.get(ctx.request, "headers"), RequestInputType.RequestHeader)` : "undefined"}
    }
 
@@ -188,7 +176,6 @@ router.${builder.method.toLowerCase()}('${symbols.implPropName}','${builder.rout
       responderName: `${titleCase(operationId)}Responder`,
       paramSchema: `${operationId}ParamSchema`,
       querySchema: `${operationId}QuerySchema`,
-      requestBodySchema: `${operationId}BodySchema`,
       requestHeaderSchema: `${operationId}HeaderSchema`,
       responseBodyValidator: `${operationId}ResponseValidator`,
     }
