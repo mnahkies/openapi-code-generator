@@ -68,7 +68,9 @@ export function schemaBuilderTestHarness(
     const schema = schemaBuilder
       .withImports(imports)
       .fromModel(
-        isRef(maybeSchema) ? maybeSchema : input.schema(maybeSchema),
+        isRef(maybeSchema)
+          ? maybeSchema
+          : input.schemaNormalizer.normalize(maybeSchema),
         required,
       )
 

@@ -23,7 +23,7 @@ import type {
   IRModelObject,
   IRModelString,
   IROperation,
-  IROperationParameters,
+  IROperationParams,
   IRParameter,
   IRParameterBase,
   IRParameterCookie,
@@ -166,7 +166,7 @@ export class Input {
           servers: this.normalizeServers(
             coalesce(definition.servers, paths.servers, []),
           ),
-          parameters: this.parameterNormalizer.normalizeParameters(
+          params: this.parameterNormalizer.normalizeParameters(
             operationId,
             parameters,
           ),
@@ -241,9 +241,13 @@ export class Input {
     ).map(([name, operations]) => ({name, operations}))
   }
 
-  schema(maybeRef: Reference | Schema): IRModel {
-    const schema = this.loader.schema(maybeRef)
-    return this.schemaNormalizer.normalize(schema)
+  schema(maybeRef: MaybeIRModel): IRModel {
+    if (isRef(maybeRef)) {
+      const schema = this.loader.schema(maybeRef)
+      return this.schemaNormalizer.normalize(schema)
+    }
+
+    return maybeRef
   }
 
   preprocess(maybePreprocess: Reference | xInternalPreproccess): IRPreprocess {
@@ -370,7 +374,9 @@ export class Input {
     const filtered = Object.entries(mediaTypes)
       // Sometimes people pass `{}` as the MediaType for 204 responses, filter these out
       .filter(([, mediaType]) => Boolean(mediaType.schema))
+
     const hasMultipleMediaTypes = filtered.length > 1
+
     return Object.fromEntries(
       filtered.map(([contentType, mediaType]) => {
         return [
@@ -442,7 +448,7 @@ export class ParameterNormalizer {
   public normalizeParameters(
     operationId: string,
     parameters: (Parameter | Reference)[] = [],
-  ): IROperationParameters {
+  ): IROperationParams {
     const allParameters = parameters.map((it) => this.loader.parameter(it))
 
     const pathParameters = allParameters.filter((it) => it.in === "path")
@@ -456,6 +462,7 @@ export class ParameterNormalizer {
     return {
       all: normalizedParameters,
       path: {
+        name: this.syntheticNameGenerator.forPathParameters({operationId}),
         list: normalizedParameters.filter((it) => it.in === "path"),
         $ref: pathParameters.length
           ? this.loader.addVirtualType(
@@ -466,6 +473,7 @@ export class ParameterNormalizer {
           : undefined,
       },
       query: {
+        name: this.syntheticNameGenerator.forQueryParameters({operationId}),
         list: normalizedParameters.filter((it) => it.in === "query"),
         $ref: queryParameters.length
           ? this.loader.addVirtualType(
@@ -476,6 +484,7 @@ export class ParameterNormalizer {
           : undefined,
       },
       header: {
+        name: this.syntheticNameGenerator.forRequestHeaders({operationId}),
         list: normalizedParameters.filter((it) => it.in === "header"),
         $ref: headerParameters.length
           ? this.loader.addVirtualType(
@@ -574,6 +583,17 @@ export class ParameterNormalizer {
         if (!this.isStyleForQueryParameter(style)) {
           throwUnsupportedStyle(style)
         }
+
+        // todo: add if dereferenced(base.schema).type === "array
+        /*
+
+        "x-internal-preprocess": {
+            deserialize: {
+              fn: "(it: unknown) => Array.isArray(it) || it === undefined ? it : [it]",
+            },
+          },
+
+         */
 
         return {
           ...base,
@@ -685,25 +705,30 @@ export class SchemaNormalizer {
       return schemaObject satisfies IRRef
     }
 
+    if (Reflect.get(schemaObject, "isIRModel")) {
+      throw new Error("double normalization!")
+    }
+
     // TODO: HACK: translates a type array into a a oneOf - unsure if this makes sense,
     //             or is the cleanest way to do it. I'm fairly sure this will work fine
     //             for most things though.
     if (Array.isArray(schemaObject.type)) {
       const nullable = Boolean(schemaObject.type.find((it) => it === "null"))
       return self.normalize({
+        isIRModel: false,
+        type: "object",
         oneOf: schemaObject.type
           .filter((it) => it !== "null")
-          .map((it) =>
-            self.normalize({
-              ...schemaObject,
-              type: it,
-              nullable,
-            }),
-          ),
+          .map((it) => ({
+            ...schemaObject,
+            type: it,
+            nullable,
+          })),
       })
     }
 
     const base: IRModelBase = {
+      isIRModel: true,
       nullable: schemaObject.nullable || false,
       readOnly: schemaObject.readOnly || false,
       default: schemaObject.default,
@@ -909,10 +934,11 @@ export class SchemaNormalizer {
           type: "never",
         }
       }
-      default:
+      default: {
         throw new Error(
           `unsupported type '${schemaObject.type satisfies never}'`,
         )
+      }
     }
 
     function normalizeProperties(

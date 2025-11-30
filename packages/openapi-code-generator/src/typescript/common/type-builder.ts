@@ -280,7 +280,9 @@ export class TypeBuilder implements ICompilable {
   }
 
   isEmptyObject(schemaObject: MaybeIRModel): boolean {
-    const dereferenced = this.input.schema(schemaObject)
+    const dereferenced = isRef(schemaObject)
+      ? this.input.schema(schemaObject)
+      : schemaObject
 
     return (
       dereferenced.type === "object" &&

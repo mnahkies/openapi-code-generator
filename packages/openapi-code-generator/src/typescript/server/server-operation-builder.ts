@@ -14,9 +14,6 @@ export type ServerSymbols = {
   implPropName: string
   implTypeName: string
   responderName: string
-  paramSchema: string
-  querySchema: string
-  requestHeaderSchema: string
   responseBodyValidator: string
 }
 
@@ -39,14 +36,17 @@ export type ServerOperationResponseSchemas = {
 export type Parameters = {
   type: string
   path: {
+    name: string
     schema: string | undefined
     type: string
   }
   query: {
+    name: string
     schema: string | undefined
     type: string
   }
   header: {
+    name: string
     schema: string | undefined
     type: string
   }
@@ -73,7 +73,7 @@ export class ServerOperationBuilder {
   }
 
   get route(): string {
-    const {route, parameters} = this.operation
+    const {route, params} = this.operation
 
     const placeholders = extractPlaceholders(route)
 
@@ -84,9 +84,7 @@ export class ServerOperationBuilder {
         )
       }
 
-      const parameter = parameters.path.list.find(
-        (it) => it.name === placeholder,
-      )
+      const parameter = params.path.list.find((it) => it.name === placeholder)
 
       if (!parameter) {
         throw new Error(
@@ -163,7 +161,7 @@ export class ServerOperationBuilder {
   }
 
   private pathParameters(): Parameters["path"] {
-    const $ref = this.operation.parameters.path.$ref
+    const $ref = this.operation.params.path.$ref
 
     const schema =
       $ref !== undefined
@@ -176,11 +174,11 @@ export class ServerOperationBuilder {
       type = this.types.schemaObjectToType($ref)
     }
 
-    return {schema: schema, type}
+    return {name: this.operation.params.path.name, schema: schema, type}
   }
 
   private queryParameters(): Parameters["query"] {
-    const $ref = this.operation.parameters.query.$ref
+    const $ref = this.operation.params.query.$ref
 
     const schema =
       $ref !== undefined
@@ -193,11 +191,11 @@ export class ServerOperationBuilder {
       type = this.types.schemaObjectToType($ref)
     }
 
-    return {schema: schema, type}
+    return {name: this.operation.params.query.name, schema: schema, type}
   }
 
   private headerParameters(): Parameters["header"] {
-    const $ref = this.operation.parameters.header.$ref
+    const $ref = this.operation.params.header.$ref
 
     const schema =
       $ref !== undefined
@@ -210,7 +208,7 @@ export class ServerOperationBuilder {
       type = this.types.schemaObjectToType($ref)
     }
 
-    return {schema: schema, type}
+    return {name: this.operation.params.header.name, schema: schema, type}
   }
 
   private requestBodyParameter(): Parameters["body"] {

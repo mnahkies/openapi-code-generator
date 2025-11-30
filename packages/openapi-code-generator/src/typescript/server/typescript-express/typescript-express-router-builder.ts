@@ -92,17 +92,15 @@ export class ExpressRouterBuilder extends AbstractRouterBuilder {
     const params = builder.parameters()
 
     if (params.path.schema) {
-      statements.push(constStatement(symbols.paramSchema, params.path.schema))
+      statements.push(constStatement(params.path.name, params.path.schema))
     }
 
     if (params.query.schema) {
-      statements.push(constStatement(symbols.querySchema, params.query.schema))
+      statements.push(constStatement(params.query.name, params.query.schema))
     }
 
     if (params.header.schema) {
-      statements.push(
-        constStatement(symbols.requestHeaderSchema, params.header.schema),
-      )
+      statements.push(constStatement(params.header.name, params.header.schema))
     }
 
     const responder = builder.responder(
@@ -139,10 +137,10 @@ const ${symbols.responseBodyValidator} = ${builder.responseValidator()}
 router.${builder.method.toLowerCase()}(\`${builder.route}\`, async (req: Request, res: Response, next: NextFunction) => {
   try {
    const input = {
-    params: ${params.path.schema ? `parseRequestInput(${symbols.paramSchema}, req.params, RequestInputType.RouteParam)` : "undefined"},
-    query: ${params.query.schema ? `parseRequestInput(${symbols.querySchema}, req.query, RequestInputType.QueryString)` : "undefined"},
+    params: ${params.path.schema ? `parseRequestInput(${params.path.name}, req.params, RequestInputType.RouteParam)` : "undefined"},
+    query: ${params.query.schema ? `parseRequestInput(${params.query.name}, req.query, RequestInputType.QueryString)` : "undefined"},
     ${params.body.schema && !params.body.isSupported ? `// todo: request bodies with content-type '${params.body.contentType}' not yet supported\n` : ""}body: ${params.body.schema ? `parseRequestInput(${params.body.schema}, req.body, RequestInputType.RequestBody)${!params.body.isSupported ? " as never" : ""}` : "undefined"},
-    headers: ${params.header.schema ? `parseRequestInput(${symbols.requestHeaderSchema}, req.headers, RequestInputType.RequestHeader)` : "undefined"}
+    headers: ${params.header.schema ? `parseRequestInput(${params.header.name}, req.headers, RequestInputType.RequestHeader)` : "undefined"}
    }
 
    const responder = ${responder.implementation}
@@ -242,9 +240,6 @@ export ${this.implementationMethod === "type" || this.implementationMethod === "
       implPropName: operationId,
       implTypeName: titleCase(operationId),
       responderName: `${titleCase(operationId)}Responder`,
-      paramSchema: `${operationId}ParamSchema`,
-      querySchema: `${operationId}QuerySchema`,
-      requestHeaderSchema: `${operationId}RequestHeaderSchema`,
       responseBodyValidator: `${operationId}ResponseBodyValidator`,
     }
   }

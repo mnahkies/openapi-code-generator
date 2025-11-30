@@ -4,7 +4,7 @@ import {
 } from "../../../core/dependency-graph"
 import type {Input} from "../../../core/input"
 import {logger} from "../../../core/logger"
-import type {Reference, Schema} from "../../../core/openapi-types"
+import type {Reference} from "../../../core/openapi-types"
 import type {
   IRModelArray,
   IRModelBase,
@@ -157,7 +157,7 @@ export abstract class AbstractSchemaBuilder<
 
   // todo: rethink the isAnonymous parameter - it would be better to just provide more context
   fromModel(
-    maybeModel: Reference | Schema,
+    maybeModel: MaybeIRModel,
     required: boolean,
     isAnonymous = false,
     nullable = false,
@@ -195,7 +195,11 @@ export abstract class AbstractSchemaBuilder<
       return result
     }
 
-    const model = this.input.schema(maybeModel)
+    if (!Reflect.get(maybeModel, "isIRModel")) {
+      throw new Error("passed raw schema")
+    }
+
+    const model = maybeModel
 
     switch (model.type) {
       case "string":
@@ -224,7 +228,7 @@ export abstract class AbstractSchemaBuilder<
           // Note: for zod in particular it's desirable to use merge over intersection
           //       where possible, as it returns a more malleable schema
           const isMergable = model.allOf
-            .map((it) => this.input.schema(it))
+            .map((it) => (isRef(it) ? this.input.schema(it) : it))
             .every(
               (it) =>
                 it.type === "object" &&

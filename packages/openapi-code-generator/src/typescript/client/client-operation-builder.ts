@@ -62,7 +62,7 @@ export class ClientOperationBuilder {
   }
 
   routeToTemplateString(paramName = "p"): string {
-    const {route, parameters} = this.operation
+    const {route, params} = this.operation
     const placeholders = extractPlaceholders(route)
 
     return placeholders.reduce((result, {placeholder, wholeString}) => {
@@ -72,9 +72,7 @@ export class ClientOperationBuilder {
         )
       }
 
-      const parameter = parameters.path.list.find(
-        (it) => it.name === placeholder,
-      )
+      const parameter = params.path.list.find((it) => it.name === placeholder)
 
       if (!parameter) {
         throw new Error(
@@ -91,17 +89,15 @@ export class ClientOperationBuilder {
   }
 
   methodParameter(): MethodParameterDefinition | undefined {
-    const {parameters} = this.operation
+    const {params} = this.operation
     const requestBody = this.requestBodyAsParameter()
 
     return combineParams(
-      [...parameters.all, requestBody?.parameter]
-        .filter(isDefined)
-        .map((it) => ({
-          name: `${camelCase(it.name)}`,
-          type: this.models.schemaObjectToType(it.schema),
-          required: it.required,
-        })),
+      [...params.all, requestBody?.parameter].filter(isDefined).map((it) => ({
+        name: `${camelCase(it.name)}`,
+        type: this.models.schemaObjectToType(it.schema),
+        required: it.required,
+      })),
     )
   }
 
@@ -134,10 +130,8 @@ export class ClientOperationBuilder {
   }
 
   queryString(): string {
-    const {parameters} = this.operation
-
     // todo: consider style / explode / allowReserved etc here
-    return parameters.query.list
+    return this.operation.params.query.list
       .map((it) => `'${it.name}': ${this.paramName(it.name)}`)
       .join(",\n")
   }
@@ -147,9 +141,7 @@ export class ClientOperationBuilder {
   }: {
     nullContentTypeValue: "undefined" | "false"
   }): string {
-    const {parameters} = this.operation
-
-    const paramHeaders = parameters.header.list.map(
+    const paramHeaders = this.operation.params.header.list.map(
       (it) => `'${it.name}': ${this.paramName(it.name)}`,
     )
 
@@ -176,11 +168,8 @@ export class ClientOperationBuilder {
   }
 
   hasHeader(name: string): boolean {
-    const {parameters} = this.operation
-
-    const parameter = parameters.header.list.find(
-      (it) =>
-        it.in === "header" && it.name.toLowerCase() === name.toLowerCase(),
+    const parameter = this.operation.params.header.list.find(
+      (it) => it.name.toLowerCase() === name.toLowerCase(),
     )
 
     return Boolean(parameter)

@@ -83,11 +83,11 @@ describe("typescript/server/typescript-koa/koa-router-builder", () => {
 
       serverRouterBuilder.add({
         method: "GET",
-        parameters: {
+        params: {
           all: [],
-          path: {list: [], $ref: undefined},
-          query: {list: [], $ref: undefined},
-          header: {list: [], $ref: undefined},
+          path: {list: [], name: "", $ref: {$ref: ""}},
+          query: {list: [], name: "", $ref: {$ref: ""}},
+          header: {list: [], name: "", $ref: {$ref: ""}},
         },
         servers: [],
         operationId: "testOperation",
@@ -101,11 +101,11 @@ describe("typescript/server/typescript-koa/koa-router-builder", () => {
       })
       serverRouterBuilder.add({
         method: "GET",
-        parameters: {
+        params: {
           all: [],
-          path: {list: [], $ref: undefined},
-          query: {list: [], $ref: undefined},
-          header: {list: [], $ref: undefined},
+          path: {list: [], name: "", $ref: {$ref: ""}},
+          query: {list: [], name: "", $ref: {$ref: ""}},
+          header: {list: [], name: "", $ref: {$ref: ""}},
         },
         servers: [],
         operationId: "anotherTestOperation",
