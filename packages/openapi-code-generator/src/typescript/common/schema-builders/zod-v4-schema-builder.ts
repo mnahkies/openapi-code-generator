@@ -8,7 +8,6 @@ import type {
   IRModelString,
   MaybeIRModel,
 } from "../../../core/openapi-types-normalized"
-import {getSchemaNameFromRef} from "../../../core/openapi-utils"
 import {hasSingleElement, isDefined} from "../../../core/utils"
 import type {ImportBuilder} from "../import-builder"
 import type {TypeBuilder} from "../type-builder"
@@ -91,7 +90,7 @@ export class ZodV4Builder extends AbstractSchemaBuilder<
   }
 
   protected schemaFromRef(reference: Reference): ExportDefinition {
-    const name = getSchemaNameFromRef(reference)
+    const name = this.getSchemaNameFromRef(reference)
     const schemaObject = this.input.schema(reference)
 
     const value = this.fromModel(schemaObject, true)
