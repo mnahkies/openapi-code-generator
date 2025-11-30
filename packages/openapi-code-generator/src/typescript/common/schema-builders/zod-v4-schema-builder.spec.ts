@@ -1,20 +1,20 @@
 import * as vm from "node:vm"
 import {describe, expect, it} from "@jest/globals"
 import type {
-  IRModelArray,
-  IRModelBoolean,
-  IRModelNumeric,
-  IRModelObject,
-  IRModelString,
-} from "../../../core/openapi-types-normalized"
+  SchemaArray,
+  SchemaBoolean,
+  SchemaNumber,
+  SchemaObject,
+  SchemaString,
+} from "../../../core/openapi-types"
 import {isDefined} from "../../../core/utils"
 import {testVersions} from "../../../test/input.test-utils"
 import type {SchemaBuilderConfig} from "./abstract-schema-builder"
 import {
-  irModelNumber,
-  irModelObject,
-  irModelString,
   schemaBuilderTestHarness,
+  schemaNumber,
+  schemaObject,
+  schemaString,
 } from "./schema-builder.test-utils"
 import {staticSchemas} from "./zod-v4-schema-builder"
 
@@ -330,7 +330,7 @@ describe.each(testVersions)(
     })
 
     describe("numbers", () => {
-      const base: IRModelNumeric = {
+      const base: SchemaNumber = {
         nullable: false,
         readOnly: false,
         type: "number",
@@ -569,7 +569,7 @@ describe.each(testVersions)(
     })
 
     describe("strings", () => {
-      const base: IRModelString = {
+      const base: SchemaString = {
         nullable: false,
         readOnly: false,
         type: "string",
@@ -828,7 +828,7 @@ describe.each(testVersions)(
         })()`)
       }
 
-      const base: IRModelBoolean = {
+      const base: SchemaBoolean = {
         nullable: false,
         readOnly: false,
         type: "boolean",
@@ -1044,7 +1044,7 @@ describe.each(testVersions)(
     })
 
     describe("arrays", () => {
-      const base: IRModelArray = {
+      const base: SchemaArray = {
         nullable: false,
         readOnly: false,
         type: "array",
@@ -1131,7 +1131,7 @@ describe.each(testVersions)(
       it("supports minItems / maxItems / uniqueItems", async () => {
         const {code, execute} = await getActualFromModel({
           ...base,
-          items: {type: "number", nullable: false, readOnly: false},
+          items: schemaNumber(),
           minItems: 1,
           maxItems: 3,
           uniqueItems: true,
@@ -1187,7 +1187,7 @@ describe.each(testVersions)(
     })
 
     describe("objects", () => {
-      const base: IRModelObject = {
+      const base: SchemaObject = {
         type: "object",
         allOf: [],
         anyOf: [],
@@ -1287,8 +1287,8 @@ describe.each(testVersions)(
     describe("unions", () => {
       it("can union a string and number", async () => {
         const {code, execute} = await getActualFromModel(
-          irModelObject({
-            anyOf: [irModelString(), irModelNumber()],
+          schemaObject({
+            anyOf: [schemaString(), schemaNumber()],
           }),
         )
 
@@ -1305,17 +1305,17 @@ describe.each(testVersions)(
 
       it("can union an intersected object and string", async () => {
         const {code, execute} = await getActualFromModel(
-          irModelObject({
+          schemaObject({
             anyOf: [
-              irModelString(),
-              irModelObject({
+              schemaString(),
+              schemaObject({
                 allOf: [
-                  irModelObject({
-                    properties: {foo: irModelString()},
+                  schemaObject({
+                    properties: {foo: schemaString()},
                     required: ["foo"],
                   }),
-                  irModelObject({
-                    properties: {bar: irModelString()},
+                  schemaObject({
+                    properties: {bar: schemaString()},
                     required: ["bar"],
                   }),
                 ],
@@ -1346,14 +1346,14 @@ describe.each(testVersions)(
     describe("intersections", () => {
       it("can intersect objects", async () => {
         const {code, execute} = await getActualFromModel(
-          irModelObject({
+          schemaObject({
             allOf: [
-              irModelObject({
-                properties: {foo: irModelString()},
+              schemaObject({
+                properties: {foo: schemaString()},
                 required: ["foo"],
               }),
-              irModelObject({
-                properties: {bar: irModelString()},
+              schemaObject({
+                properties: {bar: schemaString()},
                 required: ["bar"],
               }),
             ],
@@ -1375,22 +1375,22 @@ describe.each(testVersions)(
 
       it("can intersect unions", async () => {
         const {code, execute} = await getActualFromModel(
-          irModelObject({
+          schemaObject({
             allOf: [
-              irModelObject({
+              schemaObject({
                 oneOf: [
-                  irModelObject({
-                    properties: {foo: irModelString()},
+                  schemaObject({
+                    properties: {foo: schemaString()},
                     required: ["foo"],
                   }),
-                  irModelObject({
-                    properties: {bar: irModelString()},
+                  schemaObject({
+                    properties: {bar: schemaString()},
                     required: ["bar"],
                   }),
                 ],
               }),
-              irModelObject({
-                properties: {id: irModelString()},
+              schemaObject({
+                properties: {id: schemaString()},
                 required: ["id"],
               }),
             ],
@@ -1420,7 +1420,7 @@ describe.each(testVersions)(
 
     describe("unspecified schemas when allowAny: true", () => {
       const config: SchemaBuilderConfig = {allowAny: true}
-      const base: IRModelObject = {
+      const base: SchemaObject = {
         type: "object",
         allOf: [],
         anyOf: [],
@@ -1520,7 +1520,7 @@ describe.each(testVersions)(
 
     describe("unspecified schemas when allowAny: false", () => {
       const config: SchemaBuilderConfig = {allowAny: false}
-      const base: IRModelObject = {
+      const base: SchemaObject = {
         type: "object",
         allOf: [],
         anyOf: [],

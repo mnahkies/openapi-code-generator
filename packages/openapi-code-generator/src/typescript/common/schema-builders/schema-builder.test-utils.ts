@@ -1,12 +1,13 @@
 import ts from "typescript"
 import type {Input} from "../../../core/input"
 import type {
-  IRModel,
-  IRModelNumeric,
-  IRModelObject,
-  IRModelString,
-  MaybeIRModel,
-} from "../../../core/openapi-types-normalized"
+  Reference,
+  Schema,
+  SchemaNumber,
+  SchemaObject,
+  SchemaString,
+} from "../../../core/openapi-types"
+import {isRef} from "../../../core/openapi-utils"
 import {
   type OpenApiVersion,
   unitTestInput,
@@ -23,11 +24,11 @@ export function schemaBuilderTestHarness(
   executeParseSchema: (code: string, input?: unknown) => Promise<unknown>,
 ) {
   async function getActualFromModel(
-    model: IRModel,
+    schema: Schema,
     config: SchemaBuilderConfig = {allowAny: false},
   ) {
     const {input} = await unitTestInput(version)
-    return getResult(input, model, true, config)
+    return getResult(input, schema, true, config)
   }
 
   async function getActual(
@@ -40,7 +41,7 @@ export function schemaBuilderTestHarness(
 
   async function getResult(
     input: Input,
-    maybeModel: MaybeIRModel,
+    maybeSchema: Schema | Reference,
     required: boolean,
     config: SchemaBuilderConfig,
   ) {
@@ -66,7 +67,10 @@ export function schemaBuilderTestHarness(
 
     const schema = schemaBuilder
       .withImports(imports)
-      .fromModel(maybeModel, required)
+      .fromModel(
+        isRef(maybeSchema) ? maybeSchema : input.schema(maybeSchema),
+        required,
+      )
 
     const code = (
       await formatter.format(
@@ -117,9 +121,9 @@ export function schemaBuilderTestHarness(
   }
 }
 
-export function irModelObject(
-  partial: Partial<IRModelObject> = {},
-): IRModelObject {
+export function schemaObject(
+  partial: Partial<SchemaObject> = {},
+): SchemaObject {
   return {
     type: "object",
     allOf: [],
@@ -134,9 +138,9 @@ export function irModelObject(
   }
 }
 
-export function irModelString(
-  partial: Partial<IRModelString> = {},
-): IRModelString {
+export function schemaString(
+  partial: Partial<SchemaString> = {},
+): SchemaString {
   return {
     type: "string",
     nullable: false,
@@ -145,9 +149,9 @@ export function irModelString(
   }
 }
 
-export function irModelNumber(
-  partial: Partial<IRModelNumeric> = {},
-): IRModelNumeric {
+export function schemaNumber(
+  partial: Partial<SchemaNumber> = {},
+): SchemaNumber {
   return {
     type: "number",
     nullable: false,
