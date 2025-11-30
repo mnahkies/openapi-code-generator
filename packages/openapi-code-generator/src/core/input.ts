@@ -57,6 +57,10 @@ export class Input {
   constructor(
     readonly loader: OpenapiLoader,
     readonly config: InputConfig,
+    private readonly schemaNormalizer = new SchemaNormalizer(config),
+    private readonly parameterNormalizer = new ParameterNormalizer(
+      schemaNormalizer,
+    ),
   ) {}
 
   name(): string {
@@ -84,7 +88,10 @@ export class Input {
     return Object.fromEntries(
       Object.entries(schemas).map(([name, maybeSchema]) => {
         // TODO: double normalization?
-        return [name, this.schema(this.normalizeSchemaObject(maybeSchema))]
+        return [
+          name,
+          this.schema(this.schemaNormalizer.normalizeSchemaObject(maybeSchema)),
+        ]
       }),
     )
   }
@@ -231,7 +238,7 @@ export class Input {
 
   schema(maybeRef: Reference | Schema): IRModel {
     const schema = this.loader.schema(maybeRef)
-    return this.normalizeSchemaObject(schema)
+    return this.schemaNormalizer.normalizeSchemaObject(schema)
   }
 
   preprocess(maybePreprocess: Reference | xInternalPreproccess): IRPreprocess {
@@ -338,141 +345,7 @@ export class Input {
   ): IRParameter[] {
     return parameters
       .map((it) => this.loader.parameter(it))
-      .map((it: Parameter): IRParameter => {
-        const base = {
-          name: it.name,
-          schema: this.normalizeSchemaObject(it.schema),
-          description: it.description,
-          required: it.required ?? false,
-          deprecated: it.deprecated ?? false,
-        } satisfies Omit<IRParameterBase, "explode">
-
-        function throwUnsupportedStyle(style: Style): never {
-          throw new Error(
-            `unsupported parameter style: '${style}' for in: '${it.in}'`,
-          )
-        }
-
-        switch (it.in) {
-          case "path": {
-            const style = it.style ?? "simple"
-            const explode = this.explodeForParameter(it, style)
-
-            if (!this.isStyleForPathParameter(style)) {
-              throwUnsupportedStyle(style)
-            }
-
-            return {
-              ...base,
-              in: "path",
-              style,
-              explode,
-            } satisfies IRParameterPath
-          }
-
-          case "query": {
-            const style = it.style ?? "form"
-            const explode = this.explodeForParameter(it, style)
-
-            if (!this.isStyleForQueryParameter(style)) {
-              throwUnsupportedStyle(style)
-            }
-
-            return {
-              ...base,
-              in: "query",
-              style,
-              explode,
-              allowEmptyValue: it.allowEmptyValue ?? false,
-            } satisfies IRParameterQuery
-          }
-
-          case "header": {
-            const style = it.style ?? "simple"
-            const explode = this.explodeForParameter(it, style)
-
-            if (!this.isStyleForHeaderParameter(style)) {
-              throwUnsupportedStyle(style)
-            }
-
-            return {
-              ...base,
-              in: "header",
-              style,
-              explode,
-            } satisfies IRParameterHeader
-          }
-
-          case "cookie": {
-            const style = it.style ?? "form"
-            const explode = this.explodeForParameter(it, style)
-
-            if (!this.isStyleForCookieParameter(style)) {
-              throwUnsupportedStyle(style)
-            }
-
-            return {
-              ...base,
-              in: "cookie",
-              style,
-              explode,
-            } satisfies IRParameterCookie
-          }
-
-          default: {
-            throw new Error(
-              `unsupported parameter location: '${it.in satisfies never}'`,
-            )
-          }
-        }
-      })
-  }
-
-  private isStyleForPathParameter(
-    style: Style,
-  ): style is IRParameterPath["style"] {
-    return ["simple", "label", "matrix", "template"].includes(style)
-  }
-
-  private isStyleForQueryParameter(
-    style: Style,
-  ): style is IRParameterQuery["style"] {
-    return ["form", "spaceDelimited", "pipeDelimited", "deepObject"].includes(
-      style,
-    )
-  }
-
-  private isStyleForHeaderParameter(
-    style: Style,
-  ): style is IRParameterHeader["style"] {
-    return ["simple"].includes(style)
-  }
-
-  private isStyleForCookieParameter(
-    style: Style,
-  ): style is IRParameterCookie["style"] {
-    if (style === "cookie") {
-      // todo: openapi v3.2.0
-      throw new Error("support for style: cookie not implemented.")
-    }
-
-    return ["form"].includes(style)
-  }
-
-  private explodeForParameter(parameter: Parameter, style: Style): boolean {
-    if (typeof parameter.explode === "boolean") {
-      return parameter.explode
-    }
-
-    /**
-     * "When style is "form" or "cookie", the default value is true. For all other styles, the default value is false."
-     * ref: {@link https://spec.openapis.org/oas/v3.2.0.html#parameter-explode}
-     */
-    if (style === "form" || style === "cookie") {
-      return true
-    }
-
-    return false
+      .map((it) => this.parameterNormalizer.normalizeParameter(it))
   }
 
   private normalizeOperationId(
@@ -525,7 +398,7 @@ export class Input {
     const syntheticName = `${operationId}${mediaTypeToIdentifier(
       mediaType,
     )}${suffix}`
-    const result = this.normalizeSchemaObject(schema)
+    const result = this.schemaNormalizer.normalizeSchemaObject(schema)
 
     const shouldCreateVirtualType =
       this.config.extractInlineSchemas &&
@@ -539,13 +412,157 @@ export class Input {
       ? this.loader.addVirtualType(operationId, syntheticName, result)
       : result
   }
+}
 
-  private normalizeSchemaObject(schemaObject: Schema): IRModel
-  private normalizeSchemaObject(schemaObject: Reference): IRRef
-  private normalizeSchemaObject(
+export class ParameterNormalizer {
+  constructor(private readonly schemaNormalizer: SchemaNormalizer) {}
+
+  public normalizeParameter(it: Parameter): IRParameter {
+    const base = {
+      name: it.name,
+      schema: this.schemaNormalizer.normalizeSchemaObject(it.schema),
+      description: it.description,
+      required: it.required ?? false,
+      deprecated: it.deprecated ?? false,
+    } satisfies Omit<IRParameterBase, "explode">
+
+    function throwUnsupportedStyle(style: Style): never {
+      throw new Error(
+        `unsupported parameter style: '${style}' for in: '${it.in}'`,
+      )
+    }
+
+    switch (it.in) {
+      case "path": {
+        const style = it.style ?? "simple"
+        const explode = this.explodeForParameter(it, style)
+
+        if (!this.isStyleForPathParameter(style)) {
+          throwUnsupportedStyle(style)
+        }
+
+        return {
+          ...base,
+          in: "path",
+          style,
+          explode,
+        } satisfies IRParameterPath
+      }
+
+      case "query": {
+        const style = it.style ?? "form"
+        const explode = this.explodeForParameter(it, style)
+
+        if (!this.isStyleForQueryParameter(style)) {
+          throwUnsupportedStyle(style)
+        }
+
+        return {
+          ...base,
+          in: "query",
+          style,
+          explode,
+          allowEmptyValue: it.allowEmptyValue ?? false,
+        } satisfies IRParameterQuery
+      }
+
+      case "header": {
+        const style = it.style ?? "simple"
+        const explode = this.explodeForParameter(it, style)
+
+        if (!this.isStyleForHeaderParameter(style)) {
+          throwUnsupportedStyle(style)
+        }
+
+        return {
+          ...base,
+          in: "header",
+          style,
+          explode,
+        } satisfies IRParameterHeader
+      }
+
+      case "cookie": {
+        const style = it.style ?? "form"
+        const explode = this.explodeForParameter(it, style)
+
+        if (!this.isStyleForCookieParameter(style)) {
+          throwUnsupportedStyle(style)
+        }
+
+        return {
+          ...base,
+          in: "cookie",
+          style,
+          explode,
+        } satisfies IRParameterCookie
+      }
+
+      default: {
+        throw new Error(
+          `unsupported parameter location: '${it.in satisfies never}'`,
+        )
+      }
+    }
+  }
+
+  private isStyleForPathParameter(
+    style: Style,
+  ): style is IRParameterPath["style"] {
+    return ["simple", "label", "matrix", "template"].includes(style)
+  }
+
+  private isStyleForQueryParameter(
+    style: Style,
+  ): style is IRParameterQuery["style"] {
+    return ["form", "spaceDelimited", "pipeDelimited", "deepObject"].includes(
+      style,
+    )
+  }
+
+  private isStyleForHeaderParameter(
+    style: Style,
+  ): style is IRParameterHeader["style"] {
+    return ["simple"].includes(style)
+  }
+
+  private isStyleForCookieParameter(
+    style: Style,
+  ): style is IRParameterCookie["style"] {
+    if (style === "cookie") {
+      // todo: openapi v3.2.0
+      throw new Error("support for style: cookie not implemented.")
+    }
+
+    return ["form"].includes(style)
+  }
+
+  private explodeForParameter(parameter: Parameter, style: Style): boolean {
+    if (typeof parameter.explode === "boolean") {
+      return parameter.explode
+    }
+
+    /**
+     * "When style is "form" or "cookie", the default value is true. For all other styles, the default value is false."
+     * ref: {@link https://spec.openapis.org/oas/v3.2.0.html#parameter-explode}
+     */
+    if (style === "form" || style === "cookie") {
+      return true
+    }
+
+    return false
+  }
+}
+
+export class SchemaNormalizer {
+  constructor(readonly config: InputConfig) {}
+
+  public normalizeSchemaObject(schemaObject: Schema): IRModel
+  public normalizeSchemaObject(schemaObject: Reference): IRRef
+  public normalizeSchemaObject(
     schemaObject: Schema | Reference,
   ): IRModel | IRRef
-  private normalizeSchemaObject(
+  public normalizeSchemaObject(
     schemaObject: Schema | Reference,
   ): IRModel | IRRef {
     const self = this
