@@ -1,4 +1,4 @@
-import {describe, expect, it} from "@jest/globals"
+import {describe, expect, it, jest} from "@jest/globals"
 import {WebFsAdaptor} from "../file-system/web-fs-adaptor"
 import {loadTsConfigCompilerOptions} from "./tsconfig.loader"
 
@@ -97,5 +97,31 @@ describe("core/loaders/tsconfig.loader", () => {
       exactOptionalPropertyTypes: true,
       rewriteRelativeImportExtensions: true,
     })
+  })
+
+  it("falls back to defaults if an exception occurs", async () => {
+    const fs = fsAdaptor({
+      "/virtual/ws/tsconfig.json": JSON.stringify({
+        compilerOptions: {
+          exactOptionalPropertyTypes: true,
+        },
+      }),
+    })
+
+    const spy = jest
+      .spyOn(fs, "readFile")
+      .mockRejectedValue(new Error("EACCES: permission denied"))
+
+    const actual = await loadTsConfigCompilerOptions(
+      "/virtual/ws/packages/pkg",
+      fs,
+    )
+
+    expect(actual).toEqual({
+      exactOptionalPropertyTypes: false,
+      rewriteRelativeImportExtensions: false,
+    })
+
+    expect(spy).toHaveBeenCalled()
   })
 })

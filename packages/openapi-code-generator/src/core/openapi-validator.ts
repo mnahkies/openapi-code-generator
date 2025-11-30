@@ -22,6 +22,8 @@ export class OpenapiValidator {
       return this.validate3_1
     }
 
+    // todo: openapi 3.2: add validator
+
     throw new Error(`unsupported openapi version '${version}'`)
   }
 

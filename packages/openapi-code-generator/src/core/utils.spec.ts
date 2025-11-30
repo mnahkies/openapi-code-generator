@@ -2,6 +2,7 @@ import {describe, expect, it} from "@jest/globals"
 import {
   camelCase,
   coalesce,
+  deepEqual,
   hasSingleElement,
   isDefined,
   isHttpMethod,
@@ -43,6 +44,21 @@ describe("core/utils", () => {
       ["random", false],
     ])("%s -> %s", (input, expected) => {
       expect(isHttpMethod(input)).toBe(expected)
+    })
+  })
+
+  describe("#deepEqual", () => {
+    it("works for primitives", () => {
+      expect(deepEqual(2, 2)).toBe(true)
+      expect(deepEqual(1, 2)).toBe(false)
+    })
+    it("works for array", () => {
+      expect(deepEqual([1], [1])).toBe(true)
+      expect(deepEqual([1], [2])).toBe(false)
+    })
+    it("works for object", () => {
+      expect(deepEqual({foo: "bar"}, {foo: "bar"})).toBe(true)
+      expect(deepEqual({foo: "bar"}, {foo: "baz"})).toBe(false)
     })
   })
 

@@ -54,7 +54,7 @@ describe("core/openapi-validator", () => {
     })
   })
 
-  describe.skip("openapi 3.1", () => {
+  describe("openapi 3.1", () => {
     it("should accept a valid specification", async () => {
       const validator = await OpenapiValidator.create()
       await expect(
@@ -89,7 +89,7 @@ describe("core/openapi-validator", () => {
       ).resolves.toBeUndefined()
     })
 
-    it("should reject an invalid specification", async () => {
+    it.skip("should reject an invalid specification", async () => {
       const validator = await OpenapiValidator.create()
       await expect(
         validator.validate(
