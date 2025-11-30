@@ -9,6 +9,7 @@ import type {
   RequestBody,
   Responses,
   Schema,
+  SchemaObject,
   Server,
   Style,
   xInternalPreproccess,
@@ -88,10 +89,7 @@ export class Input {
     return Object.fromEntries(
       Object.entries(schemas).map(([name, maybeSchema]) => {
         // TODO: double normalization?
-        return [
-          name,
-          this.schema(this.schemaNormalizer.normalizeSchemaObject(maybeSchema)),
-        ]
+        return [name, this.schema(this.schemaNormalizer.normalize(maybeSchema))]
       }),
     )
   }
@@ -238,7 +236,7 @@ export class Input {
 
   schema(maybeRef: Reference | Schema): IRModel {
     const schema = this.loader.schema(maybeRef)
-    return this.schemaNormalizer.normalizeSchemaObject(schema)
+    return this.schemaNormalizer.normalize(schema)
   }
 
   preprocess(maybePreprocess: Reference | xInternalPreproccess): IRPreprocess {
@@ -398,7 +396,7 @@ export class Input {
     const syntheticName = `${operationId}${mediaTypeToIdentifier(
       mediaType,
     )}${suffix}`
-    const result = this.schemaNormalizer.normalizeSchemaObject(schema)
+    const result = this.schemaNormalizer.normalize(schema)
 
     const shouldCreateVirtualType =
       this.config.extractInlineSchemas &&
@@ -420,7 +418,7 @@ export class ParameterNormalizer {
   public normalizeParameter(it: Parameter): IRParameter {
     const base = {
       name: it.name,
-      schema: this.schemaNormalizer.normalizeSchemaObject(it.schema),
+      schema: this.schemaNormalizer.normalize(it.schema),
       description: it.description,
       required: it.required ?? false,
       deprecated: it.deprecated ?? false,
@@ -557,14 +555,10 @@ export class ParameterNormalizer {
 export class SchemaNormalizer {
   constructor(readonly config: InputConfig) {}
 
-  public normalizeSchemaObject(schemaObject: Schema): IRModel
-  public normalizeSchemaObject(schemaObject: Reference): IRRef
-  public normalizeSchemaObject(
-    schemaObject: Schema | Reference,
-  ): IRModel | IRRef
-  public normalizeSchemaObject(
-    schemaObject: Schema | Reference,
-  ): IRModel | IRRef {
+  public normalize(schemaObject: Schema): IRModel
+  public normalize(schemaObject: Reference): IRRef
+  public normalize(schemaObject: Schema | Reference): IRModel | IRRef
+  public normalize(schemaObject: Schema | Reference): IRModel | IRRef {
     const self = this
 
     if (isRef(schemaObject)) {
@@ -576,11 +570,11 @@ export class SchemaNormalizer {
     //             for most things though.
     if (Array.isArray(schemaObject.type)) {
       const nullable = Boolean(schemaObject.type.find((it) => it === "null"))
-      return self.normalizeSchemaObject({
+      return self.normalize({
         oneOf: schemaObject.type
           .filter((it) => it !== "null")
           .map((it) =>
-            self.normalizeSchemaObject({
+            self.normalize({
               ...schemaObject,
               type: it,
               nullable,
@@ -605,7 +599,7 @@ export class SchemaNormalizer {
           return {...base, type: "any"}
         }
 
-        return self.normalizeSchemaObject({...schemaObject, type: "object"})
+        return self.normalize({...schemaObject, type: "object"})
       }
       case "null": // TODO: HACK to support OA 3.1
       case "object": {
@@ -671,7 +665,7 @@ export class SchemaNormalizer {
         return {
           ...base,
           type: schemaObject.type,
-          items: self.normalizeSchemaObject(items),
+          items: self.normalize(items),
           uniqueItems: schemaObject.uniqueItems || false,
           minItems: schemaObject.minItems,
           maxItems: schemaObject.maxItems,
@@ -685,6 +679,20 @@ export class SchemaNormalizer {
           Number.isFinite(it),
         )
 
+        let exclusiveMaximum = schemaObject.exclusiveMaximum
+
+        if (typeof exclusiveMaximum === "boolean") {
+          logger.warn("boolean exclusiveMaximum not yet supported - ignoring")
+          exclusiveMaximum = undefined
+        }
+
+        let exclusiveMinimum = schemaObject.exclusiveMinimum
+
+        if (typeof exclusiveMinimum === "boolean") {
+          logger.warn("boolean exclusiveMinimum not yet supported - ignoring")
+          exclusiveMinimum = undefined
+        }
+
         return {
           ...base,
           nullable: nullable || base.nullable,
@@ -692,8 +700,8 @@ export class SchemaNormalizer {
           // todo: https://github.com/mnahkies/openapi-code-generator/issues/51
           format: schemaObject.format,
           enum: enumValues.length ? enumValues : undefined,
-          exclusiveMaximum: schemaObject.exclusiveMaximum,
-          exclusiveMinimum: schemaObject.exclusiveMinimum,
+          exclusiveMaximum,
+          exclusiveMinimum,
           maximum: schemaObject.maximum,
           minimum: schemaObject.minimum,
           multipleOf: schemaObject.multipleOf,
@@ -761,11 +769,11 @@ export class SchemaNormalizer {
     }
 
     function normalizeProperties(
-      properties: Schema["properties"] = {},
+      properties: SchemaObject["properties"] = {},
     ): Record<string, MaybeIRModel> {
       return Object.entries(properties ?? {}).reduce(
         (result, [name, schemaObject]) => {
-          result[name] = self.normalizeSchemaObject(schemaObject)
+          result[name] = self.normalize(schemaObject)
           return result
         },
         {} as Record<string, MaybeIRModel>,
@@ -773,7 +781,7 @@ export class SchemaNormalizer {
     }
 
     function normalizeAdditionalProperties(
-      additionalProperties: Schema["additionalProperties"] = false,
+      additionalProperties: SchemaObject["additionalProperties"] = false,
     ): boolean | MaybeIRModel {
       if (typeof additionalProperties === "boolean") {
         return additionalProperties
@@ -787,22 +795,22 @@ export class SchemaNormalizer {
         return true
       }
 
-      return self.normalizeSchemaObject(additionalProperties)
+      return self.normalize(additionalProperties)
     }
 
-    function normalizeAllOf(allOf: Schema["allOf"] = []): MaybeIRModel[] {
+    function normalizeAllOf(allOf: SchemaObject["allOf"] = []): MaybeIRModel[] {
       return allOf
         ?.filter((it) => isRef(it) || it.type !== "null")
-        .map((it) => self.normalizeSchemaObject(it))
+        .map((it) => self.normalize(it))
     }
 
-    function normalizeOneOf(oneOf: Schema["oneOf"] = []): MaybeIRModel[] {
+    function normalizeOneOf(oneOf: SchemaObject["oneOf"] = []): MaybeIRModel[] {
       return oneOf
         .filter((it) => isRef(it) || it.type !== "null")
-        .map((it) => self.normalizeSchemaObject(it))
+        .map((it) => self.normalize(it))
     }
 
-    function normalizeAnyOf(anyOf: Schema["anyOf"] = []): MaybeIRModel[] {
+    function normalizeAnyOf(anyOf: SchemaObject["anyOf"] = []): MaybeIRModel[] {
       return anyOf
         .filter((it) => {
           // todo: Github spec uses some complex patterns with anyOf in some situations that aren't well supported. Eg:
@@ -811,7 +819,7 @@ export class SchemaNormalizer {
           //       Omit<Partial<Thing>, EmptyObject> )
           return isRef(it) || (Boolean(it.type) && it.type !== "null")
         })
-        .map((it) => self.normalizeSchemaObject(it))
+        .map((it) => self.normalize(it))
     }
 
     function hasATypeNull(arr?: (Schema | Reference)[]) {

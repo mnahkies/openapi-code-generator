@@ -218,42 +218,43 @@ export interface Parameter {
   allowEmptyValue?: boolean
 }
 
-export interface Schema {
+export type SchemaType =
+  | "integer"
+  | "number"
+  | "string"
+  | "boolean"
+  | "object"
+  | "array"
+  | "null" // only valid in OA 3.1
+  // internal extension schema types
+  | "any"
+  | "never"
+  | undefined
+
+export interface SchemaBase {
+  /**
+   * JSON schema metadata properties
+   * ref: {@link https://www.ietf.org/archive/id/draft-bhutton-json-schema-validation-01.html#name-a-vocabulary-for-basic-meta}
+   */
   title?: string | undefined
-  multipleOf?: number | undefined
-  maximum?: number | undefined
-  exclusiveMaximum?: number | undefined
-  minimum?: number | undefined
-  exclusiveMinimum?: number | undefined
-  maxLength?: number | undefined
-  minLength?: number | undefined
-  pattern?: string | undefined
-  maxItems?: number | undefined
-  minItems?: number | undefined
-  uniqueItems?: boolean | undefined
-  maxProperties?: number | undefined
-  minProperties?: number | undefined
-  required?: string[] /* [] */ | undefined
-  enum?: string[] | number[] | undefined
-  type?:
-    | "integer"
-    | "number"
-    | "string"
-    | "boolean"
-    | "object"
-    | "array"
-    | "null" // only valid in OA 3.1
-    // internal extension schema types
-    | "any"
-    | "never"
-    | undefined
-  not?: Schema | Reference | undefined
-  allOf?: (Schema | Reference)[] | undefined
-  oneOf?: (Schema | Reference)[] | undefined
-  anyOf?: (Schema | Reference)[] | undefined
-  items?: Schema | Reference | undefined
-  properties?: {[propertyName: string]: Schema | Reference} | undefined
-  additionalProperties?: boolean | Schema | Reference | undefined
+  description?: string | undefined
+  deprecated?: boolean | undefined
+  readOnly?: boolean | undefined
+  writeOnly?: boolean | undefined
+  example?: unknown | undefined
+  examples?: unknown[] | undefined
+  default?: unknown | undefined
+
+  type?: SchemaType | SchemaType[]
+  enum?: (string | number | boolean | null)[] | undefined
+  // todo: Use of this keyword is functionally equivalent to an enum with a single value
+  // const?: unknown | undefined
+
+  /**
+   * OpenAPI specific keywords
+   */
+  nullable?: boolean | undefined
+  externalDocs?: ExternalDocumentation | undefined
   format?:
     | "int32"
     | "int64"
@@ -267,15 +268,6 @@ export interface Schema {
     | "email"
     | string
     | undefined
-  default?: unknown | undefined
-  nullable?: boolean | undefined
-  discriminator?: Discriminator | undefined
-  readOnly?: boolean | undefined
-  writeOnly?: boolean | undefined
-  example?: unknown | undefined
-  externalDocs?: ExternalDocumentation | undefined
-  deprecated?: boolean | undefined
-  // xml?: XML | undefined
 
   /**
    * Custom extensions
@@ -283,6 +275,75 @@ export interface Schema {
   "x-internal-preprocess"?: xInternalPreproccess | Reference | undefined
   "x-enum-extensibility"?: "open" | "closed" | undefined
 }
+
+export interface SchemaNumber extends SchemaBase {
+  type: "number" | "integer"
+
+  multipleOf?: number | undefined
+  maximum?: number | undefined
+  exclusiveMaximum?: boolean | number | undefined
+  minimum?: number | undefined
+  exclusiveMinimum?: boolean | number | undefined
+}
+
+export interface SchemaString extends SchemaBase {
+  type: "string"
+
+  maxLength?: number | undefined
+  minLength?: number | undefined
+  pattern?: string | undefined
+}
+
+export interface SchemaBoolean extends SchemaBase {
+  type: "boolean"
+}
+
+export interface SchemaArray extends SchemaBase {
+  type: "array"
+
+  items?: Schema | Reference | undefined
+
+  maxItems?: number | undefined
+  minItems?: number | undefined
+  uniqueItems?: boolean | undefined
+
+  // maxContains
+  // minContains
+}
+
+export interface SchemaObject extends SchemaBase {
+  type?: "object" | undefined | "null" | SchemaType[]
+
+  maxProperties?: number | undefined
+  minProperties?: number | undefined
+  required?: string[] /* [] */ | undefined
+  not?: Schema | Reference | undefined
+  allOf?: (Schema | Reference)[] | undefined
+  oneOf?: (Schema | Reference)[] | undefined
+  anyOf?: (Schema | Reference)[] | undefined
+
+  properties?: {[propertyName: string]: Schema | Reference} | undefined
+  additionalProperties?: boolean | Schema | Reference | undefined
+
+  discriminator?: Discriminator | undefined
+}
+
+export interface SchemaAny extends SchemaBase {
+  type: "any"
+}
+
+export interface SchemaNever extends SchemaBase {
+  type: "never"
+}
+
+export type Schema =
+  | SchemaNumber
+  | SchemaString
+  | SchemaBoolean
+  | SchemaAny
+  | SchemaNever
+  | SchemaArray
+  | SchemaObject
 
 export interface xInternalPreproccess {
   serialize?: {
