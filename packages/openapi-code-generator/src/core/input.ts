@@ -402,6 +402,7 @@ export class Input {
       hasMultipleMediaTypes ? mediaTypeToIdentifier(mediaType) : ""
     }${suffix}`
 
+
     const result = this.schemaNormalizer.normalize(schema)
 
     const shouldCreateVirtualType =
