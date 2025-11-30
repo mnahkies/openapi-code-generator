@@ -274,6 +274,7 @@ export class ServerOperationBuilder {
     )
 
     const isRequired = Boolean(requestBody?.parameter?.required)
+    const isSupported = Boolean(requestBody?.isSupported)
 
     const schema = requestBody?.parameter
       ? this.schemaBuilder.fromModel(
@@ -312,7 +313,7 @@ export class ServerOperationBuilder {
     }
 
     return {
-      isSupported: Boolean(requestBody?.isSupported),
+      isSupported,
       contentType: requestBody?.contentType,
       schema,
       type,

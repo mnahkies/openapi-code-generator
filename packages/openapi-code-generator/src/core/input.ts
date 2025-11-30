@@ -88,8 +88,10 @@ export class Input {
 
     return Object.fromEntries(
       Object.entries(schemas).map(([name, maybeSchema]) => {
-        // TODO: double normalization?
-        return [name, this.schema(this.schemaNormalizer.normalize(maybeSchema))]
+        const schema = this.schemaNormalizer.normalize(
+          this.loader.schema(maybeSchema),
+        )
+        return [name, schema]
       }),
     )
   }

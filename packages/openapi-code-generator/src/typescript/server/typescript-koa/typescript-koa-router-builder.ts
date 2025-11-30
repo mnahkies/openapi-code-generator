@@ -91,14 +91,17 @@ export class KoaRouterBuilder extends AbstractRouterBuilder {
     if (params.path.schema) {
       statements.push(constStatement(symbols.paramSchema, params.path.schema))
     }
+
     if (params.query.schema) {
       statements.push(constStatement(symbols.querySchema, params.query.schema))
     }
+
     if (params.header.schema) {
       statements.push(
         constStatement(symbols.requestHeaderSchema, params.header.schema),
       )
     }
+
     if (params.body.schema) {
       if (!params.body.isSupported) {
         statements.push(
