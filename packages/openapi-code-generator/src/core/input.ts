@@ -23,6 +23,7 @@ import type {
   IRModelObject,
   IRModelString,
   IROperation,
+  IROperationParams,
   IRParameter,
   IRParameterBase,
   IRParameterCookie,
@@ -31,6 +32,7 @@ import type {
   IRParameterQuery,
   IRPreprocess,
   IRRef,
+  IRRequestBody,
   IRResponse,
   IRServer,
   IRServerVariable,
@@ -59,7 +61,7 @@ export class Input {
   constructor(
     readonly loader: OpenapiLoader,
     readonly config: InputConfig,
-    private readonly schemaNormalizer = new SchemaNormalizer(config),
+    readonly schemaNormalizer = new SchemaNormalizer(config),
     private readonly parameterNormalizer = new ParameterNormalizer(
       schemaNormalizer,
     ),
@@ -89,8 +91,10 @@ export class Input {
 
     return Object.fromEntries(
       Object.entries(schemas).map(([name, maybeSchema]) => {
-        // TODO: double normalization?
-        return [name, this.schema(this.schemaNormalizer.normalize(maybeSchema))]
+        const schema = this.schemaNormalizer.normalize(
+          this.loader.schema(maybeSchema),
+        )
+        return [name, schema]
       }),
     )
   }
@@ -118,8 +122,6 @@ export class Input {
       this.loader.entryPoint.paths ?? [],
     )) {
       paths = this.loader.paths(paths)
-
-      const params = this.normalizeParameters(paths.parameters)
 
       const additionalAttributes = Object.fromEntries(
         Object.entries(paths).filter(
@@ -154,6 +156,10 @@ export class Input {
           throw new Error("callbacks are not supported")
         }
 
+        const parameters = (paths.parameters ?? []).concat(
+          definition.parameters ?? [],
+        )
+
         result.push({
           ...additionalAttributes,
           route,
@@ -161,9 +167,7 @@ export class Input {
           servers: this.normalizeServers(
             coalesce(definition.servers, paths.servers, []),
           ),
-          parameters: params.concat(
-            this.normalizeParameters(definition.parameters),
-          ),
+          params: this.normalizeParameters(operationId, parameters),
           operationId,
           tags: definition.tags ?? [],
           requestBody: this.normalizeRequestBodyObject(
@@ -235,9 +239,13 @@ export class Input {
     ).map(([name, operations]) => ({name, operations}))
   }
 
-  schema(maybeRef: Reference | Schema): IRModel {
-    const schema = this.loader.schema(maybeRef)
-    return this.schemaNormalizer.normalize(schema)
+  schema(maybeRef: MaybeIRModel): IRModel {
+    if (isRef(maybeRef)) {
+      const schema = this.loader.schema(maybeRef)
+      return this.schemaNormalizer.normalize(schema)
+    }
+
+    return maybeRef
   }
 
   preprocess(maybePreprocess: Reference | xInternalPreproccess): IRPreprocess {
@@ -288,7 +296,7 @@ export class Input {
   private normalizeRequestBodyObject(
     operationId: string,
     requestBody?: RequestBody | Reference,
-  ) {
+  ): IRRequestBody | undefined {
     if (!requestBody) {
       return undefined
     }
@@ -340,11 +348,73 @@ export class Input {
   }
 
   private normalizeParameters(
+    operationId: string,
     parameters: (Parameter | Reference)[] = [],
-  ): IRParameter[] {
-    return parameters
-      .map((it) => this.loader.parameter(it))
-      .map((it) => this.parameterNormalizer.normalizeParameter(it))
+  ): IROperationParams {
+    const allParameters = parameters.map((it) => this.loader.parameter(it))
+
+    const pathParameters = allParameters.filter((it) => it.in === "path")
+    const queryParameters = allParameters.filter((it) => it.in === "query")
+    const headerParameters = allParameters.filter((it) => it.in === "header")
+
+    const normalizedParameters = allParameters.map((it) =>
+      this.parameterNormalizer.normalizeParameter(it),
+    )
+
+    return {
+      all: normalizedParameters,
+      path: {
+        name: `${operationId}ParamSchema`,
+        list: normalizedParameters.filter((it) => it.in === "path"),
+        $ref: this.loader.addVirtualType(
+          operationId,
+          upperFirst(`${operationId}ParamSchema`),
+          this.reduceParametersToOpenApiSchema(pathParameters),
+        ),
+      },
+      query: {
+        name: `${operationId}QuerySchema`,
+        list: normalizedParameters.filter((it) => it.in === "query"),
+        $ref: this.loader.addVirtualType(
+          operationId,
+          upperFirst(`${operationId}QuerySchema`),
+          this.reduceParametersToOpenApiSchema(queryParameters),
+        ),
+      },
+      header: {
+        name: `${operationId}RequestHeaderSchema`,
+        list: normalizedParameters.filter((it) => it.in === "header"),
+        $ref: this.loader.addVirtualType(
+          operationId,
+          upperFirst(`${operationId}RequestHeaderSchema`),
+          this.reduceParametersToOpenApiSchema(headerParameters),
+        ),
+      },
+    }
+  }
+
+  private reduceParametersToOpenApiSchema(
+    parameters: Parameter[],
+  ): SchemaObject {
+    const properties: Record<string, Schema | Reference> = {}
+    const required: string[] = []
+
+    for (const parameter of parameters) {
+      properties[parameter.name] = parameter.schema
+
+      if (parameter.required) {
+        required.push(parameter.name)
+      }
+    }
+
+    return {
+      isIRModel: false,
+      type: "object",
+      properties,
+      required,
+      additionalProperties: false,
+      nullable: false,
+    }
   }
 
   private normalizeOperationId(
@@ -395,7 +465,7 @@ export class Input {
     operationId: string,
     mediaType: string,
     schema: Schema | Reference,
-    suffix: string,
+    suffix: "RequestBody" | `${string}Response`,
     hasMultipleMediaTypes: boolean,
   ): MaybeIRModel {
     const syntheticName = `${upperFirst(operationId)}${
@@ -405,15 +475,16 @@ export class Input {
     const result = this.schemaNormalizer.normalize(schema)
 
     const shouldCreateVirtualType =
-      this.config.extractInlineSchemas &&
+      (this.config.extractInlineSchemas || suffix === "RequestBody") &&
       !isRef(result) &&
+      !isRef(schema) &&
       (result.type === "object" ||
         (result.type === "array" &&
           !isRef(result.items) &&
           result.items.type === "object"))
 
     return shouldCreateVirtualType
-      ? this.loader.addVirtualType(operationId, syntheticName, result)
+      ? this.loader.addVirtualType(operationId, syntheticName, schema)
       : result
   }
 }
@@ -460,6 +531,17 @@ export class ParameterNormalizer {
         if (!this.isStyleForQueryParameter(style)) {
           throwUnsupportedStyle(style)
         }
+
+        // todo: add if dereferenced(base.schema).type === "array
+        /*
+
+        "x-internal-preprocess": {
+            deserialize: {
+              fn: "(it: unknown) => Array.isArray(it) || it === undefined ? it : [it]",
+            },
+          },
+
+         */
 
         return {
           ...base,
@@ -571,25 +653,30 @@ export class SchemaNormalizer {
       return schemaObject satisfies IRRef
     }
 
+    if (Reflect.get(schemaObject, "isIRModel")) {
+      throw new Error("double normalization!")
+    }
+
     // TODO: HACK: translates a type array into a a oneOf - unsure if this makes sense,
     //             or is the cleanest way to do it. I'm fairly sure this will work fine
     //             for most things though.
     if (Array.isArray(schemaObject.type)) {
       const nullable = Boolean(schemaObject.type.find((it) => it === "null"))
       return self.normalize({
+        isIRModel: false,
+        type: "object",
         oneOf: schemaObject.type
           .filter((it) => it !== "null")
-          .map((it) =>
-            self.normalize({
-              ...schemaObject,
-              type: it,
-              nullable,
-            }),
-          ),
+          .map((it) => ({
+            ...schemaObject,
+            type: it,
+            nullable,
+          })),
       })
     }
 
     const base: IRModelBase = {
+      isIRModel: true,
       nullable: schemaObject.nullable || false,
       readOnly: schemaObject.readOnly || false,
       default: schemaObject.default,
@@ -685,18 +772,46 @@ export class SchemaNormalizer {
           Number.isFinite(it),
         )
 
-        let exclusiveMaximum = schemaObject.exclusiveMaximum
+        const calcMaximums = () => {
+          // draft-wright-json-schema-validation-01 changed "exclusiveMaximum"/"exclusiveMinimum" from boolean modifiers
+          // of "maximum"/"minimum" to independent numeric fields.
+          // we need to support both.
+          if (typeof schemaObject.exclusiveMaximum === "boolean") {
+            if (schemaObject.exclusiveMaximum) {
+              return {
+                exclusiveMaximum: schemaObject.maximum,
+                inclusiveMaximum: undefined,
+              }
+            } else {
+              return {
+                exclusiveMaximum: undefined,
+                inclusiveMaximum: schemaObject.maximum,
+              }
+            }
+          }
 
-        if (typeof exclusiveMaximum === "boolean") {
-          logger.warn("boolean exclusiveMaximum not yet supported - ignoring")
-          exclusiveMaximum = undefined
+          return {exclusiveMaximum: schemaObject.exclusiveMaximum}
         }
 
-        let exclusiveMinimum = schemaObject.exclusiveMinimum
+        const calcMinimums = () => {
+          // draft-wright-json-schema-validation-01 changed "exclusiveMaximum"/"exclusiveMinimum" from boolean modifiers
+          // of "maximum"/"minimum" to independent numeric fields.
+          // we need to support both.
+          if (typeof schemaObject.exclusiveMinimum === "boolean") {
+            if (schemaObject.exclusiveMinimum) {
+              return {
+                exclusiveMinimum: schemaObject.minimum,
+                inclusiveMinimum: undefined,
+              }
+            } else {
+              return {
+                exclusiveMinimum: undefined,
+                inclusiveMinimum: schemaObject.minimum,
+              }
+            }
+          }
 
-        if (typeof exclusiveMinimum === "boolean") {
-          logger.warn("boolean exclusiveMinimum not yet supported - ignoring")
-          exclusiveMinimum = undefined
+          return {exclusiveMinimum: schemaObject.exclusiveMinimum}
         }
 
         return {
@@ -706,12 +821,11 @@ export class SchemaNormalizer {
           // todo: https://github.com/mnahkies/openapi-code-generator/issues/51
           format: schemaObject.format,
           enum: enumValues.length ? enumValues : undefined,
-          exclusiveMaximum,
-          exclusiveMinimum,
-          maximum: schemaObject.maximum,
-          minimum: schemaObject.minimum,
+          inclusiveMaximum: schemaObject.maximum,
+          inclusiveMinimum: schemaObject.minimum,
           multipleOf: schemaObject.multipleOf,
-
+          ...calcMaximums(),
+          ...calcMinimums(),
           "x-enum-extensibility": enumValues.length
             ? (schemaObject["x-enum-extensibility"] ??
               self.config.enumExtensibility)
@@ -768,10 +882,11 @@ export class SchemaNormalizer {
           type: "never",
         }
       }
-      default:
+      default: {
         throw new Error(
           `unsupported type '${schemaObject.type satisfies never}'`,
         )
+      }
     }
 
     function normalizeProperties(

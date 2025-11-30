@@ -157,43 +157,6 @@ export abstract class AbstractSchemaBuilder<
 
   protected abstract schemaFromRef(reference: Reference): ExportDefinition
 
-  fromParameters(parameters: IRParameter[]): string {
-    const model: IRModelObject = {
-      type: "object",
-      required: [],
-      properties: {},
-      allOf: [],
-      oneOf: [],
-      anyOf: [],
-      readOnly: false,
-      nullable: false,
-      additionalProperties: false,
-    }
-
-    for (const parameter of parameters) {
-      if (parameter.required) {
-        model.required.push(parameter.name)
-      }
-
-      const dereferenced = this.input.loader.schema(parameter.schema)
-
-      if (parameter.in === "query" && dereferenced.type === "array") {
-        model.properties[parameter.name] = {
-          ...parameter.schema,
-          "x-internal-preprocess": {
-            deserialize: {
-              fn: "(it: unknown) => Array.isArray(it) || it === undefined ? it : [it]",
-            },
-          },
-        }
-      } else {
-        model.properties[parameter.name] = parameter.schema
-      }
-    }
-
-    return this.fromModel(model, true, true)
-  }
-
   // todo: rethink the isAnonymous parameter - it would be better to just provide more context
   fromModel(
     maybeModel: MaybeIRModel,
@@ -234,7 +197,11 @@ export abstract class AbstractSchemaBuilder<
       return result
     }
 
-    const model = this.input.schema(maybeModel)
+    if (!Reflect.get(maybeModel, "isIRModel")) {
+      throw new Error("passed raw schema")
+    }
+
+    const model = maybeModel
 
     switch (model.type) {
       case "string":
@@ -263,7 +230,7 @@ export abstract class AbstractSchemaBuilder<
           // Note: for zod in particular it's desirable to use merge over intersection
           //       where possible, as it returns a more malleable schema
           const isMergable = model.allOf
-            .map((it) => this.input.schema(it))
+            .map((it) => (isRef(it) ? this.input.schema(it) : it))
             .every(
               (it) =>
                 it.type === "object" &&
