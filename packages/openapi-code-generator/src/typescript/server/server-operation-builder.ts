@@ -1,12 +1,7 @@
 import type {Input} from "../../core/input"
 import {logger} from "../../core/logger"
-import type {
-  IRModelObject,
-  IROperation,
-  IRParameter,
-} from "../../core/openapi-types-normalized"
+import type {IROperation} from "../../core/openapi-types-normalized"
 import {extractPlaceholders} from "../../core/openapi-utils"
-import {upperFirst} from "../../core/utils"
 import type {SchemaBuilder} from "../common/schema-builders/schema-builder"
 import type {TypeBuilder} from "../common/type-builder"
 import {intersect, object} from "../common/type-utils"
@@ -19,38 +14,8 @@ export type ServerSymbols = {
   implPropName: string
   implTypeName: string
   responderName: string
-  paramSchema: string
-  querySchema: string
   requestBodySchema: string
-  requestHeaderSchema: string
   responseBodyValidator: string
-}
-
-export function reduceParamsToOpenApiSchema(
-  parameters: IRParameter[],
-): IRModelObject {
-  return parameters.reduce(
-    (model, parameter) => {
-      model.properties[parameter.name] = parameter.schema
-
-      if (parameter.required) {
-        model.required.push(parameter.name)
-      }
-
-      return model
-    },
-    {
-      type: "object",
-      properties: {},
-      required: [],
-      oneOf: [],
-      allOf: [],
-      anyOf: [],
-      additionalProperties: false,
-      nullable: false,
-      readOnly: false,
-    } as IRModelObject,
-  )
 }
 
 export type ServerOperationResponseSchemas = {
@@ -72,14 +37,17 @@ export type ServerOperationResponseSchemas = {
 export type Parameters = {
   type: string
   path: {
+    name: string
     schema: string | undefined
     type: string
   }
   query: {
+    name: string
     schema: string | undefined
     type: string
   }
   header: {
+    name: string
     schema: string | undefined
     type: string
   }
@@ -106,7 +74,7 @@ export class ServerOperationBuilder {
   }
 
   get route(): string {
-    const {route, parameters} = this.operation
+    const {route, params} = this.operation
 
     const placeholders = extractPlaceholders(route)
 
@@ -117,9 +85,7 @@ export class ServerOperationBuilder {
         )
       }
 
-      const parameter = parameters.find(
-        (it) => it.name === placeholder && it.in === "path",
-      )
+      const parameter = params.path.list.find((it) => it.name === placeholder)
 
       if (!parameter) {
         throw new Error(
@@ -136,10 +102,10 @@ export class ServerOperationBuilder {
   }
 
   parameters(symbols: ServerSymbols): Parameters {
-    const path = this.pathParameters(symbols.paramSchema)
-    const query = this.queryParameters(symbols.querySchema)
-    const header = this.headerParameters(symbols.requestHeaderSchema)
-    const body = this.requestBodyParameter(symbols.requestBodySchema)
+    const path = this.pathParameters()
+    const query = this.queryParameters()
+    const header = this.headerParameters()
+    const body = this.requestBodyParameter()
 
     const type = `Params<
       ${path.type},
@@ -195,79 +161,67 @@ export class ServerOperationBuilder {
     return {implementation, type}
   }
 
-  private pathParameters(schemaSymbolName: string): Parameters["path"] {
-    const parameters = this.operation.parameters.filter(
-      (it) => it.in === "path",
-    )
+  private pathParameters(): Parameters["path"] {
+    const hasParameters = this.operation.params.path.list.length
 
-    const schema = parameters.length
-      ? this.schemaBuilder.fromParameters(parameters)
+    const schema = hasParameters
+      ? this.schemaBuilder.fromModel(
+          this.input.schema(this.operation.params.path.$ref),
+          true,
+          true,
+        )
       : undefined
 
     let type = "void"
 
     if (schema) {
-      type = this.types.schemaObjectToType(
-        this.input.loader.addVirtualType(
-          this.operationId,
-          upperFirst(schemaSymbolName),
-          reduceParamsToOpenApiSchema(parameters),
-        ),
-      )
+      type = this.types.schemaObjectToType(this.operation.params.path.$ref)
     }
 
-    return {schema: schema, type}
+    return {name: this.operation.params.path.name, schema: schema, type}
   }
 
-  private queryParameters(schemaSymbolName: string): Parameters["query"] {
-    const parameters = this.operation.parameters.filter(
-      (it) => it.in === "query",
-    )
+  private queryParameters(): Parameters["query"] {
+    const hasParameters = this.operation.params.query.list.length
 
-    const schema = parameters.length
-      ? this.schemaBuilder.fromParameters(parameters)
+    const schema = hasParameters
+      ? this.schemaBuilder.fromModel(
+          this.input.schema(this.operation.params.query.$ref),
+          true,
+          true,
+        )
       : undefined
 
     let type = "void"
 
     if (schema) {
-      type = this.types.schemaObjectToType(
-        this.input.loader.addVirtualType(
-          this.operationId,
-          upperFirst(schemaSymbolName),
-          reduceParamsToOpenApiSchema(parameters),
-        ),
-      )
+      type = this.types.schemaObjectToType(this.operation.params.query.$ref)
     }
 
-    return {schema: schema, type}
+    return {name: this.operation.params.query.name, schema: schema, type}
   }
 
-  private headerParameters(schemaSymbolName: string): Parameters["header"] {
-    const parameters = this.operation.parameters
-      .filter((it) => it.in === "header")
-      .map((it) => ({...it, name: it.name.toLowerCase()}))
+  private headerParameters(): Parameters["header"] {
+    const hasParameters = this.operation.params.header.list.length
 
-    const schema = parameters.length
-      ? this.schemaBuilder.fromParameters(parameters)
+    const schema = hasParameters
+      ? this.schemaBuilder.fromModel(
+          this.input.schema(this.operation.params.header.$ref),
+          true,
+          true,
+        )
       : undefined
 
     let type = "void"
 
     if (schema) {
-      type = this.types.schemaObjectToType(
-        this.input.loader.addVirtualType(
-          this.operationId,
-          upperFirst(schemaSymbolName),
-          reduceParamsToOpenApiSchema(parameters),
-        ),
-      )
+      type = this.types.schemaObjectToType(this.operation.params.header.$ref)
     }
 
-    return {schema: schema, type}
+    return {name: this.operation.params.header.name, schema: schema, type}
   }
 
-  private requestBodyParameter(schemaSymbolName: string): Parameters["body"] {
+  private requestBodyParameter(): Parameters["body"] {
     const requestBody = requestBodyAsParameter(
       this.operation,
       this.config.requestBody.supportedMediaTypes,
@@ -301,14 +255,9 @@ export class ServerOperationBuilder {
 
     let type = "void"
 
+    // todo: we create a duplicate type even when the schema is a ref.
     if (schema && requestBody?.parameter) {
-      type = this.types.schemaObjectToType(
-        this.input.loader.addVirtualType(
-          this.operationId,
-          upperFirst(schemaSymbolName),
-          this.input.schema(requestBody.parameter.schema),
-        ),
-      )
+      type = this.types.schemaObjectToType(requestBody.parameter.schema)
     }
 
     return {

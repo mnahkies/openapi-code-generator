@@ -277,7 +277,12 @@ export function requestBodyAsParameter(
       in: "body",
       required: requestBody.required,
       explode: undefined,
-      schema: {type: "never", nullable: false, readOnly: false},
+      schema: {
+        isIRModel: true,
+        type: "never",
+        nullable: false,
+        readOnly: false,
+      },
       deprecated: false,
     },
     serializer: undefined,
