@@ -185,7 +185,7 @@ router.${builder.method.toLowerCase()}('${symbols.implPropName}','${builder.rout
       responderName: `${titleCase(operationId)}Responder`,
       paramSchema: `${operationId}ParamSchema`,
       querySchema: `${operationId}QuerySchema`,
-      requestBodySchema: `${operationId}BodySchema`,
+      requestBodySchema: `${operationId}RequestBody`,
       requestHeaderSchema: `${operationId}HeaderSchema`,
       responseBodyValidator: `${operationId}ResponseValidator`,
     }

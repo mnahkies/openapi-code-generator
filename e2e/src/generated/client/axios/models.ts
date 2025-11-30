@@ -37,20 +37,20 @@ export type t_RandomNumber = {
   result?: number | undefined
 }
 
-export type t_getHeadersRequestJson200Response = {
+export type t_GetHeadersRequest200Response = {
   rawHeaders?: unknown | undefined
   typedHeaders?: unknown | undefined
 }
 
-export type t_getHeadersUndeclaredJson200Response = {
+export type t_GetHeadersUndeclared200Response = {
   rawHeaders?: unknown | undefined
   typedHeaders?: unknown | undefined
 }
 
-export type t_postValidationOptionalBodyJson200Response = {
+export type t_PostValidationOptionalBody200Response = {
   id?: string | undefined
 }
 
-export type t_postValidationOptionalBodyJsonRequestBody = {
+export type t_PostValidationOptionalBodyRequestBody = {
   id?: string | undefined
 }

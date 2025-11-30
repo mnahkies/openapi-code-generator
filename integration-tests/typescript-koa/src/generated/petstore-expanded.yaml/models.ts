@@ -16,7 +16,7 @@ export type t_Pet = t_NewPet & {
   id: number
 }
 
-export type t_AddPetBodySchema = {
+export type t_AddPetRequestBody = {
   name: string
   tag?: string
 }

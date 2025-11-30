@@ -126,7 +126,7 @@ export type t_EmployeesCreateOrUpdateQuerySchema = {
   "api-version": string
 }
 
-export type t_EmployeesCreateOrUpdateRequestBodySchema =
+export type t_EmployeesCreateOrUpdateRequestBody =
   t_Azure_ResourceManager_CommonTypes_TrackedResource
 
 export type t_EmployeesDeleteParamSchema = {
@@ -176,7 +176,7 @@ export type t_EmployeesMoveQuerySchema = {
   "api-version": string
 }
 
-export type t_EmployeesMoveRequestBodySchema = {
+export type t_EmployeesMoveRequestBody = {
   from: string
   to: string
 }
@@ -191,7 +191,7 @@ export type t_EmployeesUpdateQuerySchema = {
   "api-version": string
 }
 
-export type t_EmployeesUpdateRequestBodySchema = {
+export type t_EmployeesUpdateRequestBody = {
   properties?: t_EmployeeUpdateProperties | undefined
   tags?:
     | {

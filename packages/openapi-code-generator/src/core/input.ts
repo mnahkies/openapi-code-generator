@@ -44,6 +44,7 @@ import {
   isDefined,
   isHttpMethod,
   mediaTypeToIdentifier,
+  upperFirst,
 } from "./utils"
 
 export type OperationGroup = {name: string; operations: IROperation[]}
@@ -365,24 +366,28 @@ export class Input {
     operationId: string,
     suffix: "RequestBody" | `${string}Response`,
   ) {
+    const filtered = Object.entries(mediaTypes)
+      // Sometimes people pass `{}` as the MediaType for 204 responses, filter these out
+      .filter(([, mediaType]) => Boolean(mediaType.schema))
+
+    const hasMultipleMediaTypes = filtered.length > 1
+
     return Object.fromEntries(
-      Object.entries(mediaTypes)
-        // Sometimes people pass `{}` as the MediaType for 204 responses, filter these out
-        .filter(([, mediaType]) => Boolean(mediaType.schema))
-        .map(([contentType, mediaType]) => {
-          return [
-            contentType,
-            {
-              schema: this.normalizeMediaTypeSchema(
-                operationId,
-                contentType,
-                mediaType.schema,
-                suffix,
-              ),
-              encoding: mediaType.encoding,
-            },
-          ]
-        }),
+      filtered.map(([contentType, mediaType]) => {
+        return [
+          contentType,
+          {
+            schema: this.normalizeMediaTypeSchema(
+              operationId,
+              contentType,
+              mediaType.schema,
+              suffix,
+              hasMultipleMediaTypes,
+            ),
+            encoding: mediaType.encoding,
+          },
+        ]
+      }),
     )
   }
 
@@ -391,11 +396,12 @@ export class Input {
     mediaType: string,
     schema: Schema | Reference,
     suffix: string,
+    hasMultipleMediaTypes: boolean,
   ): MaybeIRModel {
-    // TODO: omit media type when only one possible?
-    const syntheticName = `${operationId}${mediaTypeToIdentifier(
-      mediaType,
-    )}${suffix}`
+    const syntheticName = `${upperFirst(operationId)}${
+      hasMultipleMediaTypes ? mediaTypeToIdentifier(mediaType) : ""
+    }${suffix}`
+
     const result = this.schemaNormalizer.normalize(schema)
 
     const shouldCreateVirtualType =

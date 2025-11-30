@@ -104,13 +104,6 @@ export type t_GetServiceStatusQuerySchema = {
   "api-version": string
 }
 
-export type t_ManufacturersCreateOrReplaceManufacturerBodySchema = {
-  address: string
-  readonly etag: t_Azure_Core_eTag
-  readonly id: string
-  name: string
-}
-
 export type t_ManufacturersCreateOrReplaceManufacturerHeaderSchema = {
   "if-match"?: string
   "if-modified-since"?: string
@@ -127,6 +120,13 @@ export type t_ManufacturersCreateOrReplaceManufacturerParamSchema = {
 
 export type t_ManufacturersCreateOrReplaceManufacturerQuerySchema = {
   "api-version": string
+}
+
+export type t_ManufacturersCreateOrReplaceManufacturerRequestBody = {
+  address: string
+  readonly etag: t_Azure_Core_eTag
+  readonly id: string
+  name: string
 }
 
 export type t_ManufacturersDeleteManufacturerHeaderSchema = {
@@ -180,13 +180,6 @@ export type t_ManufacturersListManufacturersQuerySchema = {
   "api-version": string
 }
 
-export type t_WidgetPartsCreateWidgetPartBodySchema = {
-  readonly etag: t_Azure_Core_eTag
-  manufacturerId: string
-  readonly name: string
-  partId: string
-}
-
 export type t_WidgetPartsCreateWidgetPartHeaderSchema = {
   "if-match"?: string
   "if-modified-since"?: string
@@ -203,6 +196,13 @@ export type t_WidgetPartsCreateWidgetPartParamSchema = {
 
 export type t_WidgetPartsCreateWidgetPartQuerySchema = {
   "api-version": string
+}
+
+export type t_WidgetPartsCreateWidgetPartRequestBody = {
+  readonly etag: t_Azure_Core_eTag
+  manufacturerId: string
+  readonly name: string
+  partId: string
 }
 
 export type t_WidgetPartsDeleteWidgetPartHeaderSchema = {
@@ -263,10 +263,6 @@ export type t_WidgetPartsListWidgetPartsQuerySchema = {
   "api-version": string
 }
 
-export type t_WidgetPartsReorderPartsBodySchema = {
-  signedOffBy: string
-}
-
 export type t_WidgetPartsReorderPartsHeaderSchema = {
   "repeatability-first-sent"?: string
   "repeatability-request-id"?: string
@@ -281,9 +277,8 @@ export type t_WidgetPartsReorderPartsQuerySchema = {
   "api-version": string
 }
 
-export type t_WidgetsCreateOrUpdateWidgetBodySchema = {
-  color?: t_WidgetColor
-  manufacturerId?: string
+export type t_WidgetPartsReorderPartsRequestBody = {
+  signedOffBy: string
 }
 
 export type t_WidgetsCreateOrUpdateWidgetHeaderSchema = {
@@ -302,6 +297,11 @@ export type t_WidgetsCreateOrUpdateWidgetParamSchema = {
 
 export type t_WidgetsCreateOrUpdateWidgetQuerySchema = {
   "api-version": string
+}
+
+export type t_WidgetsCreateOrUpdateWidgetRequestBody = {
+  color?: t_WidgetColor
+  manufacturerId?: string
 }
 
 export type t_WidgetsDeleteWidgetHeaderSchema = {
@@ -386,14 +386,6 @@ export type t_WidgetsListWidgetsQuerySchema = {
   top?: number
 }
 
-export type t_WidgetsScheduleRepairsBodySchema = {
-  completedDateTime: string
-  createdDateTime: string
-  requestState: t_WidgetRepairState
-  scheduledDateTime: string
-  updatedDateTime: string
-}
-
 export type t_WidgetsScheduleRepairsHeaderSchema = {
   "repeatability-first-sent"?: string
   "repeatability-request-id"?: string
@@ -408,9 +400,12 @@ export type t_WidgetsScheduleRepairsQuerySchema = {
   "api-version": string
 }
 
-export type t_WidgetsUpdateAnalyticsBodySchema = {
-  repairCount?: number
-  useCount?: number
+export type t_WidgetsScheduleRepairsRequestBody = {
+  completedDateTime: string
+  createdDateTime: string
+  requestState: t_WidgetRepairState
+  scheduledDateTime: string
+  updatedDateTime: string
 }
 
 export type t_WidgetsUpdateAnalyticsHeaderSchema = {
@@ -429,4 +424,9 @@ export type t_WidgetsUpdateAnalyticsParamSchema = {
 
 export type t_WidgetsUpdateAnalyticsQuerySchema = {
   "api-version": string
+}
+
+export type t_WidgetsUpdateAnalyticsRequestBody = {
+  repairCount?: number
+  useCount?: number
 }

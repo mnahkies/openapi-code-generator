@@ -25,38 +25,38 @@ import type {Next} from "koa"
 import {z} from "zod/v4"
 import type {
   EmptyObject,
-  t_ActionsAddCustomLabelsToSelfHostedRunnerForOrgBodySchema,
   t_ActionsAddCustomLabelsToSelfHostedRunnerForOrgParamSchema,
-  t_ActionsAddCustomLabelsToSelfHostedRunnerForRepoBodySchema,
+  t_ActionsAddCustomLabelsToSelfHostedRunnerForOrgRequestBody,
   t_ActionsAddCustomLabelsToSelfHostedRunnerForRepoParamSchema,
+  t_ActionsAddCustomLabelsToSelfHostedRunnerForRepoRequestBody,
   t_ActionsAddRepoAccessToSelfHostedRunnerGroupInOrgParamSchema,
   t_ActionsAddSelectedRepoToOrgSecretParamSchema,
   t_ActionsAddSelectedRepoToOrgVariableParamSchema,
   t_ActionsAddSelfHostedRunnerToGroupForOrgParamSchema,
   t_ActionsApproveWorkflowRunParamSchema,
   t_ActionsCancelWorkflowRunParamSchema,
-  t_ActionsCreateEnvironmentVariableBodySchema,
   t_ActionsCreateEnvironmentVariableParamSchema,
-  t_ActionsCreateHostedRunnerForOrgBodySchema,
+  t_ActionsCreateEnvironmentVariableRequestBody,
   t_ActionsCreateHostedRunnerForOrgParamSchema,
-  t_ActionsCreateOrgVariableBodySchema,
+  t_ActionsCreateHostedRunnerForOrgRequestBody,
   t_ActionsCreateOrgVariableParamSchema,
-  t_ActionsCreateOrUpdateEnvironmentSecretBodySchema,
+  t_ActionsCreateOrgVariableRequestBody,
   t_ActionsCreateOrUpdateEnvironmentSecretParamSchema,
-  t_ActionsCreateOrUpdateOrgSecretBodySchema,
+  t_ActionsCreateOrUpdateEnvironmentSecretRequestBody,
   t_ActionsCreateOrUpdateOrgSecretParamSchema,
-  t_ActionsCreateOrUpdateRepoSecretBodySchema,
+  t_ActionsCreateOrUpdateOrgSecretRequestBody,
   t_ActionsCreateOrUpdateRepoSecretParamSchema,
+  t_ActionsCreateOrUpdateRepoSecretRequestBody,
   t_ActionsCreateRegistrationTokenForOrgParamSchema,
   t_ActionsCreateRegistrationTokenForRepoParamSchema,
   t_ActionsCreateRemoveTokenForOrgParamSchema,
   t_ActionsCreateRemoveTokenForRepoParamSchema,
-  t_ActionsCreateRepoVariableBodySchema,
   t_ActionsCreateRepoVariableParamSchema,
-  t_ActionsCreateSelfHostedRunnerGroupForOrgBodySchema,
+  t_ActionsCreateRepoVariableRequestBody,
   t_ActionsCreateSelfHostedRunnerGroupForOrgParamSchema,
-  t_ActionsCreateWorkflowDispatchBodySchema,
+  t_ActionsCreateSelfHostedRunnerGroupForOrgRequestBody,
   t_ActionsCreateWorkflowDispatchParamSchema,
+  t_ActionsCreateWorkflowDispatchRequestBody,
   t_ActionsDeleteActionsCacheByIdParamSchema,
   t_ActionsDeleteActionsCacheByKeyParamSchema,
   t_ActionsDeleteActionsCacheByKeyQuerySchema,
@@ -82,10 +82,10 @@ import type {
   t_ActionsEnableSelectedRepositoryGithubActionsOrganizationParamSchema,
   t_ActionsEnableWorkflowParamSchema,
   t_ActionsForceCancelWorkflowRunParamSchema,
-  t_ActionsGenerateRunnerJitconfigForOrgBodySchema,
   t_ActionsGenerateRunnerJitconfigForOrgParamSchema,
-  t_ActionsGenerateRunnerJitconfigForRepoBodySchema,
+  t_ActionsGenerateRunnerJitconfigForOrgRequestBody,
   t_ActionsGenerateRunnerJitconfigForRepoParamSchema,
+  t_ActionsGenerateRunnerJitconfigForRepoRequestBody,
   t_ActionsGetActionsCacheListParamSchema,
   t_ActionsGetActionsCacheListQuerySchema,
   t_ActionsGetActionsCacheUsageByRepoForOrgParamSchema,
@@ -191,56 +191,56 @@ import type {
   t_ActionsRemoveSelectedRepoFromOrgSecretParamSchema,
   t_ActionsRemoveSelectedRepoFromOrgVariableParamSchema,
   t_ActionsRemoveSelfHostedRunnerFromGroupForOrgParamSchema,
-  t_ActionsReRunJobForWorkflowRunBodySchema,
   t_ActionsReRunJobForWorkflowRunParamSchema,
-  t_ActionsReRunWorkflowBodySchema,
-  t_ActionsReRunWorkflowFailedJobsBodySchema,
+  t_ActionsReRunJobForWorkflowRunRequestBody,
   t_ActionsReRunWorkflowFailedJobsParamSchema,
+  t_ActionsReRunWorkflowFailedJobsRequestBody,
   t_ActionsReRunWorkflowParamSchema,
-  t_ActionsReviewCustomGatesForRunBodySchema,
+  t_ActionsReRunWorkflowRequestBody,
   t_ActionsReviewCustomGatesForRunParamSchema,
-  t_ActionsReviewPendingDeploymentsForRunBodySchema,
+  t_ActionsReviewCustomGatesForRunRequestBody,
   t_ActionsReviewPendingDeploymentsForRunParamSchema,
-  t_ActionsSetAllowedActionsOrganizationBodySchema,
+  t_ActionsReviewPendingDeploymentsForRunRequestBody,
   t_ActionsSetAllowedActionsOrganizationParamSchema,
-  t_ActionsSetAllowedActionsRepositoryBodySchema,
+  t_ActionsSetAllowedActionsOrganizationRequestBody,
   t_ActionsSetAllowedActionsRepositoryParamSchema,
-  t_ActionsSetCustomLabelsForSelfHostedRunnerForOrgBodySchema,
+  t_ActionsSetAllowedActionsRepositoryRequestBody,
   t_ActionsSetCustomLabelsForSelfHostedRunnerForOrgParamSchema,
-  t_ActionsSetCustomLabelsForSelfHostedRunnerForRepoBodySchema,
+  t_ActionsSetCustomLabelsForSelfHostedRunnerForOrgRequestBody,
   t_ActionsSetCustomLabelsForSelfHostedRunnerForRepoParamSchema,
-  t_ActionsSetCustomOidcSubClaimForRepoBodySchema,
+  t_ActionsSetCustomLabelsForSelfHostedRunnerForRepoRequestBody,
   t_ActionsSetCustomOidcSubClaimForRepoParamSchema,
-  t_ActionsSetGithubActionsDefaultWorkflowPermissionsOrganizationBodySchema,
+  t_ActionsSetCustomOidcSubClaimForRepoRequestBody,
   t_ActionsSetGithubActionsDefaultWorkflowPermissionsOrganizationParamSchema,
-  t_ActionsSetGithubActionsDefaultWorkflowPermissionsRepositoryBodySchema,
+  t_ActionsSetGithubActionsDefaultWorkflowPermissionsOrganizationRequestBody,
   t_ActionsSetGithubActionsDefaultWorkflowPermissionsRepositoryParamSchema,
-  t_ActionsSetGithubActionsPermissionsOrganizationBodySchema,
+  t_ActionsSetGithubActionsDefaultWorkflowPermissionsRepositoryRequestBody,
   t_ActionsSetGithubActionsPermissionsOrganizationParamSchema,
-  t_ActionsSetGithubActionsPermissionsRepositoryBodySchema,
+  t_ActionsSetGithubActionsPermissionsOrganizationRequestBody,
   t_ActionsSetGithubActionsPermissionsRepositoryParamSchema,
-  t_ActionsSetRepoAccessToSelfHostedRunnerGroupInOrgBodySchema,
+  t_ActionsSetGithubActionsPermissionsRepositoryRequestBody,
   t_ActionsSetRepoAccessToSelfHostedRunnerGroupInOrgParamSchema,
-  t_ActionsSetSelectedReposForOrgSecretBodySchema,
+  t_ActionsSetRepoAccessToSelfHostedRunnerGroupInOrgRequestBody,
   t_ActionsSetSelectedReposForOrgSecretParamSchema,
-  t_ActionsSetSelectedReposForOrgVariableBodySchema,
+  t_ActionsSetSelectedReposForOrgSecretRequestBody,
   t_ActionsSetSelectedReposForOrgVariableParamSchema,
-  t_ActionsSetSelectedRepositoriesEnabledGithubActionsOrganizationBodySchema,
+  t_ActionsSetSelectedReposForOrgVariableRequestBody,
   t_ActionsSetSelectedRepositoriesEnabledGithubActionsOrganizationParamSchema,
-  t_ActionsSetSelfHostedRunnersInGroupForOrgBodySchema,
+  t_ActionsSetSelectedRepositoriesEnabledGithubActionsOrganizationRequestBody,
   t_ActionsSetSelfHostedRunnersInGroupForOrgParamSchema,
-  t_ActionsSetWorkflowAccessToRepositoryBodySchema,
+  t_ActionsSetSelfHostedRunnersInGroupForOrgRequestBody,
   t_ActionsSetWorkflowAccessToRepositoryParamSchema,
-  t_ActionsUpdateEnvironmentVariableBodySchema,
+  t_ActionsSetWorkflowAccessToRepositoryRequestBody,
   t_ActionsUpdateEnvironmentVariableParamSchema,
-  t_ActionsUpdateHostedRunnerForOrgBodySchema,
+  t_ActionsUpdateEnvironmentVariableRequestBody,
   t_ActionsUpdateHostedRunnerForOrgParamSchema,
-  t_ActionsUpdateOrgVariableBodySchema,
+  t_ActionsUpdateHostedRunnerForOrgRequestBody,
   t_ActionsUpdateOrgVariableParamSchema,
-  t_ActionsUpdateRepoVariableBodySchema,
+  t_ActionsUpdateOrgVariableRequestBody,
   t_ActionsUpdateRepoVariableParamSchema,
-  t_ActionsUpdateSelfHostedRunnerGroupForOrgBodySchema,
+  t_ActionsUpdateRepoVariableRequestBody,
   t_ActionsUpdateSelfHostedRunnerGroupForOrgParamSchema,
+  t_ActionsUpdateSelfHostedRunnerGroupForOrgRequestBody,
   t_ActivityCheckRepoIsStarredByAuthenticatedUserParamSchema,
   t_ActivityDeleteRepoSubscriptionParamSchema,
   t_ActivityDeleteThreadSubscriptionParamSchema,
@@ -277,15 +277,15 @@ import type {
   t_ActivityListWatchedReposForAuthenticatedUserQuerySchema,
   t_ActivityListWatchersForRepoParamSchema,
   t_ActivityListWatchersForRepoQuerySchema,
-  t_ActivityMarkNotificationsAsReadBodySchema,
-  t_ActivityMarkRepoNotificationsAsReadBodySchema,
+  t_ActivityMarkNotificationsAsReadRequestBody,
   t_ActivityMarkRepoNotificationsAsReadParamSchema,
+  t_ActivityMarkRepoNotificationsAsReadRequestBody,
   t_ActivityMarkThreadAsDoneParamSchema,
   t_ActivityMarkThreadAsReadParamSchema,
-  t_ActivitySetRepoSubscriptionBodySchema,
   t_ActivitySetRepoSubscriptionParamSchema,
-  t_ActivitySetThreadSubscriptionBodySchema,
+  t_ActivitySetRepoSubscriptionRequestBody,
   t_ActivitySetThreadSubscriptionParamSchema,
+  t_ActivitySetThreadSubscriptionRequestBody,
   t_ActivityStarRepoForAuthenticatedUserParamSchema,
   t_ActivityUnstarRepoForAuthenticatedUserParamSchema,
   t_ApiInsightsGetRouteStatsByActorParamSchema,
@@ -307,16 +307,16 @@ import type {
   t_ApiInsightsGetUserStatsParamSchema,
   t_ApiInsightsGetUserStatsQuerySchema,
   t_AppsAddRepoToInstallationForAuthenticatedUserParamSchema,
-  t_AppsCheckTokenBodySchema,
   t_AppsCheckTokenParamSchema,
+  t_AppsCheckTokenRequestBody,
   t_AppsCreateFromManifestParamSchema,
-  t_AppsCreateInstallationAccessTokenBodySchema,
   t_AppsCreateInstallationAccessTokenParamSchema,
-  t_AppsDeleteAuthorizationBodySchema,
+  t_AppsCreateInstallationAccessTokenRequestBody,
   t_AppsDeleteAuthorizationParamSchema,
+  t_AppsDeleteAuthorizationRequestBody,
   t_AppsDeleteInstallationParamSchema,
-  t_AppsDeleteTokenBodySchema,
   t_AppsDeleteTokenParamSchema,
+  t_AppsDeleteTokenRequestBody,
   t_AppsGetBySlugParamSchema,
   t_AppsGetInstallationParamSchema,
   t_AppsGetOrgInstallationParamSchema,
@@ -342,13 +342,13 @@ import type {
   t_AppsListWebhookDeliveriesQuerySchema,
   t_AppsRedeliverWebhookDeliveryParamSchema,
   t_AppsRemoveRepoFromInstallationForAuthenticatedUserParamSchema,
-  t_AppsResetTokenBodySchema,
   t_AppsResetTokenParamSchema,
-  t_AppsScopeTokenBodySchema,
+  t_AppsResetTokenRequestBody,
   t_AppsScopeTokenParamSchema,
+  t_AppsScopeTokenRequestBody,
   t_AppsSuspendInstallationParamSchema,
   t_AppsUnsuspendInstallationParamSchema,
-  t_AppsUpdateWebhookConfigForAppBodySchema,
+  t_AppsUpdateWebhookConfigForAppRequestBody,
   t_actions_billing_usage,
   t_actions_cache_list,
   t_actions_cache_usage_by_repository,
@@ -394,18 +394,18 @@ import type {
   t_branch_restriction_policy,
   t_branch_short,
   t_branch_with_protection,
-  t_CampaignsCreateCampaignBodySchema,
   t_CampaignsCreateCampaignParamSchema,
+  t_CampaignsCreateCampaignRequestBody,
   t_CampaignsDeleteCampaignParamSchema,
   t_CampaignsGetCampaignSummaryParamSchema,
   t_CampaignsListOrgCampaignsParamSchema,
   t_CampaignsListOrgCampaignsQuerySchema,
-  t_CampaignsUpdateCampaignBodySchema,
   t_CampaignsUpdateCampaignParamSchema,
-  t_ChecksCreateBodySchema,
+  t_CampaignsUpdateCampaignRequestBody,
   t_ChecksCreateParamSchema,
-  t_ChecksCreateSuiteBodySchema,
+  t_ChecksCreateRequestBody,
   t_ChecksCreateSuiteParamSchema,
+  t_ChecksCreateSuiteRequestBody,
   t_ChecksGetParamSchema,
   t_ChecksGetSuiteParamSchema,
   t_ChecksListAnnotationsParamSchema,
@@ -418,10 +418,10 @@ import type {
   t_ChecksListSuitesForRefQuerySchema,
   t_ChecksRerequestRunParamSchema,
   t_ChecksRerequestSuiteParamSchema,
-  t_ChecksSetSuitesPreferencesBodySchema,
   t_ChecksSetSuitesPreferencesParamSchema,
-  t_ChecksUpdateBodySchema,
+  t_ChecksSetSuitesPreferencesRequestBody,
   t_ChecksUpdateParamSchema,
+  t_ChecksUpdateRequestBody,
   t_ClassroomGetAClassroomParamSchema,
   t_ClassroomGetAnAssignmentParamSchema,
   t_ClassroomGetAssignmentGradesParamSchema,
@@ -430,11 +430,11 @@ import type {
   t_ClassroomListAssignmentsForAClassroomParamSchema,
   t_ClassroomListAssignmentsForAClassroomQuerySchema,
   t_ClassroomListClassroomsQuerySchema,
-  t_CodeScanningCommitAutofixBodySchema,
   t_CodeScanningCommitAutofixParamSchema,
+  t_CodeScanningCommitAutofixRequestBody,
   t_CodeScanningCreateAutofixParamSchema,
-  t_CodeScanningCreateVariantAnalysisBodySchema,
   t_CodeScanningCreateVariantAnalysisParamSchema,
+  t_CodeScanningCreateVariantAnalysisRequestBody,
   t_CodeScanningDeleteAnalysisParamSchema,
   t_CodeScanningDeleteAnalysisQuerySchema,
   t_CodeScanningDeleteCodeqlDatabaseParamSchema,
@@ -455,24 +455,24 @@ import type {
   t_CodeScanningListCodeqlDatabasesParamSchema,
   t_CodeScanningListRecentAnalysesParamSchema,
   t_CodeScanningListRecentAnalysesQuerySchema,
-  t_CodeScanningUpdateAlertBodySchema,
   t_CodeScanningUpdateAlertParamSchema,
-  t_CodeScanningUpdateDefaultSetupBodySchema,
+  t_CodeScanningUpdateAlertRequestBody,
   t_CodeScanningUpdateDefaultSetupParamSchema,
-  t_CodeScanningUploadSarifBodySchema,
+  t_CodeScanningUpdateDefaultSetupRequestBody,
   t_CodeScanningUploadSarifParamSchema,
-  t_CodeSecurityAttachConfigurationBodySchema,
+  t_CodeScanningUploadSarifRequestBody,
   t_CodeSecurityAttachConfigurationParamSchema,
-  t_CodeSecurityAttachEnterpriseConfigurationBodySchema,
+  t_CodeSecurityAttachConfigurationRequestBody,
   t_CodeSecurityAttachEnterpriseConfigurationParamSchema,
-  t_CodeSecurityCreateConfigurationBodySchema,
-  t_CodeSecurityCreateConfigurationForEnterpriseBodySchema,
+  t_CodeSecurityAttachEnterpriseConfigurationRequestBody,
   t_CodeSecurityCreateConfigurationForEnterpriseParamSchema,
+  t_CodeSecurityCreateConfigurationForEnterpriseRequestBody,
   t_CodeSecurityCreateConfigurationParamSchema,
+  t_CodeSecurityCreateConfigurationRequestBody,
   t_CodeSecurityDeleteConfigurationForEnterpriseParamSchema,
   t_CodeSecurityDeleteConfigurationParamSchema,
-  t_CodeSecurityDetachConfigurationBodySchema,
   t_CodeSecurityDetachConfigurationParamSchema,
+  t_CodeSecurityDetachConfigurationRequestBody,
   t_CodeSecurityGetConfigurationForRepositoryParamSchema,
   t_CodeSecurityGetConfigurationParamSchema,
   t_CodeSecurityGetConfigurationsForEnterpriseParamSchema,
@@ -486,33 +486,33 @@ import type {
   t_CodeSecurityGetRepositoriesForEnterpriseConfigurationParamSchema,
   t_CodeSecurityGetRepositoriesForEnterpriseConfigurationQuerySchema,
   t_CodeSecurityGetSingleConfigurationForEnterpriseParamSchema,
-  t_CodeSecuritySetConfigurationAsDefaultBodySchema,
-  t_CodeSecuritySetConfigurationAsDefaultForEnterpriseBodySchema,
   t_CodeSecuritySetConfigurationAsDefaultForEnterpriseParamSchema,
+  t_CodeSecuritySetConfigurationAsDefaultForEnterpriseRequestBody,
   t_CodeSecuritySetConfigurationAsDefaultParamSchema,
-  t_CodeSecurityUpdateConfigurationBodySchema,
+  t_CodeSecuritySetConfigurationAsDefaultRequestBody,
   t_CodeSecurityUpdateConfigurationParamSchema,
-  t_CodeSecurityUpdateEnterpriseConfigurationBodySchema,
+  t_CodeSecurityUpdateConfigurationRequestBody,
   t_CodeSecurityUpdateEnterpriseConfigurationParamSchema,
+  t_CodeSecurityUpdateEnterpriseConfigurationRequestBody,
   t_CodesOfConductGetConductCodeParamSchema,
   t_CodespacesAddRepositoryForSecretForAuthenticatedUserParamSchema,
   t_CodespacesAddSelectedRepoToOrgSecretParamSchema,
   t_CodespacesCheckPermissionsForDevcontainerParamSchema,
   t_CodespacesCheckPermissionsForDevcontainerQuerySchema,
   t_CodespacesCodespaceMachinesForAuthenticatedUserParamSchema,
-  t_CodespacesCreateForAuthenticatedUserBodySchema,
-  t_CodespacesCreateOrUpdateOrgSecretBodySchema,
+  t_CodespacesCreateForAuthenticatedUserRequestBody,
   t_CodespacesCreateOrUpdateOrgSecretParamSchema,
-  t_CodespacesCreateOrUpdateRepoSecretBodySchema,
+  t_CodespacesCreateOrUpdateOrgSecretRequestBody,
   t_CodespacesCreateOrUpdateRepoSecretParamSchema,
-  t_CodespacesCreateOrUpdateSecretForAuthenticatedUserBodySchema,
+  t_CodespacesCreateOrUpdateRepoSecretRequestBody,
   t_CodespacesCreateOrUpdateSecretForAuthenticatedUserParamSchema,
-  t_CodespacesCreateWithPrForAuthenticatedUserBodySchema,
+  t_CodespacesCreateOrUpdateSecretForAuthenticatedUserRequestBody,
   t_CodespacesCreateWithPrForAuthenticatedUserParamSchema,
-  t_CodespacesCreateWithRepoForAuthenticatedUserBodySchema,
+  t_CodespacesCreateWithPrForAuthenticatedUserRequestBody,
   t_CodespacesCreateWithRepoForAuthenticatedUserParamSchema,
-  t_CodespacesDeleteCodespacesAccessUsersBodySchema,
+  t_CodespacesCreateWithRepoForAuthenticatedUserRequestBody,
   t_CodespacesDeleteCodespacesAccessUsersParamSchema,
+  t_CodespacesDeleteCodespacesAccessUsersRequestBody,
   t_CodespacesDeleteForAuthenticatedUserParamSchema,
   t_CodespacesDeleteFromOrganizationParamSchema,
   t_CodespacesDeleteOrgSecretParamSchema,
@@ -545,33 +545,33 @@ import type {
   t_CodespacesListSelectedReposForOrgSecretQuerySchema,
   t_CodespacesPreFlightWithRepoForAuthenticatedUserParamSchema,
   t_CodespacesPreFlightWithRepoForAuthenticatedUserQuerySchema,
-  t_CodespacesPublishForAuthenticatedUserBodySchema,
   t_CodespacesPublishForAuthenticatedUserParamSchema,
+  t_CodespacesPublishForAuthenticatedUserRequestBody,
   t_CodespacesRemoveRepositoryForSecretForAuthenticatedUserParamSchema,
   t_CodespacesRemoveSelectedRepoFromOrgSecretParamSchema,
   t_CodespacesRepoMachinesForAuthenticatedUserParamSchema,
   t_CodespacesRepoMachinesForAuthenticatedUserQuerySchema,
-  t_CodespacesSetCodespacesAccessBodySchema,
   t_CodespacesSetCodespacesAccessParamSchema,
-  t_CodespacesSetCodespacesAccessUsersBodySchema,
+  t_CodespacesSetCodespacesAccessRequestBody,
   t_CodespacesSetCodespacesAccessUsersParamSchema,
-  t_CodespacesSetRepositoriesForSecretForAuthenticatedUserBodySchema,
+  t_CodespacesSetCodespacesAccessUsersRequestBody,
   t_CodespacesSetRepositoriesForSecretForAuthenticatedUserParamSchema,
-  t_CodespacesSetSelectedReposForOrgSecretBodySchema,
+  t_CodespacesSetRepositoriesForSecretForAuthenticatedUserRequestBody,
   t_CodespacesSetSelectedReposForOrgSecretParamSchema,
+  t_CodespacesSetSelectedReposForOrgSecretRequestBody,
   t_CodespacesStartForAuthenticatedUserParamSchema,
   t_CodespacesStopForAuthenticatedUserParamSchema,
   t_CodespacesStopInOrganizationParamSchema,
-  t_CodespacesUpdateForAuthenticatedUserBodySchema,
   t_CodespacesUpdateForAuthenticatedUserParamSchema,
-  t_CopilotAddCopilotSeatsForTeamsBodySchema,
+  t_CodespacesUpdateForAuthenticatedUserRequestBody,
   t_CopilotAddCopilotSeatsForTeamsParamSchema,
-  t_CopilotAddCopilotSeatsForUsersBodySchema,
+  t_CopilotAddCopilotSeatsForTeamsRequestBody,
   t_CopilotAddCopilotSeatsForUsersParamSchema,
-  t_CopilotCancelCopilotSeatAssignmentForTeamsBodySchema,
+  t_CopilotAddCopilotSeatsForUsersRequestBody,
   t_CopilotCancelCopilotSeatAssignmentForTeamsParamSchema,
-  t_CopilotCancelCopilotSeatAssignmentForUsersBodySchema,
+  t_CopilotCancelCopilotSeatAssignmentForTeamsRequestBody,
   t_CopilotCancelCopilotSeatAssignmentForUsersParamSchema,
+  t_CopilotCancelCopilotSeatAssignmentForUsersRequestBody,
   t_CopilotCopilotMetricsForOrganizationParamSchema,
   t_CopilotCopilotMetricsForOrganizationQuerySchema,
   t_CopilotCopilotMetricsForTeamParamSchema,
@@ -580,7 +580,7 @@ import type {
   t_CopilotGetCopilotSeatDetailsForUserParamSchema,
   t_CopilotListCopilotSeatsParamSchema,
   t_CopilotListCopilotSeatsQuerySchema,
-  t_CredentialsRevokeBodySchema,
+  t_CredentialsRevokeRequestBody,
   t_campaign_summary,
   t_check_annotation,
   t_check_automated_security_fixes,
@@ -647,10 +647,10 @@ import type {
   t_custom_property,
   t_custom_property_value,
   t_DependabotAddSelectedRepoToOrgSecretParamSchema,
-  t_DependabotCreateOrUpdateOrgSecretBodySchema,
   t_DependabotCreateOrUpdateOrgSecretParamSchema,
-  t_DependabotCreateOrUpdateRepoSecretBodySchema,
+  t_DependabotCreateOrUpdateOrgSecretRequestBody,
   t_DependabotCreateOrUpdateRepoSecretParamSchema,
+  t_DependabotCreateOrUpdateRepoSecretRequestBody,
   t_DependabotDeleteOrgSecretParamSchema,
   t_DependabotDeleteRepoSecretParamSchema,
   t_DependabotGetAlertParamSchema,
@@ -673,16 +673,16 @@ import type {
   t_DependabotRemoveSelectedRepoFromOrgSecretParamSchema,
   t_DependabotRepositoryAccessForOrgParamSchema,
   t_DependabotRepositoryAccessForOrgQuerySchema,
-  t_DependabotSetRepositoryAccessDefaultLevelBodySchema,
   t_DependabotSetRepositoryAccessDefaultLevelParamSchema,
-  t_DependabotSetSelectedReposForOrgSecretBodySchema,
+  t_DependabotSetRepositoryAccessDefaultLevelRequestBody,
   t_DependabotSetSelectedReposForOrgSecretParamSchema,
-  t_DependabotUpdateAlertBodySchema,
+  t_DependabotSetSelectedReposForOrgSecretRequestBody,
   t_DependabotUpdateAlertParamSchema,
-  t_DependabotUpdateRepositoryAccessForOrgBodySchema,
+  t_DependabotUpdateAlertRequestBody,
   t_DependabotUpdateRepositoryAccessForOrgParamSchema,
-  t_DependencyGraphCreateRepositorySnapshotBodySchema,
+  t_DependabotUpdateRepositoryAccessForOrgRequestBody,
   t_DependencyGraphCreateRepositorySnapshotParamSchema,
+  t_DependencyGraphCreateRepositorySnapshotRequestBody,
   t_DependencyGraphDiffRangeParamSchema,
   t_DependencyGraphDiffRangeQuerySchema,
   t_DependencyGraphExportSbomParamSchema,
@@ -708,9 +708,9 @@ import type {
   t_file_commit,
   t_full_repository,
   t_GistsCheckIsStarredParamSchema,
-  t_GistsCreateBodySchema,
-  t_GistsCreateCommentBodySchema,
   t_GistsCreateCommentParamSchema,
+  t_GistsCreateCommentRequestBody,
+  t_GistsCreateRequestBody,
   t_GistsDeleteCommentParamSchema,
   t_GistsDeleteParamSchema,
   t_GistsForkParamSchema,
@@ -730,20 +730,20 @@ import type {
   t_GistsListStarredQuerySchema,
   t_GistsStarParamSchema,
   t_GistsUnstarParamSchema,
-  t_GistsUpdateBodySchema,
-  t_GistsUpdateCommentBodySchema,
   t_GistsUpdateCommentParamSchema,
+  t_GistsUpdateCommentRequestBody,
   t_GistsUpdateParamSchema,
-  t_GitCreateBlobBodySchema,
+  t_GistsUpdateRequestBody,
   t_GitCreateBlobParamSchema,
-  t_GitCreateCommitBodySchema,
+  t_GitCreateBlobRequestBody,
   t_GitCreateCommitParamSchema,
-  t_GitCreateRefBodySchema,
+  t_GitCreateCommitRequestBody,
   t_GitCreateRefParamSchema,
-  t_GitCreateTagBodySchema,
+  t_GitCreateRefRequestBody,
   t_GitCreateTagParamSchema,
-  t_GitCreateTreeBodySchema,
+  t_GitCreateTagRequestBody,
   t_GitCreateTreeParamSchema,
+  t_GitCreateTreeRequestBody,
   t_GitDeleteRefParamSchema,
   t_GitGetBlobParamSchema,
   t_GitGetCommitParamSchema,
@@ -753,8 +753,8 @@ import type {
   t_GitGetTreeQuerySchema,
   t_GitignoreGetTemplateParamSchema,
   t_GitListMatchingRefsParamSchema,
-  t_GitUpdateRefBodySchema,
   t_GitUpdateRefParamSchema,
+  t_GitUpdateRefRequestBody,
   t_gist_comment,
   t_gist_commit,
   t_gist_simple,
@@ -765,15 +765,15 @@ import type {
   t_gitignore_template,
   t_global_advisory,
   t_gpg_key,
-  t_HostedComputeCreateNetworkConfigurationForOrgBodySchema,
   t_HostedComputeCreateNetworkConfigurationForOrgParamSchema,
+  t_HostedComputeCreateNetworkConfigurationForOrgRequestBody,
   t_HostedComputeDeleteNetworkConfigurationFromOrgParamSchema,
   t_HostedComputeGetNetworkConfigurationForOrgParamSchema,
   t_HostedComputeGetNetworkSettingsForOrgParamSchema,
   t_HostedComputeListNetworkConfigurationsForOrgParamSchema,
   t_HostedComputeListNetworkConfigurationsForOrgQuerySchema,
-  t_HostedComputeUpdateNetworkConfigurationForOrgBodySchema,
   t_HostedComputeUpdateNetworkConfigurationForOrgParamSchema,
+  t_HostedComputeUpdateNetworkConfigurationForOrgRequestBody,
   t_hook,
   t_hook_delivery,
   t_hook_delivery_item,
@@ -782,27 +782,27 @@ import type {
   t_InteractionsGetRestrictionsForRepoParamSchema,
   t_InteractionsRemoveRestrictionsForOrgParamSchema,
   t_InteractionsRemoveRestrictionsForRepoParamSchema,
-  t_InteractionsSetRestrictionsForAuthenticatedUserBodySchema,
-  t_InteractionsSetRestrictionsForOrgBodySchema,
+  t_InteractionsSetRestrictionsForAuthenticatedUserRequestBody,
   t_InteractionsSetRestrictionsForOrgParamSchema,
-  t_InteractionsSetRestrictionsForRepoBodySchema,
+  t_InteractionsSetRestrictionsForOrgRequestBody,
   t_InteractionsSetRestrictionsForRepoParamSchema,
-  t_IssuesAddAssigneesBodySchema,
+  t_InteractionsSetRestrictionsForRepoRequestBody,
   t_IssuesAddAssigneesParamSchema,
-  t_IssuesAddLabelsBodySchema,
+  t_IssuesAddAssigneesRequestBody,
   t_IssuesAddLabelsParamSchema,
-  t_IssuesAddSubIssueBodySchema,
+  t_IssuesAddLabelsRequestBody,
   t_IssuesAddSubIssueParamSchema,
+  t_IssuesAddSubIssueRequestBody,
   t_IssuesCheckUserCanBeAssignedParamSchema,
   t_IssuesCheckUserCanBeAssignedToIssueParamSchema,
-  t_IssuesCreateBodySchema,
-  t_IssuesCreateCommentBodySchema,
   t_IssuesCreateCommentParamSchema,
-  t_IssuesCreateLabelBodySchema,
+  t_IssuesCreateCommentRequestBody,
   t_IssuesCreateLabelParamSchema,
-  t_IssuesCreateMilestoneBodySchema,
+  t_IssuesCreateLabelRequestBody,
   t_IssuesCreateMilestoneParamSchema,
+  t_IssuesCreateMilestoneRequestBody,
   t_IssuesCreateParamSchema,
+  t_IssuesCreateRequestBody,
   t_IssuesDeleteCommentParamSchema,
   t_IssuesDeleteLabelParamSchema,
   t_IssuesDeleteMilestoneParamSchema,
@@ -839,27 +839,27 @@ import type {
   t_IssuesListQuerySchema,
   t_IssuesListSubIssuesParamSchema,
   t_IssuesListSubIssuesQuerySchema,
-  t_IssuesLockBodySchema,
   t_IssuesLockParamSchema,
+  t_IssuesLockRequestBody,
   t_IssuesRemoveAllLabelsParamSchema,
-  t_IssuesRemoveAssigneesBodySchema,
   t_IssuesRemoveAssigneesParamSchema,
+  t_IssuesRemoveAssigneesRequestBody,
   t_IssuesRemoveLabelParamSchema,
-  t_IssuesRemoveSubIssueBodySchema,
   t_IssuesRemoveSubIssueParamSchema,
-  t_IssuesReprioritizeSubIssueBodySchema,
+  t_IssuesRemoveSubIssueRequestBody,
   t_IssuesReprioritizeSubIssueParamSchema,
-  t_IssuesSetLabelsBodySchema,
+  t_IssuesReprioritizeSubIssueRequestBody,
   t_IssuesSetLabelsParamSchema,
+  t_IssuesSetLabelsRequestBody,
   t_IssuesUnlockParamSchema,
-  t_IssuesUpdateBodySchema,
-  t_IssuesUpdateCommentBodySchema,
   t_IssuesUpdateCommentParamSchema,
-  t_IssuesUpdateLabelBodySchema,
+  t_IssuesUpdateCommentRequestBody,
   t_IssuesUpdateLabelParamSchema,
-  t_IssuesUpdateMilestoneBodySchema,
+  t_IssuesUpdateLabelRequestBody,
   t_IssuesUpdateMilestoneParamSchema,
+  t_IssuesUpdateMilestoneRequestBody,
   t_IssuesUpdateParamSchema,
+  t_IssuesUpdateRequestBody,
   t_import,
   t_installation,
   t_installation_token,
@@ -885,8 +885,8 @@ import type {
   t_license,
   t_license_content,
   t_license_simple,
-  t_MarkdownRenderBodySchema,
-  t_MarkdownRenderRawBodySchema,
+  t_MarkdownRenderRawRequestBody,
+  t_MarkdownRenderRequestBody,
   t_MetaGetOctocatQuerySchema,
   t_MigrationsCancelImportParamSchema,
   t_MigrationsDeleteArchiveForAuthenticatedUserParamSchema,
@@ -908,19 +908,19 @@ import type {
   t_MigrationsListReposForAuthenticatedUserQuerySchema,
   t_MigrationsListReposForOrgParamSchema,
   t_MigrationsListReposForOrgQuerySchema,
-  t_MigrationsMapCommitAuthorBodySchema,
   t_MigrationsMapCommitAuthorParamSchema,
-  t_MigrationsSetLfsPreferenceBodySchema,
+  t_MigrationsMapCommitAuthorRequestBody,
   t_MigrationsSetLfsPreferenceParamSchema,
-  t_MigrationsStartForAuthenticatedUserBodySchema,
-  t_MigrationsStartForOrgBodySchema,
+  t_MigrationsSetLfsPreferenceRequestBody,
+  t_MigrationsStartForAuthenticatedUserRequestBody,
   t_MigrationsStartForOrgParamSchema,
-  t_MigrationsStartImportBodySchema,
+  t_MigrationsStartForOrgRequestBody,
   t_MigrationsStartImportParamSchema,
+  t_MigrationsStartImportRequestBody,
   t_MigrationsUnlockRepoForAuthenticatedUserParamSchema,
   t_MigrationsUnlockRepoForOrgParamSchema,
-  t_MigrationsUpdateImportBodySchema,
   t_MigrationsUpdateImportParamSchema,
+  t_MigrationsUpdateImportRequestBody,
   t_marketplace_listing_plan,
   t_marketplace_purchase,
   t_merged_upstream,
@@ -930,8 +930,8 @@ import type {
   t_network_configuration,
   t_network_settings,
   t_OidcGetOidcCustomSubTemplateForOrgParamSchema,
-  t_OidcUpdateOidcCustomSubTemplateForOrgBodySchema,
   t_OidcUpdateOidcCustomSubTemplateForOrgParamSchema,
+  t_OidcUpdateOidcCustomSubTemplateForOrgRequestBody,
   t_OrgsAddSecurityManagerTeamParamSchema,
   t_OrgsAssignTeamToOrgRoleParamSchema,
   t_OrgsAssignUserToOrgRoleParamSchema,
@@ -940,29 +940,29 @@ import type {
   t_OrgsCheckBlockedUserParamSchema,
   t_OrgsCheckMembershipForUserParamSchema,
   t_OrgsCheckPublicMembershipForUserParamSchema,
-  t_OrgsConvertMemberToOutsideCollaboratorBodySchema,
   t_OrgsConvertMemberToOutsideCollaboratorParamSchema,
-  t_OrgsCreateInvitationBodySchema,
+  t_OrgsConvertMemberToOutsideCollaboratorRequestBody,
   t_OrgsCreateInvitationParamSchema,
-  t_OrgsCreateIssueTypeBodySchema,
+  t_OrgsCreateInvitationRequestBody,
   t_OrgsCreateIssueTypeParamSchema,
-  t_OrgsCreateOrUpdateCustomPropertiesBodySchema,
+  t_OrgsCreateIssueTypeRequestBody,
   t_OrgsCreateOrUpdateCustomPropertiesParamSchema,
-  t_OrgsCreateOrUpdateCustomPropertiesValuesForReposBodySchema,
+  t_OrgsCreateOrUpdateCustomPropertiesRequestBody,
   t_OrgsCreateOrUpdateCustomPropertiesValuesForReposParamSchema,
-  t_OrgsCreateOrUpdateCustomPropertyBodySchema,
+  t_OrgsCreateOrUpdateCustomPropertiesValuesForReposRequestBody,
   t_OrgsCreateOrUpdateCustomPropertyParamSchema,
-  t_OrgsCreateWebhookBodySchema,
+  t_OrgsCreateOrUpdateCustomPropertyRequestBody,
   t_OrgsCreateWebhookParamSchema,
-  t_OrgsDeleteAttestationsBulkBodySchema,
+  t_OrgsCreateWebhookRequestBody,
   t_OrgsDeleteAttestationsBulkParamSchema,
+  t_OrgsDeleteAttestationsBulkRequestBody,
   t_OrgsDeleteAttestationsByIdParamSchema,
   t_OrgsDeleteAttestationsBySubjectDigestParamSchema,
   t_OrgsDeleteIssueTypeParamSchema,
   t_OrgsDeleteParamSchema,
   t_OrgsDeleteWebhookParamSchema,
-  t_OrgsEnableOrDisableSecurityProductOnAllOrgReposBodySchema,
   t_OrgsEnableOrDisableSecurityProductOnAllOrgReposParamSchema,
+  t_OrgsEnableOrDisableSecurityProductOnAllOrgReposRequestBody,
   t_OrgsGetAllCustomPropertiesParamSchema,
   t_OrgsGetCustomPropertyParamSchema,
   t_OrgsGetMembershipForAuthenticatedUserParamSchema,
@@ -977,9 +977,9 @@ import type {
   t_OrgsGetWebhookParamSchema,
   t_OrgsListAppInstallationsParamSchema,
   t_OrgsListAppInstallationsQuerySchema,
-  t_OrgsListAttestationsBulkBodySchema,
   t_OrgsListAttestationsBulkParamSchema,
   t_OrgsListAttestationsBulkQuerySchema,
+  t_OrgsListAttestationsBulkRequestBody,
   t_OrgsListAttestationsParamSchema,
   t_OrgsListAttestationsQuerySchema,
   t_OrgsListBlockedUsersParamSchema,
@@ -1030,32 +1030,32 @@ import type {
   t_OrgsRemoveOutsideCollaboratorParamSchema,
   t_OrgsRemovePublicMembershipForAuthenticatedUserParamSchema,
   t_OrgsRemoveSecurityManagerTeamParamSchema,
-  t_OrgsReviewPatGrantRequestBodySchema,
   t_OrgsReviewPatGrantRequestParamSchema,
-  t_OrgsReviewPatGrantRequestsInBulkBodySchema,
+  t_OrgsReviewPatGrantRequestRequestBody,
   t_OrgsReviewPatGrantRequestsInBulkParamSchema,
+  t_OrgsReviewPatGrantRequestsInBulkRequestBody,
   t_OrgsRevokeAllOrgRolesTeamParamSchema,
   t_OrgsRevokeAllOrgRolesUserParamSchema,
   t_OrgsRevokeOrgRoleTeamParamSchema,
   t_OrgsRevokeOrgRoleUserParamSchema,
-  t_OrgsSetMembershipForUserBodySchema,
   t_OrgsSetMembershipForUserParamSchema,
+  t_OrgsSetMembershipForUserRequestBody,
   t_OrgsSetPublicMembershipForAuthenticatedUserParamSchema,
   t_OrgsUnblockUserParamSchema,
-  t_OrgsUpdateBodySchema,
-  t_OrgsUpdateIssueTypeBodySchema,
   t_OrgsUpdateIssueTypeParamSchema,
-  t_OrgsUpdateMembershipForAuthenticatedUserBodySchema,
+  t_OrgsUpdateIssueTypeRequestBody,
   t_OrgsUpdateMembershipForAuthenticatedUserParamSchema,
+  t_OrgsUpdateMembershipForAuthenticatedUserRequestBody,
   t_OrgsUpdateParamSchema,
-  t_OrgsUpdatePatAccessBodySchema,
-  t_OrgsUpdatePatAccessesBodySchema,
   t_OrgsUpdatePatAccessesParamSchema,
+  t_OrgsUpdatePatAccessesRequestBody,
   t_OrgsUpdatePatAccessParamSchema,
-  t_OrgsUpdateWebhookBodySchema,
-  t_OrgsUpdateWebhookConfigForOrgBodySchema,
+  t_OrgsUpdatePatAccessRequestBody,
+  t_OrgsUpdateRequestBody,
   t_OrgsUpdateWebhookConfigForOrgParamSchema,
+  t_OrgsUpdateWebhookConfigForOrgRequestBody,
   t_OrgsUpdateWebhookParamSchema,
+  t_OrgsUpdateWebhookRequestBody,
   t_oidc_custom_sub,
   t_oidc_custom_sub_repo,
   t_org_hook,
@@ -1106,26 +1106,26 @@ import type {
   t_PackagesRestorePackageVersionForAuthenticatedUserParamSchema,
   t_PackagesRestorePackageVersionForOrgParamSchema,
   t_PackagesRestorePackageVersionForUserParamSchema,
-  t_PrivateRegistriesCreateOrgPrivateRegistryBodySchema,
   t_PrivateRegistriesCreateOrgPrivateRegistryParamSchema,
+  t_PrivateRegistriesCreateOrgPrivateRegistryRequestBody,
   t_PrivateRegistriesDeleteOrgPrivateRegistryParamSchema,
   t_PrivateRegistriesGetOrgPrivateRegistryParamSchema,
   t_PrivateRegistriesGetOrgPublicKeyParamSchema,
   t_PrivateRegistriesListOrgPrivateRegistriesParamSchema,
   t_PrivateRegistriesListOrgPrivateRegistriesQuerySchema,
-  t_PrivateRegistriesUpdateOrgPrivateRegistryBodySchema,
   t_PrivateRegistriesUpdateOrgPrivateRegistryParamSchema,
-  t_ProjectsClassicAddCollaboratorBodySchema,
+  t_PrivateRegistriesUpdateOrgPrivateRegistryRequestBody,
   t_ProjectsClassicAddCollaboratorParamSchema,
-  t_ProjectsClassicCreateCardBodySchema,
+  t_ProjectsClassicAddCollaboratorRequestBody,
   t_ProjectsClassicCreateCardParamSchema,
-  t_ProjectsClassicCreateColumnBodySchema,
+  t_ProjectsClassicCreateCardRequestBody,
   t_ProjectsClassicCreateColumnParamSchema,
-  t_ProjectsClassicCreateForAuthenticatedUserBodySchema,
-  t_ProjectsClassicCreateForOrgBodySchema,
+  t_ProjectsClassicCreateColumnRequestBody,
+  t_ProjectsClassicCreateForAuthenticatedUserRequestBody,
   t_ProjectsClassicCreateForOrgParamSchema,
-  t_ProjectsClassicCreateForRepoBodySchema,
+  t_ProjectsClassicCreateForOrgRequestBody,
   t_ProjectsClassicCreateForRepoParamSchema,
+  t_ProjectsClassicCreateForRepoRequestBody,
   t_ProjectsClassicDeleteCardParamSchema,
   t_ProjectsClassicDeleteColumnParamSchema,
   t_ProjectsClassicDeleteParamSchema,
@@ -1145,30 +1145,30 @@ import type {
   t_ProjectsClassicListForRepoQuerySchema,
   t_ProjectsClassicListForUserParamSchema,
   t_ProjectsClassicListForUserQuerySchema,
-  t_ProjectsClassicMoveCardBodySchema,
   t_ProjectsClassicMoveCardParamSchema,
-  t_ProjectsClassicMoveColumnBodySchema,
+  t_ProjectsClassicMoveCardRequestBody,
   t_ProjectsClassicMoveColumnParamSchema,
+  t_ProjectsClassicMoveColumnRequestBody,
   t_ProjectsClassicRemoveCollaboratorParamSchema,
-  t_ProjectsClassicUpdateBodySchema,
-  t_ProjectsClassicUpdateCardBodySchema,
   t_ProjectsClassicUpdateCardParamSchema,
-  t_ProjectsClassicUpdateColumnBodySchema,
+  t_ProjectsClassicUpdateCardRequestBody,
   t_ProjectsClassicUpdateColumnParamSchema,
+  t_ProjectsClassicUpdateColumnRequestBody,
   t_ProjectsClassicUpdateParamSchema,
+  t_ProjectsClassicUpdateRequestBody,
   t_PullsCheckIfMergedParamSchema,
-  t_PullsCreateBodySchema,
   t_PullsCreateParamSchema,
-  t_PullsCreateReplyForReviewCommentBodySchema,
   t_PullsCreateReplyForReviewCommentParamSchema,
-  t_PullsCreateReviewBodySchema,
-  t_PullsCreateReviewCommentBodySchema,
+  t_PullsCreateReplyForReviewCommentRequestBody,
+  t_PullsCreateRequestBody,
   t_PullsCreateReviewCommentParamSchema,
+  t_PullsCreateReviewCommentRequestBody,
   t_PullsCreateReviewParamSchema,
+  t_PullsCreateReviewRequestBody,
   t_PullsDeletePendingReviewParamSchema,
   t_PullsDeleteReviewCommentParamSchema,
-  t_PullsDismissReviewBodySchema,
   t_PullsDismissReviewParamSchema,
+  t_PullsDismissReviewRequestBody,
   t_PullsGetParamSchema,
   t_PullsGetReviewCommentParamSchema,
   t_PullsGetReviewParamSchema,
@@ -1187,22 +1187,22 @@ import type {
   t_PullsListReviewCommentsQuerySchema,
   t_PullsListReviewsParamSchema,
   t_PullsListReviewsQuerySchema,
-  t_PullsMergeBodySchema,
   t_PullsMergeParamSchema,
-  t_PullsRemoveRequestedReviewersBodySchema,
+  t_PullsMergeRequestBody,
   t_PullsRemoveRequestedReviewersParamSchema,
-  t_PullsRequestReviewersBodySchema,
+  t_PullsRemoveRequestedReviewersRequestBody,
   t_PullsRequestReviewersParamSchema,
-  t_PullsSubmitReviewBodySchema,
+  t_PullsRequestReviewersRequestBody,
   t_PullsSubmitReviewParamSchema,
-  t_PullsUpdateBodySchema,
-  t_PullsUpdateBranchBodySchema,
+  t_PullsSubmitReviewRequestBody,
   t_PullsUpdateBranchParamSchema,
+  t_PullsUpdateBranchRequestBody,
   t_PullsUpdateParamSchema,
-  t_PullsUpdateReviewBodySchema,
-  t_PullsUpdateReviewCommentBodySchema,
+  t_PullsUpdateRequestBody,
   t_PullsUpdateReviewCommentParamSchema,
+  t_PullsUpdateReviewCommentRequestBody,
   t_PullsUpdateReviewParamSchema,
+  t_PullsUpdateReviewRequestBody,
   t_package,
   t_package_version,
   t_packages_billing_usage,
@@ -1231,24 +1231,24 @@ import type {
   t_pull_request_review_comment,
   t_pull_request_review_request,
   t_pull_request_simple,
-  t_ReactionsCreateForCommitCommentBodySchema,
   t_ReactionsCreateForCommitCommentParamSchema,
-  t_ReactionsCreateForIssueBodySchema,
-  t_ReactionsCreateForIssueCommentBodySchema,
+  t_ReactionsCreateForCommitCommentRequestBody,
   t_ReactionsCreateForIssueCommentParamSchema,
+  t_ReactionsCreateForIssueCommentRequestBody,
   t_ReactionsCreateForIssueParamSchema,
-  t_ReactionsCreateForPullRequestReviewCommentBodySchema,
+  t_ReactionsCreateForIssueRequestBody,
   t_ReactionsCreateForPullRequestReviewCommentParamSchema,
-  t_ReactionsCreateForReleaseBodySchema,
+  t_ReactionsCreateForPullRequestReviewCommentRequestBody,
   t_ReactionsCreateForReleaseParamSchema,
-  t_ReactionsCreateForTeamDiscussionCommentInOrgBodySchema,
+  t_ReactionsCreateForReleaseRequestBody,
   t_ReactionsCreateForTeamDiscussionCommentInOrgParamSchema,
-  t_ReactionsCreateForTeamDiscussionCommentLegacyBodySchema,
+  t_ReactionsCreateForTeamDiscussionCommentInOrgRequestBody,
   t_ReactionsCreateForTeamDiscussionCommentLegacyParamSchema,
-  t_ReactionsCreateForTeamDiscussionInOrgBodySchema,
+  t_ReactionsCreateForTeamDiscussionCommentLegacyRequestBody,
   t_ReactionsCreateForTeamDiscussionInOrgParamSchema,
-  t_ReactionsCreateForTeamDiscussionLegacyBodySchema,
+  t_ReactionsCreateForTeamDiscussionInOrgRequestBody,
   t_ReactionsCreateForTeamDiscussionLegacyParamSchema,
+  t_ReactionsCreateForTeamDiscussionLegacyRequestBody,
   t_ReactionsDeleteForCommitCommentParamSchema,
   t_ReactionsDeleteForIssueCommentParamSchema,
   t_ReactionsDeleteForIssueParamSchema,
@@ -1275,16 +1275,16 @@ import type {
   t_ReactionsListForTeamDiscussionLegacyParamSchema,
   t_ReactionsListForTeamDiscussionLegacyQuerySchema,
   t_ReposAcceptInvitationForAuthenticatedUserParamSchema,
-  t_ReposAddAppAccessRestrictionsBodySchema,
   t_ReposAddAppAccessRestrictionsParamSchema,
-  t_ReposAddCollaboratorBodySchema,
+  t_ReposAddAppAccessRestrictionsRequestBody,
   t_ReposAddCollaboratorParamSchema,
-  t_ReposAddStatusCheckContextsBodySchema,
+  t_ReposAddCollaboratorRequestBody,
   t_ReposAddStatusCheckContextsParamSchema,
-  t_ReposAddTeamAccessRestrictionsBodySchema,
+  t_ReposAddStatusCheckContextsRequestBody,
   t_ReposAddTeamAccessRestrictionsParamSchema,
-  t_ReposAddUserAccessRestrictionsBodySchema,
+  t_ReposAddTeamAccessRestrictionsRequestBody,
   t_ReposAddUserAccessRestrictionsParamSchema,
+  t_ReposAddUserAccessRestrictionsRequestBody,
   t_ReposCancelPagesDeploymentParamSchema,
   t_ReposCheckAutomatedSecurityFixesParamSchema,
   t_ReposCheckCollaboratorParamSchema,
@@ -1294,54 +1294,54 @@ import type {
   t_ReposCodeownersErrorsQuerySchema,
   t_ReposCompareCommitsParamSchema,
   t_ReposCompareCommitsQuerySchema,
-  t_ReposCreateAttestationBodySchema,
   t_ReposCreateAttestationParamSchema,
-  t_ReposCreateAutolinkBodySchema,
+  t_ReposCreateAttestationRequestBody,
   t_ReposCreateAutolinkParamSchema,
-  t_ReposCreateCommitCommentBodySchema,
+  t_ReposCreateAutolinkRequestBody,
   t_ReposCreateCommitCommentParamSchema,
+  t_ReposCreateCommitCommentRequestBody,
   t_ReposCreateCommitSignatureProtectionParamSchema,
-  t_ReposCreateCommitStatusBodySchema,
   t_ReposCreateCommitStatusParamSchema,
-  t_ReposCreateDeployKeyBodySchema,
+  t_ReposCreateCommitStatusRequestBody,
   t_ReposCreateDeployKeyParamSchema,
-  t_ReposCreateDeploymentBodySchema,
-  t_ReposCreateDeploymentBranchPolicyBodySchema,
+  t_ReposCreateDeployKeyRequestBody,
   t_ReposCreateDeploymentBranchPolicyParamSchema,
+  t_ReposCreateDeploymentBranchPolicyRequestBody,
   t_ReposCreateDeploymentParamSchema,
-  t_ReposCreateDeploymentProtectionRuleBodySchema,
   t_ReposCreateDeploymentProtectionRuleParamSchema,
-  t_ReposCreateDeploymentStatusBodySchema,
+  t_ReposCreateDeploymentProtectionRuleRequestBody,
+  t_ReposCreateDeploymentRequestBody,
   t_ReposCreateDeploymentStatusParamSchema,
-  t_ReposCreateDispatchEventBodySchema,
+  t_ReposCreateDeploymentStatusRequestBody,
   t_ReposCreateDispatchEventParamSchema,
-  t_ReposCreateForAuthenticatedUserBodySchema,
-  t_ReposCreateForkBodySchema,
+  t_ReposCreateDispatchEventRequestBody,
+  t_ReposCreateForAuthenticatedUserRequestBody,
   t_ReposCreateForkParamSchema,
-  t_ReposCreateInOrgBodySchema,
+  t_ReposCreateForkRequestBody,
   t_ReposCreateInOrgParamSchema,
-  t_ReposCreateOrgRulesetBodySchema,
+  t_ReposCreateInOrgRequestBody,
   t_ReposCreateOrgRulesetParamSchema,
-  t_ReposCreateOrUpdateCustomPropertiesValuesBodySchema,
+  t_ReposCreateOrgRulesetRequestBody,
   t_ReposCreateOrUpdateCustomPropertiesValuesParamSchema,
-  t_ReposCreateOrUpdateEnvironmentBodySchema,
+  t_ReposCreateOrUpdateCustomPropertiesValuesRequestBody,
   t_ReposCreateOrUpdateEnvironmentParamSchema,
-  t_ReposCreateOrUpdateFileContentsBodySchema,
+  t_ReposCreateOrUpdateEnvironmentRequestBody,
   t_ReposCreateOrUpdateFileContentsParamSchema,
-  t_ReposCreatePagesDeploymentBodySchema,
+  t_ReposCreateOrUpdateFileContentsRequestBody,
   t_ReposCreatePagesDeploymentParamSchema,
-  t_ReposCreatePagesSiteBodySchema,
+  t_ReposCreatePagesDeploymentRequestBody,
   t_ReposCreatePagesSiteParamSchema,
-  t_ReposCreateReleaseBodySchema,
+  t_ReposCreatePagesSiteRequestBody,
   t_ReposCreateReleaseParamSchema,
-  t_ReposCreateRepoRulesetBodySchema,
+  t_ReposCreateReleaseRequestBody,
   t_ReposCreateRepoRulesetParamSchema,
-  t_ReposCreateTagProtectionBodySchema,
+  t_ReposCreateRepoRulesetRequestBody,
   t_ReposCreateTagProtectionParamSchema,
-  t_ReposCreateUsingTemplateBodySchema,
+  t_ReposCreateTagProtectionRequestBody,
   t_ReposCreateUsingTemplateParamSchema,
-  t_ReposCreateWebhookBodySchema,
+  t_ReposCreateUsingTemplateRequestBody,
   t_ReposCreateWebhookParamSchema,
+  t_ReposCreateWebhookRequestBody,
   t_ReposDeclineInvitationForAuthenticatedUserParamSchema,
   t_ReposDeleteAccessRestrictionsParamSchema,
   t_ReposDeleteAdminBranchProtectionParamSchema,
@@ -1353,8 +1353,8 @@ import type {
   t_ReposDeleteDeployKeyParamSchema,
   t_ReposDeleteDeploymentBranchPolicyParamSchema,
   t_ReposDeleteDeploymentParamSchema,
-  t_ReposDeleteFileBodySchema,
   t_ReposDeleteFileParamSchema,
+  t_ReposDeleteFileRequestBody,
   t_ReposDeleteInvitationParamSchema,
   t_ReposDeleteOrgRulesetParamSchema,
   t_ReposDeletePagesSiteParamSchema,
@@ -1374,8 +1374,8 @@ import type {
   t_ReposEnableAutomatedSecurityFixesParamSchema,
   t_ReposEnablePrivateVulnerabilityReportingParamSchema,
   t_ReposEnableVulnerabilityAlertsParamSchema,
-  t_ReposGenerateReleaseNotesBodySchema,
   t_ReposGenerateReleaseNotesParamSchema,
+  t_ReposGenerateReleaseNotesRequestBody,
   t_ReposGetAccessRestrictionsParamSchema,
   t_ReposGetAdminBranchProtectionParamSchema,
   t_ReposGetAllDeploymentProtectionRulesParamSchema,
@@ -1514,70 +1514,70 @@ import type {
   t_ReposListWebhookDeliveriesQuerySchema,
   t_ReposListWebhooksParamSchema,
   t_ReposListWebhooksQuerySchema,
-  t_ReposMergeBodySchema,
   t_ReposMergeParamSchema,
-  t_ReposMergeUpstreamBodySchema,
+  t_ReposMergeRequestBody,
   t_ReposMergeUpstreamParamSchema,
+  t_ReposMergeUpstreamRequestBody,
   t_ReposPingWebhookParamSchema,
   t_ReposRedeliverWebhookDeliveryParamSchema,
-  t_ReposRemoveAppAccessRestrictionsBodySchema,
   t_ReposRemoveAppAccessRestrictionsParamSchema,
+  t_ReposRemoveAppAccessRestrictionsRequestBody,
   t_ReposRemoveCollaboratorParamSchema,
-  t_ReposRemoveStatusCheckContextsBodySchema,
   t_ReposRemoveStatusCheckContextsParamSchema,
+  t_ReposRemoveStatusCheckContextsRequestBody,
   t_ReposRemoveStatusCheckProtectionParamSchema,
-  t_ReposRemoveTeamAccessRestrictionsBodySchema,
   t_ReposRemoveTeamAccessRestrictionsParamSchema,
-  t_ReposRemoveUserAccessRestrictionsBodySchema,
+  t_ReposRemoveTeamAccessRestrictionsRequestBody,
   t_ReposRemoveUserAccessRestrictionsParamSchema,
-  t_ReposRenameBranchBodySchema,
+  t_ReposRemoveUserAccessRestrictionsRequestBody,
   t_ReposRenameBranchParamSchema,
-  t_ReposReplaceAllTopicsBodySchema,
+  t_ReposRenameBranchRequestBody,
   t_ReposReplaceAllTopicsParamSchema,
+  t_ReposReplaceAllTopicsRequestBody,
   t_ReposRequestPagesBuildParamSchema,
   t_ReposSetAdminBranchProtectionParamSchema,
-  t_ReposSetAppAccessRestrictionsBodySchema,
   t_ReposSetAppAccessRestrictionsParamSchema,
-  t_ReposSetStatusCheckContextsBodySchema,
+  t_ReposSetAppAccessRestrictionsRequestBody,
   t_ReposSetStatusCheckContextsParamSchema,
-  t_ReposSetTeamAccessRestrictionsBodySchema,
+  t_ReposSetStatusCheckContextsRequestBody,
   t_ReposSetTeamAccessRestrictionsParamSchema,
-  t_ReposSetUserAccessRestrictionsBodySchema,
+  t_ReposSetTeamAccessRestrictionsRequestBody,
   t_ReposSetUserAccessRestrictionsParamSchema,
+  t_ReposSetUserAccessRestrictionsRequestBody,
   t_ReposTestPushWebhookParamSchema,
-  t_ReposTransferBodySchema,
   t_ReposTransferParamSchema,
-  t_ReposUpdateBodySchema,
-  t_ReposUpdateBranchProtectionBodySchema,
+  t_ReposTransferRequestBody,
   t_ReposUpdateBranchProtectionParamSchema,
-  t_ReposUpdateCommitCommentBodySchema,
+  t_ReposUpdateBranchProtectionRequestBody,
   t_ReposUpdateCommitCommentParamSchema,
-  t_ReposUpdateDeploymentBranchPolicyBodySchema,
+  t_ReposUpdateCommitCommentRequestBody,
   t_ReposUpdateDeploymentBranchPolicyParamSchema,
-  t_ReposUpdateInformationAboutPagesSiteBodySchema,
+  t_ReposUpdateDeploymentBranchPolicyRequestBody,
   t_ReposUpdateInformationAboutPagesSiteParamSchema,
-  t_ReposUpdateInvitationBodySchema,
+  t_ReposUpdateInformationAboutPagesSiteRequestBody,
   t_ReposUpdateInvitationParamSchema,
-  t_ReposUpdateOrgRulesetBodySchema,
+  t_ReposUpdateInvitationRequestBody,
   t_ReposUpdateOrgRulesetParamSchema,
+  t_ReposUpdateOrgRulesetRequestBody,
   t_ReposUpdateParamSchema,
-  t_ReposUpdatePullRequestReviewProtectionBodySchema,
   t_ReposUpdatePullRequestReviewProtectionParamSchema,
-  t_ReposUpdateReleaseAssetBodySchema,
+  t_ReposUpdatePullRequestReviewProtectionRequestBody,
   t_ReposUpdateReleaseAssetParamSchema,
-  t_ReposUpdateReleaseBodySchema,
+  t_ReposUpdateReleaseAssetRequestBody,
   t_ReposUpdateReleaseParamSchema,
-  t_ReposUpdateRepoRulesetBodySchema,
+  t_ReposUpdateReleaseRequestBody,
   t_ReposUpdateRepoRulesetParamSchema,
-  t_ReposUpdateStatusCheckProtectionBodySchema,
+  t_ReposUpdateRepoRulesetRequestBody,
+  t_ReposUpdateRequestBody,
   t_ReposUpdateStatusCheckProtectionParamSchema,
-  t_ReposUpdateWebhookBodySchema,
-  t_ReposUpdateWebhookConfigForRepoBodySchema,
+  t_ReposUpdateStatusCheckProtectionRequestBody,
   t_ReposUpdateWebhookConfigForRepoParamSchema,
+  t_ReposUpdateWebhookConfigForRepoRequestBody,
   t_ReposUpdateWebhookParamSchema,
-  t_ReposUploadReleaseAssetBodySchema,
+  t_ReposUpdateWebhookRequestBody,
   t_ReposUploadReleaseAssetParamSchema,
   t_ReposUploadReleaseAssetQuerySchema,
+  t_ReposUploadReleaseAssetRequestBody,
   t_rate_limit_overview,
   t_reaction,
   t_referrer_traffic,
@@ -1611,8 +1611,8 @@ import type {
   t_SearchReposQuerySchema,
   t_SearchTopicsQuerySchema,
   t_SearchUsersQuerySchema,
-  t_SecretScanningCreatePushProtectionBypassBodySchema,
   t_SecretScanningCreatePushProtectionBypassParamSchema,
+  t_SecretScanningCreatePushProtectionBypassRequestBody,
   t_SecretScanningGetAlertParamSchema,
   t_SecretScanningGetAlertQuerySchema,
   t_SecretScanningGetScanHistoryParamSchema,
@@ -1624,14 +1624,14 @@ import type {
   t_SecretScanningListAlertsForRepoQuerySchema,
   t_SecretScanningListLocationsForAlertParamSchema,
   t_SecretScanningListLocationsForAlertQuerySchema,
-  t_SecretScanningUpdateAlertBodySchema,
   t_SecretScanningUpdateAlertParamSchema,
+  t_SecretScanningUpdateAlertRequestBody,
   t_SecurityAdvisoriesCreateForkParamSchema,
-  t_SecurityAdvisoriesCreatePrivateVulnerabilityReportBodySchema,
   t_SecurityAdvisoriesCreatePrivateVulnerabilityReportParamSchema,
-  t_SecurityAdvisoriesCreateRepositoryAdvisoryBodySchema,
+  t_SecurityAdvisoriesCreatePrivateVulnerabilityReportRequestBody,
   t_SecurityAdvisoriesCreateRepositoryAdvisoryCveRequestParamSchema,
   t_SecurityAdvisoriesCreateRepositoryAdvisoryParamSchema,
+  t_SecurityAdvisoriesCreateRepositoryAdvisoryRequestBody,
   t_SecurityAdvisoriesGetGlobalAdvisoryParamSchema,
   t_SecurityAdvisoriesGetRepositoryAdvisoryParamSchema,
   t_SecurityAdvisoriesListGlobalAdvisoriesQuerySchema,
@@ -1639,8 +1639,8 @@ import type {
   t_SecurityAdvisoriesListOrgRepositoryAdvisoriesQuerySchema,
   t_SecurityAdvisoriesListRepositoryAdvisoriesParamSchema,
   t_SecurityAdvisoriesListRepositoryAdvisoriesQuerySchema,
-  t_SecurityAdvisoriesUpdateRepositoryAdvisoryBodySchema,
   t_SecurityAdvisoriesUpdateRepositoryAdvisoryParamSchema,
+  t_SecurityAdvisoriesUpdateRepositoryAdvisoryRequestBody,
   t_scim_error,
   t_secret_scanning_alert,
   t_secret_scanning_location,
@@ -1659,32 +1659,32 @@ import type {
   t_status,
   t_status_check_policy,
   t_TeamsAddMemberLegacyParamSchema,
-  t_TeamsAddOrUpdateMembershipForUserInOrgBodySchema,
   t_TeamsAddOrUpdateMembershipForUserInOrgParamSchema,
-  t_TeamsAddOrUpdateMembershipForUserLegacyBodySchema,
+  t_TeamsAddOrUpdateMembershipForUserInOrgRequestBody,
   t_TeamsAddOrUpdateMembershipForUserLegacyParamSchema,
-  t_TeamsAddOrUpdateProjectPermissionsInOrgBodySchema,
+  t_TeamsAddOrUpdateMembershipForUserLegacyRequestBody,
   t_TeamsAddOrUpdateProjectPermissionsInOrgParamSchema,
-  t_TeamsAddOrUpdateProjectPermissionsLegacyBodySchema,
+  t_TeamsAddOrUpdateProjectPermissionsInOrgRequestBody,
   t_TeamsAddOrUpdateProjectPermissionsLegacyParamSchema,
-  t_TeamsAddOrUpdateRepoPermissionsInOrgBodySchema,
+  t_TeamsAddOrUpdateProjectPermissionsLegacyRequestBody,
   t_TeamsAddOrUpdateRepoPermissionsInOrgParamSchema,
-  t_TeamsAddOrUpdateRepoPermissionsLegacyBodySchema,
+  t_TeamsAddOrUpdateRepoPermissionsInOrgRequestBody,
   t_TeamsAddOrUpdateRepoPermissionsLegacyParamSchema,
+  t_TeamsAddOrUpdateRepoPermissionsLegacyRequestBody,
   t_TeamsCheckPermissionsForProjectInOrgParamSchema,
   t_TeamsCheckPermissionsForProjectLegacyParamSchema,
   t_TeamsCheckPermissionsForRepoInOrgParamSchema,
   t_TeamsCheckPermissionsForRepoLegacyParamSchema,
-  t_TeamsCreateBodySchema,
-  t_TeamsCreateDiscussionCommentInOrgBodySchema,
   t_TeamsCreateDiscussionCommentInOrgParamSchema,
-  t_TeamsCreateDiscussionCommentLegacyBodySchema,
+  t_TeamsCreateDiscussionCommentInOrgRequestBody,
   t_TeamsCreateDiscussionCommentLegacyParamSchema,
-  t_TeamsCreateDiscussionInOrgBodySchema,
+  t_TeamsCreateDiscussionCommentLegacyRequestBody,
   t_TeamsCreateDiscussionInOrgParamSchema,
-  t_TeamsCreateDiscussionLegacyBodySchema,
+  t_TeamsCreateDiscussionInOrgRequestBody,
   t_TeamsCreateDiscussionLegacyParamSchema,
+  t_TeamsCreateDiscussionLegacyRequestBody,
   t_TeamsCreateParamSchema,
+  t_TeamsCreateRequestBody,
   t_TeamsDeleteDiscussionCommentInOrgParamSchema,
   t_TeamsDeleteDiscussionCommentLegacyParamSchema,
   t_TeamsDeleteDiscussionInOrgParamSchema,
@@ -1738,18 +1738,18 @@ import type {
   t_TeamsRemoveProjectLegacyParamSchema,
   t_TeamsRemoveRepoInOrgParamSchema,
   t_TeamsRemoveRepoLegacyParamSchema,
-  t_TeamsUpdateDiscussionCommentInOrgBodySchema,
   t_TeamsUpdateDiscussionCommentInOrgParamSchema,
-  t_TeamsUpdateDiscussionCommentLegacyBodySchema,
+  t_TeamsUpdateDiscussionCommentInOrgRequestBody,
   t_TeamsUpdateDiscussionCommentLegacyParamSchema,
-  t_TeamsUpdateDiscussionInOrgBodySchema,
+  t_TeamsUpdateDiscussionCommentLegacyRequestBody,
   t_TeamsUpdateDiscussionInOrgParamSchema,
-  t_TeamsUpdateDiscussionLegacyBodySchema,
+  t_TeamsUpdateDiscussionInOrgRequestBody,
   t_TeamsUpdateDiscussionLegacyParamSchema,
-  t_TeamsUpdateInOrgBodySchema,
+  t_TeamsUpdateDiscussionLegacyRequestBody,
   t_TeamsUpdateInOrgParamSchema,
-  t_TeamsUpdateLegacyBodySchema,
+  t_TeamsUpdateInOrgRequestBody,
   t_TeamsUpdateLegacyParamSchema,
+  t_TeamsUpdateLegacyRequestBody,
   t_tag,
   t_tag_protection,
   t_team,
@@ -1766,23 +1766,23 @@ import type {
   t_timeline_issue_events,
   t_topic,
   t_topic_search_result_item,
-  t_UsersAddEmailForAuthenticatedUserBodySchema,
-  t_UsersAddSocialAccountForAuthenticatedUserBodySchema,
+  t_UsersAddEmailForAuthenticatedUserRequestBody,
+  t_UsersAddSocialAccountForAuthenticatedUserRequestBody,
   t_UsersBlockParamSchema,
   t_UsersCheckBlockedParamSchema,
   t_UsersCheckFollowingForUserParamSchema,
   t_UsersCheckPersonIsFollowedByAuthenticatedParamSchema,
-  t_UsersCreateGpgKeyForAuthenticatedUserBodySchema,
-  t_UsersCreatePublicSshKeyForAuthenticatedUserBodySchema,
-  t_UsersCreateSshSigningKeyForAuthenticatedUserBodySchema,
-  t_UsersDeleteAttestationsBulkBodySchema,
+  t_UsersCreateGpgKeyForAuthenticatedUserRequestBody,
+  t_UsersCreatePublicSshKeyForAuthenticatedUserRequestBody,
+  t_UsersCreateSshSigningKeyForAuthenticatedUserRequestBody,
   t_UsersDeleteAttestationsBulkParamSchema,
+  t_UsersDeleteAttestationsBulkRequestBody,
   t_UsersDeleteAttestationsByIdParamSchema,
   t_UsersDeleteAttestationsBySubjectDigestParamSchema,
-  t_UsersDeleteEmailForAuthenticatedUserBodySchema,
+  t_UsersDeleteEmailForAuthenticatedUserRequestBody,
   t_UsersDeleteGpgKeyForAuthenticatedUserParamSchema,
   t_UsersDeletePublicSshKeyForAuthenticatedUserParamSchema,
-  t_UsersDeleteSocialAccountForAuthenticatedUserBodySchema,
+  t_UsersDeleteSocialAccountForAuthenticatedUserRequestBody,
   t_UsersDeleteSshSigningKeyForAuthenticatedUserParamSchema,
   t_UsersFollowParamSchema,
   t_UsersGetByIdParamSchema,
@@ -1792,9 +1792,9 @@ import type {
   t_UsersGetGpgKeyForAuthenticatedUserParamSchema,
   t_UsersGetPublicSshKeyForAuthenticatedUserParamSchema,
   t_UsersGetSshSigningKeyForAuthenticatedUserParamSchema,
-  t_UsersListAttestationsBulkBodySchema,
   t_UsersListAttestationsBulkParamSchema,
   t_UsersListAttestationsBulkQuerySchema,
+  t_UsersListAttestationsBulkRequestBody,
   t_UsersListAttestationsParamSchema,
   t_UsersListAttestationsQuerySchema,
   t_UsersListBlockedByAuthenticatedUserQuerySchema,
@@ -1819,10 +1819,10 @@ import type {
   t_UsersListSshSigningKeysForAuthenticatedUserQuerySchema,
   t_UsersListSshSigningKeysForUserParamSchema,
   t_UsersListSshSigningKeysForUserQuerySchema,
-  t_UsersSetPrimaryEmailVisibilityForAuthenticatedUserBodySchema,
+  t_UsersSetPrimaryEmailVisibilityForAuthenticatedUserRequestBody,
   t_UsersUnblockParamSchema,
   t_UsersUnfollowParamSchema,
-  t_UsersUpdateAuthenticatedBodySchema,
+  t_UsersUpdateAuthenticatedRequestBody,
   t_user_marketplace_purchase,
   t_user_role_assignment,
   t_user_search_result_item,
@@ -2304,7 +2304,7 @@ export type AppsUpdateWebhookConfigForAppResponder = {
 } & KoaRuntimeResponder
 
 export type AppsUpdateWebhookConfigForApp = (
-  params: Params<void, void, t_AppsUpdateWebhookConfigForAppBodySchema, void>,
+  params: Params<void, void, t_AppsUpdateWebhookConfigForAppRequestBody, void>,
   respond: AppsUpdateWebhookConfigForAppResponder,
   ctx: RouterContext,
   next: Next,
@@ -2463,7 +2463,7 @@ export type AppsCreateInstallationAccessToken = (
   params: Params<
     t_AppsCreateInstallationAccessTokenParamSchema,
     void,
-    t_AppsCreateInstallationAccessTokenBodySchema | undefined,
+    t_AppsCreateInstallationAccessTokenRequestBody | undefined,
     void
   >,
   respond: AppsCreateInstallationAccessTokenResponder,
@@ -2522,7 +2522,7 @@ export type AppsDeleteAuthorization = (
   params: Params<
     t_AppsDeleteAuthorizationParamSchema,
     void,
-    t_AppsDeleteAuthorizationBodySchema,
+    t_AppsDeleteAuthorizationRequestBody,
     void
   >,
   respond: AppsDeleteAuthorizationResponder,
@@ -2545,7 +2545,7 @@ export type AppsCheckToken = (
   params: Params<
     t_AppsCheckTokenParamSchema,
     void,
-    t_AppsCheckTokenBodySchema,
+    t_AppsCheckTokenRequestBody,
     void
   >,
   respond: AppsCheckTokenResponder,
@@ -2568,7 +2568,7 @@ export type AppsResetToken = (
   params: Params<
     t_AppsResetTokenParamSchema,
     void,
-    t_AppsResetTokenBodySchema,
+    t_AppsResetTokenRequestBody,
     void
   >,
   respond: AppsResetTokenResponder,
@@ -2590,7 +2590,7 @@ export type AppsDeleteToken = (
   params: Params<
     t_AppsDeleteTokenParamSchema,
     void,
-    t_AppsDeleteTokenBodySchema,
+    t_AppsDeleteTokenRequestBody,
     void
   >,
   respond: AppsDeleteTokenResponder,
@@ -2615,7 +2615,7 @@ export type AppsScopeToken = (
   params: Params<
     t_AppsScopeTokenParamSchema,
     void,
-    t_AppsScopeTokenBodySchema,
+    t_AppsScopeTokenRequestBody,
     void
   >,
   respond: AppsScopeTokenResponder,
@@ -2801,7 +2801,7 @@ export type CredentialsRevokeResponder = {
 } & KoaRuntimeResponder
 
 export type CredentialsRevoke = (
-  params: Params<void, void, t_CredentialsRevokeBodySchema, void>,
+  params: Params<void, void, t_CredentialsRevokeRequestBody, void>,
   respond: CredentialsRevokeResponder,
   ctx: RouterContext,
   next: Next,
@@ -2877,7 +2877,7 @@ export type CodeSecurityCreateConfigurationForEnterprise = (
   params: Params<
     t_CodeSecurityCreateConfigurationForEnterpriseParamSchema,
     void,
-    t_CodeSecurityCreateConfigurationForEnterpriseBodySchema,
+    t_CodeSecurityCreateConfigurationForEnterpriseRequestBody,
     void
   >,
   respond: CodeSecurityCreateConfigurationForEnterpriseResponder,
@@ -2950,7 +2950,7 @@ export type CodeSecurityUpdateEnterpriseConfiguration = (
   params: Params<
     t_CodeSecurityUpdateEnterpriseConfigurationParamSchema,
     void,
-    t_CodeSecurityUpdateEnterpriseConfigurationBodySchema,
+    t_CodeSecurityUpdateEnterpriseConfigurationRequestBody,
     void
   >,
   respond: CodeSecurityUpdateEnterpriseConfigurationResponder,
@@ -3007,7 +3007,7 @@ export type CodeSecurityAttachEnterpriseConfiguration = (
   params: Params<
     t_CodeSecurityAttachEnterpriseConfigurationParamSchema,
     void,
-    t_CodeSecurityAttachEnterpriseConfigurationBodySchema,
+    t_CodeSecurityAttachEnterpriseConfigurationRequestBody,
     void
   >,
   respond: CodeSecurityAttachEnterpriseConfigurationResponder,
@@ -3040,7 +3040,7 @@ export type CodeSecuritySetConfigurationAsDefaultForEnterprise = (
   params: Params<
     t_CodeSecuritySetConfigurationAsDefaultForEnterpriseParamSchema,
     void,
-    t_CodeSecuritySetConfigurationAsDefaultForEnterpriseBodySchema,
+    t_CodeSecuritySetConfigurationAsDefaultForEnterpriseRequestBody,
     void
   >,
   respond: CodeSecuritySetConfigurationAsDefaultForEnterpriseResponder,
@@ -3224,7 +3224,7 @@ export type GistsCreateResponder = {
 } & KoaRuntimeResponder
 
 export type GistsCreate = (
-  params: Params<void, void, t_GistsCreateBodySchema, void>,
+  params: Params<void, void, t_GistsCreateRequestBody, void>,
   respond: GistsCreateResponder,
   ctx: RouterContext,
   next: Next,
@@ -3327,7 +3327,12 @@ export type GistsUpdateResponder = {
 } & KoaRuntimeResponder
 
 export type GistsUpdate = (
-  params: Params<t_GistsUpdateParamSchema, void, t_GistsUpdateBodySchema, void>,
+  params: Params<
+    t_GistsUpdateParamSchema,
+    void,
+    t_GistsUpdateRequestBody,
+    void
+  >,
   respond: GistsUpdateResponder,
   ctx: RouterContext,
   next: Next,
@@ -3397,7 +3402,7 @@ export type GistsCreateComment = (
   params: Params<
     t_GistsCreateCommentParamSchema,
     void,
-    t_GistsCreateCommentBodySchema,
+    t_GistsCreateCommentRequestBody,
     void
   >,
   respond: GistsCreateCommentResponder,
@@ -3461,7 +3466,7 @@ export type GistsUpdateComment = (
   params: Params<
     t_GistsUpdateCommentParamSchema,
     void,
-    t_GistsUpdateCommentBodySchema,
+    t_GistsUpdateCommentRequestBody,
     void
   >,
   respond: GistsUpdateCommentResponder,
@@ -3803,7 +3808,7 @@ export type MarkdownRenderResponder = {
 } & KoaRuntimeResponder
 
 export type MarkdownRender = (
-  params: Params<void, void, t_MarkdownRenderBodySchema, void>,
+  params: Params<void, void, t_MarkdownRenderRequestBody, void>,
   respond: MarkdownRenderResponder,
   ctx: RouterContext,
   next: Next,
@@ -3820,7 +3825,7 @@ export type MarkdownRenderRawResponder = {
 } & KoaRuntimeResponder
 
 export type MarkdownRenderRaw = (
-  params: Params<void, void, t_MarkdownRenderRawBodySchema | undefined, void>,
+  params: Params<void, void, t_MarkdownRenderRawRequestBody | undefined, void>,
   respond: MarkdownRenderRawResponder,
   ctx: RouterContext,
   next: Next,
@@ -4050,7 +4055,7 @@ export type ActivityMarkNotificationsAsRead = (
   params: Params<
     void,
     void,
-    t_ActivityMarkNotificationsAsReadBodySchema | undefined,
+    t_ActivityMarkNotificationsAsReadRequestBody | undefined,
     void
   >,
   respond: ActivityMarkNotificationsAsReadResponder,
@@ -4161,7 +4166,7 @@ export type ActivitySetThreadSubscription = (
   params: Params<
     t_ActivitySetThreadSubscriptionParamSchema,
     void,
-    t_ActivitySetThreadSubscriptionBodySchema | undefined,
+    t_ActivitySetThreadSubscriptionRequestBody | undefined,
     void
   >,
   respond: ActivitySetThreadSubscriptionResponder,
@@ -4266,7 +4271,7 @@ export type DependabotUpdateRepositoryAccessForOrg = (
   params: Params<
     t_DependabotUpdateRepositoryAccessForOrgParamSchema,
     void,
-    t_DependabotUpdateRepositoryAccessForOrgBodySchema,
+    t_DependabotUpdateRepositoryAccessForOrgRequestBody,
     void
   >,
   respond: DependabotUpdateRepositoryAccessForOrgResponder,
@@ -4290,7 +4295,7 @@ export type DependabotSetRepositoryAccessDefaultLevel = (
   params: Params<
     t_DependabotSetRepositoryAccessDefaultLevelParamSchema,
     void,
-    t_DependabotSetRepositoryAccessDefaultLevelBodySchema,
+    t_DependabotSetRepositoryAccessDefaultLevelRequestBody,
     void
   >,
   respond: DependabotSetRepositoryAccessDefaultLevelResponder,
@@ -4370,7 +4375,7 @@ export type OrgsUpdate = (
   params: Params<
     t_OrgsUpdateParamSchema,
     void,
-    t_OrgsUpdateBodySchema | undefined,
+    t_OrgsUpdateRequestBody | undefined,
     void
   >,
   respond: OrgsUpdateResponder,
@@ -4496,7 +4501,7 @@ export type ActionsCreateHostedRunnerForOrg = (
   params: Params<
     t_ActionsCreateHostedRunnerForOrgParamSchema,
     void,
-    t_ActionsCreateHostedRunnerForOrgBodySchema,
+    t_ActionsCreateHostedRunnerForOrgRequestBody,
     void
   >,
   respond: ActionsCreateHostedRunnerForOrgResponder,
@@ -4667,7 +4672,7 @@ export type ActionsUpdateHostedRunnerForOrg = (
   params: Params<
     t_ActionsUpdateHostedRunnerForOrgParamSchema,
     void,
-    t_ActionsUpdateHostedRunnerForOrgBodySchema,
+    t_ActionsUpdateHostedRunnerForOrgRequestBody,
     void
   >,
   respond: ActionsUpdateHostedRunnerForOrgResponder,
@@ -4729,7 +4734,7 @@ export type OidcUpdateOidcCustomSubTemplateForOrg = (
   params: Params<
     t_OidcUpdateOidcCustomSubTemplateForOrgParamSchema,
     void,
-    t_OidcUpdateOidcCustomSubTemplateForOrgBodySchema,
+    t_OidcUpdateOidcCustomSubTemplateForOrgRequestBody,
     void
   >,
   respond: OidcUpdateOidcCustomSubTemplateForOrgResponder,
@@ -4771,7 +4776,7 @@ export type ActionsSetGithubActionsPermissionsOrganization = (
   params: Params<
     t_ActionsSetGithubActionsPermissionsOrganizationParamSchema,
     void,
-    t_ActionsSetGithubActionsPermissionsOrganizationBodySchema,
+    t_ActionsSetGithubActionsPermissionsOrganizationRequestBody,
     void
   >,
   respond: ActionsSetGithubActionsPermissionsOrganizationResponder,
@@ -4820,7 +4825,7 @@ export type ActionsSetSelectedRepositoriesEnabledGithubActionsOrganization = (
   params: Params<
     t_ActionsSetSelectedRepositoriesEnabledGithubActionsOrganizationParamSchema,
     void,
-    t_ActionsSetSelectedRepositoriesEnabledGithubActionsOrganizationBodySchema,
+    t_ActionsSetSelectedRepositoriesEnabledGithubActionsOrganizationRequestBody,
     void
   >,
   respond: ActionsSetSelectedRepositoriesEnabledGithubActionsOrganizationResponder,
@@ -4896,7 +4901,7 @@ export type ActionsSetAllowedActionsOrganization = (
   params: Params<
     t_ActionsSetAllowedActionsOrganizationParamSchema,
     void,
-    t_ActionsSetAllowedActionsOrganizationBodySchema | undefined,
+    t_ActionsSetAllowedActionsOrganizationRequestBody | undefined,
     void
   >,
   respond: ActionsSetAllowedActionsOrganizationResponder,
@@ -4936,7 +4941,7 @@ export type ActionsSetGithubActionsDefaultWorkflowPermissionsOrganization = (
   params: Params<
     t_ActionsSetGithubActionsDefaultWorkflowPermissionsOrganizationParamSchema,
     void,
-    | t_ActionsSetGithubActionsDefaultWorkflowPermissionsOrganizationBodySchema
+    | t_ActionsSetGithubActionsDefaultWorkflowPermissionsOrganizationRequestBody
     | undefined,
     void
   >,
@@ -4984,7 +4989,7 @@ export type ActionsCreateSelfHostedRunnerGroupForOrg = (
   params: Params<
     t_ActionsCreateSelfHostedRunnerGroupForOrgParamSchema,
     void,
-    t_ActionsCreateSelfHostedRunnerGroupForOrgBodySchema,
+    t_ActionsCreateSelfHostedRunnerGroupForOrgRequestBody,
     void
   >,
   respond: ActionsCreateSelfHostedRunnerGroupForOrgResponder,
@@ -5024,7 +5029,7 @@ export type ActionsUpdateSelfHostedRunnerGroupForOrg = (
   params: Params<
     t_ActionsUpdateSelfHostedRunnerGroupForOrgParamSchema,
     void,
-    t_ActionsUpdateSelfHostedRunnerGroupForOrgBodySchema,
+    t_ActionsUpdateSelfHostedRunnerGroupForOrgRequestBody,
     void
   >,
   respond: ActionsUpdateSelfHostedRunnerGroupForOrgResponder,
@@ -5120,7 +5125,7 @@ export type ActionsSetRepoAccessToSelfHostedRunnerGroupInOrg = (
   params: Params<
     t_ActionsSetRepoAccessToSelfHostedRunnerGroupInOrgParamSchema,
     void,
-    t_ActionsSetRepoAccessToSelfHostedRunnerGroupInOrgBodySchema,
+    t_ActionsSetRepoAccessToSelfHostedRunnerGroupInOrgRequestBody,
     void
   >,
   respond: ActionsSetRepoAccessToSelfHostedRunnerGroupInOrgResponder,
@@ -5203,7 +5208,7 @@ export type ActionsSetSelfHostedRunnersInGroupForOrg = (
   params: Params<
     t_ActionsSetSelfHostedRunnersInGroupForOrgParamSchema,
     void,
-    t_ActionsSetSelfHostedRunnersInGroupForOrgBodySchema,
+    t_ActionsSetSelfHostedRunnersInGroupForOrgRequestBody,
     void
   >,
   respond: ActionsSetSelfHostedRunnersInGroupForOrgResponder,
@@ -5312,7 +5317,7 @@ export type ActionsGenerateRunnerJitconfigForOrg = (
   params: Params<
     t_ActionsGenerateRunnerJitconfigForOrgParamSchema,
     void,
-    t_ActionsGenerateRunnerJitconfigForOrgBodySchema,
+    t_ActionsGenerateRunnerJitconfigForOrgRequestBody,
     void
   >,
   respond: ActionsGenerateRunnerJitconfigForOrgResponder,
@@ -5452,7 +5457,7 @@ export type ActionsAddCustomLabelsToSelfHostedRunnerForOrg = (
   params: Params<
     t_ActionsAddCustomLabelsToSelfHostedRunnerForOrgParamSchema,
     void,
-    t_ActionsAddCustomLabelsToSelfHostedRunnerForOrgBodySchema,
+    t_ActionsAddCustomLabelsToSelfHostedRunnerForOrgRequestBody,
     void
   >,
   respond: ActionsAddCustomLabelsToSelfHostedRunnerForOrgResponder,
@@ -5485,7 +5490,7 @@ export type ActionsSetCustomLabelsForSelfHostedRunnerForOrg = (
   params: Params<
     t_ActionsSetCustomLabelsForSelfHostedRunnerForOrgParamSchema,
     void,
-    t_ActionsSetCustomLabelsForSelfHostedRunnerForOrgBodySchema,
+    t_ActionsSetCustomLabelsForSelfHostedRunnerForOrgRequestBody,
     void
   >,
   respond: ActionsSetCustomLabelsForSelfHostedRunnerForOrgResponder,
@@ -5637,7 +5642,7 @@ export type ActionsCreateOrUpdateOrgSecret = (
   params: Params<
     t_ActionsCreateOrUpdateOrgSecretParamSchema,
     void,
-    t_ActionsCreateOrUpdateOrgSecretBodySchema,
+    t_ActionsCreateOrUpdateOrgSecretRequestBody,
     void
   >,
   respond: ActionsCreateOrUpdateOrgSecretResponder,
@@ -5700,7 +5705,7 @@ export type ActionsSetSelectedReposForOrgSecret = (
   params: Params<
     t_ActionsSetSelectedReposForOrgSecretParamSchema,
     void,
-    t_ActionsSetSelectedReposForOrgSecretBodySchema,
+    t_ActionsSetSelectedReposForOrgSecretRequestBody,
     void
   >,
   respond: ActionsSetSelectedReposForOrgSecretResponder,
@@ -5791,7 +5796,7 @@ export type ActionsCreateOrgVariable = (
   params: Params<
     t_ActionsCreateOrgVariableParamSchema,
     void,
-    t_ActionsCreateOrgVariableBodySchema,
+    t_ActionsCreateOrgVariableRequestBody,
     void
   >,
   respond: ActionsCreateOrgVariableResponder,
@@ -5826,7 +5831,7 @@ export type ActionsUpdateOrgVariable = (
   params: Params<
     t_ActionsUpdateOrgVariableParamSchema,
     void,
-    t_ActionsUpdateOrgVariableBodySchema,
+    t_ActionsUpdateOrgVariableRequestBody,
     void
   >,
   respond: ActionsUpdateOrgVariableResponder,
@@ -5889,7 +5894,7 @@ export type ActionsSetSelectedReposForOrgVariable = (
   params: Params<
     t_ActionsSetSelectedReposForOrgVariableParamSchema,
     void,
-    t_ActionsSetSelectedReposForOrgVariableBodySchema,
+    t_ActionsSetSelectedReposForOrgVariableRequestBody,
     void
   >,
   respond: ActionsSetSelectedReposForOrgVariableResponder,
@@ -5981,7 +5986,7 @@ export type OrgsListAttestationsBulk = (
   params: Params<
     t_OrgsListAttestationsBulkParamSchema,
     t_OrgsListAttestationsBulkQuerySchema,
-    t_OrgsListAttestationsBulkBodySchema,
+    t_OrgsListAttestationsBulkRequestBody,
     void
   >,
   respond: OrgsListAttestationsBulkResponder,
@@ -6032,7 +6037,7 @@ export type OrgsDeleteAttestationsBulk = (
   params: Params<
     t_OrgsDeleteAttestationsBulkParamSchema,
     void,
-    t_OrgsDeleteAttestationsBulkBodySchema,
+    t_OrgsDeleteAttestationsBulkRequestBody,
     void
   >,
   respond: OrgsDeleteAttestationsBulkResponder,
@@ -6260,7 +6265,7 @@ export type CampaignsCreateCampaign = (
   params: Params<
     t_CampaignsCreateCampaignParamSchema,
     void,
-    t_CampaignsCreateCampaignBodySchema,
+    t_CampaignsCreateCampaignRequestBody,
     void
   >,
   respond: CampaignsCreateCampaignResponder,
@@ -6332,7 +6337,7 @@ export type CampaignsUpdateCampaign = (
   params: Params<
     t_CampaignsUpdateCampaignParamSchema,
     void,
-    t_CampaignsUpdateCampaignBodySchema,
+    t_CampaignsUpdateCampaignRequestBody,
     void
   >,
   respond: CampaignsUpdateCampaignResponder,
@@ -6452,7 +6457,7 @@ export type CodeSecurityCreateConfiguration = (
   params: Params<
     t_CodeSecurityCreateConfigurationParamSchema,
     void,
-    t_CodeSecurityCreateConfigurationBodySchema,
+    t_CodeSecurityCreateConfigurationRequestBody,
     void
   >,
   respond: CodeSecurityCreateConfigurationResponder,
@@ -6502,7 +6507,7 @@ export type CodeSecurityDetachConfiguration = (
   params: Params<
     t_CodeSecurityDetachConfigurationParamSchema,
     void,
-    t_CodeSecurityDetachConfigurationBodySchema,
+    t_CodeSecurityDetachConfigurationRequestBody,
     void
   >,
   respond: CodeSecurityDetachConfigurationResponder,
@@ -6548,7 +6553,7 @@ export type CodeSecurityUpdateConfiguration = (
   params: Params<
     t_CodeSecurityUpdateConfigurationParamSchema,
     void,
-    t_CodeSecurityUpdateConfigurationBodySchema,
+    t_CodeSecurityUpdateConfigurationRequestBody,
     void
   >,
   respond: CodeSecurityUpdateConfigurationResponder,
@@ -6599,7 +6604,7 @@ export type CodeSecurityAttachConfiguration = (
   params: Params<
     t_CodeSecurityAttachConfigurationParamSchema,
     void,
-    t_CodeSecurityAttachConfigurationBodySchema,
+    t_CodeSecurityAttachConfigurationRequestBody,
     void
   >,
   respond: CodeSecurityAttachConfigurationResponder,
@@ -6629,7 +6634,7 @@ export type CodeSecuritySetConfigurationAsDefault = (
   params: Params<
     t_CodeSecuritySetConfigurationAsDefaultParamSchema,
     void,
-    t_CodeSecuritySetConfigurationAsDefaultBodySchema,
+    t_CodeSecuritySetConfigurationAsDefaultRequestBody,
     void
   >,
   respond: CodeSecuritySetConfigurationAsDefaultResponder,
@@ -6729,7 +6734,7 @@ export type CodespacesSetCodespacesAccess = (
   params: Params<
     t_CodespacesSetCodespacesAccessParamSchema,
     void,
-    t_CodespacesSetCodespacesAccessBodySchema,
+    t_CodespacesSetCodespacesAccessRequestBody,
     void
   >,
   respond: CodespacesSetCodespacesAccessResponder,
@@ -6759,7 +6764,7 @@ export type CodespacesSetCodespacesAccessUsers = (
   params: Params<
     t_CodespacesSetCodespacesAccessUsersParamSchema,
     void,
-    t_CodespacesSetCodespacesAccessUsersBodySchema,
+    t_CodespacesSetCodespacesAccessUsersRequestBody,
     void
   >,
   respond: CodespacesSetCodespacesAccessUsersResponder,
@@ -6789,7 +6794,7 @@ export type CodespacesDeleteCodespacesAccessUsers = (
   params: Params<
     t_CodespacesDeleteCodespacesAccessUsersParamSchema,
     void,
-    t_CodespacesDeleteCodespacesAccessUsersBodySchema,
+    t_CodespacesDeleteCodespacesAccessUsersRequestBody,
     void
   >,
   respond: CodespacesDeleteCodespacesAccessUsersResponder,
@@ -6876,7 +6881,7 @@ export type CodespacesCreateOrUpdateOrgSecret = (
   params: Params<
     t_CodespacesCreateOrUpdateOrgSecretParamSchema,
     void,
-    t_CodespacesCreateOrUpdateOrgSecretBodySchema,
+    t_CodespacesCreateOrUpdateOrgSecretRequestBody,
     void
   >,
   respond: CodespacesCreateOrUpdateOrgSecretResponder,
@@ -6949,7 +6954,7 @@ export type CodespacesSetSelectedReposForOrgSecret = (
   params: Params<
     t_CodespacesSetSelectedReposForOrgSecretParamSchema,
     void,
-    t_CodespacesSetSelectedReposForOrgSecretBodySchema,
+    t_CodespacesSetSelectedReposForOrgSecretRequestBody,
     void
   >,
   respond: CodespacesSetSelectedReposForOrgSecretResponder,
@@ -7097,7 +7102,7 @@ export type CopilotAddCopilotSeatsForTeams = (
   params: Params<
     t_CopilotAddCopilotSeatsForTeamsParamSchema,
     void,
-    t_CopilotAddCopilotSeatsForTeamsBodySchema,
+    t_CopilotAddCopilotSeatsForTeamsRequestBody,
     void
   >,
   respond: CopilotAddCopilotSeatsForTeamsResponder,
@@ -7134,7 +7139,7 @@ export type CopilotCancelCopilotSeatAssignmentForTeams = (
   params: Params<
     t_CopilotCancelCopilotSeatAssignmentForTeamsParamSchema,
     void,
-    t_CopilotCancelCopilotSeatAssignmentForTeamsBodySchema,
+    t_CopilotCancelCopilotSeatAssignmentForTeamsRequestBody,
     void
   >,
   respond: CopilotCancelCopilotSeatAssignmentForTeamsResponder,
@@ -7171,7 +7176,7 @@ export type CopilotAddCopilotSeatsForUsers = (
   params: Params<
     t_CopilotAddCopilotSeatsForUsersParamSchema,
     void,
-    t_CopilotAddCopilotSeatsForUsersBodySchema,
+    t_CopilotAddCopilotSeatsForUsersRequestBody,
     void
   >,
   respond: CopilotAddCopilotSeatsForUsersResponder,
@@ -7208,7 +7213,7 @@ export type CopilotCancelCopilotSeatAssignmentForUsers = (
   params: Params<
     t_CopilotCancelCopilotSeatAssignmentForUsersParamSchema,
     void,
-    t_CopilotCancelCopilotSeatAssignmentForUsersBodySchema,
+    t_CopilotCancelCopilotSeatAssignmentForUsersRequestBody,
     void
   >,
   respond: CopilotCancelCopilotSeatAssignmentForUsersResponder,
@@ -7356,7 +7361,7 @@ export type DependabotCreateOrUpdateOrgSecret = (
   params: Params<
     t_DependabotCreateOrUpdateOrgSecretParamSchema,
     void,
-    t_DependabotCreateOrUpdateOrgSecretBodySchema,
+    t_DependabotCreateOrUpdateOrgSecretRequestBody,
     void
   >,
   respond: DependabotCreateOrUpdateOrgSecretResponder,
@@ -7419,7 +7424,7 @@ export type DependabotSetSelectedReposForOrgSecret = (
   params: Params<
     t_DependabotSetSelectedReposForOrgSecretParamSchema,
     void,
-    t_DependabotSetSelectedReposForOrgSecretBodySchema,
+    t_DependabotSetSelectedReposForOrgSecretRequestBody,
     void
   >,
   respond: DependabotSetSelectedReposForOrgSecretResponder,
@@ -7570,7 +7575,7 @@ export type OrgsCreateWebhook = (
   params: Params<
     t_OrgsCreateWebhookParamSchema,
     void,
-    t_OrgsCreateWebhookBodySchema,
+    t_OrgsCreateWebhookRequestBody,
     void
   >,
   respond: OrgsCreateWebhookResponder,
@@ -7611,7 +7616,7 @@ export type OrgsUpdateWebhook = (
   params: Params<
     t_OrgsUpdateWebhookParamSchema,
     void,
-    t_OrgsUpdateWebhookBodySchema | undefined,
+    t_OrgsUpdateWebhookRequestBody | undefined,
     void
   >,
   respond: OrgsUpdateWebhookResponder,
@@ -7665,7 +7670,7 @@ export type OrgsUpdateWebhookConfigForOrg = (
   params: Params<
     t_OrgsUpdateWebhookConfigForOrgParamSchema,
     void,
-    t_OrgsUpdateWebhookConfigForOrgBodySchema | undefined,
+    t_OrgsUpdateWebhookConfigForOrgRequestBody | undefined,
     void
   >,
   respond: OrgsUpdateWebhookConfigForOrgResponder,
@@ -8016,7 +8021,7 @@ export type InteractionsSetRestrictionsForOrg = (
   params: Params<
     t_InteractionsSetRestrictionsForOrgParamSchema,
     void,
-    t_InteractionsSetRestrictionsForOrgBodySchema,
+    t_InteractionsSetRestrictionsForOrgRequestBody,
     void
   >,
   respond: InteractionsSetRestrictionsForOrgResponder,
@@ -8079,7 +8084,7 @@ export type OrgsCreateInvitation = (
   params: Params<
     t_OrgsCreateInvitationParamSchema,
     void,
-    t_OrgsCreateInvitationBodySchema | undefined,
+    t_OrgsCreateInvitationRequestBody | undefined,
     void
   >,
   respond: OrgsCreateInvitationResponder,
@@ -8161,7 +8166,7 @@ export type OrgsCreateIssueType = (
   params: Params<
     t_OrgsCreateIssueTypeParamSchema,
     void,
-    t_OrgsCreateIssueTypeBodySchema,
+    t_OrgsCreateIssueTypeRequestBody,
     void
   >,
   respond: OrgsCreateIssueTypeResponder,
@@ -8185,7 +8190,7 @@ export type OrgsUpdateIssueType = (
   params: Params<
     t_OrgsUpdateIssueTypeParamSchema,
     void,
-    t_OrgsUpdateIssueTypeBodySchema,
+    t_OrgsUpdateIssueTypeRequestBody,
     void
   >,
   respond: OrgsUpdateIssueTypeResponder,
@@ -8458,7 +8463,7 @@ export type OrgsSetMembershipForUser = (
   params: Params<
     t_OrgsSetMembershipForUserParamSchema,
     void,
-    t_OrgsSetMembershipForUserBodySchema | undefined,
+    t_OrgsSetMembershipForUserRequestBody | undefined,
     void
   >,
   respond: OrgsSetMembershipForUserResponder,
@@ -8521,7 +8526,7 @@ export type MigrationsStartForOrg = (
   params: Params<
     t_MigrationsStartForOrgParamSchema,
     void,
-    t_MigrationsStartForOrgBodySchema,
+    t_MigrationsStartForOrgRequestBody,
     void
   >,
   respond: MigrationsStartForOrgResponder,
@@ -8851,7 +8856,7 @@ export type OrgsConvertMemberToOutsideCollaborator = (
   params: Params<
     t_OrgsConvertMemberToOutsideCollaboratorParamSchema,
     void,
-    t_OrgsConvertMemberToOutsideCollaboratorBodySchema | undefined,
+    t_OrgsConvertMemberToOutsideCollaboratorRequestBody | undefined,
     void
   >,
   respond: OrgsConvertMemberToOutsideCollaboratorResponder,
@@ -9125,7 +9130,7 @@ export type OrgsReviewPatGrantRequestsInBulk = (
   params: Params<
     t_OrgsReviewPatGrantRequestsInBulkParamSchema,
     void,
-    t_OrgsReviewPatGrantRequestsInBulkBodySchema,
+    t_OrgsReviewPatGrantRequestsInBulkRequestBody,
     void
   >,
   respond: OrgsReviewPatGrantRequestsInBulkResponder,
@@ -9158,7 +9163,7 @@ export type OrgsReviewPatGrantRequest = (
   params: Params<
     t_OrgsReviewPatGrantRequestParamSchema,
     void,
-    t_OrgsReviewPatGrantRequestBodySchema,
+    t_OrgsReviewPatGrantRequestRequestBody,
     void
   >,
   respond: OrgsReviewPatGrantRequestResponder,
@@ -9242,7 +9247,7 @@ export type OrgsUpdatePatAccesses = (
   params: Params<
     t_OrgsUpdatePatAccessesParamSchema,
     void,
-    t_OrgsUpdatePatAccessesBodySchema,
+    t_OrgsUpdatePatAccessesRequestBody,
     void
   >,
   respond: OrgsUpdatePatAccessesResponder,
@@ -9275,7 +9280,7 @@ export type OrgsUpdatePatAccess = (
   params: Params<
     t_OrgsUpdatePatAccessParamSchema,
     void,
-    t_OrgsUpdatePatAccessBodySchema,
+    t_OrgsUpdatePatAccessRequestBody,
     void
   >,
   respond: OrgsUpdatePatAccessResponder,
@@ -9360,7 +9365,7 @@ export type PrivateRegistriesCreateOrgPrivateRegistry = (
   params: Params<
     t_PrivateRegistriesCreateOrgPrivateRegistryParamSchema,
     void,
-    t_PrivateRegistriesCreateOrgPrivateRegistryBodySchema,
+    t_PrivateRegistriesCreateOrgPrivateRegistryRequestBody,
     void
   >,
   respond: PrivateRegistriesCreateOrgPrivateRegistryResponder,
@@ -9440,7 +9445,7 @@ export type PrivateRegistriesUpdateOrgPrivateRegistry = (
   params: Params<
     t_PrivateRegistriesUpdateOrgPrivateRegistryParamSchema,
     void,
-    t_PrivateRegistriesUpdateOrgPrivateRegistryBodySchema,
+    t_PrivateRegistriesUpdateOrgPrivateRegistryRequestBody,
     void
   >,
   respond: PrivateRegistriesUpdateOrgPrivateRegistryResponder,
@@ -9513,7 +9518,7 @@ export type ProjectsClassicCreateForOrg = (
   params: Params<
     t_ProjectsClassicCreateForOrgParamSchema,
     void,
-    t_ProjectsClassicCreateForOrgBodySchema,
+    t_ProjectsClassicCreateForOrgRequestBody,
     void
   >,
   respond: ProjectsClassicCreateForOrgResponder,
@@ -9559,7 +9564,7 @@ export type OrgsCreateOrUpdateCustomProperties = (
   params: Params<
     t_OrgsCreateOrUpdateCustomPropertiesParamSchema,
     void,
-    t_OrgsCreateOrUpdateCustomPropertiesBodySchema,
+    t_OrgsCreateOrUpdateCustomPropertiesRequestBody,
     void
   >,
   respond: OrgsCreateOrUpdateCustomPropertiesResponder,
@@ -9602,7 +9607,7 @@ export type OrgsCreateOrUpdateCustomProperty = (
   params: Params<
     t_OrgsCreateOrUpdateCustomPropertyParamSchema,
     void,
-    t_OrgsCreateOrUpdateCustomPropertyBodySchema,
+    t_OrgsCreateOrUpdateCustomPropertyRequestBody,
     void
   >,
   respond: OrgsCreateOrUpdateCustomPropertyResponder,
@@ -9670,7 +9675,7 @@ export type OrgsCreateOrUpdateCustomPropertiesValuesForRepos = (
   params: Params<
     t_OrgsCreateOrUpdateCustomPropertiesValuesForReposParamSchema,
     void,
-    t_OrgsCreateOrUpdateCustomPropertiesValuesForReposBodySchema,
+    t_OrgsCreateOrUpdateCustomPropertiesValuesForReposRequestBody,
     void
   >,
   respond: OrgsCreateOrUpdateCustomPropertiesValuesForReposResponder,
@@ -9797,7 +9802,7 @@ export type ReposCreateInOrg = (
   params: Params<
     t_ReposCreateInOrgParamSchema,
     void,
-    t_ReposCreateInOrgBodySchema,
+    t_ReposCreateInOrgRequestBody,
     void
   >,
   respond: ReposCreateInOrgResponder,
@@ -9845,7 +9850,7 @@ export type ReposCreateOrgRuleset = (
   params: Params<
     t_ReposCreateOrgRulesetParamSchema,
     void,
-    t_ReposCreateOrgRulesetBodySchema,
+    t_ReposCreateOrgRulesetRequestBody,
     void
   >,
   respond: ReposCreateOrgRulesetResponder,
@@ -9931,7 +9936,7 @@ export type ReposUpdateOrgRuleset = (
   params: Params<
     t_ReposUpdateOrgRulesetParamSchema,
     void,
-    t_ReposUpdateOrgRulesetBodySchema | undefined,
+    t_ReposUpdateOrgRulesetRequestBody | undefined,
     void
   >,
   respond: ReposUpdateOrgRulesetResponder,
@@ -10204,7 +10209,7 @@ export type HostedComputeCreateNetworkConfigurationForOrg = (
   params: Params<
     t_HostedComputeCreateNetworkConfigurationForOrgParamSchema,
     void,
-    t_HostedComputeCreateNetworkConfigurationForOrgBodySchema,
+    t_HostedComputeCreateNetworkConfigurationForOrgRequestBody,
     void
   >,
   respond: HostedComputeCreateNetworkConfigurationForOrgResponder,
@@ -10244,7 +10249,7 @@ export type HostedComputeUpdateNetworkConfigurationForOrg = (
   params: Params<
     t_HostedComputeUpdateNetworkConfigurationForOrgParamSchema,
     void,
-    t_HostedComputeUpdateNetworkConfigurationForOrgBodySchema,
+    t_HostedComputeUpdateNetworkConfigurationForOrgRequestBody,
     void
   >,
   respond: HostedComputeUpdateNetworkConfigurationForOrgResponder,
@@ -10346,7 +10351,12 @@ export type TeamsCreateResponder = {
 } & KoaRuntimeResponder
 
 export type TeamsCreate = (
-  params: Params<t_TeamsCreateParamSchema, void, t_TeamsCreateBodySchema, void>,
+  params: Params<
+    t_TeamsCreateParamSchema,
+    void,
+    t_TeamsCreateRequestBody,
+    void
+  >,
   respond: TeamsCreateResponder,
   ctx: RouterContext,
   next: Next,
@@ -10387,7 +10397,7 @@ export type TeamsUpdateInOrg = (
   params: Params<
     t_TeamsUpdateInOrgParamSchema,
     void,
-    t_TeamsUpdateInOrgBodySchema | undefined,
+    t_TeamsUpdateInOrgRequestBody | undefined,
     void
   >,
   respond: TeamsUpdateInOrgResponder,
@@ -10444,7 +10454,7 @@ export type TeamsCreateDiscussionInOrg = (
   params: Params<
     t_TeamsCreateDiscussionInOrgParamSchema,
     void,
-    t_TeamsCreateDiscussionInOrgBodySchema,
+    t_TeamsCreateDiscussionInOrgRequestBody,
     void
   >,
   respond: TeamsCreateDiscussionInOrgResponder,
@@ -10479,7 +10489,7 @@ export type TeamsUpdateDiscussionInOrg = (
   params: Params<
     t_TeamsUpdateDiscussionInOrgParamSchema,
     void,
-    t_TeamsUpdateDiscussionInOrgBodySchema | undefined,
+    t_TeamsUpdateDiscussionInOrgRequestBody | undefined,
     void
   >,
   respond: TeamsUpdateDiscussionInOrgResponder,
@@ -10532,7 +10542,7 @@ export type TeamsCreateDiscussionCommentInOrg = (
   params: Params<
     t_TeamsCreateDiscussionCommentInOrgParamSchema,
     void,
-    t_TeamsCreateDiscussionCommentInOrgBodySchema,
+    t_TeamsCreateDiscussionCommentInOrgRequestBody,
     void
   >,
   respond: TeamsCreateDiscussionCommentInOrgResponder,
@@ -10567,7 +10577,7 @@ export type TeamsUpdateDiscussionCommentInOrg = (
   params: Params<
     t_TeamsUpdateDiscussionCommentInOrgParamSchema,
     void,
-    t_TeamsUpdateDiscussionCommentInOrgBodySchema,
+    t_TeamsUpdateDiscussionCommentInOrgRequestBody,
     void
   >,
   respond: TeamsUpdateDiscussionCommentInOrgResponder,
@@ -10626,7 +10636,7 @@ export type ReactionsCreateForTeamDiscussionCommentInOrg = (
   params: Params<
     t_ReactionsCreateForTeamDiscussionCommentInOrgParamSchema,
     void,
-    t_ReactionsCreateForTeamDiscussionCommentInOrgBodySchema,
+    t_ReactionsCreateForTeamDiscussionCommentInOrgRequestBody,
     void
   >,
   respond: ReactionsCreateForTeamDiscussionCommentInOrgResponder,
@@ -10686,7 +10696,7 @@ export type ReactionsCreateForTeamDiscussionInOrg = (
   params: Params<
     t_ReactionsCreateForTeamDiscussionInOrgParamSchema,
     void,
-    t_ReactionsCreateForTeamDiscussionInOrgBodySchema,
+    t_ReactionsCreateForTeamDiscussionInOrgRequestBody,
     void
   >,
   respond: ReactionsCreateForTeamDiscussionInOrgResponder,
@@ -10784,7 +10794,7 @@ export type TeamsAddOrUpdateMembershipForUserInOrg = (
   params: Params<
     t_TeamsAddOrUpdateMembershipForUserInOrgParamSchema,
     void,
-    t_TeamsAddOrUpdateMembershipForUserInOrgBodySchema | undefined,
+    t_TeamsAddOrUpdateMembershipForUserInOrgRequestBody | undefined,
     void
   >,
   respond: TeamsAddOrUpdateMembershipForUserInOrgResponder,
@@ -10874,7 +10884,7 @@ export type TeamsAddOrUpdateProjectPermissionsInOrg = (
   params: Params<
     t_TeamsAddOrUpdateProjectPermissionsInOrgParamSchema,
     void,
-    t_TeamsAddOrUpdateProjectPermissionsInOrgBodySchema | undefined,
+    t_TeamsAddOrUpdateProjectPermissionsInOrgRequestBody | undefined,
     void
   >,
   respond: TeamsAddOrUpdateProjectPermissionsInOrgResponder,
@@ -10958,7 +10968,7 @@ export type TeamsAddOrUpdateRepoPermissionsInOrg = (
   params: Params<
     t_TeamsAddOrUpdateRepoPermissionsInOrgParamSchema,
     void,
-    t_TeamsAddOrUpdateRepoPermissionsInOrgBodySchema | undefined,
+    t_TeamsAddOrUpdateRepoPermissionsInOrgRequestBody | undefined,
     void
   >,
   respond: TeamsAddOrUpdateRepoPermissionsInOrgResponder,
@@ -11008,7 +11018,7 @@ export type OrgsEnableOrDisableSecurityProductOnAllOrgRepos = (
   params: Params<
     t_OrgsEnableOrDisableSecurityProductOnAllOrgReposParamSchema,
     void,
-    t_OrgsEnableOrDisableSecurityProductOnAllOrgReposBodySchema | undefined,
+    t_OrgsEnableOrDisableSecurityProductOnAllOrgReposRequestBody | undefined,
     void
   >,
   respond: OrgsEnableOrDisableSecurityProductOnAllOrgReposResponder,
@@ -11057,7 +11067,7 @@ export type ProjectsClassicUpdateCard = (
   params: Params<
     t_ProjectsClassicUpdateCardParamSchema,
     void,
-    t_ProjectsClassicUpdateCardBodySchema | undefined,
+    t_ProjectsClassicUpdateCardRequestBody | undefined,
     void
   >,
   respond: ProjectsClassicUpdateCardResponder,
@@ -11138,7 +11148,7 @@ export type ProjectsClassicMoveCard = (
   params: Params<
     t_ProjectsClassicMoveCardParamSchema,
     void,
-    t_ProjectsClassicMoveCardBodySchema,
+    t_ProjectsClassicMoveCardRequestBody,
     void
   >,
   respond: ProjectsClassicMoveCardResponder,
@@ -11212,7 +11222,7 @@ export type ProjectsClassicUpdateColumn = (
   params: Params<
     t_ProjectsClassicUpdateColumnParamSchema,
     void,
-    t_ProjectsClassicUpdateColumnBodySchema,
+    t_ProjectsClassicUpdateColumnRequestBody,
     void
   >,
   respond: ProjectsClassicUpdateColumnResponder,
@@ -11295,7 +11305,7 @@ export type ProjectsClassicCreateCard = (
   params: Params<
     t_ProjectsClassicCreateCardParamSchema,
     void,
-    t_ProjectsClassicCreateCardBodySchema,
+    t_ProjectsClassicCreateCardRequestBody,
     void
   >,
   respond: ProjectsClassicCreateCardResponder,
@@ -11335,7 +11345,7 @@ export type ProjectsClassicMoveColumn = (
   params: Params<
     t_ProjectsClassicMoveColumnParamSchema,
     void,
-    t_ProjectsClassicMoveColumnBodySchema,
+    t_ProjectsClassicMoveColumnRequestBody,
     void
   >,
   respond: ProjectsClassicMoveColumnResponder,
@@ -11390,7 +11400,7 @@ export type ProjectsClassicUpdate = (
   params: Params<
     t_ProjectsClassicUpdateParamSchema,
     void,
-    t_ProjectsClassicUpdateBodySchema | undefined,
+    t_ProjectsClassicUpdateRequestBody | undefined,
     void
   >,
   respond: ProjectsClassicUpdateResponder,
@@ -11494,7 +11504,7 @@ export type ProjectsClassicAddCollaborator = (
   params: Params<
     t_ProjectsClassicAddCollaboratorParamSchema,
     void,
-    t_ProjectsClassicAddCollaboratorBodySchema | undefined,
+    t_ProjectsClassicAddCollaboratorRequestBody | undefined,
     void
   >,
   respond: ProjectsClassicAddCollaboratorResponder,
@@ -11609,7 +11619,7 @@ export type ProjectsClassicCreateColumn = (
   params: Params<
     t_ProjectsClassicCreateColumnParamSchema,
     void,
-    t_ProjectsClassicCreateColumnBodySchema,
+    t_ProjectsClassicCreateColumnRequestBody,
     void
   >,
   respond: ProjectsClassicCreateColumnResponder,
@@ -11677,7 +11687,7 @@ export type ReposUpdate = (
   params: Params<
     t_ReposUpdateParamSchema,
     void,
-    t_ReposUpdateBodySchema | undefined,
+    t_ReposUpdateRequestBody | undefined,
     void
   >,
   respond: ReposUpdateResponder,
@@ -11905,7 +11915,7 @@ export type ActionsReRunJobForWorkflowRun = (
   params: Params<
     t_ActionsReRunJobForWorkflowRunParamSchema,
     void,
-    t_ActionsReRunJobForWorkflowRunBodySchema | undefined,
+    t_ActionsReRunJobForWorkflowRunRequestBody | undefined,
     void
   >,
   respond: ActionsReRunJobForWorkflowRunResponder,
@@ -11953,7 +11963,7 @@ export type ActionsSetCustomOidcSubClaimForRepo = (
   params: Params<
     t_ActionsSetCustomOidcSubClaimForRepoParamSchema,
     void,
-    t_ActionsSetCustomOidcSubClaimForRepoBodySchema,
+    t_ActionsSetCustomOidcSubClaimForRepoRequestBody,
     void
   >,
   respond: ActionsSetCustomOidcSubClaimForRepoResponder,
@@ -12054,7 +12064,7 @@ export type ActionsSetGithubActionsPermissionsRepository = (
   params: Params<
     t_ActionsSetGithubActionsPermissionsRepositoryParamSchema,
     void,
-    t_ActionsSetGithubActionsPermissionsRepositoryBodySchema,
+    t_ActionsSetGithubActionsPermissionsRepositoryRequestBody,
     void
   >,
   respond: ActionsSetGithubActionsPermissionsRepositoryResponder,
@@ -12092,7 +12102,7 @@ export type ActionsSetWorkflowAccessToRepository = (
   params: Params<
     t_ActionsSetWorkflowAccessToRepositoryParamSchema,
     void,
-    t_ActionsSetWorkflowAccessToRepositoryBodySchema,
+    t_ActionsSetWorkflowAccessToRepositoryRequestBody,
     void
   >,
   respond: ActionsSetWorkflowAccessToRepositoryResponder,
@@ -12130,7 +12140,7 @@ export type ActionsSetAllowedActionsRepository = (
   params: Params<
     t_ActionsSetAllowedActionsRepositoryParamSchema,
     void,
-    t_ActionsSetAllowedActionsRepositoryBodySchema | undefined,
+    t_ActionsSetAllowedActionsRepositoryRequestBody | undefined,
     void
   >,
   respond: ActionsSetAllowedActionsRepositoryResponder,
@@ -12171,7 +12181,7 @@ export type ActionsSetGithubActionsDefaultWorkflowPermissionsRepository = (
   params: Params<
     t_ActionsSetGithubActionsDefaultWorkflowPermissionsRepositoryParamSchema,
     void,
-    t_ActionsSetGithubActionsDefaultWorkflowPermissionsRepositoryBodySchema,
+    t_ActionsSetGithubActionsDefaultWorkflowPermissionsRepositoryRequestBody,
     void
   >,
   respond: ActionsSetGithubActionsDefaultWorkflowPermissionsRepositoryResponder,
@@ -12247,7 +12257,7 @@ export type ActionsGenerateRunnerJitconfigForRepo = (
   params: Params<
     t_ActionsGenerateRunnerJitconfigForRepoParamSchema,
     void,
-    t_ActionsGenerateRunnerJitconfigForRepoBodySchema,
+    t_ActionsGenerateRunnerJitconfigForRepoRequestBody,
     void
   >,
   respond: ActionsGenerateRunnerJitconfigForRepoResponder,
@@ -12392,7 +12402,7 @@ export type ActionsAddCustomLabelsToSelfHostedRunnerForRepo = (
   params: Params<
     t_ActionsAddCustomLabelsToSelfHostedRunnerForRepoParamSchema,
     void,
-    t_ActionsAddCustomLabelsToSelfHostedRunnerForRepoBodySchema,
+    t_ActionsAddCustomLabelsToSelfHostedRunnerForRepoRequestBody,
     void
   >,
   respond: ActionsAddCustomLabelsToSelfHostedRunnerForRepoResponder,
@@ -12425,7 +12435,7 @@ export type ActionsSetCustomLabelsForSelfHostedRunnerForRepo = (
   params: Params<
     t_ActionsSetCustomLabelsForSelfHostedRunnerForRepoParamSchema,
     void,
-    t_ActionsSetCustomLabelsForSelfHostedRunnerForRepoBodySchema,
+    t_ActionsSetCustomLabelsForSelfHostedRunnerForRepoRequestBody,
     void
   >,
   respond: ActionsSetCustomLabelsForSelfHostedRunnerForRepoResponder,
@@ -12728,7 +12738,7 @@ export type ActionsReviewCustomGatesForRun = (
   params: Params<
     t_ActionsReviewCustomGatesForRunParamSchema,
     void,
-    t_ActionsReviewCustomGatesForRunBodySchema,
+    t_ActionsReviewCustomGatesForRunRequestBody,
     void
   >,
   respond: ActionsReviewCustomGatesForRunResponder,
@@ -12844,7 +12854,7 @@ export type ActionsReviewPendingDeploymentsForRun = (
   params: Params<
     t_ActionsReviewPendingDeploymentsForRunParamSchema,
     void,
-    t_ActionsReviewPendingDeploymentsForRunBodySchema,
+    t_ActionsReviewPendingDeploymentsForRunRequestBody,
     void
   >,
   respond: ActionsReviewPendingDeploymentsForRunResponder,
@@ -12864,7 +12874,7 @@ export type ActionsReRunWorkflow = (
   params: Params<
     t_ActionsReRunWorkflowParamSchema,
     void,
-    t_ActionsReRunWorkflowBodySchema | undefined,
+    t_ActionsReRunWorkflowRequestBody | undefined,
     void
   >,
   respond: ActionsReRunWorkflowResponder,
@@ -12884,7 +12894,7 @@ export type ActionsReRunWorkflowFailedJobs = (
   params: Params<
     t_ActionsReRunWorkflowFailedJobsParamSchema,
     void,
-    t_ActionsReRunWorkflowFailedJobsBodySchema | undefined,
+    t_ActionsReRunWorkflowFailedJobsRequestBody | undefined,
     void
   >,
   respond: ActionsReRunWorkflowFailedJobsResponder,
@@ -12979,7 +12989,7 @@ export type ActionsCreateOrUpdateRepoSecret = (
   params: Params<
     t_ActionsCreateOrUpdateRepoSecretParamSchema,
     void,
-    t_ActionsCreateOrUpdateRepoSecretBodySchema,
+    t_ActionsCreateOrUpdateRepoSecretRequestBody,
     void
   >,
   respond: ActionsCreateOrUpdateRepoSecretResponder,
@@ -13042,7 +13052,7 @@ export type ActionsCreateRepoVariable = (
   params: Params<
     t_ActionsCreateRepoVariableParamSchema,
     void,
-    t_ActionsCreateRepoVariableBodySchema,
+    t_ActionsCreateRepoVariableRequestBody,
     void
   >,
   respond: ActionsCreateRepoVariableResponder,
@@ -13077,7 +13087,7 @@ export type ActionsUpdateRepoVariable = (
   params: Params<
     t_ActionsUpdateRepoVariableParamSchema,
     void,
-    t_ActionsUpdateRepoVariableBodySchema,
+    t_ActionsUpdateRepoVariableRequestBody,
     void
   >,
   respond: ActionsUpdateRepoVariableResponder,
@@ -13163,7 +13173,7 @@ export type ActionsCreateWorkflowDispatch = (
   params: Params<
     t_ActionsCreateWorkflowDispatchParamSchema,
     void,
-    t_ActionsCreateWorkflowDispatchBodySchema,
+    t_ActionsCreateWorkflowDispatchRequestBody,
     void
   >,
   respond: ActionsCreateWorkflowDispatchResponder,
@@ -13303,7 +13313,7 @@ export type ReposCreateAttestation = (
   params: Params<
     t_ReposCreateAttestationParamSchema,
     void,
-    t_ReposCreateAttestationBodySchema,
+    t_ReposCreateAttestationRequestBody,
     void
   >,
   respond: ReposCreateAttestationResponder,
@@ -13397,7 +13407,7 @@ export type ReposCreateAutolink = (
   params: Params<
     t_ReposCreateAutolinkParamSchema,
     void,
-    t_ReposCreateAutolinkBodySchema,
+    t_ReposCreateAutolinkRequestBody,
     void
   >,
   respond: ReposCreateAutolinkResponder,
@@ -13571,7 +13581,7 @@ export type ReposUpdateBranchProtection = (
   params: Params<
     t_ReposUpdateBranchProtectionParamSchema,
     void,
-    t_ReposUpdateBranchProtectionBodySchema,
+    t_ReposUpdateBranchProtectionRequestBody,
     void
   >,
   respond: ReposUpdateBranchProtectionResponder,
@@ -13684,7 +13694,7 @@ export type ReposUpdatePullRequestReviewProtection = (
   params: Params<
     t_ReposUpdatePullRequestReviewProtectionParamSchema,
     void,
-    t_ReposUpdatePullRequestReviewProtectionBodySchema | undefined,
+    t_ReposUpdatePullRequestReviewProtectionRequestBody | undefined,
     void
   >,
   respond: ReposUpdatePullRequestReviewProtectionResponder,
@@ -13812,7 +13822,7 @@ export type ReposUpdateStatusCheckProtection = (
   params: Params<
     t_ReposUpdateStatusCheckProtectionParamSchema,
     void,
-    t_ReposUpdateStatusCheckProtectionBodySchema | undefined,
+    t_ReposUpdateStatusCheckProtectionRequestBody | undefined,
     void
   >,
   respond: ReposUpdateStatusCheckProtectionResponder,
@@ -13872,7 +13882,7 @@ export type ReposAddStatusCheckContexts = (
   params: Params<
     t_ReposAddStatusCheckContextsParamSchema,
     void,
-    t_ReposAddStatusCheckContextsBodySchema | undefined,
+    t_ReposAddStatusCheckContextsRequestBody | undefined,
     void
   >,
   respond: ReposAddStatusCheckContextsResponder,
@@ -13897,7 +13907,7 @@ export type ReposSetStatusCheckContexts = (
   params: Params<
     t_ReposSetStatusCheckContextsParamSchema,
     void,
-    t_ReposSetStatusCheckContextsBodySchema | undefined,
+    t_ReposSetStatusCheckContextsRequestBody | undefined,
     void
   >,
   respond: ReposSetStatusCheckContextsResponder,
@@ -13921,7 +13931,7 @@ export type ReposRemoveStatusCheckContexts = (
   params: Params<
     t_ReposRemoveStatusCheckContextsParamSchema,
     void,
-    t_ReposRemoveStatusCheckContextsBodySchema,
+    t_ReposRemoveStatusCheckContextsRequestBody,
     void
   >,
   respond: ReposRemoveStatusCheckContextsResponder,
@@ -13996,7 +14006,7 @@ export type ReposAddAppAccessRestrictions = (
   params: Params<
     t_ReposAddAppAccessRestrictionsParamSchema,
     void,
-    t_ReposAddAppAccessRestrictionsBodySchema,
+    t_ReposAddAppAccessRestrictionsRequestBody,
     void
   >,
   respond: ReposAddAppAccessRestrictionsResponder,
@@ -14018,7 +14028,7 @@ export type ReposSetAppAccessRestrictions = (
   params: Params<
     t_ReposSetAppAccessRestrictionsParamSchema,
     void,
-    t_ReposSetAppAccessRestrictionsBodySchema,
+    t_ReposSetAppAccessRestrictionsRequestBody,
     void
   >,
   respond: ReposSetAppAccessRestrictionsResponder,
@@ -14040,7 +14050,7 @@ export type ReposRemoveAppAccessRestrictions = (
   params: Params<
     t_ReposRemoveAppAccessRestrictionsParamSchema,
     void,
-    t_ReposRemoveAppAccessRestrictionsBodySchema,
+    t_ReposRemoveAppAccessRestrictionsRequestBody,
     void
   >,
   respond: ReposRemoveAppAccessRestrictionsResponder,
@@ -14084,7 +14094,7 @@ export type ReposAddTeamAccessRestrictions = (
   params: Params<
     t_ReposAddTeamAccessRestrictionsParamSchema,
     void,
-    t_ReposAddTeamAccessRestrictionsBodySchema | undefined,
+    t_ReposAddTeamAccessRestrictionsRequestBody | undefined,
     void
   >,
   respond: ReposAddTeamAccessRestrictionsResponder,
@@ -14106,7 +14116,7 @@ export type ReposSetTeamAccessRestrictions = (
   params: Params<
     t_ReposSetTeamAccessRestrictionsParamSchema,
     void,
-    t_ReposSetTeamAccessRestrictionsBodySchema | undefined,
+    t_ReposSetTeamAccessRestrictionsRequestBody | undefined,
     void
   >,
   respond: ReposSetTeamAccessRestrictionsResponder,
@@ -14128,7 +14138,7 @@ export type ReposRemoveTeamAccessRestrictions = (
   params: Params<
     t_ReposRemoveTeamAccessRestrictionsParamSchema,
     void,
-    t_ReposRemoveTeamAccessRestrictionsBodySchema,
+    t_ReposRemoveTeamAccessRestrictionsRequestBody,
     void
   >,
   respond: ReposRemoveTeamAccessRestrictionsResponder,
@@ -14172,7 +14182,7 @@ export type ReposAddUserAccessRestrictions = (
   params: Params<
     t_ReposAddUserAccessRestrictionsParamSchema,
     void,
-    t_ReposAddUserAccessRestrictionsBodySchema,
+    t_ReposAddUserAccessRestrictionsRequestBody,
     void
   >,
   respond: ReposAddUserAccessRestrictionsResponder,
@@ -14194,7 +14204,7 @@ export type ReposSetUserAccessRestrictions = (
   params: Params<
     t_ReposSetUserAccessRestrictionsParamSchema,
     void,
-    t_ReposSetUserAccessRestrictionsBodySchema,
+    t_ReposSetUserAccessRestrictionsRequestBody,
     void
   >,
   respond: ReposSetUserAccessRestrictionsResponder,
@@ -14216,7 +14226,7 @@ export type ReposRemoveUserAccessRestrictions = (
   params: Params<
     t_ReposRemoveUserAccessRestrictionsParamSchema,
     void,
-    t_ReposRemoveUserAccessRestrictionsBodySchema,
+    t_ReposRemoveUserAccessRestrictionsRequestBody,
     void
   >,
   respond: ReposRemoveUserAccessRestrictionsResponder,
@@ -14240,7 +14250,7 @@ export type ReposRenameBranch = (
   params: Params<
     t_ReposRenameBranchParamSchema,
     void,
-    t_ReposRenameBranchBodySchema,
+    t_ReposRenameBranchRequestBody,
     void
   >,
   respond: ReposRenameBranchResponder,
@@ -14263,7 +14273,7 @@ export type ChecksCreate = (
   params: Params<
     t_ChecksCreateParamSchema,
     void,
-    t_ChecksCreateBodySchema,
+    t_ChecksCreateRequestBody,
     void
   >,
   respond: ChecksCreateResponder,
@@ -14294,7 +14304,7 @@ export type ChecksUpdate = (
   params: Params<
     t_ChecksUpdateParamSchema,
     void,
-    t_ChecksUpdateBodySchema,
+    t_ChecksUpdateRequestBody,
     void
   >,
   respond: ChecksUpdateResponder,
@@ -14354,7 +14364,7 @@ export type ChecksCreateSuite = (
   params: Params<
     t_ChecksCreateSuiteParamSchema,
     void,
-    t_ChecksCreateSuiteBodySchema,
+    t_ChecksCreateSuiteRequestBody,
     void
   >,
   respond: ChecksCreateSuiteResponder,
@@ -14375,7 +14385,7 @@ export type ChecksSetSuitesPreferences = (
   params: Params<
     t_ChecksSetSuitesPreferencesParamSchema,
     void,
-    t_ChecksSetSuitesPreferencesBodySchema,
+    t_ChecksSetSuitesPreferencesRequestBody,
     void
   >,
   respond: ChecksSetSuitesPreferencesResponder,
@@ -14535,7 +14545,7 @@ export type CodeScanningUpdateAlert = (
   params: Params<
     t_CodeScanningUpdateAlertParamSchema,
     void,
-    t_CodeScanningUpdateAlertBodySchema,
+    t_CodeScanningUpdateAlertRequestBody,
     void
   >,
   respond: CodeScanningUpdateAlertResponder,
@@ -14647,7 +14657,7 @@ export type CodeScanningCommitAutofix = (
   params: Params<
     t_CodeScanningCommitAutofixParamSchema,
     void,
-    t_CodeScanningCommitAutofixBodySchema | undefined,
+    t_CodeScanningCommitAutofixRequestBody | undefined,
     void
   >,
   respond: CodeScanningCommitAutofixResponder,
@@ -14948,7 +14958,7 @@ export type CodeScanningCreateVariantAnalysis = (
   params: Params<
     t_CodeScanningCreateVariantAnalysisParamSchema,
     void,
-    t_CodeScanningCreateVariantAnalysisBodySchema,
+    t_CodeScanningCreateVariantAnalysisRequestBody,
     void
   >,
   respond: CodeScanningCreateVariantAnalysisResponder,
@@ -15085,7 +15095,7 @@ export type CodeScanningUpdateDefaultSetup = (
   params: Params<
     t_CodeScanningUpdateDefaultSetupParamSchema,
     void,
-    t_CodeScanningUpdateDefaultSetupBodySchema,
+    t_CodeScanningUpdateDefaultSetupRequestBody,
     void
   >,
   respond: CodeScanningUpdateDefaultSetupResponder,
@@ -15127,7 +15137,7 @@ export type CodeScanningUploadSarif = (
   params: Params<
     t_CodeScanningUploadSarifParamSchema,
     void,
-    t_CodeScanningUploadSarifBodySchema,
+    t_CodeScanningUploadSarifRequestBody,
     void
   >,
   respond: CodeScanningUploadSarifResponder,
@@ -15288,7 +15298,7 @@ export type CodespacesCreateWithRepoForAuthenticatedUser = (
   params: Params<
     t_CodespacesCreateWithRepoForAuthenticatedUserParamSchema,
     void,
-    t_CodespacesCreateWithRepoForAuthenticatedUserBodySchema,
+    t_CodespacesCreateWithRepoForAuthenticatedUserRequestBody,
     void
   >,
   respond: CodespacesCreateWithRepoForAuthenticatedUserResponder,
@@ -15550,7 +15560,7 @@ export type CodespacesCreateOrUpdateRepoSecret = (
   params: Params<
     t_CodespacesCreateOrUpdateRepoSecretParamSchema,
     void,
-    t_CodespacesCreateOrUpdateRepoSecretBodySchema,
+    t_CodespacesCreateOrUpdateRepoSecretRequestBody,
     void
   >,
   respond: CodespacesCreateOrUpdateRepoSecretResponder,
@@ -15626,7 +15636,7 @@ export type ReposAddCollaborator = (
   params: Params<
     t_ReposAddCollaboratorParamSchema,
     void,
-    t_ReposAddCollaboratorBodySchema | undefined,
+    t_ReposAddCollaboratorRequestBody | undefined,
     void
   >,
   respond: ReposAddCollaboratorResponder,
@@ -15728,7 +15738,7 @@ export type ReposUpdateCommitComment = (
   params: Params<
     t_ReposUpdateCommitCommentParamSchema,
     void,
-    t_ReposUpdateCommitCommentBodySchema,
+    t_ReposUpdateCommitCommentRequestBody,
     void
   >,
   respond: ReposUpdateCommitCommentResponder,
@@ -15790,7 +15800,7 @@ export type ReactionsCreateForCommitComment = (
   params: Params<
     t_ReactionsCreateForCommitCommentParamSchema,
     void,
-    t_ReactionsCreateForCommitCommentBodySchema,
+    t_ReactionsCreateForCommitCommentRequestBody,
     void
   >,
   respond: ReactionsCreateForCommitCommentResponder,
@@ -15899,7 +15909,7 @@ export type ReposCreateCommitComment = (
   params: Params<
     t_ReposCreateCommitCommentParamSchema,
     void,
-    t_ReposCreateCommitCommentBodySchema,
+    t_ReposCreateCommitCommentRequestBody,
     void
   >,
   respond: ReposCreateCommitCommentResponder,
@@ -16188,7 +16198,7 @@ export type ReposCreateOrUpdateFileContents = (
   params: Params<
     t_ReposCreateOrUpdateFileContentsParamSchema,
     void,
-    t_ReposCreateOrUpdateFileContentsBodySchema,
+    t_ReposCreateOrUpdateFileContentsRequestBody,
     void
   >,
   respond: ReposCreateOrUpdateFileContentsResponder,
@@ -16220,7 +16230,7 @@ export type ReposDeleteFile = (
   params: Params<
     t_ReposDeleteFileParamSchema,
     void,
-    t_ReposDeleteFileBodySchema,
+    t_ReposDeleteFileRequestBody,
     void
   >,
   respond: ReposDeleteFileResponder,
@@ -16333,7 +16343,7 @@ export type DependabotUpdateAlert = (
   params: Params<
     t_DependabotUpdateAlertParamSchema,
     void,
-    t_DependabotUpdateAlertBodySchema,
+    t_DependabotUpdateAlertRequestBody,
     void
   >,
   respond: DependabotUpdateAlertResponder,
@@ -16418,7 +16428,7 @@ export type DependabotCreateOrUpdateRepoSecret = (
   params: Params<
     t_DependabotCreateOrUpdateRepoSecretParamSchema,
     void,
-    t_DependabotCreateOrUpdateRepoSecretBodySchema,
+    t_DependabotCreateOrUpdateRepoSecretRequestBody,
     void
   >,
   respond: DependabotCreateOrUpdateRepoSecretResponder,
@@ -16500,7 +16510,7 @@ export type DependencyGraphCreateRepositorySnapshot = (
   params: Params<
     t_DependencyGraphCreateRepositorySnapshotParamSchema,
     void,
-    t_DependencyGraphCreateRepositorySnapshotBodySchema,
+    t_DependencyGraphCreateRepositorySnapshotRequestBody,
     void
   >,
   respond: DependencyGraphCreateRepositorySnapshotResponder,
@@ -16553,7 +16563,7 @@ export type ReposCreateDeployment = (
   params: Params<
     t_ReposCreateDeploymentParamSchema,
     void,
-    t_ReposCreateDeploymentBodySchema,
+    t_ReposCreateDeploymentRequestBody,
     void
   >,
   respond: ReposCreateDeploymentResponder,
@@ -16640,7 +16650,7 @@ export type ReposCreateDeploymentStatus = (
   params: Params<
     t_ReposCreateDeploymentStatusParamSchema,
     void,
-    t_ReposCreateDeploymentStatusBodySchema,
+    t_ReposCreateDeploymentStatusRequestBody,
     void
   >,
   respond: ReposCreateDeploymentStatusResponder,
@@ -16680,7 +16690,7 @@ export type ReposCreateDispatchEvent = (
   params: Params<
     t_ReposCreateDispatchEventParamSchema,
     void,
-    t_ReposCreateDispatchEventBodySchema,
+    t_ReposCreateDispatchEventRequestBody,
     void
   >,
   respond: ReposCreateDispatchEventResponder,
@@ -16747,7 +16757,7 @@ export type ReposCreateOrUpdateEnvironment = (
   params: Params<
     t_ReposCreateOrUpdateEnvironmentParamSchema,
     void,
-    t_ReposCreateOrUpdateEnvironmentBodySchema | undefined,
+    t_ReposCreateOrUpdateEnvironmentRequestBody | undefined,
     void
   >,
   respond: ReposCreateOrUpdateEnvironmentResponder,
@@ -16812,7 +16822,7 @@ export type ReposCreateDeploymentBranchPolicy = (
   params: Params<
     t_ReposCreateDeploymentBranchPolicyParamSchema,
     void,
-    t_ReposCreateDeploymentBranchPolicyBodySchema,
+    t_ReposCreateDeploymentBranchPolicyRequestBody,
     void
   >,
   respond: ReposCreateDeploymentBranchPolicyResponder,
@@ -16849,7 +16859,7 @@ export type ReposUpdateDeploymentBranchPolicy = (
   params: Params<
     t_ReposUpdateDeploymentBranchPolicyParamSchema,
     void,
-    t_ReposUpdateDeploymentBranchPolicyBodySchema,
+    t_ReposUpdateDeploymentBranchPolicyRequestBody,
     void
   >,
   respond: ReposUpdateDeploymentBranchPolicyResponder,
@@ -16916,7 +16926,7 @@ export type ReposCreateDeploymentProtectionRule = (
   params: Params<
     t_ReposCreateDeploymentProtectionRuleParamSchema,
     void,
-    t_ReposCreateDeploymentProtectionRuleBodySchema,
+    t_ReposCreateDeploymentProtectionRuleRequestBody,
     void
   >,
   respond: ReposCreateDeploymentProtectionRuleResponder,
@@ -17063,7 +17073,7 @@ export type ActionsCreateOrUpdateEnvironmentSecret = (
   params: Params<
     t_ActionsCreateOrUpdateEnvironmentSecretParamSchema,
     void,
-    t_ActionsCreateOrUpdateEnvironmentSecretBodySchema,
+    t_ActionsCreateOrUpdateEnvironmentSecretRequestBody,
     void
   >,
   respond: ActionsCreateOrUpdateEnvironmentSecretResponder,
@@ -17126,7 +17136,7 @@ export type ActionsCreateEnvironmentVariable = (
   params: Params<
     t_ActionsCreateEnvironmentVariableParamSchema,
     void,
-    t_ActionsCreateEnvironmentVariableBodySchema,
+    t_ActionsCreateEnvironmentVariableRequestBody,
     void
   >,
   respond: ActionsCreateEnvironmentVariableResponder,
@@ -17161,7 +17171,7 @@ export type ActionsUpdateEnvironmentVariable = (
   params: Params<
     t_ActionsUpdateEnvironmentVariableParamSchema,
     void,
-    t_ActionsUpdateEnvironmentVariableBodySchema,
+    t_ActionsUpdateEnvironmentVariableRequestBody,
     void
   >,
   respond: ActionsUpdateEnvironmentVariableResponder,
@@ -17241,7 +17251,7 @@ export type ReposCreateFork = (
   params: Params<
     t_ReposCreateForkParamSchema,
     void,
-    t_ReposCreateForkBodySchema | undefined,
+    t_ReposCreateForkRequestBody | undefined,
     void
   >,
   respond: ReposCreateForkResponder,
@@ -17271,7 +17281,7 @@ export type GitCreateBlob = (
   params: Params<
     t_GitCreateBlobParamSchema,
     void,
-    t_GitCreateBlobBodySchema,
+    t_GitCreateBlobRequestBody,
     void
   >,
   respond: GitCreateBlobResponder,
@@ -17321,7 +17331,7 @@ export type GitCreateCommit = (
   params: Params<
     t_GitCreateCommitParamSchema,
     void,
-    t_GitCreateCommitBodySchema,
+    t_GitCreateCommitRequestBody,
     void
   >,
   respond: GitCreateCommitResponder,
@@ -17401,7 +17411,7 @@ export type GitCreateRef = (
   params: Params<
     t_GitCreateRefParamSchema,
     void,
-    t_GitCreateRefBodySchema,
+    t_GitCreateRefRequestBody,
     void
   >,
   respond: GitCreateRefResponder,
@@ -17425,7 +17435,7 @@ export type GitUpdateRef = (
   params: Params<
     t_GitUpdateRefParamSchema,
     void,
-    t_GitUpdateRefBodySchema,
+    t_GitUpdateRefRequestBody,
     void
   >,
   respond: GitUpdateRefResponder,
@@ -17468,7 +17478,7 @@ export type GitCreateTag = (
   params: Params<
     t_GitCreateTagParamSchema,
     void,
-    t_GitCreateTagBodySchema,
+    t_GitCreateTagRequestBody,
     void
   >,
   respond: GitCreateTagResponder,
@@ -17513,7 +17523,7 @@ export type GitCreateTree = (
   params: Params<
     t_GitCreateTreeParamSchema,
     void,
-    t_GitCreateTreeBodySchema,
+    t_GitCreateTreeRequestBody,
     void
   >,
   respond: GitCreateTreeResponder,
@@ -17583,7 +17593,7 @@ export type ReposCreateWebhook = (
   params: Params<
     t_ReposCreateWebhookParamSchema,
     void,
-    t_ReposCreateWebhookBodySchema | undefined,
+    t_ReposCreateWebhookRequestBody | undefined,
     void
   >,
   respond: ReposCreateWebhookResponder,
@@ -17625,7 +17635,7 @@ export type ReposUpdateWebhook = (
   params: Params<
     t_ReposUpdateWebhookParamSchema,
     void,
-    t_ReposUpdateWebhookBodySchema,
+    t_ReposUpdateWebhookRequestBody,
     void
   >,
   respond: ReposUpdateWebhookResponder,
@@ -17679,7 +17689,7 @@ export type ReposUpdateWebhookConfigForRepo = (
   params: Params<
     t_ReposUpdateWebhookConfigForRepoParamSchema,
     void,
-    t_ReposUpdateWebhookConfigForRepoBodySchema | undefined,
+    t_ReposUpdateWebhookConfigForRepoRequestBody | undefined,
     void
   >,
   respond: ReposUpdateWebhookConfigForRepoResponder,
@@ -17824,7 +17834,7 @@ export type MigrationsStartImport = (
   params: Params<
     t_MigrationsStartImportParamSchema,
     void,
-    t_MigrationsStartImportBodySchema,
+    t_MigrationsStartImportRequestBody,
     void
   >,
   respond: MigrationsStartImportResponder,
@@ -17848,7 +17858,7 @@ export type MigrationsUpdateImport = (
   params: Params<
     t_MigrationsUpdateImportParamSchema,
     void,
-    t_MigrationsUpdateImportBodySchema | undefined,
+    t_MigrationsUpdateImportRequestBody | undefined,
     void
   >,
   respond: MigrationsUpdateImportResponder,
@@ -17913,7 +17923,7 @@ export type MigrationsMapCommitAuthor = (
   params: Params<
     t_MigrationsMapCommitAuthorParamSchema,
     void,
-    t_MigrationsMapCommitAuthorBodySchema | undefined,
+    t_MigrationsMapCommitAuthorRequestBody | undefined,
     void
   >,
   respond: MigrationsMapCommitAuthorResponder,
@@ -17955,7 +17965,7 @@ export type MigrationsSetLfsPreference = (
   params: Params<
     t_MigrationsSetLfsPreferenceParamSchema,
     void,
-    t_MigrationsSetLfsPreferenceBodySchema,
+    t_MigrationsSetLfsPreferenceRequestBody,
     void
   >,
   respond: MigrationsSetLfsPreferenceResponder,
@@ -18017,7 +18027,7 @@ export type InteractionsSetRestrictionsForRepo = (
   params: Params<
     t_InteractionsSetRestrictionsForRepoParamSchema,
     void,
-    t_InteractionsSetRestrictionsForRepoBodySchema,
+    t_InteractionsSetRestrictionsForRepoRequestBody,
     void
   >,
   respond: InteractionsSetRestrictionsForRepoResponder,
@@ -18080,7 +18090,7 @@ export type ReposUpdateInvitation = (
   params: Params<
     t_ReposUpdateInvitationParamSchema,
     void,
-    t_ReposUpdateInvitationBodySchema | undefined,
+    t_ReposUpdateInvitationRequestBody | undefined,
     void
   >,
   respond: ReposUpdateInvitationResponder,
@@ -18149,7 +18159,7 @@ export type IssuesCreate = (
   params: Params<
     t_IssuesCreateParamSchema,
     void,
-    t_IssuesCreateBodySchema,
+    t_IssuesCreateRequestBody,
     void
   >,
   respond: IssuesCreateResponder,
@@ -18224,7 +18234,7 @@ export type IssuesUpdateComment = (
   params: Params<
     t_IssuesUpdateCommentParamSchema,
     void,
-    t_IssuesUpdateCommentBodySchema,
+    t_IssuesUpdateCommentRequestBody,
     void
   >,
   respond: IssuesUpdateCommentResponder,
@@ -18282,7 +18292,7 @@ export type ReactionsCreateForIssueComment = (
   params: Params<
     t_ReactionsCreateForIssueCommentParamSchema,
     void,
-    t_ReactionsCreateForIssueCommentBodySchema,
+    t_ReactionsCreateForIssueCommentRequestBody,
     void
   >,
   respond: ReactionsCreateForIssueCommentResponder,
@@ -18393,7 +18403,7 @@ export type IssuesUpdate = (
   params: Params<
     t_IssuesUpdateParamSchema,
     void,
-    t_IssuesUpdateBodySchema | undefined,
+    t_IssuesUpdateRequestBody | undefined,
     void
   >,
   respond: IssuesUpdateResponder,
@@ -18426,7 +18436,7 @@ export type IssuesAddAssignees = (
   params: Params<
     t_IssuesAddAssigneesParamSchema,
     void,
-    t_IssuesAddAssigneesBodySchema | undefined,
+    t_IssuesAddAssigneesRequestBody | undefined,
     void
   >,
   respond: IssuesAddAssigneesResponder,
@@ -18444,7 +18454,7 @@ export type IssuesRemoveAssignees = (
   params: Params<
     t_IssuesRemoveAssigneesParamSchema,
     void,
-    t_IssuesRemoveAssigneesBodySchema,
+    t_IssuesRemoveAssigneesRequestBody,
     void
   >,
   respond: IssuesRemoveAssigneesResponder,
@@ -18512,7 +18522,7 @@ export type IssuesCreateComment = (
   params: Params<
     t_IssuesCreateCommentParamSchema,
     void,
-    t_IssuesCreateCommentBodySchema,
+    t_IssuesCreateCommentRequestBody,
     void
   >,
   respond: IssuesCreateCommentResponder,
@@ -18588,7 +18598,7 @@ export type IssuesAddLabels = (
   params: Params<
     t_IssuesAddLabelsParamSchema,
     void,
-    t_IssuesAddLabelsBodySchema | undefined,
+    t_IssuesAddLabelsRequestBody | undefined,
     void
   >,
   respond: IssuesAddLabelsResponder,
@@ -18616,7 +18626,7 @@ export type IssuesSetLabels = (
   params: Params<
     t_IssuesSetLabelsParamSchema,
     void,
-    t_IssuesSetLabelsBodySchema | undefined,
+    t_IssuesSetLabelsRequestBody | undefined,
     void
   >,
   respond: IssuesSetLabelsResponder,
@@ -18686,7 +18696,7 @@ export type IssuesLock = (
   params: Params<
     t_IssuesLockParamSchema,
     void,
-    t_IssuesLockBodySchema | undefined,
+    t_IssuesLockRequestBody | undefined,
     void
   >,
   respond: IssuesLockResponder,
@@ -18755,7 +18765,7 @@ export type ReactionsCreateForIssue = (
   params: Params<
     t_ReactionsCreateForIssueParamSchema,
     void,
-    t_ReactionsCreateForIssueBodySchema,
+    t_ReactionsCreateForIssueRequestBody,
     void
   >,
   respond: ReactionsCreateForIssueResponder,
@@ -18792,7 +18802,7 @@ export type IssuesRemoveSubIssue = (
   params: Params<
     t_IssuesRemoveSubIssueParamSchema,
     void,
-    t_IssuesRemoveSubIssueBodySchema,
+    t_IssuesRemoveSubIssueRequestBody,
     void
   >,
   respond: IssuesRemoveSubIssueResponder,
@@ -18842,7 +18852,7 @@ export type IssuesAddSubIssue = (
   params: Params<
     t_IssuesAddSubIssueParamSchema,
     void,
-    t_IssuesAddSubIssueBodySchema,
+    t_IssuesAddSubIssueRequestBody,
     void
   >,
   respond: IssuesAddSubIssueResponder,
@@ -18874,7 +18884,7 @@ export type IssuesReprioritizeSubIssue = (
   params: Params<
     t_IssuesReprioritizeSubIssueParamSchema,
     void,
-    t_IssuesReprioritizeSubIssueBodySchema,
+    t_IssuesReprioritizeSubIssueRequestBody,
     void
   >,
   respond: IssuesReprioritizeSubIssueResponder,
@@ -18950,7 +18960,7 @@ export type ReposCreateDeployKey = (
   params: Params<
     t_ReposCreateDeployKeyParamSchema,
     void,
-    t_ReposCreateDeployKeyBodySchema,
+    t_ReposCreateDeployKeyRequestBody,
     void
   >,
   respond: ReposCreateDeployKeyResponder,
@@ -19025,7 +19035,7 @@ export type IssuesCreateLabel = (
   params: Params<
     t_IssuesCreateLabelParamSchema,
     void,
-    t_IssuesCreateLabelBodySchema,
+    t_IssuesCreateLabelRequestBody,
     void
   >,
   respond: IssuesCreateLabelResponder,
@@ -19064,7 +19074,7 @@ export type IssuesUpdateLabel = (
   params: Params<
     t_IssuesUpdateLabelParamSchema,
     void,
-    t_IssuesUpdateLabelBodySchema | undefined,
+    t_IssuesUpdateLabelRequestBody | undefined,
     void
   >,
   respond: IssuesUpdateLabelResponder,
@@ -19132,7 +19142,7 @@ export type ReposMergeUpstream = (
   params: Params<
     t_ReposMergeUpstreamParamSchema,
     void,
-    t_ReposMergeUpstreamBodySchema,
+    t_ReposMergeUpstreamRequestBody,
     void
   >,
   respond: ReposMergeUpstreamResponder,
@@ -19156,7 +19166,7 @@ export type ReposMergeResponder = {
 } & KoaRuntimeResponder
 
 export type ReposMerge = (
-  params: Params<t_ReposMergeParamSchema, void, t_ReposMergeBodySchema, void>,
+  params: Params<t_ReposMergeParamSchema, void, t_ReposMergeRequestBody, void>,
   respond: ReposMergeResponder,
   ctx: RouterContext,
   next: Next,
@@ -19203,7 +19213,7 @@ export type IssuesCreateMilestone = (
   params: Params<
     t_IssuesCreateMilestoneParamSchema,
     void,
-    t_IssuesCreateMilestoneBodySchema,
+    t_IssuesCreateMilestoneRequestBody,
     void
   >,
   respond: IssuesCreateMilestoneResponder,
@@ -19242,7 +19252,7 @@ export type IssuesUpdateMilestone = (
   params: Params<
     t_IssuesUpdateMilestoneParamSchema,
     void,
-    t_IssuesUpdateMilestoneBodySchema | undefined,
+    t_IssuesUpdateMilestoneRequestBody | undefined,
     void
   >,
   respond: IssuesUpdateMilestoneResponder,
@@ -19317,7 +19327,7 @@ export type ActivityMarkRepoNotificationsAsRead = (
   params: Params<
     t_ActivityMarkRepoNotificationsAsReadParamSchema,
     void,
-    t_ActivityMarkRepoNotificationsAsReadBodySchema | undefined,
+    t_ActivityMarkRepoNotificationsAsReadRequestBody | undefined,
     void
   >,
   respond: ActivityMarkRepoNotificationsAsReadResponder,
@@ -19363,7 +19373,7 @@ export type ReposCreatePagesSite = (
   params: Params<
     t_ReposCreatePagesSiteParamSchema,
     void,
-    t_ReposCreatePagesSiteBodySchema,
+    t_ReposCreatePagesSiteRequestBody,
     void
   >,
   respond: ReposCreatePagesSiteResponder,
@@ -19388,7 +19398,7 @@ export type ReposUpdateInformationAboutPagesSite = (
   params: Params<
     t_ReposUpdateInformationAboutPagesSiteParamSchema,
     void,
-    t_ReposUpdateInformationAboutPagesSiteBodySchema,
+    t_ReposUpdateInformationAboutPagesSiteRequestBody,
     void
   >,
   respond: ReposUpdateInformationAboutPagesSiteResponder,
@@ -19500,7 +19510,7 @@ export type ReposCreatePagesDeployment = (
   params: Params<
     t_ReposCreatePagesDeploymentParamSchema,
     void,
-    t_ReposCreatePagesDeploymentBodySchema,
+    t_ReposCreatePagesDeploymentRequestBody,
     void
   >,
   respond: ReposCreatePagesDeploymentResponder,
@@ -19688,7 +19698,7 @@ export type ProjectsClassicCreateForRepo = (
   params: Params<
     t_ProjectsClassicCreateForRepoParamSchema,
     void,
-    t_ProjectsClassicCreateForRepoBodySchema,
+    t_ProjectsClassicCreateForRepoRequestBody,
     void
   >,
   respond: ProjectsClassicCreateForRepoResponder,
@@ -19735,7 +19745,7 @@ export type ReposCreateOrUpdateCustomPropertiesValues = (
   params: Params<
     t_ReposCreateOrUpdateCustomPropertiesValuesParamSchema,
     void,
-    t_ReposCreateOrUpdateCustomPropertiesValuesBodySchema,
+    t_ReposCreateOrUpdateCustomPropertiesValuesRequestBody,
     void
   >,
   respond: ReposCreateOrUpdateCustomPropertiesValuesResponder,
@@ -19776,7 +19786,12 @@ export type PullsCreateResponder = {
 } & KoaRuntimeResponder
 
 export type PullsCreate = (
-  params: Params<t_PullsCreateParamSchema, void, t_PullsCreateBodySchema, void>,
+  params: Params<
+    t_PullsCreateParamSchema,
+    void,
+    t_PullsCreateRequestBody,
+    void
+  >,
   respond: PullsCreateResponder,
   ctx: RouterContext,
   next: Next,
@@ -19833,7 +19848,7 @@ export type PullsUpdateReviewComment = (
   params: Params<
     t_PullsUpdateReviewCommentParamSchema,
     void,
-    t_PullsUpdateReviewCommentBodySchema,
+    t_PullsUpdateReviewCommentRequestBody,
     void
   >,
   respond: PullsUpdateReviewCommentResponder,
@@ -19894,7 +19909,7 @@ export type ReactionsCreateForPullRequestReviewComment = (
   params: Params<
     t_ReactionsCreateForPullRequestReviewCommentParamSchema,
     void,
-    t_ReactionsCreateForPullRequestReviewCommentBodySchema,
+    t_ReactionsCreateForPullRequestReviewCommentRequestBody,
     void
   >,
   respond: ReactionsCreateForPullRequestReviewCommentResponder,
@@ -19972,7 +19987,7 @@ export type PullsUpdate = (
   params: Params<
     t_PullsUpdateParamSchema,
     void,
-    t_PullsUpdateBodySchema | undefined,
+    t_PullsUpdateRequestBody | undefined,
     void
   >,
   respond: PullsUpdateResponder,
@@ -20003,7 +20018,7 @@ export type CodespacesCreateWithPrForAuthenticatedUser = (
   params: Params<
     t_CodespacesCreateWithPrForAuthenticatedUserParamSchema,
     void,
-    t_CodespacesCreateWithPrForAuthenticatedUserBodySchema,
+    t_CodespacesCreateWithPrForAuthenticatedUserRequestBody,
     void
   >,
   respond: CodespacesCreateWithPrForAuthenticatedUserResponder,
@@ -20057,7 +20072,7 @@ export type PullsCreateReviewComment = (
   params: Params<
     t_PullsCreateReviewCommentParamSchema,
     void,
-    t_PullsCreateReviewCommentBodySchema,
+    t_PullsCreateReviewCommentRequestBody,
     void
   >,
   respond: PullsCreateReviewCommentResponder,
@@ -20080,7 +20095,7 @@ export type PullsCreateReplyForReviewComment = (
   params: Params<
     t_PullsCreateReplyForReviewCommentParamSchema,
     void,
-    t_PullsCreateReplyForReviewCommentBodySchema,
+    t_PullsCreateReplyForReviewCommentRequestBody,
     void
   >,
   respond: PullsCreateReplyForReviewCommentResponder,
@@ -20184,7 +20199,7 @@ export type PullsMerge = (
   params: Params<
     t_PullsMergeParamSchema,
     void,
-    t_PullsMergeBodySchema | undefined,
+    t_PullsMergeRequestBody | undefined,
     void
   >,
   respond: PullsMergeResponder,
@@ -20238,7 +20253,7 @@ export type PullsRequestReviewers = (
   params: Params<
     t_PullsRequestReviewersParamSchema,
     void,
-    t_PullsRequestReviewersBodySchema | undefined,
+    t_PullsRequestReviewersRequestBody | undefined,
     void
   >,
   respond: PullsRequestReviewersResponder,
@@ -20261,7 +20276,7 @@ export type PullsRemoveRequestedReviewers = (
   params: Params<
     t_PullsRemoveRequestedReviewersParamSchema,
     void,
-    t_PullsRemoveRequestedReviewersBodySchema,
+    t_PullsRemoveRequestedReviewersRequestBody,
     void
   >,
   respond: PullsRemoveRequestedReviewersResponder,
@@ -20304,7 +20319,7 @@ export type PullsCreateReview = (
   params: Params<
     t_PullsCreateReviewParamSchema,
     void,
-    t_PullsCreateReviewBodySchema | undefined,
+    t_PullsCreateReviewRequestBody | undefined,
     void
   >,
   respond: PullsCreateReviewResponder,
@@ -20344,7 +20359,7 @@ export type PullsUpdateReview = (
   params: Params<
     t_PullsUpdateReviewParamSchema,
     void,
-    t_PullsUpdateReviewBodySchema,
+    t_PullsUpdateReviewRequestBody,
     void
   >,
   respond: PullsUpdateReviewResponder,
@@ -20408,7 +20423,7 @@ export type PullsDismissReview = (
   params: Params<
     t_PullsDismissReviewParamSchema,
     void,
-    t_PullsDismissReviewBodySchema,
+    t_PullsDismissReviewRequestBody,
     void
   >,
   respond: PullsDismissReviewResponder,
@@ -20433,7 +20448,7 @@ export type PullsSubmitReview = (
   params: Params<
     t_PullsSubmitReviewParamSchema,
     void,
-    t_PullsSubmitReviewBodySchema,
+    t_PullsSubmitReviewRequestBody,
     void
   >,
   respond: PullsSubmitReviewResponder,
@@ -20461,7 +20476,7 @@ export type PullsUpdateBranch = (
   params: Params<
     t_PullsUpdateBranchParamSchema,
     void,
-    t_PullsUpdateBranchBodySchema | undefined,
+    t_PullsUpdateBranchRequestBody | undefined,
     void
   >,
   respond: PullsUpdateBranchResponder,
@@ -20563,7 +20578,7 @@ export type ReposCreateRelease = (
   params: Params<
     t_ReposCreateReleaseParamSchema,
     void,
-    t_ReposCreateReleaseBodySchema,
+    t_ReposCreateReleaseRequestBody,
     void
   >,
   respond: ReposCreateReleaseResponder,
@@ -20604,7 +20619,7 @@ export type ReposUpdateReleaseAsset = (
   params: Params<
     t_ReposUpdateReleaseAssetParamSchema,
     void,
-    t_ReposUpdateReleaseAssetBodySchema | undefined,
+    t_ReposUpdateReleaseAssetRequestBody | undefined,
     void
   >,
   respond: ReposUpdateReleaseAssetResponder,
@@ -20638,7 +20653,7 @@ export type ReposGenerateReleaseNotes = (
   params: Params<
     t_ReposGenerateReleaseNotesParamSchema,
     void,
-    t_ReposGenerateReleaseNotesBodySchema,
+    t_ReposGenerateReleaseNotesRequestBody,
     void
   >,
   respond: ReposGenerateReleaseNotesResponder,
@@ -20707,7 +20722,7 @@ export type ReposUpdateRelease = (
   params: Params<
     t_ReposUpdateReleaseParamSchema,
     void,
-    t_ReposUpdateReleaseBodySchema | undefined,
+    t_ReposUpdateReleaseRequestBody | undefined,
     void
   >,
   respond: ReposUpdateReleaseResponder,
@@ -20762,7 +20777,7 @@ export type ReposUploadReleaseAsset = (
   params: Params<
     t_ReposUploadReleaseAssetParamSchema,
     t_ReposUploadReleaseAssetQuerySchema,
-    t_ReposUploadReleaseAssetBodySchema | undefined,
+    t_ReposUploadReleaseAssetRequestBody | undefined,
     void
   >,
   respond: ReposUploadReleaseAssetResponder,
@@ -20807,7 +20822,7 @@ export type ReactionsCreateForRelease = (
   params: Params<
     t_ReactionsCreateForReleaseParamSchema,
     void,
-    t_ReactionsCreateForReleaseBodySchema,
+    t_ReactionsCreateForReleaseRequestBody,
     void
   >,
   respond: ReactionsCreateForReleaseResponder,
@@ -20888,7 +20903,7 @@ export type ReposCreateRepoRuleset = (
   params: Params<
     t_ReposCreateRepoRulesetParamSchema,
     void,
-    t_ReposCreateRepoRulesetBodySchema,
+    t_ReposCreateRepoRulesetRequestBody,
     void
   >,
   respond: ReposCreateRepoRulesetResponder,
@@ -20979,7 +20994,7 @@ export type ReposUpdateRepoRuleset = (
   params: Params<
     t_ReposUpdateRepoRulesetParamSchema,
     void,
-    t_ReposUpdateRepoRulesetBodySchema | undefined,
+    t_ReposUpdateRepoRulesetRequestBody | undefined,
     void
   >,
   respond: ReposUpdateRepoRulesetResponder,
@@ -21143,7 +21158,7 @@ export type SecretScanningUpdateAlert = (
   params: Params<
     t_SecretScanningUpdateAlertParamSchema,
     void,
-    t_SecretScanningUpdateAlertBodySchema,
+    t_SecretScanningUpdateAlertRequestBody,
     void
   >,
   respond: SecretScanningUpdateAlertResponder,
@@ -21217,7 +21232,7 @@ export type SecretScanningCreatePushProtectionBypass = (
   params: Params<
     t_SecretScanningCreatePushProtectionBypassParamSchema,
     void,
-    t_SecretScanningCreatePushProtectionBypassBodySchema,
+    t_SecretScanningCreatePushProtectionBypassRequestBody,
     void
   >,
   respond: SecretScanningCreatePushProtectionBypassResponder,
@@ -21305,7 +21320,7 @@ export type SecurityAdvisoriesCreateRepositoryAdvisory = (
   params: Params<
     t_SecurityAdvisoriesCreateRepositoryAdvisoryParamSchema,
     void,
-    t_SecurityAdvisoriesCreateRepositoryAdvisoryBodySchema,
+    t_SecurityAdvisoriesCreateRepositoryAdvisoryRequestBody,
     void
   >,
   respond: SecurityAdvisoriesCreateRepositoryAdvisoryResponder,
@@ -21331,7 +21346,7 @@ export type SecurityAdvisoriesCreatePrivateVulnerabilityReport = (
   params: Params<
     t_SecurityAdvisoriesCreatePrivateVulnerabilityReportParamSchema,
     void,
-    t_SecurityAdvisoriesCreatePrivateVulnerabilityReportBodySchema,
+    t_SecurityAdvisoriesCreatePrivateVulnerabilityReportRequestBody,
     void
   >,
   respond: SecurityAdvisoriesCreatePrivateVulnerabilityReportResponder,
@@ -21381,7 +21396,7 @@ export type SecurityAdvisoriesUpdateRepositoryAdvisory = (
   params: Params<
     t_SecurityAdvisoriesUpdateRepositoryAdvisoryParamSchema,
     void,
-    t_SecurityAdvisoriesUpdateRepositoryAdvisoryBodySchema,
+    t_SecurityAdvisoriesUpdateRepositoryAdvisoryRequestBody,
     void
   >,
   respond: SecurityAdvisoriesUpdateRepositoryAdvisoryResponder,
@@ -21598,7 +21613,7 @@ export type ReposCreateCommitStatus = (
   params: Params<
     t_ReposCreateCommitStatusParamSchema,
     void,
-    t_ReposCreateCommitStatusBodySchema,
+    t_ReposCreateCommitStatusRequestBody,
     void
   >,
   respond: ReposCreateCommitStatusResponder,
@@ -21655,7 +21670,7 @@ export type ActivitySetRepoSubscription = (
   params: Params<
     t_ActivitySetRepoSubscriptionParamSchema,
     void,
-    t_ActivitySetRepoSubscriptionBodySchema | undefined,
+    t_ActivitySetRepoSubscriptionRequestBody | undefined,
     void
   >,
   respond: ActivitySetRepoSubscriptionResponder,
@@ -21727,7 +21742,7 @@ export type ReposCreateTagProtection = (
   params: Params<
     t_ReposCreateTagProtectionParamSchema,
     void,
-    t_ReposCreateTagProtectionBodySchema,
+    t_ReposCreateTagProtectionRequestBody,
     void
   >,
   respond: ReposCreateTagProtectionResponder,
@@ -21827,7 +21842,7 @@ export type ReposReplaceAllTopics = (
   params: Params<
     t_ReposReplaceAllTopicsParamSchema,
     void,
-    t_ReposReplaceAllTopicsBodySchema,
+    t_ReposReplaceAllTopicsRequestBody,
     void
   >,
   respond: ReposReplaceAllTopicsResponder,
@@ -21927,7 +21942,7 @@ export type ReposTransfer = (
   params: Params<
     t_ReposTransferParamSchema,
     void,
-    t_ReposTransferBodySchema,
+    t_ReposTransferRequestBody,
     void
   >,
   respond: ReposTransferResponder,
@@ -22008,7 +22023,7 @@ export type ReposCreateUsingTemplate = (
   params: Params<
     t_ReposCreateUsingTemplateParamSchema,
     void,
-    t_ReposCreateUsingTemplateBodySchema,
+    t_ReposCreateUsingTemplateRequestBody,
     void
   >,
   respond: ReposCreateUsingTemplateResponder,
@@ -22334,7 +22349,7 @@ export type TeamsUpdateLegacy = (
   params: Params<
     t_TeamsUpdateLegacyParamSchema,
     void,
-    t_TeamsUpdateLegacyBodySchema,
+    t_TeamsUpdateLegacyRequestBody,
     void
   >,
   respond: TeamsUpdateLegacyResponder,
@@ -22397,7 +22412,7 @@ export type TeamsCreateDiscussionLegacy = (
   params: Params<
     t_TeamsCreateDiscussionLegacyParamSchema,
     void,
-    t_TeamsCreateDiscussionLegacyBodySchema,
+    t_TeamsCreateDiscussionLegacyRequestBody,
     void
   >,
   respond: TeamsCreateDiscussionLegacyResponder,
@@ -22432,7 +22447,7 @@ export type TeamsUpdateDiscussionLegacy = (
   params: Params<
     t_TeamsUpdateDiscussionLegacyParamSchema,
     void,
-    t_TeamsUpdateDiscussionLegacyBodySchema | undefined,
+    t_TeamsUpdateDiscussionLegacyRequestBody | undefined,
     void
   >,
   respond: TeamsUpdateDiscussionLegacyResponder,
@@ -22485,7 +22500,7 @@ export type TeamsCreateDiscussionCommentLegacy = (
   params: Params<
     t_TeamsCreateDiscussionCommentLegacyParamSchema,
     void,
-    t_TeamsCreateDiscussionCommentLegacyBodySchema,
+    t_TeamsCreateDiscussionCommentLegacyRequestBody,
     void
   >,
   respond: TeamsCreateDiscussionCommentLegacyResponder,
@@ -22525,7 +22540,7 @@ export type TeamsUpdateDiscussionCommentLegacy = (
   params: Params<
     t_TeamsUpdateDiscussionCommentLegacyParamSchema,
     void,
-    t_TeamsUpdateDiscussionCommentLegacyBodySchema,
+    t_TeamsUpdateDiscussionCommentLegacyRequestBody,
     void
   >,
   respond: TeamsUpdateDiscussionCommentLegacyResponder,
@@ -22583,7 +22598,7 @@ export type ReactionsCreateForTeamDiscussionCommentLegacy = (
   params: Params<
     t_ReactionsCreateForTeamDiscussionCommentLegacyParamSchema,
     void,
-    t_ReactionsCreateForTeamDiscussionCommentLegacyBodySchema,
+    t_ReactionsCreateForTeamDiscussionCommentLegacyRequestBody,
     void
   >,
   respond: ReactionsCreateForTeamDiscussionCommentLegacyResponder,
@@ -22621,7 +22636,7 @@ export type ReactionsCreateForTeamDiscussionLegacy = (
   params: Params<
     t_ReactionsCreateForTeamDiscussionLegacyParamSchema,
     void,
-    t_ReactionsCreateForTeamDiscussionLegacyBodySchema,
+    t_ReactionsCreateForTeamDiscussionLegacyRequestBody,
     void
   >,
   respond: ReactionsCreateForTeamDiscussionLegacyResponder,
@@ -22761,7 +22776,7 @@ export type TeamsAddOrUpdateMembershipForUserLegacy = (
   params: Params<
     t_TeamsAddOrUpdateMembershipForUserLegacyParamSchema,
     void,
-    t_TeamsAddOrUpdateMembershipForUserLegacyBodySchema | undefined,
+    t_TeamsAddOrUpdateMembershipForUserLegacyRequestBody | undefined,
     void
   >,
   respond: TeamsAddOrUpdateMembershipForUserLegacyResponder,
@@ -22856,7 +22871,7 @@ export type TeamsAddOrUpdateProjectPermissionsLegacy = (
   params: Params<
     t_TeamsAddOrUpdateProjectPermissionsLegacyParamSchema,
     void,
-    t_TeamsAddOrUpdateProjectPermissionsLegacyBodySchema | undefined,
+    t_TeamsAddOrUpdateProjectPermissionsLegacyRequestBody | undefined,
     void
   >,
   respond: TeamsAddOrUpdateProjectPermissionsLegacyResponder,
@@ -22952,7 +22967,7 @@ export type TeamsAddOrUpdateRepoPermissionsLegacy = (
   params: Params<
     t_TeamsAddOrUpdateRepoPermissionsLegacyParamSchema,
     void,
-    t_TeamsAddOrUpdateRepoPermissionsLegacyBodySchema | undefined,
+    t_TeamsAddOrUpdateRepoPermissionsLegacyRequestBody | undefined,
     void
   >,
   respond: TeamsAddOrUpdateRepoPermissionsLegacyResponder,
@@ -23039,7 +23054,7 @@ export type UsersUpdateAuthenticated = (
   params: Params<
     void,
     void,
-    t_UsersUpdateAuthenticatedBodySchema | undefined,
+    t_UsersUpdateAuthenticatedRequestBody | undefined,
     void
   >,
   respond: UsersUpdateAuthenticatedResponder,
@@ -23211,7 +23226,7 @@ export type CodespacesCreateForAuthenticatedUser = (
   params: Params<
     void,
     void,
-    t_CodespacesCreateForAuthenticatedUserBodySchema,
+    t_CodespacesCreateForAuthenticatedUserRequestBody,
     void
   >,
   respond: CodespacesCreateForAuthenticatedUserResponder,
@@ -23310,7 +23325,7 @@ export type CodespacesCreateOrUpdateSecretForAuthenticatedUser = (
   params: Params<
     t_CodespacesCreateOrUpdateSecretForAuthenticatedUserParamSchema,
     void,
-    t_CodespacesCreateOrUpdateSecretForAuthenticatedUserBodySchema,
+    t_CodespacesCreateOrUpdateSecretForAuthenticatedUserRequestBody,
     void
   >,
   respond: CodespacesCreateOrUpdateSecretForAuthenticatedUserResponder,
@@ -23392,7 +23407,7 @@ export type CodespacesSetRepositoriesForSecretForAuthenticatedUser = (
   params: Params<
     t_CodespacesSetRepositoriesForSecretForAuthenticatedUserParamSchema,
     void,
-    t_CodespacesSetRepositoriesForSecretForAuthenticatedUserBodySchema,
+    t_CodespacesSetRepositoriesForSecretForAuthenticatedUserRequestBody,
     void
   >,
   respond: CodespacesSetRepositoriesForSecretForAuthenticatedUserResponder,
@@ -23505,7 +23520,7 @@ export type CodespacesUpdateForAuthenticatedUser = (
   params: Params<
     t_CodespacesUpdateForAuthenticatedUserParamSchema,
     void,
-    t_CodespacesUpdateForAuthenticatedUserBodySchema | undefined,
+    t_CodespacesUpdateForAuthenticatedUserRequestBody | undefined,
     void
   >,
   respond: CodespacesUpdateForAuthenticatedUserResponder,
@@ -23660,7 +23675,7 @@ export type CodespacesPublishForAuthenticatedUser = (
   params: Params<
     t_CodespacesPublishForAuthenticatedUserParamSchema,
     void,
-    t_CodespacesPublishForAuthenticatedUserBodySchema,
+    t_CodespacesPublishForAuthenticatedUserRequestBody,
     void
   >,
   respond: CodespacesPublishForAuthenticatedUserResponder,
@@ -23770,7 +23785,7 @@ export type UsersSetPrimaryEmailVisibilityForAuthenticatedUser = (
   params: Params<
     void,
     void,
-    t_UsersSetPrimaryEmailVisibilityForAuthenticatedUserBodySchema,
+    t_UsersSetPrimaryEmailVisibilityForAuthenticatedUserRequestBody,
     void
   >,
   respond: UsersSetPrimaryEmailVisibilityForAuthenticatedUserResponder,
@@ -23828,7 +23843,7 @@ export type UsersAddEmailForAuthenticatedUser = (
   params: Params<
     void,
     void,
-    t_UsersAddEmailForAuthenticatedUserBodySchema | undefined,
+    t_UsersAddEmailForAuthenticatedUserRequestBody | undefined,
     void
   >,
   respond: UsersAddEmailForAuthenticatedUserResponder,
@@ -23858,7 +23873,7 @@ export type UsersDeleteEmailForAuthenticatedUser = (
   params: Params<
     void,
     void,
-    t_UsersDeleteEmailForAuthenticatedUserBodySchema,
+    t_UsersDeleteEmailForAuthenticatedUserRequestBody,
     void
   >,
   respond: UsersDeleteEmailForAuthenticatedUserResponder,
@@ -24044,7 +24059,7 @@ export type UsersCreateGpgKeyForAuthenticatedUser = (
   params: Params<
     void,
     void,
-    t_UsersCreateGpgKeyForAuthenticatedUserBodySchema,
+    t_UsersCreateGpgKeyForAuthenticatedUserRequestBody,
     void
   >,
   respond: UsersCreateGpgKeyForAuthenticatedUserResponder,
@@ -24271,7 +24286,7 @@ export type InteractionsSetRestrictionsForAuthenticatedUser = (
   params: Params<
     void,
     void,
-    t_InteractionsSetRestrictionsForAuthenticatedUserBodySchema,
+    t_InteractionsSetRestrictionsForAuthenticatedUserRequestBody,
     void
   >,
   respond: InteractionsSetRestrictionsForAuthenticatedUserResponder,
@@ -24357,7 +24372,7 @@ export type UsersCreatePublicSshKeyForAuthenticatedUser = (
   params: Params<
     void,
     void,
-    t_UsersCreatePublicSshKeyForAuthenticatedUserBodySchema,
+    t_UsersCreatePublicSshKeyForAuthenticatedUserRequestBody,
     void
   >,
   respond: UsersCreatePublicSshKeyForAuthenticatedUserResponder,
@@ -24543,7 +24558,7 @@ export type OrgsUpdateMembershipForAuthenticatedUser = (
   params: Params<
     t_OrgsUpdateMembershipForAuthenticatedUserParamSchema,
     void,
-    t_OrgsUpdateMembershipForAuthenticatedUserBodySchema,
+    t_OrgsUpdateMembershipForAuthenticatedUserRequestBody,
     void
   >,
   respond: OrgsUpdateMembershipForAuthenticatedUserResponder,
@@ -24596,7 +24611,7 @@ export type MigrationsStartForAuthenticatedUser = (
   params: Params<
     void,
     void,
-    t_MigrationsStartForAuthenticatedUserBodySchema,
+    t_MigrationsStartForAuthenticatedUserRequestBody,
     void
   >,
   respond: MigrationsStartForAuthenticatedUserResponder,
@@ -24968,7 +24983,7 @@ export type ProjectsClassicCreateForAuthenticatedUser = (
   params: Params<
     void,
     void,
-    t_ProjectsClassicCreateForAuthenticatedUserBodySchema,
+    t_ProjectsClassicCreateForAuthenticatedUserRequestBody,
     void
   >,
   respond: ProjectsClassicCreateForAuthenticatedUserResponder,
@@ -25046,7 +25061,12 @@ export type ReposCreateForAuthenticatedUserResponder = {
 } & KoaRuntimeResponder
 
 export type ReposCreateForAuthenticatedUser = (
-  params: Params<void, void, t_ReposCreateForAuthenticatedUserBodySchema, void>,
+  params: Params<
+    void,
+    void,
+    t_ReposCreateForAuthenticatedUserRequestBody,
+    void
+  >,
   respond: ReposCreateForAuthenticatedUserResponder,
   ctx: RouterContext,
   next: Next,
@@ -25187,7 +25207,7 @@ export type UsersAddSocialAccountForAuthenticatedUser = (
   params: Params<
     void,
     void,
-    t_UsersAddSocialAccountForAuthenticatedUserBodySchema,
+    t_UsersAddSocialAccountForAuthenticatedUserRequestBody,
     void
   >,
   respond: UsersAddSocialAccountForAuthenticatedUserResponder,
@@ -25217,7 +25237,7 @@ export type UsersDeleteSocialAccountForAuthenticatedUser = (
   params: Params<
     void,
     void,
-    t_UsersDeleteSocialAccountForAuthenticatedUserBodySchema,
+    t_UsersDeleteSocialAccountForAuthenticatedUserRequestBody,
     void
   >,
   respond: UsersDeleteSocialAccountForAuthenticatedUserResponder,
@@ -25275,7 +25295,7 @@ export type UsersCreateSshSigningKeyForAuthenticatedUser = (
   params: Params<
     void,
     void,
-    t_UsersCreateSshSigningKeyForAuthenticatedUserBodySchema,
+    t_UsersCreateSshSigningKeyForAuthenticatedUserRequestBody,
     void
   >,
   respond: UsersCreateSshSigningKeyForAuthenticatedUserResponder,
@@ -25591,7 +25611,7 @@ export type UsersListAttestationsBulk = (
   params: Params<
     t_UsersListAttestationsBulkParamSchema,
     t_UsersListAttestationsBulkQuerySchema,
-    t_UsersListAttestationsBulkBodySchema,
+    t_UsersListAttestationsBulkRequestBody,
     void
   >,
   respond: UsersListAttestationsBulkResponder,
@@ -25642,7 +25662,7 @@ export type UsersDeleteAttestationsBulk = (
   params: Params<
     t_UsersDeleteAttestationsBulkParamSchema,
     void,
-    t_UsersDeleteAttestationsBulkBodySchema,
+    t_UsersDeleteAttestationsBulkRequestBody,
     void
   >,
   respond: UsersDeleteAttestationsBulkResponder,
@@ -27892,7 +27912,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const appsUpdateWebhookConfigForAppBodySchema = z.object({
+  const appsUpdateWebhookConfigForAppRequestBody = z.object({
     url: s_webhook_config_url.optional(),
     content_type: s_webhook_config_content_type.optional(),
     secret: s_webhook_config_secret.optional(),
@@ -27910,7 +27930,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          appsUpdateWebhookConfigForAppBodySchema,
+          appsUpdateWebhookConfigForAppRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -28393,7 +28413,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     installation_id: z.coerce.number(),
   })
 
-  const appsCreateInstallationAccessTokenBodySchema = z
+  const appsCreateInstallationAccessTokenRequestBody = z
     .object({
       repositories: z.array(z.string()).optional(),
       repository_ids: z.array(z.coerce.number()).optional(),
@@ -28425,7 +28445,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          appsCreateInstallationAccessTokenBodySchema,
+          appsCreateInstallationAccessTokenRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -28596,7 +28616,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const appsDeleteAuthorizationParamSchema = z.object({client_id: z.string()})
 
-  const appsDeleteAuthorizationBodySchema = z.object({access_token: z.string()})
+  const appsDeleteAuthorizationRequestBody = z.object({
+    access_token: z.string(),
+  })
 
   const appsDeleteAuthorizationResponseValidator = responseValidationFactory(
     [
@@ -28618,7 +28640,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          appsDeleteAuthorizationBodySchema,
+          appsDeleteAuthorizationRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -28659,7 +28681,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const appsCheckTokenParamSchema = z.object({client_id: z.string()})
 
-  const appsCheckTokenBodySchema = z.object({access_token: z.string()})
+  const appsCheckTokenRequestBody = z.object({access_token: z.string()})
 
   const appsCheckTokenResponseValidator = responseValidationFactory(
     [
@@ -28682,7 +28704,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          appsCheckTokenBodySchema,
+          appsCheckTokenRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -28726,7 +28748,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const appsResetTokenParamSchema = z.object({client_id: z.string()})
 
-  const appsResetTokenBodySchema = z.object({access_token: z.string()})
+  const appsResetTokenRequestBody = z.object({access_token: z.string()})
 
   const appsResetTokenResponseValidator = responseValidationFactory(
     [
@@ -28748,7 +28770,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          appsResetTokenBodySchema,
+          appsResetTokenRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -28789,7 +28811,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const appsDeleteTokenParamSchema = z.object({client_id: z.string()})
 
-  const appsDeleteTokenBodySchema = z.object({access_token: z.string()})
+  const appsDeleteTokenRequestBody = z.object({access_token: z.string()})
 
   const appsDeleteTokenResponseValidator = responseValidationFactory(
     [
@@ -28811,7 +28833,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          appsDeleteTokenBodySchema,
+          appsDeleteTokenRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -28852,7 +28874,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const appsScopeTokenParamSchema = z.object({client_id: z.string()})
 
-  const appsScopeTokenBodySchema = z.object({
+  const appsScopeTokenRequestBody = z.object({
     access_token: z.string(),
     target: z.string().optional(),
     target_id: z.coerce.number().optional(),
@@ -28884,7 +28906,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          appsScopeTokenBodySchema,
+          appsScopeTokenRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -29472,7 +29494,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const credentialsRevokeBodySchema = z.object({
+  const credentialsRevokeRequestBody = z.object({
     credentials: z.array(z.string()).min(1).max(1000),
   })
 
@@ -29490,7 +29512,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: undefined,
       body: parseRequestInput(
-        credentialsRevokeBodySchema,
+        credentialsRevokeRequestBody,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -29663,7 +29685,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     enterprise: z.string(),
   })
 
-  const codeSecurityCreateConfigurationForEnterpriseBodySchema = z.object({
+  const codeSecurityCreateConfigurationForEnterpriseRequestBody = z.object({
     name: z.string(),
     description: z.string().max(255),
     advanced_security: z
@@ -29759,7 +29781,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          codeSecurityCreateConfigurationForEnterpriseBodySchema,
+          codeSecurityCreateConfigurationForEnterpriseRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -29960,7 +29982,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     configuration_id: z.coerce.number(),
   })
 
-  const codeSecurityUpdateEnterpriseConfigurationBodySchema = z.object({
+  const codeSecurityUpdateEnterpriseConfigurationRequestBody = z.object({
     name: z.string().optional(),
     description: z.string().max(255).optional(),
     advanced_security: z
@@ -30036,7 +30058,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          codeSecurityUpdateEnterpriseConfigurationBodySchema,
+          codeSecurityUpdateEnterpriseConfigurationRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -30173,7 +30195,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     configuration_id: z.coerce.number(),
   })
 
-  const codeSecurityAttachEnterpriseConfigurationBodySchema = z.object({
+  const codeSecurityAttachEnterpriseConfigurationRequestBody = z.object({
     scope: z.enum(["all", "all_without_configurations"]),
   })
 
@@ -30200,7 +30222,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          codeSecurityAttachEnterpriseConfigurationBodySchema,
+          codeSecurityAttachEnterpriseConfigurationRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -30253,13 +30275,12 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const codeSecuritySetConfigurationAsDefaultForEnterpriseParamSchema =
     z.object({enterprise: z.string(), configuration_id: z.coerce.number()})
 
-  const codeSecuritySetConfigurationAsDefaultForEnterpriseBodySchema = z.object(
-    {
+  const codeSecuritySetConfigurationAsDefaultForEnterpriseRequestBody =
+    z.object({
       default_for_new_repos: z
         .enum(["all", "none", "private_and_internal", "public"])
         .optional(),
-    },
-  )
+    })
 
   const codeSecuritySetConfigurationAsDefaultForEnterpriseResponseValidator =
     responseValidationFactory(
@@ -30291,7 +30312,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          codeSecuritySetConfigurationAsDefaultForEnterpriseBodySchema,
+          codeSecuritySetConfigurationAsDefaultForEnterpriseRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -30812,7 +30833,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const gistsCreateBodySchema = z.object({
+  const gistsCreateRequestBody = z.object({
     description: z.string().optional(),
     files: z.record(z.string(), z.object({content: z.string()})),
     public: z
@@ -30839,7 +30860,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: undefined,
       body: parseRequestInput(
-        gistsCreateBodySchema,
+        gistsCreateRequestBody,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -31100,7 +31121,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const gistsUpdateParamSchema = z.object({gist_id: z.string()})
 
-  const gistsUpdateBodySchema = z
+  const gistsUpdateRequestBody = z
     .object({
       description: z.string().optional(),
       files: z
@@ -31135,7 +31156,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       query: undefined,
       body: parseRequestInput(
-        gistsUpdateBodySchema,
+        gistsUpdateRequestBody,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -31313,7 +31334,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const gistsCreateCommentParamSchema = z.object({gist_id: z.string()})
 
-  const gistsCreateCommentBodySchema = z.object({body: z.string().max(65535)})
+  const gistsCreateCommentRequestBody = z.object({body: z.string().max(65535)})
 
   const gistsCreateCommentResponseValidator = responseValidationFactory(
     [
@@ -31337,7 +31358,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          gistsCreateCommentBodySchema,
+          gistsCreateCommentRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -31476,7 +31497,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     comment_id: z.coerce.number(),
   })
 
-  const gistsUpdateCommentBodySchema = z.object({body: z.string().max(65535)})
+  const gistsUpdateCommentRequestBody = z.object({body: z.string().max(65535)})
 
   const gistsUpdateCommentResponseValidator = responseValidationFactory(
     [
@@ -31498,7 +31519,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          gistsUpdateCommentBodySchema,
+          gistsUpdateCommentRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -32500,7 +32521,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const markdownRenderBodySchema = z.object({
+  const markdownRenderRequestBody = z.object({
     text: z.string(),
     mode: z.enum(["markdown", "gfm"]).optional().default("markdown"),
     context: z.string().optional(),
@@ -32519,7 +32540,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: undefined,
       body: parseRequestInput(
-        markdownRenderBodySchema,
+        markdownRenderRequestBody,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -32557,7 +32578,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const markdownRenderRawBodySchema = z.string().optional()
+  const markdownRenderRawRequestBody = z.string().optional()
 
   const markdownRenderRawResponseValidator = responseValidationFactory(
     [
@@ -32572,7 +32593,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: undefined,
       body: parseRequestInput(
-        markdownRenderRawBodySchema,
+        markdownRenderRawRequestBody,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -33234,7 +33255,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const activityMarkNotificationsAsReadBodySchema = z
+  const activityMarkNotificationsAsReadRequestBody = z
     .object({
       last_read_at: z.iso.datetime({offset: true}).optional(),
       read: PermissiveBoolean.optional(),
@@ -33261,7 +33282,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          activityMarkNotificationsAsReadBodySchema,
+          activityMarkNotificationsAsReadRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -33573,7 +33594,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     thread_id: z.coerce.number(),
   })
 
-  const activitySetThreadSubscriptionBodySchema = z
+  const activitySetThreadSubscriptionRequestBody = z
     .object({ignored: PermissiveBoolean.optional().default(false)})
     .optional()
 
@@ -33600,7 +33621,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          activitySetThreadSubscriptionBodySchema,
+          activitySetThreadSubscriptionRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -33895,7 +33916,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     org: z.string(),
   })
 
-  const dependabotUpdateRepositoryAccessForOrgBodySchema = z.object({
+  const dependabotUpdateRepositoryAccessForOrgRequestBody = z.object({
     repository_ids_to_add: z.array(z.coerce.number()).optional(),
     repository_ids_to_remove: z.array(z.coerce.number()).optional(),
   })
@@ -33922,7 +33943,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          dependabotUpdateRepositoryAccessForOrgBodySchema,
+          dependabotUpdateRepositoryAccessForOrgRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -33971,7 +33992,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     org: z.string(),
   })
 
-  const dependabotSetRepositoryAccessDefaultLevelBodySchema = z.object({
+  const dependabotSetRepositoryAccessDefaultLevelRequestBody = z.object({
     default_level: z.enum(["public", "internal"]),
   })
 
@@ -33997,7 +34018,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          dependabotSetRepositoryAccessDefaultLevelBodySchema,
+          dependabotSetRepositoryAccessDefaultLevelRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -34194,7 +34215,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const orgsUpdateParamSchema = z.object({org: z.string()})
 
-  const orgsUpdateBodySchema = z
+  const orgsUpdateRequestBody = z
     .object({
       billing_email: z.string().optional(),
       company: z.string().optional(),
@@ -34263,7 +34284,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       query: undefined,
       body: parseRequestInput(
-        orgsUpdateBodySchema,
+        orgsUpdateRequestBody,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -34577,7 +34598,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const actionsCreateHostedRunnerForOrgParamSchema = z.object({org: z.string()})
 
-  const actionsCreateHostedRunnerForOrgBodySchema = z.object({
+  const actionsCreateHostedRunnerForOrgRequestBody = z.object({
     name: z.string(),
     image: z.object({
       id: z.string().optional(),
@@ -34604,7 +34625,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          actionsCreateHostedRunnerForOrgBodySchema,
+          actionsCreateHostedRunnerForOrgRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -35032,7 +35053,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     hosted_runner_id: z.coerce.number(),
   })
 
-  const actionsUpdateHostedRunnerForOrgBodySchema = z.object({
+  const actionsUpdateHostedRunnerForOrgRequestBody = z.object({
     name: z.string().optional(),
     runner_group_id: z.coerce.number().optional(),
     maximum_runners: z.coerce.number().optional(),
@@ -35054,7 +35075,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          actionsUpdateHostedRunnerForOrgBodySchema,
+          actionsUpdateHostedRunnerForOrgRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -35200,7 +35221,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     org: z.string(),
   })
 
-  const oidcUpdateOidcCustomSubTemplateForOrgBodySchema = s_oidc_custom_sub
+  const oidcUpdateOidcCustomSubTemplateForOrgRequestBody = s_oidc_custom_sub
 
   const oidcUpdateOidcCustomSubTemplateForOrgResponseValidator =
     responseValidationFactory(
@@ -35224,7 +35245,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          oidcUpdateOidcCustomSubTemplateForOrgBodySchema,
+          oidcUpdateOidcCustomSubTemplateForOrgRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -35336,7 +35357,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     org: z.string(),
   })
 
-  const actionsSetGithubActionsPermissionsOrganizationBodySchema = z.object({
+  const actionsSetGithubActionsPermissionsOrganizationRequestBody = z.object({
     enabled_repositories: s_enabled_repositories,
     allowed_actions: s_allowed_actions.optional(),
   })
@@ -35356,7 +35377,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          actionsSetGithubActionsPermissionsOrganizationBodySchema,
+          actionsSetGithubActionsPermissionsOrganizationRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -35487,7 +35508,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const actionsSetSelectedRepositoriesEnabledGithubActionsOrganizationParamSchema =
     z.object({org: z.string()})
 
-  const actionsSetSelectedRepositoriesEnabledGithubActionsOrganizationBodySchema =
+  const actionsSetSelectedRepositoriesEnabledGithubActionsOrganizationRequestBody =
     z.object({selected_repository_ids: z.array(z.coerce.number())})
 
   const actionsSetSelectedRepositoriesEnabledGithubActionsOrganizationResponseValidator =
@@ -35505,7 +35526,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          actionsSetSelectedRepositoriesEnabledGithubActionsOrganizationBodySchema,
+          actionsSetSelectedRepositoriesEnabledGithubActionsOrganizationRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -35726,7 +35747,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     org: z.string(),
   })
 
-  const actionsSetAllowedActionsOrganizationBodySchema =
+  const actionsSetAllowedActionsOrganizationRequestBody =
     s_selected_actions.optional()
 
   const actionsSetAllowedActionsOrganizationResponseValidator =
@@ -35744,7 +35765,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          actionsSetAllowedActionsOrganizationBodySchema,
+          actionsSetAllowedActionsOrganizationRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -35850,7 +35871,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const actionsSetGithubActionsDefaultWorkflowPermissionsOrganizationParamSchema =
     z.object({org: z.string()})
 
-  const actionsSetGithubActionsDefaultWorkflowPermissionsOrganizationBodySchema =
+  const actionsSetGithubActionsDefaultWorkflowPermissionsOrganizationRequestBody =
     s_actions_set_default_workflow_permissions.optional()
 
   const actionsSetGithubActionsDefaultWorkflowPermissionsOrganizationResponseValidator =
@@ -35868,7 +35889,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          actionsSetGithubActionsDefaultWorkflowPermissionsOrganizationBodySchema,
+          actionsSetGithubActionsDefaultWorkflowPermissionsOrganizationRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -35995,7 +36016,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     org: z.string(),
   })
 
-  const actionsCreateSelfHostedRunnerGroupForOrgBodySchema = z.object({
+  const actionsCreateSelfHostedRunnerGroupForOrgRequestBody = z.object({
     name: z.string(),
     visibility: z
       .enum(["selected", "all", "private"])
@@ -36024,7 +36045,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          actionsCreateSelfHostedRunnerGroupForOrgBodySchema,
+          actionsCreateSelfHostedRunnerGroupForOrgRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -36123,7 +36144,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     runner_group_id: z.coerce.number(),
   })
 
-  const actionsUpdateSelfHostedRunnerGroupForOrgBodySchema = z.object({
+  const actionsUpdateSelfHostedRunnerGroupForOrgRequestBody = z.object({
     name: z.string(),
     visibility: z.enum(["selected", "all", "private"]).optional(),
     allows_public_repositories: PermissiveBoolean.optional().default(false),
@@ -36147,7 +36168,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          actionsUpdateSelfHostedRunnerGroupForOrgBodySchema,
+          actionsUpdateSelfHostedRunnerGroupForOrgRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -36414,7 +36435,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     runner_group_id: z.coerce.number(),
   })
 
-  const actionsSetRepoAccessToSelfHostedRunnerGroupInOrgBodySchema = z.object({
+  const actionsSetRepoAccessToSelfHostedRunnerGroupInOrgRequestBody = z.object({
     selected_repository_ids: z.array(z.coerce.number()),
   })
 
@@ -36433,7 +36454,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          actionsSetRepoAccessToSelfHostedRunnerGroupInOrgBodySchema,
+          actionsSetRepoAccessToSelfHostedRunnerGroupInOrgRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -36686,7 +36707,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     runner_group_id: z.coerce.number(),
   })
 
-  const actionsSetSelfHostedRunnersInGroupForOrgBodySchema = z.object({
+  const actionsSetSelfHostedRunnersInGroupForOrgRequestBody = z.object({
     runners: z.array(z.coerce.number()),
   })
 
@@ -36705,7 +36726,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          actionsSetSelfHostedRunnersInGroupForOrgBodySchema,
+          actionsSetSelfHostedRunnersInGroupForOrgRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -37000,7 +37021,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     org: z.string(),
   })
 
-  const actionsGenerateRunnerJitconfigForOrgBodySchema = z.object({
+  const actionsGenerateRunnerJitconfigForOrgRequestBody = z.object({
     name: z.string(),
     runner_group_id: z.coerce.number(),
     labels: z.array(z.string()).min(1).max(100),
@@ -37030,7 +37051,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          actionsGenerateRunnerJitconfigForOrgBodySchema,
+          actionsGenerateRunnerJitconfigForOrgRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -37378,7 +37399,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     runner_id: z.coerce.number(),
   })
 
-  const actionsAddCustomLabelsToSelfHostedRunnerForOrgBodySchema = z.object({
+  const actionsAddCustomLabelsToSelfHostedRunnerForOrgRequestBody = z.object({
     labels: z.array(z.string()).min(1).max(100),
   })
 
@@ -37410,7 +37431,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          actionsAddCustomLabelsToSelfHostedRunnerForOrgBodySchema,
+          actionsAddCustomLabelsToSelfHostedRunnerForOrgRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -37469,7 +37490,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     runner_id: z.coerce.number(),
   })
 
-  const actionsSetCustomLabelsForSelfHostedRunnerForOrgBodySchema = z.object({
+  const actionsSetCustomLabelsForSelfHostedRunnerForOrgRequestBody = z.object({
     labels: z.array(z.string()).min(0).max(100),
   })
 
@@ -37501,7 +37522,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          actionsSetCustomLabelsForSelfHostedRunnerForOrgBodySchema,
+          actionsSetCustomLabelsForSelfHostedRunnerForOrgRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -37894,7 +37915,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     secret_name: z.string(),
   })
 
-  const actionsCreateOrUpdateOrgSecretBodySchema = z.object({
+  const actionsCreateOrUpdateOrgSecretRequestBody = z.object({
     encrypted_value: z
       .string()
       .regex(
@@ -37928,7 +37949,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          actionsCreateOrUpdateOrgSecretBodySchema,
+          actionsCreateOrUpdateOrgSecretRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -38104,7 +38125,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     secret_name: z.string(),
   })
 
-  const actionsSetSelectedReposForOrgSecretBodySchema = z.object({
+  const actionsSetSelectedReposForOrgSecretRequestBody = z.object({
     selected_repository_ids: z.array(z.coerce.number()),
   })
 
@@ -38123,7 +38144,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          actionsSetSelectedReposForOrgSecretBodySchema,
+          actionsSetSelectedReposForOrgSecretRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -38365,7 +38386,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const actionsCreateOrgVariableParamSchema = z.object({org: z.string()})
 
-  const actionsCreateOrgVariableBodySchema = z.object({
+  const actionsCreateOrgVariableRequestBody = z.object({
     name: z.string(),
     value: z.string(),
     visibility: z.enum(["all", "private", "selected"]),
@@ -38389,7 +38410,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          actionsCreateOrgVariableBodySchema,
+          actionsCreateOrgVariableRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -38484,7 +38505,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     name: z.string(),
   })
 
-  const actionsUpdateOrgVariableBodySchema = z.object({
+  const actionsUpdateOrgVariableRequestBody = z.object({
     name: z.string().optional(),
     value: z.string().optional(),
     visibility: z.enum(["all", "private", "selected"]).optional(),
@@ -38508,7 +38529,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          actionsUpdateOrgVariableBodySchema,
+          actionsUpdateOrgVariableRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -38685,7 +38706,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     name: z.string(),
   })
 
-  const actionsSetSelectedReposForOrgVariableBodySchema = z.object({
+  const actionsSetSelectedReposForOrgVariableRequestBody = z.object({
     selected_repository_ids: z.array(z.coerce.number()),
   })
 
@@ -38710,7 +38731,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          actionsSetSelectedReposForOrgVariableBodySchema,
+          actionsSetSelectedReposForOrgVariableRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -38890,7 +38911,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     after: z.string().optional(),
   })
 
-  const orgsListAttestationsBulkBodySchema = z.object({
+  const orgsListAttestationsBulkRequestBody = z.object({
     subject_digests: z.array(z.string()).min(1).max(1024),
     predicate_type: z.string().optional(),
   })
@@ -38954,7 +38975,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          orgsListAttestationsBulkBodySchema,
+          orgsListAttestationsBulkRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -39019,7 +39040,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const orgsDeleteAttestationsBulkParamSchema = z.object({org: z.string()})
 
-  const orgsDeleteAttestationsBulkBodySchema = z.union([
+  const orgsDeleteAttestationsBulkRequestBody = z.union([
     z.object({subject_digests: z.array(z.string()).min(1).max(1024)}),
     z.object({attestation_ids: z.array(z.coerce.number()).min(1).max(1024)}),
   ])
@@ -39044,7 +39065,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          orgsDeleteAttestationsBulkBodySchema,
+          orgsDeleteAttestationsBulkRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -39640,7 +39661,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const campaignsCreateCampaignParamSchema = z.object({org: z.string()})
 
-  const campaignsCreateCampaignBodySchema = z.object({
+  const campaignsCreateCampaignRequestBody = z.object({
     name: z.string().min(1).max(50),
     description: z.string().min(1).max(255),
     managers: z.array(z.string()).max(10).optional(),
@@ -39689,7 +39710,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          campaignsCreateCampaignBodySchema,
+          campaignsCreateCampaignRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -39829,7 +39850,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     campaign_number: z.coerce.number(),
   })
 
-  const campaignsUpdateCampaignBodySchema = z.object({
+  const campaignsUpdateCampaignRequestBody = z.object({
     name: z.string().min(1).max(50).optional(),
     description: z.string().min(1).max(255).optional(),
     managers: z.array(z.string()).max(10).optional(),
@@ -39869,7 +39890,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          campaignsUpdateCampaignBodySchema,
+          campaignsUpdateCampaignRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -40168,7 +40189,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const codeSecurityCreateConfigurationParamSchema = z.object({org: z.string()})
 
-  const codeSecurityCreateConfigurationBodySchema = z.object({
+  const codeSecurityCreateConfigurationRequestBody = z.object({
     name: z.string(),
     description: z.string().max(255),
     advanced_security: z
@@ -40274,7 +40295,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          codeSecurityCreateConfigurationBodySchema,
+          codeSecurityCreateConfigurationRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -40385,7 +40406,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const codeSecurityDetachConfigurationParamSchema = z.object({org: z.string()})
 
-  const codeSecurityDetachConfigurationBodySchema = z.object({
+  const codeSecurityDetachConfigurationRequestBody = z.object({
     selected_repository_ids: z
       .array(z.coerce.number())
       .min(1)
@@ -40417,7 +40438,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          codeSecurityDetachConfigurationBodySchema,
+          codeSecurityDetachConfigurationRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -40539,7 +40560,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     configuration_id: z.coerce.number(),
   })
 
-  const codeSecurityUpdateConfigurationBodySchema = z.object({
+  const codeSecurityUpdateConfigurationRequestBody = z.object({
     name: z.string().optional(),
     description: z.string().max(255).optional(),
     advanced_security: z
@@ -40625,7 +40646,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          codeSecurityUpdateConfigurationBodySchema,
+          codeSecurityUpdateConfigurationRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -40742,7 +40763,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     configuration_id: z.coerce.number(),
   })
 
-  const codeSecurityAttachConfigurationBodySchema = z.object({
+  const codeSecurityAttachConfigurationRequestBody = z.object({
     scope: z.enum([
       "all",
       "all_without_configurations",
@@ -40771,7 +40792,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          codeSecurityAttachConfigurationBodySchema,
+          codeSecurityAttachConfigurationRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -40814,7 +40835,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     configuration_id: z.coerce.number(),
   })
 
-  const codeSecuritySetConfigurationAsDefaultBodySchema = z.object({
+  const codeSecuritySetConfigurationAsDefaultRequestBody = z.object({
     default_for_new_repos: z
       .enum(["all", "none", "private_and_internal", "public"])
       .optional(),
@@ -40850,7 +40871,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          codeSecuritySetConfigurationAsDefaultBodySchema,
+          codeSecuritySetConfigurationAsDefaultRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -41082,7 +41103,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const codespacesSetCodespacesAccessParamSchema = z.object({org: z.string()})
 
-  const codespacesSetCodespacesAccessBodySchema = z.object({
+  const codespacesSetCodespacesAccessRequestBody = z.object({
     visibility: z.enum([
       "disabled",
       "selected_members",
@@ -41117,7 +41138,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          codespacesSetCodespacesAccessBodySchema,
+          codespacesSetCodespacesAccessRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -41172,7 +41193,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     org: z.string(),
   })
 
-  const codespacesSetCodespacesAccessUsersBodySchema = z.object({
+  const codespacesSetCodespacesAccessUsersRequestBody = z.object({
     selected_usernames: z.array(z.string()).max(100),
   })
 
@@ -41201,7 +41222,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          codespacesSetCodespacesAccessUsersBodySchema,
+          codespacesSetCodespacesAccessUsersRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -41259,7 +41280,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     org: z.string(),
   })
 
-  const codespacesDeleteCodespacesAccessUsersBodySchema = z.object({
+  const codespacesDeleteCodespacesAccessUsersRequestBody = z.object({
     selected_usernames: z.array(z.string()).max(100),
   })
 
@@ -41288,7 +41309,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          codespacesDeleteCodespacesAccessUsersBodySchema,
+          codespacesDeleteCodespacesAccessUsersRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -41523,7 +41544,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     secret_name: z.string(),
   })
 
-  const codespacesCreateOrUpdateOrgSecretBodySchema = z.object({
+  const codespacesCreateOrUpdateOrgSecretRequestBody = z.object({
     encrypted_value: z
       .string()
       .regex(
@@ -41560,7 +41581,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          codespacesCreateOrUpdateOrgSecretBodySchema,
+          codespacesCreateOrUpdateOrgSecretRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -41755,7 +41776,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     secret_name: z.string(),
   })
 
-  const codespacesSetSelectedReposForOrgSecretBodySchema = z.object({
+  const codespacesSetSelectedReposForOrgSecretRequestBody = z.object({
     selected_repository_ids: z.array(z.coerce.number()),
   })
 
@@ -41781,7 +41802,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          codespacesSetSelectedReposForOrgSecretBodySchema,
+          codespacesSetSelectedReposForOrgSecretRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -42140,7 +42161,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const copilotAddCopilotSeatsForTeamsParamSchema = z.object({org: z.string()})
 
-  const copilotAddCopilotSeatsForTeamsBodySchema = z.object({
+  const copilotAddCopilotSeatsForTeamsRequestBody = z.object({
     selected_teams: z.array(z.string()).min(1),
   })
 
@@ -42169,7 +42190,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          copilotAddCopilotSeatsForTeamsBodySchema,
+          copilotAddCopilotSeatsForTeamsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -42226,7 +42247,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     org: z.string(),
   })
 
-  const copilotCancelCopilotSeatAssignmentForTeamsBodySchema = z.object({
+  const copilotCancelCopilotSeatAssignmentForTeamsRequestBody = z.object({
     selected_teams: z.array(z.string()).min(1),
   })
 
@@ -42255,7 +42276,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          copilotCancelCopilotSeatAssignmentForTeamsBodySchema,
+          copilotCancelCopilotSeatAssignmentForTeamsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -42313,7 +42334,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const copilotAddCopilotSeatsForUsersParamSchema = z.object({org: z.string()})
 
-  const copilotAddCopilotSeatsForUsersBodySchema = z.object({
+  const copilotAddCopilotSeatsForUsersRequestBody = z.object({
     selected_usernames: z.array(z.string()).min(1),
   })
 
@@ -42342,7 +42363,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          copilotAddCopilotSeatsForUsersBodySchema,
+          copilotAddCopilotSeatsForUsersRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -42399,7 +42420,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     org: z.string(),
   })
 
-  const copilotCancelCopilotSeatAssignmentForUsersBodySchema = z.object({
+  const copilotCancelCopilotSeatAssignmentForUsersRequestBody = z.object({
     selected_usernames: z.array(z.string()).min(1),
   })
 
@@ -42428,7 +42449,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          copilotCancelCopilotSeatAssignmentForUsersBodySchema,
+          copilotCancelCopilotSeatAssignmentForUsersRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -42850,7 +42871,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     secret_name: z.string(),
   })
 
-  const dependabotCreateOrUpdateOrgSecretBodySchema = z.object({
+  const dependabotCreateOrUpdateOrgSecretRequestBody = z.object({
     encrypted_value: z
       .string()
       .regex(
@@ -42885,7 +42906,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          dependabotCreateOrUpdateOrgSecretBodySchema,
+          dependabotCreateOrUpdateOrgSecretRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -43064,7 +43085,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     secret_name: z.string(),
   })
 
-  const dependabotSetSelectedReposForOrgSecretBodySchema = z.object({
+  const dependabotSetSelectedReposForOrgSecretRequestBody = z.object({
     selected_repository_ids: z.array(z.coerce.number()),
   })
 
@@ -43083,7 +43104,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          dependabotSetSelectedReposForOrgSecretBodySchema,
+          dependabotSetSelectedReposForOrgSecretRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -43512,7 +43533,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const orgsCreateWebhookParamSchema = z.object({org: z.string()})
 
-  const orgsCreateWebhookBodySchema = z.object({
+  const orgsCreateWebhookRequestBody = z.object({
     name: z.string(),
     config: z.object({
       url: s_webhook_config_url,
@@ -43544,7 +43565,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       query: undefined,
       body: parseRequestInput(
-        orgsCreateWebhookBodySchema,
+        orgsCreateWebhookRequestBody,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -43650,7 +43671,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     hook_id: z.coerce.number(),
   })
 
-  const orgsUpdateWebhookBodySchema = z
+  const orgsUpdateWebhookRequestBody = z
     .object({
       config: z
         .object({
@@ -43687,7 +43708,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          orgsUpdateWebhookBodySchema,
+          orgsUpdateWebhookRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -43848,7 +43869,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     hook_id: z.coerce.number(),
   })
 
-  const orgsUpdateWebhookConfigForOrgBodySchema = z
+  const orgsUpdateWebhookConfigForOrgRequestBody = z
     .object({
       url: s_webhook_config_url.optional(),
       content_type: s_webhook_config_content_type.optional(),
@@ -43872,7 +43893,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          orgsUpdateWebhookConfigForOrgBodySchema,
+          orgsUpdateWebhookConfigForOrgRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -45001,7 +45022,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     org: z.string(),
   })
 
-  const interactionsSetRestrictionsForOrgBodySchema = s_interaction_limit
+  const interactionsSetRestrictionsForOrgRequestBody = s_interaction_limit
 
   const interactionsSetRestrictionsForOrgResponseValidator =
     responseValidationFactory(
@@ -45024,7 +45045,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          interactionsSetRestrictionsForOrgBodySchema,
+          interactionsSetRestrictionsForOrgRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -45202,7 +45223,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const orgsCreateInvitationParamSchema = z.object({org: z.string()})
 
-  const orgsCreateInvitationBodySchema = z
+  const orgsCreateInvitationRequestBody = z
     .object({
       invitee_id: z.coerce.number().optional(),
       email: z.string().optional(),
@@ -45235,7 +45256,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          orgsCreateInvitationBodySchema,
+          orgsCreateInvitationRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -45469,7 +45490,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const orgsCreateIssueTypeParamSchema = z.object({org: z.string()})
 
-  const orgsCreateIssueTypeBodySchema = s_organization_create_issue_type
+  const orgsCreateIssueTypeRequestBody = s_organization_create_issue_type
 
   const orgsCreateIssueTypeResponseValidator = responseValidationFactory(
     [
@@ -45492,7 +45513,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          orgsCreateIssueTypeBodySchema,
+          orgsCreateIssueTypeRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -45539,7 +45560,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     issue_type_id: z.coerce.number(),
   })
 
-  const orgsUpdateIssueTypeBodySchema = s_organization_update_issue_type
+  const orgsUpdateIssueTypeRequestBody = s_organization_update_issue_type
 
   const orgsUpdateIssueTypeResponseValidator = responseValidationFactory(
     [
@@ -45562,7 +45583,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          orgsUpdateIssueTypeBodySchema,
+          orgsUpdateIssueTypeRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -46339,7 +46360,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     username: z.string(),
   })
 
-  const orgsSetMembershipForUserBodySchema = z
+  const orgsSetMembershipForUserRequestBody = z
     .object({role: z.enum(["admin", "member"]).optional().default("member")})
     .optional()
 
@@ -46364,7 +46385,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          orgsSetMembershipForUserBodySchema,
+          orgsSetMembershipForUserRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -46539,7 +46560,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const migrationsStartForOrgParamSchema = z.object({org: z.string()})
 
-  const migrationsStartForOrgBodySchema = z.object({
+  const migrationsStartForOrgRequestBody = z.object({
     repositories: z.array(z.string()),
     lock_repositories: PermissiveBoolean.optional().default(false),
     exclude_metadata: PermissiveBoolean.optional().default(false),
@@ -46572,7 +46593,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          migrationsStartForOrgBodySchema,
+          migrationsStartForOrgRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -47634,7 +47655,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     username: z.string(),
   })
 
-  const orgsConvertMemberToOutsideCollaboratorBodySchema = z
+  const orgsConvertMemberToOutsideCollaboratorRequestBody = z
     .object({async: PermissiveBoolean.optional().default(false)})
     .optional()
 
@@ -47661,7 +47682,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          orgsConvertMemberToOutsideCollaboratorBodySchema,
+          orgsConvertMemberToOutsideCollaboratorRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -48521,7 +48542,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     org: z.string(),
   })
 
-  const orgsReviewPatGrantRequestsInBulkBodySchema = z.object({
+  const orgsReviewPatGrantRequestsInBulkRequestBody = z.object({
     pat_request_ids: z.array(z.coerce.number()).min(1).max(100).optional(),
     action: z.enum(["approve", "deny"]),
     reason: z.string().max(1024).nullable().optional(),
@@ -48551,7 +48572,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          orgsReviewPatGrantRequestsInBulkBodySchema,
+          orgsReviewPatGrantRequestsInBulkRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -48606,7 +48627,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     pat_request_id: z.coerce.number(),
   })
 
-  const orgsReviewPatGrantRequestBodySchema = z.object({
+  const orgsReviewPatGrantRequestRequestBody = z.object({
     action: z.enum(["approve", "deny"]),
     reason: z.string().max(1024).nullable().optional(),
   })
@@ -48634,7 +48655,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          orgsReviewPatGrantRequestBodySchema,
+          orgsReviewPatGrantRequestRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -48863,7 +48884,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const orgsUpdatePatAccessesParamSchema = z.object({org: z.string()})
 
-  const orgsUpdatePatAccessesBodySchema = z.object({
+  const orgsUpdatePatAccessesRequestBody = z.object({
     action: z.enum(["revoke"]),
     pat_ids: z.array(z.coerce.number()).min(1).max(100),
   })
@@ -48891,7 +48912,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          orgsUpdatePatAccessesBodySchema,
+          orgsUpdatePatAccessesRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -48946,7 +48967,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     pat_id: z.coerce.number(),
   })
 
-  const orgsUpdatePatAccessBodySchema = z.object({action: z.enum(["revoke"])})
+  const orgsUpdatePatAccessRequestBody = z.object({action: z.enum(["revoke"])})
 
   const orgsUpdatePatAccessResponseValidator = responseValidationFactory(
     [
@@ -48971,7 +48992,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          orgsUpdatePatAccessBodySchema,
+          orgsUpdatePatAccessRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -49186,7 +49207,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     org: z.string(),
   })
 
-  const privateRegistriesCreateOrgPrivateRegistryBodySchema = z.object({
+  const privateRegistriesCreateOrgPrivateRegistryRequestBody = z.object({
     registry_type: z.enum([
       "maven_repository",
       "nuget_feed",
@@ -49243,7 +49264,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          privateRegistriesCreateOrgPrivateRegistryBodySchema,
+          privateRegistriesCreateOrgPrivateRegistryRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -49424,7 +49445,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     secret_name: z.string(),
   })
 
-  const privateRegistriesUpdateOrgPrivateRegistryBodySchema = z.object({
+  const privateRegistriesUpdateOrgPrivateRegistryRequestBody = z.object({
     registry_type: z
       .enum([
         "maven_repository",
@@ -49481,7 +49502,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          privateRegistriesUpdateOrgPrivateRegistryBodySchema,
+          privateRegistriesUpdateOrgPrivateRegistryRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -49663,7 +49684,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const projectsClassicCreateForOrgParamSchema = z.object({org: z.string()})
 
-  const projectsClassicCreateForOrgBodySchema = z.object({
+  const projectsClassicCreateForOrgRequestBody = z.object({
     name: z.string(),
     body: z.string().optional(),
   })
@@ -49693,7 +49714,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          projectsClassicCreateForOrgBodySchema,
+          projectsClassicCreateForOrgRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -49809,7 +49830,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     org: z.string(),
   })
 
-  const orgsCreateOrUpdateCustomPropertiesBodySchema = z.object({
+  const orgsCreateOrUpdateCustomPropertiesRequestBody = z.object({
     properties: z.array(s_custom_property).min(1).max(100),
   })
 
@@ -49835,7 +49856,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          orgsCreateOrUpdateCustomPropertiesBodySchema,
+          orgsCreateOrUpdateCustomPropertiesRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -49949,7 +49970,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     custom_property_name: z.string(),
   })
 
-  const orgsCreateOrUpdateCustomPropertyBodySchema =
+  const orgsCreateOrUpdateCustomPropertyRequestBody =
     s_custom_property_set_payload
 
   const orgsCreateOrUpdateCustomPropertyResponseValidator =
@@ -49974,7 +49995,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          orgsCreateOrUpdateCustomPropertyBodySchema,
+          orgsCreateOrUpdateCustomPropertyRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -50163,7 +50184,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     org: z.string(),
   })
 
-  const orgsCreateOrUpdateCustomPropertiesValuesForReposBodySchema = z.object({
+  const orgsCreateOrUpdateCustomPropertiesValuesForReposRequestBody = z.object({
     repository_names: z.array(z.string()).min(1).max(30),
     properties: z.array(s_custom_property_value),
   })
@@ -50191,7 +50212,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          orgsCreateOrUpdateCustomPropertiesValuesForReposBodySchema,
+          orgsCreateOrUpdateCustomPropertiesValuesForReposRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -50563,7 +50584,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const reposCreateInOrgParamSchema = z.object({org: z.string()})
 
-  const reposCreateInOrgBodySchema = z.object({
+  const reposCreateInOrgRequestBody = z.object({
     name: z.string(),
     description: z.string().optional(),
     homepage: z.string().optional(),
@@ -50613,7 +50634,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       query: undefined,
       body: parseRequestInput(
-        reposCreateInOrgBodySchema,
+        reposCreateInOrgRequestBody,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -50727,7 +50748,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const reposCreateOrgRulesetParamSchema = z.object({org: z.string()})
 
-  const reposCreateOrgRulesetBodySchema = z.object({
+  const reposCreateOrgRulesetRequestBody = z.object({
     name: z.string(),
     target: z
       .enum(["branch", "tag", "push", "repository"])
@@ -50760,7 +50781,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposCreateOrgRulesetBodySchema,
+          reposCreateOrgRulesetRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -51016,7 +51037,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ruleset_id: z.coerce.number(),
   })
 
-  const reposUpdateOrgRulesetBodySchema = z
+  const reposUpdateOrgRulesetRequestBody = z
     .object({
       name: z.string().optional(),
       target: z.enum(["branch", "tag", "push", "repository"]).optional(),
@@ -51048,7 +51069,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposUpdateOrgRulesetBodySchema,
+          reposUpdateOrgRulesetRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -51878,7 +51899,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     org: z.string(),
   })
 
-  const hostedComputeCreateNetworkConfigurationForOrgBodySchema = z.object({
+  const hostedComputeCreateNetworkConfigurationForOrgRequestBody = z.object({
     name: z.string(),
     compute_service: z.enum(["none", "actions"]).optional(),
     network_settings_ids: z.array(z.string()).min(1).max(1),
@@ -51899,7 +51920,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          hostedComputeCreateNetworkConfigurationForOrgBodySchema,
+          hostedComputeCreateNetworkConfigurationForOrgRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -52003,7 +52024,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     network_configuration_id: z.string(),
   })
 
-  const hostedComputeUpdateNetworkConfigurationForOrgBodySchema = z.object({
+  const hostedComputeUpdateNetworkConfigurationForOrgRequestBody = z.object({
     name: z.string().optional(),
     compute_service: z.enum(["none", "actions"]).optional(),
     network_settings_ids: z.array(z.string()).min(0).max(1).optional(),
@@ -52024,7 +52045,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          hostedComputeUpdateNetworkConfigurationForOrgBodySchema,
+          hostedComputeUpdateNetworkConfigurationForOrgRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -52332,7 +52353,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const teamsCreateParamSchema = z.object({org: z.string()})
 
-  const teamsCreateBodySchema = z.object({
+  const teamsCreateRequestBody = z.object({
     name: z.string(),
     description: z.string().optional(),
     maintainers: z.array(z.string()).optional(),
@@ -52363,7 +52384,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       query: undefined,
       body: parseRequestInput(
-        teamsCreateBodySchema,
+        teamsCreateRequestBody,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -52469,7 +52490,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     team_slug: z.string(),
   })
 
-  const teamsUpdateInOrgBodySchema = z
+  const teamsUpdateInOrgRequestBody = z
     .object({
       name: z.string().optional(),
       description: z.string().optional(),
@@ -52505,7 +52526,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          teamsUpdateInOrgBodySchema,
+          teamsUpdateInOrgRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -52677,7 +52698,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     team_slug: z.string(),
   })
 
-  const teamsCreateDiscussionInOrgBodySchema = z.object({
+  const teamsCreateDiscussionInOrgRequestBody = z.object({
     title: z.string(),
     body: z.string(),
     private: PermissiveBoolean.optional().default(false),
@@ -52700,7 +52721,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          teamsCreateDiscussionInOrgBodySchema,
+          teamsCreateDiscussionInOrgRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -52797,7 +52818,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     discussion_number: z.coerce.number(),
   })
 
-  const teamsUpdateDiscussionInOrgBodySchema = z
+  const teamsUpdateDiscussionInOrgRequestBody = z
     .object({title: z.string().optional(), body: z.string().optional()})
     .optional()
 
@@ -52818,7 +52839,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          teamsUpdateDiscussionInOrgBodySchema,
+          teamsUpdateDiscussionInOrgRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -52981,7 +53002,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     discussion_number: z.coerce.number(),
   })
 
-  const teamsCreateDiscussionCommentInOrgBodySchema = z.object({
+  const teamsCreateDiscussionCommentInOrgRequestBody = z.object({
     body: z.string(),
   })
 
@@ -53000,7 +53021,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          teamsCreateDiscussionCommentInOrgBodySchema,
+          teamsCreateDiscussionCommentInOrgRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -53100,7 +53121,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     comment_number: z.coerce.number(),
   })
 
-  const teamsUpdateDiscussionCommentInOrgBodySchema = z.object({
+  const teamsUpdateDiscussionCommentInOrgRequestBody = z.object({
     body: z.string(),
   })
 
@@ -53119,7 +53140,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          teamsUpdateDiscussionCommentInOrgBodySchema,
+          teamsUpdateDiscussionCommentInOrgRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -53300,7 +53321,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     comment_number: z.coerce.number(),
   })
 
-  const reactionsCreateForTeamDiscussionCommentInOrgBodySchema = z.object({
+  const reactionsCreateForTeamDiscussionCommentInOrgRequestBody = z.object({
     content: z.enum([
       "+1",
       "-1",
@@ -53334,7 +53355,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reactionsCreateForTeamDiscussionCommentInOrgBodySchema,
+          reactionsCreateForTeamDiscussionCommentInOrgRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -53522,7 +53543,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     discussion_number: z.coerce.number(),
   })
 
-  const reactionsCreateForTeamDiscussionInOrgBodySchema = z.object({
+  const reactionsCreateForTeamDiscussionInOrgRequestBody = z.object({
     content: z.enum([
       "+1",
       "-1",
@@ -53556,7 +53577,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reactionsCreateForTeamDiscussionInOrgBodySchema,
+          reactionsCreateForTeamDiscussionInOrgRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -53848,7 +53869,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     username: z.string(),
   })
 
-  const teamsAddOrUpdateMembershipForUserInOrgBodySchema = z
+  const teamsAddOrUpdateMembershipForUserInOrgRequestBody = z
     .object({
       role: z.enum(["member", "maintainer"]).optional().default("member"),
     })
@@ -53876,7 +53897,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          teamsAddOrUpdateMembershipForUserInOrgBodySchema,
+          teamsAddOrUpdateMembershipForUserInOrgRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -54120,7 +54141,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     project_id: z.coerce.number(),
   })
 
-  const teamsAddOrUpdateProjectPermissionsInOrgBodySchema = z
+  const teamsAddOrUpdateProjectPermissionsInOrgRequestBody = z
     .object({permission: z.enum(["read", "write", "admin"]).optional()})
     .nullable()
     .optional()
@@ -54152,7 +54173,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          teamsAddOrUpdateProjectPermissionsInOrgBodySchema,
+          teamsAddOrUpdateProjectPermissionsInOrgRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -54392,7 +54413,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const teamsAddOrUpdateRepoPermissionsInOrgBodySchema = z
+  const teamsAddOrUpdateRepoPermissionsInOrgRequestBody = z
     .object({permission: z.string().optional()})
     .optional()
 
@@ -54411,7 +54432,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          teamsAddOrUpdateRepoPermissionsInOrgBodySchema,
+          teamsAddOrUpdateRepoPermissionsInOrgRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -54583,7 +54604,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     enablement: z.enum(["enable_all", "disable_all"]),
   })
 
-  const orgsEnableOrDisableSecurityProductOnAllOrgReposBodySchema = z
+  const orgsEnableOrDisableSecurityProductOnAllOrgReposRequestBody = z
     .object({query_suite: z.enum(["default", "extended"]).optional()})
     .optional()
 
@@ -54608,7 +54629,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          orgsEnableOrDisableSecurityProductOnAllOrgReposBodySchema,
+          orgsEnableOrDisableSecurityProductOnAllOrgReposRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -54731,7 +54752,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     card_id: z.coerce.number(),
   })
 
-  const projectsClassicUpdateCardBodySchema = z
+  const projectsClassicUpdateCardRequestBody = z
     .object({
       note: z.string().nullable().optional(),
       archived: PermissiveBoolean.optional(),
@@ -54762,7 +54783,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          projectsClassicUpdateCardBodySchema,
+          projectsClassicUpdateCardRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -54899,7 +54920,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     card_id: z.coerce.number(),
   })
 
-  const projectsClassicMoveCardBodySchema = z.object({
+  const projectsClassicMoveCardRequestBody = z.object({
     position: z.string().regex(new RegExp("^(?:top|bottom|after:\\d+)$")),
     column_id: z.coerce.number().optional(),
   })
@@ -54959,7 +54980,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          projectsClassicMoveCardBodySchema,
+          projectsClassicMoveCardRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -55102,7 +55123,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     column_id: z.coerce.number(),
   })
 
-  const projectsClassicUpdateColumnBodySchema = z.object({name: z.string()})
+  const projectsClassicUpdateColumnRequestBody = z.object({name: z.string()})
 
   const projectsClassicUpdateColumnResponseValidator =
     responseValidationFactory(
@@ -55127,7 +55148,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          projectsClassicUpdateColumnBodySchema,
+          projectsClassicUpdateColumnRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -55324,7 +55345,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     column_id: z.coerce.number(),
   })
 
-  const projectsClassicCreateCardBodySchema = z.union([
+  const projectsClassicCreateCardRequestBody = z.union([
     z.object({note: z.string().nullable()}),
     z.object({content_id: z.coerce.number(), content_type: z.string()}),
   ])
@@ -55368,7 +55389,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          projectsClassicCreateCardBodySchema,
+          projectsClassicCreateCardRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -55433,7 +55454,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     column_id: z.coerce.number(),
   })
 
-  const projectsClassicMoveColumnBodySchema = z.object({
+  const projectsClassicMoveColumnRequestBody = z.object({
     position: z.string().regex(new RegExp("^(?:first|last|after:\\d+)$")),
   })
 
@@ -55460,7 +55481,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          projectsClassicMoveColumnBodySchema,
+          projectsClassicMoveColumnRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -55579,7 +55600,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     project_id: z.coerce.number(),
   })
 
-  const projectsClassicUpdateBodySchema = z
+  const projectsClassicUpdateRequestBody = z
     .object({
       name: z.string().optional(),
       body: z.string().nullable().optional(),
@@ -55623,7 +55644,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          projectsClassicUpdateBodySchema,
+          projectsClassicUpdateRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -55858,7 +55879,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     username: z.string(),
   })
 
-  const projectsClassicAddCollaboratorBodySchema = z
+  const projectsClassicAddCollaboratorRequestBody = z
     .object({
       permission: z
         .enum(["read", "write", "admin"])
@@ -55893,7 +55914,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          projectsClassicAddCollaboratorBodySchema,
+          projectsClassicAddCollaboratorRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -56184,7 +56205,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     project_id: z.coerce.number(),
   })
 
-  const projectsClassicCreateColumnBodySchema = z.object({name: z.string()})
+  const projectsClassicCreateColumnRequestBody = z.object({name: z.string()})
 
   const projectsClassicCreateColumnResponseValidator =
     responseValidationFactory(
@@ -56210,7 +56231,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          projectsClassicCreateColumnBodySchema,
+          projectsClassicCreateColumnRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -56372,7 +56393,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const reposUpdateParamSchema = z.object({owner: z.string(), repo: z.string()})
 
-  const reposUpdateBodySchema = z
+  const reposUpdateRequestBody = z
     .object({
       name: z.string().optional(),
       description: z.string().optional(),
@@ -56445,7 +56466,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       query: undefined,
       body: parseRequestInput(
-        reposUpdateBodySchema,
+        reposUpdateRequestBody,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -57170,7 +57191,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     job_id: z.coerce.number(),
   })
 
-  const actionsReRunJobForWorkflowRunBodySchema = z
+  const actionsReRunJobForWorkflowRunRequestBody = z
     .object({enable_debug_logging: PermissiveBoolean.optional().default(false)})
     .nullable()
     .optional()
@@ -57196,7 +57217,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          actionsReRunJobForWorkflowRunBodySchema,
+          actionsReRunJobForWorkflowRunRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -57308,7 +57329,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const actionsSetCustomOidcSubClaimForRepoBodySchema = z.object({
+  const actionsSetCustomOidcSubClaimForRepoRequestBody = z.object({
     use_default: PermissiveBoolean,
     include_claim_keys: z.array(z.string()).optional(),
   })
@@ -57336,7 +57357,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          actionsSetCustomOidcSubClaimForRepoBodySchema,
+          actionsSetCustomOidcSubClaimForRepoRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -57608,7 +57629,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const actionsSetGithubActionsPermissionsRepositoryBodySchema = z.object({
+  const actionsSetGithubActionsPermissionsRepositoryRequestBody = z.object({
     enabled: s_actions_enabled,
     allowed_actions: s_allowed_actions.optional(),
   })
@@ -57628,7 +57649,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          actionsSetGithubActionsPermissionsRepositoryBodySchema,
+          actionsSetGithubActionsPermissionsRepositoryRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -57737,7 +57758,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const actionsSetWorkflowAccessToRepositoryBodySchema =
+  const actionsSetWorkflowAccessToRepositoryRequestBody =
     s_actions_workflow_access_to_repository
 
   const actionsSetWorkflowAccessToRepositoryResponseValidator =
@@ -57755,7 +57776,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          actionsSetWorkflowAccessToRepositoryBodySchema,
+          actionsSetWorkflowAccessToRepositoryRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -57854,7 +57875,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const actionsSetAllowedActionsRepositoryBodySchema =
+  const actionsSetAllowedActionsRepositoryRequestBody =
     s_selected_actions.optional()
 
   const actionsSetAllowedActionsRepositoryResponseValidator =
@@ -57872,7 +57893,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          actionsSetAllowedActionsRepositoryBodySchema,
+          actionsSetAllowedActionsRepositoryRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -57978,7 +57999,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const actionsSetGithubActionsDefaultWorkflowPermissionsRepositoryParamSchema =
     z.object({owner: z.string(), repo: z.string()})
 
-  const actionsSetGithubActionsDefaultWorkflowPermissionsRepositoryBodySchema =
+  const actionsSetGithubActionsDefaultWorkflowPermissionsRepositoryRequestBody =
     s_actions_set_default_workflow_permissions
 
   const actionsSetGithubActionsDefaultWorkflowPermissionsRepositoryResponseValidator =
@@ -58002,7 +58023,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          actionsSetGithubActionsDefaultWorkflowPermissionsRepositoryBodySchema,
+          actionsSetGithubActionsDefaultWorkflowPermissionsRepositoryRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -58192,7 +58213,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const actionsGenerateRunnerJitconfigForRepoBodySchema = z.object({
+  const actionsGenerateRunnerJitconfigForRepoRequestBody = z.object({
     name: z.string(),
     runner_group_id: z.coerce.number(),
     labels: z.array(z.string()).min(1).max(100),
@@ -58222,7 +58243,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          actionsGenerateRunnerJitconfigForRepoBodySchema,
+          actionsGenerateRunnerJitconfigForRepoRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -58586,7 +58607,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     runner_id: z.coerce.number(),
   })
 
-  const actionsAddCustomLabelsToSelfHostedRunnerForRepoBodySchema = z.object({
+  const actionsAddCustomLabelsToSelfHostedRunnerForRepoRequestBody = z.object({
     labels: z.array(z.string()).min(1).max(100),
   })
 
@@ -58618,7 +58639,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          actionsAddCustomLabelsToSelfHostedRunnerForRepoBodySchema,
+          actionsAddCustomLabelsToSelfHostedRunnerForRepoRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -58678,7 +58699,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     runner_id: z.coerce.number(),
   })
 
-  const actionsSetCustomLabelsForSelfHostedRunnerForRepoBodySchema = z.object({
+  const actionsSetCustomLabelsForSelfHostedRunnerForRepoRequestBody = z.object({
     labels: z.array(z.string()).min(0).max(100),
   })
 
@@ -58710,7 +58731,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          actionsSetCustomLabelsForSelfHostedRunnerForRepoBodySchema,
+          actionsSetCustomLabelsForSelfHostedRunnerForRepoRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -59613,7 +59634,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     run_id: z.coerce.number(),
   })
 
-  const actionsReviewCustomGatesForRunBodySchema = z.union([
+  const actionsReviewCustomGatesForRunRequestBody = z.union([
     s_review_custom_gates_comment_required,
     s_review_custom_gates_state_required,
   ])
@@ -59633,7 +59654,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          actionsReviewCustomGatesForRunBodySchema,
+          actionsReviewCustomGatesForRunRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -59989,7 +60010,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     run_id: z.coerce.number(),
   })
 
-  const actionsReviewPendingDeploymentsForRunBodySchema = z.object({
+  const actionsReviewPendingDeploymentsForRunRequestBody = z.object({
     environment_ids: z.array(z.coerce.number()),
     state: z.enum(["approved", "rejected"]),
     comment: z.string(),
@@ -60010,7 +60031,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          actionsReviewPendingDeploymentsForRunBodySchema,
+          actionsReviewPendingDeploymentsForRunRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -60055,7 +60076,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     run_id: z.coerce.number(),
   })
 
-  const actionsReRunWorkflowBodySchema = z
+  const actionsReRunWorkflowRequestBody = z
     .object({enable_debug_logging: PermissiveBoolean.optional().default(false)})
     .nullable()
     .optional()
@@ -60077,7 +60098,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          actionsReRunWorkflowBodySchema,
+          actionsReRunWorkflowRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -60119,7 +60140,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     run_id: z.coerce.number(),
   })
 
-  const actionsReRunWorkflowFailedJobsBodySchema = z
+  const actionsReRunWorkflowFailedJobsRequestBody = z
     .object({enable_debug_logging: PermissiveBoolean.optional().default(false)})
     .nullable()
     .optional()
@@ -60139,7 +60160,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          actionsReRunWorkflowFailedJobsBodySchema,
+          actionsReRunWorkflowFailedJobsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -60419,7 +60440,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     secret_name: z.string(),
   })
 
-  const actionsCreateOrUpdateRepoSecretBodySchema = z.object({
+  const actionsCreateOrUpdateRepoSecretRequestBody = z.object({
     encrypted_value: z
       .string()
       .regex(
@@ -60451,7 +60472,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          actionsCreateOrUpdateRepoSecretBodySchema,
+          actionsCreateOrUpdateRepoSecretRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -60624,7 +60645,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const actionsCreateRepoVariableBodySchema = z.object({
+  const actionsCreateRepoVariableRequestBody = z.object({
     name: z.string(),
     value: z.string(),
   })
@@ -60646,7 +60667,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          actionsCreateRepoVariableBodySchema,
+          actionsCreateRepoVariableRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -60743,7 +60764,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     name: z.string(),
   })
 
-  const actionsUpdateRepoVariableBodySchema = z.object({
+  const actionsUpdateRepoVariableRequestBody = z.object({
     name: z.string().optional(),
     value: z.string().optional(),
   })
@@ -60765,7 +60786,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          actionsUpdateRepoVariableBodySchema,
+          actionsUpdateRepoVariableRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -61046,7 +61067,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     workflow_id: z.union([z.coerce.number(), z.string()]),
   })
 
-  const actionsCreateWorkflowDispatchBodySchema = z.object({
+  const actionsCreateWorkflowDispatchRequestBody = z.object({
     ref: z.string(),
     inputs: z.record(z.string(), z.unknown()).optional(),
   })
@@ -61066,7 +61087,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          actionsCreateWorkflowDispatchBodySchema,
+          actionsCreateWorkflowDispatchRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -61532,7 +61553,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const reposCreateAttestationBodySchema = z.object({
+  const reposCreateAttestationRequestBody = z.object({
     bundle: z.object({
       mediaType: z.string().optional(),
       verificationMaterial: z.record(z.string(), z.unknown()).optional(),
@@ -61561,7 +61582,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposCreateAttestationBodySchema,
+          reposCreateAttestationRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -61767,7 +61788,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const reposCreateAutolinkBodySchema = z.object({
+  const reposCreateAutolinkRequestBody = z.object({
     key_prefix: z.string(),
     url_template: z.string(),
     is_alphanumeric: PermissiveBoolean.optional().default(true),
@@ -61793,7 +61814,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposCreateAutolinkBodySchema,
+          reposCreateAutolinkRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -62327,7 +62348,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     branch: z.string(),
   })
 
-  const reposUpdateBranchProtectionBodySchema = z.object({
+  const reposUpdateBranchProtectionRequestBody = z.object({
     required_status_checks: z
       .object({
         strict: PermissiveBoolean,
@@ -62404,7 +62425,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposUpdateBranchProtectionBodySchema,
+          reposUpdateBranchProtectionRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -62752,7 +62773,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     branch: z.string(),
   })
 
-  const reposUpdatePullRequestReviewProtectionBodySchema = z
+  const reposUpdatePullRequestReviewProtectionRequestBody = z
     .object({
       dismissal_restrictions: z
         .object({
@@ -62796,7 +62817,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposUpdatePullRequestReviewProtectionBodySchema,
+          reposUpdatePullRequestReviewProtectionRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -63168,7 +63189,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     branch: z.string(),
   })
 
-  const reposUpdateStatusCheckProtectionBodySchema = z
+  const reposUpdateStatusCheckProtectionRequestBody = z
     .object({
       strict: PermissiveBoolean.optional(),
       contexts: z.array(z.string()).optional(),
@@ -63202,7 +63223,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposUpdateStatusCheckProtectionBodySchema,
+          reposUpdateStatusCheckProtectionRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -63365,7 +63386,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     branch: z.string(),
   })
 
-  const reposAddStatusCheckContextsBodySchema = z
+  const reposAddStatusCheckContextsRequestBody = z
     .union([z.object({contexts: z.array(z.string())}), z.array(z.string())])
     .optional()
 
@@ -63392,7 +63413,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposAddStatusCheckContextsBodySchema,
+          reposAddStatusCheckContextsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -63443,7 +63464,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     branch: z.string(),
   })
 
-  const reposSetStatusCheckContextsBodySchema = z
+  const reposSetStatusCheckContextsRequestBody = z
     .union([z.object({contexts: z.array(z.string())}), z.array(z.string())])
     .optional()
 
@@ -63469,7 +63490,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposSetStatusCheckContextsBodySchema,
+          reposSetStatusCheckContextsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -63517,7 +63538,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     branch: z.string(),
   })
 
-  const reposRemoveStatusCheckContextsBodySchema = z.union([
+  const reposRemoveStatusCheckContextsRequestBody = z.union([
     z.object({contexts: z.array(z.string())}),
     z.array(z.string()),
   ])
@@ -63544,7 +63565,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposRemoveStatusCheckContextsBodySchema,
+          reposRemoveStatusCheckContextsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -63771,7 +63792,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     branch: z.string(),
   })
 
-  const reposAddAppAccessRestrictionsBodySchema = z.object({
+  const reposAddAppAccessRestrictionsRequestBody = z.object({
     apps: z.array(z.string()),
   })
 
@@ -63796,7 +63817,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposAddAppAccessRestrictionsBodySchema,
+          reposAddAppAccessRestrictionsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -63841,7 +63862,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     branch: z.string(),
   })
 
-  const reposSetAppAccessRestrictionsBodySchema = z.object({
+  const reposSetAppAccessRestrictionsRequestBody = z.object({
     apps: z.array(z.string()),
   })
 
@@ -63866,7 +63887,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposSetAppAccessRestrictionsBodySchema,
+          reposSetAppAccessRestrictionsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -63911,7 +63932,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     branch: z.string(),
   })
 
-  const reposRemoveAppAccessRestrictionsBodySchema = z.object({
+  const reposRemoveAppAccessRestrictionsRequestBody = z.object({
     apps: z.array(z.string()),
   })
 
@@ -63936,7 +63957,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposRemoveAppAccessRestrictionsBodySchema,
+          reposRemoveAppAccessRestrictionsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -64046,7 +64067,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     branch: z.string(),
   })
 
-  const reposAddTeamAccessRestrictionsBodySchema = z
+  const reposAddTeamAccessRestrictionsRequestBody = z
     .union([z.object({teams: z.array(z.string())}), z.array(z.string())])
     .optional()
 
@@ -64071,7 +64092,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposAddTeamAccessRestrictionsBodySchema,
+          reposAddTeamAccessRestrictionsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -64116,7 +64137,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     branch: z.string(),
   })
 
-  const reposSetTeamAccessRestrictionsBodySchema = z
+  const reposSetTeamAccessRestrictionsRequestBody = z
     .union([z.object({teams: z.array(z.string())}), z.array(z.string())])
     .optional()
 
@@ -64141,7 +64162,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposSetTeamAccessRestrictionsBodySchema,
+          reposSetTeamAccessRestrictionsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -64186,7 +64207,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     branch: z.string(),
   })
 
-  const reposRemoveTeamAccessRestrictionsBodySchema = z.union([
+  const reposRemoveTeamAccessRestrictionsRequestBody = z.union([
     z.object({teams: z.array(z.string())}),
     z.array(z.string()),
   ])
@@ -64212,7 +64233,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposRemoveTeamAccessRestrictionsBodySchema,
+          reposRemoveTeamAccessRestrictionsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -64325,7 +64346,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     branch: z.string(),
   })
 
-  const reposAddUserAccessRestrictionsBodySchema = z.object({
+  const reposAddUserAccessRestrictionsRequestBody = z.object({
     users: z.array(z.string()),
   })
 
@@ -64350,7 +64371,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposAddUserAccessRestrictionsBodySchema,
+          reposAddUserAccessRestrictionsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -64395,7 +64416,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     branch: z.string(),
   })
 
-  const reposSetUserAccessRestrictionsBodySchema = z.object({
+  const reposSetUserAccessRestrictionsRequestBody = z.object({
     users: z.array(z.string()),
   })
 
@@ -64420,7 +64441,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposSetUserAccessRestrictionsBodySchema,
+          reposSetUserAccessRestrictionsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -64465,7 +64486,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     branch: z.string(),
   })
 
-  const reposRemoveUserAccessRestrictionsBodySchema = z.object({
+  const reposRemoveUserAccessRestrictionsRequestBody = z.object({
     users: z.array(z.string()),
   })
 
@@ -64490,7 +64511,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposRemoveUserAccessRestrictionsBodySchema,
+          reposRemoveUserAccessRestrictionsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -64538,7 +64559,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     branch: z.string(),
   })
 
-  const reposRenameBranchBodySchema = z.object({new_name: z.string()})
+  const reposRenameBranchRequestBody = z.object({new_name: z.string()})
 
   const reposRenameBranchResponseValidator = responseValidationFactory(
     [
@@ -64562,7 +64583,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposRenameBranchBodySchema,
+          reposRenameBranchRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -64612,7 +64633,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const checksCreateBodySchema = z.union([
+  const checksCreateRequestBody = z.union([
     z.intersection(
       z.object({status: z.object({})}),
       z.record(z.string(), z.unknown()),
@@ -64640,7 +64661,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          checksCreateBodySchema,
+          checksCreateRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -64737,7 +64758,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     check_run_id: z.coerce.number(),
   })
 
-  const checksUpdateBodySchema = z.object({
+  const checksUpdateRequestBody = z.object({
     name: z.string().optional(),
     details_url: z.string().optional(),
     external_id: z.string().optional(),
@@ -64826,7 +64847,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          checksUpdateBodySchema,
+          checksUpdateRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -65000,7 +65021,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const checksCreateSuiteBodySchema = z.object({head_sha: z.string()})
+  const checksCreateSuiteRequestBody = z.object({head_sha: z.string()})
 
   const checksCreateSuiteResponseValidator = responseValidationFactory(
     [
@@ -65022,7 +65043,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          checksCreateSuiteBodySchema,
+          checksCreateSuiteRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -65066,7 +65087,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const checksSetSuitesPreferencesBodySchema = z.object({
+  const checksSetSuitesPreferencesRequestBody = z.object({
     auto_trigger_checks: z
       .array(
         z.object({
@@ -65094,7 +65115,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          checksSetSuitesPreferencesBodySchema,
+          checksSetSuitesPreferencesRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -65511,7 +65532,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     alert_number: s_alert_number,
   })
 
-  const codeScanningUpdateAlertBodySchema = z.object({
+  const codeScanningUpdateAlertRequestBody = z.object({
     state: s_code_scanning_alert_set_state,
     dismissed_reason: s_code_scanning_alert_dismissed_reason.optional(),
     dismissed_comment: s_code_scanning_alert_dismissed_comment.optional(),
@@ -65548,7 +65569,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          codeScanningUpdateAlertBodySchema,
+          codeScanningUpdateAlertRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -65782,7 +65803,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     alert_number: s_alert_number,
   })
 
-  const codeScanningCommitAutofixBodySchema =
+  const codeScanningCommitAutofixRequestBody =
     s_code_scanning_autofix_commits.optional()
 
   const codeScanningCommitAutofixResponseValidator = responseValidationFactory(
@@ -65816,7 +65837,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          codeScanningCommitAutofixBodySchema,
+          codeScanningCommitAutofixRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -66490,7 +66511,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const codeScanningCreateVariantAnalysisBodySchema = z.union([
+  const codeScanningCreateVariantAnalysisRequestBody = z.union([
     z.object({}),
     z.object({}),
     z.object({}),
@@ -66526,7 +66547,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          codeScanningCreateVariantAnalysisBodySchema,
+          codeScanningCreateVariantAnalysisRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -66824,7 +66845,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const codeScanningUpdateDefaultSetupBodySchema =
+  const codeScanningUpdateDefaultSetupRequestBody =
     s_code_scanning_default_setup_update
 
   const codeScanningUpdateDefaultSetupResponseValidator =
@@ -66860,7 +66881,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          codeScanningUpdateDefaultSetupBodySchema,
+          codeScanningUpdateDefaultSetupRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -66925,7 +66946,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const codeScanningUploadSarifBodySchema = z.object({
+  const codeScanningUploadSarifRequestBody = z.object({
     commit_sha: s_code_scanning_analysis_commit_sha,
     ref: s_code_scanning_ref_full,
     sarif: s_code_scanning_analysis_sarif_file,
@@ -66966,7 +66987,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          codeScanningUploadSarifBodySchema,
+          codeScanningUploadSarifRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -67352,7 +67373,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const codespacesCreateWithRepoForAuthenticatedUserBodySchema = z
+  const codespacesCreateWithRepoForAuthenticatedUserRequestBody = z
     .object({
       ref: z.string().optional(),
       location: z.string().optional(),
@@ -67403,7 +67424,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          codespacesCreateWithRepoForAuthenticatedUserBodySchema,
+          codespacesCreateWithRepoForAuthenticatedUserRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -68076,7 +68097,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     secret_name: z.string(),
   })
 
-  const codespacesCreateOrUpdateRepoSecretBodySchema = z.object({
+  const codespacesCreateOrUpdateRepoSecretRequestBody = z.object({
     encrypted_value: z
       .string()
       .regex(
@@ -68109,7 +68130,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          codespacesCreateOrUpdateRepoSecretBodySchema,
+          codespacesCreateOrUpdateRepoSecretRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -68346,7 +68367,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     username: z.string(),
   })
 
-  const reposAddCollaboratorBodySchema = z
+  const reposAddCollaboratorRequestBody = z
     .object({permission: z.string().optional().default("push")})
     .optional()
 
@@ -68372,7 +68393,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposAddCollaboratorBodySchema,
+          reposAddCollaboratorRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -68677,7 +68698,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     comment_id: z.coerce.number(),
   })
 
-  const reposUpdateCommitCommentBodySchema = z.object({body: z.string()})
+  const reposUpdateCommitCommentRequestBody = z.object({body: z.string()})
 
   const reposUpdateCommitCommentResponseValidator = responseValidationFactory(
     [
@@ -68699,7 +68720,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposUpdateCommitCommentBodySchema,
+          reposUpdateCommitCommentRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -68888,7 +68909,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     comment_id: z.coerce.number(),
   })
 
-  const reactionsCreateForCommitCommentBodySchema = z.object({
+  const reactionsCreateForCommitCommentRequestBody = z.object({
     content: z.enum([
       "+1",
       "-1",
@@ -68923,7 +68944,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reactionsCreateForCommitCommentBodySchema,
+          reactionsCreateForCommitCommentRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -69242,7 +69263,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     commit_sha: z.string(),
   })
 
-  const reposCreateCommitCommentBodySchema = z.object({
+  const reposCreateCommitCommentRequestBody = z.object({
     body: z.string(),
     path: z.string().optional(),
     position: z.coerce.number().optional(),
@@ -69270,7 +69291,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposCreateCommitCommentBodySchema,
+          reposCreateCommitCommentRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -70020,7 +70041,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     path: z.string(),
   })
 
-  const reposCreateOrUpdateFileContentsBodySchema = z.object({
+  const reposCreateOrUpdateFileContentsRequestBody = z.object({
     message: z.string(),
     content: z.string(),
     sha: z.string().optional(),
@@ -70065,7 +70086,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposCreateOrUpdateFileContentsBodySchema,
+          reposCreateOrUpdateFileContentsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -70121,7 +70142,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     path: z.string(),
   })
 
-  const reposDeleteFileBodySchema = z.object({
+  const reposDeleteFileRequestBody = z.object({
     message: z.string(),
     sha: z.string(),
     branch: z.string().optional(),
@@ -70163,7 +70184,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposDeleteFileBodySchema,
+          reposDeleteFileRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -70471,7 +70492,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     alert_number: s_alert_number,
   })
 
-  const dependabotUpdateAlertBodySchema = z.object({
+  const dependabotUpdateAlertRequestBody = z.object({
     state: z.enum(["dismissed", "open"]),
     dismissed_reason: z
       .enum([
@@ -70509,7 +70530,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          dependabotUpdateAlertBodySchema,
+          dependabotUpdateAlertRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -70749,7 +70770,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     secret_name: z.string(),
   })
 
-  const dependabotCreateOrUpdateRepoSecretBodySchema = z.object({
+  const dependabotCreateOrUpdateRepoSecretRequestBody = z.object({
     encrypted_value: z
       .string()
       .regex(
@@ -70782,7 +70803,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          dependabotCreateOrUpdateRepoSecretBodySchema,
+          dependabotCreateOrUpdateRepoSecretRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -71021,7 +71042,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const dependencyGraphCreateRepositorySnapshotBodySchema = s_snapshot
+  const dependencyGraphCreateRepositorySnapshotRequestBody = s_snapshot
 
   const dependencyGraphCreateRepositorySnapshotResponseValidator =
     responseValidationFactory(
@@ -71051,7 +71072,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          dependencyGraphCreateRepositorySnapshotBodySchema,
+          dependencyGraphCreateRepositorySnapshotRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -71167,7 +71188,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const reposCreateDeploymentBodySchema = z.object({
+  const reposCreateDeploymentRequestBody = z.object({
     ref: z.string(),
     task: z.string().optional().default("deploy"),
     auto_merge: PermissiveBoolean.optional().default(true),
@@ -71203,7 +71224,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposCreateDeploymentBodySchema,
+          reposCreateDeploymentRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -71453,7 +71474,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     deployment_id: z.coerce.number(),
   })
 
-  const reposCreateDeploymentStatusBodySchema = z.object({
+  const reposCreateDeploymentStatusRequestBody = z.object({
     state: z.enum([
       "error",
       "failure",
@@ -71492,7 +71513,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposCreateDeploymentStatusBodySchema,
+          reposCreateDeploymentStatusRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -71598,7 +71619,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const reposCreateDispatchEventBodySchema = z.object({
+  const reposCreateDispatchEventRequestBody = z.object({
     event_type: z.string().min(1).max(100),
     client_payload: z.record(z.string(), z.unknown()).optional(),
   })
@@ -71624,7 +71645,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposCreateDispatchEventBodySchema,
+          reposCreateDispatchEventRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -71801,7 +71822,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     environment_name: z.string(),
   })
 
-  const reposCreateOrUpdateEnvironmentBodySchema = z
+  const reposCreateOrUpdateEnvironmentRequestBody = z
     .object({
       wait_timer: s_wait_timer.optional(),
       prevent_self_review: s_prevent_self_review.optional(),
@@ -71840,7 +71861,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposCreateOrUpdateEnvironmentBodySchema,
+          reposCreateOrUpdateEnvironmentRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -72019,7 +72040,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     environment_name: z.string(),
   })
 
-  const reposCreateDeploymentBranchPolicyBodySchema =
+  const reposCreateDeploymentBranchPolicyRequestBody =
     s_deployment_branch_policy_name_pattern_with_type
 
   const reposCreateDeploymentBranchPolicyResponseValidator =
@@ -72044,7 +72065,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposCreateDeploymentBranchPolicyBodySchema,
+          reposCreateDeploymentBranchPolicyRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -72150,7 +72171,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     branch_policy_id: z.coerce.number(),
   })
 
-  const reposUpdateDeploymentBranchPolicyBodySchema =
+  const reposUpdateDeploymentBranchPolicyRequestBody =
     s_deployment_branch_policy_name_pattern
 
   const reposUpdateDeploymentBranchPolicyResponseValidator =
@@ -72168,7 +72189,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposUpdateDeploymentBranchPolicyBodySchema,
+          reposUpdateDeploymentBranchPolicyRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -72342,7 +72363,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     owner: z.string(),
   })
 
-  const reposCreateDeploymentProtectionRuleBodySchema = z.object({
+  const reposCreateDeploymentProtectionRuleRequestBody = z.object({
     integration_id: z.coerce.number().optional(),
   })
 
@@ -72364,7 +72385,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposCreateDeploymentProtectionRuleBodySchema,
+          reposCreateDeploymentProtectionRuleRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -72791,7 +72812,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     secret_name: z.string(),
   })
 
-  const actionsCreateOrUpdateEnvironmentSecretBodySchema = z.object({
+  const actionsCreateOrUpdateEnvironmentSecretRequestBody = z.object({
     encrypted_value: z
       .string()
       .regex(
@@ -72823,7 +72844,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          actionsCreateOrUpdateEnvironmentSecretBodySchema,
+          actionsCreateOrUpdateEnvironmentSecretRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -73001,7 +73022,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     environment_name: z.string(),
   })
 
-  const actionsCreateEnvironmentVariableBodySchema = z.object({
+  const actionsCreateEnvironmentVariableRequestBody = z.object({
     name: z.string(),
     value: z.string(),
   })
@@ -73021,7 +73042,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          actionsCreateEnvironmentVariableBodySchema,
+          actionsCreateEnvironmentVariableRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -73118,7 +73139,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     environment_name: z.string(),
   })
 
-  const actionsUpdateEnvironmentVariableBodySchema = z.object({
+  const actionsUpdateEnvironmentVariableRequestBody = z.object({
     name: z.string().optional(),
     value: z.string().optional(),
   })
@@ -73138,7 +73159,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          actionsUpdateEnvironmentVariableBodySchema,
+          actionsUpdateEnvironmentVariableRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -73369,7 +73390,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const reposCreateForkBodySchema = z
+  const reposCreateForkRequestBody = z
     .object({
       organization: z.string().optional(),
       name: z.string().optional(),
@@ -73401,7 +73422,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposCreateForkBodySchema,
+          reposCreateForkRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -73454,7 +73475,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const gitCreateBlobBodySchema = z.object({
+  const gitCreateBlobRequestBody = z.object({
     content: z.string(),
     encoding: z.string().optional().default("utf-8"),
   })
@@ -73482,7 +73503,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          gitCreateBlobBodySchema,
+          gitCreateBlobRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -73610,7 +73631,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const gitCreateCommitBodySchema = z.object({
+  const gitCreateCommitRequestBody = z.object({
     message: z.string(),
     tree: z.string(),
     parents: z.array(z.string()).optional(),
@@ -73653,7 +73674,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          gitCreateCommitBodySchema,
+          gitCreateCommitRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -73894,7 +73915,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const gitCreateRefBodySchema = z.object({ref: z.string(), sha: z.string()})
+  const gitCreateRefRequestBody = z.object({ref: z.string(), sha: z.string()})
 
   const gitCreateRefResponseValidator = responseValidationFactory(
     [
@@ -73917,7 +73938,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          gitCreateRefBodySchema,
+          gitCreateRefRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -73965,7 +73986,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ref: z.string(),
   })
 
-  const gitUpdateRefBodySchema = z.object({
+  const gitUpdateRefRequestBody = z.object({
     sha: z.string(),
     force: PermissiveBoolean.optional().default(false),
   })
@@ -73991,7 +74012,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          gitUpdateRefBodySchema,
+          gitUpdateRefRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -74103,7 +74124,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const gitCreateTagBodySchema = z.object({
+  const gitCreateTagRequestBody = z.object({
     tag: z.string(),
     message: z.string(),
     object: z.string(),
@@ -74138,7 +74159,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          gitCreateTagBodySchema,
+          gitCreateTagRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -74250,7 +74271,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const gitCreateTreeBodySchema = z.object({
+  const gitCreateTreeRequestBody = z.object({
     tree: z.array(
       z.object({
         path: z.string().optional(),
@@ -74288,7 +74309,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          gitCreateTreeBodySchema,
+          gitCreateTreeRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -74485,7 +74506,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const reposCreateWebhookBodySchema = z
+  const reposCreateWebhookRequestBody = z
     .object({
       name: z.string().optional(),
       config: z
@@ -74524,7 +74545,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposCreateWebhookBodySchema,
+          reposCreateWebhookRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -74636,7 +74657,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     hook_id: z.coerce.number(),
   })
 
-  const reposUpdateWebhookBodySchema = z.object({
+  const reposUpdateWebhookRequestBody = z.object({
     config: s_webhook_config.optional(),
     events: z.array(z.string()).optional().default(["push"]),
     add_events: z.array(z.string()).optional(),
@@ -74665,7 +74686,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposUpdateWebhookBodySchema,
+          reposUpdateWebhookRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -74827,7 +74848,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     hook_id: z.coerce.number(),
   })
 
-  const reposUpdateWebhookConfigForRepoBodySchema = z
+  const reposUpdateWebhookConfigForRepoRequestBody = z
     .object({
       url: s_webhook_config_url.optional(),
       content_type: s_webhook_config_content_type.optional(),
@@ -74851,7 +74872,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposUpdateWebhookConfigForRepoBodySchema,
+          reposUpdateWebhookConfigForRepoRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -75287,7 +75308,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const migrationsStartImportBodySchema = z.object({
+  const migrationsStartImportRequestBody = z.object({
     vcs_url: z.string(),
     vcs: z.enum(["subversion", "git", "mercurial", "tfvc"]).optional(),
     vcs_username: z.string().optional(),
@@ -75317,7 +75338,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          migrationsStartImportBodySchema,
+          migrationsStartImportRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -75367,7 +75388,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const migrationsUpdateImportBodySchema = z
+  const migrationsUpdateImportRequestBody = z
     .object({
       vcs_username: z.string().optional(),
       vcs_password: z.string().optional(),
@@ -75397,7 +75418,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          migrationsUpdateImportBodySchema,
+          migrationsUpdateImportRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -75574,7 +75595,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     author_id: z.coerce.number(),
   })
 
-  const migrationsMapCommitAuthorBodySchema = z
+  const migrationsMapCommitAuthorRequestBody = z
     .object({email: z.string().optional(), name: z.string().optional()})
     .optional()
 
@@ -75600,7 +75621,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          migrationsMapCommitAuthorBodySchema,
+          migrationsMapCommitAuthorRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -75710,7 +75731,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const migrationsSetLfsPreferenceBodySchema = z.object({
+  const migrationsSetLfsPreferenceRequestBody = z.object({
     use_lfs: z.enum(["opt_in", "opt_out"]),
   })
 
@@ -75735,7 +75756,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          migrationsSetLfsPreferenceBodySchema,
+          migrationsSetLfsPreferenceRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -75906,7 +75927,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const interactionsSetRestrictionsForRepoBodySchema = s_interaction_limit
+  const interactionsSetRestrictionsForRepoRequestBody = s_interaction_limit
 
   const interactionsSetRestrictionsForRepoResponseValidator =
     responseValidationFactory(
@@ -75929,7 +75950,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          interactionsSetRestrictionsForRepoBodySchema,
+          interactionsSetRestrictionsForRepoRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -76104,7 +76125,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     invitation_id: z.coerce.number(),
   })
 
-  const reposUpdateInvitationBodySchema = z
+  const reposUpdateInvitationRequestBody = z
     .object({
       permissions: z
         .enum(["read", "write", "maintain", "triage", "admin"])
@@ -76129,7 +76150,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposUpdateInvitationBodySchema,
+          reposUpdateInvitationRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -76315,7 +76336,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const issuesCreateBodySchema = z.object({
+  const issuesCreateRequestBody = z.object({
     title: z.union([z.string(), z.coerce.number()]),
     body: z.string().optional(),
     assignee: z.string().nullable().optional(),
@@ -76369,7 +76390,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          issuesCreateBodySchema,
+          issuesCreateRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -76570,7 +76591,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     comment_id: z.coerce.number(),
   })
 
-  const issuesUpdateCommentBodySchema = z.object({body: z.string()})
+  const issuesUpdateCommentRequestBody = z.object({body: z.string()})
 
   const issuesUpdateCommentResponseValidator = responseValidationFactory(
     [
@@ -76592,7 +76613,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          issuesUpdateCommentBodySchema,
+          issuesUpdateCommentRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -76775,7 +76796,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     comment_id: z.coerce.number(),
   })
 
-  const reactionsCreateForIssueCommentBodySchema = z.object({
+  const reactionsCreateForIssueCommentRequestBody = z.object({
     content: z.enum([
       "+1",
       "-1",
@@ -76810,7 +76831,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reactionsCreateForIssueCommentBodySchema,
+          reactionsCreateForIssueCommentRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -77123,7 +77144,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     issue_number: z.coerce.number(),
   })
 
-  const issuesUpdateBodySchema = z
+  const issuesUpdateRequestBody = z
     .object({
       title: z.union([z.string(), z.coerce.number()]).nullable().optional(),
       body: z.string().nullable().optional(),
@@ -77184,7 +77205,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          issuesUpdateBodySchema,
+          issuesUpdateRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -77248,7 +77269,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     issue_number: z.coerce.number(),
   })
 
-  const issuesAddAssigneesBodySchema = z
+  const issuesAddAssigneesRequestBody = z
     .object({assignees: z.array(z.string()).optional()})
     .optional()
 
@@ -77269,7 +77290,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          issuesAddAssigneesBodySchema,
+          issuesAddAssigneesRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -77311,7 +77332,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     issue_number: z.coerce.number(),
   })
 
-  const issuesRemoveAssigneesBodySchema = z.object({
+  const issuesRemoveAssigneesRequestBody = z.object({
     assignees: z.array(z.string()).optional(),
   })
 
@@ -77332,7 +77353,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          issuesRemoveAssigneesBodySchema,
+          issuesRemoveAssigneesRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -77515,7 +77536,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     issue_number: z.coerce.number(),
   })
 
-  const issuesCreateCommentBodySchema = z.object({body: z.string()})
+  const issuesCreateCommentRequestBody = z.object({body: z.string()})
 
   const issuesCreateCommentResponseValidator = responseValidationFactory(
     [
@@ -77540,7 +77561,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          issuesCreateCommentBodySchema,
+          issuesCreateCommentRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -77742,7 +77763,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     issue_number: z.coerce.number(),
   })
 
-  const issuesAddLabelsBodySchema = z
+  const issuesAddLabelsRequestBody = z
     .union([
       z.object({labels: z.array(z.string()).min(1).optional()}),
       z.array(z.string()).min(1),
@@ -77780,7 +77801,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          issuesAddLabelsBodySchema,
+          issuesAddLabelsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -77834,7 +77855,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     issue_number: z.coerce.number(),
   })
 
-  const issuesSetLabelsBodySchema = z
+  const issuesSetLabelsRequestBody = z
     .union([
       z.object({labels: z.array(z.string()).min(1).optional()}),
       z.array(z.string()).min(1),
@@ -77872,7 +77893,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          issuesSetLabelsBodySchema,
+          issuesSetLabelsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -78065,7 +78086,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     issue_number: z.coerce.number(),
   })
 
-  const issuesLockBodySchema = z
+  const issuesLockRequestBody = z
     .object({
       lock_reason: z
         .enum(["off-topic", "too heated", "resolved", "spam"])
@@ -78097,7 +78118,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          issuesLockBodySchema,
+          issuesLockRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -78302,7 +78323,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     issue_number: z.coerce.number(),
   })
 
-  const reactionsCreateForIssueBodySchema = z.object({
+  const reactionsCreateForIssueRequestBody = z.object({
     content: z.enum([
       "+1",
       "-1",
@@ -78336,7 +78357,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reactionsCreateForIssueBodySchema,
+          reactionsCreateForIssueRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -78440,7 +78461,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     issue_number: z.coerce.number(),
   })
 
-  const issuesRemoveSubIssueBodySchema = z.object({
+  const issuesRemoveSubIssueRequestBody = z.object({
     sub_issue_id: z.coerce.number(),
   })
 
@@ -78465,7 +78486,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          issuesRemoveSubIssueBodySchema,
+          issuesRemoveSubIssueRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -78587,7 +78608,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     issue_number: z.coerce.number(),
   })
 
-  const issuesAddSubIssueBodySchema = z.object({
+  const issuesAddSubIssueRequestBody = z.object({
     sub_issue_id: z.coerce.number(),
     replace_parent: PermissiveBoolean.optional(),
   })
@@ -78615,7 +78636,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          issuesAddSubIssueBodySchema,
+          issuesAddSubIssueRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -78669,7 +78690,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     issue_number: z.coerce.number(),
   })
 
-  const issuesReprioritizeSubIssueBodySchema = z.object({
+  const issuesReprioritizeSubIssueRequestBody = z.object({
     sub_issue_id: z.coerce.number(),
     after_id: z.coerce.number().optional(),
     before_id: z.coerce.number().optional(),
@@ -78705,7 +78726,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          issuesReprioritizeSubIssueBodySchema,
+          issuesReprioritizeSubIssueRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -78900,7 +78921,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const reposCreateDeployKeyBodySchema = z.object({
+  const reposCreateDeployKeyRequestBody = z.object({
     title: z.string().optional(),
     key: z.string(),
     read_only: PermissiveBoolean.optional(),
@@ -78926,7 +78947,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposCreateDeployKeyBodySchema,
+          reposCreateDeployKeyRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -79155,7 +79176,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const issuesCreateLabelBodySchema = z.object({
+  const issuesCreateLabelRequestBody = z.object({
     name: z.string(),
     color: z.string().optional(),
     description: z.string().optional(),
@@ -79182,7 +79203,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          issuesCreateLabelBodySchema,
+          issuesCreateLabelRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -79291,7 +79312,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     name: z.string(),
   })
 
-  const issuesUpdateLabelBodySchema = z
+  const issuesUpdateLabelRequestBody = z
     .object({
       new_name: z.string().optional(),
       color: z.string().optional(),
@@ -79316,7 +79337,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          issuesUpdateLabelBodySchema,
+          issuesUpdateLabelRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -79534,7 +79555,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const reposMergeUpstreamBodySchema = z.object({branch: z.string()})
+  const reposMergeUpstreamRequestBody = z.object({branch: z.string()})
 
   const reposMergeUpstreamResponseValidator = responseValidationFactory(
     [
@@ -79557,7 +79578,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposMergeUpstreamBodySchema,
+          reposMergeUpstreamRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -79601,7 +79622,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const reposMergeParamSchema = z.object({owner: z.string(), repo: z.string()})
 
-  const reposMergeBodySchema = z.object({
+  const reposMergeRequestBody = z.object({
     base: z.string(),
     head: z.string(),
     commit_message: z.string().optional(),
@@ -79628,7 +79649,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       query: undefined,
       body: parseRequestInput(
-        reposMergeBodySchema,
+        reposMergeRequestBody,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -79755,7 +79776,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const issuesCreateMilestoneBodySchema = z.object({
+  const issuesCreateMilestoneRequestBody = z.object({
     title: z.string(),
     state: z.enum(["open", "closed"]).optional().default("open"),
     description: z.string().optional(),
@@ -79783,7 +79804,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          issuesCreateMilestoneBodySchema,
+          issuesCreateMilestoneRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -79892,7 +79913,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     milestone_number: z.coerce.number(),
   })
 
-  const issuesUpdateMilestoneBodySchema = z
+  const issuesUpdateMilestoneRequestBody = z
     .object({
       title: z.string().optional(),
       state: z.enum(["open", "closed"]).optional().default("open"),
@@ -79918,7 +79939,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          issuesUpdateMilestoneBodySchema,
+          issuesUpdateMilestoneRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -80157,7 +80178,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const activityMarkRepoNotificationsAsReadBodySchema = z
+  const activityMarkRepoNotificationsAsReadRequestBody = z
     .object({last_read_at: z.iso.datetime({offset: true}).optional()})
     .optional()
 
@@ -80188,7 +80209,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          activityMarkRepoNotificationsAsReadBodySchema,
+          activityMarkRepoNotificationsAsReadRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -80298,7 +80319,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const reposCreatePagesSiteBodySchema = z
+  const reposCreatePagesSiteRequestBody = z
     .object({
       build_type: z.enum(["legacy", "workflow"]).optional(),
       source: z
@@ -80331,7 +80352,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposCreatePagesSiteBodySchema,
+          reposCreatePagesSiteRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -80378,7 +80399,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const reposUpdateInformationAboutPagesSiteBodySchema = z.object({
+  const reposUpdateInformationAboutPagesSiteRequestBody = z.object({
     cname: z.string().nullable().optional(),
     https_enforced: PermissiveBoolean.optional(),
     build_type: z.enum(["legacy", "workflow"]).optional(),
@@ -80413,7 +80434,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposUpdateInformationAboutPagesSiteBodySchema,
+          reposUpdateInformationAboutPagesSiteRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -80760,7 +80781,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const reposCreatePagesDeploymentBodySchema = z.object({
+  const reposCreatePagesDeploymentRequestBody = z.object({
     artifact_id: z.coerce.number().optional(),
     artifact_url: z.string().optional(),
     environment: z.string().optional().default("github-pages"),
@@ -80790,7 +80811,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposCreatePagesDeploymentBodySchema,
+          reposCreatePagesDeploymentRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -81314,7 +81335,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const projectsClassicCreateForRepoBodySchema = z.object({
+  const projectsClassicCreateForRepoRequestBody = z.object({
     name: z.string(),
     body: z.string().optional(),
   })
@@ -81344,7 +81365,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          projectsClassicCreateForRepoBodySchema,
+          projectsClassicCreateForRepoRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -81465,7 +81486,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const reposCreateOrUpdateCustomPropertiesValuesBodySchema = z.object({
+  const reposCreateOrUpdateCustomPropertiesValuesRequestBody = z.object({
     properties: z.array(s_custom_property_value),
   })
 
@@ -81492,7 +81513,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposCreateOrUpdateCustomPropertiesValuesBodySchema,
+          reposCreateOrUpdateCustomPropertiesValuesRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -81616,7 +81637,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const pullsCreateParamSchema = z.object({owner: z.string(), repo: z.string()})
 
-  const pullsCreateBodySchema = z.object({
+  const pullsCreateRequestBody = z.object({
     title: z.string().optional(),
     head: z.string(),
     head_repo: z.string().optional(),
@@ -81645,7 +81666,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       query: undefined,
       body: parseRequestInput(
-        pullsCreateBodySchema,
+        pullsCreateRequestBody,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -81820,7 +81841,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     comment_id: z.coerce.number(),
   })
 
-  const pullsUpdateReviewCommentBodySchema = z.object({body: z.string()})
+  const pullsUpdateReviewCommentRequestBody = z.object({body: z.string()})
 
   const pullsUpdateReviewCommentResponseValidator = responseValidationFactory(
     [["200", s_pull_request_review_comment]],
@@ -81839,7 +81860,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          pullsUpdateReviewCommentBodySchema,
+          pullsUpdateReviewCommentRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -82028,7 +82049,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     comment_id: z.coerce.number(),
   })
 
-  const reactionsCreateForPullRequestReviewCommentBodySchema = z.object({
+  const reactionsCreateForPullRequestReviewCommentRequestBody = z.object({
     content: z.enum([
       "+1",
       "-1",
@@ -82063,7 +82084,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reactionsCreateForPullRequestReviewCommentBodySchema,
+          reactionsCreateForPullRequestReviewCommentRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -82259,7 +82280,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     pull_number: z.coerce.number(),
   })
 
-  const pullsUpdateBodySchema = z
+  const pullsUpdateRequestBody = z
     .object({
       title: z.string().optional(),
       body: z.string().optional(),
@@ -82290,7 +82311,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          pullsUpdateBodySchema,
+          pullsUpdateRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -82338,7 +82359,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     pull_number: z.coerce.number(),
   })
 
-  const codespacesCreateWithPrForAuthenticatedUserBodySchema = z
+  const codespacesCreateWithPrForAuthenticatedUserRequestBody = z
     .object({
       location: z.string().optional(),
       geo: z
@@ -82387,7 +82408,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          codespacesCreateWithPrForAuthenticatedUserBodySchema,
+          codespacesCreateWithPrForAuthenticatedUserRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -82518,7 +82539,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     pull_number: z.coerce.number(),
   })
 
-  const pullsCreateReviewCommentBodySchema = z.object({
+  const pullsCreateReviewCommentRequestBody = z.object({
     body: z.string(),
     commit_id: z.string(),
     path: z.string(),
@@ -82552,7 +82573,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          pullsCreateReviewCommentBodySchema,
+          pullsCreateReviewCommentRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -82601,7 +82622,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     comment_id: z.coerce.number(),
   })
 
-  const pullsCreateReplyForReviewCommentBodySchema = z.object({
+  const pullsCreateReplyForReviewCommentRequestBody = z.object({
     body: z.string(),
   })
 
@@ -82626,7 +82647,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          pullsCreateReplyForReviewCommentBodySchema,
+          pullsCreateReplyForReviewCommentRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -82885,7 +82906,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     pull_number: z.coerce.number(),
   })
 
-  const pullsMergeBodySchema = z
+  const pullsMergeRequestBody = z
     .object({
       commit_title: z.string().optional(),
       commit_message: z.string().optional(),
@@ -82931,7 +82952,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          pullsMergeBodySchema,
+          pullsMergeRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -83050,7 +83071,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     pull_number: z.coerce.number(),
   })
 
-  const pullsRequestReviewersBodySchema = z
+  const pullsRequestReviewersRequestBody = z
     .object({
       reviewers: z.array(z.string()).optional(),
       team_reviewers: z.array(z.string()).optional(),
@@ -83078,7 +83099,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          pullsRequestReviewersBodySchema,
+          pullsRequestReviewersRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -83126,7 +83147,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     pull_number: z.coerce.number(),
   })
 
-  const pullsRemoveRequestedReviewersBodySchema = z.object({
+  const pullsRemoveRequestedReviewersRequestBody = z.object({
     reviewers: z.array(z.string()),
     team_reviewers: z.array(z.string()).optional(),
   })
@@ -83152,7 +83173,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          pullsRemoveRequestedReviewersBodySchema,
+          pullsRemoveRequestedReviewersRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -83261,7 +83282,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     pull_number: z.coerce.number(),
   })
 
-  const pullsCreateReviewBodySchema = z
+  const pullsCreateReviewRequestBody = z
     .object({
       commit_id: z.string().optional(),
       body: z.string().optional(),
@@ -83303,7 +83324,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          pullsCreateReviewBodySchema,
+          pullsCreateReviewRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -83414,7 +83435,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     review_id: z.coerce.number(),
   })
 
-  const pullsUpdateReviewBodySchema = z.object({body: z.string()})
+  const pullsUpdateReviewRequestBody = z.object({body: z.string()})
 
   const pullsUpdateReviewResponseValidator = responseValidationFactory(
     [
@@ -83436,7 +83457,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          pullsUpdateReviewBodySchema,
+          pullsUpdateReviewRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -83619,7 +83640,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     review_id: z.coerce.number(),
   })
 
-  const pullsDismissReviewBodySchema = z.object({
+  const pullsDismissReviewRequestBody = z.object({
     message: z.string(),
     event: z.enum(["DISMISS"]).optional(),
   })
@@ -83645,7 +83666,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          pullsDismissReviewBodySchema,
+          pullsDismissReviewRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -83694,7 +83715,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     review_id: z.coerce.number(),
   })
 
-  const pullsSubmitReviewBodySchema = z.object({
+  const pullsSubmitReviewRequestBody = z.object({
     body: z.string().optional(),
     event: z.enum(["APPROVE", "REQUEST_CHANGES", "COMMENT"]),
   })
@@ -83721,7 +83742,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          pullsSubmitReviewBodySchema,
+          pullsSubmitReviewRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -83772,7 +83793,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     pull_number: z.coerce.number(),
   })
 
-  const pullsUpdateBranchBodySchema = z
+  const pullsUpdateBranchRequestBody = z
     .object({expected_head_sha: z.string().optional()})
     .nullable()
     .optional()
@@ -83801,7 +83822,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          pullsUpdateBranchBodySchema,
+          pullsUpdateBranchRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -84067,7 +84088,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const reposCreateReleaseBodySchema = z.object({
+  const reposCreateReleaseRequestBody = z.object({
     tag_name: z.string(),
     target_commitish: z.string().optional(),
     name: z.string().optional(),
@@ -84100,7 +84121,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposCreateReleaseBodySchema,
+          reposCreateReleaseRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -84213,7 +84234,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     asset_id: z.coerce.number(),
   })
 
-  const reposUpdateReleaseAssetBodySchema = z
+  const reposUpdateReleaseAssetRequestBody = z
     .object({
       name: z.string().optional(),
       label: z.string().optional(),
@@ -84238,7 +84259,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposUpdateReleaseAssetBodySchema,
+          reposUpdateReleaseAssetRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -84334,7 +84355,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const reposGenerateReleaseNotesBodySchema = z.object({
+  const reposGenerateReleaseNotesRequestBody = z.object({
     tag_name: z.string(),
     target_commitish: z.string().optional(),
     previous_tag_name: z.string().optional(),
@@ -84361,7 +84382,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposGenerateReleaseNotesBodySchema,
+          reposGenerateReleaseNotesRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -84582,7 +84603,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     release_id: z.coerce.number(),
   })
 
-  const reposUpdateReleaseBodySchema = z
+  const reposUpdateReleaseRequestBody = z
     .object({
       tag_name: z.string().optional(),
       target_commitish: z.string().optional(),
@@ -84618,7 +84639,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposUpdateReleaseBodySchema,
+          reposUpdateReleaseRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -84789,7 +84810,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   // todo: request bodies with content-type 'application/octet-stream' not yet supported
 
-  const reposUploadReleaseAssetBodySchema = z.never().optional()
+  const reposUploadReleaseAssetRequestBody = z.never().optional()
 
   const reposUploadReleaseAssetResponseValidator = responseValidationFactory(
     [
@@ -84815,7 +84836,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          reposUploadReleaseAssetBodySchema,
+          reposUploadReleaseAssetRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ) as never,
@@ -84933,7 +84954,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     release_id: z.coerce.number(),
   })
 
-  const reactionsCreateForReleaseBodySchema = z.object({
+  const reactionsCreateForReleaseRequestBody = z.object({
     content: z.enum(["+1", "laugh", "heart", "hooray", "rocket", "eyes"]),
   })
 
@@ -84958,7 +84979,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reactionsCreateForReleaseBodySchema,
+          reactionsCreateForReleaseRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -85200,7 +85221,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const reposCreateRepoRulesetBodySchema = z.object({
+  const reposCreateRepoRulesetRequestBody = z.object({
     name: z.string(),
     target: z.enum(["branch", "tag", "push"]).optional().default("branch"),
     enforcement: s_repository_rule_enforcement,
@@ -85230,7 +85251,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposCreateRepoRulesetBodySchema,
+          reposCreateRepoRulesetRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -85499,7 +85520,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ruleset_id: z.coerce.number(),
   })
 
-  const reposUpdateRepoRulesetBodySchema = z
+  const reposUpdateRepoRulesetRequestBody = z
     .object({
       name: z.string().optional(),
       target: z.enum(["branch", "tag", "push"]).optional(),
@@ -85531,7 +85552,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposUpdateRepoRulesetBodySchema,
+          reposUpdateRepoRulesetRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -85968,7 +85989,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     alert_number: s_alert_number,
   })
 
-  const secretScanningUpdateAlertBodySchema = z.object({
+  const secretScanningUpdateAlertRequestBody = z.object({
     state: s_secret_scanning_alert_state,
     resolution: s_secret_scanning_alert_resolution.optional(),
     resolution_comment: s_secret_scanning_alert_resolution_comment.optional(),
@@ -86004,7 +86025,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          secretScanningUpdateAlertBodySchema,
+          secretScanningUpdateAlertRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -86150,7 +86171,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const secretScanningCreatePushProtectionBypassBodySchema = z.object({
+  const secretScanningCreatePushProtectionBypassRequestBody = z.object({
     reason: s_secret_scanning_push_protection_bypass_reason,
     placeholder_id: s_secret_scanning_push_protection_bypass_placeholder_id,
   })
@@ -86186,7 +86207,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          secretScanningCreatePushProtectionBypassBodySchema,
+          secretScanningCreatePushProtectionBypassRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -86408,7 +86429,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const securityAdvisoriesCreateRepositoryAdvisoryBodySchema =
+  const securityAdvisoriesCreateRepositoryAdvisoryRequestBody =
     s_repository_advisory_create
 
   const securityAdvisoriesCreateRepositoryAdvisoryResponseValidator =
@@ -86434,7 +86455,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          securityAdvisoriesCreateRepositoryAdvisoryBodySchema,
+          securityAdvisoriesCreateRepositoryAdvisoryRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -86485,7 +86506,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const securityAdvisoriesCreatePrivateVulnerabilityReportParamSchema =
     z.object({owner: z.string(), repo: z.string()})
 
-  const securityAdvisoriesCreatePrivateVulnerabilityReportBodySchema =
+  const securityAdvisoriesCreatePrivateVulnerabilityReportRequestBody =
     s_private_vulnerability_report_create
 
   const securityAdvisoriesCreatePrivateVulnerabilityReportResponseValidator =
@@ -86511,7 +86532,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          securityAdvisoriesCreatePrivateVulnerabilityReportBodySchema,
+          securityAdvisoriesCreatePrivateVulnerabilityReportRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -86640,7 +86661,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ghsa_id: z.string(),
   })
 
-  const securityAdvisoriesUpdateRepositoryAdvisoryBodySchema =
+  const securityAdvisoriesUpdateRepositoryAdvisoryRequestBody =
     s_repository_advisory_update
 
   const securityAdvisoriesUpdateRepositoryAdvisoryResponseValidator =
@@ -86666,7 +86687,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          securityAdvisoriesUpdateRepositoryAdvisoryBodySchema,
+          securityAdvisoriesUpdateRepositoryAdvisoryRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -87269,7 +87290,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     sha: z.string(),
   })
 
-  const reposCreateCommitStatusBodySchema = z.object({
+  const reposCreateCommitStatusRequestBody = z.object({
     state: z.enum(["error", "failure", "pending", "success"]),
     target_url: z.string().nullable().optional(),
     description: z.string().nullable().optional(),
@@ -87293,7 +87314,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposCreateCommitStatusBodySchema,
+          reposCreateCommitStatusRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -87460,7 +87481,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const activitySetRepoSubscriptionBodySchema = z
+  const activitySetRepoSubscriptionRequestBody = z
     .object({
       subscribed: PermissiveBoolean.optional(),
       ignored: PermissiveBoolean.optional(),
@@ -87482,7 +87503,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          activitySetRepoSubscriptionBodySchema,
+          activitySetRepoSubscriptionRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -87698,7 +87719,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const reposCreateTagProtectionBodySchema = z.object({pattern: z.string()})
+  const reposCreateTagProtectionRequestBody = z.object({pattern: z.string()})
 
   const reposCreateTagProtectionResponseValidator = responseValidationFactory(
     [
@@ -87721,7 +87742,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposCreateTagProtectionBodySchema,
+          reposCreateTagProtectionRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -88024,7 +88045,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const reposReplaceAllTopicsBodySchema = z.object({names: z.array(z.string())})
+  const reposReplaceAllTopicsRequestBody = z.object({
+    names: z.array(z.string()),
+  })
 
   const reposReplaceAllTopicsResponseValidator = responseValidationFactory(
     [
@@ -88047,7 +88070,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposReplaceAllTopicsBodySchema,
+          reposReplaceAllTopicsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -88350,7 +88373,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const reposTransferBodySchema = z.object({
+  const reposTransferRequestBody = z.object({
     new_owner: z.string(),
     new_name: z.string().optional(),
     team_ids: z.array(z.coerce.number()).optional(),
@@ -88373,7 +88396,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposTransferBodySchema,
+          reposTransferRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -88632,7 +88655,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     template_repo: z.string(),
   })
 
-  const reposCreateUsingTemplateBodySchema = z.object({
+  const reposCreateUsingTemplateRequestBody = z.object({
     owner: z.string().optional(),
     name: z.string(),
     description: z.string().optional(),
@@ -88657,7 +88680,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposCreateUsingTemplateBodySchema,
+          reposCreateUsingTemplateRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -89414,7 +89437,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const teamsUpdateLegacyParamSchema = z.object({team_id: z.coerce.number()})
 
-  const teamsUpdateLegacyBodySchema = z.object({
+  const teamsUpdateLegacyRequestBody = z.object({
     name: z.string(),
     description: z.string().optional(),
     privacy: z.enum(["secret", "closed"]).optional(),
@@ -89445,7 +89468,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       query: undefined,
       body: parseRequestInput(
-        teamsUpdateLegacyBodySchema,
+        teamsUpdateLegacyRequestBody,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -89616,7 +89639,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     team_id: z.coerce.number(),
   })
 
-  const teamsCreateDiscussionLegacyBodySchema = z.object({
+  const teamsCreateDiscussionLegacyRequestBody = z.object({
     title: z.string(),
     body: z.string(),
     private: PermissiveBoolean.optional().default(false),
@@ -89637,7 +89660,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          teamsCreateDiscussionLegacyBodySchema,
+          teamsCreateDiscussionLegacyRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -89732,7 +89755,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     discussion_number: z.coerce.number(),
   })
 
-  const teamsUpdateDiscussionLegacyBodySchema = z
+  const teamsUpdateDiscussionLegacyRequestBody = z
     .object({title: z.string().optional(), body: z.string().optional()})
     .optional()
 
@@ -89751,7 +89774,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          teamsUpdateDiscussionLegacyBodySchema,
+          teamsUpdateDiscussionLegacyRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -89912,7 +89935,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     discussion_number: z.coerce.number(),
   })
 
-  const teamsCreateDiscussionCommentLegacyBodySchema = z.object({
+  const teamsCreateDiscussionCommentLegacyRequestBody = z.object({
     body: z.string(),
   })
 
@@ -89931,7 +89954,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          teamsCreateDiscussionCommentLegacyBodySchema,
+          teamsCreateDiscussionCommentLegacyRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -90029,7 +90052,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     comment_number: z.coerce.number(),
   })
 
-  const teamsUpdateDiscussionCommentLegacyBodySchema = z.object({
+  const teamsUpdateDiscussionCommentLegacyRequestBody = z.object({
     body: z.string(),
   })
 
@@ -90048,7 +90071,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          teamsUpdateDiscussionCommentLegacyBodySchema,
+          teamsUpdateDiscussionCommentLegacyRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -90231,7 +90254,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     comment_number: z.coerce.number(),
   })
 
-  const reactionsCreateForTeamDiscussionCommentLegacyBodySchema = z.object({
+  const reactionsCreateForTeamDiscussionCommentLegacyRequestBody = z.object({
     content: z.enum([
       "+1",
       "-1",
@@ -90259,7 +90282,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reactionsCreateForTeamDiscussionCommentLegacyBodySchema,
+          reactionsCreateForTeamDiscussionCommentLegacyRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -90384,7 +90407,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     discussion_number: z.coerce.number(),
   })
 
-  const reactionsCreateForTeamDiscussionLegacyBodySchema = z.object({
+  const reactionsCreateForTeamDiscussionLegacyRequestBody = z.object({
     content: z.enum([
       "+1",
       "-1",
@@ -90412,7 +90435,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reactionsCreateForTeamDiscussionLegacyBodySchema,
+          reactionsCreateForTeamDiscussionLegacyRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -90840,7 +90863,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     username: z.string(),
   })
 
-  const teamsAddOrUpdateMembershipForUserLegacyBodySchema = z
+  const teamsAddOrUpdateMembershipForUserLegacyRequestBody = z
     .object({
       role: z.enum(["member", "maintainer"]).optional().default("member"),
     })
@@ -90869,7 +90892,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          teamsAddOrUpdateMembershipForUserLegacyBodySchema,
+          teamsAddOrUpdateMembershipForUserLegacyRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -91118,7 +91141,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     project_id: z.coerce.number(),
   })
 
-  const teamsAddOrUpdateProjectPermissionsLegacyBodySchema = z
+  const teamsAddOrUpdateProjectPermissionsLegacyRequestBody = z
     .object({permission: z.enum(["read", "write", "admin"]).optional()})
     .optional()
 
@@ -91151,7 +91174,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          teamsAddOrUpdateProjectPermissionsLegacyBodySchema,
+          teamsAddOrUpdateProjectPermissionsLegacyRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -91407,7 +91430,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const teamsAddOrUpdateRepoPermissionsLegacyBodySchema = z
+  const teamsAddOrUpdateRepoPermissionsLegacyRequestBody = z
     .object({permission: z.enum(["pull", "push", "admin"]).optional()})
     .optional()
 
@@ -91433,7 +91456,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          teamsAddOrUpdateRepoPermissionsLegacyBodySchema,
+          teamsAddOrUpdateRepoPermissionsLegacyRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -91662,7 +91685,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const usersUpdateAuthenticatedBodySchema = z
+  const usersUpdateAuthenticatedRequestBody = z
     .object({
       name: z.string().optional(),
       email: z.string().optional(),
@@ -91692,7 +91715,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: undefined,
       body: parseRequestInput(
-        usersUpdateAuthenticatedBodySchema,
+        usersUpdateAuthenticatedRequestBody,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -92111,7 +92134,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const codespacesCreateForAuthenticatedUserBodySchema = z.union([
+  const codespacesCreateForAuthenticatedUserRequestBody = z.union([
     z.object({
       repository_id: z.coerce.number(),
       ref: z.string().optional(),
@@ -92172,7 +92195,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          codespacesCreateForAuthenticatedUserBodySchema,
+          codespacesCreateForAuthenticatedUserRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -92405,8 +92428,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const codespacesCreateOrUpdateSecretForAuthenticatedUserParamSchema =
     z.object({secret_name: z.string()})
 
-  const codespacesCreateOrUpdateSecretForAuthenticatedUserBodySchema = z.object(
-    {
+  const codespacesCreateOrUpdateSecretForAuthenticatedUserRequestBody =
+    z.object({
       encrypted_value: z
         .string()
         .regex(
@@ -92419,8 +92442,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       selected_repository_ids: z
         .array(z.union([z.coerce.number(), z.string()]))
         .optional(),
-    },
-  )
+    })
 
   const codespacesCreateOrUpdateSecretForAuthenticatedUserResponseValidator =
     responseValidationFactory(
@@ -92445,7 +92467,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          codespacesCreateOrUpdateSecretForAuthenticatedUserBodySchema,
+          codespacesCreateOrUpdateSecretForAuthenticatedUserRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -92645,7 +92667,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const codespacesSetRepositoriesForSecretForAuthenticatedUserParamSchema =
     z.object({secret_name: z.string()})
 
-  const codespacesSetRepositoriesForSecretForAuthenticatedUserBodySchema =
+  const codespacesSetRepositoriesForSecretForAuthenticatedUserRequestBody =
     z.object({selected_repository_ids: z.array(z.coerce.number())})
 
   const codespacesSetRepositoriesForSecretForAuthenticatedUserResponseValidator =
@@ -92672,7 +92694,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          codespacesSetRepositoriesForSecretForAuthenticatedUserBodySchema,
+          codespacesSetRepositoriesForSecretForAuthenticatedUserRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -92972,7 +92994,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     codespace_name: z.string(),
   })
 
-  const codespacesUpdateForAuthenticatedUserBodySchema = z
+  const codespacesUpdateForAuthenticatedUserRequestBody = z
     .object({
       machine: z.string().optional(),
       display_name: z.string().optional(),
@@ -93003,7 +93025,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          codespacesUpdateForAuthenticatedUserBodySchema,
+          codespacesUpdateForAuthenticatedUserRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -93379,7 +93401,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     codespace_name: z.string(),
   })
 
-  const codespacesPublishForAuthenticatedUserBodySchema = z.object({
+  const codespacesPublishForAuthenticatedUserRequestBody = z.object({
     name: z.string().optional(),
     private: PermissiveBoolean.optional().default(false),
   })
@@ -93408,7 +93430,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          codespacesPublishForAuthenticatedUserBodySchema,
+          codespacesPublishForAuthenticatedUserRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -93677,9 +93699,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const usersSetPrimaryEmailVisibilityForAuthenticatedUserBodySchema = z.object(
-    {visibility: z.enum(["public", "private"])},
-  )
+  const usersSetPrimaryEmailVisibilityForAuthenticatedUserRequestBody =
+    z.object({visibility: z.enum(["public", "private"])})
 
   const usersSetPrimaryEmailVisibilityForAuthenticatedUserResponseValidator =
     responseValidationFactory(
@@ -93702,7 +93723,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          usersSetPrimaryEmailVisibilityForAuthenticatedUserBodySchema,
+          usersSetPrimaryEmailVisibilityForAuthenticatedUserRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -93838,7 +93859,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const usersAddEmailForAuthenticatedUserBodySchema = z
+  const usersAddEmailForAuthenticatedUserRequestBody = z
     .union([
       z.object({emails: z.array(z.string()).min(1)}),
       z.array(z.string()).min(1),
@@ -93867,7 +93888,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          usersAddEmailForAuthenticatedUserBodySchema,
+          usersAddEmailForAuthenticatedUserRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -93921,7 +93942,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const usersDeleteEmailForAuthenticatedUserBodySchema = z.union([
+  const usersDeleteEmailForAuthenticatedUserRequestBody = z.union([
     z.object({emails: z.array(z.string()).min(1)}),
     z.array(z.string()).min(1),
     z.string(),
@@ -93948,7 +93969,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          usersDeleteEmailForAuthenticatedUserBodySchema,
+          usersDeleteEmailForAuthenticatedUserRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -94435,7 +94456,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const usersCreateGpgKeyForAuthenticatedUserBodySchema = z.object({
+  const usersCreateGpgKeyForAuthenticatedUserRequestBody = z.object({
     name: z.string().optional(),
     armored_public_key: z.string(),
   })
@@ -94461,7 +94482,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          usersCreateGpgKeyForAuthenticatedUserBodySchema,
+          usersCreateGpgKeyForAuthenticatedUserRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -95069,7 +95090,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const interactionsSetRestrictionsForAuthenticatedUserBodySchema =
+  const interactionsSetRestrictionsForAuthenticatedUserRequestBody =
     s_interaction_limit
 
   const interactionsSetRestrictionsForAuthenticatedUserResponseValidator =
@@ -95089,7 +95110,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          interactionsSetRestrictionsForAuthenticatedUserBodySchema,
+          interactionsSetRestrictionsForAuthenticatedUserRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -95342,7 +95363,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const usersCreatePublicSshKeyForAuthenticatedUserBodySchema = z.object({
+  const usersCreatePublicSshKeyForAuthenticatedUserRequestBody = z.object({
     title: z.string().optional(),
     key: z
       .string()
@@ -95372,7 +95393,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          usersCreatePublicSshKeyForAuthenticatedUserBodySchema,
+          usersCreatePublicSshKeyForAuthenticatedUserRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -95880,7 +95901,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     org: z.string(),
   })
 
-  const orgsUpdateMembershipForAuthenticatedUserBodySchema = z.object({
+  const orgsUpdateMembershipForAuthenticatedUserRequestBody = z.object({
     state: z.enum(["active"]),
   })
 
@@ -95907,7 +95928,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          orgsUpdateMembershipForAuthenticatedUserBodySchema,
+          orgsUpdateMembershipForAuthenticatedUserRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -96027,7 +96048,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const migrationsStartForAuthenticatedUserBodySchema = z.object({
+  const migrationsStartForAuthenticatedUserRequestBody = z.object({
     lock_repositories: PermissiveBoolean.optional(),
     exclude_metadata: PermissiveBoolean.optional(),
     exclude_git_data: PermissiveBoolean.optional(),
@@ -96059,7 +96080,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          migrationsStartForAuthenticatedUserBodySchema,
+          migrationsStartForAuthenticatedUserRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -97206,7 +97227,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const projectsClassicCreateForAuthenticatedUserBodySchema = z.object({
+  const projectsClassicCreateForAuthenticatedUserRequestBody = z.object({
     name: z.string(),
     body: z.string().nullable().optional(),
   })
@@ -97231,7 +97252,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          projectsClassicCreateForAuthenticatedUserBodySchema,
+          projectsClassicCreateForAuthenticatedUserRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -97447,7 +97468,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const reposCreateForAuthenticatedUserBodySchema = z.object({
+  const reposCreateForAuthenticatedUserRequestBody = z.object({
     name: z.string(),
     description: z.string().optional(),
     homepage: z.string().optional(),
@@ -97499,7 +97520,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          reposCreateForAuthenticatedUserBodySchema,
+          reposCreateForAuthenticatedUserRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -97860,7 +97881,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const usersAddSocialAccountForAuthenticatedUserBodySchema = z.object({
+  const usersAddSocialAccountForAuthenticatedUserRequestBody = z.object({
     account_urls: z.array(z.string()),
   })
 
@@ -97885,7 +97906,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          usersAddSocialAccountForAuthenticatedUserBodySchema,
+          usersAddSocialAccountForAuthenticatedUserRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -97939,7 +97960,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const usersDeleteSocialAccountForAuthenticatedUserBodySchema = z.object({
+  const usersDeleteSocialAccountForAuthenticatedUserRequestBody = z.object({
     account_urls: z.array(z.string()),
   })
 
@@ -97964,7 +97985,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          usersDeleteSocialAccountForAuthenticatedUserBodySchema,
+          usersDeleteSocialAccountForAuthenticatedUserRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -98104,7 +98125,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const usersCreateSshSigningKeyForAuthenticatedUserBodySchema = z.object({
+  const usersCreateSshSigningKeyForAuthenticatedUserRequestBody = z.object({
     title: z.string().optional(),
     key: z
       .string()
@@ -98136,7 +98157,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          usersCreateSshSigningKeyForAuthenticatedUserBodySchema,
+          usersCreateSshSigningKeyForAuthenticatedUserRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -98978,7 +98999,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     after: z.string().optional(),
   })
 
-  const usersListAttestationsBulkBodySchema = z.object({
+  const usersListAttestationsBulkRequestBody = z.object({
     subject_digests: z.array(z.string()).min(1).max(1024),
     predicate_type: z.string().optional(),
   })
@@ -99042,7 +99063,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          usersListAttestationsBulkBodySchema,
+          usersListAttestationsBulkRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -99109,7 +99130,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     username: z.string(),
   })
 
-  const usersDeleteAttestationsBulkBodySchema = z.union([
+  const usersDeleteAttestationsBulkRequestBody = z.union([
     z.object({subject_digests: z.array(z.string()).min(1).max(1024)}),
     z.object({attestation_ids: z.array(z.coerce.number()).min(1).max(1024)}),
   ])
@@ -99135,7 +99156,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          usersDeleteAttestationsBulkBodySchema,
+          usersDeleteAttestationsBulkRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),

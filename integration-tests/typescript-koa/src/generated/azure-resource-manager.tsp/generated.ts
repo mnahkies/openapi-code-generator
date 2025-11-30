@@ -29,9 +29,9 @@ import type {
   t_EmployeeListResult,
   t_EmployeesCheckExistenceParamSchema,
   t_EmployeesCheckExistenceQuerySchema,
-  t_EmployeesCreateOrUpdateBodySchema,
   t_EmployeesCreateOrUpdateParamSchema,
   t_EmployeesCreateOrUpdateQuerySchema,
+  t_EmployeesCreateOrUpdateRequestBody,
   t_EmployeesDeleteParamSchema,
   t_EmployeesDeleteQuerySchema,
   t_EmployeesGetParamSchema,
@@ -40,12 +40,12 @@ import type {
   t_EmployeesListByResourceGroupQuerySchema,
   t_EmployeesListBySubscriptionParamSchema,
   t_EmployeesListBySubscriptionQuerySchema,
-  t_EmployeesMoveBodySchema,
   t_EmployeesMoveParamSchema,
   t_EmployeesMoveQuerySchema,
-  t_EmployeesUpdateBodySchema,
+  t_EmployeesMoveRequestBody,
   t_EmployeesUpdateParamSchema,
   t_EmployeesUpdateQuerySchema,
+  t_EmployeesUpdateRequestBody,
   t_MoveResponse,
   t_OperationListResult,
   t_OperationsListQuerySchema,
@@ -116,7 +116,7 @@ export type EmployeesCreateOrUpdate = (
   params: Params<
     t_EmployeesCreateOrUpdateParamSchema,
     t_EmployeesCreateOrUpdateQuerySchema,
-    t_EmployeesCreateOrUpdateBodySchema,
+    t_EmployeesCreateOrUpdateRequestBody,
     void
   >,
   respond: EmployeesCreateOrUpdateResponder,
@@ -141,7 +141,7 @@ export type EmployeesUpdate = (
   params: Params<
     t_EmployeesUpdateParamSchema,
     t_EmployeesUpdateQuerySchema,
-    t_EmployeesUpdateBodySchema,
+    t_EmployeesUpdateRequestBody,
     void
   >,
   respond: EmployeesUpdateResponder,
@@ -265,7 +265,7 @@ export type EmployeesMove = (
   params: Params<
     t_EmployeesMoveParamSchema,
     t_EmployeesMoveQuerySchema,
-    t_EmployeesMoveBodySchema,
+    t_EmployeesMoveRequestBody,
     void
   >,
   respond: EmployeesMoveResponder,
@@ -433,7 +433,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "api-version": z.string().min(1),
   })
 
-  const employeesCreateOrUpdateBodySchema = s_Employee
+  const employeesCreateOrUpdateRequestBody = s_Employee
 
   const employeesCreateOrUpdateResponseValidator = responseValidationFactory(
     [
@@ -459,7 +459,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          employeesCreateOrUpdateBodySchema,
+          employeesCreateOrUpdateRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -517,7 +517,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "api-version": z.string().min(1),
   })
 
-  const employeesUpdateBodySchema = s_EmployeeUpdate
+  const employeesUpdateRequestBody = s_EmployeeUpdate
 
   const employeesUpdateResponseValidator = responseValidationFactory(
     [["200", s_Employee]],
@@ -540,7 +540,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          employeesUpdateBodySchema,
+          employeesUpdateRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -888,7 +888,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const employeesMoveQuerySchema = z.object({"api-version": z.string().min(1)})
 
-  const employeesMoveBodySchema = s_MoveRequest
+  const employeesMoveRequestBody = s_MoveRequest
 
   const employeesMoveResponseValidator = responseValidationFactory(
     [["200", s_MoveResponse]],
@@ -911,7 +911,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          employeesMoveBodySchema,
+          employeesMoveRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),

@@ -20,18 +20,18 @@ import {
 import {type NextFunction, type Request, type Response, Router} from "express"
 import {z} from "zod/v4"
 import type {
+  t_GetHeadersRequest200Response,
   t_GetHeadersRequestRequestHeaderSchema,
-  t_getHeadersRequestJson200Response,
-  t_getHeadersUndeclaredJson200Response,
+  t_GetHeadersUndeclared200Response,
 } from "../models.ts"
 import {
   PermissiveBoolean,
-  s_getHeadersRequestJson200Response,
-  s_getHeadersUndeclaredJson200Response,
+  s_GetHeadersRequest200Response,
+  s_GetHeadersUndeclared200Response,
 } from "../schemas.ts"
 
 export type GetHeadersUndeclaredResponder = {
-  with200(): ExpressRuntimeResponse<t_getHeadersUndeclaredJson200Response>
+  with200(): ExpressRuntimeResponse<t_GetHeadersUndeclared200Response>
 } & ExpressRuntimeResponder
 
 export type GetHeadersUndeclared = (
@@ -43,7 +43,7 @@ export type GetHeadersUndeclared = (
 ) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetHeadersRequestResponder = {
-  with200(): ExpressRuntimeResponse<t_getHeadersRequestJson200Response>
+  with200(): ExpressRuntimeResponse<t_GetHeadersRequest200Response>
 } & ExpressRuntimeResponder
 
 export type GetHeadersRequest = (
@@ -65,7 +65,7 @@ export function createRequestHeadersRouter(
   const router = Router()
 
   const getHeadersUndeclaredResponseBodyValidator = responseValidationFactory(
-    [["200", s_getHeadersUndeclaredJson200Response]],
+    [["200", s_GetHeadersUndeclared200Response]],
     undefined,
   )
 
@@ -83,7 +83,7 @@ export function createRequestHeadersRouter(
 
         const responder = {
           with200() {
-            return new ExpressRuntimeResponse<t_getHeadersUndeclaredJson200Response>(
+            return new ExpressRuntimeResponse<t_GetHeadersUndeclared200Response>(
               200,
             )
           },
@@ -130,7 +130,7 @@ export function createRequestHeadersRouter(
   })
 
   const getHeadersRequestResponseBodyValidator = responseValidationFactory(
-    [["200", s_getHeadersRequestJson200Response]],
+    [["200", s_GetHeadersRequest200Response]],
     undefined,
   )
 
@@ -152,7 +152,7 @@ export function createRequestHeadersRouter(
 
         const responder = {
           with200() {
-            return new ExpressRuntimeResponse<t_getHeadersRequestJson200Response>(
+            return new ExpressRuntimeResponse<t_GetHeadersRequest200Response>(
               200,
             )
           },

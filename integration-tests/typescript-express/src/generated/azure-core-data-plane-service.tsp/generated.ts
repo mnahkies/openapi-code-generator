@@ -30,7 +30,7 @@ import type {
   t_Manufacturer,
   t_ManufacturersCreateOrReplaceManufacturerParamSchema,
   t_ManufacturersCreateOrReplaceManufacturerQuerySchema,
-  t_ManufacturersCreateOrReplaceManufacturerRequestBodySchema,
+  t_ManufacturersCreateOrReplaceManufacturerRequestBody,
   t_ManufacturersCreateOrReplaceManufacturerRequestHeaderSchema,
   t_ManufacturersDeleteManufacturerParamSchema,
   t_ManufacturersDeleteManufacturerQuerySchema,
@@ -50,7 +50,7 @@ import type {
   t_WidgetPart,
   t_WidgetPartsCreateWidgetPartParamSchema,
   t_WidgetPartsCreateWidgetPartQuerySchema,
-  t_WidgetPartsCreateWidgetPartRequestBodySchema,
+  t_WidgetPartsCreateWidgetPartRequestBody,
   t_WidgetPartsCreateWidgetPartRequestHeaderSchema,
   t_WidgetPartsDeleteWidgetPartParamSchema,
   t_WidgetPartsDeleteWidgetPartQuerySchema,
@@ -65,13 +65,13 @@ import type {
   t_WidgetPartsListWidgetPartsRequestHeaderSchema,
   t_WidgetPartsReorderPartsParamSchema,
   t_WidgetPartsReorderPartsQuerySchema,
-  t_WidgetPartsReorderPartsRequestBodySchema,
+  t_WidgetPartsReorderPartsRequestBody,
   t_WidgetPartsReorderPartsRequestHeaderSchema,
   t_WidgetRepairRequest,
   t_WidgetRepairState,
   t_WidgetsCreateOrUpdateWidgetParamSchema,
   t_WidgetsCreateOrUpdateWidgetQuerySchema,
-  t_WidgetsCreateOrUpdateWidgetRequestBodySchema,
+  t_WidgetsCreateOrUpdateWidgetRequestBody,
   t_WidgetsCreateOrUpdateWidgetRequestHeaderSchema,
   t_WidgetsDeleteWidgetParamSchema,
   t_WidgetsDeleteWidgetQuerySchema,
@@ -90,11 +90,11 @@ import type {
   t_WidgetsListWidgetsRequestHeaderSchema,
   t_WidgetsScheduleRepairsParamSchema,
   t_WidgetsScheduleRepairsQuerySchema,
-  t_WidgetsScheduleRepairsRequestBodySchema,
+  t_WidgetsScheduleRepairsRequestBody,
   t_WidgetsScheduleRepairsRequestHeaderSchema,
   t_WidgetsUpdateAnalyticsParamSchema,
   t_WidgetsUpdateAnalyticsQuerySchema,
-  t_WidgetsUpdateAnalyticsRequestBodySchema,
+  t_WidgetsUpdateAnalyticsRequestBody,
   t_WidgetsUpdateAnalyticsRequestHeaderSchema,
 } from "./models.ts"
 import {
@@ -184,7 +184,7 @@ export type WidgetsCreateOrUpdateWidget = (
   params: Params<
     t_WidgetsCreateOrUpdateWidgetParamSchema,
     t_WidgetsCreateOrUpdateWidgetQuerySchema,
-    t_WidgetsCreateOrUpdateWidgetRequestBodySchema,
+    t_WidgetsCreateOrUpdateWidgetRequestBody,
     t_WidgetsCreateOrUpdateWidgetRequestHeaderSchema
   >,
   respond: WidgetsCreateOrUpdateWidgetResponder,
@@ -289,7 +289,7 @@ export type WidgetsUpdateAnalytics = (
   params: Params<
     t_WidgetsUpdateAnalyticsParamSchema,
     t_WidgetsUpdateAnalyticsQuerySchema,
-    t_WidgetsUpdateAnalyticsRequestBodySchema,
+    t_WidgetsUpdateAnalyticsRequestBody,
     t_WidgetsUpdateAnalyticsRequestHeaderSchema
   >,
   respond: WidgetsUpdateAnalyticsResponder,
@@ -347,7 +347,7 @@ export type WidgetsScheduleRepairs = (
   params: Params<
     t_WidgetsScheduleRepairsParamSchema,
     t_WidgetsScheduleRepairsQuerySchema,
-    t_WidgetsScheduleRepairsRequestBodySchema,
+    t_WidgetsScheduleRepairsRequestBody,
     t_WidgetsScheduleRepairsRequestHeaderSchema
   >,
   respond: WidgetsScheduleRepairsResponder,
@@ -392,7 +392,7 @@ export type WidgetPartsCreateWidgetPart = (
   params: Params<
     t_WidgetPartsCreateWidgetPartParamSchema,
     t_WidgetPartsCreateWidgetPartQuerySchema,
-    t_WidgetPartsCreateWidgetPartRequestBodySchema,
+    t_WidgetPartsCreateWidgetPartRequestBody,
     t_WidgetPartsCreateWidgetPartRequestHeaderSchema
   >,
   respond: WidgetPartsCreateWidgetPartResponder,
@@ -476,7 +476,7 @@ export type WidgetPartsReorderParts = (
   params: Params<
     t_WidgetPartsReorderPartsParamSchema,
     t_WidgetPartsReorderPartsQuerySchema,
-    t_WidgetPartsReorderPartsRequestBodySchema,
+    t_WidgetPartsReorderPartsRequestBody,
     t_WidgetPartsReorderPartsRequestHeaderSchema
   >,
   respond: WidgetPartsReorderPartsResponder,
@@ -522,7 +522,7 @@ export type ManufacturersCreateOrReplaceManufacturer = (
   params: Params<
     t_ManufacturersCreateOrReplaceManufacturerParamSchema,
     t_ManufacturersCreateOrReplaceManufacturerQuerySchema,
-    t_ManufacturersCreateOrReplaceManufacturerRequestBodySchema,
+    t_ManufacturersCreateOrReplaceManufacturerRequestBody,
     t_ManufacturersCreateOrReplaceManufacturerRequestHeaderSchema
   >,
   respond: ManufacturersCreateOrReplaceManufacturerResponder,
@@ -833,7 +833,7 @@ export function createRouter(implementation: Implementation): Router {
     "x-ms-client-request-id": s_Azure_Core_uuid.optional(),
   })
 
-  const widgetsCreateOrUpdateWidgetRequestBodySchema = s_WidgetCreateOrUpdate
+  const widgetsCreateOrUpdateWidgetRequestBody = s_WidgetCreateOrUpdate
 
   const widgetsCreateOrUpdateWidgetResponseBodyValidator =
     responseValidationFactory(
@@ -861,7 +861,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            widgetsCreateOrUpdateWidgetRequestBodySchema,
+            widgetsCreateOrUpdateWidgetRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -1294,8 +1294,7 @@ export function createRouter(implementation: Implementation): Router {
     "x-ms-client-request-id": s_Azure_Core_uuid.optional(),
   })
 
-  const widgetsUpdateAnalyticsRequestBodySchema =
-    s_WidgetAnalyticsCreateOrUpdate
+  const widgetsUpdateAnalyticsRequestBody = s_WidgetAnalyticsCreateOrUpdate
 
   const widgetsUpdateAnalyticsResponseBodyValidator = responseValidationFactory(
     [
@@ -1322,7 +1321,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            widgetsUpdateAnalyticsRequestBodySchema,
+            widgetsUpdateAnalyticsRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -1483,7 +1482,7 @@ export function createRouter(implementation: Implementation): Router {
     "x-ms-client-request-id": s_Azure_Core_uuid.optional(),
   })
 
-  const widgetsScheduleRepairsRequestBodySchema = s_WidgetRepairRequest
+  const widgetsScheduleRepairsRequestBody = s_WidgetRepairRequest
 
   const widgetsScheduleRepairsResponseBodyValidator = responseValidationFactory(
     [
@@ -1525,7 +1524,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            widgetsScheduleRepairsRequestBodySchema,
+            widgetsScheduleRepairsRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -1715,7 +1714,7 @@ export function createRouter(implementation: Implementation): Router {
     "x-ms-client-request-id": s_Azure_Core_uuid.optional(),
   })
 
-  const widgetPartsCreateWidgetPartRequestBodySchema = s_WidgetPart
+  const widgetPartsCreateWidgetPartRequestBody = s_WidgetPart
 
   const widgetPartsCreateWidgetPartResponseBodyValidator =
     responseValidationFactory(
@@ -1740,7 +1739,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            widgetPartsCreateWidgetPartRequestBodySchema,
+            widgetPartsCreateWidgetPartRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -2079,7 +2078,7 @@ export function createRouter(implementation: Implementation): Router {
     "x-ms-client-request-id": s_Azure_Core_uuid.optional(),
   })
 
-  const widgetPartsReorderPartsRequestBodySchema = s_WidgetPartReorderRequest
+  const widgetPartsReorderPartsRequestBody = s_WidgetPartReorderRequest
 
   const widgetPartsReorderPartsResponseBodyValidator =
     responseValidationFactory(
@@ -2113,7 +2112,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            widgetPartsReorderPartsRequestBodySchema,
+            widgetPartsReorderPartsRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -2293,8 +2292,7 @@ export function createRouter(implementation: Implementation): Router {
     "x-ms-client-request-id": s_Azure_Core_uuid.optional(),
   })
 
-  const manufacturersCreateOrReplaceManufacturerRequestBodySchema =
-    s_Manufacturer
+  const manufacturersCreateOrReplaceManufacturerRequestBody = s_Manufacturer
 
   const manufacturersCreateOrReplaceManufacturerResponseBodyValidator =
     responseValidationFactory(
@@ -2322,7 +2320,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            manufacturersCreateOrReplaceManufacturerRequestBodySchema,
+            manufacturersCreateOrReplaceManufacturerRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),

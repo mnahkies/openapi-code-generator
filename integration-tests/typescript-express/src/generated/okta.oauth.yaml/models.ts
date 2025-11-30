@@ -364,7 +364,7 @@ export type t_AuthorizeCustomAsWithPostParamSchema = {
   authorizationServerId: string
 }
 
-export type t_AuthorizeCustomAsWithPostRequestBodySchema = {
+export type t_AuthorizeCustomAsWithPostRequestBody = {
   acr_values?: (t_AcrValue & string) | undefined
   client_id: string
   code_challenge?: string | undefined
@@ -387,7 +387,7 @@ export type t_AuthorizeCustomAsWithPostRequestBodySchema = {
   state: string
 }
 
-export type t_AuthorizeWithPostRequestBodySchema = {
+export type t_AuthorizeWithPostRequestBody = {
   acr_values?: (t_AcrValue & string) | undefined
   client_id: string
   code_challenge?: string | undefined
@@ -410,7 +410,7 @@ export type t_AuthorizeWithPostRequestBodySchema = {
   state: string
 }
 
-export type t_BcAuthorizeRequestBodySchema = {
+export type t_BcAuthorizeRequestBody = {
   binding_message?: string | undefined
   id_token_hint: string
   login_hint: string
@@ -424,7 +424,7 @@ export type t_BcAuthorizeCustomAsParamSchema = {
   authorizationServerId: string
 }
 
-export type t_BcAuthorizeCustomAsRequestBodySchema = {
+export type t_BcAuthorizeCustomAsRequestBody = {
   binding_message?: string | undefined
   id_token_hint: string
   login_hint: string
@@ -434,7 +434,7 @@ export type t_BcAuthorizeCustomAsRequestBodySchema = {
   [key: string]: unknown | undefined
 }
 
-export type t_ChallengeRequestBodySchema = {
+export type t_ChallengeRequestBody = {
   challenge_types_supported?: t_ChallengeType[] | undefined
   channel_hint?: t_Channel | undefined
   mfa_token: string
@@ -444,13 +444,13 @@ export type t_ChallengeCustomAsParamSchema = {
   authorizationServerId: string
 }
 
-export type t_ChallengeCustomAsRequestBodySchema = {
+export type t_ChallengeCustomAsRequestBody = {
   challenge_types_supported?: t_ChallengeType[] | undefined
   channel_hint?: t_Channel | undefined
   mfa_token: string
 }
 
-export type t_CreateClientRequestBodySchema = {
+export type t_CreateClientRequestBody = {
   application_type?: t_ApplicationType | undefined
   readonly client_id?: string | undefined
   readonly client_id_issued_at?: number | undefined
@@ -481,7 +481,7 @@ export type t_DeleteClientParamSchema = {
   clientId: string
 }
 
-export type t_DeviceAuthorizeRequestBodySchema = {
+export type t_DeviceAuthorizeRequestBody = {
   client_id?: string | undefined
   scope?: string | undefined
 }
@@ -490,7 +490,7 @@ export type t_DeviceAuthorizeCustomAsParamSchema = {
   authorizationServerId: string
 }
 
-export type t_DeviceAuthorizeCustomAsRequestBodySchema = {
+export type t_DeviceAuthorizeCustomAsRequestBody = {
   client_id?: string | undefined
   scope?: string | undefined
 }
@@ -523,11 +523,11 @@ export type t_GetWellKnownOpenIdConfigurationCustomAsQuerySchema = {
   client_id?: string | undefined
 }
 
-export type t_GlobalTokenRevocationRequestBodySchema = {
+export type t_GlobalTokenRevocationRequestBody = {
   sub_id?: t_sub_id | undefined
 }
 
-export type t_IntrospectRequestBodySchema = {
+export type t_IntrospectRequestBody = {
   token?: string | undefined
   token_type_hint?: t_TokenTypeHintIntrospect | undefined
 }
@@ -536,7 +536,7 @@ export type t_IntrospectCustomAsParamSchema = {
   authorizationServerId: string
 }
 
-export type t_IntrospectCustomAsRequestBodySchema = {
+export type t_IntrospectCustomAsRequestBody = {
   token?: string | undefined
   token_type_hint?: t_TokenTypeHintIntrospect | undefined
 }
@@ -567,13 +567,13 @@ export type t_LogoutCustomAsWithPostParamSchema = {
   authorizationServerId: string
 }
 
-export type t_LogoutCustomAsWithPostRequestBodySchema = {
+export type t_LogoutCustomAsWithPostRequestBody = {
   id_token_hint: string
   post_logout_redirect_uri?: string | undefined
   state?: string | undefined
 }
 
-export type t_LogoutWithPostRequestBodySchema = {
+export type t_LogoutWithPostRequestBody = {
   id_token_hint: string
   post_logout_redirect_uri?: string | undefined
   state?: string | undefined
@@ -587,7 +587,7 @@ export type t_OauthKeysCustomAsParamSchema = {
   authorizationServerId: string
 }
 
-export type t_OobAuthenticateRequestBodySchema = {
+export type t_OobAuthenticateRequestBody = {
   channel_hint: t_Channel
   login_hint: string
 }
@@ -596,12 +596,12 @@ export type t_OobAuthenticateCustomAsParamSchema = {
   authorizationServerId: string
 }
 
-export type t_OobAuthenticateCustomAsRequestBodySchema = {
+export type t_OobAuthenticateCustomAsRequestBody = {
   channel_hint: t_Channel
   login_hint: string
 }
 
-export type t_ParRequestBodySchema = {
+export type t_ParRequestBody = {
   client_id?: string | undefined
   code_challenge?: string | undefined
   code_challenge_method?: string | undefined
@@ -625,7 +625,7 @@ export type t_ParCustomAsParamSchema = {
   authorizationServerId: string
 }
 
-export type t_ParCustomAsRequestBodySchema = {
+export type t_ParCustomAsRequestBody = {
   client_id?: string | undefined
   code_challenge?: string | undefined
   code_challenge_method?: string | undefined
@@ -661,7 +661,7 @@ export type t_ReplaceClientParamSchema = {
   clientId: string
 }
 
-export type t_ReplaceClientRequestBodySchema = {
+export type t_ReplaceClientRequestBody = {
   application_type?: t_ApplicationType | undefined
   readonly client_id?: string | undefined
   readonly client_id_issued_at?: number | undefined
@@ -688,7 +688,7 @@ export type t_ReplaceClientRequestBodySchema = {
   tos_uri?: (string | null) | undefined
 }
 
-export type t_RevokeRequestBodySchema = {
+export type t_RevokeRequestBody = {
   token: string
   token_type_hint?: t_TokenTypeHintRevoke | undefined
 }
@@ -697,12 +697,12 @@ export type t_RevokeCustomAsParamSchema = {
   authorizationServerId: string
 }
 
-export type t_RevokeCustomAsRequestBodySchema = {
+export type t_RevokeCustomAsRequestBody = {
   token: string
   token_type_hint?: t_TokenTypeHintRevoke | undefined
 }
 
-export type t_TokenRequestBodySchema = {
+export type t_TokenRequestBody = {
   grant_type?: t_GrantType | undefined
 }
 
@@ -710,7 +710,7 @@ export type t_TokenCustomAsParamSchema = {
   authorizationServerId: string
 }
 
-export type t_TokenCustomAsRequestBodySchema = {
+export type t_TokenCustomAsRequestBody = {
   grant_type?: t_GrantType | undefined
 }
 

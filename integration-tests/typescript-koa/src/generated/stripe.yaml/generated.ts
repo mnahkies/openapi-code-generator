@@ -67,20 +67,20 @@ import type {
   t_DeleteAccountsAccountPersonsPersonParamSchema,
   t_DeleteApplePayDomainsDomainParamSchema,
   t_DeleteCouponsCouponParamSchema,
-  t_DeleteCustomersCustomerBankAccountsIdBodySchema,
   t_DeleteCustomersCustomerBankAccountsIdParamSchema,
-  t_DeleteCustomersCustomerCardsIdBodySchema,
+  t_DeleteCustomersCustomerBankAccountsIdRequestBody,
   t_DeleteCustomersCustomerCardsIdParamSchema,
+  t_DeleteCustomersCustomerCardsIdRequestBody,
   t_DeleteCustomersCustomerDiscountParamSchema,
   t_DeleteCustomersCustomerParamSchema,
-  t_DeleteCustomersCustomerSourcesIdBodySchema,
   t_DeleteCustomersCustomerSourcesIdParamSchema,
-  t_DeleteCustomersCustomerSubscriptionsSubscriptionExposedIdBodySchema,
+  t_DeleteCustomersCustomerSourcesIdRequestBody,
   t_DeleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountParamSchema,
   t_DeleteCustomersCustomerSubscriptionsSubscriptionExposedIdParamSchema,
+  t_DeleteCustomersCustomerSubscriptionsSubscriptionExposedIdRequestBody,
   t_DeleteCustomersCustomerTaxIdsIdParamSchema,
-  t_DeleteEphemeralKeysKeyBodySchema,
   t_DeleteEphemeralKeysKeyParamSchema,
+  t_DeleteEphemeralKeysKeyRequestBody,
   t_DeleteInvoiceitemsInvoiceitemParamSchema,
   t_DeleteInvoicesInvoiceParamSchema,
   t_DeletePlansPlanParamSchema,
@@ -88,11 +88,11 @@ import type {
   t_DeleteProductsProductFeaturesIdParamSchema,
   t_DeleteRadarValueListItemsItemParamSchema,
   t_DeleteRadarValueListsValueListParamSchema,
-  t_DeleteSubscriptionItemsItemBodySchema,
   t_DeleteSubscriptionItemsItemParamSchema,
-  t_DeleteSubscriptionsSubscriptionExposedIdBodySchema,
+  t_DeleteSubscriptionItemsItemRequestBody,
   t_DeleteSubscriptionsSubscriptionExposedIdDiscountParamSchema,
   t_DeleteSubscriptionsSubscriptionExposedIdParamSchema,
+  t_DeleteSubscriptionsSubscriptionExposedIdRequestBody,
   t_DeleteTaxIdsIdParamSchema,
   t_DeleteTerminalConfigurationsConfigurationParamSchema,
   t_DeleteTerminalLocationsLocationParamSchema,
@@ -565,485 +565,485 @@ import type {
   t_line_item,
   t_login_link,
   t_mandate,
-  t_PostAccountLinksBodySchema,
-  t_PostAccountSessionsBodySchema,
-  t_PostAccountsAccountBankAccountsBodySchema,
-  t_PostAccountsAccountBankAccountsIdBodySchema,
+  t_PostAccountLinksRequestBody,
+  t_PostAccountSessionsRequestBody,
   t_PostAccountsAccountBankAccountsIdParamSchema,
+  t_PostAccountsAccountBankAccountsIdRequestBody,
   t_PostAccountsAccountBankAccountsParamSchema,
-  t_PostAccountsAccountBodySchema,
-  t_PostAccountsAccountCapabilitiesCapabilityBodySchema,
+  t_PostAccountsAccountBankAccountsRequestBody,
   t_PostAccountsAccountCapabilitiesCapabilityParamSchema,
-  t_PostAccountsAccountExternalAccountsBodySchema,
-  t_PostAccountsAccountExternalAccountsIdBodySchema,
+  t_PostAccountsAccountCapabilitiesCapabilityRequestBody,
   t_PostAccountsAccountExternalAccountsIdParamSchema,
+  t_PostAccountsAccountExternalAccountsIdRequestBody,
   t_PostAccountsAccountExternalAccountsParamSchema,
-  t_PostAccountsAccountLoginLinksBodySchema,
+  t_PostAccountsAccountExternalAccountsRequestBody,
   t_PostAccountsAccountLoginLinksParamSchema,
+  t_PostAccountsAccountLoginLinksRequestBody,
   t_PostAccountsAccountParamSchema,
-  t_PostAccountsAccountPeopleBodySchema,
   t_PostAccountsAccountPeopleParamSchema,
-  t_PostAccountsAccountPeoplePersonBodySchema,
   t_PostAccountsAccountPeoplePersonParamSchema,
-  t_PostAccountsAccountPersonsBodySchema,
+  t_PostAccountsAccountPeoplePersonRequestBody,
+  t_PostAccountsAccountPeopleRequestBody,
   t_PostAccountsAccountPersonsParamSchema,
-  t_PostAccountsAccountPersonsPersonBodySchema,
   t_PostAccountsAccountPersonsPersonParamSchema,
-  t_PostAccountsAccountRejectBodySchema,
+  t_PostAccountsAccountPersonsPersonRequestBody,
+  t_PostAccountsAccountPersonsRequestBody,
   t_PostAccountsAccountRejectParamSchema,
-  t_PostAccountsBodySchema,
-  t_PostApplePayDomainsBodySchema,
-  t_PostApplicationFeesFeeRefundsIdBodySchema,
+  t_PostAccountsAccountRejectRequestBody,
+  t_PostAccountsAccountRequestBody,
+  t_PostAccountsRequestBody,
+  t_PostApplePayDomainsRequestBody,
   t_PostApplicationFeesFeeRefundsIdParamSchema,
-  t_PostApplicationFeesIdRefundBodySchema,
+  t_PostApplicationFeesFeeRefundsIdRequestBody,
   t_PostApplicationFeesIdRefundParamSchema,
-  t_PostApplicationFeesIdRefundsBodySchema,
+  t_PostApplicationFeesIdRefundRequestBody,
   t_PostApplicationFeesIdRefundsParamSchema,
-  t_PostAppsSecretsBodySchema,
-  t_PostAppsSecretsDeleteBodySchema,
-  t_PostBillingAlertsBodySchema,
-  t_PostBillingAlertsIdActivateBodySchema,
+  t_PostApplicationFeesIdRefundsRequestBody,
+  t_PostAppsSecretsDeleteRequestBody,
+  t_PostAppsSecretsRequestBody,
   t_PostBillingAlertsIdActivateParamSchema,
-  t_PostBillingAlertsIdArchiveBodySchema,
+  t_PostBillingAlertsIdActivateRequestBody,
   t_PostBillingAlertsIdArchiveParamSchema,
-  t_PostBillingAlertsIdDeactivateBodySchema,
+  t_PostBillingAlertsIdArchiveRequestBody,
   t_PostBillingAlertsIdDeactivateParamSchema,
-  t_PostBillingCreditGrantsBodySchema,
-  t_PostBillingCreditGrantsIdBodySchema,
-  t_PostBillingCreditGrantsIdExpireBodySchema,
+  t_PostBillingAlertsIdDeactivateRequestBody,
+  t_PostBillingAlertsRequestBody,
   t_PostBillingCreditGrantsIdExpireParamSchema,
+  t_PostBillingCreditGrantsIdExpireRequestBody,
   t_PostBillingCreditGrantsIdParamSchema,
-  t_PostBillingCreditGrantsIdVoidBodySchema,
+  t_PostBillingCreditGrantsIdRequestBody,
   t_PostBillingCreditGrantsIdVoidParamSchema,
-  t_PostBillingMeterEventAdjustmentsBodySchema,
-  t_PostBillingMeterEventsBodySchema,
-  t_PostBillingMetersBodySchema,
-  t_PostBillingMetersIdBodySchema,
-  t_PostBillingMetersIdDeactivateBodySchema,
+  t_PostBillingCreditGrantsIdVoidRequestBody,
+  t_PostBillingCreditGrantsRequestBody,
+  t_PostBillingMeterEventAdjustmentsRequestBody,
+  t_PostBillingMeterEventsRequestBody,
   t_PostBillingMetersIdDeactivateParamSchema,
+  t_PostBillingMetersIdDeactivateRequestBody,
   t_PostBillingMetersIdParamSchema,
-  t_PostBillingMetersIdReactivateBodySchema,
   t_PostBillingMetersIdReactivateParamSchema,
-  t_PostBillingPortalConfigurationsBodySchema,
-  t_PostBillingPortalConfigurationsConfigurationBodySchema,
+  t_PostBillingMetersIdReactivateRequestBody,
+  t_PostBillingMetersIdRequestBody,
+  t_PostBillingMetersRequestBody,
   t_PostBillingPortalConfigurationsConfigurationParamSchema,
-  t_PostBillingPortalSessionsBodySchema,
-  t_PostChargesBodySchema,
-  t_PostChargesChargeBodySchema,
-  t_PostChargesChargeCaptureBodySchema,
+  t_PostBillingPortalConfigurationsConfigurationRequestBody,
+  t_PostBillingPortalConfigurationsRequestBody,
+  t_PostBillingPortalSessionsRequestBody,
   t_PostChargesChargeCaptureParamSchema,
-  t_PostChargesChargeDisputeBodySchema,
-  t_PostChargesChargeDisputeCloseBodySchema,
+  t_PostChargesChargeCaptureRequestBody,
   t_PostChargesChargeDisputeCloseParamSchema,
+  t_PostChargesChargeDisputeCloseRequestBody,
   t_PostChargesChargeDisputeParamSchema,
+  t_PostChargesChargeDisputeRequestBody,
   t_PostChargesChargeParamSchema,
-  t_PostChargesChargeRefundBodySchema,
   t_PostChargesChargeRefundParamSchema,
-  t_PostChargesChargeRefundsBodySchema,
+  t_PostChargesChargeRefundRequestBody,
   t_PostChargesChargeRefundsParamSchema,
-  t_PostChargesChargeRefundsRefundBodySchema,
   t_PostChargesChargeRefundsRefundParamSchema,
-  t_PostCheckoutSessionsBodySchema,
-  t_PostCheckoutSessionsSessionBodySchema,
-  t_PostCheckoutSessionsSessionExpireBodySchema,
+  t_PostChargesChargeRefundsRefundRequestBody,
+  t_PostChargesChargeRefundsRequestBody,
+  t_PostChargesChargeRequestBody,
+  t_PostChargesRequestBody,
+  t_PostCheckoutSessionsRequestBody,
   t_PostCheckoutSessionsSessionExpireParamSchema,
+  t_PostCheckoutSessionsSessionExpireRequestBody,
   t_PostCheckoutSessionsSessionParamSchema,
-  t_PostClimateOrdersBodySchema,
-  t_PostClimateOrdersOrderBodySchema,
-  t_PostClimateOrdersOrderCancelBodySchema,
+  t_PostCheckoutSessionsSessionRequestBody,
   t_PostClimateOrdersOrderCancelParamSchema,
+  t_PostClimateOrdersOrderCancelRequestBody,
   t_PostClimateOrdersOrderParamSchema,
-  t_PostCouponsBodySchema,
-  t_PostCouponsCouponBodySchema,
+  t_PostClimateOrdersOrderRequestBody,
+  t_PostClimateOrdersRequestBody,
   t_PostCouponsCouponParamSchema,
-  t_PostCreditNotesBodySchema,
-  t_PostCreditNotesIdBodySchema,
+  t_PostCouponsCouponRequestBody,
+  t_PostCouponsRequestBody,
   t_PostCreditNotesIdParamSchema,
-  t_PostCreditNotesIdVoidBodySchema,
+  t_PostCreditNotesIdRequestBody,
   t_PostCreditNotesIdVoidParamSchema,
-  t_PostCustomerSessionsBodySchema,
-  t_PostCustomersBodySchema,
-  t_PostCustomersCustomerBalanceTransactionsBodySchema,
+  t_PostCreditNotesIdVoidRequestBody,
+  t_PostCreditNotesRequestBody,
+  t_PostCustomerSessionsRequestBody,
   t_PostCustomersCustomerBalanceTransactionsParamSchema,
-  t_PostCustomersCustomerBalanceTransactionsTransactionBodySchema,
+  t_PostCustomersCustomerBalanceTransactionsRequestBody,
   t_PostCustomersCustomerBalanceTransactionsTransactionParamSchema,
-  t_PostCustomersCustomerBankAccountsBodySchema,
-  t_PostCustomersCustomerBankAccountsIdBodySchema,
+  t_PostCustomersCustomerBalanceTransactionsTransactionRequestBody,
   t_PostCustomersCustomerBankAccountsIdParamSchema,
-  t_PostCustomersCustomerBankAccountsIdVerifyBodySchema,
+  t_PostCustomersCustomerBankAccountsIdRequestBody,
   t_PostCustomersCustomerBankAccountsIdVerifyParamSchema,
+  t_PostCustomersCustomerBankAccountsIdVerifyRequestBody,
   t_PostCustomersCustomerBankAccountsParamSchema,
-  t_PostCustomersCustomerBodySchema,
-  t_PostCustomersCustomerCardsBodySchema,
-  t_PostCustomersCustomerCardsIdBodySchema,
+  t_PostCustomersCustomerBankAccountsRequestBody,
   t_PostCustomersCustomerCardsIdParamSchema,
+  t_PostCustomersCustomerCardsIdRequestBody,
   t_PostCustomersCustomerCardsParamSchema,
-  t_PostCustomersCustomerCashBalanceBodySchema,
+  t_PostCustomersCustomerCardsRequestBody,
   t_PostCustomersCustomerCashBalanceParamSchema,
-  t_PostCustomersCustomerFundingInstructionsBodySchema,
+  t_PostCustomersCustomerCashBalanceRequestBody,
   t_PostCustomersCustomerFundingInstructionsParamSchema,
+  t_PostCustomersCustomerFundingInstructionsRequestBody,
   t_PostCustomersCustomerParamSchema,
-  t_PostCustomersCustomerSourcesBodySchema,
-  t_PostCustomersCustomerSourcesIdBodySchema,
+  t_PostCustomersCustomerRequestBody,
   t_PostCustomersCustomerSourcesIdParamSchema,
-  t_PostCustomersCustomerSourcesIdVerifyBodySchema,
+  t_PostCustomersCustomerSourcesIdRequestBody,
   t_PostCustomersCustomerSourcesIdVerifyParamSchema,
+  t_PostCustomersCustomerSourcesIdVerifyRequestBody,
   t_PostCustomersCustomerSourcesParamSchema,
-  t_PostCustomersCustomerSubscriptionsBodySchema,
+  t_PostCustomersCustomerSourcesRequestBody,
   t_PostCustomersCustomerSubscriptionsParamSchema,
-  t_PostCustomersCustomerSubscriptionsSubscriptionExposedIdBodySchema,
+  t_PostCustomersCustomerSubscriptionsRequestBody,
   t_PostCustomersCustomerSubscriptionsSubscriptionExposedIdParamSchema,
-  t_PostCustomersCustomerTaxIdsBodySchema,
+  t_PostCustomersCustomerSubscriptionsSubscriptionExposedIdRequestBody,
   t_PostCustomersCustomerTaxIdsParamSchema,
-  t_PostDisputesDisputeBodySchema,
-  t_PostDisputesDisputeCloseBodySchema,
+  t_PostCustomersCustomerTaxIdsRequestBody,
+  t_PostCustomersRequestBody,
   t_PostDisputesDisputeCloseParamSchema,
+  t_PostDisputesDisputeCloseRequestBody,
   t_PostDisputesDisputeParamSchema,
-  t_PostEntitlementsFeaturesBodySchema,
-  t_PostEntitlementsFeaturesIdBodySchema,
+  t_PostDisputesDisputeRequestBody,
   t_PostEntitlementsFeaturesIdParamSchema,
-  t_PostEphemeralKeysBodySchema,
-  t_PostExternalAccountsIdBodySchema,
+  t_PostEntitlementsFeaturesIdRequestBody,
+  t_PostEntitlementsFeaturesRequestBody,
+  t_PostEphemeralKeysRequestBody,
   t_PostExternalAccountsIdParamSchema,
-  t_PostFileLinksBodySchema,
-  t_PostFileLinksLinkBodySchema,
+  t_PostExternalAccountsIdRequestBody,
   t_PostFileLinksLinkParamSchema,
-  t_PostFilesBodySchema,
-  t_PostFinancialConnectionsAccountsAccountDisconnectBodySchema,
+  t_PostFileLinksLinkRequestBody,
+  t_PostFileLinksRequestBody,
+  t_PostFilesRequestBody,
   t_PostFinancialConnectionsAccountsAccountDisconnectParamSchema,
-  t_PostFinancialConnectionsAccountsAccountRefreshBodySchema,
+  t_PostFinancialConnectionsAccountsAccountDisconnectRequestBody,
   t_PostFinancialConnectionsAccountsAccountRefreshParamSchema,
-  t_PostFinancialConnectionsAccountsAccountSubscribeBodySchema,
+  t_PostFinancialConnectionsAccountsAccountRefreshRequestBody,
   t_PostFinancialConnectionsAccountsAccountSubscribeParamSchema,
-  t_PostFinancialConnectionsAccountsAccountUnsubscribeBodySchema,
+  t_PostFinancialConnectionsAccountsAccountSubscribeRequestBody,
   t_PostFinancialConnectionsAccountsAccountUnsubscribeParamSchema,
-  t_PostFinancialConnectionsSessionsBodySchema,
-  t_PostForwardingRequestsBodySchema,
-  t_PostIdentityVerificationSessionsBodySchema,
-  t_PostIdentityVerificationSessionsSessionBodySchema,
-  t_PostIdentityVerificationSessionsSessionCancelBodySchema,
+  t_PostFinancialConnectionsAccountsAccountUnsubscribeRequestBody,
+  t_PostFinancialConnectionsSessionsRequestBody,
+  t_PostForwardingRequestsRequestBody,
+  t_PostIdentityVerificationSessionsRequestBody,
   t_PostIdentityVerificationSessionsSessionCancelParamSchema,
+  t_PostIdentityVerificationSessionsSessionCancelRequestBody,
   t_PostIdentityVerificationSessionsSessionParamSchema,
-  t_PostIdentityVerificationSessionsSessionRedactBodySchema,
   t_PostIdentityVerificationSessionsSessionRedactParamSchema,
-  t_PostInvoiceitemsBodySchema,
-  t_PostInvoiceitemsInvoiceitemBodySchema,
+  t_PostIdentityVerificationSessionsSessionRedactRequestBody,
+  t_PostIdentityVerificationSessionsSessionRequestBody,
   t_PostInvoiceitemsInvoiceitemParamSchema,
-  t_PostInvoiceRenderingTemplatesTemplateArchiveBodySchema,
+  t_PostInvoiceitemsInvoiceitemRequestBody,
+  t_PostInvoiceitemsRequestBody,
   t_PostInvoiceRenderingTemplatesTemplateArchiveParamSchema,
-  t_PostInvoiceRenderingTemplatesTemplateUnarchiveBodySchema,
+  t_PostInvoiceRenderingTemplatesTemplateArchiveRequestBody,
   t_PostInvoiceRenderingTemplatesTemplateUnarchiveParamSchema,
-  t_PostInvoicesBodySchema,
-  t_PostInvoicesCreatePreviewBodySchema,
-  t_PostInvoicesInvoiceAddLinesBodySchema,
+  t_PostInvoiceRenderingTemplatesTemplateUnarchiveRequestBody,
+  t_PostInvoicesCreatePreviewRequestBody,
   t_PostInvoicesInvoiceAddLinesParamSchema,
-  t_PostInvoicesInvoiceAttachPaymentBodySchema,
+  t_PostInvoicesInvoiceAddLinesRequestBody,
   t_PostInvoicesInvoiceAttachPaymentParamSchema,
-  t_PostInvoicesInvoiceBodySchema,
-  t_PostInvoicesInvoiceFinalizeBodySchema,
+  t_PostInvoicesInvoiceAttachPaymentRequestBody,
   t_PostInvoicesInvoiceFinalizeParamSchema,
-  t_PostInvoicesInvoiceLinesLineItemIdBodySchema,
+  t_PostInvoicesInvoiceFinalizeRequestBody,
   t_PostInvoicesInvoiceLinesLineItemIdParamSchema,
-  t_PostInvoicesInvoiceMarkUncollectibleBodySchema,
+  t_PostInvoicesInvoiceLinesLineItemIdRequestBody,
   t_PostInvoicesInvoiceMarkUncollectibleParamSchema,
+  t_PostInvoicesInvoiceMarkUncollectibleRequestBody,
   t_PostInvoicesInvoiceParamSchema,
-  t_PostInvoicesInvoicePayBodySchema,
   t_PostInvoicesInvoicePayParamSchema,
-  t_PostInvoicesInvoiceRemoveLinesBodySchema,
+  t_PostInvoicesInvoicePayRequestBody,
   t_PostInvoicesInvoiceRemoveLinesParamSchema,
-  t_PostInvoicesInvoiceSendBodySchema,
+  t_PostInvoicesInvoiceRemoveLinesRequestBody,
+  t_PostInvoicesInvoiceRequestBody,
   t_PostInvoicesInvoiceSendParamSchema,
-  t_PostInvoicesInvoiceUpdateLinesBodySchema,
+  t_PostInvoicesInvoiceSendRequestBody,
   t_PostInvoicesInvoiceUpdateLinesParamSchema,
-  t_PostInvoicesInvoiceVoidBodySchema,
+  t_PostInvoicesInvoiceUpdateLinesRequestBody,
   t_PostInvoicesInvoiceVoidParamSchema,
-  t_PostIssuingAuthorizationsAuthorizationApproveBodySchema,
+  t_PostInvoicesInvoiceVoidRequestBody,
+  t_PostInvoicesRequestBody,
   t_PostIssuingAuthorizationsAuthorizationApproveParamSchema,
-  t_PostIssuingAuthorizationsAuthorizationBodySchema,
-  t_PostIssuingAuthorizationsAuthorizationDeclineBodySchema,
+  t_PostIssuingAuthorizationsAuthorizationApproveRequestBody,
   t_PostIssuingAuthorizationsAuthorizationDeclineParamSchema,
+  t_PostIssuingAuthorizationsAuthorizationDeclineRequestBody,
   t_PostIssuingAuthorizationsAuthorizationParamSchema,
-  t_PostIssuingCardholdersBodySchema,
-  t_PostIssuingCardholdersCardholderBodySchema,
+  t_PostIssuingAuthorizationsAuthorizationRequestBody,
   t_PostIssuingCardholdersCardholderParamSchema,
-  t_PostIssuingCardsBodySchema,
-  t_PostIssuingCardsCardBodySchema,
+  t_PostIssuingCardholdersCardholderRequestBody,
+  t_PostIssuingCardholdersRequestBody,
   t_PostIssuingCardsCardParamSchema,
-  t_PostIssuingDisputesBodySchema,
-  t_PostIssuingDisputesDisputeBodySchema,
+  t_PostIssuingCardsCardRequestBody,
+  t_PostIssuingCardsRequestBody,
   t_PostIssuingDisputesDisputeParamSchema,
-  t_PostIssuingDisputesDisputeSubmitBodySchema,
+  t_PostIssuingDisputesDisputeRequestBody,
   t_PostIssuingDisputesDisputeSubmitParamSchema,
-  t_PostIssuingPersonalizationDesignsBodySchema,
-  t_PostIssuingPersonalizationDesignsPersonalizationDesignBodySchema,
+  t_PostIssuingDisputesDisputeSubmitRequestBody,
+  t_PostIssuingDisputesRequestBody,
   t_PostIssuingPersonalizationDesignsPersonalizationDesignParamSchema,
-  t_PostIssuingSettlementsSettlementBodySchema,
+  t_PostIssuingPersonalizationDesignsPersonalizationDesignRequestBody,
+  t_PostIssuingPersonalizationDesignsRequestBody,
   t_PostIssuingSettlementsSettlementParamSchema,
-  t_PostIssuingTokensTokenBodySchema,
+  t_PostIssuingSettlementsSettlementRequestBody,
   t_PostIssuingTokensTokenParamSchema,
-  t_PostIssuingTransactionsTransactionBodySchema,
+  t_PostIssuingTokensTokenRequestBody,
   t_PostIssuingTransactionsTransactionParamSchema,
-  t_PostLinkAccountSessionsBodySchema,
-  t_PostLinkedAccountsAccountDisconnectBodySchema,
+  t_PostIssuingTransactionsTransactionRequestBody,
+  t_PostLinkAccountSessionsRequestBody,
   t_PostLinkedAccountsAccountDisconnectParamSchema,
-  t_PostLinkedAccountsAccountRefreshBodySchema,
+  t_PostLinkedAccountsAccountDisconnectRequestBody,
   t_PostLinkedAccountsAccountRefreshParamSchema,
-  t_PostPaymentIntentsBodySchema,
-  t_PostPaymentIntentsIntentApplyCustomerBalanceBodySchema,
+  t_PostLinkedAccountsAccountRefreshRequestBody,
   t_PostPaymentIntentsIntentApplyCustomerBalanceParamSchema,
-  t_PostPaymentIntentsIntentBodySchema,
-  t_PostPaymentIntentsIntentCancelBodySchema,
+  t_PostPaymentIntentsIntentApplyCustomerBalanceRequestBody,
   t_PostPaymentIntentsIntentCancelParamSchema,
-  t_PostPaymentIntentsIntentCaptureBodySchema,
+  t_PostPaymentIntentsIntentCancelRequestBody,
   t_PostPaymentIntentsIntentCaptureParamSchema,
-  t_PostPaymentIntentsIntentConfirmBodySchema,
+  t_PostPaymentIntentsIntentCaptureRequestBody,
   t_PostPaymentIntentsIntentConfirmParamSchema,
-  t_PostPaymentIntentsIntentIncrementAuthorizationBodySchema,
+  t_PostPaymentIntentsIntentConfirmRequestBody,
   t_PostPaymentIntentsIntentIncrementAuthorizationParamSchema,
+  t_PostPaymentIntentsIntentIncrementAuthorizationRequestBody,
   t_PostPaymentIntentsIntentParamSchema,
-  t_PostPaymentIntentsIntentVerifyMicrodepositsBodySchema,
+  t_PostPaymentIntentsIntentRequestBody,
   t_PostPaymentIntentsIntentVerifyMicrodepositsParamSchema,
-  t_PostPaymentLinksBodySchema,
-  t_PostPaymentLinksPaymentLinkBodySchema,
+  t_PostPaymentIntentsIntentVerifyMicrodepositsRequestBody,
+  t_PostPaymentIntentsRequestBody,
   t_PostPaymentLinksPaymentLinkParamSchema,
-  t_PostPaymentMethodConfigurationsBodySchema,
-  t_PostPaymentMethodConfigurationsConfigurationBodySchema,
+  t_PostPaymentLinksPaymentLinkRequestBody,
+  t_PostPaymentLinksRequestBody,
   t_PostPaymentMethodConfigurationsConfigurationParamSchema,
-  t_PostPaymentMethodDomainsBodySchema,
-  t_PostPaymentMethodDomainsPaymentMethodDomainBodySchema,
+  t_PostPaymentMethodConfigurationsConfigurationRequestBody,
+  t_PostPaymentMethodConfigurationsRequestBody,
   t_PostPaymentMethodDomainsPaymentMethodDomainParamSchema,
-  t_PostPaymentMethodDomainsPaymentMethodDomainValidateBodySchema,
+  t_PostPaymentMethodDomainsPaymentMethodDomainRequestBody,
   t_PostPaymentMethodDomainsPaymentMethodDomainValidateParamSchema,
-  t_PostPaymentMethodsBodySchema,
-  t_PostPaymentMethodsPaymentMethodAttachBodySchema,
+  t_PostPaymentMethodDomainsPaymentMethodDomainValidateRequestBody,
+  t_PostPaymentMethodDomainsRequestBody,
   t_PostPaymentMethodsPaymentMethodAttachParamSchema,
-  t_PostPaymentMethodsPaymentMethodBodySchema,
-  t_PostPaymentMethodsPaymentMethodDetachBodySchema,
+  t_PostPaymentMethodsPaymentMethodAttachRequestBody,
   t_PostPaymentMethodsPaymentMethodDetachParamSchema,
+  t_PostPaymentMethodsPaymentMethodDetachRequestBody,
   t_PostPaymentMethodsPaymentMethodParamSchema,
-  t_PostPayoutsBodySchema,
-  t_PostPayoutsPayoutBodySchema,
-  t_PostPayoutsPayoutCancelBodySchema,
+  t_PostPaymentMethodsPaymentMethodRequestBody,
+  t_PostPaymentMethodsRequestBody,
   t_PostPayoutsPayoutCancelParamSchema,
+  t_PostPayoutsPayoutCancelRequestBody,
   t_PostPayoutsPayoutParamSchema,
-  t_PostPayoutsPayoutReverseBodySchema,
+  t_PostPayoutsPayoutRequestBody,
   t_PostPayoutsPayoutReverseParamSchema,
-  t_PostPlansBodySchema,
-  t_PostPlansPlanBodySchema,
+  t_PostPayoutsPayoutReverseRequestBody,
+  t_PostPayoutsRequestBody,
   t_PostPlansPlanParamSchema,
-  t_PostPricesBodySchema,
-  t_PostPricesPriceBodySchema,
+  t_PostPlansPlanRequestBody,
+  t_PostPlansRequestBody,
   t_PostPricesPriceParamSchema,
-  t_PostProductsBodySchema,
-  t_PostProductsIdBodySchema,
+  t_PostPricesPriceRequestBody,
+  t_PostPricesRequestBody,
   t_PostProductsIdParamSchema,
-  t_PostProductsProductFeaturesBodySchema,
+  t_PostProductsIdRequestBody,
   t_PostProductsProductFeaturesParamSchema,
-  t_PostPromotionCodesBodySchema,
-  t_PostPromotionCodesPromotionCodeBodySchema,
+  t_PostProductsProductFeaturesRequestBody,
+  t_PostProductsRequestBody,
   t_PostPromotionCodesPromotionCodeParamSchema,
-  t_PostQuotesBodySchema,
-  t_PostQuotesQuoteAcceptBodySchema,
+  t_PostPromotionCodesPromotionCodeRequestBody,
+  t_PostPromotionCodesRequestBody,
   t_PostQuotesQuoteAcceptParamSchema,
-  t_PostQuotesQuoteBodySchema,
-  t_PostQuotesQuoteCancelBodySchema,
+  t_PostQuotesQuoteAcceptRequestBody,
   t_PostQuotesQuoteCancelParamSchema,
-  t_PostQuotesQuoteFinalizeBodySchema,
+  t_PostQuotesQuoteCancelRequestBody,
   t_PostQuotesQuoteFinalizeParamSchema,
+  t_PostQuotesQuoteFinalizeRequestBody,
   t_PostQuotesQuoteParamSchema,
-  t_PostRadarValueListItemsBodySchema,
-  t_PostRadarValueListsBodySchema,
-  t_PostRadarValueListsValueListBodySchema,
+  t_PostQuotesQuoteRequestBody,
+  t_PostQuotesRequestBody,
+  t_PostRadarValueListItemsRequestBody,
+  t_PostRadarValueListsRequestBody,
   t_PostRadarValueListsValueListParamSchema,
-  t_PostRefundsBodySchema,
-  t_PostRefundsRefundBodySchema,
-  t_PostRefundsRefundCancelBodySchema,
+  t_PostRadarValueListsValueListRequestBody,
   t_PostRefundsRefundCancelParamSchema,
+  t_PostRefundsRefundCancelRequestBody,
   t_PostRefundsRefundParamSchema,
-  t_PostReportingReportRunsBodySchema,
-  t_PostReviewsReviewApproveBodySchema,
+  t_PostRefundsRefundRequestBody,
+  t_PostRefundsRequestBody,
+  t_PostReportingReportRunsRequestBody,
   t_PostReviewsReviewApproveParamSchema,
-  t_PostSetupIntentsBodySchema,
-  t_PostSetupIntentsIntentBodySchema,
-  t_PostSetupIntentsIntentCancelBodySchema,
+  t_PostReviewsReviewApproveRequestBody,
   t_PostSetupIntentsIntentCancelParamSchema,
-  t_PostSetupIntentsIntentConfirmBodySchema,
+  t_PostSetupIntentsIntentCancelRequestBody,
   t_PostSetupIntentsIntentConfirmParamSchema,
+  t_PostSetupIntentsIntentConfirmRequestBody,
   t_PostSetupIntentsIntentParamSchema,
-  t_PostSetupIntentsIntentVerifyMicrodepositsBodySchema,
+  t_PostSetupIntentsIntentRequestBody,
   t_PostSetupIntentsIntentVerifyMicrodepositsParamSchema,
-  t_PostShippingRatesBodySchema,
-  t_PostShippingRatesShippingRateTokenBodySchema,
+  t_PostSetupIntentsIntentVerifyMicrodepositsRequestBody,
+  t_PostSetupIntentsRequestBody,
+  t_PostShippingRatesRequestBody,
   t_PostShippingRatesShippingRateTokenParamSchema,
-  t_PostSigmaSavedQueriesIdBodySchema,
+  t_PostShippingRatesShippingRateTokenRequestBody,
   t_PostSigmaSavedQueriesIdParamSchema,
-  t_PostSourcesBodySchema,
-  t_PostSourcesSourceBodySchema,
+  t_PostSigmaSavedQueriesIdRequestBody,
+  t_PostSourcesRequestBody,
   t_PostSourcesSourceParamSchema,
-  t_PostSourcesSourceVerifyBodySchema,
+  t_PostSourcesSourceRequestBody,
   t_PostSourcesSourceVerifyParamSchema,
-  t_PostSubscriptionItemsBodySchema,
-  t_PostSubscriptionItemsItemBodySchema,
+  t_PostSourcesSourceVerifyRequestBody,
   t_PostSubscriptionItemsItemParamSchema,
-  t_PostSubscriptionSchedulesBodySchema,
-  t_PostSubscriptionSchedulesScheduleBodySchema,
-  t_PostSubscriptionSchedulesScheduleCancelBodySchema,
+  t_PostSubscriptionItemsItemRequestBody,
+  t_PostSubscriptionItemsRequestBody,
+  t_PostSubscriptionSchedulesRequestBody,
   t_PostSubscriptionSchedulesScheduleCancelParamSchema,
+  t_PostSubscriptionSchedulesScheduleCancelRequestBody,
   t_PostSubscriptionSchedulesScheduleParamSchema,
-  t_PostSubscriptionSchedulesScheduleReleaseBodySchema,
   t_PostSubscriptionSchedulesScheduleReleaseParamSchema,
-  t_PostSubscriptionsBodySchema,
-  t_PostSubscriptionsSubscriptionExposedIdBodySchema,
+  t_PostSubscriptionSchedulesScheduleReleaseRequestBody,
+  t_PostSubscriptionSchedulesScheduleRequestBody,
+  t_PostSubscriptionsRequestBody,
   t_PostSubscriptionsSubscriptionExposedIdParamSchema,
-  t_PostSubscriptionsSubscriptionMigrateBodySchema,
+  t_PostSubscriptionsSubscriptionExposedIdRequestBody,
   t_PostSubscriptionsSubscriptionMigrateParamSchema,
-  t_PostSubscriptionsSubscriptionResumeBodySchema,
+  t_PostSubscriptionsSubscriptionMigrateRequestBody,
   t_PostSubscriptionsSubscriptionResumeParamSchema,
-  t_PostTaxCalculationsBodySchema,
-  t_PostTaxIdsBodySchema,
-  t_PostTaxRatesBodySchema,
-  t_PostTaxRatesTaxRateBodySchema,
+  t_PostSubscriptionsSubscriptionResumeRequestBody,
+  t_PostTaxCalculationsRequestBody,
+  t_PostTaxIdsRequestBody,
+  t_PostTaxRatesRequestBody,
   t_PostTaxRatesTaxRateParamSchema,
-  t_PostTaxRegistrationsBodySchema,
-  t_PostTaxRegistrationsIdBodySchema,
+  t_PostTaxRatesTaxRateRequestBody,
   t_PostTaxRegistrationsIdParamSchema,
-  t_PostTaxSettingsBodySchema,
-  t_PostTaxTransactionsCreateFromCalculationBodySchema,
-  t_PostTaxTransactionsCreateReversalBodySchema,
-  t_PostTerminalConfigurationsBodySchema,
-  t_PostTerminalConfigurationsConfigurationBodySchema,
+  t_PostTaxRegistrationsIdRequestBody,
+  t_PostTaxRegistrationsRequestBody,
+  t_PostTaxSettingsRequestBody,
+  t_PostTaxTransactionsCreateFromCalculationRequestBody,
+  t_PostTaxTransactionsCreateReversalRequestBody,
   t_PostTerminalConfigurationsConfigurationParamSchema,
-  t_PostTerminalConnectionTokensBodySchema,
-  t_PostTerminalLocationsBodySchema,
-  t_PostTerminalLocationsLocationBodySchema,
+  t_PostTerminalConfigurationsConfigurationRequestBody,
+  t_PostTerminalConfigurationsRequestBody,
+  t_PostTerminalConnectionTokensRequestBody,
   t_PostTerminalLocationsLocationParamSchema,
-  t_PostTerminalReadersBodySchema,
-  t_PostTerminalReadersReaderBodySchema,
-  t_PostTerminalReadersReaderCancelActionBodySchema,
+  t_PostTerminalLocationsLocationRequestBody,
+  t_PostTerminalLocationsRequestBody,
   t_PostTerminalReadersReaderCancelActionParamSchema,
-  t_PostTerminalReadersReaderCollectInputsBodySchema,
+  t_PostTerminalReadersReaderCancelActionRequestBody,
   t_PostTerminalReadersReaderCollectInputsParamSchema,
-  t_PostTerminalReadersReaderCollectPaymentMethodBodySchema,
+  t_PostTerminalReadersReaderCollectInputsRequestBody,
   t_PostTerminalReadersReaderCollectPaymentMethodParamSchema,
-  t_PostTerminalReadersReaderConfirmPaymentIntentBodySchema,
+  t_PostTerminalReadersReaderCollectPaymentMethodRequestBody,
   t_PostTerminalReadersReaderConfirmPaymentIntentParamSchema,
+  t_PostTerminalReadersReaderConfirmPaymentIntentRequestBody,
   t_PostTerminalReadersReaderParamSchema,
-  t_PostTerminalReadersReaderProcessPaymentIntentBodySchema,
   t_PostTerminalReadersReaderProcessPaymentIntentParamSchema,
-  t_PostTerminalReadersReaderProcessSetupIntentBodySchema,
+  t_PostTerminalReadersReaderProcessPaymentIntentRequestBody,
   t_PostTerminalReadersReaderProcessSetupIntentParamSchema,
-  t_PostTerminalReadersReaderRefundPaymentBodySchema,
+  t_PostTerminalReadersReaderProcessSetupIntentRequestBody,
   t_PostTerminalReadersReaderRefundPaymentParamSchema,
-  t_PostTerminalReadersReaderSetReaderDisplayBodySchema,
+  t_PostTerminalReadersReaderRefundPaymentRequestBody,
+  t_PostTerminalReadersReaderRequestBody,
   t_PostTerminalReadersReaderSetReaderDisplayParamSchema,
-  t_PostTestHelpersConfirmationTokensBodySchema,
-  t_PostTestHelpersCustomersCustomerFundCashBalanceBodySchema,
+  t_PostTerminalReadersReaderSetReaderDisplayRequestBody,
+  t_PostTerminalReadersRequestBody,
+  t_PostTestHelpersConfirmationTokensRequestBody,
   t_PostTestHelpersCustomersCustomerFundCashBalanceParamSchema,
-  t_PostTestHelpersIssuingAuthorizationsAuthorizationCaptureBodySchema,
+  t_PostTestHelpersCustomersCustomerFundCashBalanceRequestBody,
   t_PostTestHelpersIssuingAuthorizationsAuthorizationCaptureParamSchema,
-  t_PostTestHelpersIssuingAuthorizationsAuthorizationExpireBodySchema,
+  t_PostTestHelpersIssuingAuthorizationsAuthorizationCaptureRequestBody,
   t_PostTestHelpersIssuingAuthorizationsAuthorizationExpireParamSchema,
-  t_PostTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmountBodySchema,
+  t_PostTestHelpersIssuingAuthorizationsAuthorizationExpireRequestBody,
   t_PostTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmountParamSchema,
-  t_PostTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespondBodySchema,
+  t_PostTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmountRequestBody,
   t_PostTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespondParamSchema,
-  t_PostTestHelpersIssuingAuthorizationsAuthorizationIncrementBodySchema,
+  t_PostTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespondRequestBody,
   t_PostTestHelpersIssuingAuthorizationsAuthorizationIncrementParamSchema,
-  t_PostTestHelpersIssuingAuthorizationsAuthorizationReverseBodySchema,
+  t_PostTestHelpersIssuingAuthorizationsAuthorizationIncrementRequestBody,
   t_PostTestHelpersIssuingAuthorizationsAuthorizationReverseParamSchema,
-  t_PostTestHelpersIssuingAuthorizationsBodySchema,
-  t_PostTestHelpersIssuingCardsCardShippingDeliverBodySchema,
+  t_PostTestHelpersIssuingAuthorizationsAuthorizationReverseRequestBody,
+  t_PostTestHelpersIssuingAuthorizationsRequestBody,
   t_PostTestHelpersIssuingCardsCardShippingDeliverParamSchema,
-  t_PostTestHelpersIssuingCardsCardShippingFailBodySchema,
+  t_PostTestHelpersIssuingCardsCardShippingDeliverRequestBody,
   t_PostTestHelpersIssuingCardsCardShippingFailParamSchema,
-  t_PostTestHelpersIssuingCardsCardShippingReturnBodySchema,
+  t_PostTestHelpersIssuingCardsCardShippingFailRequestBody,
   t_PostTestHelpersIssuingCardsCardShippingReturnParamSchema,
-  t_PostTestHelpersIssuingCardsCardShippingShipBodySchema,
+  t_PostTestHelpersIssuingCardsCardShippingReturnRequestBody,
   t_PostTestHelpersIssuingCardsCardShippingShipParamSchema,
-  t_PostTestHelpersIssuingCardsCardShippingSubmitBodySchema,
+  t_PostTestHelpersIssuingCardsCardShippingShipRequestBody,
   t_PostTestHelpersIssuingCardsCardShippingSubmitParamSchema,
-  t_PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivateBodySchema,
+  t_PostTestHelpersIssuingCardsCardShippingSubmitRequestBody,
   t_PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivateParamSchema,
-  t_PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivateBodySchema,
+  t_PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivateRequestBody,
   t_PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivateParamSchema,
-  t_PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignRejectBodySchema,
+  t_PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivateRequestBody,
   t_PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignRejectParamSchema,
-  t_PostTestHelpersIssuingSettlementsBodySchema,
-  t_PostTestHelpersIssuingSettlementsSettlementCompleteBodySchema,
+  t_PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignRejectRequestBody,
+  t_PostTestHelpersIssuingSettlementsRequestBody,
   t_PostTestHelpersIssuingSettlementsSettlementCompleteParamSchema,
-  t_PostTestHelpersIssuingTransactionsCreateForceCaptureBodySchema,
-  t_PostTestHelpersIssuingTransactionsCreateUnlinkedRefundBodySchema,
-  t_PostTestHelpersIssuingTransactionsTransactionRefundBodySchema,
+  t_PostTestHelpersIssuingSettlementsSettlementCompleteRequestBody,
+  t_PostTestHelpersIssuingTransactionsCreateForceCaptureRequestBody,
+  t_PostTestHelpersIssuingTransactionsCreateUnlinkedRefundRequestBody,
   t_PostTestHelpersIssuingTransactionsTransactionRefundParamSchema,
-  t_PostTestHelpersRefundsRefundExpireBodySchema,
+  t_PostTestHelpersIssuingTransactionsTransactionRefundRequestBody,
   t_PostTestHelpersRefundsRefundExpireParamSchema,
-  t_PostTestHelpersTerminalReadersReaderPresentPaymentMethodBodySchema,
+  t_PostTestHelpersRefundsRefundExpireRequestBody,
   t_PostTestHelpersTerminalReadersReaderPresentPaymentMethodParamSchema,
-  t_PostTestHelpersTerminalReadersReaderSucceedInputCollectionBodySchema,
+  t_PostTestHelpersTerminalReadersReaderPresentPaymentMethodRequestBody,
   t_PostTestHelpersTerminalReadersReaderSucceedInputCollectionParamSchema,
-  t_PostTestHelpersTerminalReadersReaderTimeoutInputCollectionBodySchema,
+  t_PostTestHelpersTerminalReadersReaderSucceedInputCollectionRequestBody,
   t_PostTestHelpersTerminalReadersReaderTimeoutInputCollectionParamSchema,
-  t_PostTestHelpersTestClocksBodySchema,
-  t_PostTestHelpersTestClocksTestClockAdvanceBodySchema,
+  t_PostTestHelpersTerminalReadersReaderTimeoutInputCollectionRequestBody,
+  t_PostTestHelpersTestClocksRequestBody,
   t_PostTestHelpersTestClocksTestClockAdvanceParamSchema,
-  t_PostTestHelpersTreasuryInboundTransfersIdFailBodySchema,
+  t_PostTestHelpersTestClocksTestClockAdvanceRequestBody,
   t_PostTestHelpersTreasuryInboundTransfersIdFailParamSchema,
-  t_PostTestHelpersTreasuryInboundTransfersIdReturnBodySchema,
+  t_PostTestHelpersTreasuryInboundTransfersIdFailRequestBody,
   t_PostTestHelpersTreasuryInboundTransfersIdReturnParamSchema,
-  t_PostTestHelpersTreasuryInboundTransfersIdSucceedBodySchema,
+  t_PostTestHelpersTreasuryInboundTransfersIdReturnRequestBody,
   t_PostTestHelpersTreasuryInboundTransfersIdSucceedParamSchema,
-  t_PostTestHelpersTreasuryOutboundPaymentsIdBodySchema,
-  t_PostTestHelpersTreasuryOutboundPaymentsIdFailBodySchema,
+  t_PostTestHelpersTreasuryInboundTransfersIdSucceedRequestBody,
   t_PostTestHelpersTreasuryOutboundPaymentsIdFailParamSchema,
+  t_PostTestHelpersTreasuryOutboundPaymentsIdFailRequestBody,
   t_PostTestHelpersTreasuryOutboundPaymentsIdParamSchema,
-  t_PostTestHelpersTreasuryOutboundPaymentsIdPostBodySchema,
   t_PostTestHelpersTreasuryOutboundPaymentsIdPostParamSchema,
-  t_PostTestHelpersTreasuryOutboundPaymentsIdReturnBodySchema,
+  t_PostTestHelpersTreasuryOutboundPaymentsIdPostRequestBody,
+  t_PostTestHelpersTreasuryOutboundPaymentsIdRequestBody,
   t_PostTestHelpersTreasuryOutboundPaymentsIdReturnParamSchema,
-  t_PostTestHelpersTreasuryOutboundTransfersOutboundTransferBodySchema,
-  t_PostTestHelpersTreasuryOutboundTransfersOutboundTransferFailBodySchema,
+  t_PostTestHelpersTreasuryOutboundPaymentsIdReturnRequestBody,
   t_PostTestHelpersTreasuryOutboundTransfersOutboundTransferFailParamSchema,
+  t_PostTestHelpersTreasuryOutboundTransfersOutboundTransferFailRequestBody,
   t_PostTestHelpersTreasuryOutboundTransfersOutboundTransferParamSchema,
-  t_PostTestHelpersTreasuryOutboundTransfersOutboundTransferPostBodySchema,
   t_PostTestHelpersTreasuryOutboundTransfersOutboundTransferPostParamSchema,
-  t_PostTestHelpersTreasuryOutboundTransfersOutboundTransferReturnBodySchema,
+  t_PostTestHelpersTreasuryOutboundTransfersOutboundTransferPostRequestBody,
+  t_PostTestHelpersTreasuryOutboundTransfersOutboundTransferRequestBody,
   t_PostTestHelpersTreasuryOutboundTransfersOutboundTransferReturnParamSchema,
-  t_PostTestHelpersTreasuryReceivedCreditsBodySchema,
-  t_PostTestHelpersTreasuryReceivedDebitsBodySchema,
-  t_PostTokensBodySchema,
-  t_PostTopupsBodySchema,
-  t_PostTopupsTopupBodySchema,
-  t_PostTopupsTopupCancelBodySchema,
+  t_PostTestHelpersTreasuryOutboundTransfersOutboundTransferReturnRequestBody,
+  t_PostTestHelpersTreasuryReceivedCreditsRequestBody,
+  t_PostTestHelpersTreasuryReceivedDebitsRequestBody,
+  t_PostTokensRequestBody,
+  t_PostTopupsRequestBody,
   t_PostTopupsTopupCancelParamSchema,
+  t_PostTopupsTopupCancelRequestBody,
   t_PostTopupsTopupParamSchema,
-  t_PostTransfersBodySchema,
-  t_PostTransfersIdReversalsBodySchema,
+  t_PostTopupsTopupRequestBody,
   t_PostTransfersIdReversalsParamSchema,
-  t_PostTransfersTransferBodySchema,
+  t_PostTransfersIdReversalsRequestBody,
+  t_PostTransfersRequestBody,
   t_PostTransfersTransferParamSchema,
-  t_PostTransfersTransferReversalsIdBodySchema,
+  t_PostTransfersTransferRequestBody,
   t_PostTransfersTransferReversalsIdParamSchema,
-  t_PostTreasuryCreditReversalsBodySchema,
-  t_PostTreasuryDebitReversalsBodySchema,
-  t_PostTreasuryFinancialAccountsBodySchema,
-  t_PostTreasuryFinancialAccountsFinancialAccountBodySchema,
-  t_PostTreasuryFinancialAccountsFinancialAccountCloseBodySchema,
+  t_PostTransfersTransferReversalsIdRequestBody,
+  t_PostTreasuryCreditReversalsRequestBody,
+  t_PostTreasuryDebitReversalsRequestBody,
   t_PostTreasuryFinancialAccountsFinancialAccountCloseParamSchema,
-  t_PostTreasuryFinancialAccountsFinancialAccountFeaturesBodySchema,
+  t_PostTreasuryFinancialAccountsFinancialAccountCloseRequestBody,
   t_PostTreasuryFinancialAccountsFinancialAccountFeaturesParamSchema,
+  t_PostTreasuryFinancialAccountsFinancialAccountFeaturesRequestBody,
   t_PostTreasuryFinancialAccountsFinancialAccountParamSchema,
-  t_PostTreasuryInboundTransfersBodySchema,
-  t_PostTreasuryInboundTransfersInboundTransferCancelBodySchema,
+  t_PostTreasuryFinancialAccountsFinancialAccountRequestBody,
+  t_PostTreasuryFinancialAccountsRequestBody,
   t_PostTreasuryInboundTransfersInboundTransferCancelParamSchema,
-  t_PostTreasuryOutboundPaymentsBodySchema,
-  t_PostTreasuryOutboundPaymentsIdCancelBodySchema,
+  t_PostTreasuryInboundTransfersInboundTransferCancelRequestBody,
+  t_PostTreasuryInboundTransfersRequestBody,
   t_PostTreasuryOutboundPaymentsIdCancelParamSchema,
-  t_PostTreasuryOutboundTransfersBodySchema,
-  t_PostTreasuryOutboundTransfersOutboundTransferCancelBodySchema,
+  t_PostTreasuryOutboundPaymentsIdCancelRequestBody,
+  t_PostTreasuryOutboundPaymentsRequestBody,
   t_PostTreasuryOutboundTransfersOutboundTransferCancelParamSchema,
-  t_PostWebhookEndpointsBodySchema,
-  t_PostWebhookEndpointsWebhookEndpointBodySchema,
+  t_PostTreasuryOutboundTransfersOutboundTransferCancelRequestBody,
+  t_PostTreasuryOutboundTransfersRequestBody,
+  t_PostWebhookEndpointsRequestBody,
   t_PostWebhookEndpointsWebhookEndpointParamSchema,
+  t_PostWebhookEndpointsWebhookEndpointRequestBody,
   t_payment_intent,
   t_payment_link,
   t_payment_method,
@@ -1291,7 +1291,7 @@ export type PostAccountLinksResponder = {
 } & KoaRuntimeResponder
 
 export type PostAccountLinks = (
-  params: Params<void, void, t_PostAccountLinksBodySchema, void>,
+  params: Params<void, void, t_PostAccountLinksRequestBody, void>,
   respond: PostAccountLinksResponder,
   ctx: RouterContext,
   next: Next,
@@ -1308,7 +1308,7 @@ export type PostAccountSessionsResponder = {
 } & KoaRuntimeResponder
 
 export type PostAccountSessions = (
-  params: Params<void, void, t_PostAccountSessionsBodySchema, void>,
+  params: Params<void, void, t_PostAccountSessionsRequestBody, void>,
   respond: PostAccountSessionsResponder,
   ctx: RouterContext,
   next: Next,
@@ -1355,7 +1355,7 @@ export type PostAccountsResponder = {
 } & KoaRuntimeResponder
 
 export type PostAccounts = (
-  params: Params<void, void, t_PostAccountsBodySchema | undefined, void>,
+  params: Params<void, void, t_PostAccountsRequestBody | undefined, void>,
   respond: PostAccountsResponder,
   ctx: RouterContext,
   next: Next,
@@ -1414,7 +1414,7 @@ export type PostAccountsAccount = (
   params: Params<
     t_PostAccountsAccountParamSchema,
     void,
-    t_PostAccountsAccountBodySchema | undefined,
+    t_PostAccountsAccountRequestBody | undefined,
     void
   >,
   respond: PostAccountsAccountResponder,
@@ -1436,7 +1436,7 @@ export type PostAccountsAccountBankAccounts = (
   params: Params<
     t_PostAccountsAccountBankAccountsParamSchema,
     void,
-    t_PostAccountsAccountBankAccountsBodySchema | undefined,
+    t_PostAccountsAccountBankAccountsRequestBody | undefined,
     void
   >,
   respond: PostAccountsAccountBankAccountsResponder,
@@ -1502,7 +1502,7 @@ export type PostAccountsAccountBankAccountsId = (
   params: Params<
     t_PostAccountsAccountBankAccountsIdParamSchema,
     void,
-    t_PostAccountsAccountBankAccountsIdBodySchema | undefined,
+    t_PostAccountsAccountBankAccountsIdRequestBody | undefined,
     void
   >,
   respond: PostAccountsAccountBankAccountsIdResponder,
@@ -1581,7 +1581,7 @@ export type PostAccountsAccountCapabilitiesCapability = (
   params: Params<
     t_PostAccountsAccountCapabilitiesCapabilityParamSchema,
     void,
-    t_PostAccountsAccountCapabilitiesCapabilityBodySchema | undefined,
+    t_PostAccountsAccountCapabilitiesCapabilityRequestBody | undefined,
     void
   >,
   respond: PostAccountsAccountCapabilitiesCapabilityResponder,
@@ -1638,7 +1638,7 @@ export type PostAccountsAccountExternalAccounts = (
   params: Params<
     t_PostAccountsAccountExternalAccountsParamSchema,
     void,
-    t_PostAccountsAccountExternalAccountsBodySchema | undefined,
+    t_PostAccountsAccountExternalAccountsRequestBody | undefined,
     void
   >,
   respond: PostAccountsAccountExternalAccountsResponder,
@@ -1704,7 +1704,7 @@ export type PostAccountsAccountExternalAccountsId = (
   params: Params<
     t_PostAccountsAccountExternalAccountsIdParamSchema,
     void,
-    t_PostAccountsAccountExternalAccountsIdBodySchema | undefined,
+    t_PostAccountsAccountExternalAccountsIdRequestBody | undefined,
     void
   >,
   respond: PostAccountsAccountExternalAccountsIdResponder,
@@ -1726,7 +1726,7 @@ export type PostAccountsAccountLoginLinks = (
   params: Params<
     t_PostAccountsAccountLoginLinksParamSchema,
     void,
-    t_PostAccountsAccountLoginLinksBodySchema | undefined,
+    t_PostAccountsAccountLoginLinksRequestBody | undefined,
     void
   >,
   respond: PostAccountsAccountLoginLinksResponder,
@@ -1783,7 +1783,7 @@ export type PostAccountsAccountPeople = (
   params: Params<
     t_PostAccountsAccountPeopleParamSchema,
     void,
-    t_PostAccountsAccountPeopleBodySchema | undefined,
+    t_PostAccountsAccountPeopleRequestBody | undefined,
     void
   >,
   respond: PostAccountsAccountPeopleResponder,
@@ -1849,7 +1849,7 @@ export type PostAccountsAccountPeoplePerson = (
   params: Params<
     t_PostAccountsAccountPeoplePersonParamSchema,
     void,
-    t_PostAccountsAccountPeoplePersonBodySchema | undefined,
+    t_PostAccountsAccountPeoplePersonRequestBody | undefined,
     void
   >,
   respond: PostAccountsAccountPeoplePersonResponder,
@@ -1906,7 +1906,7 @@ export type PostAccountsAccountPersons = (
   params: Params<
     t_PostAccountsAccountPersonsParamSchema,
     void,
-    t_PostAccountsAccountPersonsBodySchema | undefined,
+    t_PostAccountsAccountPersonsRequestBody | undefined,
     void
   >,
   respond: PostAccountsAccountPersonsResponder,
@@ -1972,7 +1972,7 @@ export type PostAccountsAccountPersonsPerson = (
   params: Params<
     t_PostAccountsAccountPersonsPersonParamSchema,
     void,
-    t_PostAccountsAccountPersonsPersonBodySchema | undefined,
+    t_PostAccountsAccountPersonsPersonRequestBody | undefined,
     void
   >,
   respond: PostAccountsAccountPersonsPersonResponder,
@@ -1994,7 +1994,7 @@ export type PostAccountsAccountReject = (
   params: Params<
     t_PostAccountsAccountRejectParamSchema,
     void,
-    t_PostAccountsAccountRejectBodySchema,
+    t_PostAccountsAccountRejectRequestBody,
     void
   >,
   respond: PostAccountsAccountRejectResponder,
@@ -2043,7 +2043,7 @@ export type PostApplePayDomainsResponder = {
 } & KoaRuntimeResponder
 
 export type PostApplePayDomains = (
-  params: Params<void, void, t_PostApplePayDomainsBodySchema, void>,
+  params: Params<void, void, t_PostApplePayDomainsRequestBody, void>,
   respond: PostApplePayDomainsResponder,
   ctx: RouterContext,
   next: Next,
@@ -2154,7 +2154,7 @@ export type PostApplicationFeesFeeRefundsId = (
   params: Params<
     t_PostApplicationFeesFeeRefundsIdParamSchema,
     void,
-    t_PostApplicationFeesFeeRefundsIdBodySchema | undefined,
+    t_PostApplicationFeesFeeRefundsIdRequestBody | undefined,
     void
   >,
   respond: PostApplicationFeesFeeRefundsIdResponder,
@@ -2198,7 +2198,7 @@ export type PostApplicationFeesIdRefund = (
   params: Params<
     t_PostApplicationFeesIdRefundParamSchema,
     void,
-    t_PostApplicationFeesIdRefundBodySchema | undefined,
+    t_PostApplicationFeesIdRefundRequestBody | undefined,
     void
   >,
   respond: PostApplicationFeesIdRefundResponder,
@@ -2255,7 +2255,7 @@ export type PostApplicationFeesIdRefunds = (
   params: Params<
     t_PostApplicationFeesIdRefundsParamSchema,
     void,
-    t_PostApplicationFeesIdRefundsBodySchema | undefined,
+    t_PostApplicationFeesIdRefundsRequestBody | undefined,
     void
   >,
   respond: PostApplicationFeesIdRefundsResponder,
@@ -2304,7 +2304,7 @@ export type PostAppsSecretsResponder = {
 } & KoaRuntimeResponder
 
 export type PostAppsSecrets = (
-  params: Params<void, void, t_PostAppsSecretsBodySchema, void>,
+  params: Params<void, void, t_PostAppsSecretsRequestBody, void>,
   respond: PostAppsSecretsResponder,
   ctx: RouterContext,
   next: Next,
@@ -2321,7 +2321,7 @@ export type PostAppsSecretsDeleteResponder = {
 } & KoaRuntimeResponder
 
 export type PostAppsSecretsDelete = (
-  params: Params<void, void, t_PostAppsSecretsDeleteBodySchema, void>,
+  params: Params<void, void, t_PostAppsSecretsDeleteRequestBody, void>,
   respond: PostAppsSecretsDeleteResponder,
   ctx: RouterContext,
   next: Next,
@@ -2506,7 +2506,7 @@ export type PostBillingAlertsResponder = {
 } & KoaRuntimeResponder
 
 export type PostBillingAlerts = (
-  params: Params<void, void, t_PostBillingAlertsBodySchema, void>,
+  params: Params<void, void, t_PostBillingAlertsRequestBody, void>,
   respond: PostBillingAlertsResponder,
   ctx: RouterContext,
   next: Next,
@@ -2548,7 +2548,7 @@ export type PostBillingAlertsIdActivate = (
   params: Params<
     t_PostBillingAlertsIdActivateParamSchema,
     void,
-    t_PostBillingAlertsIdActivateBodySchema | undefined,
+    t_PostBillingAlertsIdActivateRequestBody | undefined,
     void
   >,
   respond: PostBillingAlertsIdActivateResponder,
@@ -2570,7 +2570,7 @@ export type PostBillingAlertsIdArchive = (
   params: Params<
     t_PostBillingAlertsIdArchiveParamSchema,
     void,
-    t_PostBillingAlertsIdArchiveBodySchema | undefined,
+    t_PostBillingAlertsIdArchiveRequestBody | undefined,
     void
   >,
   respond: PostBillingAlertsIdArchiveResponder,
@@ -2592,7 +2592,7 @@ export type PostBillingAlertsIdDeactivate = (
   params: Params<
     t_PostBillingAlertsIdDeactivateParamSchema,
     void,
-    t_PostBillingAlertsIdDeactivateBodySchema | undefined,
+    t_PostBillingAlertsIdDeactivateRequestBody | undefined,
     void
   >,
   respond: PostBillingAlertsIdDeactivateResponder,
@@ -2715,7 +2715,7 @@ export type PostBillingCreditGrantsResponder = {
 } & KoaRuntimeResponder
 
 export type PostBillingCreditGrants = (
-  params: Params<void, void, t_PostBillingCreditGrantsBodySchema, void>,
+  params: Params<void, void, t_PostBillingCreditGrantsRequestBody, void>,
   respond: PostBillingCreditGrantsResponder,
   ctx: RouterContext,
   next: Next,
@@ -2757,7 +2757,7 @@ export type PostBillingCreditGrantsId = (
   params: Params<
     t_PostBillingCreditGrantsIdParamSchema,
     void,
-    t_PostBillingCreditGrantsIdBodySchema | undefined,
+    t_PostBillingCreditGrantsIdRequestBody | undefined,
     void
   >,
   respond: PostBillingCreditGrantsIdResponder,
@@ -2779,7 +2779,7 @@ export type PostBillingCreditGrantsIdExpire = (
   params: Params<
     t_PostBillingCreditGrantsIdExpireParamSchema,
     void,
-    t_PostBillingCreditGrantsIdExpireBodySchema | undefined,
+    t_PostBillingCreditGrantsIdExpireRequestBody | undefined,
     void
   >,
   respond: PostBillingCreditGrantsIdExpireResponder,
@@ -2801,7 +2801,7 @@ export type PostBillingCreditGrantsIdVoid = (
   params: Params<
     t_PostBillingCreditGrantsIdVoidParamSchema,
     void,
-    t_PostBillingCreditGrantsIdVoidBodySchema | undefined,
+    t_PostBillingCreditGrantsIdVoidRequestBody | undefined,
     void
   >,
   respond: PostBillingCreditGrantsIdVoidResponder,
@@ -2823,7 +2823,7 @@ export type PostBillingMeterEventAdjustments = (
   params: Params<
     void,
     void,
-    t_PostBillingMeterEventAdjustmentsBodySchema,
+    t_PostBillingMeterEventAdjustmentsRequestBody,
     void
   >,
   respond: PostBillingMeterEventAdjustmentsResponder,
@@ -2842,7 +2842,7 @@ export type PostBillingMeterEventsResponder = {
 } & KoaRuntimeResponder
 
 export type PostBillingMeterEvents = (
-  params: Params<void, void, t_PostBillingMeterEventsBodySchema, void>,
+  params: Params<void, void, t_PostBillingMeterEventsRequestBody, void>,
   respond: PostBillingMeterEventsResponder,
   ctx: RouterContext,
   next: Next,
@@ -2889,7 +2889,7 @@ export type PostBillingMetersResponder = {
 } & KoaRuntimeResponder
 
 export type PostBillingMeters = (
-  params: Params<void, void, t_PostBillingMetersBodySchema, void>,
+  params: Params<void, void, t_PostBillingMetersRequestBody, void>,
   respond: PostBillingMetersResponder,
   ctx: RouterContext,
   next: Next,
@@ -2931,7 +2931,7 @@ export type PostBillingMetersId = (
   params: Params<
     t_PostBillingMetersIdParamSchema,
     void,
-    t_PostBillingMetersIdBodySchema | undefined,
+    t_PostBillingMetersIdRequestBody | undefined,
     void
   >,
   respond: PostBillingMetersIdResponder,
@@ -2953,7 +2953,7 @@ export type PostBillingMetersIdDeactivate = (
   params: Params<
     t_PostBillingMetersIdDeactivateParamSchema,
     void,
-    t_PostBillingMetersIdDeactivateBodySchema | undefined,
+    t_PostBillingMetersIdDeactivateRequestBody | undefined,
     void
   >,
   respond: PostBillingMetersIdDeactivateResponder,
@@ -3010,7 +3010,7 @@ export type PostBillingMetersIdReactivate = (
   params: Params<
     t_PostBillingMetersIdReactivateParamSchema,
     void,
-    t_PostBillingMetersIdReactivateBodySchema | undefined,
+    t_PostBillingMetersIdReactivateRequestBody | undefined,
     void
   >,
   respond: PostBillingMetersIdReactivateResponder,
@@ -3059,7 +3059,12 @@ export type PostBillingPortalConfigurationsResponder = {
 } & KoaRuntimeResponder
 
 export type PostBillingPortalConfigurations = (
-  params: Params<void, void, t_PostBillingPortalConfigurationsBodySchema, void>,
+  params: Params<
+    void,
+    void,
+    t_PostBillingPortalConfigurationsRequestBody,
+    void
+  >,
   respond: PostBillingPortalConfigurationsResponder,
   ctx: RouterContext,
   next: Next,
@@ -3101,7 +3106,7 @@ export type PostBillingPortalConfigurationsConfiguration = (
   params: Params<
     t_PostBillingPortalConfigurationsConfigurationParamSchema,
     void,
-    t_PostBillingPortalConfigurationsConfigurationBodySchema | undefined,
+    t_PostBillingPortalConfigurationsConfigurationRequestBody | undefined,
     void
   >,
   respond: PostBillingPortalConfigurationsConfigurationResponder,
@@ -3120,7 +3125,7 @@ export type PostBillingPortalSessionsResponder = {
 } & KoaRuntimeResponder
 
 export type PostBillingPortalSessions = (
-  params: Params<void, void, t_PostBillingPortalSessionsBodySchema, void>,
+  params: Params<void, void, t_PostBillingPortalSessionsRequestBody, void>,
   respond: PostBillingPortalSessionsResponder,
   ctx: RouterContext,
   next: Next,
@@ -3167,7 +3172,7 @@ export type PostChargesResponder = {
 } & KoaRuntimeResponder
 
 export type PostCharges = (
-  params: Params<void, void, t_PostChargesBodySchema | undefined, void>,
+  params: Params<void, void, t_PostChargesRequestBody | undefined, void>,
   respond: PostChargesResponder,
   ctx: RouterContext,
   next: Next,
@@ -3243,7 +3248,7 @@ export type PostChargesCharge = (
   params: Params<
     t_PostChargesChargeParamSchema,
     void,
-    t_PostChargesChargeBodySchema | undefined,
+    t_PostChargesChargeRequestBody | undefined,
     void
   >,
   respond: PostChargesChargeResponder,
@@ -3265,7 +3270,7 @@ export type PostChargesChargeCapture = (
   params: Params<
     t_PostChargesChargeCaptureParamSchema,
     void,
-    t_PostChargesChargeCaptureBodySchema | undefined,
+    t_PostChargesChargeCaptureRequestBody | undefined,
     void
   >,
   respond: PostChargesChargeCaptureResponder,
@@ -3309,7 +3314,7 @@ export type PostChargesChargeDispute = (
   params: Params<
     t_PostChargesChargeDisputeParamSchema,
     void,
-    t_PostChargesChargeDisputeBodySchema | undefined,
+    t_PostChargesChargeDisputeRequestBody | undefined,
     void
   >,
   respond: PostChargesChargeDisputeResponder,
@@ -3331,7 +3336,7 @@ export type PostChargesChargeDisputeClose = (
   params: Params<
     t_PostChargesChargeDisputeCloseParamSchema,
     void,
-    t_PostChargesChargeDisputeCloseBodySchema | undefined,
+    t_PostChargesChargeDisputeCloseRequestBody | undefined,
     void
   >,
   respond: PostChargesChargeDisputeCloseResponder,
@@ -3353,7 +3358,7 @@ export type PostChargesChargeRefund = (
   params: Params<
     t_PostChargesChargeRefundParamSchema,
     void,
-    t_PostChargesChargeRefundBodySchema | undefined,
+    t_PostChargesChargeRefundRequestBody | undefined,
     void
   >,
   respond: PostChargesChargeRefundResponder,
@@ -3410,7 +3415,7 @@ export type PostChargesChargeRefunds = (
   params: Params<
     t_PostChargesChargeRefundsParamSchema,
     void,
-    t_PostChargesChargeRefundsBodySchema | undefined,
+    t_PostChargesChargeRefundsRequestBody | undefined,
     void
   >,
   respond: PostChargesChargeRefundsResponder,
@@ -3454,7 +3459,7 @@ export type PostChargesChargeRefundsRefund = (
   params: Params<
     t_PostChargesChargeRefundsRefundParamSchema,
     void,
-    t_PostChargesChargeRefundsRefundBodySchema | undefined,
+    t_PostChargesChargeRefundsRefundRequestBody | undefined,
     void
   >,
   respond: PostChargesChargeRefundsRefundResponder,
@@ -3506,7 +3511,7 @@ export type PostCheckoutSessions = (
   params: Params<
     void,
     void,
-    t_PostCheckoutSessionsBodySchema | undefined,
+    t_PostCheckoutSessionsRequestBody | undefined,
     void
   >,
   respond: PostCheckoutSessionsResponder,
@@ -3550,7 +3555,7 @@ export type PostCheckoutSessionsSession = (
   params: Params<
     t_PostCheckoutSessionsSessionParamSchema,
     void,
-    t_PostCheckoutSessionsSessionBodySchema | undefined,
+    t_PostCheckoutSessionsSessionRequestBody | undefined,
     void
   >,
   respond: PostCheckoutSessionsSessionResponder,
@@ -3572,7 +3577,7 @@ export type PostCheckoutSessionsSessionExpire = (
   params: Params<
     t_PostCheckoutSessionsSessionExpireParamSchema,
     void,
-    t_PostCheckoutSessionsSessionExpireBodySchema | undefined,
+    t_PostCheckoutSessionsSessionExpireRequestBody | undefined,
     void
   >,
   respond: PostCheckoutSessionsSessionExpireResponder,
@@ -3656,7 +3661,7 @@ export type PostClimateOrdersResponder = {
 } & KoaRuntimeResponder
 
 export type PostClimateOrders = (
-  params: Params<void, void, t_PostClimateOrdersBodySchema, void>,
+  params: Params<void, void, t_PostClimateOrdersRequestBody, void>,
   respond: PostClimateOrdersResponder,
   ctx: RouterContext,
   next: Next,
@@ -3698,7 +3703,7 @@ export type PostClimateOrdersOrder = (
   params: Params<
     t_PostClimateOrdersOrderParamSchema,
     void,
-    t_PostClimateOrdersOrderBodySchema | undefined,
+    t_PostClimateOrdersOrderRequestBody | undefined,
     void
   >,
   respond: PostClimateOrdersOrderResponder,
@@ -3720,7 +3725,7 @@ export type PostClimateOrdersOrderCancel = (
   params: Params<
     t_PostClimateOrdersOrderCancelParamSchema,
     void,
-    t_PostClimateOrdersOrderCancelBodySchema | undefined,
+    t_PostClimateOrdersOrderCancelRequestBody | undefined,
     void
   >,
   respond: PostClimateOrdersOrderCancelResponder,
@@ -3947,7 +3952,7 @@ export type PostCouponsResponder = {
 } & KoaRuntimeResponder
 
 export type PostCoupons = (
-  params: Params<void, void, t_PostCouponsBodySchema | undefined, void>,
+  params: Params<void, void, t_PostCouponsRequestBody | undefined, void>,
   respond: PostCouponsResponder,
   ctx: RouterContext,
   next: Next,
@@ -4006,7 +4011,7 @@ export type PostCouponsCoupon = (
   params: Params<
     t_PostCouponsCouponParamSchema,
     void,
-    t_PostCouponsCouponBodySchema | undefined,
+    t_PostCouponsCouponRequestBody | undefined,
     void
   >,
   respond: PostCouponsCouponResponder,
@@ -4055,7 +4060,7 @@ export type PostCreditNotesResponder = {
 } & KoaRuntimeResponder
 
 export type PostCreditNotes = (
-  params: Params<void, void, t_PostCreditNotesBodySchema, void>,
+  params: Params<void, void, t_PostCreditNotesRequestBody, void>,
   respond: PostCreditNotesResponder,
   ctx: RouterContext,
   next: Next,
@@ -4179,7 +4184,7 @@ export type PostCreditNotesId = (
   params: Params<
     t_PostCreditNotesIdParamSchema,
     void,
-    t_PostCreditNotesIdBodySchema | undefined,
+    t_PostCreditNotesIdRequestBody | undefined,
     void
   >,
   respond: PostCreditNotesIdResponder,
@@ -4201,7 +4206,7 @@ export type PostCreditNotesIdVoid = (
   params: Params<
     t_PostCreditNotesIdVoidParamSchema,
     void,
-    t_PostCreditNotesIdVoidBodySchema | undefined,
+    t_PostCreditNotesIdVoidRequestBody | undefined,
     void
   >,
   respond: PostCreditNotesIdVoidResponder,
@@ -4220,7 +4225,7 @@ export type PostCustomerSessionsResponder = {
 } & KoaRuntimeResponder
 
 export type PostCustomerSessions = (
-  params: Params<void, void, t_PostCustomerSessionsBodySchema, void>,
+  params: Params<void, void, t_PostCustomerSessionsRequestBody, void>,
   respond: PostCustomerSessionsResponder,
   ctx: RouterContext,
   next: Next,
@@ -4267,7 +4272,7 @@ export type PostCustomersResponder = {
 } & KoaRuntimeResponder
 
 export type PostCustomers = (
-  params: Params<void, void, t_PostCustomersBodySchema | undefined, void>,
+  params: Params<void, void, t_PostCustomersRequestBody | undefined, void>,
   respond: PostCustomersResponder,
   ctx: RouterContext,
   next: Next,
@@ -4360,7 +4365,7 @@ export type PostCustomersCustomer = (
   params: Params<
     t_PostCustomersCustomerParamSchema,
     void,
-    t_PostCustomersCustomerBodySchema | undefined,
+    t_PostCustomersCustomerRequestBody | undefined,
     void
   >,
   respond: PostCustomersCustomerResponder,
@@ -4417,7 +4422,7 @@ export type PostCustomersCustomerBalanceTransactions = (
   params: Params<
     t_PostCustomersCustomerBalanceTransactionsParamSchema,
     void,
-    t_PostCustomersCustomerBalanceTransactionsBodySchema,
+    t_PostCustomersCustomerBalanceTransactionsRequestBody,
     void
   >,
   respond: PostCustomersCustomerBalanceTransactionsResponder,
@@ -4461,7 +4466,8 @@ export type PostCustomersCustomerBalanceTransactionsTransaction = (
   params: Params<
     t_PostCustomersCustomerBalanceTransactionsTransactionParamSchema,
     void,
-    t_PostCustomersCustomerBalanceTransactionsTransactionBodySchema | undefined,
+    | t_PostCustomersCustomerBalanceTransactionsTransactionRequestBody
+    | undefined,
     void
   >,
   respond: PostCustomersCustomerBalanceTransactionsTransactionResponder,
@@ -4518,7 +4524,7 @@ export type PostCustomersCustomerBankAccounts = (
   params: Params<
     t_PostCustomersCustomerBankAccountsParamSchema,
     void,
-    t_PostCustomersCustomerBankAccountsBodySchema | undefined,
+    t_PostCustomersCustomerBankAccountsRequestBody | undefined,
     void
   >,
   respond: PostCustomersCustomerBankAccountsResponder,
@@ -4540,7 +4546,7 @@ export type DeleteCustomersCustomerBankAccountsId = (
   params: Params<
     t_DeleteCustomersCustomerBankAccountsIdParamSchema,
     void,
-    t_DeleteCustomersCustomerBankAccountsIdBodySchema | undefined,
+    t_DeleteCustomersCustomerBankAccountsIdRequestBody | undefined,
     void
   >,
   respond: DeleteCustomersCustomerBankAccountsIdResponder,
@@ -4584,7 +4590,7 @@ export type PostCustomersCustomerBankAccountsId = (
   params: Params<
     t_PostCustomersCustomerBankAccountsIdParamSchema,
     void,
-    t_PostCustomersCustomerBankAccountsIdBodySchema | undefined,
+    t_PostCustomersCustomerBankAccountsIdRequestBody | undefined,
     void
   >,
   respond: PostCustomersCustomerBankAccountsIdResponder,
@@ -4606,7 +4612,7 @@ export type PostCustomersCustomerBankAccountsIdVerify = (
   params: Params<
     t_PostCustomersCustomerBankAccountsIdVerifyParamSchema,
     void,
-    t_PostCustomersCustomerBankAccountsIdVerifyBodySchema | undefined,
+    t_PostCustomersCustomerBankAccountsIdVerifyRequestBody | undefined,
     void
   >,
   respond: PostCustomersCustomerBankAccountsIdVerifyResponder,
@@ -4663,7 +4669,7 @@ export type PostCustomersCustomerCards = (
   params: Params<
     t_PostCustomersCustomerCardsParamSchema,
     void,
-    t_PostCustomersCustomerCardsBodySchema | undefined,
+    t_PostCustomersCustomerCardsRequestBody | undefined,
     void
   >,
   respond: PostCustomersCustomerCardsResponder,
@@ -4685,7 +4691,7 @@ export type DeleteCustomersCustomerCardsId = (
   params: Params<
     t_DeleteCustomersCustomerCardsIdParamSchema,
     void,
-    t_DeleteCustomersCustomerCardsIdBodySchema | undefined,
+    t_DeleteCustomersCustomerCardsIdRequestBody | undefined,
     void
   >,
   respond: DeleteCustomersCustomerCardsIdResponder,
@@ -4729,7 +4735,7 @@ export type PostCustomersCustomerCardsId = (
   params: Params<
     t_PostCustomersCustomerCardsIdParamSchema,
     void,
-    t_PostCustomersCustomerCardsIdBodySchema | undefined,
+    t_PostCustomersCustomerCardsIdRequestBody | undefined,
     void
   >,
   respond: PostCustomersCustomerCardsIdResponder,
@@ -4773,7 +4779,7 @@ export type PostCustomersCustomerCashBalance = (
   params: Params<
     t_PostCustomersCustomerCashBalanceParamSchema,
     void,
-    t_PostCustomersCustomerCashBalanceBodySchema | undefined,
+    t_PostCustomersCustomerCashBalanceRequestBody | undefined,
     void
   >,
   respond: PostCustomersCustomerCashBalanceResponder,
@@ -4896,7 +4902,7 @@ export type PostCustomersCustomerFundingInstructions = (
   params: Params<
     t_PostCustomersCustomerFundingInstructionsParamSchema,
     void,
-    t_PostCustomersCustomerFundingInstructionsBodySchema,
+    t_PostCustomersCustomerFundingInstructionsRequestBody,
     void
   >,
   respond: PostCustomersCustomerFundingInstructionsResponder,
@@ -5010,7 +5016,7 @@ export type PostCustomersCustomerSources = (
   params: Params<
     t_PostCustomersCustomerSourcesParamSchema,
     void,
-    t_PostCustomersCustomerSourcesBodySchema | undefined,
+    t_PostCustomersCustomerSourcesRequestBody | undefined,
     void
   >,
   respond: PostCustomersCustomerSourcesResponder,
@@ -5032,7 +5038,7 @@ export type DeleteCustomersCustomerSourcesId = (
   params: Params<
     t_DeleteCustomersCustomerSourcesIdParamSchema,
     void,
-    t_DeleteCustomersCustomerSourcesIdBodySchema | undefined,
+    t_DeleteCustomersCustomerSourcesIdRequestBody | undefined,
     void
   >,
   respond: DeleteCustomersCustomerSourcesIdResponder,
@@ -5076,7 +5082,7 @@ export type PostCustomersCustomerSourcesId = (
   params: Params<
     t_PostCustomersCustomerSourcesIdParamSchema,
     void,
-    t_PostCustomersCustomerSourcesIdBodySchema | undefined,
+    t_PostCustomersCustomerSourcesIdRequestBody | undefined,
     void
   >,
   respond: PostCustomersCustomerSourcesIdResponder,
@@ -5098,7 +5104,7 @@ export type PostCustomersCustomerSourcesIdVerify = (
   params: Params<
     t_PostCustomersCustomerSourcesIdVerifyParamSchema,
     void,
-    t_PostCustomersCustomerSourcesIdVerifyBodySchema | undefined,
+    t_PostCustomersCustomerSourcesIdVerifyRequestBody | undefined,
     void
   >,
   respond: PostCustomersCustomerSourcesIdVerifyResponder,
@@ -5155,7 +5161,7 @@ export type PostCustomersCustomerSubscriptions = (
   params: Params<
     t_PostCustomersCustomerSubscriptionsParamSchema,
     void,
-    t_PostCustomersCustomerSubscriptionsBodySchema | undefined,
+    t_PostCustomersCustomerSubscriptionsRequestBody | undefined,
     void
   >,
   respond: PostCustomersCustomerSubscriptionsResponder,
@@ -5178,7 +5184,7 @@ export type DeleteCustomersCustomerSubscriptionsSubscriptionExposedId = (
   params: Params<
     t_DeleteCustomersCustomerSubscriptionsSubscriptionExposedIdParamSchema,
     void,
-    | t_DeleteCustomersCustomerSubscriptionsSubscriptionExposedIdBodySchema
+    | t_DeleteCustomersCustomerSubscriptionsSubscriptionExposedIdRequestBody
     | undefined,
     void
   >,
@@ -5223,7 +5229,7 @@ export type PostCustomersCustomerSubscriptionsSubscriptionExposedId = (
   params: Params<
     t_PostCustomersCustomerSubscriptionsSubscriptionExposedIdParamSchema,
     void,
-    | t_PostCustomersCustomerSubscriptionsSubscriptionExposedIdBodySchema
+    | t_PostCustomersCustomerSubscriptionsSubscriptionExposedIdRequestBody
     | undefined,
     void
   >,
@@ -5328,7 +5334,7 @@ export type PostCustomersCustomerTaxIds = (
   params: Params<
     t_PostCustomersCustomerTaxIdsParamSchema,
     void,
-    t_PostCustomersCustomerTaxIdsBodySchema,
+    t_PostCustomersCustomerTaxIdsRequestBody,
     void
   >,
   respond: PostCustomersCustomerTaxIdsResponder,
@@ -5446,7 +5452,7 @@ export type PostDisputesDispute = (
   params: Params<
     t_PostDisputesDisputeParamSchema,
     void,
-    t_PostDisputesDisputeBodySchema | undefined,
+    t_PostDisputesDisputeRequestBody | undefined,
     void
   >,
   respond: PostDisputesDisputeResponder,
@@ -5468,7 +5474,7 @@ export type PostDisputesDisputeClose = (
   params: Params<
     t_PostDisputesDisputeCloseParamSchema,
     void,
-    t_PostDisputesDisputeCloseBodySchema | undefined,
+    t_PostDisputesDisputeCloseRequestBody | undefined,
     void
   >,
   respond: PostDisputesDisputeCloseResponder,
@@ -5574,7 +5580,7 @@ export type PostEntitlementsFeaturesResponder = {
 } & KoaRuntimeResponder
 
 export type PostEntitlementsFeatures = (
-  params: Params<void, void, t_PostEntitlementsFeaturesBodySchema, void>,
+  params: Params<void, void, t_PostEntitlementsFeaturesRequestBody, void>,
   respond: PostEntitlementsFeaturesResponder,
   ctx: RouterContext,
   next: Next,
@@ -5616,7 +5622,7 @@ export type PostEntitlementsFeaturesId = (
   params: Params<
     t_PostEntitlementsFeaturesIdParamSchema,
     void,
-    t_PostEntitlementsFeaturesIdBodySchema | undefined,
+    t_PostEntitlementsFeaturesIdRequestBody | undefined,
     void
   >,
   respond: PostEntitlementsFeaturesIdResponder,
@@ -5635,7 +5641,7 @@ export type PostEphemeralKeysResponder = {
 } & KoaRuntimeResponder
 
 export type PostEphemeralKeys = (
-  params: Params<void, void, t_PostEphemeralKeysBodySchema | undefined, void>,
+  params: Params<void, void, t_PostEphemeralKeysRequestBody | undefined, void>,
   respond: PostEphemeralKeysResponder,
   ctx: RouterContext,
   next: Next,
@@ -5655,7 +5661,7 @@ export type DeleteEphemeralKeysKey = (
   params: Params<
     t_DeleteEphemeralKeysKeyParamSchema,
     void,
-    t_DeleteEphemeralKeysKeyBodySchema | undefined,
+    t_DeleteEphemeralKeysKeyRequestBody | undefined,
     void
   >,
   respond: DeleteEphemeralKeysKeyResponder,
@@ -5781,7 +5787,7 @@ export type PostExternalAccountsId = (
   params: Params<
     t_PostExternalAccountsIdParamSchema,
     void,
-    t_PostExternalAccountsIdBodySchema | undefined,
+    t_PostExternalAccountsIdRequestBody | undefined,
     void
   >,
   respond: PostExternalAccountsIdResponder,
@@ -5830,7 +5836,7 @@ export type PostFileLinksResponder = {
 } & KoaRuntimeResponder
 
 export type PostFileLinks = (
-  params: Params<void, void, t_PostFileLinksBodySchema, void>,
+  params: Params<void, void, t_PostFileLinksRequestBody, void>,
   respond: PostFileLinksResponder,
   ctx: RouterContext,
   next: Next,
@@ -5872,7 +5878,7 @@ export type PostFileLinksLink = (
   params: Params<
     t_PostFileLinksLinkParamSchema,
     void,
-    t_PostFileLinksLinkBodySchema | undefined,
+    t_PostFileLinksLinkRequestBody | undefined,
     void
   >,
   respond: PostFileLinksLinkResponder,
@@ -5921,7 +5927,7 @@ export type PostFilesResponder = {
 } & KoaRuntimeResponder
 
 export type PostFiles = (
-  params: Params<void, void, t_PostFilesBodySchema, void>,
+  params: Params<void, void, t_PostFilesRequestBody, void>,
   respond: PostFilesResponder,
   ctx: RouterContext,
   next: Next,
@@ -6020,7 +6026,7 @@ export type PostFinancialConnectionsAccountsAccountDisconnect = (
   params: Params<
     t_PostFinancialConnectionsAccountsAccountDisconnectParamSchema,
     void,
-    t_PostFinancialConnectionsAccountsAccountDisconnectBodySchema | undefined,
+    t_PostFinancialConnectionsAccountsAccountDisconnectRequestBody | undefined,
     void
   >,
   respond: PostFinancialConnectionsAccountsAccountDisconnectResponder,
@@ -6077,7 +6083,7 @@ export type PostFinancialConnectionsAccountsAccountRefresh = (
   params: Params<
     t_PostFinancialConnectionsAccountsAccountRefreshParamSchema,
     void,
-    t_PostFinancialConnectionsAccountsAccountRefreshBodySchema,
+    t_PostFinancialConnectionsAccountsAccountRefreshRequestBody,
     void
   >,
   respond: PostFinancialConnectionsAccountsAccountRefreshResponder,
@@ -6099,7 +6105,7 @@ export type PostFinancialConnectionsAccountsAccountSubscribe = (
   params: Params<
     t_PostFinancialConnectionsAccountsAccountSubscribeParamSchema,
     void,
-    t_PostFinancialConnectionsAccountsAccountSubscribeBodySchema,
+    t_PostFinancialConnectionsAccountsAccountSubscribeRequestBody,
     void
   >,
   respond: PostFinancialConnectionsAccountsAccountSubscribeResponder,
@@ -6121,7 +6127,7 @@ export type PostFinancialConnectionsAccountsAccountUnsubscribe = (
   params: Params<
     t_PostFinancialConnectionsAccountsAccountUnsubscribeParamSchema,
     void,
-    t_PostFinancialConnectionsAccountsAccountUnsubscribeBodySchema,
+    t_PostFinancialConnectionsAccountsAccountUnsubscribeRequestBody,
     void
   >,
   respond: PostFinancialConnectionsAccountsAccountUnsubscribeResponder,
@@ -6143,7 +6149,7 @@ export type PostFinancialConnectionsSessions = (
   params: Params<
     void,
     void,
-    t_PostFinancialConnectionsSessionsBodySchema,
+    t_PostFinancialConnectionsSessionsRequestBody,
     void
   >,
   respond: PostFinancialConnectionsSessionsResponder,
@@ -6271,7 +6277,7 @@ export type PostForwardingRequestsResponder = {
 } & KoaRuntimeResponder
 
 export type PostForwardingRequests = (
-  params: Params<void, void, t_PostForwardingRequestsBodySchema, void>,
+  params: Params<void, void, t_PostForwardingRequestsRequestBody, void>,
   respond: PostForwardingRequestsResponder,
   ctx: RouterContext,
   next: Next,
@@ -6400,7 +6406,7 @@ export type PostIdentityVerificationSessions = (
   params: Params<
     void,
     void,
-    t_PostIdentityVerificationSessionsBodySchema | undefined,
+    t_PostIdentityVerificationSessionsRequestBody | undefined,
     void
   >,
   respond: PostIdentityVerificationSessionsResponder,
@@ -6444,7 +6450,7 @@ export type PostIdentityVerificationSessionsSession = (
   params: Params<
     t_PostIdentityVerificationSessionsSessionParamSchema,
     void,
-    t_PostIdentityVerificationSessionsSessionBodySchema | undefined,
+    t_PostIdentityVerificationSessionsSessionRequestBody | undefined,
     void
   >,
   respond: PostIdentityVerificationSessionsSessionResponder,
@@ -6466,7 +6472,7 @@ export type PostIdentityVerificationSessionsSessionCancel = (
   params: Params<
     t_PostIdentityVerificationSessionsSessionCancelParamSchema,
     void,
-    t_PostIdentityVerificationSessionsSessionCancelBodySchema | undefined,
+    t_PostIdentityVerificationSessionsSessionCancelRequestBody | undefined,
     void
   >,
   respond: PostIdentityVerificationSessionsSessionCancelResponder,
@@ -6488,7 +6494,7 @@ export type PostIdentityVerificationSessionsSessionRedact = (
   params: Params<
     t_PostIdentityVerificationSessionsSessionRedactParamSchema,
     void,
-    t_PostIdentityVerificationSessionsSessionRedactBodySchema | undefined,
+    t_PostIdentityVerificationSessionsSessionRedactRequestBody | undefined,
     void
   >,
   respond: PostIdentityVerificationSessionsSessionRedactResponder,
@@ -6614,7 +6620,7 @@ export type PostInvoiceRenderingTemplatesTemplateArchive = (
   params: Params<
     t_PostInvoiceRenderingTemplatesTemplateArchiveParamSchema,
     void,
-    t_PostInvoiceRenderingTemplatesTemplateArchiveBodySchema | undefined,
+    t_PostInvoiceRenderingTemplatesTemplateArchiveRequestBody | undefined,
     void
   >,
   respond: PostInvoiceRenderingTemplatesTemplateArchiveResponder,
@@ -6636,7 +6642,7 @@ export type PostInvoiceRenderingTemplatesTemplateUnarchive = (
   params: Params<
     t_PostInvoiceRenderingTemplatesTemplateUnarchiveParamSchema,
     void,
-    t_PostInvoiceRenderingTemplatesTemplateUnarchiveBodySchema | undefined,
+    t_PostInvoiceRenderingTemplatesTemplateUnarchiveRequestBody | undefined,
     void
   >,
   respond: PostInvoiceRenderingTemplatesTemplateUnarchiveResponder,
@@ -6685,7 +6691,7 @@ export type PostInvoiceitemsResponder = {
 } & KoaRuntimeResponder
 
 export type PostInvoiceitems = (
-  params: Params<void, void, t_PostInvoiceitemsBodySchema, void>,
+  params: Params<void, void, t_PostInvoiceitemsRequestBody, void>,
   respond: PostInvoiceitemsResponder,
   ctx: RouterContext,
   next: Next,
@@ -6744,7 +6750,7 @@ export type PostInvoiceitemsInvoiceitem = (
   params: Params<
     t_PostInvoiceitemsInvoiceitemParamSchema,
     void,
-    t_PostInvoiceitemsInvoiceitemBodySchema | undefined,
+    t_PostInvoiceitemsInvoiceitemRequestBody | undefined,
     void
   >,
   respond: PostInvoiceitemsInvoiceitemResponder,
@@ -6793,7 +6799,7 @@ export type PostInvoicesResponder = {
 } & KoaRuntimeResponder
 
 export type PostInvoices = (
-  params: Params<void, void, t_PostInvoicesBodySchema | undefined, void>,
+  params: Params<void, void, t_PostInvoicesRequestBody | undefined, void>,
   respond: PostInvoicesResponder,
   ctx: RouterContext,
   next: Next,
@@ -6813,7 +6819,7 @@ export type PostInvoicesCreatePreview = (
   params: Params<
     void,
     void,
-    t_PostInvoicesCreatePreviewBodySchema | undefined,
+    t_PostInvoicesCreatePreviewRequestBody | undefined,
     void
   >,
   respond: PostInvoicesCreatePreviewResponder,
@@ -6908,7 +6914,7 @@ export type PostInvoicesInvoice = (
   params: Params<
     t_PostInvoicesInvoiceParamSchema,
     void,
-    t_PostInvoicesInvoiceBodySchema | undefined,
+    t_PostInvoicesInvoiceRequestBody | undefined,
     void
   >,
   respond: PostInvoicesInvoiceResponder,
@@ -6930,7 +6936,7 @@ export type PostInvoicesInvoiceAddLines = (
   params: Params<
     t_PostInvoicesInvoiceAddLinesParamSchema,
     void,
-    t_PostInvoicesInvoiceAddLinesBodySchema,
+    t_PostInvoicesInvoiceAddLinesRequestBody,
     void
   >,
   respond: PostInvoicesInvoiceAddLinesResponder,
@@ -6952,7 +6958,7 @@ export type PostInvoicesInvoiceAttachPayment = (
   params: Params<
     t_PostInvoicesInvoiceAttachPaymentParamSchema,
     void,
-    t_PostInvoicesInvoiceAttachPaymentBodySchema | undefined,
+    t_PostInvoicesInvoiceAttachPaymentRequestBody | undefined,
     void
   >,
   respond: PostInvoicesInvoiceAttachPaymentResponder,
@@ -6974,7 +6980,7 @@ export type PostInvoicesInvoiceFinalize = (
   params: Params<
     t_PostInvoicesInvoiceFinalizeParamSchema,
     void,
-    t_PostInvoicesInvoiceFinalizeBodySchema | undefined,
+    t_PostInvoicesInvoiceFinalizeRequestBody | undefined,
     void
   >,
   respond: PostInvoicesInvoiceFinalizeResponder,
@@ -7031,7 +7037,7 @@ export type PostInvoicesInvoiceLinesLineItemId = (
   params: Params<
     t_PostInvoicesInvoiceLinesLineItemIdParamSchema,
     void,
-    t_PostInvoicesInvoiceLinesLineItemIdBodySchema | undefined,
+    t_PostInvoicesInvoiceLinesLineItemIdRequestBody | undefined,
     void
   >,
   respond: PostInvoicesInvoiceLinesLineItemIdResponder,
@@ -7053,7 +7059,7 @@ export type PostInvoicesInvoiceMarkUncollectible = (
   params: Params<
     t_PostInvoicesInvoiceMarkUncollectibleParamSchema,
     void,
-    t_PostInvoicesInvoiceMarkUncollectibleBodySchema | undefined,
+    t_PostInvoicesInvoiceMarkUncollectibleRequestBody | undefined,
     void
   >,
   respond: PostInvoicesInvoiceMarkUncollectibleResponder,
@@ -7075,7 +7081,7 @@ export type PostInvoicesInvoicePay = (
   params: Params<
     t_PostInvoicesInvoicePayParamSchema,
     void,
-    t_PostInvoicesInvoicePayBodySchema | undefined,
+    t_PostInvoicesInvoicePayRequestBody | undefined,
     void
   >,
   respond: PostInvoicesInvoicePayResponder,
@@ -7097,7 +7103,7 @@ export type PostInvoicesInvoiceRemoveLines = (
   params: Params<
     t_PostInvoicesInvoiceRemoveLinesParamSchema,
     void,
-    t_PostInvoicesInvoiceRemoveLinesBodySchema,
+    t_PostInvoicesInvoiceRemoveLinesRequestBody,
     void
   >,
   respond: PostInvoicesInvoiceRemoveLinesResponder,
@@ -7119,7 +7125,7 @@ export type PostInvoicesInvoiceSend = (
   params: Params<
     t_PostInvoicesInvoiceSendParamSchema,
     void,
-    t_PostInvoicesInvoiceSendBodySchema | undefined,
+    t_PostInvoicesInvoiceSendRequestBody | undefined,
     void
   >,
   respond: PostInvoicesInvoiceSendResponder,
@@ -7141,7 +7147,7 @@ export type PostInvoicesInvoiceUpdateLines = (
   params: Params<
     t_PostInvoicesInvoiceUpdateLinesParamSchema,
     void,
-    t_PostInvoicesInvoiceUpdateLinesBodySchema,
+    t_PostInvoicesInvoiceUpdateLinesRequestBody,
     void
   >,
   respond: PostInvoicesInvoiceUpdateLinesResponder,
@@ -7163,7 +7169,7 @@ export type PostInvoicesInvoiceVoid = (
   params: Params<
     t_PostInvoicesInvoiceVoidParamSchema,
     void,
-    t_PostInvoicesInvoiceVoidBodySchema | undefined,
+    t_PostInvoicesInvoiceVoidRequestBody | undefined,
     void
   >,
   respond: PostInvoicesInvoiceVoidResponder,
@@ -7237,7 +7243,7 @@ export type PostIssuingAuthorizationsAuthorization = (
   params: Params<
     t_PostIssuingAuthorizationsAuthorizationParamSchema,
     void,
-    t_PostIssuingAuthorizationsAuthorizationBodySchema | undefined,
+    t_PostIssuingAuthorizationsAuthorizationRequestBody | undefined,
     void
   >,
   respond: PostIssuingAuthorizationsAuthorizationResponder,
@@ -7259,7 +7265,7 @@ export type PostIssuingAuthorizationsAuthorizationApprove = (
   params: Params<
     t_PostIssuingAuthorizationsAuthorizationApproveParamSchema,
     void,
-    t_PostIssuingAuthorizationsAuthorizationApproveBodySchema | undefined,
+    t_PostIssuingAuthorizationsAuthorizationApproveRequestBody | undefined,
     void
   >,
   respond: PostIssuingAuthorizationsAuthorizationApproveResponder,
@@ -7281,7 +7287,7 @@ export type PostIssuingAuthorizationsAuthorizationDecline = (
   params: Params<
     t_PostIssuingAuthorizationsAuthorizationDeclineParamSchema,
     void,
-    t_PostIssuingAuthorizationsAuthorizationDeclineBodySchema | undefined,
+    t_PostIssuingAuthorizationsAuthorizationDeclineRequestBody | undefined,
     void
   >,
   respond: PostIssuingAuthorizationsAuthorizationDeclineResponder,
@@ -7330,7 +7336,7 @@ export type PostIssuingCardholdersResponder = {
 } & KoaRuntimeResponder
 
 export type PostIssuingCardholders = (
-  params: Params<void, void, t_PostIssuingCardholdersBodySchema, void>,
+  params: Params<void, void, t_PostIssuingCardholdersRequestBody, void>,
   respond: PostIssuingCardholdersResponder,
   ctx: RouterContext,
   next: Next,
@@ -7372,7 +7378,7 @@ export type PostIssuingCardholdersCardholder = (
   params: Params<
     t_PostIssuingCardholdersCardholderParamSchema,
     void,
-    t_PostIssuingCardholdersCardholderBodySchema | undefined,
+    t_PostIssuingCardholdersCardholderRequestBody | undefined,
     void
   >,
   respond: PostIssuingCardholdersCardholderResponder,
@@ -7421,7 +7427,7 @@ export type PostIssuingCardsResponder = {
 } & KoaRuntimeResponder
 
 export type PostIssuingCards = (
-  params: Params<void, void, t_PostIssuingCardsBodySchema, void>,
+  params: Params<void, void, t_PostIssuingCardsRequestBody, void>,
   respond: PostIssuingCardsResponder,
   ctx: RouterContext,
   next: Next,
@@ -7463,7 +7469,7 @@ export type PostIssuingCardsCard = (
   params: Params<
     t_PostIssuingCardsCardParamSchema,
     void,
-    t_PostIssuingCardsCardBodySchema | undefined,
+    t_PostIssuingCardsCardRequestBody | undefined,
     void
   >,
   respond: PostIssuingCardsCardResponder,
@@ -7512,7 +7518,12 @@ export type PostIssuingDisputesResponder = {
 } & KoaRuntimeResponder
 
 export type PostIssuingDisputes = (
-  params: Params<void, void, t_PostIssuingDisputesBodySchema | undefined, void>,
+  params: Params<
+    void,
+    void,
+    t_PostIssuingDisputesRequestBody | undefined,
+    void
+  >,
   respond: PostIssuingDisputesResponder,
   ctx: RouterContext,
   next: Next,
@@ -7554,7 +7565,7 @@ export type PostIssuingDisputesDispute = (
   params: Params<
     t_PostIssuingDisputesDisputeParamSchema,
     void,
-    t_PostIssuingDisputesDisputeBodySchema | undefined,
+    t_PostIssuingDisputesDisputeRequestBody | undefined,
     void
   >,
   respond: PostIssuingDisputesDisputeResponder,
@@ -7576,7 +7587,7 @@ export type PostIssuingDisputesDisputeSubmit = (
   params: Params<
     t_PostIssuingDisputesDisputeSubmitParamSchema,
     void,
-    t_PostIssuingDisputesDisputeSubmitBodySchema | undefined,
+    t_PostIssuingDisputesDisputeSubmitRequestBody | undefined,
     void
   >,
   respond: PostIssuingDisputesDisputeSubmitResponder,
@@ -7633,7 +7644,7 @@ export type PostIssuingPersonalizationDesigns = (
   params: Params<
     void,
     void,
-    t_PostIssuingPersonalizationDesignsBodySchema,
+    t_PostIssuingPersonalizationDesignsRequestBody,
     void
   >,
   respond: PostIssuingPersonalizationDesignsResponder,
@@ -7677,7 +7688,7 @@ export type PostIssuingPersonalizationDesignsPersonalizationDesign = (
   params: Params<
     t_PostIssuingPersonalizationDesignsPersonalizationDesignParamSchema,
     void,
-    | t_PostIssuingPersonalizationDesignsPersonalizationDesignBodySchema
+    | t_PostIssuingPersonalizationDesignsPersonalizationDesignRequestBody
     | undefined,
     void
   >,
@@ -7774,7 +7785,7 @@ export type PostIssuingSettlementsSettlement = (
   params: Params<
     t_PostIssuingSettlementsSettlementParamSchema,
     void,
-    t_PostIssuingSettlementsSettlementBodySchema | undefined,
+    t_PostIssuingSettlementsSettlementRequestBody | undefined,
     void
   >,
   respond: PostIssuingSettlementsSettlementResponder,
@@ -7848,7 +7859,7 @@ export type PostIssuingTokensToken = (
   params: Params<
     t_PostIssuingTokensTokenParamSchema,
     void,
-    t_PostIssuingTokensTokenBodySchema,
+    t_PostIssuingTokensTokenRequestBody,
     void
   >,
   respond: PostIssuingTokensTokenResponder,
@@ -7922,7 +7933,7 @@ export type PostIssuingTransactionsTransaction = (
   params: Params<
     t_PostIssuingTransactionsTransactionParamSchema,
     void,
-    t_PostIssuingTransactionsTransactionBodySchema | undefined,
+    t_PostIssuingTransactionsTransactionRequestBody | undefined,
     void
   >,
   respond: PostIssuingTransactionsTransactionResponder,
@@ -7941,7 +7952,7 @@ export type PostLinkAccountSessionsResponder = {
 } & KoaRuntimeResponder
 
 export type PostLinkAccountSessions = (
-  params: Params<void, void, t_PostLinkAccountSessionsBodySchema, void>,
+  params: Params<void, void, t_PostLinkAccountSessionsRequestBody, void>,
   respond: PostLinkAccountSessionsResponder,
   ctx: RouterContext,
   next: Next,
@@ -8035,7 +8046,7 @@ export type PostLinkedAccountsAccountDisconnect = (
   params: Params<
     t_PostLinkedAccountsAccountDisconnectParamSchema,
     void,
-    t_PostLinkedAccountsAccountDisconnectBodySchema | undefined,
+    t_PostLinkedAccountsAccountDisconnectRequestBody | undefined,
     void
   >,
   respond: PostLinkedAccountsAccountDisconnectResponder,
@@ -8092,7 +8103,7 @@ export type PostLinkedAccountsAccountRefresh = (
   params: Params<
     t_PostLinkedAccountsAccountRefreshParamSchema,
     void,
-    t_PostLinkedAccountsAccountRefreshBodySchema,
+    t_PostLinkedAccountsAccountRefreshRequestBody,
     void
   >,
   respond: PostLinkedAccountsAccountRefreshResponder,
@@ -8163,7 +8174,7 @@ export type PostPaymentIntentsResponder = {
 } & KoaRuntimeResponder
 
 export type PostPaymentIntents = (
-  params: Params<void, void, t_PostPaymentIntentsBodySchema, void>,
+  params: Params<void, void, t_PostPaymentIntentsRequestBody, void>,
   respond: PostPaymentIntentsResponder,
   ctx: RouterContext,
   next: Next,
@@ -8239,7 +8250,7 @@ export type PostPaymentIntentsIntent = (
   params: Params<
     t_PostPaymentIntentsIntentParamSchema,
     void,
-    t_PostPaymentIntentsIntentBodySchema | undefined,
+    t_PostPaymentIntentsIntentRequestBody | undefined,
     void
   >,
   respond: PostPaymentIntentsIntentResponder,
@@ -8261,7 +8272,7 @@ export type PostPaymentIntentsIntentApplyCustomerBalance = (
   params: Params<
     t_PostPaymentIntentsIntentApplyCustomerBalanceParamSchema,
     void,
-    t_PostPaymentIntentsIntentApplyCustomerBalanceBodySchema | undefined,
+    t_PostPaymentIntentsIntentApplyCustomerBalanceRequestBody | undefined,
     void
   >,
   respond: PostPaymentIntentsIntentApplyCustomerBalanceResponder,
@@ -8283,7 +8294,7 @@ export type PostPaymentIntentsIntentCancel = (
   params: Params<
     t_PostPaymentIntentsIntentCancelParamSchema,
     void,
-    t_PostPaymentIntentsIntentCancelBodySchema | undefined,
+    t_PostPaymentIntentsIntentCancelRequestBody | undefined,
     void
   >,
   respond: PostPaymentIntentsIntentCancelResponder,
@@ -8305,7 +8316,7 @@ export type PostPaymentIntentsIntentCapture = (
   params: Params<
     t_PostPaymentIntentsIntentCaptureParamSchema,
     void,
-    t_PostPaymentIntentsIntentCaptureBodySchema | undefined,
+    t_PostPaymentIntentsIntentCaptureRequestBody | undefined,
     void
   >,
   respond: PostPaymentIntentsIntentCaptureResponder,
@@ -8327,7 +8338,7 @@ export type PostPaymentIntentsIntentConfirm = (
   params: Params<
     t_PostPaymentIntentsIntentConfirmParamSchema,
     void,
-    t_PostPaymentIntentsIntentConfirmBodySchema | undefined,
+    t_PostPaymentIntentsIntentConfirmRequestBody | undefined,
     void
   >,
   respond: PostPaymentIntentsIntentConfirmResponder,
@@ -8349,7 +8360,7 @@ export type PostPaymentIntentsIntentIncrementAuthorization = (
   params: Params<
     t_PostPaymentIntentsIntentIncrementAuthorizationParamSchema,
     void,
-    t_PostPaymentIntentsIntentIncrementAuthorizationBodySchema,
+    t_PostPaymentIntentsIntentIncrementAuthorizationRequestBody,
     void
   >,
   respond: PostPaymentIntentsIntentIncrementAuthorizationResponder,
@@ -8371,7 +8382,7 @@ export type PostPaymentIntentsIntentVerifyMicrodeposits = (
   params: Params<
     t_PostPaymentIntentsIntentVerifyMicrodepositsParamSchema,
     void,
-    t_PostPaymentIntentsIntentVerifyMicrodepositsBodySchema | undefined,
+    t_PostPaymentIntentsIntentVerifyMicrodepositsRequestBody | undefined,
     void
   >,
   respond: PostPaymentIntentsIntentVerifyMicrodepositsResponder,
@@ -8420,7 +8431,7 @@ export type PostPaymentLinksResponder = {
 } & KoaRuntimeResponder
 
 export type PostPaymentLinks = (
-  params: Params<void, void, t_PostPaymentLinksBodySchema, void>,
+  params: Params<void, void, t_PostPaymentLinksRequestBody, void>,
   respond: PostPaymentLinksResponder,
   ctx: RouterContext,
   next: Next,
@@ -8462,7 +8473,7 @@ export type PostPaymentLinksPaymentLink = (
   params: Params<
     t_PostPaymentLinksPaymentLinkParamSchema,
     void,
-    t_PostPaymentLinksPaymentLinkBodySchema | undefined,
+    t_PostPaymentLinksPaymentLinkRequestBody | undefined,
     void
   >,
   respond: PostPaymentLinksPaymentLinkResponder,
@@ -8549,7 +8560,7 @@ export type PostPaymentMethodConfigurations = (
   params: Params<
     void,
     void,
-    t_PostPaymentMethodConfigurationsBodySchema | undefined,
+    t_PostPaymentMethodConfigurationsRequestBody | undefined,
     void
   >,
   respond: PostPaymentMethodConfigurationsResponder,
@@ -8593,7 +8604,7 @@ export type PostPaymentMethodConfigurationsConfiguration = (
   params: Params<
     t_PostPaymentMethodConfigurationsConfigurationParamSchema,
     void,
-    t_PostPaymentMethodConfigurationsConfigurationBodySchema | undefined,
+    t_PostPaymentMethodConfigurationsConfigurationRequestBody | undefined,
     void
   >,
   respond: PostPaymentMethodConfigurationsConfigurationResponder,
@@ -8642,7 +8653,7 @@ export type PostPaymentMethodDomainsResponder = {
 } & KoaRuntimeResponder
 
 export type PostPaymentMethodDomains = (
-  params: Params<void, void, t_PostPaymentMethodDomainsBodySchema, void>,
+  params: Params<void, void, t_PostPaymentMethodDomainsRequestBody, void>,
   respond: PostPaymentMethodDomainsResponder,
   ctx: RouterContext,
   next: Next,
@@ -8684,7 +8695,7 @@ export type PostPaymentMethodDomainsPaymentMethodDomain = (
   params: Params<
     t_PostPaymentMethodDomainsPaymentMethodDomainParamSchema,
     void,
-    t_PostPaymentMethodDomainsPaymentMethodDomainBodySchema | undefined,
+    t_PostPaymentMethodDomainsPaymentMethodDomainRequestBody | undefined,
     void
   >,
   respond: PostPaymentMethodDomainsPaymentMethodDomainResponder,
@@ -8706,7 +8717,8 @@ export type PostPaymentMethodDomainsPaymentMethodDomainValidate = (
   params: Params<
     t_PostPaymentMethodDomainsPaymentMethodDomainValidateParamSchema,
     void,
-    t_PostPaymentMethodDomainsPaymentMethodDomainValidateBodySchema | undefined,
+    | t_PostPaymentMethodDomainsPaymentMethodDomainValidateRequestBody
+    | undefined,
     void
   >,
   respond: PostPaymentMethodDomainsPaymentMethodDomainValidateResponder,
@@ -8755,7 +8767,7 @@ export type PostPaymentMethodsResponder = {
 } & KoaRuntimeResponder
 
 export type PostPaymentMethods = (
-  params: Params<void, void, t_PostPaymentMethodsBodySchema | undefined, void>,
+  params: Params<void, void, t_PostPaymentMethodsRequestBody | undefined, void>,
   respond: PostPaymentMethodsResponder,
   ctx: RouterContext,
   next: Next,
@@ -8797,7 +8809,7 @@ export type PostPaymentMethodsPaymentMethod = (
   params: Params<
     t_PostPaymentMethodsPaymentMethodParamSchema,
     void,
-    t_PostPaymentMethodsPaymentMethodBodySchema | undefined,
+    t_PostPaymentMethodsPaymentMethodRequestBody | undefined,
     void
   >,
   respond: PostPaymentMethodsPaymentMethodResponder,
@@ -8819,7 +8831,7 @@ export type PostPaymentMethodsPaymentMethodAttach = (
   params: Params<
     t_PostPaymentMethodsPaymentMethodAttachParamSchema,
     void,
-    t_PostPaymentMethodsPaymentMethodAttachBodySchema,
+    t_PostPaymentMethodsPaymentMethodAttachRequestBody,
     void
   >,
   respond: PostPaymentMethodsPaymentMethodAttachResponder,
@@ -8841,7 +8853,7 @@ export type PostPaymentMethodsPaymentMethodDetach = (
   params: Params<
     t_PostPaymentMethodsPaymentMethodDetachParamSchema,
     void,
-    t_PostPaymentMethodsPaymentMethodDetachBodySchema | undefined,
+    t_PostPaymentMethodsPaymentMethodDetachRequestBody | undefined,
     void
   >,
   respond: PostPaymentMethodsPaymentMethodDetachResponder,
@@ -8890,7 +8902,7 @@ export type PostPayoutsResponder = {
 } & KoaRuntimeResponder
 
 export type PostPayouts = (
-  params: Params<void, void, t_PostPayoutsBodySchema, void>,
+  params: Params<void, void, t_PostPayoutsRequestBody, void>,
   respond: PostPayoutsResponder,
   ctx: RouterContext,
   next: Next,
@@ -8932,7 +8944,7 @@ export type PostPayoutsPayout = (
   params: Params<
     t_PostPayoutsPayoutParamSchema,
     void,
-    t_PostPayoutsPayoutBodySchema | undefined,
+    t_PostPayoutsPayoutRequestBody | undefined,
     void
   >,
   respond: PostPayoutsPayoutResponder,
@@ -8954,7 +8966,7 @@ export type PostPayoutsPayoutCancel = (
   params: Params<
     t_PostPayoutsPayoutCancelParamSchema,
     void,
-    t_PostPayoutsPayoutCancelBodySchema | undefined,
+    t_PostPayoutsPayoutCancelRequestBody | undefined,
     void
   >,
   respond: PostPayoutsPayoutCancelResponder,
@@ -8976,7 +8988,7 @@ export type PostPayoutsPayoutReverse = (
   params: Params<
     t_PostPayoutsPayoutReverseParamSchema,
     void,
-    t_PostPayoutsPayoutReverseBodySchema | undefined,
+    t_PostPayoutsPayoutReverseRequestBody | undefined,
     void
   >,
   respond: PostPayoutsPayoutReverseResponder,
@@ -9025,7 +9037,7 @@ export type PostPlansResponder = {
 } & KoaRuntimeResponder
 
 export type PostPlans = (
-  params: Params<void, void, t_PostPlansBodySchema, void>,
+  params: Params<void, void, t_PostPlansRequestBody, void>,
   respond: PostPlansResponder,
   ctx: RouterContext,
   next: Next,
@@ -9084,7 +9096,7 @@ export type PostPlansPlan = (
   params: Params<
     t_PostPlansPlanParamSchema,
     void,
-    t_PostPlansPlanBodySchema | undefined,
+    t_PostPlansPlanRequestBody | undefined,
     void
   >,
   respond: PostPlansPlanResponder,
@@ -9133,7 +9145,7 @@ export type PostPricesResponder = {
 } & KoaRuntimeResponder
 
 export type PostPrices = (
-  params: Params<void, void, t_PostPricesBodySchema, void>,
+  params: Params<void, void, t_PostPricesRequestBody, void>,
   respond: PostPricesResponder,
   ctx: RouterContext,
   next: Next,
@@ -9209,7 +9221,7 @@ export type PostPricesPrice = (
   params: Params<
     t_PostPricesPriceParamSchema,
     void,
-    t_PostPricesPriceBodySchema | undefined,
+    t_PostPricesPriceRequestBody | undefined,
     void
   >,
   respond: PostPricesPriceResponder,
@@ -9258,7 +9270,7 @@ export type PostProductsResponder = {
 } & KoaRuntimeResponder
 
 export type PostProducts = (
-  params: Params<void, void, t_PostProductsBodySchema, void>,
+  params: Params<void, void, t_PostProductsRequestBody, void>,
   respond: PostProductsResponder,
   ctx: RouterContext,
   next: Next,
@@ -9351,7 +9363,7 @@ export type PostProductsId = (
   params: Params<
     t_PostProductsIdParamSchema,
     void,
-    t_PostProductsIdBodySchema | undefined,
+    t_PostProductsIdRequestBody | undefined,
     void
   >,
   respond: PostProductsIdResponder,
@@ -9408,7 +9420,7 @@ export type PostProductsProductFeatures = (
   params: Params<
     t_PostProductsProductFeaturesParamSchema,
     void,
-    t_PostProductsProductFeaturesBodySchema,
+    t_PostProductsProductFeaturesRequestBody,
     void
   >,
   respond: PostProductsProductFeaturesResponder,
@@ -9501,7 +9513,7 @@ export type PostPromotionCodesResponder = {
 } & KoaRuntimeResponder
 
 export type PostPromotionCodes = (
-  params: Params<void, void, t_PostPromotionCodesBodySchema, void>,
+  params: Params<void, void, t_PostPromotionCodesRequestBody, void>,
   respond: PostPromotionCodesResponder,
   ctx: RouterContext,
   next: Next,
@@ -9543,7 +9555,7 @@ export type PostPromotionCodesPromotionCode = (
   params: Params<
     t_PostPromotionCodesPromotionCodeParamSchema,
     void,
-    t_PostPromotionCodesPromotionCodeBodySchema | undefined,
+    t_PostPromotionCodesPromotionCodeRequestBody | undefined,
     void
   >,
   respond: PostPromotionCodesPromotionCodeResponder,
@@ -9592,7 +9604,7 @@ export type PostQuotesResponder = {
 } & KoaRuntimeResponder
 
 export type PostQuotes = (
-  params: Params<void, void, t_PostQuotesBodySchema | undefined, void>,
+  params: Params<void, void, t_PostQuotesRequestBody | undefined, void>,
   respond: PostQuotesResponder,
   ctx: RouterContext,
   next: Next,
@@ -9634,7 +9646,7 @@ export type PostQuotesQuote = (
   params: Params<
     t_PostQuotesQuoteParamSchema,
     void,
-    t_PostQuotesQuoteBodySchema | undefined,
+    t_PostQuotesQuoteRequestBody | undefined,
     void
   >,
   respond: PostQuotesQuoteResponder,
@@ -9656,7 +9668,7 @@ export type PostQuotesQuoteAccept = (
   params: Params<
     t_PostQuotesQuoteAcceptParamSchema,
     void,
-    t_PostQuotesQuoteAcceptBodySchema | undefined,
+    t_PostQuotesQuoteAcceptRequestBody | undefined,
     void
   >,
   respond: PostQuotesQuoteAcceptResponder,
@@ -9678,7 +9690,7 @@ export type PostQuotesQuoteCancel = (
   params: Params<
     t_PostQuotesQuoteCancelParamSchema,
     void,
-    t_PostQuotesQuoteCancelBodySchema | undefined,
+    t_PostQuotesQuoteCancelRequestBody | undefined,
     void
   >,
   respond: PostQuotesQuoteCancelResponder,
@@ -9735,7 +9747,7 @@ export type PostQuotesQuoteFinalize = (
   params: Params<
     t_PostQuotesQuoteFinalizeParamSchema,
     void,
-    t_PostQuotesQuoteFinalizeBodySchema | undefined,
+    t_PostQuotesQuoteFinalizeRequestBody | undefined,
     void
   >,
   respond: PostQuotesQuoteFinalizeResponder,
@@ -9893,7 +9905,7 @@ export type PostRadarValueListItemsResponder = {
 } & KoaRuntimeResponder
 
 export type PostRadarValueListItems = (
-  params: Params<void, void, t_PostRadarValueListItemsBodySchema, void>,
+  params: Params<void, void, t_PostRadarValueListItemsRequestBody, void>,
   respond: PostRadarValueListItemsResponder,
   ctx: RouterContext,
   next: Next,
@@ -9979,7 +9991,7 @@ export type PostRadarValueListsResponder = {
 } & KoaRuntimeResponder
 
 export type PostRadarValueLists = (
-  params: Params<void, void, t_PostRadarValueListsBodySchema, void>,
+  params: Params<void, void, t_PostRadarValueListsRequestBody, void>,
   respond: PostRadarValueListsResponder,
   ctx: RouterContext,
   next: Next,
@@ -10038,7 +10050,7 @@ export type PostRadarValueListsValueList = (
   params: Params<
     t_PostRadarValueListsValueListParamSchema,
     void,
-    t_PostRadarValueListsValueListBodySchema | undefined,
+    t_PostRadarValueListsValueListRequestBody | undefined,
     void
   >,
   respond: PostRadarValueListsValueListResponder,
@@ -10087,7 +10099,7 @@ export type PostRefundsResponder = {
 } & KoaRuntimeResponder
 
 export type PostRefunds = (
-  params: Params<void, void, t_PostRefundsBodySchema | undefined, void>,
+  params: Params<void, void, t_PostRefundsRequestBody | undefined, void>,
   respond: PostRefundsResponder,
   ctx: RouterContext,
   next: Next,
@@ -10129,7 +10141,7 @@ export type PostRefundsRefund = (
   params: Params<
     t_PostRefundsRefundParamSchema,
     void,
-    t_PostRefundsRefundBodySchema | undefined,
+    t_PostRefundsRefundRequestBody | undefined,
     void
   >,
   respond: PostRefundsRefundResponder,
@@ -10151,7 +10163,7 @@ export type PostRefundsRefundCancel = (
   params: Params<
     t_PostRefundsRefundCancelParamSchema,
     void,
-    t_PostRefundsRefundCancelBodySchema | undefined,
+    t_PostRefundsRefundCancelRequestBody | undefined,
     void
   >,
   respond: PostRefundsRefundCancelResponder,
@@ -10200,7 +10212,7 @@ export type PostReportingReportRunsResponder = {
 } & KoaRuntimeResponder
 
 export type PostReportingReportRuns = (
-  params: Params<void, void, t_PostReportingReportRunsBodySchema, void>,
+  params: Params<void, void, t_PostReportingReportRunsRequestBody, void>,
   respond: PostReportingReportRunsResponder,
   ctx: RouterContext,
   next: Next,
@@ -10346,7 +10358,7 @@ export type PostReviewsReviewApprove = (
   params: Params<
     t_PostReviewsReviewApproveParamSchema,
     void,
-    t_PostReviewsReviewApproveBodySchema | undefined,
+    t_PostReviewsReviewApproveRequestBody | undefined,
     void
   >,
   respond: PostReviewsReviewApproveResponder,
@@ -10425,7 +10437,7 @@ export type PostSetupIntentsResponder = {
 } & KoaRuntimeResponder
 
 export type PostSetupIntents = (
-  params: Params<void, void, t_PostSetupIntentsBodySchema | undefined, void>,
+  params: Params<void, void, t_PostSetupIntentsRequestBody | undefined, void>,
   respond: PostSetupIntentsResponder,
   ctx: RouterContext,
   next: Next,
@@ -10467,7 +10479,7 @@ export type PostSetupIntentsIntent = (
   params: Params<
     t_PostSetupIntentsIntentParamSchema,
     void,
-    t_PostSetupIntentsIntentBodySchema | undefined,
+    t_PostSetupIntentsIntentRequestBody | undefined,
     void
   >,
   respond: PostSetupIntentsIntentResponder,
@@ -10489,7 +10501,7 @@ export type PostSetupIntentsIntentCancel = (
   params: Params<
     t_PostSetupIntentsIntentCancelParamSchema,
     void,
-    t_PostSetupIntentsIntentCancelBodySchema | undefined,
+    t_PostSetupIntentsIntentCancelRequestBody | undefined,
     void
   >,
   respond: PostSetupIntentsIntentCancelResponder,
@@ -10511,7 +10523,7 @@ export type PostSetupIntentsIntentConfirm = (
   params: Params<
     t_PostSetupIntentsIntentConfirmParamSchema,
     void,
-    t_PostSetupIntentsIntentConfirmBodySchema | undefined,
+    t_PostSetupIntentsIntentConfirmRequestBody | undefined,
     void
   >,
   respond: PostSetupIntentsIntentConfirmResponder,
@@ -10533,7 +10545,7 @@ export type PostSetupIntentsIntentVerifyMicrodeposits = (
   params: Params<
     t_PostSetupIntentsIntentVerifyMicrodepositsParamSchema,
     void,
-    t_PostSetupIntentsIntentVerifyMicrodepositsBodySchema | undefined,
+    t_PostSetupIntentsIntentVerifyMicrodepositsRequestBody | undefined,
     void
   >,
   respond: PostSetupIntentsIntentVerifyMicrodepositsResponder,
@@ -10582,7 +10594,7 @@ export type PostShippingRatesResponder = {
 } & KoaRuntimeResponder
 
 export type PostShippingRates = (
-  params: Params<void, void, t_PostShippingRatesBodySchema, void>,
+  params: Params<void, void, t_PostShippingRatesRequestBody, void>,
   respond: PostShippingRatesResponder,
   ctx: RouterContext,
   next: Next,
@@ -10624,7 +10636,7 @@ export type PostShippingRatesShippingRateToken = (
   params: Params<
     t_PostShippingRatesShippingRateTokenParamSchema,
     void,
-    t_PostShippingRatesShippingRateTokenBodySchema | undefined,
+    t_PostShippingRatesShippingRateTokenRequestBody | undefined,
     void
   >,
   respond: PostShippingRatesShippingRateTokenResponder,
@@ -10646,7 +10658,7 @@ export type PostSigmaSavedQueriesId = (
   params: Params<
     t_PostSigmaSavedQueriesIdParamSchema,
     void,
-    t_PostSigmaSavedQueriesIdBodySchema | undefined,
+    t_PostSigmaSavedQueriesIdRequestBody | undefined,
     void
   >,
   respond: PostSigmaSavedQueriesIdResponder,
@@ -10717,7 +10729,7 @@ export type PostSourcesResponder = {
 } & KoaRuntimeResponder
 
 export type PostSources = (
-  params: Params<void, void, t_PostSourcesBodySchema | undefined, void>,
+  params: Params<void, void, t_PostSourcesRequestBody | undefined, void>,
   respond: PostSourcesResponder,
   ctx: RouterContext,
   next: Next,
@@ -10759,7 +10771,7 @@ export type PostSourcesSource = (
   params: Params<
     t_PostSourcesSourceParamSchema,
     void,
-    t_PostSourcesSourceBodySchema | undefined,
+    t_PostSourcesSourceRequestBody | undefined,
     void
   >,
   respond: PostSourcesSourceResponder,
@@ -10860,7 +10872,7 @@ export type PostSourcesSourceVerify = (
   params: Params<
     t_PostSourcesSourceVerifyParamSchema,
     void,
-    t_PostSourcesSourceVerifyBodySchema,
+    t_PostSourcesSourceVerifyRequestBody,
     void
   >,
   respond: PostSourcesSourceVerifyResponder,
@@ -10909,7 +10921,7 @@ export type PostSubscriptionItemsResponder = {
 } & KoaRuntimeResponder
 
 export type PostSubscriptionItems = (
-  params: Params<void, void, t_PostSubscriptionItemsBodySchema, void>,
+  params: Params<void, void, t_PostSubscriptionItemsRequestBody, void>,
   respond: PostSubscriptionItemsResponder,
   ctx: RouterContext,
   next: Next,
@@ -10929,7 +10941,7 @@ export type DeleteSubscriptionItemsItem = (
   params: Params<
     t_DeleteSubscriptionItemsItemParamSchema,
     void,
-    t_DeleteSubscriptionItemsItemBodySchema | undefined,
+    t_DeleteSubscriptionItemsItemRequestBody | undefined,
     void
   >,
   respond: DeleteSubscriptionItemsItemResponder,
@@ -10973,7 +10985,7 @@ export type PostSubscriptionItemsItem = (
   params: Params<
     t_PostSubscriptionItemsItemParamSchema,
     void,
-    t_PostSubscriptionItemsItemBodySchema | undefined,
+    t_PostSubscriptionItemsItemRequestBody | undefined,
     void
   >,
   respond: PostSubscriptionItemsItemResponder,
@@ -11025,7 +11037,7 @@ export type PostSubscriptionSchedules = (
   params: Params<
     void,
     void,
-    t_PostSubscriptionSchedulesBodySchema | undefined,
+    t_PostSubscriptionSchedulesRequestBody | undefined,
     void
   >,
   respond: PostSubscriptionSchedulesResponder,
@@ -11069,7 +11081,7 @@ export type PostSubscriptionSchedulesSchedule = (
   params: Params<
     t_PostSubscriptionSchedulesScheduleParamSchema,
     void,
-    t_PostSubscriptionSchedulesScheduleBodySchema | undefined,
+    t_PostSubscriptionSchedulesScheduleRequestBody | undefined,
     void
   >,
   respond: PostSubscriptionSchedulesScheduleResponder,
@@ -11091,7 +11103,7 @@ export type PostSubscriptionSchedulesScheduleCancel = (
   params: Params<
     t_PostSubscriptionSchedulesScheduleCancelParamSchema,
     void,
-    t_PostSubscriptionSchedulesScheduleCancelBodySchema | undefined,
+    t_PostSubscriptionSchedulesScheduleCancelRequestBody | undefined,
     void
   >,
   respond: PostSubscriptionSchedulesScheduleCancelResponder,
@@ -11113,7 +11125,7 @@ export type PostSubscriptionSchedulesScheduleRelease = (
   params: Params<
     t_PostSubscriptionSchedulesScheduleReleaseParamSchema,
     void,
-    t_PostSubscriptionSchedulesScheduleReleaseBodySchema | undefined,
+    t_PostSubscriptionSchedulesScheduleReleaseRequestBody | undefined,
     void
   >,
   respond: PostSubscriptionSchedulesScheduleReleaseResponder,
@@ -11162,7 +11174,7 @@ export type PostSubscriptionsResponder = {
 } & KoaRuntimeResponder
 
 export type PostSubscriptions = (
-  params: Params<void, void, t_PostSubscriptionsBodySchema, void>,
+  params: Params<void, void, t_PostSubscriptionsRequestBody, void>,
   respond: PostSubscriptionsResponder,
   ctx: RouterContext,
   next: Next,
@@ -11216,7 +11228,7 @@ export type DeleteSubscriptionsSubscriptionExposedId = (
   params: Params<
     t_DeleteSubscriptionsSubscriptionExposedIdParamSchema,
     void,
-    t_DeleteSubscriptionsSubscriptionExposedIdBodySchema | undefined,
+    t_DeleteSubscriptionsSubscriptionExposedIdRequestBody | undefined,
     void
   >,
   respond: DeleteSubscriptionsSubscriptionExposedIdResponder,
@@ -11260,7 +11272,7 @@ export type PostSubscriptionsSubscriptionExposedId = (
   params: Params<
     t_PostSubscriptionsSubscriptionExposedIdParamSchema,
     void,
-    t_PostSubscriptionsSubscriptionExposedIdBodySchema | undefined,
+    t_PostSubscriptionsSubscriptionExposedIdRequestBody | undefined,
     void
   >,
   respond: PostSubscriptionsSubscriptionExposedIdResponder,
@@ -11304,7 +11316,7 @@ export type PostSubscriptionsSubscriptionMigrate = (
   params: Params<
     t_PostSubscriptionsSubscriptionMigrateParamSchema,
     void,
-    t_PostSubscriptionsSubscriptionMigrateBodySchema,
+    t_PostSubscriptionsSubscriptionMigrateRequestBody,
     void
   >,
   respond: PostSubscriptionsSubscriptionMigrateResponder,
@@ -11326,7 +11338,7 @@ export type PostSubscriptionsSubscriptionResume = (
   params: Params<
     t_PostSubscriptionsSubscriptionResumeParamSchema,
     void,
-    t_PostSubscriptionsSubscriptionResumeBodySchema | undefined,
+    t_PostSubscriptionsSubscriptionResumeRequestBody | undefined,
     void
   >,
   respond: PostSubscriptionsSubscriptionResumeResponder,
@@ -11345,7 +11357,7 @@ export type PostTaxCalculationsResponder = {
 } & KoaRuntimeResponder
 
 export type PostTaxCalculations = (
-  params: Params<void, void, t_PostTaxCalculationsBodySchema, void>,
+  params: Params<void, void, t_PostTaxCalculationsRequestBody, void>,
   respond: PostTaxCalculationsResponder,
   ctx: RouterContext,
   next: Next,
@@ -11449,7 +11461,7 @@ export type PostTaxRegistrationsResponder = {
 } & KoaRuntimeResponder
 
 export type PostTaxRegistrations = (
-  params: Params<void, void, t_PostTaxRegistrationsBodySchema, void>,
+  params: Params<void, void, t_PostTaxRegistrationsRequestBody, void>,
   respond: PostTaxRegistrationsResponder,
   ctx: RouterContext,
   next: Next,
@@ -11491,7 +11503,7 @@ export type PostTaxRegistrationsId = (
   params: Params<
     t_PostTaxRegistrationsIdParamSchema,
     void,
-    t_PostTaxRegistrationsIdBodySchema | undefined,
+    t_PostTaxRegistrationsIdRequestBody | undefined,
     void
   >,
   respond: PostTaxRegistrationsIdResponder,
@@ -11527,7 +11539,7 @@ export type PostTaxSettingsResponder = {
 } & KoaRuntimeResponder
 
 export type PostTaxSettings = (
-  params: Params<void, void, t_PostTaxSettingsBodySchema | undefined, void>,
+  params: Params<void, void, t_PostTaxSettingsRequestBody | undefined, void>,
   respond: PostTaxSettingsResponder,
   ctx: RouterContext,
   next: Next,
@@ -11547,7 +11559,7 @@ export type PostTaxTransactionsCreateFromCalculation = (
   params: Params<
     void,
     void,
-    t_PostTaxTransactionsCreateFromCalculationBodySchema,
+    t_PostTaxTransactionsCreateFromCalculationRequestBody,
     void
   >,
   respond: PostTaxTransactionsCreateFromCalculationResponder,
@@ -11569,7 +11581,7 @@ export type PostTaxTransactionsCreateReversal = (
   params: Params<
     void,
     void,
-    t_PostTaxTransactionsCreateReversalBodySchema,
+    t_PostTaxTransactionsCreateReversalRequestBody,
     void
   >,
   respond: PostTaxTransactionsCreateReversalResponder,
@@ -11727,7 +11739,7 @@ export type PostTaxIdsResponder = {
 } & KoaRuntimeResponder
 
 export type PostTaxIds = (
-  params: Params<void, void, t_PostTaxIdsBodySchema, void>,
+  params: Params<void, void, t_PostTaxIdsRequestBody, void>,
   respond: PostTaxIdsResponder,
   ctx: RouterContext,
   next: Next,
@@ -11813,7 +11825,7 @@ export type PostTaxRatesResponder = {
 } & KoaRuntimeResponder
 
 export type PostTaxRates = (
-  params: Params<void, void, t_PostTaxRatesBodySchema, void>,
+  params: Params<void, void, t_PostTaxRatesRequestBody, void>,
   respond: PostTaxRatesResponder,
   ctx: RouterContext,
   next: Next,
@@ -11855,7 +11867,7 @@ export type PostTaxRatesTaxRate = (
   params: Params<
     t_PostTaxRatesTaxRateParamSchema,
     void,
-    t_PostTaxRatesTaxRateBodySchema | undefined,
+    t_PostTaxRatesTaxRateRequestBody | undefined,
     void
   >,
   respond: PostTaxRatesTaxRateResponder,
@@ -11907,7 +11919,7 @@ export type PostTerminalConfigurations = (
   params: Params<
     void,
     void,
-    t_PostTerminalConfigurationsBodySchema | undefined,
+    t_PostTerminalConfigurationsRequestBody | undefined,
     void
   >,
   respond: PostTerminalConfigurationsResponder,
@@ -11977,7 +11989,7 @@ export type PostTerminalConfigurationsConfiguration = (
   params: Params<
     t_PostTerminalConfigurationsConfigurationParamSchema,
     void,
-    t_PostTerminalConfigurationsConfigurationBodySchema | undefined,
+    t_PostTerminalConfigurationsConfigurationRequestBody | undefined,
     void
   >,
   respond: PostTerminalConfigurationsConfigurationResponder,
@@ -11999,7 +12011,7 @@ export type PostTerminalConnectionTokens = (
   params: Params<
     void,
     void,
-    t_PostTerminalConnectionTokensBodySchema | undefined,
+    t_PostTerminalConnectionTokensRequestBody | undefined,
     void
   >,
   respond: PostTerminalConnectionTokensResponder,
@@ -12048,7 +12060,7 @@ export type PostTerminalLocationsResponder = {
 } & KoaRuntimeResponder
 
 export type PostTerminalLocations = (
-  params: Params<void, void, t_PostTerminalLocationsBodySchema, void>,
+  params: Params<void, void, t_PostTerminalLocationsRequestBody, void>,
   respond: PostTerminalLocationsResponder,
   ctx: RouterContext,
   next: Next,
@@ -12116,7 +12128,7 @@ export type PostTerminalLocationsLocation = (
   params: Params<
     t_PostTerminalLocationsLocationParamSchema,
     void,
-    t_PostTerminalLocationsLocationBodySchema | undefined,
+    t_PostTerminalLocationsLocationRequestBody | undefined,
     void
   >,
   respond: PostTerminalLocationsLocationResponder,
@@ -12165,7 +12177,7 @@ export type PostTerminalReadersResponder = {
 } & KoaRuntimeResponder
 
 export type PostTerminalReaders = (
-  params: Params<void, void, t_PostTerminalReadersBodySchema, void>,
+  params: Params<void, void, t_PostTerminalReadersRequestBody, void>,
   respond: PostTerminalReadersResponder,
   ctx: RouterContext,
   next: Next,
@@ -12224,7 +12236,7 @@ export type PostTerminalReadersReader = (
   params: Params<
     t_PostTerminalReadersReaderParamSchema,
     void,
-    t_PostTerminalReadersReaderBodySchema | undefined,
+    t_PostTerminalReadersReaderRequestBody | undefined,
     void
   >,
   respond: PostTerminalReadersReaderResponder,
@@ -12246,7 +12258,7 @@ export type PostTerminalReadersReaderCancelAction = (
   params: Params<
     t_PostTerminalReadersReaderCancelActionParamSchema,
     void,
-    t_PostTerminalReadersReaderCancelActionBodySchema | undefined,
+    t_PostTerminalReadersReaderCancelActionRequestBody | undefined,
     void
   >,
   respond: PostTerminalReadersReaderCancelActionResponder,
@@ -12268,7 +12280,7 @@ export type PostTerminalReadersReaderCollectInputs = (
   params: Params<
     t_PostTerminalReadersReaderCollectInputsParamSchema,
     void,
-    t_PostTerminalReadersReaderCollectInputsBodySchema,
+    t_PostTerminalReadersReaderCollectInputsRequestBody,
     void
   >,
   respond: PostTerminalReadersReaderCollectInputsResponder,
@@ -12290,7 +12302,7 @@ export type PostTerminalReadersReaderCollectPaymentMethod = (
   params: Params<
     t_PostTerminalReadersReaderCollectPaymentMethodParamSchema,
     void,
-    t_PostTerminalReadersReaderCollectPaymentMethodBodySchema,
+    t_PostTerminalReadersReaderCollectPaymentMethodRequestBody,
     void
   >,
   respond: PostTerminalReadersReaderCollectPaymentMethodResponder,
@@ -12312,7 +12324,7 @@ export type PostTerminalReadersReaderConfirmPaymentIntent = (
   params: Params<
     t_PostTerminalReadersReaderConfirmPaymentIntentParamSchema,
     void,
-    t_PostTerminalReadersReaderConfirmPaymentIntentBodySchema,
+    t_PostTerminalReadersReaderConfirmPaymentIntentRequestBody,
     void
   >,
   respond: PostTerminalReadersReaderConfirmPaymentIntentResponder,
@@ -12334,7 +12346,7 @@ export type PostTerminalReadersReaderProcessPaymentIntent = (
   params: Params<
     t_PostTerminalReadersReaderProcessPaymentIntentParamSchema,
     void,
-    t_PostTerminalReadersReaderProcessPaymentIntentBodySchema,
+    t_PostTerminalReadersReaderProcessPaymentIntentRequestBody,
     void
   >,
   respond: PostTerminalReadersReaderProcessPaymentIntentResponder,
@@ -12356,7 +12368,7 @@ export type PostTerminalReadersReaderProcessSetupIntent = (
   params: Params<
     t_PostTerminalReadersReaderProcessSetupIntentParamSchema,
     void,
-    t_PostTerminalReadersReaderProcessSetupIntentBodySchema,
+    t_PostTerminalReadersReaderProcessSetupIntentRequestBody,
     void
   >,
   respond: PostTerminalReadersReaderProcessSetupIntentResponder,
@@ -12378,7 +12390,7 @@ export type PostTerminalReadersReaderRefundPayment = (
   params: Params<
     t_PostTerminalReadersReaderRefundPaymentParamSchema,
     void,
-    t_PostTerminalReadersReaderRefundPaymentBodySchema | undefined,
+    t_PostTerminalReadersReaderRefundPaymentRequestBody | undefined,
     void
   >,
   respond: PostTerminalReadersReaderRefundPaymentResponder,
@@ -12400,7 +12412,7 @@ export type PostTerminalReadersReaderSetReaderDisplay = (
   params: Params<
     t_PostTerminalReadersReaderSetReaderDisplayParamSchema,
     void,
-    t_PostTerminalReadersReaderSetReaderDisplayBodySchema,
+    t_PostTerminalReadersReaderSetReaderDisplayRequestBody,
     void
   >,
   respond: PostTerminalReadersReaderSetReaderDisplayResponder,
@@ -12422,7 +12434,7 @@ export type PostTestHelpersConfirmationTokens = (
   params: Params<
     void,
     void,
-    t_PostTestHelpersConfirmationTokensBodySchema | undefined,
+    t_PostTestHelpersConfirmationTokensRequestBody | undefined,
     void
   >,
   respond: PostTestHelpersConfirmationTokensResponder,
@@ -12444,7 +12456,7 @@ export type PostTestHelpersCustomersCustomerFundCashBalance = (
   params: Params<
     t_PostTestHelpersCustomersCustomerFundCashBalanceParamSchema,
     void,
-    t_PostTestHelpersCustomersCustomerFundCashBalanceBodySchema,
+    t_PostTestHelpersCustomersCustomerFundCashBalanceRequestBody,
     void
   >,
   respond: PostTestHelpersCustomersCustomerFundCashBalanceResponder,
@@ -12466,7 +12478,7 @@ export type PostTestHelpersIssuingAuthorizations = (
   params: Params<
     void,
     void,
-    t_PostTestHelpersIssuingAuthorizationsBodySchema,
+    t_PostTestHelpersIssuingAuthorizationsRequestBody,
     void
   >,
   respond: PostTestHelpersIssuingAuthorizationsResponder,
@@ -12489,7 +12501,7 @@ export type PostTestHelpersIssuingAuthorizationsAuthorizationCapture = (
   params: Params<
     t_PostTestHelpersIssuingAuthorizationsAuthorizationCaptureParamSchema,
     void,
-    | t_PostTestHelpersIssuingAuthorizationsAuthorizationCaptureBodySchema
+    | t_PostTestHelpersIssuingAuthorizationsAuthorizationCaptureRequestBody
     | undefined,
     void
   >,
@@ -12512,7 +12524,7 @@ export type PostTestHelpersIssuingAuthorizationsAuthorizationExpire = (
   params: Params<
     t_PostTestHelpersIssuingAuthorizationsAuthorizationExpireParamSchema,
     void,
-    | t_PostTestHelpersIssuingAuthorizationsAuthorizationExpireBodySchema
+    | t_PostTestHelpersIssuingAuthorizationsAuthorizationExpireRequestBody
     | undefined,
     void
   >,
@@ -12536,7 +12548,7 @@ export type PostTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmount = (
   params: Params<
     t_PostTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmountParamSchema,
     void,
-    t_PostTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmountBodySchema,
+    t_PostTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmountRequestBody,
     void
   >,
   respond: PostTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmountResponder,
@@ -12560,7 +12572,7 @@ export type PostTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesResp
     params: Params<
       t_PostTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespondParamSchema,
       void,
-      t_PostTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespondBodySchema,
+      t_PostTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespondRequestBody,
       void
     >,
     respond: PostTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespondResponder,
@@ -12583,7 +12595,7 @@ export type PostTestHelpersIssuingAuthorizationsAuthorizationIncrement = (
   params: Params<
     t_PostTestHelpersIssuingAuthorizationsAuthorizationIncrementParamSchema,
     void,
-    t_PostTestHelpersIssuingAuthorizationsAuthorizationIncrementBodySchema,
+    t_PostTestHelpersIssuingAuthorizationsAuthorizationIncrementRequestBody,
     void
   >,
   respond: PostTestHelpersIssuingAuthorizationsAuthorizationIncrementResponder,
@@ -12606,7 +12618,7 @@ export type PostTestHelpersIssuingAuthorizationsAuthorizationReverse = (
   params: Params<
     t_PostTestHelpersIssuingAuthorizationsAuthorizationReverseParamSchema,
     void,
-    | t_PostTestHelpersIssuingAuthorizationsAuthorizationReverseBodySchema
+    | t_PostTestHelpersIssuingAuthorizationsAuthorizationReverseRequestBody
     | undefined,
     void
   >,
@@ -12629,7 +12641,7 @@ export type PostTestHelpersIssuingCardsCardShippingDeliver = (
   params: Params<
     t_PostTestHelpersIssuingCardsCardShippingDeliverParamSchema,
     void,
-    t_PostTestHelpersIssuingCardsCardShippingDeliverBodySchema | undefined,
+    t_PostTestHelpersIssuingCardsCardShippingDeliverRequestBody | undefined,
     void
   >,
   respond: PostTestHelpersIssuingCardsCardShippingDeliverResponder,
@@ -12651,7 +12663,7 @@ export type PostTestHelpersIssuingCardsCardShippingFail = (
   params: Params<
     t_PostTestHelpersIssuingCardsCardShippingFailParamSchema,
     void,
-    t_PostTestHelpersIssuingCardsCardShippingFailBodySchema | undefined,
+    t_PostTestHelpersIssuingCardsCardShippingFailRequestBody | undefined,
     void
   >,
   respond: PostTestHelpersIssuingCardsCardShippingFailResponder,
@@ -12673,7 +12685,7 @@ export type PostTestHelpersIssuingCardsCardShippingReturn = (
   params: Params<
     t_PostTestHelpersIssuingCardsCardShippingReturnParamSchema,
     void,
-    t_PostTestHelpersIssuingCardsCardShippingReturnBodySchema | undefined,
+    t_PostTestHelpersIssuingCardsCardShippingReturnRequestBody | undefined,
     void
   >,
   respond: PostTestHelpersIssuingCardsCardShippingReturnResponder,
@@ -12695,7 +12707,7 @@ export type PostTestHelpersIssuingCardsCardShippingShip = (
   params: Params<
     t_PostTestHelpersIssuingCardsCardShippingShipParamSchema,
     void,
-    t_PostTestHelpersIssuingCardsCardShippingShipBodySchema | undefined,
+    t_PostTestHelpersIssuingCardsCardShippingShipRequestBody | undefined,
     void
   >,
   respond: PostTestHelpersIssuingCardsCardShippingShipResponder,
@@ -12717,7 +12729,7 @@ export type PostTestHelpersIssuingCardsCardShippingSubmit = (
   params: Params<
     t_PostTestHelpersIssuingCardsCardShippingSubmitParamSchema,
     void,
-    t_PostTestHelpersIssuingCardsCardShippingSubmitBodySchema | undefined,
+    t_PostTestHelpersIssuingCardsCardShippingSubmitRequestBody | undefined,
     void
   >,
   respond: PostTestHelpersIssuingCardsCardShippingSubmitResponder,
@@ -12741,7 +12753,7 @@ export type PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignAct
     params: Params<
       t_PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivateParamSchema,
       void,
-      | t_PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivateBodySchema
+      | t_PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivateRequestBody
       | undefined,
       void
     >,
@@ -12766,7 +12778,7 @@ export type PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDea
     params: Params<
       t_PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivateParamSchema,
       void,
-      | t_PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivateBodySchema
+      | t_PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivateRequestBody
       | undefined,
       void
     >,
@@ -12791,7 +12803,7 @@ export type PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignRej
     params: Params<
       t_PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignRejectParamSchema,
       void,
-      t_PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignRejectBodySchema,
+      t_PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignRejectRequestBody,
       void
     >,
     respond: PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignRejectResponder,
@@ -12813,7 +12825,7 @@ export type PostTestHelpersIssuingSettlements = (
   params: Params<
     void,
     void,
-    t_PostTestHelpersIssuingSettlementsBodySchema,
+    t_PostTestHelpersIssuingSettlementsRequestBody,
     void
   >,
   respond: PostTestHelpersIssuingSettlementsResponder,
@@ -12835,7 +12847,8 @@ export type PostTestHelpersIssuingSettlementsSettlementComplete = (
   params: Params<
     t_PostTestHelpersIssuingSettlementsSettlementCompleteParamSchema,
     void,
-    t_PostTestHelpersIssuingSettlementsSettlementCompleteBodySchema | undefined,
+    | t_PostTestHelpersIssuingSettlementsSettlementCompleteRequestBody
+    | undefined,
     void
   >,
   respond: PostTestHelpersIssuingSettlementsSettlementCompleteResponder,
@@ -12857,7 +12870,7 @@ export type PostTestHelpersIssuingTransactionsCreateForceCapture = (
   params: Params<
     void,
     void,
-    t_PostTestHelpersIssuingTransactionsCreateForceCaptureBodySchema,
+    t_PostTestHelpersIssuingTransactionsCreateForceCaptureRequestBody,
     void
   >,
   respond: PostTestHelpersIssuingTransactionsCreateForceCaptureResponder,
@@ -12879,7 +12892,7 @@ export type PostTestHelpersIssuingTransactionsCreateUnlinkedRefund = (
   params: Params<
     void,
     void,
-    t_PostTestHelpersIssuingTransactionsCreateUnlinkedRefundBodySchema,
+    t_PostTestHelpersIssuingTransactionsCreateUnlinkedRefundRequestBody,
     void
   >,
   respond: PostTestHelpersIssuingTransactionsCreateUnlinkedRefundResponder,
@@ -12901,7 +12914,8 @@ export type PostTestHelpersIssuingTransactionsTransactionRefund = (
   params: Params<
     t_PostTestHelpersIssuingTransactionsTransactionRefundParamSchema,
     void,
-    t_PostTestHelpersIssuingTransactionsTransactionRefundBodySchema | undefined,
+    | t_PostTestHelpersIssuingTransactionsTransactionRefundRequestBody
+    | undefined,
     void
   >,
   respond: PostTestHelpersIssuingTransactionsTransactionRefundResponder,
@@ -12923,7 +12937,7 @@ export type PostTestHelpersRefundsRefundExpire = (
   params: Params<
     t_PostTestHelpersRefundsRefundExpireParamSchema,
     void,
-    t_PostTestHelpersRefundsRefundExpireBodySchema | undefined,
+    t_PostTestHelpersRefundsRefundExpireRequestBody | undefined,
     void
   >,
   respond: PostTestHelpersRefundsRefundExpireResponder,
@@ -12946,7 +12960,7 @@ export type PostTestHelpersTerminalReadersReaderPresentPaymentMethod = (
   params: Params<
     t_PostTestHelpersTerminalReadersReaderPresentPaymentMethodParamSchema,
     void,
-    | t_PostTestHelpersTerminalReadersReaderPresentPaymentMethodBodySchema
+    | t_PostTestHelpersTerminalReadersReaderPresentPaymentMethodRequestBody
     | undefined,
     void
   >,
@@ -12970,7 +12984,7 @@ export type PostTestHelpersTerminalReadersReaderSucceedInputCollection = (
   params: Params<
     t_PostTestHelpersTerminalReadersReaderSucceedInputCollectionParamSchema,
     void,
-    | t_PostTestHelpersTerminalReadersReaderSucceedInputCollectionBodySchema
+    | t_PostTestHelpersTerminalReadersReaderSucceedInputCollectionRequestBody
     | undefined,
     void
   >,
@@ -12994,7 +13008,7 @@ export type PostTestHelpersTerminalReadersReaderTimeoutInputCollection = (
   params: Params<
     t_PostTestHelpersTerminalReadersReaderTimeoutInputCollectionParamSchema,
     void,
-    | t_PostTestHelpersTerminalReadersReaderTimeoutInputCollectionBodySchema
+    | t_PostTestHelpersTerminalReadersReaderTimeoutInputCollectionRequestBody
     | undefined,
     void
   >,
@@ -13044,7 +13058,7 @@ export type PostTestHelpersTestClocksResponder = {
 } & KoaRuntimeResponder
 
 export type PostTestHelpersTestClocks = (
-  params: Params<void, void, t_PostTestHelpersTestClocksBodySchema, void>,
+  params: Params<void, void, t_PostTestHelpersTestClocksRequestBody, void>,
   respond: PostTestHelpersTestClocksResponder,
   ctx: RouterContext,
   next: Next,
@@ -13108,7 +13122,7 @@ export type PostTestHelpersTestClocksTestClockAdvance = (
   params: Params<
     t_PostTestHelpersTestClocksTestClockAdvanceParamSchema,
     void,
-    t_PostTestHelpersTestClocksTestClockAdvanceBodySchema,
+    t_PostTestHelpersTestClocksTestClockAdvanceRequestBody,
     void
   >,
   respond: PostTestHelpersTestClocksTestClockAdvanceResponder,
@@ -13130,7 +13144,7 @@ export type PostTestHelpersTreasuryInboundTransfersIdFail = (
   params: Params<
     t_PostTestHelpersTreasuryInboundTransfersIdFailParamSchema,
     void,
-    t_PostTestHelpersTreasuryInboundTransfersIdFailBodySchema | undefined,
+    t_PostTestHelpersTreasuryInboundTransfersIdFailRequestBody | undefined,
     void
   >,
   respond: PostTestHelpersTreasuryInboundTransfersIdFailResponder,
@@ -13152,7 +13166,7 @@ export type PostTestHelpersTreasuryInboundTransfersIdReturn = (
   params: Params<
     t_PostTestHelpersTreasuryInboundTransfersIdReturnParamSchema,
     void,
-    t_PostTestHelpersTreasuryInboundTransfersIdReturnBodySchema | undefined,
+    t_PostTestHelpersTreasuryInboundTransfersIdReturnRequestBody | undefined,
     void
   >,
   respond: PostTestHelpersTreasuryInboundTransfersIdReturnResponder,
@@ -13174,7 +13188,7 @@ export type PostTestHelpersTreasuryInboundTransfersIdSucceed = (
   params: Params<
     t_PostTestHelpersTreasuryInboundTransfersIdSucceedParamSchema,
     void,
-    t_PostTestHelpersTreasuryInboundTransfersIdSucceedBodySchema | undefined,
+    t_PostTestHelpersTreasuryInboundTransfersIdSucceedRequestBody | undefined,
     void
   >,
   respond: PostTestHelpersTreasuryInboundTransfersIdSucceedResponder,
@@ -13196,7 +13210,7 @@ export type PostTestHelpersTreasuryOutboundPaymentsId = (
   params: Params<
     t_PostTestHelpersTreasuryOutboundPaymentsIdParamSchema,
     void,
-    t_PostTestHelpersTreasuryOutboundPaymentsIdBodySchema,
+    t_PostTestHelpersTreasuryOutboundPaymentsIdRequestBody,
     void
   >,
   respond: PostTestHelpersTreasuryOutboundPaymentsIdResponder,
@@ -13218,7 +13232,7 @@ export type PostTestHelpersTreasuryOutboundPaymentsIdFail = (
   params: Params<
     t_PostTestHelpersTreasuryOutboundPaymentsIdFailParamSchema,
     void,
-    t_PostTestHelpersTreasuryOutboundPaymentsIdFailBodySchema | undefined,
+    t_PostTestHelpersTreasuryOutboundPaymentsIdFailRequestBody | undefined,
     void
   >,
   respond: PostTestHelpersTreasuryOutboundPaymentsIdFailResponder,
@@ -13240,7 +13254,7 @@ export type PostTestHelpersTreasuryOutboundPaymentsIdPost = (
   params: Params<
     t_PostTestHelpersTreasuryOutboundPaymentsIdPostParamSchema,
     void,
-    t_PostTestHelpersTreasuryOutboundPaymentsIdPostBodySchema | undefined,
+    t_PostTestHelpersTreasuryOutboundPaymentsIdPostRequestBody | undefined,
     void
   >,
   respond: PostTestHelpersTreasuryOutboundPaymentsIdPostResponder,
@@ -13262,7 +13276,7 @@ export type PostTestHelpersTreasuryOutboundPaymentsIdReturn = (
   params: Params<
     t_PostTestHelpersTreasuryOutboundPaymentsIdReturnParamSchema,
     void,
-    t_PostTestHelpersTreasuryOutboundPaymentsIdReturnBodySchema | undefined,
+    t_PostTestHelpersTreasuryOutboundPaymentsIdReturnRequestBody | undefined,
     void
   >,
   respond: PostTestHelpersTreasuryOutboundPaymentsIdReturnResponder,
@@ -13285,7 +13299,7 @@ export type PostTestHelpersTreasuryOutboundTransfersOutboundTransfer = (
   params: Params<
     t_PostTestHelpersTreasuryOutboundTransfersOutboundTransferParamSchema,
     void,
-    t_PostTestHelpersTreasuryOutboundTransfersOutboundTransferBodySchema,
+    t_PostTestHelpersTreasuryOutboundTransfersOutboundTransferRequestBody,
     void
   >,
   respond: PostTestHelpersTreasuryOutboundTransfersOutboundTransferResponder,
@@ -13308,7 +13322,7 @@ export type PostTestHelpersTreasuryOutboundTransfersOutboundTransferFail = (
   params: Params<
     t_PostTestHelpersTreasuryOutboundTransfersOutboundTransferFailParamSchema,
     void,
-    | t_PostTestHelpersTreasuryOutboundTransfersOutboundTransferFailBodySchema
+    | t_PostTestHelpersTreasuryOutboundTransfersOutboundTransferFailRequestBody
     | undefined,
     void
   >,
@@ -13332,7 +13346,7 @@ export type PostTestHelpersTreasuryOutboundTransfersOutboundTransferPost = (
   params: Params<
     t_PostTestHelpersTreasuryOutboundTransfersOutboundTransferPostParamSchema,
     void,
-    | t_PostTestHelpersTreasuryOutboundTransfersOutboundTransferPostBodySchema
+    | t_PostTestHelpersTreasuryOutboundTransfersOutboundTransferPostRequestBody
     | undefined,
     void
   >,
@@ -13356,7 +13370,7 @@ export type PostTestHelpersTreasuryOutboundTransfersOutboundTransferReturn = (
   params: Params<
     t_PostTestHelpersTreasuryOutboundTransfersOutboundTransferReturnParamSchema,
     void,
-    | t_PostTestHelpersTreasuryOutboundTransfersOutboundTransferReturnBodySchema
+    | t_PostTestHelpersTreasuryOutboundTransfersOutboundTransferReturnRequestBody
     | undefined,
     void
   >,
@@ -13379,7 +13393,7 @@ export type PostTestHelpersTreasuryReceivedCredits = (
   params: Params<
     void,
     void,
-    t_PostTestHelpersTreasuryReceivedCreditsBodySchema,
+    t_PostTestHelpersTreasuryReceivedCreditsRequestBody,
     void
   >,
   respond: PostTestHelpersTreasuryReceivedCreditsResponder,
@@ -13401,7 +13415,7 @@ export type PostTestHelpersTreasuryReceivedDebits = (
   params: Params<
     void,
     void,
-    t_PostTestHelpersTreasuryReceivedDebitsBodySchema,
+    t_PostTestHelpersTreasuryReceivedDebitsRequestBody,
     void
   >,
   respond: PostTestHelpersTreasuryReceivedDebitsResponder,
@@ -13420,7 +13434,7 @@ export type PostTokensResponder = {
 } & KoaRuntimeResponder
 
 export type PostTokens = (
-  params: Params<void, void, t_PostTokensBodySchema | undefined, void>,
+  params: Params<void, void, t_PostTokensRequestBody | undefined, void>,
   respond: PostTokensResponder,
   ctx: RouterContext,
   next: Next,
@@ -13489,7 +13503,7 @@ export type PostTopupsResponder = {
 } & KoaRuntimeResponder
 
 export type PostTopups = (
-  params: Params<void, void, t_PostTopupsBodySchema, void>,
+  params: Params<void, void, t_PostTopupsRequestBody, void>,
   respond: PostTopupsResponder,
   ctx: RouterContext,
   next: Next,
@@ -13531,7 +13545,7 @@ export type PostTopupsTopup = (
   params: Params<
     t_PostTopupsTopupParamSchema,
     void,
-    t_PostTopupsTopupBodySchema | undefined,
+    t_PostTopupsTopupRequestBody | undefined,
     void
   >,
   respond: PostTopupsTopupResponder,
@@ -13553,7 +13567,7 @@ export type PostTopupsTopupCancel = (
   params: Params<
     t_PostTopupsTopupCancelParamSchema,
     void,
-    t_PostTopupsTopupCancelBodySchema | undefined,
+    t_PostTopupsTopupCancelRequestBody | undefined,
     void
   >,
   respond: PostTopupsTopupCancelResponder,
@@ -13602,7 +13616,7 @@ export type PostTransfersResponder = {
 } & KoaRuntimeResponder
 
 export type PostTransfers = (
-  params: Params<void, void, t_PostTransfersBodySchema, void>,
+  params: Params<void, void, t_PostTransfersRequestBody, void>,
   respond: PostTransfersResponder,
   ctx: RouterContext,
   next: Next,
@@ -13657,7 +13671,7 @@ export type PostTransfersIdReversals = (
   params: Params<
     t_PostTransfersIdReversalsParamSchema,
     void,
-    t_PostTransfersIdReversalsBodySchema | undefined,
+    t_PostTransfersIdReversalsRequestBody | undefined,
     void
   >,
   respond: PostTransfersIdReversalsResponder,
@@ -13701,7 +13715,7 @@ export type PostTransfersTransfer = (
   params: Params<
     t_PostTransfersTransferParamSchema,
     void,
-    t_PostTransfersTransferBodySchema | undefined,
+    t_PostTransfersTransferRequestBody | undefined,
     void
   >,
   respond: PostTransfersTransferResponder,
@@ -13745,7 +13759,7 @@ export type PostTransfersTransferReversalsId = (
   params: Params<
     t_PostTransfersTransferReversalsIdParamSchema,
     void,
-    t_PostTransfersTransferReversalsIdBodySchema | undefined,
+    t_PostTransfersTransferReversalsIdRequestBody | undefined,
     void
   >,
   respond: PostTransfersTransferReversalsIdResponder,
@@ -13794,7 +13808,7 @@ export type PostTreasuryCreditReversalsResponder = {
 } & KoaRuntimeResponder
 
 export type PostTreasuryCreditReversals = (
-  params: Params<void, void, t_PostTreasuryCreditReversalsBodySchema, void>,
+  params: Params<void, void, t_PostTreasuryCreditReversalsRequestBody, void>,
   respond: PostTreasuryCreditReversalsResponder,
   ctx: RouterContext,
   next: Next,
@@ -13863,7 +13877,7 @@ export type PostTreasuryDebitReversalsResponder = {
 } & KoaRuntimeResponder
 
 export type PostTreasuryDebitReversals = (
-  params: Params<void, void, t_PostTreasuryDebitReversalsBodySchema, void>,
+  params: Params<void, void, t_PostTreasuryDebitReversalsRequestBody, void>,
   respond: PostTreasuryDebitReversalsResponder,
   ctx: RouterContext,
   next: Next,
@@ -13932,7 +13946,7 @@ export type PostTreasuryFinancialAccountsResponder = {
 } & KoaRuntimeResponder
 
 export type PostTreasuryFinancialAccounts = (
-  params: Params<void, void, t_PostTreasuryFinancialAccountsBodySchema, void>,
+  params: Params<void, void, t_PostTreasuryFinancialAccountsRequestBody, void>,
   respond: PostTreasuryFinancialAccountsResponder,
   ctx: RouterContext,
   next: Next,
@@ -13974,7 +13988,7 @@ export type PostTreasuryFinancialAccountsFinancialAccount = (
   params: Params<
     t_PostTreasuryFinancialAccountsFinancialAccountParamSchema,
     void,
-    t_PostTreasuryFinancialAccountsFinancialAccountBodySchema | undefined,
+    t_PostTreasuryFinancialAccountsFinancialAccountRequestBody | undefined,
     void
   >,
   respond: PostTreasuryFinancialAccountsFinancialAccountResponder,
@@ -13996,7 +14010,7 @@ export type PostTreasuryFinancialAccountsFinancialAccountClose = (
   params: Params<
     t_PostTreasuryFinancialAccountsFinancialAccountCloseParamSchema,
     void,
-    t_PostTreasuryFinancialAccountsFinancialAccountCloseBodySchema | undefined,
+    t_PostTreasuryFinancialAccountsFinancialAccountCloseRequestBody | undefined,
     void
   >,
   respond: PostTreasuryFinancialAccountsFinancialAccountCloseResponder,
@@ -14040,7 +14054,7 @@ export type PostTreasuryFinancialAccountsFinancialAccountFeatures = (
   params: Params<
     t_PostTreasuryFinancialAccountsFinancialAccountFeaturesParamSchema,
     void,
-    | t_PostTreasuryFinancialAccountsFinancialAccountFeaturesBodySchema
+    | t_PostTreasuryFinancialAccountsFinancialAccountFeaturesRequestBody
     | undefined,
     void
   >,
@@ -14090,7 +14104,7 @@ export type PostTreasuryInboundTransfersResponder = {
 } & KoaRuntimeResponder
 
 export type PostTreasuryInboundTransfers = (
-  params: Params<void, void, t_PostTreasuryInboundTransfersBodySchema, void>,
+  params: Params<void, void, t_PostTreasuryInboundTransfersRequestBody, void>,
   respond: PostTreasuryInboundTransfersResponder,
   ctx: RouterContext,
   next: Next,
@@ -14132,7 +14146,7 @@ export type PostTreasuryInboundTransfersInboundTransferCancel = (
   params: Params<
     t_PostTreasuryInboundTransfersInboundTransferCancelParamSchema,
     void,
-    t_PostTreasuryInboundTransfersInboundTransferCancelBodySchema | undefined,
+    t_PostTreasuryInboundTransfersInboundTransferCancelRequestBody | undefined,
     void
   >,
   respond: PostTreasuryInboundTransfersInboundTransferCancelResponder,
@@ -14181,7 +14195,7 @@ export type PostTreasuryOutboundPaymentsResponder = {
 } & KoaRuntimeResponder
 
 export type PostTreasuryOutboundPayments = (
-  params: Params<void, void, t_PostTreasuryOutboundPaymentsBodySchema, void>,
+  params: Params<void, void, t_PostTreasuryOutboundPaymentsRequestBody, void>,
   respond: PostTreasuryOutboundPaymentsResponder,
   ctx: RouterContext,
   next: Next,
@@ -14223,7 +14237,7 @@ export type PostTreasuryOutboundPaymentsIdCancel = (
   params: Params<
     t_PostTreasuryOutboundPaymentsIdCancelParamSchema,
     void,
-    t_PostTreasuryOutboundPaymentsIdCancelBodySchema | undefined,
+    t_PostTreasuryOutboundPaymentsIdCancelRequestBody | undefined,
     void
   >,
   respond: PostTreasuryOutboundPaymentsIdCancelResponder,
@@ -14272,7 +14286,7 @@ export type PostTreasuryOutboundTransfersResponder = {
 } & KoaRuntimeResponder
 
 export type PostTreasuryOutboundTransfers = (
-  params: Params<void, void, t_PostTreasuryOutboundTransfersBodySchema, void>,
+  params: Params<void, void, t_PostTreasuryOutboundTransfersRequestBody, void>,
   respond: PostTreasuryOutboundTransfersResponder,
   ctx: RouterContext,
   next: Next,
@@ -14314,7 +14328,8 @@ export type PostTreasuryOutboundTransfersOutboundTransferCancel = (
   params: Params<
     t_PostTreasuryOutboundTransfersOutboundTransferCancelParamSchema,
     void,
-    t_PostTreasuryOutboundTransfersOutboundTransferCancelBodySchema | undefined,
+    | t_PostTreasuryOutboundTransfersOutboundTransferCancelRequestBody
+    | undefined,
     void
   >,
   respond: PostTreasuryOutboundTransfersOutboundTransferCancelResponder,
@@ -14571,7 +14586,7 @@ export type PostWebhookEndpointsResponder = {
 } & KoaRuntimeResponder
 
 export type PostWebhookEndpoints = (
-  params: Params<void, void, t_PostWebhookEndpointsBodySchema, void>,
+  params: Params<void, void, t_PostWebhookEndpointsRequestBody, void>,
   respond: PostWebhookEndpointsResponder,
   ctx: RouterContext,
   next: Next,
@@ -14635,7 +14650,7 @@ export type PostWebhookEndpointsWebhookEndpoint = (
   params: Params<
     t_PostWebhookEndpointsWebhookEndpointParamSchema,
     void,
-    t_PostWebhookEndpointsWebhookEndpointBodySchema | undefined,
+    t_PostWebhookEndpointsWebhookEndpointRequestBody | undefined,
     void
   >,
   respond: PostWebhookEndpointsWebhookEndpointResponder,
@@ -15281,7 +15296,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const postAccountLinksBodySchema = z.object({
+  const postAccountLinksRequestBody = z.object({
     account: z.string().max(5000),
     collect: z.enum(["currently_due", "eventually_due"]).optional(),
     collection_options: z
@@ -15306,7 +15321,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: undefined,
       body: parseRequestInput(
-        postAccountLinksBodySchema,
+        postAccountLinksRequestBody,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -15344,7 +15359,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const postAccountSessionsBodySchema = z.object({
+  const postAccountSessionsRequestBody = z.object({
     account: z.string(),
     components: z.object({
       account_management: z
@@ -15554,7 +15569,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postAccountSessionsBodySchema,
+          postAccountSessionsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -15679,7 +15694,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const postAccountsBodySchema = z
+  const postAccountsRequestBody = z
     .object({
       account_token: z.string().max(5000).optional(),
       bank_account: z
@@ -16350,7 +16365,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: undefined,
       body: parseRequestInput(
-        postAccountsBodySchema,
+        postAccountsRequestBody,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -16517,7 +16532,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     account: z.string().max(5000),
   })
 
-  const postAccountsAccountBodySchema = z
+  const postAccountsAccountRequestBody = z
     .object({
       account_token: z.string().max(5000).optional(),
       business_profile: z
@@ -17158,7 +17173,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postAccountsAccountBodySchema,
+          postAccountsAccountRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -17201,7 +17216,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     account: z.string().max(5000),
   })
 
-  const postAccountsAccountBankAccountsBodySchema = z
+  const postAccountsAccountBankAccountsRequestBody = z
     .object({
       bank_account: z
         .union([
@@ -17249,7 +17264,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postAccountsAccountBankAccountsBodySchema,
+          postAccountsAccountBankAccountsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -17419,7 +17434,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     id: z.string(),
   })
 
-  const postAccountsAccountBankAccountsIdBodySchema = z
+  const postAccountsAccountBankAccountsIdRequestBody = z
     .object({
       account_holder_name: z.string().max(5000).optional(),
       account_holder_type: z.enum(["", "company", "individual"]).optional(),
@@ -17463,7 +17478,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postAccountsAccountBankAccountsIdBodySchema,
+          postAccountsAccountBankAccountsIdRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -17666,7 +17681,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     capability: z.string(),
   })
 
-  const postAccountsAccountCapabilitiesCapabilityBodySchema = z
+  const postAccountsAccountCapabilitiesCapabilityRequestBody = z
     .object({
       expand: z.array(z.string().max(5000)).optional(),
       requested: PermissiveBoolean.optional(),
@@ -17688,7 +17703,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postAccountsAccountCapabilitiesCapabilityBodySchema,
+          postAccountsAccountCapabilitiesCapabilityRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -17828,7 +17843,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     account: z.string().max(5000),
   })
 
-  const postAccountsAccountExternalAccountsBodySchema = z
+  const postAccountsAccountExternalAccountsRequestBody = z
     .object({
       bank_account: z
         .union([
@@ -17876,7 +17891,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postAccountsAccountExternalAccountsBodySchema,
+          postAccountsAccountExternalAccountsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -18052,7 +18067,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     id: z.string(),
   })
 
-  const postAccountsAccountExternalAccountsIdBodySchema = z
+  const postAccountsAccountExternalAccountsIdRequestBody = z
     .object({
       account_holder_name: z.string().max(5000).optional(),
       account_holder_type: z.enum(["", "company", "individual"]).optional(),
@@ -18096,7 +18111,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postAccountsAccountExternalAccountsIdBodySchema,
+          postAccountsAccountExternalAccountsIdRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -18142,7 +18157,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     account: z.string().max(5000),
   })
 
-  const postAccountsAccountLoginLinksBodySchema = z
+  const postAccountsAccountLoginLinksRequestBody = z
     .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
@@ -18161,7 +18176,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postAccountsAccountLoginLinksBodySchema,
+          postAccountsAccountLoginLinksRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -18301,7 +18316,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     account: z.string().max(5000),
   })
 
-  const postAccountsAccountPeopleBodySchema = z
+  const postAccountsAccountPeopleRequestBody = z
     .object({
       additional_tos_acceptances: z
         .object({
@@ -18524,7 +18539,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postAccountsAccountPeopleBodySchema,
+          postAccountsAccountPeopleRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -18694,7 +18709,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     person: z.string().max(5000),
   })
 
-  const postAccountsAccountPeoplePersonBodySchema = z
+  const postAccountsAccountPeoplePersonRequestBody = z
     .object({
       additional_tos_acceptances: z
         .object({
@@ -18915,7 +18930,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postAccountsAccountPeoplePersonBodySchema,
+          postAccountsAccountPeoplePersonRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -19055,7 +19070,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     account: z.string().max(5000),
   })
 
-  const postAccountsAccountPersonsBodySchema = z
+  const postAccountsAccountPersonsRequestBody = z
     .object({
       additional_tos_acceptances: z
         .object({
@@ -19278,7 +19293,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postAccountsAccountPersonsBodySchema,
+          postAccountsAccountPersonsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -19448,7 +19463,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     person: z.string().max(5000),
   })
 
-  const postAccountsAccountPersonsPersonBodySchema = z
+  const postAccountsAccountPersonsPersonRequestBody = z
     .object({
       additional_tos_acceptances: z
         .object({
@@ -19669,7 +19684,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postAccountsAccountPersonsPersonBodySchema,
+          postAccountsAccountPersonsPersonRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -19712,7 +19727,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     account: z.string().max(5000),
   })
 
-  const postAccountsAccountRejectBodySchema = z.object({
+  const postAccountsAccountRejectRequestBody = z.object({
     expand: z.array(z.string().max(5000)).optional(),
     reason: z.string().max(5000),
   })
@@ -19734,7 +19749,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postAccountsAccountRejectBodySchema,
+          postAccountsAccountRejectRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -19853,7 +19868,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postApplePayDomainsBodySchema = z.object({
+  const postApplePayDomainsRequestBody = z.object({
     domain_name: z.string(),
     expand: z.array(z.string().max(5000)).optional(),
   })
@@ -19871,7 +19886,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postApplePayDomainsBodySchema,
+          postApplePayDomainsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -20197,7 +20212,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     id: z.string().max(5000),
   })
 
-  const postApplicationFeesFeeRefundsIdBodySchema = z
+  const postApplicationFeesFeeRefundsIdRequestBody = z
     .object({
       expand: z.array(z.string().max(5000)).optional(),
       metadata: z
@@ -20221,7 +20236,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postApplicationFeesFeeRefundsIdBodySchema,
+          postApplicationFeesFeeRefundsIdRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -20331,7 +20346,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     id: z.string().max(5000),
   })
 
-  const postApplicationFeesIdRefundBodySchema = z
+  const postApplicationFeesIdRefundRequestBody = z
     .object({
       amount: z.coerce.number().optional(),
       directive: z.string().max(5000).optional(),
@@ -20354,7 +20369,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postApplicationFeesIdRefundBodySchema,
+          postApplicationFeesIdRefundRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -20485,7 +20500,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     id: z.string().max(5000),
   })
 
-  const postApplicationFeesIdRefundsBodySchema = z
+  const postApplicationFeesIdRefundsRequestBody = z
     .object({
       amount: z.coerce.number().optional(),
       expand: z.array(z.string().max(5000)).optional(),
@@ -20508,7 +20523,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postApplicationFeesIdRefundsBodySchema,
+          postApplicationFeesIdRefundsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -20626,7 +20641,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const postAppsSecretsBodySchema = z.object({
+  const postAppsSecretsRequestBody = z.object({
     expand: z.array(z.string().max(5000)).optional(),
     expires_at: z.coerce.number().optional(),
     name: z.string().max(5000),
@@ -20647,7 +20662,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: undefined,
       body: parseRequestInput(
-        postAppsSecretsBodySchema,
+        postAppsSecretsRequestBody,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -20685,7 +20700,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const postAppsSecretsDeleteBodySchema = z.object({
+  const postAppsSecretsDeleteRequestBody = z.object({
     expand: z.array(z.string().max(5000)).optional(),
     name: z.string().max(5000),
     scope: z.object({
@@ -20707,7 +20722,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postAppsSecretsDeleteBodySchema,
+          postAppsSecretsDeleteRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -21272,7 +21287,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const postBillingAlertsBodySchema = z.object({
+  const postBillingAlertsRequestBody = z.object({
     alert_type: z.enum(["usage_threshold"]),
     expand: z.array(z.string().max(5000)).optional(),
     title: z.string().max(256),
@@ -21303,7 +21318,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: undefined,
       body: parseRequestInput(
-        postBillingAlertsBodySchema,
+        postBillingAlertsRequestBody,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -21412,7 +21427,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     id: z.string().max(5000),
   })
 
-  const postBillingAlertsIdActivateBodySchema = z
+  const postBillingAlertsIdActivateRequestBody = z
     .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
@@ -21431,7 +21446,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postBillingAlertsIdActivateBodySchema,
+          postBillingAlertsIdActivateRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -21474,7 +21489,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     id: z.string().max(5000),
   })
 
-  const postBillingAlertsIdArchiveBodySchema = z
+  const postBillingAlertsIdArchiveRequestBody = z
     .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
@@ -21495,7 +21510,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postBillingAlertsIdArchiveBodySchema,
+          postBillingAlertsIdArchiveRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -21538,7 +21553,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     id: z.string().max(5000),
   })
 
-  const postBillingAlertsIdDeactivateBodySchema = z
+  const postBillingAlertsIdDeactivateRequestBody = z
     .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
@@ -21557,7 +21572,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postBillingAlertsIdDeactivateBodySchema,
+          postBillingAlertsIdDeactivateRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -21915,7 +21930,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postBillingCreditGrantsBodySchema = z.object({
+  const postBillingCreditGrantsRequestBody = z.object({
     amount: z.object({
       monetary: z
         .object({currency: z.string(), value: z.coerce.number()})
@@ -21951,7 +21966,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postBillingCreditGrantsBodySchema,
+          postBillingCreditGrantsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -22063,7 +22078,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     id: z.string().max(5000),
   })
 
-  const postBillingCreditGrantsIdBodySchema = z
+  const postBillingCreditGrantsIdRequestBody = z
     .object({
       expand: z.array(z.string().max(5000)).optional(),
       expires_at: z.union([z.coerce.number(), z.enum([""])]).optional(),
@@ -22088,7 +22103,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postBillingCreditGrantsIdBodySchema,
+          postBillingCreditGrantsIdRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -22131,7 +22146,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     id: z.string().max(5000),
   })
 
-  const postBillingCreditGrantsIdExpireBodySchema = z
+  const postBillingCreditGrantsIdExpireRequestBody = z
     .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
@@ -22150,7 +22165,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postBillingCreditGrantsIdExpireBodySchema,
+          postBillingCreditGrantsIdExpireRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -22193,7 +22208,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     id: z.string().max(5000),
   })
 
-  const postBillingCreditGrantsIdVoidBodySchema = z
+  const postBillingCreditGrantsIdVoidRequestBody = z
     .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
@@ -22212,7 +22227,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postBillingCreditGrantsIdVoidBodySchema,
+          postBillingCreditGrantsIdVoidRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -22251,7 +22266,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postBillingMeterEventAdjustmentsBodySchema = z.object({
+  const postBillingMeterEventAdjustmentsRequestBody = z.object({
     cancel: z.object({identifier: z.string().max(100).optional()}).optional(),
     event_name: z.string().max(100),
     expand: z.array(z.string().max(5000)).optional(),
@@ -22272,7 +22287,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postBillingMeterEventAdjustmentsBodySchema,
+          postBillingMeterEventAdjustmentsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -22311,7 +22326,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postBillingMeterEventsBodySchema = z.object({
+  const postBillingMeterEventsRequestBody = z.object({
     event_name: z.string().max(100),
     expand: z.array(z.string().max(5000)).optional(),
     identifier: z.string().max(100).optional(),
@@ -22332,7 +22347,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postBillingMeterEventsBodySchema,
+          postBillingMeterEventsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -22447,7 +22462,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const postBillingMetersBodySchema = z.object({
+  const postBillingMetersRequestBody = z.object({
     customer_mapping: z
       .object({event_payload_key: z.string().max(100), type: z.enum(["by_id"])})
       .optional(),
@@ -22471,7 +22486,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: undefined,
       body: parseRequestInput(
-        postBillingMetersBodySchema,
+        postBillingMetersRequestBody,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -22578,7 +22593,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const postBillingMetersIdParamSchema = z.object({id: z.string().max(5000)})
 
-  const postBillingMetersIdBodySchema = z
+  const postBillingMetersIdRequestBody = z
     .object({
       display_name: z.string().max(250).optional(),
       expand: z.array(z.string().max(5000)).optional(),
@@ -22602,7 +22617,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postBillingMetersIdBodySchema,
+          postBillingMetersIdRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -22645,7 +22660,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     id: z.string().max(5000),
   })
 
-  const postBillingMetersIdDeactivateBodySchema = z
+  const postBillingMetersIdDeactivateRequestBody = z
     .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
@@ -22664,7 +22679,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postBillingMetersIdDeactivateBodySchema,
+          postBillingMetersIdDeactivateRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -22802,7 +22817,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     id: z.string().max(5000),
   })
 
-  const postBillingMetersIdReactivateBodySchema = z
+  const postBillingMetersIdReactivateRequestBody = z
     .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
@@ -22821,7 +22836,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postBillingMetersIdReactivateBodySchema,
+          postBillingMetersIdReactivateRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -22945,7 +22960,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postBillingPortalConfigurationsBodySchema = z.object({
+  const postBillingPortalConfigurationsRequestBody = z.object({
     business_profile: z
       .object({
         headline: z.union([z.string().max(60), z.enum([""])]).optional(),
@@ -23072,7 +23087,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postBillingPortalConfigurationsBodySchema,
+          postBillingPortalConfigurationsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -23193,7 +23208,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     configuration: z.string().max(5000),
   })
 
-  const postBillingPortalConfigurationsConfigurationBodySchema = z
+  const postBillingPortalConfigurationsConfigurationRequestBody = z
     .object({
       active: PermissiveBoolean.optional(),
       business_profile: z
@@ -23338,7 +23353,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postBillingPortalConfigurationsConfigurationBodySchema,
+          postBillingPortalConfigurationsConfigurationRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -23385,7 +23400,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postBillingPortalSessionsBodySchema = z.object({
+  const postBillingPortalSessionsRequestBody = z.object({
     configuration: z.string().max(5000).optional(),
     customer: z.string().max(5000),
     expand: z.array(z.string().max(5000)).optional(),
@@ -23514,7 +23529,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postBillingPortalSessionsBodySchema,
+          postBillingPortalSessionsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -23642,7 +23657,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const postChargesBodySchema = z
+  const postChargesRequestBody = z
     .object({
       amount: z.coerce.number().optional(),
       application_fee: z.coerce.number().optional(),
@@ -23728,7 +23743,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: undefined,
       body: parseRequestInput(
-        postChargesBodySchema,
+        postChargesRequestBody,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -23910,7 +23925,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const postChargesChargeParamSchema = z.object({charge: z.string().max(5000)})
 
-  const postChargesChargeBodySchema = z
+  const postChargesChargeRequestBody = z
     .object({
       customer: z.string().max(5000).optional(),
       description: z.string().max(40000).optional(),
@@ -23956,7 +23971,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       query: undefined,
       body: parseRequestInput(
-        postChargesChargeBodySchema,
+        postChargesChargeRequestBody,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -23998,7 +24013,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     charge: z.string().max(5000),
   })
 
-  const postChargesChargeCaptureBodySchema = z
+  const postChargesChargeCaptureRequestBody = z
     .object({
       amount: z.coerce.number().optional(),
       application_fee: z.coerce.number().optional(),
@@ -24031,7 +24046,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postChargesChargeCaptureBodySchema,
+          postChargesChargeCaptureRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -24143,7 +24158,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     charge: z.string().max(5000),
   })
 
-  const postChargesChargeDisputeBodySchema = z
+  const postChargesChargeDisputeRequestBody = z
     .object({
       evidence: z
         .object({
@@ -24309,7 +24324,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postChargesChargeDisputeBodySchema,
+          postChargesChargeDisputeRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -24352,7 +24367,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     charge: z.string().max(5000),
   })
 
-  const postChargesChargeDisputeCloseBodySchema = z
+  const postChargesChargeDisputeCloseRequestBody = z
     .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
@@ -24371,7 +24386,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postChargesChargeDisputeCloseBodySchema,
+          postChargesChargeDisputeCloseRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -24414,7 +24429,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     charge: z.string().max(5000),
   })
 
-  const postChargesChargeRefundBodySchema = z
+  const postChargesChargeRefundRequestBody = z
     .object({
       amount: z.coerce.number().optional(),
       expand: z.array(z.string().max(5000)).optional(),
@@ -24448,7 +24463,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postChargesChargeRefundBodySchema,
+          postChargesChargeRefundRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -24576,7 +24591,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     charge: z.string().max(5000),
   })
 
-  const postChargesChargeRefundsBodySchema = z
+  const postChargesChargeRefundsRequestBody = z
     .object({
       amount: z.coerce.number().optional(),
       currency: z.string().optional(),
@@ -24613,7 +24628,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postChargesChargeRefundsBodySchema,
+          postChargesChargeRefundsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -24725,7 +24740,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     refund: z.string(),
   })
 
-  const postChargesChargeRefundsRefundBodySchema = z
+  const postChargesChargeRefundsRefundRequestBody = z
     .object({
       expand: z.array(z.string().max(5000)).optional(),
       metadata: z
@@ -24749,7 +24764,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postChargesChargeRefundsRefundBodySchema,
+          postChargesChargeRefundsRefundRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -24884,7 +24899,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postCheckoutSessionsBodySchema = z
+  const postCheckoutSessionsRequestBody = z
     .object({
       adaptive_pricing: z
         .object({enabled: PermissiveBoolean.optional()})
@@ -26014,7 +26029,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postCheckoutSessionsBodySchema,
+          postCheckoutSessionsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -26126,7 +26141,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     session: z.string().max(5000),
   })
 
-  const postCheckoutSessionsSessionBodySchema = z
+  const postCheckoutSessionsSessionRequestBody = z
     .object({
       collected_information: z
         .object({
@@ -26233,7 +26248,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postCheckoutSessionsSessionBodySchema,
+          postCheckoutSessionsSessionRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -26276,7 +26291,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     session: z.string().max(5000),
   })
 
-  const postCheckoutSessionsSessionExpireBodySchema = z
+  const postCheckoutSessionsSessionExpireRequestBody = z
     .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
@@ -26295,7 +26310,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postCheckoutSessionsSessionExpireBodySchema,
+          postCheckoutSessionsSessionExpireRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -26503,7 +26518,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const postClimateOrdersBodySchema = z.object({
+  const postClimateOrdersRequestBody = z.object({
     amount: z.coerce.number().optional(),
     beneficiary: z.object({public_name: z.string().max(5000)}).optional(),
     currency: z.string().max(5000).optional(),
@@ -26523,7 +26538,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: undefined,
       body: parseRequestInput(
-        postClimateOrdersBodySchema,
+        postClimateOrdersRequestBody,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -26634,7 +26649,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     order: z.string().max(5000),
   })
 
-  const postClimateOrdersOrderBodySchema = z
+  const postClimateOrdersOrderRequestBody = z
     .object({
       beneficiary: z
         .union([
@@ -26666,7 +26681,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postClimateOrdersOrderBodySchema,
+          postClimateOrdersOrderRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -26709,7 +26724,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     order: z.string().max(5000),
   })
 
-  const postClimateOrdersOrderCancelBodySchema = z
+  const postClimateOrdersOrderCancelRequestBody = z
     .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
@@ -26728,7 +26743,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postClimateOrdersOrderCancelBodySchema,
+          postClimateOrdersOrderCancelRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -27361,7 +27376,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const postCouponsBodySchema = z
+  const postCouponsRequestBody = z
     .object({
       amount_off: z.coerce.number().optional(),
       applies_to: z
@@ -27395,7 +27410,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: undefined,
       body: parseRequestInput(
-        postCouponsBodySchema,
+        postCouponsRequestBody,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -27554,7 +27569,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const postCouponsCouponParamSchema = z.object({coupon: z.string().max(5000)})
 
-  const postCouponsCouponBodySchema = z
+  const postCouponsCouponRequestBody = z
     .object({
       currency_options: z
         .record(z.string(), z.object({amount_off: z.coerce.number()}))
@@ -27581,7 +27596,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       query: undefined,
       body: parseRequestInput(
-        postCouponsCouponBodySchema,
+        postCouponsCouponRequestBody,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -27707,7 +27722,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const postCreditNotesBodySchema = z.object({
+  const postCreditNotesRequestBody = z.object({
     amount: z.coerce.number().optional(),
     credit_amount: z.coerce.number().optional(),
     effective_at: z.coerce.number().optional(),
@@ -27777,7 +27792,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: undefined,
       body: parseRequestInput(
-        postCreditNotesBodySchema,
+        postCreditNotesRequestBody,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -28232,7 +28247,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const postCreditNotesIdParamSchema = z.object({id: z.string().max(5000)})
 
-  const postCreditNotesIdBodySchema = z
+  const postCreditNotesIdRequestBody = z
     .object({
       expand: z.array(z.string().max(5000)).optional(),
       memo: z.string().max(5000).optional(),
@@ -28257,7 +28272,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postCreditNotesIdBodySchema,
+          postCreditNotesIdRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -28298,7 +28313,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const postCreditNotesIdVoidParamSchema = z.object({id: z.string().max(5000)})
 
-  const postCreditNotesIdVoidBodySchema = z
+  const postCreditNotesIdVoidRequestBody = z
     .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
@@ -28319,7 +28334,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postCreditNotesIdVoidBodySchema,
+          postCreditNotesIdVoidRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -28358,7 +28373,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postCustomerSessionsBodySchema = z.object({
+  const postCustomerSessionsRequestBody = z.object({
     components: z.object({
       buy_button: z.object({enabled: PermissiveBoolean}).optional(),
       payment_element: z
@@ -28401,7 +28416,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postCustomerSessionsBodySchema,
+          postCustomerSessionsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -28528,7 +28543,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const postCustomersBodySchema = z
+  const postCustomersRequestBody = z
     .object({
       address: z
         .union([
@@ -28753,7 +28768,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: undefined,
       body: parseRequestInput(
-        postCustomersBodySchema,
+        postCustomersRequestBody,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -29003,7 +29018,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     customer: z.string().max(5000),
   })
 
-  const postCustomersCustomerBodySchema = z
+  const postCustomersCustomerRequestBody = z
     .object({
       address: z
         .union([
@@ -29154,7 +29169,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postCustomersCustomerBodySchema,
+          postCustomersCustomerRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -29288,7 +29303,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     customer: z.string().max(5000),
   })
 
-  const postCustomersCustomerBalanceTransactionsBodySchema = z.object({
+  const postCustomersCustomerBalanceTransactionsRequestBody = z.object({
     amount: z.coerce.number(),
     currency: z.string(),
     description: z.string().max(350).optional(),
@@ -29316,7 +29331,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postCustomersCustomerBalanceTransactionsBodySchema,
+          postCustomersCustomerBalanceTransactionsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -29443,7 +29458,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       transaction: z.string().max(5000),
     })
 
-  const postCustomersCustomerBalanceTransactionsTransactionBodySchema = z
+  const postCustomersCustomerBalanceTransactionsTransactionRequestBody = z
     .object({
       description: z.string().max(350).optional(),
       expand: z.array(z.string().max(5000)).optional(),
@@ -29471,7 +29486,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postCustomersCustomerBalanceTransactionsTransactionBodySchema,
+          postCustomersCustomerBalanceTransactionsTransactionRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -29611,7 +29626,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     customer: z.string().max(5000),
   })
 
-  const postCustomersCustomerBankAccountsBodySchema = z
+  const postCustomersCustomerBankAccountsRequestBody = z
     .object({
       alipay_account: z.string().max(5000).optional(),
       bank_account: z
@@ -29669,7 +29684,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postCustomersCustomerBankAccountsBodySchema,
+          postCustomersCustomerBankAccountsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -29716,7 +29731,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     id: z.string(),
   })
 
-  const deleteCustomersCustomerBankAccountsIdBodySchema = z
+  const deleteCustomersCustomerBankAccountsIdRequestBody = z
     .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
@@ -29743,7 +29758,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          deleteCustomersCustomerBankAccountsIdBodySchema,
+          deleteCustomersCustomerBankAccountsIdRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -29863,7 +29878,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     id: z.string().max(5000),
   })
 
-  const postCustomersCustomerBankAccountsIdBodySchema = z
+  const postCustomersCustomerBankAccountsIdRequestBody = z
     .object({
       account_holder_name: z.string().max(5000).optional(),
       account_holder_type: z.enum(["company", "individual"]).optional(),
@@ -29927,7 +29942,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postCustomersCustomerBankAccountsIdBodySchema,
+          postCustomersCustomerBankAccountsIdRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -29974,7 +29989,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     id: z.string().max(5000),
   })
 
-  const postCustomersCustomerBankAccountsIdVerifyBodySchema = z
+  const postCustomersCustomerBankAccountsIdVerifyRequestBody = z
     .object({
       amounts: z.array(z.coerce.number()).optional(),
       expand: z.array(z.string().max(5000)).optional(),
@@ -29996,7 +30011,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postCustomersCustomerBankAccountsIdVerifyBodySchema,
+          postCustomersCustomerBankAccountsIdVerifyRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -30129,7 +30144,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     customer: z.string().max(5000),
   })
 
-  const postCustomersCustomerCardsBodySchema = z
+  const postCustomersCustomerCardsRequestBody = z
     .object({
       alipay_account: z.string().max(5000).optional(),
       bank_account: z
@@ -30189,7 +30204,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postCustomersCustomerCardsBodySchema,
+          postCustomersCustomerCardsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -30233,7 +30248,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     id: z.string(),
   })
 
-  const deleteCustomersCustomerCardsIdBodySchema = z
+  const deleteCustomersCustomerCardsIdRequestBody = z
     .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
@@ -30260,7 +30275,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          deleteCustomersCustomerCardsIdBodySchema,
+          deleteCustomersCustomerCardsIdRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -30374,7 +30389,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     id: z.string().max(5000),
   })
 
-  const postCustomersCustomerCardsIdBodySchema = z
+  const postCustomersCustomerCardsIdRequestBody = z
     .object({
       account_holder_name: z.string().max(5000).optional(),
       account_holder_type: z.enum(["company", "individual"]).optional(),
@@ -30438,7 +30453,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postCustomersCustomerCardsIdBodySchema,
+          postCustomersCustomerCardsIdRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -30548,7 +30563,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     customer: z.string().max(5000),
   })
 
-  const postCustomersCustomerCashBalanceBodySchema = z
+  const postCustomersCustomerCashBalanceRequestBody = z
     .object({
       expand: z.array(z.string().max(5000)).optional(),
       settings: z
@@ -30576,7 +30591,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postCustomersCustomerCashBalanceBodySchema,
+          postCustomersCustomerCashBalanceRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -30917,7 +30932,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     customer: z.string().max(5000),
   })
 
-  const postCustomersCustomerFundingInstructionsBodySchema = z.object({
+  const postCustomersCustomerFundingInstructionsRequestBody = z.object({
     bank_transfer: z.object({
       eu_bank_transfer: z.object({country: z.string().max(5000)}).optional(),
       requested_address_types: z
@@ -30951,7 +30966,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postCustomersCustomerFundingInstructionsBodySchema,
+          postCustomersCustomerFundingInstructionsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -31313,7 +31328,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     customer: z.string().max(5000),
   })
 
-  const postCustomersCustomerSourcesBodySchema = z
+  const postCustomersCustomerSourcesRequestBody = z
     .object({
       alipay_account: z.string().max(5000).optional(),
       bank_account: z
@@ -31371,7 +31386,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postCustomersCustomerSourcesBodySchema,
+          postCustomersCustomerSourcesRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -31415,7 +31430,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     id: z.string(),
   })
 
-  const deleteCustomersCustomerSourcesIdBodySchema = z
+  const deleteCustomersCustomerSourcesIdRequestBody = z
     .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
@@ -31442,7 +31457,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          deleteCustomersCustomerSourcesIdBodySchema,
+          deleteCustomersCustomerSourcesIdRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -31556,7 +31571,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     id: z.string().max(5000),
   })
 
-  const postCustomersCustomerSourcesIdBodySchema = z
+  const postCustomersCustomerSourcesIdRequestBody = z
     .object({
       account_holder_name: z.string().max(5000).optional(),
       account_holder_type: z.enum(["company", "individual"]).optional(),
@@ -31620,7 +31635,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postCustomersCustomerSourcesIdBodySchema,
+          postCustomersCustomerSourcesIdRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -31664,7 +31679,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     id: z.string().max(5000),
   })
 
-  const postCustomersCustomerSourcesIdVerifyBodySchema = z
+  const postCustomersCustomerSourcesIdVerifyRequestBody = z
     .object({
       amounts: z.array(z.coerce.number()).optional(),
       expand: z.array(z.string().max(5000)).optional(),
@@ -31686,7 +31701,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postCustomersCustomerSourcesIdVerifyBodySchema,
+          postCustomersCustomerSourcesIdVerifyRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -31823,7 +31838,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     customer: z.string().max(5000),
   })
 
-  const postCustomersCustomerSubscriptionsBodySchema = z
+  const postCustomersCustomerSubscriptionsRequestBody = z
     .object({
       add_invoice_items: z
         .array(
@@ -32202,7 +32217,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postCustomersCustomerSubscriptionsBodySchema,
+          postCustomersCustomerSubscriptionsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -32250,7 +32265,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       subscription_exposed_id: z.string().max(5000),
     })
 
-  const deleteCustomersCustomerSubscriptionsSubscriptionExposedIdBodySchema = z
+  const deleteCustomersCustomerSubscriptionsSubscriptionExposedIdRequestBody = z
     .object({
       expand: z.array(z.string().max(5000)).optional(),
       invoice_now: PermissiveBoolean.optional(),
@@ -32273,7 +32288,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          deleteCustomersCustomerSubscriptionsSubscriptionExposedIdBodySchema,
+          deleteCustomersCustomerSubscriptionsSubscriptionExposedIdRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -32406,7 +32421,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       subscription_exposed_id: z.string().max(5000),
     })
 
-  const postCustomersCustomerSubscriptionsSubscriptionExposedIdBodySchema = z
+  const postCustomersCustomerSubscriptionsSubscriptionExposedIdRequestBody = z
     .object({
       add_invoice_items: z
         .array(
@@ -32819,7 +32834,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postCustomersCustomerSubscriptionsSubscriptionExposedIdBodySchema,
+          postCustomersCustomerSubscriptionsSubscriptionExposedIdRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -33102,7 +33117,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     customer: z.string().max(5000),
   })
 
-  const postCustomersCustomerTaxIdsBodySchema = z.object({
+  const postCustomersCustomerTaxIdsRequestBody = z.object({
     expand: z.array(z.string().max(5000)).optional(),
     type: z.enum([
       "ad_nrt",
@@ -33234,7 +33249,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postCustomersCustomerTaxIdsBodySchema,
+          postCustomersCustomerTaxIdsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -33557,7 +33572,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     dispute: z.string().max(5000),
   })
 
-  const postDisputesDisputeBodySchema = z
+  const postDisputesDisputeRequestBody = z
     .object({
       evidence: z
         .object({
@@ -33723,7 +33738,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postDisputesDisputeBodySchema,
+          postDisputesDisputeRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -33766,7 +33781,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     dispute: z.string().max(5000),
   })
 
-  const postDisputesDisputeCloseBodySchema = z
+  const postDisputesDisputeCloseRequestBody = z
     .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
@@ -33787,7 +33802,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postDisputesDisputeCloseBodySchema,
+          postDisputesDisputeCloseRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -34067,7 +34082,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postEntitlementsFeaturesBodySchema = z.object({
+  const postEntitlementsFeaturesRequestBody = z.object({
     expand: z.array(z.string().max(5000)).optional(),
     lookup_key: z.string().max(80),
     metadata: z.record(z.string(), z.string()).optional(),
@@ -34087,7 +34102,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postEntitlementsFeaturesBodySchema,
+          postEntitlementsFeaturesRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -34199,7 +34214,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     id: z.string().max(5000),
   })
 
-  const postEntitlementsFeaturesIdBodySchema = z
+  const postEntitlementsFeaturesIdRequestBody = z
     .object({
       active: PermissiveBoolean.optional(),
       expand: z.array(z.string().max(5000)).optional(),
@@ -34227,7 +34242,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postEntitlementsFeaturesIdBodySchema,
+          postEntitlementsFeaturesIdRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -34266,7 +34281,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postEphemeralKeysBodySchema = z
+  const postEphemeralKeysRequestBody = z
     .object({
       customer: z.string().max(5000).optional(),
       expand: z.array(z.string().max(5000)).optional(),
@@ -34286,7 +34301,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: undefined,
       body: parseRequestInput(
-        postEphemeralKeysBodySchema,
+        postEphemeralKeysRequestBody,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -34328,7 +34343,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     key: z.string().max(5000),
   })
 
-  const deleteEphemeralKeysKeyBodySchema = z
+  const deleteEphemeralKeysKeyRequestBody = z
     .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
@@ -34349,7 +34364,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          deleteEphemeralKeysKeyBodySchema,
+          deleteEphemeralKeysKeyRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -34691,7 +34706,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const postExternalAccountsIdParamSchema = z.object({id: z.string()})
 
-  const postExternalAccountsIdBodySchema = z
+  const postExternalAccountsIdRequestBody = z
     .object({
       account_holder_name: z.string().max(5000).optional(),
       account_holder_type: z.enum(["", "company", "individual"]).optional(),
@@ -34737,7 +34752,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postExternalAccountsIdBodySchema,
+          postExternalAccountsIdRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -34864,7 +34879,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const postFileLinksBodySchema = z.object({
+  const postFileLinksRequestBody = z.object({
     expand: z.array(z.string().max(5000)).optional(),
     expires_at: z.coerce.number().optional(),
     file: z.string().max(5000),
@@ -34883,7 +34898,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: undefined,
       body: parseRequestInput(
-        postFileLinksBodySchema,
+        postFileLinksRequestBody,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -34986,7 +35001,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const postFileLinksLinkParamSchema = z.object({link: z.string()})
 
-  const postFileLinksLinkBodySchema = z
+  const postFileLinksLinkRequestBody = z
     .object({
       expand: z.array(z.string().max(5000)).optional(),
       expires_at: z
@@ -35015,7 +35030,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postFileLinksLinkBodySchema,
+          postFileLinksLinkRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -35163,7 +35178,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   // todo: request bodies with content-type 'multipart/form-data' not yet supported
 
-  const postFilesBodySchema = z.never()
+  const postFilesRequestBody = z.never()
 
   const postFilesResponseValidator = responseValidationFactory(
     [["200", s_file]],
@@ -35175,7 +35190,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: undefined,
       body: parseRequestInput(
-        postFilesBodySchema,
+        postFilesRequestBody,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ) as never,
@@ -35443,7 +35458,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     {account: z.string().max(5000)},
   )
 
-  const postFinancialConnectionsAccountsAccountDisconnectBodySchema = z
+  const postFinancialConnectionsAccountsAccountDisconnectRequestBody = z
     .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
@@ -35465,7 +35480,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postFinancialConnectionsAccountsAccountDisconnectBodySchema,
+          postFinancialConnectionsAccountsAccountDisconnectRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -35614,7 +35629,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     account: z.string().max(5000),
   })
 
-  const postFinancialConnectionsAccountsAccountRefreshBodySchema = z.object({
+  const postFinancialConnectionsAccountsAccountRefreshRequestBody = z.object({
     expand: z.array(z.string().max(5000)).optional(),
     features: z.array(z.enum(["balance", "ownership", "transactions"])),
   })
@@ -35637,7 +35652,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postFinancialConnectionsAccountsAccountRefreshBodySchema,
+          postFinancialConnectionsAccountsAccountRefreshRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -35689,7 +35704,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     account: z.string().max(5000),
   })
 
-  const postFinancialConnectionsAccountsAccountSubscribeBodySchema = z.object({
+  const postFinancialConnectionsAccountsAccountSubscribeRequestBody = z.object({
     expand: z.array(z.string().max(5000)).optional(),
     features: z.array(z.enum(["transactions"])),
   })
@@ -35712,7 +35727,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postFinancialConnectionsAccountsAccountSubscribeBodySchema,
+          postFinancialConnectionsAccountsAccountSubscribeRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -35763,12 +35778,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const postFinancialConnectionsAccountsAccountUnsubscribeParamSchema =
     z.object({account: z.string().max(5000)})
 
-  const postFinancialConnectionsAccountsAccountUnsubscribeBodySchema = z.object(
-    {
+  const postFinancialConnectionsAccountsAccountUnsubscribeRequestBody =
+    z.object({
       expand: z.array(z.string().max(5000)).optional(),
       features: z.array(z.enum(["transactions"])),
-    },
-  )
+    })
 
   const postFinancialConnectionsAccountsAccountUnsubscribeResponseValidator =
     responseValidationFactory(
@@ -35788,7 +35802,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postFinancialConnectionsAccountsAccountUnsubscribeBodySchema,
+          postFinancialConnectionsAccountsAccountUnsubscribeRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -35836,7 +35850,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postFinancialConnectionsSessionsBodySchema = z.object({
+  const postFinancialConnectionsSessionsRequestBody = z.object({
     account_holder: z.object({
       account: z.string().max(5000).optional(),
       customer: z.string().max(5000).optional(),
@@ -35882,7 +35896,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postFinancialConnectionsSessionsBodySchema,
+          postFinancialConnectionsSessionsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -36261,7 +36275,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postForwardingRequestsBodySchema = z.object({
+  const postForwardingRequestsRequestBody = z.object({
     expand: z.array(z.string().max(5000)).optional(),
     metadata: z.record(z.string(), z.string()).optional(),
     payment_method: z.string().max(5000),
@@ -36300,7 +36314,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postForwardingRequestsBodySchema,
+          postForwardingRequestsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -36677,7 +36691,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postIdentityVerificationSessionsBodySchema = z
+  const postIdentityVerificationSessionsRequestBody = z
     .object({
       client_reference_id: z.string().max(5000).optional(),
       expand: z.array(z.string().max(5000)).optional(),
@@ -36726,7 +36740,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postIdentityVerificationSessionsBodySchema,
+          postIdentityVerificationSessionsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -36842,7 +36856,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     session: z.string().max(5000),
   })
 
-  const postIdentityVerificationSessionsSessionBodySchema = z
+  const postIdentityVerificationSessionsSessionRequestBody = z
     .object({
       expand: z.array(z.string().max(5000)).optional(),
       metadata: z.record(z.string(), z.string()).optional(),
@@ -36888,7 +36902,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postIdentityVerificationSessionsSessionBodySchema,
+          postIdentityVerificationSessionsSessionRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -36934,7 +36948,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     session: z.string().max(5000),
   })
 
-  const postIdentityVerificationSessionsSessionCancelBodySchema = z
+  const postIdentityVerificationSessionsSessionCancelRequestBody = z
     .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
@@ -36956,7 +36970,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postIdentityVerificationSessionsSessionCancelBodySchema,
+          postIdentityVerificationSessionsSessionCancelRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -37007,7 +37021,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     session: z.string().max(5000),
   })
 
-  const postIdentityVerificationSessionsSessionRedactBodySchema = z
+  const postIdentityVerificationSessionsSessionRedactRequestBody = z
     .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
@@ -37029,7 +37043,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postIdentityVerificationSessionsSessionRedactBodySchema,
+          postIdentityVerificationSessionsSessionRedactRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -37386,7 +37400,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     template: z.string().max(5000),
   })
 
-  const postInvoiceRenderingTemplatesTemplateArchiveBodySchema = z
+  const postInvoiceRenderingTemplatesTemplateArchiveRequestBody = z
     .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
@@ -37405,7 +37419,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postInvoiceRenderingTemplatesTemplateArchiveBodySchema,
+          postInvoiceRenderingTemplatesTemplateArchiveRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -37456,7 +37470,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     template: z.string().max(5000),
   })
 
-  const postInvoiceRenderingTemplatesTemplateUnarchiveBodySchema = z
+  const postInvoiceRenderingTemplatesTemplateUnarchiveRequestBody = z
     .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
@@ -37475,7 +37489,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postInvoiceRenderingTemplatesTemplateUnarchiveBodySchema,
+          postInvoiceRenderingTemplatesTemplateUnarchiveRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -37612,7 +37626,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const postInvoiceitemsBodySchema = z.object({
+  const postInvoiceitemsRequestBody = z.object({
     amount: z.coerce.number().optional(),
     currency: z.string().optional(),
     customer: z.string().max(5000),
@@ -37668,7 +37682,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: undefined,
       body: parseRequestInput(
-        postInvoiceitemsBodySchema,
+        postInvoiceitemsRequestBody,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -37833,7 +37847,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     invoiceitem: z.string().max(5000),
   })
 
-  const postInvoiceitemsInvoiceitemBodySchema = z
+  const postInvoiceitemsInvoiceitemRequestBody = z
     .object({
       amount: z.coerce.number().optional(),
       description: z.string().max(5000).optional(),
@@ -37896,7 +37910,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postInvoiceitemsInvoiceitemBodySchema,
+          postInvoiceitemsInvoiceitemRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -38040,7 +38054,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const postInvoicesBodySchema = z
+  const postInvoicesRequestBody = z
     .object({
       account_tax_ids: z
         .union([z.array(z.string().max(5000)), z.enum([""])])
@@ -38384,7 +38398,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: undefined,
       body: parseRequestInput(
-        postInvoicesBodySchema,
+        postInvoicesRequestBody,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -38422,7 +38436,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const postInvoicesCreatePreviewBodySchema = z
+  const postInvoicesCreatePreviewRequestBody = z
     .object({
       automatic_tax: z
         .object({
@@ -38944,7 +38958,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postInvoicesCreatePreviewBodySchema,
+          postInvoicesCreatePreviewRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -39191,7 +39205,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     invoice: z.string().max(5000),
   })
 
-  const postInvoicesInvoiceBodySchema = z
+  const postInvoicesInvoiceRequestBody = z
     .object({
       account_tax_ids: z
         .union([z.array(z.string().max(5000)), z.enum([""])])
@@ -39549,7 +39563,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postInvoicesInvoiceBodySchema,
+          postInvoicesInvoiceRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -39592,7 +39606,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     invoice: z.string().max(5000),
   })
 
-  const postInvoicesInvoiceAddLinesBodySchema = z.object({
+  const postInvoicesInvoiceAddLinesRequestBody = z.object({
     expand: z.array(z.string().max(5000)).optional(),
     invoice_metadata: z
       .union([z.record(z.string(), z.string()), z.enum([""])])
@@ -39732,7 +39746,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postInvoicesInvoiceAddLinesBodySchema,
+          postInvoicesInvoiceAddLinesRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -39775,7 +39789,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     invoice: z.string().max(5000),
   })
 
-  const postInvoicesInvoiceAttachPaymentBodySchema = z
+  const postInvoicesInvoiceAttachPaymentRequestBody = z
     .object({
       expand: z.array(z.string().max(5000)).optional(),
       payment_intent: z.string().max(5000).optional(),
@@ -39797,7 +39811,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postInvoicesInvoiceAttachPaymentBodySchema,
+          postInvoicesInvoiceAttachPaymentRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -39840,7 +39854,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     invoice: z.string().max(5000),
   })
 
-  const postInvoicesInvoiceFinalizeBodySchema = z
+  const postInvoicesInvoiceFinalizeRequestBody = z
     .object({
       auto_advance: PermissiveBoolean.optional(),
       expand: z.array(z.string().max(5000)).optional(),
@@ -39862,7 +39876,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postInvoicesInvoiceFinalizeBodySchema,
+          postInvoicesInvoiceFinalizeRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -39993,7 +40007,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     line_item_id: z.string().max(5000),
   })
 
-  const postInvoicesInvoiceLinesLineItemIdBodySchema = z
+  const postInvoicesInvoiceLinesLineItemIdRequestBody = z
     .object({
       amount: z.coerce.number().optional(),
       description: z.string().max(5000).optional(),
@@ -40127,7 +40141,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postInvoicesInvoiceLinesLineItemIdBodySchema,
+          postInvoicesInvoiceLinesLineItemIdRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -40173,7 +40187,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     invoice: z.string().max(5000),
   })
 
-  const postInvoicesInvoiceMarkUncollectibleBodySchema = z
+  const postInvoicesInvoiceMarkUncollectibleRequestBody = z
     .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
@@ -40192,7 +40206,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postInvoicesInvoiceMarkUncollectibleBodySchema,
+          postInvoicesInvoiceMarkUncollectibleRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -40238,7 +40252,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     invoice: z.string().max(5000),
   })
 
-  const postInvoicesInvoicePayBodySchema = z
+  const postInvoicesInvoicePayRequestBody = z
     .object({
       expand: z.array(z.string().max(5000)).optional(),
       forgive: PermissiveBoolean.optional(),
@@ -40267,7 +40281,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postInvoicesInvoicePayBodySchema,
+          postInvoicesInvoicePayRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -40310,7 +40324,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     invoice: z.string().max(5000),
   })
 
-  const postInvoicesInvoiceRemoveLinesBodySchema = z.object({
+  const postInvoicesInvoiceRemoveLinesRequestBody = z.object({
     expand: z.array(z.string().max(5000)).optional(),
     invoice_metadata: z
       .union([z.record(z.string(), z.string()), z.enum([""])])
@@ -40338,7 +40352,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postInvoicesInvoiceRemoveLinesBodySchema,
+          postInvoicesInvoiceRemoveLinesRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -40381,7 +40395,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     invoice: z.string().max(5000),
   })
 
-  const postInvoicesInvoiceSendBodySchema = z
+  const postInvoicesInvoiceSendRequestBody = z
     .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
@@ -40402,7 +40416,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postInvoicesInvoiceSendBodySchema,
+          postInvoicesInvoiceSendRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -40445,7 +40459,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     invoice: z.string().max(5000),
   })
 
-  const postInvoicesInvoiceUpdateLinesBodySchema = z.object({
+  const postInvoicesInvoiceUpdateLinesRequestBody = z.object({
     expand: z.array(z.string().max(5000)).optional(),
     invoice_metadata: z
       .union([z.record(z.string(), z.string()), z.enum([""])])
@@ -40585,7 +40599,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postInvoicesInvoiceUpdateLinesBodySchema,
+          postInvoicesInvoiceUpdateLinesRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -40628,7 +40642,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     invoice: z.string().max(5000),
   })
 
-  const postInvoicesInvoiceVoidBodySchema = z
+  const postInvoicesInvoiceVoidRequestBody = z
     .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
@@ -40649,7 +40663,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postInvoicesInvoiceVoidBodySchema,
+          postInvoicesInvoiceVoidRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -40858,7 +40872,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     authorization: z.string().max(5000),
   })
 
-  const postIssuingAuthorizationsAuthorizationBodySchema = z
+  const postIssuingAuthorizationsAuthorizationRequestBody = z
     .object({
       expand: z.array(z.string().max(5000)).optional(),
       metadata: z
@@ -40882,7 +40896,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postIssuingAuthorizationsAuthorizationBodySchema,
+          postIssuingAuthorizationsAuthorizationRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -40928,7 +40942,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     authorization: z.string().max(5000),
   })
 
-  const postIssuingAuthorizationsAuthorizationApproveBodySchema = z
+  const postIssuingAuthorizationsAuthorizationApproveRequestBody = z
     .object({
       amount: z.coerce.number().optional(),
       expand: z.array(z.string().max(5000)).optional(),
@@ -40953,7 +40967,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postIssuingAuthorizationsAuthorizationApproveBodySchema,
+          postIssuingAuthorizationsAuthorizationApproveRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -41004,7 +41018,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     authorization: z.string().max(5000),
   })
 
-  const postIssuingAuthorizationsAuthorizationDeclineBodySchema = z
+  const postIssuingAuthorizationsAuthorizationDeclineRequestBody = z
     .object({
       expand: z.array(z.string().max(5000)).optional(),
       metadata: z
@@ -41028,7 +41042,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postIssuingAuthorizationsAuthorizationDeclineBodySchema,
+          postIssuingAuthorizationsAuthorizationDeclineRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -41172,7 +41186,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postIssuingCardholdersBodySchema = z.object({
+  const postIssuingCardholdersRequestBody = z.object({
     billing: z.object({
       address: z.object({
         city: z.string().max(5000),
@@ -42170,7 +42184,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postIssuingCardholdersBodySchema,
+          postIssuingCardholdersRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -42280,7 +42294,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     cardholder: z.string().max(5000),
   })
 
-  const postIssuingCardholdersCardholderBodySchema = z
+  const postIssuingCardholdersCardholderRequestBody = z
     .object({
       billing: z
         .object({
@@ -43282,7 +43296,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postIssuingCardholdersCardholderBodySchema,
+          postIssuingCardholdersCardholderRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -43414,7 +43428,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const postIssuingCardsBodySchema = z.object({
+  const postIssuingCardsRequestBody = z.object({
     cardholder: z.string().max(5000).optional(),
     currency: z.string(),
     expand: z.array(z.string().max(5000)).optional(),
@@ -44396,7 +44410,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: undefined,
       body: parseRequestInput(
-        postIssuingCardsBodySchema,
+        postIssuingCardsRequestBody,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -44503,7 +44517,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const postIssuingCardsCardParamSchema = z.object({card: z.string().max(5000)})
 
-  const postIssuingCardsCardBodySchema = z
+  const postIssuingCardsCardRequestBody = z
     .object({
       cancellation_reason: z.enum(["lost", "stolen"]).optional(),
       expand: z.array(z.string().max(5000)).optional(),
@@ -45488,7 +45502,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postIssuingCardsCardBodySchema,
+          postIssuingCardsCardRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -45621,7 +45635,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postIssuingDisputesBodySchema = z
+  const postIssuingDisputesRequestBody = z
     .object({
       amount: z.coerce.number().optional(),
       evidence: z
@@ -45822,7 +45836,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postIssuingDisputesBodySchema,
+          postIssuingDisputesRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -45934,7 +45948,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     dispute: z.string().max(5000),
   })
 
-  const postIssuingDisputesDisputeBodySchema = z
+  const postIssuingDisputesDisputeRequestBody = z
     .object({
       amount: z.coerce.number().optional(),
       evidence: z
@@ -46139,7 +46153,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postIssuingDisputesDisputeBodySchema,
+          postIssuingDisputesDisputeRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -46182,7 +46196,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     dispute: z.string().max(5000),
   })
 
-  const postIssuingDisputesDisputeSubmitBodySchema = z
+  const postIssuingDisputesDisputeSubmitRequestBody = z
     .object({
       expand: z.array(z.string().max(5000)).optional(),
       metadata: z
@@ -46206,7 +46220,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postIssuingDisputesDisputeSubmitBodySchema,
+          postIssuingDisputesDisputeSubmitRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -46341,7 +46355,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postIssuingPersonalizationDesignsBodySchema = z.object({
+  const postIssuingPersonalizationDesignsRequestBody = z.object({
     card_logo: z.string().optional(),
     carrier_text: z
       .object({
@@ -46374,7 +46388,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postIssuingPersonalizationDesignsBodySchema,
+          postIssuingPersonalizationDesignsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -46498,7 +46512,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const postIssuingPersonalizationDesignsPersonalizationDesignParamSchema =
     z.object({personalization_design: z.string().max(5000)})
 
-  const postIssuingPersonalizationDesignsPersonalizationDesignBodySchema = z
+  const postIssuingPersonalizationDesignsPersonalizationDesignRequestBody = z
     .object({
       card_logo: z.union([z.string(), z.enum([""])]).optional(),
       carrier_text: z
@@ -46548,7 +46562,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postIssuingPersonalizationDesignsPersonalizationDesignBodySchema,
+          postIssuingPersonalizationDesignsPersonalizationDesignRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -46821,7 +46835,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     settlement: z.string().max(5000),
   })
 
-  const postIssuingSettlementsSettlementBodySchema = z
+  const postIssuingSettlementsSettlementRequestBody = z
     .object({
       expand: z.array(z.string().max(5000)).optional(),
       metadata: z.record(z.string(), z.string()).optional(),
@@ -46843,7 +46857,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postIssuingSettlementsSettlementBodySchema,
+          postIssuingSettlementsSettlementRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -47043,7 +47057,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     token: z.string().max(5000),
   })
 
-  const postIssuingTokensTokenBodySchema = z.object({
+  const postIssuingTokensTokenRequestBody = z.object({
     expand: z.array(z.string().max(5000)).optional(),
     status: z.enum(["active", "deleted", "suspended"]),
   })
@@ -47065,7 +47079,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postIssuingTokensTokenBodySchema,
+          postIssuingTokensTokenRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -47274,7 +47288,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     transaction: z.string().max(5000),
   })
 
-  const postIssuingTransactionsTransactionBodySchema = z
+  const postIssuingTransactionsTransactionRequestBody = z
     .object({
       expand: z.array(z.string().max(5000)).optional(),
       metadata: z
@@ -47298,7 +47312,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postIssuingTransactionsTransactionBodySchema,
+          postIssuingTransactionsTransactionRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -47340,7 +47354,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postLinkAccountSessionsBodySchema = z.object({
+  const postLinkAccountSessionsRequestBody = z.object({
     account_holder: z.object({
       account: z.string().max(5000).optional(),
       customer: z.string().max(5000).optional(),
@@ -47385,7 +47399,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postLinkAccountSessionsBodySchema,
+          postLinkAccountSessionsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -47652,7 +47666,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     account: z.string().max(5000),
   })
 
-  const postLinkedAccountsAccountDisconnectBodySchema = z
+  const postLinkedAccountsAccountDisconnectRequestBody = z
     .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
@@ -47674,7 +47688,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postLinkedAccountsAccountDisconnectBodySchema,
+          postLinkedAccountsAccountDisconnectRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -47809,7 +47823,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     account: z.string().max(5000),
   })
 
-  const postLinkedAccountsAccountRefreshBodySchema = z.object({
+  const postLinkedAccountsAccountRefreshRequestBody = z.object({
     expand: z.array(z.string().max(5000)).optional(),
     features: z.array(z.enum(["balance", "ownership", "transactions"])),
   })
@@ -47832,7 +47846,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postLinkedAccountsAccountRefreshBodySchema,
+          postLinkedAccountsAccountRefreshRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -48025,7 +48039,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const postPaymentIntentsBodySchema = z.object({
+  const postPaymentIntentsRequestBody = z.object({
     amount: z.coerce.number(),
     application_fee_amount: z.coerce.number().optional(),
     automatic_payment_methods: z
@@ -49171,7 +49185,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postPaymentIntentsBodySchema,
+          postPaymentIntentsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -49367,7 +49381,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     intent: z.string().max(5000),
   })
 
-  const postPaymentIntentsIntentBodySchema = z
+  const postPaymentIntentsIntentRequestBody = z
     .object({
       amount: z.coerce.number().optional(),
       application_fee_amount: z
@@ -50496,7 +50510,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postPaymentIntentsIntentBodySchema,
+          postPaymentIntentsIntentRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -50539,7 +50553,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     intent: z.string().max(5000),
   })
 
-  const postPaymentIntentsIntentApplyCustomerBalanceBodySchema = z
+  const postPaymentIntentsIntentApplyCustomerBalanceRequestBody = z
     .object({
       amount: z.coerce.number().optional(),
       currency: z.string().optional(),
@@ -50562,7 +50576,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postPaymentIntentsIntentApplyCustomerBalanceBodySchema,
+          postPaymentIntentsIntentApplyCustomerBalanceRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -50613,7 +50627,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     intent: z.string().max(5000),
   })
 
-  const postPaymentIntentsIntentCancelBodySchema = z
+  const postPaymentIntentsIntentCancelRequestBody = z
     .object({
       cancellation_reason: z
         .enum(["abandoned", "duplicate", "fraudulent", "requested_by_customer"])
@@ -50637,7 +50651,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postPaymentIntentsIntentCancelBodySchema,
+          postPaymentIntentsIntentCancelRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -50680,7 +50694,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     intent: z.string().max(5000),
   })
 
-  const postPaymentIntentsIntentCaptureBodySchema = z
+  const postPaymentIntentsIntentCaptureRequestBody = z
     .object({
       amount_to_capture: z.coerce.number().optional(),
       application_fee_amount: z.coerce.number().optional(),
@@ -50712,7 +50726,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postPaymentIntentsIntentCaptureBodySchema,
+          postPaymentIntentsIntentCaptureRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -50755,7 +50769,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     intent: z.string().max(5000),
   })
 
-  const postPaymentIntentsIntentConfirmBodySchema = z
+  const postPaymentIntentsIntentConfirmRequestBody = z
     .object({
       capture_method: z
         .enum(["automatic", "automatic_async", "manual"])
@@ -51904,7 +51918,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postPaymentIntentsIntentConfirmBodySchema,
+          postPaymentIntentsIntentConfirmRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -51947,7 +51961,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     intent: z.string().max(5000),
   })
 
-  const postPaymentIntentsIntentIncrementAuthorizationBodySchema = z.object({
+  const postPaymentIntentsIntentIncrementAuthorizationRequestBody = z.object({
     amount: z.coerce.number(),
     application_fee_amount: z.coerce.number().optional(),
     description: z.string().max(1000).optional(),
@@ -51972,7 +51986,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postPaymentIntentsIntentIncrementAuthorizationBodySchema,
+          postPaymentIntentsIntentIncrementAuthorizationRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -52024,7 +52038,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     intent: z.string().max(5000),
   })
 
-  const postPaymentIntentsIntentVerifyMicrodepositsBodySchema = z
+  const postPaymentIntentsIntentVerifyMicrodepositsRequestBody = z
     .object({
       amounts: z.array(z.coerce.number()).optional(),
       client_secret: z.string().max(5000).optional(),
@@ -52048,7 +52062,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postPaymentIntentsIntentVerifyMicrodepositsBodySchema,
+          postPaymentIntentsIntentVerifyMicrodepositsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -52171,7 +52185,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const postPaymentLinksBodySchema = z.object({
+  const postPaymentLinksRequestBody = z.object({
     after_completion: z
       .object({
         hosted_confirmation: z
@@ -52726,7 +52740,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: undefined,
       body: parseRequestInput(
-        postPaymentLinksBodySchema,
+        postPaymentLinksRequestBody,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -52837,7 +52851,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     payment_link: z.string().max(5000),
   })
 
-  const postPaymentLinksPaymentLinkBodySchema = z
+  const postPaymentLinksPaymentLinkRequestBody = z
     .object({
       active: PermissiveBoolean.optional(),
       after_completion: z
@@ -53366,7 +53380,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postPaymentLinksPaymentLinkBodySchema,
+          postPaymentLinksPaymentLinkRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -53580,7 +53594,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postPaymentMethodConfigurationsBodySchema = z
+  const postPaymentMethodConfigurationsRequestBody = z
     .object({
       acss_debit: z
         .object({
@@ -53966,7 +53980,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postPaymentMethodConfigurationsBodySchema,
+          postPaymentMethodConfigurationsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -54087,7 +54101,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     configuration: z.string().max(5000),
   })
 
-  const postPaymentMethodConfigurationsConfigurationBodySchema = z
+  const postPaymentMethodConfigurationsConfigurationRequestBody = z
     .object({
       acss_debit: z
         .object({
@@ -54477,7 +54491,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postPaymentMethodConfigurationsConfigurationBodySchema,
+          postPaymentMethodConfigurationsConfigurationRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -54608,7 +54622,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postPaymentMethodDomainsBodySchema = z.object({
+  const postPaymentMethodDomainsRequestBody = z.object({
     domain_name: z.string().max(5000),
     enabled: PermissiveBoolean.optional(),
     expand: z.array(z.string().max(5000)).optional(),
@@ -54627,7 +54641,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postPaymentMethodDomainsBodySchema,
+          postPaymentMethodDomainsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -54740,7 +54754,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     payment_method_domain: z.string().max(5000),
   })
 
-  const postPaymentMethodDomainsPaymentMethodDomainBodySchema = z
+  const postPaymentMethodDomainsPaymentMethodDomainRequestBody = z
     .object({
       enabled: PermissiveBoolean.optional(),
       expand: z.array(z.string().max(5000)).optional(),
@@ -54762,7 +54776,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postPaymentMethodDomainsPaymentMethodDomainBodySchema,
+          postPaymentMethodDomainsPaymentMethodDomainRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -54812,7 +54826,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const postPaymentMethodDomainsPaymentMethodDomainValidateParamSchema =
     z.object({payment_method_domain: z.string().max(5000)})
 
-  const postPaymentMethodDomainsPaymentMethodDomainValidateBodySchema = z
+  const postPaymentMethodDomainsPaymentMethodDomainValidateRequestBody = z
     .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
@@ -54831,7 +54845,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postPaymentMethodDomainsPaymentMethodDomainValidateBodySchema,
+          postPaymentMethodDomainsPaymentMethodDomainValidateRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -55007,7 +55021,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const postPaymentMethodsBodySchema = z
+  const postPaymentMethodsRequestBody = z
     .object({
       acss_debit: z
         .object({
@@ -55338,7 +55352,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postPaymentMethodsBodySchema,
+          postPaymentMethodsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -55448,7 +55462,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     payment_method: z.string().max(5000),
   })
 
-  const postPaymentMethodsPaymentMethodBodySchema = z
+  const postPaymentMethodsPaymentMethodRequestBody = z
     .object({
       allow_redisplay: z.enum(["always", "limited", "unspecified"]).optional(),
       billing_details: z
@@ -55515,7 +55529,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postPaymentMethodsPaymentMethodBodySchema,
+          postPaymentMethodsPaymentMethodRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -55558,7 +55572,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     payment_method: z.string().max(5000),
   })
 
-  const postPaymentMethodsPaymentMethodAttachBodySchema = z.object({
+  const postPaymentMethodsPaymentMethodAttachRequestBody = z.object({
     customer: z.string().max(5000),
     expand: z.array(z.string().max(5000)).optional(),
   })
@@ -55578,7 +55592,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postPaymentMethodsPaymentMethodAttachBodySchema,
+          postPaymentMethodsPaymentMethodAttachRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -55624,7 +55638,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     payment_method: z.string().max(5000),
   })
 
-  const postPaymentMethodsPaymentMethodDetachBodySchema = z
+  const postPaymentMethodsPaymentMethodDetachRequestBody = z
     .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
@@ -55643,7 +55657,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postPaymentMethodsPaymentMethodDetachBodySchema,
+          postPaymentMethodsPaymentMethodDetachRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -55784,7 +55798,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const postPayoutsBodySchema = z.object({
+  const postPayoutsRequestBody = z.object({
     amount: z.coerce.number(),
     currency: z.string(),
     description: z.string().max(5000).optional(),
@@ -55806,7 +55820,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: undefined,
       body: parseRequestInput(
-        postPayoutsBodySchema,
+        postPayoutsRequestBody,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -55909,7 +55923,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const postPayoutsPayoutParamSchema = z.object({payout: z.string().max(5000)})
 
-  const postPayoutsPayoutBodySchema = z
+  const postPayoutsPayoutRequestBody = z
     .object({
       expand: z.array(z.string().max(5000)).optional(),
       metadata: z
@@ -55932,7 +55946,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       query: undefined,
       body: parseRequestInput(
-        postPayoutsPayoutBodySchema,
+        postPayoutsPayoutRequestBody,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -55974,7 +55988,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     payout: z.string().max(5000),
   })
 
-  const postPayoutsPayoutCancelBodySchema = z
+  const postPayoutsPayoutCancelRequestBody = z
     .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
@@ -55995,7 +56009,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postPayoutsPayoutCancelBodySchema,
+          postPayoutsPayoutCancelRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -56038,7 +56052,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     payout: z.string().max(5000),
   })
 
-  const postPayoutsPayoutReverseBodySchema = z
+  const postPayoutsPayoutReverseRequestBody = z
     .object({
       expand: z.array(z.string().max(5000)).optional(),
       metadata: z.record(z.string(), z.string()).optional(),
@@ -56062,7 +56076,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postPayoutsPayoutReverseBodySchema,
+          postPayoutsPayoutReverseRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -56189,7 +56203,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const postPlansBodySchema = z.object({
+  const postPlansRequestBody = z.object({
     active: PermissiveBoolean.optional(),
     amount: z.coerce.number().optional(),
     amount_decimal: z.string().optional(),
@@ -56247,7 +56261,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: undefined,
       body: parseRequestInput(
-        postPlansBodySchema,
+        postPlansRequestBody,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -56400,7 +56414,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const postPlansPlanParamSchema = z.object({plan: z.string().max(5000)})
 
-  const postPlansPlanBodySchema = z
+  const postPlansPlanRequestBody = z
     .object({
       active: PermissiveBoolean.optional(),
       expand: z.array(z.string().max(5000)).optional(),
@@ -56427,7 +56441,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       query: undefined,
       body: parseRequestInput(
-        postPlansPlanBodySchema,
+        postPlansPlanRequestBody,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -56568,7 +56582,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const postPricesBodySchema = z.object({
+  const postPricesRequestBody = z.object({
     active: PermissiveBoolean.optional(),
     billing_scheme: z.enum(["per_unit", "tiered"]).optional(),
     currency: z.string(),
@@ -56666,7 +56680,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: undefined,
       body: parseRequestInput(
-        postPricesBodySchema,
+        postPricesRequestBody,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -56848,7 +56862,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const postPricesPriceParamSchema = z.object({price: z.string().max(5000)})
 
-  const postPricesPriceBodySchema = z
+  const postPricesPriceRequestBody = z
     .object({
       active: PermissiveBoolean.optional(),
       currency_options: z
@@ -56912,7 +56926,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       query: undefined,
       body: parseRequestInput(
-        postPricesPriceBodySchema,
+        postPricesPriceRequestBody,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -57045,7 +57059,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const postProductsBodySchema = z.object({
+  const postProductsRequestBody = z.object({
     active: PermissiveBoolean.optional(),
     default_price_data: z
       .object({
@@ -57137,7 +57151,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: undefined,
       body: parseRequestInput(
-        postProductsBodySchema,
+        postProductsRequestBody,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -57369,7 +57383,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const postProductsIdParamSchema = z.object({id: z.string().max(5000)})
 
-  const postProductsIdBodySchema = z
+  const postProductsIdRequestBody = z
     .object({
       active: PermissiveBoolean.optional(),
       default_price: z.string().max(5000).optional(),
@@ -57416,7 +57430,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       query: undefined,
       body: parseRequestInput(
-        postProductsIdBodySchema,
+        postProductsIdRequestBody,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -57545,7 +57559,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     product: z.string().max(5000),
   })
 
-  const postProductsProductFeaturesBodySchema = z.object({
+  const postProductsProductFeaturesRequestBody = z.object({
     entitlement_feature: z.string().max(5000),
     expand: z.array(z.string().max(5000)).optional(),
   })
@@ -57565,7 +57579,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postProductsProductFeaturesBodySchema,
+          postProductsProductFeaturesRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -57817,7 +57831,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const postPromotionCodesBodySchema = z.object({
+  const postPromotionCodesRequestBody = z.object({
     active: PermissiveBoolean.optional(),
     code: z.string().max(500).optional(),
     coupon: z.string().max(5000),
@@ -57854,7 +57868,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postPromotionCodesBodySchema,
+          postPromotionCodesRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -57964,7 +57978,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     promotion_code: z.string().max(5000),
   })
 
-  const postPromotionCodesPromotionCodeBodySchema = z
+  const postPromotionCodesPromotionCodeRequestBody = z
     .object({
       active: PermissiveBoolean.optional(),
       expand: z.array(z.string().max(5000)).optional(),
@@ -57999,7 +58013,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postPromotionCodesPromotionCodeBodySchema,
+          postPromotionCodesPromotionCodeRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -58116,7 +58130,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const postQuotesBodySchema = z
+  const postQuotesRequestBody = z
     .object({
       application_fee_amount: z
         .union([z.coerce.number(), z.enum([""])])
@@ -58261,7 +58275,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: undefined,
       body: parseRequestInput(
-        postQuotesBodySchema,
+        postQuotesRequestBody,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -58364,7 +58378,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const postQuotesQuoteParamSchema = z.object({quote: z.string().max(5000)})
 
-  const postQuotesQuoteBodySchema = z
+  const postQuotesQuoteRequestBody = z
     .object({
       application_fee_amount: z
         .union([z.coerce.number(), z.enum([""])])
@@ -58504,7 +58518,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       query: undefined,
       body: parseRequestInput(
-        postQuotesQuoteBodySchema,
+        postQuotesQuoteRequestBody,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -58546,7 +58560,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     quote: z.string().max(5000),
   })
 
-  const postQuotesQuoteAcceptBodySchema = z
+  const postQuotesQuoteAcceptRequestBody = z
     .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
@@ -58567,7 +58581,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postQuotesQuoteAcceptBodySchema,
+          postQuotesQuoteAcceptRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -58610,7 +58624,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     quote: z.string().max(5000),
   })
 
-  const postQuotesQuoteCancelBodySchema = z
+  const postQuotesQuoteCancelRequestBody = z
     .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
@@ -58631,7 +58645,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postQuotesQuoteCancelBodySchema,
+          postQuotesQuoteCancelRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -58765,7 +58779,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     quote: z.string().max(5000),
   })
 
-  const postQuotesQuoteFinalizeBodySchema = z
+  const postQuotesQuoteFinalizeRequestBody = z
     .object({
       expand: z.array(z.string().max(5000)).optional(),
       expires_at: z.coerce.number().optional(),
@@ -58789,7 +58803,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postQuotesQuoteFinalizeBodySchema,
+          postQuotesQuoteFinalizeRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -59247,7 +59261,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postRadarValueListItemsBodySchema = z.object({
+  const postRadarValueListItemsRequestBody = z.object({
     expand: z.array(z.string().max(5000)).optional(),
     value: z.string().max(800),
     value_list: z.string().max(5000),
@@ -59266,7 +59280,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postRadarValueListItemsBodySchema,
+          postRadarValueListItemsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -59523,7 +59537,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postRadarValueListsBodySchema = z.object({
+  const postRadarValueListsRequestBody = z.object({
     alias: z.string().max(100),
     expand: z.array(z.string().max(5000)).optional(),
     item_type: z
@@ -59557,7 +59571,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postRadarValueListsBodySchema,
+          postRadarValueListsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -59721,7 +59735,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     value_list: z.string().max(5000),
   })
 
-  const postRadarValueListsValueListBodySchema = z
+  const postRadarValueListsValueListRequestBody = z
     .object({
       alias: z.string().max(100).optional(),
       expand: z.array(z.string().max(5000)).optional(),
@@ -59745,7 +59759,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postRadarValueListsValueListBodySchema,
+          postRadarValueListsValueListRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -59872,7 +59886,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const postRefundsBodySchema = z
+  const postRefundsRequestBody = z
     .object({
       amount: z.coerce.number().optional(),
       charge: z.string().max(5000).optional(),
@@ -59903,7 +59917,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: undefined,
       body: parseRequestInput(
-        postRefundsBodySchema,
+        postRefundsRequestBody,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -60006,7 +60020,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const postRefundsRefundParamSchema = z.object({refund: z.string()})
 
-  const postRefundsRefundBodySchema = z
+  const postRefundsRefundRequestBody = z
     .object({
       expand: z.array(z.string().max(5000)).optional(),
       metadata: z
@@ -60029,7 +60043,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       query: undefined,
       body: parseRequestInput(
-        postRefundsRefundBodySchema,
+        postRefundsRefundRequestBody,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -60069,7 +60083,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const postRefundsRefundCancelParamSchema = z.object({refund: z.string()})
 
-  const postRefundsRefundCancelBodySchema = z
+  const postRefundsRefundCancelRequestBody = z
     .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
@@ -60090,7 +60104,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postRefundsRefundCancelBodySchema,
+          postRefundsRefundCancelRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -60222,7 +60236,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postReportingReportRunsBodySchema = z.object({
+  const postReportingReportRunsRequestBody = z.object({
     expand: z.array(z.string().max(5000)).optional(),
     parameters: z
       .object({
@@ -60894,7 +60908,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postReportingReportRunsBodySchema,
+          postReportingReportRunsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -61299,7 +61313,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     review: z.string().max(5000),
   })
 
-  const postReviewsReviewApproveBodySchema = z
+  const postReviewsReviewApproveRequestBody = z
     .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
@@ -61320,7 +61334,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postReviewsReviewApproveBodySchema,
+          postReviewsReviewApproveRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -61535,7 +61549,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const postSetupIntentsBodySchema = z
+  const postSetupIntentsRequestBody = z
     .object({
       attach_to_self: PermissiveBoolean.optional(),
       automatic_payment_methods: z
@@ -62136,7 +62150,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: undefined,
       body: parseRequestInput(
-        postSetupIntentsBodySchema,
+        postSetupIntentsRequestBody,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -62248,7 +62262,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     intent: z.string().max(5000),
   })
 
-  const postSetupIntentsIntentBodySchema = z
+  const postSetupIntentsIntentRequestBody = z
     .object({
       attach_to_self: PermissiveBoolean.optional(),
       customer: z.string().max(5000).optional(),
@@ -62825,7 +62839,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postSetupIntentsIntentBodySchema,
+          postSetupIntentsIntentRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -62868,7 +62882,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     intent: z.string().max(5000),
   })
 
-  const postSetupIntentsIntentCancelBodySchema = z
+  const postSetupIntentsIntentCancelRequestBody = z
     .object({
       cancellation_reason: z
         .enum(["abandoned", "duplicate", "requested_by_customer"])
@@ -62892,7 +62906,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postSetupIntentsIntentCancelBodySchema,
+          postSetupIntentsIntentCancelRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -62935,7 +62949,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     intent: z.string().max(5000),
   })
 
-  const postSetupIntentsIntentConfirmBodySchema = z
+  const postSetupIntentsIntentConfirmRequestBody = z
     .object({
       client_secret: z.string().max(5000).optional(),
       confirmation_token: z.string().max(5000).optional(),
@@ -63532,7 +63546,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postSetupIntentsIntentConfirmBodySchema,
+          postSetupIntentsIntentConfirmRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -63575,7 +63589,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     intent: z.string().max(5000),
   })
 
-  const postSetupIntentsIntentVerifyMicrodepositsBodySchema = z
+  const postSetupIntentsIntentVerifyMicrodepositsRequestBody = z
     .object({
       amounts: z.array(z.coerce.number()).optional(),
       client_secret: z.string().max(5000).optional(),
@@ -63599,7 +63613,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postSetupIntentsIntentVerifyMicrodepositsBodySchema,
+          postSetupIntentsIntentVerifyMicrodepositsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -63729,7 +63743,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const postShippingRatesBodySchema = z.object({
+  const postShippingRatesRequestBody = z.object({
     delivery_estimate: z
       .object({
         maximum: z
@@ -63781,7 +63795,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: undefined,
       body: parseRequestInput(
-        postShippingRatesBodySchema,
+        postShippingRatesRequestBody,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -63893,7 +63907,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     shipping_rate_token: z.string().max(5000),
   })
 
-  const postShippingRatesShippingRateTokenBodySchema = z
+  const postShippingRatesShippingRateTokenRequestBody = z
     .object({
       active: PermissiveBoolean.optional(),
       expand: z.array(z.string().max(5000)).optional(),
@@ -63936,7 +63950,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postShippingRatesShippingRateTokenBodySchema,
+          postShippingRatesShippingRateTokenRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -63982,7 +63996,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     id: z.string().max(5000),
   })
 
-  const postSigmaSavedQueriesIdBodySchema = z
+  const postSigmaSavedQueriesIdRequestBody = z
     .object({
       expand: z.array(z.string().max(5000)).optional(),
       name: z.string().max(5000).optional(),
@@ -64007,7 +64021,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postSigmaSavedQueriesIdBodySchema,
+          postSigmaSavedQueriesIdRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -64203,7 +64217,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postSourcesBodySchema = z
+  const postSourcesRequestBody = z
     .object({
       amount: z.coerce.number().optional(),
       currency: z.string().optional(),
@@ -64321,7 +64335,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: undefined,
       body: parseRequestInput(
-        postSourcesBodySchema,
+        postSourcesRequestBody,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -64425,7 +64439,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const postSourcesSourceParamSchema = z.object({source: z.string().max(5000)})
 
-  const postSourcesSourceBodySchema = z
+  const postSourcesSourceRequestBody = z
     .object({
       amount: z.coerce.number().optional(),
       expand: z.array(z.string().max(5000)).optional(),
@@ -64531,7 +64545,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       query: undefined,
       body: parseRequestInput(
-        postSourcesSourceBodySchema,
+        postSourcesSourceRequestBody,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -64822,7 +64836,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     source: z.string().max(5000),
   })
 
-  const postSourcesSourceVerifyBodySchema = z.object({
+  const postSourcesSourceVerifyRequestBody = z.object({
     expand: z.array(z.string().max(5000)).optional(),
     values: z.array(z.string().max(5000)),
   })
@@ -64844,7 +64858,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postSourcesSourceVerifyBodySchema,
+          postSourcesSourceVerifyRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -64966,7 +64980,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postSubscriptionItemsBodySchema = z.object({
+  const postSubscriptionItemsRequestBody = z.object({
     billing_thresholds: z
       .union([z.object({usage_gte: z.coerce.number()}), z.enum([""])])
       .optional(),
@@ -65032,7 +65046,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postSubscriptionItemsBodySchema,
+          postSubscriptionItemsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -65075,7 +65089,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     item: z.string().max(5000),
   })
 
-  const deleteSubscriptionItemsItemBodySchema = z
+  const deleteSubscriptionItemsItemRequestBody = z
     .object({
       clear_usage: PermissiveBoolean.optional(),
       proration_behavior: z
@@ -65100,7 +65114,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          deleteSubscriptionItemsItemBodySchema,
+          deleteSubscriptionItemsItemRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -65212,7 +65226,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     item: z.string().max(5000),
   })
 
-  const postSubscriptionItemsItemBodySchema = z
+  const postSubscriptionItemsItemRequestBody = z
     .object({
       billing_thresholds: z
         .union([z.object({usage_gte: z.coerce.number()}), z.enum([""])])
@@ -65286,7 +65300,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postSubscriptionItemsItemBodySchema,
+          postSubscriptionItemsItemRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -65453,7 +65467,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postSubscriptionSchedulesBodySchema = z
+  const postSubscriptionSchedulesRequestBody = z
     .object({
       billing_mode: z
         .object({type: z.enum(["classic", "flexible"])})
@@ -65699,7 +65713,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postSubscriptionSchedulesBodySchema,
+          postSubscriptionSchedulesRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -65809,7 +65823,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     schedule: z.string().max(5000),
   })
 
-  const postSubscriptionSchedulesScheduleBodySchema = z
+  const postSubscriptionSchedulesScheduleRequestBody = z
     .object({
       default_settings: z
         .object({
@@ -66056,7 +66070,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postSubscriptionSchedulesScheduleBodySchema,
+          postSubscriptionSchedulesScheduleRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -66102,7 +66116,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     schedule: z.string().max(5000),
   })
 
-  const postSubscriptionSchedulesScheduleCancelBodySchema = z
+  const postSubscriptionSchedulesScheduleCancelRequestBody = z
     .object({
       expand: z.array(z.string().max(5000)).optional(),
       invoice_now: PermissiveBoolean.optional(),
@@ -66125,7 +66139,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postSubscriptionSchedulesScheduleCancelBodySchema,
+          postSubscriptionSchedulesScheduleCancelRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -66171,7 +66185,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     schedule: z.string().max(5000),
   })
 
-  const postSubscriptionSchedulesScheduleReleaseBodySchema = z
+  const postSubscriptionSchedulesScheduleReleaseRequestBody = z
     .object({
       expand: z.array(z.string().max(5000)).optional(),
       preserve_cancel_date: PermissiveBoolean.optional(),
@@ -66193,7 +66207,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postSubscriptionSchedulesScheduleReleaseBodySchema,
+          postSubscriptionSchedulesScheduleReleaseRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -66364,7 +66378,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const postSubscriptionsBodySchema = z.object({
+  const postSubscriptionsRequestBody = z.object({
     add_invoice_items: z
       .array(
         z.object({
@@ -66742,7 +66756,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: undefined,
       body: parseRequestInput(
-        postSubscriptionsBodySchema,
+        postSubscriptionsRequestBody,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -66867,7 +66881,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     subscription_exposed_id: z.string().max(5000),
   })
 
-  const deleteSubscriptionsSubscriptionExposedIdBodySchema = z
+  const deleteSubscriptionsSubscriptionExposedIdRequestBody = z
     .object({
       cancellation_details: z
         .object({
@@ -66908,7 +66922,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          deleteSubscriptionsSubscriptionExposedIdBodySchema,
+          deleteSubscriptionsSubscriptionExposedIdRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -67024,7 +67038,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     subscription_exposed_id: z.string().max(5000),
   })
 
-  const postSubscriptionsSubscriptionExposedIdBodySchema = z
+  const postSubscriptionsSubscriptionExposedIdRequestBody = z
     .object({
       add_invoice_items: z
         .array(
@@ -67439,7 +67453,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postSubscriptionsSubscriptionExposedIdBodySchema,
+          postSubscriptionsSubscriptionExposedIdRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -67548,7 +67562,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     subscription: z.string().max(5000),
   })
 
-  const postSubscriptionsSubscriptionMigrateBodySchema = z.object({
+  const postSubscriptionsSubscriptionMigrateRequestBody = z.object({
     billing_mode: z.object({type: z.enum(["flexible"])}),
     expand: z.array(z.string().max(5000)).optional(),
   })
@@ -67568,7 +67582,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postSubscriptionsSubscriptionMigrateBodySchema,
+          postSubscriptionsSubscriptionMigrateRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -67614,7 +67628,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     subscription: z.string().max(5000),
   })
 
-  const postSubscriptionsSubscriptionResumeBodySchema = z
+  const postSubscriptionsSubscriptionResumeRequestBody = z
     .object({
       billing_cycle_anchor: z.enum(["now", "unchanged"]).optional(),
       expand: z.array(z.string().max(5000)).optional(),
@@ -67640,7 +67654,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postSubscriptionsSubscriptionResumeBodySchema,
+          postSubscriptionsSubscriptionResumeRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -67682,7 +67696,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postTaxCalculationsBodySchema = z.object({
+  const postTaxCalculationsRequestBody = z.object({
     currency: z.string(),
     customer: z.string().max(5000).optional(),
     customer_details: z
@@ -67873,7 +67887,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postTaxCalculationsBodySchema,
+          postTaxCalculationsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -68153,7 +68167,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postTaxRegistrationsBodySchema = z.object({
+  const postTaxRegistrationsRequestBody = z.object({
     active_from: z.union([z.enum(["now"]), z.coerce.number()]),
     country: z.string().max(5000),
     country_options: z.object({
@@ -68993,7 +69007,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postTaxRegistrationsBodySchema,
+          postTaxRegistrationsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -69101,7 +69115,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const postTaxRegistrationsIdParamSchema = z.object({id: z.string().max(5000)})
 
-  const postTaxRegistrationsIdBodySchema = z
+  const postTaxRegistrationsIdRequestBody = z
     .object({
       active_from: z.union([z.enum(["now"]), z.coerce.number()]).optional(),
       expand: z.array(z.string().max(5000)).optional(),
@@ -69128,7 +69142,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTaxRegistrationsIdBodySchema,
+          postTaxRegistrationsIdRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -69224,7 +69238,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const postTaxSettingsBodySchema = z
+  const postTaxSettingsRequestBody = z
     .object({
       defaults: z
         .object({
@@ -69260,7 +69274,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: undefined,
       body: parseRequestInput(
-        postTaxSettingsBodySchema,
+        postTaxSettingsRequestBody,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -69298,7 +69312,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const postTaxTransactionsCreateFromCalculationBodySchema = z.object({
+  const postTaxTransactionsCreateFromCalculationRequestBody = z.object({
     calculation: z.string().max(5000),
     expand: z.array(z.string().max(5000)).optional(),
     metadata: z.record(z.string(), z.string()).optional(),
@@ -69317,7 +69331,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postTaxTransactionsCreateFromCalculationBodySchema,
+          postTaxTransactionsCreateFromCalculationRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -69359,7 +69373,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postTaxTransactionsCreateReversalBodySchema = z.object({
+  const postTaxTransactionsCreateReversalRequestBody = z.object({
     expand: z.array(z.string().max(5000)).optional(),
     flat_amount: z.coerce.number().optional(),
     line_items: z
@@ -69394,7 +69408,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postTaxTransactionsCreateReversalBodySchema,
+          postTaxTransactionsCreateReversalRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -69817,7 +69831,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const postTaxIdsBodySchema = z.object({
+  const postTaxIdsRequestBody = z.object({
     expand: z.array(z.string().max(5000)).optional(),
     owner: z
       .object({
@@ -69951,7 +69965,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: undefined,
       body: parseRequestInput(
-        postTaxIdsBodySchema,
+        postTaxIdsRequestBody,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -70190,7 +70204,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const postTaxRatesBodySchema = z.object({
+  const postTaxRatesRequestBody = z.object({
     active: PermissiveBoolean.optional(),
     country: z.string().max(5000).optional(),
     description: z.string().max(5000).optional(),
@@ -70231,7 +70245,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: undefined,
       body: parseRequestInput(
-        postTaxRatesBodySchema,
+        postTaxRatesRequestBody,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -70342,7 +70356,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     tax_rate: z.string().max(5000),
   })
 
-  const postTaxRatesTaxRateBodySchema = z
+  const postTaxRatesTaxRateRequestBody = z
     .object({
       active: PermissiveBoolean.optional(),
       country: z.string().max(5000).optional(),
@@ -70392,7 +70406,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTaxRatesTaxRateBodySchema,
+          postTaxRatesTaxRateRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -70514,7 +70528,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postTerminalConfigurationsBodySchema = z
+  const postTerminalConfigurationsRequestBody = z
     .object({
       bbpos_wisepos_e: z
         .object({splashscreen: z.union([z.string(), z.enum([""])]).optional()})
@@ -70731,7 +70745,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postTerminalConfigurationsBodySchema,
+          postTerminalConfigurationsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -70917,7 +70931,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     configuration: z.string().max(5000),
   })
 
-  const postTerminalConfigurationsConfigurationBodySchema = z
+  const postTerminalConfigurationsConfigurationRequestBody = z
     .object({
       bbpos_wisepos_e: z
         .union([
@@ -71168,7 +71182,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTerminalConfigurationsConfigurationBodySchema,
+          postTerminalConfigurationsConfigurationRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -71212,7 +71226,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postTerminalConnectionTokensBodySchema = z
+  const postTerminalConnectionTokensRequestBody = z
     .object({
       expand: z.array(z.string().max(5000)).optional(),
       location: z.string().max(5000).optional(),
@@ -71230,7 +71244,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postTerminalConnectionTokensBodySchema,
+          postTerminalConnectionTokensRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -71351,7 +71365,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postTerminalLocationsBodySchema = z.object({
+  const postTerminalLocationsRequestBody = z.object({
     address: z.object({
       city: z.string().max(5000).optional(),
       country: z.string().max(5000),
@@ -71381,7 +71395,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postTerminalLocationsBodySchema,
+          postTerminalLocationsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -71550,7 +71564,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     location: z.string().max(5000),
   })
 
-  const postTerminalLocationsLocationBodySchema = z
+  const postTerminalLocationsLocationRequestBody = z
     .object({
       address: z
         .object({
@@ -71591,7 +71605,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTerminalLocationsLocationBodySchema,
+          postTerminalLocationsLocationRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -71727,7 +71741,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postTerminalReadersBodySchema = z.object({
+  const postTerminalReadersRequestBody = z.object({
     expand: z.array(z.string().max(5000)).optional(),
     label: z.string().max(5000).optional(),
     location: z.string().max(5000).optional(),
@@ -71750,7 +71764,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postTerminalReadersBodySchema,
+          postTerminalReadersRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -71923,7 +71937,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     reader: z.string().max(5000),
   })
 
-  const postTerminalReadersReaderBodySchema = z
+  const postTerminalReadersReaderRequestBody = z
     .object({
       expand: z.array(z.string().max(5000)).optional(),
       label: z.union([z.string().max(5000), z.enum([""])]).optional(),
@@ -71955,7 +71969,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTerminalReadersReaderBodySchema,
+          postTerminalReadersReaderRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -72000,7 +72014,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     reader: z.string().max(5000),
   })
 
-  const postTerminalReadersReaderCancelActionBodySchema = z
+  const postTerminalReadersReaderCancelActionRequestBody = z
     .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
@@ -72019,7 +72033,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTerminalReadersReaderCancelActionBodySchema,
+          postTerminalReadersReaderCancelActionRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -72065,7 +72079,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     reader: z.string().max(5000),
   })
 
-  const postTerminalReadersReaderCollectInputsBodySchema = z.object({
+  const postTerminalReadersReaderCollectInputsRequestBody = z.object({
     expand: z.array(z.string().max(5000)).optional(),
     inputs: z.array(
       z.object({
@@ -72124,7 +72138,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTerminalReadersReaderCollectInputsBodySchema,
+          postTerminalReadersReaderCollectInputsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -72170,7 +72184,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     reader: z.string().max(5000),
   })
 
-  const postTerminalReadersReaderCollectPaymentMethodBodySchema = z.object({
+  const postTerminalReadersReaderCollectPaymentMethodRequestBody = z.object({
     collect_config: z
       .object({
         allow_redisplay: z
@@ -72202,7 +72216,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTerminalReadersReaderCollectPaymentMethodBodySchema,
+          postTerminalReadersReaderCollectPaymentMethodRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -72253,7 +72267,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     reader: z.string().max(5000),
   })
 
-  const postTerminalReadersReaderConfirmPaymentIntentBodySchema = z.object({
+  const postTerminalReadersReaderConfirmPaymentIntentRequestBody = z.object({
     confirm_config: z.object({return_url: z.string().optional()}).optional(),
     expand: z.array(z.string().max(5000)).optional(),
     payment_intent: z.string().max(5000),
@@ -72274,7 +72288,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTerminalReadersReaderConfirmPaymentIntentBodySchema,
+          postTerminalReadersReaderConfirmPaymentIntentRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -72325,7 +72339,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     reader: z.string().max(5000),
   })
 
-  const postTerminalReadersReaderProcessPaymentIntentBodySchema = z.object({
+  const postTerminalReadersReaderProcessPaymentIntentRequestBody = z.object({
     expand: z.array(z.string().max(5000)).optional(),
     payment_intent: z.string().max(5000),
     process_config: z
@@ -72358,7 +72372,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTerminalReadersReaderProcessPaymentIntentBodySchema,
+          postTerminalReadersReaderProcessPaymentIntentRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -72409,7 +72423,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     reader: z.string().max(5000),
   })
 
-  const postTerminalReadersReaderProcessSetupIntentBodySchema = z.object({
+  const postTerminalReadersReaderProcessSetupIntentRequestBody = z.object({
     allow_redisplay: z.enum(["always", "limited", "unspecified"]),
     expand: z.array(z.string().max(5000)).optional(),
     process_config: z
@@ -72433,7 +72447,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTerminalReadersReaderProcessSetupIntentBodySchema,
+          postTerminalReadersReaderProcessSetupIntentRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -72484,7 +72498,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     reader: z.string().max(5000),
   })
 
-  const postTerminalReadersReaderRefundPaymentBodySchema = z
+  const postTerminalReadersReaderRefundPaymentRequestBody = z
     .object({
       amount: z.coerce.number().optional(),
       charge: z.string().max(5000).optional(),
@@ -72514,7 +72528,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTerminalReadersReaderRefundPaymentBodySchema,
+          postTerminalReadersReaderRefundPaymentRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -72560,7 +72574,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     reader: z.string().max(5000),
   })
 
-  const postTerminalReadersReaderSetReaderDisplayBodySchema = z.object({
+  const postTerminalReadersReaderSetReaderDisplayRequestBody = z.object({
     cart: z
       .object({
         currency: z.string(),
@@ -72594,7 +72608,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTerminalReadersReaderSetReaderDisplayBodySchema,
+          postTerminalReadersReaderSetReaderDisplayRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -72636,7 +72650,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postTestHelpersConfirmationTokensBodySchema = z
+  const postTestHelpersConfirmationTokensRequestBody = z
     .object({
       expand: z.array(z.string().max(5000)).optional(),
       payment_method: z.string().max(5000).optional(),
@@ -72982,7 +72996,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postTestHelpersConfirmationTokensBodySchema,
+          postTestHelpersConfirmationTokensRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -73028,7 +73042,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     customer: z.string().max(5000),
   })
 
-  const postTestHelpersCustomersCustomerFundCashBalanceBodySchema = z.object({
+  const postTestHelpersCustomersCustomerFundCashBalanceRequestBody = z.object({
     amount: z.coerce.number(),
     currency: z.string(),
     expand: z.array(z.string().max(5000)).optional(),
@@ -73053,7 +73067,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTestHelpersCustomersCustomerFundCashBalanceBodySchema,
+          postTestHelpersCustomersCustomerFundCashBalanceRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -73103,7 +73117,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postTestHelpersIssuingAuthorizationsBodySchema = z.object({
+  const postTestHelpersIssuingAuthorizationsRequestBody = z.object({
     amount: z.coerce.number().optional(),
     amount_details: z
       .object({
@@ -73546,7 +73560,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postTestHelpersIssuingAuthorizationsBodySchema,
+          postTestHelpersIssuingAuthorizationsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -73591,7 +73605,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const postTestHelpersIssuingAuthorizationsAuthorizationCaptureParamSchema =
     z.object({authorization: z.string().max(5000)})
 
-  const postTestHelpersIssuingAuthorizationsAuthorizationCaptureBodySchema = z
+  const postTestHelpersIssuingAuthorizationsAuthorizationCaptureRequestBody = z
     .object({
       capture_amount: z.coerce.number().optional(),
       close_authorization: PermissiveBoolean.optional(),
@@ -73722,7 +73736,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTestHelpersIssuingAuthorizationsAuthorizationCaptureBodySchema,
+          postTestHelpersIssuingAuthorizationsAuthorizationCaptureRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -73773,7 +73787,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const postTestHelpersIssuingAuthorizationsAuthorizationExpireParamSchema =
     z.object({authorization: z.string().max(5000)})
 
-  const postTestHelpersIssuingAuthorizationsAuthorizationExpireBodySchema = z
+  const postTestHelpersIssuingAuthorizationsAuthorizationExpireRequestBody = z
     .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
@@ -73792,7 +73806,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTestHelpersIssuingAuthorizationsAuthorizationExpireBodySchema,
+          postTestHelpersIssuingAuthorizationsAuthorizationExpireRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -73843,7 +73857,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const postTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmountParamSchema =
     z.object({authorization: z.string().max(5000)})
 
-  const postTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmountBodySchema =
+  const postTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmountRequestBody =
     z.object({
       expand: z.array(z.string().max(5000)).optional(),
       final_amount: z.coerce.number(),
@@ -73931,7 +73945,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmountBodySchema,
+          postTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmountRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -73982,7 +73996,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const postTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespondParamSchema =
     z.object({authorization: z.string().max(5000)})
 
-  const postTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespondBodySchema =
+  const postTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespondRequestBody =
     z.object({
       confirmed: PermissiveBoolean,
       expand: z.array(z.string().max(5000)).optional(),
@@ -74003,7 +74017,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespondBodySchema,
+          postTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespondRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -74054,7 +74068,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const postTestHelpersIssuingAuthorizationsAuthorizationIncrementParamSchema =
     z.object({authorization: z.string().max(5000)})
 
-  const postTestHelpersIssuingAuthorizationsAuthorizationIncrementBodySchema =
+  const postTestHelpersIssuingAuthorizationsAuthorizationIncrementRequestBody =
     z.object({
       expand: z.array(z.string().max(5000)).optional(),
       increment_amount: z.coerce.number(),
@@ -74076,7 +74090,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTestHelpersIssuingAuthorizationsAuthorizationIncrementBodySchema,
+          postTestHelpersIssuingAuthorizationsAuthorizationIncrementRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -74127,7 +74141,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const postTestHelpersIssuingAuthorizationsAuthorizationReverseParamSchema =
     z.object({authorization: z.string().max(5000)})
 
-  const postTestHelpersIssuingAuthorizationsAuthorizationReverseBodySchema = z
+  const postTestHelpersIssuingAuthorizationsAuthorizationReverseRequestBody = z
     .object({
       expand: z.array(z.string().max(5000)).optional(),
       reverse_amount: z.coerce.number().optional(),
@@ -74149,7 +74163,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTestHelpersIssuingAuthorizationsAuthorizationReverseBodySchema,
+          postTestHelpersIssuingAuthorizationsAuthorizationReverseRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -74201,7 +74215,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     card: z.string().max(5000),
   })
 
-  const postTestHelpersIssuingCardsCardShippingDeliverBodySchema = z
+  const postTestHelpersIssuingCardsCardShippingDeliverRequestBody = z
     .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
@@ -74220,7 +74234,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTestHelpersIssuingCardsCardShippingDeliverBodySchema,
+          postTestHelpersIssuingCardsCardShippingDeliverRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -74272,7 +74286,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     card: z.string().max(5000),
   })
 
-  const postTestHelpersIssuingCardsCardShippingFailBodySchema = z
+  const postTestHelpersIssuingCardsCardShippingFailRequestBody = z
     .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
@@ -74291,7 +74305,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTestHelpersIssuingCardsCardShippingFailBodySchema,
+          postTestHelpersIssuingCardsCardShippingFailRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -74342,7 +74356,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     card: z.string().max(5000),
   })
 
-  const postTestHelpersIssuingCardsCardShippingReturnBodySchema = z
+  const postTestHelpersIssuingCardsCardShippingReturnRequestBody = z
     .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
@@ -74361,7 +74375,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTestHelpersIssuingCardsCardShippingReturnBodySchema,
+          postTestHelpersIssuingCardsCardShippingReturnRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -74412,7 +74426,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     card: z.string().max(5000),
   })
 
-  const postTestHelpersIssuingCardsCardShippingShipBodySchema = z
+  const postTestHelpersIssuingCardsCardShippingShipRequestBody = z
     .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
@@ -74431,7 +74445,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTestHelpersIssuingCardsCardShippingShipBodySchema,
+          postTestHelpersIssuingCardsCardShippingShipRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -74482,7 +74496,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     card: z.string().max(5000),
   })
 
-  const postTestHelpersIssuingCardsCardShippingSubmitBodySchema = z
+  const postTestHelpersIssuingCardsCardShippingSubmitRequestBody = z
     .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
@@ -74501,7 +74515,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTestHelpersIssuingCardsCardShippingSubmitBodySchema,
+          postTestHelpersIssuingCardsCardShippingSubmitRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -74551,7 +74565,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivateParamSchema =
     z.object({personalization_design: z.string().max(5000)})
 
-  const postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivateBodySchema =
+  const postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivateRequestBody =
     z.object({expand: z.array(z.string().max(5000)).optional()}).optional()
 
   const postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivateResponseValidator =
@@ -74572,7 +74586,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivateBodySchema,
+          postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivateRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -74623,7 +74637,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivateParamSchema =
     z.object({personalization_design: z.string().max(5000)})
 
-  const postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivateBodySchema =
+  const postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivateRequestBody =
     z.object({expand: z.array(z.string().max(5000)).optional()}).optional()
 
   const postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivateResponseValidator =
@@ -74644,7 +74658,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivateBodySchema,
+          postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivateRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -74695,7 +74709,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignRejectParamSchema =
     z.object({personalization_design: z.string().max(5000)})
 
-  const postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignRejectBodySchema =
+  const postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignRejectRequestBody =
     z.object({
       expand: z.array(z.string().max(5000)).optional(),
       rejection_reasons: z.object({
@@ -74747,7 +74761,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignRejectBodySchema,
+          postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignRejectRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -74795,7 +74809,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postTestHelpersIssuingSettlementsBodySchema = z.object({
+  const postTestHelpersIssuingSettlementsRequestBody = z.object({
     bin: z.string().max(5000),
     clearing_date: z.coerce.number(),
     currency: z.string(),
@@ -74819,7 +74833,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postTestHelpersIssuingSettlementsBodySchema,
+          postTestHelpersIssuingSettlementsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -74864,7 +74878,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const postTestHelpersIssuingSettlementsSettlementCompleteParamSchema =
     z.object({settlement: z.string().max(5000)})
 
-  const postTestHelpersIssuingSettlementsSettlementCompleteBodySchema = z
+  const postTestHelpersIssuingSettlementsSettlementCompleteRequestBody = z
     .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
@@ -74883,7 +74897,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTestHelpersIssuingSettlementsSettlementCompleteBodySchema,
+          postTestHelpersIssuingSettlementsSettlementCompleteRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -74931,7 +74945,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postTestHelpersIssuingTransactionsCreateForceCaptureBodySchema =
+  const postTestHelpersIssuingTransactionsCreateForceCaptureRequestBody =
     z.object({
       amount: z.coerce.number(),
       card: z.string().max(5000),
@@ -75368,7 +75382,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postTestHelpersIssuingTransactionsCreateForceCaptureBodySchema,
+          postTestHelpersIssuingTransactionsCreateForceCaptureRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -75416,7 +75430,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postTestHelpersIssuingTransactionsCreateUnlinkedRefundBodySchema =
+  const postTestHelpersIssuingTransactionsCreateUnlinkedRefundRequestBody =
     z.object({
       amount: z.coerce.number(),
       card: z.string().max(5000),
@@ -75853,7 +75867,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postTestHelpersIssuingTransactionsCreateUnlinkedRefundBodySchema,
+          postTestHelpersIssuingTransactionsCreateUnlinkedRefundRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -75904,7 +75918,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const postTestHelpersIssuingTransactionsTransactionRefundParamSchema =
     z.object({transaction: z.string().max(5000)})
 
-  const postTestHelpersIssuingTransactionsTransactionRefundBodySchema = z
+  const postTestHelpersIssuingTransactionsTransactionRefundRequestBody = z
     .object({
       expand: z.array(z.string().max(5000)).optional(),
       refund_amount: z.coerce.number().optional(),
@@ -75926,7 +75940,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTestHelpersIssuingTransactionsTransactionRefundBodySchema,
+          postTestHelpersIssuingTransactionsTransactionRefundRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -75978,7 +75992,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     refund: z.string(),
   })
 
-  const postTestHelpersRefundsRefundExpireBodySchema = z
+  const postTestHelpersRefundsRefundExpireRequestBody = z
     .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
@@ -75997,7 +76011,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTestHelpersRefundsRefundExpireBodySchema,
+          postTestHelpersRefundsRefundExpireRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -76042,7 +76056,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const postTestHelpersTerminalReadersReaderPresentPaymentMethodParamSchema =
     z.object({reader: z.string().max(5000)})
 
-  const postTestHelpersTerminalReadersReaderPresentPaymentMethodBodySchema = z
+  const postTestHelpersTerminalReadersReaderPresentPaymentMethodRequestBody = z
     .object({
       amount_tip: z.coerce.number().optional(),
       card_present: z
@@ -76071,7 +76085,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTestHelpersTerminalReadersReaderPresentPaymentMethodBodySchema,
+          postTestHelpersTerminalReadersReaderPresentPaymentMethodRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -76122,12 +76136,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const postTestHelpersTerminalReadersReaderSucceedInputCollectionParamSchema =
     z.object({reader: z.string().max(5000)})
 
-  const postTestHelpersTerminalReadersReaderSucceedInputCollectionBodySchema = z
-    .object({
-      expand: z.array(z.string().max(5000)).optional(),
-      skip_non_required_inputs: z.enum(["all", "none"]).optional(),
-    })
-    .optional()
+  const postTestHelpersTerminalReadersReaderSucceedInputCollectionRequestBody =
+    z
+      .object({
+        expand: z.array(z.string().max(5000)).optional(),
+        skip_non_required_inputs: z.enum(["all", "none"]).optional(),
+      })
+      .optional()
 
   const postTestHelpersTerminalReadersReaderSucceedInputCollectionResponseValidator =
     responseValidationFactory([["200", s_terminal_reader]], s_error)
@@ -76144,7 +76159,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTestHelpersTerminalReadersReaderSucceedInputCollectionBodySchema,
+          postTestHelpersTerminalReadersReaderSucceedInputCollectionRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -76195,9 +76210,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const postTestHelpersTerminalReadersReaderTimeoutInputCollectionParamSchema =
     z.object({reader: z.string().max(5000)})
 
-  const postTestHelpersTerminalReadersReaderTimeoutInputCollectionBodySchema = z
-    .object({expand: z.array(z.string().max(5000)).optional()})
-    .optional()
+  const postTestHelpersTerminalReadersReaderTimeoutInputCollectionRequestBody =
+    z.object({expand: z.array(z.string().max(5000)).optional()}).optional()
 
   const postTestHelpersTerminalReadersReaderTimeoutInputCollectionResponseValidator =
     responseValidationFactory([["200", s_terminal_reader]], s_error)
@@ -76214,7 +76228,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTestHelpersTerminalReadersReaderTimeoutInputCollectionBodySchema,
+          postTestHelpersTerminalReadersReaderTimeoutInputCollectionRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -76344,7 +76358,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postTestHelpersTestClocksBodySchema = z.object({
+  const postTestHelpersTestClocksRequestBody = z.object({
     expand: z.array(z.string().max(5000)).optional(),
     frozen_time: z.coerce.number(),
     name: z.string().max(300).optional(),
@@ -76363,7 +76377,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postTestHelpersTestClocksBodySchema,
+          postTestHelpersTestClocksRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -76536,7 +76550,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     test_clock: z.string().max(5000),
   })
 
-  const postTestHelpersTestClocksTestClockAdvanceBodySchema = z.object({
+  const postTestHelpersTestClocksTestClockAdvanceRequestBody = z.object({
     expand: z.array(z.string().max(5000)).optional(),
     frozen_time: z.coerce.number(),
   })
@@ -76556,7 +76570,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTestHelpersTestClocksTestClockAdvanceBodySchema,
+          postTestHelpersTestClocksTestClockAdvanceRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -76602,7 +76616,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     id: z.string().max(5000),
   })
 
-  const postTestHelpersTreasuryInboundTransfersIdFailBodySchema = z
+  const postTestHelpersTreasuryInboundTransfersIdFailRequestBody = z
     .object({
       expand: z.array(z.string().max(5000)).optional(),
       failure_details: z
@@ -76644,7 +76658,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTestHelpersTreasuryInboundTransfersIdFailBodySchema,
+          postTestHelpersTreasuryInboundTransfersIdFailRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -76695,7 +76709,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     id: z.string().max(5000),
   })
 
-  const postTestHelpersTreasuryInboundTransfersIdReturnBodySchema = z
+  const postTestHelpersTreasuryInboundTransfersIdReturnRequestBody = z
     .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
@@ -76714,7 +76728,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTestHelpersTreasuryInboundTransfersIdReturnBodySchema,
+          postTestHelpersTreasuryInboundTransfersIdReturnRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -76766,7 +76780,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     id: z.string().max(5000),
   })
 
-  const postTestHelpersTreasuryInboundTransfersIdSucceedBodySchema = z
+  const postTestHelpersTreasuryInboundTransfersIdSucceedRequestBody = z
     .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
@@ -76785,7 +76799,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTestHelpersTreasuryInboundTransfersIdSucceedBodySchema,
+          postTestHelpersTreasuryInboundTransfersIdSucceedRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -76837,7 +76851,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     id: z.string().max(5000),
   })
 
-  const postTestHelpersTreasuryOutboundPaymentsIdBodySchema = z.object({
+  const postTestHelpersTreasuryOutboundPaymentsIdRequestBody = z.object({
     expand: z.array(z.string().max(5000)).optional(),
     tracking_details: z.object({
       ach: z.object({trace_id: z.string().max(5000)}).optional(),
@@ -76867,7 +76881,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTestHelpersTreasuryOutboundPaymentsIdBodySchema,
+          postTestHelpersTreasuryOutboundPaymentsIdRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -76913,7 +76927,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     id: z.string().max(5000),
   })
 
-  const postTestHelpersTreasuryOutboundPaymentsIdFailBodySchema = z
+  const postTestHelpersTreasuryOutboundPaymentsIdFailRequestBody = z
     .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
@@ -76932,7 +76946,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTestHelpersTreasuryOutboundPaymentsIdFailBodySchema,
+          postTestHelpersTreasuryOutboundPaymentsIdFailRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -76983,7 +76997,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     id: z.string().max(5000),
   })
 
-  const postTestHelpersTreasuryOutboundPaymentsIdPostBodySchema = z
+  const postTestHelpersTreasuryOutboundPaymentsIdPostRequestBody = z
     .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
@@ -77002,7 +77016,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTestHelpersTreasuryOutboundPaymentsIdPostBodySchema,
+          postTestHelpersTreasuryOutboundPaymentsIdPostRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -77053,7 +77067,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     id: z.string().max(5000),
   })
 
-  const postTestHelpersTreasuryOutboundPaymentsIdReturnBodySchema = z
+  const postTestHelpersTreasuryOutboundPaymentsIdReturnRequestBody = z
     .object({
       expand: z.array(z.string().max(5000)).optional(),
       returned_details: z
@@ -77092,7 +77106,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTestHelpersTreasuryOutboundPaymentsIdReturnBodySchema,
+          postTestHelpersTreasuryOutboundPaymentsIdReturnRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -77143,7 +77157,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const postTestHelpersTreasuryOutboundTransfersOutboundTransferParamSchema =
     z.object({outbound_transfer: z.string().max(5000)})
 
-  const postTestHelpersTreasuryOutboundTransfersOutboundTransferBodySchema =
+  const postTestHelpersTreasuryOutboundTransfersOutboundTransferRequestBody =
     z.object({
       expand: z.array(z.string().max(5000)).optional(),
       tracking_details: z.object({
@@ -77174,7 +77188,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTestHelpersTreasuryOutboundTransfersOutboundTransferBodySchema,
+          postTestHelpersTreasuryOutboundTransfersOutboundTransferRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -77225,7 +77239,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const postTestHelpersTreasuryOutboundTransfersOutboundTransferFailParamSchema =
     z.object({outbound_transfer: z.string().max(5000)})
 
-  const postTestHelpersTreasuryOutboundTransfersOutboundTransferFailBodySchema =
+  const postTestHelpersTreasuryOutboundTransfersOutboundTransferFailRequestBody =
     z.object({expand: z.array(z.string().max(5000)).optional()}).optional()
 
   const postTestHelpersTreasuryOutboundTransfersOutboundTransferFailResponseValidator =
@@ -77243,7 +77257,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTestHelpersTreasuryOutboundTransfersOutboundTransferFailBodySchema,
+          postTestHelpersTreasuryOutboundTransfersOutboundTransferFailRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -77294,7 +77308,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const postTestHelpersTreasuryOutboundTransfersOutboundTransferPostParamSchema =
     z.object({outbound_transfer: z.string().max(5000)})
 
-  const postTestHelpersTreasuryOutboundTransfersOutboundTransferPostBodySchema =
+  const postTestHelpersTreasuryOutboundTransfersOutboundTransferPostRequestBody =
     z.object({expand: z.array(z.string().max(5000)).optional()}).optional()
 
   const postTestHelpersTreasuryOutboundTransfersOutboundTransferPostResponseValidator =
@@ -77312,7 +77326,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTestHelpersTreasuryOutboundTransfersOutboundTransferPostBodySchema,
+          postTestHelpersTreasuryOutboundTransfersOutboundTransferPostRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -77363,7 +77377,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const postTestHelpersTreasuryOutboundTransfersOutboundTransferReturnParamSchema =
     z.object({outbound_transfer: z.string().max(5000)})
 
-  const postTestHelpersTreasuryOutboundTransfersOutboundTransferReturnBodySchema =
+  const postTestHelpersTreasuryOutboundTransfersOutboundTransferReturnRequestBody =
     z
       .object({
         expand: z.array(z.string().max(5000)).optional(),
@@ -77403,7 +77417,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTestHelpersTreasuryOutboundTransfersOutboundTransferReturnBodySchema,
+          postTestHelpersTreasuryOutboundTransfersOutboundTransferReturnRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -77451,7 +77465,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postTestHelpersTreasuryReceivedCreditsBodySchema = z.object({
+  const postTestHelpersTreasuryReceivedCreditsRequestBody = z.object({
     amount: z.coerce.number(),
     currency: z.string(),
     description: z.string().max(5000).optional(),
@@ -77483,7 +77497,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postTestHelpersTreasuryReceivedCreditsBodySchema,
+          postTestHelpersTreasuryReceivedCreditsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -77525,7 +77539,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postTestHelpersTreasuryReceivedDebitsBodySchema = z.object({
+  const postTestHelpersTreasuryReceivedDebitsRequestBody = z.object({
     amount: z.coerce.number(),
     currency: z.string(),
     description: z.string().max(5000).optional(),
@@ -77557,7 +77571,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postTestHelpersTreasuryReceivedDebitsBodySchema,
+          postTestHelpersTreasuryReceivedDebitsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -77599,7 +77613,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postTokensBodySchema = z
+  const postTokensRequestBody = z
     .object({
       account: z
         .object({
@@ -78092,7 +78106,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: undefined,
       body: parseRequestInput(
-        postTokensBodySchema,
+        postTokensRequestBody,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -78291,7 +78305,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const postTopupsBodySchema = z.object({
+  const postTopupsRequestBody = z.object({
     amount: z.coerce.number(),
     currency: z.string(),
     description: z.string().max(5000).optional(),
@@ -78314,7 +78328,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: undefined,
       body: parseRequestInput(
-        postTopupsBodySchema,
+        postTopupsRequestBody,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -78417,7 +78431,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const postTopupsTopupParamSchema = z.object({topup: z.string().max(5000)})
 
-  const postTopupsTopupBodySchema = z
+  const postTopupsTopupRequestBody = z
     .object({
       description: z.string().max(5000).optional(),
       expand: z.array(z.string().max(5000)).optional(),
@@ -78441,7 +78455,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       query: undefined,
       body: parseRequestInput(
-        postTopupsTopupBodySchema,
+        postTopupsTopupRequestBody,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -78483,7 +78497,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     topup: z.string().max(5000),
   })
 
-  const postTopupsTopupCancelBodySchema = z
+  const postTopupsTopupCancelRequestBody = z
     .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
@@ -78504,7 +78518,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTopupsTopupCancelBodySchema,
+          postTopupsTopupCancelRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -78631,7 +78645,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const postTransfersBodySchema = z.object({
+  const postTransfersRequestBody = z.object({
     amount: z.coerce.number().optional(),
     currency: z.string(),
     description: z.string().max(5000).optional(),
@@ -78653,7 +78667,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: undefined,
       body: parseRequestInput(
-        postTransfersBodySchema,
+        postTransfersRequestBody,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -78782,7 +78796,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     id: z.string().max(5000),
   })
 
-  const postTransfersIdReversalsBodySchema = z
+  const postTransfersIdReversalsRequestBody = z
     .object({
       amount: z.coerce.number().optional(),
       description: z.string().max(5000).optional(),
@@ -78811,7 +78825,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTransfersIdReversalsBodySchema,
+          postTransfersIdReversalsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -78923,7 +78937,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     transfer: z.string().max(5000),
   })
 
-  const postTransfersTransferBodySchema = z
+  const postTransfersTransferRequestBody = z
     .object({
       description: z.string().max(5000).optional(),
       expand: z.array(z.string().max(5000)).optional(),
@@ -78950,7 +78964,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTransfersTransferBodySchema,
+          postTransfersTransferRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -79062,7 +79076,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     transfer: z.string().max(5000),
   })
 
-  const postTransfersTransferReversalsIdBodySchema = z
+  const postTransfersTransferReversalsIdRequestBody = z
     .object({
       expand: z.array(z.string().max(5000)).optional(),
       metadata: z
@@ -79086,7 +79100,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTransfersTransferReversalsIdBodySchema,
+          postTransfersTransferReversalsIdRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -79207,7 +79221,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postTreasuryCreditReversalsBodySchema = z.object({
+  const postTreasuryCreditReversalsRequestBody = z.object({
     expand: z.array(z.string().max(5000)).optional(),
     metadata: z.record(z.string(), z.string()).optional(),
     received_credit: z.string().max(5000),
@@ -79224,7 +79238,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postTreasuryCreditReversalsBodySchema,
+          postTreasuryCreditReversalsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -79416,7 +79430,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postTreasuryDebitReversalsBodySchema = z.object({
+  const postTreasuryDebitReversalsRequestBody = z.object({
     expand: z.array(z.string().max(5000)).optional(),
     metadata: z.record(z.string(), z.string()).optional(),
     received_debit: z.string().max(5000),
@@ -79435,7 +79449,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postTreasuryDebitReversalsBodySchema,
+          postTreasuryDebitReversalsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -79639,7 +79653,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postTreasuryFinancialAccountsBodySchema = z.object({
+  const postTreasuryFinancialAccountsRequestBody = z.object({
     expand: z.array(z.string().max(5000)).optional(),
     features: z
       .object({
@@ -79692,7 +79706,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postTreasuryFinancialAccountsBodySchema,
+          postTreasuryFinancialAccountsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -79810,7 +79824,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     financial_account: z.string().max(5000),
   })
 
-  const postTreasuryFinancialAccountsFinancialAccountBodySchema = z
+  const postTreasuryFinancialAccountsFinancialAccountRequestBody = z
     .object({
       expand: z.array(z.string().max(5000)).optional(),
       features: z
@@ -79879,7 +79893,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTreasuryFinancialAccountsFinancialAccountBodySchema,
+          postTreasuryFinancialAccountsFinancialAccountRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -79929,7 +79943,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const postTreasuryFinancialAccountsFinancialAccountCloseParamSchema =
     z.object({financial_account: z.string().max(5000)})
 
-  const postTreasuryFinancialAccountsFinancialAccountCloseBodySchema = z
+  const postTreasuryFinancialAccountsFinancialAccountCloseRequestBody = z
     .object({
       expand: z.array(z.string().max(5000)).optional(),
       forwarding_settings: z
@@ -79957,7 +79971,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTreasuryFinancialAccountsFinancialAccountCloseBodySchema,
+          postTreasuryFinancialAccountsFinancialAccountCloseRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -80089,7 +80103,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const postTreasuryFinancialAccountsFinancialAccountFeaturesParamSchema =
     z.object({financial_account: z.string().max(5000)})
 
-  const postTreasuryFinancialAccountsFinancialAccountFeaturesBodySchema = z
+  const postTreasuryFinancialAccountsFinancialAccountFeaturesRequestBody = z
     .object({
       card_issuing: z.object({requested: PermissiveBoolean}).optional(),
       deposit_insurance: z.object({requested: PermissiveBoolean}).optional(),
@@ -80134,7 +80148,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTreasuryFinancialAccountsFinancialAccountFeaturesBodySchema,
+          postTreasuryFinancialAccountsFinancialAccountFeaturesRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -80268,7 +80282,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postTreasuryInboundTransfersBodySchema = z.object({
+  const postTreasuryInboundTransfersRequestBody = z.object({
     amount: z.coerce.number(),
     currency: z.string(),
     description: z.string().max(5000).optional(),
@@ -80290,7 +80304,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postTreasuryInboundTransfersBodySchema,
+          postTreasuryInboundTransfersRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -80400,7 +80414,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     {inbound_transfer: z.string().max(5000)},
   )
 
-  const postTreasuryInboundTransfersInboundTransferCancelBodySchema = z
+  const postTreasuryInboundTransfersInboundTransferCancelRequestBody = z
     .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
@@ -80419,7 +80433,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTreasuryInboundTransfersInboundTransferCancelBodySchema,
+          postTreasuryInboundTransfersInboundTransferCancelRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -80566,7 +80580,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postTreasuryOutboundPaymentsBodySchema = z.object({
+  const postTreasuryOutboundPaymentsRequestBody = z.object({
     amount: z.coerce.number(),
     currency: z.string(),
     customer: z.string().max(5000).optional(),
@@ -80638,7 +80652,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postTreasuryOutboundPaymentsBodySchema,
+          postTreasuryOutboundPaymentsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -80748,7 +80762,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     id: z.string().max(5000),
   })
 
-  const postTreasuryOutboundPaymentsIdCancelBodySchema = z
+  const postTreasuryOutboundPaymentsIdCancelRequestBody = z
     .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
@@ -80767,7 +80781,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTreasuryOutboundPaymentsIdCancelBodySchema,
+          postTreasuryOutboundPaymentsIdCancelRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -80893,7 +80907,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postTreasuryOutboundTransfersBodySchema = z.object({
+  const postTreasuryOutboundTransfersRequestBody = z.object({
     amount: z.coerce.number(),
     currency: z.string(),
     description: z.string().max(5000).optional(),
@@ -80931,7 +80945,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postTreasuryOutboundTransfersBodySchema,
+          postTreasuryOutboundTransfersRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -81048,7 +81062,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const postTreasuryOutboundTransfersOutboundTransferCancelParamSchema =
     z.object({outbound_transfer: z.string().max(5000)})
 
-  const postTreasuryOutboundTransfersOutboundTransferCancelBodySchema = z
+  const postTreasuryOutboundTransfersOutboundTransferCancelRequestBody = z
     .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
@@ -81067,7 +81081,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTreasuryOutboundTransfersOutboundTransferCancelBodySchema,
+          postTreasuryOutboundTransfersOutboundTransferCancelRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -81853,7 +81867,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postWebhookEndpointsBodySchema = z.object({
+  const postWebhookEndpointsRequestBody = z.object({
     api_version: z
       .enum([
         "2011-01-01",
@@ -82241,7 +82255,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postWebhookEndpointsBodySchema,
+          postWebhookEndpointsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -82411,7 +82425,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     webhook_endpoint: z.string().max(5000),
   })
 
-  const postWebhookEndpointsWebhookEndpointBodySchema = z
+  const postWebhookEndpointsWebhookEndpointRequestBody = z
     .object({
       description: z.union([z.string().max(5000), z.enum([""])]).optional(),
       disabled: PermissiveBoolean.optional(),
@@ -82687,7 +82701,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postWebhookEndpointsWebhookEndpointBodySchema,
+          postWebhookEndpointsWebhookEndpointRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),

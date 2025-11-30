@@ -268,7 +268,7 @@ export type t_Schema = {
   readonly properties?: EmptyObject
 }
 
-export type t_CreateAppAuthenticatorEnrollmentBodySchema = {
+export type t_CreateAppAuthenticatorEnrollmentRequestBody = {
   authenticatorId: string
   device: {
     clientInstanceBundleId: string
@@ -299,7 +299,7 @@ export type t_CreateAppAuthenticatorEnrollmentBodySchema = {
   }
 }
 
-export type t_CreateEmailBodySchema = {
+export type t_CreateEmailRequestBody = {
   profile: {
     email: string
   }
@@ -308,13 +308,13 @@ export type t_CreateEmailBodySchema = {
   state?: string
 }
 
-export type t_CreatePasswordBodySchema = {
+export type t_CreatePasswordRequestBody = {
   profile: {
     password: string
   }
 }
 
-export type t_CreatePhoneBodySchema = {
+export type t_CreatePhoneRequestBody = {
   method?: "SMS" | "CALL"
   profile: {
     phoneNumber?: string
@@ -373,34 +373,38 @@ export type t_PollChallengeForEmailMagicLinkParamSchema = {
   id: string
 }
 
-export type t_ReplacePasswordBodySchema = {
+export type t_ReplacePasswordRequestBody = {
   profile: {
     password: string
   }
 }
 
-export type t_ReplaceProfileBodySchema = {
+export type t_ReplaceProfileRequestBody = {
   profile?: EmptyObject
-}
-
-export type t_SendEmailChallengeBodySchema = {
-  state: string
 }
 
 export type t_SendEmailChallengeParamSchema = {
   id: string
 }
 
-export type t_SendPhoneChallengeBodySchema = {
-  method: "SMS" | "CALL"
-  retry?: boolean
+export type t_SendEmailChallengeRequestBody = {
+  state: string
 }
 
 export type t_SendPhoneChallengeParamSchema = {
   id: string
 }
 
-export type t_UpdateAppAuthenticatorEnrollmentBodySchema = {
+export type t_SendPhoneChallengeRequestBody = {
+  method: "SMS" | "CALL"
+  retry?: boolean
+}
+
+export type t_UpdateAppAuthenticatorEnrollmentParamSchema = {
+  enrollmentId: string
+}
+
+export type t_UpdateAppAuthenticatorEnrollmentRequestBody = {
   methods?: {
     push?: {
       capabilities?: t_AppAuthenticatorMethodCapabilities
@@ -412,30 +416,22 @@ export type t_UpdateAppAuthenticatorEnrollmentBodySchema = {
   }
 }
 
-export type t_UpdateAppAuthenticatorEnrollmentParamSchema = {
-  enrollmentId: string
-}
-
-export type t_UpdateEnrollmentBodySchema = {
-  nickname?: string
-}
-
 export type t_UpdateEnrollmentParamSchema = {
   authenticatorId: string
   enrollmentId: string
 }
 
-export type t_VerifyAppAuthenticatorPushNotificationChallengeBodySchema = {
-  challengeResponse?: string
-  method?: "push"
+export type t_UpdateEnrollmentRequestBody = {
+  nickname?: string
 }
 
 export type t_VerifyAppAuthenticatorPushNotificationChallengeParamSchema = {
   challengeId: string
 }
 
-export type t_VerifyEmailOtpBodySchema = {
-  verificationCode: string
+export type t_VerifyAppAuthenticatorPushNotificationChallengeRequestBody = {
+  challengeResponse?: string
+  method?: "push"
 }
 
 export type t_VerifyEmailOtpParamSchema = {
@@ -443,10 +439,14 @@ export type t_VerifyEmailOtpParamSchema = {
   id: string
 }
 
-export type t_VerifyPhoneChallengeBodySchema = {
+export type t_VerifyEmailOtpRequestBody = {
   verificationCode: string
 }
 
 export type t_VerifyPhoneChallengeParamSchema = {
   id: string
+}
+
+export type t_VerifyPhoneChallengeRequestBody = {
+  verificationCode: string
 }

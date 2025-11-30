@@ -253,7 +253,7 @@ export ${this.implementationMethod === "type" || this.implementationMethod === "
       responderName: `${titleCase(operationId)}Responder`,
       paramSchema: `${operationId}ParamSchema`,
       querySchema: `${operationId}QuerySchema`,
-      requestBodySchema: `${operationId}RequestBodySchema`,
+      requestBodySchema: `${operationId}RequestBody`,
       requestHeaderSchema: `${operationId}RequestHeaderSchema`,
       responseBodyValidator: `${operationId}ResponseBodyValidator`,
     }

@@ -25,7 +25,7 @@ import {type NextFunction, type Request, type Response, Router} from "express"
 import {z} from "zod/v4"
 import type {
   t_CreateTodoListItemParamSchema,
-  t_CreateTodoListItemRequestBodySchema,
+  t_CreateTodoListItemRequestBody,
   t_DeleteTodoListByIdParamSchema,
   t_Error,
   t_GetTodoListByIdParamSchema,
@@ -34,8 +34,8 @@ import type {
   t_TodoList,
   t_UnknownObject,
   t_UpdateTodoListByIdParamSchema,
-  t_UpdateTodoListByIdRequestBodySchema,
-  t_UploadAttachmentRequestBodySchema,
+  t_UpdateTodoListByIdRequestBody,
+  t_UploadAttachmentRequestBody,
 } from "./models.ts"
 import {
   s_CreateUpdateTodoList,
@@ -81,7 +81,7 @@ export type UpdateTodoListById = (
   params: Params<
     t_UpdateTodoListByIdParamSchema,
     void,
-    t_UpdateTodoListByIdRequestBodySchema,
+    t_UpdateTodoListByIdRequestBody,
     void
   >,
   respond: UpdateTodoListByIdResponder,
@@ -133,7 +133,7 @@ export type CreateTodoListItem = (
   params: Params<
     t_CreateTodoListItemParamSchema,
     void,
-    t_CreateTodoListItemRequestBodySchema,
+    t_CreateTodoListItemRequestBody,
     void
   >,
   respond: CreateTodoListItemResponder,
@@ -159,7 +159,7 @@ export type UploadAttachmentResponder = {
 } & ExpressRuntimeResponder
 
 export type UploadAttachment = (
-  params: Params<void, void, t_UploadAttachmentRequestBodySchema, void>,
+  params: Params<void, void, t_UploadAttachmentRequestBody, void>,
   respond: UploadAttachmentResponder,
   req: Request,
   res: Response,
@@ -327,7 +327,7 @@ export function createRouter(implementation: Implementation): Router {
 
   const updateTodoListByIdParamSchema = z.object({listId: z.string()})
 
-  const updateTodoListByIdRequestBodySchema = s_CreateUpdateTodoList
+  const updateTodoListByIdRequestBody = s_CreateUpdateTodoList
 
   const updateTodoListByIdResponseBodyValidator = responseValidationFactory(
     [
@@ -350,7 +350,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            updateTodoListByIdRequestBodySchema,
+            updateTodoListByIdRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -556,7 +556,7 @@ export function createRouter(implementation: Implementation): Router {
 
   const createTodoListItemParamSchema = z.object({listId: z.string()})
 
-  const createTodoListItemRequestBodySchema = z.object({
+  const createTodoListItemRequestBody = z.object({
     id: z.string(),
     content: z.string(),
     completedAt: z.iso.datetime({offset: true}).optional(),
@@ -580,7 +580,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            createTodoListItemRequestBodySchema,
+            createTodoListItemRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -682,7 +682,7 @@ export function createRouter(implementation: Implementation): Router {
 
   // todo: request bodies with content-type 'multipart/form-data' not yet supported
 
-  const uploadAttachmentRequestBodySchema = z.never()
+  const uploadAttachmentRequestBody = z.never()
 
   const uploadAttachmentResponseBodyValidator = responseValidationFactory(
     [["202", z.undefined()]],
@@ -698,7 +698,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            uploadAttachmentRequestBodySchema,
+            uploadAttachmentRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ) as never,

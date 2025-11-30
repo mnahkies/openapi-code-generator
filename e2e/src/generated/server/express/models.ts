@@ -29,6 +29,11 @@ export type t_RandomNumber = {
   result?: number | undefined
 }
 
+export type t_GetHeadersRequest200Response = {
+  rawHeaders?: unknown | undefined
+  typedHeaders?: unknown | undefined
+}
+
 export type t_GetHeadersRequestRequestHeaderSchema = {
   authorization?: string | undefined
   "boolean-header"?: boolean | undefined
@@ -37,12 +42,7 @@ export type t_GetHeadersRequestRequestHeaderSchema = {
   "second-boolean-header"?: boolean | undefined
 }
 
-export type t_getHeadersRequestJson200Response = {
-  rawHeaders?: unknown | undefined
-  typedHeaders?: unknown | undefined
-}
-
-export type t_getHeadersUndeclaredJson200Response = {
+export type t_GetHeadersUndeclared200Response = {
   rawHeaders?: unknown | undefined
   typedHeaders?: unknown | undefined
 }
@@ -53,9 +53,9 @@ export type t_GetValidationNumbersRandomNumberQuerySchema = {
   min?: number | undefined
 }
 
-export type t_PostMediaTypesTextRequestBodySchema = string
+export type t_PostMediaTypesTextRequestBody = string
 
-export type t_PostMediaTypesXWwwFormUrlencodedRequestBodySchema = {
+export type t_PostMediaTypesXWwwFormUrlencodedRequestBody = {
   address?:
     | {
         address1?: string | undefined
@@ -66,15 +66,15 @@ export type t_PostMediaTypesXWwwFormUrlencodedRequestBodySchema = {
   sku?: string | undefined
 }
 
-export type t_PostValidationEnumsRequestBodySchema = {
+export type t_PostValidationEnumsRequestBody = {
   colors: "red" | "green" | "blue"
   starRatings: 1 | 2 | 3
 }
 
-export type t_PostValidationOptionalBodyRequestBodySchema = {
+export type t_PostValidationOptionalBody200Response = {
   id?: string | undefined
 }
 
-export type t_postValidationOptionalBodyJson200Response = {
+export type t_PostValidationOptionalBodyRequestBody = {
   id?: string | undefined
 }

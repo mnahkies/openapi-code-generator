@@ -22,15 +22,15 @@ import {z} from "zod/v4"
 import type {
   t_Enumerations,
   t_GetValidationNumbersRandomNumberQuerySchema,
-  t_PostValidationEnumsRequestBodySchema,
-  t_PostValidationOptionalBodyRequestBodySchema,
-  t_postValidationOptionalBodyJson200Response,
+  t_PostValidationEnumsRequestBody,
+  t_PostValidationOptionalBody200Response,
+  t_PostValidationOptionalBodyRequestBody,
   t_RandomNumber,
 } from "../models.ts"
 import {
   s_Enumerations,
-  s_postValidationOptionalBodyJson200Response,
-  s_postValidationOptionalBodyJsonRequestBody,
+  s_PostValidationOptionalBody200Response,
+  s_PostValidationOptionalBodyRequestBody,
   s_RandomNumber,
 } from "../schemas.ts"
 
@@ -56,7 +56,7 @@ export type PostValidationEnumsResponder = {
 } & ExpressRuntimeResponder
 
 export type PostValidationEnums = (
-  params: Params<void, void, t_PostValidationEnumsRequestBodySchema, void>,
+  params: Params<void, void, t_PostValidationEnumsRequestBody, void>,
   respond: PostValidationEnumsResponder,
   req: Request,
   res: Response,
@@ -64,7 +64,7 @@ export type PostValidationEnums = (
 ) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostValidationOptionalBodyResponder = {
-  with200(): ExpressRuntimeResponse<t_postValidationOptionalBodyJson200Response>
+  with200(): ExpressRuntimeResponse<t_PostValidationOptionalBody200Response>
   with204(): ExpressRuntimeResponse<void>
 } & ExpressRuntimeResponder
 
@@ -72,7 +72,7 @@ export type PostValidationOptionalBody = (
   params: Params<
     void,
     void,
-    t_PostValidationOptionalBodyRequestBodySchema | undefined,
+    t_PostValidationOptionalBodyRequestBody | undefined,
     void
   >,
   respond: PostValidationOptionalBodyResponder,
@@ -188,7 +188,7 @@ export function createValidationRouter(
     },
   )
 
-  const postValidationEnumsRequestBodySchema = s_Enumerations
+  const postValidationEnumsRequestBody = s_Enumerations
 
   const postValidationEnumsResponseBodyValidator = responseValidationFactory(
     [["200", s_Enumerations]],
@@ -204,7 +204,7 @@ export function createValidationRouter(
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            postValidationEnumsRequestBodySchema,
+            postValidationEnumsRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -249,13 +249,13 @@ export function createValidationRouter(
     },
   )
 
-  const postValidationOptionalBodyRequestBodySchema =
-    s_postValidationOptionalBodyJsonRequestBody.optional()
+  const postValidationOptionalBodyRequestBody =
+    s_PostValidationOptionalBodyRequestBody.optional()
 
   const postValidationOptionalBodyResponseBodyValidator =
     responseValidationFactory(
       [
-        ["200", s_postValidationOptionalBodyJson200Response],
+        ["200", s_PostValidationOptionalBody200Response],
         ["204", z.undefined()],
       ],
       undefined,
@@ -270,7 +270,7 @@ export function createValidationRouter(
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            postValidationOptionalBodyRequestBodySchema,
+            postValidationOptionalBodyRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -279,7 +279,7 @@ export function createValidationRouter(
 
         const responder = {
           with200() {
-            return new ExpressRuntimeResponse<t_postValidationOptionalBodyJson200Response>(
+            return new ExpressRuntimeResponse<t_PostValidationOptionalBody200Response>(
               200,
             )
           },

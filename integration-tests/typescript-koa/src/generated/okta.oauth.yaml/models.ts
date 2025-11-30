@@ -355,34 +355,11 @@ export type t_AuthorizeCustomAsQuerySchema = {
   state: string
 }
 
-export type t_AuthorizeCustomAsWithPostBodySchema = {
-  acr_values?: t_AcrValue & string
-  client_id: string
-  code_challenge?: string
-  code_challenge_method?: t_CodeChallengeMethod & string
-  display?: string
-  enroll_amr_values?: t_AmrValue & string
-  idp?: string
-  idp_scope?: string
-  login_hint?: string
-  max_age?: number
-  nonce?: string
-  prompt?: t_Prompt & string
-  redirect_uri: string
-  request?: string
-  request_uri?: string
-  response_mode?: t_ResponseMode & string
-  response_type: t_ResponseTypesSupported & string
-  scope: string
-  sessionToken?: string
-  state: string
-}
-
 export type t_AuthorizeCustomAsWithPostParamSchema = {
   authorizationServerId: string
 }
 
-export type t_AuthorizeWithPostBodySchema = {
+export type t_AuthorizeCustomAsWithPostRequestBody = {
   acr_values?: t_AcrValue & string
   client_id: string
   code_challenge?: string
@@ -405,17 +382,30 @@ export type t_AuthorizeWithPostBodySchema = {
   state: string
 }
 
-export type t_BcAuthorizeBodySchema = {
-  binding_message?: string
-  id_token_hint: string
-  login_hint: string
+export type t_AuthorizeWithPostRequestBody = {
+  acr_values?: t_AcrValue & string
+  client_id: string
+  code_challenge?: string
+  code_challenge_method?: t_CodeChallengeMethod & string
+  display?: string
+  enroll_amr_values?: t_AmrValue & string
+  idp?: string
+  idp_scope?: string
+  login_hint?: string
+  max_age?: number
+  nonce?: string
+  prompt?: t_Prompt & string
+  redirect_uri: string
   request?: string
-  request_expiry?: number
+  request_uri?: string
+  response_mode?: t_ResponseMode & string
+  response_type: t_ResponseTypesSupported & string
   scope: string
-  [key: string]: unknown | undefined
+  sessionToken?: string
+  state: string
 }
 
-export type t_BcAuthorizeCustomAsBodySchema = {
+export type t_BcAuthorizeRequestBody = {
   binding_message?: string
   id_token_hint: string
   login_hint: string
@@ -429,13 +419,17 @@ export type t_BcAuthorizeCustomAsParamSchema = {
   authorizationServerId: string
 }
 
-export type t_ChallengeBodySchema = {
-  challenge_types_supported?: t_ChallengeType[]
-  channel_hint?: t_Channel
-  mfa_token: string
+export type t_BcAuthorizeCustomAsRequestBody = {
+  binding_message?: string
+  id_token_hint: string
+  login_hint: string
+  request?: string
+  request_expiry?: number
+  scope: string
+  [key: string]: unknown | undefined
 }
 
-export type t_ChallengeCustomAsBodySchema = {
+export type t_ChallengeRequestBody = {
   challenge_types_supported?: t_ChallengeType[]
   channel_hint?: t_Channel
   mfa_token: string
@@ -445,7 +439,13 @@ export type t_ChallengeCustomAsParamSchema = {
   authorizationServerId: string
 }
 
-export type t_CreateClientBodySchema = {
+export type t_ChallengeCustomAsRequestBody = {
+  challenge_types_supported?: t_ChallengeType[]
+  channel_hint?: t_Channel
+  mfa_token: string
+}
+
+export type t_CreateClientRequestBody = {
   application_type?: t_ApplicationType
   readonly client_id?: string
   readonly client_id_issued_at?: number
@@ -474,18 +474,18 @@ export type t_DeleteClientParamSchema = {
   clientId: string
 }
 
-export type t_DeviceAuthorizeBodySchema = {
-  client_id?: string
-  scope?: string
-}
-
-export type t_DeviceAuthorizeCustomAsBodySchema = {
+export type t_DeviceAuthorizeRequestBody = {
   client_id?: string
   scope?: string
 }
 
 export type t_DeviceAuthorizeCustomAsParamSchema = {
   authorizationServerId: string
+}
+
+export type t_DeviceAuthorizeCustomAsRequestBody = {
+  client_id?: string
+  scope?: string
 }
 
 export type t_GenerateNewClientSecretParamSchema = {
@@ -516,22 +516,22 @@ export type t_GetWellKnownOpenIdConfigurationCustomAsQuerySchema = {
   client_id?: string
 }
 
-export type t_GlobalTokenRevocationBodySchema = {
+export type t_GlobalTokenRevocationRequestBody = {
   sub_id?: t_sub_id
 }
 
-export type t_IntrospectBodySchema = {
-  token?: string
-  token_type_hint?: t_TokenTypeHintIntrospect
-}
-
-export type t_IntrospectCustomAsBodySchema = {
+export type t_IntrospectRequestBody = {
   token?: string
   token_type_hint?: t_TokenTypeHintIntrospect
 }
 
 export type t_IntrospectCustomAsParamSchema = {
   authorizationServerId: string
+}
+
+export type t_IntrospectCustomAsRequestBody = {
+  token?: string
+  token_type_hint?: t_TokenTypeHintIntrospect
 }
 
 export type t_ListClientsQuerySchema = {
@@ -556,17 +556,17 @@ export type t_LogoutCustomAsQuerySchema = {
   state?: string
 }
 
-export type t_LogoutCustomAsWithPostBodySchema = {
+export type t_LogoutCustomAsWithPostParamSchema = {
+  authorizationServerId: string
+}
+
+export type t_LogoutCustomAsWithPostRequestBody = {
   id_token_hint: string
   post_logout_redirect_uri?: string
   state?: string
 }
 
-export type t_LogoutCustomAsWithPostParamSchema = {
-  authorizationServerId: string
-}
-
-export type t_LogoutWithPostBodySchema = {
+export type t_LogoutWithPostRequestBody = {
   id_token_hint: string
   post_logout_redirect_uri?: string
   state?: string
@@ -580,12 +580,7 @@ export type t_OauthKeysCustomAsParamSchema = {
   authorizationServerId: string
 }
 
-export type t_OobAuthenticateBodySchema = {
-  channel_hint: t_Channel
-  login_hint: string
-}
-
-export type t_OobAuthenticateCustomAsBodySchema = {
+export type t_OobAuthenticateRequestBody = {
   channel_hint: t_Channel
   login_hint: string
 }
@@ -594,27 +589,12 @@ export type t_OobAuthenticateCustomAsParamSchema = {
   authorizationServerId: string
 }
 
-export type t_ParBodySchema = {
-  client_id?: string
-  code_challenge?: string
-  code_challenge_method?: string
-  display?: string
-  idp?: string
-  idp_scope?: string
-  login_hint?: string
-  max_age?: number
-  nonce?: string
-  prompt?: string
-  redirect_uri?: string
-  request?: string
-  response_mode?: string
-  response_type?: string
-  scope?: string
-  sessionToken?: string
-  state?: string
+export type t_OobAuthenticateCustomAsRequestBody = {
+  channel_hint: t_Channel
+  login_hint: string
 }
 
-export type t_ParCustomAsBodySchema = {
+export type t_ParRequestBody = {
   client_id?: string
   code_challenge?: string
   code_challenge_method?: string
@@ -638,6 +618,26 @@ export type t_ParCustomAsParamSchema = {
   authorizationServerId: string
 }
 
+export type t_ParCustomAsRequestBody = {
+  client_id?: string
+  code_challenge?: string
+  code_challenge_method?: string
+  display?: string
+  idp?: string
+  idp_scope?: string
+  login_hint?: string
+  max_age?: number
+  nonce?: string
+  prompt?: string
+  redirect_uri?: string
+  request?: string
+  response_mode?: string
+  response_type?: string
+  scope?: string
+  sessionToken?: string
+  state?: string
+}
+
 export type t_ParOptionsHeaderSchema = {
   origin?: string
 }
@@ -650,7 +650,11 @@ export type t_ParOptionsCustomAsParamSchema = {
   authorizationServerId: string
 }
 
-export type t_ReplaceClientBodySchema = {
+export type t_ReplaceClientParamSchema = {
+  clientId: string
+}
+
+export type t_ReplaceClientRequestBody = {
   application_type?: t_ApplicationType
   readonly client_id?: string
   readonly client_id_issued_at?: number
@@ -675,16 +679,7 @@ export type t_ReplaceClientBodySchema = {
   tos_uri?: string | null
 }
 
-export type t_ReplaceClientParamSchema = {
-  clientId: string
-}
-
-export type t_RevokeBodySchema = {
-  token: string
-  token_type_hint?: t_TokenTypeHintRevoke
-}
-
-export type t_RevokeCustomAsBodySchema = {
+export type t_RevokeRequestBody = {
   token: string
   token_type_hint?: t_TokenTypeHintRevoke
 }
@@ -693,16 +688,21 @@ export type t_RevokeCustomAsParamSchema = {
   authorizationServerId: string
 }
 
-export type t_TokenBodySchema = {
-  grant_type?: t_GrantType
+export type t_RevokeCustomAsRequestBody = {
+  token: string
+  token_type_hint?: t_TokenTypeHintRevoke
 }
 
-export type t_TokenCustomAsBodySchema = {
+export type t_TokenRequestBody = {
   grant_type?: t_GrantType
 }
 
 export type t_TokenCustomAsParamSchema = {
   authorizationServerId: string
+}
+
+export type t_TokenCustomAsRequestBody = {
+  grant_type?: t_GrantType
 }
 
 export type t_TokenOptionsHeaderSchema = {

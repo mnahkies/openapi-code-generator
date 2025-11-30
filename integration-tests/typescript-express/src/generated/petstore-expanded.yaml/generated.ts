@@ -22,7 +22,7 @@ import {
 import {type NextFunction, type Request, type Response, Router} from "express"
 import {z} from "zod/v4"
 import type {
-  t_AddPetRequestBodySchema,
+  t_AddPetRequestBody,
   t_DeletePetParamSchema,
   t_Error,
   t_FindPetByIdParamSchema,
@@ -50,7 +50,7 @@ export type AddPetResponder = {
 } & ExpressRuntimeResponder
 
 export type AddPet = (
-  params: Params<void, void, t_AddPetRequestBodySchema, void>,
+  params: Params<void, void, t_AddPetRequestBody, void>,
   respond: AddPetResponder,
   req: Request,
   res: Response,
@@ -165,7 +165,7 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const addPetRequestBodySchema = s_NewPet
+  const addPetRequestBody = s_NewPet
 
   const addPetResponseBodyValidator = responseValidationFactory(
     [["200", s_Pet]],
@@ -181,7 +181,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            addPetRequestBodySchema,
+            addPetRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),

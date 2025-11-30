@@ -24,7 +24,7 @@ import {
 import type {Next} from "koa"
 import {z} from "zod/v4"
 import type {
-  t_AddPetBodySchema,
+  t_AddPetRequestBody,
   t_DeletePetParamSchema,
   t_Error,
   t_FindPetByIdParamSchema,
@@ -56,7 +56,7 @@ export type AddPetResponder = {
 } & KoaRuntimeResponder
 
 export type AddPet = (
-  params: Params<void, void, t_AddPetBodySchema, void>,
+  params: Params<void, void, t_AddPetRequestBody, void>,
   respond: AddPetResponder,
   ctx: RouterContext,
   next: Next,
@@ -169,7 +169,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const addPetBodySchema = s_NewPet
+  const addPetRequestBody = s_NewPet
 
   const addPetResponseValidator = responseValidationFactory(
     [["200", s_Pet]],
@@ -181,7 +181,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: undefined,
       body: parseRequestInput(
-        addPetBodySchema,
+        addPetRequestBody,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),

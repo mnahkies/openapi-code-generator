@@ -30,10 +30,10 @@ import type {
   t_GetServiceStatusHeaderSchema,
   t_GetServiceStatusQuerySchema,
   t_Manufacturer,
-  t_ManufacturersCreateOrReplaceManufacturerBodySchema,
   t_ManufacturersCreateOrReplaceManufacturerHeaderSchema,
   t_ManufacturersCreateOrReplaceManufacturerParamSchema,
   t_ManufacturersCreateOrReplaceManufacturerQuerySchema,
+  t_ManufacturersCreateOrReplaceManufacturerRequestBody,
   t_ManufacturersDeleteManufacturerHeaderSchema,
   t_ManufacturersDeleteManufacturerParamSchema,
   t_ManufacturersDeleteManufacturerQuerySchema,
@@ -50,10 +50,10 @@ import type {
   t_Widget,
   t_WidgetAnalytics,
   t_WidgetPart,
-  t_WidgetPartsCreateWidgetPartBodySchema,
   t_WidgetPartsCreateWidgetPartHeaderSchema,
   t_WidgetPartsCreateWidgetPartParamSchema,
   t_WidgetPartsCreateWidgetPartQuerySchema,
+  t_WidgetPartsCreateWidgetPartRequestBody,
   t_WidgetPartsDeleteWidgetPartHeaderSchema,
   t_WidgetPartsDeleteWidgetPartParamSchema,
   t_WidgetPartsDeleteWidgetPartQuerySchema,
@@ -65,16 +65,16 @@ import type {
   t_WidgetPartsListWidgetPartsHeaderSchema,
   t_WidgetPartsListWidgetPartsParamSchema,
   t_WidgetPartsListWidgetPartsQuerySchema,
-  t_WidgetPartsReorderPartsBodySchema,
   t_WidgetPartsReorderPartsHeaderSchema,
   t_WidgetPartsReorderPartsParamSchema,
   t_WidgetPartsReorderPartsQuerySchema,
+  t_WidgetPartsReorderPartsRequestBody,
   t_WidgetRepairRequest,
   t_WidgetRepairState,
-  t_WidgetsCreateOrUpdateWidgetBodySchema,
   t_WidgetsCreateOrUpdateWidgetHeaderSchema,
   t_WidgetsCreateOrUpdateWidgetParamSchema,
   t_WidgetsCreateOrUpdateWidgetQuerySchema,
+  t_WidgetsCreateOrUpdateWidgetRequestBody,
   t_WidgetsDeleteWidgetHeaderSchema,
   t_WidgetsDeleteWidgetParamSchema,
   t_WidgetsDeleteWidgetQuerySchema,
@@ -90,14 +90,14 @@ import type {
   t_WidgetsGetWidgetQuerySchema,
   t_WidgetsListWidgetsHeaderSchema,
   t_WidgetsListWidgetsQuerySchema,
-  t_WidgetsScheduleRepairsBodySchema,
   t_WidgetsScheduleRepairsHeaderSchema,
   t_WidgetsScheduleRepairsParamSchema,
   t_WidgetsScheduleRepairsQuerySchema,
-  t_WidgetsUpdateAnalyticsBodySchema,
+  t_WidgetsScheduleRepairsRequestBody,
   t_WidgetsUpdateAnalyticsHeaderSchema,
   t_WidgetsUpdateAnalyticsParamSchema,
   t_WidgetsUpdateAnalyticsQuerySchema,
+  t_WidgetsUpdateAnalyticsRequestBody,
 } from "./models"
 import {
   s_Azure_Core_Foundations_Error,
@@ -212,7 +212,7 @@ export type WidgetsCreateOrUpdateWidget = (
   params: Params<
     t_WidgetsCreateOrUpdateWidgetParamSchema,
     t_WidgetsCreateOrUpdateWidgetQuerySchema,
-    t_WidgetsCreateOrUpdateWidgetBodySchema,
+    t_WidgetsCreateOrUpdateWidgetRequestBody,
     t_WidgetsCreateOrUpdateWidgetHeaderSchema
   >,
   respond: WidgetsCreateOrUpdateWidgetResponder,
@@ -345,7 +345,7 @@ export type WidgetsUpdateAnalytics = (
   params: Params<
     t_WidgetsUpdateAnalyticsParamSchema,
     t_WidgetsUpdateAnalyticsQuerySchema,
-    t_WidgetsUpdateAnalyticsBodySchema,
+    t_WidgetsUpdateAnalyticsRequestBody,
     t_WidgetsUpdateAnalyticsHeaderSchema
   >,
   respond: WidgetsUpdateAnalyticsResponder,
@@ -418,7 +418,7 @@ export type WidgetsScheduleRepairs = (
   params: Params<
     t_WidgetsScheduleRepairsParamSchema,
     t_WidgetsScheduleRepairsQuerySchema,
-    t_WidgetsScheduleRepairsBodySchema,
+    t_WidgetsScheduleRepairsRequestBody,
     t_WidgetsScheduleRepairsHeaderSchema
   >,
   respond: WidgetsScheduleRepairsResponder,
@@ -493,7 +493,7 @@ export type WidgetPartsCreateWidgetPart = (
   params: Params<
     t_WidgetPartsCreateWidgetPartParamSchema,
     t_WidgetPartsCreateWidgetPartQuerySchema,
-    t_WidgetPartsCreateWidgetPartBodySchema,
+    t_WidgetPartsCreateWidgetPartRequestBody,
     t_WidgetPartsCreateWidgetPartHeaderSchema
   >,
   respond: WidgetPartsCreateWidgetPartResponder,
@@ -593,7 +593,7 @@ export type WidgetPartsReorderParts = (
   params: Params<
     t_WidgetPartsReorderPartsParamSchema,
     t_WidgetPartsReorderPartsQuerySchema,
-    t_WidgetPartsReorderPartsBodySchema,
+    t_WidgetPartsReorderPartsRequestBody,
     t_WidgetPartsReorderPartsHeaderSchema
   >,
   respond: WidgetPartsReorderPartsResponder,
@@ -662,7 +662,7 @@ export type ManufacturersCreateOrReplaceManufacturer = (
   params: Params<
     t_ManufacturersCreateOrReplaceManufacturerParamSchema,
     t_ManufacturersCreateOrReplaceManufacturerQuerySchema,
-    t_ManufacturersCreateOrReplaceManufacturerBodySchema,
+    t_ManufacturersCreateOrReplaceManufacturerRequestBody,
     t_ManufacturersCreateOrReplaceManufacturerHeaderSchema
   >,
   respond: ManufacturersCreateOrReplaceManufacturerResponder,
@@ -971,7 +971,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "x-ms-client-request-id": s_Azure_Core_uuid.optional(),
   })
 
-  const widgetsCreateOrUpdateWidgetBodySchema = s_WidgetCreateOrUpdate
+  const widgetsCreateOrUpdateWidgetRequestBody = s_WidgetCreateOrUpdate
 
   const widgetsCreateOrUpdateWidgetResponseValidator =
     responseValidationFactory(
@@ -998,7 +998,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          widgetsCreateOrUpdateWidgetBodySchema,
+          widgetsCreateOrUpdateWidgetRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -1372,7 +1372,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "x-ms-client-request-id": s_Azure_Core_uuid.optional(),
   })
 
-  const widgetsUpdateAnalyticsBodySchema = s_WidgetAnalyticsCreateOrUpdate
+  const widgetsUpdateAnalyticsRequestBody = s_WidgetAnalyticsCreateOrUpdate
 
   const widgetsUpdateAnalyticsResponseValidator = responseValidationFactory(
     [
@@ -1398,7 +1398,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          widgetsUpdateAnalyticsBodySchema,
+          widgetsUpdateAnalyticsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -1540,7 +1540,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "x-ms-client-request-id": s_Azure_Core_uuid.optional(),
   })
 
-  const widgetsScheduleRepairsBodySchema = s_WidgetRepairRequest
+  const widgetsScheduleRepairsRequestBody = s_WidgetRepairRequest
 
   const widgetsScheduleRepairsResponseValidator = responseValidationFactory(
     [
@@ -1581,7 +1581,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          widgetsScheduleRepairsBodySchema,
+          widgetsScheduleRepairsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -1742,7 +1742,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "x-ms-client-request-id": s_Azure_Core_uuid.optional(),
   })
 
-  const widgetPartsCreateWidgetPartBodySchema = s_WidgetPart
+  const widgetPartsCreateWidgetPartRequestBody = s_WidgetPart
 
   const widgetPartsCreateWidgetPartResponseValidator =
     responseValidationFactory(
@@ -1766,7 +1766,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          widgetPartsCreateWidgetPartBodySchema,
+          widgetPartsCreateWidgetPartRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -2058,7 +2058,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "x-ms-client-request-id": s_Azure_Core_uuid.optional(),
   })
 
-  const widgetPartsReorderPartsBodySchema = s_WidgetPartReorderRequest
+  const widgetPartsReorderPartsRequestBody = s_WidgetPartReorderRequest
 
   const widgetPartsReorderPartsResponseValidator = responseValidationFactory(
     [
@@ -2090,7 +2090,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          widgetPartsReorderPartsBodySchema,
+          widgetPartsReorderPartsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -2248,7 +2248,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "x-ms-client-request-id": s_Azure_Core_uuid.optional(),
   })
 
-  const manufacturersCreateOrReplaceManufacturerBodySchema = s_Manufacturer
+  const manufacturersCreateOrReplaceManufacturerRequestBody = s_Manufacturer
 
   const manufacturersCreateOrReplaceManufacturerResponseValidator =
     responseValidationFactory(
@@ -2275,7 +2275,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          manufacturersCreateOrReplaceManufacturerBodySchema,
+          manufacturersCreateOrReplaceManufacturerRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),

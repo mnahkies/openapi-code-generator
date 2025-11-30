@@ -112,7 +112,7 @@ export type t_ManufacturersCreateOrReplaceManufacturerQuerySchema = {
   "api-version": string
 }
 
-export type t_ManufacturersCreateOrReplaceManufacturerRequestBodySchema = {
+export type t_ManufacturersCreateOrReplaceManufacturerRequestBody = {
   address: string
   readonly etag: t_Azure_Core_eTag
   readonly id: string
@@ -188,7 +188,7 @@ export type t_WidgetPartsCreateWidgetPartQuerySchema = {
   "api-version": string
 }
 
-export type t_WidgetPartsCreateWidgetPartRequestBodySchema = {
+export type t_WidgetPartsCreateWidgetPartRequestBody = {
   readonly etag: t_Azure_Core_eTag
   manufacturerId: string
   readonly name: string
@@ -271,7 +271,7 @@ export type t_WidgetPartsReorderPartsQuerySchema = {
   "api-version": string
 }
 
-export type t_WidgetPartsReorderPartsRequestBodySchema = {
+export type t_WidgetPartsReorderPartsRequestBody = {
   signedOffBy: string
 }
 
@@ -289,7 +289,7 @@ export type t_WidgetsCreateOrUpdateWidgetQuerySchema = {
   "api-version": string
 }
 
-export type t_WidgetsCreateOrUpdateWidgetRequestBodySchema = {
+export type t_WidgetsCreateOrUpdateWidgetRequestBody = {
   color?: t_WidgetColor | undefined
   manufacturerId?: string | undefined
 }
@@ -394,7 +394,7 @@ export type t_WidgetsScheduleRepairsQuerySchema = {
   "api-version": string
 }
 
-export type t_WidgetsScheduleRepairsRequestBodySchema = {
+export type t_WidgetsScheduleRepairsRequestBody = {
   completedDateTime: string
   createdDateTime: string
   requestState: t_WidgetRepairState
@@ -416,7 +416,7 @@ export type t_WidgetsUpdateAnalyticsQuerySchema = {
   "api-version": string
 }
 
-export type t_WidgetsUpdateAnalyticsRequestBodySchema = {
+export type t_WidgetsUpdateAnalyticsRequestBody = {
   repairCount?: number | undefined
   useCount?: number | undefined
 }

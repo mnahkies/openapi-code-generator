@@ -22,7 +22,7 @@ export type t_CreateTodoListItemParamSchema = {
   listId: string
 }
 
-export type t_CreateTodoListItemRequestBodySchema = {
+export type t_CreateTodoListItemRequestBody = {
   completedAt?: string | undefined
   content: string
   id: string
@@ -54,8 +54,8 @@ export type t_UpdateTodoListByIdParamSchema = {
   listId: string
 }
 
-export type t_UpdateTodoListByIdRequestBodySchema = {
+export type t_UpdateTodoListByIdRequestBody = {
   name: string
 }
 
-export type t_UploadAttachmentRequestBodySchema = never
+export type t_UploadAttachmentRequestBody = never

@@ -29,7 +29,7 @@ import type {
   t_EmployeesCheckExistenceQuerySchema,
   t_EmployeesCreateOrUpdateParamSchema,
   t_EmployeesCreateOrUpdateQuerySchema,
-  t_EmployeesCreateOrUpdateRequestBodySchema,
+  t_EmployeesCreateOrUpdateRequestBody,
   t_EmployeesDeleteParamSchema,
   t_EmployeesDeleteQuerySchema,
   t_EmployeesGetParamSchema,
@@ -40,10 +40,10 @@ import type {
   t_EmployeesListBySubscriptionQuerySchema,
   t_EmployeesMoveParamSchema,
   t_EmployeesMoveQuerySchema,
-  t_EmployeesMoveRequestBodySchema,
+  t_EmployeesMoveRequestBody,
   t_EmployeesUpdateParamSchema,
   t_EmployeesUpdateQuerySchema,
-  t_EmployeesUpdateRequestBodySchema,
+  t_EmployeesUpdateRequestBody,
   t_MoveResponse,
   t_OperationListResult,
   t_OperationsListQuerySchema,
@@ -106,7 +106,7 @@ export type EmployeesCreateOrUpdate = (
   params: Params<
     t_EmployeesCreateOrUpdateParamSchema,
     t_EmployeesCreateOrUpdateQuerySchema,
-    t_EmployeesCreateOrUpdateRequestBodySchema,
+    t_EmployeesCreateOrUpdateRequestBody,
     void
   >,
   respond: EmployeesCreateOrUpdateResponder,
@@ -126,7 +126,7 @@ export type EmployeesUpdate = (
   params: Params<
     t_EmployeesUpdateParamSchema,
     t_EmployeesUpdateQuerySchema,
-    t_EmployeesUpdateRequestBodySchema,
+    t_EmployeesUpdateRequestBody,
     void
   >,
   respond: EmployeesUpdateResponder,
@@ -228,7 +228,7 @@ export type EmployeesMove = (
   params: Params<
     t_EmployeesMoveParamSchema,
     t_EmployeesMoveQuerySchema,
-    t_EmployeesMoveRequestBodySchema,
+    t_EmployeesMoveRequestBody,
     void
   >,
   respond: EmployeesMoveResponder,
@@ -412,7 +412,7 @@ export function createRouter(implementation: Implementation): Router {
     "api-version": z.string().min(1),
   })
 
-  const employeesCreateOrUpdateRequestBodySchema = s_Employee
+  const employeesCreateOrUpdateRequestBody = s_Employee
 
   const employeesCreateOrUpdateResponseBodyValidator =
     responseValidationFactory(
@@ -440,7 +440,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            employeesCreateOrUpdateRequestBodySchema,
+            employeesCreateOrUpdateRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -507,7 +507,7 @@ export function createRouter(implementation: Implementation): Router {
     "api-version": z.string().min(1),
   })
 
-  const employeesUpdateRequestBodySchema = s_EmployeeUpdate
+  const employeesUpdateRequestBody = s_EmployeeUpdate
 
   const employeesUpdateResponseBodyValidator = responseValidationFactory(
     [["200", s_Employee]],
@@ -531,7 +531,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            employeesUpdateRequestBodySchema,
+            employeesUpdateRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -933,7 +933,7 @@ export function createRouter(implementation: Implementation): Router {
 
   const employeesMoveQuerySchema = z.object({"api-version": z.string().min(1)})
 
-  const employeesMoveRequestBodySchema = s_MoveRequest
+  const employeesMoveRequestBody = s_MoveRequest
 
   const employeesMoveResponseBodyValidator = responseValidationFactory(
     [["200", s_MoveResponse]],
@@ -957,7 +957,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            employeesMoveRequestBodySchema,
+            employeesMoveRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),

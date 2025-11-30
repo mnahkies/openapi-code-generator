@@ -22,8 +22,8 @@ import {
 import type {Next} from "koa"
 import {z} from "zod/v4"
 import type {
-  t_PostMediaTypesTextBodySchema,
-  t_PostMediaTypesXWwwFormUrlencodedBodySchema,
+  t_PostMediaTypesTextRequestBody,
+  t_PostMediaTypesXWwwFormUrlencodedRequestBody,
   t_ProductOrder,
 } from "../models.ts"
 import {s_ProductOrder} from "../schemas.ts"
@@ -33,7 +33,7 @@ export type PostMediaTypesTextResponder = {
 } & KoaRuntimeResponder
 
 export type PostMediaTypesText = (
-  params: Params<void, void, t_PostMediaTypesTextBodySchema, void>,
+  params: Params<void, void, t_PostMediaTypesTextRequestBody, void>,
   respond: PostMediaTypesTextResponder,
   ctx: RouterContext,
   next: Next,
@@ -49,7 +49,7 @@ export type PostMediaTypesXWwwFormUrlencoded = (
   params: Params<
     void,
     void,
-    t_PostMediaTypesXWwwFormUrlencodedBodySchema,
+    t_PostMediaTypesXWwwFormUrlencodedRequestBody,
     void
   >,
   respond: PostMediaTypesXWwwFormUrlencodedResponder,
@@ -71,7 +71,7 @@ export function createMediaTypesRouter(
 ): KoaRouter {
   const router = new KoaRouter()
 
-  const postMediaTypesTextBodySchema = z.string()
+  const postMediaTypesTextRequestBody = z.string()
 
   const postMediaTypesTextResponseValidator = responseValidationFactory(
     [["200", z.string()]],
@@ -83,7 +83,7 @@ export function createMediaTypesRouter(
       params: undefined,
       query: undefined,
       body: parseRequestInput(
-        postMediaTypesTextBodySchema,
+        postMediaTypesTextRequestBody,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -118,7 +118,7 @@ export function createMediaTypesRouter(
     return next()
   })
 
-  const postMediaTypesXWwwFormUrlencodedBodySchema = s_ProductOrder
+  const postMediaTypesXWwwFormUrlencodedRequestBody = s_ProductOrder
 
   const postMediaTypesXWwwFormUrlencodedResponseValidator =
     responseValidationFactory([["200", s_ProductOrder]], undefined)
@@ -131,7 +131,7 @@ export function createMediaTypesRouter(
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postMediaTypesXWwwFormUrlencodedBodySchema,
+          postMediaTypesXWwwFormUrlencodedRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),

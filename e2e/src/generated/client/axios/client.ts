@@ -11,19 +11,19 @@ import type {AxiosRequestConfig, AxiosResponse} from "axios"
 import {z} from "zod/v4"
 import type {
   t_Enumerations,
-  t_getHeadersRequestJson200Response,
-  t_getHeadersUndeclaredJson200Response,
+  t_GetHeadersRequest200Response,
+  t_GetHeadersUndeclared200Response,
+  t_PostValidationOptionalBody200Response,
+  t_PostValidationOptionalBodyRequestBody,
   t_ProductOrder,
-  t_postValidationOptionalBodyJson200Response,
-  t_postValidationOptionalBodyJsonRequestBody,
   t_RandomNumber,
 } from "./models.ts"
 import {
   s_Enumerations,
-  s_getHeadersRequestJson200Response,
-  s_getHeadersUndeclaredJson200Response,
+  s_GetHeadersRequest200Response,
+  s_GetHeadersUndeclared200Response,
+  s_PostValidationOptionalBody200Response,
   s_ProductOrder,
-  s_postValidationOptionalBodyJson200Response,
   s_RandomNumber,
 } from "./schemas.ts"
 
@@ -74,7 +74,7 @@ export class E2ETestClient extends AbstractAxiosClient {
   async getHeadersUndeclared(
     timeout?: number,
     opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<t_getHeadersUndeclaredJson200Response>> {
+  ): Promise<AxiosResponse<t_GetHeadersUndeclared200Response>> {
     const url = `/headers/undeclared`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
 
@@ -86,7 +86,7 @@ export class E2ETestClient extends AbstractAxiosClient {
       headers,
     })
 
-    return {...res, data: s_getHeadersUndeclaredJson200Response.parse(res.data)}
+    return {...res, data: s_GetHeadersUndeclared200Response.parse(res.data)}
   }
 
   async getHeadersRequest(
@@ -99,7 +99,7 @@ export class E2ETestClient extends AbstractAxiosClient {
     } = {},
     timeout?: number,
     opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<t_getHeadersRequestJson200Response>> {
+  ): Promise<AxiosResponse<t_GetHeadersRequest200Response>> {
     const url = `/headers/request`
     const headers = this._headers(
       {
@@ -121,7 +121,7 @@ export class E2ETestClient extends AbstractAxiosClient {
       headers,
     })
 
-    return {...res, data: s_getHeadersRequestJson200Response.parse(res.data)}
+    return {...res, data: s_GetHeadersRequest200Response.parse(res.data)}
   }
 
   async getValidationNumbersRandomNumber(
@@ -180,13 +180,12 @@ export class E2ETestClient extends AbstractAxiosClient {
 
   async postValidationOptionalBody(
     p: {
-      requestBody?: t_postValidationOptionalBodyJsonRequestBody
+      requestBody?: t_PostValidationOptionalBodyRequestBody
     } = {},
     timeout?: number,
     opts: AxiosRequestConfig = {},
   ): Promise<
-    | AxiosResponse<t_postValidationOptionalBodyJson200Response>
-    | AxiosResponse<void>
+    AxiosResponse<t_PostValidationOptionalBody200Response> | AxiosResponse<void>
   > {
     const url = `/validation/optional-body`
     const headers = this._headers(
@@ -211,7 +210,7 @@ export class E2ETestClient extends AbstractAxiosClient {
 
     return {
       ...res,
-      data: s_postValidationOptionalBodyJson200Response.parse(res.data),
+      data: s_PostValidationOptionalBody200Response.parse(res.data),
     }
   }
 

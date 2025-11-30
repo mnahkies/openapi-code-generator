@@ -20,8 +20,8 @@ import {
 import {type NextFunction, type Request, type Response, Router} from "express"
 import {z} from "zod/v4"
 import type {
-  t_PostMediaTypesTextRequestBodySchema,
-  t_PostMediaTypesXWwwFormUrlencodedRequestBodySchema,
+  t_PostMediaTypesTextRequestBody,
+  t_PostMediaTypesXWwwFormUrlencodedRequestBody,
   t_ProductOrder,
 } from "../models.ts"
 import {s_ProductOrder} from "../schemas.ts"
@@ -31,7 +31,7 @@ export type PostMediaTypesTextResponder = {
 } & ExpressRuntimeResponder
 
 export type PostMediaTypesText = (
-  params: Params<void, void, t_PostMediaTypesTextRequestBodySchema, void>,
+  params: Params<void, void, t_PostMediaTypesTextRequestBody, void>,
   respond: PostMediaTypesTextResponder,
   req: Request,
   res: Response,
@@ -46,7 +46,7 @@ export type PostMediaTypesXWwwFormUrlencoded = (
   params: Params<
     void,
     void,
-    t_PostMediaTypesXWwwFormUrlencodedRequestBodySchema,
+    t_PostMediaTypesXWwwFormUrlencodedRequestBody,
     void
   >,
   respond: PostMediaTypesXWwwFormUrlencodedResponder,
@@ -65,7 +65,7 @@ export function createMediaTypesRouter(
 ): Router {
   const router = Router()
 
-  const postMediaTypesTextRequestBodySchema = z.string()
+  const postMediaTypesTextRequestBody = z.string()
 
   const postMediaTypesTextResponseBodyValidator = responseValidationFactory(
     [["200", z.string()]],
@@ -81,7 +81,7 @@ export function createMediaTypesRouter(
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            postMediaTypesTextRequestBodySchema,
+            postMediaTypesTextRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -126,7 +126,7 @@ export function createMediaTypesRouter(
     },
   )
 
-  const postMediaTypesXWwwFormUrlencodedRequestBodySchema = s_ProductOrder
+  const postMediaTypesXWwwFormUrlencodedRequestBody = s_ProductOrder
 
   const postMediaTypesXWwwFormUrlencodedResponseBodyValidator =
     responseValidationFactory([["200", s_ProductOrder]], undefined)
@@ -140,7 +140,7 @@ export function createMediaTypesRouter(
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            postMediaTypesXWwwFormUrlencodedRequestBodySchema,
+            postMediaTypesXWwwFormUrlencodedRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),

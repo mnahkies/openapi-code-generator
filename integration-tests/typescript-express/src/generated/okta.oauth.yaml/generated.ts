@@ -25,23 +25,23 @@ import type {
   t_AuthorizeCustomAsParamSchema,
   t_AuthorizeCustomAsQuerySchema,
   t_AuthorizeCustomAsWithPostParamSchema,
-  t_AuthorizeCustomAsWithPostRequestBodySchema,
+  t_AuthorizeCustomAsWithPostRequestBody,
   t_AuthorizeQuerySchema,
-  t_AuthorizeWithPostRequestBodySchema,
+  t_AuthorizeWithPostRequestBody,
   t_BackchannelAuthorizeResponse,
   t_BcAuthorizeCustomAsParamSchema,
-  t_BcAuthorizeCustomAsRequestBodySchema,
-  t_BcAuthorizeRequestBodySchema,
+  t_BcAuthorizeCustomAsRequestBody,
+  t_BcAuthorizeRequestBody,
   t_ChallengeCustomAsParamSchema,
-  t_ChallengeCustomAsRequestBodySchema,
-  t_ChallengeRequestBodySchema,
+  t_ChallengeCustomAsRequestBody,
+  t_ChallengeRequestBody,
   t_ChallengeResponse,
   t_Client,
-  t_CreateClientRequestBodySchema,
+  t_CreateClientRequestBody,
   t_DeleteClientParamSchema,
   t_DeviceAuthorizeCustomAsParamSchema,
-  t_DeviceAuthorizeCustomAsRequestBodySchema,
-  t_DeviceAuthorizeRequestBodySchema,
+  t_DeviceAuthorizeCustomAsRequestBody,
+  t_DeviceAuthorizeRequestBody,
   t_DeviceAuthorizeResponse,
   t_Error,
   t_GenerateNewClientSecretParamSchema,
@@ -51,18 +51,18 @@ import type {
   t_GetWellKnownOpenIdConfigurationCustomAsParamSchema,
   t_GetWellKnownOpenIdConfigurationCustomAsQuerySchema,
   t_GetWellKnownOpenIdConfigurationQuerySchema,
-  t_GlobalTokenRevocationRequestBodySchema,
+  t_GlobalTokenRevocationRequestBody,
   t_IntrospectCustomAsParamSchema,
-  t_IntrospectCustomAsRequestBodySchema,
+  t_IntrospectCustomAsRequestBody,
   t_IntrospectionResponse,
-  t_IntrospectRequestBodySchema,
+  t_IntrospectRequestBody,
   t_ListClientsQuerySchema,
   t_LogoutCustomAsParamSchema,
   t_LogoutCustomAsQuerySchema,
   t_LogoutCustomAsWithPostParamSchema,
-  t_LogoutCustomAsWithPostRequestBodySchema,
+  t_LogoutCustomAsWithPostRequestBody,
   t_LogoutQuerySchema,
-  t_LogoutWithPostRequestBodySchema,
+  t_LogoutWithPostRequestBody,
   t_OAuthError,
   t_OAuthKeys,
   t_OAuthMetadata,
@@ -70,27 +70,27 @@ import type {
   t_OauthKeysQuerySchema,
   t_OidcMetadata,
   t_OobAuthenticateCustomAsParamSchema,
-  t_OobAuthenticateCustomAsRequestBodySchema,
-  t_OobAuthenticateRequestBodySchema,
+  t_OobAuthenticateCustomAsRequestBody,
+  t_OobAuthenticateRequestBody,
   t_OobAuthenticateResponse,
   t_ParCustomAsParamSchema,
-  t_ParCustomAsRequestBodySchema,
+  t_ParCustomAsRequestBody,
   t_ParOptionsCustomAsParamSchema,
   t_ParOptionsCustomAsRequestHeaderSchema,
   t_ParOptionsRequestHeaderSchema,
-  t_ParRequestBodySchema,
+  t_ParRequestBody,
   t_ParResponse,
   t_ReplaceClientParamSchema,
-  t_ReplaceClientRequestBodySchema,
+  t_ReplaceClientRequestBody,
   t_RevokeCustomAsParamSchema,
-  t_RevokeCustomAsRequestBodySchema,
-  t_RevokeRequestBodySchema,
+  t_RevokeCustomAsRequestBody,
+  t_RevokeRequestBody,
   t_TokenCustomAsParamSchema,
-  t_TokenCustomAsRequestBodySchema,
+  t_TokenCustomAsRequestBody,
   t_TokenOptionsCustomAsParamSchema,
   t_TokenOptionsCustomAsRequestHeaderSchema,
   t_TokenOptionsRequestHeaderSchema,
-  t_TokenRequestBodySchema,
+  t_TokenRequestBody,
   t_TokenResponse,
   t_UserInfo,
   t_UserinfoCustomAsParamSchema,
@@ -164,7 +164,7 @@ export type AuthorizeWithPostResponder = {
 } & ExpressRuntimeResponder
 
 export type AuthorizeWithPost = (
-  params: Params<void, void, t_AuthorizeWithPostRequestBodySchema, void>,
+  params: Params<void, void, t_AuthorizeWithPostRequestBody, void>,
   respond: AuthorizeWithPostResponder,
   req: Request,
   res: Response,
@@ -179,7 +179,7 @@ export type BcAuthorizeResponder = {
 } & ExpressRuntimeResponder
 
 export type BcAuthorize = (
-  params: Params<void, void, t_BcAuthorizeRequestBodySchema, void>,
+  params: Params<void, void, t_BcAuthorizeRequestBody, void>,
   respond: BcAuthorizeResponder,
   req: Request,
   res: Response,
@@ -195,7 +195,7 @@ export type ChallengeResponder = {
 } & ExpressRuntimeResponder
 
 export type Challenge = (
-  params: Params<void, void, t_ChallengeRequestBodySchema, void>,
+  params: Params<void, void, t_ChallengeRequestBody, void>,
   respond: ChallengeResponder,
   req: Request,
   res: Response,
@@ -224,7 +224,7 @@ export type CreateClientResponder = {
 } & ExpressRuntimeResponder
 
 export type CreateClient = (
-  params: Params<void, void, t_CreateClientRequestBodySchema, void>,
+  params: Params<void, void, t_CreateClientRequestBody, void>,
   respond: CreateClientResponder,
   req: Request,
   res: Response,
@@ -258,7 +258,7 @@ export type ReplaceClient = (
   params: Params<
     t_ReplaceClientParamSchema,
     void,
-    t_ReplaceClientRequestBodySchema,
+    t_ReplaceClientRequestBody,
     void
   >,
   respond: ReplaceClientResponder,
@@ -305,7 +305,7 @@ export type DeviceAuthorizeResponder = {
 } & ExpressRuntimeResponder
 
 export type DeviceAuthorize = (
-  params: Params<void, void, t_DeviceAuthorizeRequestBodySchema, void>,
+  params: Params<void, void, t_DeviceAuthorizeRequestBody, void>,
   respond: DeviceAuthorizeResponder,
   req: Request,
   res: Response,
@@ -320,7 +320,7 @@ export type GlobalTokenRevocationResponder = {
 } & ExpressRuntimeResponder
 
 export type GlobalTokenRevocation = (
-  params: Params<void, void, t_GlobalTokenRevocationRequestBodySchema, void>,
+  params: Params<void, void, t_GlobalTokenRevocationRequestBody, void>,
   respond: GlobalTokenRevocationResponder,
   req: Request,
   res: Response,
@@ -335,7 +335,7 @@ export type IntrospectResponder = {
 } & ExpressRuntimeResponder
 
 export type Introspect = (
-  params: Params<void, void, t_IntrospectRequestBodySchema, void>,
+  params: Params<void, void, t_IntrospectRequestBody, void>,
   respond: IntrospectResponder,
   req: Request,
   res: Response,
@@ -374,7 +374,7 @@ export type LogoutWithPostResponder = {
 } & ExpressRuntimeResponder
 
 export type LogoutWithPost = (
-  params: Params<void, void, t_LogoutWithPostRequestBodySchema, void>,
+  params: Params<void, void, t_LogoutWithPostRequestBody, void>,
   respond: LogoutWithPostResponder,
   req: Request,
   res: Response,
@@ -390,7 +390,7 @@ export type OobAuthenticateResponder = {
 } & ExpressRuntimeResponder
 
 export type OobAuthenticate = (
-  params: Params<void, void, t_OobAuthenticateRequestBodySchema, void>,
+  params: Params<void, void, t_OobAuthenticateRequestBody, void>,
   respond: OobAuthenticateResponder,
   req: Request,
   res: Response,
@@ -419,7 +419,7 @@ export type ParResponder = {
 } & ExpressRuntimeResponder
 
 export type Par = (
-  params: Params<void, void, t_ParRequestBodySchema, void>,
+  params: Params<void, void, t_ParRequestBody, void>,
   respond: ParResponder,
   req: Request,
   res: Response,
@@ -434,7 +434,7 @@ export type RevokeResponder = {
 } & ExpressRuntimeResponder
 
 export type Revoke = (
-  params: Params<void, void, t_RevokeRequestBodySchema, void>,
+  params: Params<void, void, t_RevokeRequestBody, void>,
   respond: RevokeResponder,
   req: Request,
   res: Response,
@@ -462,7 +462,7 @@ export type TokenResponder = {
 } & ExpressRuntimeResponder
 
 export type Token = (
-  params: Params<void, void, t_TokenRequestBodySchema, void>,
+  params: Params<void, void, t_TokenRequestBody, void>,
   respond: TokenResponder,
   req: Request,
   res: Response,
@@ -547,7 +547,7 @@ export type AuthorizeCustomAsWithPost = (
   params: Params<
     t_AuthorizeCustomAsWithPostParamSchema,
     void,
-    t_AuthorizeCustomAsWithPostRequestBodySchema,
+    t_AuthorizeCustomAsWithPostRequestBody,
     void
   >,
   respond: AuthorizeCustomAsWithPostResponder,
@@ -567,7 +567,7 @@ export type BcAuthorizeCustomAs = (
   params: Params<
     t_BcAuthorizeCustomAsParamSchema,
     void,
-    t_BcAuthorizeCustomAsRequestBodySchema,
+    t_BcAuthorizeCustomAsRequestBody,
     void
   >,
   respond: BcAuthorizeCustomAsResponder,
@@ -588,7 +588,7 @@ export type ChallengeCustomAs = (
   params: Params<
     t_ChallengeCustomAsParamSchema,
     void,
-    t_ChallengeCustomAsRequestBodySchema,
+    t_ChallengeCustomAsRequestBody,
     void
   >,
   respond: ChallengeCustomAsResponder,
@@ -608,7 +608,7 @@ export type DeviceAuthorizeCustomAs = (
   params: Params<
     t_DeviceAuthorizeCustomAsParamSchema,
     void,
-    t_DeviceAuthorizeCustomAsRequestBodySchema,
+    t_DeviceAuthorizeCustomAsRequestBody,
     void
   >,
   respond: DeviceAuthorizeCustomAsResponder,
@@ -628,7 +628,7 @@ export type IntrospectCustomAs = (
   params: Params<
     t_IntrospectCustomAsParamSchema,
     void,
-    t_IntrospectCustomAsRequestBodySchema,
+    t_IntrospectCustomAsRequestBody,
     void
   >,
   respond: IntrospectCustomAsResponder,
@@ -677,7 +677,7 @@ export type LogoutCustomAsWithPost = (
   params: Params<
     t_LogoutCustomAsWithPostParamSchema,
     void,
-    t_LogoutCustomAsWithPostRequestBodySchema,
+    t_LogoutCustomAsWithPostRequestBody,
     void
   >,
   respond: LogoutCustomAsWithPostResponder,
@@ -698,7 +698,7 @@ export type OobAuthenticateCustomAs = (
   params: Params<
     t_OobAuthenticateCustomAsParamSchema,
     void,
-    t_OobAuthenticateCustomAsRequestBodySchema,
+    t_OobAuthenticateCustomAsRequestBody,
     void
   >,
   respond: OobAuthenticateCustomAsResponder,
@@ -737,7 +737,7 @@ export type ParCustomAs = (
   params: Params<
     t_ParCustomAsParamSchema,
     void,
-    t_ParCustomAsRequestBodySchema,
+    t_ParCustomAsRequestBody,
     void
   >,
   respond: ParCustomAsResponder,
@@ -757,7 +757,7 @@ export type RevokeCustomAs = (
   params: Params<
     t_RevokeCustomAsParamSchema,
     void,
-    t_RevokeCustomAsRequestBodySchema,
+    t_RevokeCustomAsRequestBody,
     void
   >,
   respond: RevokeCustomAsResponder,
@@ -795,7 +795,7 @@ export type TokenCustomAs = (
   params: Params<
     t_TokenCustomAsParamSchema,
     void,
-    t_TokenCustomAsRequestBodySchema,
+    t_TokenCustomAsRequestBody,
     void
   >,
   respond: TokenCustomAsResponder,
@@ -1021,7 +1021,7 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const authorizeWithPostRequestBodySchema = s_AuthorizeWithPost
+  const authorizeWithPostRequestBody = s_AuthorizeWithPost
 
   const authorizeWithPostResponseBodyValidator = responseValidationFactory(
     [["429", s_Error]],
@@ -1037,7 +1037,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            authorizeWithPostRequestBodySchema,
+            authorizeWithPostRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -1082,7 +1082,7 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const bcAuthorizeRequestBodySchema = s_BackchannelAuthorizeRequest
+  const bcAuthorizeRequestBody = s_BackchannelAuthorizeRequest
 
   const bcAuthorizeResponseBodyValidator = responseValidationFactory(
     [
@@ -1103,7 +1103,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            bcAuthorizeRequestBodySchema,
+            bcAuthorizeRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -1159,7 +1159,7 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const challengeRequestBodySchema = s_ChallengeRequest
+  const challengeRequestBody = s_ChallengeRequest
 
   const challengeResponseBodyValidator = responseValidationFactory(
     [
@@ -1181,7 +1181,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            challengeRequestBodySchema,
+            challengeRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -1313,7 +1313,7 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const createClientRequestBodySchema = s_Client
+  const createClientRequestBody = s_Client
 
   const createClientResponseBodyValidator = responseValidationFactory(
     [
@@ -1334,7 +1334,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            createClientRequestBodySchema,
+            createClientRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -1465,7 +1465,7 @@ export function createRouter(implementation: Implementation): Router {
 
   const replaceClientParamSchema = z.object({clientId: z.string()})
 
-  const replaceClientRequestBodySchema = s_Client
+  const replaceClientRequestBody = s_Client
 
   const replaceClientResponseBodyValidator = responseValidationFactory(
     [
@@ -1491,7 +1491,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            replaceClientRequestBodySchema,
+            replaceClientRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -1699,7 +1699,7 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const deviceAuthorizeRequestBodySchema = s_DeviceAuthorizeRequest
+  const deviceAuthorizeRequestBody = s_DeviceAuthorizeRequest
 
   const deviceAuthorizeResponseBodyValidator = responseValidationFactory(
     [
@@ -1720,7 +1720,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            deviceAuthorizeRequestBodySchema,
+            deviceAuthorizeRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -1774,7 +1774,7 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const globalTokenRevocationRequestBodySchema = s_GlobalTokenRevocationRequest
+  const globalTokenRevocationRequestBody = s_GlobalTokenRevocationRequest
 
   const globalTokenRevocationResponseBodyValidator = responseValidationFactory(
     [
@@ -1795,7 +1795,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            globalTokenRevocationRequestBodySchema,
+            globalTokenRevocationRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -1849,7 +1849,7 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const introspectRequestBodySchema = s_IntrospectionRequest
+  const introspectRequestBody = s_IntrospectionRequest
 
   const introspectResponseBodyValidator = responseValidationFactory(
     [
@@ -1870,7 +1870,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            introspectRequestBodySchema,
+            introspectRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -2062,7 +2062,7 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const logoutWithPostRequestBodySchema = s_LogoutWithPost
+  const logoutWithPostRequestBody = s_LogoutWithPost
 
   const logoutWithPostResponseBodyValidator = responseValidationFactory(
     [
@@ -2081,7 +2081,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            logoutWithPostRequestBodySchema,
+            logoutWithPostRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -2129,7 +2129,7 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const oobAuthenticateRequestBodySchema = s_OobAuthenticateRequest
+  const oobAuthenticateRequestBody = s_OobAuthenticateRequest
 
   const oobAuthenticateResponseBodyValidator = responseValidationFactory(
     [
@@ -2151,7 +2151,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            oobAuthenticateRequestBodySchema,
+            oobAuthenticateRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -2277,7 +2277,7 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const parRequestBodySchema = s_ParRequest
+  const parRequestBody = s_ParRequest
 
   const parResponseBodyValidator = responseValidationFactory(
     [
@@ -2299,7 +2299,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            parRequestBodySchema,
+            parRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -2356,7 +2356,7 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const revokeRequestBodySchema = s_RevokeRequest
+  const revokeRequestBody = s_RevokeRequest
 
   const revokeResponseBodyValidator = responseValidationFactory(
     [
@@ -2377,7 +2377,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            revokeRequestBodySchema,
+            revokeRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -2500,7 +2500,7 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const tokenRequestBodySchema = s_TokenRequest
+  const tokenRequestBody = s_TokenRequest
 
   const tokenResponseBodyValidator = responseValidationFactory(
     [
@@ -2521,7 +2521,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            tokenRequestBodySchema,
+            tokenRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -2924,7 +2924,7 @@ export function createRouter(implementation: Implementation): Router {
     authorizationServerId: z.string(),
   })
 
-  const authorizeCustomAsWithPostRequestBodySchema = s_AuthorizeWithPost
+  const authorizeCustomAsWithPostRequestBody = s_AuthorizeWithPost
 
   const authorizeCustomAsWithPostResponseBodyValidator =
     responseValidationFactory([["429", s_Error]], undefined)
@@ -2942,7 +2942,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            authorizeCustomAsWithPostRequestBodySchema,
+            authorizeCustomAsWithPostRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -2991,7 +2991,7 @@ export function createRouter(implementation: Implementation): Router {
     authorizationServerId: z.string(),
   })
 
-  const bcAuthorizeCustomAsRequestBodySchema = s_BackchannelAuthorizeRequest
+  const bcAuthorizeCustomAsRequestBody = s_BackchannelAuthorizeRequest
 
   const bcAuthorizeCustomAsResponseBodyValidator = responseValidationFactory(
     [
@@ -3016,7 +3016,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            bcAuthorizeCustomAsRequestBodySchema,
+            bcAuthorizeCustomAsRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -3076,7 +3076,7 @@ export function createRouter(implementation: Implementation): Router {
     authorizationServerId: z.string(),
   })
 
-  const challengeCustomAsRequestBodySchema = s_ChallengeRequest
+  const challengeCustomAsRequestBody = s_ChallengeRequest
 
   const challengeCustomAsResponseBodyValidator = responseValidationFactory(
     [
@@ -3102,7 +3102,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            challengeCustomAsRequestBodySchema,
+            challengeCustomAsRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -3163,7 +3163,7 @@ export function createRouter(implementation: Implementation): Router {
     authorizationServerId: z.string(),
   })
 
-  const deviceAuthorizeCustomAsRequestBodySchema = s_DeviceAuthorizeRequest
+  const deviceAuthorizeCustomAsRequestBody = s_DeviceAuthorizeRequest
 
   const deviceAuthorizeCustomAsResponseBodyValidator =
     responseValidationFactory(
@@ -3189,7 +3189,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            deviceAuthorizeCustomAsRequestBodySchema,
+            deviceAuthorizeCustomAsRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -3247,7 +3247,7 @@ export function createRouter(implementation: Implementation): Router {
     authorizationServerId: z.string(),
   })
 
-  const introspectCustomAsRequestBodySchema = s_IntrospectionRequest
+  const introspectCustomAsRequestBody = s_IntrospectionRequest
 
   const introspectCustomAsResponseBodyValidator = responseValidationFactory(
     [
@@ -3272,7 +3272,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            introspectCustomAsRequestBodySchema,
+            introspectCustomAsRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -3478,7 +3478,7 @@ export function createRouter(implementation: Implementation): Router {
     authorizationServerId: z.string(),
   })
 
-  const logoutCustomAsWithPostRequestBodySchema = s_LogoutWithPost
+  const logoutCustomAsWithPostRequestBody = s_LogoutWithPost
 
   const logoutCustomAsWithPostResponseBodyValidator = responseValidationFactory(
     [
@@ -3501,7 +3501,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            logoutCustomAsWithPostRequestBodySchema,
+            logoutCustomAsWithPostRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -3553,7 +3553,7 @@ export function createRouter(implementation: Implementation): Router {
     authorizationServerId: z.string(),
   })
 
-  const oobAuthenticateCustomAsRequestBodySchema = s_OobAuthenticateRequest
+  const oobAuthenticateCustomAsRequestBody = s_OobAuthenticateRequest
 
   const oobAuthenticateCustomAsResponseBodyValidator =
     responseValidationFactory(
@@ -3580,7 +3580,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            oobAuthenticateCustomAsRequestBodySchema,
+            oobAuthenticateCustomAsRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -3716,7 +3716,7 @@ export function createRouter(implementation: Implementation): Router {
 
   const parCustomAsParamSchema = z.object({authorizationServerId: z.string()})
 
-  const parCustomAsRequestBodySchema = s_ParRequest
+  const parCustomAsRequestBody = s_ParRequest
 
   const parCustomAsResponseBodyValidator = responseValidationFactory(
     [
@@ -3742,7 +3742,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            parCustomAsRequestBodySchema,
+            parCustomAsRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -3803,7 +3803,7 @@ export function createRouter(implementation: Implementation): Router {
     authorizationServerId: z.string(),
   })
 
-  const revokeCustomAsRequestBodySchema = s_RevokeRequest
+  const revokeCustomAsRequestBody = s_RevokeRequest
 
   const revokeCustomAsResponseBodyValidator = responseValidationFactory(
     [
@@ -3828,7 +3828,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            revokeCustomAsRequestBodySchema,
+            revokeCustomAsRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -3961,7 +3961,7 @@ export function createRouter(implementation: Implementation): Router {
 
   const tokenCustomAsParamSchema = z.object({authorizationServerId: z.string()})
 
-  const tokenCustomAsRequestBodySchema = s_TokenRequest
+  const tokenCustomAsRequestBody = s_TokenRequest
 
   const tokenCustomAsResponseBodyValidator = responseValidationFactory(
     [
@@ -3986,7 +3986,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            tokenCustomAsRequestBodySchema,
+            tokenCustomAsRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
