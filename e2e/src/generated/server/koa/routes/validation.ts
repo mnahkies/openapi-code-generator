@@ -24,9 +24,8 @@ import {z} from "zod/v4"
 import type {
   t_Enumerations,
   t_GetValidationNumbersRandomNumberQuerySchema,
-  t_PostValidationEnumsBodySchema,
-  t_PostValidationOptionalBodyBodySchema,
   t_postValidationOptionalBodyJson200Response,
+  t_postValidationOptionalBodyJsonRequestBody,
   t_RandomNumber,
 } from "../models.ts"
 import {
@@ -61,7 +60,7 @@ export type PostValidationEnumsResponder = {
 } & KoaRuntimeResponder
 
 export type PostValidationEnums = (
-  params: Params<void, void, t_PostValidationEnumsBodySchema, void>,
+  params: Params<void, void, t_Enumerations, void>,
   respond: PostValidationEnumsResponder,
   ctx: RouterContext,
   next: Next,
@@ -80,7 +79,7 @@ export type PostValidationOptionalBody = (
   params: Params<
     void,
     void,
-    t_PostValidationOptionalBodyBodySchema | undefined,
+    t_postValidationOptionalBodyJsonRequestBody | undefined,
     void
   >,
   respond: PostValidationOptionalBodyResponder,

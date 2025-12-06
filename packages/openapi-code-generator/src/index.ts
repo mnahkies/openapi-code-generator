@@ -66,10 +66,14 @@ export async function generate(
 
   const generator = templates[config.template]
 
-  const input = new Input(loader, {
-    extractInlineSchemas: config.extractInlineSchemas,
-    enumExtensibility: enumExtensibility(config, generator),
-  })
+  const input = new Input(
+    loader,
+    {
+      extractInlineSchemas: config.extractInlineSchemas,
+      enumExtensibility: enumExtensibility(config, generator),
+    },
+    generator.syntheticNameGenerator,
+  )
 
   const emitter = new TypescriptEmitter(fsAdaptor, formatter, {
     destinationDirectory: config.output,

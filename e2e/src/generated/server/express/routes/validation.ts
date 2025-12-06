@@ -22,9 +22,8 @@ import {z} from "zod/v4"
 import type {
   t_Enumerations,
   t_GetValidationNumbersRandomNumberQuerySchema,
-  t_PostValidationEnumsRequestBodySchema,
-  t_PostValidationOptionalBodyRequestBodySchema,
   t_postValidationOptionalBodyJson200Response,
+  t_postValidationOptionalBodyJsonRequestBody,
   t_RandomNumber,
 } from "../models.ts"
 import {
@@ -56,7 +55,7 @@ export type PostValidationEnumsResponder = {
 } & ExpressRuntimeResponder
 
 export type PostValidationEnums = (
-  params: Params<void, void, t_PostValidationEnumsRequestBodySchema, void>,
+  params: Params<void, void, t_Enumerations, void>,
   respond: PostValidationEnumsResponder,
   req: Request,
   res: Response,
@@ -72,7 +71,7 @@ export type PostValidationOptionalBody = (
   params: Params<
     void,
     void,
-    t_PostValidationOptionalBodyRequestBodySchema | undefined,
+    t_postValidationOptionalBodyJsonRequestBody | undefined,
     void
   >,
   respond: PostValidationOptionalBodyResponder,

@@ -21,11 +21,7 @@ import {
 } from "@nahkies/typescript-koa-runtime/zod-v4"
 import type {Next} from "koa"
 import {z} from "zod/v4"
-import type {
-  t_PostMediaTypesTextBodySchema,
-  t_PostMediaTypesXWwwFormUrlencodedBodySchema,
-  t_ProductOrder,
-} from "../models.ts"
+import type {t_ProductOrder} from "../models.ts"
 import {s_ProductOrder} from "../schemas.ts"
 
 export type PostMediaTypesTextResponder = {
@@ -33,7 +29,7 @@ export type PostMediaTypesTextResponder = {
 } & KoaRuntimeResponder
 
 export type PostMediaTypesText = (
-  params: Params<void, void, t_PostMediaTypesTextBodySchema, void>,
+  params: Params<void, void, string, void>,
   respond: PostMediaTypesTextResponder,
   ctx: RouterContext,
   next: Next,
@@ -46,12 +42,7 @@ export type PostMediaTypesXWwwFormUrlencodedResponder = {
 } & KoaRuntimeResponder
 
 export type PostMediaTypesXWwwFormUrlencoded = (
-  params: Params<
-    void,
-    void,
-    t_PostMediaTypesXWwwFormUrlencodedBodySchema,
-    void
-  >,
+  params: Params<void, void, t_ProductOrder, void>,
   respond: PostMediaTypesXWwwFormUrlencodedResponder,
   ctx: RouterContext,
   next: Next,

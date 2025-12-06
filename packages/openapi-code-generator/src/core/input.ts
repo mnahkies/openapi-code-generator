@@ -40,12 +40,15 @@ import type {
 } from "./openapi-types-normalized"
 import {extractPlaceholders, isRef} from "./openapi-utils"
 import {
+  defaultSyntheticNameGenerator,
+  type SyntheticNameGenerator,
+} from "./synthetic-name-generator"
+import {
   camelCase,
   coalesce,
   deepEqual,
   isDefined,
   isHttpMethod,
-  mediaTypeToIdentifier,
   upperFirst,
 } from "./utils"
 
@@ -61,10 +64,12 @@ export class Input {
   constructor(
     private loader: OpenapiLoader,
     readonly config: InputConfig,
+    private readonly syntheticNameGenerator: SyntheticNameGenerator = defaultSyntheticNameGenerator,
     private readonly schemaNormalizer = new SchemaNormalizer(config),
     private readonly parameterNormalizer = new ParameterNormalizer(
       loader,
       schemaNormalizer,
+      syntheticNameGenerator,
     ),
   ) {}
 
@@ -310,7 +315,8 @@ export class Input {
       content: this.normalizeMediaTypes(
         requestBody.content ?? {},
         operationId,
-        "BodySchema",
+        "RequestBody",
+        undefined,
       ),
     }
   }
@@ -339,7 +345,8 @@ export class Input {
             content: this.normalizeMediaTypes(
               response.content ?? {},
               operationId,
-              `${statusCode}Response`,
+              "ResponseBody",
+              statusCode,
             ),
           },
         ]
@@ -364,26 +371,30 @@ export class Input {
       [mediaType: string]: MediaType
     },
     operationId: string,
-    suffix: "BodySchema" | `${string}Response`,
+    context: "RequestBody" | "ResponseBody",
+    statusCode: number | string | undefined,
   ) {
+    const filtered = Object.entries(mediaTypes)
+      // Sometimes people pass `{}` as the MediaType for 204 responses, filter these out
+      .filter(([, mediaType]) => Boolean(mediaType.schema))
+    const hasMultipleMediaTypes = filtered.length > 1
     return Object.fromEntries(
-      Object.entries(mediaTypes)
-        // Sometimes people pass `{}` as the MediaType for 204 responses, filter these out
-        .filter(([, mediaType]) => Boolean(mediaType.schema))
-        .map(([contentType, mediaType]) => {
-          return [
-            contentType,
-            {
-              schema: this.normalizeMediaTypeSchema(
-                operationId,
-                contentType,
-                mediaType.schema,
-                suffix,
-              ),
-              encoding: mediaType.encoding,
-            },
-          ]
-        }),
+      filtered.map(([contentType, mediaType]) => {
+        return [
+          contentType,
+          {
+            schema: this.normalizeMediaTypeSchema(
+              operationId,
+              contentType,
+              mediaType.schema,
+              context,
+              statusCode,
+              hasMultipleMediaTypes,
+            ),
+            encoding: mediaType.encoding,
+          },
+        ]
+      }),
     )
   }
 
@@ -391,18 +402,30 @@ export class Input {
     operationId: string,
     mediaType: string,
     schema: Schema | Reference,
-    suffix: "BodySchema" | `${string}Response`,
+    context: "RequestBody" | "ResponseBody",
+    statusCode: number | string | undefined,
+    hasMultipleMediaTypes: boolean,
   ): MaybeIRModel {
-    // TODO: omit media type when only one possible?
     const syntheticName =
-      suffix === "BodySchema"
-        ? `${upperFirst(operationId)}${suffix}`
-        : `${operationId}${mediaTypeToIdentifier(mediaType)}${suffix}`
+      context === "RequestBody"
+        ? this.syntheticNameGenerator.forRequestBody({
+            operationId,
+            mediaType,
+            hasMultipleMediaTypes,
+            config: this.config,
+          })
+        : this.syntheticNameGenerator.forResponseBody({
+            operationId,
+            mediaType,
+            statusCode,
+            hasMultipleMediaTypes,
+            config: this.config,
+          })
 
     const result = this.schemaNormalizer.normalize(schema)
 
     const shouldCreateVirtualType =
-      (this.config.extractInlineSchemas || suffix === "BodySchema") &&
+      (this.config.extractInlineSchemas || context === "RequestBody") &&
       !isRef(result) &&
       !isRef(schema) &&
       (result.type === "object" ||
@@ -420,6 +443,7 @@ export class ParameterNormalizer {
   constructor(
     private readonly loader: OpenapiLoader,
     private readonly schemaNormalizer: SchemaNormalizer,
+    private readonly syntheticNameGenerator: SyntheticNameGenerator,
   ) {}
 
   public normalizeParameters(
@@ -443,7 +467,7 @@ export class ParameterNormalizer {
         $ref: pathParameters.length
           ? this.loader.addVirtualType(
               operationId,
-              upperFirst(`${operationId}ParamSchema`),
+              this.syntheticNameGenerator.forPathParameters({operationId}),
               this.reduceParametersToOpenApiSchema(pathParameters),
             )
           : undefined,
@@ -453,7 +477,7 @@ export class ParameterNormalizer {
         $ref: queryParameters.length
           ? this.loader.addVirtualType(
               operationId,
-              upperFirst(`${operationId}QuerySchema`),
+              this.syntheticNameGenerator.forQueryParameters({operationId}),
               this.reduceParametersToOpenApiSchema(queryParameters),
             )
           : undefined,
@@ -463,7 +487,7 @@ export class ParameterNormalizer {
         $ref: headerParameters.length
           ? this.loader.addVirtualType(
               operationId,
-              upperFirst(`${operationId}RequestHeaderSchema`),
+              this.syntheticNameGenerator.forRequestHeaders({operationId}),
               this.reduceParametersToOpenApiSchema(
                 headerParameters.map((it) => ({
                   ...it,

@@ -29,7 +29,7 @@ export type t_RandomNumber = {
   result?: number | undefined
 }
 
-export type t_GetHeadersRequestHeaderSchema = {
+export type t_GetHeadersRequestRequestHeaderSchema = {
   authorization?: string | undefined
   "boolean-header"?: boolean | undefined
   "number-header"?: number | undefined
@@ -53,28 +53,10 @@ export type t_GetValidationNumbersRandomNumberQuerySchema = {
   min?: number | undefined
 }
 
-export type t_PostMediaTypesTextBodySchema = string
-
-export type t_PostMediaTypesXWwwFormUrlencodedBodySchema = {
-  address?:
-    | {
-        address1?: string | undefined
-        postcode?: string | undefined
-      }
-    | undefined
-  quantity?: number | undefined
-  sku?: string | undefined
-}
-
-export type t_PostValidationEnumsBodySchema = {
-  colors: "red" | "green" | "blue"
-  starRatings: 1 | 2 | 3
-}
-
-export type t_PostValidationOptionalBodyBodySchema = {
+export type t_postValidationOptionalBodyJson200Response = {
   id?: string | undefined
 }
 
-export type t_postValidationOptionalBodyJson200Response = {
+export type t_postValidationOptionalBodyJsonRequestBody = {
   id?: string | undefined
 }

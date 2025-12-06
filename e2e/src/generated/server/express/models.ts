@@ -53,28 +53,10 @@ export type t_GetValidationNumbersRandomNumberQuerySchema = {
   min?: number | undefined
 }
 
-export type t_PostMediaTypesTextRequestBodySchema = string
-
-export type t_PostMediaTypesXWwwFormUrlencodedRequestBodySchema = {
-  address?:
-    | {
-        address1?: string | undefined
-        postcode?: string | undefined
-      }
-    | undefined
-  quantity?: number | undefined
-  sku?: string | undefined
-}
-
-export type t_PostValidationEnumsRequestBodySchema = {
-  colors: "red" | "green" | "blue"
-  starRatings: 1 | 2 | 3
-}
-
-export type t_PostValidationOptionalBodyRequestBodySchema = {
+export type t_postValidationOptionalBodyJson200Response = {
   id?: string | undefined
 }
 
-export type t_postValidationOptionalBodyJson200Response = {
+export type t_postValidationOptionalBodyJsonRequestBody = {
   id?: string | undefined
 }

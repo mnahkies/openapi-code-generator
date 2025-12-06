@@ -22,7 +22,7 @@ import {
 import type {Next} from "koa"
 import {z} from "zod/v4"
 import type {
-  t_GetHeadersRequestHeaderSchema,
+  t_GetHeadersRequestRequestHeaderSchema,
   t_getHeadersRequestJson200Response,
   t_getHeadersUndeclaredJson200Response,
 } from "../models.ts"
@@ -52,7 +52,7 @@ export type GetHeadersRequestResponder = {
 } & KoaRuntimeResponder
 
 export type GetHeadersRequest = (
-  params: Params<void, void, void, t_GetHeadersRequestHeaderSchema>,
+  params: Params<void, void, void, t_GetHeadersRequestRequestHeaderSchema>,
   respond: GetHeadersRequestResponder,
   ctx: RouterContext,
   next: Next,
