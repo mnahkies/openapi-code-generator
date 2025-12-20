@@ -342,8 +342,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const updateTodoListByIdParamSchema = z.object({listId: z.string()})
 
-  const updateTodoListByIdBodySchema = s_CreateUpdateTodoList
-
   const updateTodoListByIdResponseValidator = responseValidationFactory(
     [
       ["200", s_TodoList],
@@ -361,7 +359,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       query: undefined,
       body: parseRequestInput(
-        updateTodoListByIdBodySchema,
+        s_CreateUpdateTodoList,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -529,8 +527,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const createTodoListItemParamSchema = z.object({listId: z.string()})
 
-  const createTodoListItemBodySchema = s_CreateTodoListItemRequestBody
-
   const createTodoListItemResponseValidator = responseValidationFactory(
     [["204", z.undefined()]],
     undefined,
@@ -548,7 +544,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          createTodoListItemBodySchema,
+          s_CreateTodoListItemRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -625,10 +621,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  // todo: request bodies with content-type 'multipart/form-data' not yet supported
-
-  const uploadAttachmentBodySchema = z.never()
-
   const uploadAttachmentResponseValidator = responseValidationFactory(
     [["202", z.undefined()]],
     undefined,
@@ -638,8 +630,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const input = {
       params: undefined,
       query: undefined,
+      // todo: request bodies with content-type 'multipart/form-data' not yet supported
       body: parseRequestInput(
-        uploadAttachmentBodySchema,
+        z.never(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ) as never,

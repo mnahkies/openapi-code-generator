@@ -15583,8 +15583,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const postAccountLinksBodySchema = s_PostAccountLinksRequestBody
-
   const postAccountLinksResponseValidator = responseValidationFactory(
     [["200", s_account_link]],
     s_error,
@@ -15595,7 +15593,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: undefined,
       body: parseRequestInput(
-        postAccountLinksBodySchema,
+        s_PostAccountLinksRequestBody,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -15633,8 +15631,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const postAccountSessionsBodySchema = s_PostAccountSessionsRequestBody
-
   const postAccountSessionsResponseValidator = responseValidationFactory(
     [["200", s_account_session]],
     s_error,
@@ -15648,7 +15644,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postAccountSessionsBodySchema,
+          s_PostAccountSessionsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -15773,8 +15769,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const postAccountsBodySchema = s_PostAccountsRequestBody.optional()
-
   const postAccountsResponseValidator = responseValidationFactory(
     [["200", s_account]],
     s_error,
@@ -15785,7 +15779,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: undefined,
       body: parseRequestInput(
-        postAccountsBodySchema,
+        s_PostAccountsRequestBody.optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -15952,9 +15946,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     account: z.string().max(5000),
   })
 
-  const postAccountsAccountBodySchema =
-    s_PostAccountsAccountRequestBody.optional()
-
   const postAccountsAccountResponseValidator = responseValidationFactory(
     [["200", s_account]],
     s_error,
@@ -15972,7 +15963,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postAccountsAccountBodySchema,
+          s_PostAccountsAccountRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -16015,9 +16006,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     account: z.string().max(5000),
   })
 
-  const postAccountsAccountBankAccountsBodySchema =
-    s_PostAccountsAccountBankAccountsRequestBody.optional()
-
   const postAccountsAccountBankAccountsResponseValidator =
     responseValidationFactory([["200", s_external_account]], s_error)
 
@@ -16033,7 +16021,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postAccountsAccountBankAccountsBodySchema,
+          s_PostAccountsAccountBankAccountsRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -16203,9 +16191,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     id: z.string(),
   })
 
-  const postAccountsAccountBankAccountsIdBodySchema =
-    s_PostAccountsAccountBankAccountsIdRequestBody.optional()
-
   const postAccountsAccountBankAccountsIdResponseValidator =
     responseValidationFactory([["200", s_external_account]], s_error)
 
@@ -16221,7 +16206,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postAccountsAccountBankAccountsIdBodySchema,
+          s_PostAccountsAccountBankAccountsIdRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -16424,9 +16409,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     capability: z.string(),
   })
 
-  const postAccountsAccountCapabilitiesCapabilityBodySchema =
-    s_PostAccountsAccountCapabilitiesCapabilityRequestBody.optional()
-
   const postAccountsAccountCapabilitiesCapabilityResponseValidator =
     responseValidationFactory([["200", s_capability]], s_error)
 
@@ -16442,7 +16424,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postAccountsAccountCapabilitiesCapabilityBodySchema,
+          s_PostAccountsAccountCapabilitiesCapabilityRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -16582,9 +16564,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     account: z.string().max(5000),
   })
 
-  const postAccountsAccountExternalAccountsBodySchema =
-    s_PostAccountsAccountExternalAccountsRequestBody.optional()
-
   const postAccountsAccountExternalAccountsResponseValidator =
     responseValidationFactory([["200", s_external_account]], s_error)
 
@@ -16600,7 +16579,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postAccountsAccountExternalAccountsBodySchema,
+          s_PostAccountsAccountExternalAccountsRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -16776,9 +16755,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     id: z.string(),
   })
 
-  const postAccountsAccountExternalAccountsIdBodySchema =
-    s_PostAccountsAccountExternalAccountsIdRequestBody.optional()
-
   const postAccountsAccountExternalAccountsIdResponseValidator =
     responseValidationFactory([["200", s_external_account]], s_error)
 
@@ -16794,7 +16770,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postAccountsAccountExternalAccountsIdBodySchema,
+          s_PostAccountsAccountExternalAccountsIdRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -16840,9 +16816,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     account: z.string().max(5000),
   })
 
-  const postAccountsAccountLoginLinksBodySchema =
-    s_PostAccountsAccountLoginLinksRequestBody.optional()
-
   const postAccountsAccountLoginLinksResponseValidator =
     responseValidationFactory([["200", s_login_link]], s_error)
 
@@ -16858,7 +16831,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postAccountsAccountLoginLinksBodySchema,
+          s_PostAccountsAccountLoginLinksRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -16998,9 +16971,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     account: z.string().max(5000),
   })
 
-  const postAccountsAccountPeopleBodySchema =
-    s_PostAccountsAccountPeopleRequestBody.optional()
-
   const postAccountsAccountPeopleResponseValidator = responseValidationFactory(
     [["200", s_person]],
     s_error,
@@ -17018,7 +16988,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postAccountsAccountPeopleBodySchema,
+          s_PostAccountsAccountPeopleRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -17188,9 +17158,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     person: z.string().max(5000),
   })
 
-  const postAccountsAccountPeoplePersonBodySchema =
-    s_PostAccountsAccountPeoplePersonRequestBody.optional()
-
   const postAccountsAccountPeoplePersonResponseValidator =
     responseValidationFactory([["200", s_person]], s_error)
 
@@ -17206,7 +17173,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postAccountsAccountPeoplePersonBodySchema,
+          s_PostAccountsAccountPeoplePersonRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -17346,9 +17313,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     account: z.string().max(5000),
   })
 
-  const postAccountsAccountPersonsBodySchema =
-    s_PostAccountsAccountPersonsRequestBody.optional()
-
   const postAccountsAccountPersonsResponseValidator = responseValidationFactory(
     [["200", s_person]],
     s_error,
@@ -17366,7 +17330,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postAccountsAccountPersonsBodySchema,
+          s_PostAccountsAccountPersonsRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -17536,9 +17500,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     person: z.string().max(5000),
   })
 
-  const postAccountsAccountPersonsPersonBodySchema =
-    s_PostAccountsAccountPersonsPersonRequestBody.optional()
-
   const postAccountsAccountPersonsPersonResponseValidator =
     responseValidationFactory([["200", s_person]], s_error)
 
@@ -17554,7 +17515,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postAccountsAccountPersonsPersonBodySchema,
+          s_PostAccountsAccountPersonsPersonRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -17597,9 +17558,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     account: z.string().max(5000),
   })
 
-  const postAccountsAccountRejectBodySchema =
-    s_PostAccountsAccountRejectRequestBody
-
   const postAccountsAccountRejectResponseValidator = responseValidationFactory(
     [["200", s_account]],
     s_error,
@@ -17617,7 +17575,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postAccountsAccountRejectBodySchema,
+          s_PostAccountsAccountRejectRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -17736,8 +17694,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postApplePayDomainsBodySchema = s_PostApplePayDomainsRequestBody
-
   const postApplePayDomainsResponseValidator = responseValidationFactory(
     [["200", s_apple_pay_domain]],
     s_error,
@@ -17751,7 +17707,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postApplePayDomainsBodySchema,
+          s_PostApplePayDomainsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -18077,9 +18033,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     id: z.string().max(5000),
   })
 
-  const postApplicationFeesFeeRefundsIdBodySchema =
-    s_PostApplicationFeesFeeRefundsIdRequestBody.optional()
-
   const postApplicationFeesFeeRefundsIdResponseValidator =
     responseValidationFactory([["200", s_fee_refund]], s_error)
 
@@ -18095,7 +18048,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postApplicationFeesFeeRefundsIdBodySchema,
+          s_PostApplicationFeesFeeRefundsIdRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -18205,9 +18158,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     id: z.string().max(5000),
   })
 
-  const postApplicationFeesIdRefundBodySchema =
-    s_PostApplicationFeesIdRefundRequestBody.optional()
-
   const postApplicationFeesIdRefundResponseValidator =
     responseValidationFactory([["200", s_application_fee]], s_error)
 
@@ -18223,7 +18173,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postApplicationFeesIdRefundBodySchema,
+          s_PostApplicationFeesIdRefundRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -18354,9 +18304,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     id: z.string().max(5000),
   })
 
-  const postApplicationFeesIdRefundsBodySchema =
-    s_PostApplicationFeesIdRefundsRequestBody.optional()
-
   const postApplicationFeesIdRefundsResponseValidator =
     responseValidationFactory([["200", s_fee_refund]], s_error)
 
@@ -18372,7 +18319,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postApplicationFeesIdRefundsBodySchema,
+          s_PostApplicationFeesIdRefundsRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -18490,8 +18437,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const postAppsSecretsBodySchema = s_PostAppsSecretsRequestBody
-
   const postAppsSecretsResponseValidator = responseValidationFactory(
     [["200", s_apps_secret]],
     s_error,
@@ -18502,7 +18447,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: undefined,
       body: parseRequestInput(
-        postAppsSecretsBodySchema,
+        s_PostAppsSecretsRequestBody,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -18540,8 +18485,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const postAppsSecretsDeleteBodySchema = s_PostAppsSecretsDeleteRequestBody
-
   const postAppsSecretsDeleteResponseValidator = responseValidationFactory(
     [["200", s_apps_secret]],
     s_error,
@@ -18555,7 +18498,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postAppsSecretsDeleteBodySchema,
+          s_PostAppsSecretsDeleteRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -19120,8 +19063,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const postBillingAlertsBodySchema = s_PostBillingAlertsRequestBody
-
   const postBillingAlertsResponseValidator = responseValidationFactory(
     [["200", s_billing_alert]],
     s_error,
@@ -19132,7 +19073,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: undefined,
       body: parseRequestInput(
-        postBillingAlertsBodySchema,
+        s_PostBillingAlertsRequestBody,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -19241,9 +19182,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     id: z.string().max(5000),
   })
 
-  const postBillingAlertsIdActivateBodySchema =
-    s_PostBillingAlertsIdActivateRequestBody.optional()
-
   const postBillingAlertsIdActivateResponseValidator =
     responseValidationFactory([["200", s_billing_alert]], s_error)
 
@@ -19259,7 +19197,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postBillingAlertsIdActivateBodySchema,
+          s_PostBillingAlertsIdActivateRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -19302,9 +19240,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     id: z.string().max(5000),
   })
 
-  const postBillingAlertsIdArchiveBodySchema =
-    s_PostBillingAlertsIdArchiveRequestBody.optional()
-
   const postBillingAlertsIdArchiveResponseValidator = responseValidationFactory(
     [["200", s_billing_alert]],
     s_error,
@@ -19322,7 +19257,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postBillingAlertsIdArchiveBodySchema,
+          s_PostBillingAlertsIdArchiveRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -19365,9 +19300,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     id: z.string().max(5000),
   })
 
-  const postBillingAlertsIdDeactivateBodySchema =
-    s_PostBillingAlertsIdDeactivateRequestBody.optional()
-
   const postBillingAlertsIdDeactivateResponseValidator =
     responseValidationFactory([["200", s_billing_alert]], s_error)
 
@@ -19383,7 +19315,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postBillingAlertsIdDeactivateBodySchema,
+          s_PostBillingAlertsIdDeactivateRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -19741,8 +19673,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postBillingCreditGrantsBodySchema = s_PostBillingCreditGrantsRequestBody
-
   const postBillingCreditGrantsResponseValidator = responseValidationFactory(
     [["200", s_billing_credit_grant]],
     s_error,
@@ -19756,7 +19686,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postBillingCreditGrantsBodySchema,
+          s_PostBillingCreditGrantsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -19868,9 +19798,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     id: z.string().max(5000),
   })
 
-  const postBillingCreditGrantsIdBodySchema =
-    s_PostBillingCreditGrantsIdRequestBody.optional()
-
   const postBillingCreditGrantsIdResponseValidator = responseValidationFactory(
     [["200", s_billing_credit_grant]],
     s_error,
@@ -19888,7 +19815,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postBillingCreditGrantsIdBodySchema,
+          s_PostBillingCreditGrantsIdRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -19931,9 +19858,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     id: z.string().max(5000),
   })
 
-  const postBillingCreditGrantsIdExpireBodySchema =
-    s_PostBillingCreditGrantsIdExpireRequestBody.optional()
-
   const postBillingCreditGrantsIdExpireResponseValidator =
     responseValidationFactory([["200", s_billing_credit_grant]], s_error)
 
@@ -19949,7 +19873,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postBillingCreditGrantsIdExpireBodySchema,
+          s_PostBillingCreditGrantsIdExpireRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -19992,9 +19916,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     id: z.string().max(5000),
   })
 
-  const postBillingCreditGrantsIdVoidBodySchema =
-    s_PostBillingCreditGrantsIdVoidRequestBody.optional()
-
   const postBillingCreditGrantsIdVoidResponseValidator =
     responseValidationFactory([["200", s_billing_credit_grant]], s_error)
 
@@ -20010,7 +19931,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postBillingCreditGrantsIdVoidBodySchema,
+          s_PostBillingCreditGrantsIdVoidRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -20049,9 +19970,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postBillingMeterEventAdjustmentsBodySchema =
-    s_PostBillingMeterEventAdjustmentsRequestBody
-
   const postBillingMeterEventAdjustmentsResponseValidator =
     responseValidationFactory(
       [["200", s_billing_meter_event_adjustment]],
@@ -20066,7 +19984,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postBillingMeterEventAdjustmentsBodySchema,
+          s_PostBillingMeterEventAdjustmentsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -20105,8 +20023,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postBillingMeterEventsBodySchema = s_PostBillingMeterEventsRequestBody
-
   const postBillingMeterEventsResponseValidator = responseValidationFactory(
     [["200", s_billing_meter_event]],
     s_error,
@@ -20120,7 +20036,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postBillingMeterEventsBodySchema,
+          s_PostBillingMeterEventsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -20235,8 +20151,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const postBillingMetersBodySchema = s_PostBillingMetersRequestBody
-
   const postBillingMetersResponseValidator = responseValidationFactory(
     [["200", s_billing_meter]],
     s_error,
@@ -20247,7 +20161,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: undefined,
       body: parseRequestInput(
-        postBillingMetersBodySchema,
+        s_PostBillingMetersRequestBody,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -20354,9 +20268,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const postBillingMetersIdParamSchema = z.object({id: z.string().max(5000)})
 
-  const postBillingMetersIdBodySchema =
-    s_PostBillingMetersIdRequestBody.optional()
-
   const postBillingMetersIdResponseValidator = responseValidationFactory(
     [["200", s_billing_meter]],
     s_error,
@@ -20374,7 +20285,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postBillingMetersIdBodySchema,
+          s_PostBillingMetersIdRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -20417,9 +20328,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     id: z.string().max(5000),
   })
 
-  const postBillingMetersIdDeactivateBodySchema =
-    s_PostBillingMetersIdDeactivateRequestBody.optional()
-
   const postBillingMetersIdDeactivateResponseValidator =
     responseValidationFactory([["200", s_billing_meter]], s_error)
 
@@ -20435,7 +20343,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postBillingMetersIdDeactivateBodySchema,
+          s_PostBillingMetersIdDeactivateRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -20573,9 +20481,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     id: z.string().max(5000),
   })
 
-  const postBillingMetersIdReactivateBodySchema =
-    s_PostBillingMetersIdReactivateRequestBody.optional()
-
   const postBillingMetersIdReactivateResponseValidator =
     responseValidationFactory([["200", s_billing_meter]], s_error)
 
@@ -20591,7 +20496,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postBillingMetersIdReactivateBodySchema,
+          s_PostBillingMetersIdReactivateRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -20715,9 +20620,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postBillingPortalConfigurationsBodySchema =
-    s_PostBillingPortalConfigurationsRequestBody
-
   const postBillingPortalConfigurationsResponseValidator =
     responseValidationFactory(
       [["200", s_billing_portal_configuration]],
@@ -20732,7 +20634,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postBillingPortalConfigurationsBodySchema,
+          s_PostBillingPortalConfigurationsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -20853,9 +20755,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     configuration: z.string().max(5000),
   })
 
-  const postBillingPortalConfigurationsConfigurationBodySchema =
-    s_PostBillingPortalConfigurationsConfigurationRequestBody.optional()
-
   const postBillingPortalConfigurationsConfigurationResponseValidator =
     responseValidationFactory(
       [["200", s_billing_portal_configuration]],
@@ -20874,7 +20773,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postBillingPortalConfigurationsConfigurationBodySchema,
+          s_PostBillingPortalConfigurationsConfigurationRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -20921,9 +20820,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postBillingPortalSessionsBodySchema =
-    s_PostBillingPortalSessionsRequestBody
-
   const postBillingPortalSessionsResponseValidator = responseValidationFactory(
     [["200", s_billing_portal_session]],
     s_error,
@@ -20937,7 +20833,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postBillingPortalSessionsBodySchema,
+          s_PostBillingPortalSessionsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -21065,8 +20961,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const postChargesBodySchema = s_PostChargesRequestBody.optional()
-
   const postChargesResponseValidator = responseValidationFactory(
     [["200", s_charge]],
     s_error,
@@ -21077,7 +20971,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: undefined,
       body: parseRequestInput(
-        postChargesBodySchema,
+        s_PostChargesRequestBody.optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -21259,8 +21153,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const postChargesChargeParamSchema = z.object({charge: z.string().max(5000)})
 
-  const postChargesChargeBodySchema = s_PostChargesChargeRequestBody.optional()
-
   const postChargesChargeResponseValidator = responseValidationFactory(
     [["200", s_charge]],
     s_error,
@@ -21275,7 +21167,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       query: undefined,
       body: parseRequestInput(
-        postChargesChargeBodySchema,
+        s_PostChargesChargeRequestBody.optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -21317,9 +21209,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     charge: z.string().max(5000),
   })
 
-  const postChargesChargeCaptureBodySchema =
-    s_PostChargesChargeCaptureRequestBody.optional()
-
   const postChargesChargeCaptureResponseValidator = responseValidationFactory(
     [["200", s_charge]],
     s_error,
@@ -21337,7 +21226,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postChargesChargeCaptureBodySchema,
+          s_PostChargesChargeCaptureRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -21449,9 +21338,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     charge: z.string().max(5000),
   })
 
-  const postChargesChargeDisputeBodySchema =
-    s_PostChargesChargeDisputeRequestBody.optional()
-
   const postChargesChargeDisputeResponseValidator = responseValidationFactory(
     [["200", s_dispute]],
     s_error,
@@ -21469,7 +21355,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postChargesChargeDisputeBodySchema,
+          s_PostChargesChargeDisputeRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -21512,9 +21398,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     charge: z.string().max(5000),
   })
 
-  const postChargesChargeDisputeCloseBodySchema =
-    s_PostChargesChargeDisputeCloseRequestBody.optional()
-
   const postChargesChargeDisputeCloseResponseValidator =
     responseValidationFactory([["200", s_dispute]], s_error)
 
@@ -21530,7 +21413,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postChargesChargeDisputeCloseBodySchema,
+          s_PostChargesChargeDisputeCloseRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -21573,9 +21456,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     charge: z.string().max(5000),
   })
 
-  const postChargesChargeRefundBodySchema =
-    s_PostChargesChargeRefundRequestBody.optional()
-
   const postChargesChargeRefundResponseValidator = responseValidationFactory(
     [["200", s_charge]],
     s_error,
@@ -21593,7 +21473,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postChargesChargeRefundBodySchema,
+          s_PostChargesChargeRefundRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -21721,9 +21601,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     charge: z.string().max(5000),
   })
 
-  const postChargesChargeRefundsBodySchema =
-    s_PostChargesChargeRefundsRequestBody.optional()
-
   const postChargesChargeRefundsResponseValidator = responseValidationFactory(
     [["200", s_refund]],
     s_error,
@@ -21741,7 +21618,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postChargesChargeRefundsBodySchema,
+          s_PostChargesChargeRefundsRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -21853,9 +21730,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     refund: z.string(),
   })
 
-  const postChargesChargeRefundsRefundBodySchema =
-    s_PostChargesChargeRefundsRefundRequestBody.optional()
-
   const postChargesChargeRefundsRefundResponseValidator =
     responseValidationFactory([["200", s_refund]], s_error)
 
@@ -21871,7 +21745,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postChargesChargeRefundsRefundBodySchema,
+          s_PostChargesChargeRefundsRefundRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -22006,9 +21880,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postCheckoutSessionsBodySchema =
-    s_PostCheckoutSessionsRequestBody.optional()
-
   const postCheckoutSessionsResponseValidator = responseValidationFactory(
     [["200", s_checkout_session]],
     s_error,
@@ -22022,7 +21893,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postCheckoutSessionsBodySchema,
+          s_PostCheckoutSessionsRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -22134,9 +22005,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     session: z.string().max(5000),
   })
 
-  const postCheckoutSessionsSessionBodySchema =
-    s_PostCheckoutSessionsSessionRequestBody.optional()
-
   const postCheckoutSessionsSessionResponseValidator =
     responseValidationFactory([["200", s_checkout_session]], s_error)
 
@@ -22152,7 +22020,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postCheckoutSessionsSessionBodySchema,
+          s_PostCheckoutSessionsSessionRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -22195,9 +22063,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     session: z.string().max(5000),
   })
 
-  const postCheckoutSessionsSessionExpireBodySchema =
-    s_PostCheckoutSessionsSessionExpireRequestBody.optional()
-
   const postCheckoutSessionsSessionExpireResponseValidator =
     responseValidationFactory([["200", s_checkout_session]], s_error)
 
@@ -22213,7 +22078,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postCheckoutSessionsSessionExpireBodySchema,
+          s_PostCheckoutSessionsSessionExpireRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -22421,8 +22286,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const postClimateOrdersBodySchema = s_PostClimateOrdersRequestBody
-
   const postClimateOrdersResponseValidator = responseValidationFactory(
     [["200", s_climate_order]],
     s_error,
@@ -22433,7 +22296,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: undefined,
       body: parseRequestInput(
-        postClimateOrdersBodySchema,
+        s_PostClimateOrdersRequestBody,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -22544,9 +22407,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     order: z.string().max(5000),
   })
 
-  const postClimateOrdersOrderBodySchema =
-    s_PostClimateOrdersOrderRequestBody.optional()
-
   const postClimateOrdersOrderResponseValidator = responseValidationFactory(
     [["200", s_climate_order]],
     s_error,
@@ -22564,7 +22424,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postClimateOrdersOrderBodySchema,
+          s_PostClimateOrdersOrderRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -22607,9 +22467,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     order: z.string().max(5000),
   })
 
-  const postClimateOrdersOrderCancelBodySchema =
-    s_PostClimateOrdersOrderCancelRequestBody.optional()
-
   const postClimateOrdersOrderCancelResponseValidator =
     responseValidationFactory([["200", s_climate_order]], s_error)
 
@@ -22625,7 +22482,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postClimateOrdersOrderCancelBodySchema,
+          s_PostClimateOrdersOrderCancelRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -23258,8 +23115,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const postCouponsBodySchema = s_PostCouponsRequestBody.optional()
-
   const postCouponsResponseValidator = responseValidationFactory(
     [["200", s_coupon]],
     s_error,
@@ -23270,7 +23125,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: undefined,
       body: parseRequestInput(
-        postCouponsBodySchema,
+        s_PostCouponsRequestBody.optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -23429,8 +23284,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const postCouponsCouponParamSchema = z.object({coupon: z.string().max(5000)})
 
-  const postCouponsCouponBodySchema = s_PostCouponsCouponRequestBody.optional()
-
   const postCouponsCouponResponseValidator = responseValidationFactory(
     [["200", s_coupon]],
     s_error,
@@ -23445,7 +23298,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       query: undefined,
       body: parseRequestInput(
-        postCouponsCouponBodySchema,
+        s_PostCouponsCouponRequestBody.optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -23571,8 +23424,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const postCreditNotesBodySchema = s_PostCreditNotesRequestBody
-
   const postCreditNotesResponseValidator = responseValidationFactory(
     [["200", s_credit_note]],
     s_error,
@@ -23583,7 +23434,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: undefined,
       body: parseRequestInput(
-        postCreditNotesBodySchema,
+        s_PostCreditNotesRequestBody,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -24038,8 +23889,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const postCreditNotesIdParamSchema = z.object({id: z.string().max(5000)})
 
-  const postCreditNotesIdBodySchema = s_PostCreditNotesIdRequestBody.optional()
-
   const postCreditNotesIdResponseValidator = responseValidationFactory(
     [["200", s_credit_note]],
     s_error,
@@ -24057,7 +23906,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postCreditNotesIdBodySchema,
+          s_PostCreditNotesIdRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -24098,9 +23947,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const postCreditNotesIdVoidParamSchema = z.object({id: z.string().max(5000)})
 
-  const postCreditNotesIdVoidBodySchema =
-    s_PostCreditNotesIdVoidRequestBody.optional()
-
   const postCreditNotesIdVoidResponseValidator = responseValidationFactory(
     [["200", s_credit_note]],
     s_error,
@@ -24118,7 +23964,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postCreditNotesIdVoidBodySchema,
+          s_PostCreditNotesIdVoidRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -24157,8 +24003,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postCustomerSessionsBodySchema = s_PostCustomerSessionsRequestBody
-
   const postCustomerSessionsResponseValidator = responseValidationFactory(
     [["200", s_customer_session]],
     s_error,
@@ -24172,7 +24016,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postCustomerSessionsBodySchema,
+          s_PostCustomerSessionsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -24299,8 +24143,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const postCustomersBodySchema = s_PostCustomersRequestBody.optional()
-
   const postCustomersResponseValidator = responseValidationFactory(
     [["200", s_customer]],
     s_error,
@@ -24311,7 +24153,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: undefined,
       body: parseRequestInput(
-        postCustomersBodySchema,
+        s_PostCustomersRequestBody.optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -24561,9 +24403,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     customer: z.string().max(5000),
   })
 
-  const postCustomersCustomerBodySchema =
-    s_PostCustomersCustomerRequestBody.optional()
-
   const postCustomersCustomerResponseValidator = responseValidationFactory(
     [["200", s_customer]],
     s_error,
@@ -24581,7 +24420,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postCustomersCustomerBodySchema,
+          s_PostCustomersCustomerRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -24715,9 +24554,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     customer: z.string().max(5000),
   })
 
-  const postCustomersCustomerBalanceTransactionsBodySchema =
-    s_PostCustomersCustomerBalanceTransactionsRequestBody
-
   const postCustomersCustomerBalanceTransactionsResponseValidator =
     responseValidationFactory(
       [["200", s_customer_balance_transaction]],
@@ -24736,7 +24572,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postCustomersCustomerBalanceTransactionsBodySchema,
+          s_PostCustomersCustomerBalanceTransactionsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -24863,9 +24699,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
       transaction: z.string().max(5000),
     })
 
-  const postCustomersCustomerBalanceTransactionsTransactionBodySchema =
-    s_PostCustomersCustomerBalanceTransactionsTransactionRequestBody.optional()
-
   const postCustomersCustomerBalanceTransactionsTransactionResponseValidator =
     responseValidationFactory(
       [["200", s_customer_balance_transaction]],
@@ -24884,7 +24717,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postCustomersCustomerBalanceTransactionsTransactionBodySchema,
+          s_PostCustomersCustomerBalanceTransactionsTransactionRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -25024,9 +24857,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     customer: z.string().max(5000),
   })
 
-  const postCustomersCustomerBankAccountsBodySchema =
-    s_PostCustomersCustomerBankAccountsRequestBody.optional()
-
   const postCustomersCustomerBankAccountsResponseValidator =
     responseValidationFactory([["200", s_payment_source]], s_error)
 
@@ -25042,7 +24872,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postCustomersCustomerBankAccountsBodySchema,
+          s_PostCustomersCustomerBankAccountsRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -25089,9 +24919,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     id: z.string(),
   })
 
-  const deleteCustomersCustomerBankAccountsIdBodySchema =
-    s_DeleteCustomersCustomerBankAccountsIdRequestBody.optional()
-
   const deleteCustomersCustomerBankAccountsIdResponseValidator =
     responseValidationFactory(
       [
@@ -25115,7 +24942,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          deleteCustomersCustomerBankAccountsIdBodySchema,
+          s_DeleteCustomersCustomerBankAccountsIdRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -25235,9 +25062,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     id: z.string().max(5000),
   })
 
-  const postCustomersCustomerBankAccountsIdBodySchema =
-    s_PostCustomersCustomerBankAccountsIdRequestBody.optional()
-
   const postCustomersCustomerBankAccountsIdResponseValidator =
     responseValidationFactory(
       [
@@ -25265,7 +25089,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postCustomersCustomerBankAccountsIdBodySchema,
+          s_PostCustomersCustomerBankAccountsIdRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -25312,9 +25136,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     id: z.string().max(5000),
   })
 
-  const postCustomersCustomerBankAccountsIdVerifyBodySchema =
-    s_PostCustomersCustomerBankAccountsIdVerifyRequestBody.optional()
-
   const postCustomersCustomerBankAccountsIdVerifyResponseValidator =
     responseValidationFactory([["200", s_bank_account]], s_error)
 
@@ -25330,7 +25151,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postCustomersCustomerBankAccountsIdVerifyBodySchema,
+          s_PostCustomersCustomerBankAccountsIdVerifyRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -25463,9 +25284,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     customer: z.string().max(5000),
   })
 
-  const postCustomersCustomerCardsBodySchema =
-    s_PostCustomersCustomerCardsRequestBody.optional()
-
   const postCustomersCustomerCardsResponseValidator = responseValidationFactory(
     [["200", s_payment_source]],
     s_error,
@@ -25483,7 +25301,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postCustomersCustomerCardsBodySchema,
+          s_PostCustomersCustomerCardsRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -25527,9 +25345,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     id: z.string(),
   })
 
-  const deleteCustomersCustomerCardsIdBodySchema =
-    s_DeleteCustomersCustomerCardsIdRequestBody.optional()
-
   const deleteCustomersCustomerCardsIdResponseValidator =
     responseValidationFactory(
       [
@@ -25553,7 +25368,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          deleteCustomersCustomerCardsIdBodySchema,
+          s_DeleteCustomersCustomerCardsIdRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -25667,9 +25482,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     id: z.string().max(5000),
   })
 
-  const postCustomersCustomerCardsIdBodySchema =
-    s_PostCustomersCustomerCardsIdRequestBody.optional()
-
   const postCustomersCustomerCardsIdResponseValidator =
     responseValidationFactory(
       [
@@ -25697,7 +25509,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postCustomersCustomerCardsIdBodySchema,
+          s_PostCustomersCustomerCardsIdRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -25807,9 +25619,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     customer: z.string().max(5000),
   })
 
-  const postCustomersCustomerCashBalanceBodySchema =
-    s_PostCustomersCustomerCashBalanceRequestBody.optional()
-
   const postCustomersCustomerCashBalanceResponseValidator =
     responseValidationFactory([["200", s_cash_balance]], s_error)
 
@@ -25825,7 +25634,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postCustomersCustomerCashBalanceBodySchema,
+          s_PostCustomersCustomerCashBalanceRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -26166,9 +25975,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     customer: z.string().max(5000),
   })
 
-  const postCustomersCustomerFundingInstructionsBodySchema =
-    s_PostCustomersCustomerFundingInstructionsRequestBody
-
   const postCustomersCustomerFundingInstructionsResponseValidator =
     responseValidationFactory([["200", s_funding_instructions]], s_error)
 
@@ -26184,7 +25990,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postCustomersCustomerFundingInstructionsBodySchema,
+          s_PostCustomersCustomerFundingInstructionsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -26546,9 +26352,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     customer: z.string().max(5000),
   })
 
-  const postCustomersCustomerSourcesBodySchema =
-    s_PostCustomersCustomerSourcesRequestBody.optional()
-
   const postCustomersCustomerSourcesResponseValidator =
     responseValidationFactory([["200", s_payment_source]], s_error)
 
@@ -26564,7 +26367,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postCustomersCustomerSourcesBodySchema,
+          s_PostCustomersCustomerSourcesRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -26608,9 +26411,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     id: z.string(),
   })
 
-  const deleteCustomersCustomerSourcesIdBodySchema =
-    s_DeleteCustomersCustomerSourcesIdRequestBody.optional()
-
   const deleteCustomersCustomerSourcesIdResponseValidator =
     responseValidationFactory(
       [
@@ -26634,7 +26434,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          deleteCustomersCustomerSourcesIdBodySchema,
+          s_DeleteCustomersCustomerSourcesIdRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -26748,9 +26548,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     id: z.string().max(5000),
   })
 
-  const postCustomersCustomerSourcesIdBodySchema =
-    s_PostCustomersCustomerSourcesIdRequestBody.optional()
-
   const postCustomersCustomerSourcesIdResponseValidator =
     responseValidationFactory(
       [
@@ -26778,7 +26575,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postCustomersCustomerSourcesIdBodySchema,
+          s_PostCustomersCustomerSourcesIdRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -26822,9 +26619,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     id: z.string().max(5000),
   })
 
-  const postCustomersCustomerSourcesIdVerifyBodySchema =
-    s_PostCustomersCustomerSourcesIdVerifyRequestBody.optional()
-
   const postCustomersCustomerSourcesIdVerifyResponseValidator =
     responseValidationFactory([["200", s_bank_account]], s_error)
 
@@ -26840,7 +26634,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postCustomersCustomerSourcesIdVerifyBodySchema,
+          s_PostCustomersCustomerSourcesIdVerifyRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -26977,9 +26771,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     customer: z.string().max(5000),
   })
 
-  const postCustomersCustomerSubscriptionsBodySchema =
-    s_PostCustomersCustomerSubscriptionsRequestBody.optional()
-
   const postCustomersCustomerSubscriptionsResponseValidator =
     responseValidationFactory([["200", s_subscription]], s_error)
 
@@ -26995,7 +26786,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postCustomersCustomerSubscriptionsBodySchema,
+          s_PostCustomersCustomerSubscriptionsRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -27043,9 +26834,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
       subscription_exposed_id: z.string().max(5000),
     })
 
-  const deleteCustomersCustomerSubscriptionsSubscriptionExposedIdBodySchema =
-    s_DeleteCustomersCustomerSubscriptionsSubscriptionExposedIdRequestBody.optional()
-
   const deleteCustomersCustomerSubscriptionsSubscriptionExposedIdResponseValidator =
     responseValidationFactory([["200", s_subscription]], s_error)
 
@@ -27061,7 +26849,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          deleteCustomersCustomerSubscriptionsSubscriptionExposedIdBodySchema,
+          s_DeleteCustomersCustomerSubscriptionsSubscriptionExposedIdRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -27194,9 +26982,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
       subscription_exposed_id: z.string().max(5000),
     })
 
-  const postCustomersCustomerSubscriptionsSubscriptionExposedIdBodySchema =
-    s_PostCustomersCustomerSubscriptionsSubscriptionExposedIdRequestBody.optional()
-
   const postCustomersCustomerSubscriptionsSubscriptionExposedIdResponseValidator =
     responseValidationFactory([["200", s_subscription]], s_error)
 
@@ -27212,7 +26997,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postCustomersCustomerSubscriptionsSubscriptionExposedIdBodySchema,
+          s_PostCustomersCustomerSubscriptionsSubscriptionExposedIdRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -27495,9 +27280,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     customer: z.string().max(5000),
   })
 
-  const postCustomersCustomerTaxIdsBodySchema =
-    s_PostCustomersCustomerTaxIdsRequestBody
-
   const postCustomersCustomerTaxIdsResponseValidator =
     responseValidationFactory([["200", s_tax_id]], s_error)
 
@@ -27513,7 +27295,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postCustomersCustomerTaxIdsBodySchema,
+          s_PostCustomersCustomerTaxIdsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -27836,9 +27618,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     dispute: z.string().max(5000),
   })
 
-  const postDisputesDisputeBodySchema =
-    s_PostDisputesDisputeRequestBody.optional()
-
   const postDisputesDisputeResponseValidator = responseValidationFactory(
     [["200", s_dispute]],
     s_error,
@@ -27856,7 +27635,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postDisputesDisputeBodySchema,
+          s_PostDisputesDisputeRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -27899,9 +27678,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     dispute: z.string().max(5000),
   })
 
-  const postDisputesDisputeCloseBodySchema =
-    s_PostDisputesDisputeCloseRequestBody.optional()
-
   const postDisputesDisputeCloseResponseValidator = responseValidationFactory(
     [["200", s_dispute]],
     s_error,
@@ -27919,7 +27695,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postDisputesDisputeCloseBodySchema,
+          s_PostDisputesDisputeCloseRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -28199,9 +27975,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postEntitlementsFeaturesBodySchema =
-    s_PostEntitlementsFeaturesRequestBody
-
   const postEntitlementsFeaturesResponseValidator = responseValidationFactory(
     [["200", s_entitlements_feature]],
     s_error,
@@ -28215,7 +27988,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postEntitlementsFeaturesBodySchema,
+          s_PostEntitlementsFeaturesRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -28327,9 +28100,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     id: z.string().max(5000),
   })
 
-  const postEntitlementsFeaturesIdBodySchema =
-    s_PostEntitlementsFeaturesIdRequestBody.optional()
-
   const postEntitlementsFeaturesIdResponseValidator = responseValidationFactory(
     [["200", s_entitlements_feature]],
     s_error,
@@ -28347,7 +28117,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postEntitlementsFeaturesIdBodySchema,
+          s_PostEntitlementsFeaturesIdRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -28386,8 +28156,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postEphemeralKeysBodySchema = s_PostEphemeralKeysRequestBody.optional()
-
   const postEphemeralKeysResponseValidator = responseValidationFactory(
     [["200", s_ephemeral_key]],
     s_error,
@@ -28398,7 +28166,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: undefined,
       body: parseRequestInput(
-        postEphemeralKeysBodySchema,
+        s_PostEphemeralKeysRequestBody.optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -28440,9 +28208,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     key: z.string().max(5000),
   })
 
-  const deleteEphemeralKeysKeyBodySchema =
-    s_DeleteEphemeralKeysKeyRequestBody.optional()
-
   const deleteEphemeralKeysKeyResponseValidator = responseValidationFactory(
     [["200", s_ephemeral_key]],
     s_error,
@@ -28460,7 +28225,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          deleteEphemeralKeysKeyBodySchema,
+          s_DeleteEphemeralKeysKeyRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -28802,9 +28567,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const postExternalAccountsIdParamSchema = z.object({id: z.string()})
 
-  const postExternalAccountsIdBodySchema =
-    s_PostExternalAccountsIdRequestBody.optional()
-
   const postExternalAccountsIdResponseValidator = responseValidationFactory(
     [["200", s_external_account]],
     s_error,
@@ -28822,7 +28584,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postExternalAccountsIdBodySchema,
+          s_PostExternalAccountsIdRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -28949,8 +28711,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const postFileLinksBodySchema = s_PostFileLinksRequestBody
-
   const postFileLinksResponseValidator = responseValidationFactory(
     [["200", s_file_link]],
     s_error,
@@ -28961,7 +28721,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: undefined,
       body: parseRequestInput(
-        postFileLinksBodySchema,
+        s_PostFileLinksRequestBody,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -29064,8 +28824,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const postFileLinksLinkParamSchema = z.object({link: z.string()})
 
-  const postFileLinksLinkBodySchema = s_PostFileLinksLinkRequestBody.optional()
-
   const postFileLinksLinkResponseValidator = responseValidationFactory(
     [["200", s_file_link]],
     s_error,
@@ -29083,7 +28841,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postFileLinksLinkBodySchema,
+          s_PostFileLinksLinkRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -29229,10 +28987,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  // todo: request bodies with content-type 'multipart/form-data' not yet supported
-
-  const postFilesBodySchema = z.never()
-
   const postFilesResponseValidator = responseValidationFactory(
     [["200", s_file]],
     s_error,
@@ -29242,8 +28996,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const input = {
       params: undefined,
       query: undefined,
+      // todo: request bodies with content-type 'multipart/form-data' not yet supported
       body: parseRequestInput(
-        postFilesBodySchema,
+        z.never(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ) as never,
@@ -29511,9 +29266,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     {account: z.string().max(5000)},
   )
 
-  const postFinancialConnectionsAccountsAccountDisconnectBodySchema =
-    s_PostFinancialConnectionsAccountsAccountDisconnectRequestBody.optional()
-
   const postFinancialConnectionsAccountsAccountDisconnectResponseValidator =
     responseValidationFactory(
       [["200", s_financial_connections_account]],
@@ -29532,7 +29284,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postFinancialConnectionsAccountsAccountDisconnectBodySchema,
+          s_PostFinancialConnectionsAccountsAccountDisconnectRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -29681,9 +29433,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     account: z.string().max(5000),
   })
 
-  const postFinancialConnectionsAccountsAccountRefreshBodySchema =
-    s_PostFinancialConnectionsAccountsAccountRefreshRequestBody
-
   const postFinancialConnectionsAccountsAccountRefreshResponseValidator =
     responseValidationFactory(
       [["200", s_financial_connections_account]],
@@ -29702,7 +29451,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postFinancialConnectionsAccountsAccountRefreshBodySchema,
+          s_PostFinancialConnectionsAccountsAccountRefreshRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -29754,9 +29503,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     account: z.string().max(5000),
   })
 
-  const postFinancialConnectionsAccountsAccountSubscribeBodySchema =
-    s_PostFinancialConnectionsAccountsAccountSubscribeRequestBody
-
   const postFinancialConnectionsAccountsAccountSubscribeResponseValidator =
     responseValidationFactory(
       [["200", s_financial_connections_account]],
@@ -29775,7 +29521,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postFinancialConnectionsAccountsAccountSubscribeBodySchema,
+          s_PostFinancialConnectionsAccountsAccountSubscribeRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -29826,9 +29572,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const postFinancialConnectionsAccountsAccountUnsubscribeParamSchema =
     z.object({account: z.string().max(5000)})
 
-  const postFinancialConnectionsAccountsAccountUnsubscribeBodySchema =
-    s_PostFinancialConnectionsAccountsAccountUnsubscribeRequestBody
-
   const postFinancialConnectionsAccountsAccountUnsubscribeResponseValidator =
     responseValidationFactory(
       [["200", s_financial_connections_account]],
@@ -29847,7 +29590,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postFinancialConnectionsAccountsAccountUnsubscribeBodySchema,
+          s_PostFinancialConnectionsAccountsAccountUnsubscribeRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -29895,9 +29638,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postFinancialConnectionsSessionsBodySchema =
-    s_PostFinancialConnectionsSessionsRequestBody
-
   const postFinancialConnectionsSessionsResponseValidator =
     responseValidationFactory(
       [["200", s_financial_connections_session]],
@@ -29912,7 +29652,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postFinancialConnectionsSessionsBodySchema,
+          s_PostFinancialConnectionsSessionsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -30291,8 +30031,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postForwardingRequestsBodySchema = s_PostForwardingRequestsRequestBody
-
   const postForwardingRequestsResponseValidator = responseValidationFactory(
     [["200", s_forwarding_request]],
     s_error,
@@ -30306,7 +30044,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postForwardingRequestsBodySchema,
+          s_PostForwardingRequestsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -30683,9 +30421,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postIdentityVerificationSessionsBodySchema =
-    s_PostIdentityVerificationSessionsRequestBody.optional()
-
   const postIdentityVerificationSessionsResponseValidator =
     responseValidationFactory(
       [["200", s_identity_verification_session]],
@@ -30700,7 +30435,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postIdentityVerificationSessionsBodySchema,
+          s_PostIdentityVerificationSessionsRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -30816,9 +30551,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     session: z.string().max(5000),
   })
 
-  const postIdentityVerificationSessionsSessionBodySchema =
-    s_PostIdentityVerificationSessionsSessionRequestBody.optional()
-
   const postIdentityVerificationSessionsSessionResponseValidator =
     responseValidationFactory(
       [["200", s_identity_verification_session]],
@@ -30837,7 +30569,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postIdentityVerificationSessionsSessionBodySchema,
+          s_PostIdentityVerificationSessionsSessionRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -30883,9 +30615,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     session: z.string().max(5000),
   })
 
-  const postIdentityVerificationSessionsSessionCancelBodySchema =
-    s_PostIdentityVerificationSessionsSessionCancelRequestBody.optional()
-
   const postIdentityVerificationSessionsSessionCancelResponseValidator =
     responseValidationFactory(
       [["200", s_identity_verification_session]],
@@ -30904,7 +30633,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postIdentityVerificationSessionsSessionCancelBodySchema,
+          s_PostIdentityVerificationSessionsSessionCancelRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -30955,9 +30684,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     session: z.string().max(5000),
   })
 
-  const postIdentityVerificationSessionsSessionRedactBodySchema =
-    s_PostIdentityVerificationSessionsSessionRedactRequestBody.optional()
-
   const postIdentityVerificationSessionsSessionRedactResponseValidator =
     responseValidationFactory(
       [["200", s_identity_verification_session]],
@@ -30976,7 +30702,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postIdentityVerificationSessionsSessionRedactBodySchema,
+          s_PostIdentityVerificationSessionsSessionRedactRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -31333,9 +31059,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     template: z.string().max(5000),
   })
 
-  const postInvoiceRenderingTemplatesTemplateArchiveBodySchema =
-    s_PostInvoiceRenderingTemplatesTemplateArchiveRequestBody.optional()
-
   const postInvoiceRenderingTemplatesTemplateArchiveResponseValidator =
     responseValidationFactory([["200", s_invoice_rendering_template]], s_error)
 
@@ -31351,7 +31074,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postInvoiceRenderingTemplatesTemplateArchiveBodySchema,
+          s_PostInvoiceRenderingTemplatesTemplateArchiveRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -31402,9 +31125,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     template: z.string().max(5000),
   })
 
-  const postInvoiceRenderingTemplatesTemplateUnarchiveBodySchema =
-    s_PostInvoiceRenderingTemplatesTemplateUnarchiveRequestBody.optional()
-
   const postInvoiceRenderingTemplatesTemplateUnarchiveResponseValidator =
     responseValidationFactory([["200", s_invoice_rendering_template]], s_error)
 
@@ -31420,7 +31140,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postInvoiceRenderingTemplatesTemplateUnarchiveBodySchema,
+          s_PostInvoiceRenderingTemplatesTemplateUnarchiveRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -31557,8 +31277,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const postInvoiceitemsBodySchema = s_PostInvoiceitemsRequestBody
-
   const postInvoiceitemsResponseValidator = responseValidationFactory(
     [["200", s_invoiceitem]],
     s_error,
@@ -31569,7 +31287,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: undefined,
       body: parseRequestInput(
-        postInvoiceitemsBodySchema,
+        s_PostInvoiceitemsRequestBody,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -31734,9 +31452,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     invoiceitem: z.string().max(5000),
   })
 
-  const postInvoiceitemsInvoiceitemBodySchema =
-    s_PostInvoiceitemsInvoiceitemRequestBody.optional()
-
   const postInvoiceitemsInvoiceitemResponseValidator =
     responseValidationFactory([["200", s_invoiceitem]], s_error)
 
@@ -31752,7 +31467,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postInvoiceitemsInvoiceitemBodySchema,
+          s_PostInvoiceitemsInvoiceitemRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -31896,8 +31611,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const postInvoicesBodySchema = s_PostInvoicesRequestBody.optional()
-
   const postInvoicesResponseValidator = responseValidationFactory(
     [["200", s_invoice]],
     s_error,
@@ -31908,7 +31621,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: undefined,
       body: parseRequestInput(
-        postInvoicesBodySchema,
+        s_PostInvoicesRequestBody.optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -31946,9 +31659,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const postInvoicesCreatePreviewBodySchema =
-    s_PostInvoicesCreatePreviewRequestBody.optional()
-
   const postInvoicesCreatePreviewResponseValidator = responseValidationFactory(
     [["200", s_invoice]],
     s_error,
@@ -31962,7 +31672,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postInvoicesCreatePreviewBodySchema,
+          s_PostInvoicesCreatePreviewRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -32209,9 +31919,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     invoice: z.string().max(5000),
   })
 
-  const postInvoicesInvoiceBodySchema =
-    s_PostInvoicesInvoiceRequestBody.optional()
-
   const postInvoicesInvoiceResponseValidator = responseValidationFactory(
     [["200", s_invoice]],
     s_error,
@@ -32229,7 +31936,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postInvoicesInvoiceBodySchema,
+          s_PostInvoicesInvoiceRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -32272,9 +31979,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     invoice: z.string().max(5000),
   })
 
-  const postInvoicesInvoiceAddLinesBodySchema =
-    s_PostInvoicesInvoiceAddLinesRequestBody
-
   const postInvoicesInvoiceAddLinesResponseValidator =
     responseValidationFactory([["200", s_invoice]], s_error)
 
@@ -32290,7 +31994,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postInvoicesInvoiceAddLinesBodySchema,
+          s_PostInvoicesInvoiceAddLinesRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -32333,9 +32037,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     invoice: z.string().max(5000),
   })
 
-  const postInvoicesInvoiceAttachPaymentBodySchema =
-    s_PostInvoicesInvoiceAttachPaymentRequestBody.optional()
-
   const postInvoicesInvoiceAttachPaymentResponseValidator =
     responseValidationFactory([["200", s_invoice]], s_error)
 
@@ -32351,7 +32052,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postInvoicesInvoiceAttachPaymentBodySchema,
+          s_PostInvoicesInvoiceAttachPaymentRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -32394,9 +32095,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     invoice: z.string().max(5000),
   })
 
-  const postInvoicesInvoiceFinalizeBodySchema =
-    s_PostInvoicesInvoiceFinalizeRequestBody.optional()
-
   const postInvoicesInvoiceFinalizeResponseValidator =
     responseValidationFactory([["200", s_invoice]], s_error)
 
@@ -32412,7 +32110,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postInvoicesInvoiceFinalizeBodySchema,
+          s_PostInvoicesInvoiceFinalizeRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -32543,9 +32241,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     line_item_id: z.string().max(5000),
   })
 
-  const postInvoicesInvoiceLinesLineItemIdBodySchema =
-    s_PostInvoicesInvoiceLinesLineItemIdRequestBody.optional()
-
   const postInvoicesInvoiceLinesLineItemIdResponseValidator =
     responseValidationFactory([["200", s_line_item]], s_error)
 
@@ -32561,7 +32256,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postInvoicesInvoiceLinesLineItemIdBodySchema,
+          s_PostInvoicesInvoiceLinesLineItemIdRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -32607,9 +32302,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     invoice: z.string().max(5000),
   })
 
-  const postInvoicesInvoiceMarkUncollectibleBodySchema =
-    s_PostInvoicesInvoiceMarkUncollectibleRequestBody.optional()
-
   const postInvoicesInvoiceMarkUncollectibleResponseValidator =
     responseValidationFactory([["200", s_invoice]], s_error)
 
@@ -32625,7 +32317,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postInvoicesInvoiceMarkUncollectibleBodySchema,
+          s_PostInvoicesInvoiceMarkUncollectibleRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -32671,9 +32363,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     invoice: z.string().max(5000),
   })
 
-  const postInvoicesInvoicePayBodySchema =
-    s_PostInvoicesInvoicePayRequestBody.optional()
-
   const postInvoicesInvoicePayResponseValidator = responseValidationFactory(
     [["200", s_invoice]],
     s_error,
@@ -32691,7 +32380,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postInvoicesInvoicePayBodySchema,
+          s_PostInvoicesInvoicePayRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -32734,9 +32423,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     invoice: z.string().max(5000),
   })
 
-  const postInvoicesInvoiceRemoveLinesBodySchema =
-    s_PostInvoicesInvoiceRemoveLinesRequestBody
-
   const postInvoicesInvoiceRemoveLinesResponseValidator =
     responseValidationFactory([["200", s_invoice]], s_error)
 
@@ -32752,7 +32438,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postInvoicesInvoiceRemoveLinesBodySchema,
+          s_PostInvoicesInvoiceRemoveLinesRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -32795,9 +32481,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     invoice: z.string().max(5000),
   })
 
-  const postInvoicesInvoiceSendBodySchema =
-    s_PostInvoicesInvoiceSendRequestBody.optional()
-
   const postInvoicesInvoiceSendResponseValidator = responseValidationFactory(
     [["200", s_invoice]],
     s_error,
@@ -32815,7 +32498,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postInvoicesInvoiceSendBodySchema,
+          s_PostInvoicesInvoiceSendRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -32858,9 +32541,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     invoice: z.string().max(5000),
   })
 
-  const postInvoicesInvoiceUpdateLinesBodySchema =
-    s_PostInvoicesInvoiceUpdateLinesRequestBody
-
   const postInvoicesInvoiceUpdateLinesResponseValidator =
     responseValidationFactory([["200", s_invoice]], s_error)
 
@@ -32876,7 +32556,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postInvoicesInvoiceUpdateLinesBodySchema,
+          s_PostInvoicesInvoiceUpdateLinesRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -32919,9 +32599,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     invoice: z.string().max(5000),
   })
 
-  const postInvoicesInvoiceVoidBodySchema =
-    s_PostInvoicesInvoiceVoidRequestBody.optional()
-
   const postInvoicesInvoiceVoidResponseValidator = responseValidationFactory(
     [["200", s_invoice]],
     s_error,
@@ -32939,7 +32616,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postInvoicesInvoiceVoidBodySchema,
+          s_PostInvoicesInvoiceVoidRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -33148,9 +32825,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     authorization: z.string().max(5000),
   })
 
-  const postIssuingAuthorizationsAuthorizationBodySchema =
-    s_PostIssuingAuthorizationsAuthorizationRequestBody.optional()
-
   const postIssuingAuthorizationsAuthorizationResponseValidator =
     responseValidationFactory([["200", s_issuing_authorization]], s_error)
 
@@ -33166,7 +32840,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postIssuingAuthorizationsAuthorizationBodySchema,
+          s_PostIssuingAuthorizationsAuthorizationRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -33212,9 +32886,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     authorization: z.string().max(5000),
   })
 
-  const postIssuingAuthorizationsAuthorizationApproveBodySchema =
-    s_PostIssuingAuthorizationsAuthorizationApproveRequestBody.optional()
-
   const postIssuingAuthorizationsAuthorizationApproveResponseValidator =
     responseValidationFactory([["200", s_issuing_authorization]], s_error)
 
@@ -33230,7 +32901,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postIssuingAuthorizationsAuthorizationApproveBodySchema,
+          s_PostIssuingAuthorizationsAuthorizationApproveRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -33281,9 +32952,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     authorization: z.string().max(5000),
   })
 
-  const postIssuingAuthorizationsAuthorizationDeclineBodySchema =
-    s_PostIssuingAuthorizationsAuthorizationDeclineRequestBody.optional()
-
   const postIssuingAuthorizationsAuthorizationDeclineResponseValidator =
     responseValidationFactory([["200", s_issuing_authorization]], s_error)
 
@@ -33299,7 +32967,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postIssuingAuthorizationsAuthorizationDeclineBodySchema,
+          s_PostIssuingAuthorizationsAuthorizationDeclineRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -33443,8 +33111,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postIssuingCardholdersBodySchema = s_PostIssuingCardholdersRequestBody
-
   const postIssuingCardholdersResponseValidator = responseValidationFactory(
     [["200", s_issuing_cardholder]],
     s_error,
@@ -33458,7 +33124,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postIssuingCardholdersBodySchema,
+          s_PostIssuingCardholdersRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -33568,9 +33234,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     cardholder: z.string().max(5000),
   })
 
-  const postIssuingCardholdersCardholderBodySchema =
-    s_PostIssuingCardholdersCardholderRequestBody.optional()
-
   const postIssuingCardholdersCardholderResponseValidator =
     responseValidationFactory([["200", s_issuing_cardholder]], s_error)
 
@@ -33586,7 +33249,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postIssuingCardholdersCardholderBodySchema,
+          s_PostIssuingCardholdersCardholderRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -33718,8 +33381,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const postIssuingCardsBodySchema = s_PostIssuingCardsRequestBody
-
   const postIssuingCardsResponseValidator = responseValidationFactory(
     [["200", s_issuing_card]],
     s_error,
@@ -33730,7 +33391,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: undefined,
       body: parseRequestInput(
-        postIssuingCardsBodySchema,
+        s_PostIssuingCardsRequestBody,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -33837,9 +33498,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const postIssuingCardsCardParamSchema = z.object({card: z.string().max(5000)})
 
-  const postIssuingCardsCardBodySchema =
-    s_PostIssuingCardsCardRequestBody.optional()
-
   const postIssuingCardsCardResponseValidator = responseValidationFactory(
     [["200", s_issuing_card]],
     s_error,
@@ -33857,7 +33515,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postIssuingCardsCardBodySchema,
+          s_PostIssuingCardsCardRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -33990,9 +33648,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postIssuingDisputesBodySchema =
-    s_PostIssuingDisputesRequestBody.optional()
-
   const postIssuingDisputesResponseValidator = responseValidationFactory(
     [["200", s_issuing_dispute]],
     s_error,
@@ -34006,7 +33661,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postIssuingDisputesBodySchema,
+          s_PostIssuingDisputesRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -34118,9 +33773,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     dispute: z.string().max(5000),
   })
 
-  const postIssuingDisputesDisputeBodySchema =
-    s_PostIssuingDisputesDisputeRequestBody.optional()
-
   const postIssuingDisputesDisputeResponseValidator = responseValidationFactory(
     [["200", s_issuing_dispute]],
     s_error,
@@ -34138,7 +33790,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postIssuingDisputesDisputeBodySchema,
+          s_PostIssuingDisputesDisputeRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -34181,9 +33833,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     dispute: z.string().max(5000),
   })
 
-  const postIssuingDisputesDisputeSubmitBodySchema =
-    s_PostIssuingDisputesDisputeSubmitRequestBody.optional()
-
   const postIssuingDisputesDisputeSubmitResponseValidator =
     responseValidationFactory([["200", s_issuing_dispute]], s_error)
 
@@ -34199,7 +33848,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postIssuingDisputesDisputeSubmitBodySchema,
+          s_PostIssuingDisputesDisputeSubmitRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -34334,9 +33983,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postIssuingPersonalizationDesignsBodySchema =
-    s_PostIssuingPersonalizationDesignsRequestBody
-
   const postIssuingPersonalizationDesignsResponseValidator =
     responseValidationFactory(
       [["200", s_issuing_personalization_design]],
@@ -34351,7 +33997,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postIssuingPersonalizationDesignsBodySchema,
+          s_PostIssuingPersonalizationDesignsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -34475,9 +34121,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const postIssuingPersonalizationDesignsPersonalizationDesignParamSchema =
     z.object({personalization_design: z.string().max(5000)})
 
-  const postIssuingPersonalizationDesignsPersonalizationDesignBodySchema =
-    s_PostIssuingPersonalizationDesignsPersonalizationDesignRequestBody.optional()
-
   const postIssuingPersonalizationDesignsPersonalizationDesignResponseValidator =
     responseValidationFactory(
       [["200", s_issuing_personalization_design]],
@@ -34496,7 +34139,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postIssuingPersonalizationDesignsPersonalizationDesignBodySchema,
+          s_PostIssuingPersonalizationDesignsPersonalizationDesignRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -34769,9 +34412,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     settlement: z.string().max(5000),
   })
 
-  const postIssuingSettlementsSettlementBodySchema =
-    s_PostIssuingSettlementsSettlementRequestBody.optional()
-
   const postIssuingSettlementsSettlementResponseValidator =
     responseValidationFactory([["200", s_issuing_settlement]], s_error)
 
@@ -34787,7 +34427,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postIssuingSettlementsSettlementBodySchema,
+          s_PostIssuingSettlementsSettlementRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -34987,8 +34627,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     token: z.string().max(5000),
   })
 
-  const postIssuingTokensTokenBodySchema = s_PostIssuingTokensTokenRequestBody
-
   const postIssuingTokensTokenResponseValidator = responseValidationFactory(
     [["200", s_issuing_token]],
     s_error,
@@ -35006,7 +34644,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postIssuingTokensTokenBodySchema,
+          s_PostIssuingTokensTokenRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -35215,9 +34853,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     transaction: z.string().max(5000),
   })
 
-  const postIssuingTransactionsTransactionBodySchema =
-    s_PostIssuingTransactionsTransactionRequestBody.optional()
-
   const postIssuingTransactionsTransactionResponseValidator =
     responseValidationFactory([["200", s_issuing_transaction]], s_error)
 
@@ -35233,7 +34868,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postIssuingTransactionsTransactionBodySchema,
+          s_PostIssuingTransactionsTransactionRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -35275,8 +34910,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postLinkAccountSessionsBodySchema = s_PostLinkAccountSessionsRequestBody
-
   const postLinkAccountSessionsResponseValidator = responseValidationFactory(
     [["200", s_financial_connections_session]],
     s_error,
@@ -35290,7 +34923,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postLinkAccountSessionsBodySchema,
+          s_PostLinkAccountSessionsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -35557,9 +35190,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     account: z.string().max(5000),
   })
 
-  const postLinkedAccountsAccountDisconnectBodySchema =
-    s_PostLinkedAccountsAccountDisconnectRequestBody.optional()
-
   const postLinkedAccountsAccountDisconnectResponseValidator =
     responseValidationFactory(
       [["200", s_financial_connections_account]],
@@ -35578,7 +35208,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postLinkedAccountsAccountDisconnectBodySchema,
+          s_PostLinkedAccountsAccountDisconnectRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -35713,9 +35343,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     account: z.string().max(5000),
   })
 
-  const postLinkedAccountsAccountRefreshBodySchema =
-    s_PostLinkedAccountsAccountRefreshRequestBody
-
   const postLinkedAccountsAccountRefreshResponseValidator =
     responseValidationFactory(
       [["200", s_financial_connections_account]],
@@ -35734,7 +35361,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postLinkedAccountsAccountRefreshBodySchema,
+          s_PostLinkedAccountsAccountRefreshRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -35927,8 +35554,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const postPaymentIntentsBodySchema = s_PostPaymentIntentsRequestBody
-
   const postPaymentIntentsResponseValidator = responseValidationFactory(
     [["200", s_payment_intent]],
     s_error,
@@ -35942,7 +35567,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postPaymentIntentsBodySchema,
+          s_PostPaymentIntentsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -36138,9 +35763,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     intent: z.string().max(5000),
   })
 
-  const postPaymentIntentsIntentBodySchema =
-    s_PostPaymentIntentsIntentRequestBody.optional()
-
   const postPaymentIntentsIntentResponseValidator = responseValidationFactory(
     [["200", s_payment_intent]],
     s_error,
@@ -36158,7 +35780,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postPaymentIntentsIntentBodySchema,
+          s_PostPaymentIntentsIntentRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -36201,9 +35823,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     intent: z.string().max(5000),
   })
 
-  const postPaymentIntentsIntentApplyCustomerBalanceBodySchema =
-    s_PostPaymentIntentsIntentApplyCustomerBalanceRequestBody.optional()
-
   const postPaymentIntentsIntentApplyCustomerBalanceResponseValidator =
     responseValidationFactory([["200", s_payment_intent]], s_error)
 
@@ -36219,7 +35838,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postPaymentIntentsIntentApplyCustomerBalanceBodySchema,
+          s_PostPaymentIntentsIntentApplyCustomerBalanceRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -36270,9 +35889,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     intent: z.string().max(5000),
   })
 
-  const postPaymentIntentsIntentCancelBodySchema =
-    s_PostPaymentIntentsIntentCancelRequestBody.optional()
-
   const postPaymentIntentsIntentCancelResponseValidator =
     responseValidationFactory([["200", s_payment_intent]], s_error)
 
@@ -36288,7 +35904,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postPaymentIntentsIntentCancelBodySchema,
+          s_PostPaymentIntentsIntentCancelRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -36331,9 +35947,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     intent: z.string().max(5000),
   })
 
-  const postPaymentIntentsIntentCaptureBodySchema =
-    s_PostPaymentIntentsIntentCaptureRequestBody.optional()
-
   const postPaymentIntentsIntentCaptureResponseValidator =
     responseValidationFactory([["200", s_payment_intent]], s_error)
 
@@ -36349,7 +35962,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postPaymentIntentsIntentCaptureBodySchema,
+          s_PostPaymentIntentsIntentCaptureRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -36392,9 +36005,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     intent: z.string().max(5000),
   })
 
-  const postPaymentIntentsIntentConfirmBodySchema =
-    s_PostPaymentIntentsIntentConfirmRequestBody.optional()
-
   const postPaymentIntentsIntentConfirmResponseValidator =
     responseValidationFactory([["200", s_payment_intent]], s_error)
 
@@ -36410,7 +36020,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postPaymentIntentsIntentConfirmBodySchema,
+          s_PostPaymentIntentsIntentConfirmRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -36453,9 +36063,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     intent: z.string().max(5000),
   })
 
-  const postPaymentIntentsIntentIncrementAuthorizationBodySchema =
-    s_PostPaymentIntentsIntentIncrementAuthorizationRequestBody
-
   const postPaymentIntentsIntentIncrementAuthorizationResponseValidator =
     responseValidationFactory([["200", s_payment_intent]], s_error)
 
@@ -36471,7 +36078,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postPaymentIntentsIntentIncrementAuthorizationBodySchema,
+          s_PostPaymentIntentsIntentIncrementAuthorizationRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -36523,9 +36130,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     intent: z.string().max(5000),
   })
 
-  const postPaymentIntentsIntentVerifyMicrodepositsBodySchema =
-    s_PostPaymentIntentsIntentVerifyMicrodepositsRequestBody.optional()
-
   const postPaymentIntentsIntentVerifyMicrodepositsResponseValidator =
     responseValidationFactory([["200", s_payment_intent]], s_error)
 
@@ -36541,7 +36145,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postPaymentIntentsIntentVerifyMicrodepositsBodySchema,
+          s_PostPaymentIntentsIntentVerifyMicrodepositsRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -36664,8 +36268,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const postPaymentLinksBodySchema = s_PostPaymentLinksRequestBody
-
   const postPaymentLinksResponseValidator = responseValidationFactory(
     [["200", s_payment_link]],
     s_error,
@@ -36676,7 +36278,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: undefined,
       body: parseRequestInput(
-        postPaymentLinksBodySchema,
+        s_PostPaymentLinksRequestBody,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -36787,9 +36389,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     payment_link: z.string().max(5000),
   })
 
-  const postPaymentLinksPaymentLinkBodySchema =
-    s_PostPaymentLinksPaymentLinkRequestBody.optional()
-
   const postPaymentLinksPaymentLinkResponseValidator =
     responseValidationFactory([["200", s_payment_link]], s_error)
 
@@ -36805,7 +36404,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postPaymentLinksPaymentLinkBodySchema,
+          s_PostPaymentLinksPaymentLinkRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -37019,9 +36618,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postPaymentMethodConfigurationsBodySchema =
-    s_PostPaymentMethodConfigurationsRequestBody.optional()
-
   const postPaymentMethodConfigurationsResponseValidator =
     responseValidationFactory(
       [["200", s_payment_method_configuration]],
@@ -37036,7 +36632,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postPaymentMethodConfigurationsBodySchema,
+          s_PostPaymentMethodConfigurationsRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -37157,9 +36753,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     configuration: z.string().max(5000),
   })
 
-  const postPaymentMethodConfigurationsConfigurationBodySchema =
-    s_PostPaymentMethodConfigurationsConfigurationRequestBody.optional()
-
   const postPaymentMethodConfigurationsConfigurationResponseValidator =
     responseValidationFactory(
       [["200", s_payment_method_configuration]],
@@ -37178,7 +36771,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postPaymentMethodConfigurationsConfigurationBodySchema,
+          s_PostPaymentMethodConfigurationsConfigurationRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -37309,9 +36902,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postPaymentMethodDomainsBodySchema =
-    s_PostPaymentMethodDomainsRequestBody
-
   const postPaymentMethodDomainsResponseValidator = responseValidationFactory(
     [["200", s_payment_method_domain]],
     s_error,
@@ -37325,7 +36915,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postPaymentMethodDomainsBodySchema,
+          s_PostPaymentMethodDomainsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -37438,9 +37028,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     payment_method_domain: z.string().max(5000),
   })
 
-  const postPaymentMethodDomainsPaymentMethodDomainBodySchema =
-    s_PostPaymentMethodDomainsPaymentMethodDomainRequestBody.optional()
-
   const postPaymentMethodDomainsPaymentMethodDomainResponseValidator =
     responseValidationFactory([["200", s_payment_method_domain]], s_error)
 
@@ -37456,7 +37043,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postPaymentMethodDomainsPaymentMethodDomainBodySchema,
+          s_PostPaymentMethodDomainsPaymentMethodDomainRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -37506,9 +37093,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const postPaymentMethodDomainsPaymentMethodDomainValidateParamSchema =
     z.object({payment_method_domain: z.string().max(5000)})
 
-  const postPaymentMethodDomainsPaymentMethodDomainValidateBodySchema =
-    s_PostPaymentMethodDomainsPaymentMethodDomainValidateRequestBody.optional()
-
   const postPaymentMethodDomainsPaymentMethodDomainValidateResponseValidator =
     responseValidationFactory([["200", s_payment_method_domain]], s_error)
 
@@ -37524,7 +37108,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postPaymentMethodDomainsPaymentMethodDomainValidateBodySchema,
+          s_PostPaymentMethodDomainsPaymentMethodDomainValidateRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -37700,9 +37284,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const postPaymentMethodsBodySchema =
-    s_PostPaymentMethodsRequestBody.optional()
-
   const postPaymentMethodsResponseValidator = responseValidationFactory(
     [["200", s_payment_method]],
     s_error,
@@ -37716,7 +37297,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postPaymentMethodsBodySchema,
+          s_PostPaymentMethodsRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -37826,9 +37407,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     payment_method: z.string().max(5000),
   })
 
-  const postPaymentMethodsPaymentMethodBodySchema =
-    s_PostPaymentMethodsPaymentMethodRequestBody.optional()
-
   const postPaymentMethodsPaymentMethodResponseValidator =
     responseValidationFactory([["200", s_payment_method]], s_error)
 
@@ -37844,7 +37422,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postPaymentMethodsPaymentMethodBodySchema,
+          s_PostPaymentMethodsPaymentMethodRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -37887,9 +37465,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     payment_method: z.string().max(5000),
   })
 
-  const postPaymentMethodsPaymentMethodAttachBodySchema =
-    s_PostPaymentMethodsPaymentMethodAttachRequestBody
-
   const postPaymentMethodsPaymentMethodAttachResponseValidator =
     responseValidationFactory([["200", s_payment_method]], s_error)
 
@@ -37905,7 +37480,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postPaymentMethodsPaymentMethodAttachBodySchema,
+          s_PostPaymentMethodsPaymentMethodAttachRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -37951,9 +37526,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     payment_method: z.string().max(5000),
   })
 
-  const postPaymentMethodsPaymentMethodDetachBodySchema =
-    s_PostPaymentMethodsPaymentMethodDetachRequestBody.optional()
-
   const postPaymentMethodsPaymentMethodDetachResponseValidator =
     responseValidationFactory([["200", s_payment_method]], s_error)
 
@@ -37969,7 +37541,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postPaymentMethodsPaymentMethodDetachBodySchema,
+          s_PostPaymentMethodsPaymentMethodDetachRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -38110,8 +37682,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const postPayoutsBodySchema = s_PostPayoutsRequestBody
-
   const postPayoutsResponseValidator = responseValidationFactory(
     [["200", s_payout]],
     s_error,
@@ -38122,7 +37692,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: undefined,
       body: parseRequestInput(
-        postPayoutsBodySchema,
+        s_PostPayoutsRequestBody,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -38225,8 +37795,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const postPayoutsPayoutParamSchema = z.object({payout: z.string().max(5000)})
 
-  const postPayoutsPayoutBodySchema = s_PostPayoutsPayoutRequestBody.optional()
-
   const postPayoutsPayoutResponseValidator = responseValidationFactory(
     [["200", s_payout]],
     s_error,
@@ -38241,7 +37809,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       query: undefined,
       body: parseRequestInput(
-        postPayoutsPayoutBodySchema,
+        s_PostPayoutsPayoutRequestBody.optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -38283,9 +37851,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     payout: z.string().max(5000),
   })
 
-  const postPayoutsPayoutCancelBodySchema =
-    s_PostPayoutsPayoutCancelRequestBody.optional()
-
   const postPayoutsPayoutCancelResponseValidator = responseValidationFactory(
     [["200", s_payout]],
     s_error,
@@ -38303,7 +37868,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postPayoutsPayoutCancelBodySchema,
+          s_PostPayoutsPayoutCancelRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -38346,9 +37911,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     payout: z.string().max(5000),
   })
 
-  const postPayoutsPayoutReverseBodySchema =
-    s_PostPayoutsPayoutReverseRequestBody.optional()
-
   const postPayoutsPayoutReverseResponseValidator = responseValidationFactory(
     [["200", s_payout]],
     s_error,
@@ -38366,7 +37928,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postPayoutsPayoutReverseBodySchema,
+          s_PostPayoutsPayoutReverseRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -38493,8 +38055,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const postPlansBodySchema = s_PostPlansRequestBody
-
   const postPlansResponseValidator = responseValidationFactory(
     [["200", s_plan]],
     s_error,
@@ -38505,7 +38065,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: undefined,
       body: parseRequestInput(
-        postPlansBodySchema,
+        s_PostPlansRequestBody,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -38658,8 +38218,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const postPlansPlanParamSchema = z.object({plan: z.string().max(5000)})
 
-  const postPlansPlanBodySchema = s_PostPlansPlanRequestBody.optional()
-
   const postPlansPlanResponseValidator = responseValidationFactory(
     [["200", s_plan]],
     s_error,
@@ -38674,7 +38232,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       query: undefined,
       body: parseRequestInput(
-        postPlansPlanBodySchema,
+        s_PostPlansPlanRequestBody.optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -38815,8 +38373,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const postPricesBodySchema = s_PostPricesRequestBody
-
   const postPricesResponseValidator = responseValidationFactory(
     [["200", s_price]],
     s_error,
@@ -38827,7 +38383,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: undefined,
       body: parseRequestInput(
-        postPricesBodySchema,
+        s_PostPricesRequestBody,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -39009,8 +38565,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const postPricesPriceParamSchema = z.object({price: z.string().max(5000)})
 
-  const postPricesPriceBodySchema = s_PostPricesPriceRequestBody.optional()
-
   const postPricesPriceResponseValidator = responseValidationFactory(
     [["200", s_price]],
     s_error,
@@ -39025,7 +38579,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       query: undefined,
       body: parseRequestInput(
-        postPricesPriceBodySchema,
+        s_PostPricesPriceRequestBody.optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -39158,8 +38712,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const postProductsBodySchema = s_PostProductsRequestBody
-
   const postProductsResponseValidator = responseValidationFactory(
     [["200", s_product]],
     s_error,
@@ -39170,7 +38722,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: undefined,
       body: parseRequestInput(
-        postProductsBodySchema,
+        s_PostProductsRequestBody,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -39402,8 +38954,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const postProductsIdParamSchema = z.object({id: z.string().max(5000)})
 
-  const postProductsIdBodySchema = s_PostProductsIdRequestBody.optional()
-
   const postProductsIdResponseValidator = responseValidationFactory(
     [["200", s_product]],
     s_error,
@@ -39418,7 +38968,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       query: undefined,
       body: parseRequestInput(
-        postProductsIdBodySchema,
+        s_PostProductsIdRequestBody.optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -39547,9 +39097,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     product: z.string().max(5000),
   })
 
-  const postProductsProductFeaturesBodySchema =
-    s_PostProductsProductFeaturesRequestBody
-
   const postProductsProductFeaturesResponseValidator =
     responseValidationFactory([["200", s_product_feature]], s_error)
 
@@ -39565,7 +39112,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postProductsProductFeaturesBodySchema,
+          s_PostProductsProductFeaturesRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -39817,8 +39364,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const postPromotionCodesBodySchema = s_PostPromotionCodesRequestBody
-
   const postPromotionCodesResponseValidator = responseValidationFactory(
     [["200", s_promotion_code]],
     s_error,
@@ -39832,7 +39377,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postPromotionCodesBodySchema,
+          s_PostPromotionCodesRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -39942,9 +39487,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     promotion_code: z.string().max(5000),
   })
 
-  const postPromotionCodesPromotionCodeBodySchema =
-    s_PostPromotionCodesPromotionCodeRequestBody.optional()
-
   const postPromotionCodesPromotionCodeResponseValidator =
     responseValidationFactory([["200", s_promotion_code]], s_error)
 
@@ -39960,7 +39502,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postPromotionCodesPromotionCodeBodySchema,
+          s_PostPromotionCodesPromotionCodeRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -40077,8 +39619,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const postQuotesBodySchema = s_PostQuotesRequestBody.optional()
-
   const postQuotesResponseValidator = responseValidationFactory(
     [["200", s_quote]],
     s_error,
@@ -40089,7 +39629,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: undefined,
       body: parseRequestInput(
-        postQuotesBodySchema,
+        s_PostQuotesRequestBody.optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -40192,8 +39732,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const postQuotesQuoteParamSchema = z.object({quote: z.string().max(5000)})
 
-  const postQuotesQuoteBodySchema = s_PostQuotesQuoteRequestBody.optional()
-
   const postQuotesQuoteResponseValidator = responseValidationFactory(
     [["200", s_quote]],
     s_error,
@@ -40208,7 +39746,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       query: undefined,
       body: parseRequestInput(
-        postQuotesQuoteBodySchema,
+        s_PostQuotesQuoteRequestBody.optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -40250,9 +39788,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     quote: z.string().max(5000),
   })
 
-  const postQuotesQuoteAcceptBodySchema =
-    s_PostQuotesQuoteAcceptRequestBody.optional()
-
   const postQuotesQuoteAcceptResponseValidator = responseValidationFactory(
     [["200", s_quote]],
     s_error,
@@ -40270,7 +39805,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postQuotesQuoteAcceptBodySchema,
+          s_PostQuotesQuoteAcceptRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -40313,9 +39848,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     quote: z.string().max(5000),
   })
 
-  const postQuotesQuoteCancelBodySchema =
-    s_PostQuotesQuoteCancelRequestBody.optional()
-
   const postQuotesQuoteCancelResponseValidator = responseValidationFactory(
     [["200", s_quote]],
     s_error,
@@ -40333,7 +39865,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postQuotesQuoteCancelBodySchema,
+          s_PostQuotesQuoteCancelRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -40467,9 +39999,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     quote: z.string().max(5000),
   })
 
-  const postQuotesQuoteFinalizeBodySchema =
-    s_PostQuotesQuoteFinalizeRequestBody.optional()
-
   const postQuotesQuoteFinalizeResponseValidator = responseValidationFactory(
     [["200", s_quote]],
     s_error,
@@ -40487,7 +40016,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postQuotesQuoteFinalizeBodySchema,
+          s_PostQuotesQuoteFinalizeRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -40945,8 +40474,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postRadarValueListItemsBodySchema = s_PostRadarValueListItemsRequestBody
-
   const postRadarValueListItemsResponseValidator = responseValidationFactory(
     [["200", s_radar_value_list_item]],
     s_error,
@@ -40960,7 +40487,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postRadarValueListItemsBodySchema,
+          s_PostRadarValueListItemsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -41217,8 +40744,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postRadarValueListsBodySchema = s_PostRadarValueListsRequestBody
-
   const postRadarValueListsResponseValidator = responseValidationFactory(
     [["200", s_radar_value_list]],
     s_error,
@@ -41232,7 +40757,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postRadarValueListsBodySchema,
+          s_PostRadarValueListsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -41396,9 +40921,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     value_list: z.string().max(5000),
   })
 
-  const postRadarValueListsValueListBodySchema =
-    s_PostRadarValueListsValueListRequestBody.optional()
-
   const postRadarValueListsValueListResponseValidator =
     responseValidationFactory([["200", s_radar_value_list]], s_error)
 
@@ -41414,7 +40936,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postRadarValueListsValueListBodySchema,
+          s_PostRadarValueListsValueListRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -41541,8 +41063,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const postRefundsBodySchema = s_PostRefundsRequestBody.optional()
-
   const postRefundsResponseValidator = responseValidationFactory(
     [["200", s_refund]],
     s_error,
@@ -41553,7 +41073,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: undefined,
       body: parseRequestInput(
-        postRefundsBodySchema,
+        s_PostRefundsRequestBody.optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -41656,8 +41176,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const postRefundsRefundParamSchema = z.object({refund: z.string()})
 
-  const postRefundsRefundBodySchema = s_PostRefundsRefundRequestBody.optional()
-
   const postRefundsRefundResponseValidator = responseValidationFactory(
     [["200", s_refund]],
     s_error,
@@ -41672,7 +41190,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       query: undefined,
       body: parseRequestInput(
-        postRefundsRefundBodySchema,
+        s_PostRefundsRefundRequestBody.optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -41712,9 +41230,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const postRefundsRefundCancelParamSchema = z.object({refund: z.string()})
 
-  const postRefundsRefundCancelBodySchema =
-    s_PostRefundsRefundCancelRequestBody.optional()
-
   const postRefundsRefundCancelResponseValidator = responseValidationFactory(
     [["200", s_refund]],
     s_error,
@@ -41732,7 +41247,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postRefundsRefundCancelBodySchema,
+          s_PostRefundsRefundCancelRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -41864,8 +41379,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postReportingReportRunsBodySchema = s_PostReportingReportRunsRequestBody
-
   const postReportingReportRunsResponseValidator = responseValidationFactory(
     [["200", s_reporting_report_run]],
     s_error,
@@ -41879,7 +41392,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postReportingReportRunsBodySchema,
+          s_PostReportingReportRunsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -42284,9 +41797,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     review: z.string().max(5000),
   })
 
-  const postReviewsReviewApproveBodySchema =
-    s_PostReviewsReviewApproveRequestBody.optional()
-
   const postReviewsReviewApproveResponseValidator = responseValidationFactory(
     [["200", s_review]],
     s_error,
@@ -42304,7 +41814,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postReviewsReviewApproveBodySchema,
+          s_PostReviewsReviewApproveRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -42519,8 +42029,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const postSetupIntentsBodySchema = s_PostSetupIntentsRequestBody.optional()
-
   const postSetupIntentsResponseValidator = responseValidationFactory(
     [["200", s_setup_intent]],
     s_error,
@@ -42531,7 +42039,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: undefined,
       body: parseRequestInput(
-        postSetupIntentsBodySchema,
+        s_PostSetupIntentsRequestBody.optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -42643,9 +42151,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     intent: z.string().max(5000),
   })
 
-  const postSetupIntentsIntentBodySchema =
-    s_PostSetupIntentsIntentRequestBody.optional()
-
   const postSetupIntentsIntentResponseValidator = responseValidationFactory(
     [["200", s_setup_intent]],
     s_error,
@@ -42663,7 +42168,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postSetupIntentsIntentBodySchema,
+          s_PostSetupIntentsIntentRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -42706,9 +42211,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     intent: z.string().max(5000),
   })
 
-  const postSetupIntentsIntentCancelBodySchema =
-    s_PostSetupIntentsIntentCancelRequestBody.optional()
-
   const postSetupIntentsIntentCancelResponseValidator =
     responseValidationFactory([["200", s_setup_intent]], s_error)
 
@@ -42724,7 +42226,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postSetupIntentsIntentCancelBodySchema,
+          s_PostSetupIntentsIntentCancelRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -42767,9 +42269,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     intent: z.string().max(5000),
   })
 
-  const postSetupIntentsIntentConfirmBodySchema =
-    s_PostSetupIntentsIntentConfirmRequestBody.optional()
-
   const postSetupIntentsIntentConfirmResponseValidator =
     responseValidationFactory([["200", s_setup_intent]], s_error)
 
@@ -42785,7 +42284,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postSetupIntentsIntentConfirmBodySchema,
+          s_PostSetupIntentsIntentConfirmRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -42828,9 +42327,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     intent: z.string().max(5000),
   })
 
-  const postSetupIntentsIntentVerifyMicrodepositsBodySchema =
-    s_PostSetupIntentsIntentVerifyMicrodepositsRequestBody.optional()
-
   const postSetupIntentsIntentVerifyMicrodepositsResponseValidator =
     responseValidationFactory([["200", s_setup_intent]], s_error)
 
@@ -42846,7 +42342,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postSetupIntentsIntentVerifyMicrodepositsBodySchema,
+          s_PostSetupIntentsIntentVerifyMicrodepositsRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -42976,8 +42472,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const postShippingRatesBodySchema = s_PostShippingRatesRequestBody
-
   const postShippingRatesResponseValidator = responseValidationFactory(
     [["200", s_shipping_rate]],
     s_error,
@@ -42988,7 +42482,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: undefined,
       body: parseRequestInput(
-        postShippingRatesBodySchema,
+        s_PostShippingRatesRequestBody,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -43100,9 +42594,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     shipping_rate_token: z.string().max(5000),
   })
 
-  const postShippingRatesShippingRateTokenBodySchema =
-    s_PostShippingRatesShippingRateTokenRequestBody.optional()
-
   const postShippingRatesShippingRateTokenResponseValidator =
     responseValidationFactory([["200", s_shipping_rate]], s_error)
 
@@ -43118,7 +42609,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postShippingRatesShippingRateTokenBodySchema,
+          s_PostShippingRatesShippingRateTokenRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -43164,9 +42655,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     id: z.string().max(5000),
   })
 
-  const postSigmaSavedQueriesIdBodySchema =
-    s_PostSigmaSavedQueriesIdRequestBody.optional()
-
   const postSigmaSavedQueriesIdResponseValidator = responseValidationFactory(
     [["200", s_sigma_sigma_api_query]],
     s_error,
@@ -43184,7 +42672,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postSigmaSavedQueriesIdBodySchema,
+          s_PostSigmaSavedQueriesIdRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -43380,8 +42868,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postSourcesBodySchema = s_PostSourcesRequestBody.optional()
-
   const postSourcesResponseValidator = responseValidationFactory(
     [["200", s_source]],
     s_error,
@@ -43392,7 +42878,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: undefined,
       body: parseRequestInput(
-        postSourcesBodySchema,
+        s_PostSourcesRequestBody.optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -43496,8 +42982,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const postSourcesSourceParamSchema = z.object({source: z.string().max(5000)})
 
-  const postSourcesSourceBodySchema = s_PostSourcesSourceRequestBody.optional()
-
   const postSourcesSourceResponseValidator = responseValidationFactory(
     [["200", s_source]],
     s_error,
@@ -43512,7 +42996,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       query: undefined,
       body: parseRequestInput(
-        postSourcesSourceBodySchema,
+        s_PostSourcesSourceRequestBody.optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -43803,8 +43287,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     source: z.string().max(5000),
   })
 
-  const postSourcesSourceVerifyBodySchema = s_PostSourcesSourceVerifyRequestBody
-
   const postSourcesSourceVerifyResponseValidator = responseValidationFactory(
     [["200", s_source]],
     s_error,
@@ -43822,7 +43304,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postSourcesSourceVerifyBodySchema,
+          s_PostSourcesSourceVerifyRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -43944,8 +43426,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postSubscriptionItemsBodySchema = s_PostSubscriptionItemsRequestBody
-
   const postSubscriptionItemsResponseValidator = responseValidationFactory(
     [["200", s_subscription_item]],
     s_error,
@@ -43959,7 +43439,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postSubscriptionItemsBodySchema,
+          s_PostSubscriptionItemsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -44002,9 +43482,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     item: z.string().max(5000),
   })
 
-  const deleteSubscriptionItemsItemBodySchema =
-    s_DeleteSubscriptionItemsItemRequestBody.optional()
-
   const deleteSubscriptionItemsItemResponseValidator =
     responseValidationFactory([["200", s_deleted_subscription_item]], s_error)
 
@@ -44020,7 +43497,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          deleteSubscriptionItemsItemBodySchema,
+          s_DeleteSubscriptionItemsItemRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -44132,9 +43609,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     item: z.string().max(5000),
   })
 
-  const postSubscriptionItemsItemBodySchema =
-    s_PostSubscriptionItemsItemRequestBody.optional()
-
   const postSubscriptionItemsItemResponseValidator = responseValidationFactory(
     [["200", s_subscription_item]],
     s_error,
@@ -44152,7 +43626,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postSubscriptionItemsItemBodySchema,
+          s_PostSubscriptionItemsItemRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -44319,9 +43793,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postSubscriptionSchedulesBodySchema =
-    s_PostSubscriptionSchedulesRequestBody.optional()
-
   const postSubscriptionSchedulesResponseValidator = responseValidationFactory(
     [["200", s_subscription_schedule]],
     s_error,
@@ -44335,7 +43806,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postSubscriptionSchedulesBodySchema,
+          s_PostSubscriptionSchedulesRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -44445,9 +43916,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     schedule: z.string().max(5000),
   })
 
-  const postSubscriptionSchedulesScheduleBodySchema =
-    s_PostSubscriptionSchedulesScheduleRequestBody.optional()
-
   const postSubscriptionSchedulesScheduleResponseValidator =
     responseValidationFactory([["200", s_subscription_schedule]], s_error)
 
@@ -44463,7 +43931,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postSubscriptionSchedulesScheduleBodySchema,
+          s_PostSubscriptionSchedulesScheduleRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -44509,9 +43977,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     schedule: z.string().max(5000),
   })
 
-  const postSubscriptionSchedulesScheduleCancelBodySchema =
-    s_PostSubscriptionSchedulesScheduleCancelRequestBody.optional()
-
   const postSubscriptionSchedulesScheduleCancelResponseValidator =
     responseValidationFactory([["200", s_subscription_schedule]], s_error)
 
@@ -44527,7 +43992,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postSubscriptionSchedulesScheduleCancelBodySchema,
+          s_PostSubscriptionSchedulesScheduleCancelRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -44573,9 +44038,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     schedule: z.string().max(5000),
   })
 
-  const postSubscriptionSchedulesScheduleReleaseBodySchema =
-    s_PostSubscriptionSchedulesScheduleReleaseRequestBody.optional()
-
   const postSubscriptionSchedulesScheduleReleaseResponseValidator =
     responseValidationFactory([["200", s_subscription_schedule]], s_error)
 
@@ -44591,7 +44053,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postSubscriptionSchedulesScheduleReleaseBodySchema,
+          s_PostSubscriptionSchedulesScheduleReleaseRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -44762,8 +44224,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const postSubscriptionsBodySchema = s_PostSubscriptionsRequestBody
-
   const postSubscriptionsResponseValidator = responseValidationFactory(
     [["200", s_subscription]],
     s_error,
@@ -44774,7 +44234,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: undefined,
       body: parseRequestInput(
-        postSubscriptionsBodySchema,
+        s_PostSubscriptionsRequestBody,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -44899,9 +44359,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     subscription_exposed_id: z.string().max(5000),
   })
 
-  const deleteSubscriptionsSubscriptionExposedIdBodySchema =
-    s_DeleteSubscriptionsSubscriptionExposedIdRequestBody.optional()
-
   const deleteSubscriptionsSubscriptionExposedIdResponseValidator =
     responseValidationFactory([["200", s_subscription]], s_error)
 
@@ -44917,7 +44374,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          deleteSubscriptionsSubscriptionExposedIdBodySchema,
+          s_DeleteSubscriptionsSubscriptionExposedIdRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -45033,9 +44490,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     subscription_exposed_id: z.string().max(5000),
   })
 
-  const postSubscriptionsSubscriptionExposedIdBodySchema =
-    s_PostSubscriptionsSubscriptionExposedIdRequestBody.optional()
-
   const postSubscriptionsSubscriptionExposedIdResponseValidator =
     responseValidationFactory([["200", s_subscription]], s_error)
 
@@ -45051,7 +44505,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postSubscriptionsSubscriptionExposedIdBodySchema,
+          s_PostSubscriptionsSubscriptionExposedIdRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -45160,9 +44614,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     subscription: z.string().max(5000),
   })
 
-  const postSubscriptionsSubscriptionMigrateBodySchema =
-    s_PostSubscriptionsSubscriptionMigrateRequestBody
-
   const postSubscriptionsSubscriptionMigrateResponseValidator =
     responseValidationFactory([["200", s_subscription]], s_error)
 
@@ -45178,7 +44629,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postSubscriptionsSubscriptionMigrateBodySchema,
+          s_PostSubscriptionsSubscriptionMigrateRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -45224,9 +44675,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     subscription: z.string().max(5000),
   })
 
-  const postSubscriptionsSubscriptionResumeBodySchema =
-    s_PostSubscriptionsSubscriptionResumeRequestBody.optional()
-
   const postSubscriptionsSubscriptionResumeResponseValidator =
     responseValidationFactory([["200", s_subscription]], s_error)
 
@@ -45242,7 +44690,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postSubscriptionsSubscriptionResumeBodySchema,
+          s_PostSubscriptionsSubscriptionResumeRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -45284,8 +44732,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postTaxCalculationsBodySchema = s_PostTaxCalculationsRequestBody
-
   const postTaxCalculationsResponseValidator = responseValidationFactory(
     [["200", s_tax_calculation]],
     s_error,
@@ -45299,7 +44745,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postTaxCalculationsBodySchema,
+          s_PostTaxCalculationsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -45579,8 +45025,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postTaxRegistrationsBodySchema = s_PostTaxRegistrationsRequestBody
-
   const postTaxRegistrationsResponseValidator = responseValidationFactory(
     [["200", s_tax_registration]],
     s_error,
@@ -45594,7 +45038,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postTaxRegistrationsBodySchema,
+          s_PostTaxRegistrationsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -45702,9 +45146,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const postTaxRegistrationsIdParamSchema = z.object({id: z.string().max(5000)})
 
-  const postTaxRegistrationsIdBodySchema =
-    s_PostTaxRegistrationsIdRequestBody.optional()
-
   const postTaxRegistrationsIdResponseValidator = responseValidationFactory(
     [["200", s_tax_registration]],
     s_error,
@@ -45722,7 +45163,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTaxRegistrationsIdBodySchema,
+          s_PostTaxRegistrationsIdRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -45818,8 +45259,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const postTaxSettingsBodySchema = s_PostTaxSettingsRequestBody.optional()
-
   const postTaxSettingsResponseValidator = responseValidationFactory(
     [["200", s_tax_settings]],
     s_error,
@@ -45830,7 +45269,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: undefined,
       body: parseRequestInput(
-        postTaxSettingsBodySchema,
+        s_PostTaxSettingsRequestBody.optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -45868,9 +45307,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const postTaxTransactionsCreateFromCalculationBodySchema =
-    s_PostTaxTransactionsCreateFromCalculationRequestBody
-
   const postTaxTransactionsCreateFromCalculationResponseValidator =
     responseValidationFactory([["200", s_tax_transaction]], s_error)
 
@@ -45882,7 +45318,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postTaxTransactionsCreateFromCalculationBodySchema,
+          s_PostTaxTransactionsCreateFromCalculationRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -45924,9 +45360,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postTaxTransactionsCreateReversalBodySchema =
-    s_PostTaxTransactionsCreateReversalRequestBody
-
   const postTaxTransactionsCreateReversalResponseValidator =
     responseValidationFactory([["200", s_tax_transaction]], s_error)
 
@@ -45938,7 +45371,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postTaxTransactionsCreateReversalBodySchema,
+          s_PostTaxTransactionsCreateReversalRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -46361,8 +45794,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const postTaxIdsBodySchema = s_PostTaxIdsRequestBody
-
   const postTaxIdsResponseValidator = responseValidationFactory(
     [["200", s_tax_id]],
     s_error,
@@ -46373,7 +45804,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: undefined,
       body: parseRequestInput(
-        postTaxIdsBodySchema,
+        s_PostTaxIdsRequestBody,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -46612,8 +46043,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const postTaxRatesBodySchema = s_PostTaxRatesRequestBody
-
   const postTaxRatesResponseValidator = responseValidationFactory(
     [["200", s_tax_rate]],
     s_error,
@@ -46624,7 +46053,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: undefined,
       body: parseRequestInput(
-        postTaxRatesBodySchema,
+        s_PostTaxRatesRequestBody,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -46735,9 +46164,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     tax_rate: z.string().max(5000),
   })
 
-  const postTaxRatesTaxRateBodySchema =
-    s_PostTaxRatesTaxRateRequestBody.optional()
-
   const postTaxRatesTaxRateResponseValidator = responseValidationFactory(
     [["200", s_tax_rate]],
     s_error,
@@ -46755,7 +46181,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTaxRatesTaxRateBodySchema,
+          s_PostTaxRatesTaxRateRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -46877,9 +46303,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postTerminalConfigurationsBodySchema =
-    s_PostTerminalConfigurationsRequestBody.optional()
-
   const postTerminalConfigurationsResponseValidator = responseValidationFactory(
     [["200", s_terminal_configuration]],
     s_error,
@@ -46893,7 +46316,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postTerminalConfigurationsBodySchema,
+          s_PostTerminalConfigurationsRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -47079,9 +46502,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     configuration: z.string().max(5000),
   })
 
-  const postTerminalConfigurationsConfigurationBodySchema =
-    s_PostTerminalConfigurationsConfigurationRequestBody.optional()
-
   const postTerminalConfigurationsConfigurationResponseValidator =
     responseValidationFactory(
       [
@@ -47108,7 +46528,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTerminalConfigurationsConfigurationBodySchema,
+          s_PostTerminalConfigurationsConfigurationRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -47152,9 +46572,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postTerminalConnectionTokensBodySchema =
-    s_PostTerminalConnectionTokensRequestBody.optional()
-
   const postTerminalConnectionTokensResponseValidator =
     responseValidationFactory([["200", s_terminal_connection_token]], s_error)
 
@@ -47166,7 +46583,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postTerminalConnectionTokensBodySchema,
+          s_PostTerminalConnectionTokensRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -47287,8 +46704,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postTerminalLocationsBodySchema = s_PostTerminalLocationsRequestBody
-
   const postTerminalLocationsResponseValidator = responseValidationFactory(
     [["200", s_terminal_location]],
     s_error,
@@ -47302,7 +46717,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postTerminalLocationsBodySchema,
+          s_PostTerminalLocationsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -47471,9 +46886,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     location: z.string().max(5000),
   })
 
-  const postTerminalLocationsLocationBodySchema =
-    s_PostTerminalLocationsLocationRequestBody.optional()
-
   const postTerminalLocationsLocationResponseValidator =
     responseValidationFactory(
       [["200", z.union([s_terminal_location, s_deleted_terminal_location])]],
@@ -47492,7 +46904,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTerminalLocationsLocationBodySchema,
+          s_PostTerminalLocationsLocationRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -47628,8 +47040,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postTerminalReadersBodySchema = s_PostTerminalReadersRequestBody
-
   const postTerminalReadersResponseValidator = responseValidationFactory(
     [["200", s_terminal_reader]],
     s_error,
@@ -47643,7 +47053,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postTerminalReadersBodySchema,
+          s_PostTerminalReadersRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -47816,9 +47226,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     reader: z.string().max(5000),
   })
 
-  const postTerminalReadersReaderBodySchema =
-    s_PostTerminalReadersReaderRequestBody.optional()
-
   const postTerminalReadersReaderResponseValidator = responseValidationFactory(
     [
       [
@@ -47841,7 +47248,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTerminalReadersReaderBodySchema,
+          s_PostTerminalReadersReaderRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -47886,9 +47293,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     reader: z.string().max(5000),
   })
 
-  const postTerminalReadersReaderCancelActionBodySchema =
-    s_PostTerminalReadersReaderCancelActionRequestBody.optional()
-
   const postTerminalReadersReaderCancelActionResponseValidator =
     responseValidationFactory([["200", s_terminal_reader]], s_error)
 
@@ -47904,7 +47308,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTerminalReadersReaderCancelActionBodySchema,
+          s_PostTerminalReadersReaderCancelActionRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -47950,9 +47354,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     reader: z.string().max(5000),
   })
 
-  const postTerminalReadersReaderCollectInputsBodySchema =
-    s_PostTerminalReadersReaderCollectInputsRequestBody
-
   const postTerminalReadersReaderCollectInputsResponseValidator =
     responseValidationFactory([["200", s_terminal_reader]], s_error)
 
@@ -47968,7 +47369,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTerminalReadersReaderCollectInputsBodySchema,
+          s_PostTerminalReadersReaderCollectInputsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -48014,9 +47415,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     reader: z.string().max(5000),
   })
 
-  const postTerminalReadersReaderCollectPaymentMethodBodySchema =
-    s_PostTerminalReadersReaderCollectPaymentMethodRequestBody
-
   const postTerminalReadersReaderCollectPaymentMethodResponseValidator =
     responseValidationFactory([["200", s_terminal_reader]], s_error)
 
@@ -48032,7 +47430,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTerminalReadersReaderCollectPaymentMethodBodySchema,
+          s_PostTerminalReadersReaderCollectPaymentMethodRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -48083,9 +47481,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     reader: z.string().max(5000),
   })
 
-  const postTerminalReadersReaderConfirmPaymentIntentBodySchema =
-    s_PostTerminalReadersReaderConfirmPaymentIntentRequestBody
-
   const postTerminalReadersReaderConfirmPaymentIntentResponseValidator =
     responseValidationFactory([["200", s_terminal_reader]], s_error)
 
@@ -48101,7 +47496,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTerminalReadersReaderConfirmPaymentIntentBodySchema,
+          s_PostTerminalReadersReaderConfirmPaymentIntentRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -48152,9 +47547,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     reader: z.string().max(5000),
   })
 
-  const postTerminalReadersReaderProcessPaymentIntentBodySchema =
-    s_PostTerminalReadersReaderProcessPaymentIntentRequestBody
-
   const postTerminalReadersReaderProcessPaymentIntentResponseValidator =
     responseValidationFactory([["200", s_terminal_reader]], s_error)
 
@@ -48170,7 +47562,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTerminalReadersReaderProcessPaymentIntentBodySchema,
+          s_PostTerminalReadersReaderProcessPaymentIntentRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -48221,9 +47613,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     reader: z.string().max(5000),
   })
 
-  const postTerminalReadersReaderProcessSetupIntentBodySchema =
-    s_PostTerminalReadersReaderProcessSetupIntentRequestBody
-
   const postTerminalReadersReaderProcessSetupIntentResponseValidator =
     responseValidationFactory([["200", s_terminal_reader]], s_error)
 
@@ -48239,7 +47628,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTerminalReadersReaderProcessSetupIntentBodySchema,
+          s_PostTerminalReadersReaderProcessSetupIntentRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -48290,9 +47679,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     reader: z.string().max(5000),
   })
 
-  const postTerminalReadersReaderRefundPaymentBodySchema =
-    s_PostTerminalReadersReaderRefundPaymentRequestBody.optional()
-
   const postTerminalReadersReaderRefundPaymentResponseValidator =
     responseValidationFactory([["200", s_terminal_reader]], s_error)
 
@@ -48308,7 +47694,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTerminalReadersReaderRefundPaymentBodySchema,
+          s_PostTerminalReadersReaderRefundPaymentRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -48354,9 +47740,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     reader: z.string().max(5000),
   })
 
-  const postTerminalReadersReaderSetReaderDisplayBodySchema =
-    s_PostTerminalReadersReaderSetReaderDisplayRequestBody
-
   const postTerminalReadersReaderSetReaderDisplayResponseValidator =
     responseValidationFactory([["200", s_terminal_reader]], s_error)
 
@@ -48372,7 +47755,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTerminalReadersReaderSetReaderDisplayBodySchema,
+          s_PostTerminalReadersReaderSetReaderDisplayRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -48414,9 +47797,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postTestHelpersConfirmationTokensBodySchema =
-    s_PostTestHelpersConfirmationTokensRequestBody.optional()
-
   const postTestHelpersConfirmationTokensResponseValidator =
     responseValidationFactory([["200", s_confirmation_token]], s_error)
 
@@ -48428,7 +47808,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postTestHelpersConfirmationTokensBodySchema,
+          s_PostTestHelpersConfirmationTokensRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -48474,9 +47854,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     customer: z.string().max(5000),
   })
 
-  const postTestHelpersCustomersCustomerFundCashBalanceBodySchema =
-    s_PostTestHelpersCustomersCustomerFundCashBalanceRequestBody
-
   const postTestHelpersCustomersCustomerFundCashBalanceResponseValidator =
     responseValidationFactory(
       [["200", s_customer_cash_balance_transaction]],
@@ -48495,7 +47872,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTestHelpersCustomersCustomerFundCashBalanceBodySchema,
+          s_PostTestHelpersCustomersCustomerFundCashBalanceRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -48545,9 +47922,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postTestHelpersIssuingAuthorizationsBodySchema =
-    s_PostTestHelpersIssuingAuthorizationsRequestBody
-
   const postTestHelpersIssuingAuthorizationsResponseValidator =
     responseValidationFactory([["200", s_issuing_authorization]], s_error)
 
@@ -48559,7 +47933,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postTestHelpersIssuingAuthorizationsBodySchema,
+          s_PostTestHelpersIssuingAuthorizationsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -48604,9 +47978,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const postTestHelpersIssuingAuthorizationsAuthorizationCaptureParamSchema =
     z.object({authorization: z.string().max(5000)})
 
-  const postTestHelpersIssuingAuthorizationsAuthorizationCaptureBodySchema =
-    s_PostTestHelpersIssuingAuthorizationsAuthorizationCaptureRequestBody.optional()
-
   const postTestHelpersIssuingAuthorizationsAuthorizationCaptureResponseValidator =
     responseValidationFactory([["200", s_issuing_authorization]], s_error)
 
@@ -48622,7 +47993,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTestHelpersIssuingAuthorizationsAuthorizationCaptureBodySchema,
+          s_PostTestHelpersIssuingAuthorizationsAuthorizationCaptureRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -48673,9 +48044,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const postTestHelpersIssuingAuthorizationsAuthorizationExpireParamSchema =
     z.object({authorization: z.string().max(5000)})
 
-  const postTestHelpersIssuingAuthorizationsAuthorizationExpireBodySchema =
-    s_PostTestHelpersIssuingAuthorizationsAuthorizationExpireRequestBody.optional()
-
   const postTestHelpersIssuingAuthorizationsAuthorizationExpireResponseValidator =
     responseValidationFactory([["200", s_issuing_authorization]], s_error)
 
@@ -48691,7 +48059,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTestHelpersIssuingAuthorizationsAuthorizationExpireBodySchema,
+          s_PostTestHelpersIssuingAuthorizationsAuthorizationExpireRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -48742,9 +48110,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const postTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmountParamSchema =
     z.object({authorization: z.string().max(5000)})
 
-  const postTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmountBodySchema =
-    s_PostTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmountRequestBody
-
   const postTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmountResponseValidator =
     responseValidationFactory([["200", s_issuing_authorization]], s_error)
 
@@ -48760,7 +48125,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmountBodySchema,
+          s_PostTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmountRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -48811,9 +48176,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const postTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespondParamSchema =
     z.object({authorization: z.string().max(5000)})
 
-  const postTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespondBodySchema =
-    s_PostTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespondRequestBody
-
   const postTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespondResponseValidator =
     responseValidationFactory([["200", s_issuing_authorization]], s_error)
 
@@ -48829,7 +48191,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespondBodySchema,
+          s_PostTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespondRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -48880,9 +48242,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const postTestHelpersIssuingAuthorizationsAuthorizationIncrementParamSchema =
     z.object({authorization: z.string().max(5000)})
 
-  const postTestHelpersIssuingAuthorizationsAuthorizationIncrementBodySchema =
-    s_PostTestHelpersIssuingAuthorizationsAuthorizationIncrementRequestBody
-
   const postTestHelpersIssuingAuthorizationsAuthorizationIncrementResponseValidator =
     responseValidationFactory([["200", s_issuing_authorization]], s_error)
 
@@ -48898,7 +48257,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTestHelpersIssuingAuthorizationsAuthorizationIncrementBodySchema,
+          s_PostTestHelpersIssuingAuthorizationsAuthorizationIncrementRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -48949,9 +48308,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const postTestHelpersIssuingAuthorizationsAuthorizationReverseParamSchema =
     z.object({authorization: z.string().max(5000)})
 
-  const postTestHelpersIssuingAuthorizationsAuthorizationReverseBodySchema =
-    s_PostTestHelpersIssuingAuthorizationsAuthorizationReverseRequestBody.optional()
-
   const postTestHelpersIssuingAuthorizationsAuthorizationReverseResponseValidator =
     responseValidationFactory([["200", s_issuing_authorization]], s_error)
 
@@ -48967,7 +48323,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTestHelpersIssuingAuthorizationsAuthorizationReverseBodySchema,
+          s_PostTestHelpersIssuingAuthorizationsAuthorizationReverseRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -49019,9 +48375,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     card: z.string().max(5000),
   })
 
-  const postTestHelpersIssuingCardsCardShippingDeliverBodySchema =
-    s_PostTestHelpersIssuingCardsCardShippingDeliverRequestBody.optional()
-
   const postTestHelpersIssuingCardsCardShippingDeliverResponseValidator =
     responseValidationFactory([["200", s_issuing_card]], s_error)
 
@@ -49037,7 +48390,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTestHelpersIssuingCardsCardShippingDeliverBodySchema,
+          s_PostTestHelpersIssuingCardsCardShippingDeliverRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -49089,9 +48442,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     card: z.string().max(5000),
   })
 
-  const postTestHelpersIssuingCardsCardShippingFailBodySchema =
-    s_PostTestHelpersIssuingCardsCardShippingFailRequestBody.optional()
-
   const postTestHelpersIssuingCardsCardShippingFailResponseValidator =
     responseValidationFactory([["200", s_issuing_card]], s_error)
 
@@ -49107,7 +48457,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTestHelpersIssuingCardsCardShippingFailBodySchema,
+          s_PostTestHelpersIssuingCardsCardShippingFailRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -49158,9 +48508,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     card: z.string().max(5000),
   })
 
-  const postTestHelpersIssuingCardsCardShippingReturnBodySchema =
-    s_PostTestHelpersIssuingCardsCardShippingReturnRequestBody.optional()
-
   const postTestHelpersIssuingCardsCardShippingReturnResponseValidator =
     responseValidationFactory([["200", s_issuing_card]], s_error)
 
@@ -49176,7 +48523,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTestHelpersIssuingCardsCardShippingReturnBodySchema,
+          s_PostTestHelpersIssuingCardsCardShippingReturnRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -49227,9 +48574,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     card: z.string().max(5000),
   })
 
-  const postTestHelpersIssuingCardsCardShippingShipBodySchema =
-    s_PostTestHelpersIssuingCardsCardShippingShipRequestBody.optional()
-
   const postTestHelpersIssuingCardsCardShippingShipResponseValidator =
     responseValidationFactory([["200", s_issuing_card]], s_error)
 
@@ -49245,7 +48589,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTestHelpersIssuingCardsCardShippingShipBodySchema,
+          s_PostTestHelpersIssuingCardsCardShippingShipRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -49296,9 +48640,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     card: z.string().max(5000),
   })
 
-  const postTestHelpersIssuingCardsCardShippingSubmitBodySchema =
-    s_PostTestHelpersIssuingCardsCardShippingSubmitRequestBody.optional()
-
   const postTestHelpersIssuingCardsCardShippingSubmitResponseValidator =
     responseValidationFactory([["200", s_issuing_card]], s_error)
 
@@ -49314,7 +48655,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTestHelpersIssuingCardsCardShippingSubmitBodySchema,
+          s_PostTestHelpersIssuingCardsCardShippingSubmitRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -49364,9 +48705,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivateParamSchema =
     z.object({personalization_design: z.string().max(5000)})
 
-  const postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivateBodySchema =
-    s_PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivateRequestBody.optional()
-
   const postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivateResponseValidator =
     responseValidationFactory(
       [["200", s_issuing_personalization_design]],
@@ -49385,7 +48723,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivateBodySchema,
+          s_PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivateRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -49436,9 +48774,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivateParamSchema =
     z.object({personalization_design: z.string().max(5000)})
 
-  const postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivateBodySchema =
-    s_PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivateRequestBody.optional()
-
   const postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivateResponseValidator =
     responseValidationFactory(
       [["200", s_issuing_personalization_design]],
@@ -49457,7 +48792,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivateBodySchema,
+          s_PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivateRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -49508,9 +48843,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignRejectParamSchema =
     z.object({personalization_design: z.string().max(5000)})
 
-  const postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignRejectBodySchema =
-    s_PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignRejectRequestBody
-
   const postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignRejectResponseValidator =
     responseValidationFactory(
       [["200", s_issuing_personalization_design]],
@@ -49529,7 +48861,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignRejectBodySchema,
+          s_PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignRejectRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -49577,9 +48909,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postTestHelpersIssuingSettlementsBodySchema =
-    s_PostTestHelpersIssuingSettlementsRequestBody
-
   const postTestHelpersIssuingSettlementsResponseValidator =
     responseValidationFactory([["200", s_issuing_settlement]], s_error)
 
@@ -49591,7 +48920,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postTestHelpersIssuingSettlementsBodySchema,
+          s_PostTestHelpersIssuingSettlementsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -49636,9 +48965,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const postTestHelpersIssuingSettlementsSettlementCompleteParamSchema =
     z.object({settlement: z.string().max(5000)})
 
-  const postTestHelpersIssuingSettlementsSettlementCompleteBodySchema =
-    s_PostTestHelpersIssuingSettlementsSettlementCompleteRequestBody.optional()
-
   const postTestHelpersIssuingSettlementsSettlementCompleteResponseValidator =
     responseValidationFactory([["200", s_issuing_settlement]], s_error)
 
@@ -49654,7 +48980,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTestHelpersIssuingSettlementsSettlementCompleteBodySchema,
+          s_PostTestHelpersIssuingSettlementsSettlementCompleteRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -49702,9 +49028,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postTestHelpersIssuingTransactionsCreateForceCaptureBodySchema =
-    s_PostTestHelpersIssuingTransactionsCreateForceCaptureRequestBody
-
   const postTestHelpersIssuingTransactionsCreateForceCaptureResponseValidator =
     responseValidationFactory([["200", s_issuing_transaction]], s_error)
 
@@ -49716,7 +49039,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postTestHelpersIssuingTransactionsCreateForceCaptureBodySchema,
+          s_PostTestHelpersIssuingTransactionsCreateForceCaptureRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -49764,9 +49087,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postTestHelpersIssuingTransactionsCreateUnlinkedRefundBodySchema =
-    s_PostTestHelpersIssuingTransactionsCreateUnlinkedRefundRequestBody
-
   const postTestHelpersIssuingTransactionsCreateUnlinkedRefundResponseValidator =
     responseValidationFactory([["200", s_issuing_transaction]], s_error)
 
@@ -49778,7 +49098,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postTestHelpersIssuingTransactionsCreateUnlinkedRefundBodySchema,
+          s_PostTestHelpersIssuingTransactionsCreateUnlinkedRefundRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -49829,9 +49149,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const postTestHelpersIssuingTransactionsTransactionRefundParamSchema =
     z.object({transaction: z.string().max(5000)})
 
-  const postTestHelpersIssuingTransactionsTransactionRefundBodySchema =
-    s_PostTestHelpersIssuingTransactionsTransactionRefundRequestBody.optional()
-
   const postTestHelpersIssuingTransactionsTransactionRefundResponseValidator =
     responseValidationFactory([["200", s_issuing_transaction]], s_error)
 
@@ -49847,7 +49164,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTestHelpersIssuingTransactionsTransactionRefundBodySchema,
+          s_PostTestHelpersIssuingTransactionsTransactionRefundRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -49899,9 +49216,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     refund: z.string(),
   })
 
-  const postTestHelpersRefundsRefundExpireBodySchema =
-    s_PostTestHelpersRefundsRefundExpireRequestBody.optional()
-
   const postTestHelpersRefundsRefundExpireResponseValidator =
     responseValidationFactory([["200", s_refund]], s_error)
 
@@ -49917,7 +49231,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTestHelpersRefundsRefundExpireBodySchema,
+          s_PostTestHelpersRefundsRefundExpireRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -49962,9 +49276,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const postTestHelpersTerminalReadersReaderPresentPaymentMethodParamSchema =
     z.object({reader: z.string().max(5000)})
 
-  const postTestHelpersTerminalReadersReaderPresentPaymentMethodBodySchema =
-    s_PostTestHelpersTerminalReadersReaderPresentPaymentMethodRequestBody.optional()
-
   const postTestHelpersTerminalReadersReaderPresentPaymentMethodResponseValidator =
     responseValidationFactory([["200", s_terminal_reader]], s_error)
 
@@ -49980,7 +49291,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTestHelpersTerminalReadersReaderPresentPaymentMethodBodySchema,
+          s_PostTestHelpersTerminalReadersReaderPresentPaymentMethodRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -50031,9 +49342,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const postTestHelpersTerminalReadersReaderSucceedInputCollectionParamSchema =
     z.object({reader: z.string().max(5000)})
 
-  const postTestHelpersTerminalReadersReaderSucceedInputCollectionBodySchema =
-    s_PostTestHelpersTerminalReadersReaderSucceedInputCollectionRequestBody.optional()
-
   const postTestHelpersTerminalReadersReaderSucceedInputCollectionResponseValidator =
     responseValidationFactory([["200", s_terminal_reader]], s_error)
 
@@ -50049,7 +49357,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTestHelpersTerminalReadersReaderSucceedInputCollectionBodySchema,
+          s_PostTestHelpersTerminalReadersReaderSucceedInputCollectionRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -50100,9 +49408,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const postTestHelpersTerminalReadersReaderTimeoutInputCollectionParamSchema =
     z.object({reader: z.string().max(5000)})
 
-  const postTestHelpersTerminalReadersReaderTimeoutInputCollectionBodySchema =
-    s_PostTestHelpersTerminalReadersReaderTimeoutInputCollectionRequestBody.optional()
-
   const postTestHelpersTerminalReadersReaderTimeoutInputCollectionResponseValidator =
     responseValidationFactory([["200", s_terminal_reader]], s_error)
 
@@ -50118,7 +49423,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTestHelpersTerminalReadersReaderTimeoutInputCollectionBodySchema,
+          s_PostTestHelpersTerminalReadersReaderTimeoutInputCollectionRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -50248,9 +49553,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postTestHelpersTestClocksBodySchema =
-    s_PostTestHelpersTestClocksRequestBody
-
   const postTestHelpersTestClocksResponseValidator = responseValidationFactory(
     [["200", s_test_helpers_test_clock]],
     s_error,
@@ -50264,7 +49566,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postTestHelpersTestClocksBodySchema,
+          s_PostTestHelpersTestClocksRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -50437,9 +49739,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     test_clock: z.string().max(5000),
   })
 
-  const postTestHelpersTestClocksTestClockAdvanceBodySchema =
-    s_PostTestHelpersTestClocksTestClockAdvanceRequestBody
-
   const postTestHelpersTestClocksTestClockAdvanceResponseValidator =
     responseValidationFactory([["200", s_test_helpers_test_clock]], s_error)
 
@@ -50455,7 +49754,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTestHelpersTestClocksTestClockAdvanceBodySchema,
+          s_PostTestHelpersTestClocksTestClockAdvanceRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -50501,9 +49800,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     id: z.string().max(5000),
   })
 
-  const postTestHelpersTreasuryInboundTransfersIdFailBodySchema =
-    s_PostTestHelpersTreasuryInboundTransfersIdFailRequestBody.optional()
-
   const postTestHelpersTreasuryInboundTransfersIdFailResponseValidator =
     responseValidationFactory([["200", s_treasury_inbound_transfer]], s_error)
 
@@ -50519,7 +49815,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTestHelpersTreasuryInboundTransfersIdFailBodySchema,
+          s_PostTestHelpersTreasuryInboundTransfersIdFailRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -50570,9 +49866,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     id: z.string().max(5000),
   })
 
-  const postTestHelpersTreasuryInboundTransfersIdReturnBodySchema =
-    s_PostTestHelpersTreasuryInboundTransfersIdReturnRequestBody.optional()
-
   const postTestHelpersTreasuryInboundTransfersIdReturnResponseValidator =
     responseValidationFactory([["200", s_treasury_inbound_transfer]], s_error)
 
@@ -50588,7 +49881,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTestHelpersTreasuryInboundTransfersIdReturnBodySchema,
+          s_PostTestHelpersTreasuryInboundTransfersIdReturnRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -50640,9 +49933,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     id: z.string().max(5000),
   })
 
-  const postTestHelpersTreasuryInboundTransfersIdSucceedBodySchema =
-    s_PostTestHelpersTreasuryInboundTransfersIdSucceedRequestBody.optional()
-
   const postTestHelpersTreasuryInboundTransfersIdSucceedResponseValidator =
     responseValidationFactory([["200", s_treasury_inbound_transfer]], s_error)
 
@@ -50658,7 +49948,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTestHelpersTreasuryInboundTransfersIdSucceedBodySchema,
+          s_PostTestHelpersTreasuryInboundTransfersIdSucceedRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -50710,9 +50000,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     id: z.string().max(5000),
   })
 
-  const postTestHelpersTreasuryOutboundPaymentsIdBodySchema =
-    s_PostTestHelpersTreasuryOutboundPaymentsIdRequestBody
-
   const postTestHelpersTreasuryOutboundPaymentsIdResponseValidator =
     responseValidationFactory([["200", s_treasury_outbound_payment]], s_error)
 
@@ -50728,7 +50015,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTestHelpersTreasuryOutboundPaymentsIdBodySchema,
+          s_PostTestHelpersTreasuryOutboundPaymentsIdRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -50774,9 +50061,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     id: z.string().max(5000),
   })
 
-  const postTestHelpersTreasuryOutboundPaymentsIdFailBodySchema =
-    s_PostTestHelpersTreasuryOutboundPaymentsIdFailRequestBody.optional()
-
   const postTestHelpersTreasuryOutboundPaymentsIdFailResponseValidator =
     responseValidationFactory([["200", s_treasury_outbound_payment]], s_error)
 
@@ -50792,7 +50076,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTestHelpersTreasuryOutboundPaymentsIdFailBodySchema,
+          s_PostTestHelpersTreasuryOutboundPaymentsIdFailRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -50843,9 +50127,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     id: z.string().max(5000),
   })
 
-  const postTestHelpersTreasuryOutboundPaymentsIdPostBodySchema =
-    s_PostTestHelpersTreasuryOutboundPaymentsIdPostRequestBody.optional()
-
   const postTestHelpersTreasuryOutboundPaymentsIdPostResponseValidator =
     responseValidationFactory([["200", s_treasury_outbound_payment]], s_error)
 
@@ -50861,7 +50142,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTestHelpersTreasuryOutboundPaymentsIdPostBodySchema,
+          s_PostTestHelpersTreasuryOutboundPaymentsIdPostRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -50912,9 +50193,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     id: z.string().max(5000),
   })
 
-  const postTestHelpersTreasuryOutboundPaymentsIdReturnBodySchema =
-    s_PostTestHelpersTreasuryOutboundPaymentsIdReturnRequestBody.optional()
-
   const postTestHelpersTreasuryOutboundPaymentsIdReturnResponseValidator =
     responseValidationFactory([["200", s_treasury_outbound_payment]], s_error)
 
@@ -50930,7 +50208,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTestHelpersTreasuryOutboundPaymentsIdReturnBodySchema,
+          s_PostTestHelpersTreasuryOutboundPaymentsIdReturnRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -50981,9 +50259,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const postTestHelpersTreasuryOutboundTransfersOutboundTransferParamSchema =
     z.object({outbound_transfer: z.string().max(5000)})
 
-  const postTestHelpersTreasuryOutboundTransfersOutboundTransferBodySchema =
-    s_PostTestHelpersTreasuryOutboundTransfersOutboundTransferRequestBody
-
   const postTestHelpersTreasuryOutboundTransfersOutboundTransferResponseValidator =
     responseValidationFactory([["200", s_treasury_outbound_transfer]], s_error)
 
@@ -50999,7 +50274,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTestHelpersTreasuryOutboundTransfersOutboundTransferBodySchema,
+          s_PostTestHelpersTreasuryOutboundTransfersOutboundTransferRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -51050,9 +50325,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const postTestHelpersTreasuryOutboundTransfersOutboundTransferFailParamSchema =
     z.object({outbound_transfer: z.string().max(5000)})
 
-  const postTestHelpersTreasuryOutboundTransfersOutboundTransferFailBodySchema =
-    s_PostTestHelpersTreasuryOutboundTransfersOutboundTransferFailRequestBody.optional()
-
   const postTestHelpersTreasuryOutboundTransfersOutboundTransferFailResponseValidator =
     responseValidationFactory([["200", s_treasury_outbound_transfer]], s_error)
 
@@ -51068,7 +50340,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTestHelpersTreasuryOutboundTransfersOutboundTransferFailBodySchema,
+          s_PostTestHelpersTreasuryOutboundTransfersOutboundTransferFailRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -51119,9 +50391,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const postTestHelpersTreasuryOutboundTransfersOutboundTransferPostParamSchema =
     z.object({outbound_transfer: z.string().max(5000)})
 
-  const postTestHelpersTreasuryOutboundTransfersOutboundTransferPostBodySchema =
-    s_PostTestHelpersTreasuryOutboundTransfersOutboundTransferPostRequestBody.optional()
-
   const postTestHelpersTreasuryOutboundTransfersOutboundTransferPostResponseValidator =
     responseValidationFactory([["200", s_treasury_outbound_transfer]], s_error)
 
@@ -51137,7 +50406,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTestHelpersTreasuryOutboundTransfersOutboundTransferPostBodySchema,
+          s_PostTestHelpersTreasuryOutboundTransfersOutboundTransferPostRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -51188,9 +50457,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const postTestHelpersTreasuryOutboundTransfersOutboundTransferReturnParamSchema =
     z.object({outbound_transfer: z.string().max(5000)})
 
-  const postTestHelpersTreasuryOutboundTransfersOutboundTransferReturnBodySchema =
-    s_PostTestHelpersTreasuryOutboundTransfersOutboundTransferReturnRequestBody.optional()
-
   const postTestHelpersTreasuryOutboundTransfersOutboundTransferReturnResponseValidator =
     responseValidationFactory([["200", s_treasury_outbound_transfer]], s_error)
 
@@ -51206,7 +50472,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTestHelpersTreasuryOutboundTransfersOutboundTransferReturnBodySchema,
+          s_PostTestHelpersTreasuryOutboundTransfersOutboundTransferReturnRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -51254,9 +50520,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postTestHelpersTreasuryReceivedCreditsBodySchema =
-    s_PostTestHelpersTreasuryReceivedCreditsRequestBody
-
   const postTestHelpersTreasuryReceivedCreditsResponseValidator =
     responseValidationFactory([["200", s_treasury_received_credit]], s_error)
 
@@ -51268,7 +50531,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postTestHelpersTreasuryReceivedCreditsBodySchema,
+          s_PostTestHelpersTreasuryReceivedCreditsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -51310,9 +50573,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postTestHelpersTreasuryReceivedDebitsBodySchema =
-    s_PostTestHelpersTreasuryReceivedDebitsRequestBody
-
   const postTestHelpersTreasuryReceivedDebitsResponseValidator =
     responseValidationFactory([["200", s_treasury_received_debit]], s_error)
 
@@ -51324,7 +50584,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postTestHelpersTreasuryReceivedDebitsBodySchema,
+          s_PostTestHelpersTreasuryReceivedDebitsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -51366,8 +50626,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postTokensBodySchema = s_PostTokensRequestBody.optional()
-
   const postTokensResponseValidator = responseValidationFactory(
     [["200", s_token]],
     s_error,
@@ -51378,7 +50636,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: undefined,
       body: parseRequestInput(
-        postTokensBodySchema,
+        s_PostTokensRequestBody.optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -51577,8 +50835,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const postTopupsBodySchema = s_PostTopupsRequestBody
-
   const postTopupsResponseValidator = responseValidationFactory(
     [["200", s_topup]],
     s_error,
@@ -51589,7 +50845,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: undefined,
       body: parseRequestInput(
-        postTopupsBodySchema,
+        s_PostTopupsRequestBody,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -51692,8 +50948,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const postTopupsTopupParamSchema = z.object({topup: z.string().max(5000)})
 
-  const postTopupsTopupBodySchema = s_PostTopupsTopupRequestBody.optional()
-
   const postTopupsTopupResponseValidator = responseValidationFactory(
     [["200", s_topup]],
     s_error,
@@ -51708,7 +50962,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       query: undefined,
       body: parseRequestInput(
-        postTopupsTopupBodySchema,
+        s_PostTopupsTopupRequestBody.optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -51750,9 +51004,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     topup: z.string().max(5000),
   })
 
-  const postTopupsTopupCancelBodySchema =
-    s_PostTopupsTopupCancelRequestBody.optional()
-
   const postTopupsTopupCancelResponseValidator = responseValidationFactory(
     [["200", s_topup]],
     s_error,
@@ -51770,7 +51021,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTopupsTopupCancelBodySchema,
+          s_PostTopupsTopupCancelRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -51897,8 +51148,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const postTransfersBodySchema = s_PostTransfersRequestBody
-
   const postTransfersResponseValidator = responseValidationFactory(
     [["200", s_transfer]],
     s_error,
@@ -51909,7 +51158,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: undefined,
       body: parseRequestInput(
-        postTransfersBodySchema,
+        s_PostTransfersRequestBody,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -52038,9 +51287,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     id: z.string().max(5000),
   })
 
-  const postTransfersIdReversalsBodySchema =
-    s_PostTransfersIdReversalsRequestBody.optional()
-
   const postTransfersIdReversalsResponseValidator = responseValidationFactory(
     [["200", s_transfer_reversal]],
     s_error,
@@ -52058,7 +51304,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTransfersIdReversalsBodySchema,
+          s_PostTransfersIdReversalsRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -52170,9 +51416,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     transfer: z.string().max(5000),
   })
 
-  const postTransfersTransferBodySchema =
-    s_PostTransfersTransferRequestBody.optional()
-
   const postTransfersTransferResponseValidator = responseValidationFactory(
     [["200", s_transfer]],
     s_error,
@@ -52190,7 +51433,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTransfersTransferBodySchema,
+          s_PostTransfersTransferRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -52302,9 +51545,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     transfer: z.string().max(5000),
   })
 
-  const postTransfersTransferReversalsIdBodySchema =
-    s_PostTransfersTransferReversalsIdRequestBody.optional()
-
   const postTransfersTransferReversalsIdResponseValidator =
     responseValidationFactory([["200", s_transfer_reversal]], s_error)
 
@@ -52320,7 +51560,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTransfersTransferReversalsIdBodySchema,
+          s_PostTransfersTransferReversalsIdRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -52441,9 +51681,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postTreasuryCreditReversalsBodySchema =
-    s_PostTreasuryCreditReversalsRequestBody
-
   const postTreasuryCreditReversalsResponseValidator =
     responseValidationFactory([["200", s_treasury_credit_reversal]], s_error)
 
@@ -52455,7 +51692,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postTreasuryCreditReversalsBodySchema,
+          s_PostTreasuryCreditReversalsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -52647,9 +51884,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postTreasuryDebitReversalsBodySchema =
-    s_PostTreasuryDebitReversalsRequestBody
-
   const postTreasuryDebitReversalsResponseValidator = responseValidationFactory(
     [["200", s_treasury_debit_reversal]],
     s_error,
@@ -52663,7 +51897,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postTreasuryDebitReversalsBodySchema,
+          s_PostTreasuryDebitReversalsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -52867,9 +52101,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postTreasuryFinancialAccountsBodySchema =
-    s_PostTreasuryFinancialAccountsRequestBody
-
   const postTreasuryFinancialAccountsResponseValidator =
     responseValidationFactory([["200", s_treasury_financial_account]], s_error)
 
@@ -52881,7 +52112,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postTreasuryFinancialAccountsBodySchema,
+          s_PostTreasuryFinancialAccountsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -52999,9 +52230,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     financial_account: z.string().max(5000),
   })
 
-  const postTreasuryFinancialAccountsFinancialAccountBodySchema =
-    s_PostTreasuryFinancialAccountsFinancialAccountRequestBody.optional()
-
   const postTreasuryFinancialAccountsFinancialAccountResponseValidator =
     responseValidationFactory([["200", s_treasury_financial_account]], s_error)
 
@@ -53017,7 +52245,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTreasuryFinancialAccountsFinancialAccountBodySchema,
+          s_PostTreasuryFinancialAccountsFinancialAccountRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -53067,9 +52295,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const postTreasuryFinancialAccountsFinancialAccountCloseParamSchema =
     z.object({financial_account: z.string().max(5000)})
 
-  const postTreasuryFinancialAccountsFinancialAccountCloseBodySchema =
-    s_PostTreasuryFinancialAccountsFinancialAccountCloseRequestBody.optional()
-
   const postTreasuryFinancialAccountsFinancialAccountCloseResponseValidator =
     responseValidationFactory([["200", s_treasury_financial_account]], s_error)
 
@@ -53085,7 +52310,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTreasuryFinancialAccountsFinancialAccountCloseBodySchema,
+          s_PostTreasuryFinancialAccountsFinancialAccountCloseRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -53217,9 +52442,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const postTreasuryFinancialAccountsFinancialAccountFeaturesParamSchema =
     z.object({financial_account: z.string().max(5000)})
 
-  const postTreasuryFinancialAccountsFinancialAccountFeaturesBodySchema =
-    s_PostTreasuryFinancialAccountsFinancialAccountFeaturesRequestBody.optional()
-
   const postTreasuryFinancialAccountsFinancialAccountFeaturesResponseValidator =
     responseValidationFactory(
       [["200", s_treasury_financial_account_features]],
@@ -53238,7 +52460,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTreasuryFinancialAccountsFinancialAccountFeaturesBodySchema,
+          s_PostTreasuryFinancialAccountsFinancialAccountFeaturesRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -53372,9 +52594,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postTreasuryInboundTransfersBodySchema =
-    s_PostTreasuryInboundTransfersRequestBody
-
   const postTreasuryInboundTransfersResponseValidator =
     responseValidationFactory([["200", s_treasury_inbound_transfer]], s_error)
 
@@ -53386,7 +52605,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postTreasuryInboundTransfersBodySchema,
+          s_PostTreasuryInboundTransfersRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -53496,9 +52715,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     {inbound_transfer: z.string().max(5000)},
   )
 
-  const postTreasuryInboundTransfersInboundTransferCancelBodySchema =
-    s_PostTreasuryInboundTransfersInboundTransferCancelRequestBody.optional()
-
   const postTreasuryInboundTransfersInboundTransferCancelResponseValidator =
     responseValidationFactory([["200", s_treasury_inbound_transfer]], s_error)
 
@@ -53514,7 +52730,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTreasuryInboundTransfersInboundTransferCancelBodySchema,
+          s_PostTreasuryInboundTransfersInboundTransferCancelRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -53661,9 +52877,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postTreasuryOutboundPaymentsBodySchema =
-    s_PostTreasuryOutboundPaymentsRequestBody
-
   const postTreasuryOutboundPaymentsResponseValidator =
     responseValidationFactory([["200", s_treasury_outbound_payment]], s_error)
 
@@ -53675,7 +52888,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postTreasuryOutboundPaymentsBodySchema,
+          s_PostTreasuryOutboundPaymentsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -53785,9 +52998,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     id: z.string().max(5000),
   })
 
-  const postTreasuryOutboundPaymentsIdCancelBodySchema =
-    s_PostTreasuryOutboundPaymentsIdCancelRequestBody.optional()
-
   const postTreasuryOutboundPaymentsIdCancelResponseValidator =
     responseValidationFactory([["200", s_treasury_outbound_payment]], s_error)
 
@@ -53803,7 +53013,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTreasuryOutboundPaymentsIdCancelBodySchema,
+          s_PostTreasuryOutboundPaymentsIdCancelRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -53929,9 +53139,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postTreasuryOutboundTransfersBodySchema =
-    s_PostTreasuryOutboundTransfersRequestBody
-
   const postTreasuryOutboundTransfersResponseValidator =
     responseValidationFactory([["200", s_treasury_outbound_transfer]], s_error)
 
@@ -53943,7 +53150,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postTreasuryOutboundTransfersBodySchema,
+          s_PostTreasuryOutboundTransfersRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -54060,9 +53267,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const postTreasuryOutboundTransfersOutboundTransferCancelParamSchema =
     z.object({outbound_transfer: z.string().max(5000)})
 
-  const postTreasuryOutboundTransfersOutboundTransferCancelBodySchema =
-    s_PostTreasuryOutboundTransfersOutboundTransferCancelRequestBody.optional()
-
   const postTreasuryOutboundTransfersOutboundTransferCancelResponseValidator =
     responseValidationFactory([["200", s_treasury_outbound_transfer]], s_error)
 
@@ -54078,7 +53282,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postTreasuryOutboundTransfersOutboundTransferCancelBodySchema,
+          s_PostTreasuryOutboundTransfersOutboundTransferCancelRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -54864,8 +54068,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postWebhookEndpointsBodySchema = s_PostWebhookEndpointsRequestBody
-
   const postWebhookEndpointsResponseValidator = responseValidationFactory(
     [["200", s_webhook_endpoint]],
     s_error,
@@ -54879,7 +54081,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postWebhookEndpointsBodySchema,
+          s_PostWebhookEndpointsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -55049,9 +54251,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     webhook_endpoint: z.string().max(5000),
   })
 
-  const postWebhookEndpointsWebhookEndpointBodySchema =
-    s_PostWebhookEndpointsWebhookEndpointRequestBody.optional()
-
   const postWebhookEndpointsWebhookEndpointResponseValidator =
     responseValidationFactory([["200", s_webhook_endpoint]], s_error)
 
@@ -55067,7 +54266,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          postWebhookEndpointsWebhookEndpointBodySchema,
+          s_PostWebhookEndpointsWebhookEndpointRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),

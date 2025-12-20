@@ -327,8 +327,6 @@ export function createRouter(implementation: Implementation): Router {
 
   const updateTodoListByIdParamSchema = z.object({listId: z.string()})
 
-  const updateTodoListByIdRequestBodySchema = s_CreateUpdateTodoList
-
   const updateTodoListByIdResponseBodyValidator = responseValidationFactory(
     [
       ["200", s_TodoList],
@@ -350,7 +348,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            updateTodoListByIdRequestBodySchema,
+            s_CreateUpdateTodoList,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -556,8 +554,6 @@ export function createRouter(implementation: Implementation): Router {
 
   const createTodoListItemParamSchema = z.object({listId: z.string()})
 
-  const createTodoListItemRequestBodySchema = s_CreateTodoListItemRequestBody
-
   const createTodoListItemResponseBodyValidator = responseValidationFactory(
     [["204", z.undefined()]],
     undefined,
@@ -576,7 +572,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            createTodoListItemRequestBodySchema,
+            s_CreateTodoListItemRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -676,10 +672,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  // todo: request bodies with content-type 'multipart/form-data' not yet supported
-
-  const uploadAttachmentRequestBodySchema = z.never()
-
   const uploadAttachmentResponseBodyValidator = responseValidationFactory(
     [["202", z.undefined()]],
     undefined,
@@ -693,8 +685,9 @@ export function createRouter(implementation: Implementation): Router {
         const input = {
           params: undefined,
           query: undefined,
+          // todo: request bodies with content-type 'multipart/form-data' not yet supported
           body: parseRequestInput(
-            uploadAttachmentRequestBodySchema,
+            z.never(),
             req.body,
             RequestInputType.RequestBody,
           ) as never,

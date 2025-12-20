@@ -56,8 +56,6 @@ export function createMediaTypesRouter(
 ): Router {
   const router = Router()
 
-  const postMediaTypesTextRequestBodySchema = z.string()
-
   const postMediaTypesTextResponseBodyValidator = responseValidationFactory(
     [["200", z.string()]],
     undefined,
@@ -72,7 +70,7 @@ export function createMediaTypesRouter(
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            postMediaTypesTextRequestBodySchema,
+            z.string(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -117,8 +115,6 @@ export function createMediaTypesRouter(
     },
   )
 
-  const postMediaTypesXWwwFormUrlencodedRequestBodySchema = s_ProductOrder
-
   const postMediaTypesXWwwFormUrlencodedResponseBodyValidator =
     responseValidationFactory([["200", s_ProductOrder]], undefined)
 
@@ -131,7 +127,7 @@ export function createMediaTypesRouter(
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            postMediaTypesXWwwFormUrlencodedRequestBodySchema,
+            s_ProductOrder,
             req.body,
             RequestInputType.RequestBody,
           ),

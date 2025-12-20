@@ -830,8 +830,6 @@ export function createRouter(implementation: Implementation): Router {
     "x-ms-client-request-id": s_Azure_Core_uuid.optional(),
   })
 
-  const widgetsCreateOrUpdateWidgetRequestBodySchema = s_WidgetCreateOrUpdate
-
   const widgetsCreateOrUpdateWidgetResponseBodyValidator =
     responseValidationFactory(
       [
@@ -858,7 +856,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            widgetsCreateOrUpdateWidgetRequestBodySchema,
+            s_WidgetCreateOrUpdate,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -1291,9 +1289,6 @@ export function createRouter(implementation: Implementation): Router {
     "x-ms-client-request-id": s_Azure_Core_uuid.optional(),
   })
 
-  const widgetsUpdateAnalyticsRequestBodySchema =
-    s_WidgetAnalyticsCreateOrUpdate
-
   const widgetsUpdateAnalyticsResponseBodyValidator = responseValidationFactory(
     [
       ["200", s_WidgetAnalytics],
@@ -1319,7 +1314,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            widgetsUpdateAnalyticsRequestBodySchema,
+            s_WidgetAnalyticsCreateOrUpdate,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -1480,8 +1475,6 @@ export function createRouter(implementation: Implementation): Router {
     "x-ms-client-request-id": s_Azure_Core_uuid.optional(),
   })
 
-  const widgetsScheduleRepairsRequestBodySchema = s_WidgetRepairRequest
-
   const widgetsScheduleRepairsResponseBodyValidator = responseValidationFactory(
     [
       [
@@ -1522,7 +1515,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            widgetsScheduleRepairsRequestBodySchema,
+            s_WidgetRepairRequest,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -1712,8 +1705,6 @@ export function createRouter(implementation: Implementation): Router {
     "x-ms-client-request-id": s_Azure_Core_uuid.optional(),
   })
 
-  const widgetPartsCreateWidgetPartRequestBodySchema = s_WidgetPart
-
   const widgetPartsCreateWidgetPartResponseBodyValidator =
     responseValidationFactory(
       [["201", z.undefined()]],
@@ -1737,7 +1728,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            widgetPartsCreateWidgetPartRequestBodySchema,
+            s_WidgetPart,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -2076,8 +2067,6 @@ export function createRouter(implementation: Implementation): Router {
     "x-ms-client-request-id": s_Azure_Core_uuid.optional(),
   })
 
-  const widgetPartsReorderPartsRequestBodySchema = s_WidgetPartReorderRequest
-
   const widgetPartsReorderPartsResponseBodyValidator =
     responseValidationFactory(
       [
@@ -2110,7 +2099,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            widgetPartsReorderPartsRequestBodySchema,
+            s_WidgetPartReorderRequest,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -2290,9 +2279,6 @@ export function createRouter(implementation: Implementation): Router {
     "x-ms-client-request-id": s_Azure_Core_uuid.optional(),
   })
 
-  const manufacturersCreateOrReplaceManufacturerRequestBodySchema =
-    s_Manufacturer
-
   const manufacturersCreateOrReplaceManufacturerResponseBodyValidator =
     responseValidationFactory(
       [
@@ -2319,7 +2305,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            manufacturersCreateOrReplaceManufacturerRequestBodySchema,
+            s_Manufacturer,
             req.body,
             RequestInputType.RequestBody,
           ),

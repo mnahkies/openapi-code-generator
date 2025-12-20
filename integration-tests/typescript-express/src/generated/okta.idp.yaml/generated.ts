@@ -717,9 +717,6 @@ export type Implementation = {
 export function createRouter(implementation: Implementation): Router {
   const router = Router()
 
-  const createAppAuthenticatorEnrollmentRequestBodySchema =
-    s_AppAuthenticatorEnrollmentRequest
-
   const createAppAuthenticatorEnrollmentResponseBodyValidator =
     responseValidationFactory(
       [
@@ -741,7 +738,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            createAppAuthenticatorEnrollmentRequestBodySchema,
+            s_AppAuthenticatorEnrollmentRequest,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -804,9 +801,6 @@ export function createRouter(implementation: Implementation): Router {
     challengeId: z.string(),
   })
 
-  const verifyAppAuthenticatorPushNotificationChallengeRequestBodySchema =
-    s_PushNotificationVerification
-
   const verifyAppAuthenticatorPushNotificationChallengeResponseBodyValidator =
     responseValidationFactory(
       [
@@ -830,7 +824,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            verifyAppAuthenticatorPushNotificationChallengeRequestBodySchema,
+            s_PushNotificationVerification,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -896,9 +890,6 @@ export function createRouter(implementation: Implementation): Router {
     enrollmentId: z.string(),
   })
 
-  const updateAppAuthenticatorEnrollmentRequestBodySchema =
-    s_UpdateAppAuthenticatorEnrollmentRequest
-
   const updateAppAuthenticatorEnrollmentResponseBodyValidator =
     responseValidationFactory(
       [
@@ -923,7 +914,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            updateAppAuthenticatorEnrollmentRequestBodySchema,
+            s_UpdateAppAuthenticatorEnrollmentRequest,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -1453,9 +1444,6 @@ export function createRouter(implementation: Implementation): Router {
     enrollmentId: z.string(),
   })
 
-  const updateEnrollmentRequestBodySchema =
-    s_UpdateAuthenticatorEnrollmentRequest
-
   const updateEnrollmentResponseBodyValidator = responseValidationFactory(
     [
       ["200", s_AuthenticatorEnrollment],
@@ -1479,7 +1467,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            updateEnrollmentRequestBodySchema,
+            s_UpdateAuthenticatorEnrollmentRequest,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -1594,8 +1582,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const createEmailRequestBodySchema = s_CreateEmailRequestBody
-
   const createEmailResponseBodyValidator = responseValidationFactory(
     [
       ["201", s_Email],
@@ -1616,7 +1602,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            createEmailRequestBodySchema,
+            s_CreateEmailRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -1817,8 +1803,6 @@ export function createRouter(implementation: Implementation): Router {
 
   const sendEmailChallengeParamSchema = z.object({id: z.string()})
 
-  const sendEmailChallengeRequestBodySchema = s_SendEmailChallengeRequestBody
-
   const sendEmailChallengeResponseBodyValidator = responseValidationFactory(
     [
       [
@@ -1860,7 +1844,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            sendEmailChallengeRequestBodySchema,
+            s_SendEmailChallengeRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -2060,8 +2044,6 @@ export function createRouter(implementation: Implementation): Router {
     challengeId: z.string(),
   })
 
-  const verifyEmailOtpRequestBodySchema = s_VerifyEmailOtpRequestBody
-
   const verifyEmailOtpResponseBodyValidator = responseValidationFactory(
     [
       ["200", z.undefined()],
@@ -2085,7 +2067,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            verifyEmailOtpRequestBodySchema,
+            s_VerifyEmailOtpRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -2322,8 +2304,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const createPasswordRequestBodySchema = s_CreatePasswordRequestBody
-
   const createPasswordResponseBodyValidator = responseValidationFactory(
     [
       ["201", s_PasswordResponse],
@@ -2343,7 +2323,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            createPasswordRequestBodySchema,
+            s_CreatePasswordRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -2397,8 +2377,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const replacePasswordRequestBodySchema = s_ReplacePasswordRequestBody
-
   const replacePasswordResponseBodyValidator = responseValidationFactory(
     [
       ["201", s_PasswordResponse],
@@ -2418,7 +2396,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            replacePasswordRequestBodySchema,
+            s_ReplacePasswordRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -2598,8 +2576,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const createPhoneRequestBodySchema = s_CreatePhoneRequestBody
-
   const createPhoneResponseBodyValidator = responseValidationFactory(
     [
       ["201", s_Phone],
@@ -2621,7 +2597,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            createPhoneRequestBodySchema,
+            s_CreatePhoneRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -2829,8 +2805,6 @@ export function createRouter(implementation: Implementation): Router {
 
   const sendPhoneChallengeParamSchema = z.object({id: z.string()})
 
-  const sendPhoneChallengeRequestBodySchema = s_SendPhoneChallengeRequestBody
-
   const sendPhoneChallengeResponseBodyValidator = responseValidationFactory(
     [
       [
@@ -2870,7 +2844,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            sendPhoneChallengeRequestBodySchema,
+            s_SendPhoneChallengeRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -2945,9 +2919,6 @@ export function createRouter(implementation: Implementation): Router {
 
   const verifyPhoneChallengeParamSchema = z.object({id: z.string()})
 
-  const verifyPhoneChallengeRequestBodySchema =
-    s_VerifyPhoneChallengeRequestBody
-
   const verifyPhoneChallengeResponseBodyValidator = responseValidationFactory(
     [
       ["204", z.undefined()],
@@ -2973,7 +2944,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            verifyPhoneChallengeRequestBodySchema,
+            s_VerifyPhoneChallengeRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -3094,8 +3065,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const replaceProfileRequestBodySchema = s_ReplaceProfileRequestBody
-
   const replaceProfileResponseBodyValidator = responseValidationFactory(
     [
       ["200", s_Profile],
@@ -3114,7 +3083,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            replaceProfileRequestBodySchema,
+            s_ReplaceProfileRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),

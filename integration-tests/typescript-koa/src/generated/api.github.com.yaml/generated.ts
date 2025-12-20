@@ -28122,9 +28122,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const appsUpdateWebhookConfigForAppBodySchema =
-    s_AppsUpdateWebhookConfigForAppRequestBody
-
   const appsUpdateWebhookConfigForAppResponseValidator =
     responseValidationFactory([["200", s_webhook_config]], undefined)
 
@@ -28136,7 +28133,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          appsUpdateWebhookConfigForAppBodySchema,
+          s_AppsUpdateWebhookConfigForAppRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -28619,9 +28616,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     installation_id: z.coerce.number(),
   })
 
-  const appsCreateInstallationAccessTokenBodySchema =
-    s_AppsCreateInstallationAccessTokenRequestBody.optional()
-
   const appsCreateInstallationAccessTokenResponseValidator =
     responseValidationFactory(
       [
@@ -28646,7 +28640,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          appsCreateInstallationAccessTokenBodySchema,
+          s_AppsCreateInstallationAccessTokenRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -28817,8 +28811,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const appsDeleteAuthorizationParamSchema = z.object({client_id: z.string()})
 
-  const appsDeleteAuthorizationBodySchema = s_AppsDeleteAuthorizationRequestBody
-
   const appsDeleteAuthorizationResponseValidator = responseValidationFactory(
     [
       ["204", z.undefined()],
@@ -28839,7 +28831,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          appsDeleteAuthorizationBodySchema,
+          s_AppsDeleteAuthorizationRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -28880,8 +28872,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const appsCheckTokenParamSchema = z.object({client_id: z.string()})
 
-  const appsCheckTokenBodySchema = s_AppsCheckTokenRequestBody
-
   const appsCheckTokenResponseValidator = responseValidationFactory(
     [
       ["200", s_authorization],
@@ -28903,7 +28893,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          appsCheckTokenBodySchema,
+          s_AppsCheckTokenRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -28947,8 +28937,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const appsResetTokenParamSchema = z.object({client_id: z.string()})
 
-  const appsResetTokenBodySchema = s_AppsResetTokenRequestBody
-
   const appsResetTokenResponseValidator = responseValidationFactory(
     [
       ["200", s_authorization],
@@ -28969,7 +28957,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          appsResetTokenBodySchema,
+          s_AppsResetTokenRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -29010,8 +28998,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const appsDeleteTokenParamSchema = z.object({client_id: z.string()})
 
-  const appsDeleteTokenBodySchema = s_AppsDeleteTokenRequestBody
-
   const appsDeleteTokenResponseValidator = responseValidationFactory(
     [
       ["204", z.undefined()],
@@ -29032,7 +29018,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          appsDeleteTokenBodySchema,
+          s_AppsDeleteTokenRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -29073,8 +29059,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const appsScopeTokenParamSchema = z.object({client_id: z.string()})
 
-  const appsScopeTokenBodySchema = s_AppsScopeTokenRequestBody
-
   const appsScopeTokenResponseValidator = responseValidationFactory(
     [
       ["200", s_authorization],
@@ -29098,7 +29082,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          appsScopeTokenBodySchema,
+          s_AppsScopeTokenRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -29686,8 +29670,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const credentialsRevokeBodySchema = s_CredentialsRevokeRequestBody
-
   const credentialsRevokeResponseValidator = responseValidationFactory(
     [
       ["202", z.record(z.string(), z.unknown())],
@@ -29702,7 +29684,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: undefined,
       body: parseRequestInput(
-        credentialsRevokeBodySchema,
+        s_CredentialsRevokeRequestBody,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -29875,9 +29857,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     enterprise: z.string(),
   })
 
-  const codeSecurityCreateConfigurationForEnterpriseBodySchema =
-    s_CodeSecurityCreateConfigurationForEnterpriseRequestBody
-
   const codeSecurityCreateConfigurationForEnterpriseResponseValidator =
     responseValidationFactory(
       [
@@ -29901,7 +29880,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          codeSecurityCreateConfigurationForEnterpriseBodySchema,
+          s_CodeSecurityCreateConfigurationForEnterpriseRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -30102,9 +30081,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     configuration_id: z.coerce.number(),
   })
 
-  const codeSecurityUpdateEnterpriseConfigurationBodySchema =
-    s_CodeSecurityUpdateEnterpriseConfigurationRequestBody
-
   const codeSecurityUpdateEnterpriseConfigurationResponseValidator =
     responseValidationFactory(
       [
@@ -30129,7 +30105,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          codeSecurityUpdateEnterpriseConfigurationBodySchema,
+          s_CodeSecurityUpdateEnterpriseConfigurationRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -30266,9 +30242,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     configuration_id: z.coerce.number(),
   })
 
-  const codeSecurityAttachEnterpriseConfigurationBodySchema =
-    s_CodeSecurityAttachEnterpriseConfigurationRequestBody
-
   const codeSecurityAttachEnterpriseConfigurationResponseValidator =
     responseValidationFactory(
       [
@@ -30292,7 +30265,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          codeSecurityAttachEnterpriseConfigurationBodySchema,
+          s_CodeSecurityAttachEnterpriseConfigurationRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -30345,9 +30318,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const codeSecuritySetConfigurationAsDefaultForEnterpriseParamSchema =
     z.object({enterprise: z.string(), configuration_id: z.coerce.number()})
 
-  const codeSecuritySetConfigurationAsDefaultForEnterpriseBodySchema =
-    s_CodeSecuritySetConfigurationAsDefaultForEnterpriseRequestBody
-
   const codeSecuritySetConfigurationAsDefaultForEnterpriseResponseValidator =
     responseValidationFactory(
       [
@@ -30378,7 +30348,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          codeSecuritySetConfigurationAsDefaultForEnterpriseBodySchema,
+          s_CodeSecuritySetConfigurationAsDefaultForEnterpriseRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -30899,8 +30869,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const gistsCreateBodySchema = s_GistsCreateRequestBody
-
   const gistsCreateResponseValidator = responseValidationFactory(
     [
       ["201", s_gist_simple],
@@ -30917,7 +30885,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: undefined,
       body: parseRequestInput(
-        gistsCreateBodySchema,
+        s_GistsCreateRequestBody,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -31178,8 +31146,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const gistsUpdateParamSchema = z.object({gist_id: z.string()})
 
-  const gistsUpdateBodySchema = s_GistsUpdateRequestBody
-
   const gistsUpdateResponseValidator = responseValidationFactory(
     [
       ["200", s_gist_simple],
@@ -31198,7 +31164,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       query: undefined,
       body: parseRequestInput(
-        gistsUpdateBodySchema,
+        s_GistsUpdateRequestBody,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -31376,8 +31342,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const gistsCreateCommentParamSchema = z.object({gist_id: z.string()})
 
-  const gistsCreateCommentBodySchema = s_GistsCreateCommentRequestBody
-
   const gistsCreateCommentResponseValidator = responseValidationFactory(
     [
       ["201", s_gist_comment],
@@ -31400,7 +31364,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          gistsCreateCommentBodySchema,
+          s_GistsCreateCommentRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -31539,8 +31503,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     comment_id: z.coerce.number(),
   })
 
-  const gistsUpdateCommentBodySchema = s_GistsUpdateCommentRequestBody
-
   const gistsUpdateCommentResponseValidator = responseValidationFactory(
     [
       ["200", s_gist_comment],
@@ -31561,7 +31523,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          gistsUpdateCommentBodySchema,
+          s_GistsUpdateCommentRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -32563,8 +32525,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const markdownRenderBodySchema = s_MarkdownRenderRequestBody
-
   const markdownRenderResponseValidator = responseValidationFactory(
     [
       ["200", z.string()],
@@ -32578,7 +32538,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: undefined,
       body: parseRequestInput(
-        markdownRenderBodySchema,
+        s_MarkdownRenderRequestBody,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -32616,8 +32576,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const markdownRenderRawBodySchema = z.string().optional()
-
   const markdownRenderRawResponseValidator = responseValidationFactory(
     [
       ["200", z.string()],
@@ -32631,7 +32589,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: undefined,
       body: parseRequestInput(
-        markdownRenderRawBodySchema,
+        z.string().optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -33293,9 +33251,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const activityMarkNotificationsAsReadBodySchema =
-    s_ActivityMarkNotificationsAsReadRequestBody.optional()
-
   const activityMarkNotificationsAsReadResponseValidator =
     responseValidationFactory(
       [
@@ -33316,7 +33271,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          activityMarkNotificationsAsReadBodySchema,
+          s_ActivityMarkNotificationsAsReadRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -33628,9 +33583,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     thread_id: z.coerce.number(),
   })
 
-  const activitySetThreadSubscriptionBodySchema =
-    s_ActivitySetThreadSubscriptionRequestBody.optional()
-
   const activitySetThreadSubscriptionResponseValidator =
     responseValidationFactory(
       [
@@ -33654,7 +33606,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          activitySetThreadSubscriptionBodySchema,
+          s_ActivitySetThreadSubscriptionRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -33949,9 +33901,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     org: z.string(),
   })
 
-  const dependabotUpdateRepositoryAccessForOrgBodySchema =
-    s_DependabotUpdateRepositoryAccessForOrgRequestBody
-
   const dependabotUpdateRepositoryAccessForOrgResponseValidator =
     responseValidationFactory(
       [
@@ -33974,7 +33923,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          dependabotUpdateRepositoryAccessForOrgBodySchema,
+          s_DependabotUpdateRepositoryAccessForOrgRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -34023,9 +33972,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     org: z.string(),
   })
 
-  const dependabotSetRepositoryAccessDefaultLevelBodySchema =
-    s_DependabotSetRepositoryAccessDefaultLevelRequestBody
-
   const dependabotSetRepositoryAccessDefaultLevelResponseValidator =
     responseValidationFactory(
       [
@@ -34048,7 +33994,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          dependabotSetRepositoryAccessDefaultLevelBodySchema,
+          s_DependabotSetRepositoryAccessDefaultLevelRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -34245,8 +34191,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const orgsUpdateParamSchema = z.object({org: z.string()})
 
-  const orgsUpdateBodySchema = s_OrgsUpdateRequestBody.optional()
-
   const orgsUpdateResponseValidator = responseValidationFactory(
     [
       ["200", s_organization_full],
@@ -34265,7 +34209,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       query: undefined,
       body: parseRequestInput(
-        orgsUpdateBodySchema,
+        s_OrgsUpdateRequestBody.optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -34579,9 +34523,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const actionsCreateHostedRunnerForOrgParamSchema = z.object({org: z.string()})
 
-  const actionsCreateHostedRunnerForOrgBodySchema =
-    s_ActionsCreateHostedRunnerForOrgRequestBody
-
   const actionsCreateHostedRunnerForOrgResponseValidator =
     responseValidationFactory([["201", s_actions_hosted_runner]], undefined)
 
@@ -34597,7 +34538,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          actionsCreateHostedRunnerForOrgBodySchema,
+          s_ActionsCreateHostedRunnerForOrgRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -35025,9 +34966,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     hosted_runner_id: z.coerce.number(),
   })
 
-  const actionsUpdateHostedRunnerForOrgBodySchema =
-    s_ActionsUpdateHostedRunnerForOrgRequestBody
-
   const actionsUpdateHostedRunnerForOrgResponseValidator =
     responseValidationFactory([["200", s_actions_hosted_runner]], undefined)
 
@@ -35043,7 +34981,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          actionsUpdateHostedRunnerForOrgBodySchema,
+          s_ActionsUpdateHostedRunnerForOrgRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -35189,8 +35127,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     org: z.string(),
   })
 
-  const oidcUpdateOidcCustomSubTemplateForOrgBodySchema = s_oidc_custom_sub
-
   const oidcUpdateOidcCustomSubTemplateForOrgResponseValidator =
     responseValidationFactory(
       [
@@ -35213,7 +35149,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          oidcUpdateOidcCustomSubTemplateForOrgBodySchema,
+          s_oidc_custom_sub,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -35325,9 +35261,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     org: z.string(),
   })
 
-  const actionsSetGithubActionsPermissionsOrganizationBodySchema =
-    s_ActionsSetGithubActionsPermissionsOrganizationRequestBody
-
   const actionsSetGithubActionsPermissionsOrganizationResponseValidator =
     responseValidationFactory([["204", z.undefined()]], undefined)
 
@@ -35343,7 +35276,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          actionsSetGithubActionsPermissionsOrganizationBodySchema,
+          s_ActionsSetGithubActionsPermissionsOrganizationRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -35474,9 +35407,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const actionsSetSelectedRepositoriesEnabledGithubActionsOrganizationParamSchema =
     z.object({org: z.string()})
 
-  const actionsSetSelectedRepositoriesEnabledGithubActionsOrganizationBodySchema =
-    s_ActionsSetSelectedRepositoriesEnabledGithubActionsOrganizationRequestBody
-
   const actionsSetSelectedRepositoriesEnabledGithubActionsOrganizationResponseValidator =
     responseValidationFactory([["204", z.undefined()]], undefined)
 
@@ -35492,7 +35422,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          actionsSetSelectedRepositoriesEnabledGithubActionsOrganizationBodySchema,
+          s_ActionsSetSelectedRepositoriesEnabledGithubActionsOrganizationRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -35713,9 +35643,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     org: z.string(),
   })
 
-  const actionsSetAllowedActionsOrganizationBodySchema =
-    s_selected_actions.optional()
-
   const actionsSetAllowedActionsOrganizationResponseValidator =
     responseValidationFactory([["204", z.undefined()]], undefined)
 
@@ -35731,7 +35658,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          actionsSetAllowedActionsOrganizationBodySchema,
+          s_selected_actions.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -35837,9 +35764,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const actionsSetGithubActionsDefaultWorkflowPermissionsOrganizationParamSchema =
     z.object({org: z.string()})
 
-  const actionsSetGithubActionsDefaultWorkflowPermissionsOrganizationBodySchema =
-    s_actions_set_default_workflow_permissions.optional()
-
   const actionsSetGithubActionsDefaultWorkflowPermissionsOrganizationResponseValidator =
     responseValidationFactory([["204", z.undefined()]], undefined)
 
@@ -35855,7 +35779,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          actionsSetGithubActionsDefaultWorkflowPermissionsOrganizationBodySchema,
+          s_actions_set_default_workflow_permissions.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -35982,9 +35906,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     org: z.string(),
   })
 
-  const actionsCreateSelfHostedRunnerGroupForOrgBodySchema =
-    s_ActionsCreateSelfHostedRunnerGroupForOrgRequestBody
-
   const actionsCreateSelfHostedRunnerGroupForOrgResponseValidator =
     responseValidationFactory([["201", s_runner_groups_org]], undefined)
 
@@ -36000,7 +35921,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          actionsCreateSelfHostedRunnerGroupForOrgBodySchema,
+          s_ActionsCreateSelfHostedRunnerGroupForOrgRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -36099,9 +36020,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     runner_group_id: z.coerce.number(),
   })
 
-  const actionsUpdateSelfHostedRunnerGroupForOrgBodySchema =
-    s_ActionsUpdateSelfHostedRunnerGroupForOrgRequestBody
-
   const actionsUpdateSelfHostedRunnerGroupForOrgResponseValidator =
     responseValidationFactory([["200", s_runner_groups_org]], undefined)
 
@@ -36117,7 +36035,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          actionsUpdateSelfHostedRunnerGroupForOrgBodySchema,
+          s_ActionsUpdateSelfHostedRunnerGroupForOrgRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -36384,9 +36302,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     runner_group_id: z.coerce.number(),
   })
 
-  const actionsSetRepoAccessToSelfHostedRunnerGroupInOrgBodySchema =
-    s_ActionsSetRepoAccessToSelfHostedRunnerGroupInOrgRequestBody
-
   const actionsSetRepoAccessToSelfHostedRunnerGroupInOrgResponseValidator =
     responseValidationFactory([["204", z.undefined()]], undefined)
 
@@ -36402,7 +36317,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          actionsSetRepoAccessToSelfHostedRunnerGroupInOrgBodySchema,
+          s_ActionsSetRepoAccessToSelfHostedRunnerGroupInOrgRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -36655,9 +36570,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     runner_group_id: z.coerce.number(),
   })
 
-  const actionsSetSelfHostedRunnersInGroupForOrgBodySchema =
-    s_ActionsSetSelfHostedRunnersInGroupForOrgRequestBody
-
   const actionsSetSelfHostedRunnersInGroupForOrgResponseValidator =
     responseValidationFactory([["204", z.undefined()]], undefined)
 
@@ -36673,7 +36585,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          actionsSetSelfHostedRunnersInGroupForOrgBodySchema,
+          s_ActionsSetSelfHostedRunnersInGroupForOrgRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -36968,9 +36880,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     org: z.string(),
   })
 
-  const actionsGenerateRunnerJitconfigForOrgBodySchema =
-    s_ActionsGenerateRunnerJitconfigForOrgRequestBody
-
   const actionsGenerateRunnerJitconfigForOrgResponseValidator =
     responseValidationFactory(
       [
@@ -36994,7 +36903,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          actionsGenerateRunnerJitconfigForOrgBodySchema,
+          s_ActionsGenerateRunnerJitconfigForOrgRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -37342,9 +37251,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     runner_id: z.coerce.number(),
   })
 
-  const actionsAddCustomLabelsToSelfHostedRunnerForOrgBodySchema =
-    s_ActionsAddCustomLabelsToSelfHostedRunnerForOrgRequestBody
-
   const actionsAddCustomLabelsToSelfHostedRunnerForOrgResponseValidator =
     responseValidationFactory(
       [
@@ -37373,7 +37279,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          actionsAddCustomLabelsToSelfHostedRunnerForOrgBodySchema,
+          s_ActionsAddCustomLabelsToSelfHostedRunnerForOrgRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -37432,9 +37338,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     runner_id: z.coerce.number(),
   })
 
-  const actionsSetCustomLabelsForSelfHostedRunnerForOrgBodySchema =
-    s_ActionsSetCustomLabelsForSelfHostedRunnerForOrgRequestBody
-
   const actionsSetCustomLabelsForSelfHostedRunnerForOrgResponseValidator =
     responseValidationFactory(
       [
@@ -37463,7 +37366,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          actionsSetCustomLabelsForSelfHostedRunnerForOrgBodySchema,
+          s_ActionsSetCustomLabelsForSelfHostedRunnerForOrgRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -37856,9 +37759,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     secret_name: z.string(),
   })
 
-  const actionsCreateOrUpdateOrgSecretBodySchema =
-    s_ActionsCreateOrUpdateOrgSecretRequestBody
-
   const actionsCreateOrUpdateOrgSecretResponseValidator =
     responseValidationFactory(
       [
@@ -37880,7 +37780,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          actionsCreateOrUpdateOrgSecretBodySchema,
+          s_ActionsCreateOrUpdateOrgSecretRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -38056,9 +37956,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     secret_name: z.string(),
   })
 
-  const actionsSetSelectedReposForOrgSecretBodySchema =
-    s_ActionsSetSelectedReposForOrgSecretRequestBody
-
   const actionsSetSelectedReposForOrgSecretResponseValidator =
     responseValidationFactory([["204", z.undefined()]], undefined)
 
@@ -38074,7 +37971,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          actionsSetSelectedReposForOrgSecretBodySchema,
+          s_ActionsSetSelectedReposForOrgSecretRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -38316,9 +38213,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const actionsCreateOrgVariableParamSchema = z.object({org: z.string()})
 
-  const actionsCreateOrgVariableBodySchema =
-    s_ActionsCreateOrgVariableRequestBody
-
   const actionsCreateOrgVariableResponseValidator = responseValidationFactory(
     [["201", s_empty_object]],
     undefined,
@@ -38336,7 +38230,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          actionsCreateOrgVariableBodySchema,
+          s_ActionsCreateOrgVariableRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -38431,9 +38325,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     name: z.string(),
   })
 
-  const actionsUpdateOrgVariableBodySchema =
-    s_ActionsUpdateOrgVariableRequestBody
-
   const actionsUpdateOrgVariableResponseValidator = responseValidationFactory(
     [["204", z.undefined()]],
     undefined,
@@ -38451,7 +38342,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          actionsUpdateOrgVariableBodySchema,
+          s_ActionsUpdateOrgVariableRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -38628,9 +38519,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     name: z.string(),
   })
 
-  const actionsSetSelectedReposForOrgVariableBodySchema =
-    s_ActionsSetSelectedReposForOrgVariableRequestBody
-
   const actionsSetSelectedReposForOrgVariableResponseValidator =
     responseValidationFactory(
       [
@@ -38652,7 +38540,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          actionsSetSelectedReposForOrgVariableBodySchema,
+          s_ActionsSetSelectedReposForOrgVariableRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -38832,9 +38720,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     after: z.string().optional(),
   })
 
-  const orgsListAttestationsBulkBodySchema =
-    s_OrgsListAttestationsBulkRequestBody
-
   const orgsListAttestationsBulkResponseValidator = responseValidationFactory(
     [
       [
@@ -38894,7 +38779,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          orgsListAttestationsBulkBodySchema,
+          s_OrgsListAttestationsBulkRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -38959,9 +38844,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const orgsDeleteAttestationsBulkParamSchema = z.object({org: z.string()})
 
-  const orgsDeleteAttestationsBulkBodySchema =
-    s_OrgsDeleteAttestationsBulkRequestBody
-
   const orgsDeleteAttestationsBulkResponseValidator = responseValidationFactory(
     [
       ["200", z.undefined()],
@@ -38982,7 +38864,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          orgsDeleteAttestationsBulkBodySchema,
+          s_OrgsDeleteAttestationsBulkRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -39578,8 +39460,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const campaignsCreateCampaignParamSchema = z.object({org: z.string()})
 
-  const campaignsCreateCampaignBodySchema = s_CampaignsCreateCampaignRequestBody
-
   const campaignsCreateCampaignResponseValidator = responseValidationFactory(
     [
       ["200", s_campaign_summary],
@@ -39611,7 +39491,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          campaignsCreateCampaignBodySchema,
+          s_CampaignsCreateCampaignRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -39751,8 +39631,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     campaign_number: z.coerce.number(),
   })
 
-  const campaignsUpdateCampaignBodySchema = s_CampaignsUpdateCampaignRequestBody
-
   const campaignsUpdateCampaignResponseValidator = responseValidationFactory(
     [
       ["200", s_campaign_summary],
@@ -39783,7 +39661,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          campaignsUpdateCampaignBodySchema,
+          s_CampaignsUpdateCampaignRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -40082,9 +39960,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const codeSecurityCreateConfigurationParamSchema = z.object({org: z.string()})
 
-  const codeSecurityCreateConfigurationBodySchema =
-    s_CodeSecurityCreateConfigurationRequestBody
-
   const codeSecurityCreateConfigurationResponseValidator =
     responseValidationFactory(
       [["201", s_code_security_configuration]],
@@ -40103,7 +39978,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          codeSecurityCreateConfigurationBodySchema,
+          s_CodeSecurityCreateConfigurationRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -40214,9 +40089,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const codeSecurityDetachConfigurationParamSchema = z.object({org: z.string()})
 
-  const codeSecurityDetachConfigurationBodySchema =
-    s_CodeSecurityDetachConfigurationRequestBody
-
   const codeSecurityDetachConfigurationResponseValidator =
     responseValidationFactory(
       [
@@ -40241,7 +40113,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          codeSecurityDetachConfigurationBodySchema,
+          s_CodeSecurityDetachConfigurationRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -40363,9 +40235,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     configuration_id: z.coerce.number(),
   })
 
-  const codeSecurityUpdateConfigurationBodySchema =
-    s_CodeSecurityUpdateConfigurationRequestBody
-
   const codeSecurityUpdateConfigurationResponseValidator =
     responseValidationFactory(
       [
@@ -40387,7 +40256,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          codeSecurityUpdateConfigurationBodySchema,
+          s_CodeSecurityUpdateConfigurationRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -40504,9 +40373,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     configuration_id: z.coerce.number(),
   })
 
-  const codeSecurityAttachConfigurationBodySchema =
-    s_CodeSecurityAttachConfigurationRequestBody
-
   const codeSecurityAttachConfigurationResponseValidator =
     responseValidationFactory(
       [["202", z.record(z.string(), z.unknown())]],
@@ -40525,7 +40391,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          codeSecurityAttachConfigurationBodySchema,
+          s_CodeSecurityAttachConfigurationRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -40568,9 +40434,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     configuration_id: z.coerce.number(),
   })
 
-  const codeSecuritySetConfigurationAsDefaultBodySchema =
-    s_CodeSecuritySetConfigurationAsDefaultRequestBody
-
   const codeSecuritySetConfigurationAsDefaultResponseValidator =
     responseValidationFactory(
       [
@@ -40601,7 +40464,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          codeSecuritySetConfigurationAsDefaultBodySchema,
+          s_CodeSecuritySetConfigurationAsDefaultRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -40833,9 +40696,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const codespacesSetCodespacesAccessParamSchema = z.object({org: z.string()})
 
-  const codespacesSetCodespacesAccessBodySchema =
-    s_CodespacesSetCodespacesAccessRequestBody
-
   const codespacesSetCodespacesAccessResponseValidator =
     responseValidationFactory(
       [
@@ -40861,7 +40721,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          codespacesSetCodespacesAccessBodySchema,
+          s_CodespacesSetCodespacesAccessRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -40916,9 +40776,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     org: z.string(),
   })
 
-  const codespacesSetCodespacesAccessUsersBodySchema =
-    s_CodespacesSetCodespacesAccessUsersRequestBody
-
   const codespacesSetCodespacesAccessUsersResponseValidator =
     responseValidationFactory(
       [
@@ -40944,7 +40801,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          codespacesSetCodespacesAccessUsersBodySchema,
+          s_CodespacesSetCodespacesAccessUsersRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -41002,9 +40859,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     org: z.string(),
   })
 
-  const codespacesDeleteCodespacesAccessUsersBodySchema =
-    s_CodespacesDeleteCodespacesAccessUsersRequestBody
-
   const codespacesDeleteCodespacesAccessUsersResponseValidator =
     responseValidationFactory(
       [
@@ -41030,7 +40884,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          codespacesDeleteCodespacesAccessUsersBodySchema,
+          s_CodespacesDeleteCodespacesAccessUsersRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -41265,9 +41119,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     secret_name: z.string(),
   })
 
-  const codespacesCreateOrUpdateOrgSecretBodySchema =
-    s_CodespacesCreateOrUpdateOrgSecretRequestBody
-
   const codespacesCreateOrUpdateOrgSecretResponseValidator =
     responseValidationFactory(
       [
@@ -41291,7 +41142,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          codespacesCreateOrUpdateOrgSecretBodySchema,
+          s_CodespacesCreateOrUpdateOrgSecretRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -41486,9 +41337,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     secret_name: z.string(),
   })
 
-  const codespacesSetSelectedReposForOrgSecretBodySchema =
-    s_CodespacesSetSelectedReposForOrgSecretRequestBody
-
   const codespacesSetSelectedReposForOrgSecretResponseValidator =
     responseValidationFactory(
       [
@@ -41511,7 +41359,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          codespacesSetSelectedReposForOrgSecretBodySchema,
+          s_CodespacesSetSelectedReposForOrgSecretRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -41870,9 +41718,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const copilotAddCopilotSeatsForTeamsParamSchema = z.object({org: z.string()})
 
-  const copilotAddCopilotSeatsForTeamsBodySchema =
-    s_CopilotAddCopilotSeatsForTeamsRequestBody
-
   const copilotAddCopilotSeatsForTeamsResponseValidator =
     responseValidationFactory(
       [
@@ -41898,7 +41743,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          copilotAddCopilotSeatsForTeamsBodySchema,
+          s_CopilotAddCopilotSeatsForTeamsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -41955,9 +41800,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     org: z.string(),
   })
 
-  const copilotCancelCopilotSeatAssignmentForTeamsBodySchema =
-    s_CopilotCancelCopilotSeatAssignmentForTeamsRequestBody
-
   const copilotCancelCopilotSeatAssignmentForTeamsResponseValidator =
     responseValidationFactory(
       [
@@ -41983,7 +41825,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          copilotCancelCopilotSeatAssignmentForTeamsBodySchema,
+          s_CopilotCancelCopilotSeatAssignmentForTeamsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -42041,9 +41883,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const copilotAddCopilotSeatsForUsersParamSchema = z.object({org: z.string()})
 
-  const copilotAddCopilotSeatsForUsersBodySchema =
-    s_CopilotAddCopilotSeatsForUsersRequestBody
-
   const copilotAddCopilotSeatsForUsersResponseValidator =
     responseValidationFactory(
       [
@@ -42069,7 +41908,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          copilotAddCopilotSeatsForUsersBodySchema,
+          s_CopilotAddCopilotSeatsForUsersRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -42126,9 +41965,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     org: z.string(),
   })
 
-  const copilotCancelCopilotSeatAssignmentForUsersBodySchema =
-    s_CopilotCancelCopilotSeatAssignmentForUsersRequestBody
-
   const copilotCancelCopilotSeatAssignmentForUsersResponseValidator =
     responseValidationFactory(
       [
@@ -42154,7 +41990,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          copilotCancelCopilotSeatAssignmentForUsersBodySchema,
+          s_CopilotCancelCopilotSeatAssignmentForUsersRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -42576,9 +42412,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     secret_name: z.string(),
   })
 
-  const dependabotCreateOrUpdateOrgSecretBodySchema =
-    s_DependabotCreateOrUpdateOrgSecretRequestBody
-
   const dependabotCreateOrUpdateOrgSecretResponseValidator =
     responseValidationFactory(
       [
@@ -42600,7 +42433,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          dependabotCreateOrUpdateOrgSecretBodySchema,
+          s_DependabotCreateOrUpdateOrgSecretRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -42779,9 +42612,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     secret_name: z.string(),
   })
 
-  const dependabotSetSelectedReposForOrgSecretBodySchema =
-    s_DependabotSetSelectedReposForOrgSecretRequestBody
-
   const dependabotSetSelectedReposForOrgSecretResponseValidator =
     responseValidationFactory([["204", z.undefined()]], undefined)
 
@@ -42797,7 +42627,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          dependabotSetSelectedReposForOrgSecretBodySchema,
+          s_DependabotSetSelectedReposForOrgSecretRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -43226,8 +43056,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const orgsCreateWebhookParamSchema = z.object({org: z.string()})
 
-  const orgsCreateWebhookBodySchema = s_OrgsCreateWebhookRequestBody
-
   const orgsCreateWebhookResponseValidator = responseValidationFactory(
     [
       ["201", s_org_hook],
@@ -43246,7 +43074,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       query: undefined,
       body: parseRequestInput(
-        orgsCreateWebhookBodySchema,
+        s_OrgsCreateWebhookRequestBody,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -43352,8 +43180,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     hook_id: z.coerce.number(),
   })
 
-  const orgsUpdateWebhookBodySchema = s_OrgsUpdateWebhookRequestBody.optional()
-
   const orgsUpdateWebhookResponseValidator = responseValidationFactory(
     [
       ["200", s_org_hook],
@@ -43375,7 +43201,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          orgsUpdateWebhookBodySchema,
+          s_OrgsUpdateWebhookRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -43536,9 +43362,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     hook_id: z.coerce.number(),
   })
 
-  const orgsUpdateWebhookConfigForOrgBodySchema =
-    s_OrgsUpdateWebhookConfigForOrgRequestBody.optional()
-
   const orgsUpdateWebhookConfigForOrgResponseValidator =
     responseValidationFactory([["200", s_webhook_config]], undefined)
 
@@ -43554,7 +43377,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          orgsUpdateWebhookConfigForOrgBodySchema,
+          s_OrgsUpdateWebhookConfigForOrgRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -44683,8 +44506,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     org: z.string(),
   })
 
-  const interactionsSetRestrictionsForOrgBodySchema = s_interaction_limit
-
   const interactionsSetRestrictionsForOrgResponseValidator =
     responseValidationFactory(
       [
@@ -44706,7 +44527,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          interactionsSetRestrictionsForOrgBodySchema,
+          s_interaction_limit,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -44884,9 +44705,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const orgsCreateInvitationParamSchema = z.object({org: z.string()})
 
-  const orgsCreateInvitationBodySchema =
-    s_OrgsCreateInvitationRequestBody.optional()
-
   const orgsCreateInvitationResponseValidator = responseValidationFactory(
     [
       ["201", s_organization_invitation],
@@ -44908,7 +44726,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          orgsCreateInvitationBodySchema,
+          s_OrgsCreateInvitationRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -45142,8 +44960,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const orgsCreateIssueTypeParamSchema = z.object({org: z.string()})
 
-  const orgsCreateIssueTypeBodySchema = s_organization_create_issue_type
-
   const orgsCreateIssueTypeResponseValidator = responseValidationFactory(
     [
       ["200", s_issue_type],
@@ -45165,7 +44981,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          orgsCreateIssueTypeBodySchema,
+          s_organization_create_issue_type,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -45212,8 +45028,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     issue_type_id: z.coerce.number(),
   })
 
-  const orgsUpdateIssueTypeBodySchema = s_organization_update_issue_type
-
   const orgsUpdateIssueTypeResponseValidator = responseValidationFactory(
     [
       ["200", s_issue_type],
@@ -45235,7 +45049,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          orgsUpdateIssueTypeBodySchema,
+          s_organization_update_issue_type,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -46012,9 +45826,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     username: z.string(),
   })
 
-  const orgsSetMembershipForUserBodySchema =
-    s_OrgsSetMembershipForUserRequestBody.optional()
-
   const orgsSetMembershipForUserResponseValidator = responseValidationFactory(
     [
       ["200", s_org_membership],
@@ -46036,7 +45847,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          orgsSetMembershipForUserBodySchema,
+          s_OrgsSetMembershipForUserRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -46211,8 +46022,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const migrationsStartForOrgParamSchema = z.object({org: z.string()})
 
-  const migrationsStartForOrgBodySchema = s_MigrationsStartForOrgRequestBody
-
   const migrationsStartForOrgResponseValidator = responseValidationFactory(
     [
       ["201", s_migration],
@@ -46234,7 +46043,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          migrationsStartForOrgBodySchema,
+          s_MigrationsStartForOrgRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -47296,9 +47105,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     username: z.string(),
   })
 
-  const orgsConvertMemberToOutsideCollaboratorBodySchema =
-    s_OrgsConvertMemberToOutsideCollaboratorRequestBody.optional()
-
   const orgsConvertMemberToOutsideCollaboratorResponseValidator =
     responseValidationFactory(
       [
@@ -47322,7 +47128,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          orgsConvertMemberToOutsideCollaboratorBodySchema,
+          s_OrgsConvertMemberToOutsideCollaboratorRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -48182,9 +47988,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     org: z.string(),
   })
 
-  const orgsReviewPatGrantRequestsInBulkBodySchema =
-    s_OrgsReviewPatGrantRequestsInBulkRequestBody
-
   const orgsReviewPatGrantRequestsInBulkResponseValidator =
     responseValidationFactory(
       [
@@ -48209,7 +48012,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          orgsReviewPatGrantRequestsInBulkBodySchema,
+          s_OrgsReviewPatGrantRequestsInBulkRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -48264,9 +48067,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     pat_request_id: z.coerce.number(),
   })
 
-  const orgsReviewPatGrantRequestBodySchema =
-    s_OrgsReviewPatGrantRequestRequestBody
-
   const orgsReviewPatGrantRequestResponseValidator = responseValidationFactory(
     [
       ["204", z.undefined()],
@@ -48290,7 +48090,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          orgsReviewPatGrantRequestBodySchema,
+          s_OrgsReviewPatGrantRequestRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -48519,8 +48319,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const orgsUpdatePatAccessesParamSchema = z.object({org: z.string()})
 
-  const orgsUpdatePatAccessesBodySchema = s_OrgsUpdatePatAccessesRequestBody
-
   const orgsUpdatePatAccessesResponseValidator = responseValidationFactory(
     [
       ["202", z.record(z.string(), z.unknown())],
@@ -48544,7 +48342,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          orgsUpdatePatAccessesBodySchema,
+          s_OrgsUpdatePatAccessesRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -48599,8 +48397,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     pat_id: z.coerce.number(),
   })
 
-  const orgsUpdatePatAccessBodySchema = s_OrgsUpdatePatAccessRequestBody
-
   const orgsUpdatePatAccessResponseValidator = responseValidationFactory(
     [
       ["204", z.undefined()],
@@ -48624,7 +48420,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          orgsUpdatePatAccessBodySchema,
+          s_OrgsUpdatePatAccessRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -48839,9 +48635,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     org: z.string(),
   })
 
-  const privateRegistriesCreateOrgPrivateRegistryBodySchema =
-    s_PrivateRegistriesCreateOrgPrivateRegistryRequestBody
-
   const privateRegistriesCreateOrgPrivateRegistryResponseValidator =
     responseValidationFactory(
       [
@@ -48867,7 +48660,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          privateRegistriesCreateOrgPrivateRegistryBodySchema,
+          s_PrivateRegistriesCreateOrgPrivateRegistryRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -49048,9 +48841,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     secret_name: z.string(),
   })
 
-  const privateRegistriesUpdateOrgPrivateRegistryBodySchema =
-    s_PrivateRegistriesUpdateOrgPrivateRegistryRequestBody
-
   const privateRegistriesUpdateOrgPrivateRegistryResponseValidator =
     responseValidationFactory(
       [
@@ -49073,7 +48863,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          privateRegistriesUpdateOrgPrivateRegistryBodySchema,
+          s_PrivateRegistriesUpdateOrgPrivateRegistryRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -49255,9 +49045,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const projectsClassicCreateForOrgParamSchema = z.object({org: z.string()})
 
-  const projectsClassicCreateForOrgBodySchema =
-    s_ProjectsClassicCreateForOrgRequestBody
-
   const projectsClassicCreateForOrgResponseValidator =
     responseValidationFactory(
       [
@@ -49283,7 +49070,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          projectsClassicCreateForOrgBodySchema,
+          s_ProjectsClassicCreateForOrgRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -49399,9 +49186,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     org: z.string(),
   })
 
-  const orgsCreateOrUpdateCustomPropertiesBodySchema =
-    s_OrgsCreateOrUpdateCustomPropertiesRequestBody
-
   const orgsCreateOrUpdateCustomPropertiesResponseValidator =
     responseValidationFactory(
       [
@@ -49424,7 +49208,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          orgsCreateOrUpdateCustomPropertiesBodySchema,
+          s_OrgsCreateOrUpdateCustomPropertiesRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -49538,9 +49322,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     custom_property_name: z.string(),
   })
 
-  const orgsCreateOrUpdateCustomPropertyBodySchema =
-    s_custom_property_set_payload
-
   const orgsCreateOrUpdateCustomPropertyResponseValidator =
     responseValidationFactory(
       [
@@ -49563,7 +49344,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          orgsCreateOrUpdateCustomPropertyBodySchema,
+          s_custom_property_set_payload,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -49752,9 +49533,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     org: z.string(),
   })
 
-  const orgsCreateOrUpdateCustomPropertiesValuesForReposBodySchema =
-    s_OrgsCreateOrUpdateCustomPropertiesValuesForReposRequestBody
-
   const orgsCreateOrUpdateCustomPropertiesValuesForReposResponseValidator =
     responseValidationFactory(
       [
@@ -49778,7 +49556,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          orgsCreateOrUpdateCustomPropertiesValuesForReposBodySchema,
+          s_OrgsCreateOrUpdateCustomPropertiesValuesForReposRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -50150,8 +49928,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const reposCreateInOrgParamSchema = z.object({org: z.string()})
 
-  const reposCreateInOrgBodySchema = s_ReposCreateInOrgRequestBody
-
   const reposCreateInOrgResponseValidator = responseValidationFactory(
     [
       ["201", s_full_repository],
@@ -50170,7 +49946,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       query: undefined,
       body: parseRequestInput(
-        reposCreateInOrgBodySchema,
+        s_ReposCreateInOrgRequestBody,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -50284,8 +50060,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const reposCreateOrgRulesetParamSchema = z.object({org: z.string()})
 
-  const reposCreateOrgRulesetBodySchema = s_ReposCreateOrgRulesetRequestBody
-
   const reposCreateOrgRulesetResponseValidator = responseValidationFactory(
     [
       ["201", s_repository_ruleset],
@@ -50307,7 +50081,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposCreateOrgRulesetBodySchema,
+          s_ReposCreateOrgRulesetRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -50563,9 +50337,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ruleset_id: z.coerce.number(),
   })
 
-  const reposUpdateOrgRulesetBodySchema =
-    s_ReposUpdateOrgRulesetRequestBody.optional()
-
   const reposUpdateOrgRulesetResponseValidator = responseValidationFactory(
     [
       ["200", s_repository_ruleset],
@@ -50587,7 +50358,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposUpdateOrgRulesetBodySchema,
+          s_ReposUpdateOrgRulesetRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -51417,9 +51188,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     org: z.string(),
   })
 
-  const hostedComputeCreateNetworkConfigurationForOrgBodySchema =
-    s_HostedComputeCreateNetworkConfigurationForOrgRequestBody
-
   const hostedComputeCreateNetworkConfigurationForOrgResponseValidator =
     responseValidationFactory([["201", s_network_configuration]], undefined)
 
@@ -51435,7 +51203,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          hostedComputeCreateNetworkConfigurationForOrgBodySchema,
+          s_HostedComputeCreateNetworkConfigurationForOrgRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -51539,9 +51307,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     network_configuration_id: z.string(),
   })
 
-  const hostedComputeUpdateNetworkConfigurationForOrgBodySchema =
-    s_HostedComputeUpdateNetworkConfigurationForOrgRequestBody
-
   const hostedComputeUpdateNetworkConfigurationForOrgResponseValidator =
     responseValidationFactory([["200", s_network_configuration]], undefined)
 
@@ -51557,7 +51322,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          hostedComputeUpdateNetworkConfigurationForOrgBodySchema,
+          s_HostedComputeUpdateNetworkConfigurationForOrgRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -51865,8 +51630,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const teamsCreateParamSchema = z.object({org: z.string()})
 
-  const teamsCreateBodySchema = s_TeamsCreateRequestBody
-
   const teamsCreateResponseValidator = responseValidationFactory(
     [
       ["201", s_team_full],
@@ -51885,7 +51648,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       query: undefined,
       body: parseRequestInput(
-        teamsCreateBodySchema,
+        s_TeamsCreateRequestBody,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -51991,8 +51754,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     team_slug: z.string(),
   })
 
-  const teamsUpdateInOrgBodySchema = s_TeamsUpdateInOrgRequestBody.optional()
-
   const teamsUpdateInOrgResponseValidator = responseValidationFactory(
     [
       ["200", s_team_full],
@@ -52016,7 +51777,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          teamsUpdateInOrgBodySchema,
+          s_TeamsUpdateInOrgRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -52188,9 +51949,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     team_slug: z.string(),
   })
 
-  const teamsCreateDiscussionInOrgBodySchema =
-    s_TeamsCreateDiscussionInOrgRequestBody
-
   const teamsCreateDiscussionInOrgResponseValidator = responseValidationFactory(
     [["201", s_team_discussion]],
     undefined,
@@ -52208,7 +51966,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          teamsCreateDiscussionInOrgBodySchema,
+          s_TeamsCreateDiscussionInOrgRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -52305,9 +52063,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     discussion_number: z.coerce.number(),
   })
 
-  const teamsUpdateDiscussionInOrgBodySchema =
-    s_TeamsUpdateDiscussionInOrgRequestBody.optional()
-
   const teamsUpdateDiscussionInOrgResponseValidator = responseValidationFactory(
     [["200", s_team_discussion]],
     undefined,
@@ -52325,7 +52080,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          teamsUpdateDiscussionInOrgBodySchema,
+          s_TeamsUpdateDiscussionInOrgRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -52488,9 +52243,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     discussion_number: z.coerce.number(),
   })
 
-  const teamsCreateDiscussionCommentInOrgBodySchema =
-    s_TeamsCreateDiscussionCommentInOrgRequestBody
-
   const teamsCreateDiscussionCommentInOrgResponseValidator =
     responseValidationFactory([["201", s_team_discussion_comment]], undefined)
 
@@ -52506,7 +52258,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          teamsCreateDiscussionCommentInOrgBodySchema,
+          s_TeamsCreateDiscussionCommentInOrgRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -52606,9 +52358,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     comment_number: z.coerce.number(),
   })
 
-  const teamsUpdateDiscussionCommentInOrgBodySchema =
-    s_TeamsUpdateDiscussionCommentInOrgRequestBody
-
   const teamsUpdateDiscussionCommentInOrgResponseValidator =
     responseValidationFactory([["200", s_team_discussion_comment]], undefined)
 
@@ -52624,7 +52373,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          teamsUpdateDiscussionCommentInOrgBodySchema,
+          s_TeamsUpdateDiscussionCommentInOrgRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -52805,9 +52554,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     comment_number: z.coerce.number(),
   })
 
-  const reactionsCreateForTeamDiscussionCommentInOrgBodySchema =
-    s_ReactionsCreateForTeamDiscussionCommentInOrgRequestBody
-
   const reactionsCreateForTeamDiscussionCommentInOrgResponseValidator =
     responseValidationFactory(
       [
@@ -52829,7 +52575,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reactionsCreateForTeamDiscussionCommentInOrgBodySchema,
+          s_ReactionsCreateForTeamDiscussionCommentInOrgRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -53017,9 +52763,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     discussion_number: z.coerce.number(),
   })
 
-  const reactionsCreateForTeamDiscussionInOrgBodySchema =
-    s_ReactionsCreateForTeamDiscussionInOrgRequestBody
-
   const reactionsCreateForTeamDiscussionInOrgResponseValidator =
     responseValidationFactory(
       [
@@ -53041,7 +52784,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reactionsCreateForTeamDiscussionInOrgBodySchema,
+          s_ReactionsCreateForTeamDiscussionInOrgRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -53333,9 +53076,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     username: z.string(),
   })
 
-  const teamsAddOrUpdateMembershipForUserInOrgBodySchema =
-    s_TeamsAddOrUpdateMembershipForUserInOrgRequestBody.optional()
-
   const teamsAddOrUpdateMembershipForUserInOrgResponseValidator =
     responseValidationFactory(
       [
@@ -53358,7 +53098,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          teamsAddOrUpdateMembershipForUserInOrgBodySchema,
+          s_TeamsAddOrUpdateMembershipForUserInOrgRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -53602,9 +53342,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     project_id: z.coerce.number(),
   })
 
-  const teamsAddOrUpdateProjectPermissionsInOrgBodySchema =
-    s_TeamsAddOrUpdateProjectPermissionsInOrgRequestBody.optional()
-
   const teamsAddOrUpdateProjectPermissionsInOrgResponseValidator =
     responseValidationFactory(
       [
@@ -53632,7 +53369,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          teamsAddOrUpdateProjectPermissionsInOrgBodySchema,
+          s_TeamsAddOrUpdateProjectPermissionsInOrgRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -53872,9 +53609,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const teamsAddOrUpdateRepoPermissionsInOrgBodySchema =
-    s_TeamsAddOrUpdateRepoPermissionsInOrgRequestBody.optional()
-
   const teamsAddOrUpdateRepoPermissionsInOrgResponseValidator =
     responseValidationFactory([["204", z.undefined()]], undefined)
 
@@ -53890,7 +53624,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          teamsAddOrUpdateRepoPermissionsInOrgBodySchema,
+          s_TeamsAddOrUpdateRepoPermissionsInOrgRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -54062,9 +53796,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     enablement: z.enum(["enable_all", "disable_all"]),
   })
 
-  const orgsEnableOrDisableSecurityProductOnAllOrgReposBodySchema =
-    s_OrgsEnableOrDisableSecurityProductOnAllOrgReposRequestBody.optional()
-
   const orgsEnableOrDisableSecurityProductOnAllOrgReposResponseValidator =
     responseValidationFactory(
       [
@@ -54086,7 +53817,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          orgsEnableOrDisableSecurityProductOnAllOrgReposBodySchema,
+          s_OrgsEnableOrDisableSecurityProductOnAllOrgReposRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -54209,9 +53940,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     card_id: z.coerce.number(),
   })
 
-  const projectsClassicUpdateCardBodySchema =
-    s_ProjectsClassicUpdateCardRequestBody.optional()
-
   const projectsClassicUpdateCardResponseValidator = responseValidationFactory(
     [
       ["200", s_project_card],
@@ -54236,7 +53964,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          projectsClassicUpdateCardBodySchema,
+          s_ProjectsClassicUpdateCardRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -54373,8 +54101,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     card_id: z.coerce.number(),
   })
 
-  const projectsClassicMoveCardBodySchema = s_ProjectsClassicMoveCardRequestBody
-
   const projectsClassicMoveCardResponseValidator = responseValidationFactory(
     [
       ["201", z.object({})],
@@ -54430,7 +54156,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          projectsClassicMoveCardBodySchema,
+          s_ProjectsClassicMoveCardRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -54573,9 +54299,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     column_id: z.coerce.number(),
   })
 
-  const projectsClassicUpdateColumnBodySchema =
-    s_ProjectsClassicUpdateColumnRequestBody
-
   const projectsClassicUpdateColumnResponseValidator =
     responseValidationFactory(
       [
@@ -54599,7 +54322,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          projectsClassicUpdateColumnBodySchema,
+          s_ProjectsClassicUpdateColumnRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -54796,9 +54519,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     column_id: z.coerce.number(),
   })
 
-  const projectsClassicCreateCardBodySchema =
-    s_ProjectsClassicCreateCardRequestBody
-
   const projectsClassicCreateCardResponseValidator = responseValidationFactory(
     [
       ["201", s_project_card],
@@ -54838,7 +54558,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          projectsClassicCreateCardBodySchema,
+          s_ProjectsClassicCreateCardRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -54903,9 +54623,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     column_id: z.coerce.number(),
   })
 
-  const projectsClassicMoveColumnBodySchema =
-    s_ProjectsClassicMoveColumnRequestBody
-
   const projectsClassicMoveColumnResponseValidator = responseValidationFactory(
     [
       ["201", z.object({})],
@@ -54929,7 +54646,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          projectsClassicMoveColumnBodySchema,
+          s_ProjectsClassicMoveColumnRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -55048,9 +54765,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     project_id: z.coerce.number(),
   })
 
-  const projectsClassicUpdateBodySchema =
-    s_ProjectsClassicUpdateRequestBody.optional()
-
   const projectsClassicUpdateResponseValidator = responseValidationFactory(
     [
       ["200", s_project],
@@ -55083,7 +54797,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          projectsClassicUpdateBodySchema,
+          s_ProjectsClassicUpdateRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -55318,9 +55032,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     username: z.string(),
   })
 
-  const projectsClassicAddCollaboratorBodySchema =
-    s_ProjectsClassicAddCollaboratorRequestBody.optional()
-
   const projectsClassicAddCollaboratorResponseValidator =
     responseValidationFactory(
       [
@@ -55346,7 +55057,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          projectsClassicAddCollaboratorBodySchema,
+          s_ProjectsClassicAddCollaboratorRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -55637,9 +55348,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     project_id: z.coerce.number(),
   })
 
-  const projectsClassicCreateColumnBodySchema =
-    s_ProjectsClassicCreateColumnRequestBody
-
   const projectsClassicCreateColumnResponseValidator =
     responseValidationFactory(
       [
@@ -55664,7 +55372,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          projectsClassicCreateColumnBodySchema,
+          s_ProjectsClassicCreateColumnRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -55826,8 +55534,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const reposUpdateParamSchema = z.object({owner: z.string(), repo: z.string()})
 
-  const reposUpdateBodySchema = s_ReposUpdateRequestBody.optional()
-
   const reposUpdateResponseValidator = responseValidationFactory(
     [
       ["200", s_full_repository],
@@ -55848,7 +55554,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       query: undefined,
       body: parseRequestInput(
-        reposUpdateBodySchema,
+        s_ReposUpdateRequestBody.optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -56573,9 +56279,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     job_id: z.coerce.number(),
   })
 
-  const actionsReRunJobForWorkflowRunBodySchema =
-    s_ActionsReRunJobForWorkflowRunRequestBody.optional()
-
   const actionsReRunJobForWorkflowRunResponseValidator =
     responseValidationFactory(
       [
@@ -56597,7 +56300,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          actionsReRunJobForWorkflowRunBodySchema,
+          s_ActionsReRunJobForWorkflowRunRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -56709,9 +56412,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const actionsSetCustomOidcSubClaimForRepoBodySchema =
-    s_ActionsSetCustomOidcSubClaimForRepoRequestBody
-
   const actionsSetCustomOidcSubClaimForRepoResponseValidator =
     responseValidationFactory(
       [
@@ -56735,7 +56435,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          actionsSetCustomOidcSubClaimForRepoBodySchema,
+          s_ActionsSetCustomOidcSubClaimForRepoRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -57007,9 +56707,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const actionsSetGithubActionsPermissionsRepositoryBodySchema =
-    s_ActionsSetGithubActionsPermissionsRepositoryRequestBody
-
   const actionsSetGithubActionsPermissionsRepositoryResponseValidator =
     responseValidationFactory([["204", z.undefined()]], undefined)
 
@@ -57025,7 +56722,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          actionsSetGithubActionsPermissionsRepositoryBodySchema,
+          s_ActionsSetGithubActionsPermissionsRepositoryRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -57134,9 +56831,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const actionsSetWorkflowAccessToRepositoryBodySchema =
-    s_actions_workflow_access_to_repository
-
   const actionsSetWorkflowAccessToRepositoryResponseValidator =
     responseValidationFactory([["204", z.undefined()]], undefined)
 
@@ -57152,7 +56846,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          actionsSetWorkflowAccessToRepositoryBodySchema,
+          s_actions_workflow_access_to_repository,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -57251,9 +56945,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const actionsSetAllowedActionsRepositoryBodySchema =
-    s_selected_actions.optional()
-
   const actionsSetAllowedActionsRepositoryResponseValidator =
     responseValidationFactory([["204", z.undefined()]], undefined)
 
@@ -57269,7 +56960,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          actionsSetAllowedActionsRepositoryBodySchema,
+          s_selected_actions.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -57375,9 +57066,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const actionsSetGithubActionsDefaultWorkflowPermissionsRepositoryParamSchema =
     z.object({owner: z.string(), repo: z.string()})
 
-  const actionsSetGithubActionsDefaultWorkflowPermissionsRepositoryBodySchema =
-    s_actions_set_default_workflow_permissions
-
   const actionsSetGithubActionsDefaultWorkflowPermissionsRepositoryResponseValidator =
     responseValidationFactory(
       [
@@ -57399,7 +57087,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          actionsSetGithubActionsDefaultWorkflowPermissionsRepositoryBodySchema,
+          s_actions_set_default_workflow_permissions,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -57589,9 +57277,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const actionsGenerateRunnerJitconfigForRepoBodySchema =
-    s_ActionsGenerateRunnerJitconfigForRepoRequestBody
-
   const actionsGenerateRunnerJitconfigForRepoResponseValidator =
     responseValidationFactory(
       [
@@ -57615,7 +57300,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          actionsGenerateRunnerJitconfigForRepoBodySchema,
+          s_ActionsGenerateRunnerJitconfigForRepoRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -57979,9 +57664,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     runner_id: z.coerce.number(),
   })
 
-  const actionsAddCustomLabelsToSelfHostedRunnerForRepoBodySchema =
-    s_ActionsAddCustomLabelsToSelfHostedRunnerForRepoRequestBody
-
   const actionsAddCustomLabelsToSelfHostedRunnerForRepoResponseValidator =
     responseValidationFactory(
       [
@@ -58010,7 +57692,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          actionsAddCustomLabelsToSelfHostedRunnerForRepoBodySchema,
+          s_ActionsAddCustomLabelsToSelfHostedRunnerForRepoRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -58070,9 +57752,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     runner_id: z.coerce.number(),
   })
 
-  const actionsSetCustomLabelsForSelfHostedRunnerForRepoBodySchema =
-    s_ActionsSetCustomLabelsForSelfHostedRunnerForRepoRequestBody
-
   const actionsSetCustomLabelsForSelfHostedRunnerForRepoResponseValidator =
     responseValidationFactory(
       [
@@ -58101,7 +57780,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          actionsSetCustomLabelsForSelfHostedRunnerForRepoBodySchema,
+          s_ActionsSetCustomLabelsForSelfHostedRunnerForRepoRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -59004,9 +58683,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     run_id: z.coerce.number(),
   })
 
-  const actionsReviewCustomGatesForRunBodySchema =
-    s_ActionsReviewCustomGatesForRunRequestBody
-
   const actionsReviewCustomGatesForRunResponseValidator =
     responseValidationFactory([["204", z.undefined()]], undefined)
 
@@ -59022,7 +58698,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          actionsReviewCustomGatesForRunBodySchema,
+          s_ActionsReviewCustomGatesForRunRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -59378,9 +59054,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     run_id: z.coerce.number(),
   })
 
-  const actionsReviewPendingDeploymentsForRunBodySchema =
-    s_ActionsReviewPendingDeploymentsForRunRequestBody
-
   const actionsReviewPendingDeploymentsForRunResponseValidator =
     responseValidationFactory([["200", z.array(s_deployment)]], undefined)
 
@@ -59396,7 +59069,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          actionsReviewPendingDeploymentsForRunBodySchema,
+          s_ActionsReviewPendingDeploymentsForRunRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -59441,9 +59114,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     run_id: z.coerce.number(),
   })
 
-  const actionsReRunWorkflowBodySchema =
-    s_ActionsReRunWorkflowRequestBody.optional()
-
   const actionsReRunWorkflowResponseValidator = responseValidationFactory(
     [["201", s_empty_object]],
     undefined,
@@ -59461,7 +59131,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          actionsReRunWorkflowBodySchema,
+          s_ActionsReRunWorkflowRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -59503,9 +59173,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     run_id: z.coerce.number(),
   })
 
-  const actionsReRunWorkflowFailedJobsBodySchema =
-    s_ActionsReRunWorkflowFailedJobsRequestBody.optional()
-
   const actionsReRunWorkflowFailedJobsResponseValidator =
     responseValidationFactory([["201", s_empty_object]], undefined)
 
@@ -59521,7 +59188,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          actionsReRunWorkflowFailedJobsBodySchema,
+          s_ActionsReRunWorkflowFailedJobsRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -59801,9 +59468,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     secret_name: z.string(),
   })
 
-  const actionsCreateOrUpdateRepoSecretBodySchema =
-    s_ActionsCreateOrUpdateRepoSecretRequestBody
-
   const actionsCreateOrUpdateRepoSecretResponseValidator =
     responseValidationFactory(
       [
@@ -59825,7 +59489,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          actionsCreateOrUpdateRepoSecretBodySchema,
+          s_ActionsCreateOrUpdateRepoSecretRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -59998,9 +59662,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const actionsCreateRepoVariableBodySchema =
-    s_ActionsCreateRepoVariableRequestBody
-
   const actionsCreateRepoVariableResponseValidator = responseValidationFactory(
     [["201", s_empty_object]],
     undefined,
@@ -60018,7 +59679,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          actionsCreateRepoVariableBodySchema,
+          s_ActionsCreateRepoVariableRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -60115,9 +59776,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     name: z.string(),
   })
 
-  const actionsUpdateRepoVariableBodySchema =
-    s_ActionsUpdateRepoVariableRequestBody
-
   const actionsUpdateRepoVariableResponseValidator = responseValidationFactory(
     [["204", z.undefined()]],
     undefined,
@@ -60135,7 +59793,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          actionsUpdateRepoVariableBodySchema,
+          s_ActionsUpdateRepoVariableRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -60416,9 +60074,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     workflow_id: z.union([z.coerce.number(), z.string()]),
   })
 
-  const actionsCreateWorkflowDispatchBodySchema =
-    s_ActionsCreateWorkflowDispatchRequestBody
-
   const actionsCreateWorkflowDispatchResponseValidator =
     responseValidationFactory([["204", z.undefined()]], undefined)
 
@@ -60434,7 +60089,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          actionsCreateWorkflowDispatchBodySchema,
+          s_ActionsCreateWorkflowDispatchRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -60900,8 +60555,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const reposCreateAttestationBodySchema = s_ReposCreateAttestationRequestBody
-
   const reposCreateAttestationResponseValidator = responseValidationFactory(
     [
       ["201", z.object({id: z.coerce.number().optional()})],
@@ -60923,7 +60576,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposCreateAttestationBodySchema,
+          s_ReposCreateAttestationRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -61129,8 +60782,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const reposCreateAutolinkBodySchema = s_ReposCreateAutolinkRequestBody
-
   const reposCreateAutolinkResponseValidator = responseValidationFactory(
     [
       ["201", s_autolink],
@@ -61151,7 +60802,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposCreateAutolinkBodySchema,
+          s_ReposCreateAutolinkRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -61685,9 +61336,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     branch: z.string(),
   })
 
-  const reposUpdateBranchProtectionBodySchema =
-    s_ReposUpdateBranchProtectionRequestBody
-
   const reposUpdateBranchProtectionResponseValidator =
     responseValidationFactory(
       [
@@ -61711,7 +61359,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposUpdateBranchProtectionBodySchema,
+          s_ReposUpdateBranchProtectionRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -62059,9 +61707,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     branch: z.string(),
   })
 
-  const reposUpdatePullRequestReviewProtectionBodySchema =
-    s_ReposUpdatePullRequestReviewProtectionRequestBody.optional()
-
   const reposUpdatePullRequestReviewProtectionResponseValidator =
     responseValidationFactory(
       [
@@ -62083,7 +61728,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposUpdatePullRequestReviewProtectionBodySchema,
+          s_ReposUpdatePullRequestReviewProtectionRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -62455,9 +62100,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     branch: z.string(),
   })
 
-  const reposUpdateStatusCheckProtectionBodySchema =
-    s_ReposUpdateStatusCheckProtectionRequestBody.optional()
-
   const reposUpdateStatusCheckProtectionResponseValidator =
     responseValidationFactory(
       [
@@ -62480,7 +62122,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposUpdateStatusCheckProtectionBodySchema,
+          s_ReposUpdateStatusCheckProtectionRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -62643,9 +62285,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     branch: z.string(),
   })
 
-  const reposAddStatusCheckContextsBodySchema =
-    s_ReposAddStatusCheckContextsRequestBody.optional()
-
   const reposAddStatusCheckContextsResponseValidator =
     responseValidationFactory(
       [
@@ -62669,7 +62308,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposAddStatusCheckContextsBodySchema,
+          s_ReposAddStatusCheckContextsRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -62720,9 +62359,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     branch: z.string(),
   })
 
-  const reposSetStatusCheckContextsBodySchema =
-    s_ReposSetStatusCheckContextsRequestBody.optional()
-
   const reposSetStatusCheckContextsResponseValidator =
     responseValidationFactory(
       [
@@ -62745,7 +62381,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposSetStatusCheckContextsBodySchema,
+          s_ReposSetStatusCheckContextsRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -62793,9 +62429,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     branch: z.string(),
   })
 
-  const reposRemoveStatusCheckContextsBodySchema =
-    s_ReposRemoveStatusCheckContextsRequestBody
-
   const reposRemoveStatusCheckContextsResponseValidator =
     responseValidationFactory(
       [
@@ -62818,7 +62451,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposRemoveStatusCheckContextsBodySchema,
+          s_ReposRemoveStatusCheckContextsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -63045,9 +62678,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     branch: z.string(),
   })
 
-  const reposAddAppAccessRestrictionsBodySchema =
-    s_ReposAddAppAccessRestrictionsRequestBody
-
   const reposAddAppAccessRestrictionsResponseValidator =
     responseValidationFactory(
       [
@@ -63069,7 +62699,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposAddAppAccessRestrictionsBodySchema,
+          s_ReposAddAppAccessRestrictionsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -63114,9 +62744,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     branch: z.string(),
   })
 
-  const reposSetAppAccessRestrictionsBodySchema =
-    s_ReposSetAppAccessRestrictionsRequestBody
-
   const reposSetAppAccessRestrictionsResponseValidator =
     responseValidationFactory(
       [
@@ -63138,7 +62765,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposSetAppAccessRestrictionsBodySchema,
+          s_ReposSetAppAccessRestrictionsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -63183,9 +62810,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     branch: z.string(),
   })
 
-  const reposRemoveAppAccessRestrictionsBodySchema =
-    s_ReposRemoveAppAccessRestrictionsRequestBody
-
   const reposRemoveAppAccessRestrictionsResponseValidator =
     responseValidationFactory(
       [
@@ -63207,7 +62831,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposRemoveAppAccessRestrictionsBodySchema,
+          s_ReposRemoveAppAccessRestrictionsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -63317,9 +62941,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     branch: z.string(),
   })
 
-  const reposAddTeamAccessRestrictionsBodySchema =
-    s_ReposAddTeamAccessRestrictionsRequestBody.optional()
-
   const reposAddTeamAccessRestrictionsResponseValidator =
     responseValidationFactory(
       [
@@ -63341,7 +62962,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposAddTeamAccessRestrictionsBodySchema,
+          s_ReposAddTeamAccessRestrictionsRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -63386,9 +63007,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     branch: z.string(),
   })
 
-  const reposSetTeamAccessRestrictionsBodySchema =
-    s_ReposSetTeamAccessRestrictionsRequestBody.optional()
-
   const reposSetTeamAccessRestrictionsResponseValidator =
     responseValidationFactory(
       [
@@ -63410,7 +63028,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposSetTeamAccessRestrictionsBodySchema,
+          s_ReposSetTeamAccessRestrictionsRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -63455,9 +63073,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     branch: z.string(),
   })
 
-  const reposRemoveTeamAccessRestrictionsBodySchema =
-    s_ReposRemoveTeamAccessRestrictionsRequestBody
-
   const reposRemoveTeamAccessRestrictionsResponseValidator =
     responseValidationFactory(
       [
@@ -63479,7 +63094,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposRemoveTeamAccessRestrictionsBodySchema,
+          s_ReposRemoveTeamAccessRestrictionsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -63592,9 +63207,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     branch: z.string(),
   })
 
-  const reposAddUserAccessRestrictionsBodySchema =
-    s_ReposAddUserAccessRestrictionsRequestBody
-
   const reposAddUserAccessRestrictionsResponseValidator =
     responseValidationFactory(
       [
@@ -63616,7 +63228,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposAddUserAccessRestrictionsBodySchema,
+          s_ReposAddUserAccessRestrictionsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -63661,9 +63273,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     branch: z.string(),
   })
 
-  const reposSetUserAccessRestrictionsBodySchema =
-    s_ReposSetUserAccessRestrictionsRequestBody
-
   const reposSetUserAccessRestrictionsResponseValidator =
     responseValidationFactory(
       [
@@ -63685,7 +63294,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposSetUserAccessRestrictionsBodySchema,
+          s_ReposSetUserAccessRestrictionsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -63730,9 +63339,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     branch: z.string(),
   })
 
-  const reposRemoveUserAccessRestrictionsBodySchema =
-    s_ReposRemoveUserAccessRestrictionsRequestBody
-
   const reposRemoveUserAccessRestrictionsResponseValidator =
     responseValidationFactory(
       [
@@ -63754,7 +63360,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposRemoveUserAccessRestrictionsBodySchema,
+          s_ReposRemoveUserAccessRestrictionsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -63802,8 +63408,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     branch: z.string(),
   })
 
-  const reposRenameBranchBodySchema = s_ReposRenameBranchRequestBody
-
   const reposRenameBranchResponseValidator = responseValidationFactory(
     [
       ["201", s_branch_with_protection],
@@ -63826,7 +63430,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposRenameBranchBodySchema,
+          s_ReposRenameBranchRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -63876,8 +63480,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const checksCreateBodySchema = s_ChecksCreateRequestBody
-
   const checksCreateResponseValidator = responseValidationFactory(
     [["201", s_check_run]],
     undefined,
@@ -63895,7 +63497,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          checksCreateBodySchema,
+          s_ChecksCreateRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -63992,8 +63594,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     check_run_id: z.coerce.number(),
   })
 
-  const checksUpdateBodySchema = s_ChecksUpdateRequestBody
-
   const checksUpdateResponseValidator = responseValidationFactory(
     [["200", s_check_run]],
     undefined,
@@ -64011,7 +63611,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          checksUpdateBodySchema,
+          s_ChecksUpdateRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -64185,8 +63785,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const checksCreateSuiteBodySchema = s_ChecksCreateSuiteRequestBody
-
   const checksCreateSuiteResponseValidator = responseValidationFactory(
     [
       ["200", s_check_suite],
@@ -64207,7 +63805,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          checksCreateSuiteBodySchema,
+          s_ChecksCreateSuiteRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -64251,9 +63849,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const checksSetSuitesPreferencesBodySchema =
-    s_ChecksSetSuitesPreferencesRequestBody
-
   const checksSetSuitesPreferencesResponseValidator = responseValidationFactory(
     [["200", s_check_suite_preference]],
     undefined,
@@ -64271,7 +63866,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          checksSetSuitesPreferencesBodySchema,
+          s_ChecksSetSuitesPreferencesRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -64688,8 +64283,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     alert_number: s_alert_number,
   })
 
-  const codeScanningUpdateAlertBodySchema = s_CodeScanningUpdateAlertRequestBody
-
   const codeScanningUpdateAlertResponseValidator = responseValidationFactory(
     [
       ["200", s_code_scanning_alert],
@@ -64720,7 +64313,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          codeScanningUpdateAlertBodySchema,
+          s_CodeScanningUpdateAlertRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -64954,9 +64547,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     alert_number: s_alert_number,
   })
 
-  const codeScanningCommitAutofixBodySchema =
-    s_code_scanning_autofix_commits.optional()
-
   const codeScanningCommitAutofixResponseValidator = responseValidationFactory(
     [
       ["201", s_code_scanning_autofix_commits_response],
@@ -64988,7 +64578,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          codeScanningCommitAutofixBodySchema,
+          s_code_scanning_autofix_commits.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -65662,9 +65252,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const codeScanningCreateVariantAnalysisBodySchema =
-    s_CodeScanningCreateVariantAnalysisRequestBody
-
   const codeScanningCreateVariantAnalysisResponseValidator =
     responseValidationFactory(
       [
@@ -65695,7 +65282,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          codeScanningCreateVariantAnalysisBodySchema,
+          s_CodeScanningCreateVariantAnalysisRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -65993,9 +65580,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const codeScanningUpdateDefaultSetupBodySchema =
-    s_code_scanning_default_setup_update
-
   const codeScanningUpdateDefaultSetupResponseValidator =
     responseValidationFactory(
       [
@@ -66029,7 +65613,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          codeScanningUpdateDefaultSetupBodySchema,
+          s_code_scanning_default_setup_update,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -66094,8 +65678,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const codeScanningUploadSarifBodySchema = s_CodeScanningUploadSarifRequestBody
-
   const codeScanningUploadSarifResponseValidator = responseValidationFactory(
     [
       ["202", s_code_scanning_sarifs_receipt],
@@ -66127,7 +65709,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          codeScanningUploadSarifBodySchema,
+          s_CodeScanningUploadSarifRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -66513,9 +66095,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const codespacesCreateWithRepoForAuthenticatedUserBodySchema =
-    s_CodespacesCreateWithRepoForAuthenticatedUserRequestBody
-
   const codespacesCreateWithRepoForAuthenticatedUserResponseValidator =
     responseValidationFactory(
       [
@@ -66549,7 +66128,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          codespacesCreateWithRepoForAuthenticatedUserBodySchema,
+          s_CodespacesCreateWithRepoForAuthenticatedUserRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -67222,9 +66801,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     secret_name: z.string(),
   })
 
-  const codespacesCreateOrUpdateRepoSecretBodySchema =
-    s_CodespacesCreateOrUpdateRepoSecretRequestBody
-
   const codespacesCreateOrUpdateRepoSecretResponseValidator =
     responseValidationFactory(
       [
@@ -67246,7 +66822,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          codespacesCreateOrUpdateRepoSecretBodySchema,
+          s_CodespacesCreateOrUpdateRepoSecretRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -67483,9 +67059,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     username: z.string(),
   })
 
-  const reposAddCollaboratorBodySchema =
-    s_ReposAddCollaboratorRequestBody.optional()
-
   const reposAddCollaboratorResponseValidator = responseValidationFactory(
     [
       ["201", s_repository_invitation],
@@ -67508,7 +67081,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposAddCollaboratorBodySchema,
+          s_ReposAddCollaboratorRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -67813,9 +67386,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     comment_id: z.coerce.number(),
   })
 
-  const reposUpdateCommitCommentBodySchema =
-    s_ReposUpdateCommitCommentRequestBody
-
   const reposUpdateCommitCommentResponseValidator = responseValidationFactory(
     [
       ["200", s_commit_comment],
@@ -67836,7 +67406,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposUpdateCommitCommentBodySchema,
+          s_ReposUpdateCommitCommentRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -68025,9 +67595,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     comment_id: z.coerce.number(),
   })
 
-  const reactionsCreateForCommitCommentBodySchema =
-    s_ReactionsCreateForCommitCommentRequestBody
-
   const reactionsCreateForCommitCommentResponseValidator =
     responseValidationFactory(
       [
@@ -68050,7 +67617,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reactionsCreateForCommitCommentBodySchema,
+          s_ReactionsCreateForCommitCommentRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -68369,9 +67936,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     commit_sha: z.string(),
   })
 
-  const reposCreateCommitCommentBodySchema =
-    s_ReposCreateCommitCommentRequestBody
-
   const reposCreateCommitCommentResponseValidator = responseValidationFactory(
     [
       ["201", s_commit_comment],
@@ -68393,7 +67957,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposCreateCommitCommentBodySchema,
+          s_ReposCreateCommitCommentRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -69143,9 +68707,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     path: z.string(),
   })
 
-  const reposCreateOrUpdateFileContentsBodySchema =
-    s_ReposCreateOrUpdateFileContentsRequestBody
-
   const reposCreateOrUpdateFileContentsResponseValidator =
     responseValidationFactory(
       [
@@ -69170,7 +68731,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposCreateOrUpdateFileContentsBodySchema,
+          s_ReposCreateOrUpdateFileContentsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -69226,8 +68787,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     path: z.string(),
   })
 
-  const reposDeleteFileBodySchema = s_ReposDeleteFileRequestBody
-
   const reposDeleteFileResponseValidator = responseValidationFactory(
     [
       ["200", s_file_commit],
@@ -69258,7 +68817,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposDeleteFileBodySchema,
+          s_ReposDeleteFileRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -69566,8 +69125,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     alert_number: s_alert_number,
   })
 
-  const dependabotUpdateAlertBodySchema = s_DependabotUpdateAlertRequestBody
-
   const dependabotUpdateAlertResponseValidator = responseValidationFactory(
     [
       ["200", s_dependabot_alert],
@@ -69592,7 +69149,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          dependabotUpdateAlertBodySchema,
+          s_DependabotUpdateAlertRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -69832,9 +69389,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     secret_name: z.string(),
   })
 
-  const dependabotCreateOrUpdateRepoSecretBodySchema =
-    s_DependabotCreateOrUpdateRepoSecretRequestBody
-
   const dependabotCreateOrUpdateRepoSecretResponseValidator =
     responseValidationFactory(
       [
@@ -69856,7 +69410,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          dependabotCreateOrUpdateRepoSecretBodySchema,
+          s_DependabotCreateOrUpdateRepoSecretRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -70095,8 +69649,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const dependencyGraphCreateRepositorySnapshotBodySchema = s_snapshot
-
   const dependencyGraphCreateRepositorySnapshotResponseValidator =
     responseValidationFactory(
       [
@@ -70125,7 +69677,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          dependencyGraphCreateRepositorySnapshotBodySchema,
+          s_snapshot,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -70241,8 +69793,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const reposCreateDeploymentBodySchema = s_ReposCreateDeploymentRequestBody
-
   const reposCreateDeploymentResponseValidator = responseValidationFactory(
     [
       ["201", s_deployment],
@@ -70265,7 +69815,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposCreateDeploymentBodySchema,
+          s_ReposCreateDeploymentRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -70515,9 +70065,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     deployment_id: z.coerce.number(),
   })
 
-  const reposCreateDeploymentStatusBodySchema =
-    s_ReposCreateDeploymentStatusRequestBody
-
   const reposCreateDeploymentStatusResponseValidator =
     responseValidationFactory(
       [
@@ -70539,7 +70086,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposCreateDeploymentStatusBodySchema,
+          s_ReposCreateDeploymentStatusRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -70645,9 +70192,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const reposCreateDispatchEventBodySchema =
-    s_ReposCreateDispatchEventRequestBody
-
   const reposCreateDispatchEventResponseValidator = responseValidationFactory(
     [
       ["204", z.undefined()],
@@ -70669,7 +70213,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposCreateDispatchEventBodySchema,
+          s_ReposCreateDispatchEventRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -70846,9 +70390,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     environment_name: z.string(),
   })
 
-  const reposCreateOrUpdateEnvironmentBodySchema =
-    s_ReposCreateOrUpdateEnvironmentRequestBody.optional()
-
   const reposCreateOrUpdateEnvironmentResponseValidator =
     responseValidationFactory(
       [
@@ -70870,7 +70411,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposCreateOrUpdateEnvironmentBodySchema,
+          s_ReposCreateOrUpdateEnvironmentRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -71049,9 +70590,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     environment_name: z.string(),
   })
 
-  const reposCreateDeploymentBranchPolicyBodySchema =
-    s_deployment_branch_policy_name_pattern_with_type
-
   const reposCreateDeploymentBranchPolicyResponseValidator =
     responseValidationFactory(
       [
@@ -71074,7 +70612,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposCreateDeploymentBranchPolicyBodySchema,
+          s_deployment_branch_policy_name_pattern_with_type,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -71180,9 +70718,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     branch_policy_id: z.coerce.number(),
   })
 
-  const reposUpdateDeploymentBranchPolicyBodySchema =
-    s_deployment_branch_policy_name_pattern
-
   const reposUpdateDeploymentBranchPolicyResponseValidator =
     responseValidationFactory([["200", s_deployment_branch_policy]], undefined)
 
@@ -71198,7 +70733,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposUpdateDeploymentBranchPolicyBodySchema,
+          s_deployment_branch_policy_name_pattern,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -71372,9 +70907,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     owner: z.string(),
   })
 
-  const reposCreateDeploymentProtectionRuleBodySchema =
-    s_ReposCreateDeploymentProtectionRuleRequestBody
-
   const reposCreateDeploymentProtectionRuleResponseValidator =
     responseValidationFactory(
       [["201", s_deployment_protection_rule]],
@@ -71393,7 +70925,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposCreateDeploymentProtectionRuleBodySchema,
+          s_ReposCreateDeploymentProtectionRuleRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -71820,9 +71352,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     secret_name: z.string(),
   })
 
-  const actionsCreateOrUpdateEnvironmentSecretBodySchema =
-    s_ActionsCreateOrUpdateEnvironmentSecretRequestBody
-
   const actionsCreateOrUpdateEnvironmentSecretResponseValidator =
     responseValidationFactory(
       [
@@ -71844,7 +71373,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          actionsCreateOrUpdateEnvironmentSecretBodySchema,
+          s_ActionsCreateOrUpdateEnvironmentSecretRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -72022,9 +71551,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     environment_name: z.string(),
   })
 
-  const actionsCreateEnvironmentVariableBodySchema =
-    s_ActionsCreateEnvironmentVariableRequestBody
-
   const actionsCreateEnvironmentVariableResponseValidator =
     responseValidationFactory([["201", s_empty_object]], undefined)
 
@@ -72040,7 +71566,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          actionsCreateEnvironmentVariableBodySchema,
+          s_ActionsCreateEnvironmentVariableRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -72137,9 +71663,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     environment_name: z.string(),
   })
 
-  const actionsUpdateEnvironmentVariableBodySchema =
-    s_ActionsUpdateEnvironmentVariableRequestBody
-
   const actionsUpdateEnvironmentVariableResponseValidator =
     responseValidationFactory([["204", z.undefined()]], undefined)
 
@@ -72155,7 +71678,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          actionsUpdateEnvironmentVariableBodySchema,
+          s_ActionsUpdateEnvironmentVariableRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -72386,8 +71909,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const reposCreateForkBodySchema = s_ReposCreateForkRequestBody.optional()
-
   const reposCreateForkResponseValidator = responseValidationFactory(
     [
       ["202", s_full_repository],
@@ -72411,7 +71932,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposCreateForkBodySchema,
+          s_ReposCreateForkRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -72464,8 +71985,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const gitCreateBlobBodySchema = s_GitCreateBlobRequestBody
-
   const gitCreateBlobResponseValidator = responseValidationFactory(
     [
       ["201", s_short_blob],
@@ -72489,7 +72008,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          gitCreateBlobBodySchema,
+          s_GitCreateBlobRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -72617,8 +72136,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const gitCreateCommitBodySchema = s_GitCreateCommitRequestBody
-
   const gitCreateCommitResponseValidator = responseValidationFactory(
     [
       ["201", s_git_commit],
@@ -72641,7 +72158,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          gitCreateCommitBodySchema,
+          s_GitCreateCommitRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -72882,8 +72399,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const gitCreateRefBodySchema = s_GitCreateRefRequestBody
-
   const gitCreateRefResponseValidator = responseValidationFactory(
     [
       ["201", s_git_ref],
@@ -72905,7 +72420,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          gitCreateRefBodySchema,
+          s_GitCreateRefRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -72953,8 +72468,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ref: z.string(),
   })
 
-  const gitUpdateRefBodySchema = s_GitUpdateRefRequestBody
-
   const gitUpdateRefResponseValidator = responseValidationFactory(
     [
       ["200", s_git_ref],
@@ -72976,7 +72489,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          gitUpdateRefBodySchema,
+          s_GitUpdateRefRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -73088,8 +72601,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const gitCreateTagBodySchema = s_GitCreateTagRequestBody
-
   const gitCreateTagResponseValidator = responseValidationFactory(
     [
       ["201", s_git_tag],
@@ -73111,7 +72622,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          gitCreateTagBodySchema,
+          s_GitCreateTagRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -73223,8 +72734,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const gitCreateTreeBodySchema = s_GitCreateTreeRequestBody
-
   const gitCreateTreeResponseValidator = responseValidationFactory(
     [
       ["201", s_git_tree],
@@ -73248,7 +72757,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          gitCreateTreeBodySchema,
+          s_GitCreateTreeRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -73445,9 +72954,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const reposCreateWebhookBodySchema =
-    s_ReposCreateWebhookRequestBody.optional()
-
   const reposCreateWebhookResponseValidator = responseValidationFactory(
     [
       ["201", s_hook],
@@ -73470,7 +72976,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposCreateWebhookBodySchema,
+          s_ReposCreateWebhookRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -73582,8 +73088,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     hook_id: z.coerce.number(),
   })
 
-  const reposUpdateWebhookBodySchema = s_ReposUpdateWebhookRequestBody
-
   const reposUpdateWebhookResponseValidator = responseValidationFactory(
     [
       ["200", s_hook],
@@ -73605,7 +73109,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposUpdateWebhookBodySchema,
+          s_ReposUpdateWebhookRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -73767,9 +73271,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     hook_id: z.coerce.number(),
   })
 
-  const reposUpdateWebhookConfigForRepoBodySchema =
-    s_ReposUpdateWebhookConfigForRepoRequestBody.optional()
-
   const reposUpdateWebhookConfigForRepoResponseValidator =
     responseValidationFactory([["200", s_webhook_config]], undefined)
 
@@ -73785,7 +73286,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposUpdateWebhookConfigForRepoBodySchema,
+          s_ReposUpdateWebhookConfigForRepoRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -74221,8 +73722,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const migrationsStartImportBodySchema = s_MigrationsStartImportRequestBody
-
   const migrationsStartImportResponseValidator = responseValidationFactory(
     [
       ["201", s_import],
@@ -74245,7 +73744,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          migrationsStartImportBodySchema,
+          s_MigrationsStartImportRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -74295,9 +73794,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const migrationsUpdateImportBodySchema =
-    s_MigrationsUpdateImportRequestBody.optional()
-
   const migrationsUpdateImportResponseValidator = responseValidationFactory(
     [
       ["200", s_import],
@@ -74318,7 +73814,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          migrationsUpdateImportBodySchema,
+          s_MigrationsUpdateImportRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -74495,9 +73991,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     author_id: z.coerce.number(),
   })
 
-  const migrationsMapCommitAuthorBodySchema =
-    s_MigrationsMapCommitAuthorRequestBody.optional()
-
   const migrationsMapCommitAuthorResponseValidator = responseValidationFactory(
     [
       ["200", s_porter_author],
@@ -74520,7 +74013,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          migrationsMapCommitAuthorBodySchema,
+          s_MigrationsMapCommitAuthorRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -74630,9 +74123,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const migrationsSetLfsPreferenceBodySchema =
-    s_MigrationsSetLfsPreferenceRequestBody
-
   const migrationsSetLfsPreferenceResponseValidator = responseValidationFactory(
     [
       ["200", s_import],
@@ -74654,7 +74144,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          migrationsSetLfsPreferenceBodySchema,
+          s_MigrationsSetLfsPreferenceRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -74825,8 +74315,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const interactionsSetRestrictionsForRepoBodySchema = s_interaction_limit
-
   const interactionsSetRestrictionsForRepoResponseValidator =
     responseValidationFactory(
       [
@@ -74848,7 +74336,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          interactionsSetRestrictionsForRepoBodySchema,
+          s_interaction_limit,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -75023,9 +74511,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     invitation_id: z.coerce.number(),
   })
 
-  const reposUpdateInvitationBodySchema =
-    s_ReposUpdateInvitationRequestBody.optional()
-
   const reposUpdateInvitationResponseValidator = responseValidationFactory(
     [["200", s_repository_invitation]],
     undefined,
@@ -75043,7 +74528,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposUpdateInvitationBodySchema,
+          s_ReposUpdateInvitationRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -75229,8 +74714,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const issuesCreateBodySchema = s_IssuesCreateRequestBody
-
   const issuesCreateResponseValidator = responseValidationFactory(
     [
       ["201", s_issue],
@@ -75263,7 +74746,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          issuesCreateBodySchema,
+          s_IssuesCreateRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -75464,8 +74947,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     comment_id: z.coerce.number(),
   })
 
-  const issuesUpdateCommentBodySchema = s_IssuesUpdateCommentRequestBody
-
   const issuesUpdateCommentResponseValidator = responseValidationFactory(
     [
       ["200", s_issue_comment],
@@ -75486,7 +74967,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          issuesUpdateCommentBodySchema,
+          s_IssuesUpdateCommentRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -75669,9 +75150,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     comment_id: z.coerce.number(),
   })
 
-  const reactionsCreateForIssueCommentBodySchema =
-    s_ReactionsCreateForIssueCommentRequestBody
-
   const reactionsCreateForIssueCommentResponseValidator =
     responseValidationFactory(
       [
@@ -75694,7 +75172,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reactionsCreateForIssueCommentBodySchema,
+          s_ReactionsCreateForIssueCommentRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -76007,8 +75485,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     issue_number: z.coerce.number(),
   })
 
-  const issuesUpdateBodySchema = s_IssuesUpdateRequestBody.optional()
-
   const issuesUpdateResponseValidator = responseValidationFactory(
     [
       ["200", s_issue],
@@ -76041,7 +75517,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          issuesUpdateBodySchema,
+          s_IssuesUpdateRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -76105,9 +75581,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     issue_number: z.coerce.number(),
   })
 
-  const issuesAddAssigneesBodySchema =
-    s_IssuesAddAssigneesRequestBody.optional()
-
   const issuesAddAssigneesResponseValidator = responseValidationFactory(
     [["201", s_issue]],
     undefined,
@@ -76125,7 +75598,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          issuesAddAssigneesBodySchema,
+          s_IssuesAddAssigneesRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -76167,8 +75640,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     issue_number: z.coerce.number(),
   })
 
-  const issuesRemoveAssigneesBodySchema = s_IssuesRemoveAssigneesRequestBody
-
   const issuesRemoveAssigneesResponseValidator = responseValidationFactory(
     [["200", s_issue]],
     undefined,
@@ -76186,7 +75657,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          issuesRemoveAssigneesBodySchema,
+          s_IssuesRemoveAssigneesRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -76369,8 +75840,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     issue_number: z.coerce.number(),
   })
 
-  const issuesCreateCommentBodySchema = s_IssuesCreateCommentRequestBody
-
   const issuesCreateCommentResponseValidator = responseValidationFactory(
     [
       ["201", s_issue_comment],
@@ -76394,7 +75863,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          issuesCreateCommentBodySchema,
+          s_IssuesCreateCommentRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -76596,8 +76065,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     issue_number: z.coerce.number(),
   })
 
-  const issuesAddLabelsBodySchema = s_IssuesAddLabelsRequestBody.optional()
-
   const issuesAddLabelsResponseValidator = responseValidationFactory(
     [
       ["200", z.array(s_label)],
@@ -76621,7 +76088,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          issuesAddLabelsBodySchema,
+          s_IssuesAddLabelsRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -76675,8 +76142,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     issue_number: z.coerce.number(),
   })
 
-  const issuesSetLabelsBodySchema = s_IssuesSetLabelsRequestBody.optional()
-
   const issuesSetLabelsResponseValidator = responseValidationFactory(
     [
       ["200", z.array(s_label)],
@@ -76700,7 +76165,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          issuesSetLabelsBodySchema,
+          s_IssuesSetLabelsRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -76893,8 +76358,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     issue_number: z.coerce.number(),
   })
 
-  const issuesLockBodySchema = s_IssuesLockRequestBody.optional()
-
   const issuesLockResponseValidator = responseValidationFactory(
     [
       ["204", z.undefined()],
@@ -76918,7 +76381,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          issuesLockBodySchema,
+          s_IssuesLockRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -77123,8 +76586,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     issue_number: z.coerce.number(),
   })
 
-  const reactionsCreateForIssueBodySchema = s_ReactionsCreateForIssueRequestBody
-
   const reactionsCreateForIssueResponseValidator = responseValidationFactory(
     [
       ["200", s_reaction],
@@ -77146,7 +76607,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reactionsCreateForIssueBodySchema,
+          s_ReactionsCreateForIssueRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -77250,8 +76711,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     issue_number: z.coerce.number(),
   })
 
-  const issuesRemoveSubIssueBodySchema = s_IssuesRemoveSubIssueRequestBody
-
   const issuesRemoveSubIssueResponseValidator = responseValidationFactory(
     [
       ["200", s_issue],
@@ -77273,7 +76732,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          issuesRemoveSubIssueBodySchema,
+          s_IssuesRemoveSubIssueRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -77395,8 +76854,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     issue_number: z.coerce.number(),
   })
 
-  const issuesAddSubIssueBodySchema = s_IssuesAddSubIssueRequestBody
-
   const issuesAddSubIssueResponseValidator = responseValidationFactory(
     [
       ["201", s_issue],
@@ -77420,7 +76877,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          issuesAddSubIssueBodySchema,
+          s_IssuesAddSubIssueRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -77474,9 +76931,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     issue_number: z.coerce.number(),
   })
 
-  const issuesReprioritizeSubIssueBodySchema =
-    s_IssuesReprioritizeSubIssueRequestBody
-
   const issuesReprioritizeSubIssueResponseValidator = responseValidationFactory(
     [
       ["200", s_issue],
@@ -77507,7 +76961,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          issuesReprioritizeSubIssueBodySchema,
+          s_IssuesReprioritizeSubIssueRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -77702,8 +77156,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const reposCreateDeployKeyBodySchema = s_ReposCreateDeployKeyRequestBody
-
   const reposCreateDeployKeyResponseValidator = responseValidationFactory(
     [
       ["201", s_deploy_key],
@@ -77724,7 +77176,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposCreateDeployKeyBodySchema,
+          s_ReposCreateDeployKeyRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -77953,8 +77405,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const issuesCreateLabelBodySchema = s_IssuesCreateLabelRequestBody
-
   const issuesCreateLabelResponseValidator = responseValidationFactory(
     [
       ["201", s_label],
@@ -77976,7 +77426,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          issuesCreateLabelBodySchema,
+          s_IssuesCreateLabelRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -78085,8 +77535,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     name: z.string(),
   })
 
-  const issuesUpdateLabelBodySchema = s_IssuesUpdateLabelRequestBody.optional()
-
   const issuesUpdateLabelResponseValidator = responseValidationFactory(
     [["200", s_label]],
     undefined,
@@ -78104,7 +77552,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          issuesUpdateLabelBodySchema,
+          s_IssuesUpdateLabelRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -78322,8 +77770,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const reposMergeUpstreamBodySchema = s_ReposMergeUpstreamRequestBody
-
   const reposMergeUpstreamResponseValidator = responseValidationFactory(
     [
       ["200", s_merged_upstream],
@@ -78345,7 +77791,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposMergeUpstreamBodySchema,
+          s_ReposMergeUpstreamRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -78389,8 +77835,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const reposMergeParamSchema = z.object({owner: z.string(), repo: z.string()})
 
-  const reposMergeBodySchema = s_ReposMergeRequestBody
-
   const reposMergeResponseValidator = responseValidationFactory(
     [
       ["201", s_commit],
@@ -78412,7 +77856,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       query: undefined,
       body: parseRequestInput(
-        reposMergeBodySchema,
+        s_ReposMergeRequestBody,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -78539,8 +77983,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const issuesCreateMilestoneBodySchema = s_IssuesCreateMilestoneRequestBody
-
   const issuesCreateMilestoneResponseValidator = responseValidationFactory(
     [
       ["201", s_milestone],
@@ -78562,7 +78004,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          issuesCreateMilestoneBodySchema,
+          s_IssuesCreateMilestoneRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -78671,9 +78113,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     milestone_number: z.coerce.number(),
   })
 
-  const issuesUpdateMilestoneBodySchema =
-    s_IssuesUpdateMilestoneRequestBody.optional()
-
   const issuesUpdateMilestoneResponseValidator = responseValidationFactory(
     [["200", s_milestone]],
     undefined,
@@ -78691,7 +78130,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          issuesUpdateMilestoneBodySchema,
+          s_IssuesUpdateMilestoneRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -78930,9 +78369,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const activityMarkRepoNotificationsAsReadBodySchema =
-    s_ActivityMarkRepoNotificationsAsReadRequestBody.optional()
-
   const activityMarkRepoNotificationsAsReadResponseValidator =
     responseValidationFactory(
       [
@@ -78960,7 +78396,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          activityMarkRepoNotificationsAsReadBodySchema,
+          s_ActivityMarkRepoNotificationsAsReadRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -79070,8 +78506,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const reposCreatePagesSiteBodySchema = s_ReposCreatePagesSiteRequestBody
-
   const reposCreatePagesSiteResponseValidator = responseValidationFactory(
     [
       ["201", s_page],
@@ -79093,7 +78527,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposCreatePagesSiteBodySchema,
+          s_ReposCreatePagesSiteRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -79140,9 +78574,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const reposUpdateInformationAboutPagesSiteBodySchema =
-    s_ReposUpdateInformationAboutPagesSiteRequestBody
-
   const reposUpdateInformationAboutPagesSiteResponseValidator =
     responseValidationFactory(
       [
@@ -79166,7 +78597,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposUpdateInformationAboutPagesSiteBodySchema,
+          s_ReposUpdateInformationAboutPagesSiteRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -79513,9 +78944,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const reposCreatePagesDeploymentBodySchema =
-    s_ReposCreatePagesDeploymentRequestBody
-
   const reposCreatePagesDeploymentResponseValidator = responseValidationFactory(
     [
       ["200", s_page_deployment],
@@ -79538,7 +78966,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposCreatePagesDeploymentBodySchema,
+          s_ReposCreatePagesDeploymentRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -80062,9 +79490,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const projectsClassicCreateForRepoBodySchema =
-    s_ProjectsClassicCreateForRepoRequestBody
-
   const projectsClassicCreateForRepoResponseValidator =
     responseValidationFactory(
       [
@@ -80090,7 +79515,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          projectsClassicCreateForRepoBodySchema,
+          s_ProjectsClassicCreateForRepoRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -80211,9 +79636,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const reposCreateOrUpdateCustomPropertiesValuesBodySchema =
-    s_ReposCreateOrUpdateCustomPropertiesValuesRequestBody
-
   const reposCreateOrUpdateCustomPropertiesValuesResponseValidator =
     responseValidationFactory(
       [
@@ -80237,7 +79659,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposCreateOrUpdateCustomPropertiesValuesBodySchema,
+          s_ReposCreateOrUpdateCustomPropertiesValuesRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -80361,8 +79783,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const pullsCreateParamSchema = z.object({owner: z.string(), repo: z.string()})
 
-  const pullsCreateBodySchema = s_PullsCreateRequestBody
-
   const pullsCreateResponseValidator = responseValidationFactory(
     [
       ["201", s_pull_request],
@@ -80381,7 +79801,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       query: undefined,
       body: parseRequestInput(
-        pullsCreateBodySchema,
+        s_PullsCreateRequestBody,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -80556,9 +79976,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     comment_id: z.coerce.number(),
   })
 
-  const pullsUpdateReviewCommentBodySchema =
-    s_PullsUpdateReviewCommentRequestBody
-
   const pullsUpdateReviewCommentResponseValidator = responseValidationFactory(
     [["200", s_pull_request_review_comment]],
     undefined,
@@ -80576,7 +79993,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          pullsUpdateReviewCommentBodySchema,
+          s_PullsUpdateReviewCommentRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -80765,9 +80182,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     comment_id: z.coerce.number(),
   })
 
-  const reactionsCreateForPullRequestReviewCommentBodySchema =
-    s_ReactionsCreateForPullRequestReviewCommentRequestBody
-
   const reactionsCreateForPullRequestReviewCommentResponseValidator =
     responseValidationFactory(
       [
@@ -80790,7 +80204,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reactionsCreateForPullRequestReviewCommentBodySchema,
+          s_ReactionsCreateForPullRequestReviewCommentRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -80986,8 +80400,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     pull_number: z.coerce.number(),
   })
 
-  const pullsUpdateBodySchema = s_PullsUpdateRequestBody.optional()
-
   const pullsUpdateResponseValidator = responseValidationFactory(
     [
       ["200", s_pull_request],
@@ -81009,7 +80421,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          pullsUpdateBodySchema,
+          s_PullsUpdateRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -81057,9 +80469,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     pull_number: z.coerce.number(),
   })
 
-  const codespacesCreateWithPrForAuthenticatedUserBodySchema =
-    s_CodespacesCreateWithPrForAuthenticatedUserRequestBody
-
   const codespacesCreateWithPrForAuthenticatedUserResponseValidator =
     responseValidationFactory(
       [
@@ -81092,7 +80501,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          codespacesCreateWithPrForAuthenticatedUserBodySchema,
+          s_CodespacesCreateWithPrForAuthenticatedUserRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -81223,9 +80632,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     pull_number: z.coerce.number(),
   })
 
-  const pullsCreateReviewCommentBodySchema =
-    s_PullsCreateReviewCommentRequestBody
-
   const pullsCreateReviewCommentResponseValidator = responseValidationFactory(
     [
       ["201", s_pull_request_review_comment],
@@ -81247,7 +80653,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          pullsCreateReviewCommentBodySchema,
+          s_PullsCreateReviewCommentRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -81296,9 +80702,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     comment_id: z.coerce.number(),
   })
 
-  const pullsCreateReplyForReviewCommentBodySchema =
-    s_PullsCreateReplyForReviewCommentRequestBody
-
   const pullsCreateReplyForReviewCommentResponseValidator =
     responseValidationFactory(
       [
@@ -81320,7 +80723,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          pullsCreateReplyForReviewCommentBodySchema,
+          s_PullsCreateReplyForReviewCommentRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -81579,8 +80982,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     pull_number: z.coerce.number(),
   })
 
-  const pullsMergeBodySchema = s_PullsMergeRequestBody.optional()
-
   const pullsMergeResponseValidator = responseValidationFactory(
     [
       ["200", s_pull_request_merge_result],
@@ -81617,7 +81018,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          pullsMergeBodySchema,
+          s_PullsMergeRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -81736,9 +81137,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     pull_number: z.coerce.number(),
   })
 
-  const pullsRequestReviewersBodySchema =
-    s_PullsRequestReviewersRequestBody.optional()
-
   const pullsRequestReviewersResponseValidator = responseValidationFactory(
     [
       ["201", s_pull_request_simple],
@@ -81760,7 +81158,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          pullsRequestReviewersBodySchema,
+          s_PullsRequestReviewersRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -81808,9 +81206,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     pull_number: z.coerce.number(),
   })
 
-  const pullsRemoveRequestedReviewersBodySchema =
-    s_PullsRemoveRequestedReviewersRequestBody
-
   const pullsRemoveRequestedReviewersResponseValidator =
     responseValidationFactory(
       [
@@ -81832,7 +81227,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          pullsRemoveRequestedReviewersBodySchema,
+          s_PullsRemoveRequestedReviewersRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -81941,8 +81336,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     pull_number: z.coerce.number(),
   })
 
-  const pullsCreateReviewBodySchema = s_PullsCreateReviewRequestBody.optional()
-
   const pullsCreateReviewResponseValidator = responseValidationFactory(
     [
       ["200", s_pull_request_review],
@@ -81964,7 +81357,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          pullsCreateReviewBodySchema,
+          s_PullsCreateReviewRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -82075,8 +81468,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     review_id: z.coerce.number(),
   })
 
-  const pullsUpdateReviewBodySchema = s_PullsUpdateReviewRequestBody
-
   const pullsUpdateReviewResponseValidator = responseValidationFactory(
     [
       ["200", s_pull_request_review],
@@ -82097,7 +81488,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          pullsUpdateReviewBodySchema,
+          s_PullsUpdateReviewRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -82280,8 +81671,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     review_id: z.coerce.number(),
   })
 
-  const pullsDismissReviewBodySchema = s_PullsDismissReviewRequestBody
-
   const pullsDismissReviewResponseValidator = responseValidationFactory(
     [
       ["200", s_pull_request_review],
@@ -82303,7 +81692,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          pullsDismissReviewBodySchema,
+          s_PullsDismissReviewRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -82352,8 +81741,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     review_id: z.coerce.number(),
   })
 
-  const pullsSubmitReviewBodySchema = s_PullsSubmitReviewRequestBody
-
   const pullsSubmitReviewResponseValidator = responseValidationFactory(
     [
       ["200", s_pull_request_review],
@@ -82376,7 +81763,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          pullsSubmitReviewBodySchema,
+          s_PullsSubmitReviewRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -82427,8 +81814,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     pull_number: z.coerce.number(),
   })
 
-  const pullsUpdateBranchBodySchema = s_PullsUpdateBranchRequestBody.optional()
-
   const pullsUpdateBranchResponseValidator = responseValidationFactory(
     [
       [
@@ -82453,7 +81838,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          pullsUpdateBranchBodySchema,
+          s_PullsUpdateBranchRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -82719,8 +82104,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const reposCreateReleaseBodySchema = s_ReposCreateReleaseRequestBody
-
   const reposCreateReleaseResponseValidator = responseValidationFactory(
     [
       ["201", s_release],
@@ -82742,7 +82125,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposCreateReleaseBodySchema,
+          s_ReposCreateReleaseRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -82855,9 +82238,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     asset_id: z.coerce.number(),
   })
 
-  const reposUpdateReleaseAssetBodySchema =
-    s_ReposUpdateReleaseAssetRequestBody.optional()
-
   const reposUpdateReleaseAssetResponseValidator = responseValidationFactory(
     [["200", s_release_asset]],
     undefined,
@@ -82875,7 +82255,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposUpdateReleaseAssetBodySchema,
+          s_ReposUpdateReleaseAssetRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -82971,9 +82351,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const reposGenerateReleaseNotesBodySchema =
-    s_ReposGenerateReleaseNotesRequestBody
-
   const reposGenerateReleaseNotesResponseValidator = responseValidationFactory(
     [
       ["200", s_release_notes_content],
@@ -82994,7 +82371,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposGenerateReleaseNotesBodySchema,
+          s_ReposGenerateReleaseNotesRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -83215,9 +82592,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     release_id: z.coerce.number(),
   })
 
-  const reposUpdateReleaseBodySchema =
-    s_ReposUpdateReleaseRequestBody.optional()
-
   const reposUpdateReleaseResponseValidator = responseValidationFactory(
     [
       ["200", s_release],
@@ -83238,7 +82612,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposUpdateReleaseBodySchema,
+          s_ReposUpdateReleaseRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -83407,10 +82781,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     label: z.string().optional(),
   })
 
-  // todo: request bodies with content-type 'application/octet-stream' not yet supported
-
-  const reposUploadReleaseAssetBodySchema = z.never().optional()
-
   const reposUploadReleaseAssetResponseValidator = responseValidationFactory(
     [
       ["201", s_release_asset],
@@ -83434,8 +82804,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
           ctx.query,
           RequestInputType.QueryString,
         ),
+        // todo: request bodies with content-type 'application/octet-stream' not yet supported
         body: parseRequestInput(
-          reposUploadReleaseAssetBodySchema,
+          z.never().optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ) as never,
@@ -83553,9 +82924,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     release_id: z.coerce.number(),
   })
 
-  const reactionsCreateForReleaseBodySchema =
-    s_ReactionsCreateForReleaseRequestBody
-
   const reactionsCreateForReleaseResponseValidator = responseValidationFactory(
     [
       ["200", s_reaction],
@@ -83577,7 +82945,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reactionsCreateForReleaseBodySchema,
+          s_ReactionsCreateForReleaseRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -83819,8 +83187,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const reposCreateRepoRulesetBodySchema = s_ReposCreateRepoRulesetRequestBody
-
   const reposCreateRepoRulesetResponseValidator = responseValidationFactory(
     [
       ["201", s_repository_ruleset],
@@ -83842,7 +83208,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposCreateRepoRulesetBodySchema,
+          s_ReposCreateRepoRulesetRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -84111,9 +83477,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ruleset_id: z.coerce.number(),
   })
 
-  const reposUpdateRepoRulesetBodySchema =
-    s_ReposUpdateRepoRulesetRequestBody.optional()
-
   const reposUpdateRepoRulesetResponseValidator = responseValidationFactory(
     [
       ["200", s_repository_ruleset],
@@ -84135,7 +83498,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposUpdateRepoRulesetBodySchema,
+          s_ReposUpdateRepoRulesetRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -84572,9 +83935,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     alert_number: s_alert_number,
   })
 
-  const secretScanningUpdateAlertBodySchema =
-    s_SecretScanningUpdateAlertRequestBody
-
   const secretScanningUpdateAlertResponseValidator = responseValidationFactory(
     [
       ["200", s_secret_scanning_alert],
@@ -84605,7 +83965,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          secretScanningUpdateAlertBodySchema,
+          s_SecretScanningUpdateAlertRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -84751,9 +84111,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const secretScanningCreatePushProtectionBypassBodySchema =
-    s_SecretScanningCreatePushProtectionBypassRequestBody
-
   const secretScanningCreatePushProtectionBypassResponseValidator =
     responseValidationFactory(
       [
@@ -84785,7 +84142,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          secretScanningCreatePushProtectionBypassBodySchema,
+          s_SecretScanningCreatePushProtectionBypassRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -85007,9 +84364,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const securityAdvisoriesCreateRepositoryAdvisoryBodySchema =
-    s_repository_advisory_create
-
   const securityAdvisoriesCreateRepositoryAdvisoryResponseValidator =
     responseValidationFactory(
       [
@@ -85033,7 +84387,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          securityAdvisoriesCreateRepositoryAdvisoryBodySchema,
+          s_repository_advisory_create,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -85084,9 +84438,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const securityAdvisoriesCreatePrivateVulnerabilityReportParamSchema =
     z.object({owner: z.string(), repo: z.string()})
 
-  const securityAdvisoriesCreatePrivateVulnerabilityReportBodySchema =
-    s_private_vulnerability_report_create
-
   const securityAdvisoriesCreatePrivateVulnerabilityReportResponseValidator =
     responseValidationFactory(
       [
@@ -85110,7 +84461,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          securityAdvisoriesCreatePrivateVulnerabilityReportBodySchema,
+          s_private_vulnerability_report_create,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -85239,9 +84590,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ghsa_id: z.string(),
   })
 
-  const securityAdvisoriesUpdateRepositoryAdvisoryBodySchema =
-    s_repository_advisory_update
-
   const securityAdvisoriesUpdateRepositoryAdvisoryResponseValidator =
     responseValidationFactory(
       [
@@ -85265,7 +84613,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          securityAdvisoriesUpdateRepositoryAdvisoryBodySchema,
+          s_repository_advisory_update,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -85868,8 +85216,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     sha: z.string(),
   })
 
-  const reposCreateCommitStatusBodySchema = s_ReposCreateCommitStatusRequestBody
-
   const reposCreateCommitStatusResponseValidator = responseValidationFactory(
     [["201", s_status]],
     undefined,
@@ -85887,7 +85233,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposCreateCommitStatusBodySchema,
+          s_ReposCreateCommitStatusRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -86054,9 +85400,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const activitySetRepoSubscriptionBodySchema =
-    s_ActivitySetRepoSubscriptionRequestBody.optional()
-
   const activitySetRepoSubscriptionResponseValidator =
     responseValidationFactory([["200", s_repository_subscription]], undefined)
 
@@ -86072,7 +85415,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          activitySetRepoSubscriptionBodySchema,
+          s_ActivitySetRepoSubscriptionRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -86288,9 +85631,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const reposCreateTagProtectionBodySchema =
-    s_ReposCreateTagProtectionRequestBody
-
   const reposCreateTagProtectionResponseValidator = responseValidationFactory(
     [
       ["201", s_tag_protection],
@@ -86312,7 +85652,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposCreateTagProtectionBodySchema,
+          s_ReposCreateTagProtectionRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -86615,8 +85955,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const reposReplaceAllTopicsBodySchema = s_ReposReplaceAllTopicsRequestBody
-
   const reposReplaceAllTopicsResponseValidator = responseValidationFactory(
     [
       ["200", s_topic],
@@ -86638,7 +85976,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposReplaceAllTopicsBodySchema,
+          s_ReposReplaceAllTopicsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -86941,8 +86279,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const reposTransferBodySchema = s_ReposTransferRequestBody
-
   const reposTransferResponseValidator = responseValidationFactory(
     [["202", s_minimal_repository]],
     undefined,
@@ -86960,7 +86296,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposTransferBodySchema,
+          s_ReposTransferRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -87219,9 +86555,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     template_repo: z.string(),
   })
 
-  const reposCreateUsingTemplateBodySchema =
-    s_ReposCreateUsingTemplateRequestBody
-
   const reposCreateUsingTemplateResponseValidator = responseValidationFactory(
     [["201", s_full_repository]],
     undefined,
@@ -87239,7 +86572,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reposCreateUsingTemplateBodySchema,
+          s_ReposCreateUsingTemplateRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -87996,8 +87329,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const teamsUpdateLegacyParamSchema = z.object({team_id: z.coerce.number()})
 
-  const teamsUpdateLegacyBodySchema = s_TeamsUpdateLegacyRequestBody
-
   const teamsUpdateLegacyResponseValidator = responseValidationFactory(
     [
       ["200", s_team_full],
@@ -88018,7 +87349,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       query: undefined,
       body: parseRequestInput(
-        teamsUpdateLegacyBodySchema,
+        s_TeamsUpdateLegacyRequestBody,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -88189,9 +87520,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     team_id: z.coerce.number(),
   })
 
-  const teamsCreateDiscussionLegacyBodySchema =
-    s_TeamsCreateDiscussionLegacyRequestBody
-
   const teamsCreateDiscussionLegacyResponseValidator =
     responseValidationFactory([["201", s_team_discussion]], undefined)
 
@@ -88207,7 +87535,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          teamsCreateDiscussionLegacyBodySchema,
+          s_TeamsCreateDiscussionLegacyRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -88302,9 +87630,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     discussion_number: z.coerce.number(),
   })
 
-  const teamsUpdateDiscussionLegacyBodySchema =
-    s_TeamsUpdateDiscussionLegacyRequestBody.optional()
-
   const teamsUpdateDiscussionLegacyResponseValidator =
     responseValidationFactory([["200", s_team_discussion]], undefined)
 
@@ -88320,7 +87645,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          teamsUpdateDiscussionLegacyBodySchema,
+          s_TeamsUpdateDiscussionLegacyRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -88481,9 +87806,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     discussion_number: z.coerce.number(),
   })
 
-  const teamsCreateDiscussionCommentLegacyBodySchema =
-    s_TeamsCreateDiscussionCommentLegacyRequestBody
-
   const teamsCreateDiscussionCommentLegacyResponseValidator =
     responseValidationFactory([["201", s_team_discussion_comment]], undefined)
 
@@ -88499,7 +87821,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          teamsCreateDiscussionCommentLegacyBodySchema,
+          s_TeamsCreateDiscussionCommentLegacyRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -88597,9 +87919,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     comment_number: z.coerce.number(),
   })
 
-  const teamsUpdateDiscussionCommentLegacyBodySchema =
-    s_TeamsUpdateDiscussionCommentLegacyRequestBody
-
   const teamsUpdateDiscussionCommentLegacyResponseValidator =
     responseValidationFactory([["200", s_team_discussion_comment]], undefined)
 
@@ -88615,7 +87934,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          teamsUpdateDiscussionCommentLegacyBodySchema,
+          s_TeamsUpdateDiscussionCommentLegacyRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -88798,9 +88117,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     comment_number: z.coerce.number(),
   })
 
-  const reactionsCreateForTeamDiscussionCommentLegacyBodySchema =
-    s_ReactionsCreateForTeamDiscussionCommentLegacyRequestBody
-
   const reactionsCreateForTeamDiscussionCommentLegacyResponseValidator =
     responseValidationFactory([["201", s_reaction]], undefined)
 
@@ -88816,7 +88132,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reactionsCreateForTeamDiscussionCommentLegacyBodySchema,
+          s_ReactionsCreateForTeamDiscussionCommentLegacyRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -88941,9 +88257,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     discussion_number: z.coerce.number(),
   })
 
-  const reactionsCreateForTeamDiscussionLegacyBodySchema =
-    s_ReactionsCreateForTeamDiscussionLegacyRequestBody
-
   const reactionsCreateForTeamDiscussionLegacyResponseValidator =
     responseValidationFactory([["201", s_reaction]], undefined)
 
@@ -88959,7 +88272,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          reactionsCreateForTeamDiscussionLegacyBodySchema,
+          s_ReactionsCreateForTeamDiscussionLegacyRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -89387,9 +88700,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     username: z.string(),
   })
 
-  const teamsAddOrUpdateMembershipForUserLegacyBodySchema =
-    s_TeamsAddOrUpdateMembershipForUserLegacyRequestBody.optional()
-
   const teamsAddOrUpdateMembershipForUserLegacyResponseValidator =
     responseValidationFactory(
       [
@@ -89413,7 +88723,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          teamsAddOrUpdateMembershipForUserLegacyBodySchema,
+          s_TeamsAddOrUpdateMembershipForUserLegacyRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -89662,9 +88972,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     project_id: z.coerce.number(),
   })
 
-  const teamsAddOrUpdateProjectPermissionsLegacyBodySchema =
-    s_TeamsAddOrUpdateProjectPermissionsLegacyRequestBody.optional()
-
   const teamsAddOrUpdateProjectPermissionsLegacyResponseValidator =
     responseValidationFactory(
       [
@@ -89694,7 +89001,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          teamsAddOrUpdateProjectPermissionsLegacyBodySchema,
+          s_TeamsAddOrUpdateProjectPermissionsLegacyRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -89950,9 +89257,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     repo: z.string(),
   })
 
-  const teamsAddOrUpdateRepoPermissionsLegacyBodySchema =
-    s_TeamsAddOrUpdateRepoPermissionsLegacyRequestBody.optional()
-
   const teamsAddOrUpdateRepoPermissionsLegacyResponseValidator =
     responseValidationFactory(
       [
@@ -89975,7 +89279,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          teamsAddOrUpdateRepoPermissionsLegacyBodySchema,
+          s_TeamsAddOrUpdateRepoPermissionsLegacyRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -90204,9 +89508,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const usersUpdateAuthenticatedBodySchema =
-    s_UsersUpdateAuthenticatedRequestBody.optional()
-
   const usersUpdateAuthenticatedResponseValidator = responseValidationFactory(
     [
       ["200", s_private_user],
@@ -90224,7 +89525,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: undefined,
       body: parseRequestInput(
-        usersUpdateAuthenticatedBodySchema,
+        s_UsersUpdateAuthenticatedRequestBody.optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -90643,9 +89944,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const codespacesCreateForAuthenticatedUserBodySchema =
-    s_CodespacesCreateForAuthenticatedUserRequestBody
-
   const codespacesCreateForAuthenticatedUserResponseValidator =
     responseValidationFactory(
       [
@@ -90674,7 +89972,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          codespacesCreateForAuthenticatedUserBodySchema,
+          s_CodespacesCreateForAuthenticatedUserRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -90907,9 +90205,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const codespacesCreateOrUpdateSecretForAuthenticatedUserParamSchema =
     z.object({secret_name: z.string()})
 
-  const codespacesCreateOrUpdateSecretForAuthenticatedUserBodySchema =
-    s_CodespacesCreateOrUpdateSecretForAuthenticatedUserRequestBody
-
   const codespacesCreateOrUpdateSecretForAuthenticatedUserResponseValidator =
     responseValidationFactory(
       [
@@ -90933,7 +90228,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          codespacesCreateOrUpdateSecretForAuthenticatedUserBodySchema,
+          s_CodespacesCreateOrUpdateSecretForAuthenticatedUserRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -91133,9 +90428,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const codespacesSetRepositoriesForSecretForAuthenticatedUserParamSchema =
     z.object({secret_name: z.string()})
 
-  const codespacesSetRepositoriesForSecretForAuthenticatedUserBodySchema =
-    s_CodespacesSetRepositoriesForSecretForAuthenticatedUserRequestBody
-
   const codespacesSetRepositoriesForSecretForAuthenticatedUserResponseValidator =
     responseValidationFactory(
       [
@@ -91160,7 +90452,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          codespacesSetRepositoriesForSecretForAuthenticatedUserBodySchema,
+          s_CodespacesSetRepositoriesForSecretForAuthenticatedUserRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -91460,9 +90752,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     codespace_name: z.string(),
   })
 
-  const codespacesUpdateForAuthenticatedUserBodySchema =
-    s_CodespacesUpdateForAuthenticatedUserRequestBody.optional()
-
   const codespacesUpdateForAuthenticatedUserResponseValidator =
     responseValidationFactory(
       [
@@ -91486,7 +90775,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          codespacesUpdateForAuthenticatedUserBodySchema,
+          s_CodespacesUpdateForAuthenticatedUserRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -91862,9 +91151,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     codespace_name: z.string(),
   })
 
-  const codespacesPublishForAuthenticatedUserBodySchema =
-    s_CodespacesPublishForAuthenticatedUserRequestBody
-
   const codespacesPublishForAuthenticatedUserResponseValidator =
     responseValidationFactory(
       [
@@ -91889,7 +91175,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          codespacesPublishForAuthenticatedUserBodySchema,
+          s_CodespacesPublishForAuthenticatedUserRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -92158,9 +91444,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const usersSetPrimaryEmailVisibilityForAuthenticatedUserBodySchema =
-    s_UsersSetPrimaryEmailVisibilityForAuthenticatedUserRequestBody
-
   const usersSetPrimaryEmailVisibilityForAuthenticatedUserResponseValidator =
     responseValidationFactory(
       [
@@ -92182,7 +91465,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          usersSetPrimaryEmailVisibilityForAuthenticatedUserBodySchema,
+          s_UsersSetPrimaryEmailVisibilityForAuthenticatedUserRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -92318,9 +91601,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const usersAddEmailForAuthenticatedUserBodySchema =
-    s_UsersAddEmailForAuthenticatedUserRequestBody.optional()
-
   const usersAddEmailForAuthenticatedUserResponseValidator =
     responseValidationFactory(
       [
@@ -92342,7 +91622,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          usersAddEmailForAuthenticatedUserBodySchema,
+          s_UsersAddEmailForAuthenticatedUserRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -92396,9 +91676,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const usersDeleteEmailForAuthenticatedUserBodySchema =
-    s_UsersDeleteEmailForAuthenticatedUserRequestBody
-
   const usersDeleteEmailForAuthenticatedUserResponseValidator =
     responseValidationFactory(
       [
@@ -92420,7 +91697,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          usersDeleteEmailForAuthenticatedUserBodySchema,
+          s_UsersDeleteEmailForAuthenticatedUserRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -92907,9 +92184,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const usersCreateGpgKeyForAuthenticatedUserBodySchema =
-    s_UsersCreateGpgKeyForAuthenticatedUserRequestBody
-
   const usersCreateGpgKeyForAuthenticatedUserResponseValidator =
     responseValidationFactory(
       [
@@ -92931,7 +92205,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          usersCreateGpgKeyForAuthenticatedUserBodySchema,
+          s_UsersCreateGpgKeyForAuthenticatedUserRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -93539,9 +92813,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const interactionsSetRestrictionsForAuthenticatedUserBodySchema =
-    s_interaction_limit
-
   const interactionsSetRestrictionsForAuthenticatedUserResponseValidator =
     responseValidationFactory(
       [
@@ -93559,7 +92830,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          interactionsSetRestrictionsForAuthenticatedUserBodySchema,
+          s_interaction_limit,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -93812,9 +93083,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const usersCreatePublicSshKeyForAuthenticatedUserBodySchema =
-    s_UsersCreatePublicSshKeyForAuthenticatedUserRequestBody
-
   const usersCreatePublicSshKeyForAuthenticatedUserResponseValidator =
     responseValidationFactory(
       [
@@ -93836,7 +93104,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          usersCreatePublicSshKeyForAuthenticatedUserBodySchema,
+          s_UsersCreatePublicSshKeyForAuthenticatedUserRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -94344,9 +93612,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     org: z.string(),
   })
 
-  const orgsUpdateMembershipForAuthenticatedUserBodySchema =
-    s_OrgsUpdateMembershipForAuthenticatedUserRequestBody
-
   const orgsUpdateMembershipForAuthenticatedUserResponseValidator =
     responseValidationFactory(
       [
@@ -94370,7 +93635,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          orgsUpdateMembershipForAuthenticatedUserBodySchema,
+          s_OrgsUpdateMembershipForAuthenticatedUserRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -94490,9 +93755,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const migrationsStartForAuthenticatedUserBodySchema =
-    s_MigrationsStartForAuthenticatedUserRequestBody
-
   const migrationsStartForAuthenticatedUserResponseValidator =
     responseValidationFactory(
       [
@@ -94513,7 +93775,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          migrationsStartForAuthenticatedUserBodySchema,
+          s_MigrationsStartForAuthenticatedUserRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -95660,9 +94922,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const projectsClassicCreateForAuthenticatedUserBodySchema =
-    s_ProjectsClassicCreateForAuthenticatedUserRequestBody
-
   const projectsClassicCreateForAuthenticatedUserResponseValidator =
     responseValidationFactory(
       [
@@ -95683,7 +94942,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          projectsClassicCreateForAuthenticatedUserBodySchema,
+          s_ProjectsClassicCreateForAuthenticatedUserRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -95899,9 +95158,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const reposCreateForAuthenticatedUserBodySchema =
-    s_ReposCreateForAuthenticatedUserRequestBody
-
   const reposCreateForAuthenticatedUserResponseValidator =
     responseValidationFactory(
       [
@@ -95924,7 +95180,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          reposCreateForAuthenticatedUserBodySchema,
+          s_ReposCreateForAuthenticatedUserRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -96285,9 +95541,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const usersAddSocialAccountForAuthenticatedUserBodySchema =
-    s_UsersAddSocialAccountForAuthenticatedUserRequestBody
-
   const usersAddSocialAccountForAuthenticatedUserResponseValidator =
     responseValidationFactory(
       [
@@ -96309,7 +95562,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          usersAddSocialAccountForAuthenticatedUserBodySchema,
+          s_UsersAddSocialAccountForAuthenticatedUserRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -96363,9 +95616,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const usersDeleteSocialAccountForAuthenticatedUserBodySchema =
-    s_UsersDeleteSocialAccountForAuthenticatedUserRequestBody
-
   const usersDeleteSocialAccountForAuthenticatedUserResponseValidator =
     responseValidationFactory(
       [
@@ -96387,7 +95637,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          usersDeleteSocialAccountForAuthenticatedUserBodySchema,
+          s_UsersDeleteSocialAccountForAuthenticatedUserRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -96527,9 +95777,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const usersCreateSshSigningKeyForAuthenticatedUserBodySchema =
-    s_UsersCreateSshSigningKeyForAuthenticatedUserRequestBody
-
   const usersCreateSshSigningKeyForAuthenticatedUserResponseValidator =
     responseValidationFactory(
       [
@@ -96551,7 +95798,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          usersCreateSshSigningKeyForAuthenticatedUserBodySchema,
+          s_UsersCreateSshSigningKeyForAuthenticatedUserRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -97393,9 +96640,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     after: z.string().optional(),
   })
 
-  const usersListAttestationsBulkBodySchema =
-    s_UsersListAttestationsBulkRequestBody
-
   const usersListAttestationsBulkResponseValidator = responseValidationFactory(
     [
       [
@@ -97455,7 +96699,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          usersListAttestationsBulkBodySchema,
+          s_UsersListAttestationsBulkRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -97522,9 +96766,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     username: z.string(),
   })
 
-  const usersDeleteAttestationsBulkBodySchema =
-    s_UsersDeleteAttestationsBulkRequestBody
-
   const usersDeleteAttestationsBulkResponseValidator =
     responseValidationFactory(
       [
@@ -97546,7 +96787,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          usersDeleteAttestationsBulkBodySchema,
+          s_UsersDeleteAttestationsBulkRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),

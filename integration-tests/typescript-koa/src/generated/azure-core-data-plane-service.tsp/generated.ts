@@ -968,8 +968,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "x-ms-client-request-id": s_Azure_Core_uuid.optional(),
   })
 
-  const widgetsCreateOrUpdateWidgetBodySchema = s_WidgetCreateOrUpdate
-
   const widgetsCreateOrUpdateWidgetResponseValidator =
     responseValidationFactory(
       [
@@ -995,7 +993,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          widgetsCreateOrUpdateWidgetBodySchema,
+          s_WidgetCreateOrUpdate,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -1369,8 +1367,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "x-ms-client-request-id": s_Azure_Core_uuid.optional(),
   })
 
-  const widgetsUpdateAnalyticsBodySchema = s_WidgetAnalyticsCreateOrUpdate
-
   const widgetsUpdateAnalyticsResponseValidator = responseValidationFactory(
     [
       ["200", s_WidgetAnalytics],
@@ -1395,7 +1391,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          widgetsUpdateAnalyticsBodySchema,
+          s_WidgetAnalyticsCreateOrUpdate,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -1537,8 +1533,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "x-ms-client-request-id": s_Azure_Core_uuid.optional(),
   })
 
-  const widgetsScheduleRepairsBodySchema = s_WidgetRepairRequest
-
   const widgetsScheduleRepairsResponseValidator = responseValidationFactory(
     [
       [
@@ -1578,7 +1572,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          widgetsScheduleRepairsBodySchema,
+          s_WidgetRepairRequest,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -1739,8 +1733,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "x-ms-client-request-id": s_Azure_Core_uuid.optional(),
   })
 
-  const widgetPartsCreateWidgetPartBodySchema = s_WidgetPart
-
   const widgetPartsCreateWidgetPartResponseValidator =
     responseValidationFactory(
       [["201", z.undefined()]],
@@ -1763,7 +1755,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          widgetPartsCreateWidgetPartBodySchema,
+          s_WidgetPart,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -2055,8 +2047,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "x-ms-client-request-id": s_Azure_Core_uuid.optional(),
   })
 
-  const widgetPartsReorderPartsBodySchema = s_WidgetPartReorderRequest
-
   const widgetPartsReorderPartsResponseValidator = responseValidationFactory(
     [
       [
@@ -2087,7 +2077,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          widgetPartsReorderPartsBodySchema,
+          s_WidgetPartReorderRequest,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -2245,8 +2235,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "x-ms-client-request-id": s_Azure_Core_uuid.optional(),
   })
 
-  const manufacturersCreateOrReplaceManufacturerBodySchema = s_Manufacturer
-
   const manufacturersCreateOrReplaceManufacturerResponseValidator =
     responseValidationFactory(
       [
@@ -2272,7 +2260,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          manufacturersCreateOrReplaceManufacturerBodySchema,
+          s_Manufacturer,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),

@@ -1179,8 +1179,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const authorizeWithPostBodySchema = s_AuthorizeWithPost
-
   const authorizeWithPostResponseValidator = responseValidationFactory(
     [["429", s_Error]],
     undefined,
@@ -1194,7 +1192,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          authorizeWithPostBodySchema,
+          s_AuthorizeWithPost,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -1230,8 +1228,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const bcAuthorizeBodySchema = s_BackchannelAuthorizeRequest
-
   const bcAuthorizeResponseValidator = responseValidationFactory(
     [
       ["200", s_BackchannelAuthorizeResponse],
@@ -1247,7 +1243,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: undefined,
       body: parseRequestInput(
-        bcAuthorizeBodySchema,
+        s_BackchannelAuthorizeRequest,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -1291,8 +1287,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const challengeBodySchema = s_ChallengeRequest
-
   const challengeResponseValidator = responseValidationFactory(
     [
       ["200", s_ChallengeResponse],
@@ -1309,7 +1303,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: undefined,
       body: parseRequestInput(
-        challengeBodySchema,
+        s_ChallengeRequest,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -1417,8 +1411,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const createClientBodySchema = s_Client
-
   const createClientResponseValidator = responseValidationFactory(
     [
       ["201", s_Client],
@@ -1434,7 +1426,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: undefined,
       body: parseRequestInput(
-        createClientBodySchema,
+        s_Client,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -1541,8 +1533,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const replaceClientParamSchema = z.object({clientId: z.string()})
 
-  const replaceClientBodySchema = s_Client
-
   const replaceClientResponseValidator = responseValidationFactory(
     [
       ["200", s_Client],
@@ -1566,7 +1556,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          replaceClientBodySchema,
+          s_Client,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -1744,8 +1734,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const deviceAuthorizeBodySchema = s_DeviceAuthorizeRequest
-
   const deviceAuthorizeResponseValidator = responseValidationFactory(
     [
       ["200", s_DeviceAuthorizeResponse],
@@ -1764,7 +1752,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          deviceAuthorizeBodySchema,
+          s_DeviceAuthorizeRequest,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -1809,8 +1797,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const globalTokenRevocationBodySchema = s_GlobalTokenRevocationRequest
-
   const globalTokenRevocationResponseValidator = responseValidationFactory(
     [
       ["204", z.undefined()],
@@ -1829,7 +1815,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          globalTokenRevocationBodySchema,
+          s_GlobalTokenRevocationRequest,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -1874,8 +1860,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const introspectBodySchema = s_IntrospectionRequest
-
   const introspectResponseValidator = responseValidationFactory(
     [
       ["200", s_IntrospectionResponse],
@@ -1891,7 +1875,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: undefined,
       body: parseRequestInput(
-        introspectBodySchema,
+        s_IntrospectionRequest,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -2045,8 +2029,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const logoutWithPostBodySchema = s_LogoutWithPost
-
   const logoutWithPostResponseValidator = responseValidationFactory(
     [
       ["200", z.undefined()],
@@ -2060,7 +2042,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: undefined,
       body: parseRequestInput(
-        logoutWithPostBodySchema,
+        s_LogoutWithPost,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -2098,8 +2080,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const oobAuthenticateBodySchema = s_OobAuthenticateRequest
-
   const oobAuthenticateResponseValidator = responseValidationFactory(
     [
       ["200", s_OobAuthenticateResponse],
@@ -2119,7 +2099,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          oobAuthenticateBodySchema,
+          s_OobAuthenticateRequest,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -2220,8 +2200,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const parBodySchema = s_ParRequest
-
   const parResponseValidator = responseValidationFactory(
     [
       ["200", s_ParResponse],
@@ -2238,7 +2216,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: undefined,
       body: parseRequestInput(
-        parBodySchema,
+        s_ParRequest,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -2285,8 +2263,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const revokeBodySchema = s_RevokeRequest
-
   const revokeResponseValidator = responseValidationFactory(
     [
       ["200", z.undefined()],
@@ -2302,7 +2278,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: undefined,
       body: parseRequestInput(
-        revokeBodySchema,
+        s_RevokeRequest,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -2399,8 +2375,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const tokenBodySchema = s_TokenRequest
-
   const tokenResponseValidator = responseValidationFactory(
     [
       ["200", s_TokenResponse],
@@ -2416,7 +2390,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: undefined,
       body: parseRequestInput(
-        tokenBodySchema,
+        s_TokenRequest,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -2749,8 +2723,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     authorizationServerId: z.string(),
   })
 
-  const authorizeCustomAsWithPostBodySchema = s_AuthorizeWithPost
-
   const authorizeCustomAsWithPostResponseValidator = responseValidationFactory(
     [["429", s_Error]],
     undefined,
@@ -2768,7 +2740,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          authorizeCustomAsWithPostBodySchema,
+          s_AuthorizeWithPost,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -2808,8 +2780,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     authorizationServerId: z.string(),
   })
 
-  const bcAuthorizeCustomAsBodySchema = s_BackchannelAuthorizeRequest
-
   const bcAuthorizeCustomAsResponseValidator = responseValidationFactory(
     [
       ["200", s_BackchannelAuthorizeResponse],
@@ -2832,7 +2802,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          bcAuthorizeCustomAsBodySchema,
+          s_BackchannelAuthorizeRequest,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -2881,8 +2851,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     authorizationServerId: z.string(),
   })
 
-  const challengeCustomAsBodySchema = s_ChallengeRequest
-
   const challengeCustomAsResponseValidator = responseValidationFactory(
     [
       ["200", s_ChallengeResponse],
@@ -2906,7 +2874,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          challengeCustomAsBodySchema,
+          s_ChallengeRequest,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -2958,8 +2926,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     authorizationServerId: z.string(),
   })
 
-  const deviceAuthorizeCustomAsBodySchema = s_DeviceAuthorizeRequest
-
   const deviceAuthorizeCustomAsResponseValidator = responseValidationFactory(
     [
       ["200", s_DeviceAuthorizeResponse],
@@ -2982,7 +2948,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          deviceAuthorizeCustomAsBodySchema,
+          s_DeviceAuthorizeRequest,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -3031,8 +2997,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     authorizationServerId: z.string(),
   })
 
-  const introspectCustomAsBodySchema = s_IntrospectionRequest
-
   const introspectCustomAsResponseValidator = responseValidationFactory(
     [
       ["200", s_IntrospectionResponse],
@@ -3055,7 +3019,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          introspectCustomAsBodySchema,
+          s_IntrospectionRequest,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -3232,8 +3196,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     authorizationServerId: z.string(),
   })
 
-  const logoutCustomAsWithPostBodySchema = s_LogoutWithPost
-
   const logoutCustomAsWithPostResponseValidator = responseValidationFactory(
     [
       ["200", z.undefined()],
@@ -3254,7 +3216,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          logoutCustomAsWithPostBodySchema,
+          s_LogoutWithPost,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -3297,8 +3259,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     authorizationServerId: z.string(),
   })
 
-  const oobAuthenticateCustomAsBodySchema = s_OobAuthenticateRequest
-
   const oobAuthenticateCustomAsResponseValidator = responseValidationFactory(
     [
       ["200", s_OobAuthenticateResponse],
@@ -3322,7 +3282,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          oobAuthenticateCustomAsBodySchema,
+          s_OobAuthenticateRequest,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -3439,8 +3399,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const parCustomAsParamSchema = z.object({authorizationServerId: z.string()})
 
-  const parCustomAsBodySchema = s_ParRequest
-
   const parCustomAsResponseValidator = responseValidationFactory(
     [
       ["200", s_ParResponse],
@@ -3464,7 +3422,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          parCustomAsBodySchema,
+          s_ParRequest,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -3516,8 +3474,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     authorizationServerId: z.string(),
   })
 
-  const revokeCustomAsBodySchema = s_RevokeRequest
-
   const revokeCustomAsResponseValidator = responseValidationFactory(
     [
       ["200", z.undefined()],
@@ -3540,7 +3496,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          revokeCustomAsBodySchema,
+          s_RevokeRequest,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -3654,8 +3610,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const tokenCustomAsParamSchema = z.object({authorizationServerId: z.string()})
 
-  const tokenCustomAsBodySchema = s_TokenRequest
-
   const tokenCustomAsResponseValidator = responseValidationFactory(
     [
       ["200", s_TokenResponse],
@@ -3678,7 +3632,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          tokenCustomAsBodySchema,
+          s_TokenRequest,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),

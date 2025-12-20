@@ -411,8 +411,6 @@ export function createRouter(implementation: Implementation): Router {
     "api-version": z.string().min(1),
   })
 
-  const employeesCreateOrUpdateRequestBodySchema = s_Employee
-
   const employeesCreateOrUpdateResponseBodyValidator =
     responseValidationFactory(
       [
@@ -439,7 +437,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            employeesCreateOrUpdateRequestBodySchema,
+            s_Employee,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -506,8 +504,6 @@ export function createRouter(implementation: Implementation): Router {
     "api-version": z.string().min(1),
   })
 
-  const employeesUpdateRequestBodySchema = s_EmployeeUpdate
-
   const employeesUpdateResponseBodyValidator = responseValidationFactory(
     [["200", s_Employee]],
     s_Azure_ResourceManager_CommonTypes_ErrorResponse,
@@ -530,7 +526,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            employeesUpdateRequestBodySchema,
+            s_EmployeeUpdate,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -932,8 +928,6 @@ export function createRouter(implementation: Implementation): Router {
 
   const employeesMoveQuerySchema = z.object({"api-version": z.string().min(1)})
 
-  const employeesMoveRequestBodySchema = s_MoveRequest
-
   const employeesMoveResponseBodyValidator = responseValidationFactory(
     [["200", s_MoveResponse]],
     s_Azure_ResourceManager_CommonTypes_ErrorResponse,
@@ -956,7 +950,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            employeesMoveRequestBodySchema,
+            s_MoveRequest,
             req.body,
             RequestInputType.RequestBody,
           ),
