@@ -587,6 +587,7 @@ export class ParameterNormalizer {
         return {
           ...base,
           in: "path",
+          required: true,
           style,
           explode,
         } satisfies IRParameterPath
