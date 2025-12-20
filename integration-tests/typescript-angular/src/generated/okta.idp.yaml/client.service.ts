@@ -10,9 +10,9 @@ import type {
   t_AppAuthenticatorEnrollmentRequest,
   t_Authenticator,
   t_AuthenticatorEnrollment,
-  t_createEmailJsonRequestBody,
-  t_createPasswordJsonRequestBody,
-  t_createPhoneJsonRequestBody,
+  t_CreateEmailRequestBody,
+  t_CreatePasswordRequestBody,
+  t_CreatePhoneRequestBody,
   t_Email,
   t_Error,
   t_OktaApplication,
@@ -22,15 +22,15 @@ import type {
   t_Profile,
   t_PushNotificationChallenge,
   t_PushNotificationVerification,
-  t_replacePasswordJsonRequestBody,
-  t_replaceProfileJsonRequestBody,
+  t_ReplacePasswordRequestBody,
+  t_ReplaceProfileRequestBody,
   t_Schema,
-  t_sendEmailChallengeJsonRequestBody,
-  t_sendPhoneChallengeJsonRequestBody,
+  t_SendEmailChallengeRequestBody,
+  t_SendPhoneChallengeRequestBody,
   t_UpdateAppAuthenticatorEnrollmentRequest,
   t_UpdateAuthenticatorEnrollmentRequest,
-  t_verifyEmailOtpJsonRequestBody,
-  t_verifyPhoneChallengeJsonRequestBody,
+  t_VerifyEmailOtpRequestBody,
+  t_VerifyPhoneChallengeRequestBody,
   UnknownEnumStringValue,
 } from "./models"
 
@@ -417,7 +417,7 @@ export class MyAccountManagementService {
   }
 
   createEmail(p: {
-    requestBody: t_createEmailJsonRequestBody
+    requestBody: t_CreateEmailRequestBody
   }): Observable<
     | (HttpResponse<t_Email> & {status: 201})
     | (HttpResponse<t_Error> & {status: 400})
@@ -488,7 +488,7 @@ export class MyAccountManagementService {
 
   sendEmailChallenge(p: {
     id: string
-    requestBody: t_sendEmailChallengeJsonRequestBody
+    requestBody: t_SendEmailChallengeRequestBody
   }): Observable<
     | (HttpResponse<{
         _links: {
@@ -594,7 +594,7 @@ export class MyAccountManagementService {
   verifyEmailOtp(p: {
     id: string
     challengeId: string
-    requestBody: t_verifyEmailOtpJsonRequestBody
+    requestBody: t_VerifyEmailOtpRequestBody
   }): Observable<
     | (HttpResponse<void> & {status: 200})
     | (HttpResponse<t_Error> & {status: 401})
@@ -676,7 +676,7 @@ export class MyAccountManagementService {
   }
 
   createPassword(p: {
-    requestBody: t_createPasswordJsonRequestBody
+    requestBody: t_CreatePasswordRequestBody
   }): Observable<
     | (HttpResponse<t_PasswordResponse> & {status: 201})
     | (HttpResponse<t_Error> & {status: 400})
@@ -703,7 +703,7 @@ export class MyAccountManagementService {
   }
 
   replacePassword(p: {
-    requestBody: t_replacePasswordJsonRequestBody
+    requestBody: t_ReplacePasswordRequestBody
   }): Observable<
     | (HttpResponse<t_PasswordResponse> & {status: 201})
     | (HttpResponse<t_Error> & {status: 400})
@@ -767,7 +767,7 @@ export class MyAccountManagementService {
   }
 
   createPhone(p: {
-    requestBody: t_createPhoneJsonRequestBody
+    requestBody: t_CreatePhoneRequestBody
   }): Observable<
     | (HttpResponse<t_Phone> & {status: 201})
     | (HttpResponse<t_Error> & {status: 400})
@@ -840,7 +840,7 @@ export class MyAccountManagementService {
 
   sendPhoneChallenge(p: {
     id: string
-    requestBody: t_sendPhoneChallengeJsonRequestBody
+    requestBody: t_SendPhoneChallengeRequestBody
   }): Observable<
     | (HttpResponse<{
         _links?: {
@@ -879,7 +879,7 @@ export class MyAccountManagementService {
 
   verifyPhoneChallenge(p: {
     id: string
-    requestBody: t_verifyPhoneChallengeJsonRequestBody
+    requestBody: t_VerifyPhoneChallengeRequestBody
   }): Observable<
     | (HttpResponse<void> & {status: 204})
     | (HttpResponse<t_Error> & {status: 400})
@@ -926,7 +926,7 @@ export class MyAccountManagementService {
   }
 
   replaceProfile(p: {
-    requestBody: t_replaceProfileJsonRequestBody
+    requestBody: t_ReplaceProfileRequestBody
   }): Observable<
     | (HttpResponse<t_Profile> & {status: 200})
     | (HttpResponse<t_Error> & {status: 400})

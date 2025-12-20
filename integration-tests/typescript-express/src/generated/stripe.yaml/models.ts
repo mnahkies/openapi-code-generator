@@ -15689,20 +15689,18 @@ export type t_DeleteCustomersCustomerBankAccountsIdParamSchema = {
   id: string
 }
 
-export type t_deleteCustomersCustomerBankAccountsIdApplicationXWwwFormUrlencodedRequestBody =
-  {
-    expand?: string[] | undefined
-  }
+export type t_DeleteCustomersCustomerBankAccountsIdRequestBody = {
+  expand?: string[] | undefined
+}
 
 export type t_DeleteCustomersCustomerCardsIdParamSchema = {
   customer: string
   id: string
 }
 
-export type t_deleteCustomersCustomerCardsIdApplicationXWwwFormUrlencodedRequestBody =
-  {
-    expand?: string[] | undefined
-  }
+export type t_DeleteCustomersCustomerCardsIdRequestBody = {
+  expand?: string[] | undefined
+}
 
 export type t_DeleteCustomersCustomerDiscountParamSchema = {
   customer: string
@@ -15713,10 +15711,9 @@ export type t_DeleteCustomersCustomerSourcesIdParamSchema = {
   id: string
 }
 
-export type t_deleteCustomersCustomerSourcesIdApplicationXWwwFormUrlencodedRequestBody =
-  {
-    expand?: string[] | undefined
-  }
+export type t_DeleteCustomersCustomerSourcesIdRequestBody = {
+  expand?: string[] | undefined
+}
 
 export type t_DeleteCustomersCustomerSubscriptionsSubscriptionExposedIdParamSchema =
   {
@@ -15724,7 +15721,7 @@ export type t_DeleteCustomersCustomerSubscriptionsSubscriptionExposedIdParamSche
     subscription_exposed_id: string
   }
 
-export type t_deleteCustomersCustomerSubscriptionsSubscriptionExposedIdApplicationXWwwFormUrlencodedRequestBody =
+export type t_DeleteCustomersCustomerSubscriptionsSubscriptionExposedIdRequestBody =
   {
     expand?: string[] | undefined
     invoice_now?: boolean | undefined
@@ -15746,7 +15743,7 @@ export type t_DeleteEphemeralKeysKeyParamSchema = {
   key: string
 }
 
-export type t_deleteEphemeralKeysKeyApplicationXWwwFormUrlencodedRequestBody = {
+export type t_DeleteEphemeralKeysKeyRequestBody = {
   expand?: string[] | undefined
 }
 
@@ -15783,43 +15780,41 @@ export type t_DeleteSubscriptionItemsItemParamSchema = {
   item: string
 }
 
-export type t_deleteSubscriptionItemsItemApplicationXWwwFormUrlencodedRequestBody =
-  {
-    clear_usage?: boolean | undefined
-    proration_behavior?:
-      | ("always_invoice" | "create_prorations" | "none")
-      | undefined
-    proration_date?: number | undefined
-  }
+export type t_DeleteSubscriptionItemsItemRequestBody = {
+  clear_usage?: boolean | undefined
+  proration_behavior?:
+    | ("always_invoice" | "create_prorations" | "none")
+    | undefined
+  proration_date?: number | undefined
+}
 
 export type t_DeleteSubscriptionsSubscriptionExposedIdParamSchema = {
   subscription_exposed_id: string
 }
 
-export type t_deleteSubscriptionsSubscriptionExposedIdApplicationXWwwFormUrlencodedRequestBody =
-  {
-    cancellation_details?:
-      | {
-          comment?: (string | "") | undefined
-          feedback?:
-            | (
-                | ""
-                | "customer_service"
-                | "low_quality"
-                | "missing_features"
-                | "other"
-                | "switched_service"
-                | "too_complex"
-                | "too_expensive"
-                | "unused"
-              )
-            | undefined
-        }
-      | undefined
-    expand?: string[] | undefined
-    invoice_now?: boolean | undefined
-    prorate?: boolean | undefined
-  }
+export type t_DeleteSubscriptionsSubscriptionExposedIdRequestBody = {
+  cancellation_details?:
+    | {
+        comment?: (string | "") | undefined
+        feedback?:
+          | (
+              | ""
+              | "customer_service"
+              | "low_quality"
+              | "missing_features"
+              | "other"
+              | "switched_service"
+              | "too_complex"
+              | "too_expensive"
+              | "unused"
+            )
+          | undefined
+      }
+    | undefined
+  expand?: string[] | undefined
+  invoice_now?: boolean | undefined
+  prorate?: boolean | undefined
+}
 
 export type t_DeleteSubscriptionsSubscriptionExposedIdDiscountParamSchema = {
   subscription_exposed_id: string
@@ -19078,7 +19073,7 @@ export type t_GetWebhookEndpointsWebhookEndpointQuerySchema = {
   expand?: string[] | undefined
 }
 
-export type t_postAccountLinksApplicationXWwwFormUrlencodedRequestBody = {
+export type t_PostAccountLinksRequestBody = {
   account: string
   collect?: ("currently_due" | "eventually_due") | undefined
   collection_options?:
@@ -19093,7 +19088,7 @@ export type t_postAccountLinksApplicationXWwwFormUrlencodedRequestBody = {
   type: "account_onboarding" | "account_update"
 }
 
-export type t_postAccountSessionsApplicationXWwwFormUrlencodedRequestBody = {
+export type t_PostAccountSessionsRequestBody = {
   account: string
   components: {
     account_management?:
@@ -19298,7 +19293,7 @@ export type t_postAccountSessionsApplicationXWwwFormUrlencodedRequestBody = {
   expand?: string[] | undefined
 }
 
-export type t_postAccountsApplicationXWwwFormUrlencodedRequestBody = {
+export type t_PostAccountsRequestBody = {
   account_token?: string | undefined
   bank_account?:
     | (
@@ -20100,7 +20095,7 @@ export type t_PostAccountsAccountParamSchema = {
   account: string
 }
 
-export type t_postAccountsAccountApplicationXWwwFormUrlencodedRequestBody = {
+export type t_PostAccountsAccountRequestBody = {
   account_token?: string | undefined
   business_profile?:
     | {
@@ -20855,991 +20850,980 @@ export type t_PostAccountsAccountBankAccountsParamSchema = {
   account: string
 }
 
-export type t_postAccountsAccountBankAccountsApplicationXWwwFormUrlencodedRequestBody =
-  {
-    bank_account?:
-      | (
-          | {
-              account_holder_name?: string | undefined
-              account_holder_type?: ("company" | "individual") | undefined
-              account_number: string
-              account_type?:
-                | ("checking" | "futsu" | "savings" | "toza")
-                | undefined
-              country: string
-              currency?: string | undefined
-              documents?:
-                | {
-                    bank_account_ownership_verification?:
-                      | {
-                          files?: string[] | undefined
-                        }
-                      | undefined
-                  }
-                | undefined
-              object?: "bank_account" | undefined
-              routing_number?: string | undefined
-            }
-          | string
-        )
-      | undefined
-    default_for_currency?: boolean | undefined
-    expand?: string[] | undefined
-    external_account?: string | undefined
-    metadata?:
-      | {
-          [key: string]: string | undefined
-        }
-      | undefined
-  }
+export type t_PostAccountsAccountBankAccountsRequestBody = {
+  bank_account?:
+    | (
+        | {
+            account_holder_name?: string | undefined
+            account_holder_type?: ("company" | "individual") | undefined
+            account_number: string
+            account_type?:
+              | ("checking" | "futsu" | "savings" | "toza")
+              | undefined
+            country: string
+            currency?: string | undefined
+            documents?:
+              | {
+                  bank_account_ownership_verification?:
+                    | {
+                        files?: string[] | undefined
+                      }
+                    | undefined
+                }
+              | undefined
+            object?: "bank_account" | undefined
+            routing_number?: string | undefined
+          }
+        | string
+      )
+    | undefined
+  default_for_currency?: boolean | undefined
+  expand?: string[] | undefined
+  external_account?: string | undefined
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | undefined
+}
 
 export type t_PostAccountsAccountBankAccountsIdParamSchema = {
   account: string
   id: string
 }
 
-export type t_postAccountsAccountBankAccountsIdApplicationXWwwFormUrlencodedRequestBody =
-  {
-    account_holder_name?: string | undefined
-    account_holder_type?: ("" | "company" | "individual") | undefined
-    account_type?: ("checking" | "futsu" | "savings" | "toza") | undefined
-    address_city?: string | undefined
-    address_country?: string | undefined
-    address_line1?: string | undefined
-    address_line2?: string | undefined
-    address_state?: string | undefined
-    address_zip?: string | undefined
-    default_for_currency?: boolean | undefined
-    documents?:
-      | {
-          bank_account_ownership_verification?:
-            | {
-                files?: string[] | undefined
-              }
-            | undefined
-        }
-      | undefined
-    exp_month?: string | undefined
-    exp_year?: string | undefined
-    expand?: string[] | undefined
-    metadata?:
-      | (
+export type t_PostAccountsAccountBankAccountsIdRequestBody = {
+  account_holder_name?: string | undefined
+  account_holder_type?: ("" | "company" | "individual") | undefined
+  account_type?: ("checking" | "futsu" | "savings" | "toza") | undefined
+  address_city?: string | undefined
+  address_country?: string | undefined
+  address_line1?: string | undefined
+  address_line2?: string | undefined
+  address_state?: string | undefined
+  address_zip?: string | undefined
+  default_for_currency?: boolean | undefined
+  documents?:
+    | {
+        bank_account_ownership_verification?:
           | {
-              [key: string]: string | undefined
+              files?: string[] | undefined
             }
-          | ""
-        )
-      | undefined
-    name?: string | undefined
-  }
+          | undefined
+      }
+    | undefined
+  exp_month?: string | undefined
+  exp_year?: string | undefined
+  expand?: string[] | undefined
+  metadata?:
+    | (
+        | {
+            [key: string]: string | undefined
+          }
+        | ""
+      )
+    | undefined
+  name?: string | undefined
+}
 
 export type t_PostAccountsAccountCapabilitiesCapabilityParamSchema = {
   account: string
   capability: string
 }
 
-export type t_postAccountsAccountCapabilitiesCapabilityApplicationXWwwFormUrlencodedRequestBody =
-  {
-    expand?: string[] | undefined
-    requested?: boolean | undefined
-  }
+export type t_PostAccountsAccountCapabilitiesCapabilityRequestBody = {
+  expand?: string[] | undefined
+  requested?: boolean | undefined
+}
 
 export type t_PostAccountsAccountExternalAccountsParamSchema = {
   account: string
 }
 
-export type t_postAccountsAccountExternalAccountsApplicationXWwwFormUrlencodedRequestBody =
-  {
-    bank_account?:
-      | (
-          | {
-              account_holder_name?: string | undefined
-              account_holder_type?: ("company" | "individual") | undefined
-              account_number: string
-              account_type?:
-                | ("checking" | "futsu" | "savings" | "toza")
-                | undefined
-              country: string
-              currency?: string | undefined
-              documents?:
-                | {
-                    bank_account_ownership_verification?:
-                      | {
-                          files?: string[] | undefined
-                        }
-                      | undefined
-                  }
-                | undefined
-              object?: "bank_account" | undefined
-              routing_number?: string | undefined
-            }
-          | string
-        )
-      | undefined
-    default_for_currency?: boolean | undefined
-    expand?: string[] | undefined
-    external_account?: string | undefined
-    metadata?:
-      | {
-          [key: string]: string | undefined
-        }
-      | undefined
-  }
+export type t_PostAccountsAccountExternalAccountsRequestBody = {
+  bank_account?:
+    | (
+        | {
+            account_holder_name?: string | undefined
+            account_holder_type?: ("company" | "individual") | undefined
+            account_number: string
+            account_type?:
+              | ("checking" | "futsu" | "savings" | "toza")
+              | undefined
+            country: string
+            currency?: string | undefined
+            documents?:
+              | {
+                  bank_account_ownership_verification?:
+                    | {
+                        files?: string[] | undefined
+                      }
+                    | undefined
+                }
+              | undefined
+            object?: "bank_account" | undefined
+            routing_number?: string | undefined
+          }
+        | string
+      )
+    | undefined
+  default_for_currency?: boolean | undefined
+  expand?: string[] | undefined
+  external_account?: string | undefined
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | undefined
+}
 
 export type t_PostAccountsAccountExternalAccountsIdParamSchema = {
   account: string
   id: string
 }
 
-export type t_postAccountsAccountExternalAccountsIdApplicationXWwwFormUrlencodedRequestBody =
-  {
-    account_holder_name?: string | undefined
-    account_holder_type?: ("" | "company" | "individual") | undefined
-    account_type?: ("checking" | "futsu" | "savings" | "toza") | undefined
-    address_city?: string | undefined
-    address_country?: string | undefined
-    address_line1?: string | undefined
-    address_line2?: string | undefined
-    address_state?: string | undefined
-    address_zip?: string | undefined
-    default_for_currency?: boolean | undefined
-    documents?:
-      | {
-          bank_account_ownership_verification?:
-            | {
-                files?: string[] | undefined
-              }
-            | undefined
-        }
-      | undefined
-    exp_month?: string | undefined
-    exp_year?: string | undefined
-    expand?: string[] | undefined
-    metadata?:
-      | (
+export type t_PostAccountsAccountExternalAccountsIdRequestBody = {
+  account_holder_name?: string | undefined
+  account_holder_type?: ("" | "company" | "individual") | undefined
+  account_type?: ("checking" | "futsu" | "savings" | "toza") | undefined
+  address_city?: string | undefined
+  address_country?: string | undefined
+  address_line1?: string | undefined
+  address_line2?: string | undefined
+  address_state?: string | undefined
+  address_zip?: string | undefined
+  default_for_currency?: boolean | undefined
+  documents?:
+    | {
+        bank_account_ownership_verification?:
           | {
-              [key: string]: string | undefined
+              files?: string[] | undefined
             }
-          | ""
-        )
-      | undefined
-    name?: string | undefined
-  }
+          | undefined
+      }
+    | undefined
+  exp_month?: string | undefined
+  exp_year?: string | undefined
+  expand?: string[] | undefined
+  metadata?:
+    | (
+        | {
+            [key: string]: string | undefined
+          }
+        | ""
+      )
+    | undefined
+  name?: string | undefined
+}
 
 export type t_PostAccountsAccountLoginLinksParamSchema = {
   account: string
 }
 
-export type t_postAccountsAccountLoginLinksApplicationXWwwFormUrlencodedRequestBody =
-  {
-    expand?: string[] | undefined
-  }
+export type t_PostAccountsAccountLoginLinksRequestBody = {
+  expand?: string[] | undefined
+}
 
 export type t_PostAccountsAccountPeopleParamSchema = {
   account: string
 }
 
-export type t_postAccountsAccountPeopleApplicationXWwwFormUrlencodedRequestBody =
-  {
-    additional_tos_acceptances?:
-      | {
-          account?:
-            | {
-                date?: number | undefined
-                ip?: string | undefined
-                user_agent?: (string | "") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    address?:
-      | {
-          city?: string | undefined
-          country?: string | undefined
-          line1?: string | undefined
-          line2?: string | undefined
-          postal_code?: string | undefined
-          state?: string | undefined
-        }
-      | undefined
-    address_kana?:
-      | {
-          city?: string | undefined
-          country?: string | undefined
-          line1?: string | undefined
-          line2?: string | undefined
-          postal_code?: string | undefined
-          state?: string | undefined
-          town?: string | undefined
-        }
-      | undefined
-    address_kanji?:
-      | {
-          city?: string | undefined
-          country?: string | undefined
-          line1?: string | undefined
-          line2?: string | undefined
-          postal_code?: string | undefined
-          state?: string | undefined
-          town?: string | undefined
-        }
-      | undefined
-    dob?:
-      | (
+export type t_PostAccountsAccountPeopleRequestBody = {
+  additional_tos_acceptances?:
+    | {
+        account?:
           | {
-              day: number
-              month: number
-              year: number
+              date?: number | undefined
+              ip?: string | undefined
+              user_agent?: (string | "") | undefined
             }
-          | ""
-        )
-      | undefined
-    documents?:
-      | {
-          company_authorization?:
-            | {
-                files?: (string | "")[] | undefined
-              }
-            | undefined
-          passport?:
-            | {
-                files?: (string | "")[] | undefined
-              }
-            | undefined
-          visa?:
-            | {
-                files?: (string | "")[] | undefined
-              }
-            | undefined
-        }
-      | undefined
-    email?: string | undefined
-    expand?: string[] | undefined
-    first_name?: string | undefined
-    first_name_kana?: string | undefined
-    first_name_kanji?: string | undefined
-    full_name_aliases?: (string[] | "") | undefined
-    gender?: string | undefined
-    id_number?: string | undefined
-    id_number_secondary?: string | undefined
-    last_name?: string | undefined
-    last_name_kana?: string | undefined
-    last_name_kanji?: string | undefined
-    maiden_name?: string | undefined
-    metadata?:
-      | (
+          | undefined
+      }
+    | undefined
+  address?:
+    | {
+        city?: string | undefined
+        country?: string | undefined
+        line1?: string | undefined
+        line2?: string | undefined
+        postal_code?: string | undefined
+        state?: string | undefined
+      }
+    | undefined
+  address_kana?:
+    | {
+        city?: string | undefined
+        country?: string | undefined
+        line1?: string | undefined
+        line2?: string | undefined
+        postal_code?: string | undefined
+        state?: string | undefined
+        town?: string | undefined
+      }
+    | undefined
+  address_kanji?:
+    | {
+        city?: string | undefined
+        country?: string | undefined
+        line1?: string | undefined
+        line2?: string | undefined
+        postal_code?: string | undefined
+        state?: string | undefined
+        town?: string | undefined
+      }
+    | undefined
+  dob?:
+    | (
+        | {
+            day: number
+            month: number
+            year: number
+          }
+        | ""
+      )
+    | undefined
+  documents?:
+    | {
+        company_authorization?:
           | {
-              [key: string]: string | undefined
+              files?: (string | "")[] | undefined
             }
-          | ""
-        )
-      | undefined
-    nationality?: string | undefined
-    person_token?: string | undefined
-    phone?: string | undefined
-    political_exposure?: ("existing" | "none") | undefined
-    registered_address?:
-      | {
-          city?: string | undefined
-          country?: string | undefined
-          line1?: string | undefined
-          line2?: string | undefined
-          postal_code?: string | undefined
-          state?: string | undefined
-        }
-      | undefined
-    relationship?:
-      | {
-          authorizer?: boolean | undefined
-          director?: boolean | undefined
-          executive?: boolean | undefined
-          legal_guardian?: boolean | undefined
-          owner?: boolean | undefined
-          percent_ownership?: (number | "") | undefined
-          representative?: boolean | undefined
-          title?: string | undefined
-        }
-      | undefined
-    ssn_last_4?: string | undefined
-    us_cfpb_data?:
-      | {
-          ethnicity_details?:
-            | {
-                ethnicity?:
-                  | (
-                      | "cuban"
-                      | "hispanic_or_latino"
-                      | "mexican"
-                      | "not_hispanic_or_latino"
-                      | "other_hispanic_or_latino"
-                      | "prefer_not_to_answer"
-                      | "puerto_rican"
-                    )[]
-                  | undefined
-                ethnicity_other?: string | undefined
-              }
-            | undefined
-          race_details?:
-            | {
-                race?:
-                  | (
-                      | "african_american"
-                      | "american_indian_or_alaska_native"
-                      | "asian"
-                      | "asian_indian"
-                      | "black_or_african_american"
-                      | "chinese"
-                      | "ethiopian"
-                      | "filipino"
-                      | "guamanian_or_chamorro"
-                      | "haitian"
-                      | "jamaican"
-                      | "japanese"
-                      | "korean"
-                      | "native_hawaiian"
-                      | "native_hawaiian_or_other_pacific_islander"
-                      | "nigerian"
-                      | "other_asian"
-                      | "other_black_or_african_american"
-                      | "other_pacific_islander"
-                      | "prefer_not_to_answer"
-                      | "samoan"
-                      | "somali"
-                      | "vietnamese"
-                      | "white"
-                    )[]
-                  | undefined
-                race_other?: string | undefined
-              }
-            | undefined
-          self_identified_gender?: string | undefined
-        }
-      | undefined
-    verification?:
-      | {
-          additional_document?:
-            | {
-                back?: string | undefined
-                front?: string | undefined
-              }
-            | undefined
-          document?:
-            | {
-                back?: string | undefined
-                front?: string | undefined
-              }
-            | undefined
-        }
-      | undefined
-  }
+          | undefined
+        passport?:
+          | {
+              files?: (string | "")[] | undefined
+            }
+          | undefined
+        visa?:
+          | {
+              files?: (string | "")[] | undefined
+            }
+          | undefined
+      }
+    | undefined
+  email?: string | undefined
+  expand?: string[] | undefined
+  first_name?: string | undefined
+  first_name_kana?: string | undefined
+  first_name_kanji?: string | undefined
+  full_name_aliases?: (string[] | "") | undefined
+  gender?: string | undefined
+  id_number?: string | undefined
+  id_number_secondary?: string | undefined
+  last_name?: string | undefined
+  last_name_kana?: string | undefined
+  last_name_kanji?: string | undefined
+  maiden_name?: string | undefined
+  metadata?:
+    | (
+        | {
+            [key: string]: string | undefined
+          }
+        | ""
+      )
+    | undefined
+  nationality?: string | undefined
+  person_token?: string | undefined
+  phone?: string | undefined
+  political_exposure?: ("existing" | "none") | undefined
+  registered_address?:
+    | {
+        city?: string | undefined
+        country?: string | undefined
+        line1?: string | undefined
+        line2?: string | undefined
+        postal_code?: string | undefined
+        state?: string | undefined
+      }
+    | undefined
+  relationship?:
+    | {
+        authorizer?: boolean | undefined
+        director?: boolean | undefined
+        executive?: boolean | undefined
+        legal_guardian?: boolean | undefined
+        owner?: boolean | undefined
+        percent_ownership?: (number | "") | undefined
+        representative?: boolean | undefined
+        title?: string | undefined
+      }
+    | undefined
+  ssn_last_4?: string | undefined
+  us_cfpb_data?:
+    | {
+        ethnicity_details?:
+          | {
+              ethnicity?:
+                | (
+                    | "cuban"
+                    | "hispanic_or_latino"
+                    | "mexican"
+                    | "not_hispanic_or_latino"
+                    | "other_hispanic_or_latino"
+                    | "prefer_not_to_answer"
+                    | "puerto_rican"
+                  )[]
+                | undefined
+              ethnicity_other?: string | undefined
+            }
+          | undefined
+        race_details?:
+          | {
+              race?:
+                | (
+                    | "african_american"
+                    | "american_indian_or_alaska_native"
+                    | "asian"
+                    | "asian_indian"
+                    | "black_or_african_american"
+                    | "chinese"
+                    | "ethiopian"
+                    | "filipino"
+                    | "guamanian_or_chamorro"
+                    | "haitian"
+                    | "jamaican"
+                    | "japanese"
+                    | "korean"
+                    | "native_hawaiian"
+                    | "native_hawaiian_or_other_pacific_islander"
+                    | "nigerian"
+                    | "other_asian"
+                    | "other_black_or_african_american"
+                    | "other_pacific_islander"
+                    | "prefer_not_to_answer"
+                    | "samoan"
+                    | "somali"
+                    | "vietnamese"
+                    | "white"
+                  )[]
+                | undefined
+              race_other?: string | undefined
+            }
+          | undefined
+        self_identified_gender?: string | undefined
+      }
+    | undefined
+  verification?:
+    | {
+        additional_document?:
+          | {
+              back?: string | undefined
+              front?: string | undefined
+            }
+          | undefined
+        document?:
+          | {
+              back?: string | undefined
+              front?: string | undefined
+            }
+          | undefined
+      }
+    | undefined
+}
 
 export type t_PostAccountsAccountPeoplePersonParamSchema = {
   account: string
   person: string
 }
 
-export type t_postAccountsAccountPeoplePersonApplicationXWwwFormUrlencodedRequestBody =
-  {
-    additional_tos_acceptances?:
-      | {
-          account?:
-            | {
-                date?: number | undefined
-                ip?: string | undefined
-                user_agent?: (string | "") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    address?:
-      | {
-          city?: string | undefined
-          country?: string | undefined
-          line1?: string | undefined
-          line2?: string | undefined
-          postal_code?: string | undefined
-          state?: string | undefined
-        }
-      | undefined
-    address_kana?:
-      | {
-          city?: string | undefined
-          country?: string | undefined
-          line1?: string | undefined
-          line2?: string | undefined
-          postal_code?: string | undefined
-          state?: string | undefined
-          town?: string | undefined
-        }
-      | undefined
-    address_kanji?:
-      | {
-          city?: string | undefined
-          country?: string | undefined
-          line1?: string | undefined
-          line2?: string | undefined
-          postal_code?: string | undefined
-          state?: string | undefined
-          town?: string | undefined
-        }
-      | undefined
-    dob?:
-      | (
+export type t_PostAccountsAccountPeoplePersonRequestBody = {
+  additional_tos_acceptances?:
+    | {
+        account?:
           | {
-              day: number
-              month: number
-              year: number
+              date?: number | undefined
+              ip?: string | undefined
+              user_agent?: (string | "") | undefined
             }
-          | ""
-        )
-      | undefined
-    documents?:
-      | {
-          company_authorization?:
-            | {
-                files?: (string | "")[] | undefined
-              }
-            | undefined
-          passport?:
-            | {
-                files?: (string | "")[] | undefined
-              }
-            | undefined
-          visa?:
-            | {
-                files?: (string | "")[] | undefined
-              }
-            | undefined
-        }
-      | undefined
-    email?: string | undefined
-    expand?: string[] | undefined
-    first_name?: string | undefined
-    first_name_kana?: string | undefined
-    first_name_kanji?: string | undefined
-    full_name_aliases?: (string[] | "") | undefined
-    gender?: string | undefined
-    id_number?: string | undefined
-    id_number_secondary?: string | undefined
-    last_name?: string | undefined
-    last_name_kana?: string | undefined
-    last_name_kanji?: string | undefined
-    maiden_name?: string | undefined
-    metadata?:
-      | (
+          | undefined
+      }
+    | undefined
+  address?:
+    | {
+        city?: string | undefined
+        country?: string | undefined
+        line1?: string | undefined
+        line2?: string | undefined
+        postal_code?: string | undefined
+        state?: string | undefined
+      }
+    | undefined
+  address_kana?:
+    | {
+        city?: string | undefined
+        country?: string | undefined
+        line1?: string | undefined
+        line2?: string | undefined
+        postal_code?: string | undefined
+        state?: string | undefined
+        town?: string | undefined
+      }
+    | undefined
+  address_kanji?:
+    | {
+        city?: string | undefined
+        country?: string | undefined
+        line1?: string | undefined
+        line2?: string | undefined
+        postal_code?: string | undefined
+        state?: string | undefined
+        town?: string | undefined
+      }
+    | undefined
+  dob?:
+    | (
+        | {
+            day: number
+            month: number
+            year: number
+          }
+        | ""
+      )
+    | undefined
+  documents?:
+    | {
+        company_authorization?:
           | {
-              [key: string]: string | undefined
+              files?: (string | "")[] | undefined
             }
-          | ""
-        )
-      | undefined
-    nationality?: string | undefined
-    person_token?: string | undefined
-    phone?: string | undefined
-    political_exposure?: ("existing" | "none") | undefined
-    registered_address?:
-      | {
-          city?: string | undefined
-          country?: string | undefined
-          line1?: string | undefined
-          line2?: string | undefined
-          postal_code?: string | undefined
-          state?: string | undefined
-        }
-      | undefined
-    relationship?:
-      | {
-          authorizer?: boolean | undefined
-          director?: boolean | undefined
-          executive?: boolean | undefined
-          legal_guardian?: boolean | undefined
-          owner?: boolean | undefined
-          percent_ownership?: (number | "") | undefined
-          representative?: boolean | undefined
-          title?: string | undefined
-        }
-      | undefined
-    ssn_last_4?: string | undefined
-    us_cfpb_data?:
-      | {
-          ethnicity_details?:
-            | {
-                ethnicity?:
-                  | (
-                      | "cuban"
-                      | "hispanic_or_latino"
-                      | "mexican"
-                      | "not_hispanic_or_latino"
-                      | "other_hispanic_or_latino"
-                      | "prefer_not_to_answer"
-                      | "puerto_rican"
-                    )[]
-                  | undefined
-                ethnicity_other?: string | undefined
-              }
-            | undefined
-          race_details?:
-            | {
-                race?:
-                  | (
-                      | "african_american"
-                      | "american_indian_or_alaska_native"
-                      | "asian"
-                      | "asian_indian"
-                      | "black_or_african_american"
-                      | "chinese"
-                      | "ethiopian"
-                      | "filipino"
-                      | "guamanian_or_chamorro"
-                      | "haitian"
-                      | "jamaican"
-                      | "japanese"
-                      | "korean"
-                      | "native_hawaiian"
-                      | "native_hawaiian_or_other_pacific_islander"
-                      | "nigerian"
-                      | "other_asian"
-                      | "other_black_or_african_american"
-                      | "other_pacific_islander"
-                      | "prefer_not_to_answer"
-                      | "samoan"
-                      | "somali"
-                      | "vietnamese"
-                      | "white"
-                    )[]
-                  | undefined
-                race_other?: string | undefined
-              }
-            | undefined
-          self_identified_gender?: string | undefined
-        }
-      | undefined
-    verification?:
-      | {
-          additional_document?:
-            | {
-                back?: string | undefined
-                front?: string | undefined
-              }
-            | undefined
-          document?:
-            | {
-                back?: string | undefined
-                front?: string | undefined
-              }
-            | undefined
-        }
-      | undefined
-  }
+          | undefined
+        passport?:
+          | {
+              files?: (string | "")[] | undefined
+            }
+          | undefined
+        visa?:
+          | {
+              files?: (string | "")[] | undefined
+            }
+          | undefined
+      }
+    | undefined
+  email?: string | undefined
+  expand?: string[] | undefined
+  first_name?: string | undefined
+  first_name_kana?: string | undefined
+  first_name_kanji?: string | undefined
+  full_name_aliases?: (string[] | "") | undefined
+  gender?: string | undefined
+  id_number?: string | undefined
+  id_number_secondary?: string | undefined
+  last_name?: string | undefined
+  last_name_kana?: string | undefined
+  last_name_kanji?: string | undefined
+  maiden_name?: string | undefined
+  metadata?:
+    | (
+        | {
+            [key: string]: string | undefined
+          }
+        | ""
+      )
+    | undefined
+  nationality?: string | undefined
+  person_token?: string | undefined
+  phone?: string | undefined
+  political_exposure?: ("existing" | "none") | undefined
+  registered_address?:
+    | {
+        city?: string | undefined
+        country?: string | undefined
+        line1?: string | undefined
+        line2?: string | undefined
+        postal_code?: string | undefined
+        state?: string | undefined
+      }
+    | undefined
+  relationship?:
+    | {
+        authorizer?: boolean | undefined
+        director?: boolean | undefined
+        executive?: boolean | undefined
+        legal_guardian?: boolean | undefined
+        owner?: boolean | undefined
+        percent_ownership?: (number | "") | undefined
+        representative?: boolean | undefined
+        title?: string | undefined
+      }
+    | undefined
+  ssn_last_4?: string | undefined
+  us_cfpb_data?:
+    | {
+        ethnicity_details?:
+          | {
+              ethnicity?:
+                | (
+                    | "cuban"
+                    | "hispanic_or_latino"
+                    | "mexican"
+                    | "not_hispanic_or_latino"
+                    | "other_hispanic_or_latino"
+                    | "prefer_not_to_answer"
+                    | "puerto_rican"
+                  )[]
+                | undefined
+              ethnicity_other?: string | undefined
+            }
+          | undefined
+        race_details?:
+          | {
+              race?:
+                | (
+                    | "african_american"
+                    | "american_indian_or_alaska_native"
+                    | "asian"
+                    | "asian_indian"
+                    | "black_or_african_american"
+                    | "chinese"
+                    | "ethiopian"
+                    | "filipino"
+                    | "guamanian_or_chamorro"
+                    | "haitian"
+                    | "jamaican"
+                    | "japanese"
+                    | "korean"
+                    | "native_hawaiian"
+                    | "native_hawaiian_or_other_pacific_islander"
+                    | "nigerian"
+                    | "other_asian"
+                    | "other_black_or_african_american"
+                    | "other_pacific_islander"
+                    | "prefer_not_to_answer"
+                    | "samoan"
+                    | "somali"
+                    | "vietnamese"
+                    | "white"
+                  )[]
+                | undefined
+              race_other?: string | undefined
+            }
+          | undefined
+        self_identified_gender?: string | undefined
+      }
+    | undefined
+  verification?:
+    | {
+        additional_document?:
+          | {
+              back?: string | undefined
+              front?: string | undefined
+            }
+          | undefined
+        document?:
+          | {
+              back?: string | undefined
+              front?: string | undefined
+            }
+          | undefined
+      }
+    | undefined
+}
 
 export type t_PostAccountsAccountPersonsParamSchema = {
   account: string
 }
 
-export type t_postAccountsAccountPersonsApplicationXWwwFormUrlencodedRequestBody =
-  {
-    additional_tos_acceptances?:
-      | {
-          account?:
-            | {
-                date?: number | undefined
-                ip?: string | undefined
-                user_agent?: (string | "") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    address?:
-      | {
-          city?: string | undefined
-          country?: string | undefined
-          line1?: string | undefined
-          line2?: string | undefined
-          postal_code?: string | undefined
-          state?: string | undefined
-        }
-      | undefined
-    address_kana?:
-      | {
-          city?: string | undefined
-          country?: string | undefined
-          line1?: string | undefined
-          line2?: string | undefined
-          postal_code?: string | undefined
-          state?: string | undefined
-          town?: string | undefined
-        }
-      | undefined
-    address_kanji?:
-      | {
-          city?: string | undefined
-          country?: string | undefined
-          line1?: string | undefined
-          line2?: string | undefined
-          postal_code?: string | undefined
-          state?: string | undefined
-          town?: string | undefined
-        }
-      | undefined
-    dob?:
-      | (
+export type t_PostAccountsAccountPersonsRequestBody = {
+  additional_tos_acceptances?:
+    | {
+        account?:
           | {
-              day: number
-              month: number
-              year: number
+              date?: number | undefined
+              ip?: string | undefined
+              user_agent?: (string | "") | undefined
             }
-          | ""
-        )
-      | undefined
-    documents?:
-      | {
-          company_authorization?:
-            | {
-                files?: (string | "")[] | undefined
-              }
-            | undefined
-          passport?:
-            | {
-                files?: (string | "")[] | undefined
-              }
-            | undefined
-          visa?:
-            | {
-                files?: (string | "")[] | undefined
-              }
-            | undefined
-        }
-      | undefined
-    email?: string | undefined
-    expand?: string[] | undefined
-    first_name?: string | undefined
-    first_name_kana?: string | undefined
-    first_name_kanji?: string | undefined
-    full_name_aliases?: (string[] | "") | undefined
-    gender?: string | undefined
-    id_number?: string | undefined
-    id_number_secondary?: string | undefined
-    last_name?: string | undefined
-    last_name_kana?: string | undefined
-    last_name_kanji?: string | undefined
-    maiden_name?: string | undefined
-    metadata?:
-      | (
+          | undefined
+      }
+    | undefined
+  address?:
+    | {
+        city?: string | undefined
+        country?: string | undefined
+        line1?: string | undefined
+        line2?: string | undefined
+        postal_code?: string | undefined
+        state?: string | undefined
+      }
+    | undefined
+  address_kana?:
+    | {
+        city?: string | undefined
+        country?: string | undefined
+        line1?: string | undefined
+        line2?: string | undefined
+        postal_code?: string | undefined
+        state?: string | undefined
+        town?: string | undefined
+      }
+    | undefined
+  address_kanji?:
+    | {
+        city?: string | undefined
+        country?: string | undefined
+        line1?: string | undefined
+        line2?: string | undefined
+        postal_code?: string | undefined
+        state?: string | undefined
+        town?: string | undefined
+      }
+    | undefined
+  dob?:
+    | (
+        | {
+            day: number
+            month: number
+            year: number
+          }
+        | ""
+      )
+    | undefined
+  documents?:
+    | {
+        company_authorization?:
           | {
-              [key: string]: string | undefined
+              files?: (string | "")[] | undefined
             }
-          | ""
-        )
-      | undefined
-    nationality?: string | undefined
-    person_token?: string | undefined
-    phone?: string | undefined
-    political_exposure?: ("existing" | "none") | undefined
-    registered_address?:
-      | {
-          city?: string | undefined
-          country?: string | undefined
-          line1?: string | undefined
-          line2?: string | undefined
-          postal_code?: string | undefined
-          state?: string | undefined
-        }
-      | undefined
-    relationship?:
-      | {
-          authorizer?: boolean | undefined
-          director?: boolean | undefined
-          executive?: boolean | undefined
-          legal_guardian?: boolean | undefined
-          owner?: boolean | undefined
-          percent_ownership?: (number | "") | undefined
-          representative?: boolean | undefined
-          title?: string | undefined
-        }
-      | undefined
-    ssn_last_4?: string | undefined
-    us_cfpb_data?:
-      | {
-          ethnicity_details?:
-            | {
-                ethnicity?:
-                  | (
-                      | "cuban"
-                      | "hispanic_or_latino"
-                      | "mexican"
-                      | "not_hispanic_or_latino"
-                      | "other_hispanic_or_latino"
-                      | "prefer_not_to_answer"
-                      | "puerto_rican"
-                    )[]
-                  | undefined
-                ethnicity_other?: string | undefined
-              }
-            | undefined
-          race_details?:
-            | {
-                race?:
-                  | (
-                      | "african_american"
-                      | "american_indian_or_alaska_native"
-                      | "asian"
-                      | "asian_indian"
-                      | "black_or_african_american"
-                      | "chinese"
-                      | "ethiopian"
-                      | "filipino"
-                      | "guamanian_or_chamorro"
-                      | "haitian"
-                      | "jamaican"
-                      | "japanese"
-                      | "korean"
-                      | "native_hawaiian"
-                      | "native_hawaiian_or_other_pacific_islander"
-                      | "nigerian"
-                      | "other_asian"
-                      | "other_black_or_african_american"
-                      | "other_pacific_islander"
-                      | "prefer_not_to_answer"
-                      | "samoan"
-                      | "somali"
-                      | "vietnamese"
-                      | "white"
-                    )[]
-                  | undefined
-                race_other?: string | undefined
-              }
-            | undefined
-          self_identified_gender?: string | undefined
-        }
-      | undefined
-    verification?:
-      | {
-          additional_document?:
-            | {
-                back?: string | undefined
-                front?: string | undefined
-              }
-            | undefined
-          document?:
-            | {
-                back?: string | undefined
-                front?: string | undefined
-              }
-            | undefined
-        }
-      | undefined
-  }
+          | undefined
+        passport?:
+          | {
+              files?: (string | "")[] | undefined
+            }
+          | undefined
+        visa?:
+          | {
+              files?: (string | "")[] | undefined
+            }
+          | undefined
+      }
+    | undefined
+  email?: string | undefined
+  expand?: string[] | undefined
+  first_name?: string | undefined
+  first_name_kana?: string | undefined
+  first_name_kanji?: string | undefined
+  full_name_aliases?: (string[] | "") | undefined
+  gender?: string | undefined
+  id_number?: string | undefined
+  id_number_secondary?: string | undefined
+  last_name?: string | undefined
+  last_name_kana?: string | undefined
+  last_name_kanji?: string | undefined
+  maiden_name?: string | undefined
+  metadata?:
+    | (
+        | {
+            [key: string]: string | undefined
+          }
+        | ""
+      )
+    | undefined
+  nationality?: string | undefined
+  person_token?: string | undefined
+  phone?: string | undefined
+  political_exposure?: ("existing" | "none") | undefined
+  registered_address?:
+    | {
+        city?: string | undefined
+        country?: string | undefined
+        line1?: string | undefined
+        line2?: string | undefined
+        postal_code?: string | undefined
+        state?: string | undefined
+      }
+    | undefined
+  relationship?:
+    | {
+        authorizer?: boolean | undefined
+        director?: boolean | undefined
+        executive?: boolean | undefined
+        legal_guardian?: boolean | undefined
+        owner?: boolean | undefined
+        percent_ownership?: (number | "") | undefined
+        representative?: boolean | undefined
+        title?: string | undefined
+      }
+    | undefined
+  ssn_last_4?: string | undefined
+  us_cfpb_data?:
+    | {
+        ethnicity_details?:
+          | {
+              ethnicity?:
+                | (
+                    | "cuban"
+                    | "hispanic_or_latino"
+                    | "mexican"
+                    | "not_hispanic_or_latino"
+                    | "other_hispanic_or_latino"
+                    | "prefer_not_to_answer"
+                    | "puerto_rican"
+                  )[]
+                | undefined
+              ethnicity_other?: string | undefined
+            }
+          | undefined
+        race_details?:
+          | {
+              race?:
+                | (
+                    | "african_american"
+                    | "american_indian_or_alaska_native"
+                    | "asian"
+                    | "asian_indian"
+                    | "black_or_african_american"
+                    | "chinese"
+                    | "ethiopian"
+                    | "filipino"
+                    | "guamanian_or_chamorro"
+                    | "haitian"
+                    | "jamaican"
+                    | "japanese"
+                    | "korean"
+                    | "native_hawaiian"
+                    | "native_hawaiian_or_other_pacific_islander"
+                    | "nigerian"
+                    | "other_asian"
+                    | "other_black_or_african_american"
+                    | "other_pacific_islander"
+                    | "prefer_not_to_answer"
+                    | "samoan"
+                    | "somali"
+                    | "vietnamese"
+                    | "white"
+                  )[]
+                | undefined
+              race_other?: string | undefined
+            }
+          | undefined
+        self_identified_gender?: string | undefined
+      }
+    | undefined
+  verification?:
+    | {
+        additional_document?:
+          | {
+              back?: string | undefined
+              front?: string | undefined
+            }
+          | undefined
+        document?:
+          | {
+              back?: string | undefined
+              front?: string | undefined
+            }
+          | undefined
+      }
+    | undefined
+}
 
 export type t_PostAccountsAccountPersonsPersonParamSchema = {
   account: string
   person: string
 }
 
-export type t_postAccountsAccountPersonsPersonApplicationXWwwFormUrlencodedRequestBody =
-  {
-    additional_tos_acceptances?:
-      | {
-          account?:
-            | {
-                date?: number | undefined
-                ip?: string | undefined
-                user_agent?: (string | "") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    address?:
-      | {
-          city?: string | undefined
-          country?: string | undefined
-          line1?: string | undefined
-          line2?: string | undefined
-          postal_code?: string | undefined
-          state?: string | undefined
-        }
-      | undefined
-    address_kana?:
-      | {
-          city?: string | undefined
-          country?: string | undefined
-          line1?: string | undefined
-          line2?: string | undefined
-          postal_code?: string | undefined
-          state?: string | undefined
-          town?: string | undefined
-        }
-      | undefined
-    address_kanji?:
-      | {
-          city?: string | undefined
-          country?: string | undefined
-          line1?: string | undefined
-          line2?: string | undefined
-          postal_code?: string | undefined
-          state?: string | undefined
-          town?: string | undefined
-        }
-      | undefined
-    dob?:
-      | (
+export type t_PostAccountsAccountPersonsPersonRequestBody = {
+  additional_tos_acceptances?:
+    | {
+        account?:
           | {
-              day: number
-              month: number
-              year: number
+              date?: number | undefined
+              ip?: string | undefined
+              user_agent?: (string | "") | undefined
             }
-          | ""
-        )
-      | undefined
-    documents?:
-      | {
-          company_authorization?:
-            | {
-                files?: (string | "")[] | undefined
-              }
-            | undefined
-          passport?:
-            | {
-                files?: (string | "")[] | undefined
-              }
-            | undefined
-          visa?:
-            | {
-                files?: (string | "")[] | undefined
-              }
-            | undefined
-        }
-      | undefined
-    email?: string | undefined
-    expand?: string[] | undefined
-    first_name?: string | undefined
-    first_name_kana?: string | undefined
-    first_name_kanji?: string | undefined
-    full_name_aliases?: (string[] | "") | undefined
-    gender?: string | undefined
-    id_number?: string | undefined
-    id_number_secondary?: string | undefined
-    last_name?: string | undefined
-    last_name_kana?: string | undefined
-    last_name_kanji?: string | undefined
-    maiden_name?: string | undefined
-    metadata?:
-      | (
+          | undefined
+      }
+    | undefined
+  address?:
+    | {
+        city?: string | undefined
+        country?: string | undefined
+        line1?: string | undefined
+        line2?: string | undefined
+        postal_code?: string | undefined
+        state?: string | undefined
+      }
+    | undefined
+  address_kana?:
+    | {
+        city?: string | undefined
+        country?: string | undefined
+        line1?: string | undefined
+        line2?: string | undefined
+        postal_code?: string | undefined
+        state?: string | undefined
+        town?: string | undefined
+      }
+    | undefined
+  address_kanji?:
+    | {
+        city?: string | undefined
+        country?: string | undefined
+        line1?: string | undefined
+        line2?: string | undefined
+        postal_code?: string | undefined
+        state?: string | undefined
+        town?: string | undefined
+      }
+    | undefined
+  dob?:
+    | (
+        | {
+            day: number
+            month: number
+            year: number
+          }
+        | ""
+      )
+    | undefined
+  documents?:
+    | {
+        company_authorization?:
           | {
-              [key: string]: string | undefined
+              files?: (string | "")[] | undefined
             }
-          | ""
-        )
-      | undefined
-    nationality?: string | undefined
-    person_token?: string | undefined
-    phone?: string | undefined
-    political_exposure?: ("existing" | "none") | undefined
-    registered_address?:
-      | {
-          city?: string | undefined
-          country?: string | undefined
-          line1?: string | undefined
-          line2?: string | undefined
-          postal_code?: string | undefined
-          state?: string | undefined
-        }
-      | undefined
-    relationship?:
-      | {
-          authorizer?: boolean | undefined
-          director?: boolean | undefined
-          executive?: boolean | undefined
-          legal_guardian?: boolean | undefined
-          owner?: boolean | undefined
-          percent_ownership?: (number | "") | undefined
-          representative?: boolean | undefined
-          title?: string | undefined
-        }
-      | undefined
-    ssn_last_4?: string | undefined
-    us_cfpb_data?:
-      | {
-          ethnicity_details?:
-            | {
-                ethnicity?:
-                  | (
-                      | "cuban"
-                      | "hispanic_or_latino"
-                      | "mexican"
-                      | "not_hispanic_or_latino"
-                      | "other_hispanic_or_latino"
-                      | "prefer_not_to_answer"
-                      | "puerto_rican"
-                    )[]
-                  | undefined
-                ethnicity_other?: string | undefined
-              }
-            | undefined
-          race_details?:
-            | {
-                race?:
-                  | (
-                      | "african_american"
-                      | "american_indian_or_alaska_native"
-                      | "asian"
-                      | "asian_indian"
-                      | "black_or_african_american"
-                      | "chinese"
-                      | "ethiopian"
-                      | "filipino"
-                      | "guamanian_or_chamorro"
-                      | "haitian"
-                      | "jamaican"
-                      | "japanese"
-                      | "korean"
-                      | "native_hawaiian"
-                      | "native_hawaiian_or_other_pacific_islander"
-                      | "nigerian"
-                      | "other_asian"
-                      | "other_black_or_african_american"
-                      | "other_pacific_islander"
-                      | "prefer_not_to_answer"
-                      | "samoan"
-                      | "somali"
-                      | "vietnamese"
-                      | "white"
-                    )[]
-                  | undefined
-                race_other?: string | undefined
-              }
-            | undefined
-          self_identified_gender?: string | undefined
-        }
-      | undefined
-    verification?:
-      | {
-          additional_document?:
-            | {
-                back?: string | undefined
-                front?: string | undefined
-              }
-            | undefined
-          document?:
-            | {
-                back?: string | undefined
-                front?: string | undefined
-              }
-            | undefined
-        }
-      | undefined
-  }
+          | undefined
+        passport?:
+          | {
+              files?: (string | "")[] | undefined
+            }
+          | undefined
+        visa?:
+          | {
+              files?: (string | "")[] | undefined
+            }
+          | undefined
+      }
+    | undefined
+  email?: string | undefined
+  expand?: string[] | undefined
+  first_name?: string | undefined
+  first_name_kana?: string | undefined
+  first_name_kanji?: string | undefined
+  full_name_aliases?: (string[] | "") | undefined
+  gender?: string | undefined
+  id_number?: string | undefined
+  id_number_secondary?: string | undefined
+  last_name?: string | undefined
+  last_name_kana?: string | undefined
+  last_name_kanji?: string | undefined
+  maiden_name?: string | undefined
+  metadata?:
+    | (
+        | {
+            [key: string]: string | undefined
+          }
+        | ""
+      )
+    | undefined
+  nationality?: string | undefined
+  person_token?: string | undefined
+  phone?: string | undefined
+  political_exposure?: ("existing" | "none") | undefined
+  registered_address?:
+    | {
+        city?: string | undefined
+        country?: string | undefined
+        line1?: string | undefined
+        line2?: string | undefined
+        postal_code?: string | undefined
+        state?: string | undefined
+      }
+    | undefined
+  relationship?:
+    | {
+        authorizer?: boolean | undefined
+        director?: boolean | undefined
+        executive?: boolean | undefined
+        legal_guardian?: boolean | undefined
+        owner?: boolean | undefined
+        percent_ownership?: (number | "") | undefined
+        representative?: boolean | undefined
+        title?: string | undefined
+      }
+    | undefined
+  ssn_last_4?: string | undefined
+  us_cfpb_data?:
+    | {
+        ethnicity_details?:
+          | {
+              ethnicity?:
+                | (
+                    | "cuban"
+                    | "hispanic_or_latino"
+                    | "mexican"
+                    | "not_hispanic_or_latino"
+                    | "other_hispanic_or_latino"
+                    | "prefer_not_to_answer"
+                    | "puerto_rican"
+                  )[]
+                | undefined
+              ethnicity_other?: string | undefined
+            }
+          | undefined
+        race_details?:
+          | {
+              race?:
+                | (
+                    | "african_american"
+                    | "american_indian_or_alaska_native"
+                    | "asian"
+                    | "asian_indian"
+                    | "black_or_african_american"
+                    | "chinese"
+                    | "ethiopian"
+                    | "filipino"
+                    | "guamanian_or_chamorro"
+                    | "haitian"
+                    | "jamaican"
+                    | "japanese"
+                    | "korean"
+                    | "native_hawaiian"
+                    | "native_hawaiian_or_other_pacific_islander"
+                    | "nigerian"
+                    | "other_asian"
+                    | "other_black_or_african_american"
+                    | "other_pacific_islander"
+                    | "prefer_not_to_answer"
+                    | "samoan"
+                    | "somali"
+                    | "vietnamese"
+                    | "white"
+                  )[]
+                | undefined
+              race_other?: string | undefined
+            }
+          | undefined
+        self_identified_gender?: string | undefined
+      }
+    | undefined
+  verification?:
+    | {
+        additional_document?:
+          | {
+              back?: string | undefined
+              front?: string | undefined
+            }
+          | undefined
+        document?:
+          | {
+              back?: string | undefined
+              front?: string | undefined
+            }
+          | undefined
+      }
+    | undefined
+}
 
 export type t_PostAccountsAccountRejectParamSchema = {
   account: string
 }
 
-export type t_postAccountsAccountRejectApplicationXWwwFormUrlencodedRequestBody =
-  {
-    expand?: string[] | undefined
-    reason: string
-  }
+export type t_PostAccountsAccountRejectRequestBody = {
+  expand?: string[] | undefined
+  reason: string
+}
 
-export type t_postApplePayDomainsApplicationXWwwFormUrlencodedRequestBody = {
+export type t_PostApplePayDomainsRequestBody = {
   domain_name: string
   expand?: string[] | undefined
 }
@@ -21849,46 +21833,43 @@ export type t_PostApplicationFeesFeeRefundsIdParamSchema = {
   id: string
 }
 
-export type t_postApplicationFeesFeeRefundsIdApplicationXWwwFormUrlencodedRequestBody =
-  {
-    expand?: string[] | undefined
-    metadata?:
-      | (
-          | {
-              [key: string]: string | undefined
-            }
-          | ""
-        )
-      | undefined
-  }
+export type t_PostApplicationFeesFeeRefundsIdRequestBody = {
+  expand?: string[] | undefined
+  metadata?:
+    | (
+        | {
+            [key: string]: string | undefined
+          }
+        | ""
+      )
+    | undefined
+}
 
 export type t_PostApplicationFeesIdRefundParamSchema = {
   id: string
 }
 
-export type t_postApplicationFeesIdRefundApplicationXWwwFormUrlencodedRequestBody =
-  {
-    amount?: number | undefined
-    directive?: string | undefined
-    expand?: string[] | undefined
-  }
+export type t_PostApplicationFeesIdRefundRequestBody = {
+  amount?: number | undefined
+  directive?: string | undefined
+  expand?: string[] | undefined
+}
 
 export type t_PostApplicationFeesIdRefundsParamSchema = {
   id: string
 }
 
-export type t_postApplicationFeesIdRefundsApplicationXWwwFormUrlencodedRequestBody =
-  {
-    amount?: number | undefined
-    expand?: string[] | undefined
-    metadata?:
-      | {
-          [key: string]: string | undefined
-        }
-      | undefined
-  }
+export type t_PostApplicationFeesIdRefundsRequestBody = {
+  amount?: number | undefined
+  expand?: string[] | undefined
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | undefined
+}
 
-export type t_postAppsSecretsApplicationXWwwFormUrlencodedRequestBody = {
+export type t_PostAppsSecretsRequestBody = {
   expand?: string[] | undefined
   expires_at?: number | undefined
   name: string
@@ -21899,7 +21880,7 @@ export type t_postAppsSecretsApplicationXWwwFormUrlencodedRequestBody = {
   }
 }
 
-export type t_postAppsSecretsDeleteApplicationXWwwFormUrlencodedRequestBody = {
+export type t_PostAppsSecretsDeleteRequestBody = {
   expand?: string[] | undefined
   name: string
   scope: {
@@ -21908,7 +21889,7 @@ export type t_postAppsSecretsDeleteApplicationXWwwFormUrlencodedRequestBody = {
   }
 }
 
-export type t_postBillingAlertsApplicationXWwwFormUrlencodedRequestBody = {
+export type t_PostBillingAlertsRequestBody = {
   alert_type: "usage_threshold"
   expand?: string[] | undefined
   title: string
@@ -21931,110 +21912,102 @@ export type t_PostBillingAlertsIdActivateParamSchema = {
   id: string
 }
 
-export type t_postBillingAlertsIdActivateApplicationXWwwFormUrlencodedRequestBody =
-  {
-    expand?: string[] | undefined
-  }
+export type t_PostBillingAlertsIdActivateRequestBody = {
+  expand?: string[] | undefined
+}
 
 export type t_PostBillingAlertsIdArchiveParamSchema = {
   id: string
 }
 
-export type t_postBillingAlertsIdArchiveApplicationXWwwFormUrlencodedRequestBody =
-  {
-    expand?: string[] | undefined
-  }
+export type t_PostBillingAlertsIdArchiveRequestBody = {
+  expand?: string[] | undefined
+}
 
 export type t_PostBillingAlertsIdDeactivateParamSchema = {
   id: string
 }
 
-export type t_postBillingAlertsIdDeactivateApplicationXWwwFormUrlencodedRequestBody =
-  {
-    expand?: string[] | undefined
-  }
+export type t_PostBillingAlertsIdDeactivateRequestBody = {
+  expand?: string[] | undefined
+}
 
-export type t_postBillingCreditGrantsApplicationXWwwFormUrlencodedRequestBody =
-  {
-    amount: {
-      monetary?:
-        | {
-            currency: string
-            value: number
-          }
-        | undefined
-      type: "monetary"
-    }
-    applicability_config: {
-      scope: {
-        price_type?: "metered" | undefined
-        prices?:
-          | {
-              id: string
-            }[]
-          | undefined
-      }
-    }
-    category: "paid" | "promotional"
-    customer: string
-    effective_at?: number | undefined
-    expand?: string[] | undefined
-    expires_at?: number | undefined
-    metadata?:
+export type t_PostBillingCreditGrantsRequestBody = {
+  amount: {
+    monetary?:
       | {
-          [key: string]: string | undefined
+          currency: string
+          value: number
         }
       | undefined
-    name?: string | undefined
-    priority?: number | undefined
+    type: "monetary"
   }
+  applicability_config: {
+    scope: {
+      price_type?: "metered" | undefined
+      prices?:
+        | {
+            id: string
+          }[]
+        | undefined
+    }
+  }
+  category: "paid" | "promotional"
+  customer: string
+  effective_at?: number | undefined
+  expand?: string[] | undefined
+  expires_at?: number | undefined
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | undefined
+  name?: string | undefined
+  priority?: number | undefined
+}
 
 export type t_PostBillingCreditGrantsIdParamSchema = {
   id: string
 }
 
-export type t_postBillingCreditGrantsIdApplicationXWwwFormUrlencodedRequestBody =
-  {
-    expand?: string[] | undefined
-    expires_at?: (number | "") | undefined
-    metadata?:
-      | {
-          [key: string]: string | undefined
-        }
-      | undefined
-  }
+export type t_PostBillingCreditGrantsIdRequestBody = {
+  expand?: string[] | undefined
+  expires_at?: (number | "") | undefined
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | undefined
+}
 
 export type t_PostBillingCreditGrantsIdExpireParamSchema = {
   id: string
 }
 
-export type t_postBillingCreditGrantsIdExpireApplicationXWwwFormUrlencodedRequestBody =
-  {
-    expand?: string[] | undefined
-  }
+export type t_PostBillingCreditGrantsIdExpireRequestBody = {
+  expand?: string[] | undefined
+}
 
 export type t_PostBillingCreditGrantsIdVoidParamSchema = {
   id: string
 }
 
-export type t_postBillingCreditGrantsIdVoidApplicationXWwwFormUrlencodedRequestBody =
-  {
-    expand?: string[] | undefined
-  }
+export type t_PostBillingCreditGrantsIdVoidRequestBody = {
+  expand?: string[] | undefined
+}
 
-export type t_postBillingMeterEventAdjustmentsApplicationXWwwFormUrlencodedRequestBody =
-  {
-    cancel?:
-      | {
-          identifier?: string | undefined
-        }
-      | undefined
-    event_name: string
-    expand?: string[] | undefined
-    type: "cancel"
-  }
+export type t_PostBillingMeterEventAdjustmentsRequestBody = {
+  cancel?:
+    | {
+        identifier?: string | undefined
+      }
+    | undefined
+  event_name: string
+  expand?: string[] | undefined
+  type: "cancel"
+}
 
-export type t_postBillingMeterEventsApplicationXWwwFormUrlencodedRequestBody = {
+export type t_PostBillingMeterEventsRequestBody = {
   event_name: string
   expand?: string[] | undefined
   identifier?: string | undefined
@@ -22044,7 +22017,7 @@ export type t_postBillingMeterEventsApplicationXWwwFormUrlencodedRequestBody = {
   timestamp?: number | undefined
 }
 
-export type t_postBillingMetersApplicationXWwwFormUrlencodedRequestBody = {
+export type t_PostBillingMetersRequestBody = {
   customer_mapping?:
     | {
         event_payload_key: string
@@ -22069,7 +22042,7 @@ export type t_PostBillingMetersIdParamSchema = {
   id: string
 }
 
-export type t_postBillingMetersIdApplicationXWwwFormUrlencodedRequestBody = {
+export type t_PostBillingMetersIdRequestBody = {
   display_name?: string | undefined
   expand?: string[] | undefined
 }
@@ -22078,387 +22051,382 @@ export type t_PostBillingMetersIdDeactivateParamSchema = {
   id: string
 }
 
-export type t_postBillingMetersIdDeactivateApplicationXWwwFormUrlencodedRequestBody =
-  {
-    expand?: string[] | undefined
-  }
+export type t_PostBillingMetersIdDeactivateRequestBody = {
+  expand?: string[] | undefined
+}
 
 export type t_PostBillingMetersIdReactivateParamSchema = {
   id: string
 }
 
-export type t_postBillingMetersIdReactivateApplicationXWwwFormUrlencodedRequestBody =
-  {
-    expand?: string[] | undefined
-  }
+export type t_PostBillingMetersIdReactivateRequestBody = {
+  expand?: string[] | undefined
+}
 
-export type t_postBillingPortalConfigurationsApplicationXWwwFormUrlencodedRequestBody =
-  {
-    business_profile?:
+export type t_PostBillingPortalConfigurationsRequestBody = {
+  business_profile?:
+    | {
+        headline?: (string | "") | undefined
+        privacy_policy_url?: string | undefined
+        terms_of_service_url?: string | undefined
+      }
+    | undefined
+  default_return_url?: (string | "") | undefined
+  expand?: string[] | undefined
+  features: {
+    customer_update?:
       | {
-          headline?: (string | "") | undefined
-          privacy_policy_url?: string | undefined
-          terms_of_service_url?: string | undefined
+          allowed_updates?:
+            | (
+                | (
+                    | "address"
+                    | "email"
+                    | "name"
+                    | "phone"
+                    | "shipping"
+                    | "tax_id"
+                  )[]
+                | ""
+              )
+            | undefined
+          enabled: boolean
         }
       | undefined
-    default_return_url?: (string | "") | undefined
-    expand?: string[] | undefined
-    features: {
-      customer_update?:
-        | {
-            allowed_updates?:
-              | (
-                  | (
-                      | "address"
-                      | "email"
-                      | "name"
-                      | "phone"
-                      | "shipping"
-                      | "tax_id"
-                    )[]
-                  | ""
-                )
-              | undefined
-            enabled: boolean
-          }
-        | undefined
-      invoice_history?:
-        | {
-            enabled: boolean
-          }
-        | undefined
-      payment_method_update?:
-        | {
-            enabled: boolean
-          }
-        | undefined
-      subscription_cancel?:
-        | {
-            cancellation_reason?:
-              | {
-                  enabled: boolean
-                  options:
-                    | (
-                        | "customer_service"
-                        | "low_quality"
-                        | "missing_features"
-                        | "other"
-                        | "switched_service"
-                        | "too_complex"
-                        | "too_expensive"
-                        | "unused"
-                      )[]
-                    | ""
-                }
-              | undefined
-            enabled: boolean
-            mode?: ("at_period_end" | "immediately") | undefined
-            proration_behavior?:
-              | ("always_invoice" | "create_prorations" | "none")
-              | undefined
-          }
-        | undefined
-      subscription_update?:
-        | {
-            default_allowed_updates?:
-              | (("price" | "promotion_code" | "quantity")[] | "")
-              | undefined
-            enabled: boolean
-            products?:
-              | (
-                  | {
-                      adjustable_quantity?:
-                        | {
-                            enabled: boolean
-                            maximum?: number | undefined
-                            minimum?: number | undefined
-                          }
-                        | undefined
-                      prices: string[]
-                      product: string
-                    }[]
-                  | ""
-                )
-              | undefined
-            proration_behavior?:
-              | ("always_invoice" | "create_prorations" | "none")
-              | undefined
-            schedule_at_period_end?:
-              | {
-                  conditions?:
-                    | {
-                        type: "decreasing_item_amount" | "shortening_interval"
-                      }[]
-                    | undefined
-                }
-              | undefined
-          }
-        | undefined
-    }
-    login_page?:
+    invoice_history?:
       | {
           enabled: boolean
         }
       | undefined
-    metadata?:
+    payment_method_update?:
       | {
-          [key: string]: string | undefined
+          enabled: boolean
+        }
+      | undefined
+    subscription_cancel?:
+      | {
+          cancellation_reason?:
+            | {
+                enabled: boolean
+                options:
+                  | (
+                      | "customer_service"
+                      | "low_quality"
+                      | "missing_features"
+                      | "other"
+                      | "switched_service"
+                      | "too_complex"
+                      | "too_expensive"
+                      | "unused"
+                    )[]
+                  | ""
+              }
+            | undefined
+          enabled: boolean
+          mode?: ("at_period_end" | "immediately") | undefined
+          proration_behavior?:
+            | ("always_invoice" | "create_prorations" | "none")
+            | undefined
+        }
+      | undefined
+    subscription_update?:
+      | {
+          default_allowed_updates?:
+            | (("price" | "promotion_code" | "quantity")[] | "")
+            | undefined
+          enabled: boolean
+          products?:
+            | (
+                | {
+                    adjustable_quantity?:
+                      | {
+                          enabled: boolean
+                          maximum?: number | undefined
+                          minimum?: number | undefined
+                        }
+                      | undefined
+                    prices: string[]
+                    product: string
+                  }[]
+                | ""
+              )
+            | undefined
+          proration_behavior?:
+            | ("always_invoice" | "create_prorations" | "none")
+            | undefined
+          schedule_at_period_end?:
+            | {
+                conditions?:
+                  | {
+                      type: "decreasing_item_amount" | "shortening_interval"
+                    }[]
+                  | undefined
+              }
+            | undefined
         }
       | undefined
   }
+  login_page?:
+    | {
+        enabled: boolean
+      }
+    | undefined
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | undefined
+}
 
 export type t_PostBillingPortalConfigurationsConfigurationParamSchema = {
   configuration: string
 }
 
-export type t_postBillingPortalConfigurationsConfigurationApplicationXWwwFormUrlencodedRequestBody =
-  {
-    active?: boolean | undefined
-    business_profile?:
-      | {
-          headline?: (string | "") | undefined
-          privacy_policy_url?: (string | "") | undefined
-          terms_of_service_url?: (string | "") | undefined
-        }
-      | undefined
-    default_return_url?: (string | "") | undefined
-    expand?: string[] | undefined
-    features?:
-      | {
-          customer_update?:
-            | {
-                allowed_updates?:
-                  | (
-                      | (
-                          | "address"
-                          | "email"
-                          | "name"
-                          | "phone"
-                          | "shipping"
-                          | "tax_id"
-                        )[]
-                      | ""
-                    )
-                  | undefined
-                enabled?: boolean | undefined
-              }
-            | undefined
-          invoice_history?:
-            | {
-                enabled: boolean
-              }
-            | undefined
-          payment_method_update?:
-            | {
-                enabled: boolean
-              }
-            | undefined
-          subscription_cancel?:
-            | {
-                cancellation_reason?:
-                  | {
-                      enabled: boolean
-                      options?:
-                        | (
-                            | (
-                                | "customer_service"
-                                | "low_quality"
-                                | "missing_features"
-                                | "other"
-                                | "switched_service"
-                                | "too_complex"
-                                | "too_expensive"
-                                | "unused"
-                              )[]
-                            | ""
-                          )
-                        | undefined
-                    }
-                  | undefined
-                enabled?: boolean | undefined
-                mode?: ("at_period_end" | "immediately") | undefined
-                proration_behavior?:
-                  | ("always_invoice" | "create_prorations" | "none")
-                  | undefined
-              }
-            | undefined
-          subscription_update?:
-            | {
-                default_allowed_updates?:
-                  | (("price" | "promotion_code" | "quantity")[] | "")
-                  | undefined
-                enabled?: boolean | undefined
-                products?:
-                  | (
-                      | {
-                          adjustable_quantity?:
-                            | {
-                                enabled: boolean
-                                maximum?: number | undefined
-                                minimum?: number | undefined
-                              }
-                            | undefined
-                          prices: string[]
-                          product: string
-                        }[]
-                      | ""
-                    )
-                  | undefined
-                proration_behavior?:
-                  | ("always_invoice" | "create_prorations" | "none")
-                  | undefined
-                schedule_at_period_end?:
-                  | {
-                      conditions?:
-                        | (
-                            | {
-                                type:
-                                  | "decreasing_item_amount"
-                                  | "shortening_interval"
-                              }[]
-                            | ""
-                          )
-                        | undefined
-                    }
-                  | undefined
-              }
-            | undefined
-        }
-      | undefined
-    login_page?:
-      | {
-          enabled: boolean
-        }
-      | undefined
-    metadata?:
-      | (
+export type t_PostBillingPortalConfigurationsConfigurationRequestBody = {
+  active?: boolean | undefined
+  business_profile?:
+    | {
+        headline?: (string | "") | undefined
+        privacy_policy_url?: (string | "") | undefined
+        terms_of_service_url?: (string | "") | undefined
+      }
+    | undefined
+  default_return_url?: (string | "") | undefined
+  expand?: string[] | undefined
+  features?:
+    | {
+        customer_update?:
           | {
-              [key: string]: string | undefined
+              allowed_updates?:
+                | (
+                    | (
+                        | "address"
+                        | "email"
+                        | "name"
+                        | "phone"
+                        | "shipping"
+                        | "tax_id"
+                      )[]
+                    | ""
+                  )
+                | undefined
+              enabled?: boolean | undefined
             }
-          | ""
-        )
-      | undefined
-  }
+          | undefined
+        invoice_history?:
+          | {
+              enabled: boolean
+            }
+          | undefined
+        payment_method_update?:
+          | {
+              enabled: boolean
+            }
+          | undefined
+        subscription_cancel?:
+          | {
+              cancellation_reason?:
+                | {
+                    enabled: boolean
+                    options?:
+                      | (
+                          | (
+                              | "customer_service"
+                              | "low_quality"
+                              | "missing_features"
+                              | "other"
+                              | "switched_service"
+                              | "too_complex"
+                              | "too_expensive"
+                              | "unused"
+                            )[]
+                          | ""
+                        )
+                      | undefined
+                  }
+                | undefined
+              enabled?: boolean | undefined
+              mode?: ("at_period_end" | "immediately") | undefined
+              proration_behavior?:
+                | ("always_invoice" | "create_prorations" | "none")
+                | undefined
+            }
+          | undefined
+        subscription_update?:
+          | {
+              default_allowed_updates?:
+                | (("price" | "promotion_code" | "quantity")[] | "")
+                | undefined
+              enabled?: boolean | undefined
+              products?:
+                | (
+                    | {
+                        adjustable_quantity?:
+                          | {
+                              enabled: boolean
+                              maximum?: number | undefined
+                              minimum?: number | undefined
+                            }
+                          | undefined
+                        prices: string[]
+                        product: string
+                      }[]
+                    | ""
+                  )
+                | undefined
+              proration_behavior?:
+                | ("always_invoice" | "create_prorations" | "none")
+                | undefined
+              schedule_at_period_end?:
+                | {
+                    conditions?:
+                      | (
+                          | {
+                              type:
+                                | "decreasing_item_amount"
+                                | "shortening_interval"
+                            }[]
+                          | ""
+                        )
+                      | undefined
+                  }
+                | undefined
+            }
+          | undefined
+      }
+    | undefined
+  login_page?:
+    | {
+        enabled: boolean
+      }
+    | undefined
+  metadata?:
+    | (
+        | {
+            [key: string]: string | undefined
+          }
+        | ""
+      )
+    | undefined
+}
 
-export type t_postBillingPortalSessionsApplicationXWwwFormUrlencodedRequestBody =
-  {
-    configuration?: string | undefined
-    customer: string
-    expand?: string[] | undefined
-    flow_data?:
-      | {
-          after_completion?:
-            | {
-                hosted_confirmation?:
-                  | {
-                      custom_message?: string | undefined
+export type t_PostBillingPortalSessionsRequestBody = {
+  configuration?: string | undefined
+  customer: string
+  expand?: string[] | undefined
+  flow_data?:
+    | {
+        after_completion?:
+          | {
+              hosted_confirmation?:
+                | {
+                    custom_message?: string | undefined
+                  }
+                | undefined
+              redirect?:
+                | {
+                    return_url: string
+                  }
+                | undefined
+              type: "hosted_confirmation" | "portal_homepage" | "redirect"
+            }
+          | undefined
+        subscription_cancel?:
+          | {
+              retention?:
+                | {
+                    coupon_offer: {
+                      coupon: string
                     }
-                  | undefined
-                redirect?:
-                  | {
-                      return_url: string
-                    }
-                  | undefined
-                type: "hosted_confirmation" | "portal_homepage" | "redirect"
-              }
-            | undefined
-          subscription_cancel?:
-            | {
-                retention?:
-                  | {
-                      coupon_offer: {
-                        coupon: string
-                      }
-                      type: "coupon_offer"
-                    }
-                  | undefined
-                subscription: string
-              }
-            | undefined
-          subscription_update?:
-            | {
-                subscription: string
-              }
-            | undefined
-          subscription_update_confirm?:
-            | {
-                discounts?:
-                  | {
-                      coupon?: string | undefined
-                      promotion_code?: string | undefined
-                    }[]
-                  | undefined
-                items: {
-                  id: string
-                  price?: string | undefined
-                  quantity?: number | undefined
-                }[]
-                subscription: string
-              }
-            | undefined
-          type:
-            | "payment_method_update"
-            | "subscription_cancel"
-            | "subscription_update"
-            | "subscription_update_confirm"
-        }
-      | undefined
-    locale?:
-      | (
-          | "auto"
-          | "bg"
-          | "cs"
-          | "da"
-          | "de"
-          | "el"
-          | "en"
-          | "en-AU"
-          | "en-CA"
-          | "en-GB"
-          | "en-IE"
-          | "en-IN"
-          | "en-NZ"
-          | "en-SG"
-          | "es"
-          | "es-419"
-          | "et"
-          | "fi"
-          | "fil"
-          | "fr"
-          | "fr-CA"
-          | "hr"
-          | "hu"
-          | "id"
-          | "it"
-          | "ja"
-          | "ko"
-          | "lt"
-          | "lv"
-          | "ms"
-          | "mt"
-          | "nb"
-          | "nl"
-          | "pl"
-          | "pt"
-          | "pt-BR"
-          | "ro"
-          | "ru"
-          | "sk"
-          | "sl"
-          | "sv"
-          | "th"
-          | "tr"
-          | "vi"
-          | "zh"
-          | "zh-HK"
-          | "zh-TW"
-        )
-      | undefined
-    on_behalf_of?: string | undefined
-    return_url?: string | undefined
-  }
+                    type: "coupon_offer"
+                  }
+                | undefined
+              subscription: string
+            }
+          | undefined
+        subscription_update?:
+          | {
+              subscription: string
+            }
+          | undefined
+        subscription_update_confirm?:
+          | {
+              discounts?:
+                | {
+                    coupon?: string | undefined
+                    promotion_code?: string | undefined
+                  }[]
+                | undefined
+              items: {
+                id: string
+                price?: string | undefined
+                quantity?: number | undefined
+              }[]
+              subscription: string
+            }
+          | undefined
+        type:
+          | "payment_method_update"
+          | "subscription_cancel"
+          | "subscription_update"
+          | "subscription_update_confirm"
+      }
+    | undefined
+  locale?:
+    | (
+        | "auto"
+        | "bg"
+        | "cs"
+        | "da"
+        | "de"
+        | "el"
+        | "en"
+        | "en-AU"
+        | "en-CA"
+        | "en-GB"
+        | "en-IE"
+        | "en-IN"
+        | "en-NZ"
+        | "en-SG"
+        | "es"
+        | "es-419"
+        | "et"
+        | "fi"
+        | "fil"
+        | "fr"
+        | "fr-CA"
+        | "hr"
+        | "hu"
+        | "id"
+        | "it"
+        | "ja"
+        | "ko"
+        | "lt"
+        | "lv"
+        | "ms"
+        | "mt"
+        | "nb"
+        | "nl"
+        | "pl"
+        | "pt"
+        | "pt-BR"
+        | "ro"
+        | "ru"
+        | "sk"
+        | "sl"
+        | "sv"
+        | "th"
+        | "tr"
+        | "vi"
+        | "zh"
+        | "zh-HK"
+        | "zh-TW"
+      )
+    | undefined
+  on_behalf_of?: string | undefined
+  return_url?: string | undefined
+}
 
-export type t_postChargesApplicationXWwwFormUrlencodedRequestBody = {
+export type t_PostChargesRequestBody = {
   amount?: number | undefined
   application_fee?: number | undefined
   application_fee_amount?: number | undefined
@@ -22547,7 +22515,7 @@ export type t_PostChargesChargeParamSchema = {
   charge: string
 }
 
-export type t_postChargesChargeApplicationXWwwFormUrlencodedRequestBody = {
+export type t_PostChargesChargeRequestBody = {
   customer?: string | undefined
   description?: string | undefined
   expand?: string[] | undefined
@@ -22588,217 +22556,207 @@ export type t_PostChargesChargeCaptureParamSchema = {
   charge: string
 }
 
-export type t_postChargesChargeCaptureApplicationXWwwFormUrlencodedRequestBody =
-  {
-    amount?: number | undefined
-    application_fee?: number | undefined
-    application_fee_amount?: number | undefined
-    expand?: string[] | undefined
-    receipt_email?: string | undefined
-    statement_descriptor?: string | undefined
-    statement_descriptor_suffix?: string | undefined
-    transfer_data?:
-      | {
-          amount?: number | undefined
-        }
-      | undefined
-    transfer_group?: string | undefined
-  }
+export type t_PostChargesChargeCaptureRequestBody = {
+  amount?: number | undefined
+  application_fee?: number | undefined
+  application_fee_amount?: number | undefined
+  expand?: string[] | undefined
+  receipt_email?: string | undefined
+  statement_descriptor?: string | undefined
+  statement_descriptor_suffix?: string | undefined
+  transfer_data?:
+    | {
+        amount?: number | undefined
+      }
+    | undefined
+  transfer_group?: string | undefined
+}
 
 export type t_PostChargesChargeDisputeParamSchema = {
   charge: string
 }
 
-export type t_postChargesChargeDisputeApplicationXWwwFormUrlencodedRequestBody =
-  {
-    evidence?:
-      | {
-          access_activity_log?: string | undefined
-          billing_address?: string | undefined
-          cancellation_policy?: string | undefined
-          cancellation_policy_disclosure?: string | undefined
-          cancellation_rebuttal?: string | undefined
-          customer_communication?: string | undefined
-          customer_email_address?: string | undefined
-          customer_name?: string | undefined
-          customer_purchase_ip?: string | undefined
-          customer_signature?: string | undefined
-          duplicate_charge_documentation?: string | undefined
-          duplicate_charge_explanation?: string | undefined
-          duplicate_charge_id?: string | undefined
-          enhanced_evidence?:
-            | (
-                | {
-                    visa_compelling_evidence_3?:
-                      | {
-                          disputed_transaction?:
-                            | {
-                                customer_account_id?: (string | "") | undefined
-                                customer_device_fingerprint?:
-                                  | (string | "")
-                                  | undefined
-                                customer_device_id?: (string | "") | undefined
-                                customer_email_address?:
-                                  | (string | "")
-                                  | undefined
-                                customer_purchase_ip?: (string | "") | undefined
-                                merchandise_or_services?:
-                                  | ("merchandise" | "services")
-                                  | undefined
-                                product_description?: (string | "") | undefined
-                                shipping_address?:
-                                  | {
-                                      city?: (string | "") | undefined
-                                      country?: (string | "") | undefined
-                                      line1?: (string | "") | undefined
-                                      line2?: (string | "") | undefined
-                                      postal_code?: (string | "") | undefined
-                                      state?: (string | "") | undefined
-                                    }
-                                  | undefined
-                              }
-                            | undefined
-                          prior_undisputed_transactions?:
-                            | {
-                                charge: string
-                                customer_account_id?: (string | "") | undefined
-                                customer_device_fingerprint?:
-                                  | (string | "")
-                                  | undefined
-                                customer_device_id?: (string | "") | undefined
-                                customer_email_address?:
-                                  | (string | "")
-                                  | undefined
-                                customer_purchase_ip?: (string | "") | undefined
-                                product_description?: (string | "") | undefined
-                                shipping_address?:
-                                  | {
-                                      city?: (string | "") | undefined
-                                      country?: (string | "") | undefined
-                                      line1?: (string | "") | undefined
-                                      line2?: (string | "") | undefined
-                                      postal_code?: (string | "") | undefined
-                                      state?: (string | "") | undefined
-                                    }
-                                  | undefined
-                              }[]
-                            | undefined
-                        }
-                      | undefined
-                    visa_compliance?:
-                      | {
-                          fee_acknowledged?: boolean | undefined
-                        }
-                      | undefined
-                  }
-                | ""
-              )
-            | undefined
-          product_description?: string | undefined
-          receipt?: string | undefined
-          refund_policy?: string | undefined
-          refund_policy_disclosure?: string | undefined
-          refund_refusal_explanation?: string | undefined
-          service_date?: string | undefined
-          service_documentation?: string | undefined
-          shipping_address?: string | undefined
-          shipping_carrier?: string | undefined
-          shipping_date?: string | undefined
-          shipping_documentation?: string | undefined
-          shipping_tracking_number?: string | undefined
-          uncategorized_file?: string | undefined
-          uncategorized_text?: string | undefined
-        }
-      | undefined
-    expand?: string[] | undefined
-    metadata?:
-      | (
-          | {
-              [key: string]: string | undefined
-            }
-          | ""
-        )
-      | undefined
-    submit?: boolean | undefined
-  }
+export type t_PostChargesChargeDisputeRequestBody = {
+  evidence?:
+    | {
+        access_activity_log?: string | undefined
+        billing_address?: string | undefined
+        cancellation_policy?: string | undefined
+        cancellation_policy_disclosure?: string | undefined
+        cancellation_rebuttal?: string | undefined
+        customer_communication?: string | undefined
+        customer_email_address?: string | undefined
+        customer_name?: string | undefined
+        customer_purchase_ip?: string | undefined
+        customer_signature?: string | undefined
+        duplicate_charge_documentation?: string | undefined
+        duplicate_charge_explanation?: string | undefined
+        duplicate_charge_id?: string | undefined
+        enhanced_evidence?:
+          | (
+              | {
+                  visa_compelling_evidence_3?:
+                    | {
+                        disputed_transaction?:
+                          | {
+                              customer_account_id?: (string | "") | undefined
+                              customer_device_fingerprint?:
+                                | (string | "")
+                                | undefined
+                              customer_device_id?: (string | "") | undefined
+                              customer_email_address?: (string | "") | undefined
+                              customer_purchase_ip?: (string | "") | undefined
+                              merchandise_or_services?:
+                                | ("merchandise" | "services")
+                                | undefined
+                              product_description?: (string | "") | undefined
+                              shipping_address?:
+                                | {
+                                    city?: (string | "") | undefined
+                                    country?: (string | "") | undefined
+                                    line1?: (string | "") | undefined
+                                    line2?: (string | "") | undefined
+                                    postal_code?: (string | "") | undefined
+                                    state?: (string | "") | undefined
+                                  }
+                                | undefined
+                            }
+                          | undefined
+                        prior_undisputed_transactions?:
+                          | {
+                              charge: string
+                              customer_account_id?: (string | "") | undefined
+                              customer_device_fingerprint?:
+                                | (string | "")
+                                | undefined
+                              customer_device_id?: (string | "") | undefined
+                              customer_email_address?: (string | "") | undefined
+                              customer_purchase_ip?: (string | "") | undefined
+                              product_description?: (string | "") | undefined
+                              shipping_address?:
+                                | {
+                                    city?: (string | "") | undefined
+                                    country?: (string | "") | undefined
+                                    line1?: (string | "") | undefined
+                                    line2?: (string | "") | undefined
+                                    postal_code?: (string | "") | undefined
+                                    state?: (string | "") | undefined
+                                  }
+                                | undefined
+                            }[]
+                          | undefined
+                      }
+                    | undefined
+                  visa_compliance?:
+                    | {
+                        fee_acknowledged?: boolean | undefined
+                      }
+                    | undefined
+                }
+              | ""
+            )
+          | undefined
+        product_description?: string | undefined
+        receipt?: string | undefined
+        refund_policy?: string | undefined
+        refund_policy_disclosure?: string | undefined
+        refund_refusal_explanation?: string | undefined
+        service_date?: string | undefined
+        service_documentation?: string | undefined
+        shipping_address?: string | undefined
+        shipping_carrier?: string | undefined
+        shipping_date?: string | undefined
+        shipping_documentation?: string | undefined
+        shipping_tracking_number?: string | undefined
+        uncategorized_file?: string | undefined
+        uncategorized_text?: string | undefined
+      }
+    | undefined
+  expand?: string[] | undefined
+  metadata?:
+    | (
+        | {
+            [key: string]: string | undefined
+          }
+        | ""
+      )
+    | undefined
+  submit?: boolean | undefined
+}
 
 export type t_PostChargesChargeDisputeCloseParamSchema = {
   charge: string
 }
 
-export type t_postChargesChargeDisputeCloseApplicationXWwwFormUrlencodedRequestBody =
-  {
-    expand?: string[] | undefined
-  }
+export type t_PostChargesChargeDisputeCloseRequestBody = {
+  expand?: string[] | undefined
+}
 
 export type t_PostChargesChargeRefundParamSchema = {
   charge: string
 }
 
-export type t_postChargesChargeRefundApplicationXWwwFormUrlencodedRequestBody =
-  {
-    amount?: number | undefined
-    expand?: string[] | undefined
-    instructions_email?: string | undefined
-    metadata?:
-      | (
-          | {
-              [key: string]: string | undefined
-            }
-          | ""
-        )
-      | undefined
-    payment_intent?: string | undefined
-    reason?: ("duplicate" | "fraudulent" | "requested_by_customer") | undefined
-    refund_application_fee?: boolean | undefined
-    reverse_transfer?: boolean | undefined
-  }
+export type t_PostChargesChargeRefundRequestBody = {
+  amount?: number | undefined
+  expand?: string[] | undefined
+  instructions_email?: string | undefined
+  metadata?:
+    | (
+        | {
+            [key: string]: string | undefined
+          }
+        | ""
+      )
+    | undefined
+  payment_intent?: string | undefined
+  reason?: ("duplicate" | "fraudulent" | "requested_by_customer") | undefined
+  refund_application_fee?: boolean | undefined
+  reverse_transfer?: boolean | undefined
+}
 
 export type t_PostChargesChargeRefundsParamSchema = {
   charge: string
 }
 
-export type t_postChargesChargeRefundsApplicationXWwwFormUrlencodedRequestBody =
-  {
-    amount?: number | undefined
-    currency?: string | undefined
-    customer?: string | undefined
-    expand?: string[] | undefined
-    instructions_email?: string | undefined
-    metadata?:
-      | (
-          | {
-              [key: string]: string | undefined
-            }
-          | ""
-        )
-      | undefined
-    origin?: "customer_balance" | undefined
-    payment_intent?: string | undefined
-    reason?: ("duplicate" | "fraudulent" | "requested_by_customer") | undefined
-    refund_application_fee?: boolean | undefined
-    reverse_transfer?: boolean | undefined
-  }
+export type t_PostChargesChargeRefundsRequestBody = {
+  amount?: number | undefined
+  currency?: string | undefined
+  customer?: string | undefined
+  expand?: string[] | undefined
+  instructions_email?: string | undefined
+  metadata?:
+    | (
+        | {
+            [key: string]: string | undefined
+          }
+        | ""
+      )
+    | undefined
+  origin?: "customer_balance" | undefined
+  payment_intent?: string | undefined
+  reason?: ("duplicate" | "fraudulent" | "requested_by_customer") | undefined
+  refund_application_fee?: boolean | undefined
+  reverse_transfer?: boolean | undefined
+}
 
 export type t_PostChargesChargeRefundsRefundParamSchema = {
   charge: string
   refund: string
 }
 
-export type t_postChargesChargeRefundsRefundApplicationXWwwFormUrlencodedRequestBody =
-  {
-    expand?: string[] | undefined
-    metadata?:
-      | (
-          | {
-              [key: string]: string | undefined
-            }
-          | ""
-        )
-      | undefined
-  }
+export type t_PostChargesChargeRefundsRefundRequestBody = {
+  expand?: string[] | undefined
+  metadata?:
+    | (
+        | {
+            [key: string]: string | undefined
+          }
+        | ""
+      )
+    | undefined
+}
 
-export type t_postCheckoutSessionsApplicationXWwwFormUrlencodedRequestBody = {
+export type t_PostCheckoutSessionsRequestBody = {
   adaptive_pricing?:
     | {
         enabled?: boolean | undefined
@@ -23955,117 +23913,115 @@ export type t_PostCheckoutSessionsSessionParamSchema = {
   session: string
 }
 
-export type t_postCheckoutSessionsSessionApplicationXWwwFormUrlencodedRequestBody =
-  {
-    collected_information?:
-      | {
-          shipping_details?:
-            | {
-                address: {
-                  city?: string | undefined
-                  country: string
-                  line1: string
-                  line2?: string | undefined
-                  postal_code?: string | undefined
-                  state?: string | undefined
-                }
-                name: string
+export type t_PostCheckoutSessionsSessionRequestBody = {
+  collected_information?:
+    | {
+        shipping_details?:
+          | {
+              address: {
+                city?: string | undefined
+                country: string
+                line1: string
+                line2?: string | undefined
+                postal_code?: string | undefined
+                state?: string | undefined
               }
-            | undefined
-        }
-      | undefined
-    expand?: string[] | undefined
-    metadata?:
-      | (
-          | {
-              [key: string]: string | undefined
+              name: string
             }
-          | ""
-        )
-      | undefined
-    shipping_options?:
-      | (
-          | {
-              shipping_rate?: string | undefined
-              shipping_rate_data?:
-                | {
-                    delivery_estimate?:
-                      | {
-                          maximum?:
-                            | {
-                                unit:
-                                  | "business_day"
-                                  | "day"
-                                  | "hour"
-                                  | "month"
-                                  | "week"
-                                value: number
-                              }
-                            | undefined
-                          minimum?:
-                            | {
-                                unit:
-                                  | "business_day"
-                                  | "day"
-                                  | "hour"
-                                  | "month"
-                                  | "week"
-                                value: number
-                              }
-                            | undefined
-                        }
-                      | undefined
-                    display_name: string
-                    fixed_amount?:
-                      | {
-                          amount: number
-                          currency: string
-                          currency_options?:
-                            | {
-                                [key: string]:
-                                  | {
-                                      amount: number
-                                      tax_behavior?:
-                                        | (
-                                            | "exclusive"
-                                            | "inclusive"
-                                            | "unspecified"
-                                          )
-                                        | undefined
-                                    }
-                                  | undefined
-                              }
-                            | undefined
-                        }
-                      | undefined
-                    metadata?:
-                      | {
-                          [key: string]: string | undefined
-                        }
-                      | undefined
-                    tax_behavior?:
-                      | ("exclusive" | "inclusive" | "unspecified")
-                      | undefined
-                    tax_code?: string | undefined
-                    type?: "fixed_amount" | undefined
-                  }
-                | undefined
-            }[]
-          | ""
-        )
-      | undefined
-  }
+          | undefined
+      }
+    | undefined
+  expand?: string[] | undefined
+  metadata?:
+    | (
+        | {
+            [key: string]: string | undefined
+          }
+        | ""
+      )
+    | undefined
+  shipping_options?:
+    | (
+        | {
+            shipping_rate?: string | undefined
+            shipping_rate_data?:
+              | {
+                  delivery_estimate?:
+                    | {
+                        maximum?:
+                          | {
+                              unit:
+                                | "business_day"
+                                | "day"
+                                | "hour"
+                                | "month"
+                                | "week"
+                              value: number
+                            }
+                          | undefined
+                        minimum?:
+                          | {
+                              unit:
+                                | "business_day"
+                                | "day"
+                                | "hour"
+                                | "month"
+                                | "week"
+                              value: number
+                            }
+                          | undefined
+                      }
+                    | undefined
+                  display_name: string
+                  fixed_amount?:
+                    | {
+                        amount: number
+                        currency: string
+                        currency_options?:
+                          | {
+                              [key: string]:
+                                | {
+                                    amount: number
+                                    tax_behavior?:
+                                      | (
+                                          | "exclusive"
+                                          | "inclusive"
+                                          | "unspecified"
+                                        )
+                                      | undefined
+                                  }
+                                | undefined
+                            }
+                          | undefined
+                      }
+                    | undefined
+                  metadata?:
+                    | {
+                        [key: string]: string | undefined
+                      }
+                    | undefined
+                  tax_behavior?:
+                    | ("exclusive" | "inclusive" | "unspecified")
+                    | undefined
+                  tax_code?: string | undefined
+                  type?: "fixed_amount" | undefined
+                }
+              | undefined
+          }[]
+        | ""
+      )
+    | undefined
+}
 
 export type t_PostCheckoutSessionsSessionExpireParamSchema = {
   session: string
 }
 
-export type t_postCheckoutSessionsSessionExpireApplicationXWwwFormUrlencodedRequestBody =
-  {
-    expand?: string[] | undefined
-  }
+export type t_PostCheckoutSessionsSessionExpireRequestBody = {
+  expand?: string[] | undefined
+}
 
-export type t_postClimateOrdersApplicationXWwwFormUrlencodedRequestBody = {
+export type t_PostClimateOrdersRequestBody = {
   amount?: number | undefined
   beneficiary?:
     | {
@@ -24087,7 +24043,7 @@ export type t_PostClimateOrdersOrderParamSchema = {
   order: string
 }
 
-export type t_postClimateOrdersOrderApplicationXWwwFormUrlencodedRequestBody = {
+export type t_PostClimateOrdersOrderRequestBody = {
   beneficiary?:
     | (
         | {
@@ -24108,12 +24064,11 @@ export type t_PostClimateOrdersOrderCancelParamSchema = {
   order: string
 }
 
-export type t_postClimateOrdersOrderCancelApplicationXWwwFormUrlencodedRequestBody =
-  {
-    expand?: string[] | undefined
-  }
+export type t_PostClimateOrdersOrderCancelRequestBody = {
+  expand?: string[] | undefined
+}
 
-export type t_postCouponsApplicationXWwwFormUrlencodedRequestBody = {
+export type t_PostCouponsRequestBody = {
   amount_off?: number | undefined
   applies_to?:
     | {
@@ -24152,7 +24107,7 @@ export type t_PostCouponsCouponParamSchema = {
   coupon: string
 }
 
-export type t_postCouponsCouponApplicationXWwwFormUrlencodedRequestBody = {
+export type t_PostCouponsCouponRequestBody = {
   currency_options?:
     | {
         [key: string]:
@@ -24174,7 +24129,7 @@ export type t_postCouponsCouponApplicationXWwwFormUrlencodedRequestBody = {
   name?: string | undefined
 }
 
-export type t_postCreditNotesApplicationXWwwFormUrlencodedRequestBody = {
+export type t_PostCreditNotesRequestBody = {
   amount?: number | undefined
   credit_amount?: number | undefined
   effective_at?: number | undefined
@@ -24231,7 +24186,7 @@ export type t_PostCreditNotesIdParamSchema = {
   id: string
 }
 
-export type t_postCreditNotesIdApplicationXWwwFormUrlencodedRequestBody = {
+export type t_PostCreditNotesIdRequestBody = {
   expand?: string[] | undefined
   memo?: string | undefined
   metadata?:
@@ -24245,11 +24200,11 @@ export type t_PostCreditNotesIdVoidParamSchema = {
   id: string
 }
 
-export type t_postCreditNotesIdVoidApplicationXWwwFormUrlencodedRequestBody = {
+export type t_PostCreditNotesIdVoidRequestBody = {
   expand?: string[] | undefined
 }
 
-export type t_postCustomerSessionsApplicationXWwwFormUrlencodedRequestBody = {
+export type t_PostCustomerSessionsRequestBody = {
   components: {
     buy_button?:
       | {
@@ -24285,7 +24240,7 @@ export type t_postCustomerSessionsApplicationXWwwFormUrlencodedRequestBody = {
   expand?: string[] | undefined
 }
 
-export type t_postCustomersApplicationXWwwFormUrlencodedRequestBody = {
+export type t_PostCustomersRequestBody = {
   address?:
     | (
         | {
@@ -24502,7 +24457,7 @@ export type t_PostCustomersCustomerParamSchema = {
   customer: string
 }
 
-export type t_postCustomersCustomerApplicationXWwwFormUrlencodedRequestBody = {
+export type t_PostCustomersCustomerRequestBody = {
   address?:
     | (
         | {
@@ -24643,753 +24598,736 @@ export type t_PostCustomersCustomerBalanceTransactionsParamSchema = {
   customer: string
 }
 
-export type t_postCustomersCustomerBalanceTransactionsApplicationXWwwFormUrlencodedRequestBody =
-  {
-    amount: number
-    currency: string
-    description?: string | undefined
-    expand?: string[] | undefined
-    metadata?:
-      | (
-          | {
-              [key: string]: string | undefined
-            }
-          | ""
-        )
-      | undefined
-  }
+export type t_PostCustomersCustomerBalanceTransactionsRequestBody = {
+  amount: number
+  currency: string
+  description?: string | undefined
+  expand?: string[] | undefined
+  metadata?:
+    | (
+        | {
+            [key: string]: string | undefined
+          }
+        | ""
+      )
+    | undefined
+}
 
 export type t_PostCustomersCustomerBalanceTransactionsTransactionParamSchema = {
   customer: string
   transaction: string
 }
 
-export type t_postCustomersCustomerBalanceTransactionsTransactionApplicationXWwwFormUrlencodedRequestBody =
-  {
-    description?: string | undefined
-    expand?: string[] | undefined
-    metadata?:
-      | (
-          | {
-              [key: string]: string | undefined
-            }
-          | ""
-        )
-      | undefined
-  }
+export type t_PostCustomersCustomerBalanceTransactionsTransactionRequestBody = {
+  description?: string | undefined
+  expand?: string[] | undefined
+  metadata?:
+    | (
+        | {
+            [key: string]: string | undefined
+          }
+        | ""
+      )
+    | undefined
+}
 
 export type t_PostCustomersCustomerBankAccountsParamSchema = {
   customer: string
 }
 
-export type t_postCustomersCustomerBankAccountsApplicationXWwwFormUrlencodedRequestBody =
-  {
-    alipay_account?: string | undefined
-    bank_account?:
-      | (
-          | {
-              account_holder_name?: string | undefined
-              account_holder_type?: ("company" | "individual") | undefined
-              account_number: string
-              country: string
-              currency?: string | undefined
-              object?: "bank_account" | undefined
-              routing_number?: string | undefined
-            }
-          | string
-        )
-      | undefined
-    card?:
-      | (
-          | {
-              address_city?: string | undefined
-              address_country?: string | undefined
-              address_line1?: string | undefined
-              address_line2?: string | undefined
-              address_state?: string | undefined
-              address_zip?: string | undefined
-              cvc?: string | undefined
-              exp_month: number
-              exp_year: number
-              metadata?:
-                | {
-                    [key: string]: string | undefined
-                  }
-                | undefined
-              name?: string | undefined
-              number: string
-              object?: "card" | undefined
-            }
-          | string
-        )
-      | undefined
-    expand?: string[] | undefined
-    metadata?:
-      | {
-          [key: string]: string | undefined
-        }
-      | undefined
-    source?: string | undefined
-  }
+export type t_PostCustomersCustomerBankAccountsRequestBody = {
+  alipay_account?: string | undefined
+  bank_account?:
+    | (
+        | {
+            account_holder_name?: string | undefined
+            account_holder_type?: ("company" | "individual") | undefined
+            account_number: string
+            country: string
+            currency?: string | undefined
+            object?: "bank_account" | undefined
+            routing_number?: string | undefined
+          }
+        | string
+      )
+    | undefined
+  card?:
+    | (
+        | {
+            address_city?: string | undefined
+            address_country?: string | undefined
+            address_line1?: string | undefined
+            address_line2?: string | undefined
+            address_state?: string | undefined
+            address_zip?: string | undefined
+            cvc?: string | undefined
+            exp_month: number
+            exp_year: number
+            metadata?:
+              | {
+                  [key: string]: string | undefined
+                }
+              | undefined
+            name?: string | undefined
+            number: string
+            object?: "card" | undefined
+          }
+        | string
+      )
+    | undefined
+  expand?: string[] | undefined
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | undefined
+  source?: string | undefined
+}
 
 export type t_PostCustomersCustomerBankAccountsIdParamSchema = {
   customer: string
   id: string
 }
 
-export type t_postCustomersCustomerBankAccountsIdApplicationXWwwFormUrlencodedRequestBody =
-  {
-    account_holder_name?: string | undefined
-    account_holder_type?: ("company" | "individual") | undefined
-    address_city?: string | undefined
-    address_country?: string | undefined
-    address_line1?: string | undefined
-    address_line2?: string | undefined
-    address_state?: string | undefined
-    address_zip?: string | undefined
-    exp_month?: string | undefined
-    exp_year?: string | undefined
-    expand?: string[] | undefined
-    metadata?:
-      | (
+export type t_PostCustomersCustomerBankAccountsIdRequestBody = {
+  account_holder_name?: string | undefined
+  account_holder_type?: ("company" | "individual") | undefined
+  address_city?: string | undefined
+  address_country?: string | undefined
+  address_line1?: string | undefined
+  address_line2?: string | undefined
+  address_state?: string | undefined
+  address_zip?: string | undefined
+  exp_month?: string | undefined
+  exp_year?: string | undefined
+  expand?: string[] | undefined
+  metadata?:
+    | (
+        | {
+            [key: string]: string | undefined
+          }
+        | ""
+      )
+    | undefined
+  name?: string | undefined
+  owner?:
+    | {
+        address?:
           | {
-              [key: string]: string | undefined
+              city?: string | undefined
+              country?: string | undefined
+              line1?: string | undefined
+              line2?: string | undefined
+              postal_code?: string | undefined
+              state?: string | undefined
             }
-          | ""
-        )
-      | undefined
-    name?: string | undefined
-    owner?:
-      | {
-          address?:
-            | {
-                city?: string | undefined
-                country?: string | undefined
-                line1?: string | undefined
-                line2?: string | undefined
-                postal_code?: string | undefined
-                state?: string | undefined
-              }
-            | undefined
-          email?: string | undefined
-          name?: string | undefined
-          phone?: string | undefined
-        }
-      | undefined
-  }
+          | undefined
+        email?: string | undefined
+        name?: string | undefined
+        phone?: string | undefined
+      }
+    | undefined
+}
 
 export type t_PostCustomersCustomerBankAccountsIdVerifyParamSchema = {
   customer: string
   id: string
 }
 
-export type t_postCustomersCustomerBankAccountsIdVerifyApplicationXWwwFormUrlencodedRequestBody =
-  {
-    amounts?: number[] | undefined
-    expand?: string[] | undefined
-  }
+export type t_PostCustomersCustomerBankAccountsIdVerifyRequestBody = {
+  amounts?: number[] | undefined
+  expand?: string[] | undefined
+}
 
 export type t_PostCustomersCustomerCardsParamSchema = {
   customer: string
 }
 
-export type t_postCustomersCustomerCardsApplicationXWwwFormUrlencodedRequestBody =
-  {
-    alipay_account?: string | undefined
-    bank_account?:
-      | (
-          | {
-              account_holder_name?: string | undefined
-              account_holder_type?: ("company" | "individual") | undefined
-              account_number: string
-              country: string
-              currency?: string | undefined
-              object?: "bank_account" | undefined
-              routing_number?: string | undefined
-            }
-          | string
-        )
-      | undefined
-    card?:
-      | (
-          | {
-              address_city?: string | undefined
-              address_country?: string | undefined
-              address_line1?: string | undefined
-              address_line2?: string | undefined
-              address_state?: string | undefined
-              address_zip?: string | undefined
-              cvc?: string | undefined
-              exp_month: number
-              exp_year: number
-              metadata?:
-                | {
-                    [key: string]: string | undefined
-                  }
-                | undefined
-              name?: string | undefined
-              number: string
-              object?: "card" | undefined
-            }
-          | string
-        )
-      | undefined
-    expand?: string[] | undefined
-    metadata?:
-      | {
-          [key: string]: string | undefined
-        }
-      | undefined
-    source?: string | undefined
-  }
+export type t_PostCustomersCustomerCardsRequestBody = {
+  alipay_account?: string | undefined
+  bank_account?:
+    | (
+        | {
+            account_holder_name?: string | undefined
+            account_holder_type?: ("company" | "individual") | undefined
+            account_number: string
+            country: string
+            currency?: string | undefined
+            object?: "bank_account" | undefined
+            routing_number?: string | undefined
+          }
+        | string
+      )
+    | undefined
+  card?:
+    | (
+        | {
+            address_city?: string | undefined
+            address_country?: string | undefined
+            address_line1?: string | undefined
+            address_line2?: string | undefined
+            address_state?: string | undefined
+            address_zip?: string | undefined
+            cvc?: string | undefined
+            exp_month: number
+            exp_year: number
+            metadata?:
+              | {
+                  [key: string]: string | undefined
+                }
+              | undefined
+            name?: string | undefined
+            number: string
+            object?: "card" | undefined
+          }
+        | string
+      )
+    | undefined
+  expand?: string[] | undefined
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | undefined
+  source?: string | undefined
+}
 
 export type t_PostCustomersCustomerCardsIdParamSchema = {
   customer: string
   id: string
 }
 
-export type t_postCustomersCustomerCardsIdApplicationXWwwFormUrlencodedRequestBody =
-  {
-    account_holder_name?: string | undefined
-    account_holder_type?: ("company" | "individual") | undefined
-    address_city?: string | undefined
-    address_country?: string | undefined
-    address_line1?: string | undefined
-    address_line2?: string | undefined
-    address_state?: string | undefined
-    address_zip?: string | undefined
-    exp_month?: string | undefined
-    exp_year?: string | undefined
-    expand?: string[] | undefined
-    metadata?:
-      | (
+export type t_PostCustomersCustomerCardsIdRequestBody = {
+  account_holder_name?: string | undefined
+  account_holder_type?: ("company" | "individual") | undefined
+  address_city?: string | undefined
+  address_country?: string | undefined
+  address_line1?: string | undefined
+  address_line2?: string | undefined
+  address_state?: string | undefined
+  address_zip?: string | undefined
+  exp_month?: string | undefined
+  exp_year?: string | undefined
+  expand?: string[] | undefined
+  metadata?:
+    | (
+        | {
+            [key: string]: string | undefined
+          }
+        | ""
+      )
+    | undefined
+  name?: string | undefined
+  owner?:
+    | {
+        address?:
           | {
-              [key: string]: string | undefined
+              city?: string | undefined
+              country?: string | undefined
+              line1?: string | undefined
+              line2?: string | undefined
+              postal_code?: string | undefined
+              state?: string | undefined
             }
-          | ""
-        )
-      | undefined
-    name?: string | undefined
-    owner?:
-      | {
-          address?:
-            | {
-                city?: string | undefined
-                country?: string | undefined
-                line1?: string | undefined
-                line2?: string | undefined
-                postal_code?: string | undefined
-                state?: string | undefined
-              }
-            | undefined
-          email?: string | undefined
-          name?: string | undefined
-          phone?: string | undefined
-        }
-      | undefined
-  }
+          | undefined
+        email?: string | undefined
+        name?: string | undefined
+        phone?: string | undefined
+      }
+    | undefined
+}
 
 export type t_PostCustomersCustomerCashBalanceParamSchema = {
   customer: string
 }
 
-export type t_postCustomersCustomerCashBalanceApplicationXWwwFormUrlencodedRequestBody =
-  {
-    expand?: string[] | undefined
-    settings?:
-      | {
-          reconciliation_mode?:
-            | ("automatic" | "manual" | "merchant_default")
-            | undefined
-        }
-      | undefined
-  }
+export type t_PostCustomersCustomerCashBalanceRequestBody = {
+  expand?: string[] | undefined
+  settings?:
+    | {
+        reconciliation_mode?:
+          | ("automatic" | "manual" | "merchant_default")
+          | undefined
+      }
+    | undefined
+}
 
 export type t_PostCustomersCustomerFundingInstructionsParamSchema = {
   customer: string
 }
 
-export type t_postCustomersCustomerFundingInstructionsApplicationXWwwFormUrlencodedRequestBody =
-  {
-    bank_transfer: {
-      eu_bank_transfer?:
-        | {
-            country: string
-          }
-        | undefined
-      requested_address_types?:
-        | ("iban" | "sort_code" | "spei" | "zengin")[]
-        | undefined
-      type:
-        | "eu_bank_transfer"
-        | "gb_bank_transfer"
-        | "jp_bank_transfer"
-        | "mx_bank_transfer"
-        | "us_bank_transfer"
-    }
-    currency: string
-    expand?: string[] | undefined
-    funding_type: "bank_transfer"
+export type t_PostCustomersCustomerFundingInstructionsRequestBody = {
+  bank_transfer: {
+    eu_bank_transfer?:
+      | {
+          country: string
+        }
+      | undefined
+    requested_address_types?:
+      | ("iban" | "sort_code" | "spei" | "zengin")[]
+      | undefined
+    type:
+      | "eu_bank_transfer"
+      | "gb_bank_transfer"
+      | "jp_bank_transfer"
+      | "mx_bank_transfer"
+      | "us_bank_transfer"
   }
+  currency: string
+  expand?: string[] | undefined
+  funding_type: "bank_transfer"
+}
 
 export type t_PostCustomersCustomerSourcesParamSchema = {
   customer: string
 }
 
-export type t_postCustomersCustomerSourcesApplicationXWwwFormUrlencodedRequestBody =
-  {
-    alipay_account?: string | undefined
-    bank_account?:
-      | (
-          | {
-              account_holder_name?: string | undefined
-              account_holder_type?: ("company" | "individual") | undefined
-              account_number: string
-              country: string
-              currency?: string | undefined
-              object?: "bank_account" | undefined
-              routing_number?: string | undefined
-            }
-          | string
-        )
-      | undefined
-    card?:
-      | (
-          | {
-              address_city?: string | undefined
-              address_country?: string | undefined
-              address_line1?: string | undefined
-              address_line2?: string | undefined
-              address_state?: string | undefined
-              address_zip?: string | undefined
-              cvc?: string | undefined
-              exp_month: number
-              exp_year: number
-              metadata?:
-                | {
-                    [key: string]: string | undefined
-                  }
-                | undefined
-              name?: string | undefined
-              number: string
-              object?: "card" | undefined
-            }
-          | string
-        )
-      | undefined
-    expand?: string[] | undefined
-    metadata?:
-      | {
-          [key: string]: string | undefined
-        }
-      | undefined
-    source?: string | undefined
-  }
+export type t_PostCustomersCustomerSourcesRequestBody = {
+  alipay_account?: string | undefined
+  bank_account?:
+    | (
+        | {
+            account_holder_name?: string | undefined
+            account_holder_type?: ("company" | "individual") | undefined
+            account_number: string
+            country: string
+            currency?: string | undefined
+            object?: "bank_account" | undefined
+            routing_number?: string | undefined
+          }
+        | string
+      )
+    | undefined
+  card?:
+    | (
+        | {
+            address_city?: string | undefined
+            address_country?: string | undefined
+            address_line1?: string | undefined
+            address_line2?: string | undefined
+            address_state?: string | undefined
+            address_zip?: string | undefined
+            cvc?: string | undefined
+            exp_month: number
+            exp_year: number
+            metadata?:
+              | {
+                  [key: string]: string | undefined
+                }
+              | undefined
+            name?: string | undefined
+            number: string
+            object?: "card" | undefined
+          }
+        | string
+      )
+    | undefined
+  expand?: string[] | undefined
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | undefined
+  source?: string | undefined
+}
 
 export type t_PostCustomersCustomerSourcesIdParamSchema = {
   customer: string
   id: string
 }
 
-export type t_postCustomersCustomerSourcesIdApplicationXWwwFormUrlencodedRequestBody =
-  {
-    account_holder_name?: string | undefined
-    account_holder_type?: ("company" | "individual") | undefined
-    address_city?: string | undefined
-    address_country?: string | undefined
-    address_line1?: string | undefined
-    address_line2?: string | undefined
-    address_state?: string | undefined
-    address_zip?: string | undefined
-    exp_month?: string | undefined
-    exp_year?: string | undefined
-    expand?: string[] | undefined
-    metadata?:
-      | (
+export type t_PostCustomersCustomerSourcesIdRequestBody = {
+  account_holder_name?: string | undefined
+  account_holder_type?: ("company" | "individual") | undefined
+  address_city?: string | undefined
+  address_country?: string | undefined
+  address_line1?: string | undefined
+  address_line2?: string | undefined
+  address_state?: string | undefined
+  address_zip?: string | undefined
+  exp_month?: string | undefined
+  exp_year?: string | undefined
+  expand?: string[] | undefined
+  metadata?:
+    | (
+        | {
+            [key: string]: string | undefined
+          }
+        | ""
+      )
+    | undefined
+  name?: string | undefined
+  owner?:
+    | {
+        address?:
           | {
-              [key: string]: string | undefined
+              city?: string | undefined
+              country?: string | undefined
+              line1?: string | undefined
+              line2?: string | undefined
+              postal_code?: string | undefined
+              state?: string | undefined
             }
-          | ""
-        )
-      | undefined
-    name?: string | undefined
-    owner?:
-      | {
-          address?:
-            | {
-                city?: string | undefined
-                country?: string | undefined
-                line1?: string | undefined
-                line2?: string | undefined
-                postal_code?: string | undefined
-                state?: string | undefined
-              }
-            | undefined
-          email?: string | undefined
-          name?: string | undefined
-          phone?: string | undefined
-        }
-      | undefined
-  }
+          | undefined
+        email?: string | undefined
+        name?: string | undefined
+        phone?: string | undefined
+      }
+    | undefined
+}
 
 export type t_PostCustomersCustomerSourcesIdVerifyParamSchema = {
   customer: string
   id: string
 }
 
-export type t_postCustomersCustomerSourcesIdVerifyApplicationXWwwFormUrlencodedRequestBody =
-  {
-    amounts?: number[] | undefined
-    expand?: string[] | undefined
-  }
+export type t_PostCustomersCustomerSourcesIdVerifyRequestBody = {
+  amounts?: number[] | undefined
+  expand?: string[] | undefined
+}
 
 export type t_PostCustomersCustomerSubscriptionsParamSchema = {
   customer: string
 }
 
-export type t_postCustomersCustomerSubscriptionsApplicationXWwwFormUrlencodedRequestBody =
-  {
-    add_invoice_items?:
-      | {
-          discounts?:
-            | {
-                coupon?: string | undefined
-                discount?: string | undefined
-                promotion_code?: string | undefined
-              }[]
-            | undefined
-          price?: string | undefined
-          price_data?:
-            | {
-                currency: string
-                product: string
-                tax_behavior?:
-                  | ("exclusive" | "inclusive" | "unspecified")
-                  | undefined
-                unit_amount?: number | undefined
-                unit_amount_decimal?: string | undefined
-              }
-            | undefined
-          quantity?: number | undefined
-          tax_rates?: (string[] | "") | undefined
-        }[]
-      | undefined
-    application_fee_percent?: (number | "") | undefined
-    automatic_tax?:
-      | {
-          enabled: boolean
-          liability?:
-            | {
-                account?: string | undefined
-                type: "account" | "self"
-              }
-            | undefined
-        }
-      | undefined
-    backdate_start_date?: number | undefined
-    billing_cycle_anchor?: number | undefined
-    billing_thresholds?:
-      | (
-          | {
-              amount_gte?: number | undefined
-              reset_billing_cycle_anchor?: boolean | undefined
-            }
-          | ""
-        )
-      | undefined
-    cancel_at?: (number | "max_period_end" | "min_period_end") | undefined
-    cancel_at_period_end?: boolean | undefined
-    collection_method?: ("charge_automatically" | "send_invoice") | undefined
-    currency?: string | undefined
-    days_until_due?: number | undefined
-    default_payment_method?: string | undefined
-    default_source?: string | undefined
-    default_tax_rates?: (string[] | "") | undefined
-    discounts?:
-      | (
+export type t_PostCustomersCustomerSubscriptionsRequestBody = {
+  add_invoice_items?:
+    | {
+        discounts?:
           | {
               coupon?: string | undefined
               discount?: string | undefined
               promotion_code?: string | undefined
             }[]
-          | ""
-        )
-      | undefined
-    expand?: string[] | undefined
-    invoice_settings?:
-      | {
-          account_tax_ids?: (string[] | "") | undefined
-          issuer?:
-            | {
-                account?: string | undefined
-                type: "account" | "self"
-              }
-            | undefined
-        }
-      | undefined
-    items?:
-      | {
-          billing_thresholds?:
-            | (
-                | {
-                    usage_gte: number
-                  }
-                | ""
-              )
-            | undefined
-          discounts?:
-            | (
-                | {
-                    coupon?: string | undefined
-                    discount?: string | undefined
-                    promotion_code?: string | undefined
-                  }[]
-                | ""
-              )
-            | undefined
-          metadata?:
-            | {
-                [key: string]: string | undefined
-              }
-            | undefined
-          price?: string | undefined
-          price_data?:
-            | {
-                currency: string
-                product: string
-                recurring: {
-                  interval: "day" | "month" | "week" | "year"
-                  interval_count?: number | undefined
+          | undefined
+        price?: string | undefined
+        price_data?:
+          | {
+              currency: string
+              product: string
+              tax_behavior?:
+                | ("exclusive" | "inclusive" | "unspecified")
+                | undefined
+              unit_amount?: number | undefined
+              unit_amount_decimal?: string | undefined
+            }
+          | undefined
+        quantity?: number | undefined
+        tax_rates?: (string[] | "") | undefined
+      }[]
+    | undefined
+  application_fee_percent?: (number | "") | undefined
+  automatic_tax?:
+    | {
+        enabled: boolean
+        liability?:
+          | {
+              account?: string | undefined
+              type: "account" | "self"
+            }
+          | undefined
+      }
+    | undefined
+  backdate_start_date?: number | undefined
+  billing_cycle_anchor?: number | undefined
+  billing_thresholds?:
+    | (
+        | {
+            amount_gte?: number | undefined
+            reset_billing_cycle_anchor?: boolean | undefined
+          }
+        | ""
+      )
+    | undefined
+  cancel_at?: (number | "max_period_end" | "min_period_end") | undefined
+  cancel_at_period_end?: boolean | undefined
+  collection_method?: ("charge_automatically" | "send_invoice") | undefined
+  currency?: string | undefined
+  days_until_due?: number | undefined
+  default_payment_method?: string | undefined
+  default_source?: string | undefined
+  default_tax_rates?: (string[] | "") | undefined
+  discounts?:
+    | (
+        | {
+            coupon?: string | undefined
+            discount?: string | undefined
+            promotion_code?: string | undefined
+          }[]
+        | ""
+      )
+    | undefined
+  expand?: string[] | undefined
+  invoice_settings?:
+    | {
+        account_tax_ids?: (string[] | "") | undefined
+        issuer?:
+          | {
+              account?: string | undefined
+              type: "account" | "self"
+            }
+          | undefined
+      }
+    | undefined
+  items?:
+    | {
+        billing_thresholds?:
+          | (
+              | {
+                  usage_gte: number
                 }
-                tax_behavior?:
-                  | ("exclusive" | "inclusive" | "unspecified")
-                  | undefined
-                unit_amount?: number | undefined
-                unit_amount_decimal?: string | undefined
-              }
-            | undefined
-          quantity?: number | undefined
-          tax_rates?: (string[] | "") | undefined
-        }[]
-      | undefined
-    metadata?:
-      | (
+              | ""
+            )
+          | undefined
+        discounts?:
+          | (
+              | {
+                  coupon?: string | undefined
+                  discount?: string | undefined
+                  promotion_code?: string | undefined
+                }[]
+              | ""
+            )
+          | undefined
+        metadata?:
           | {
               [key: string]: string | undefined
             }
-          | ""
-        )
-      | undefined
-    off_session?: boolean | undefined
-    payment_behavior?:
-      | (
-          | "allow_incomplete"
-          | "default_incomplete"
-          | "error_if_incomplete"
-          | "pending_if_incomplete"
-        )
-      | undefined
-    payment_settings?:
-      | {
-          payment_method_options?:
-            | {
-                acss_debit?:
-                  | (
-                      | {
-                          mandate_options?:
-                            | {
-                                transaction_type?:
-                                  | ("business" | "personal")
-                                  | undefined
-                              }
-                            | undefined
-                          verification_method?:
-                            | ("automatic" | "instant" | "microdeposits")
-                            | undefined
-                        }
-                      | ""
-                    )
-                  | undefined
-                bancontact?:
-                  | (
-                      | {
-                          preferred_language?:
-                            | ("de" | "en" | "fr" | "nl")
-                            | undefined
-                        }
-                      | ""
-                    )
-                  | undefined
-                card?:
-                  | (
-                      | {
-                          mandate_options?:
-                            | {
-                                amount?: number | undefined
-                                amount_type?: ("fixed" | "maximum") | undefined
-                                description?: string | undefined
-                              }
-                            | undefined
-                          network?:
-                            | (
-                                | "amex"
-                                | "cartes_bancaires"
-                                | "diners"
-                                | "discover"
-                                | "eftpos_au"
-                                | "girocard"
-                                | "interac"
-                                | "jcb"
-                                | "link"
-                                | "mastercard"
-                                | "unionpay"
-                                | "unknown"
-                                | "visa"
-                              )
-                            | undefined
-                          request_three_d_secure?:
-                            | ("any" | "automatic" | "challenge")
-                            | undefined
-                        }
-                      | ""
-                    )
-                  | undefined
-                customer_balance?:
-                  | (
-                      | {
-                          bank_transfer?:
-                            | {
-                                eu_bank_transfer?:
-                                  | {
-                                      country: string
-                                    }
-                                  | undefined
-                                type?: string | undefined
-                              }
-                            | undefined
-                          funding_type?: string | undefined
-                        }
-                      | ""
-                    )
-                  | undefined
-                konbini?: (EmptyObject | "") | undefined
-                sepa_debit?: (EmptyObject | "") | undefined
-                us_bank_account?:
-                  | (
-                      | {
-                          financial_connections?:
-                            | {
-                                filters?:
-                                  | {
-                                      account_subcategories?:
-                                        | ("checking" | "savings")[]
-                                        | undefined
-                                    }
-                                  | undefined
-                                permissions?:
-                                  | (
-                                      | "balances"
-                                      | "ownership"
-                                      | "payment_method"
-                                      | "transactions"
-                                    )[]
-                                  | undefined
-                                prefetch?:
-                                  | (
-                                      | "balances"
-                                      | "ownership"
-                                      | "transactions"
-                                    )[]
-                                  | undefined
-                              }
-                            | undefined
-                          verification_method?:
-                            | ("automatic" | "instant" | "microdeposits")
-                            | undefined
-                        }
-                      | ""
-                    )
-                  | undefined
-              }
-            | undefined
-          payment_method_types?:
-            | (
-                | (
-                    | "ach_credit_transfer"
-                    | "ach_debit"
-                    | "acss_debit"
-                    | "affirm"
-                    | "amazon_pay"
-                    | "au_becs_debit"
-                    | "bacs_debit"
-                    | "bancontact"
-                    | "boleto"
-                    | "card"
-                    | "cashapp"
-                    | "crypto"
-                    | "customer_balance"
-                    | "eps"
-                    | "fpx"
-                    | "giropay"
-                    | "grabpay"
-                    | "ideal"
-                    | "jp_credit_transfer"
-                    | "kakao_pay"
-                    | "klarna"
-                    | "konbini"
-                    | "kr_card"
-                    | "link"
-                    | "multibanco"
-                    | "naver_pay"
-                    | "nz_bank_account"
-                    | "p24"
-                    | "payco"
-                    | "paynow"
-                    | "paypal"
-                    | "promptpay"
-                    | "revolut_pay"
-                    | "sepa_credit_transfer"
-                    | "sepa_debit"
-                    | "sofort"
-                    | "swish"
-                    | "us_bank_account"
-                    | "wechat_pay"
-                  )[]
-                | ""
-              )
-            | undefined
-          save_default_payment_method?: ("off" | "on_subscription") | undefined
-        }
-      | undefined
-    pending_invoice_item_interval?:
-      | (
+          | undefined
+        price?: string | undefined
+        price_data?:
           | {
-              interval: "day" | "month" | "week" | "year"
-              interval_count?: number | undefined
+              currency: string
+              product: string
+              recurring: {
+                interval: "day" | "month" | "week" | "year"
+                interval_count?: number | undefined
+              }
+              tax_behavior?:
+                | ("exclusive" | "inclusive" | "unspecified")
+                | undefined
+              unit_amount?: number | undefined
+              unit_amount_decimal?: string | undefined
             }
-          | ""
-        )
-      | undefined
-    proration_behavior?:
-      | ("always_invoice" | "create_prorations" | "none")
-      | undefined
-    transfer_data?:
-      | {
-          amount_percent?: number | undefined
-          destination: string
-        }
-      | undefined
-    trial_end?: ("now" | number) | undefined
-    trial_from_plan?: boolean | undefined
-    trial_period_days?: number | undefined
-    trial_settings?:
-      | {
-          end_behavior: {
-            missing_payment_method: "cancel" | "create_invoice" | "pause"
+          | undefined
+        quantity?: number | undefined
+        tax_rates?: (string[] | "") | undefined
+      }[]
+    | undefined
+  metadata?:
+    | (
+        | {
+            [key: string]: string | undefined
           }
+        | ""
+      )
+    | undefined
+  off_session?: boolean | undefined
+  payment_behavior?:
+    | (
+        | "allow_incomplete"
+        | "default_incomplete"
+        | "error_if_incomplete"
+        | "pending_if_incomplete"
+      )
+    | undefined
+  payment_settings?:
+    | {
+        payment_method_options?:
+          | {
+              acss_debit?:
+                | (
+                    | {
+                        mandate_options?:
+                          | {
+                              transaction_type?:
+                                | ("business" | "personal")
+                                | undefined
+                            }
+                          | undefined
+                        verification_method?:
+                          | ("automatic" | "instant" | "microdeposits")
+                          | undefined
+                      }
+                    | ""
+                  )
+                | undefined
+              bancontact?:
+                | (
+                    | {
+                        preferred_language?:
+                          | ("de" | "en" | "fr" | "nl")
+                          | undefined
+                      }
+                    | ""
+                  )
+                | undefined
+              card?:
+                | (
+                    | {
+                        mandate_options?:
+                          | {
+                              amount?: number | undefined
+                              amount_type?: ("fixed" | "maximum") | undefined
+                              description?: string | undefined
+                            }
+                          | undefined
+                        network?:
+                          | (
+                              | "amex"
+                              | "cartes_bancaires"
+                              | "diners"
+                              | "discover"
+                              | "eftpos_au"
+                              | "girocard"
+                              | "interac"
+                              | "jcb"
+                              | "link"
+                              | "mastercard"
+                              | "unionpay"
+                              | "unknown"
+                              | "visa"
+                            )
+                          | undefined
+                        request_three_d_secure?:
+                          | ("any" | "automatic" | "challenge")
+                          | undefined
+                      }
+                    | ""
+                  )
+                | undefined
+              customer_balance?:
+                | (
+                    | {
+                        bank_transfer?:
+                          | {
+                              eu_bank_transfer?:
+                                | {
+                                    country: string
+                                  }
+                                | undefined
+                              type?: string | undefined
+                            }
+                          | undefined
+                        funding_type?: string | undefined
+                      }
+                    | ""
+                  )
+                | undefined
+              konbini?: (EmptyObject | "") | undefined
+              sepa_debit?: (EmptyObject | "") | undefined
+              us_bank_account?:
+                | (
+                    | {
+                        financial_connections?:
+                          | {
+                              filters?:
+                                | {
+                                    account_subcategories?:
+                                      | ("checking" | "savings")[]
+                                      | undefined
+                                  }
+                                | undefined
+                              permissions?:
+                                | (
+                                    | "balances"
+                                    | "ownership"
+                                    | "payment_method"
+                                    | "transactions"
+                                  )[]
+                                | undefined
+                              prefetch?:
+                                | ("balances" | "ownership" | "transactions")[]
+                                | undefined
+                            }
+                          | undefined
+                        verification_method?:
+                          | ("automatic" | "instant" | "microdeposits")
+                          | undefined
+                      }
+                    | ""
+                  )
+                | undefined
+            }
+          | undefined
+        payment_method_types?:
+          | (
+              | (
+                  | "ach_credit_transfer"
+                  | "ach_debit"
+                  | "acss_debit"
+                  | "affirm"
+                  | "amazon_pay"
+                  | "au_becs_debit"
+                  | "bacs_debit"
+                  | "bancontact"
+                  | "boleto"
+                  | "card"
+                  | "cashapp"
+                  | "crypto"
+                  | "customer_balance"
+                  | "eps"
+                  | "fpx"
+                  | "giropay"
+                  | "grabpay"
+                  | "ideal"
+                  | "jp_credit_transfer"
+                  | "kakao_pay"
+                  | "klarna"
+                  | "konbini"
+                  | "kr_card"
+                  | "link"
+                  | "multibanco"
+                  | "naver_pay"
+                  | "nz_bank_account"
+                  | "p24"
+                  | "payco"
+                  | "paynow"
+                  | "paypal"
+                  | "promptpay"
+                  | "revolut_pay"
+                  | "sepa_credit_transfer"
+                  | "sepa_debit"
+                  | "sofort"
+                  | "swish"
+                  | "us_bank_account"
+                  | "wechat_pay"
+                )[]
+              | ""
+            )
+          | undefined
+        save_default_payment_method?: ("off" | "on_subscription") | undefined
+      }
+    | undefined
+  pending_invoice_item_interval?:
+    | (
+        | {
+            interval: "day" | "month" | "week" | "year"
+            interval_count?: number | undefined
+          }
+        | ""
+      )
+    | undefined
+  proration_behavior?:
+    | ("always_invoice" | "create_prorations" | "none")
+    | undefined
+  transfer_data?:
+    | {
+        amount_percent?: number | undefined
+        destination: string
+      }
+    | undefined
+  trial_end?: ("now" | number) | undefined
+  trial_from_plan?: boolean | undefined
+  trial_period_days?: number | undefined
+  trial_settings?:
+    | {
+        end_behavior: {
+          missing_payment_method: "cancel" | "create_invoice" | "pause"
         }
-      | undefined
-  }
+      }
+    | undefined
+}
 
 export type t_PostCustomersCustomerSubscriptionsSubscriptionExposedIdParamSchema =
   {
@@ -25397,7 +25335,7 @@ export type t_PostCustomersCustomerSubscriptionsSubscriptionExposedIdParamSchema
     subscription_exposed_id: string
   }
 
-export type t_postCustomersCustomerSubscriptionsSubscriptionExposedIdApplicationXWwwFormUrlencodedRequestBody =
+export type t_PostCustomersCustomerSubscriptionsSubscriptionExposedIdRequestBody =
   {
     add_invoice_items?:
       | {
@@ -25779,128 +25717,127 @@ export type t_PostCustomersCustomerTaxIdsParamSchema = {
   customer: string
 }
 
-export type t_postCustomersCustomerTaxIdsApplicationXWwwFormUrlencodedRequestBody =
-  {
-    expand?: string[] | undefined
-    type:
-      | "ad_nrt"
-      | "ae_trn"
-      | "al_tin"
-      | "am_tin"
-      | "ao_tin"
-      | "ar_cuit"
-      | "au_abn"
-      | "au_arn"
-      | "aw_tin"
-      | "az_tin"
-      | "ba_tin"
-      | "bb_tin"
-      | "bd_bin"
-      | "bf_ifu"
-      | "bg_uic"
-      | "bh_vat"
-      | "bj_ifu"
-      | "bo_tin"
-      | "br_cnpj"
-      | "br_cpf"
-      | "bs_tin"
-      | "by_tin"
-      | "ca_bn"
-      | "ca_gst_hst"
-      | "ca_pst_bc"
-      | "ca_pst_mb"
-      | "ca_pst_sk"
-      | "ca_qst"
-      | "cd_nif"
-      | "ch_uid"
-      | "ch_vat"
-      | "cl_tin"
-      | "cm_niu"
-      | "cn_tin"
-      | "co_nit"
-      | "cr_tin"
-      | "cv_nif"
-      | "de_stn"
-      | "do_rcn"
-      | "ec_ruc"
-      | "eg_tin"
-      | "es_cif"
-      | "et_tin"
-      | "eu_oss_vat"
-      | "eu_vat"
-      | "gb_vat"
-      | "ge_vat"
-      | "gn_nif"
-      | "hk_br"
-      | "hr_oib"
-      | "hu_tin"
-      | "id_npwp"
-      | "il_vat"
-      | "in_gst"
-      | "is_vat"
-      | "jp_cn"
-      | "jp_rn"
-      | "jp_trn"
-      | "ke_pin"
-      | "kg_tin"
-      | "kh_tin"
-      | "kr_brn"
-      | "kz_bin"
-      | "la_tin"
-      | "li_uid"
-      | "li_vat"
-      | "ma_vat"
-      | "md_vat"
-      | "me_pib"
-      | "mk_vat"
-      | "mr_nif"
-      | "mx_rfc"
-      | "my_frp"
-      | "my_itn"
-      | "my_sst"
-      | "ng_tin"
-      | "no_vat"
-      | "no_voec"
-      | "np_pan"
-      | "nz_gst"
-      | "om_vat"
-      | "pe_ruc"
-      | "ph_tin"
-      | "ro_tin"
-      | "rs_pib"
-      | "ru_inn"
-      | "ru_kpp"
-      | "sa_vat"
-      | "sg_gst"
-      | "sg_uen"
-      | "si_tin"
-      | "sn_ninea"
-      | "sr_fin"
-      | "sv_nit"
-      | "th_vat"
-      | "tj_tin"
-      | "tr_tin"
-      | "tw_vat"
-      | "tz_vat"
-      | "ua_vat"
-      | "ug_tin"
-      | "us_ein"
-      | "uy_ruc"
-      | "uz_tin"
-      | "uz_vat"
-      | "ve_rif"
-      | "vn_tin"
-      | "za_vat"
-      | "zm_tin"
-      | "zw_tin"
-    value: string
-  }
+export type t_PostCustomersCustomerTaxIdsRequestBody = {
+  expand?: string[] | undefined
+  type:
+    | "ad_nrt"
+    | "ae_trn"
+    | "al_tin"
+    | "am_tin"
+    | "ao_tin"
+    | "ar_cuit"
+    | "au_abn"
+    | "au_arn"
+    | "aw_tin"
+    | "az_tin"
+    | "ba_tin"
+    | "bb_tin"
+    | "bd_bin"
+    | "bf_ifu"
+    | "bg_uic"
+    | "bh_vat"
+    | "bj_ifu"
+    | "bo_tin"
+    | "br_cnpj"
+    | "br_cpf"
+    | "bs_tin"
+    | "by_tin"
+    | "ca_bn"
+    | "ca_gst_hst"
+    | "ca_pst_bc"
+    | "ca_pst_mb"
+    | "ca_pst_sk"
+    | "ca_qst"
+    | "cd_nif"
+    | "ch_uid"
+    | "ch_vat"
+    | "cl_tin"
+    | "cm_niu"
+    | "cn_tin"
+    | "co_nit"
+    | "cr_tin"
+    | "cv_nif"
+    | "de_stn"
+    | "do_rcn"
+    | "ec_ruc"
+    | "eg_tin"
+    | "es_cif"
+    | "et_tin"
+    | "eu_oss_vat"
+    | "eu_vat"
+    | "gb_vat"
+    | "ge_vat"
+    | "gn_nif"
+    | "hk_br"
+    | "hr_oib"
+    | "hu_tin"
+    | "id_npwp"
+    | "il_vat"
+    | "in_gst"
+    | "is_vat"
+    | "jp_cn"
+    | "jp_rn"
+    | "jp_trn"
+    | "ke_pin"
+    | "kg_tin"
+    | "kh_tin"
+    | "kr_brn"
+    | "kz_bin"
+    | "la_tin"
+    | "li_uid"
+    | "li_vat"
+    | "ma_vat"
+    | "md_vat"
+    | "me_pib"
+    | "mk_vat"
+    | "mr_nif"
+    | "mx_rfc"
+    | "my_frp"
+    | "my_itn"
+    | "my_sst"
+    | "ng_tin"
+    | "no_vat"
+    | "no_voec"
+    | "np_pan"
+    | "nz_gst"
+    | "om_vat"
+    | "pe_ruc"
+    | "ph_tin"
+    | "ro_tin"
+    | "rs_pib"
+    | "ru_inn"
+    | "ru_kpp"
+    | "sa_vat"
+    | "sg_gst"
+    | "sg_uen"
+    | "si_tin"
+    | "sn_ninea"
+    | "sr_fin"
+    | "sv_nit"
+    | "th_vat"
+    | "tj_tin"
+    | "tr_tin"
+    | "tw_vat"
+    | "tz_vat"
+    | "ua_vat"
+    | "ug_tin"
+    | "us_ein"
+    | "uy_ruc"
+    | "uz_tin"
+    | "uz_vat"
+    | "ve_rif"
+    | "vn_tin"
+    | "za_vat"
+    | "zm_tin"
+    | "zw_tin"
+  value: string
+}
 
 export type t_PostDisputesDisputeParamSchema = {
   dispute: string
 }
 
-export type t_postDisputesDisputeApplicationXWwwFormUrlencodedRequestBody = {
+export type t_PostDisputesDisputeRequestBody = {
   evidence?:
     | {
         access_activity_log?: string | undefined
@@ -26012,43 +25949,40 @@ export type t_PostDisputesDisputeCloseParamSchema = {
   dispute: string
 }
 
-export type t_postDisputesDisputeCloseApplicationXWwwFormUrlencodedRequestBody =
-  {
-    expand?: string[] | undefined
-  }
+export type t_PostDisputesDisputeCloseRequestBody = {
+  expand?: string[] | undefined
+}
 
-export type t_postEntitlementsFeaturesApplicationXWwwFormUrlencodedRequestBody =
-  {
-    expand?: string[] | undefined
-    lookup_key: string
-    metadata?:
-      | {
-          [key: string]: string | undefined
-        }
-      | undefined
-    name: string
-  }
+export type t_PostEntitlementsFeaturesRequestBody = {
+  expand?: string[] | undefined
+  lookup_key: string
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | undefined
+  name: string
+}
 
 export type t_PostEntitlementsFeaturesIdParamSchema = {
   id: string
 }
 
-export type t_postEntitlementsFeaturesIdApplicationXWwwFormUrlencodedRequestBody =
-  {
-    active?: boolean | undefined
-    expand?: string[] | undefined
-    metadata?:
-      | (
-          | {
-              [key: string]: string | undefined
-            }
-          | ""
-        )
-      | undefined
-    name?: string | undefined
-  }
+export type t_PostEntitlementsFeaturesIdRequestBody = {
+  active?: boolean | undefined
+  expand?: string[] | undefined
+  metadata?:
+    | (
+        | {
+            [key: string]: string | undefined
+          }
+        | ""
+      )
+    | undefined
+  name?: string | undefined
+}
 
-export type t_postEphemeralKeysApplicationXWwwFormUrlencodedRequestBody = {
+export type t_PostEphemeralKeysRequestBody = {
   customer?: string | undefined
   expand?: string[] | undefined
   issuing_card?: string | undefined
@@ -26060,7 +25994,7 @@ export type t_PostExternalAccountsIdParamSchema = {
   id: string
 }
 
-export type t_postExternalAccountsIdApplicationXWwwFormUrlencodedRequestBody = {
+export type t_PostExternalAccountsIdRequestBody = {
   account_holder_name?: string | undefined
   account_holder_type?: ("" | "company" | "individual") | undefined
   account_type?: ("checking" | "futsu" | "savings" | "toza") | undefined
@@ -26094,7 +26028,7 @@ export type t_postExternalAccountsIdApplicationXWwwFormUrlencodedRequestBody = {
   name?: string | undefined
 }
 
-export type t_postFileLinksApplicationXWwwFormUrlencodedRequestBody = {
+export type t_PostFileLinksRequestBody = {
   expand?: string[] | undefined
   expires_at?: number | undefined
   file: string
@@ -26112,7 +26046,7 @@ export type t_PostFileLinksLinkParamSchema = {
   link: string
 }
 
-export type t_postFileLinksLinkApplicationXWwwFormUrlencodedRequestBody = {
+export type t_PostFileLinksLinkRequestBody = {
   expand?: string[] | undefined
   expires_at?: ("now" | number | "") | undefined
   metadata?:
@@ -26129,74 +26063,64 @@ export type t_PostFinancialConnectionsAccountsAccountDisconnectParamSchema = {
   account: string
 }
 
-export type t_postFinancialConnectionsAccountsAccountDisconnectApplicationXWwwFormUrlencodedRequestBody =
-  {
-    expand?: string[] | undefined
-  }
+export type t_PostFinancialConnectionsAccountsAccountDisconnectRequestBody = {
+  expand?: string[] | undefined
+}
 
 export type t_PostFinancialConnectionsAccountsAccountRefreshParamSchema = {
   account: string
 }
 
-export type t_postFinancialConnectionsAccountsAccountRefreshApplicationXWwwFormUrlencodedRequestBody =
-  {
-    expand?: string[] | undefined
-    features: ("balance" | "ownership" | "transactions")[]
-  }
+export type t_PostFinancialConnectionsAccountsAccountRefreshRequestBody = {
+  expand?: string[] | undefined
+  features: ("balance" | "ownership" | "transactions")[]
+}
 
 export type t_PostFinancialConnectionsAccountsAccountSubscribeParamSchema = {
   account: string
 }
 
-export type t_postFinancialConnectionsAccountsAccountSubscribeApplicationXWwwFormUrlencodedRequestBody =
-  {
-    expand?: string[] | undefined
-    features: "transactions"[]
-  }
+export type t_PostFinancialConnectionsAccountsAccountSubscribeRequestBody = {
+  expand?: string[] | undefined
+  features: "transactions"[]
+}
 
 export type t_PostFinancialConnectionsAccountsAccountUnsubscribeParamSchema = {
   account: string
 }
 
-export type t_postFinancialConnectionsAccountsAccountUnsubscribeApplicationXWwwFormUrlencodedRequestBody =
-  {
-    expand?: string[] | undefined
-    features: "transactions"[]
-  }
+export type t_PostFinancialConnectionsAccountsAccountUnsubscribeRequestBody = {
+  expand?: string[] | undefined
+  features: "transactions"[]
+}
 
-export type t_postFinancialConnectionsSessionsApplicationXWwwFormUrlencodedRequestBody =
-  {
-    account_holder: {
-      account?: string | undefined
-      customer?: string | undefined
-      type: "account" | "customer"
-    }
-    expand?: string[] | undefined
-    filters?:
-      | {
-          account_subcategories?:
-            | (
-                | "checking"
-                | "credit_card"
-                | "line_of_credit"
-                | "mortgage"
-                | "savings"
-              )[]
-            | undefined
-          countries?: string[] | undefined
-        }
-      | undefined
-    permissions: (
-      | "balances"
-      | "ownership"
-      | "payment_method"
-      | "transactions"
-    )[]
-    prefetch?: ("balances" | "ownership" | "transactions")[] | undefined
-    return_url?: string | undefined
+export type t_PostFinancialConnectionsSessionsRequestBody = {
+  account_holder: {
+    account?: string | undefined
+    customer?: string | undefined
+    type: "account" | "customer"
   }
+  expand?: string[] | undefined
+  filters?:
+    | {
+        account_subcategories?:
+          | (
+              | "checking"
+              | "credit_card"
+              | "line_of_credit"
+              | "mortgage"
+              | "savings"
+            )[]
+          | undefined
+        countries?: string[] | undefined
+      }
+    | undefined
+  permissions: ("balances" | "ownership" | "payment_method" | "transactions")[]
+  prefetch?: ("balances" | "ownership" | "transactions")[] | undefined
+  return_url?: string | undefined
+}
 
-export type t_postForwardingRequestsApplicationXWwwFormUrlencodedRequestBody = {
+export type t_PostForwardingRequestsRequestBody = {
   expand?: string[] | undefined
   metadata?:
     | {
@@ -26225,125 +26149,119 @@ export type t_postForwardingRequestsApplicationXWwwFormUrlencodedRequestBody = {
   url: string
 }
 
-export type t_postIdentityVerificationSessionsApplicationXWwwFormUrlencodedRequestBody =
-  {
-    client_reference_id?: string | undefined
-    expand?: string[] | undefined
-    metadata?:
-      | {
-          [key: string]: string | undefined
-        }
-      | undefined
-    options?:
-      | {
-          document?:
-            | (
-                | {
-                    allowed_types?:
-                      | ("driving_license" | "id_card" | "passport")[]
-                      | undefined
-                    require_id_number?: boolean | undefined
-                    require_live_capture?: boolean | undefined
-                    require_matching_selfie?: boolean | undefined
-                  }
-                | ""
-              )
-            | undefined
-        }
-      | undefined
-    provided_details?:
-      | {
-          email?: string | undefined
-          phone?: string | undefined
-        }
-      | undefined
-    related_customer?: string | undefined
-    related_person?:
-      | {
-          account: string
-          person: string
-        }
-      | undefined
-    return_url?: string | undefined
-    type?: ("document" | "id_number") | undefined
-    verification_flow?: string | undefined
-  }
+export type t_PostIdentityVerificationSessionsRequestBody = {
+  client_reference_id?: string | undefined
+  expand?: string[] | undefined
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | undefined
+  options?:
+    | {
+        document?:
+          | (
+              | {
+                  allowed_types?:
+                    | ("driving_license" | "id_card" | "passport")[]
+                    | undefined
+                  require_id_number?: boolean | undefined
+                  require_live_capture?: boolean | undefined
+                  require_matching_selfie?: boolean | undefined
+                }
+              | ""
+            )
+          | undefined
+      }
+    | undefined
+  provided_details?:
+    | {
+        email?: string | undefined
+        phone?: string | undefined
+      }
+    | undefined
+  related_customer?: string | undefined
+  related_person?:
+    | {
+        account: string
+        person: string
+      }
+    | undefined
+  return_url?: string | undefined
+  type?: ("document" | "id_number") | undefined
+  verification_flow?: string | undefined
+}
 
 export type t_PostIdentityVerificationSessionsSessionParamSchema = {
   session: string
 }
 
-export type t_postIdentityVerificationSessionsSessionApplicationXWwwFormUrlencodedRequestBody =
-  {
-    expand?: string[] | undefined
-    metadata?:
-      | {
-          [key: string]: string | undefined
-        }
-      | undefined
-    options?:
-      | {
-          document?:
-            | (
-                | {
-                    allowed_types?:
-                      | ("driving_license" | "id_card" | "passport")[]
-                      | undefined
-                    require_id_number?: boolean | undefined
-                    require_live_capture?: boolean | undefined
-                    require_matching_selfie?: boolean | undefined
-                  }
-                | ""
-              )
-            | undefined
-        }
-      | undefined
-    provided_details?:
-      | {
-          email?: string | undefined
-          phone?: string | undefined
-        }
-      | undefined
-    type?: ("document" | "id_number") | undefined
-  }
+export type t_PostIdentityVerificationSessionsSessionRequestBody = {
+  expand?: string[] | undefined
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | undefined
+  options?:
+    | {
+        document?:
+          | (
+              | {
+                  allowed_types?:
+                    | ("driving_license" | "id_card" | "passport")[]
+                    | undefined
+                  require_id_number?: boolean | undefined
+                  require_live_capture?: boolean | undefined
+                  require_matching_selfie?: boolean | undefined
+                }
+              | ""
+            )
+          | undefined
+      }
+    | undefined
+  provided_details?:
+    | {
+        email?: string | undefined
+        phone?: string | undefined
+      }
+    | undefined
+  type?: ("document" | "id_number") | undefined
+}
 
 export type t_PostIdentityVerificationSessionsSessionCancelParamSchema = {
   session: string
 }
 
-export type t_postIdentityVerificationSessionsSessionCancelApplicationXWwwFormUrlencodedRequestBody =
-  {
-    expand?: string[] | undefined
-  }
+export type t_PostIdentityVerificationSessionsSessionCancelRequestBody = {
+  expand?: string[] | undefined
+}
 
 export type t_PostIdentityVerificationSessionsSessionRedactParamSchema = {
   session: string
 }
 
-export type t_postIdentityVerificationSessionsSessionRedactApplicationXWwwFormUrlencodedRequestBody =
-  {
-    expand?: string[] | undefined
-  }
+export type t_PostIdentityVerificationSessionsSessionRedactRequestBody = {
+  expand?: string[] | undefined
+}
 
 export type t_PostInvoiceRenderingTemplatesTemplateArchiveParamSchema = {
   template: string
 }
 
-export type t_postInvoiceRenderingTemplatesTemplateArchiveApplicationXWwwFormUrlencodedRequestBody =
-  {
-    expand?: string[] | undefined
-  }
+export type t_PostInvoiceRenderingTemplatesTemplateArchiveRequestBody = {
+  expand?: string[] | undefined
+}
 
 export type t_PostInvoiceRenderingTemplatesTemplateUnarchiveParamSchema = {
   template: string
 }
 
-export type t_postInvoiceRenderingTemplatesTemplateUnarchiveApplicationXWwwFormUrlencodedRequestBody =
-  {
-    expand?: string[] | undefined
-  }
+export type t_PostInvoiceRenderingTemplatesTemplateUnarchiveRequestBody = {
+  expand?: string[] | undefined
+}
 
-export type t_postInvoiceitemsApplicationXWwwFormUrlencodedRequestBody = {
+export type t_PostInvoiceitemsRequestBody = {
   amount?: number | undefined
   currency?: string | undefined
   customer: string
@@ -26401,58 +26319,57 @@ export type t_PostInvoiceitemsInvoiceitemParamSchema = {
   invoiceitem: string
 }
 
-export type t_postInvoiceitemsInvoiceitemApplicationXWwwFormUrlencodedRequestBody =
-  {
-    amount?: number | undefined
-    description?: string | undefined
-    discountable?: boolean | undefined
-    discounts?:
-      | (
-          | {
-              coupon?: string | undefined
-              discount?: string | undefined
-              promotion_code?: string | undefined
-            }[]
-          | ""
-        )
-      | undefined
-    expand?: string[] | undefined
-    metadata?:
-      | (
-          | {
-              [key: string]: string | undefined
-            }
-          | ""
-        )
-      | undefined
-    period?:
-      | {
-          end: number
-          start: number
-        }
-      | undefined
-    price_data?:
-      | {
-          currency: string
-          product: string
-          tax_behavior?: ("exclusive" | "inclusive" | "unspecified") | undefined
-          unit_amount?: number | undefined
-          unit_amount_decimal?: string | undefined
-        }
-      | undefined
-    pricing?:
-      | {
-          price?: string | undefined
-        }
-      | undefined
-    quantity?: number | undefined
-    tax_behavior?: ("exclusive" | "inclusive" | "unspecified") | undefined
-    tax_code?: (string | "") | undefined
-    tax_rates?: (string[] | "") | undefined
-    unit_amount_decimal?: string | undefined
-  }
+export type t_PostInvoiceitemsInvoiceitemRequestBody = {
+  amount?: number | undefined
+  description?: string | undefined
+  discountable?: boolean | undefined
+  discounts?:
+    | (
+        | {
+            coupon?: string | undefined
+            discount?: string | undefined
+            promotion_code?: string | undefined
+          }[]
+        | ""
+      )
+    | undefined
+  expand?: string[] | undefined
+  metadata?:
+    | (
+        | {
+            [key: string]: string | undefined
+          }
+        | ""
+      )
+    | undefined
+  period?:
+    | {
+        end: number
+        start: number
+      }
+    | undefined
+  price_data?:
+    | {
+        currency: string
+        product: string
+        tax_behavior?: ("exclusive" | "inclusive" | "unspecified") | undefined
+        unit_amount?: number | undefined
+        unit_amount_decimal?: string | undefined
+      }
+    | undefined
+  pricing?:
+    | {
+        price?: string | undefined
+      }
+    | undefined
+  quantity?: number | undefined
+  tax_behavior?: ("exclusive" | "inclusive" | "unspecified") | undefined
+  tax_code?: (string | "") | undefined
+  tax_rates?: (string[] | "") | undefined
+  unit_amount_decimal?: string | undefined
+}
 
-export type t_postInvoicesApplicationXWwwFormUrlencodedRequestBody = {
+export type t_PostInvoicesRequestBody = {
   account_tax_ids?: (string[] | "") | undefined
   application_fee_amount?: number | undefined
   auto_advance?: boolean | undefined
@@ -26786,26 +26703,39 @@ export type t_postInvoicesApplicationXWwwFormUrlencodedRequestBody = {
     | undefined
 }
 
-export type t_postInvoicesCreatePreviewApplicationXWwwFormUrlencodedRequestBody =
-  {
-    automatic_tax?:
-      | {
-          enabled: boolean
-          liability?:
-            | {
-                account?: string | undefined
-                type: "account" | "self"
-              }
-            | undefined
-        }
-      | undefined
-    currency?: string | undefined
-    customer?: string | undefined
-    customer_details?:
-      | {
-          address?:
-            | (
-                | {
+export type t_PostInvoicesCreatePreviewRequestBody = {
+  automatic_tax?:
+    | {
+        enabled: boolean
+        liability?:
+          | {
+              account?: string | undefined
+              type: "account" | "self"
+            }
+          | undefined
+      }
+    | undefined
+  currency?: string | undefined
+  customer?: string | undefined
+  customer_details?:
+    | {
+        address?:
+          | (
+              | {
+                  city?: string | undefined
+                  country?: string | undefined
+                  line1?: string | undefined
+                  line2?: string | undefined
+                  postal_code?: string | undefined
+                  state?: string | undefined
+                }
+              | ""
+            )
+          | undefined
+        shipping?:
+          | (
+              | {
+                  address: {
                     city?: string | undefined
                     country?: string | undefined
                     line1?: string | undefined
@@ -26813,399 +26743,300 @@ export type t_postInvoicesCreatePreviewApplicationXWwwFormUrlencodedRequestBody 
                     postal_code?: string | undefined
                     state?: string | undefined
                   }
-                | ""
-              )
-            | undefined
-          shipping?:
-            | (
-                | {
-                    address: {
-                      city?: string | undefined
-                      country?: string | undefined
-                      line1?: string | undefined
-                      line2?: string | undefined
-                      postal_code?: string | undefined
-                      state?: string | undefined
-                    }
-                    name: string
-                    phone?: string | undefined
-                  }
-                | ""
-              )
-            | undefined
-          tax?:
-            | {
-                ip_address?: (string | "") | undefined
-              }
-            | undefined
-          tax_exempt?: ("" | "exempt" | "none" | "reverse") | undefined
-          tax_ids?:
-            | {
-                type:
-                  | "ad_nrt"
-                  | "ae_trn"
-                  | "al_tin"
-                  | "am_tin"
-                  | "ao_tin"
-                  | "ar_cuit"
-                  | "au_abn"
-                  | "au_arn"
-                  | "aw_tin"
-                  | "az_tin"
-                  | "ba_tin"
-                  | "bb_tin"
-                  | "bd_bin"
-                  | "bf_ifu"
-                  | "bg_uic"
-                  | "bh_vat"
-                  | "bj_ifu"
-                  | "bo_tin"
-                  | "br_cnpj"
-                  | "br_cpf"
-                  | "bs_tin"
-                  | "by_tin"
-                  | "ca_bn"
-                  | "ca_gst_hst"
-                  | "ca_pst_bc"
-                  | "ca_pst_mb"
-                  | "ca_pst_sk"
-                  | "ca_qst"
-                  | "cd_nif"
-                  | "ch_uid"
-                  | "ch_vat"
-                  | "cl_tin"
-                  | "cm_niu"
-                  | "cn_tin"
-                  | "co_nit"
-                  | "cr_tin"
-                  | "cv_nif"
-                  | "de_stn"
-                  | "do_rcn"
-                  | "ec_ruc"
-                  | "eg_tin"
-                  | "es_cif"
-                  | "et_tin"
-                  | "eu_oss_vat"
-                  | "eu_vat"
-                  | "gb_vat"
-                  | "ge_vat"
-                  | "gn_nif"
-                  | "hk_br"
-                  | "hr_oib"
-                  | "hu_tin"
-                  | "id_npwp"
-                  | "il_vat"
-                  | "in_gst"
-                  | "is_vat"
-                  | "jp_cn"
-                  | "jp_rn"
-                  | "jp_trn"
-                  | "ke_pin"
-                  | "kg_tin"
-                  | "kh_tin"
-                  | "kr_brn"
-                  | "kz_bin"
-                  | "la_tin"
-                  | "li_uid"
-                  | "li_vat"
-                  | "ma_vat"
-                  | "md_vat"
-                  | "me_pib"
-                  | "mk_vat"
-                  | "mr_nif"
-                  | "mx_rfc"
-                  | "my_frp"
-                  | "my_itn"
-                  | "my_sst"
-                  | "ng_tin"
-                  | "no_vat"
-                  | "no_voec"
-                  | "np_pan"
-                  | "nz_gst"
-                  | "om_vat"
-                  | "pe_ruc"
-                  | "ph_tin"
-                  | "ro_tin"
-                  | "rs_pib"
-                  | "ru_inn"
-                  | "ru_kpp"
-                  | "sa_vat"
-                  | "sg_gst"
-                  | "sg_uen"
-                  | "si_tin"
-                  | "sn_ninea"
-                  | "sr_fin"
-                  | "sv_nit"
-                  | "th_vat"
-                  | "tj_tin"
-                  | "tr_tin"
-                  | "tw_vat"
-                  | "tz_vat"
-                  | "ua_vat"
-                  | "ug_tin"
-                  | "us_ein"
-                  | "uy_ruc"
-                  | "uz_tin"
-                  | "uz_vat"
-                  | "ve_rif"
-                  | "vn_tin"
-                  | "za_vat"
-                  | "zm_tin"
-                  | "zw_tin"
-                value: string
-              }[]
-            | undefined
-        }
-      | undefined
-    discounts?:
-      | (
+                  name: string
+                  phone?: string | undefined
+                }
+              | ""
+            )
+          | undefined
+        tax?:
           | {
-              coupon?: string | undefined
-              discount?: string | undefined
-              promotion_code?: string | undefined
+              ip_address?: (string | "") | undefined
+            }
+          | undefined
+        tax_exempt?: ("" | "exempt" | "none" | "reverse") | undefined
+        tax_ids?:
+          | {
+              type:
+                | "ad_nrt"
+                | "ae_trn"
+                | "al_tin"
+                | "am_tin"
+                | "ao_tin"
+                | "ar_cuit"
+                | "au_abn"
+                | "au_arn"
+                | "aw_tin"
+                | "az_tin"
+                | "ba_tin"
+                | "bb_tin"
+                | "bd_bin"
+                | "bf_ifu"
+                | "bg_uic"
+                | "bh_vat"
+                | "bj_ifu"
+                | "bo_tin"
+                | "br_cnpj"
+                | "br_cpf"
+                | "bs_tin"
+                | "by_tin"
+                | "ca_bn"
+                | "ca_gst_hst"
+                | "ca_pst_bc"
+                | "ca_pst_mb"
+                | "ca_pst_sk"
+                | "ca_qst"
+                | "cd_nif"
+                | "ch_uid"
+                | "ch_vat"
+                | "cl_tin"
+                | "cm_niu"
+                | "cn_tin"
+                | "co_nit"
+                | "cr_tin"
+                | "cv_nif"
+                | "de_stn"
+                | "do_rcn"
+                | "ec_ruc"
+                | "eg_tin"
+                | "es_cif"
+                | "et_tin"
+                | "eu_oss_vat"
+                | "eu_vat"
+                | "gb_vat"
+                | "ge_vat"
+                | "gn_nif"
+                | "hk_br"
+                | "hr_oib"
+                | "hu_tin"
+                | "id_npwp"
+                | "il_vat"
+                | "in_gst"
+                | "is_vat"
+                | "jp_cn"
+                | "jp_rn"
+                | "jp_trn"
+                | "ke_pin"
+                | "kg_tin"
+                | "kh_tin"
+                | "kr_brn"
+                | "kz_bin"
+                | "la_tin"
+                | "li_uid"
+                | "li_vat"
+                | "ma_vat"
+                | "md_vat"
+                | "me_pib"
+                | "mk_vat"
+                | "mr_nif"
+                | "mx_rfc"
+                | "my_frp"
+                | "my_itn"
+                | "my_sst"
+                | "ng_tin"
+                | "no_vat"
+                | "no_voec"
+                | "np_pan"
+                | "nz_gst"
+                | "om_vat"
+                | "pe_ruc"
+                | "ph_tin"
+                | "ro_tin"
+                | "rs_pib"
+                | "ru_inn"
+                | "ru_kpp"
+                | "sa_vat"
+                | "sg_gst"
+                | "sg_uen"
+                | "si_tin"
+                | "sn_ninea"
+                | "sr_fin"
+                | "sv_nit"
+                | "th_vat"
+                | "tj_tin"
+                | "tr_tin"
+                | "tw_vat"
+                | "tz_vat"
+                | "ua_vat"
+                | "ug_tin"
+                | "us_ein"
+                | "uy_ruc"
+                | "uz_tin"
+                | "uz_vat"
+                | "ve_rif"
+                | "vn_tin"
+                | "za_vat"
+                | "zm_tin"
+                | "zw_tin"
+              value: string
             }[]
-          | ""
-        )
-      | undefined
-    expand?: string[] | undefined
-    invoice_items?:
-      | {
-          amount?: number | undefined
-          currency?: string | undefined
-          description?: string | undefined
-          discountable?: boolean | undefined
-          discounts?:
-            | (
+          | undefined
+      }
+    | undefined
+  discounts?:
+    | (
+        | {
+            coupon?: string | undefined
+            discount?: string | undefined
+            promotion_code?: string | undefined
+          }[]
+        | ""
+      )
+    | undefined
+  expand?: string[] | undefined
+  invoice_items?:
+    | {
+        amount?: number | undefined
+        currency?: string | undefined
+        description?: string | undefined
+        discountable?: boolean | undefined
+        discounts?:
+          | (
+              | {
+                  coupon?: string | undefined
+                  discount?: string | undefined
+                  promotion_code?: string | undefined
+                }[]
+              | ""
+            )
+          | undefined
+        invoiceitem?: string | undefined
+        metadata?:
+          | (
+              | {
+                  [key: string]: string | undefined
+                }
+              | ""
+            )
+          | undefined
+        period?:
+          | {
+              end: number
+              start: number
+            }
+          | undefined
+        price?: string | undefined
+        price_data?:
+          | {
+              currency: string
+              product: string
+              tax_behavior?:
+                | ("exclusive" | "inclusive" | "unspecified")
+                | undefined
+              unit_amount?: number | undefined
+              unit_amount_decimal?: string | undefined
+            }
+          | undefined
+        quantity?: number | undefined
+        tax_behavior?: ("exclusive" | "inclusive" | "unspecified") | undefined
+        tax_code?: (string | "") | undefined
+        tax_rates?: (string[] | "") | undefined
+        unit_amount?: number | undefined
+        unit_amount_decimal?: string | undefined
+      }[]
+    | undefined
+  issuer?:
+    | {
+        account?: string | undefined
+        type: "account" | "self"
+      }
+    | undefined
+  on_behalf_of?: (string | "") | undefined
+  preview_mode?: ("next" | "recurring") | undefined
+  schedule?: string | undefined
+  schedule_details?:
+    | {
+        billing_mode?:
+          | {
+              type: "classic" | "flexible"
+            }
+          | undefined
+        end_behavior?: ("cancel" | "release") | undefined
+        phases?:
+          | {
+              add_invoice_items?:
                 | {
-                    coupon?: string | undefined
-                    discount?: string | undefined
-                    promotion_code?: string | undefined
-                  }[]
-                | ""
-              )
-            | undefined
-          invoiceitem?: string | undefined
-          metadata?:
-            | (
-                | {
-                    [key: string]: string | undefined
-                  }
-                | ""
-              )
-            | undefined
-          period?:
-            | {
-                end: number
-                start: number
-              }
-            | undefined
-          price?: string | undefined
-          price_data?:
-            | {
-                currency: string
-                product: string
-                tax_behavior?:
-                  | ("exclusive" | "inclusive" | "unspecified")
-                  | undefined
-                unit_amount?: number | undefined
-                unit_amount_decimal?: string | undefined
-              }
-            | undefined
-          quantity?: number | undefined
-          tax_behavior?: ("exclusive" | "inclusive" | "unspecified") | undefined
-          tax_code?: (string | "") | undefined
-          tax_rates?: (string[] | "") | undefined
-          unit_amount?: number | undefined
-          unit_amount_decimal?: string | undefined
-        }[]
-      | undefined
-    issuer?:
-      | {
-          account?: string | undefined
-          type: "account" | "self"
-        }
-      | undefined
-    on_behalf_of?: (string | "") | undefined
-    preview_mode?: ("next" | "recurring") | undefined
-    schedule?: string | undefined
-    schedule_details?:
-      | {
-          billing_mode?:
-            | {
-                type: "classic" | "flexible"
-              }
-            | undefined
-          end_behavior?: ("cancel" | "release") | undefined
-          phases?:
-            | {
-                add_invoice_items?:
-                  | {
-                      discounts?:
-                        | {
-                            coupon?: string | undefined
-                            discount?: string | undefined
-                            promotion_code?: string | undefined
-                          }[]
-                        | undefined
-                      price?: string | undefined
-                      price_data?:
-                        | {
-                            currency: string
-                            product: string
-                            tax_behavior?:
-                              | ("exclusive" | "inclusive" | "unspecified")
-                              | undefined
-                            unit_amount?: number | undefined
-                            unit_amount_decimal?: string | undefined
-                          }
-                        | undefined
-                      quantity?: number | undefined
-                      tax_rates?: (string[] | "") | undefined
-                    }[]
-                  | undefined
-                application_fee_percent?: number | undefined
-                automatic_tax?:
-                  | {
-                      enabled: boolean
-                      liability?:
-                        | {
-                            account?: string | undefined
-                            type: "account" | "self"
-                          }
-                        | undefined
-                    }
-                  | undefined
-                billing_cycle_anchor?: ("automatic" | "phase_start") | undefined
-                billing_thresholds?:
-                  | (
-                      | {
-                          amount_gte?: number | undefined
-                          reset_billing_cycle_anchor?: boolean | undefined
-                        }
-                      | ""
-                    )
-                  | undefined
-                collection_method?:
-                  | ("charge_automatically" | "send_invoice")
-                  | undefined
-                default_payment_method?: string | undefined
-                default_tax_rates?: (string[] | "") | undefined
-                description?: (string | "") | undefined
-                discounts?:
-                  | (
+                    discounts?:
                       | {
                           coupon?: string | undefined
                           discount?: string | undefined
                           promotion_code?: string | undefined
                         }[]
-                      | ""
-                    )
-                  | undefined
-                duration?:
-                  | {
-                      interval: "day" | "month" | "week" | "year"
-                      interval_count?: number | undefined
-                    }
-                  | undefined
-                end_date?: (number | "now") | undefined
-                invoice_settings?:
-                  | {
-                      account_tax_ids?: (string[] | "") | undefined
-                      days_until_due?: number | undefined
-                      issuer?:
-                        | {
-                            account?: string | undefined
-                            type: "account" | "self"
-                          }
-                        | undefined
-                    }
-                  | undefined
-                items: {
-                  billing_thresholds?:
-                    | (
-                        | {
-                            usage_gte: number
-                          }
-                        | ""
-                      )
-                    | undefined
-                  discounts?:
-                    | (
-                        | {
-                            coupon?: string | undefined
-                            discount?: string | undefined
-                            promotion_code?: string | undefined
-                          }[]
-                        | ""
-                      )
-                    | undefined
-                  metadata?:
-                    | {
-                        [key: string]: string | undefined
-                      }
-                    | undefined
-                  price?: string | undefined
-                  price_data?:
-                    | {
-                        currency: string
-                        product: string
-                        recurring: {
-                          interval: "day" | "month" | "week" | "year"
-                          interval_count?: number | undefined
+                      | undefined
+                    price?: string | undefined
+                    price_data?:
+                      | {
+                          currency: string
+                          product: string
+                          tax_behavior?:
+                            | ("exclusive" | "inclusive" | "unspecified")
+                            | undefined
+                          unit_amount?: number | undefined
+                          unit_amount_decimal?: string | undefined
                         }
-                        tax_behavior?:
-                          | ("exclusive" | "inclusive" | "unspecified")
-                          | undefined
-                        unit_amount?: number | undefined
-                        unit_amount_decimal?: string | undefined
+                      | undefined
+                    quantity?: number | undefined
+                    tax_rates?: (string[] | "") | undefined
+                  }[]
+                | undefined
+              application_fee_percent?: number | undefined
+              automatic_tax?:
+                | {
+                    enabled: boolean
+                    liability?:
+                      | {
+                          account?: string | undefined
+                          type: "account" | "self"
+                        }
+                      | undefined
+                  }
+                | undefined
+              billing_cycle_anchor?: ("automatic" | "phase_start") | undefined
+              billing_thresholds?:
+                | (
+                    | {
+                        amount_gte?: number | undefined
+                        reset_billing_cycle_anchor?: boolean | undefined
                       }
-                    | undefined
-                  quantity?: number | undefined
-                  tax_rates?: (string[] | "") | undefined
-                }[]
-                iterations?: number | undefined
-                metadata?:
-                  | {
-                      [key: string]: string | undefined
-                    }
-                  | undefined
-                on_behalf_of?: string | undefined
-                proration_behavior?:
-                  | ("always_invoice" | "create_prorations" | "none")
-                  | undefined
-                start_date?: (number | "now") | undefined
-                transfer_data?:
-                  | {
-                      amount_percent?: number | undefined
-                      destination: string
-                    }
-                  | undefined
-                trial?: boolean | undefined
-                trial_end?: (number | "now") | undefined
-              }[]
-            | undefined
-          proration_behavior?:
-            | ("always_invoice" | "create_prorations" | "none")
-            | undefined
-        }
-      | undefined
-    subscription?: string | undefined
-    subscription_details?:
-      | {
-          billing_cycle_anchor?: ("now" | "unchanged" | number) | undefined
-          billing_mode?:
-            | {
-                type: "classic" | "flexible"
-              }
-            | undefined
-          cancel_at?:
-            | (number | "" | "max_period_end" | "min_period_end")
-            | undefined
-          cancel_at_period_end?: boolean | undefined
-          cancel_now?: boolean | undefined
-          default_tax_rates?: (string[] | "") | undefined
-          items?:
-            | {
+                    | ""
+                  )
+                | undefined
+              collection_method?:
+                | ("charge_automatically" | "send_invoice")
+                | undefined
+              default_payment_method?: string | undefined
+              default_tax_rates?: (string[] | "") | undefined
+              description?: (string | "") | undefined
+              discounts?:
+                | (
+                    | {
+                        coupon?: string | undefined
+                        discount?: string | undefined
+                        promotion_code?: string | undefined
+                      }[]
+                    | ""
+                  )
+                | undefined
+              duration?:
+                | {
+                    interval: "day" | "month" | "week" | "year"
+                    interval_count?: number | undefined
+                  }
+                | undefined
+              end_date?: (number | "now") | undefined
+              invoice_settings?:
+                | {
+                    account_tax_ids?: (string[] | "") | undefined
+                    days_until_due?: number | undefined
+                    issuer?:
+                      | {
+                          account?: string | undefined
+                          type: "account" | "self"
+                        }
+                      | undefined
+                  }
+                | undefined
+              items: {
                 billing_thresholds?:
                   | (
                       | {
@@ -27214,8 +27045,6 @@ export type t_postInvoicesCreatePreviewApplicationXWwwFormUrlencodedRequestBody 
                       | ""
                     )
                   | undefined
-                clear_usage?: boolean | undefined
-                deleted?: boolean | undefined
                 discounts?:
                   | (
                       | {
@@ -27226,14 +27055,10 @@ export type t_postInvoicesCreatePreviewApplicationXWwwFormUrlencodedRequestBody 
                       | ""
                     )
                   | undefined
-                id?: string | undefined
                 metadata?:
-                  | (
-                      | {
-                          [key: string]: string | undefined
-                        }
-                      | ""
-                    )
+                  | {
+                      [key: string]: string | undefined
+                    }
                   | undefined
                 price?: string | undefined
                 price_data?:
@@ -27254,23 +27079,114 @@ export type t_postInvoicesCreatePreviewApplicationXWwwFormUrlencodedRequestBody 
                 quantity?: number | undefined
                 tax_rates?: (string[] | "") | undefined
               }[]
-            | undefined
-          proration_behavior?:
-            | ("always_invoice" | "create_prorations" | "none")
-            | undefined
-          proration_date?: number | undefined
-          resume_at?: "now" | undefined
-          start_date?: number | undefined
-          trial_end?: ("now" | number) | undefined
-        }
-      | undefined
-  }
+              iterations?: number | undefined
+              metadata?:
+                | {
+                    [key: string]: string | undefined
+                  }
+                | undefined
+              on_behalf_of?: string | undefined
+              proration_behavior?:
+                | ("always_invoice" | "create_prorations" | "none")
+                | undefined
+              start_date?: (number | "now") | undefined
+              transfer_data?:
+                | {
+                    amount_percent?: number | undefined
+                    destination: string
+                  }
+                | undefined
+              trial?: boolean | undefined
+              trial_end?: (number | "now") | undefined
+            }[]
+          | undefined
+        proration_behavior?:
+          | ("always_invoice" | "create_prorations" | "none")
+          | undefined
+      }
+    | undefined
+  subscription?: string | undefined
+  subscription_details?:
+    | {
+        billing_cycle_anchor?: ("now" | "unchanged" | number) | undefined
+        billing_mode?:
+          | {
+              type: "classic" | "flexible"
+            }
+          | undefined
+        cancel_at?:
+          | (number | "" | "max_period_end" | "min_period_end")
+          | undefined
+        cancel_at_period_end?: boolean | undefined
+        cancel_now?: boolean | undefined
+        default_tax_rates?: (string[] | "") | undefined
+        items?:
+          | {
+              billing_thresholds?:
+                | (
+                    | {
+                        usage_gte: number
+                      }
+                    | ""
+                  )
+                | undefined
+              clear_usage?: boolean | undefined
+              deleted?: boolean | undefined
+              discounts?:
+                | (
+                    | {
+                        coupon?: string | undefined
+                        discount?: string | undefined
+                        promotion_code?: string | undefined
+                      }[]
+                    | ""
+                  )
+                | undefined
+              id?: string | undefined
+              metadata?:
+                | (
+                    | {
+                        [key: string]: string | undefined
+                      }
+                    | ""
+                  )
+                | undefined
+              price?: string | undefined
+              price_data?:
+                | {
+                    currency: string
+                    product: string
+                    recurring: {
+                      interval: "day" | "month" | "week" | "year"
+                      interval_count?: number | undefined
+                    }
+                    tax_behavior?:
+                      | ("exclusive" | "inclusive" | "unspecified")
+                      | undefined
+                    unit_amount?: number | undefined
+                    unit_amount_decimal?: string | undefined
+                  }
+                | undefined
+              quantity?: number | undefined
+              tax_rates?: (string[] | "") | undefined
+            }[]
+          | undefined
+        proration_behavior?:
+          | ("always_invoice" | "create_prorations" | "none")
+          | undefined
+        proration_date?: number | undefined
+        resume_at?: "now" | undefined
+        start_date?: number | undefined
+        trial_end?: ("now" | number) | undefined
+      }
+    | undefined
+}
 
 export type t_PostInvoicesInvoiceParamSchema = {
   invoice: string
 }
 
-export type t_postInvoicesInvoiceApplicationXWwwFormUrlencodedRequestBody = {
+export type t_PostInvoicesInvoiceRequestBody = {
   account_tax_ids?: (string[] | "") | undefined
   application_fee_amount?: number | undefined
   auto_advance?: boolean | undefined
@@ -27611,172 +27527,17 @@ export type t_PostInvoicesInvoiceAddLinesParamSchema = {
   invoice: string
 }
 
-export type t_postInvoicesInvoiceAddLinesApplicationXWwwFormUrlencodedRequestBody =
-  {
-    expand?: string[] | undefined
-    invoice_metadata?:
-      | (
-          | {
-              [key: string]: string | undefined
-            }
-          | ""
-        )
-      | undefined
-    lines: {
-      amount?: number | undefined
-      description?: string | undefined
-      discountable?: boolean | undefined
-      discounts?:
-        | (
-            | {
-                coupon?: string | undefined
-                discount?: string | undefined
-                promotion_code?: string | undefined
-              }[]
-            | ""
-          )
-        | undefined
-      invoice_item?: string | undefined
-      metadata?:
-        | (
-            | {
-                [key: string]: string | undefined
-              }
-            | ""
-          )
-        | undefined
-      period?:
+export type t_PostInvoicesInvoiceAddLinesRequestBody = {
+  expand?: string[] | undefined
+  invoice_metadata?:
+    | (
         | {
-            end: number
-            start: number
+            [key: string]: string | undefined
           }
-        | undefined
-      price_data?:
-        | {
-            currency: string
-            product?: string | undefined
-            product_data?:
-              | {
-                  description?: string | undefined
-                  images?: string[] | undefined
-                  metadata?:
-                    | {
-                        [key: string]: string | undefined
-                      }
-                    | undefined
-                  name: string
-                  tax_code?: string | undefined
-                }
-              | undefined
-            tax_behavior?:
-              | ("exclusive" | "inclusive" | "unspecified")
-              | undefined
-            unit_amount?: number | undefined
-            unit_amount_decimal?: string | undefined
-          }
-        | undefined
-      pricing?:
-        | {
-            price?: string | undefined
-          }
-        | undefined
-      quantity?: number | undefined
-      tax_amounts?:
-        | (
-            | {
-                amount: number
-                tax_rate_data: {
-                  country?: string | undefined
-                  description?: string | undefined
-                  display_name: string
-                  inclusive: boolean
-                  jurisdiction?: string | undefined
-                  jurisdiction_level?:
-                    | (
-                        | "city"
-                        | "country"
-                        | "county"
-                        | "district"
-                        | "multiple"
-                        | "state"
-                      )
-                    | undefined
-                  percentage: number
-                  state?: string | undefined
-                  tax_type?:
-                    | (
-                        | "amusement_tax"
-                        | "communications_tax"
-                        | "gst"
-                        | "hst"
-                        | "igst"
-                        | "jct"
-                        | "lease_tax"
-                        | "pst"
-                        | "qst"
-                        | "retail_delivery_fee"
-                        | "rst"
-                        | "sales_tax"
-                        | "service_tax"
-                        | "vat"
-                      )
-                    | undefined
-                }
-                taxability_reason?:
-                  | (
-                      | "customer_exempt"
-                      | "not_collecting"
-                      | "not_subject_to_tax"
-                      | "not_supported"
-                      | "portion_product_exempt"
-                      | "portion_reduced_rated"
-                      | "portion_standard_rated"
-                      | "product_exempt"
-                      | "product_exempt_holiday"
-                      | "proportionally_rated"
-                      | "reduced_rated"
-                      | "reverse_charge"
-                      | "standard_rated"
-                      | "taxable_basis_reduced"
-                      | "zero_rated"
-                    )
-                  | undefined
-                taxable_amount: number
-              }[]
-            | ""
-          )
-        | undefined
-      tax_rates?: (string[] | "") | undefined
-    }[]
-  }
-
-export type t_PostInvoicesInvoiceAttachPaymentParamSchema = {
-  invoice: string
-}
-
-export type t_postInvoicesInvoiceAttachPaymentApplicationXWwwFormUrlencodedRequestBody =
-  {
-    expand?: string[] | undefined
-    payment_intent?: string | undefined
-  }
-
-export type t_PostInvoicesInvoiceFinalizeParamSchema = {
-  invoice: string
-}
-
-export type t_postInvoicesInvoiceFinalizeApplicationXWwwFormUrlencodedRequestBody =
-  {
-    auto_advance?: boolean | undefined
-    expand?: string[] | undefined
-  }
-
-export type t_PostInvoicesInvoiceLinesLineItemIdParamSchema = {
-  invoice: string
-  line_item_id: string
-}
-
-export type t_postInvoicesInvoiceLinesLineItemIdApplicationXWwwFormUrlencodedRequestBody =
-  {
+        | ""
+      )
+    | undefined
+  lines: {
     amount?: number | undefined
     description?: string | undefined
     discountable?: boolean | undefined
@@ -27790,7 +27551,7 @@ export type t_postInvoicesInvoiceLinesLineItemIdApplicationXWwwFormUrlencodedReq
           | ""
         )
       | undefined
-    expand?: string[] | undefined
+    invoice_item?: string | undefined
     metadata?:
       | (
           | {
@@ -27899,22 +27660,170 @@ export type t_postInvoicesInvoiceLinesLineItemIdApplicationXWwwFormUrlencodedReq
         )
       | undefined
     tax_rates?: (string[] | "") | undefined
-  }
+  }[]
+}
+
+export type t_PostInvoicesInvoiceAttachPaymentParamSchema = {
+  invoice: string
+}
+
+export type t_PostInvoicesInvoiceAttachPaymentRequestBody = {
+  expand?: string[] | undefined
+  payment_intent?: string | undefined
+}
+
+export type t_PostInvoicesInvoiceFinalizeParamSchema = {
+  invoice: string
+}
+
+export type t_PostInvoicesInvoiceFinalizeRequestBody = {
+  auto_advance?: boolean | undefined
+  expand?: string[] | undefined
+}
+
+export type t_PostInvoicesInvoiceLinesLineItemIdParamSchema = {
+  invoice: string
+  line_item_id: string
+}
+
+export type t_PostInvoicesInvoiceLinesLineItemIdRequestBody = {
+  amount?: number | undefined
+  description?: string | undefined
+  discountable?: boolean | undefined
+  discounts?:
+    | (
+        | {
+            coupon?: string | undefined
+            discount?: string | undefined
+            promotion_code?: string | undefined
+          }[]
+        | ""
+      )
+    | undefined
+  expand?: string[] | undefined
+  metadata?:
+    | (
+        | {
+            [key: string]: string | undefined
+          }
+        | ""
+      )
+    | undefined
+  period?:
+    | {
+        end: number
+        start: number
+      }
+    | undefined
+  price_data?:
+    | {
+        currency: string
+        product?: string | undefined
+        product_data?:
+          | {
+              description?: string | undefined
+              images?: string[] | undefined
+              metadata?:
+                | {
+                    [key: string]: string | undefined
+                  }
+                | undefined
+              name: string
+              tax_code?: string | undefined
+            }
+          | undefined
+        tax_behavior?: ("exclusive" | "inclusive" | "unspecified") | undefined
+        unit_amount?: number | undefined
+        unit_amount_decimal?: string | undefined
+      }
+    | undefined
+  pricing?:
+    | {
+        price?: string | undefined
+      }
+    | undefined
+  quantity?: number | undefined
+  tax_amounts?:
+    | (
+        | {
+            amount: number
+            tax_rate_data: {
+              country?: string | undefined
+              description?: string | undefined
+              display_name: string
+              inclusive: boolean
+              jurisdiction?: string | undefined
+              jurisdiction_level?:
+                | (
+                    | "city"
+                    | "country"
+                    | "county"
+                    | "district"
+                    | "multiple"
+                    | "state"
+                  )
+                | undefined
+              percentage: number
+              state?: string | undefined
+              tax_type?:
+                | (
+                    | "amusement_tax"
+                    | "communications_tax"
+                    | "gst"
+                    | "hst"
+                    | "igst"
+                    | "jct"
+                    | "lease_tax"
+                    | "pst"
+                    | "qst"
+                    | "retail_delivery_fee"
+                    | "rst"
+                    | "sales_tax"
+                    | "service_tax"
+                    | "vat"
+                  )
+                | undefined
+            }
+            taxability_reason?:
+              | (
+                  | "customer_exempt"
+                  | "not_collecting"
+                  | "not_subject_to_tax"
+                  | "not_supported"
+                  | "portion_product_exempt"
+                  | "portion_reduced_rated"
+                  | "portion_standard_rated"
+                  | "product_exempt"
+                  | "product_exempt_holiday"
+                  | "proportionally_rated"
+                  | "reduced_rated"
+                  | "reverse_charge"
+                  | "standard_rated"
+                  | "taxable_basis_reduced"
+                  | "zero_rated"
+                )
+              | undefined
+            taxable_amount: number
+          }[]
+        | ""
+      )
+    | undefined
+  tax_rates?: (string[] | "") | undefined
+}
 
 export type t_PostInvoicesInvoiceMarkUncollectibleParamSchema = {
   invoice: string
 }
 
-export type t_postInvoicesInvoiceMarkUncollectibleApplicationXWwwFormUrlencodedRequestBody =
-  {
-    expand?: string[] | undefined
-  }
+export type t_PostInvoicesInvoiceMarkUncollectibleRequestBody = {
+  expand?: string[] | undefined
+}
 
 export type t_PostInvoicesInvoicePayParamSchema = {
   invoice: string
 }
 
-export type t_postInvoicesInvoicePayApplicationXWwwFormUrlencodedRequestBody = {
+export type t_PostInvoicesInvoicePayRequestBody = {
   expand?: string[] | undefined
   forgive?: boolean | undefined
   mandate?: (string | "") | undefined
@@ -27928,40 +27837,60 @@ export type t_PostInvoicesInvoiceRemoveLinesParamSchema = {
   invoice: string
 }
 
-export type t_postInvoicesInvoiceRemoveLinesApplicationXWwwFormUrlencodedRequestBody =
-  {
-    expand?: string[] | undefined
-    invoice_metadata?:
-      | (
-          | {
-              [key: string]: string | undefined
-            }
-          | ""
-        )
-      | undefined
-    lines: {
-      behavior: "delete" | "unassign"
-      id: string
-    }[]
-  }
+export type t_PostInvoicesInvoiceRemoveLinesRequestBody = {
+  expand?: string[] | undefined
+  invoice_metadata?:
+    | (
+        | {
+            [key: string]: string | undefined
+          }
+        | ""
+      )
+    | undefined
+  lines: {
+    behavior: "delete" | "unassign"
+    id: string
+  }[]
+}
 
 export type t_PostInvoicesInvoiceSendParamSchema = {
   invoice: string
 }
 
-export type t_postInvoicesInvoiceSendApplicationXWwwFormUrlencodedRequestBody =
-  {
-    expand?: string[] | undefined
-  }
+export type t_PostInvoicesInvoiceSendRequestBody = {
+  expand?: string[] | undefined
+}
 
 export type t_PostInvoicesInvoiceUpdateLinesParamSchema = {
   invoice: string
 }
 
-export type t_postInvoicesInvoiceUpdateLinesApplicationXWwwFormUrlencodedRequestBody =
-  {
-    expand?: string[] | undefined
-    invoice_metadata?:
+export type t_PostInvoicesInvoiceUpdateLinesRequestBody = {
+  expand?: string[] | undefined
+  invoice_metadata?:
+    | (
+        | {
+            [key: string]: string | undefined
+          }
+        | ""
+      )
+    | undefined
+  lines: {
+    amount?: number | undefined
+    description?: string | undefined
+    discountable?: boolean | undefined
+    discounts?:
+      | (
+          | {
+              coupon?: string | undefined
+              discount?: string | undefined
+              promotion_code?: string | undefined
+            }[]
+          | ""
+        )
+      | undefined
+    id: string
+    metadata?:
       | (
           | {
               [key: string]: string | undefined
@@ -27969,196 +27898,167 @@ export type t_postInvoicesInvoiceUpdateLinesApplicationXWwwFormUrlencodedRequest
           | ""
         )
       | undefined
-    lines: {
-      amount?: number | undefined
-      description?: string | undefined
-      discountable?: boolean | undefined
-      discounts?:
-        | (
+    period?:
+      | {
+          end: number
+          start: number
+        }
+      | undefined
+    price_data?:
+      | {
+          currency: string
+          product?: string | undefined
+          product_data?:
             | {
-                coupon?: string | undefined
-                discount?: string | undefined
-                promotion_code?: string | undefined
-              }[]
-            | ""
-          )
-        | undefined
-      id: string
-      metadata?:
-        | (
-            | {
-                [key: string]: string | undefined
+                description?: string | undefined
+                images?: string[] | undefined
+                metadata?:
+                  | {
+                      [key: string]: string | undefined
+                    }
+                  | undefined
+                name: string
+                tax_code?: string | undefined
               }
-            | ""
-          )
-        | undefined
-      period?:
-        | {
-            end: number
-            start: number
-          }
-        | undefined
-      price_data?:
-        | {
-            currency: string
-            product?: string | undefined
-            product_data?:
-              | {
-                  description?: string | undefined
-                  images?: string[] | undefined
-                  metadata?:
-                    | {
-                        [key: string]: string | undefined
-                      }
-                    | undefined
-                  name: string
-                  tax_code?: string | undefined
-                }
-              | undefined
-            tax_behavior?:
-              | ("exclusive" | "inclusive" | "unspecified")
-              | undefined
-            unit_amount?: number | undefined
-            unit_amount_decimal?: string | undefined
-          }
-        | undefined
-      pricing?:
-        | {
-            price?: string | undefined
-          }
-        | undefined
-      quantity?: number | undefined
-      tax_amounts?:
-        | (
-            | {
-                amount: number
-                tax_rate_data: {
-                  country?: string | undefined
-                  description?: string | undefined
-                  display_name: string
-                  inclusive: boolean
-                  jurisdiction?: string | undefined
-                  jurisdiction_level?:
-                    | (
-                        | "city"
-                        | "country"
-                        | "county"
-                        | "district"
-                        | "multiple"
-                        | "state"
-                      )
-                    | undefined
-                  percentage: number
-                  state?: string | undefined
-                  tax_type?:
-                    | (
-                        | "amusement_tax"
-                        | "communications_tax"
-                        | "gst"
-                        | "hst"
-                        | "igst"
-                        | "jct"
-                        | "lease_tax"
-                        | "pst"
-                        | "qst"
-                        | "retail_delivery_fee"
-                        | "rst"
-                        | "sales_tax"
-                        | "service_tax"
-                        | "vat"
-                      )
-                    | undefined
-                }
-                taxability_reason?:
+            | undefined
+          tax_behavior?: ("exclusive" | "inclusive" | "unspecified") | undefined
+          unit_amount?: number | undefined
+          unit_amount_decimal?: string | undefined
+        }
+      | undefined
+    pricing?:
+      | {
+          price?: string | undefined
+        }
+      | undefined
+    quantity?: number | undefined
+    tax_amounts?:
+      | (
+          | {
+              amount: number
+              tax_rate_data: {
+                country?: string | undefined
+                description?: string | undefined
+                display_name: string
+                inclusive: boolean
+                jurisdiction?: string | undefined
+                jurisdiction_level?:
                   | (
-                      | "customer_exempt"
-                      | "not_collecting"
-                      | "not_subject_to_tax"
-                      | "not_supported"
-                      | "portion_product_exempt"
-                      | "portion_reduced_rated"
-                      | "portion_standard_rated"
-                      | "product_exempt"
-                      | "product_exempt_holiday"
-                      | "proportionally_rated"
-                      | "reduced_rated"
-                      | "reverse_charge"
-                      | "standard_rated"
-                      | "taxable_basis_reduced"
-                      | "zero_rated"
+                      | "city"
+                      | "country"
+                      | "county"
+                      | "district"
+                      | "multiple"
+                      | "state"
                     )
                   | undefined
-                taxable_amount: number
-              }[]
-            | ""
-          )
-        | undefined
-      tax_rates?: (string[] | "") | undefined
-    }[]
-  }
+                percentage: number
+                state?: string | undefined
+                tax_type?:
+                  | (
+                      | "amusement_tax"
+                      | "communications_tax"
+                      | "gst"
+                      | "hst"
+                      | "igst"
+                      | "jct"
+                      | "lease_tax"
+                      | "pst"
+                      | "qst"
+                      | "retail_delivery_fee"
+                      | "rst"
+                      | "sales_tax"
+                      | "service_tax"
+                      | "vat"
+                    )
+                  | undefined
+              }
+              taxability_reason?:
+                | (
+                    | "customer_exempt"
+                    | "not_collecting"
+                    | "not_subject_to_tax"
+                    | "not_supported"
+                    | "portion_product_exempt"
+                    | "portion_reduced_rated"
+                    | "portion_standard_rated"
+                    | "product_exempt"
+                    | "product_exempt_holiday"
+                    | "proportionally_rated"
+                    | "reduced_rated"
+                    | "reverse_charge"
+                    | "standard_rated"
+                    | "taxable_basis_reduced"
+                    | "zero_rated"
+                  )
+                | undefined
+              taxable_amount: number
+            }[]
+          | ""
+        )
+      | undefined
+    tax_rates?: (string[] | "") | undefined
+  }[]
+}
 
 export type t_PostInvoicesInvoiceVoidParamSchema = {
   invoice: string
 }
 
-export type t_postInvoicesInvoiceVoidApplicationXWwwFormUrlencodedRequestBody =
-  {
-    expand?: string[] | undefined
-  }
+export type t_PostInvoicesInvoiceVoidRequestBody = {
+  expand?: string[] | undefined
+}
 
 export type t_PostIssuingAuthorizationsAuthorizationParamSchema = {
   authorization: string
 }
 
-export type t_postIssuingAuthorizationsAuthorizationApplicationXWwwFormUrlencodedRequestBody =
-  {
-    expand?: string[] | undefined
-    metadata?:
-      | (
-          | {
-              [key: string]: string | undefined
-            }
-          | ""
-        )
-      | undefined
-  }
+export type t_PostIssuingAuthorizationsAuthorizationRequestBody = {
+  expand?: string[] | undefined
+  metadata?:
+    | (
+        | {
+            [key: string]: string | undefined
+          }
+        | ""
+      )
+    | undefined
+}
 
 export type t_PostIssuingAuthorizationsAuthorizationApproveParamSchema = {
   authorization: string
 }
 
-export type t_postIssuingAuthorizationsAuthorizationApproveApplicationXWwwFormUrlencodedRequestBody =
-  {
-    amount?: number | undefined
-    expand?: string[] | undefined
-    metadata?:
-      | (
-          | {
-              [key: string]: string | undefined
-            }
-          | ""
-        )
-      | undefined
-  }
+export type t_PostIssuingAuthorizationsAuthorizationApproveRequestBody = {
+  amount?: number | undefined
+  expand?: string[] | undefined
+  metadata?:
+    | (
+        | {
+            [key: string]: string | undefined
+          }
+        | ""
+      )
+    | undefined
+}
 
 export type t_PostIssuingAuthorizationsAuthorizationDeclineParamSchema = {
   authorization: string
 }
 
-export type t_postIssuingAuthorizationsAuthorizationDeclineApplicationXWwwFormUrlencodedRequestBody =
-  {
-    expand?: string[] | undefined
-    metadata?:
-      | (
-          | {
-              [key: string]: string | undefined
-            }
-          | ""
-        )
-      | undefined
-  }
+export type t_PostIssuingAuthorizationsAuthorizationDeclineRequestBody = {
+  expand?: string[] | undefined
+  metadata?:
+    | (
+        | {
+            [key: string]: string | undefined
+          }
+        | ""
+      )
+    | undefined
+}
 
-export type t_postIssuingCardholdersApplicationXWwwFormUrlencodedRequestBody = {
+export type t_PostIssuingCardholdersRequestBody = {
   billing: {
     address: {
       city: string
@@ -29142,988 +29042,987 @@ export type t_PostIssuingCardholdersCardholderParamSchema = {
   cardholder: string
 }
 
-export type t_postIssuingCardholdersCardholderApplicationXWwwFormUrlencodedRequestBody =
-  {
-    billing?:
-      | {
-          address: {
-            city: string
-            country: string
-            line1: string
-            line2?: string | undefined
-            postal_code: string
-            state?: string | undefined
-          }
+export type t_PostIssuingCardholdersCardholderRequestBody = {
+  billing?:
+    | {
+        address: {
+          city: string
+          country: string
+          line1: string
+          line2?: string | undefined
+          postal_code: string
+          state?: string | undefined
         }
-      | undefined
-    company?:
-      | {
-          tax_id?: string | undefined
-        }
-      | undefined
-    email?: string | undefined
-    expand?: string[] | undefined
-    individual?:
-      | {
-          card_issuing?:
-            | {
-                user_terms_acceptance?:
-                  | {
-                      date?: number | undefined
-                      ip?: string | undefined
-                      user_agent?: (string | "") | undefined
-                    }
-                  | undefined
-              }
-            | undefined
-          dob?:
-            | {
-                day: number
-                month: number
-                year: number
-              }
-            | undefined
-          first_name?: string | undefined
-          last_name?: string | undefined
-          verification?:
-            | {
-                document?:
-                  | {
-                      back?: string | undefined
-                      front?: string | undefined
-                    }
-                  | undefined
-              }
-            | undefined
-        }
-      | undefined
-    metadata?:
-      | {
-          [key: string]: string | undefined
-        }
-      | undefined
-    phone_number?: string | undefined
-    preferred_locales?: ("de" | "en" | "es" | "fr" | "it")[] | undefined
-    spending_controls?:
-      | {
-          allowed_categories?:
-            | (
-                | "ac_refrigeration_repair"
-                | "accounting_bookkeeping_services"
-                | "advertising_services"
-                | "agricultural_cooperative"
-                | "airlines_air_carriers"
-                | "airports_flying_fields"
-                | "ambulance_services"
-                | "amusement_parks_carnivals"
-                | "antique_reproductions"
-                | "antique_shops"
-                | "aquariums"
-                | "architectural_surveying_services"
-                | "art_dealers_and_galleries"
-                | "artists_supply_and_craft_shops"
-                | "auto_and_home_supply_stores"
-                | "auto_body_repair_shops"
-                | "auto_paint_shops"
-                | "auto_service_shops"
-                | "automated_cash_disburse"
-                | "automated_fuel_dispensers"
-                | "automobile_associations"
-                | "automotive_parts_and_accessories_stores"
-                | "automotive_tire_stores"
-                | "bail_and_bond_payments"
-                | "bakeries"
-                | "bands_orchestras"
-                | "barber_and_beauty_shops"
-                | "betting_casino_gambling"
-                | "bicycle_shops"
-                | "billiard_pool_establishments"
-                | "boat_dealers"
-                | "boat_rentals_and_leases"
-                | "book_stores"
-                | "books_periodicals_and_newspapers"
-                | "bowling_alleys"
-                | "bus_lines"
-                | "business_secretarial_schools"
-                | "buying_shopping_services"
-                | "cable_satellite_and_other_pay_television_and_radio"
-                | "camera_and_photographic_supply_stores"
-                | "candy_nut_and_confectionery_stores"
-                | "car_and_truck_dealers_new_used"
-                | "car_and_truck_dealers_used_only"
-                | "car_rental_agencies"
-                | "car_washes"
-                | "carpentry_services"
-                | "carpet_upholstery_cleaning"
-                | "caterers"
-                | "charitable_and_social_service_organizations_fundraising"
-                | "chemicals_and_allied_products"
-                | "child_care_services"
-                | "childrens_and_infants_wear_stores"
-                | "chiropodists_podiatrists"
-                | "chiropractors"
-                | "cigar_stores_and_stands"
-                | "civic_social_fraternal_associations"
-                | "cleaning_and_maintenance"
-                | "clothing_rental"
-                | "colleges_universities"
-                | "commercial_equipment"
-                | "commercial_footwear"
-                | "commercial_photography_art_and_graphics"
-                | "commuter_transport_and_ferries"
-                | "computer_network_services"
-                | "computer_programming"
-                | "computer_repair"
-                | "computer_software_stores"
-                | "computers_peripherals_and_software"
-                | "concrete_work_services"
-                | "construction_materials"
-                | "consulting_public_relations"
-                | "correspondence_schools"
-                | "cosmetic_stores"
-                | "counseling_services"
-                | "country_clubs"
-                | "courier_services"
-                | "court_costs"
-                | "credit_reporting_agencies"
-                | "cruise_lines"
-                | "dairy_products_stores"
-                | "dance_hall_studios_schools"
-                | "dating_escort_services"
-                | "dentists_orthodontists"
-                | "department_stores"
-                | "detective_agencies"
-                | "digital_goods_applications"
-                | "digital_goods_games"
-                | "digital_goods_large_volume"
-                | "digital_goods_media"
-                | "direct_marketing_catalog_merchant"
-                | "direct_marketing_combination_catalog_and_retail_merchant"
-                | "direct_marketing_inbound_telemarketing"
-                | "direct_marketing_insurance_services"
-                | "direct_marketing_other"
-                | "direct_marketing_outbound_telemarketing"
-                | "direct_marketing_subscription"
-                | "direct_marketing_travel"
-                | "discount_stores"
-                | "doctors"
-                | "door_to_door_sales"
-                | "drapery_window_covering_and_upholstery_stores"
-                | "drinking_places"
-                | "drug_stores_and_pharmacies"
-                | "drugs_drug_proprietaries_and_druggist_sundries"
-                | "dry_cleaners"
-                | "durable_goods"
-                | "duty_free_stores"
-                | "eating_places_restaurants"
-                | "educational_services"
-                | "electric_razor_stores"
-                | "electric_vehicle_charging"
-                | "electrical_parts_and_equipment"
-                | "electrical_services"
-                | "electronics_repair_shops"
-                | "electronics_stores"
-                | "elementary_secondary_schools"
-                | "emergency_services_gcas_visa_use_only"
-                | "employment_temp_agencies"
-                | "equipment_rental"
-                | "exterminating_services"
-                | "family_clothing_stores"
-                | "fast_food_restaurants"
-                | "financial_institutions"
-                | "fines_government_administrative_entities"
-                | "fireplace_fireplace_screens_and_accessories_stores"
-                | "floor_covering_stores"
-                | "florists"
-                | "florists_supplies_nursery_stock_and_flowers"
-                | "freezer_and_locker_meat_provisioners"
-                | "fuel_dealers_non_automotive"
-                | "funeral_services_crematories"
-                | "furniture_home_furnishings_and_equipment_stores_except_appliances"
-                | "furniture_repair_refinishing"
-                | "furriers_and_fur_shops"
-                | "general_services"
-                | "gift_card_novelty_and_souvenir_shops"
-                | "glass_paint_and_wallpaper_stores"
-                | "glassware_crystal_stores"
-                | "golf_courses_public"
-                | "government_licensed_horse_dog_racing_us_region_only"
-                | "government_licensed_online_casions_online_gambling_us_region_only"
-                | "government_owned_lotteries_non_us_region"
-                | "government_owned_lotteries_us_region_only"
-                | "government_services"
-                | "grocery_stores_supermarkets"
-                | "hardware_equipment_and_supplies"
-                | "hardware_stores"
-                | "health_and_beauty_spas"
-                | "hearing_aids_sales_and_supplies"
-                | "heating_plumbing_a_c"
-                | "hobby_toy_and_game_shops"
-                | "home_supply_warehouse_stores"
-                | "hospitals"
-                | "hotels_motels_and_resorts"
-                | "household_appliance_stores"
-                | "industrial_supplies"
-                | "information_retrieval_services"
-                | "insurance_default"
-                | "insurance_underwriting_premiums"
-                | "intra_company_purchases"
-                | "jewelry_stores_watches_clocks_and_silverware_stores"
-                | "landscaping_services"
-                | "laundries"
-                | "laundry_cleaning_services"
-                | "legal_services_attorneys"
-                | "luggage_and_leather_goods_stores"
-                | "lumber_building_materials_stores"
-                | "manual_cash_disburse"
-                | "marinas_service_and_supplies"
-                | "marketplaces"
-                | "masonry_stonework_and_plaster"
-                | "massage_parlors"
-                | "medical_and_dental_labs"
-                | "medical_dental_ophthalmic_and_hospital_equipment_and_supplies"
-                | "medical_services"
-                | "membership_organizations"
-                | "mens_and_boys_clothing_and_accessories_stores"
-                | "mens_womens_clothing_stores"
-                | "metal_service_centers"
-                | "miscellaneous"
-                | "miscellaneous_apparel_and_accessory_shops"
-                | "miscellaneous_auto_dealers"
-                | "miscellaneous_business_services"
-                | "miscellaneous_food_stores"
-                | "miscellaneous_general_merchandise"
-                | "miscellaneous_general_services"
-                | "miscellaneous_home_furnishing_specialty_stores"
-                | "miscellaneous_publishing_and_printing"
-                | "miscellaneous_recreation_services"
-                | "miscellaneous_repair_shops"
-                | "miscellaneous_specialty_retail"
-                | "mobile_home_dealers"
-                | "motion_picture_theaters"
-                | "motor_freight_carriers_and_trucking"
-                | "motor_homes_dealers"
-                | "motor_vehicle_supplies_and_new_parts"
-                | "motorcycle_shops_and_dealers"
-                | "motorcycle_shops_dealers"
-                | "music_stores_musical_instruments_pianos_and_sheet_music"
-                | "news_dealers_and_newsstands"
-                | "non_fi_money_orders"
-                | "non_fi_stored_value_card_purchase_load"
-                | "nondurable_goods"
-                | "nurseries_lawn_and_garden_supply_stores"
-                | "nursing_personal_care"
-                | "office_and_commercial_furniture"
-                | "opticians_eyeglasses"
-                | "optometrists_ophthalmologist"
-                | "orthopedic_goods_prosthetic_devices"
-                | "osteopaths"
-                | "package_stores_beer_wine_and_liquor"
-                | "paints_varnishes_and_supplies"
-                | "parking_lots_garages"
-                | "passenger_railways"
-                | "pawn_shops"
-                | "pet_shops_pet_food_and_supplies"
-                | "petroleum_and_petroleum_products"
-                | "photo_developing"
-                | "photographic_photocopy_microfilm_equipment_and_supplies"
-                | "photographic_studios"
-                | "picture_video_production"
-                | "piece_goods_notions_and_other_dry_goods"
-                | "plumbing_heating_equipment_and_supplies"
-                | "political_organizations"
-                | "postal_services_government_only"
-                | "precious_stones_and_metals_watches_and_jewelry"
-                | "professional_services"
-                | "public_warehousing_and_storage"
-                | "quick_copy_repro_and_blueprint"
-                | "railroads"
-                | "real_estate_agents_and_managers_rentals"
-                | "record_stores"
-                | "recreational_vehicle_rentals"
-                | "religious_goods_stores"
-                | "religious_organizations"
-                | "roofing_siding_sheet_metal"
-                | "secretarial_support_services"
-                | "security_brokers_dealers"
-                | "service_stations"
-                | "sewing_needlework_fabric_and_piece_goods_stores"
-                | "shoe_repair_hat_cleaning"
-                | "shoe_stores"
-                | "small_appliance_repair"
-                | "snowmobile_dealers"
-                | "special_trade_services"
-                | "specialty_cleaning"
-                | "sporting_goods_stores"
-                | "sporting_recreation_camps"
-                | "sports_and_riding_apparel_stores"
-                | "sports_clubs_fields"
-                | "stamp_and_coin_stores"
-                | "stationary_office_supplies_printing_and_writing_paper"
-                | "stationery_stores_office_and_school_supply_stores"
-                | "swimming_pools_sales"
-                | "t_ui_travel_germany"
-                | "tailors_alterations"
-                | "tax_payments_government_agencies"
-                | "tax_preparation_services"
-                | "taxicabs_limousines"
-                | "telecommunication_equipment_and_telephone_sales"
-                | "telecommunication_services"
-                | "telegraph_services"
-                | "tent_and_awning_shops"
-                | "testing_laboratories"
-                | "theatrical_ticket_agencies"
-                | "timeshares"
-                | "tire_retreading_and_repair"
-                | "tolls_bridge_fees"
-                | "tourist_attractions_and_exhibits"
-                | "towing_services"
-                | "trailer_parks_campgrounds"
-                | "transportation_services"
-                | "travel_agencies_tour_operators"
-                | "truck_stop_iteration"
-                | "truck_utility_trailer_rentals"
-                | "typesetting_plate_making_and_related_services"
-                | "typewriter_stores"
-                | "u_s_federal_government_agencies_or_departments"
-                | "uniforms_commercial_clothing"
-                | "used_merchandise_and_secondhand_stores"
-                | "utilities"
-                | "variety_stores"
-                | "veterinary_services"
-                | "video_amusement_game_supplies"
-                | "video_game_arcades"
-                | "video_tape_rental_stores"
-                | "vocational_trade_schools"
-                | "watch_jewelry_repair"
-                | "welding_repair"
-                | "wholesale_clubs"
-                | "wig_and_toupee_stores"
-                | "wires_money_orders"
-                | "womens_accessory_and_specialty_shops"
-                | "womens_ready_to_wear_stores"
-                | "wrecking_and_salvage_yards"
-              )[]
-            | undefined
-          allowed_merchant_countries?: string[] | undefined
-          blocked_categories?:
-            | (
-                | "ac_refrigeration_repair"
-                | "accounting_bookkeeping_services"
-                | "advertising_services"
-                | "agricultural_cooperative"
-                | "airlines_air_carriers"
-                | "airports_flying_fields"
-                | "ambulance_services"
-                | "amusement_parks_carnivals"
-                | "antique_reproductions"
-                | "antique_shops"
-                | "aquariums"
-                | "architectural_surveying_services"
-                | "art_dealers_and_galleries"
-                | "artists_supply_and_craft_shops"
-                | "auto_and_home_supply_stores"
-                | "auto_body_repair_shops"
-                | "auto_paint_shops"
-                | "auto_service_shops"
-                | "automated_cash_disburse"
-                | "automated_fuel_dispensers"
-                | "automobile_associations"
-                | "automotive_parts_and_accessories_stores"
-                | "automotive_tire_stores"
-                | "bail_and_bond_payments"
-                | "bakeries"
-                | "bands_orchestras"
-                | "barber_and_beauty_shops"
-                | "betting_casino_gambling"
-                | "bicycle_shops"
-                | "billiard_pool_establishments"
-                | "boat_dealers"
-                | "boat_rentals_and_leases"
-                | "book_stores"
-                | "books_periodicals_and_newspapers"
-                | "bowling_alleys"
-                | "bus_lines"
-                | "business_secretarial_schools"
-                | "buying_shopping_services"
-                | "cable_satellite_and_other_pay_television_and_radio"
-                | "camera_and_photographic_supply_stores"
-                | "candy_nut_and_confectionery_stores"
-                | "car_and_truck_dealers_new_used"
-                | "car_and_truck_dealers_used_only"
-                | "car_rental_agencies"
-                | "car_washes"
-                | "carpentry_services"
-                | "carpet_upholstery_cleaning"
-                | "caterers"
-                | "charitable_and_social_service_organizations_fundraising"
-                | "chemicals_and_allied_products"
-                | "child_care_services"
-                | "childrens_and_infants_wear_stores"
-                | "chiropodists_podiatrists"
-                | "chiropractors"
-                | "cigar_stores_and_stands"
-                | "civic_social_fraternal_associations"
-                | "cleaning_and_maintenance"
-                | "clothing_rental"
-                | "colleges_universities"
-                | "commercial_equipment"
-                | "commercial_footwear"
-                | "commercial_photography_art_and_graphics"
-                | "commuter_transport_and_ferries"
-                | "computer_network_services"
-                | "computer_programming"
-                | "computer_repair"
-                | "computer_software_stores"
-                | "computers_peripherals_and_software"
-                | "concrete_work_services"
-                | "construction_materials"
-                | "consulting_public_relations"
-                | "correspondence_schools"
-                | "cosmetic_stores"
-                | "counseling_services"
-                | "country_clubs"
-                | "courier_services"
-                | "court_costs"
-                | "credit_reporting_agencies"
-                | "cruise_lines"
-                | "dairy_products_stores"
-                | "dance_hall_studios_schools"
-                | "dating_escort_services"
-                | "dentists_orthodontists"
-                | "department_stores"
-                | "detective_agencies"
-                | "digital_goods_applications"
-                | "digital_goods_games"
-                | "digital_goods_large_volume"
-                | "digital_goods_media"
-                | "direct_marketing_catalog_merchant"
-                | "direct_marketing_combination_catalog_and_retail_merchant"
-                | "direct_marketing_inbound_telemarketing"
-                | "direct_marketing_insurance_services"
-                | "direct_marketing_other"
-                | "direct_marketing_outbound_telemarketing"
-                | "direct_marketing_subscription"
-                | "direct_marketing_travel"
-                | "discount_stores"
-                | "doctors"
-                | "door_to_door_sales"
-                | "drapery_window_covering_and_upholstery_stores"
-                | "drinking_places"
-                | "drug_stores_and_pharmacies"
-                | "drugs_drug_proprietaries_and_druggist_sundries"
-                | "dry_cleaners"
-                | "durable_goods"
-                | "duty_free_stores"
-                | "eating_places_restaurants"
-                | "educational_services"
-                | "electric_razor_stores"
-                | "electric_vehicle_charging"
-                | "electrical_parts_and_equipment"
-                | "electrical_services"
-                | "electronics_repair_shops"
-                | "electronics_stores"
-                | "elementary_secondary_schools"
-                | "emergency_services_gcas_visa_use_only"
-                | "employment_temp_agencies"
-                | "equipment_rental"
-                | "exterminating_services"
-                | "family_clothing_stores"
-                | "fast_food_restaurants"
-                | "financial_institutions"
-                | "fines_government_administrative_entities"
-                | "fireplace_fireplace_screens_and_accessories_stores"
-                | "floor_covering_stores"
-                | "florists"
-                | "florists_supplies_nursery_stock_and_flowers"
-                | "freezer_and_locker_meat_provisioners"
-                | "fuel_dealers_non_automotive"
-                | "funeral_services_crematories"
-                | "furniture_home_furnishings_and_equipment_stores_except_appliances"
-                | "furniture_repair_refinishing"
-                | "furriers_and_fur_shops"
-                | "general_services"
-                | "gift_card_novelty_and_souvenir_shops"
-                | "glass_paint_and_wallpaper_stores"
-                | "glassware_crystal_stores"
-                | "golf_courses_public"
-                | "government_licensed_horse_dog_racing_us_region_only"
-                | "government_licensed_online_casions_online_gambling_us_region_only"
-                | "government_owned_lotteries_non_us_region"
-                | "government_owned_lotteries_us_region_only"
-                | "government_services"
-                | "grocery_stores_supermarkets"
-                | "hardware_equipment_and_supplies"
-                | "hardware_stores"
-                | "health_and_beauty_spas"
-                | "hearing_aids_sales_and_supplies"
-                | "heating_plumbing_a_c"
-                | "hobby_toy_and_game_shops"
-                | "home_supply_warehouse_stores"
-                | "hospitals"
-                | "hotels_motels_and_resorts"
-                | "household_appliance_stores"
-                | "industrial_supplies"
-                | "information_retrieval_services"
-                | "insurance_default"
-                | "insurance_underwriting_premiums"
-                | "intra_company_purchases"
-                | "jewelry_stores_watches_clocks_and_silverware_stores"
-                | "landscaping_services"
-                | "laundries"
-                | "laundry_cleaning_services"
-                | "legal_services_attorneys"
-                | "luggage_and_leather_goods_stores"
-                | "lumber_building_materials_stores"
-                | "manual_cash_disburse"
-                | "marinas_service_and_supplies"
-                | "marketplaces"
-                | "masonry_stonework_and_plaster"
-                | "massage_parlors"
-                | "medical_and_dental_labs"
-                | "medical_dental_ophthalmic_and_hospital_equipment_and_supplies"
-                | "medical_services"
-                | "membership_organizations"
-                | "mens_and_boys_clothing_and_accessories_stores"
-                | "mens_womens_clothing_stores"
-                | "metal_service_centers"
-                | "miscellaneous"
-                | "miscellaneous_apparel_and_accessory_shops"
-                | "miscellaneous_auto_dealers"
-                | "miscellaneous_business_services"
-                | "miscellaneous_food_stores"
-                | "miscellaneous_general_merchandise"
-                | "miscellaneous_general_services"
-                | "miscellaneous_home_furnishing_specialty_stores"
-                | "miscellaneous_publishing_and_printing"
-                | "miscellaneous_recreation_services"
-                | "miscellaneous_repair_shops"
-                | "miscellaneous_specialty_retail"
-                | "mobile_home_dealers"
-                | "motion_picture_theaters"
-                | "motor_freight_carriers_and_trucking"
-                | "motor_homes_dealers"
-                | "motor_vehicle_supplies_and_new_parts"
-                | "motorcycle_shops_and_dealers"
-                | "motorcycle_shops_dealers"
-                | "music_stores_musical_instruments_pianos_and_sheet_music"
-                | "news_dealers_and_newsstands"
-                | "non_fi_money_orders"
-                | "non_fi_stored_value_card_purchase_load"
-                | "nondurable_goods"
-                | "nurseries_lawn_and_garden_supply_stores"
-                | "nursing_personal_care"
-                | "office_and_commercial_furniture"
-                | "opticians_eyeglasses"
-                | "optometrists_ophthalmologist"
-                | "orthopedic_goods_prosthetic_devices"
-                | "osteopaths"
-                | "package_stores_beer_wine_and_liquor"
-                | "paints_varnishes_and_supplies"
-                | "parking_lots_garages"
-                | "passenger_railways"
-                | "pawn_shops"
-                | "pet_shops_pet_food_and_supplies"
-                | "petroleum_and_petroleum_products"
-                | "photo_developing"
-                | "photographic_photocopy_microfilm_equipment_and_supplies"
-                | "photographic_studios"
-                | "picture_video_production"
-                | "piece_goods_notions_and_other_dry_goods"
-                | "plumbing_heating_equipment_and_supplies"
-                | "political_organizations"
-                | "postal_services_government_only"
-                | "precious_stones_and_metals_watches_and_jewelry"
-                | "professional_services"
-                | "public_warehousing_and_storage"
-                | "quick_copy_repro_and_blueprint"
-                | "railroads"
-                | "real_estate_agents_and_managers_rentals"
-                | "record_stores"
-                | "recreational_vehicle_rentals"
-                | "religious_goods_stores"
-                | "religious_organizations"
-                | "roofing_siding_sheet_metal"
-                | "secretarial_support_services"
-                | "security_brokers_dealers"
-                | "service_stations"
-                | "sewing_needlework_fabric_and_piece_goods_stores"
-                | "shoe_repair_hat_cleaning"
-                | "shoe_stores"
-                | "small_appliance_repair"
-                | "snowmobile_dealers"
-                | "special_trade_services"
-                | "specialty_cleaning"
-                | "sporting_goods_stores"
-                | "sporting_recreation_camps"
-                | "sports_and_riding_apparel_stores"
-                | "sports_clubs_fields"
-                | "stamp_and_coin_stores"
-                | "stationary_office_supplies_printing_and_writing_paper"
-                | "stationery_stores_office_and_school_supply_stores"
-                | "swimming_pools_sales"
-                | "t_ui_travel_germany"
-                | "tailors_alterations"
-                | "tax_payments_government_agencies"
-                | "tax_preparation_services"
-                | "taxicabs_limousines"
-                | "telecommunication_equipment_and_telephone_sales"
-                | "telecommunication_services"
-                | "telegraph_services"
-                | "tent_and_awning_shops"
-                | "testing_laboratories"
-                | "theatrical_ticket_agencies"
-                | "timeshares"
-                | "tire_retreading_and_repair"
-                | "tolls_bridge_fees"
-                | "tourist_attractions_and_exhibits"
-                | "towing_services"
-                | "trailer_parks_campgrounds"
-                | "transportation_services"
-                | "travel_agencies_tour_operators"
-                | "truck_stop_iteration"
-                | "truck_utility_trailer_rentals"
-                | "typesetting_plate_making_and_related_services"
-                | "typewriter_stores"
-                | "u_s_federal_government_agencies_or_departments"
-                | "uniforms_commercial_clothing"
-                | "used_merchandise_and_secondhand_stores"
-                | "utilities"
-                | "variety_stores"
-                | "veterinary_services"
-                | "video_amusement_game_supplies"
-                | "video_game_arcades"
-                | "video_tape_rental_stores"
-                | "vocational_trade_schools"
-                | "watch_jewelry_repair"
-                | "welding_repair"
-                | "wholesale_clubs"
-                | "wig_and_toupee_stores"
-                | "wires_money_orders"
-                | "womens_accessory_and_specialty_shops"
-                | "womens_ready_to_wear_stores"
-                | "wrecking_and_salvage_yards"
-              )[]
-            | undefined
-          blocked_merchant_countries?: string[] | undefined
-          spending_limits?:
-            | {
-                amount: number
-                categories?:
-                  | (
-                      | "ac_refrigeration_repair"
-                      | "accounting_bookkeeping_services"
-                      | "advertising_services"
-                      | "agricultural_cooperative"
-                      | "airlines_air_carriers"
-                      | "airports_flying_fields"
-                      | "ambulance_services"
-                      | "amusement_parks_carnivals"
-                      | "antique_reproductions"
-                      | "antique_shops"
-                      | "aquariums"
-                      | "architectural_surveying_services"
-                      | "art_dealers_and_galleries"
-                      | "artists_supply_and_craft_shops"
-                      | "auto_and_home_supply_stores"
-                      | "auto_body_repair_shops"
-                      | "auto_paint_shops"
-                      | "auto_service_shops"
-                      | "automated_cash_disburse"
-                      | "automated_fuel_dispensers"
-                      | "automobile_associations"
-                      | "automotive_parts_and_accessories_stores"
-                      | "automotive_tire_stores"
-                      | "bail_and_bond_payments"
-                      | "bakeries"
-                      | "bands_orchestras"
-                      | "barber_and_beauty_shops"
-                      | "betting_casino_gambling"
-                      | "bicycle_shops"
-                      | "billiard_pool_establishments"
-                      | "boat_dealers"
-                      | "boat_rentals_and_leases"
-                      | "book_stores"
-                      | "books_periodicals_and_newspapers"
-                      | "bowling_alleys"
-                      | "bus_lines"
-                      | "business_secretarial_schools"
-                      | "buying_shopping_services"
-                      | "cable_satellite_and_other_pay_television_and_radio"
-                      | "camera_and_photographic_supply_stores"
-                      | "candy_nut_and_confectionery_stores"
-                      | "car_and_truck_dealers_new_used"
-                      | "car_and_truck_dealers_used_only"
-                      | "car_rental_agencies"
-                      | "car_washes"
-                      | "carpentry_services"
-                      | "carpet_upholstery_cleaning"
-                      | "caterers"
-                      | "charitable_and_social_service_organizations_fundraising"
-                      | "chemicals_and_allied_products"
-                      | "child_care_services"
-                      | "childrens_and_infants_wear_stores"
-                      | "chiropodists_podiatrists"
-                      | "chiropractors"
-                      | "cigar_stores_and_stands"
-                      | "civic_social_fraternal_associations"
-                      | "cleaning_and_maintenance"
-                      | "clothing_rental"
-                      | "colleges_universities"
-                      | "commercial_equipment"
-                      | "commercial_footwear"
-                      | "commercial_photography_art_and_graphics"
-                      | "commuter_transport_and_ferries"
-                      | "computer_network_services"
-                      | "computer_programming"
-                      | "computer_repair"
-                      | "computer_software_stores"
-                      | "computers_peripherals_and_software"
-                      | "concrete_work_services"
-                      | "construction_materials"
-                      | "consulting_public_relations"
-                      | "correspondence_schools"
-                      | "cosmetic_stores"
-                      | "counseling_services"
-                      | "country_clubs"
-                      | "courier_services"
-                      | "court_costs"
-                      | "credit_reporting_agencies"
-                      | "cruise_lines"
-                      | "dairy_products_stores"
-                      | "dance_hall_studios_schools"
-                      | "dating_escort_services"
-                      | "dentists_orthodontists"
-                      | "department_stores"
-                      | "detective_agencies"
-                      | "digital_goods_applications"
-                      | "digital_goods_games"
-                      | "digital_goods_large_volume"
-                      | "digital_goods_media"
-                      | "direct_marketing_catalog_merchant"
-                      | "direct_marketing_combination_catalog_and_retail_merchant"
-                      | "direct_marketing_inbound_telemarketing"
-                      | "direct_marketing_insurance_services"
-                      | "direct_marketing_other"
-                      | "direct_marketing_outbound_telemarketing"
-                      | "direct_marketing_subscription"
-                      | "direct_marketing_travel"
-                      | "discount_stores"
-                      | "doctors"
-                      | "door_to_door_sales"
-                      | "drapery_window_covering_and_upholstery_stores"
-                      | "drinking_places"
-                      | "drug_stores_and_pharmacies"
-                      | "drugs_drug_proprietaries_and_druggist_sundries"
-                      | "dry_cleaners"
-                      | "durable_goods"
-                      | "duty_free_stores"
-                      | "eating_places_restaurants"
-                      | "educational_services"
-                      | "electric_razor_stores"
-                      | "electric_vehicle_charging"
-                      | "electrical_parts_and_equipment"
-                      | "electrical_services"
-                      | "electronics_repair_shops"
-                      | "electronics_stores"
-                      | "elementary_secondary_schools"
-                      | "emergency_services_gcas_visa_use_only"
-                      | "employment_temp_agencies"
-                      | "equipment_rental"
-                      | "exterminating_services"
-                      | "family_clothing_stores"
-                      | "fast_food_restaurants"
-                      | "financial_institutions"
-                      | "fines_government_administrative_entities"
-                      | "fireplace_fireplace_screens_and_accessories_stores"
-                      | "floor_covering_stores"
-                      | "florists"
-                      | "florists_supplies_nursery_stock_and_flowers"
-                      | "freezer_and_locker_meat_provisioners"
-                      | "fuel_dealers_non_automotive"
-                      | "funeral_services_crematories"
-                      | "furniture_home_furnishings_and_equipment_stores_except_appliances"
-                      | "furniture_repair_refinishing"
-                      | "furriers_and_fur_shops"
-                      | "general_services"
-                      | "gift_card_novelty_and_souvenir_shops"
-                      | "glass_paint_and_wallpaper_stores"
-                      | "glassware_crystal_stores"
-                      | "golf_courses_public"
-                      | "government_licensed_horse_dog_racing_us_region_only"
-                      | "government_licensed_online_casions_online_gambling_us_region_only"
-                      | "government_owned_lotteries_non_us_region"
-                      | "government_owned_lotteries_us_region_only"
-                      | "government_services"
-                      | "grocery_stores_supermarkets"
-                      | "hardware_equipment_and_supplies"
-                      | "hardware_stores"
-                      | "health_and_beauty_spas"
-                      | "hearing_aids_sales_and_supplies"
-                      | "heating_plumbing_a_c"
-                      | "hobby_toy_and_game_shops"
-                      | "home_supply_warehouse_stores"
-                      | "hospitals"
-                      | "hotels_motels_and_resorts"
-                      | "household_appliance_stores"
-                      | "industrial_supplies"
-                      | "information_retrieval_services"
-                      | "insurance_default"
-                      | "insurance_underwriting_premiums"
-                      | "intra_company_purchases"
-                      | "jewelry_stores_watches_clocks_and_silverware_stores"
-                      | "landscaping_services"
-                      | "laundries"
-                      | "laundry_cleaning_services"
-                      | "legal_services_attorneys"
-                      | "luggage_and_leather_goods_stores"
-                      | "lumber_building_materials_stores"
-                      | "manual_cash_disburse"
-                      | "marinas_service_and_supplies"
-                      | "marketplaces"
-                      | "masonry_stonework_and_plaster"
-                      | "massage_parlors"
-                      | "medical_and_dental_labs"
-                      | "medical_dental_ophthalmic_and_hospital_equipment_and_supplies"
-                      | "medical_services"
-                      | "membership_organizations"
-                      | "mens_and_boys_clothing_and_accessories_stores"
-                      | "mens_womens_clothing_stores"
-                      | "metal_service_centers"
-                      | "miscellaneous"
-                      | "miscellaneous_apparel_and_accessory_shops"
-                      | "miscellaneous_auto_dealers"
-                      | "miscellaneous_business_services"
-                      | "miscellaneous_food_stores"
-                      | "miscellaneous_general_merchandise"
-                      | "miscellaneous_general_services"
-                      | "miscellaneous_home_furnishing_specialty_stores"
-                      | "miscellaneous_publishing_and_printing"
-                      | "miscellaneous_recreation_services"
-                      | "miscellaneous_repair_shops"
-                      | "miscellaneous_specialty_retail"
-                      | "mobile_home_dealers"
-                      | "motion_picture_theaters"
-                      | "motor_freight_carriers_and_trucking"
-                      | "motor_homes_dealers"
-                      | "motor_vehicle_supplies_and_new_parts"
-                      | "motorcycle_shops_and_dealers"
-                      | "motorcycle_shops_dealers"
-                      | "music_stores_musical_instruments_pianos_and_sheet_music"
-                      | "news_dealers_and_newsstands"
-                      | "non_fi_money_orders"
-                      | "non_fi_stored_value_card_purchase_load"
-                      | "nondurable_goods"
-                      | "nurseries_lawn_and_garden_supply_stores"
-                      | "nursing_personal_care"
-                      | "office_and_commercial_furniture"
-                      | "opticians_eyeglasses"
-                      | "optometrists_ophthalmologist"
-                      | "orthopedic_goods_prosthetic_devices"
-                      | "osteopaths"
-                      | "package_stores_beer_wine_and_liquor"
-                      | "paints_varnishes_and_supplies"
-                      | "parking_lots_garages"
-                      | "passenger_railways"
-                      | "pawn_shops"
-                      | "pet_shops_pet_food_and_supplies"
-                      | "petroleum_and_petroleum_products"
-                      | "photo_developing"
-                      | "photographic_photocopy_microfilm_equipment_and_supplies"
-                      | "photographic_studios"
-                      | "picture_video_production"
-                      | "piece_goods_notions_and_other_dry_goods"
-                      | "plumbing_heating_equipment_and_supplies"
-                      | "political_organizations"
-                      | "postal_services_government_only"
-                      | "precious_stones_and_metals_watches_and_jewelry"
-                      | "professional_services"
-                      | "public_warehousing_and_storage"
-                      | "quick_copy_repro_and_blueprint"
-                      | "railroads"
-                      | "real_estate_agents_and_managers_rentals"
-                      | "record_stores"
-                      | "recreational_vehicle_rentals"
-                      | "religious_goods_stores"
-                      | "religious_organizations"
-                      | "roofing_siding_sheet_metal"
-                      | "secretarial_support_services"
-                      | "security_brokers_dealers"
-                      | "service_stations"
-                      | "sewing_needlework_fabric_and_piece_goods_stores"
-                      | "shoe_repair_hat_cleaning"
-                      | "shoe_stores"
-                      | "small_appliance_repair"
-                      | "snowmobile_dealers"
-                      | "special_trade_services"
-                      | "specialty_cleaning"
-                      | "sporting_goods_stores"
-                      | "sporting_recreation_camps"
-                      | "sports_and_riding_apparel_stores"
-                      | "sports_clubs_fields"
-                      | "stamp_and_coin_stores"
-                      | "stationary_office_supplies_printing_and_writing_paper"
-                      | "stationery_stores_office_and_school_supply_stores"
-                      | "swimming_pools_sales"
-                      | "t_ui_travel_germany"
-                      | "tailors_alterations"
-                      | "tax_payments_government_agencies"
-                      | "tax_preparation_services"
-                      | "taxicabs_limousines"
-                      | "telecommunication_equipment_and_telephone_sales"
-                      | "telecommunication_services"
-                      | "telegraph_services"
-                      | "tent_and_awning_shops"
-                      | "testing_laboratories"
-                      | "theatrical_ticket_agencies"
-                      | "timeshares"
-                      | "tire_retreading_and_repair"
-                      | "tolls_bridge_fees"
-                      | "tourist_attractions_and_exhibits"
-                      | "towing_services"
-                      | "trailer_parks_campgrounds"
-                      | "transportation_services"
-                      | "travel_agencies_tour_operators"
-                      | "truck_stop_iteration"
-                      | "truck_utility_trailer_rentals"
-                      | "typesetting_plate_making_and_related_services"
-                      | "typewriter_stores"
-                      | "u_s_federal_government_agencies_or_departments"
-                      | "uniforms_commercial_clothing"
-                      | "used_merchandise_and_secondhand_stores"
-                      | "utilities"
-                      | "variety_stores"
-                      | "veterinary_services"
-                      | "video_amusement_game_supplies"
-                      | "video_game_arcades"
-                      | "video_tape_rental_stores"
-                      | "vocational_trade_schools"
-                      | "watch_jewelry_repair"
-                      | "welding_repair"
-                      | "wholesale_clubs"
-                      | "wig_and_toupee_stores"
-                      | "wires_money_orders"
-                      | "womens_accessory_and_specialty_shops"
-                      | "womens_ready_to_wear_stores"
-                      | "wrecking_and_salvage_yards"
-                    )[]
-                  | undefined
-                interval:
-                  | "all_time"
-                  | "daily"
-                  | "monthly"
-                  | "per_authorization"
-                  | "weekly"
-                  | "yearly"
-              }[]
-            | undefined
-          spending_limits_currency?: string | undefined
-        }
-      | undefined
-    status?: ("active" | "inactive") | undefined
-  }
+      }
+    | undefined
+  company?:
+    | {
+        tax_id?: string | undefined
+      }
+    | undefined
+  email?: string | undefined
+  expand?: string[] | undefined
+  individual?:
+    | {
+        card_issuing?:
+          | {
+              user_terms_acceptance?:
+                | {
+                    date?: number | undefined
+                    ip?: string | undefined
+                    user_agent?: (string | "") | undefined
+                  }
+                | undefined
+            }
+          | undefined
+        dob?:
+          | {
+              day: number
+              month: number
+              year: number
+            }
+          | undefined
+        first_name?: string | undefined
+        last_name?: string | undefined
+        verification?:
+          | {
+              document?:
+                | {
+                    back?: string | undefined
+                    front?: string | undefined
+                  }
+                | undefined
+            }
+          | undefined
+      }
+    | undefined
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | undefined
+  phone_number?: string | undefined
+  preferred_locales?: ("de" | "en" | "es" | "fr" | "it")[] | undefined
+  spending_controls?:
+    | {
+        allowed_categories?:
+          | (
+              | "ac_refrigeration_repair"
+              | "accounting_bookkeeping_services"
+              | "advertising_services"
+              | "agricultural_cooperative"
+              | "airlines_air_carriers"
+              | "airports_flying_fields"
+              | "ambulance_services"
+              | "amusement_parks_carnivals"
+              | "antique_reproductions"
+              | "antique_shops"
+              | "aquariums"
+              | "architectural_surveying_services"
+              | "art_dealers_and_galleries"
+              | "artists_supply_and_craft_shops"
+              | "auto_and_home_supply_stores"
+              | "auto_body_repair_shops"
+              | "auto_paint_shops"
+              | "auto_service_shops"
+              | "automated_cash_disburse"
+              | "automated_fuel_dispensers"
+              | "automobile_associations"
+              | "automotive_parts_and_accessories_stores"
+              | "automotive_tire_stores"
+              | "bail_and_bond_payments"
+              | "bakeries"
+              | "bands_orchestras"
+              | "barber_and_beauty_shops"
+              | "betting_casino_gambling"
+              | "bicycle_shops"
+              | "billiard_pool_establishments"
+              | "boat_dealers"
+              | "boat_rentals_and_leases"
+              | "book_stores"
+              | "books_periodicals_and_newspapers"
+              | "bowling_alleys"
+              | "bus_lines"
+              | "business_secretarial_schools"
+              | "buying_shopping_services"
+              | "cable_satellite_and_other_pay_television_and_radio"
+              | "camera_and_photographic_supply_stores"
+              | "candy_nut_and_confectionery_stores"
+              | "car_and_truck_dealers_new_used"
+              | "car_and_truck_dealers_used_only"
+              | "car_rental_agencies"
+              | "car_washes"
+              | "carpentry_services"
+              | "carpet_upholstery_cleaning"
+              | "caterers"
+              | "charitable_and_social_service_organizations_fundraising"
+              | "chemicals_and_allied_products"
+              | "child_care_services"
+              | "childrens_and_infants_wear_stores"
+              | "chiropodists_podiatrists"
+              | "chiropractors"
+              | "cigar_stores_and_stands"
+              | "civic_social_fraternal_associations"
+              | "cleaning_and_maintenance"
+              | "clothing_rental"
+              | "colleges_universities"
+              | "commercial_equipment"
+              | "commercial_footwear"
+              | "commercial_photography_art_and_graphics"
+              | "commuter_transport_and_ferries"
+              | "computer_network_services"
+              | "computer_programming"
+              | "computer_repair"
+              | "computer_software_stores"
+              | "computers_peripherals_and_software"
+              | "concrete_work_services"
+              | "construction_materials"
+              | "consulting_public_relations"
+              | "correspondence_schools"
+              | "cosmetic_stores"
+              | "counseling_services"
+              | "country_clubs"
+              | "courier_services"
+              | "court_costs"
+              | "credit_reporting_agencies"
+              | "cruise_lines"
+              | "dairy_products_stores"
+              | "dance_hall_studios_schools"
+              | "dating_escort_services"
+              | "dentists_orthodontists"
+              | "department_stores"
+              | "detective_agencies"
+              | "digital_goods_applications"
+              | "digital_goods_games"
+              | "digital_goods_large_volume"
+              | "digital_goods_media"
+              | "direct_marketing_catalog_merchant"
+              | "direct_marketing_combination_catalog_and_retail_merchant"
+              | "direct_marketing_inbound_telemarketing"
+              | "direct_marketing_insurance_services"
+              | "direct_marketing_other"
+              | "direct_marketing_outbound_telemarketing"
+              | "direct_marketing_subscription"
+              | "direct_marketing_travel"
+              | "discount_stores"
+              | "doctors"
+              | "door_to_door_sales"
+              | "drapery_window_covering_and_upholstery_stores"
+              | "drinking_places"
+              | "drug_stores_and_pharmacies"
+              | "drugs_drug_proprietaries_and_druggist_sundries"
+              | "dry_cleaners"
+              | "durable_goods"
+              | "duty_free_stores"
+              | "eating_places_restaurants"
+              | "educational_services"
+              | "electric_razor_stores"
+              | "electric_vehicle_charging"
+              | "electrical_parts_and_equipment"
+              | "electrical_services"
+              | "electronics_repair_shops"
+              | "electronics_stores"
+              | "elementary_secondary_schools"
+              | "emergency_services_gcas_visa_use_only"
+              | "employment_temp_agencies"
+              | "equipment_rental"
+              | "exterminating_services"
+              | "family_clothing_stores"
+              | "fast_food_restaurants"
+              | "financial_institutions"
+              | "fines_government_administrative_entities"
+              | "fireplace_fireplace_screens_and_accessories_stores"
+              | "floor_covering_stores"
+              | "florists"
+              | "florists_supplies_nursery_stock_and_flowers"
+              | "freezer_and_locker_meat_provisioners"
+              | "fuel_dealers_non_automotive"
+              | "funeral_services_crematories"
+              | "furniture_home_furnishings_and_equipment_stores_except_appliances"
+              | "furniture_repair_refinishing"
+              | "furriers_and_fur_shops"
+              | "general_services"
+              | "gift_card_novelty_and_souvenir_shops"
+              | "glass_paint_and_wallpaper_stores"
+              | "glassware_crystal_stores"
+              | "golf_courses_public"
+              | "government_licensed_horse_dog_racing_us_region_only"
+              | "government_licensed_online_casions_online_gambling_us_region_only"
+              | "government_owned_lotteries_non_us_region"
+              | "government_owned_lotteries_us_region_only"
+              | "government_services"
+              | "grocery_stores_supermarkets"
+              | "hardware_equipment_and_supplies"
+              | "hardware_stores"
+              | "health_and_beauty_spas"
+              | "hearing_aids_sales_and_supplies"
+              | "heating_plumbing_a_c"
+              | "hobby_toy_and_game_shops"
+              | "home_supply_warehouse_stores"
+              | "hospitals"
+              | "hotels_motels_and_resorts"
+              | "household_appliance_stores"
+              | "industrial_supplies"
+              | "information_retrieval_services"
+              | "insurance_default"
+              | "insurance_underwriting_premiums"
+              | "intra_company_purchases"
+              | "jewelry_stores_watches_clocks_and_silverware_stores"
+              | "landscaping_services"
+              | "laundries"
+              | "laundry_cleaning_services"
+              | "legal_services_attorneys"
+              | "luggage_and_leather_goods_stores"
+              | "lumber_building_materials_stores"
+              | "manual_cash_disburse"
+              | "marinas_service_and_supplies"
+              | "marketplaces"
+              | "masonry_stonework_and_plaster"
+              | "massage_parlors"
+              | "medical_and_dental_labs"
+              | "medical_dental_ophthalmic_and_hospital_equipment_and_supplies"
+              | "medical_services"
+              | "membership_organizations"
+              | "mens_and_boys_clothing_and_accessories_stores"
+              | "mens_womens_clothing_stores"
+              | "metal_service_centers"
+              | "miscellaneous"
+              | "miscellaneous_apparel_and_accessory_shops"
+              | "miscellaneous_auto_dealers"
+              | "miscellaneous_business_services"
+              | "miscellaneous_food_stores"
+              | "miscellaneous_general_merchandise"
+              | "miscellaneous_general_services"
+              | "miscellaneous_home_furnishing_specialty_stores"
+              | "miscellaneous_publishing_and_printing"
+              | "miscellaneous_recreation_services"
+              | "miscellaneous_repair_shops"
+              | "miscellaneous_specialty_retail"
+              | "mobile_home_dealers"
+              | "motion_picture_theaters"
+              | "motor_freight_carriers_and_trucking"
+              | "motor_homes_dealers"
+              | "motor_vehicle_supplies_and_new_parts"
+              | "motorcycle_shops_and_dealers"
+              | "motorcycle_shops_dealers"
+              | "music_stores_musical_instruments_pianos_and_sheet_music"
+              | "news_dealers_and_newsstands"
+              | "non_fi_money_orders"
+              | "non_fi_stored_value_card_purchase_load"
+              | "nondurable_goods"
+              | "nurseries_lawn_and_garden_supply_stores"
+              | "nursing_personal_care"
+              | "office_and_commercial_furniture"
+              | "opticians_eyeglasses"
+              | "optometrists_ophthalmologist"
+              | "orthopedic_goods_prosthetic_devices"
+              | "osteopaths"
+              | "package_stores_beer_wine_and_liquor"
+              | "paints_varnishes_and_supplies"
+              | "parking_lots_garages"
+              | "passenger_railways"
+              | "pawn_shops"
+              | "pet_shops_pet_food_and_supplies"
+              | "petroleum_and_petroleum_products"
+              | "photo_developing"
+              | "photographic_photocopy_microfilm_equipment_and_supplies"
+              | "photographic_studios"
+              | "picture_video_production"
+              | "piece_goods_notions_and_other_dry_goods"
+              | "plumbing_heating_equipment_and_supplies"
+              | "political_organizations"
+              | "postal_services_government_only"
+              | "precious_stones_and_metals_watches_and_jewelry"
+              | "professional_services"
+              | "public_warehousing_and_storage"
+              | "quick_copy_repro_and_blueprint"
+              | "railroads"
+              | "real_estate_agents_and_managers_rentals"
+              | "record_stores"
+              | "recreational_vehicle_rentals"
+              | "religious_goods_stores"
+              | "religious_organizations"
+              | "roofing_siding_sheet_metal"
+              | "secretarial_support_services"
+              | "security_brokers_dealers"
+              | "service_stations"
+              | "sewing_needlework_fabric_and_piece_goods_stores"
+              | "shoe_repair_hat_cleaning"
+              | "shoe_stores"
+              | "small_appliance_repair"
+              | "snowmobile_dealers"
+              | "special_trade_services"
+              | "specialty_cleaning"
+              | "sporting_goods_stores"
+              | "sporting_recreation_camps"
+              | "sports_and_riding_apparel_stores"
+              | "sports_clubs_fields"
+              | "stamp_and_coin_stores"
+              | "stationary_office_supplies_printing_and_writing_paper"
+              | "stationery_stores_office_and_school_supply_stores"
+              | "swimming_pools_sales"
+              | "t_ui_travel_germany"
+              | "tailors_alterations"
+              | "tax_payments_government_agencies"
+              | "tax_preparation_services"
+              | "taxicabs_limousines"
+              | "telecommunication_equipment_and_telephone_sales"
+              | "telecommunication_services"
+              | "telegraph_services"
+              | "tent_and_awning_shops"
+              | "testing_laboratories"
+              | "theatrical_ticket_agencies"
+              | "timeshares"
+              | "tire_retreading_and_repair"
+              | "tolls_bridge_fees"
+              | "tourist_attractions_and_exhibits"
+              | "towing_services"
+              | "trailer_parks_campgrounds"
+              | "transportation_services"
+              | "travel_agencies_tour_operators"
+              | "truck_stop_iteration"
+              | "truck_utility_trailer_rentals"
+              | "typesetting_plate_making_and_related_services"
+              | "typewriter_stores"
+              | "u_s_federal_government_agencies_or_departments"
+              | "uniforms_commercial_clothing"
+              | "used_merchandise_and_secondhand_stores"
+              | "utilities"
+              | "variety_stores"
+              | "veterinary_services"
+              | "video_amusement_game_supplies"
+              | "video_game_arcades"
+              | "video_tape_rental_stores"
+              | "vocational_trade_schools"
+              | "watch_jewelry_repair"
+              | "welding_repair"
+              | "wholesale_clubs"
+              | "wig_and_toupee_stores"
+              | "wires_money_orders"
+              | "womens_accessory_and_specialty_shops"
+              | "womens_ready_to_wear_stores"
+              | "wrecking_and_salvage_yards"
+            )[]
+          | undefined
+        allowed_merchant_countries?: string[] | undefined
+        blocked_categories?:
+          | (
+              | "ac_refrigeration_repair"
+              | "accounting_bookkeeping_services"
+              | "advertising_services"
+              | "agricultural_cooperative"
+              | "airlines_air_carriers"
+              | "airports_flying_fields"
+              | "ambulance_services"
+              | "amusement_parks_carnivals"
+              | "antique_reproductions"
+              | "antique_shops"
+              | "aquariums"
+              | "architectural_surveying_services"
+              | "art_dealers_and_galleries"
+              | "artists_supply_and_craft_shops"
+              | "auto_and_home_supply_stores"
+              | "auto_body_repair_shops"
+              | "auto_paint_shops"
+              | "auto_service_shops"
+              | "automated_cash_disburse"
+              | "automated_fuel_dispensers"
+              | "automobile_associations"
+              | "automotive_parts_and_accessories_stores"
+              | "automotive_tire_stores"
+              | "bail_and_bond_payments"
+              | "bakeries"
+              | "bands_orchestras"
+              | "barber_and_beauty_shops"
+              | "betting_casino_gambling"
+              | "bicycle_shops"
+              | "billiard_pool_establishments"
+              | "boat_dealers"
+              | "boat_rentals_and_leases"
+              | "book_stores"
+              | "books_periodicals_and_newspapers"
+              | "bowling_alleys"
+              | "bus_lines"
+              | "business_secretarial_schools"
+              | "buying_shopping_services"
+              | "cable_satellite_and_other_pay_television_and_radio"
+              | "camera_and_photographic_supply_stores"
+              | "candy_nut_and_confectionery_stores"
+              | "car_and_truck_dealers_new_used"
+              | "car_and_truck_dealers_used_only"
+              | "car_rental_agencies"
+              | "car_washes"
+              | "carpentry_services"
+              | "carpet_upholstery_cleaning"
+              | "caterers"
+              | "charitable_and_social_service_organizations_fundraising"
+              | "chemicals_and_allied_products"
+              | "child_care_services"
+              | "childrens_and_infants_wear_stores"
+              | "chiropodists_podiatrists"
+              | "chiropractors"
+              | "cigar_stores_and_stands"
+              | "civic_social_fraternal_associations"
+              | "cleaning_and_maintenance"
+              | "clothing_rental"
+              | "colleges_universities"
+              | "commercial_equipment"
+              | "commercial_footwear"
+              | "commercial_photography_art_and_graphics"
+              | "commuter_transport_and_ferries"
+              | "computer_network_services"
+              | "computer_programming"
+              | "computer_repair"
+              | "computer_software_stores"
+              | "computers_peripherals_and_software"
+              | "concrete_work_services"
+              | "construction_materials"
+              | "consulting_public_relations"
+              | "correspondence_schools"
+              | "cosmetic_stores"
+              | "counseling_services"
+              | "country_clubs"
+              | "courier_services"
+              | "court_costs"
+              | "credit_reporting_agencies"
+              | "cruise_lines"
+              | "dairy_products_stores"
+              | "dance_hall_studios_schools"
+              | "dating_escort_services"
+              | "dentists_orthodontists"
+              | "department_stores"
+              | "detective_agencies"
+              | "digital_goods_applications"
+              | "digital_goods_games"
+              | "digital_goods_large_volume"
+              | "digital_goods_media"
+              | "direct_marketing_catalog_merchant"
+              | "direct_marketing_combination_catalog_and_retail_merchant"
+              | "direct_marketing_inbound_telemarketing"
+              | "direct_marketing_insurance_services"
+              | "direct_marketing_other"
+              | "direct_marketing_outbound_telemarketing"
+              | "direct_marketing_subscription"
+              | "direct_marketing_travel"
+              | "discount_stores"
+              | "doctors"
+              | "door_to_door_sales"
+              | "drapery_window_covering_and_upholstery_stores"
+              | "drinking_places"
+              | "drug_stores_and_pharmacies"
+              | "drugs_drug_proprietaries_and_druggist_sundries"
+              | "dry_cleaners"
+              | "durable_goods"
+              | "duty_free_stores"
+              | "eating_places_restaurants"
+              | "educational_services"
+              | "electric_razor_stores"
+              | "electric_vehicle_charging"
+              | "electrical_parts_and_equipment"
+              | "electrical_services"
+              | "electronics_repair_shops"
+              | "electronics_stores"
+              | "elementary_secondary_schools"
+              | "emergency_services_gcas_visa_use_only"
+              | "employment_temp_agencies"
+              | "equipment_rental"
+              | "exterminating_services"
+              | "family_clothing_stores"
+              | "fast_food_restaurants"
+              | "financial_institutions"
+              | "fines_government_administrative_entities"
+              | "fireplace_fireplace_screens_and_accessories_stores"
+              | "floor_covering_stores"
+              | "florists"
+              | "florists_supplies_nursery_stock_and_flowers"
+              | "freezer_and_locker_meat_provisioners"
+              | "fuel_dealers_non_automotive"
+              | "funeral_services_crematories"
+              | "furniture_home_furnishings_and_equipment_stores_except_appliances"
+              | "furniture_repair_refinishing"
+              | "furriers_and_fur_shops"
+              | "general_services"
+              | "gift_card_novelty_and_souvenir_shops"
+              | "glass_paint_and_wallpaper_stores"
+              | "glassware_crystal_stores"
+              | "golf_courses_public"
+              | "government_licensed_horse_dog_racing_us_region_only"
+              | "government_licensed_online_casions_online_gambling_us_region_only"
+              | "government_owned_lotteries_non_us_region"
+              | "government_owned_lotteries_us_region_only"
+              | "government_services"
+              | "grocery_stores_supermarkets"
+              | "hardware_equipment_and_supplies"
+              | "hardware_stores"
+              | "health_and_beauty_spas"
+              | "hearing_aids_sales_and_supplies"
+              | "heating_plumbing_a_c"
+              | "hobby_toy_and_game_shops"
+              | "home_supply_warehouse_stores"
+              | "hospitals"
+              | "hotels_motels_and_resorts"
+              | "household_appliance_stores"
+              | "industrial_supplies"
+              | "information_retrieval_services"
+              | "insurance_default"
+              | "insurance_underwriting_premiums"
+              | "intra_company_purchases"
+              | "jewelry_stores_watches_clocks_and_silverware_stores"
+              | "landscaping_services"
+              | "laundries"
+              | "laundry_cleaning_services"
+              | "legal_services_attorneys"
+              | "luggage_and_leather_goods_stores"
+              | "lumber_building_materials_stores"
+              | "manual_cash_disburse"
+              | "marinas_service_and_supplies"
+              | "marketplaces"
+              | "masonry_stonework_and_plaster"
+              | "massage_parlors"
+              | "medical_and_dental_labs"
+              | "medical_dental_ophthalmic_and_hospital_equipment_and_supplies"
+              | "medical_services"
+              | "membership_organizations"
+              | "mens_and_boys_clothing_and_accessories_stores"
+              | "mens_womens_clothing_stores"
+              | "metal_service_centers"
+              | "miscellaneous"
+              | "miscellaneous_apparel_and_accessory_shops"
+              | "miscellaneous_auto_dealers"
+              | "miscellaneous_business_services"
+              | "miscellaneous_food_stores"
+              | "miscellaneous_general_merchandise"
+              | "miscellaneous_general_services"
+              | "miscellaneous_home_furnishing_specialty_stores"
+              | "miscellaneous_publishing_and_printing"
+              | "miscellaneous_recreation_services"
+              | "miscellaneous_repair_shops"
+              | "miscellaneous_specialty_retail"
+              | "mobile_home_dealers"
+              | "motion_picture_theaters"
+              | "motor_freight_carriers_and_trucking"
+              | "motor_homes_dealers"
+              | "motor_vehicle_supplies_and_new_parts"
+              | "motorcycle_shops_and_dealers"
+              | "motorcycle_shops_dealers"
+              | "music_stores_musical_instruments_pianos_and_sheet_music"
+              | "news_dealers_and_newsstands"
+              | "non_fi_money_orders"
+              | "non_fi_stored_value_card_purchase_load"
+              | "nondurable_goods"
+              | "nurseries_lawn_and_garden_supply_stores"
+              | "nursing_personal_care"
+              | "office_and_commercial_furniture"
+              | "opticians_eyeglasses"
+              | "optometrists_ophthalmologist"
+              | "orthopedic_goods_prosthetic_devices"
+              | "osteopaths"
+              | "package_stores_beer_wine_and_liquor"
+              | "paints_varnishes_and_supplies"
+              | "parking_lots_garages"
+              | "passenger_railways"
+              | "pawn_shops"
+              | "pet_shops_pet_food_and_supplies"
+              | "petroleum_and_petroleum_products"
+              | "photo_developing"
+              | "photographic_photocopy_microfilm_equipment_and_supplies"
+              | "photographic_studios"
+              | "picture_video_production"
+              | "piece_goods_notions_and_other_dry_goods"
+              | "plumbing_heating_equipment_and_supplies"
+              | "political_organizations"
+              | "postal_services_government_only"
+              | "precious_stones_and_metals_watches_and_jewelry"
+              | "professional_services"
+              | "public_warehousing_and_storage"
+              | "quick_copy_repro_and_blueprint"
+              | "railroads"
+              | "real_estate_agents_and_managers_rentals"
+              | "record_stores"
+              | "recreational_vehicle_rentals"
+              | "religious_goods_stores"
+              | "religious_organizations"
+              | "roofing_siding_sheet_metal"
+              | "secretarial_support_services"
+              | "security_brokers_dealers"
+              | "service_stations"
+              | "sewing_needlework_fabric_and_piece_goods_stores"
+              | "shoe_repair_hat_cleaning"
+              | "shoe_stores"
+              | "small_appliance_repair"
+              | "snowmobile_dealers"
+              | "special_trade_services"
+              | "specialty_cleaning"
+              | "sporting_goods_stores"
+              | "sporting_recreation_camps"
+              | "sports_and_riding_apparel_stores"
+              | "sports_clubs_fields"
+              | "stamp_and_coin_stores"
+              | "stationary_office_supplies_printing_and_writing_paper"
+              | "stationery_stores_office_and_school_supply_stores"
+              | "swimming_pools_sales"
+              | "t_ui_travel_germany"
+              | "tailors_alterations"
+              | "tax_payments_government_agencies"
+              | "tax_preparation_services"
+              | "taxicabs_limousines"
+              | "telecommunication_equipment_and_telephone_sales"
+              | "telecommunication_services"
+              | "telegraph_services"
+              | "tent_and_awning_shops"
+              | "testing_laboratories"
+              | "theatrical_ticket_agencies"
+              | "timeshares"
+              | "tire_retreading_and_repair"
+              | "tolls_bridge_fees"
+              | "tourist_attractions_and_exhibits"
+              | "towing_services"
+              | "trailer_parks_campgrounds"
+              | "transportation_services"
+              | "travel_agencies_tour_operators"
+              | "truck_stop_iteration"
+              | "truck_utility_trailer_rentals"
+              | "typesetting_plate_making_and_related_services"
+              | "typewriter_stores"
+              | "u_s_federal_government_agencies_or_departments"
+              | "uniforms_commercial_clothing"
+              | "used_merchandise_and_secondhand_stores"
+              | "utilities"
+              | "variety_stores"
+              | "veterinary_services"
+              | "video_amusement_game_supplies"
+              | "video_game_arcades"
+              | "video_tape_rental_stores"
+              | "vocational_trade_schools"
+              | "watch_jewelry_repair"
+              | "welding_repair"
+              | "wholesale_clubs"
+              | "wig_and_toupee_stores"
+              | "wires_money_orders"
+              | "womens_accessory_and_specialty_shops"
+              | "womens_ready_to_wear_stores"
+              | "wrecking_and_salvage_yards"
+            )[]
+          | undefined
+        blocked_merchant_countries?: string[] | undefined
+        spending_limits?:
+          | {
+              amount: number
+              categories?:
+                | (
+                    | "ac_refrigeration_repair"
+                    | "accounting_bookkeeping_services"
+                    | "advertising_services"
+                    | "agricultural_cooperative"
+                    | "airlines_air_carriers"
+                    | "airports_flying_fields"
+                    | "ambulance_services"
+                    | "amusement_parks_carnivals"
+                    | "antique_reproductions"
+                    | "antique_shops"
+                    | "aquariums"
+                    | "architectural_surveying_services"
+                    | "art_dealers_and_galleries"
+                    | "artists_supply_and_craft_shops"
+                    | "auto_and_home_supply_stores"
+                    | "auto_body_repair_shops"
+                    | "auto_paint_shops"
+                    | "auto_service_shops"
+                    | "automated_cash_disburse"
+                    | "automated_fuel_dispensers"
+                    | "automobile_associations"
+                    | "automotive_parts_and_accessories_stores"
+                    | "automotive_tire_stores"
+                    | "bail_and_bond_payments"
+                    | "bakeries"
+                    | "bands_orchestras"
+                    | "barber_and_beauty_shops"
+                    | "betting_casino_gambling"
+                    | "bicycle_shops"
+                    | "billiard_pool_establishments"
+                    | "boat_dealers"
+                    | "boat_rentals_and_leases"
+                    | "book_stores"
+                    | "books_periodicals_and_newspapers"
+                    | "bowling_alleys"
+                    | "bus_lines"
+                    | "business_secretarial_schools"
+                    | "buying_shopping_services"
+                    | "cable_satellite_and_other_pay_television_and_radio"
+                    | "camera_and_photographic_supply_stores"
+                    | "candy_nut_and_confectionery_stores"
+                    | "car_and_truck_dealers_new_used"
+                    | "car_and_truck_dealers_used_only"
+                    | "car_rental_agencies"
+                    | "car_washes"
+                    | "carpentry_services"
+                    | "carpet_upholstery_cleaning"
+                    | "caterers"
+                    | "charitable_and_social_service_organizations_fundraising"
+                    | "chemicals_and_allied_products"
+                    | "child_care_services"
+                    | "childrens_and_infants_wear_stores"
+                    | "chiropodists_podiatrists"
+                    | "chiropractors"
+                    | "cigar_stores_and_stands"
+                    | "civic_social_fraternal_associations"
+                    | "cleaning_and_maintenance"
+                    | "clothing_rental"
+                    | "colleges_universities"
+                    | "commercial_equipment"
+                    | "commercial_footwear"
+                    | "commercial_photography_art_and_graphics"
+                    | "commuter_transport_and_ferries"
+                    | "computer_network_services"
+                    | "computer_programming"
+                    | "computer_repair"
+                    | "computer_software_stores"
+                    | "computers_peripherals_and_software"
+                    | "concrete_work_services"
+                    | "construction_materials"
+                    | "consulting_public_relations"
+                    | "correspondence_schools"
+                    | "cosmetic_stores"
+                    | "counseling_services"
+                    | "country_clubs"
+                    | "courier_services"
+                    | "court_costs"
+                    | "credit_reporting_agencies"
+                    | "cruise_lines"
+                    | "dairy_products_stores"
+                    | "dance_hall_studios_schools"
+                    | "dating_escort_services"
+                    | "dentists_orthodontists"
+                    | "department_stores"
+                    | "detective_agencies"
+                    | "digital_goods_applications"
+                    | "digital_goods_games"
+                    | "digital_goods_large_volume"
+                    | "digital_goods_media"
+                    | "direct_marketing_catalog_merchant"
+                    | "direct_marketing_combination_catalog_and_retail_merchant"
+                    | "direct_marketing_inbound_telemarketing"
+                    | "direct_marketing_insurance_services"
+                    | "direct_marketing_other"
+                    | "direct_marketing_outbound_telemarketing"
+                    | "direct_marketing_subscription"
+                    | "direct_marketing_travel"
+                    | "discount_stores"
+                    | "doctors"
+                    | "door_to_door_sales"
+                    | "drapery_window_covering_and_upholstery_stores"
+                    | "drinking_places"
+                    | "drug_stores_and_pharmacies"
+                    | "drugs_drug_proprietaries_and_druggist_sundries"
+                    | "dry_cleaners"
+                    | "durable_goods"
+                    | "duty_free_stores"
+                    | "eating_places_restaurants"
+                    | "educational_services"
+                    | "electric_razor_stores"
+                    | "electric_vehicle_charging"
+                    | "electrical_parts_and_equipment"
+                    | "electrical_services"
+                    | "electronics_repair_shops"
+                    | "electronics_stores"
+                    | "elementary_secondary_schools"
+                    | "emergency_services_gcas_visa_use_only"
+                    | "employment_temp_agencies"
+                    | "equipment_rental"
+                    | "exterminating_services"
+                    | "family_clothing_stores"
+                    | "fast_food_restaurants"
+                    | "financial_institutions"
+                    | "fines_government_administrative_entities"
+                    | "fireplace_fireplace_screens_and_accessories_stores"
+                    | "floor_covering_stores"
+                    | "florists"
+                    | "florists_supplies_nursery_stock_and_flowers"
+                    | "freezer_and_locker_meat_provisioners"
+                    | "fuel_dealers_non_automotive"
+                    | "funeral_services_crematories"
+                    | "furniture_home_furnishings_and_equipment_stores_except_appliances"
+                    | "furniture_repair_refinishing"
+                    | "furriers_and_fur_shops"
+                    | "general_services"
+                    | "gift_card_novelty_and_souvenir_shops"
+                    | "glass_paint_and_wallpaper_stores"
+                    | "glassware_crystal_stores"
+                    | "golf_courses_public"
+                    | "government_licensed_horse_dog_racing_us_region_only"
+                    | "government_licensed_online_casions_online_gambling_us_region_only"
+                    | "government_owned_lotteries_non_us_region"
+                    | "government_owned_lotteries_us_region_only"
+                    | "government_services"
+                    | "grocery_stores_supermarkets"
+                    | "hardware_equipment_and_supplies"
+                    | "hardware_stores"
+                    | "health_and_beauty_spas"
+                    | "hearing_aids_sales_and_supplies"
+                    | "heating_plumbing_a_c"
+                    | "hobby_toy_and_game_shops"
+                    | "home_supply_warehouse_stores"
+                    | "hospitals"
+                    | "hotels_motels_and_resorts"
+                    | "household_appliance_stores"
+                    | "industrial_supplies"
+                    | "information_retrieval_services"
+                    | "insurance_default"
+                    | "insurance_underwriting_premiums"
+                    | "intra_company_purchases"
+                    | "jewelry_stores_watches_clocks_and_silverware_stores"
+                    | "landscaping_services"
+                    | "laundries"
+                    | "laundry_cleaning_services"
+                    | "legal_services_attorneys"
+                    | "luggage_and_leather_goods_stores"
+                    | "lumber_building_materials_stores"
+                    | "manual_cash_disburse"
+                    | "marinas_service_and_supplies"
+                    | "marketplaces"
+                    | "masonry_stonework_and_plaster"
+                    | "massage_parlors"
+                    | "medical_and_dental_labs"
+                    | "medical_dental_ophthalmic_and_hospital_equipment_and_supplies"
+                    | "medical_services"
+                    | "membership_organizations"
+                    | "mens_and_boys_clothing_and_accessories_stores"
+                    | "mens_womens_clothing_stores"
+                    | "metal_service_centers"
+                    | "miscellaneous"
+                    | "miscellaneous_apparel_and_accessory_shops"
+                    | "miscellaneous_auto_dealers"
+                    | "miscellaneous_business_services"
+                    | "miscellaneous_food_stores"
+                    | "miscellaneous_general_merchandise"
+                    | "miscellaneous_general_services"
+                    | "miscellaneous_home_furnishing_specialty_stores"
+                    | "miscellaneous_publishing_and_printing"
+                    | "miscellaneous_recreation_services"
+                    | "miscellaneous_repair_shops"
+                    | "miscellaneous_specialty_retail"
+                    | "mobile_home_dealers"
+                    | "motion_picture_theaters"
+                    | "motor_freight_carriers_and_trucking"
+                    | "motor_homes_dealers"
+                    | "motor_vehicle_supplies_and_new_parts"
+                    | "motorcycle_shops_and_dealers"
+                    | "motorcycle_shops_dealers"
+                    | "music_stores_musical_instruments_pianos_and_sheet_music"
+                    | "news_dealers_and_newsstands"
+                    | "non_fi_money_orders"
+                    | "non_fi_stored_value_card_purchase_load"
+                    | "nondurable_goods"
+                    | "nurseries_lawn_and_garden_supply_stores"
+                    | "nursing_personal_care"
+                    | "office_and_commercial_furniture"
+                    | "opticians_eyeglasses"
+                    | "optometrists_ophthalmologist"
+                    | "orthopedic_goods_prosthetic_devices"
+                    | "osteopaths"
+                    | "package_stores_beer_wine_and_liquor"
+                    | "paints_varnishes_and_supplies"
+                    | "parking_lots_garages"
+                    | "passenger_railways"
+                    | "pawn_shops"
+                    | "pet_shops_pet_food_and_supplies"
+                    | "petroleum_and_petroleum_products"
+                    | "photo_developing"
+                    | "photographic_photocopy_microfilm_equipment_and_supplies"
+                    | "photographic_studios"
+                    | "picture_video_production"
+                    | "piece_goods_notions_and_other_dry_goods"
+                    | "plumbing_heating_equipment_and_supplies"
+                    | "political_organizations"
+                    | "postal_services_government_only"
+                    | "precious_stones_and_metals_watches_and_jewelry"
+                    | "professional_services"
+                    | "public_warehousing_and_storage"
+                    | "quick_copy_repro_and_blueprint"
+                    | "railroads"
+                    | "real_estate_agents_and_managers_rentals"
+                    | "record_stores"
+                    | "recreational_vehicle_rentals"
+                    | "religious_goods_stores"
+                    | "religious_organizations"
+                    | "roofing_siding_sheet_metal"
+                    | "secretarial_support_services"
+                    | "security_brokers_dealers"
+                    | "service_stations"
+                    | "sewing_needlework_fabric_and_piece_goods_stores"
+                    | "shoe_repair_hat_cleaning"
+                    | "shoe_stores"
+                    | "small_appliance_repair"
+                    | "snowmobile_dealers"
+                    | "special_trade_services"
+                    | "specialty_cleaning"
+                    | "sporting_goods_stores"
+                    | "sporting_recreation_camps"
+                    | "sports_and_riding_apparel_stores"
+                    | "sports_clubs_fields"
+                    | "stamp_and_coin_stores"
+                    | "stationary_office_supplies_printing_and_writing_paper"
+                    | "stationery_stores_office_and_school_supply_stores"
+                    | "swimming_pools_sales"
+                    | "t_ui_travel_germany"
+                    | "tailors_alterations"
+                    | "tax_payments_government_agencies"
+                    | "tax_preparation_services"
+                    | "taxicabs_limousines"
+                    | "telecommunication_equipment_and_telephone_sales"
+                    | "telecommunication_services"
+                    | "telegraph_services"
+                    | "tent_and_awning_shops"
+                    | "testing_laboratories"
+                    | "theatrical_ticket_agencies"
+                    | "timeshares"
+                    | "tire_retreading_and_repair"
+                    | "tolls_bridge_fees"
+                    | "tourist_attractions_and_exhibits"
+                    | "towing_services"
+                    | "trailer_parks_campgrounds"
+                    | "transportation_services"
+                    | "travel_agencies_tour_operators"
+                    | "truck_stop_iteration"
+                    | "truck_utility_trailer_rentals"
+                    | "typesetting_plate_making_and_related_services"
+                    | "typewriter_stores"
+                    | "u_s_federal_government_agencies_or_departments"
+                    | "uniforms_commercial_clothing"
+                    | "used_merchandise_and_secondhand_stores"
+                    | "utilities"
+                    | "variety_stores"
+                    | "veterinary_services"
+                    | "video_amusement_game_supplies"
+                    | "video_game_arcades"
+                    | "video_tape_rental_stores"
+                    | "vocational_trade_schools"
+                    | "watch_jewelry_repair"
+                    | "welding_repair"
+                    | "wholesale_clubs"
+                    | "wig_and_toupee_stores"
+                    | "wires_money_orders"
+                    | "womens_accessory_and_specialty_shops"
+                    | "womens_ready_to_wear_stores"
+                    | "wrecking_and_salvage_yards"
+                  )[]
+                | undefined
+              interval:
+                | "all_time"
+                | "daily"
+                | "monthly"
+                | "per_authorization"
+                | "weekly"
+                | "yearly"
+            }[]
+          | undefined
+        spending_limits_currency?: string | undefined
+      }
+    | undefined
+  status?: ("active" | "inactive") | undefined
+}
 
-export type t_postIssuingCardsApplicationXWwwFormUrlencodedRequestBody = {
+export type t_PostIssuingCardsRequestBody = {
   cardholder?: string | undefined
   currency: string
   expand?: string[] | undefined
@@ -31095,7 +30994,7 @@ export type t_PostIssuingCardsCardParamSchema = {
   card: string
 }
 
-export type t_postIssuingCardsCardApplicationXWwwFormUrlencodedRequestBody = {
+export type t_PostIssuingCardsCardRequestBody = {
   cancellation_reason?: ("lost" | "stolen") | undefined
   expand?: string[] | undefined
   metadata?:
@@ -32060,7 +31959,7 @@ export type t_postIssuingCardsCardApplicationXWwwFormUrlencodedRequestBody = {
   status?: ("active" | "canceled" | "inactive") | undefined
 }
 
-export type t_postIssuingDisputesApplicationXWwwFormUrlencodedRequestBody = {
+export type t_PostIssuingDisputesRequestBody = {
   amount?: number | undefined
   evidence?:
     | {
@@ -32196,187 +32095,184 @@ export type t_PostIssuingDisputesDisputeParamSchema = {
   dispute: string
 }
 
-export type t_postIssuingDisputesDisputeApplicationXWwwFormUrlencodedRequestBody =
-  {
-    amount?: number | undefined
-    evidence?:
-      | {
-          canceled?:
-            | (
-                | {
-                    additional_documentation?: (string | "") | undefined
-                    canceled_at?: (number | "") | undefined
-                    cancellation_policy_provided?: (boolean | "") | undefined
-                    cancellation_reason?: (string | "") | undefined
-                    expected_at?: (number | "") | undefined
-                    explanation?: (string | "") | undefined
-                    product_description?: (string | "") | undefined
-                    product_type?: ("" | "merchandise" | "service") | undefined
-                    return_status?:
-                      | ("" | "merchant_rejected" | "successful")
-                      | undefined
-                    returned_at?: (number | "") | undefined
-                  }
-                | ""
-              )
-            | undefined
-          duplicate?:
-            | (
-                | {
-                    additional_documentation?: (string | "") | undefined
-                    card_statement?: (string | "") | undefined
-                    cash_receipt?: (string | "") | undefined
-                    check_image?: (string | "") | undefined
-                    explanation?: (string | "") | undefined
-                    original_transaction?: string | undefined
-                  }
-                | ""
-              )
-            | undefined
-          fraudulent?:
-            | (
-                | {
-                    additional_documentation?: (string | "") | undefined
-                    explanation?: (string | "") | undefined
-                  }
-                | ""
-              )
-            | undefined
-          merchandise_not_as_described?:
-            | (
-                | {
-                    additional_documentation?: (string | "") | undefined
-                    explanation?: (string | "") | undefined
-                    received_at?: (number | "") | undefined
-                    return_description?: (string | "") | undefined
-                    return_status?:
-                      | ("" | "merchant_rejected" | "successful")
-                      | undefined
-                    returned_at?: (number | "") | undefined
-                  }
-                | ""
-              )
-            | undefined
-          no_valid_authorization?:
-            | (
-                | {
-                    additional_documentation?: (string | "") | undefined
-                    explanation?: (string | "") | undefined
-                  }
-                | ""
-              )
-            | undefined
-          not_received?:
-            | (
-                | {
-                    additional_documentation?: (string | "") | undefined
-                    expected_at?: (number | "") | undefined
-                    explanation?: (string | "") | undefined
-                    product_description?: (string | "") | undefined
-                    product_type?: ("" | "merchandise" | "service") | undefined
-                  }
-                | ""
-              )
-            | undefined
-          other?:
-            | (
-                | {
-                    additional_documentation?: (string | "") | undefined
-                    explanation?: (string | "") | undefined
-                    product_description?: (string | "") | undefined
-                    product_type?: ("" | "merchandise" | "service") | undefined
-                  }
-                | ""
-              )
-            | undefined
-          reason?:
-            | (
-                | "canceled"
-                | "duplicate"
-                | "fraudulent"
-                | "merchandise_not_as_described"
-                | "no_valid_authorization"
-                | "not_received"
-                | "other"
-                | "service_not_as_described"
-              )
-            | undefined
-          service_not_as_described?:
-            | (
-                | {
-                    additional_documentation?: (string | "") | undefined
-                    canceled_at?: (number | "") | undefined
-                    cancellation_reason?: (string | "") | undefined
-                    explanation?: (string | "") | undefined
-                    received_at?: (number | "") | undefined
-                  }
-                | ""
-              )
-            | undefined
-        }
-      | undefined
-    expand?: string[] | undefined
-    metadata?:
-      | (
-          | {
-              [key: string]: string | undefined
-            }
-          | ""
-        )
-      | undefined
-  }
+export type t_PostIssuingDisputesDisputeRequestBody = {
+  amount?: number | undefined
+  evidence?:
+    | {
+        canceled?:
+          | (
+              | {
+                  additional_documentation?: (string | "") | undefined
+                  canceled_at?: (number | "") | undefined
+                  cancellation_policy_provided?: (boolean | "") | undefined
+                  cancellation_reason?: (string | "") | undefined
+                  expected_at?: (number | "") | undefined
+                  explanation?: (string | "") | undefined
+                  product_description?: (string | "") | undefined
+                  product_type?: ("" | "merchandise" | "service") | undefined
+                  return_status?:
+                    | ("" | "merchant_rejected" | "successful")
+                    | undefined
+                  returned_at?: (number | "") | undefined
+                }
+              | ""
+            )
+          | undefined
+        duplicate?:
+          | (
+              | {
+                  additional_documentation?: (string | "") | undefined
+                  card_statement?: (string | "") | undefined
+                  cash_receipt?: (string | "") | undefined
+                  check_image?: (string | "") | undefined
+                  explanation?: (string | "") | undefined
+                  original_transaction?: string | undefined
+                }
+              | ""
+            )
+          | undefined
+        fraudulent?:
+          | (
+              | {
+                  additional_documentation?: (string | "") | undefined
+                  explanation?: (string | "") | undefined
+                }
+              | ""
+            )
+          | undefined
+        merchandise_not_as_described?:
+          | (
+              | {
+                  additional_documentation?: (string | "") | undefined
+                  explanation?: (string | "") | undefined
+                  received_at?: (number | "") | undefined
+                  return_description?: (string | "") | undefined
+                  return_status?:
+                    | ("" | "merchant_rejected" | "successful")
+                    | undefined
+                  returned_at?: (number | "") | undefined
+                }
+              | ""
+            )
+          | undefined
+        no_valid_authorization?:
+          | (
+              | {
+                  additional_documentation?: (string | "") | undefined
+                  explanation?: (string | "") | undefined
+                }
+              | ""
+            )
+          | undefined
+        not_received?:
+          | (
+              | {
+                  additional_documentation?: (string | "") | undefined
+                  expected_at?: (number | "") | undefined
+                  explanation?: (string | "") | undefined
+                  product_description?: (string | "") | undefined
+                  product_type?: ("" | "merchandise" | "service") | undefined
+                }
+              | ""
+            )
+          | undefined
+        other?:
+          | (
+              | {
+                  additional_documentation?: (string | "") | undefined
+                  explanation?: (string | "") | undefined
+                  product_description?: (string | "") | undefined
+                  product_type?: ("" | "merchandise" | "service") | undefined
+                }
+              | ""
+            )
+          | undefined
+        reason?:
+          | (
+              | "canceled"
+              | "duplicate"
+              | "fraudulent"
+              | "merchandise_not_as_described"
+              | "no_valid_authorization"
+              | "not_received"
+              | "other"
+              | "service_not_as_described"
+            )
+          | undefined
+        service_not_as_described?:
+          | (
+              | {
+                  additional_documentation?: (string | "") | undefined
+                  canceled_at?: (number | "") | undefined
+                  cancellation_reason?: (string | "") | undefined
+                  explanation?: (string | "") | undefined
+                  received_at?: (number | "") | undefined
+                }
+              | ""
+            )
+          | undefined
+      }
+    | undefined
+  expand?: string[] | undefined
+  metadata?:
+    | (
+        | {
+            [key: string]: string | undefined
+          }
+        | ""
+      )
+    | undefined
+}
 
 export type t_PostIssuingDisputesDisputeSubmitParamSchema = {
   dispute: string
 }
 
-export type t_postIssuingDisputesDisputeSubmitApplicationXWwwFormUrlencodedRequestBody =
-  {
-    expand?: string[] | undefined
-    metadata?:
-      | (
-          | {
-              [key: string]: string | undefined
-            }
-          | ""
-        )
-      | undefined
-  }
+export type t_PostIssuingDisputesDisputeSubmitRequestBody = {
+  expand?: string[] | undefined
+  metadata?:
+    | (
+        | {
+            [key: string]: string | undefined
+          }
+        | ""
+      )
+    | undefined
+}
 
-export type t_postIssuingPersonalizationDesignsApplicationXWwwFormUrlencodedRequestBody =
-  {
-    card_logo?: string | undefined
-    carrier_text?:
-      | {
-          footer_body?: (string | "") | undefined
-          footer_title?: (string | "") | undefined
-          header_body?: (string | "") | undefined
-          header_title?: (string | "") | undefined
-        }
-      | undefined
-    expand?: string[] | undefined
-    lookup_key?: string | undefined
-    metadata?:
-      | {
-          [key: string]: string | undefined
-        }
-      | undefined
-    name?: string | undefined
-    physical_bundle: string
-    preferences?:
-      | {
-          is_default: boolean
-        }
-      | undefined
-    transfer_lookup_key?: boolean | undefined
-  }
+export type t_PostIssuingPersonalizationDesignsRequestBody = {
+  card_logo?: string | undefined
+  carrier_text?:
+    | {
+        footer_body?: (string | "") | undefined
+        footer_title?: (string | "") | undefined
+        header_body?: (string | "") | undefined
+        header_title?: (string | "") | undefined
+      }
+    | undefined
+  expand?: string[] | undefined
+  lookup_key?: string | undefined
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | undefined
+  name?: string | undefined
+  physical_bundle: string
+  preferences?:
+    | {
+        is_default: boolean
+      }
+    | undefined
+  transfer_lookup_key?: boolean | undefined
+}
 
 export type t_PostIssuingPersonalizationDesignsPersonalizationDesignParamSchema =
   {
     personalization_design: string
   }
 
-export type t_postIssuingPersonalizationDesignsPersonalizationDesignApplicationXWwwFormUrlencodedRequestBody =
+export type t_PostIssuingPersonalizationDesignsPersonalizationDesignRequestBody =
   {
     card_logo?: (string | "") | undefined
     carrier_text?:
@@ -32411,21 +32307,20 @@ export type t_PostIssuingSettlementsSettlementParamSchema = {
   settlement: string
 }
 
-export type t_postIssuingSettlementsSettlementApplicationXWwwFormUrlencodedRequestBody =
-  {
-    expand?: string[] | undefined
-    metadata?:
-      | {
-          [key: string]: string | undefined
-        }
-      | undefined
-  }
+export type t_PostIssuingSettlementsSettlementRequestBody = {
+  expand?: string[] | undefined
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | undefined
+}
 
 export type t_PostIssuingTokensTokenParamSchema = {
   token: string
 }
 
-export type t_postIssuingTokensTokenApplicationXWwwFormUrlencodedRequestBody = {
+export type t_PostIssuingTokensTokenRequestBody = {
   expand?: string[] | undefined
   status: "active" | "deleted" | "suspended"
 }
@@ -32434,71 +32329,62 @@ export type t_PostIssuingTransactionsTransactionParamSchema = {
   transaction: string
 }
 
-export type t_postIssuingTransactionsTransactionApplicationXWwwFormUrlencodedRequestBody =
-  {
-    expand?: string[] | undefined
-    metadata?:
-      | (
-          | {
-              [key: string]: string | undefined
-            }
-          | ""
-        )
-      | undefined
-  }
+export type t_PostIssuingTransactionsTransactionRequestBody = {
+  expand?: string[] | undefined
+  metadata?:
+    | (
+        | {
+            [key: string]: string | undefined
+          }
+        | ""
+      )
+    | undefined
+}
 
-export type t_postLinkAccountSessionsApplicationXWwwFormUrlencodedRequestBody =
-  {
-    account_holder: {
-      account?: string | undefined
-      customer?: string | undefined
-      type: "account" | "customer"
-    }
-    expand?: string[] | undefined
-    filters?:
-      | {
-          account_subcategories?:
-            | (
-                | "checking"
-                | "credit_card"
-                | "line_of_credit"
-                | "mortgage"
-                | "savings"
-              )[]
-            | undefined
-          countries?: string[] | undefined
-        }
-      | undefined
-    permissions: (
-      | "balances"
-      | "ownership"
-      | "payment_method"
-      | "transactions"
-    )[]
-    prefetch?: ("balances" | "ownership" | "transactions")[] | undefined
-    return_url?: string | undefined
+export type t_PostLinkAccountSessionsRequestBody = {
+  account_holder: {
+    account?: string | undefined
+    customer?: string | undefined
+    type: "account" | "customer"
   }
+  expand?: string[] | undefined
+  filters?:
+    | {
+        account_subcategories?:
+          | (
+              | "checking"
+              | "credit_card"
+              | "line_of_credit"
+              | "mortgage"
+              | "savings"
+            )[]
+          | undefined
+        countries?: string[] | undefined
+      }
+    | undefined
+  permissions: ("balances" | "ownership" | "payment_method" | "transactions")[]
+  prefetch?: ("balances" | "ownership" | "transactions")[] | undefined
+  return_url?: string | undefined
+}
 
 export type t_PostLinkedAccountsAccountDisconnectParamSchema = {
   account: string
 }
 
-export type t_postLinkedAccountsAccountDisconnectApplicationXWwwFormUrlencodedRequestBody =
-  {
-    expand?: string[] | undefined
-  }
+export type t_PostLinkedAccountsAccountDisconnectRequestBody = {
+  expand?: string[] | undefined
+}
 
 export type t_PostLinkedAccountsAccountRefreshParamSchema = {
   account: string
 }
 
-export type t_postLinkedAccountsAccountRefreshApplicationXWwwFormUrlencodedRequestBody =
-  {
-    expand?: string[] | undefined
-    features: ("balance" | "ownership" | "transactions")[]
-  }
+export type t_PostLinkedAccountsAccountRefreshRequestBody = {
+  expand?: string[] | undefined
+  features: ("balance" | "ownership" | "transactions")[]
+}
 
-export type t_postPaymentIntentsApplicationXWwwFormUrlencodedRequestBody = {
+export type t_PostPaymentIntentsRequestBody = {
   amount: number
   application_fee_amount?: number | undefined
   automatic_payment_methods?:
@@ -33632,2391 +33518,2302 @@ export type t_PostPaymentIntentsIntentParamSchema = {
   intent: string
 }
 
-export type t_postPaymentIntentsIntentApplicationXWwwFormUrlencodedRequestBody =
-  {
-    amount?: number | undefined
-    application_fee_amount?: (number | "") | undefined
-    capture_method?: ("automatic" | "automatic_async" | "manual") | undefined
-    currency?: string | undefined
-    customer?: string | undefined
-    description?: string | undefined
-    expand?: string[] | undefined
-    metadata?:
-      | (
+export type t_PostPaymentIntentsIntentRequestBody = {
+  amount?: number | undefined
+  application_fee_amount?: (number | "") | undefined
+  capture_method?: ("automatic" | "automatic_async" | "manual") | undefined
+  currency?: string | undefined
+  customer?: string | undefined
+  description?: string | undefined
+  expand?: string[] | undefined
+  metadata?:
+    | (
+        | {
+            [key: string]: string | undefined
+          }
+        | ""
+      )
+    | undefined
+  payment_method?: string | undefined
+  payment_method_configuration?: string | undefined
+  payment_method_data?:
+    | {
+        acss_debit?:
+          | {
+              account_number: string
+              institution_number: string
+              transit_number: string
+            }
+          | undefined
+        affirm?: EmptyObject | undefined
+        afterpay_clearpay?: EmptyObject | undefined
+        alipay?: EmptyObject | undefined
+        allow_redisplay?: ("always" | "limited" | "unspecified") | undefined
+        alma?: EmptyObject | undefined
+        amazon_pay?: EmptyObject | undefined
+        au_becs_debit?:
+          | {
+              account_number: string
+              bsb_number: string
+            }
+          | undefined
+        bacs_debit?:
+          | {
+              account_number?: string | undefined
+              sort_code?: string | undefined
+            }
+          | undefined
+        bancontact?: EmptyObject | undefined
+        billie?: EmptyObject | undefined
+        billing_details?:
+          | {
+              address?:
+                | (
+                    | {
+                        city?: string | undefined
+                        country?: string | undefined
+                        line1?: string | undefined
+                        line2?: string | undefined
+                        postal_code?: string | undefined
+                        state?: string | undefined
+                      }
+                    | ""
+                  )
+                | undefined
+              email?: (string | "") | undefined
+              name?: (string | "") | undefined
+              phone?: (string | "") | undefined
+              tax_id?: string | undefined
+            }
+          | undefined
+        blik?: EmptyObject | undefined
+        boleto?:
+          | {
+              tax_id: string
+            }
+          | undefined
+        cashapp?: EmptyObject | undefined
+        crypto?: EmptyObject | undefined
+        customer_balance?: EmptyObject | undefined
+        eps?:
+          | {
+              bank?:
+                | (
+                    | "arzte_und_apotheker_bank"
+                    | "austrian_anadi_bank_ag"
+                    | "bank_austria"
+                    | "bankhaus_carl_spangler"
+                    | "bankhaus_schelhammer_und_schattera_ag"
+                    | "bawag_psk_ag"
+                    | "bks_bank_ag"
+                    | "brull_kallmus_bank_ag"
+                    | "btv_vier_lander_bank"
+                    | "capital_bank_grawe_gruppe_ag"
+                    | "deutsche_bank_ag"
+                    | "dolomitenbank"
+                    | "easybank_ag"
+                    | "erste_bank_und_sparkassen"
+                    | "hypo_alpeadriabank_international_ag"
+                    | "hypo_bank_burgenland_aktiengesellschaft"
+                    | "hypo_noe_lb_fur_niederosterreich_u_wien"
+                    | "hypo_oberosterreich_salzburg_steiermark"
+                    | "hypo_tirol_bank_ag"
+                    | "hypo_vorarlberg_bank_ag"
+                    | "marchfelder_bank"
+                    | "oberbank_ag"
+                    | "raiffeisen_bankengruppe_osterreich"
+                    | "schoellerbank_ag"
+                    | "sparda_bank_wien"
+                    | "volksbank_gruppe"
+                    | "volkskreditbank_ag"
+                    | "vr_bank_braunau"
+                  )
+                | undefined
+            }
+          | undefined
+        fpx?:
+          | {
+              bank:
+                | "affin_bank"
+                | "agrobank"
+                | "alliance_bank"
+                | "ambank"
+                | "bank_islam"
+                | "bank_muamalat"
+                | "bank_of_china"
+                | "bank_rakyat"
+                | "bsn"
+                | "cimb"
+                | "deutsche_bank"
+                | "hong_leong_bank"
+                | "hsbc"
+                | "kfh"
+                | "maybank2e"
+                | "maybank2u"
+                | "ocbc"
+                | "pb_enterprise"
+                | "public_bank"
+                | "rhb"
+                | "standard_chartered"
+                | "uob"
+            }
+          | undefined
+        giropay?: EmptyObject | undefined
+        grabpay?: EmptyObject | undefined
+        ideal?:
+          | {
+              bank?:
+                | (
+                    | "abn_amro"
+                    | "asn_bank"
+                    | "bunq"
+                    | "buut"
+                    | "handelsbanken"
+                    | "ing"
+                    | "knab"
+                    | "moneyou"
+                    | "n26"
+                    | "nn"
+                    | "rabobank"
+                    | "regiobank"
+                    | "revolut"
+                    | "sns_bank"
+                    | "triodos_bank"
+                    | "van_lanschot"
+                    | "yoursafe"
+                  )
+                | undefined
+            }
+          | undefined
+        interac_present?: EmptyObject | undefined
+        kakao_pay?: EmptyObject | undefined
+        klarna?:
+          | {
+              dob?:
+                | {
+                    day: number
+                    month: number
+                    year: number
+                  }
+                | undefined
+            }
+          | undefined
+        konbini?: EmptyObject | undefined
+        kr_card?: EmptyObject | undefined
+        link?: EmptyObject | undefined
+        metadata?:
           | {
               [key: string]: string | undefined
             }
-          | ""
-        )
-      | undefined
-    payment_method?: string | undefined
-    payment_method_configuration?: string | undefined
-    payment_method_data?:
-      | {
-          acss_debit?:
-            | {
-                account_number: string
-                institution_number: string
-                transit_number: string
-              }
-            | undefined
-          affirm?: EmptyObject | undefined
-          afterpay_clearpay?: EmptyObject | undefined
-          alipay?: EmptyObject | undefined
-          allow_redisplay?: ("always" | "limited" | "unspecified") | undefined
-          alma?: EmptyObject | undefined
-          amazon_pay?: EmptyObject | undefined
-          au_becs_debit?:
-            | {
-                account_number: string
-                bsb_number: string
-              }
-            | undefined
-          bacs_debit?:
-            | {
-                account_number?: string | undefined
-                sort_code?: string | undefined
-              }
-            | undefined
-          bancontact?: EmptyObject | undefined
-          billie?: EmptyObject | undefined
-          billing_details?:
-            | {
-                address?:
-                  | (
-                      | {
-                          city?: string | undefined
-                          country?: string | undefined
-                          line1?: string | undefined
-                          line2?: string | undefined
-                          postal_code?: string | undefined
-                          state?: string | undefined
-                        }
-                      | ""
-                    )
-                  | undefined
-                email?: (string | "") | undefined
-                name?: (string | "") | undefined
-                phone?: (string | "") | undefined
-                tax_id?: string | undefined
-              }
-            | undefined
-          blik?: EmptyObject | undefined
-          boleto?:
-            | {
-                tax_id: string
-              }
-            | undefined
-          cashapp?: EmptyObject | undefined
-          crypto?: EmptyObject | undefined
-          customer_balance?: EmptyObject | undefined
-          eps?:
-            | {
-                bank?:
-                  | (
-                      | "arzte_und_apotheker_bank"
-                      | "austrian_anadi_bank_ag"
-                      | "bank_austria"
-                      | "bankhaus_carl_spangler"
-                      | "bankhaus_schelhammer_und_schattera_ag"
-                      | "bawag_psk_ag"
-                      | "bks_bank_ag"
-                      | "brull_kallmus_bank_ag"
-                      | "btv_vier_lander_bank"
-                      | "capital_bank_grawe_gruppe_ag"
-                      | "deutsche_bank_ag"
-                      | "dolomitenbank"
-                      | "easybank_ag"
-                      | "erste_bank_und_sparkassen"
-                      | "hypo_alpeadriabank_international_ag"
-                      | "hypo_bank_burgenland_aktiengesellschaft"
-                      | "hypo_noe_lb_fur_niederosterreich_u_wien"
-                      | "hypo_oberosterreich_salzburg_steiermark"
-                      | "hypo_tirol_bank_ag"
-                      | "hypo_vorarlberg_bank_ag"
-                      | "marchfelder_bank"
-                      | "oberbank_ag"
-                      | "raiffeisen_bankengruppe_osterreich"
-                      | "schoellerbank_ag"
-                      | "sparda_bank_wien"
-                      | "volksbank_gruppe"
-                      | "volkskreditbank_ag"
-                      | "vr_bank_braunau"
-                    )
-                  | undefined
-              }
-            | undefined
-          fpx?:
-            | {
-                bank:
-                  | "affin_bank"
-                  | "agrobank"
-                  | "alliance_bank"
-                  | "ambank"
-                  | "bank_islam"
-                  | "bank_muamalat"
-                  | "bank_of_china"
-                  | "bank_rakyat"
-                  | "bsn"
-                  | "cimb"
-                  | "deutsche_bank"
-                  | "hong_leong_bank"
-                  | "hsbc"
-                  | "kfh"
-                  | "maybank2e"
-                  | "maybank2u"
-                  | "ocbc"
-                  | "pb_enterprise"
-                  | "public_bank"
-                  | "rhb"
-                  | "standard_chartered"
-                  | "uob"
-              }
-            | undefined
-          giropay?: EmptyObject | undefined
-          grabpay?: EmptyObject | undefined
-          ideal?:
-            | {
-                bank?:
-                  | (
-                      | "abn_amro"
-                      | "asn_bank"
-                      | "bunq"
-                      | "buut"
-                      | "handelsbanken"
-                      | "ing"
-                      | "knab"
-                      | "moneyou"
-                      | "n26"
-                      | "nn"
-                      | "rabobank"
-                      | "regiobank"
-                      | "revolut"
-                      | "sns_bank"
-                      | "triodos_bank"
-                      | "van_lanschot"
-                      | "yoursafe"
-                    )
-                  | undefined
-              }
-            | undefined
-          interac_present?: EmptyObject | undefined
-          kakao_pay?: EmptyObject | undefined
-          klarna?:
-            | {
-                dob?:
-                  | {
-                      day: number
-                      month: number
-                      year: number
-                    }
-                  | undefined
-              }
-            | undefined
-          konbini?: EmptyObject | undefined
-          kr_card?: EmptyObject | undefined
-          link?: EmptyObject | undefined
-          metadata?:
-            | {
-                [key: string]: string | undefined
-              }
-            | undefined
-          mobilepay?: EmptyObject | undefined
-          multibanco?: EmptyObject | undefined
-          naver_pay?:
-            | {
-                funding?: ("card" | "points") | undefined
-              }
-            | undefined
-          nz_bank_account?:
-            | {
-                account_holder_name?: string | undefined
-                account_number: string
-                bank_code: string
-                branch_code: string
-                reference?: string | undefined
-                suffix: string
-              }
-            | undefined
-          oxxo?: EmptyObject | undefined
-          p24?:
-            | {
-                bank?:
-                  | (
-                      | "alior_bank"
-                      | "bank_millennium"
-                      | "bank_nowy_bfg_sa"
-                      | "bank_pekao_sa"
-                      | "banki_spbdzielcze"
-                      | "blik"
-                      | "bnp_paribas"
-                      | "boz"
-                      | "citi_handlowy"
-                      | "credit_agricole"
-                      | "envelobank"
-                      | "etransfer_pocztowy24"
-                      | "getin_bank"
-                      | "ideabank"
-                      | "ing"
-                      | "inteligo"
-                      | "mbank_mtransfer"
-                      | "nest_przelew"
-                      | "noble_pay"
-                      | "pbac_z_ipko"
-                      | "plus_bank"
-                      | "santander_przelew24"
-                      | "tmobile_usbugi_bankowe"
-                      | "toyota_bank"
-                      | "velobank"
-                      | "volkswagen_bank"
-                    )
-                  | undefined
-              }
-            | undefined
-          pay_by_bank?: EmptyObject | undefined
-          payco?: EmptyObject | undefined
-          paynow?: EmptyObject | undefined
-          paypal?: EmptyObject | undefined
-          pix?: EmptyObject | undefined
-          promptpay?: EmptyObject | undefined
-          radar_options?:
-            | {
-                session?: string | undefined
-              }
-            | undefined
-          revolut_pay?: EmptyObject | undefined
-          samsung_pay?: EmptyObject | undefined
-          satispay?: EmptyObject | undefined
-          sepa_debit?:
-            | {
-                iban: string
-              }
-            | undefined
-          sofort?:
-            | {
-                country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL"
-              }
-            | undefined
-          swish?: EmptyObject | undefined
-          twint?: EmptyObject | undefined
-          type:
-            | "acss_debit"
-            | "affirm"
-            | "afterpay_clearpay"
-            | "alipay"
-            | "alma"
-            | "amazon_pay"
-            | "au_becs_debit"
-            | "bacs_debit"
-            | "bancontact"
-            | "billie"
-            | "blik"
-            | "boleto"
-            | "cashapp"
-            | "crypto"
-            | "customer_balance"
-            | "eps"
-            | "fpx"
-            | "giropay"
-            | "grabpay"
-            | "ideal"
-            | "kakao_pay"
-            | "klarna"
-            | "konbini"
-            | "kr_card"
-            | "link"
-            | "mobilepay"
-            | "multibanco"
-            | "naver_pay"
-            | "nz_bank_account"
-            | "oxxo"
-            | "p24"
-            | "pay_by_bank"
-            | "payco"
-            | "paynow"
-            | "paypal"
-            | "pix"
-            | "promptpay"
-            | "revolut_pay"
-            | "samsung_pay"
-            | "satispay"
-            | "sepa_debit"
-            | "sofort"
-            | "swish"
-            | "twint"
-            | "us_bank_account"
-            | "wechat_pay"
-            | "zip"
-          us_bank_account?:
-            | {
-                account_holder_type?: ("company" | "individual") | undefined
-                account_number?: string | undefined
-                account_type?: ("checking" | "savings") | undefined
-                financial_connections_account?: string | undefined
-                routing_number?: string | undefined
-              }
-            | undefined
-          wechat_pay?: EmptyObject | undefined
-          zip?: EmptyObject | undefined
-        }
-      | undefined
-    payment_method_options?:
-      | {
-          acss_debit?:
-            | (
-                | {
-                    mandate_options?:
-                      | {
-                          custom_mandate_url?: (string | "") | undefined
-                          interval_description?: string | undefined
-                          payment_schedule?:
-                            | ("combined" | "interval" | "sporadic")
-                            | undefined
-                          transaction_type?:
-                            | ("business" | "personal")
-                            | undefined
-                        }
-                      | undefined
-                    setup_future_usage?:
-                      | ("" | "none" | "off_session" | "on_session")
-                      | undefined
-                    target_date?: string | undefined
-                    verification_method?:
-                      | ("automatic" | "instant" | "microdeposits")
-                      | undefined
-                  }
-                | ""
-              )
-            | undefined
-          affirm?:
-            | (
-                | {
-                    capture_method?: ("" | "manual") | undefined
-                    preferred_locale?: string | undefined
-                    setup_future_usage?: "none" | undefined
-                  }
-                | ""
-              )
-            | undefined
-          afterpay_clearpay?:
-            | (
-                | {
-                    capture_method?: ("" | "manual") | undefined
-                    reference?: string | undefined
-                    setup_future_usage?: "none" | undefined
-                  }
-                | ""
-              )
-            | undefined
-          alipay?:
-            | (
-                | {
-                    setup_future_usage?:
-                      | ("" | "none" | "off_session")
-                      | undefined
-                  }
-                | ""
-              )
-            | undefined
-          alma?:
-            | (
-                | {
-                    capture_method?: ("" | "manual") | undefined
-                  }
-                | ""
-              )
-            | undefined
-          amazon_pay?:
-            | (
-                | {
-                    capture_method?: ("" | "manual") | undefined
-                    setup_future_usage?:
-                      | ("" | "none" | "off_session")
-                      | undefined
-                  }
-                | ""
-              )
-            | undefined
-          au_becs_debit?:
-            | (
-                | {
-                    setup_future_usage?:
-                      | ("" | "none" | "off_session" | "on_session")
-                      | undefined
-                    target_date?: string | undefined
-                  }
-                | ""
-              )
-            | undefined
-          bacs_debit?:
-            | (
-                | {
-                    mandate_options?:
-                      | {
-                          reference_prefix?: (string | "") | undefined
-                        }
-                      | undefined
-                    setup_future_usage?:
-                      | ("" | "none" | "off_session" | "on_session")
-                      | undefined
-                    target_date?: string | undefined
-                  }
-                | ""
-              )
-            | undefined
-          bancontact?:
-            | (
-                | {
-                    preferred_language?: ("de" | "en" | "fr" | "nl") | undefined
-                    setup_future_usage?:
-                      | ("" | "none" | "off_session")
-                      | undefined
-                  }
-                | ""
-              )
-            | undefined
-          billie?:
-            | (
-                | {
-                    capture_method?: ("" | "manual") | undefined
-                  }
-                | ""
-              )
-            | undefined
-          blik?:
-            | (
-                | {
-                    code?: string | undefined
-                    setup_future_usage?: ("" | "none") | undefined
-                  }
-                | ""
-              )
-            | undefined
-          boleto?:
-            | (
-                | {
-                    expires_after_days?: number | undefined
-                    setup_future_usage?:
-                      | ("" | "none" | "off_session" | "on_session")
-                      | undefined
-                  }
-                | ""
-              )
-            | undefined
-          card?:
-            | (
-                | {
-                    capture_method?: ("" | "manual") | undefined
-                    cvc_token?: string | undefined
-                    installments?:
-                      | {
-                          enabled?: boolean | undefined
-                          plan?:
-                            | (
-                                | {
-                                    count?: number | undefined
-                                    interval?: "month" | undefined
-                                    type: "bonus" | "fixed_count" | "revolving"
-                                  }
-                                | ""
-                              )
-                            | undefined
-                        }
-                      | undefined
-                    mandate_options?:
-                      | {
-                          amount: number
-                          amount_type: "fixed" | "maximum"
-                          description?: string | undefined
-                          end_date?: number | undefined
-                          interval:
-                            | "day"
-                            | "month"
-                            | "sporadic"
-                            | "week"
-                            | "year"
-                          interval_count?: number | undefined
-                          reference: string
-                          start_date: number
-                          supported_types?: "india"[] | undefined
-                        }
-                      | undefined
-                    network?:
-                      | (
-                          | "amex"
-                          | "cartes_bancaires"
-                          | "diners"
-                          | "discover"
-                          | "eftpos_au"
-                          | "girocard"
-                          | "interac"
-                          | "jcb"
-                          | "link"
-                          | "mastercard"
-                          | "unionpay"
-                          | "unknown"
-                          | "visa"
-                        )
-                      | undefined
-                    request_extended_authorization?:
-                      | ("if_available" | "never")
-                      | undefined
-                    request_incremental_authorization?:
-                      | ("if_available" | "never")
-                      | undefined
-                    request_multicapture?:
-                      | ("if_available" | "never")
-                      | undefined
-                    request_overcapture?: ("if_available" | "never") | undefined
-                    request_three_d_secure?:
-                      | ("any" | "automatic" | "challenge")
-                      | undefined
-                    require_cvc_recollection?: boolean | undefined
-                    setup_future_usage?:
-                      | ("" | "none" | "off_session" | "on_session")
-                      | undefined
-                    statement_descriptor_suffix_kana?: (string | "") | undefined
-                    statement_descriptor_suffix_kanji?:
-                      | (string | "")
-                      | undefined
-                    three_d_secure?:
-                      | {
-                          ares_trans_status?:
-                            | ("A" | "C" | "I" | "N" | "R" | "U" | "Y")
-                            | undefined
-                          cryptogram: string
-                          electronic_commerce_indicator?:
-                            | ("01" | "02" | "05" | "06" | "07")
-                            | undefined
-                          exemption_indicator?:
-                            | ("low_risk" | "none")
-                            | undefined
-                          network_options?:
-                            | {
-                                cartes_bancaires?:
-                                  | {
-                                      cb_avalgo:
-                                        | "0"
-                                        | "1"
-                                        | "2"
-                                        | "3"
-                                        | "4"
-                                        | "A"
-                                      cb_exemption?: string | undefined
-                                      cb_score?: number | undefined
-                                    }
-                                  | undefined
-                              }
-                            | undefined
-                          requestor_challenge_indicator?: string | undefined
-                          transaction_id: string
-                          version: "1.0.2" | "2.1.0" | "2.2.0"
-                        }
-                      | undefined
-                  }
-                | ""
-              )
-            | undefined
-          card_present?:
-            | (
-                | {
-                    request_extended_authorization?: boolean | undefined
-                    request_incremental_authorization_support?:
-                      | boolean
-                      | undefined
-                    routing?:
-                      | {
-                          requested_priority?:
-                            | ("domestic" | "international")
-                            | undefined
-                        }
-                      | undefined
-                  }
-                | ""
-              )
-            | undefined
-          cashapp?:
-            | (
-                | {
-                    capture_method?: ("" | "manual") | undefined
-                    setup_future_usage?:
-                      | ("" | "none" | "off_session" | "on_session")
-                      | undefined
-                  }
-                | ""
-              )
-            | undefined
-          crypto?:
-            | (
-                | {
-                    setup_future_usage?: "none" | undefined
-                  }
-                | ""
-              )
-            | undefined
-          customer_balance?:
-            | (
-                | {
-                    bank_transfer?:
-                      | {
-                          eu_bank_transfer?:
-                            | {
-                                country: string
-                              }
-                            | undefined
-                          requested_address_types?:
-                            | (
-                                | "aba"
-                                | "iban"
-                                | "sepa"
-                                | "sort_code"
-                                | "spei"
-                                | "swift"
-                                | "zengin"
-                              )[]
-                            | undefined
-                          type:
-                            | "eu_bank_transfer"
-                            | "gb_bank_transfer"
-                            | "jp_bank_transfer"
-                            | "mx_bank_transfer"
-                            | "us_bank_transfer"
-                        }
-                      | undefined
-                    funding_type?: "bank_transfer" | undefined
-                    setup_future_usage?: "none" | undefined
-                  }
-                | ""
-              )
-            | undefined
-          eps?:
-            | (
-                | {
-                    setup_future_usage?: "none" | undefined
-                  }
-                | ""
-              )
-            | undefined
-          fpx?:
-            | (
-                | {
-                    setup_future_usage?: "none" | undefined
-                  }
-                | ""
-              )
-            | undefined
-          giropay?:
-            | (
-                | {
-                    setup_future_usage?: "none" | undefined
-                  }
-                | ""
-              )
-            | undefined
-          grabpay?:
-            | (
-                | {
-                    setup_future_usage?: "none" | undefined
-                  }
-                | ""
-              )
-            | undefined
-          ideal?:
-            | (
-                | {
-                    setup_future_usage?:
-                      | ("" | "none" | "off_session")
-                      | undefined
-                  }
-                | ""
-              )
-            | undefined
-          interac_present?: (EmptyObject | "") | undefined
-          kakao_pay?:
-            | (
-                | {
-                    capture_method?: ("" | "manual") | undefined
-                    setup_future_usage?:
-                      | ("" | "none" | "off_session")
-                      | undefined
-                  }
-                | ""
-              )
-            | undefined
-          klarna?:
-            | (
-                | {
-                    capture_method?: ("" | "manual") | undefined
-                    on_demand?:
-                      | {
-                          average_amount?: number | undefined
-                          maximum_amount?: number | undefined
-                          minimum_amount?: number | undefined
-                          purchase_interval?:
-                            | ("day" | "month" | "week" | "year")
-                            | undefined
-                          purchase_interval_count?: number | undefined
-                        }
-                      | undefined
-                    preferred_locale?:
-                      | (
-                          | "cs-CZ"
-                          | "da-DK"
-                          | "de-AT"
-                          | "de-CH"
-                          | "de-DE"
-                          | "el-GR"
-                          | "en-AT"
-                          | "en-AU"
-                          | "en-BE"
-                          | "en-CA"
-                          | "en-CH"
-                          | "en-CZ"
-                          | "en-DE"
-                          | "en-DK"
-                          | "en-ES"
-                          | "en-FI"
-                          | "en-FR"
-                          | "en-GB"
-                          | "en-GR"
-                          | "en-IE"
-                          | "en-IT"
-                          | "en-NL"
-                          | "en-NO"
-                          | "en-NZ"
-                          | "en-PL"
-                          | "en-PT"
-                          | "en-RO"
-                          | "en-SE"
-                          | "en-US"
-                          | "es-ES"
-                          | "es-US"
-                          | "fi-FI"
-                          | "fr-BE"
-                          | "fr-CA"
-                          | "fr-CH"
-                          | "fr-FR"
-                          | "it-CH"
-                          | "it-IT"
-                          | "nb-NO"
-                          | "nl-BE"
-                          | "nl-NL"
-                          | "pl-PL"
-                          | "pt-PT"
-                          | "ro-RO"
-                          | "sv-FI"
-                          | "sv-SE"
-                        )
-                      | undefined
-                    setup_future_usage?:
-                      | ("none" | "off_session" | "on_session")
-                      | undefined
-                    subscriptions?:
-                      | (
+          | undefined
+        mobilepay?: EmptyObject | undefined
+        multibanco?: EmptyObject | undefined
+        naver_pay?:
+          | {
+              funding?: ("card" | "points") | undefined
+            }
+          | undefined
+        nz_bank_account?:
+          | {
+              account_holder_name?: string | undefined
+              account_number: string
+              bank_code: string
+              branch_code: string
+              reference?: string | undefined
+              suffix: string
+            }
+          | undefined
+        oxxo?: EmptyObject | undefined
+        p24?:
+          | {
+              bank?:
+                | (
+                    | "alior_bank"
+                    | "bank_millennium"
+                    | "bank_nowy_bfg_sa"
+                    | "bank_pekao_sa"
+                    | "banki_spbdzielcze"
+                    | "blik"
+                    | "bnp_paribas"
+                    | "boz"
+                    | "citi_handlowy"
+                    | "credit_agricole"
+                    | "envelobank"
+                    | "etransfer_pocztowy24"
+                    | "getin_bank"
+                    | "ideabank"
+                    | "ing"
+                    | "inteligo"
+                    | "mbank_mtransfer"
+                    | "nest_przelew"
+                    | "noble_pay"
+                    | "pbac_z_ipko"
+                    | "plus_bank"
+                    | "santander_przelew24"
+                    | "tmobile_usbugi_bankowe"
+                    | "toyota_bank"
+                    | "velobank"
+                    | "volkswagen_bank"
+                  )
+                | undefined
+            }
+          | undefined
+        pay_by_bank?: EmptyObject | undefined
+        payco?: EmptyObject | undefined
+        paynow?: EmptyObject | undefined
+        paypal?: EmptyObject | undefined
+        pix?: EmptyObject | undefined
+        promptpay?: EmptyObject | undefined
+        radar_options?:
+          | {
+              session?: string | undefined
+            }
+          | undefined
+        revolut_pay?: EmptyObject | undefined
+        samsung_pay?: EmptyObject | undefined
+        satispay?: EmptyObject | undefined
+        sepa_debit?:
+          | {
+              iban: string
+            }
+          | undefined
+        sofort?:
+          | {
+              country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL"
+            }
+          | undefined
+        swish?: EmptyObject | undefined
+        twint?: EmptyObject | undefined
+        type:
+          | "acss_debit"
+          | "affirm"
+          | "afterpay_clearpay"
+          | "alipay"
+          | "alma"
+          | "amazon_pay"
+          | "au_becs_debit"
+          | "bacs_debit"
+          | "bancontact"
+          | "billie"
+          | "blik"
+          | "boleto"
+          | "cashapp"
+          | "crypto"
+          | "customer_balance"
+          | "eps"
+          | "fpx"
+          | "giropay"
+          | "grabpay"
+          | "ideal"
+          | "kakao_pay"
+          | "klarna"
+          | "konbini"
+          | "kr_card"
+          | "link"
+          | "mobilepay"
+          | "multibanco"
+          | "naver_pay"
+          | "nz_bank_account"
+          | "oxxo"
+          | "p24"
+          | "pay_by_bank"
+          | "payco"
+          | "paynow"
+          | "paypal"
+          | "pix"
+          | "promptpay"
+          | "revolut_pay"
+          | "samsung_pay"
+          | "satispay"
+          | "sepa_debit"
+          | "sofort"
+          | "swish"
+          | "twint"
+          | "us_bank_account"
+          | "wechat_pay"
+          | "zip"
+        us_bank_account?:
+          | {
+              account_holder_type?: ("company" | "individual") | undefined
+              account_number?: string | undefined
+              account_type?: ("checking" | "savings") | undefined
+              financial_connections_account?: string | undefined
+              routing_number?: string | undefined
+            }
+          | undefined
+        wechat_pay?: EmptyObject | undefined
+        zip?: EmptyObject | undefined
+      }
+    | undefined
+  payment_method_options?:
+    | {
+        acss_debit?:
+          | (
+              | {
+                  mandate_options?:
+                    | {
+                        custom_mandate_url?: (string | "") | undefined
+                        interval_description?: string | undefined
+                        payment_schedule?:
+                          | ("combined" | "interval" | "sporadic")
+                          | undefined
+                        transaction_type?: ("business" | "personal") | undefined
+                      }
+                    | undefined
+                  setup_future_usage?:
+                    | ("" | "none" | "off_session" | "on_session")
+                    | undefined
+                  target_date?: string | undefined
+                  verification_method?:
+                    | ("automatic" | "instant" | "microdeposits")
+                    | undefined
+                }
+              | ""
+            )
+          | undefined
+        affirm?:
+          | (
+              | {
+                  capture_method?: ("" | "manual") | undefined
+                  preferred_locale?: string | undefined
+                  setup_future_usage?: "none" | undefined
+                }
+              | ""
+            )
+          | undefined
+        afterpay_clearpay?:
+          | (
+              | {
+                  capture_method?: ("" | "manual") | undefined
+                  reference?: string | undefined
+                  setup_future_usage?: "none" | undefined
+                }
+              | ""
+            )
+          | undefined
+        alipay?:
+          | (
+              | {
+                  setup_future_usage?: ("" | "none" | "off_session") | undefined
+                }
+              | ""
+            )
+          | undefined
+        alma?:
+          | (
+              | {
+                  capture_method?: ("" | "manual") | undefined
+                }
+              | ""
+            )
+          | undefined
+        amazon_pay?:
+          | (
+              | {
+                  capture_method?: ("" | "manual") | undefined
+                  setup_future_usage?: ("" | "none" | "off_session") | undefined
+                }
+              | ""
+            )
+          | undefined
+        au_becs_debit?:
+          | (
+              | {
+                  setup_future_usage?:
+                    | ("" | "none" | "off_session" | "on_session")
+                    | undefined
+                  target_date?: string | undefined
+                }
+              | ""
+            )
+          | undefined
+        bacs_debit?:
+          | (
+              | {
+                  mandate_options?:
+                    | {
+                        reference_prefix?: (string | "") | undefined
+                      }
+                    | undefined
+                  setup_future_usage?:
+                    | ("" | "none" | "off_session" | "on_session")
+                    | undefined
+                  target_date?: string | undefined
+                }
+              | ""
+            )
+          | undefined
+        bancontact?:
+          | (
+              | {
+                  preferred_language?: ("de" | "en" | "fr" | "nl") | undefined
+                  setup_future_usage?: ("" | "none" | "off_session") | undefined
+                }
+              | ""
+            )
+          | undefined
+        billie?:
+          | (
+              | {
+                  capture_method?: ("" | "manual") | undefined
+                }
+              | ""
+            )
+          | undefined
+        blik?:
+          | (
+              | {
+                  code?: string | undefined
+                  setup_future_usage?: ("" | "none") | undefined
+                }
+              | ""
+            )
+          | undefined
+        boleto?:
+          | (
+              | {
+                  expires_after_days?: number | undefined
+                  setup_future_usage?:
+                    | ("" | "none" | "off_session" | "on_session")
+                    | undefined
+                }
+              | ""
+            )
+          | undefined
+        card?:
+          | (
+              | {
+                  capture_method?: ("" | "manual") | undefined
+                  cvc_token?: string | undefined
+                  installments?:
+                    | {
+                        enabled?: boolean | undefined
+                        plan?:
+                          | (
+                              | {
+                                  count?: number | undefined
+                                  interval?: "month" | undefined
+                                  type: "bonus" | "fixed_count" | "revolving"
+                                }
+                              | ""
+                            )
+                          | undefined
+                      }
+                    | undefined
+                  mandate_options?:
+                    | {
+                        amount: number
+                        amount_type: "fixed" | "maximum"
+                        description?: string | undefined
+                        end_date?: number | undefined
+                        interval: "day" | "month" | "sporadic" | "week" | "year"
+                        interval_count?: number | undefined
+                        reference: string
+                        start_date: number
+                        supported_types?: "india"[] | undefined
+                      }
+                    | undefined
+                  network?:
+                    | (
+                        | "amex"
+                        | "cartes_bancaires"
+                        | "diners"
+                        | "discover"
+                        | "eftpos_au"
+                        | "girocard"
+                        | "interac"
+                        | "jcb"
+                        | "link"
+                        | "mastercard"
+                        | "unionpay"
+                        | "unknown"
+                        | "visa"
+                      )
+                    | undefined
+                  request_extended_authorization?:
+                    | ("if_available" | "never")
+                    | undefined
+                  request_incremental_authorization?:
+                    | ("if_available" | "never")
+                    | undefined
+                  request_multicapture?: ("if_available" | "never") | undefined
+                  request_overcapture?: ("if_available" | "never") | undefined
+                  request_three_d_secure?:
+                    | ("any" | "automatic" | "challenge")
+                    | undefined
+                  require_cvc_recollection?: boolean | undefined
+                  setup_future_usage?:
+                    | ("" | "none" | "off_session" | "on_session")
+                    | undefined
+                  statement_descriptor_suffix_kana?: (string | "") | undefined
+                  statement_descriptor_suffix_kanji?: (string | "") | undefined
+                  three_d_secure?:
+                    | {
+                        ares_trans_status?:
+                          | ("A" | "C" | "I" | "N" | "R" | "U" | "Y")
+                          | undefined
+                        cryptogram: string
+                        electronic_commerce_indicator?:
+                          | ("01" | "02" | "05" | "06" | "07")
+                          | undefined
+                        exemption_indicator?: ("low_risk" | "none") | undefined
+                        network_options?:
                           | {
-                              interval: "day" | "month" | "week" | "year"
-                              interval_count?: number | undefined
-                              name?: string | undefined
-                              next_billing?:
+                              cartes_bancaires?:
                                 | {
-                                    amount: number
-                                    date: string
+                                    cb_avalgo: "0" | "1" | "2" | "3" | "4" | "A"
+                                    cb_exemption?: string | undefined
+                                    cb_score?: number | undefined
                                   }
                                 | undefined
-                              reference: string
-                            }[]
-                          | ""
-                        )
-                      | undefined
-                  }
-                | ""
-              )
-            | undefined
-          konbini?:
-            | (
-                | {
-                    confirmation_number?: (string | "") | undefined
-                    expires_after_days?: (number | "") | undefined
-                    expires_at?: (number | "") | undefined
-                    product_description?: (string | "") | undefined
-                    setup_future_usage?: "none" | undefined
-                  }
-                | ""
-              )
-            | undefined
-          kr_card?:
-            | (
-                | {
-                    capture_method?: ("" | "manual") | undefined
-                    setup_future_usage?:
-                      | ("" | "none" | "off_session")
-                      | undefined
-                  }
-                | ""
-              )
-            | undefined
-          link?:
-            | (
-                | {
-                    capture_method?: ("" | "manual") | undefined
-                    setup_future_usage?:
-                      | ("" | "none" | "off_session")
-                      | undefined
-                  }
-                | ""
-              )
-            | undefined
-          mobilepay?:
-            | (
-                | {
-                    capture_method?: ("" | "manual") | undefined
-                    setup_future_usage?: "none" | undefined
-                  }
-                | ""
-              )
-            | undefined
-          multibanco?:
-            | (
-                | {
-                    setup_future_usage?: "none" | undefined
-                  }
-                | ""
-              )
-            | undefined
-          naver_pay?:
-            | (
-                | {
-                    capture_method?: ("" | "manual") | undefined
-                    setup_future_usage?:
-                      | ("" | "none" | "off_session")
-                      | undefined
-                  }
-                | ""
-              )
-            | undefined
-          nz_bank_account?:
-            | (
-                | {
-                    setup_future_usage?:
-                      | ("" | "none" | "off_session" | "on_session")
-                      | undefined
-                    target_date?: string | undefined
-                  }
-                | ""
-              )
-            | undefined
-          oxxo?:
-            | (
-                | {
-                    expires_after_days?: number | undefined
-                    setup_future_usage?: "none" | undefined
-                  }
-                | ""
-              )
-            | undefined
-          p24?:
-            | (
-                | {
-                    setup_future_usage?: "none" | undefined
-                    tos_shown_and_accepted?: boolean | undefined
-                  }
-                | ""
-              )
-            | undefined
-          pay_by_bank?: (EmptyObject | "") | undefined
-          payco?:
-            | (
-                | {
-                    capture_method?: ("" | "manual") | undefined
-                  }
-                | ""
-              )
-            | undefined
-          paynow?:
-            | (
-                | {
-                    setup_future_usage?: "none" | undefined
-                  }
-                | ""
-              )
-            | undefined
-          paypal?:
-            | (
-                | {
-                    capture_method?: ("" | "manual") | undefined
-                    preferred_locale?:
-                      | (
-                          | "cs-CZ"
-                          | "da-DK"
-                          | "de-AT"
-                          | "de-DE"
-                          | "de-LU"
-                          | "el-GR"
-                          | "en-GB"
-                          | "en-US"
-                          | "es-ES"
-                          | "fi-FI"
-                          | "fr-BE"
-                          | "fr-FR"
-                          | "fr-LU"
-                          | "hu-HU"
-                          | "it-IT"
-                          | "nl-BE"
-                          | "nl-NL"
-                          | "pl-PL"
-                          | "pt-PT"
-                          | "sk-SK"
-                          | "sv-SE"
-                        )
-                      | undefined
-                    reference?: string | undefined
-                    risk_correlation_id?: string | undefined
-                    setup_future_usage?:
-                      | ("" | "none" | "off_session")
-                      | undefined
-                  }
-                | ""
-              )
-            | undefined
-          pix?:
-            | (
-                | {
-                    expires_after_seconds?: number | undefined
-                    expires_at?: number | undefined
-                    setup_future_usage?: "none" | undefined
-                  }
-                | ""
-              )
-            | undefined
-          promptpay?:
-            | (
-                | {
-                    setup_future_usage?: "none" | undefined
-                  }
-                | ""
-              )
-            | undefined
-          revolut_pay?:
-            | (
-                | {
-                    capture_method?: ("" | "manual") | undefined
-                    setup_future_usage?:
-                      | ("" | "none" | "off_session")
-                      | undefined
-                  }
-                | ""
-              )
-            | undefined
-          samsung_pay?:
-            | (
-                | {
-                    capture_method?: ("" | "manual") | undefined
-                  }
-                | ""
-              )
-            | undefined
-          satispay?:
-            | (
-                | {
-                    capture_method?: ("" | "manual") | undefined
-                  }
-                | ""
-              )
-            | undefined
-          sepa_debit?:
-            | (
-                | {
-                    mandate_options?:
-                      | {
-                          reference_prefix?: (string | "") | undefined
-                        }
-                      | undefined
-                    setup_future_usage?:
-                      | ("" | "none" | "off_session" | "on_session")
-                      | undefined
-                    target_date?: string | undefined
-                  }
-                | ""
-              )
-            | undefined
-          sofort?:
-            | (
-                | {
-                    preferred_language?:
-                      | ("" | "de" | "en" | "es" | "fr" | "it" | "nl" | "pl")
-                      | undefined
-                    setup_future_usage?:
-                      | ("" | "none" | "off_session")
-                      | undefined
-                  }
-                | ""
-              )
-            | undefined
-          swish?:
-            | (
-                | {
-                    reference?: (string | "") | undefined
-                    setup_future_usage?: "none" | undefined
-                  }
-                | ""
-              )
-            | undefined
-          twint?:
-            | (
-                | {
-                    setup_future_usage?: "none" | undefined
-                  }
-                | ""
-              )
-            | undefined
-          us_bank_account?:
-            | (
-                | {
-                    financial_connections?:
-                      | {
-                          filters?:
-                            | {
-                                account_subcategories?:
-                                  | ("checking" | "savings")[]
-                                  | undefined
-                              }
-                            | undefined
-                          permissions?:
-                            | (
-                                | "balances"
-                                | "ownership"
-                                | "payment_method"
-                                | "transactions"
-                              )[]
-                            | undefined
-                          prefetch?:
-                            | ("balances" | "ownership" | "transactions")[]
-                            | undefined
-                          return_url?: string | undefined
-                        }
-                      | undefined
-                    mandate_options?:
-                      | {
-                          collection_method?: ("" | "paper") | undefined
-                        }
-                      | undefined
-                    networks?:
-                      | {
-                          requested?: ("ach" | "us_domestic_wire")[] | undefined
-                        }
-                      | undefined
-                    preferred_settlement_speed?:
-                      | ("" | "fastest" | "standard")
-                      | undefined
-                    setup_future_usage?:
-                      | ("" | "none" | "off_session" | "on_session")
-                      | undefined
-                    target_date?: string | undefined
-                    verification_method?:
-                      | ("automatic" | "instant" | "microdeposits")
-                      | undefined
-                  }
-                | ""
-              )
-            | undefined
-          wechat_pay?:
-            | (
-                | {
-                    app_id?: string | undefined
-                    client?: ("android" | "ios" | "web") | undefined
-                    setup_future_usage?: "none" | undefined
-                  }
-                | ""
-              )
-            | undefined
-          zip?:
-            | (
-                | {
-                    setup_future_usage?: "none" | undefined
-                  }
-                | ""
-              )
-            | undefined
-        }
-      | undefined
-    payment_method_types?: string[] | undefined
-    receipt_email?: (string | "") | undefined
-    setup_future_usage?: ("" | "off_session" | "on_session") | undefined
-    shipping?:
-      | (
-          | {
-              address: {
-                city?: string | undefined
-                country?: string | undefined
-                line1?: string | undefined
-                line2?: string | undefined
-                postal_code?: string | undefined
-                state?: string | undefined
-              }
-              carrier?: string | undefined
-              name: string
-              phone?: string | undefined
-              tracking_number?: string | undefined
+                            }
+                          | undefined
+                        requestor_challenge_indicator?: string | undefined
+                        transaction_id: string
+                        version: "1.0.2" | "2.1.0" | "2.2.0"
+                      }
+                    | undefined
+                }
+              | ""
+            )
+          | undefined
+        card_present?:
+          | (
+              | {
+                  request_extended_authorization?: boolean | undefined
+                  request_incremental_authorization_support?:
+                    | boolean
+                    | undefined
+                  routing?:
+                    | {
+                        requested_priority?:
+                          | ("domestic" | "international")
+                          | undefined
+                      }
+                    | undefined
+                }
+              | ""
+            )
+          | undefined
+        cashapp?:
+          | (
+              | {
+                  capture_method?: ("" | "manual") | undefined
+                  setup_future_usage?:
+                    | ("" | "none" | "off_session" | "on_session")
+                    | undefined
+                }
+              | ""
+            )
+          | undefined
+        crypto?:
+          | (
+              | {
+                  setup_future_usage?: "none" | undefined
+                }
+              | ""
+            )
+          | undefined
+        customer_balance?:
+          | (
+              | {
+                  bank_transfer?:
+                    | {
+                        eu_bank_transfer?:
+                          | {
+                              country: string
+                            }
+                          | undefined
+                        requested_address_types?:
+                          | (
+                              | "aba"
+                              | "iban"
+                              | "sepa"
+                              | "sort_code"
+                              | "spei"
+                              | "swift"
+                              | "zengin"
+                            )[]
+                          | undefined
+                        type:
+                          | "eu_bank_transfer"
+                          | "gb_bank_transfer"
+                          | "jp_bank_transfer"
+                          | "mx_bank_transfer"
+                          | "us_bank_transfer"
+                      }
+                    | undefined
+                  funding_type?: "bank_transfer" | undefined
+                  setup_future_usage?: "none" | undefined
+                }
+              | ""
+            )
+          | undefined
+        eps?:
+          | (
+              | {
+                  setup_future_usage?: "none" | undefined
+                }
+              | ""
+            )
+          | undefined
+        fpx?:
+          | (
+              | {
+                  setup_future_usage?: "none" | undefined
+                }
+              | ""
+            )
+          | undefined
+        giropay?:
+          | (
+              | {
+                  setup_future_usage?: "none" | undefined
+                }
+              | ""
+            )
+          | undefined
+        grabpay?:
+          | (
+              | {
+                  setup_future_usage?: "none" | undefined
+                }
+              | ""
+            )
+          | undefined
+        ideal?:
+          | (
+              | {
+                  setup_future_usage?: ("" | "none" | "off_session") | undefined
+                }
+              | ""
+            )
+          | undefined
+        interac_present?: (EmptyObject | "") | undefined
+        kakao_pay?:
+          | (
+              | {
+                  capture_method?: ("" | "manual") | undefined
+                  setup_future_usage?: ("" | "none" | "off_session") | undefined
+                }
+              | ""
+            )
+          | undefined
+        klarna?:
+          | (
+              | {
+                  capture_method?: ("" | "manual") | undefined
+                  on_demand?:
+                    | {
+                        average_amount?: number | undefined
+                        maximum_amount?: number | undefined
+                        minimum_amount?: number | undefined
+                        purchase_interval?:
+                          | ("day" | "month" | "week" | "year")
+                          | undefined
+                        purchase_interval_count?: number | undefined
+                      }
+                    | undefined
+                  preferred_locale?:
+                    | (
+                        | "cs-CZ"
+                        | "da-DK"
+                        | "de-AT"
+                        | "de-CH"
+                        | "de-DE"
+                        | "el-GR"
+                        | "en-AT"
+                        | "en-AU"
+                        | "en-BE"
+                        | "en-CA"
+                        | "en-CH"
+                        | "en-CZ"
+                        | "en-DE"
+                        | "en-DK"
+                        | "en-ES"
+                        | "en-FI"
+                        | "en-FR"
+                        | "en-GB"
+                        | "en-GR"
+                        | "en-IE"
+                        | "en-IT"
+                        | "en-NL"
+                        | "en-NO"
+                        | "en-NZ"
+                        | "en-PL"
+                        | "en-PT"
+                        | "en-RO"
+                        | "en-SE"
+                        | "en-US"
+                        | "es-ES"
+                        | "es-US"
+                        | "fi-FI"
+                        | "fr-BE"
+                        | "fr-CA"
+                        | "fr-CH"
+                        | "fr-FR"
+                        | "it-CH"
+                        | "it-IT"
+                        | "nb-NO"
+                        | "nl-BE"
+                        | "nl-NL"
+                        | "pl-PL"
+                        | "pt-PT"
+                        | "ro-RO"
+                        | "sv-FI"
+                        | "sv-SE"
+                      )
+                    | undefined
+                  setup_future_usage?:
+                    | ("none" | "off_session" | "on_session")
+                    | undefined
+                  subscriptions?:
+                    | (
+                        | {
+                            interval: "day" | "month" | "week" | "year"
+                            interval_count?: number | undefined
+                            name?: string | undefined
+                            next_billing?:
+                              | {
+                                  amount: number
+                                  date: string
+                                }
+                              | undefined
+                            reference: string
+                          }[]
+                        | ""
+                      )
+                    | undefined
+                }
+              | ""
+            )
+          | undefined
+        konbini?:
+          | (
+              | {
+                  confirmation_number?: (string | "") | undefined
+                  expires_after_days?: (number | "") | undefined
+                  expires_at?: (number | "") | undefined
+                  product_description?: (string | "") | undefined
+                  setup_future_usage?: "none" | undefined
+                }
+              | ""
+            )
+          | undefined
+        kr_card?:
+          | (
+              | {
+                  capture_method?: ("" | "manual") | undefined
+                  setup_future_usage?: ("" | "none" | "off_session") | undefined
+                }
+              | ""
+            )
+          | undefined
+        link?:
+          | (
+              | {
+                  capture_method?: ("" | "manual") | undefined
+                  setup_future_usage?: ("" | "none" | "off_session") | undefined
+                }
+              | ""
+            )
+          | undefined
+        mobilepay?:
+          | (
+              | {
+                  capture_method?: ("" | "manual") | undefined
+                  setup_future_usage?: "none" | undefined
+                }
+              | ""
+            )
+          | undefined
+        multibanco?:
+          | (
+              | {
+                  setup_future_usage?: "none" | undefined
+                }
+              | ""
+            )
+          | undefined
+        naver_pay?:
+          | (
+              | {
+                  capture_method?: ("" | "manual") | undefined
+                  setup_future_usage?: ("" | "none" | "off_session") | undefined
+                }
+              | ""
+            )
+          | undefined
+        nz_bank_account?:
+          | (
+              | {
+                  setup_future_usage?:
+                    | ("" | "none" | "off_session" | "on_session")
+                    | undefined
+                  target_date?: string | undefined
+                }
+              | ""
+            )
+          | undefined
+        oxxo?:
+          | (
+              | {
+                  expires_after_days?: number | undefined
+                  setup_future_usage?: "none" | undefined
+                }
+              | ""
+            )
+          | undefined
+        p24?:
+          | (
+              | {
+                  setup_future_usage?: "none" | undefined
+                  tos_shown_and_accepted?: boolean | undefined
+                }
+              | ""
+            )
+          | undefined
+        pay_by_bank?: (EmptyObject | "") | undefined
+        payco?:
+          | (
+              | {
+                  capture_method?: ("" | "manual") | undefined
+                }
+              | ""
+            )
+          | undefined
+        paynow?:
+          | (
+              | {
+                  setup_future_usage?: "none" | undefined
+                }
+              | ""
+            )
+          | undefined
+        paypal?:
+          | (
+              | {
+                  capture_method?: ("" | "manual") | undefined
+                  preferred_locale?:
+                    | (
+                        | "cs-CZ"
+                        | "da-DK"
+                        | "de-AT"
+                        | "de-DE"
+                        | "de-LU"
+                        | "el-GR"
+                        | "en-GB"
+                        | "en-US"
+                        | "es-ES"
+                        | "fi-FI"
+                        | "fr-BE"
+                        | "fr-FR"
+                        | "fr-LU"
+                        | "hu-HU"
+                        | "it-IT"
+                        | "nl-BE"
+                        | "nl-NL"
+                        | "pl-PL"
+                        | "pt-PT"
+                        | "sk-SK"
+                        | "sv-SE"
+                      )
+                    | undefined
+                  reference?: string | undefined
+                  risk_correlation_id?: string | undefined
+                  setup_future_usage?: ("" | "none" | "off_session") | undefined
+                }
+              | ""
+            )
+          | undefined
+        pix?:
+          | (
+              | {
+                  expires_after_seconds?: number | undefined
+                  expires_at?: number | undefined
+                  setup_future_usage?: "none" | undefined
+                }
+              | ""
+            )
+          | undefined
+        promptpay?:
+          | (
+              | {
+                  setup_future_usage?: "none" | undefined
+                }
+              | ""
+            )
+          | undefined
+        revolut_pay?:
+          | (
+              | {
+                  capture_method?: ("" | "manual") | undefined
+                  setup_future_usage?: ("" | "none" | "off_session") | undefined
+                }
+              | ""
+            )
+          | undefined
+        samsung_pay?:
+          | (
+              | {
+                  capture_method?: ("" | "manual") | undefined
+                }
+              | ""
+            )
+          | undefined
+        satispay?:
+          | (
+              | {
+                  capture_method?: ("" | "manual") | undefined
+                }
+              | ""
+            )
+          | undefined
+        sepa_debit?:
+          | (
+              | {
+                  mandate_options?:
+                    | {
+                        reference_prefix?: (string | "") | undefined
+                      }
+                    | undefined
+                  setup_future_usage?:
+                    | ("" | "none" | "off_session" | "on_session")
+                    | undefined
+                  target_date?: string | undefined
+                }
+              | ""
+            )
+          | undefined
+        sofort?:
+          | (
+              | {
+                  preferred_language?:
+                    | ("" | "de" | "en" | "es" | "fr" | "it" | "nl" | "pl")
+                    | undefined
+                  setup_future_usage?: ("" | "none" | "off_session") | undefined
+                }
+              | ""
+            )
+          | undefined
+        swish?:
+          | (
+              | {
+                  reference?: (string | "") | undefined
+                  setup_future_usage?: "none" | undefined
+                }
+              | ""
+            )
+          | undefined
+        twint?:
+          | (
+              | {
+                  setup_future_usage?: "none" | undefined
+                }
+              | ""
+            )
+          | undefined
+        us_bank_account?:
+          | (
+              | {
+                  financial_connections?:
+                    | {
+                        filters?:
+                          | {
+                              account_subcategories?:
+                                | ("checking" | "savings")[]
+                                | undefined
+                            }
+                          | undefined
+                        permissions?:
+                          | (
+                              | "balances"
+                              | "ownership"
+                              | "payment_method"
+                              | "transactions"
+                            )[]
+                          | undefined
+                        prefetch?:
+                          | ("balances" | "ownership" | "transactions")[]
+                          | undefined
+                        return_url?: string | undefined
+                      }
+                    | undefined
+                  mandate_options?:
+                    | {
+                        collection_method?: ("" | "paper") | undefined
+                      }
+                    | undefined
+                  networks?:
+                    | {
+                        requested?: ("ach" | "us_domestic_wire")[] | undefined
+                      }
+                    | undefined
+                  preferred_settlement_speed?:
+                    | ("" | "fastest" | "standard")
+                    | undefined
+                  setup_future_usage?:
+                    | ("" | "none" | "off_session" | "on_session")
+                    | undefined
+                  target_date?: string | undefined
+                  verification_method?:
+                    | ("automatic" | "instant" | "microdeposits")
+                    | undefined
+                }
+              | ""
+            )
+          | undefined
+        wechat_pay?:
+          | (
+              | {
+                  app_id?: string | undefined
+                  client?: ("android" | "ios" | "web") | undefined
+                  setup_future_usage?: "none" | undefined
+                }
+              | ""
+            )
+          | undefined
+        zip?:
+          | (
+              | {
+                  setup_future_usage?: "none" | undefined
+                }
+              | ""
+            )
+          | undefined
+      }
+    | undefined
+  payment_method_types?: string[] | undefined
+  receipt_email?: (string | "") | undefined
+  setup_future_usage?: ("" | "off_session" | "on_session") | undefined
+  shipping?:
+    | (
+        | {
+            address: {
+              city?: string | undefined
+              country?: string | undefined
+              line1?: string | undefined
+              line2?: string | undefined
+              postal_code?: string | undefined
+              state?: string | undefined
             }
-          | ""
-        )
-      | undefined
-    statement_descriptor?: string | undefined
-    statement_descriptor_suffix?: string | undefined
-    transfer_data?:
-      | {
-          amount?: number | undefined
-        }
-      | undefined
-    transfer_group?: string | undefined
-  }
+            carrier?: string | undefined
+            name: string
+            phone?: string | undefined
+            tracking_number?: string | undefined
+          }
+        | ""
+      )
+    | undefined
+  statement_descriptor?: string | undefined
+  statement_descriptor_suffix?: string | undefined
+  transfer_data?:
+    | {
+        amount?: number | undefined
+      }
+    | undefined
+  transfer_group?: string | undefined
+}
 
 export type t_PostPaymentIntentsIntentApplyCustomerBalanceParamSchema = {
   intent: string
 }
 
-export type t_postPaymentIntentsIntentApplyCustomerBalanceApplicationXWwwFormUrlencodedRequestBody =
-  {
-    amount?: number | undefined
-    currency?: string | undefined
-    expand?: string[] | undefined
-  }
+export type t_PostPaymentIntentsIntentApplyCustomerBalanceRequestBody = {
+  amount?: number | undefined
+  currency?: string | undefined
+  expand?: string[] | undefined
+}
 
 export type t_PostPaymentIntentsIntentCancelParamSchema = {
   intent: string
 }
 
-export type t_postPaymentIntentsIntentCancelApplicationXWwwFormUrlencodedRequestBody =
-  {
-    cancellation_reason?:
-      | ("abandoned" | "duplicate" | "fraudulent" | "requested_by_customer")
-      | undefined
-    expand?: string[] | undefined
-  }
+export type t_PostPaymentIntentsIntentCancelRequestBody = {
+  cancellation_reason?:
+    | ("abandoned" | "duplicate" | "fraudulent" | "requested_by_customer")
+    | undefined
+  expand?: string[] | undefined
+}
 
 export type t_PostPaymentIntentsIntentCaptureParamSchema = {
   intent: string
 }
 
-export type t_postPaymentIntentsIntentCaptureApplicationXWwwFormUrlencodedRequestBody =
-  {
-    amount_to_capture?: number | undefined
-    application_fee_amount?: number | undefined
-    expand?: string[] | undefined
-    final_capture?: boolean | undefined
-    metadata?:
-      | (
-          | {
-              [key: string]: string | undefined
-            }
-          | ""
-        )
-      | undefined
-    statement_descriptor?: string | undefined
-    statement_descriptor_suffix?: string | undefined
-    transfer_data?:
-      | {
-          amount?: number | undefined
-        }
-      | undefined
-  }
+export type t_PostPaymentIntentsIntentCaptureRequestBody = {
+  amount_to_capture?: number | undefined
+  application_fee_amount?: number | undefined
+  expand?: string[] | undefined
+  final_capture?: boolean | undefined
+  metadata?:
+    | (
+        | {
+            [key: string]: string | undefined
+          }
+        | ""
+      )
+    | undefined
+  statement_descriptor?: string | undefined
+  statement_descriptor_suffix?: string | undefined
+  transfer_data?:
+    | {
+        amount?: number | undefined
+      }
+    | undefined
+}
 
 export type t_PostPaymentIntentsIntentConfirmParamSchema = {
   intent: string
 }
 
-export type t_postPaymentIntentsIntentConfirmApplicationXWwwFormUrlencodedRequestBody =
-  {
-    capture_method?: ("automatic" | "automatic_async" | "manual") | undefined
-    client_secret?: string | undefined
-    confirmation_token?: string | undefined
-    error_on_requires_action?: boolean | undefined
-    expand?: string[] | undefined
-    mandate?: string | undefined
-    mandate_data?:
-      | (
-          | {
-              customer_acceptance: {
-                accepted_at?: number | undefined
-                offline?: EmptyObject | undefined
-                online?:
-                  | {
-                      ip_address: string
-                      user_agent: string
-                    }
-                  | undefined
-                type: "offline" | "online"
-              }
+export type t_PostPaymentIntentsIntentConfirmRequestBody = {
+  capture_method?: ("automatic" | "automatic_async" | "manual") | undefined
+  client_secret?: string | undefined
+  confirmation_token?: string | undefined
+  error_on_requires_action?: boolean | undefined
+  expand?: string[] | undefined
+  mandate?: string | undefined
+  mandate_data?:
+    | (
+        | {
+            customer_acceptance: {
+              accepted_at?: number | undefined
+              offline?: EmptyObject | undefined
+              online?:
+                | {
+                    ip_address: string
+                    user_agent: string
+                  }
+                | undefined
+              type: "offline" | "online"
             }
-          | ""
+          }
+        | ""
+        | {
+            customer_acceptance: {
+              online: {
+                ip_address?: string | undefined
+                user_agent?: string | undefined
+              }
+              type: "online"
+            }
+          }
+      )
+    | undefined
+  off_session?: (boolean | "one_off" | "recurring") | undefined
+  payment_method?: string | undefined
+  payment_method_data?:
+    | {
+        acss_debit?:
           | {
-              customer_acceptance: {
-                online: {
-                  ip_address?: string | undefined
-                  user_agent?: string | undefined
+              account_number: string
+              institution_number: string
+              transit_number: string
+            }
+          | undefined
+        affirm?: EmptyObject | undefined
+        afterpay_clearpay?: EmptyObject | undefined
+        alipay?: EmptyObject | undefined
+        allow_redisplay?: ("always" | "limited" | "unspecified") | undefined
+        alma?: EmptyObject | undefined
+        amazon_pay?: EmptyObject | undefined
+        au_becs_debit?:
+          | {
+              account_number: string
+              bsb_number: string
+            }
+          | undefined
+        bacs_debit?:
+          | {
+              account_number?: string | undefined
+              sort_code?: string | undefined
+            }
+          | undefined
+        bancontact?: EmptyObject | undefined
+        billie?: EmptyObject | undefined
+        billing_details?:
+          | {
+              address?:
+                | (
+                    | {
+                        city?: string | undefined
+                        country?: string | undefined
+                        line1?: string | undefined
+                        line2?: string | undefined
+                        postal_code?: string | undefined
+                        state?: string | undefined
+                      }
+                    | ""
+                  )
+                | undefined
+              email?: (string | "") | undefined
+              name?: (string | "") | undefined
+              phone?: (string | "") | undefined
+              tax_id?: string | undefined
+            }
+          | undefined
+        blik?: EmptyObject | undefined
+        boleto?:
+          | {
+              tax_id: string
+            }
+          | undefined
+        cashapp?: EmptyObject | undefined
+        crypto?: EmptyObject | undefined
+        customer_balance?: EmptyObject | undefined
+        eps?:
+          | {
+              bank?:
+                | (
+                    | "arzte_und_apotheker_bank"
+                    | "austrian_anadi_bank_ag"
+                    | "bank_austria"
+                    | "bankhaus_carl_spangler"
+                    | "bankhaus_schelhammer_und_schattera_ag"
+                    | "bawag_psk_ag"
+                    | "bks_bank_ag"
+                    | "brull_kallmus_bank_ag"
+                    | "btv_vier_lander_bank"
+                    | "capital_bank_grawe_gruppe_ag"
+                    | "deutsche_bank_ag"
+                    | "dolomitenbank"
+                    | "easybank_ag"
+                    | "erste_bank_und_sparkassen"
+                    | "hypo_alpeadriabank_international_ag"
+                    | "hypo_bank_burgenland_aktiengesellschaft"
+                    | "hypo_noe_lb_fur_niederosterreich_u_wien"
+                    | "hypo_oberosterreich_salzburg_steiermark"
+                    | "hypo_tirol_bank_ag"
+                    | "hypo_vorarlberg_bank_ag"
+                    | "marchfelder_bank"
+                    | "oberbank_ag"
+                    | "raiffeisen_bankengruppe_osterreich"
+                    | "schoellerbank_ag"
+                    | "sparda_bank_wien"
+                    | "volksbank_gruppe"
+                    | "volkskreditbank_ag"
+                    | "vr_bank_braunau"
+                  )
+                | undefined
+            }
+          | undefined
+        fpx?:
+          | {
+              bank:
+                | "affin_bank"
+                | "agrobank"
+                | "alliance_bank"
+                | "ambank"
+                | "bank_islam"
+                | "bank_muamalat"
+                | "bank_of_china"
+                | "bank_rakyat"
+                | "bsn"
+                | "cimb"
+                | "deutsche_bank"
+                | "hong_leong_bank"
+                | "hsbc"
+                | "kfh"
+                | "maybank2e"
+                | "maybank2u"
+                | "ocbc"
+                | "pb_enterprise"
+                | "public_bank"
+                | "rhb"
+                | "standard_chartered"
+                | "uob"
+            }
+          | undefined
+        giropay?: EmptyObject | undefined
+        grabpay?: EmptyObject | undefined
+        ideal?:
+          | {
+              bank?:
+                | (
+                    | "abn_amro"
+                    | "asn_bank"
+                    | "bunq"
+                    | "buut"
+                    | "handelsbanken"
+                    | "ing"
+                    | "knab"
+                    | "moneyou"
+                    | "n26"
+                    | "nn"
+                    | "rabobank"
+                    | "regiobank"
+                    | "revolut"
+                    | "sns_bank"
+                    | "triodos_bank"
+                    | "van_lanschot"
+                    | "yoursafe"
+                  )
+                | undefined
+            }
+          | undefined
+        interac_present?: EmptyObject | undefined
+        kakao_pay?: EmptyObject | undefined
+        klarna?:
+          | {
+              dob?:
+                | {
+                    day: number
+                    month: number
+                    year: number
+                  }
+                | undefined
+            }
+          | undefined
+        konbini?: EmptyObject | undefined
+        kr_card?: EmptyObject | undefined
+        link?: EmptyObject | undefined
+        metadata?:
+          | {
+              [key: string]: string | undefined
+            }
+          | undefined
+        mobilepay?: EmptyObject | undefined
+        multibanco?: EmptyObject | undefined
+        naver_pay?:
+          | {
+              funding?: ("card" | "points") | undefined
+            }
+          | undefined
+        nz_bank_account?:
+          | {
+              account_holder_name?: string | undefined
+              account_number: string
+              bank_code: string
+              branch_code: string
+              reference?: string | undefined
+              suffix: string
+            }
+          | undefined
+        oxxo?: EmptyObject | undefined
+        p24?:
+          | {
+              bank?:
+                | (
+                    | "alior_bank"
+                    | "bank_millennium"
+                    | "bank_nowy_bfg_sa"
+                    | "bank_pekao_sa"
+                    | "banki_spbdzielcze"
+                    | "blik"
+                    | "bnp_paribas"
+                    | "boz"
+                    | "citi_handlowy"
+                    | "credit_agricole"
+                    | "envelobank"
+                    | "etransfer_pocztowy24"
+                    | "getin_bank"
+                    | "ideabank"
+                    | "ing"
+                    | "inteligo"
+                    | "mbank_mtransfer"
+                    | "nest_przelew"
+                    | "noble_pay"
+                    | "pbac_z_ipko"
+                    | "plus_bank"
+                    | "santander_przelew24"
+                    | "tmobile_usbugi_bankowe"
+                    | "toyota_bank"
+                    | "velobank"
+                    | "volkswagen_bank"
+                  )
+                | undefined
+            }
+          | undefined
+        pay_by_bank?: EmptyObject | undefined
+        payco?: EmptyObject | undefined
+        paynow?: EmptyObject | undefined
+        paypal?: EmptyObject | undefined
+        pix?: EmptyObject | undefined
+        promptpay?: EmptyObject | undefined
+        radar_options?:
+          | {
+              session?: string | undefined
+            }
+          | undefined
+        revolut_pay?: EmptyObject | undefined
+        samsung_pay?: EmptyObject | undefined
+        satispay?: EmptyObject | undefined
+        sepa_debit?:
+          | {
+              iban: string
+            }
+          | undefined
+        sofort?:
+          | {
+              country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL"
+            }
+          | undefined
+        swish?: EmptyObject | undefined
+        twint?: EmptyObject | undefined
+        type:
+          | "acss_debit"
+          | "affirm"
+          | "afterpay_clearpay"
+          | "alipay"
+          | "alma"
+          | "amazon_pay"
+          | "au_becs_debit"
+          | "bacs_debit"
+          | "bancontact"
+          | "billie"
+          | "blik"
+          | "boleto"
+          | "cashapp"
+          | "crypto"
+          | "customer_balance"
+          | "eps"
+          | "fpx"
+          | "giropay"
+          | "grabpay"
+          | "ideal"
+          | "kakao_pay"
+          | "klarna"
+          | "konbini"
+          | "kr_card"
+          | "link"
+          | "mobilepay"
+          | "multibanco"
+          | "naver_pay"
+          | "nz_bank_account"
+          | "oxxo"
+          | "p24"
+          | "pay_by_bank"
+          | "payco"
+          | "paynow"
+          | "paypal"
+          | "pix"
+          | "promptpay"
+          | "revolut_pay"
+          | "samsung_pay"
+          | "satispay"
+          | "sepa_debit"
+          | "sofort"
+          | "swish"
+          | "twint"
+          | "us_bank_account"
+          | "wechat_pay"
+          | "zip"
+        us_bank_account?:
+          | {
+              account_holder_type?: ("company" | "individual") | undefined
+              account_number?: string | undefined
+              account_type?: ("checking" | "savings") | undefined
+              financial_connections_account?: string | undefined
+              routing_number?: string | undefined
+            }
+          | undefined
+        wechat_pay?: EmptyObject | undefined
+        zip?: EmptyObject | undefined
+      }
+    | undefined
+  payment_method_options?:
+    | {
+        acss_debit?:
+          | (
+              | {
+                  mandate_options?:
+                    | {
+                        custom_mandate_url?: (string | "") | undefined
+                        interval_description?: string | undefined
+                        payment_schedule?:
+                          | ("combined" | "interval" | "sporadic")
+                          | undefined
+                        transaction_type?: ("business" | "personal") | undefined
+                      }
+                    | undefined
+                  setup_future_usage?:
+                    | ("" | "none" | "off_session" | "on_session")
+                    | undefined
+                  target_date?: string | undefined
+                  verification_method?:
+                    | ("automatic" | "instant" | "microdeposits")
+                    | undefined
                 }
-                type: "online"
-              }
-            }
-        )
-      | undefined
-    off_session?: (boolean | "one_off" | "recurring") | undefined
-    payment_method?: string | undefined
-    payment_method_data?:
-      | {
-          acss_debit?:
-            | {
-                account_number: string
-                institution_number: string
-                transit_number: string
-              }
-            | undefined
-          affirm?: EmptyObject | undefined
-          afterpay_clearpay?: EmptyObject | undefined
-          alipay?: EmptyObject | undefined
-          allow_redisplay?: ("always" | "limited" | "unspecified") | undefined
-          alma?: EmptyObject | undefined
-          amazon_pay?: EmptyObject | undefined
-          au_becs_debit?:
-            | {
-                account_number: string
-                bsb_number: string
-              }
-            | undefined
-          bacs_debit?:
-            | {
-                account_number?: string | undefined
-                sort_code?: string | undefined
-              }
-            | undefined
-          bancontact?: EmptyObject | undefined
-          billie?: EmptyObject | undefined
-          billing_details?:
-            | {
-                address?:
-                  | (
-                      | {
-                          city?: string | undefined
-                          country?: string | undefined
-                          line1?: string | undefined
-                          line2?: string | undefined
-                          postal_code?: string | undefined
-                          state?: string | undefined
-                        }
-                      | ""
-                    )
-                  | undefined
-                email?: (string | "") | undefined
-                name?: (string | "") | undefined
-                phone?: (string | "") | undefined
-                tax_id?: string | undefined
-              }
-            | undefined
-          blik?: EmptyObject | undefined
-          boleto?:
-            | {
-                tax_id: string
-              }
-            | undefined
-          cashapp?: EmptyObject | undefined
-          crypto?: EmptyObject | undefined
-          customer_balance?: EmptyObject | undefined
-          eps?:
-            | {
-                bank?:
-                  | (
-                      | "arzte_und_apotheker_bank"
-                      | "austrian_anadi_bank_ag"
-                      | "bank_austria"
-                      | "bankhaus_carl_spangler"
-                      | "bankhaus_schelhammer_und_schattera_ag"
-                      | "bawag_psk_ag"
-                      | "bks_bank_ag"
-                      | "brull_kallmus_bank_ag"
-                      | "btv_vier_lander_bank"
-                      | "capital_bank_grawe_gruppe_ag"
-                      | "deutsche_bank_ag"
-                      | "dolomitenbank"
-                      | "easybank_ag"
-                      | "erste_bank_und_sparkassen"
-                      | "hypo_alpeadriabank_international_ag"
-                      | "hypo_bank_burgenland_aktiengesellschaft"
-                      | "hypo_noe_lb_fur_niederosterreich_u_wien"
-                      | "hypo_oberosterreich_salzburg_steiermark"
-                      | "hypo_tirol_bank_ag"
-                      | "hypo_vorarlberg_bank_ag"
-                      | "marchfelder_bank"
-                      | "oberbank_ag"
-                      | "raiffeisen_bankengruppe_osterreich"
-                      | "schoellerbank_ag"
-                      | "sparda_bank_wien"
-                      | "volksbank_gruppe"
-                      | "volkskreditbank_ag"
-                      | "vr_bank_braunau"
-                    )
-                  | undefined
-              }
-            | undefined
-          fpx?:
-            | {
-                bank:
-                  | "affin_bank"
-                  | "agrobank"
-                  | "alliance_bank"
-                  | "ambank"
-                  | "bank_islam"
-                  | "bank_muamalat"
-                  | "bank_of_china"
-                  | "bank_rakyat"
-                  | "bsn"
-                  | "cimb"
-                  | "deutsche_bank"
-                  | "hong_leong_bank"
-                  | "hsbc"
-                  | "kfh"
-                  | "maybank2e"
-                  | "maybank2u"
-                  | "ocbc"
-                  | "pb_enterprise"
-                  | "public_bank"
-                  | "rhb"
-                  | "standard_chartered"
-                  | "uob"
-              }
-            | undefined
-          giropay?: EmptyObject | undefined
-          grabpay?: EmptyObject | undefined
-          ideal?:
-            | {
-                bank?:
-                  | (
-                      | "abn_amro"
-                      | "asn_bank"
-                      | "bunq"
-                      | "buut"
-                      | "handelsbanken"
-                      | "ing"
-                      | "knab"
-                      | "moneyou"
-                      | "n26"
-                      | "nn"
-                      | "rabobank"
-                      | "regiobank"
-                      | "revolut"
-                      | "sns_bank"
-                      | "triodos_bank"
-                      | "van_lanschot"
-                      | "yoursafe"
-                    )
-                  | undefined
-              }
-            | undefined
-          interac_present?: EmptyObject | undefined
-          kakao_pay?: EmptyObject | undefined
-          klarna?:
-            | {
-                dob?:
-                  | {
-                      day: number
-                      month: number
-                      year: number
-                    }
-                  | undefined
-              }
-            | undefined
-          konbini?: EmptyObject | undefined
-          kr_card?: EmptyObject | undefined
-          link?: EmptyObject | undefined
-          metadata?:
-            | {
-                [key: string]: string | undefined
-              }
-            | undefined
-          mobilepay?: EmptyObject | undefined
-          multibanco?: EmptyObject | undefined
-          naver_pay?:
-            | {
-                funding?: ("card" | "points") | undefined
-              }
-            | undefined
-          nz_bank_account?:
-            | {
-                account_holder_name?: string | undefined
-                account_number: string
-                bank_code: string
-                branch_code: string
-                reference?: string | undefined
-                suffix: string
-              }
-            | undefined
-          oxxo?: EmptyObject | undefined
-          p24?:
-            | {
-                bank?:
-                  | (
-                      | "alior_bank"
-                      | "bank_millennium"
-                      | "bank_nowy_bfg_sa"
-                      | "bank_pekao_sa"
-                      | "banki_spbdzielcze"
-                      | "blik"
-                      | "bnp_paribas"
-                      | "boz"
-                      | "citi_handlowy"
-                      | "credit_agricole"
-                      | "envelobank"
-                      | "etransfer_pocztowy24"
-                      | "getin_bank"
-                      | "ideabank"
-                      | "ing"
-                      | "inteligo"
-                      | "mbank_mtransfer"
-                      | "nest_przelew"
-                      | "noble_pay"
-                      | "pbac_z_ipko"
-                      | "plus_bank"
-                      | "santander_przelew24"
-                      | "tmobile_usbugi_bankowe"
-                      | "toyota_bank"
-                      | "velobank"
-                      | "volkswagen_bank"
-                    )
-                  | undefined
-              }
-            | undefined
-          pay_by_bank?: EmptyObject | undefined
-          payco?: EmptyObject | undefined
-          paynow?: EmptyObject | undefined
-          paypal?: EmptyObject | undefined
-          pix?: EmptyObject | undefined
-          promptpay?: EmptyObject | undefined
-          radar_options?:
-            | {
-                session?: string | undefined
-              }
-            | undefined
-          revolut_pay?: EmptyObject | undefined
-          samsung_pay?: EmptyObject | undefined
-          satispay?: EmptyObject | undefined
-          sepa_debit?:
-            | {
-                iban: string
-              }
-            | undefined
-          sofort?:
-            | {
-                country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL"
-              }
-            | undefined
-          swish?: EmptyObject | undefined
-          twint?: EmptyObject | undefined
-          type:
-            | "acss_debit"
-            | "affirm"
-            | "afterpay_clearpay"
-            | "alipay"
-            | "alma"
-            | "amazon_pay"
-            | "au_becs_debit"
-            | "bacs_debit"
-            | "bancontact"
-            | "billie"
-            | "blik"
-            | "boleto"
-            | "cashapp"
-            | "crypto"
-            | "customer_balance"
-            | "eps"
-            | "fpx"
-            | "giropay"
-            | "grabpay"
-            | "ideal"
-            | "kakao_pay"
-            | "klarna"
-            | "konbini"
-            | "kr_card"
-            | "link"
-            | "mobilepay"
-            | "multibanco"
-            | "naver_pay"
-            | "nz_bank_account"
-            | "oxxo"
-            | "p24"
-            | "pay_by_bank"
-            | "payco"
-            | "paynow"
-            | "paypal"
-            | "pix"
-            | "promptpay"
-            | "revolut_pay"
-            | "samsung_pay"
-            | "satispay"
-            | "sepa_debit"
-            | "sofort"
-            | "swish"
-            | "twint"
-            | "us_bank_account"
-            | "wechat_pay"
-            | "zip"
-          us_bank_account?:
-            | {
-                account_holder_type?: ("company" | "individual") | undefined
-                account_number?: string | undefined
-                account_type?: ("checking" | "savings") | undefined
-                financial_connections_account?: string | undefined
-                routing_number?: string | undefined
-              }
-            | undefined
-          wechat_pay?: EmptyObject | undefined
-          zip?: EmptyObject | undefined
-        }
-      | undefined
-    payment_method_options?:
-      | {
-          acss_debit?:
-            | (
-                | {
-                    mandate_options?:
-                      | {
-                          custom_mandate_url?: (string | "") | undefined
-                          interval_description?: string | undefined
-                          payment_schedule?:
-                            | ("combined" | "interval" | "sporadic")
-                            | undefined
-                          transaction_type?:
-                            | ("business" | "personal")
-                            | undefined
-                        }
-                      | undefined
-                    setup_future_usage?:
-                      | ("" | "none" | "off_session" | "on_session")
-                      | undefined
-                    target_date?: string | undefined
-                    verification_method?:
-                      | ("automatic" | "instant" | "microdeposits")
-                      | undefined
-                  }
-                | ""
-              )
-            | undefined
-          affirm?:
-            | (
-                | {
-                    capture_method?: ("" | "manual") | undefined
-                    preferred_locale?: string | undefined
-                    setup_future_usage?: "none" | undefined
-                  }
-                | ""
-              )
-            | undefined
-          afterpay_clearpay?:
-            | (
-                | {
-                    capture_method?: ("" | "manual") | undefined
-                    reference?: string | undefined
-                    setup_future_usage?: "none" | undefined
-                  }
-                | ""
-              )
-            | undefined
-          alipay?:
-            | (
-                | {
-                    setup_future_usage?:
-                      | ("" | "none" | "off_session")
-                      | undefined
-                  }
-                | ""
-              )
-            | undefined
-          alma?:
-            | (
-                | {
-                    capture_method?: ("" | "manual") | undefined
-                  }
-                | ""
-              )
-            | undefined
-          amazon_pay?:
-            | (
-                | {
-                    capture_method?: ("" | "manual") | undefined
-                    setup_future_usage?:
-                      | ("" | "none" | "off_session")
-                      | undefined
-                  }
-                | ""
-              )
-            | undefined
-          au_becs_debit?:
-            | (
-                | {
-                    setup_future_usage?:
-                      | ("" | "none" | "off_session" | "on_session")
-                      | undefined
-                    target_date?: string | undefined
-                  }
-                | ""
-              )
-            | undefined
-          bacs_debit?:
-            | (
-                | {
-                    mandate_options?:
-                      | {
-                          reference_prefix?: (string | "") | undefined
-                        }
-                      | undefined
-                    setup_future_usage?:
-                      | ("" | "none" | "off_session" | "on_session")
-                      | undefined
-                    target_date?: string | undefined
-                  }
-                | ""
-              )
-            | undefined
-          bancontact?:
-            | (
-                | {
-                    preferred_language?: ("de" | "en" | "fr" | "nl") | undefined
-                    setup_future_usage?:
-                      | ("" | "none" | "off_session")
-                      | undefined
-                  }
-                | ""
-              )
-            | undefined
-          billie?:
-            | (
-                | {
-                    capture_method?: ("" | "manual") | undefined
-                  }
-                | ""
-              )
-            | undefined
-          blik?:
-            | (
-                | {
-                    code?: string | undefined
-                    setup_future_usage?: ("" | "none") | undefined
-                  }
-                | ""
-              )
-            | undefined
-          boleto?:
-            | (
-                | {
-                    expires_after_days?: number | undefined
-                    setup_future_usage?:
-                      | ("" | "none" | "off_session" | "on_session")
-                      | undefined
-                  }
-                | ""
-              )
-            | undefined
-          card?:
-            | (
-                | {
-                    capture_method?: ("" | "manual") | undefined
-                    cvc_token?: string | undefined
-                    installments?:
-                      | {
-                          enabled?: boolean | undefined
-                          plan?:
-                            | (
-                                | {
-                                    count?: number | undefined
-                                    interval?: "month" | undefined
-                                    type: "bonus" | "fixed_count" | "revolving"
-                                  }
-                                | ""
-                              )
-                            | undefined
-                        }
-                      | undefined
-                    mandate_options?:
-                      | {
-                          amount: number
-                          amount_type: "fixed" | "maximum"
-                          description?: string | undefined
-                          end_date?: number | undefined
-                          interval:
-                            | "day"
-                            | "month"
-                            | "sporadic"
-                            | "week"
-                            | "year"
-                          interval_count?: number | undefined
-                          reference: string
-                          start_date: number
-                          supported_types?: "india"[] | undefined
-                        }
-                      | undefined
-                    network?:
-                      | (
-                          | "amex"
-                          | "cartes_bancaires"
-                          | "diners"
-                          | "discover"
-                          | "eftpos_au"
-                          | "girocard"
-                          | "interac"
-                          | "jcb"
-                          | "link"
-                          | "mastercard"
-                          | "unionpay"
-                          | "unknown"
-                          | "visa"
-                        )
-                      | undefined
-                    request_extended_authorization?:
-                      | ("if_available" | "never")
-                      | undefined
-                    request_incremental_authorization?:
-                      | ("if_available" | "never")
-                      | undefined
-                    request_multicapture?:
-                      | ("if_available" | "never")
-                      | undefined
-                    request_overcapture?: ("if_available" | "never") | undefined
-                    request_three_d_secure?:
-                      | ("any" | "automatic" | "challenge")
-                      | undefined
-                    require_cvc_recollection?: boolean | undefined
-                    setup_future_usage?:
-                      | ("" | "none" | "off_session" | "on_session")
-                      | undefined
-                    statement_descriptor_suffix_kana?: (string | "") | undefined
-                    statement_descriptor_suffix_kanji?:
-                      | (string | "")
-                      | undefined
-                    three_d_secure?:
-                      | {
-                          ares_trans_status?:
-                            | ("A" | "C" | "I" | "N" | "R" | "U" | "Y")
-                            | undefined
-                          cryptogram: string
-                          electronic_commerce_indicator?:
-                            | ("01" | "02" | "05" | "06" | "07")
-                            | undefined
-                          exemption_indicator?:
-                            | ("low_risk" | "none")
-                            | undefined
-                          network_options?:
-                            | {
-                                cartes_bancaires?:
-                                  | {
-                                      cb_avalgo:
-                                        | "0"
-                                        | "1"
-                                        | "2"
-                                        | "3"
-                                        | "4"
-                                        | "A"
-                                      cb_exemption?: string | undefined
-                                      cb_score?: number | undefined
-                                    }
-                                  | undefined
-                              }
-                            | undefined
-                          requestor_challenge_indicator?: string | undefined
-                          transaction_id: string
-                          version: "1.0.2" | "2.1.0" | "2.2.0"
-                        }
-                      | undefined
-                  }
-                | ""
-              )
-            | undefined
-          card_present?:
-            | (
-                | {
-                    request_extended_authorization?: boolean | undefined
-                    request_incremental_authorization_support?:
-                      | boolean
-                      | undefined
-                    routing?:
-                      | {
-                          requested_priority?:
-                            | ("domestic" | "international")
-                            | undefined
-                        }
-                      | undefined
-                  }
-                | ""
-              )
-            | undefined
-          cashapp?:
-            | (
-                | {
-                    capture_method?: ("" | "manual") | undefined
-                    setup_future_usage?:
-                      | ("" | "none" | "off_session" | "on_session")
-                      | undefined
-                  }
-                | ""
-              )
-            | undefined
-          crypto?:
-            | (
-                | {
-                    setup_future_usage?: "none" | undefined
-                  }
-                | ""
-              )
-            | undefined
-          customer_balance?:
-            | (
-                | {
-                    bank_transfer?:
-                      | {
-                          eu_bank_transfer?:
-                            | {
-                                country: string
-                              }
-                            | undefined
-                          requested_address_types?:
-                            | (
-                                | "aba"
-                                | "iban"
-                                | "sepa"
-                                | "sort_code"
-                                | "spei"
-                                | "swift"
-                                | "zengin"
-                              )[]
-                            | undefined
-                          type:
-                            | "eu_bank_transfer"
-                            | "gb_bank_transfer"
-                            | "jp_bank_transfer"
-                            | "mx_bank_transfer"
-                            | "us_bank_transfer"
-                        }
-                      | undefined
-                    funding_type?: "bank_transfer" | undefined
-                    setup_future_usage?: "none" | undefined
-                  }
-                | ""
-              )
-            | undefined
-          eps?:
-            | (
-                | {
-                    setup_future_usage?: "none" | undefined
-                  }
-                | ""
-              )
-            | undefined
-          fpx?:
-            | (
-                | {
-                    setup_future_usage?: "none" | undefined
-                  }
-                | ""
-              )
-            | undefined
-          giropay?:
-            | (
-                | {
-                    setup_future_usage?: "none" | undefined
-                  }
-                | ""
-              )
-            | undefined
-          grabpay?:
-            | (
-                | {
-                    setup_future_usage?: "none" | undefined
-                  }
-                | ""
-              )
-            | undefined
-          ideal?:
-            | (
-                | {
-                    setup_future_usage?:
-                      | ("" | "none" | "off_session")
-                      | undefined
-                  }
-                | ""
-              )
-            | undefined
-          interac_present?: (EmptyObject | "") | undefined
-          kakao_pay?:
-            | (
-                | {
-                    capture_method?: ("" | "manual") | undefined
-                    setup_future_usage?:
-                      | ("" | "none" | "off_session")
-                      | undefined
-                  }
-                | ""
-              )
-            | undefined
-          klarna?:
-            | (
-                | {
-                    capture_method?: ("" | "manual") | undefined
-                    on_demand?:
-                      | {
-                          average_amount?: number | undefined
-                          maximum_amount?: number | undefined
-                          minimum_amount?: number | undefined
-                          purchase_interval?:
-                            | ("day" | "month" | "week" | "year")
-                            | undefined
-                          purchase_interval_count?: number | undefined
-                        }
-                      | undefined
-                    preferred_locale?:
-                      | (
-                          | "cs-CZ"
-                          | "da-DK"
-                          | "de-AT"
-                          | "de-CH"
-                          | "de-DE"
-                          | "el-GR"
-                          | "en-AT"
-                          | "en-AU"
-                          | "en-BE"
-                          | "en-CA"
-                          | "en-CH"
-                          | "en-CZ"
-                          | "en-DE"
-                          | "en-DK"
-                          | "en-ES"
-                          | "en-FI"
-                          | "en-FR"
-                          | "en-GB"
-                          | "en-GR"
-                          | "en-IE"
-                          | "en-IT"
-                          | "en-NL"
-                          | "en-NO"
-                          | "en-NZ"
-                          | "en-PL"
-                          | "en-PT"
-                          | "en-RO"
-                          | "en-SE"
-                          | "en-US"
-                          | "es-ES"
-                          | "es-US"
-                          | "fi-FI"
-                          | "fr-BE"
-                          | "fr-CA"
-                          | "fr-CH"
-                          | "fr-FR"
-                          | "it-CH"
-                          | "it-IT"
-                          | "nb-NO"
-                          | "nl-BE"
-                          | "nl-NL"
-                          | "pl-PL"
-                          | "pt-PT"
-                          | "ro-RO"
-                          | "sv-FI"
-                          | "sv-SE"
-                        )
-                      | undefined
-                    setup_future_usage?:
-                      | ("none" | "off_session" | "on_session")
-                      | undefined
-                    subscriptions?:
-                      | (
+              | ""
+            )
+          | undefined
+        affirm?:
+          | (
+              | {
+                  capture_method?: ("" | "manual") | undefined
+                  preferred_locale?: string | undefined
+                  setup_future_usage?: "none" | undefined
+                }
+              | ""
+            )
+          | undefined
+        afterpay_clearpay?:
+          | (
+              | {
+                  capture_method?: ("" | "manual") | undefined
+                  reference?: string | undefined
+                  setup_future_usage?: "none" | undefined
+                }
+              | ""
+            )
+          | undefined
+        alipay?:
+          | (
+              | {
+                  setup_future_usage?: ("" | "none" | "off_session") | undefined
+                }
+              | ""
+            )
+          | undefined
+        alma?:
+          | (
+              | {
+                  capture_method?: ("" | "manual") | undefined
+                }
+              | ""
+            )
+          | undefined
+        amazon_pay?:
+          | (
+              | {
+                  capture_method?: ("" | "manual") | undefined
+                  setup_future_usage?: ("" | "none" | "off_session") | undefined
+                }
+              | ""
+            )
+          | undefined
+        au_becs_debit?:
+          | (
+              | {
+                  setup_future_usage?:
+                    | ("" | "none" | "off_session" | "on_session")
+                    | undefined
+                  target_date?: string | undefined
+                }
+              | ""
+            )
+          | undefined
+        bacs_debit?:
+          | (
+              | {
+                  mandate_options?:
+                    | {
+                        reference_prefix?: (string | "") | undefined
+                      }
+                    | undefined
+                  setup_future_usage?:
+                    | ("" | "none" | "off_session" | "on_session")
+                    | undefined
+                  target_date?: string | undefined
+                }
+              | ""
+            )
+          | undefined
+        bancontact?:
+          | (
+              | {
+                  preferred_language?: ("de" | "en" | "fr" | "nl") | undefined
+                  setup_future_usage?: ("" | "none" | "off_session") | undefined
+                }
+              | ""
+            )
+          | undefined
+        billie?:
+          | (
+              | {
+                  capture_method?: ("" | "manual") | undefined
+                }
+              | ""
+            )
+          | undefined
+        blik?:
+          | (
+              | {
+                  code?: string | undefined
+                  setup_future_usage?: ("" | "none") | undefined
+                }
+              | ""
+            )
+          | undefined
+        boleto?:
+          | (
+              | {
+                  expires_after_days?: number | undefined
+                  setup_future_usage?:
+                    | ("" | "none" | "off_session" | "on_session")
+                    | undefined
+                }
+              | ""
+            )
+          | undefined
+        card?:
+          | (
+              | {
+                  capture_method?: ("" | "manual") | undefined
+                  cvc_token?: string | undefined
+                  installments?:
+                    | {
+                        enabled?: boolean | undefined
+                        plan?:
+                          | (
+                              | {
+                                  count?: number | undefined
+                                  interval?: "month" | undefined
+                                  type: "bonus" | "fixed_count" | "revolving"
+                                }
+                              | ""
+                            )
+                          | undefined
+                      }
+                    | undefined
+                  mandate_options?:
+                    | {
+                        amount: number
+                        amount_type: "fixed" | "maximum"
+                        description?: string | undefined
+                        end_date?: number | undefined
+                        interval: "day" | "month" | "sporadic" | "week" | "year"
+                        interval_count?: number | undefined
+                        reference: string
+                        start_date: number
+                        supported_types?: "india"[] | undefined
+                      }
+                    | undefined
+                  network?:
+                    | (
+                        | "amex"
+                        | "cartes_bancaires"
+                        | "diners"
+                        | "discover"
+                        | "eftpos_au"
+                        | "girocard"
+                        | "interac"
+                        | "jcb"
+                        | "link"
+                        | "mastercard"
+                        | "unionpay"
+                        | "unknown"
+                        | "visa"
+                      )
+                    | undefined
+                  request_extended_authorization?:
+                    | ("if_available" | "never")
+                    | undefined
+                  request_incremental_authorization?:
+                    | ("if_available" | "never")
+                    | undefined
+                  request_multicapture?: ("if_available" | "never") | undefined
+                  request_overcapture?: ("if_available" | "never") | undefined
+                  request_three_d_secure?:
+                    | ("any" | "automatic" | "challenge")
+                    | undefined
+                  require_cvc_recollection?: boolean | undefined
+                  setup_future_usage?:
+                    | ("" | "none" | "off_session" | "on_session")
+                    | undefined
+                  statement_descriptor_suffix_kana?: (string | "") | undefined
+                  statement_descriptor_suffix_kanji?: (string | "") | undefined
+                  three_d_secure?:
+                    | {
+                        ares_trans_status?:
+                          | ("A" | "C" | "I" | "N" | "R" | "U" | "Y")
+                          | undefined
+                        cryptogram: string
+                        electronic_commerce_indicator?:
+                          | ("01" | "02" | "05" | "06" | "07")
+                          | undefined
+                        exemption_indicator?: ("low_risk" | "none") | undefined
+                        network_options?:
                           | {
-                              interval: "day" | "month" | "week" | "year"
-                              interval_count?: number | undefined
-                              name?: string | undefined
-                              next_billing?:
+                              cartes_bancaires?:
                                 | {
-                                    amount: number
-                                    date: string
+                                    cb_avalgo: "0" | "1" | "2" | "3" | "4" | "A"
+                                    cb_exemption?: string | undefined
+                                    cb_score?: number | undefined
                                   }
                                 | undefined
-                              reference: string
-                            }[]
-                          | ""
-                        )
-                      | undefined
-                  }
-                | ""
-              )
-            | undefined
-          konbini?:
-            | (
-                | {
-                    confirmation_number?: (string | "") | undefined
-                    expires_after_days?: (number | "") | undefined
-                    expires_at?: (number | "") | undefined
-                    product_description?: (string | "") | undefined
-                    setup_future_usage?: "none" | undefined
-                  }
-                | ""
-              )
-            | undefined
-          kr_card?:
-            | (
-                | {
-                    capture_method?: ("" | "manual") | undefined
-                    setup_future_usage?:
-                      | ("" | "none" | "off_session")
-                      | undefined
-                  }
-                | ""
-              )
-            | undefined
-          link?:
-            | (
-                | {
-                    capture_method?: ("" | "manual") | undefined
-                    setup_future_usage?:
-                      | ("" | "none" | "off_session")
-                      | undefined
-                  }
-                | ""
-              )
-            | undefined
-          mobilepay?:
-            | (
-                | {
-                    capture_method?: ("" | "manual") | undefined
-                    setup_future_usage?: "none" | undefined
-                  }
-                | ""
-              )
-            | undefined
-          multibanco?:
-            | (
-                | {
-                    setup_future_usage?: "none" | undefined
-                  }
-                | ""
-              )
-            | undefined
-          naver_pay?:
-            | (
-                | {
-                    capture_method?: ("" | "manual") | undefined
-                    setup_future_usage?:
-                      | ("" | "none" | "off_session")
-                      | undefined
-                  }
-                | ""
-              )
-            | undefined
-          nz_bank_account?:
-            | (
-                | {
-                    setup_future_usage?:
-                      | ("" | "none" | "off_session" | "on_session")
-                      | undefined
-                    target_date?: string | undefined
-                  }
-                | ""
-              )
-            | undefined
-          oxxo?:
-            | (
-                | {
-                    expires_after_days?: number | undefined
-                    setup_future_usage?: "none" | undefined
-                  }
-                | ""
-              )
-            | undefined
-          p24?:
-            | (
-                | {
-                    setup_future_usage?: "none" | undefined
-                    tos_shown_and_accepted?: boolean | undefined
-                  }
-                | ""
-              )
-            | undefined
-          pay_by_bank?: (EmptyObject | "") | undefined
-          payco?:
-            | (
-                | {
-                    capture_method?: ("" | "manual") | undefined
-                  }
-                | ""
-              )
-            | undefined
-          paynow?:
-            | (
-                | {
-                    setup_future_usage?: "none" | undefined
-                  }
-                | ""
-              )
-            | undefined
-          paypal?:
-            | (
-                | {
-                    capture_method?: ("" | "manual") | undefined
-                    preferred_locale?:
-                      | (
-                          | "cs-CZ"
-                          | "da-DK"
-                          | "de-AT"
-                          | "de-DE"
-                          | "de-LU"
-                          | "el-GR"
-                          | "en-GB"
-                          | "en-US"
-                          | "es-ES"
-                          | "fi-FI"
-                          | "fr-BE"
-                          | "fr-FR"
-                          | "fr-LU"
-                          | "hu-HU"
-                          | "it-IT"
-                          | "nl-BE"
-                          | "nl-NL"
-                          | "pl-PL"
-                          | "pt-PT"
-                          | "sk-SK"
-                          | "sv-SE"
-                        )
-                      | undefined
-                    reference?: string | undefined
-                    risk_correlation_id?: string | undefined
-                    setup_future_usage?:
-                      | ("" | "none" | "off_session")
-                      | undefined
-                  }
-                | ""
-              )
-            | undefined
-          pix?:
-            | (
-                | {
-                    expires_after_seconds?: number | undefined
-                    expires_at?: number | undefined
-                    setup_future_usage?: "none" | undefined
-                  }
-                | ""
-              )
-            | undefined
-          promptpay?:
-            | (
-                | {
-                    setup_future_usage?: "none" | undefined
-                  }
-                | ""
-              )
-            | undefined
-          revolut_pay?:
-            | (
-                | {
-                    capture_method?: ("" | "manual") | undefined
-                    setup_future_usage?:
-                      | ("" | "none" | "off_session")
-                      | undefined
-                  }
-                | ""
-              )
-            | undefined
-          samsung_pay?:
-            | (
-                | {
-                    capture_method?: ("" | "manual") | undefined
-                  }
-                | ""
-              )
-            | undefined
-          satispay?:
-            | (
-                | {
-                    capture_method?: ("" | "manual") | undefined
-                  }
-                | ""
-              )
-            | undefined
-          sepa_debit?:
-            | (
-                | {
-                    mandate_options?:
-                      | {
-                          reference_prefix?: (string | "") | undefined
-                        }
-                      | undefined
-                    setup_future_usage?:
-                      | ("" | "none" | "off_session" | "on_session")
-                      | undefined
-                    target_date?: string | undefined
-                  }
-                | ""
-              )
-            | undefined
-          sofort?:
-            | (
-                | {
-                    preferred_language?:
-                      | ("" | "de" | "en" | "es" | "fr" | "it" | "nl" | "pl")
-                      | undefined
-                    setup_future_usage?:
-                      | ("" | "none" | "off_session")
-                      | undefined
-                  }
-                | ""
-              )
-            | undefined
-          swish?:
-            | (
-                | {
-                    reference?: (string | "") | undefined
-                    setup_future_usage?: "none" | undefined
-                  }
-                | ""
-              )
-            | undefined
-          twint?:
-            | (
-                | {
-                    setup_future_usage?: "none" | undefined
-                  }
-                | ""
-              )
-            | undefined
-          us_bank_account?:
-            | (
-                | {
-                    financial_connections?:
-                      | {
-                          filters?:
-                            | {
-                                account_subcategories?:
-                                  | ("checking" | "savings")[]
-                                  | undefined
-                              }
-                            | undefined
-                          permissions?:
-                            | (
-                                | "balances"
-                                | "ownership"
-                                | "payment_method"
-                                | "transactions"
-                              )[]
-                            | undefined
-                          prefetch?:
-                            | ("balances" | "ownership" | "transactions")[]
-                            | undefined
-                          return_url?: string | undefined
-                        }
-                      | undefined
-                    mandate_options?:
-                      | {
-                          collection_method?: ("" | "paper") | undefined
-                        }
-                      | undefined
-                    networks?:
-                      | {
-                          requested?: ("ach" | "us_domestic_wire")[] | undefined
-                        }
-                      | undefined
-                    preferred_settlement_speed?:
-                      | ("" | "fastest" | "standard")
-                      | undefined
-                    setup_future_usage?:
-                      | ("" | "none" | "off_session" | "on_session")
-                      | undefined
-                    target_date?: string | undefined
-                    verification_method?:
-                      | ("automatic" | "instant" | "microdeposits")
-                      | undefined
-                  }
-                | ""
-              )
-            | undefined
-          wechat_pay?:
-            | (
-                | {
-                    app_id?: string | undefined
-                    client?: ("android" | "ios" | "web") | undefined
-                    setup_future_usage?: "none" | undefined
-                  }
-                | ""
-              )
-            | undefined
-          zip?:
-            | (
-                | {
-                    setup_future_usage?: "none" | undefined
-                  }
-                | ""
-              )
-            | undefined
-        }
-      | undefined
-    payment_method_types?: string[] | undefined
-    radar_options?:
-      | {
-          session?: string | undefined
-        }
-      | undefined
-    receipt_email?: (string | "") | undefined
-    return_url?: string | undefined
-    setup_future_usage?: ("" | "off_session" | "on_session") | undefined
-    shipping?:
-      | (
-          | {
-              address: {
-                city?: string | undefined
-                country?: string | undefined
-                line1?: string | undefined
-                line2?: string | undefined
-                postal_code?: string | undefined
-                state?: string | undefined
-              }
-              carrier?: string | undefined
-              name: string
-              phone?: string | undefined
-              tracking_number?: string | undefined
+                            }
+                          | undefined
+                        requestor_challenge_indicator?: string | undefined
+                        transaction_id: string
+                        version: "1.0.2" | "2.1.0" | "2.2.0"
+                      }
+                    | undefined
+                }
+              | ""
+            )
+          | undefined
+        card_present?:
+          | (
+              | {
+                  request_extended_authorization?: boolean | undefined
+                  request_incremental_authorization_support?:
+                    | boolean
+                    | undefined
+                  routing?:
+                    | {
+                        requested_priority?:
+                          | ("domestic" | "international")
+                          | undefined
+                      }
+                    | undefined
+                }
+              | ""
+            )
+          | undefined
+        cashapp?:
+          | (
+              | {
+                  capture_method?: ("" | "manual") | undefined
+                  setup_future_usage?:
+                    | ("" | "none" | "off_session" | "on_session")
+                    | undefined
+                }
+              | ""
+            )
+          | undefined
+        crypto?:
+          | (
+              | {
+                  setup_future_usage?: "none" | undefined
+                }
+              | ""
+            )
+          | undefined
+        customer_balance?:
+          | (
+              | {
+                  bank_transfer?:
+                    | {
+                        eu_bank_transfer?:
+                          | {
+                              country: string
+                            }
+                          | undefined
+                        requested_address_types?:
+                          | (
+                              | "aba"
+                              | "iban"
+                              | "sepa"
+                              | "sort_code"
+                              | "spei"
+                              | "swift"
+                              | "zengin"
+                            )[]
+                          | undefined
+                        type:
+                          | "eu_bank_transfer"
+                          | "gb_bank_transfer"
+                          | "jp_bank_transfer"
+                          | "mx_bank_transfer"
+                          | "us_bank_transfer"
+                      }
+                    | undefined
+                  funding_type?: "bank_transfer" | undefined
+                  setup_future_usage?: "none" | undefined
+                }
+              | ""
+            )
+          | undefined
+        eps?:
+          | (
+              | {
+                  setup_future_usage?: "none" | undefined
+                }
+              | ""
+            )
+          | undefined
+        fpx?:
+          | (
+              | {
+                  setup_future_usage?: "none" | undefined
+                }
+              | ""
+            )
+          | undefined
+        giropay?:
+          | (
+              | {
+                  setup_future_usage?: "none" | undefined
+                }
+              | ""
+            )
+          | undefined
+        grabpay?:
+          | (
+              | {
+                  setup_future_usage?: "none" | undefined
+                }
+              | ""
+            )
+          | undefined
+        ideal?:
+          | (
+              | {
+                  setup_future_usage?: ("" | "none" | "off_session") | undefined
+                }
+              | ""
+            )
+          | undefined
+        interac_present?: (EmptyObject | "") | undefined
+        kakao_pay?:
+          | (
+              | {
+                  capture_method?: ("" | "manual") | undefined
+                  setup_future_usage?: ("" | "none" | "off_session") | undefined
+                }
+              | ""
+            )
+          | undefined
+        klarna?:
+          | (
+              | {
+                  capture_method?: ("" | "manual") | undefined
+                  on_demand?:
+                    | {
+                        average_amount?: number | undefined
+                        maximum_amount?: number | undefined
+                        minimum_amount?: number | undefined
+                        purchase_interval?:
+                          | ("day" | "month" | "week" | "year")
+                          | undefined
+                        purchase_interval_count?: number | undefined
+                      }
+                    | undefined
+                  preferred_locale?:
+                    | (
+                        | "cs-CZ"
+                        | "da-DK"
+                        | "de-AT"
+                        | "de-CH"
+                        | "de-DE"
+                        | "el-GR"
+                        | "en-AT"
+                        | "en-AU"
+                        | "en-BE"
+                        | "en-CA"
+                        | "en-CH"
+                        | "en-CZ"
+                        | "en-DE"
+                        | "en-DK"
+                        | "en-ES"
+                        | "en-FI"
+                        | "en-FR"
+                        | "en-GB"
+                        | "en-GR"
+                        | "en-IE"
+                        | "en-IT"
+                        | "en-NL"
+                        | "en-NO"
+                        | "en-NZ"
+                        | "en-PL"
+                        | "en-PT"
+                        | "en-RO"
+                        | "en-SE"
+                        | "en-US"
+                        | "es-ES"
+                        | "es-US"
+                        | "fi-FI"
+                        | "fr-BE"
+                        | "fr-CA"
+                        | "fr-CH"
+                        | "fr-FR"
+                        | "it-CH"
+                        | "it-IT"
+                        | "nb-NO"
+                        | "nl-BE"
+                        | "nl-NL"
+                        | "pl-PL"
+                        | "pt-PT"
+                        | "ro-RO"
+                        | "sv-FI"
+                        | "sv-SE"
+                      )
+                    | undefined
+                  setup_future_usage?:
+                    | ("none" | "off_session" | "on_session")
+                    | undefined
+                  subscriptions?:
+                    | (
+                        | {
+                            interval: "day" | "month" | "week" | "year"
+                            interval_count?: number | undefined
+                            name?: string | undefined
+                            next_billing?:
+                              | {
+                                  amount: number
+                                  date: string
+                                }
+                              | undefined
+                            reference: string
+                          }[]
+                        | ""
+                      )
+                    | undefined
+                }
+              | ""
+            )
+          | undefined
+        konbini?:
+          | (
+              | {
+                  confirmation_number?: (string | "") | undefined
+                  expires_after_days?: (number | "") | undefined
+                  expires_at?: (number | "") | undefined
+                  product_description?: (string | "") | undefined
+                  setup_future_usage?: "none" | undefined
+                }
+              | ""
+            )
+          | undefined
+        kr_card?:
+          | (
+              | {
+                  capture_method?: ("" | "manual") | undefined
+                  setup_future_usage?: ("" | "none" | "off_session") | undefined
+                }
+              | ""
+            )
+          | undefined
+        link?:
+          | (
+              | {
+                  capture_method?: ("" | "manual") | undefined
+                  setup_future_usage?: ("" | "none" | "off_session") | undefined
+                }
+              | ""
+            )
+          | undefined
+        mobilepay?:
+          | (
+              | {
+                  capture_method?: ("" | "manual") | undefined
+                  setup_future_usage?: "none" | undefined
+                }
+              | ""
+            )
+          | undefined
+        multibanco?:
+          | (
+              | {
+                  setup_future_usage?: "none" | undefined
+                }
+              | ""
+            )
+          | undefined
+        naver_pay?:
+          | (
+              | {
+                  capture_method?: ("" | "manual") | undefined
+                  setup_future_usage?: ("" | "none" | "off_session") | undefined
+                }
+              | ""
+            )
+          | undefined
+        nz_bank_account?:
+          | (
+              | {
+                  setup_future_usage?:
+                    | ("" | "none" | "off_session" | "on_session")
+                    | undefined
+                  target_date?: string | undefined
+                }
+              | ""
+            )
+          | undefined
+        oxxo?:
+          | (
+              | {
+                  expires_after_days?: number | undefined
+                  setup_future_usage?: "none" | undefined
+                }
+              | ""
+            )
+          | undefined
+        p24?:
+          | (
+              | {
+                  setup_future_usage?: "none" | undefined
+                  tos_shown_and_accepted?: boolean | undefined
+                }
+              | ""
+            )
+          | undefined
+        pay_by_bank?: (EmptyObject | "") | undefined
+        payco?:
+          | (
+              | {
+                  capture_method?: ("" | "manual") | undefined
+                }
+              | ""
+            )
+          | undefined
+        paynow?:
+          | (
+              | {
+                  setup_future_usage?: "none" | undefined
+                }
+              | ""
+            )
+          | undefined
+        paypal?:
+          | (
+              | {
+                  capture_method?: ("" | "manual") | undefined
+                  preferred_locale?:
+                    | (
+                        | "cs-CZ"
+                        | "da-DK"
+                        | "de-AT"
+                        | "de-DE"
+                        | "de-LU"
+                        | "el-GR"
+                        | "en-GB"
+                        | "en-US"
+                        | "es-ES"
+                        | "fi-FI"
+                        | "fr-BE"
+                        | "fr-FR"
+                        | "fr-LU"
+                        | "hu-HU"
+                        | "it-IT"
+                        | "nl-BE"
+                        | "nl-NL"
+                        | "pl-PL"
+                        | "pt-PT"
+                        | "sk-SK"
+                        | "sv-SE"
+                      )
+                    | undefined
+                  reference?: string | undefined
+                  risk_correlation_id?: string | undefined
+                  setup_future_usage?: ("" | "none" | "off_session") | undefined
+                }
+              | ""
+            )
+          | undefined
+        pix?:
+          | (
+              | {
+                  expires_after_seconds?: number | undefined
+                  expires_at?: number | undefined
+                  setup_future_usage?: "none" | undefined
+                }
+              | ""
+            )
+          | undefined
+        promptpay?:
+          | (
+              | {
+                  setup_future_usage?: "none" | undefined
+                }
+              | ""
+            )
+          | undefined
+        revolut_pay?:
+          | (
+              | {
+                  capture_method?: ("" | "manual") | undefined
+                  setup_future_usage?: ("" | "none" | "off_session") | undefined
+                }
+              | ""
+            )
+          | undefined
+        samsung_pay?:
+          | (
+              | {
+                  capture_method?: ("" | "manual") | undefined
+                }
+              | ""
+            )
+          | undefined
+        satispay?:
+          | (
+              | {
+                  capture_method?: ("" | "manual") | undefined
+                }
+              | ""
+            )
+          | undefined
+        sepa_debit?:
+          | (
+              | {
+                  mandate_options?:
+                    | {
+                        reference_prefix?: (string | "") | undefined
+                      }
+                    | undefined
+                  setup_future_usage?:
+                    | ("" | "none" | "off_session" | "on_session")
+                    | undefined
+                  target_date?: string | undefined
+                }
+              | ""
+            )
+          | undefined
+        sofort?:
+          | (
+              | {
+                  preferred_language?:
+                    | ("" | "de" | "en" | "es" | "fr" | "it" | "nl" | "pl")
+                    | undefined
+                  setup_future_usage?: ("" | "none" | "off_session") | undefined
+                }
+              | ""
+            )
+          | undefined
+        swish?:
+          | (
+              | {
+                  reference?: (string | "") | undefined
+                  setup_future_usage?: "none" | undefined
+                }
+              | ""
+            )
+          | undefined
+        twint?:
+          | (
+              | {
+                  setup_future_usage?: "none" | undefined
+                }
+              | ""
+            )
+          | undefined
+        us_bank_account?:
+          | (
+              | {
+                  financial_connections?:
+                    | {
+                        filters?:
+                          | {
+                              account_subcategories?:
+                                | ("checking" | "savings")[]
+                                | undefined
+                            }
+                          | undefined
+                        permissions?:
+                          | (
+                              | "balances"
+                              | "ownership"
+                              | "payment_method"
+                              | "transactions"
+                            )[]
+                          | undefined
+                        prefetch?:
+                          | ("balances" | "ownership" | "transactions")[]
+                          | undefined
+                        return_url?: string | undefined
+                      }
+                    | undefined
+                  mandate_options?:
+                    | {
+                        collection_method?: ("" | "paper") | undefined
+                      }
+                    | undefined
+                  networks?:
+                    | {
+                        requested?: ("ach" | "us_domestic_wire")[] | undefined
+                      }
+                    | undefined
+                  preferred_settlement_speed?:
+                    | ("" | "fastest" | "standard")
+                    | undefined
+                  setup_future_usage?:
+                    | ("" | "none" | "off_session" | "on_session")
+                    | undefined
+                  target_date?: string | undefined
+                  verification_method?:
+                    | ("automatic" | "instant" | "microdeposits")
+                    | undefined
+                }
+              | ""
+            )
+          | undefined
+        wechat_pay?:
+          | (
+              | {
+                  app_id?: string | undefined
+                  client?: ("android" | "ios" | "web") | undefined
+                  setup_future_usage?: "none" | undefined
+                }
+              | ""
+            )
+          | undefined
+        zip?:
+          | (
+              | {
+                  setup_future_usage?: "none" | undefined
+                }
+              | ""
+            )
+          | undefined
+      }
+    | undefined
+  payment_method_types?: string[] | undefined
+  radar_options?:
+    | {
+        session?: string | undefined
+      }
+    | undefined
+  receipt_email?: (string | "") | undefined
+  return_url?: string | undefined
+  setup_future_usage?: ("" | "off_session" | "on_session") | undefined
+  shipping?:
+    | (
+        | {
+            address: {
+              city?: string | undefined
+              country?: string | undefined
+              line1?: string | undefined
+              line2?: string | undefined
+              postal_code?: string | undefined
+              state?: string | undefined
             }
-          | ""
-        )
-      | undefined
-    use_stripe_sdk?: boolean | undefined
-  }
+            carrier?: string | undefined
+            name: string
+            phone?: string | undefined
+            tracking_number?: string | undefined
+          }
+        | ""
+      )
+    | undefined
+  use_stripe_sdk?: boolean | undefined
+}
 
 export type t_PostPaymentIntentsIntentIncrementAuthorizationParamSchema = {
   intent: string
 }
 
-export type t_postPaymentIntentsIntentIncrementAuthorizationApplicationXWwwFormUrlencodedRequestBody =
-  {
-    amount: number
-    application_fee_amount?: number | undefined
-    description?: string | undefined
-    expand?: string[] | undefined
-    metadata?:
-      | {
-          [key: string]: string | undefined
-        }
-      | undefined
-    statement_descriptor?: string | undefined
-    transfer_data?:
-      | {
-          amount?: number | undefined
-        }
-      | undefined
-  }
+export type t_PostPaymentIntentsIntentIncrementAuthorizationRequestBody = {
+  amount: number
+  application_fee_amount?: number | undefined
+  description?: string | undefined
+  expand?: string[] | undefined
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | undefined
+  statement_descriptor?: string | undefined
+  transfer_data?:
+    | {
+        amount?: number | undefined
+      }
+    | undefined
+}
 
 export type t_PostPaymentIntentsIntentVerifyMicrodepositsParamSchema = {
   intent: string
 }
 
-export type t_postPaymentIntentsIntentVerifyMicrodepositsApplicationXWwwFormUrlencodedRequestBody =
-  {
-    amounts?: number[] | undefined
-    client_secret?: string | undefined
-    descriptor_code?: string | undefined
-    expand?: string[] | undefined
-  }
+export type t_PostPaymentIntentsIntentVerifyMicrodepositsRequestBody = {
+  amounts?: number[] | undefined
+  client_secret?: string | undefined
+  descriptor_code?: string | undefined
+  expand?: string[] | undefined
+}
 
-export type t_postPaymentLinksApplicationXWwwFormUrlencodedRequestBody = {
+export type t_PostPaymentLinksRequestBody = {
   after_completion?:
     | {
         hosted_confirmation?:
@@ -36603,1526 +36400,1520 @@ export type t_PostPaymentLinksPaymentLinkParamSchema = {
   payment_link: string
 }
 
-export type t_postPaymentLinksPaymentLinkApplicationXWwwFormUrlencodedRequestBody =
-  {
-    active?: boolean | undefined
-    after_completion?:
-      | {
-          hosted_confirmation?:
-            | {
-                custom_message?: string | undefined
-              }
-            | undefined
-          redirect?:
-            | {
-                url: string
-              }
-            | undefined
-          type: "hosted_confirmation" | "redirect"
-        }
-      | undefined
-    allow_promotion_codes?: boolean | undefined
-    automatic_tax?:
-      | {
-          enabled: boolean
-          liability?:
-            | {
-                account?: string | undefined
-                type: "account" | "self"
-              }
-            | undefined
-        }
-      | undefined
-    billing_address_collection?: ("auto" | "required") | undefined
-    custom_fields?:
-      | (
+export type t_PostPaymentLinksPaymentLinkRequestBody = {
+  active?: boolean | undefined
+  after_completion?:
+    | {
+        hosted_confirmation?:
           | {
-              dropdown?:
-                | {
-                    default_value?: string | undefined
-                    options: {
-                      label: string
-                      value: string
-                    }[]
-                  }
-                | undefined
-              key: string
-              label: {
-                custom: string
-                type: "custom"
-              }
-              numeric?:
-                | {
-                    default_value?: string | undefined
-                    maximum_length?: number | undefined
-                    minimum_length?: number | undefined
-                  }
-                | undefined
-              optional?: boolean | undefined
-              text?:
-                | {
-                    default_value?: string | undefined
-                    maximum_length?: number | undefined
-                    minimum_length?: number | undefined
-                  }
-                | undefined
-              type: "dropdown" | "numeric" | "text"
-            }[]
-          | ""
-        )
-      | undefined
-    custom_text?:
-      | {
-          after_submit?:
-            | (
-                | {
-                    message: string
-                  }
-                | ""
-              )
-            | undefined
-          shipping_address?:
-            | (
-                | {
-                    message: string
-                  }
-                | ""
-              )
-            | undefined
-          submit?:
-            | (
-                | {
-                    message: string
-                  }
-                | ""
-              )
-            | undefined
-          terms_of_service_acceptance?:
-            | (
-                | {
-                    message: string
-                  }
-                | ""
-              )
-            | undefined
-        }
-      | undefined
-    customer_creation?: ("always" | "if_required") | undefined
-    expand?: string[] | undefined
-    inactive_message?: (string | "") | undefined
-    invoice_creation?:
-      | {
-          enabled: boolean
-          invoice_data?:
-            | {
-                account_tax_ids?: (string[] | "") | undefined
-                custom_fields?:
-                  | (
-                      | {
-                          name: string
-                          value: string
-                        }[]
-                      | ""
-                    )
-                  | undefined
-                description?: string | undefined
-                footer?: string | undefined
-                issuer?:
-                  | {
-                      account?: string | undefined
-                      type: "account" | "self"
-                    }
-                  | undefined
-                metadata?:
-                  | (
-                      | {
-                          [key: string]: string | undefined
-                        }
-                      | ""
-                    )
-                  | undefined
-                rendering_options?:
-                  | (
-                      | {
-                          amount_tax_display?:
-                            | ("" | "exclude_tax" | "include_inclusive_tax")
-                            | undefined
-                          template?: string | undefined
-                        }
-                      | ""
-                    )
-                  | undefined
-              }
-            | undefined
-        }
-      | undefined
-    line_items?:
-      | {
-          adjustable_quantity?:
-            | {
-                enabled: boolean
-                maximum?: number | undefined
-                minimum?: number | undefined
-              }
-            | undefined
-          id: string
-          quantity?: number | undefined
-        }[]
-      | undefined
-    metadata?:
-      | {
-          [key: string]: string | undefined
-        }
-      | undefined
-    payment_intent_data?:
-      | {
-          description?: (string | "") | undefined
-          metadata?:
-            | (
-                | {
-                    [key: string]: string | undefined
-                  }
-                | ""
-              )
-            | undefined
-          statement_descriptor?: (string | "") | undefined
-          statement_descriptor_suffix?: (string | "") | undefined
-          transfer_group?: (string | "") | undefined
-        }
-      | undefined
-    payment_method_collection?: ("always" | "if_required") | undefined
-    payment_method_types?:
-      | (
+              custom_message?: string | undefined
+            }
+          | undefined
+        redirect?:
+          | {
+              url: string
+            }
+          | undefined
+        type: "hosted_confirmation" | "redirect"
+      }
+    | undefined
+  allow_promotion_codes?: boolean | undefined
+  automatic_tax?:
+    | {
+        enabled: boolean
+        liability?:
+          | {
+              account?: string | undefined
+              type: "account" | "self"
+            }
+          | undefined
+      }
+    | undefined
+  billing_address_collection?: ("auto" | "required") | undefined
+  custom_fields?:
+    | (
+        | {
+            dropdown?:
+              | {
+                  default_value?: string | undefined
+                  options: {
+                    label: string
+                    value: string
+                  }[]
+                }
+              | undefined
+            key: string
+            label: {
+              custom: string
+              type: "custom"
+            }
+            numeric?:
+              | {
+                  default_value?: string | undefined
+                  maximum_length?: number | undefined
+                  minimum_length?: number | undefined
+                }
+              | undefined
+            optional?: boolean | undefined
+            text?:
+              | {
+                  default_value?: string | undefined
+                  maximum_length?: number | undefined
+                  minimum_length?: number | undefined
+                }
+              | undefined
+            type: "dropdown" | "numeric" | "text"
+          }[]
+        | ""
+      )
+    | undefined
+  custom_text?:
+    | {
+        after_submit?:
           | (
-              | "affirm"
-              | "afterpay_clearpay"
-              | "alipay"
-              | "alma"
-              | "au_becs_debit"
-              | "bacs_debit"
-              | "bancontact"
-              | "billie"
-              | "blik"
-              | "boleto"
-              | "card"
-              | "cashapp"
-              | "eps"
-              | "fpx"
-              | "giropay"
-              | "grabpay"
-              | "ideal"
-              | "klarna"
-              | "konbini"
-              | "link"
-              | "mobilepay"
-              | "multibanco"
-              | "oxxo"
-              | "p24"
-              | "pay_by_bank"
-              | "paynow"
-              | "paypal"
-              | "pix"
-              | "promptpay"
-              | "satispay"
-              | "sepa_debit"
-              | "sofort"
-              | "swish"
-              | "twint"
-              | "us_bank_account"
-              | "wechat_pay"
-              | "zip"
+              | {
+                  message: string
+                }
+              | ""
+            )
+          | undefined
+        shipping_address?:
+          | (
+              | {
+                  message: string
+                }
+              | ""
+            )
+          | undefined
+        submit?:
+          | (
+              | {
+                  message: string
+                }
+              | ""
+            )
+          | undefined
+        terms_of_service_acceptance?:
+          | (
+              | {
+                  message: string
+                }
+              | ""
+            )
+          | undefined
+      }
+    | undefined
+  customer_creation?: ("always" | "if_required") | undefined
+  expand?: string[] | undefined
+  inactive_message?: (string | "") | undefined
+  invoice_creation?:
+    | {
+        enabled: boolean
+        invoice_data?:
+          | {
+              account_tax_ids?: (string[] | "") | undefined
+              custom_fields?:
+                | (
+                    | {
+                        name: string
+                        value: string
+                      }[]
+                    | ""
+                  )
+                | undefined
+              description?: string | undefined
+              footer?: string | undefined
+              issuer?:
+                | {
+                    account?: string | undefined
+                    type: "account" | "self"
+                  }
+                | undefined
+              metadata?:
+                | (
+                    | {
+                        [key: string]: string | undefined
+                      }
+                    | ""
+                  )
+                | undefined
+              rendering_options?:
+                | (
+                    | {
+                        amount_tax_display?:
+                          | ("" | "exclude_tax" | "include_inclusive_tax")
+                          | undefined
+                        template?: string | undefined
+                      }
+                    | ""
+                  )
+                | undefined
+            }
+          | undefined
+      }
+    | undefined
+  line_items?:
+    | {
+        adjustable_quantity?:
+          | {
+              enabled: boolean
+              maximum?: number | undefined
+              minimum?: number | undefined
+            }
+          | undefined
+        id: string
+        quantity?: number | undefined
+      }[]
+    | undefined
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | undefined
+  payment_intent_data?:
+    | {
+        description?: (string | "") | undefined
+        metadata?:
+          | (
+              | {
+                  [key: string]: string | undefined
+                }
+              | ""
+            )
+          | undefined
+        statement_descriptor?: (string | "") | undefined
+        statement_descriptor_suffix?: (string | "") | undefined
+        transfer_group?: (string | "") | undefined
+      }
+    | undefined
+  payment_method_collection?: ("always" | "if_required") | undefined
+  payment_method_types?:
+    | (
+        | (
+            | "affirm"
+            | "afterpay_clearpay"
+            | "alipay"
+            | "alma"
+            | "au_becs_debit"
+            | "bacs_debit"
+            | "bancontact"
+            | "billie"
+            | "blik"
+            | "boleto"
+            | "card"
+            | "cashapp"
+            | "eps"
+            | "fpx"
+            | "giropay"
+            | "grabpay"
+            | "ideal"
+            | "klarna"
+            | "konbini"
+            | "link"
+            | "mobilepay"
+            | "multibanco"
+            | "oxxo"
+            | "p24"
+            | "pay_by_bank"
+            | "paynow"
+            | "paypal"
+            | "pix"
+            | "promptpay"
+            | "satispay"
+            | "sepa_debit"
+            | "sofort"
+            | "swish"
+            | "twint"
+            | "us_bank_account"
+            | "wechat_pay"
+            | "zip"
+          )[]
+        | ""
+      )
+    | undefined
+  phone_number_collection?:
+    | {
+        enabled: boolean
+      }
+    | undefined
+  restrictions?:
+    | (
+        | {
+            completed_sessions: {
+              limit: number
+            }
+          }
+        | ""
+      )
+    | undefined
+  shipping_address_collection?:
+    | (
+        | {
+            allowed_countries: (
+              | "AC"
+              | "AD"
+              | "AE"
+              | "AF"
+              | "AG"
+              | "AI"
+              | "AL"
+              | "AM"
+              | "AO"
+              | "AQ"
+              | "AR"
+              | "AT"
+              | "AU"
+              | "AW"
+              | "AX"
+              | "AZ"
+              | "BA"
+              | "BB"
+              | "BD"
+              | "BE"
+              | "BF"
+              | "BG"
+              | "BH"
+              | "BI"
+              | "BJ"
+              | "BL"
+              | "BM"
+              | "BN"
+              | "BO"
+              | "BQ"
+              | "BR"
+              | "BS"
+              | "BT"
+              | "BV"
+              | "BW"
+              | "BY"
+              | "BZ"
+              | "CA"
+              | "CD"
+              | "CF"
+              | "CG"
+              | "CH"
+              | "CI"
+              | "CK"
+              | "CL"
+              | "CM"
+              | "CN"
+              | "CO"
+              | "CR"
+              | "CV"
+              | "CW"
+              | "CY"
+              | "CZ"
+              | "DE"
+              | "DJ"
+              | "DK"
+              | "DM"
+              | "DO"
+              | "DZ"
+              | "EC"
+              | "EE"
+              | "EG"
+              | "EH"
+              | "ER"
+              | "ES"
+              | "ET"
+              | "FI"
+              | "FJ"
+              | "FK"
+              | "FO"
+              | "FR"
+              | "GA"
+              | "GB"
+              | "GD"
+              | "GE"
+              | "GF"
+              | "GG"
+              | "GH"
+              | "GI"
+              | "GL"
+              | "GM"
+              | "GN"
+              | "GP"
+              | "GQ"
+              | "GR"
+              | "GS"
+              | "GT"
+              | "GU"
+              | "GW"
+              | "GY"
+              | "HK"
+              | "HN"
+              | "HR"
+              | "HT"
+              | "HU"
+              | "ID"
+              | "IE"
+              | "IL"
+              | "IM"
+              | "IN"
+              | "IO"
+              | "IQ"
+              | "IS"
+              | "IT"
+              | "JE"
+              | "JM"
+              | "JO"
+              | "JP"
+              | "KE"
+              | "KG"
+              | "KH"
+              | "KI"
+              | "KM"
+              | "KN"
+              | "KR"
+              | "KW"
+              | "KY"
+              | "KZ"
+              | "LA"
+              | "LB"
+              | "LC"
+              | "LI"
+              | "LK"
+              | "LR"
+              | "LS"
+              | "LT"
+              | "LU"
+              | "LV"
+              | "LY"
+              | "MA"
+              | "MC"
+              | "MD"
+              | "ME"
+              | "MF"
+              | "MG"
+              | "MK"
+              | "ML"
+              | "MM"
+              | "MN"
+              | "MO"
+              | "MQ"
+              | "MR"
+              | "MS"
+              | "MT"
+              | "MU"
+              | "MV"
+              | "MW"
+              | "MX"
+              | "MY"
+              | "MZ"
+              | "NA"
+              | "NC"
+              | "NE"
+              | "NG"
+              | "NI"
+              | "NL"
+              | "NO"
+              | "NP"
+              | "NR"
+              | "NU"
+              | "NZ"
+              | "OM"
+              | "PA"
+              | "PE"
+              | "PF"
+              | "PG"
+              | "PH"
+              | "PK"
+              | "PL"
+              | "PM"
+              | "PN"
+              | "PR"
+              | "PS"
+              | "PT"
+              | "PY"
+              | "QA"
+              | "RE"
+              | "RO"
+              | "RS"
+              | "RU"
+              | "RW"
+              | "SA"
+              | "SB"
+              | "SC"
+              | "SD"
+              | "SE"
+              | "SG"
+              | "SH"
+              | "SI"
+              | "SJ"
+              | "SK"
+              | "SL"
+              | "SM"
+              | "SN"
+              | "SO"
+              | "SR"
+              | "SS"
+              | "ST"
+              | "SV"
+              | "SX"
+              | "SZ"
+              | "TA"
+              | "TC"
+              | "TD"
+              | "TF"
+              | "TG"
+              | "TH"
+              | "TJ"
+              | "TK"
+              | "TL"
+              | "TM"
+              | "TN"
+              | "TO"
+              | "TR"
+              | "TT"
+              | "TV"
+              | "TW"
+              | "TZ"
+              | "UA"
+              | "UG"
+              | "US"
+              | "UY"
+              | "UZ"
+              | "VA"
+              | "VC"
+              | "VE"
+              | "VG"
+              | "VN"
+              | "VU"
+              | "WF"
+              | "WS"
+              | "XK"
+              | "YE"
+              | "YT"
+              | "ZA"
+              | "ZM"
+              | "ZW"
+              | "ZZ"
             )[]
-          | ""
-        )
-      | undefined
-    phone_number_collection?:
-      | {
-          enabled: boolean
-        }
-      | undefined
-    restrictions?:
-      | (
+          }
+        | ""
+      )
+    | undefined
+  submit_type?: ("auto" | "book" | "donate" | "pay" | "subscribe") | undefined
+  subscription_data?:
+    | {
+        invoice_settings?:
           | {
-              completed_sessions: {
-                limit: number
-              }
-            }
-          | ""
-        )
-      | undefined
-    shipping_address_collection?:
-      | (
-          | {
-              allowed_countries: (
-                | "AC"
-                | "AD"
-                | "AE"
-                | "AF"
-                | "AG"
-                | "AI"
-                | "AL"
-                | "AM"
-                | "AO"
-                | "AQ"
-                | "AR"
-                | "AT"
-                | "AU"
-                | "AW"
-                | "AX"
-                | "AZ"
-                | "BA"
-                | "BB"
-                | "BD"
-                | "BE"
-                | "BF"
-                | "BG"
-                | "BH"
-                | "BI"
-                | "BJ"
-                | "BL"
-                | "BM"
-                | "BN"
-                | "BO"
-                | "BQ"
-                | "BR"
-                | "BS"
-                | "BT"
-                | "BV"
-                | "BW"
-                | "BY"
-                | "BZ"
-                | "CA"
-                | "CD"
-                | "CF"
-                | "CG"
-                | "CH"
-                | "CI"
-                | "CK"
-                | "CL"
-                | "CM"
-                | "CN"
-                | "CO"
-                | "CR"
-                | "CV"
-                | "CW"
-                | "CY"
-                | "CZ"
-                | "DE"
-                | "DJ"
-                | "DK"
-                | "DM"
-                | "DO"
-                | "DZ"
-                | "EC"
-                | "EE"
-                | "EG"
-                | "EH"
-                | "ER"
-                | "ES"
-                | "ET"
-                | "FI"
-                | "FJ"
-                | "FK"
-                | "FO"
-                | "FR"
-                | "GA"
-                | "GB"
-                | "GD"
-                | "GE"
-                | "GF"
-                | "GG"
-                | "GH"
-                | "GI"
-                | "GL"
-                | "GM"
-                | "GN"
-                | "GP"
-                | "GQ"
-                | "GR"
-                | "GS"
-                | "GT"
-                | "GU"
-                | "GW"
-                | "GY"
-                | "HK"
-                | "HN"
-                | "HR"
-                | "HT"
-                | "HU"
-                | "ID"
-                | "IE"
-                | "IL"
-                | "IM"
-                | "IN"
-                | "IO"
-                | "IQ"
-                | "IS"
-                | "IT"
-                | "JE"
-                | "JM"
-                | "JO"
-                | "JP"
-                | "KE"
-                | "KG"
-                | "KH"
-                | "KI"
-                | "KM"
-                | "KN"
-                | "KR"
-                | "KW"
-                | "KY"
-                | "KZ"
-                | "LA"
-                | "LB"
-                | "LC"
-                | "LI"
-                | "LK"
-                | "LR"
-                | "LS"
-                | "LT"
-                | "LU"
-                | "LV"
-                | "LY"
-                | "MA"
-                | "MC"
-                | "MD"
-                | "ME"
-                | "MF"
-                | "MG"
-                | "MK"
-                | "ML"
-                | "MM"
-                | "MN"
-                | "MO"
-                | "MQ"
-                | "MR"
-                | "MS"
-                | "MT"
-                | "MU"
-                | "MV"
-                | "MW"
-                | "MX"
-                | "MY"
-                | "MZ"
-                | "NA"
-                | "NC"
-                | "NE"
-                | "NG"
-                | "NI"
-                | "NL"
-                | "NO"
-                | "NP"
-                | "NR"
-                | "NU"
-                | "NZ"
-                | "OM"
-                | "PA"
-                | "PE"
-                | "PF"
-                | "PG"
-                | "PH"
-                | "PK"
-                | "PL"
-                | "PM"
-                | "PN"
-                | "PR"
-                | "PS"
-                | "PT"
-                | "PY"
-                | "QA"
-                | "RE"
-                | "RO"
-                | "RS"
-                | "RU"
-                | "RW"
-                | "SA"
-                | "SB"
-                | "SC"
-                | "SD"
-                | "SE"
-                | "SG"
-                | "SH"
-                | "SI"
-                | "SJ"
-                | "SK"
-                | "SL"
-                | "SM"
-                | "SN"
-                | "SO"
-                | "SR"
-                | "SS"
-                | "ST"
-                | "SV"
-                | "SX"
-                | "SZ"
-                | "TA"
-                | "TC"
-                | "TD"
-                | "TF"
-                | "TG"
-                | "TH"
-                | "TJ"
-                | "TK"
-                | "TL"
-                | "TM"
-                | "TN"
-                | "TO"
-                | "TR"
-                | "TT"
-                | "TV"
-                | "TW"
-                | "TZ"
-                | "UA"
-                | "UG"
-                | "US"
-                | "UY"
-                | "UZ"
-                | "VA"
-                | "VC"
-                | "VE"
-                | "VG"
-                | "VN"
-                | "VU"
-                | "WF"
-                | "WS"
-                | "XK"
-                | "YE"
-                | "YT"
-                | "ZA"
-                | "ZM"
-                | "ZW"
-                | "ZZ"
-              )[]
-            }
-          | ""
-        )
-      | undefined
-    submit_type?: ("auto" | "book" | "donate" | "pay" | "subscribe") | undefined
-    subscription_data?:
-      | {
-          invoice_settings?:
-            | {
-                issuer?:
-                  | {
-                      account?: string | undefined
-                      type: "account" | "self"
-                    }
-                  | undefined
-              }
-            | undefined
-          metadata?:
-            | (
+              issuer?:
                 | {
-                    [key: string]: string | undefined
+                    account?: string | undefined
+                    type: "account" | "self"
                   }
-                | ""
-              )
-            | undefined
-          trial_period_days?: (number | "") | undefined
-          trial_settings?:
-            | (
-                | {
-                    end_behavior: {
-                      missing_payment_method:
-                        | "cancel"
-                        | "create_invoice"
-                        | "pause"
-                    }
+                | undefined
+            }
+          | undefined
+        metadata?:
+          | (
+              | {
+                  [key: string]: string | undefined
+                }
+              | ""
+            )
+          | undefined
+        trial_period_days?: (number | "") | undefined
+        trial_settings?:
+          | (
+              | {
+                  end_behavior: {
+                    missing_payment_method:
+                      | "cancel"
+                      | "create_invoice"
+                      | "pause"
                   }
-                | ""
-              )
-            | undefined
-        }
-      | undefined
-    tax_id_collection?:
-      | {
-          enabled: boolean
-          required?: ("if_supported" | "never") | undefined
-        }
-      | undefined
-  }
+                }
+              | ""
+            )
+          | undefined
+      }
+    | undefined
+  tax_id_collection?:
+    | {
+        enabled: boolean
+        required?: ("if_supported" | "never") | undefined
+      }
+    | undefined
+}
 
-export type t_postPaymentMethodConfigurationsApplicationXWwwFormUrlencodedRequestBody =
-  {
-    acss_debit?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    affirm?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    afterpay_clearpay?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    alipay?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    alma?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    amazon_pay?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    apple_pay?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    apple_pay_later?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    au_becs_debit?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    bacs_debit?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    bancontact?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    billie?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    blik?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    boleto?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    card?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    cartes_bancaires?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    cashapp?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    customer_balance?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    eps?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    expand?: string[] | undefined
-    fpx?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    giropay?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    google_pay?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    grabpay?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    ideal?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    jcb?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    kakao_pay?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    klarna?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    konbini?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    kr_card?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    link?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    mobilepay?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    multibanco?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    name?: string | undefined
-    naver_pay?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    nz_bank_account?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    oxxo?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    p24?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    parent?: string | undefined
-    pay_by_bank?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    payco?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    paynow?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    paypal?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    pix?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    promptpay?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    revolut_pay?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    samsung_pay?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    satispay?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    sepa_debit?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    sofort?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    swish?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    twint?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    us_bank_account?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    wechat_pay?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    zip?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-  }
+export type t_PostPaymentMethodConfigurationsRequestBody = {
+  acss_debit?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  affirm?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  afterpay_clearpay?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  alipay?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  alma?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  amazon_pay?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  apple_pay?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  apple_pay_later?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  au_becs_debit?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  bacs_debit?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  bancontact?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  billie?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  blik?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  boleto?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  card?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  cartes_bancaires?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  cashapp?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  customer_balance?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  eps?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  expand?: string[] | undefined
+  fpx?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  giropay?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  google_pay?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  grabpay?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  ideal?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  jcb?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  kakao_pay?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  klarna?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  konbini?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  kr_card?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  link?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  mobilepay?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  multibanco?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  name?: string | undefined
+  naver_pay?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  nz_bank_account?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  oxxo?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  p24?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  parent?: string | undefined
+  pay_by_bank?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  payco?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  paynow?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  paypal?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  pix?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  promptpay?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  revolut_pay?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  samsung_pay?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  satispay?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  sepa_debit?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  sofort?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  swish?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  twint?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  us_bank_account?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  wechat_pay?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  zip?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+}
 
 export type t_PostPaymentMethodConfigurationsConfigurationParamSchema = {
   configuration: string
 }
 
-export type t_postPaymentMethodConfigurationsConfigurationApplicationXWwwFormUrlencodedRequestBody =
-  {
-    acss_debit?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    active?: boolean | undefined
-    affirm?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    afterpay_clearpay?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    alipay?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    alma?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    amazon_pay?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    apple_pay?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    apple_pay_later?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    au_becs_debit?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    bacs_debit?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    bancontact?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    billie?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    blik?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    boleto?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    card?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    cartes_bancaires?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    cashapp?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    customer_balance?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    eps?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    expand?: string[] | undefined
-    fpx?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    giropay?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    google_pay?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    grabpay?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    ideal?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    jcb?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    kakao_pay?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    klarna?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    konbini?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    kr_card?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    link?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    mobilepay?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    multibanco?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    name?: string | undefined
-    naver_pay?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    nz_bank_account?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    oxxo?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    p24?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    pay_by_bank?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    payco?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    paynow?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    paypal?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    pix?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    promptpay?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    revolut_pay?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    samsung_pay?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    satispay?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    sepa_debit?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    sofort?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    swish?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    twint?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    us_bank_account?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    wechat_pay?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-    zip?:
-      | {
-          display_preference?:
-            | {
-                preference?: ("none" | "off" | "on") | undefined
-              }
-            | undefined
-        }
-      | undefined
-  }
+export type t_PostPaymentMethodConfigurationsConfigurationRequestBody = {
+  acss_debit?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  active?: boolean | undefined
+  affirm?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  afterpay_clearpay?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  alipay?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  alma?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  amazon_pay?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  apple_pay?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  apple_pay_later?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  au_becs_debit?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  bacs_debit?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  bancontact?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  billie?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  blik?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  boleto?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  card?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  cartes_bancaires?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  cashapp?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  customer_balance?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  eps?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  expand?: string[] | undefined
+  fpx?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  giropay?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  google_pay?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  grabpay?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  ideal?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  jcb?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  kakao_pay?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  klarna?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  konbini?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  kr_card?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  link?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  mobilepay?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  multibanco?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  name?: string | undefined
+  naver_pay?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  nz_bank_account?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  oxxo?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  p24?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  pay_by_bank?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  payco?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  paynow?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  paypal?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  pix?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  promptpay?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  revolut_pay?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  samsung_pay?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  satispay?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  sepa_debit?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  sofort?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  swish?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  twint?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  us_bank_account?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  wechat_pay?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+  zip?:
+    | {
+        display_preference?:
+          | {
+              preference?: ("none" | "off" | "on") | undefined
+            }
+          | undefined
+      }
+    | undefined
+}
 
-export type t_postPaymentMethodDomainsApplicationXWwwFormUrlencodedRequestBody =
-  {
-    domain_name: string
-    enabled?: boolean | undefined
-    expand?: string[] | undefined
-  }
+export type t_PostPaymentMethodDomainsRequestBody = {
+  domain_name: string
+  enabled?: boolean | undefined
+  expand?: string[] | undefined
+}
 
 export type t_PostPaymentMethodDomainsPaymentMethodDomainParamSchema = {
   payment_method_domain: string
 }
 
-export type t_postPaymentMethodDomainsPaymentMethodDomainApplicationXWwwFormUrlencodedRequestBody =
-  {
-    enabled?: boolean | undefined
-    expand?: string[] | undefined
-  }
+export type t_PostPaymentMethodDomainsPaymentMethodDomainRequestBody = {
+  enabled?: boolean | undefined
+  expand?: string[] | undefined
+}
 
 export type t_PostPaymentMethodDomainsPaymentMethodDomainValidateParamSchema = {
   payment_method_domain: string
 }
 
-export type t_postPaymentMethodDomainsPaymentMethodDomainValidateApplicationXWwwFormUrlencodedRequestBody =
-  {
-    expand?: string[] | undefined
-  }
+export type t_PostPaymentMethodDomainsPaymentMethodDomainValidateRequestBody = {
+  expand?: string[] | undefined
+}
 
-export type t_postPaymentMethodsApplicationXWwwFormUrlencodedRequestBody = {
+export type t_PostPaymentMethodsRequestBody = {
   acss_debit?:
     | {
         account_number: string
@@ -38461,82 +38252,79 @@ export type t_PostPaymentMethodsPaymentMethodParamSchema = {
   payment_method: string
 }
 
-export type t_postPaymentMethodsPaymentMethodApplicationXWwwFormUrlencodedRequestBody =
-  {
-    allow_redisplay?: ("always" | "limited" | "unspecified") | undefined
-    billing_details?:
-      | {
-          address?:
-            | (
-                | {
-                    city?: string | undefined
-                    country?: string | undefined
-                    line1?: string | undefined
-                    line2?: string | undefined
-                    postal_code?: string | undefined
-                    state?: string | undefined
-                  }
-                | ""
-              )
-            | undefined
-          email?: (string | "") | undefined
-          name?: (string | "") | undefined
-          phone?: (string | "") | undefined
-          tax_id?: string | undefined
-        }
-      | undefined
-    card?:
-      | {
-          exp_month?: number | undefined
-          exp_year?: number | undefined
-          networks?:
-            | {
-                preferred?:
-                  | ("" | "cartes_bancaires" | "mastercard" | "visa")
-                  | undefined
-              }
-            | undefined
-        }
-      | undefined
-    expand?: string[] | undefined
-    link?: EmptyObject | undefined
-    metadata?:
-      | (
+export type t_PostPaymentMethodsPaymentMethodRequestBody = {
+  allow_redisplay?: ("always" | "limited" | "unspecified") | undefined
+  billing_details?:
+    | {
+        address?:
+          | (
+              | {
+                  city?: string | undefined
+                  country?: string | undefined
+                  line1?: string | undefined
+                  line2?: string | undefined
+                  postal_code?: string | undefined
+                  state?: string | undefined
+                }
+              | ""
+            )
+          | undefined
+        email?: (string | "") | undefined
+        name?: (string | "") | undefined
+        phone?: (string | "") | undefined
+        tax_id?: string | undefined
+      }
+    | undefined
+  card?:
+    | {
+        exp_month?: number | undefined
+        exp_year?: number | undefined
+        networks?:
           | {
-              [key: string]: string | undefined
+              preferred?:
+                | ("" | "cartes_bancaires" | "mastercard" | "visa")
+                | undefined
             }
-          | ""
-        )
-      | undefined
-    pay_by_bank?: EmptyObject | undefined
-    us_bank_account?:
-      | {
-          account_holder_type?: ("company" | "individual") | undefined
-          account_type?: ("checking" | "savings") | undefined
-        }
-      | undefined
-  }
+          | undefined
+      }
+    | undefined
+  expand?: string[] | undefined
+  link?: EmptyObject | undefined
+  metadata?:
+    | (
+        | {
+            [key: string]: string | undefined
+          }
+        | ""
+      )
+    | undefined
+  pay_by_bank?: EmptyObject | undefined
+  us_bank_account?:
+    | {
+        account_holder_type?: ("company" | "individual") | undefined
+        account_type?: ("checking" | "savings") | undefined
+      }
+    | undefined
+}
 
 export type t_PostPaymentMethodsPaymentMethodAttachParamSchema = {
   payment_method: string
 }
 
-export type t_postPaymentMethodsPaymentMethodAttachApplicationXWwwFormUrlencodedRequestBody =
-  {
-    customer: string
-    expand?: string[] | undefined
-  }
+export type t_PostPaymentMethodsPaymentMethodAttachRequestBody = {
+  customer: string
+  expand?: string[] | undefined
+}
 
 export type t_PostPaymentMethodsPaymentMethodDetachParamSchema = {
   payment_method: string
 }
 
-export type t_postPaymentMethodsPaymentMethodDetachApplicationXWwwFormUrlencodedRequestBody =
-  {
-    expand?: string[] | undefined
-  }
+export type t_PostPaymentMethodsPaymentMethodDetachRequestBody = {
+  expand?: string[] | undefined
+}
 
-export type t_postPayoutsApplicationXWwwFormUrlencodedRequestBody = {
+export type t_PostPayoutsRequestBody = {
   amount: number
   currency: string
   description?: string | undefined
@@ -38556,7 +38344,7 @@ export type t_PostPayoutsPayoutParamSchema = {
   payout: string
 }
 
-export type t_postPayoutsPayoutApplicationXWwwFormUrlencodedRequestBody = {
+export type t_PostPayoutsPayoutRequestBody = {
   expand?: string[] | undefined
   metadata?:
     | (
@@ -38572,26 +38360,24 @@ export type t_PostPayoutsPayoutCancelParamSchema = {
   payout: string
 }
 
-export type t_postPayoutsPayoutCancelApplicationXWwwFormUrlencodedRequestBody =
-  {
-    expand?: string[] | undefined
-  }
+export type t_PostPayoutsPayoutCancelRequestBody = {
+  expand?: string[] | undefined
+}
 
 export type t_PostPayoutsPayoutReverseParamSchema = {
   payout: string
 }
 
-export type t_postPayoutsPayoutReverseApplicationXWwwFormUrlencodedRequestBody =
-  {
-    expand?: string[] | undefined
-    metadata?:
-      | {
-          [key: string]: string | undefined
-        }
-      | undefined
-  }
+export type t_PostPayoutsPayoutReverseRequestBody = {
+  expand?: string[] | undefined
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | undefined
+}
 
-export type t_postPlansApplicationXWwwFormUrlencodedRequestBody = {
+export type t_PostPlansRequestBody = {
   active?: boolean | undefined
   amount?: number | undefined
   amount_decimal?: string | undefined
@@ -38653,7 +38439,7 @@ export type t_PostPlansPlanParamSchema = {
   plan: string
 }
 
-export type t_postPlansPlanApplicationXWwwFormUrlencodedRequestBody = {
+export type t_PostPlansPlanRequestBody = {
   active?: boolean | undefined
   expand?: string[] | undefined
   metadata?:
@@ -38669,7 +38455,7 @@ export type t_postPlansPlanApplicationXWwwFormUrlencodedRequestBody = {
   trial_period_days?: number | undefined
 }
 
-export type t_postPricesApplicationXWwwFormUrlencodedRequestBody = {
+export type t_PostPricesRequestBody = {
   active?: boolean | undefined
   billing_scheme?: ("per_unit" | "tiered") | undefined
   currency: string
@@ -38769,7 +38555,7 @@ export type t_PostPricesPriceParamSchema = {
   price: string
 }
 
-export type t_postPricesPriceApplicationXWwwFormUrlencodedRequestBody = {
+export type t_PostPricesPriceRequestBody = {
   active?: boolean | undefined
   currency_options?:
     | (
@@ -38819,7 +38605,7 @@ export type t_postPricesPriceApplicationXWwwFormUrlencodedRequestBody = {
   transfer_lookup_key?: boolean | undefined
 }
 
-export type t_postProductsApplicationXWwwFormUrlencodedRequestBody = {
+export type t_PostProductsRequestBody = {
   active?: boolean | undefined
   default_price_data?:
     | {
@@ -38912,7 +38698,7 @@ export type t_PostProductsIdParamSchema = {
   id: string
 }
 
-export type t_postProductsIdApplicationXWwwFormUrlencodedRequestBody = {
+export type t_PostProductsIdRequestBody = {
   active?: boolean | undefined
   default_price?: string | undefined
   description?: (string | "") | undefined
@@ -38957,13 +38743,12 @@ export type t_PostProductsProductFeaturesParamSchema = {
   product: string
 }
 
-export type t_postProductsProductFeaturesApplicationXWwwFormUrlencodedRequestBody =
-  {
-    entitlement_feature: string
-    expand?: string[] | undefined
-  }
+export type t_PostProductsProductFeaturesRequestBody = {
+  entitlement_feature: string
+  expand?: string[] | undefined
+}
 
-export type t_postPromotionCodesApplicationXWwwFormUrlencodedRequestBody = {
+export type t_PostPromotionCodesRequestBody = {
   active?: boolean | undefined
   code?: string | undefined
   coupon: string
@@ -38998,34 +38783,33 @@ export type t_PostPromotionCodesPromotionCodeParamSchema = {
   promotion_code: string
 }
 
-export type t_postPromotionCodesPromotionCodeApplicationXWwwFormUrlencodedRequestBody =
-  {
-    active?: boolean | undefined
-    expand?: string[] | undefined
-    metadata?:
-      | (
+export type t_PostPromotionCodesPromotionCodeRequestBody = {
+  active?: boolean | undefined
+  expand?: string[] | undefined
+  metadata?:
+    | (
+        | {
+            [key: string]: string | undefined
+          }
+        | ""
+      )
+    | undefined
+  restrictions?:
+    | {
+        currency_options?:
           | {
-              [key: string]: string | undefined
+              [key: string]:
+                | {
+                    minimum_amount?: number | undefined
+                  }
+                | undefined
             }
-          | ""
-        )
-      | undefined
-    restrictions?:
-      | {
-          currency_options?:
-            | {
-                [key: string]:
-                  | {
-                      minimum_amount?: number | undefined
-                    }
-                  | undefined
-              }
-            | undefined
-        }
-      | undefined
-  }
+          | undefined
+      }
+    | undefined
+}
 
-export type t_postQuotesApplicationXWwwFormUrlencodedRequestBody = {
+export type t_PostQuotesRequestBody = {
   application_fee_amount?: (number | "") | undefined
   application_fee_percent?: (number | "") | undefined
   automatic_tax?:
@@ -39148,7 +38932,7 @@ export type t_PostQuotesQuoteParamSchema = {
   quote: string
 }
 
-export type t_postQuotesQuoteApplicationXWwwFormUrlencodedRequestBody = {
+export type t_PostQuotesQuoteRequestBody = {
   application_fee_amount?: (number | "") | undefined
   application_fee_percent?: (number | "") | undefined
   automatic_tax?:
@@ -39260,7 +39044,7 @@ export type t_PostQuotesQuoteAcceptParamSchema = {
   quote: string
 }
 
-export type t_postQuotesQuoteAcceptApplicationXWwwFormUrlencodedRequestBody = {
+export type t_PostQuotesQuoteAcceptRequestBody = {
   expand?: string[] | undefined
 }
 
@@ -39268,7 +39052,7 @@ export type t_PostQuotesQuoteCancelParamSchema = {
   quote: string
 }
 
-export type t_postQuotesQuoteCancelApplicationXWwwFormUrlencodedRequestBody = {
+export type t_PostQuotesQuoteCancelRequestBody = {
   expand?: string[] | undefined
 }
 
@@ -39276,20 +39060,18 @@ export type t_PostQuotesQuoteFinalizeParamSchema = {
   quote: string
 }
 
-export type t_postQuotesQuoteFinalizeApplicationXWwwFormUrlencodedRequestBody =
-  {
-    expand?: string[] | undefined
-    expires_at?: number | undefined
-  }
+export type t_PostQuotesQuoteFinalizeRequestBody = {
+  expand?: string[] | undefined
+  expires_at?: number | undefined
+}
 
-export type t_postRadarValueListItemsApplicationXWwwFormUrlencodedRequestBody =
-  {
-    expand?: string[] | undefined
-    value: string
-    value_list: string
-  }
+export type t_PostRadarValueListItemsRequestBody = {
+  expand?: string[] | undefined
+  value: string
+  value_list: string
+}
 
-export type t_postRadarValueListsApplicationXWwwFormUrlencodedRequestBody = {
+export type t_PostRadarValueListsRequestBody = {
   alias: string
   expand?: string[] | undefined
   item_type?:
@@ -39318,19 +39100,18 @@ export type t_PostRadarValueListsValueListParamSchema = {
   value_list: string
 }
 
-export type t_postRadarValueListsValueListApplicationXWwwFormUrlencodedRequestBody =
-  {
-    alias?: string | undefined
-    expand?: string[] | undefined
-    metadata?:
-      | {
-          [key: string]: string | undefined
-        }
-      | undefined
-    name?: string | undefined
-  }
+export type t_PostRadarValueListsValueListRequestBody = {
+  alias?: string | undefined
+  expand?: string[] | undefined
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | undefined
+  name?: string | undefined
+}
 
-export type t_postRefundsApplicationXWwwFormUrlencodedRequestBody = {
+export type t_PostRefundsRequestBody = {
   amount?: number | undefined
   charge?: string | undefined
   currency?: string | undefined
@@ -39356,7 +39137,7 @@ export type t_PostRefundsRefundParamSchema = {
   refund: string
 }
 
-export type t_postRefundsRefundApplicationXWwwFormUrlencodedRequestBody = {
+export type t_PostRefundsRefundRequestBody = {
   expand?: string[] | undefined
   metadata?:
     | (
@@ -39372,681 +39153,678 @@ export type t_PostRefundsRefundCancelParamSchema = {
   refund: string
 }
 
-export type t_postRefundsRefundCancelApplicationXWwwFormUrlencodedRequestBody =
-  {
-    expand?: string[] | undefined
-  }
+export type t_PostRefundsRefundCancelRequestBody = {
+  expand?: string[] | undefined
+}
 
-export type t_postReportingReportRunsApplicationXWwwFormUrlencodedRequestBody =
-  {
-    expand?: string[] | undefined
-    parameters?:
-      | {
-          columns?: string[] | undefined
-          connected_account?: string | undefined
-          currency?: string | undefined
-          interval_end?: number | undefined
-          interval_start?: number | undefined
-          payout?: string | undefined
-          reporting_category?:
-            | (
-                | "advance"
-                | "advance_funding"
-                | "anticipation_repayment"
-                | "charge"
-                | "charge_failure"
-                | "climate_order_purchase"
-                | "climate_order_refund"
-                | "connect_collection_transfer"
-                | "connect_reserved_funds"
-                | "contribution"
-                | "dispute"
-                | "dispute_reversal"
-                | "fee"
-                | "financing_paydown"
-                | "financing_paydown_reversal"
-                | "financing_payout"
-                | "financing_payout_reversal"
-                | "issuing_authorization_hold"
-                | "issuing_authorization_release"
-                | "issuing_dispute"
-                | "issuing_transaction"
-                | "network_cost"
-                | "other_adjustment"
-                | "partial_capture_reversal"
-                | "payout"
-                | "payout_reversal"
-                | "platform_earning"
-                | "platform_earning_refund"
-                | "refund"
-                | "refund_failure"
-                | "risk_reserved_funds"
-                | "tax"
-                | "topup"
-                | "topup_reversal"
-                | "transfer"
-                | "transfer_reversal"
-                | "unreconciled_customer_funds"
-              )
-            | undefined
-          timezone?:
-            | (
-                | "Africa/Abidjan"
-                | "Africa/Accra"
-                | "Africa/Addis_Ababa"
-                | "Africa/Algiers"
-                | "Africa/Asmara"
-                | "Africa/Asmera"
-                | "Africa/Bamako"
-                | "Africa/Bangui"
-                | "Africa/Banjul"
-                | "Africa/Bissau"
-                | "Africa/Blantyre"
-                | "Africa/Brazzaville"
-                | "Africa/Bujumbura"
-                | "Africa/Cairo"
-                | "Africa/Casablanca"
-                | "Africa/Ceuta"
-                | "Africa/Conakry"
-                | "Africa/Dakar"
-                | "Africa/Dar_es_Salaam"
-                | "Africa/Djibouti"
-                | "Africa/Douala"
-                | "Africa/El_Aaiun"
-                | "Africa/Freetown"
-                | "Africa/Gaborone"
-                | "Africa/Harare"
-                | "Africa/Johannesburg"
-                | "Africa/Juba"
-                | "Africa/Kampala"
-                | "Africa/Khartoum"
-                | "Africa/Kigali"
-                | "Africa/Kinshasa"
-                | "Africa/Lagos"
-                | "Africa/Libreville"
-                | "Africa/Lome"
-                | "Africa/Luanda"
-                | "Africa/Lubumbashi"
-                | "Africa/Lusaka"
-                | "Africa/Malabo"
-                | "Africa/Maputo"
-                | "Africa/Maseru"
-                | "Africa/Mbabane"
-                | "Africa/Mogadishu"
-                | "Africa/Monrovia"
-                | "Africa/Nairobi"
-                | "Africa/Ndjamena"
-                | "Africa/Niamey"
-                | "Africa/Nouakchott"
-                | "Africa/Ouagadougou"
-                | "Africa/Porto-Novo"
-                | "Africa/Sao_Tome"
-                | "Africa/Timbuktu"
-                | "Africa/Tripoli"
-                | "Africa/Tunis"
-                | "Africa/Windhoek"
-                | "America/Adak"
-                | "America/Anchorage"
-                | "America/Anguilla"
-                | "America/Antigua"
-                | "America/Araguaina"
-                | "America/Argentina/Buenos_Aires"
-                | "America/Argentina/Catamarca"
-                | "America/Argentina/ComodRivadavia"
-                | "America/Argentina/Cordoba"
-                | "America/Argentina/Jujuy"
-                | "America/Argentina/La_Rioja"
-                | "America/Argentina/Mendoza"
-                | "America/Argentina/Rio_Gallegos"
-                | "America/Argentina/Salta"
-                | "America/Argentina/San_Juan"
-                | "America/Argentina/San_Luis"
-                | "America/Argentina/Tucuman"
-                | "America/Argentina/Ushuaia"
-                | "America/Aruba"
-                | "America/Asuncion"
-                | "America/Atikokan"
-                | "America/Atka"
-                | "America/Bahia"
-                | "America/Bahia_Banderas"
-                | "America/Barbados"
-                | "America/Belem"
-                | "America/Belize"
-                | "America/Blanc-Sablon"
-                | "America/Boa_Vista"
-                | "America/Bogota"
-                | "America/Boise"
-                | "America/Buenos_Aires"
-                | "America/Cambridge_Bay"
-                | "America/Campo_Grande"
-                | "America/Cancun"
-                | "America/Caracas"
-                | "America/Catamarca"
-                | "America/Cayenne"
-                | "America/Cayman"
-                | "America/Chicago"
-                | "America/Chihuahua"
-                | "America/Ciudad_Juarez"
-                | "America/Coral_Harbour"
-                | "America/Cordoba"
-                | "America/Costa_Rica"
-                | "America/Coyhaique"
-                | "America/Creston"
-                | "America/Cuiaba"
-                | "America/Curacao"
-                | "America/Danmarkshavn"
-                | "America/Dawson"
-                | "America/Dawson_Creek"
-                | "America/Denver"
-                | "America/Detroit"
-                | "America/Dominica"
-                | "America/Edmonton"
-                | "America/Eirunepe"
-                | "America/El_Salvador"
-                | "America/Ensenada"
-                | "America/Fort_Nelson"
-                | "America/Fort_Wayne"
-                | "America/Fortaleza"
-                | "America/Glace_Bay"
-                | "America/Godthab"
-                | "America/Goose_Bay"
-                | "America/Grand_Turk"
-                | "America/Grenada"
-                | "America/Guadeloupe"
-                | "America/Guatemala"
-                | "America/Guayaquil"
-                | "America/Guyana"
-                | "America/Halifax"
-                | "America/Havana"
-                | "America/Hermosillo"
-                | "America/Indiana/Indianapolis"
-                | "America/Indiana/Knox"
-                | "America/Indiana/Marengo"
-                | "America/Indiana/Petersburg"
-                | "America/Indiana/Tell_City"
-                | "America/Indiana/Vevay"
-                | "America/Indiana/Vincennes"
-                | "America/Indiana/Winamac"
-                | "America/Indianapolis"
-                | "America/Inuvik"
-                | "America/Iqaluit"
-                | "America/Jamaica"
-                | "America/Jujuy"
-                | "America/Juneau"
-                | "America/Kentucky/Louisville"
-                | "America/Kentucky/Monticello"
-                | "America/Knox_IN"
-                | "America/Kralendijk"
-                | "America/La_Paz"
-                | "America/Lima"
-                | "America/Los_Angeles"
-                | "America/Louisville"
-                | "America/Lower_Princes"
-                | "America/Maceio"
-                | "America/Managua"
-                | "America/Manaus"
-                | "America/Marigot"
-                | "America/Martinique"
-                | "America/Matamoros"
-                | "America/Mazatlan"
-                | "America/Mendoza"
-                | "America/Menominee"
-                | "America/Merida"
-                | "America/Metlakatla"
-                | "America/Mexico_City"
-                | "America/Miquelon"
-                | "America/Moncton"
-                | "America/Monterrey"
-                | "America/Montevideo"
-                | "America/Montreal"
-                | "America/Montserrat"
-                | "America/Nassau"
-                | "America/New_York"
-                | "America/Nipigon"
-                | "America/Nome"
-                | "America/Noronha"
-                | "America/North_Dakota/Beulah"
-                | "America/North_Dakota/Center"
-                | "America/North_Dakota/New_Salem"
-                | "America/Nuuk"
-                | "America/Ojinaga"
-                | "America/Panama"
-                | "America/Pangnirtung"
-                | "America/Paramaribo"
-                | "America/Phoenix"
-                | "America/Port-au-Prince"
-                | "America/Port_of_Spain"
-                | "America/Porto_Acre"
-                | "America/Porto_Velho"
-                | "America/Puerto_Rico"
-                | "America/Punta_Arenas"
-                | "America/Rainy_River"
-                | "America/Rankin_Inlet"
-                | "America/Recife"
-                | "America/Regina"
-                | "America/Resolute"
-                | "America/Rio_Branco"
-                | "America/Rosario"
-                | "America/Santa_Isabel"
-                | "America/Santarem"
-                | "America/Santiago"
-                | "America/Santo_Domingo"
-                | "America/Sao_Paulo"
-                | "America/Scoresbysund"
-                | "America/Shiprock"
-                | "America/Sitka"
-                | "America/St_Barthelemy"
-                | "America/St_Johns"
-                | "America/St_Kitts"
-                | "America/St_Lucia"
-                | "America/St_Thomas"
-                | "America/St_Vincent"
-                | "America/Swift_Current"
-                | "America/Tegucigalpa"
-                | "America/Thule"
-                | "America/Thunder_Bay"
-                | "America/Tijuana"
-                | "America/Toronto"
-                | "America/Tortola"
-                | "America/Vancouver"
-                | "America/Virgin"
-                | "America/Whitehorse"
-                | "America/Winnipeg"
-                | "America/Yakutat"
-                | "America/Yellowknife"
-                | "Antarctica/Casey"
-                | "Antarctica/Davis"
-                | "Antarctica/DumontDUrville"
-                | "Antarctica/Macquarie"
-                | "Antarctica/Mawson"
-                | "Antarctica/McMurdo"
-                | "Antarctica/Palmer"
-                | "Antarctica/Rothera"
-                | "Antarctica/South_Pole"
-                | "Antarctica/Syowa"
-                | "Antarctica/Troll"
-                | "Antarctica/Vostok"
-                | "Arctic/Longyearbyen"
-                | "Asia/Aden"
-                | "Asia/Almaty"
-                | "Asia/Amman"
-                | "Asia/Anadyr"
-                | "Asia/Aqtau"
-                | "Asia/Aqtobe"
-                | "Asia/Ashgabat"
-                | "Asia/Ashkhabad"
-                | "Asia/Atyrau"
-                | "Asia/Baghdad"
-                | "Asia/Bahrain"
-                | "Asia/Baku"
-                | "Asia/Bangkok"
-                | "Asia/Barnaul"
-                | "Asia/Beirut"
-                | "Asia/Bishkek"
-                | "Asia/Brunei"
-                | "Asia/Calcutta"
-                | "Asia/Chita"
-                | "Asia/Choibalsan"
-                | "Asia/Chongqing"
-                | "Asia/Chungking"
-                | "Asia/Colombo"
-                | "Asia/Dacca"
-                | "Asia/Damascus"
-                | "Asia/Dhaka"
-                | "Asia/Dili"
-                | "Asia/Dubai"
-                | "Asia/Dushanbe"
-                | "Asia/Famagusta"
-                | "Asia/Gaza"
-                | "Asia/Harbin"
-                | "Asia/Hebron"
-                | "Asia/Ho_Chi_Minh"
-                | "Asia/Hong_Kong"
-                | "Asia/Hovd"
-                | "Asia/Irkutsk"
-                | "Asia/Istanbul"
-                | "Asia/Jakarta"
-                | "Asia/Jayapura"
-                | "Asia/Jerusalem"
-                | "Asia/Kabul"
-                | "Asia/Kamchatka"
-                | "Asia/Karachi"
-                | "Asia/Kashgar"
-                | "Asia/Kathmandu"
-                | "Asia/Katmandu"
-                | "Asia/Khandyga"
-                | "Asia/Kolkata"
-                | "Asia/Krasnoyarsk"
-                | "Asia/Kuala_Lumpur"
-                | "Asia/Kuching"
-                | "Asia/Kuwait"
-                | "Asia/Macao"
-                | "Asia/Macau"
-                | "Asia/Magadan"
-                | "Asia/Makassar"
-                | "Asia/Manila"
-                | "Asia/Muscat"
-                | "Asia/Nicosia"
-                | "Asia/Novokuznetsk"
-                | "Asia/Novosibirsk"
-                | "Asia/Omsk"
-                | "Asia/Oral"
-                | "Asia/Phnom_Penh"
-                | "Asia/Pontianak"
-                | "Asia/Pyongyang"
-                | "Asia/Qatar"
-                | "Asia/Qostanay"
-                | "Asia/Qyzylorda"
-                | "Asia/Rangoon"
-                | "Asia/Riyadh"
-                | "Asia/Saigon"
-                | "Asia/Sakhalin"
-                | "Asia/Samarkand"
-                | "Asia/Seoul"
-                | "Asia/Shanghai"
-                | "Asia/Singapore"
-                | "Asia/Srednekolymsk"
-                | "Asia/Taipei"
-                | "Asia/Tashkent"
-                | "Asia/Tbilisi"
-                | "Asia/Tehran"
-                | "Asia/Tel_Aviv"
-                | "Asia/Thimbu"
-                | "Asia/Thimphu"
-                | "Asia/Tokyo"
-                | "Asia/Tomsk"
-                | "Asia/Ujung_Pandang"
-                | "Asia/Ulaanbaatar"
-                | "Asia/Ulan_Bator"
-                | "Asia/Urumqi"
-                | "Asia/Ust-Nera"
-                | "Asia/Vientiane"
-                | "Asia/Vladivostok"
-                | "Asia/Yakutsk"
-                | "Asia/Yangon"
-                | "Asia/Yekaterinburg"
-                | "Asia/Yerevan"
-                | "Atlantic/Azores"
-                | "Atlantic/Bermuda"
-                | "Atlantic/Canary"
-                | "Atlantic/Cape_Verde"
-                | "Atlantic/Faeroe"
-                | "Atlantic/Faroe"
-                | "Atlantic/Jan_Mayen"
-                | "Atlantic/Madeira"
-                | "Atlantic/Reykjavik"
-                | "Atlantic/South_Georgia"
-                | "Atlantic/St_Helena"
-                | "Atlantic/Stanley"
-                | "Australia/ACT"
-                | "Australia/Adelaide"
-                | "Australia/Brisbane"
-                | "Australia/Broken_Hill"
-                | "Australia/Canberra"
-                | "Australia/Currie"
-                | "Australia/Darwin"
-                | "Australia/Eucla"
-                | "Australia/Hobart"
-                | "Australia/LHI"
-                | "Australia/Lindeman"
-                | "Australia/Lord_Howe"
-                | "Australia/Melbourne"
-                | "Australia/NSW"
-                | "Australia/North"
-                | "Australia/Perth"
-                | "Australia/Queensland"
-                | "Australia/South"
-                | "Australia/Sydney"
-                | "Australia/Tasmania"
-                | "Australia/Victoria"
-                | "Australia/West"
-                | "Australia/Yancowinna"
-                | "Brazil/Acre"
-                | "Brazil/DeNoronha"
-                | "Brazil/East"
-                | "Brazil/West"
-                | "CET"
-                | "CST6CDT"
-                | "Canada/Atlantic"
-                | "Canada/Central"
-                | "Canada/Eastern"
-                | "Canada/Mountain"
-                | "Canada/Newfoundland"
-                | "Canada/Pacific"
-                | "Canada/Saskatchewan"
-                | "Canada/Yukon"
-                | "Chile/Continental"
-                | "Chile/EasterIsland"
-                | "Cuba"
-                | "EET"
-                | "EST"
-                | "EST5EDT"
-                | "Egypt"
-                | "Eire"
-                | "Etc/GMT"
-                | "Etc/GMT+0"
-                | "Etc/GMT+1"
-                | "Etc/GMT+10"
-                | "Etc/GMT+11"
-                | "Etc/GMT+12"
-                | "Etc/GMT+2"
-                | "Etc/GMT+3"
-                | "Etc/GMT+4"
-                | "Etc/GMT+5"
-                | "Etc/GMT+6"
-                | "Etc/GMT+7"
-                | "Etc/GMT+8"
-                | "Etc/GMT+9"
-                | "Etc/GMT-0"
-                | "Etc/GMT-1"
-                | "Etc/GMT-10"
-                | "Etc/GMT-11"
-                | "Etc/GMT-12"
-                | "Etc/GMT-13"
-                | "Etc/GMT-14"
-                | "Etc/GMT-2"
-                | "Etc/GMT-3"
-                | "Etc/GMT-4"
-                | "Etc/GMT-5"
-                | "Etc/GMT-6"
-                | "Etc/GMT-7"
-                | "Etc/GMT-8"
-                | "Etc/GMT-9"
-                | "Etc/GMT0"
-                | "Etc/Greenwich"
-                | "Etc/UCT"
-                | "Etc/UTC"
-                | "Etc/Universal"
-                | "Etc/Zulu"
-                | "Europe/Amsterdam"
-                | "Europe/Andorra"
-                | "Europe/Astrakhan"
-                | "Europe/Athens"
-                | "Europe/Belfast"
-                | "Europe/Belgrade"
-                | "Europe/Berlin"
-                | "Europe/Bratislava"
-                | "Europe/Brussels"
-                | "Europe/Bucharest"
-                | "Europe/Budapest"
-                | "Europe/Busingen"
-                | "Europe/Chisinau"
-                | "Europe/Copenhagen"
-                | "Europe/Dublin"
-                | "Europe/Gibraltar"
-                | "Europe/Guernsey"
-                | "Europe/Helsinki"
-                | "Europe/Isle_of_Man"
-                | "Europe/Istanbul"
-                | "Europe/Jersey"
-                | "Europe/Kaliningrad"
-                | "Europe/Kiev"
-                | "Europe/Kirov"
-                | "Europe/Kyiv"
-                | "Europe/Lisbon"
-                | "Europe/Ljubljana"
-                | "Europe/London"
-                | "Europe/Luxembourg"
-                | "Europe/Madrid"
-                | "Europe/Malta"
-                | "Europe/Mariehamn"
-                | "Europe/Minsk"
-                | "Europe/Monaco"
-                | "Europe/Moscow"
-                | "Europe/Nicosia"
-                | "Europe/Oslo"
-                | "Europe/Paris"
-                | "Europe/Podgorica"
-                | "Europe/Prague"
-                | "Europe/Riga"
-                | "Europe/Rome"
-                | "Europe/Samara"
-                | "Europe/San_Marino"
-                | "Europe/Sarajevo"
-                | "Europe/Saratov"
-                | "Europe/Simferopol"
-                | "Europe/Skopje"
-                | "Europe/Sofia"
-                | "Europe/Stockholm"
-                | "Europe/Tallinn"
-                | "Europe/Tirane"
-                | "Europe/Tiraspol"
-                | "Europe/Ulyanovsk"
-                | "Europe/Uzhgorod"
-                | "Europe/Vaduz"
-                | "Europe/Vatican"
-                | "Europe/Vienna"
-                | "Europe/Vilnius"
-                | "Europe/Volgograd"
-                | "Europe/Warsaw"
-                | "Europe/Zagreb"
-                | "Europe/Zaporozhye"
-                | "Europe/Zurich"
-                | "Factory"
-                | "GB"
-                | "GB-Eire"
-                | "GMT"
-                | "GMT+0"
-                | "GMT-0"
-                | "GMT0"
-                | "Greenwich"
-                | "HST"
-                | "Hongkong"
-                | "Iceland"
-                | "Indian/Antananarivo"
-                | "Indian/Chagos"
-                | "Indian/Christmas"
-                | "Indian/Cocos"
-                | "Indian/Comoro"
-                | "Indian/Kerguelen"
-                | "Indian/Mahe"
-                | "Indian/Maldives"
-                | "Indian/Mauritius"
-                | "Indian/Mayotte"
-                | "Indian/Reunion"
-                | "Iran"
-                | "Israel"
-                | "Jamaica"
-                | "Japan"
-                | "Kwajalein"
-                | "Libya"
-                | "MET"
-                | "MST"
-                | "MST7MDT"
-                | "Mexico/BajaNorte"
-                | "Mexico/BajaSur"
-                | "Mexico/General"
-                | "NZ"
-                | "NZ-CHAT"
-                | "Navajo"
-                | "PRC"
-                | "PST8PDT"
-                | "Pacific/Apia"
-                | "Pacific/Auckland"
-                | "Pacific/Bougainville"
-                | "Pacific/Chatham"
-                | "Pacific/Chuuk"
-                | "Pacific/Easter"
-                | "Pacific/Efate"
-                | "Pacific/Enderbury"
-                | "Pacific/Fakaofo"
-                | "Pacific/Fiji"
-                | "Pacific/Funafuti"
-                | "Pacific/Galapagos"
-                | "Pacific/Gambier"
-                | "Pacific/Guadalcanal"
-                | "Pacific/Guam"
-                | "Pacific/Honolulu"
-                | "Pacific/Johnston"
-                | "Pacific/Kanton"
-                | "Pacific/Kiritimati"
-                | "Pacific/Kosrae"
-                | "Pacific/Kwajalein"
-                | "Pacific/Majuro"
-                | "Pacific/Marquesas"
-                | "Pacific/Midway"
-                | "Pacific/Nauru"
-                | "Pacific/Niue"
-                | "Pacific/Norfolk"
-                | "Pacific/Noumea"
-                | "Pacific/Pago_Pago"
-                | "Pacific/Palau"
-                | "Pacific/Pitcairn"
-                | "Pacific/Pohnpei"
-                | "Pacific/Ponape"
-                | "Pacific/Port_Moresby"
-                | "Pacific/Rarotonga"
-                | "Pacific/Saipan"
-                | "Pacific/Samoa"
-                | "Pacific/Tahiti"
-                | "Pacific/Tarawa"
-                | "Pacific/Tongatapu"
-                | "Pacific/Truk"
-                | "Pacific/Wake"
-                | "Pacific/Wallis"
-                | "Pacific/Yap"
-                | "Poland"
-                | "Portugal"
-                | "ROC"
-                | "ROK"
-                | "Singapore"
-                | "Turkey"
-                | "UCT"
-                | "US/Alaska"
-                | "US/Aleutian"
-                | "US/Arizona"
-                | "US/Central"
-                | "US/East-Indiana"
-                | "US/Eastern"
-                | "US/Hawaii"
-                | "US/Indiana-Starke"
-                | "US/Michigan"
-                | "US/Mountain"
-                | "US/Pacific"
-                | "US/Pacific-New"
-                | "US/Samoa"
-                | "UTC"
-                | "Universal"
-                | "W-SU"
-                | "WET"
-                | "Zulu"
-              )
-            | undefined
-        }
-      | undefined
-    report_type: string
-  }
+export type t_PostReportingReportRunsRequestBody = {
+  expand?: string[] | undefined
+  parameters?:
+    | {
+        columns?: string[] | undefined
+        connected_account?: string | undefined
+        currency?: string | undefined
+        interval_end?: number | undefined
+        interval_start?: number | undefined
+        payout?: string | undefined
+        reporting_category?:
+          | (
+              | "advance"
+              | "advance_funding"
+              | "anticipation_repayment"
+              | "charge"
+              | "charge_failure"
+              | "climate_order_purchase"
+              | "climate_order_refund"
+              | "connect_collection_transfer"
+              | "connect_reserved_funds"
+              | "contribution"
+              | "dispute"
+              | "dispute_reversal"
+              | "fee"
+              | "financing_paydown"
+              | "financing_paydown_reversal"
+              | "financing_payout"
+              | "financing_payout_reversal"
+              | "issuing_authorization_hold"
+              | "issuing_authorization_release"
+              | "issuing_dispute"
+              | "issuing_transaction"
+              | "network_cost"
+              | "other_adjustment"
+              | "partial_capture_reversal"
+              | "payout"
+              | "payout_reversal"
+              | "platform_earning"
+              | "platform_earning_refund"
+              | "refund"
+              | "refund_failure"
+              | "risk_reserved_funds"
+              | "tax"
+              | "topup"
+              | "topup_reversal"
+              | "transfer"
+              | "transfer_reversal"
+              | "unreconciled_customer_funds"
+            )
+          | undefined
+        timezone?:
+          | (
+              | "Africa/Abidjan"
+              | "Africa/Accra"
+              | "Africa/Addis_Ababa"
+              | "Africa/Algiers"
+              | "Africa/Asmara"
+              | "Africa/Asmera"
+              | "Africa/Bamako"
+              | "Africa/Bangui"
+              | "Africa/Banjul"
+              | "Africa/Bissau"
+              | "Africa/Blantyre"
+              | "Africa/Brazzaville"
+              | "Africa/Bujumbura"
+              | "Africa/Cairo"
+              | "Africa/Casablanca"
+              | "Africa/Ceuta"
+              | "Africa/Conakry"
+              | "Africa/Dakar"
+              | "Africa/Dar_es_Salaam"
+              | "Africa/Djibouti"
+              | "Africa/Douala"
+              | "Africa/El_Aaiun"
+              | "Africa/Freetown"
+              | "Africa/Gaborone"
+              | "Africa/Harare"
+              | "Africa/Johannesburg"
+              | "Africa/Juba"
+              | "Africa/Kampala"
+              | "Africa/Khartoum"
+              | "Africa/Kigali"
+              | "Africa/Kinshasa"
+              | "Africa/Lagos"
+              | "Africa/Libreville"
+              | "Africa/Lome"
+              | "Africa/Luanda"
+              | "Africa/Lubumbashi"
+              | "Africa/Lusaka"
+              | "Africa/Malabo"
+              | "Africa/Maputo"
+              | "Africa/Maseru"
+              | "Africa/Mbabane"
+              | "Africa/Mogadishu"
+              | "Africa/Monrovia"
+              | "Africa/Nairobi"
+              | "Africa/Ndjamena"
+              | "Africa/Niamey"
+              | "Africa/Nouakchott"
+              | "Africa/Ouagadougou"
+              | "Africa/Porto-Novo"
+              | "Africa/Sao_Tome"
+              | "Africa/Timbuktu"
+              | "Africa/Tripoli"
+              | "Africa/Tunis"
+              | "Africa/Windhoek"
+              | "America/Adak"
+              | "America/Anchorage"
+              | "America/Anguilla"
+              | "America/Antigua"
+              | "America/Araguaina"
+              | "America/Argentina/Buenos_Aires"
+              | "America/Argentina/Catamarca"
+              | "America/Argentina/ComodRivadavia"
+              | "America/Argentina/Cordoba"
+              | "America/Argentina/Jujuy"
+              | "America/Argentina/La_Rioja"
+              | "America/Argentina/Mendoza"
+              | "America/Argentina/Rio_Gallegos"
+              | "America/Argentina/Salta"
+              | "America/Argentina/San_Juan"
+              | "America/Argentina/San_Luis"
+              | "America/Argentina/Tucuman"
+              | "America/Argentina/Ushuaia"
+              | "America/Aruba"
+              | "America/Asuncion"
+              | "America/Atikokan"
+              | "America/Atka"
+              | "America/Bahia"
+              | "America/Bahia_Banderas"
+              | "America/Barbados"
+              | "America/Belem"
+              | "America/Belize"
+              | "America/Blanc-Sablon"
+              | "America/Boa_Vista"
+              | "America/Bogota"
+              | "America/Boise"
+              | "America/Buenos_Aires"
+              | "America/Cambridge_Bay"
+              | "America/Campo_Grande"
+              | "America/Cancun"
+              | "America/Caracas"
+              | "America/Catamarca"
+              | "America/Cayenne"
+              | "America/Cayman"
+              | "America/Chicago"
+              | "America/Chihuahua"
+              | "America/Ciudad_Juarez"
+              | "America/Coral_Harbour"
+              | "America/Cordoba"
+              | "America/Costa_Rica"
+              | "America/Coyhaique"
+              | "America/Creston"
+              | "America/Cuiaba"
+              | "America/Curacao"
+              | "America/Danmarkshavn"
+              | "America/Dawson"
+              | "America/Dawson_Creek"
+              | "America/Denver"
+              | "America/Detroit"
+              | "America/Dominica"
+              | "America/Edmonton"
+              | "America/Eirunepe"
+              | "America/El_Salvador"
+              | "America/Ensenada"
+              | "America/Fort_Nelson"
+              | "America/Fort_Wayne"
+              | "America/Fortaleza"
+              | "America/Glace_Bay"
+              | "America/Godthab"
+              | "America/Goose_Bay"
+              | "America/Grand_Turk"
+              | "America/Grenada"
+              | "America/Guadeloupe"
+              | "America/Guatemala"
+              | "America/Guayaquil"
+              | "America/Guyana"
+              | "America/Halifax"
+              | "America/Havana"
+              | "America/Hermosillo"
+              | "America/Indiana/Indianapolis"
+              | "America/Indiana/Knox"
+              | "America/Indiana/Marengo"
+              | "America/Indiana/Petersburg"
+              | "America/Indiana/Tell_City"
+              | "America/Indiana/Vevay"
+              | "America/Indiana/Vincennes"
+              | "America/Indiana/Winamac"
+              | "America/Indianapolis"
+              | "America/Inuvik"
+              | "America/Iqaluit"
+              | "America/Jamaica"
+              | "America/Jujuy"
+              | "America/Juneau"
+              | "America/Kentucky/Louisville"
+              | "America/Kentucky/Monticello"
+              | "America/Knox_IN"
+              | "America/Kralendijk"
+              | "America/La_Paz"
+              | "America/Lima"
+              | "America/Los_Angeles"
+              | "America/Louisville"
+              | "America/Lower_Princes"
+              | "America/Maceio"
+              | "America/Managua"
+              | "America/Manaus"
+              | "America/Marigot"
+              | "America/Martinique"
+              | "America/Matamoros"
+              | "America/Mazatlan"
+              | "America/Mendoza"
+              | "America/Menominee"
+              | "America/Merida"
+              | "America/Metlakatla"
+              | "America/Mexico_City"
+              | "America/Miquelon"
+              | "America/Moncton"
+              | "America/Monterrey"
+              | "America/Montevideo"
+              | "America/Montreal"
+              | "America/Montserrat"
+              | "America/Nassau"
+              | "America/New_York"
+              | "America/Nipigon"
+              | "America/Nome"
+              | "America/Noronha"
+              | "America/North_Dakota/Beulah"
+              | "America/North_Dakota/Center"
+              | "America/North_Dakota/New_Salem"
+              | "America/Nuuk"
+              | "America/Ojinaga"
+              | "America/Panama"
+              | "America/Pangnirtung"
+              | "America/Paramaribo"
+              | "America/Phoenix"
+              | "America/Port-au-Prince"
+              | "America/Port_of_Spain"
+              | "America/Porto_Acre"
+              | "America/Porto_Velho"
+              | "America/Puerto_Rico"
+              | "America/Punta_Arenas"
+              | "America/Rainy_River"
+              | "America/Rankin_Inlet"
+              | "America/Recife"
+              | "America/Regina"
+              | "America/Resolute"
+              | "America/Rio_Branco"
+              | "America/Rosario"
+              | "America/Santa_Isabel"
+              | "America/Santarem"
+              | "America/Santiago"
+              | "America/Santo_Domingo"
+              | "America/Sao_Paulo"
+              | "America/Scoresbysund"
+              | "America/Shiprock"
+              | "America/Sitka"
+              | "America/St_Barthelemy"
+              | "America/St_Johns"
+              | "America/St_Kitts"
+              | "America/St_Lucia"
+              | "America/St_Thomas"
+              | "America/St_Vincent"
+              | "America/Swift_Current"
+              | "America/Tegucigalpa"
+              | "America/Thule"
+              | "America/Thunder_Bay"
+              | "America/Tijuana"
+              | "America/Toronto"
+              | "America/Tortola"
+              | "America/Vancouver"
+              | "America/Virgin"
+              | "America/Whitehorse"
+              | "America/Winnipeg"
+              | "America/Yakutat"
+              | "America/Yellowknife"
+              | "Antarctica/Casey"
+              | "Antarctica/Davis"
+              | "Antarctica/DumontDUrville"
+              | "Antarctica/Macquarie"
+              | "Antarctica/Mawson"
+              | "Antarctica/McMurdo"
+              | "Antarctica/Palmer"
+              | "Antarctica/Rothera"
+              | "Antarctica/South_Pole"
+              | "Antarctica/Syowa"
+              | "Antarctica/Troll"
+              | "Antarctica/Vostok"
+              | "Arctic/Longyearbyen"
+              | "Asia/Aden"
+              | "Asia/Almaty"
+              | "Asia/Amman"
+              | "Asia/Anadyr"
+              | "Asia/Aqtau"
+              | "Asia/Aqtobe"
+              | "Asia/Ashgabat"
+              | "Asia/Ashkhabad"
+              | "Asia/Atyrau"
+              | "Asia/Baghdad"
+              | "Asia/Bahrain"
+              | "Asia/Baku"
+              | "Asia/Bangkok"
+              | "Asia/Barnaul"
+              | "Asia/Beirut"
+              | "Asia/Bishkek"
+              | "Asia/Brunei"
+              | "Asia/Calcutta"
+              | "Asia/Chita"
+              | "Asia/Choibalsan"
+              | "Asia/Chongqing"
+              | "Asia/Chungking"
+              | "Asia/Colombo"
+              | "Asia/Dacca"
+              | "Asia/Damascus"
+              | "Asia/Dhaka"
+              | "Asia/Dili"
+              | "Asia/Dubai"
+              | "Asia/Dushanbe"
+              | "Asia/Famagusta"
+              | "Asia/Gaza"
+              | "Asia/Harbin"
+              | "Asia/Hebron"
+              | "Asia/Ho_Chi_Minh"
+              | "Asia/Hong_Kong"
+              | "Asia/Hovd"
+              | "Asia/Irkutsk"
+              | "Asia/Istanbul"
+              | "Asia/Jakarta"
+              | "Asia/Jayapura"
+              | "Asia/Jerusalem"
+              | "Asia/Kabul"
+              | "Asia/Kamchatka"
+              | "Asia/Karachi"
+              | "Asia/Kashgar"
+              | "Asia/Kathmandu"
+              | "Asia/Katmandu"
+              | "Asia/Khandyga"
+              | "Asia/Kolkata"
+              | "Asia/Krasnoyarsk"
+              | "Asia/Kuala_Lumpur"
+              | "Asia/Kuching"
+              | "Asia/Kuwait"
+              | "Asia/Macao"
+              | "Asia/Macau"
+              | "Asia/Magadan"
+              | "Asia/Makassar"
+              | "Asia/Manila"
+              | "Asia/Muscat"
+              | "Asia/Nicosia"
+              | "Asia/Novokuznetsk"
+              | "Asia/Novosibirsk"
+              | "Asia/Omsk"
+              | "Asia/Oral"
+              | "Asia/Phnom_Penh"
+              | "Asia/Pontianak"
+              | "Asia/Pyongyang"
+              | "Asia/Qatar"
+              | "Asia/Qostanay"
+              | "Asia/Qyzylorda"
+              | "Asia/Rangoon"
+              | "Asia/Riyadh"
+              | "Asia/Saigon"
+              | "Asia/Sakhalin"
+              | "Asia/Samarkand"
+              | "Asia/Seoul"
+              | "Asia/Shanghai"
+              | "Asia/Singapore"
+              | "Asia/Srednekolymsk"
+              | "Asia/Taipei"
+              | "Asia/Tashkent"
+              | "Asia/Tbilisi"
+              | "Asia/Tehran"
+              | "Asia/Tel_Aviv"
+              | "Asia/Thimbu"
+              | "Asia/Thimphu"
+              | "Asia/Tokyo"
+              | "Asia/Tomsk"
+              | "Asia/Ujung_Pandang"
+              | "Asia/Ulaanbaatar"
+              | "Asia/Ulan_Bator"
+              | "Asia/Urumqi"
+              | "Asia/Ust-Nera"
+              | "Asia/Vientiane"
+              | "Asia/Vladivostok"
+              | "Asia/Yakutsk"
+              | "Asia/Yangon"
+              | "Asia/Yekaterinburg"
+              | "Asia/Yerevan"
+              | "Atlantic/Azores"
+              | "Atlantic/Bermuda"
+              | "Atlantic/Canary"
+              | "Atlantic/Cape_Verde"
+              | "Atlantic/Faeroe"
+              | "Atlantic/Faroe"
+              | "Atlantic/Jan_Mayen"
+              | "Atlantic/Madeira"
+              | "Atlantic/Reykjavik"
+              | "Atlantic/South_Georgia"
+              | "Atlantic/St_Helena"
+              | "Atlantic/Stanley"
+              | "Australia/ACT"
+              | "Australia/Adelaide"
+              | "Australia/Brisbane"
+              | "Australia/Broken_Hill"
+              | "Australia/Canberra"
+              | "Australia/Currie"
+              | "Australia/Darwin"
+              | "Australia/Eucla"
+              | "Australia/Hobart"
+              | "Australia/LHI"
+              | "Australia/Lindeman"
+              | "Australia/Lord_Howe"
+              | "Australia/Melbourne"
+              | "Australia/NSW"
+              | "Australia/North"
+              | "Australia/Perth"
+              | "Australia/Queensland"
+              | "Australia/South"
+              | "Australia/Sydney"
+              | "Australia/Tasmania"
+              | "Australia/Victoria"
+              | "Australia/West"
+              | "Australia/Yancowinna"
+              | "Brazil/Acre"
+              | "Brazil/DeNoronha"
+              | "Brazil/East"
+              | "Brazil/West"
+              | "CET"
+              | "CST6CDT"
+              | "Canada/Atlantic"
+              | "Canada/Central"
+              | "Canada/Eastern"
+              | "Canada/Mountain"
+              | "Canada/Newfoundland"
+              | "Canada/Pacific"
+              | "Canada/Saskatchewan"
+              | "Canada/Yukon"
+              | "Chile/Continental"
+              | "Chile/EasterIsland"
+              | "Cuba"
+              | "EET"
+              | "EST"
+              | "EST5EDT"
+              | "Egypt"
+              | "Eire"
+              | "Etc/GMT"
+              | "Etc/GMT+0"
+              | "Etc/GMT+1"
+              | "Etc/GMT+10"
+              | "Etc/GMT+11"
+              | "Etc/GMT+12"
+              | "Etc/GMT+2"
+              | "Etc/GMT+3"
+              | "Etc/GMT+4"
+              | "Etc/GMT+5"
+              | "Etc/GMT+6"
+              | "Etc/GMT+7"
+              | "Etc/GMT+8"
+              | "Etc/GMT+9"
+              | "Etc/GMT-0"
+              | "Etc/GMT-1"
+              | "Etc/GMT-10"
+              | "Etc/GMT-11"
+              | "Etc/GMT-12"
+              | "Etc/GMT-13"
+              | "Etc/GMT-14"
+              | "Etc/GMT-2"
+              | "Etc/GMT-3"
+              | "Etc/GMT-4"
+              | "Etc/GMT-5"
+              | "Etc/GMT-6"
+              | "Etc/GMT-7"
+              | "Etc/GMT-8"
+              | "Etc/GMT-9"
+              | "Etc/GMT0"
+              | "Etc/Greenwich"
+              | "Etc/UCT"
+              | "Etc/UTC"
+              | "Etc/Universal"
+              | "Etc/Zulu"
+              | "Europe/Amsterdam"
+              | "Europe/Andorra"
+              | "Europe/Astrakhan"
+              | "Europe/Athens"
+              | "Europe/Belfast"
+              | "Europe/Belgrade"
+              | "Europe/Berlin"
+              | "Europe/Bratislava"
+              | "Europe/Brussels"
+              | "Europe/Bucharest"
+              | "Europe/Budapest"
+              | "Europe/Busingen"
+              | "Europe/Chisinau"
+              | "Europe/Copenhagen"
+              | "Europe/Dublin"
+              | "Europe/Gibraltar"
+              | "Europe/Guernsey"
+              | "Europe/Helsinki"
+              | "Europe/Isle_of_Man"
+              | "Europe/Istanbul"
+              | "Europe/Jersey"
+              | "Europe/Kaliningrad"
+              | "Europe/Kiev"
+              | "Europe/Kirov"
+              | "Europe/Kyiv"
+              | "Europe/Lisbon"
+              | "Europe/Ljubljana"
+              | "Europe/London"
+              | "Europe/Luxembourg"
+              | "Europe/Madrid"
+              | "Europe/Malta"
+              | "Europe/Mariehamn"
+              | "Europe/Minsk"
+              | "Europe/Monaco"
+              | "Europe/Moscow"
+              | "Europe/Nicosia"
+              | "Europe/Oslo"
+              | "Europe/Paris"
+              | "Europe/Podgorica"
+              | "Europe/Prague"
+              | "Europe/Riga"
+              | "Europe/Rome"
+              | "Europe/Samara"
+              | "Europe/San_Marino"
+              | "Europe/Sarajevo"
+              | "Europe/Saratov"
+              | "Europe/Simferopol"
+              | "Europe/Skopje"
+              | "Europe/Sofia"
+              | "Europe/Stockholm"
+              | "Europe/Tallinn"
+              | "Europe/Tirane"
+              | "Europe/Tiraspol"
+              | "Europe/Ulyanovsk"
+              | "Europe/Uzhgorod"
+              | "Europe/Vaduz"
+              | "Europe/Vatican"
+              | "Europe/Vienna"
+              | "Europe/Vilnius"
+              | "Europe/Volgograd"
+              | "Europe/Warsaw"
+              | "Europe/Zagreb"
+              | "Europe/Zaporozhye"
+              | "Europe/Zurich"
+              | "Factory"
+              | "GB"
+              | "GB-Eire"
+              | "GMT"
+              | "GMT+0"
+              | "GMT-0"
+              | "GMT0"
+              | "Greenwich"
+              | "HST"
+              | "Hongkong"
+              | "Iceland"
+              | "Indian/Antananarivo"
+              | "Indian/Chagos"
+              | "Indian/Christmas"
+              | "Indian/Cocos"
+              | "Indian/Comoro"
+              | "Indian/Kerguelen"
+              | "Indian/Mahe"
+              | "Indian/Maldives"
+              | "Indian/Mauritius"
+              | "Indian/Mayotte"
+              | "Indian/Reunion"
+              | "Iran"
+              | "Israel"
+              | "Jamaica"
+              | "Japan"
+              | "Kwajalein"
+              | "Libya"
+              | "MET"
+              | "MST"
+              | "MST7MDT"
+              | "Mexico/BajaNorte"
+              | "Mexico/BajaSur"
+              | "Mexico/General"
+              | "NZ"
+              | "NZ-CHAT"
+              | "Navajo"
+              | "PRC"
+              | "PST8PDT"
+              | "Pacific/Apia"
+              | "Pacific/Auckland"
+              | "Pacific/Bougainville"
+              | "Pacific/Chatham"
+              | "Pacific/Chuuk"
+              | "Pacific/Easter"
+              | "Pacific/Efate"
+              | "Pacific/Enderbury"
+              | "Pacific/Fakaofo"
+              | "Pacific/Fiji"
+              | "Pacific/Funafuti"
+              | "Pacific/Galapagos"
+              | "Pacific/Gambier"
+              | "Pacific/Guadalcanal"
+              | "Pacific/Guam"
+              | "Pacific/Honolulu"
+              | "Pacific/Johnston"
+              | "Pacific/Kanton"
+              | "Pacific/Kiritimati"
+              | "Pacific/Kosrae"
+              | "Pacific/Kwajalein"
+              | "Pacific/Majuro"
+              | "Pacific/Marquesas"
+              | "Pacific/Midway"
+              | "Pacific/Nauru"
+              | "Pacific/Niue"
+              | "Pacific/Norfolk"
+              | "Pacific/Noumea"
+              | "Pacific/Pago_Pago"
+              | "Pacific/Palau"
+              | "Pacific/Pitcairn"
+              | "Pacific/Pohnpei"
+              | "Pacific/Ponape"
+              | "Pacific/Port_Moresby"
+              | "Pacific/Rarotonga"
+              | "Pacific/Saipan"
+              | "Pacific/Samoa"
+              | "Pacific/Tahiti"
+              | "Pacific/Tarawa"
+              | "Pacific/Tongatapu"
+              | "Pacific/Truk"
+              | "Pacific/Wake"
+              | "Pacific/Wallis"
+              | "Pacific/Yap"
+              | "Poland"
+              | "Portugal"
+              | "ROC"
+              | "ROK"
+              | "Singapore"
+              | "Turkey"
+              | "UCT"
+              | "US/Alaska"
+              | "US/Aleutian"
+              | "US/Arizona"
+              | "US/Central"
+              | "US/East-Indiana"
+              | "US/Eastern"
+              | "US/Hawaii"
+              | "US/Indiana-Starke"
+              | "US/Michigan"
+              | "US/Mountain"
+              | "US/Pacific"
+              | "US/Pacific-New"
+              | "US/Samoa"
+              | "UTC"
+              | "Universal"
+              | "W-SU"
+              | "WET"
+              | "Zulu"
+            )
+          | undefined
+      }
+    | undefined
+  report_type: string
+}
 
 export type t_PostReviewsReviewApproveParamSchema = {
   review: string
 }
 
-export type t_postReviewsReviewApproveApplicationXWwwFormUrlencodedRequestBody =
-  {
-    expand?: string[] | undefined
-  }
+export type t_PostReviewsReviewApproveRequestBody = {
+  expand?: string[] | undefined
+}
 
-export type t_postSetupIntentsApplicationXWwwFormUrlencodedRequestBody = {
+export type t_PostSetupIntentsRequestBody = {
   attach_to_self?: boolean | undefined
   automatic_payment_methods?:
     | {
@@ -40644,7 +40422,7 @@ export type t_PostSetupIntentsIntentParamSchema = {
   intent: string
 }
 
-export type t_postSetupIntentsIntentApplicationXWwwFormUrlencodedRequestBody = {
+export type t_PostSetupIntentsIntentRequestBody = {
   attach_to_self?: boolean | undefined
   customer?: string | undefined
   description?: string | undefined
@@ -41209,610 +40987,607 @@ export type t_PostSetupIntentsIntentCancelParamSchema = {
   intent: string
 }
 
-export type t_postSetupIntentsIntentCancelApplicationXWwwFormUrlencodedRequestBody =
-  {
-    cancellation_reason?:
-      | ("abandoned" | "duplicate" | "requested_by_customer")
-      | undefined
-    expand?: string[] | undefined
-  }
+export type t_PostSetupIntentsIntentCancelRequestBody = {
+  cancellation_reason?:
+    | ("abandoned" | "duplicate" | "requested_by_customer")
+    | undefined
+  expand?: string[] | undefined
+}
 
 export type t_PostSetupIntentsIntentConfirmParamSchema = {
   intent: string
 }
 
-export type t_postSetupIntentsIntentConfirmApplicationXWwwFormUrlencodedRequestBody =
-  {
-    client_secret?: string | undefined
-    confirmation_token?: string | undefined
-    expand?: string[] | undefined
-    mandate_data?:
-      | (
-          | {
-              customer_acceptance: {
-                accepted_at?: number | undefined
-                offline?: EmptyObject | undefined
-                online?:
-                  | {
-                      ip_address: string
-                      user_agent: string
-                    }
-                  | undefined
-                type: "offline" | "online"
-              }
+export type t_PostSetupIntentsIntentConfirmRequestBody = {
+  client_secret?: string | undefined
+  confirmation_token?: string | undefined
+  expand?: string[] | undefined
+  mandate_data?:
+    | (
+        | {
+            customer_acceptance: {
+              accepted_at?: number | undefined
+              offline?: EmptyObject | undefined
+              online?:
+                | {
+                    ip_address: string
+                    user_agent: string
+                  }
+                | undefined
+              type: "offline" | "online"
             }
-          | ""
-          | {
-              customer_acceptance: {
-                online: {
-                  ip_address?: string | undefined
-                  user_agent?: string | undefined
-                }
-                type: "online"
+          }
+        | ""
+        | {
+            customer_acceptance: {
+              online: {
+                ip_address?: string | undefined
+                user_agent?: string | undefined
               }
+              type: "online"
             }
-        )
-      | undefined
-    payment_method?: string | undefined
-    payment_method_data?:
-      | {
-          acss_debit?:
-            | {
-                account_number: string
-                institution_number: string
-                transit_number: string
-              }
-            | undefined
-          affirm?: EmptyObject | undefined
-          afterpay_clearpay?: EmptyObject | undefined
-          alipay?: EmptyObject | undefined
-          allow_redisplay?: ("always" | "limited" | "unspecified") | undefined
-          alma?: EmptyObject | undefined
-          amazon_pay?: EmptyObject | undefined
-          au_becs_debit?:
-            | {
-                account_number: string
-                bsb_number: string
-              }
-            | undefined
-          bacs_debit?:
-            | {
-                account_number?: string | undefined
-                sort_code?: string | undefined
-              }
-            | undefined
-          bancontact?: EmptyObject | undefined
-          billie?: EmptyObject | undefined
-          billing_details?:
-            | {
-                address?:
-                  | (
+          }
+      )
+    | undefined
+  payment_method?: string | undefined
+  payment_method_data?:
+    | {
+        acss_debit?:
+          | {
+              account_number: string
+              institution_number: string
+              transit_number: string
+            }
+          | undefined
+        affirm?: EmptyObject | undefined
+        afterpay_clearpay?: EmptyObject | undefined
+        alipay?: EmptyObject | undefined
+        allow_redisplay?: ("always" | "limited" | "unspecified") | undefined
+        alma?: EmptyObject | undefined
+        amazon_pay?: EmptyObject | undefined
+        au_becs_debit?:
+          | {
+              account_number: string
+              bsb_number: string
+            }
+          | undefined
+        bacs_debit?:
+          | {
+              account_number?: string | undefined
+              sort_code?: string | undefined
+            }
+          | undefined
+        bancontact?: EmptyObject | undefined
+        billie?: EmptyObject | undefined
+        billing_details?:
+          | {
+              address?:
+                | (
+                    | {
+                        city?: string | undefined
+                        country?: string | undefined
+                        line1?: string | undefined
+                        line2?: string | undefined
+                        postal_code?: string | undefined
+                        state?: string | undefined
+                      }
+                    | ""
+                  )
+                | undefined
+              email?: (string | "") | undefined
+              name?: (string | "") | undefined
+              phone?: (string | "") | undefined
+              tax_id?: string | undefined
+            }
+          | undefined
+        blik?: EmptyObject | undefined
+        boleto?:
+          | {
+              tax_id: string
+            }
+          | undefined
+        cashapp?: EmptyObject | undefined
+        crypto?: EmptyObject | undefined
+        customer_balance?: EmptyObject | undefined
+        eps?:
+          | {
+              bank?:
+                | (
+                    | "arzte_und_apotheker_bank"
+                    | "austrian_anadi_bank_ag"
+                    | "bank_austria"
+                    | "bankhaus_carl_spangler"
+                    | "bankhaus_schelhammer_und_schattera_ag"
+                    | "bawag_psk_ag"
+                    | "bks_bank_ag"
+                    | "brull_kallmus_bank_ag"
+                    | "btv_vier_lander_bank"
+                    | "capital_bank_grawe_gruppe_ag"
+                    | "deutsche_bank_ag"
+                    | "dolomitenbank"
+                    | "easybank_ag"
+                    | "erste_bank_und_sparkassen"
+                    | "hypo_alpeadriabank_international_ag"
+                    | "hypo_bank_burgenland_aktiengesellschaft"
+                    | "hypo_noe_lb_fur_niederosterreich_u_wien"
+                    | "hypo_oberosterreich_salzburg_steiermark"
+                    | "hypo_tirol_bank_ag"
+                    | "hypo_vorarlberg_bank_ag"
+                    | "marchfelder_bank"
+                    | "oberbank_ag"
+                    | "raiffeisen_bankengruppe_osterreich"
+                    | "schoellerbank_ag"
+                    | "sparda_bank_wien"
+                    | "volksbank_gruppe"
+                    | "volkskreditbank_ag"
+                    | "vr_bank_braunau"
+                  )
+                | undefined
+            }
+          | undefined
+        fpx?:
+          | {
+              bank:
+                | "affin_bank"
+                | "agrobank"
+                | "alliance_bank"
+                | "ambank"
+                | "bank_islam"
+                | "bank_muamalat"
+                | "bank_of_china"
+                | "bank_rakyat"
+                | "bsn"
+                | "cimb"
+                | "deutsche_bank"
+                | "hong_leong_bank"
+                | "hsbc"
+                | "kfh"
+                | "maybank2e"
+                | "maybank2u"
+                | "ocbc"
+                | "pb_enterprise"
+                | "public_bank"
+                | "rhb"
+                | "standard_chartered"
+                | "uob"
+            }
+          | undefined
+        giropay?: EmptyObject | undefined
+        grabpay?: EmptyObject | undefined
+        ideal?:
+          | {
+              bank?:
+                | (
+                    | "abn_amro"
+                    | "asn_bank"
+                    | "bunq"
+                    | "buut"
+                    | "handelsbanken"
+                    | "ing"
+                    | "knab"
+                    | "moneyou"
+                    | "n26"
+                    | "nn"
+                    | "rabobank"
+                    | "regiobank"
+                    | "revolut"
+                    | "sns_bank"
+                    | "triodos_bank"
+                    | "van_lanschot"
+                    | "yoursafe"
+                  )
+                | undefined
+            }
+          | undefined
+        interac_present?: EmptyObject | undefined
+        kakao_pay?: EmptyObject | undefined
+        klarna?:
+          | {
+              dob?:
+                | {
+                    day: number
+                    month: number
+                    year: number
+                  }
+                | undefined
+            }
+          | undefined
+        konbini?: EmptyObject | undefined
+        kr_card?: EmptyObject | undefined
+        link?: EmptyObject | undefined
+        metadata?:
+          | {
+              [key: string]: string | undefined
+            }
+          | undefined
+        mobilepay?: EmptyObject | undefined
+        multibanco?: EmptyObject | undefined
+        naver_pay?:
+          | {
+              funding?: ("card" | "points") | undefined
+            }
+          | undefined
+        nz_bank_account?:
+          | {
+              account_holder_name?: string | undefined
+              account_number: string
+              bank_code: string
+              branch_code: string
+              reference?: string | undefined
+              suffix: string
+            }
+          | undefined
+        oxxo?: EmptyObject | undefined
+        p24?:
+          | {
+              bank?:
+                | (
+                    | "alior_bank"
+                    | "bank_millennium"
+                    | "bank_nowy_bfg_sa"
+                    | "bank_pekao_sa"
+                    | "banki_spbdzielcze"
+                    | "blik"
+                    | "bnp_paribas"
+                    | "boz"
+                    | "citi_handlowy"
+                    | "credit_agricole"
+                    | "envelobank"
+                    | "etransfer_pocztowy24"
+                    | "getin_bank"
+                    | "ideabank"
+                    | "ing"
+                    | "inteligo"
+                    | "mbank_mtransfer"
+                    | "nest_przelew"
+                    | "noble_pay"
+                    | "pbac_z_ipko"
+                    | "plus_bank"
+                    | "santander_przelew24"
+                    | "tmobile_usbugi_bankowe"
+                    | "toyota_bank"
+                    | "velobank"
+                    | "volkswagen_bank"
+                  )
+                | undefined
+            }
+          | undefined
+        pay_by_bank?: EmptyObject | undefined
+        payco?: EmptyObject | undefined
+        paynow?: EmptyObject | undefined
+        paypal?: EmptyObject | undefined
+        pix?: EmptyObject | undefined
+        promptpay?: EmptyObject | undefined
+        radar_options?:
+          | {
+              session?: string | undefined
+            }
+          | undefined
+        revolut_pay?: EmptyObject | undefined
+        samsung_pay?: EmptyObject | undefined
+        satispay?: EmptyObject | undefined
+        sepa_debit?:
+          | {
+              iban: string
+            }
+          | undefined
+        sofort?:
+          | {
+              country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL"
+            }
+          | undefined
+        swish?: EmptyObject | undefined
+        twint?: EmptyObject | undefined
+        type:
+          | "acss_debit"
+          | "affirm"
+          | "afterpay_clearpay"
+          | "alipay"
+          | "alma"
+          | "amazon_pay"
+          | "au_becs_debit"
+          | "bacs_debit"
+          | "bancontact"
+          | "billie"
+          | "blik"
+          | "boleto"
+          | "cashapp"
+          | "crypto"
+          | "customer_balance"
+          | "eps"
+          | "fpx"
+          | "giropay"
+          | "grabpay"
+          | "ideal"
+          | "kakao_pay"
+          | "klarna"
+          | "konbini"
+          | "kr_card"
+          | "link"
+          | "mobilepay"
+          | "multibanco"
+          | "naver_pay"
+          | "nz_bank_account"
+          | "oxxo"
+          | "p24"
+          | "pay_by_bank"
+          | "payco"
+          | "paynow"
+          | "paypal"
+          | "pix"
+          | "promptpay"
+          | "revolut_pay"
+          | "samsung_pay"
+          | "satispay"
+          | "sepa_debit"
+          | "sofort"
+          | "swish"
+          | "twint"
+          | "us_bank_account"
+          | "wechat_pay"
+          | "zip"
+        us_bank_account?:
+          | {
+              account_holder_type?: ("company" | "individual") | undefined
+              account_number?: string | undefined
+              account_type?: ("checking" | "savings") | undefined
+              financial_connections_account?: string | undefined
+              routing_number?: string | undefined
+            }
+          | undefined
+        wechat_pay?: EmptyObject | undefined
+        zip?: EmptyObject | undefined
+      }
+    | undefined
+  payment_method_options?:
+    | {
+        acss_debit?:
+          | {
+              currency?: ("cad" | "usd") | undefined
+              mandate_options?:
+                | {
+                    custom_mandate_url?: (string | "") | undefined
+                    default_for?: ("invoice" | "subscription")[] | undefined
+                    interval_description?: string | undefined
+                    payment_schedule?:
+                      | ("combined" | "interval" | "sporadic")
+                      | undefined
+                    transaction_type?: ("business" | "personal") | undefined
+                  }
+                | undefined
+              verification_method?:
+                | ("automatic" | "instant" | "microdeposits")
+                | undefined
+            }
+          | undefined
+        amazon_pay?: EmptyObject | undefined
+        bacs_debit?:
+          | {
+              mandate_options?:
+                | {
+                    reference_prefix?: (string | "") | undefined
+                  }
+                | undefined
+            }
+          | undefined
+        card?:
+          | {
+              mandate_options?:
+                | {
+                    amount: number
+                    amount_type: "fixed" | "maximum"
+                    currency: string
+                    description?: string | undefined
+                    end_date?: number | undefined
+                    interval: "day" | "month" | "sporadic" | "week" | "year"
+                    interval_count?: number | undefined
+                    reference: string
+                    start_date: number
+                    supported_types?: "india"[] | undefined
+                  }
+                | undefined
+              network?:
+                | (
+                    | "amex"
+                    | "cartes_bancaires"
+                    | "diners"
+                    | "discover"
+                    | "eftpos_au"
+                    | "girocard"
+                    | "interac"
+                    | "jcb"
+                    | "link"
+                    | "mastercard"
+                    | "unionpay"
+                    | "unknown"
+                    | "visa"
+                  )
+                | undefined
+              request_three_d_secure?:
+                | ("any" | "automatic" | "challenge")
+                | undefined
+              three_d_secure?:
+                | {
+                    ares_trans_status?:
+                      | ("A" | "C" | "I" | "N" | "R" | "U" | "Y")
+                      | undefined
+                    cryptogram?: string | undefined
+                    electronic_commerce_indicator?:
+                      | ("01" | "02" | "05" | "06" | "07")
+                      | undefined
+                    network_options?:
                       | {
-                          city?: string | undefined
-                          country?: string | undefined
-                          line1?: string | undefined
-                          line2?: string | undefined
-                          postal_code?: string | undefined
-                          state?: string | undefined
+                          cartes_bancaires?:
+                            | {
+                                cb_avalgo: "0" | "1" | "2" | "3" | "4" | "A"
+                                cb_exemption?: string | undefined
+                                cb_score?: number | undefined
+                              }
+                            | undefined
                         }
-                      | ""
-                    )
-                  | undefined
-                email?: (string | "") | undefined
-                name?: (string | "") | undefined
-                phone?: (string | "") | undefined
-                tax_id?: string | undefined
-              }
-            | undefined
-          blik?: EmptyObject | undefined
-          boleto?:
-            | {
-                tax_id: string
-              }
-            | undefined
-          cashapp?: EmptyObject | undefined
-          crypto?: EmptyObject | undefined
-          customer_balance?: EmptyObject | undefined
-          eps?:
-            | {
-                bank?:
-                  | (
-                      | "arzte_und_apotheker_bank"
-                      | "austrian_anadi_bank_ag"
-                      | "bank_austria"
-                      | "bankhaus_carl_spangler"
-                      | "bankhaus_schelhammer_und_schattera_ag"
-                      | "bawag_psk_ag"
-                      | "bks_bank_ag"
-                      | "brull_kallmus_bank_ag"
-                      | "btv_vier_lander_bank"
-                      | "capital_bank_grawe_gruppe_ag"
-                      | "deutsche_bank_ag"
-                      | "dolomitenbank"
-                      | "easybank_ag"
-                      | "erste_bank_und_sparkassen"
-                      | "hypo_alpeadriabank_international_ag"
-                      | "hypo_bank_burgenland_aktiengesellschaft"
-                      | "hypo_noe_lb_fur_niederosterreich_u_wien"
-                      | "hypo_oberosterreich_salzburg_steiermark"
-                      | "hypo_tirol_bank_ag"
-                      | "hypo_vorarlberg_bank_ag"
-                      | "marchfelder_bank"
-                      | "oberbank_ag"
-                      | "raiffeisen_bankengruppe_osterreich"
-                      | "schoellerbank_ag"
-                      | "sparda_bank_wien"
-                      | "volksbank_gruppe"
-                      | "volkskreditbank_ag"
-                      | "vr_bank_braunau"
-                    )
-                  | undefined
-              }
-            | undefined
-          fpx?:
-            | {
-                bank:
-                  | "affin_bank"
-                  | "agrobank"
-                  | "alliance_bank"
-                  | "ambank"
-                  | "bank_islam"
-                  | "bank_muamalat"
-                  | "bank_of_china"
-                  | "bank_rakyat"
-                  | "bsn"
-                  | "cimb"
-                  | "deutsche_bank"
-                  | "hong_leong_bank"
-                  | "hsbc"
-                  | "kfh"
-                  | "maybank2e"
-                  | "maybank2u"
-                  | "ocbc"
-                  | "pb_enterprise"
-                  | "public_bank"
-                  | "rhb"
-                  | "standard_chartered"
-                  | "uob"
-              }
-            | undefined
-          giropay?: EmptyObject | undefined
-          grabpay?: EmptyObject | undefined
-          ideal?:
-            | {
-                bank?:
-                  | (
-                      | "abn_amro"
-                      | "asn_bank"
-                      | "bunq"
-                      | "buut"
-                      | "handelsbanken"
-                      | "ing"
-                      | "knab"
-                      | "moneyou"
-                      | "n26"
-                      | "nn"
-                      | "rabobank"
-                      | "regiobank"
-                      | "revolut"
-                      | "sns_bank"
-                      | "triodos_bank"
-                      | "van_lanschot"
-                      | "yoursafe"
-                    )
-                  | undefined
-              }
-            | undefined
-          interac_present?: EmptyObject | undefined
-          kakao_pay?: EmptyObject | undefined
-          klarna?:
-            | {
-                dob?:
-                  | {
-                      day: number
-                      month: number
-                      year: number
-                    }
-                  | undefined
-              }
-            | undefined
-          konbini?: EmptyObject | undefined
-          kr_card?: EmptyObject | undefined
-          link?: EmptyObject | undefined
-          metadata?:
-            | {
-                [key: string]: string | undefined
-              }
-            | undefined
-          mobilepay?: EmptyObject | undefined
-          multibanco?: EmptyObject | undefined
-          naver_pay?:
-            | {
-                funding?: ("card" | "points") | undefined
-              }
-            | undefined
-          nz_bank_account?:
-            | {
-                account_holder_name?: string | undefined
-                account_number: string
-                bank_code: string
-                branch_code: string
-                reference?: string | undefined
-                suffix: string
-              }
-            | undefined
-          oxxo?: EmptyObject | undefined
-          p24?:
-            | {
-                bank?:
-                  | (
-                      | "alior_bank"
-                      | "bank_millennium"
-                      | "bank_nowy_bfg_sa"
-                      | "bank_pekao_sa"
-                      | "banki_spbdzielcze"
-                      | "blik"
-                      | "bnp_paribas"
-                      | "boz"
-                      | "citi_handlowy"
-                      | "credit_agricole"
-                      | "envelobank"
-                      | "etransfer_pocztowy24"
-                      | "getin_bank"
-                      | "ideabank"
-                      | "ing"
-                      | "inteligo"
-                      | "mbank_mtransfer"
-                      | "nest_przelew"
-                      | "noble_pay"
-                      | "pbac_z_ipko"
-                      | "plus_bank"
-                      | "santander_przelew24"
-                      | "tmobile_usbugi_bankowe"
-                      | "toyota_bank"
-                      | "velobank"
-                      | "volkswagen_bank"
-                    )
-                  | undefined
-              }
-            | undefined
-          pay_by_bank?: EmptyObject | undefined
-          payco?: EmptyObject | undefined
-          paynow?: EmptyObject | undefined
-          paypal?: EmptyObject | undefined
-          pix?: EmptyObject | undefined
-          promptpay?: EmptyObject | undefined
-          radar_options?:
-            | {
-                session?: string | undefined
-              }
-            | undefined
-          revolut_pay?: EmptyObject | undefined
-          samsung_pay?: EmptyObject | undefined
-          satispay?: EmptyObject | undefined
-          sepa_debit?:
-            | {
-                iban: string
-              }
-            | undefined
-          sofort?:
-            | {
-                country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL"
-              }
-            | undefined
-          swish?: EmptyObject | undefined
-          twint?: EmptyObject | undefined
-          type:
-            | "acss_debit"
-            | "affirm"
-            | "afterpay_clearpay"
-            | "alipay"
-            | "alma"
-            | "amazon_pay"
-            | "au_becs_debit"
-            | "bacs_debit"
-            | "bancontact"
-            | "billie"
-            | "blik"
-            | "boleto"
-            | "cashapp"
-            | "crypto"
-            | "customer_balance"
-            | "eps"
-            | "fpx"
-            | "giropay"
-            | "grabpay"
-            | "ideal"
-            | "kakao_pay"
-            | "klarna"
-            | "konbini"
-            | "kr_card"
-            | "link"
-            | "mobilepay"
-            | "multibanco"
-            | "naver_pay"
-            | "nz_bank_account"
-            | "oxxo"
-            | "p24"
-            | "pay_by_bank"
-            | "payco"
-            | "paynow"
-            | "paypal"
-            | "pix"
-            | "promptpay"
-            | "revolut_pay"
-            | "samsung_pay"
-            | "satispay"
-            | "sepa_debit"
-            | "sofort"
-            | "swish"
-            | "twint"
-            | "us_bank_account"
-            | "wechat_pay"
-            | "zip"
-          us_bank_account?:
-            | {
-                account_holder_type?: ("company" | "individual") | undefined
-                account_number?: string | undefined
-                account_type?: ("checking" | "savings") | undefined
-                financial_connections_account?: string | undefined
-                routing_number?: string | undefined
-              }
-            | undefined
-          wechat_pay?: EmptyObject | undefined
-          zip?: EmptyObject | undefined
-        }
-      | undefined
-    payment_method_options?:
-      | {
-          acss_debit?:
-            | {
-                currency?: ("cad" | "usd") | undefined
-                mandate_options?:
-                  | {
-                      custom_mandate_url?: (string | "") | undefined
-                      default_for?: ("invoice" | "subscription")[] | undefined
-                      interval_description?: string | undefined
-                      payment_schedule?:
-                        | ("combined" | "interval" | "sporadic")
-                        | undefined
-                      transaction_type?: ("business" | "personal") | undefined
-                    }
-                  | undefined
-                verification_method?:
-                  | ("automatic" | "instant" | "microdeposits")
-                  | undefined
-              }
-            | undefined
-          amazon_pay?: EmptyObject | undefined
-          bacs_debit?:
-            | {
-                mandate_options?:
-                  | {
-                      reference_prefix?: (string | "") | undefined
-                    }
-                  | undefined
-              }
-            | undefined
-          card?:
-            | {
-                mandate_options?:
-                  | {
-                      amount: number
-                      amount_type: "fixed" | "maximum"
-                      currency: string
-                      description?: string | undefined
-                      end_date?: number | undefined
-                      interval: "day" | "month" | "sporadic" | "week" | "year"
-                      interval_count?: number | undefined
-                      reference: string
-                      start_date: number
-                      supported_types?: "india"[] | undefined
-                    }
-                  | undefined
-                network?:
-                  | (
-                      | "amex"
-                      | "cartes_bancaires"
-                      | "diners"
-                      | "discover"
-                      | "eftpos_au"
-                      | "girocard"
-                      | "interac"
-                      | "jcb"
-                      | "link"
-                      | "mastercard"
-                      | "unionpay"
-                      | "unknown"
-                      | "visa"
-                    )
-                  | undefined
-                request_three_d_secure?:
-                  | ("any" | "automatic" | "challenge")
-                  | undefined
-                three_d_secure?:
-                  | {
-                      ares_trans_status?:
-                        | ("A" | "C" | "I" | "N" | "R" | "U" | "Y")
-                        | undefined
-                      cryptogram?: string | undefined
-                      electronic_commerce_indicator?:
-                        | ("01" | "02" | "05" | "06" | "07")
-                        | undefined
-                      network_options?:
-                        | {
-                            cartes_bancaires?:
-                              | {
-                                  cb_avalgo: "0" | "1" | "2" | "3" | "4" | "A"
-                                  cb_exemption?: string | undefined
-                                  cb_score?: number | undefined
-                                }
-                              | undefined
-                          }
-                        | undefined
-                      requestor_challenge_indicator?: string | undefined
-                      transaction_id?: string | undefined
-                      version?: ("1.0.2" | "2.1.0" | "2.2.0") | undefined
-                    }
-                  | undefined
-              }
-            | undefined
-          card_present?: EmptyObject | undefined
-          klarna?:
-            | {
-                currency?: string | undefined
-                on_demand?:
-                  | {
-                      average_amount?: number | undefined
-                      maximum_amount?: number | undefined
-                      minimum_amount?: number | undefined
-                      purchase_interval?:
-                        | ("day" | "month" | "week" | "year")
-                        | undefined
-                      purchase_interval_count?: number | undefined
-                    }
-                  | undefined
-                preferred_locale?:
-                  | (
-                      | "cs-CZ"
-                      | "da-DK"
-                      | "de-AT"
-                      | "de-CH"
-                      | "de-DE"
-                      | "el-GR"
-                      | "en-AT"
-                      | "en-AU"
-                      | "en-BE"
-                      | "en-CA"
-                      | "en-CH"
-                      | "en-CZ"
-                      | "en-DE"
-                      | "en-DK"
-                      | "en-ES"
-                      | "en-FI"
-                      | "en-FR"
-                      | "en-GB"
-                      | "en-GR"
-                      | "en-IE"
-                      | "en-IT"
-                      | "en-NL"
-                      | "en-NO"
-                      | "en-NZ"
-                      | "en-PL"
-                      | "en-PT"
-                      | "en-RO"
-                      | "en-SE"
-                      | "en-US"
-                      | "es-ES"
-                      | "es-US"
-                      | "fi-FI"
-                      | "fr-BE"
-                      | "fr-CA"
-                      | "fr-CH"
-                      | "fr-FR"
-                      | "it-CH"
-                      | "it-IT"
-                      | "nb-NO"
-                      | "nl-BE"
-                      | "nl-NL"
-                      | "pl-PL"
-                      | "pt-PT"
-                      | "ro-RO"
-                      | "sv-FI"
-                      | "sv-SE"
-                    )
-                  | undefined
-                subscriptions?:
-                  | (
+                      | undefined
+                    requestor_challenge_indicator?: string | undefined
+                    transaction_id?: string | undefined
+                    version?: ("1.0.2" | "2.1.0" | "2.2.0") | undefined
+                  }
+                | undefined
+            }
+          | undefined
+        card_present?: EmptyObject | undefined
+        klarna?:
+          | {
+              currency?: string | undefined
+              on_demand?:
+                | {
+                    average_amount?: number | undefined
+                    maximum_amount?: number | undefined
+                    minimum_amount?: number | undefined
+                    purchase_interval?:
+                      | ("day" | "month" | "week" | "year")
+                      | undefined
+                    purchase_interval_count?: number | undefined
+                  }
+                | undefined
+              preferred_locale?:
+                | (
+                    | "cs-CZ"
+                    | "da-DK"
+                    | "de-AT"
+                    | "de-CH"
+                    | "de-DE"
+                    | "el-GR"
+                    | "en-AT"
+                    | "en-AU"
+                    | "en-BE"
+                    | "en-CA"
+                    | "en-CH"
+                    | "en-CZ"
+                    | "en-DE"
+                    | "en-DK"
+                    | "en-ES"
+                    | "en-FI"
+                    | "en-FR"
+                    | "en-GB"
+                    | "en-GR"
+                    | "en-IE"
+                    | "en-IT"
+                    | "en-NL"
+                    | "en-NO"
+                    | "en-NZ"
+                    | "en-PL"
+                    | "en-PT"
+                    | "en-RO"
+                    | "en-SE"
+                    | "en-US"
+                    | "es-ES"
+                    | "es-US"
+                    | "fi-FI"
+                    | "fr-BE"
+                    | "fr-CA"
+                    | "fr-CH"
+                    | "fr-FR"
+                    | "it-CH"
+                    | "it-IT"
+                    | "nb-NO"
+                    | "nl-BE"
+                    | "nl-NL"
+                    | "pl-PL"
+                    | "pt-PT"
+                    | "ro-RO"
+                    | "sv-FI"
+                    | "sv-SE"
+                  )
+                | undefined
+              subscriptions?:
+                | (
+                    | {
+                        interval: "day" | "month" | "week" | "year"
+                        interval_count?: number | undefined
+                        name?: string | undefined
+                        next_billing: {
+                          amount: number
+                          date: string
+                        }
+                        reference: string
+                      }[]
+                    | ""
+                  )
+                | undefined
+            }
+          | undefined
+        link?: EmptyObject | undefined
+        paypal?:
+          | {
+              billing_agreement_id?: string | undefined
+            }
+          | undefined
+        sepa_debit?:
+          | {
+              mandate_options?:
+                | {
+                    reference_prefix?: (string | "") | undefined
+                  }
+                | undefined
+            }
+          | undefined
+        us_bank_account?:
+          | {
+              financial_connections?:
+                | {
+                    filters?:
                       | {
-                          interval: "day" | "month" | "week" | "year"
-                          interval_count?: number | undefined
-                          name?: string | undefined
-                          next_billing: {
-                            amount: number
-                            date: string
-                          }
-                          reference: string
-                        }[]
-                      | ""
-                    )
-                  | undefined
-              }
-            | undefined
-          link?: EmptyObject | undefined
-          paypal?:
-            | {
-                billing_agreement_id?: string | undefined
-              }
-            | undefined
-          sepa_debit?:
-            | {
-                mandate_options?:
-                  | {
-                      reference_prefix?: (string | "") | undefined
-                    }
-                  | undefined
-              }
-            | undefined
-          us_bank_account?:
-            | {
-                financial_connections?:
-                  | {
-                      filters?:
-                        | {
-                            account_subcategories?:
-                              | ("checking" | "savings")[]
-                              | undefined
-                          }
-                        | undefined
-                      permissions?:
-                        | (
-                            | "balances"
-                            | "ownership"
-                            | "payment_method"
-                            | "transactions"
-                          )[]
-                        | undefined
-                      prefetch?:
-                        | ("balances" | "ownership" | "transactions")[]
-                        | undefined
-                      return_url?: string | undefined
-                    }
-                  | undefined
-                mandate_options?:
-                  | {
-                      collection_method?: ("" | "paper") | undefined
-                    }
-                  | undefined
-                networks?:
-                  | {
-                      requested?: ("ach" | "us_domestic_wire")[] | undefined
-                    }
-                  | undefined
-                verification_method?:
-                  | ("automatic" | "instant" | "microdeposits")
-                  | undefined
-              }
-            | undefined
-        }
-      | undefined
-    return_url?: string | undefined
-    use_stripe_sdk?: boolean | undefined
-  }
+                          account_subcategories?:
+                            | ("checking" | "savings")[]
+                            | undefined
+                        }
+                      | undefined
+                    permissions?:
+                      | (
+                          | "balances"
+                          | "ownership"
+                          | "payment_method"
+                          | "transactions"
+                        )[]
+                      | undefined
+                    prefetch?:
+                      | ("balances" | "ownership" | "transactions")[]
+                      | undefined
+                    return_url?: string | undefined
+                  }
+                | undefined
+              mandate_options?:
+                | {
+                    collection_method?: ("" | "paper") | undefined
+                  }
+                | undefined
+              networks?:
+                | {
+                    requested?: ("ach" | "us_domestic_wire")[] | undefined
+                  }
+                | undefined
+              verification_method?:
+                | ("automatic" | "instant" | "microdeposits")
+                | undefined
+            }
+          | undefined
+      }
+    | undefined
+  return_url?: string | undefined
+  use_stripe_sdk?: boolean | undefined
+}
 
 export type t_PostSetupIntentsIntentVerifyMicrodepositsParamSchema = {
   intent: string
 }
 
-export type t_postSetupIntentsIntentVerifyMicrodepositsApplicationXWwwFormUrlencodedRequestBody =
-  {
-    amounts?: number[] | undefined
-    client_secret?: string | undefined
-    descriptor_code?: string | undefined
-    expand?: string[] | undefined
-  }
+export type t_PostSetupIntentsIntentVerifyMicrodepositsRequestBody = {
+  amounts?: number[] | undefined
+  client_secret?: string | undefined
+  descriptor_code?: string | undefined
+  expand?: string[] | undefined
+}
 
-export type t_postShippingRatesApplicationXWwwFormUrlencodedRequestBody = {
+export type t_PostShippingRatesRequestBody = {
   delivery_estimate?:
     | {
         maximum?:
@@ -41863,49 +41638,47 @@ export type t_PostShippingRatesShippingRateTokenParamSchema = {
   shipping_rate_token: string
 }
 
-export type t_postShippingRatesShippingRateTokenApplicationXWwwFormUrlencodedRequestBody =
-  {
-    active?: boolean | undefined
-    expand?: string[] | undefined
-    fixed_amount?:
-      | {
-          currency_options?:
-            | {
-                [key: string]:
-                  | {
-                      amount?: number | undefined
-                      tax_behavior?:
-                        | ("exclusive" | "inclusive" | "unspecified")
-                        | undefined
-                    }
-                  | undefined
-              }
-            | undefined
-        }
-      | undefined
-    metadata?:
-      | (
+export type t_PostShippingRatesShippingRateTokenRequestBody = {
+  active?: boolean | undefined
+  expand?: string[] | undefined
+  fixed_amount?:
+    | {
+        currency_options?:
           | {
-              [key: string]: string | undefined
+              [key: string]:
+                | {
+                    amount?: number | undefined
+                    tax_behavior?:
+                      | ("exclusive" | "inclusive" | "unspecified")
+                      | undefined
+                  }
+                | undefined
             }
-          | ""
-        )
-      | undefined
-    tax_behavior?: ("exclusive" | "inclusive" | "unspecified") | undefined
-  }
+          | undefined
+      }
+    | undefined
+  metadata?:
+    | (
+        | {
+            [key: string]: string | undefined
+          }
+        | ""
+      )
+    | undefined
+  tax_behavior?: ("exclusive" | "inclusive" | "unspecified") | undefined
+}
 
 export type t_PostSigmaSavedQueriesIdParamSchema = {
   id: string
 }
 
-export type t_postSigmaSavedQueriesIdApplicationXWwwFormUrlencodedRequestBody =
-  {
-    expand?: string[] | undefined
-    name?: string | undefined
-    sql?: string | undefined
-  }
+export type t_PostSigmaSavedQueriesIdRequestBody = {
+  expand?: string[] | undefined
+  name?: string | undefined
+  sql?: string | undefined
+}
 
-export type t_postSourcesApplicationXWwwFormUrlencodedRequestBody = {
+export type t_PostSourcesRequestBody = {
   amount?: number | undefined
   currency?: string | undefined
   customer?: string | undefined
@@ -42015,7 +41788,7 @@ export type t_PostSourcesSourceParamSchema = {
   source: string
 }
 
-export type t_postSourcesSourceApplicationXWwwFormUrlencodedRequestBody = {
+export type t_PostSourcesSourceRequestBody = {
   amount?: number | undefined
   expand?: string[] | undefined
   mandate?:
@@ -42110,13 +41883,12 @@ export type t_PostSourcesSourceVerifyParamSchema = {
   source: string
 }
 
-export type t_postSourcesSourceVerifyApplicationXWwwFormUrlencodedRequestBody =
-  {
-    expand?: string[] | undefined
-    values: string[]
-  }
+export type t_PostSourcesSourceVerifyRequestBody = {
+  expand?: string[] | undefined
+  values: string[]
+}
 
-export type t_postSubscriptionItemsApplicationXWwwFormUrlencodedRequestBody = {
+export type t_PostSubscriptionItemsRequestBody = {
   billing_thresholds?:
     | (
         | {
@@ -42176,194 +41948,230 @@ export type t_PostSubscriptionItemsItemParamSchema = {
   item: string
 }
 
-export type t_postSubscriptionItemsItemApplicationXWwwFormUrlencodedRequestBody =
-  {
-    billing_thresholds?:
-      | (
-          | {
-              usage_gte: number
-            }
-          | ""
-        )
-      | undefined
-    discounts?:
-      | (
-          | {
-              coupon?: string | undefined
-              discount?: string | undefined
-              promotion_code?: string | undefined
-            }[]
-          | ""
-        )
-      | undefined
-    expand?: string[] | undefined
-    metadata?:
-      | (
-          | {
-              [key: string]: string | undefined
-            }
-          | ""
-        )
-      | undefined
-    off_session?: boolean | undefined
-    payment_behavior?:
-      | (
-          | "allow_incomplete"
-          | "default_incomplete"
-          | "error_if_incomplete"
-          | "pending_if_incomplete"
-        )
-      | undefined
-    price?: string | undefined
-    price_data?:
-      | {
-          currency: string
-          product: string
-          recurring: {
-            interval: "day" | "month" | "week" | "year"
-            interval_count?: number | undefined
+export type t_PostSubscriptionItemsItemRequestBody = {
+  billing_thresholds?:
+    | (
+        | {
+            usage_gte: number
           }
-          tax_behavior?: ("exclusive" | "inclusive" | "unspecified") | undefined
-          unit_amount?: number | undefined
-          unit_amount_decimal?: string | undefined
+        | ""
+      )
+    | undefined
+  discounts?:
+    | (
+        | {
+            coupon?: string | undefined
+            discount?: string | undefined
+            promotion_code?: string | undefined
+          }[]
+        | ""
+      )
+    | undefined
+  expand?: string[] | undefined
+  metadata?:
+    | (
+        | {
+            [key: string]: string | undefined
+          }
+        | ""
+      )
+    | undefined
+  off_session?: boolean | undefined
+  payment_behavior?:
+    | (
+        | "allow_incomplete"
+        | "default_incomplete"
+        | "error_if_incomplete"
+        | "pending_if_incomplete"
+      )
+    | undefined
+  price?: string | undefined
+  price_data?:
+    | {
+        currency: string
+        product: string
+        recurring: {
+          interval: "day" | "month" | "week" | "year"
+          interval_count?: number | undefined
         }
-      | undefined
-    proration_behavior?:
-      | ("always_invoice" | "create_prorations" | "none")
-      | undefined
-    proration_date?: number | undefined
-    quantity?: number | undefined
-    tax_rates?: (string[] | "") | undefined
-  }
+        tax_behavior?: ("exclusive" | "inclusive" | "unspecified") | undefined
+        unit_amount?: number | undefined
+        unit_amount_decimal?: string | undefined
+      }
+    | undefined
+  proration_behavior?:
+    | ("always_invoice" | "create_prorations" | "none")
+    | undefined
+  proration_date?: number | undefined
+  quantity?: number | undefined
+  tax_rates?: (string[] | "") | undefined
+}
 
-export type t_postSubscriptionSchedulesApplicationXWwwFormUrlencodedRequestBody =
-  {
-    billing_mode?:
-      | {
-          type: "classic" | "flexible"
-        }
-      | undefined
-    customer?: string | undefined
-    default_settings?:
-      | {
-          application_fee_percent?: number | undefined
-          automatic_tax?:
-            | {
-                enabled: boolean
-                liability?:
-                  | {
-                      account?: string | undefined
-                      type: "account" | "self"
-                    }
-                  | undefined
-              }
-            | undefined
-          billing_cycle_anchor?: ("automatic" | "phase_start") | undefined
-          billing_thresholds?:
-            | (
-                | {
-                    amount_gte?: number | undefined
-                    reset_billing_cycle_anchor?: boolean | undefined
-                  }
-                | ""
-              )
-            | undefined
-          collection_method?:
-            | ("charge_automatically" | "send_invoice")
-            | undefined
-          default_payment_method?: string | undefined
-          description?: (string | "") | undefined
-          invoice_settings?:
-            | {
-                account_tax_ids?: (string[] | "") | undefined
-                days_until_due?: number | undefined
-                issuer?:
-                  | {
-                      account?: string | undefined
-                      type: "account" | "self"
-                    }
-                  | undefined
-              }
-            | undefined
-          on_behalf_of?: (string | "") | undefined
-          transfer_data?:
-            | (
-                | {
-                    amount_percent?: number | undefined
-                    destination: string
-                  }
-                | ""
-              )
-            | undefined
-        }
-      | undefined
-    end_behavior?: ("cancel" | "none" | "release" | "renew") | undefined
-    expand?: string[] | undefined
-    from_subscription?: string | undefined
-    metadata?:
-      | (
+export type t_PostSubscriptionSchedulesRequestBody = {
+  billing_mode?:
+    | {
+        type: "classic" | "flexible"
+      }
+    | undefined
+  customer?: string | undefined
+  default_settings?:
+    | {
+        application_fee_percent?: number | undefined
+        automatic_tax?:
           | {
-              [key: string]: string | undefined
+              enabled: boolean
+              liability?:
+                | {
+                    account?: string | undefined
+                    type: "account" | "self"
+                  }
+                | undefined
             }
-          | ""
-        )
-      | undefined
-    phases?:
-      | {
-          add_invoice_items?:
-            | {
-                discounts?:
-                  | {
-                      coupon?: string | undefined
-                      discount?: string | undefined
-                      promotion_code?: string | undefined
-                    }[]
-                  | undefined
-                price?: string | undefined
-                price_data?:
-                  | {
-                      currency: string
-                      product: string
-                      tax_behavior?:
-                        | ("exclusive" | "inclusive" | "unspecified")
-                        | undefined
-                      unit_amount?: number | undefined
-                      unit_amount_decimal?: string | undefined
-                    }
-                  | undefined
-                quantity?: number | undefined
-                tax_rates?: (string[] | "") | undefined
-              }[]
-            | undefined
-          application_fee_percent?: number | undefined
-          automatic_tax?:
-            | {
-                enabled: boolean
-                liability?:
-                  | {
-                      account?: string | undefined
-                      type: "account" | "self"
-                    }
-                  | undefined
-              }
-            | undefined
-          billing_cycle_anchor?: ("automatic" | "phase_start") | undefined
+          | undefined
+        billing_cycle_anchor?: ("automatic" | "phase_start") | undefined
+        billing_thresholds?:
+          | (
+              | {
+                  amount_gte?: number | undefined
+                  reset_billing_cycle_anchor?: boolean | undefined
+                }
+              | ""
+            )
+          | undefined
+        collection_method?:
+          | ("charge_automatically" | "send_invoice")
+          | undefined
+        default_payment_method?: string | undefined
+        description?: (string | "") | undefined
+        invoice_settings?:
+          | {
+              account_tax_ids?: (string[] | "") | undefined
+              days_until_due?: number | undefined
+              issuer?:
+                | {
+                    account?: string | undefined
+                    type: "account" | "self"
+                  }
+                | undefined
+            }
+          | undefined
+        on_behalf_of?: (string | "") | undefined
+        transfer_data?:
+          | (
+              | {
+                  amount_percent?: number | undefined
+                  destination: string
+                }
+              | ""
+            )
+          | undefined
+      }
+    | undefined
+  end_behavior?: ("cancel" | "none" | "release" | "renew") | undefined
+  expand?: string[] | undefined
+  from_subscription?: string | undefined
+  metadata?:
+    | (
+        | {
+            [key: string]: string | undefined
+          }
+        | ""
+      )
+    | undefined
+  phases?:
+    | {
+        add_invoice_items?:
+          | {
+              discounts?:
+                | {
+                    coupon?: string | undefined
+                    discount?: string | undefined
+                    promotion_code?: string | undefined
+                  }[]
+                | undefined
+              price?: string | undefined
+              price_data?:
+                | {
+                    currency: string
+                    product: string
+                    tax_behavior?:
+                      | ("exclusive" | "inclusive" | "unspecified")
+                      | undefined
+                    unit_amount?: number | undefined
+                    unit_amount_decimal?: string | undefined
+                  }
+                | undefined
+              quantity?: number | undefined
+              tax_rates?: (string[] | "") | undefined
+            }[]
+          | undefined
+        application_fee_percent?: number | undefined
+        automatic_tax?:
+          | {
+              enabled: boolean
+              liability?:
+                | {
+                    account?: string | undefined
+                    type: "account" | "self"
+                  }
+                | undefined
+            }
+          | undefined
+        billing_cycle_anchor?: ("automatic" | "phase_start") | undefined
+        billing_thresholds?:
+          | (
+              | {
+                  amount_gte?: number | undefined
+                  reset_billing_cycle_anchor?: boolean | undefined
+                }
+              | ""
+            )
+          | undefined
+        collection_method?:
+          | ("charge_automatically" | "send_invoice")
+          | undefined
+        currency?: string | undefined
+        default_payment_method?: string | undefined
+        default_tax_rates?: (string[] | "") | undefined
+        description?: (string | "") | undefined
+        discounts?:
+          | (
+              | {
+                  coupon?: string | undefined
+                  discount?: string | undefined
+                  promotion_code?: string | undefined
+                }[]
+              | ""
+            )
+          | undefined
+        duration?:
+          | {
+              interval: "day" | "month" | "week" | "year"
+              interval_count?: number | undefined
+            }
+          | undefined
+        end_date?: number | undefined
+        invoice_settings?:
+          | {
+              account_tax_ids?: (string[] | "") | undefined
+              days_until_due?: number | undefined
+              issuer?:
+                | {
+                    account?: string | undefined
+                    type: "account" | "self"
+                  }
+                | undefined
+            }
+          | undefined
+        items: {
           billing_thresholds?:
             | (
                 | {
-                    amount_gte?: number | undefined
-                    reset_billing_cycle_anchor?: boolean | undefined
+                    usage_gte: number
                   }
                 | ""
               )
             | undefined
-          collection_method?:
-            | ("charge_automatically" | "send_invoice")
-            | undefined
-          currency?: string | undefined
-          default_payment_method?: string | undefined
-          default_tax_rates?: (string[] | "") | undefined
-          description?: (string | "") | undefined
           discounts?:
             | (
                 | {
@@ -42374,215 +42182,214 @@ export type t_postSubscriptionSchedulesApplicationXWwwFormUrlencodedRequestBody 
                 | ""
               )
             | undefined
-          duration?:
-            | {
-                interval: "day" | "month" | "week" | "year"
-                interval_count?: number | undefined
-              }
-            | undefined
-          end_date?: number | undefined
-          invoice_settings?:
-            | {
-                account_tax_ids?: (string[] | "") | undefined
-                days_until_due?: number | undefined
-                issuer?:
-                  | {
-                      account?: string | undefined
-                      type: "account" | "self"
-                    }
-                  | undefined
-              }
-            | undefined
-          items: {
-            billing_thresholds?:
-              | (
-                  | {
-                      usage_gte: number
-                    }
-                  | ""
-                )
-              | undefined
-            discounts?:
-              | (
-                  | {
-                      coupon?: string | undefined
-                      discount?: string | undefined
-                      promotion_code?: string | undefined
-                    }[]
-                  | ""
-                )
-              | undefined
-            metadata?:
-              | {
-                  [key: string]: string | undefined
-                }
-              | undefined
-            price?: string | undefined
-            price_data?:
-              | {
-                  currency: string
-                  product: string
-                  recurring: {
-                    interval: "day" | "month" | "week" | "year"
-                    interval_count?: number | undefined
-                  }
-                  tax_behavior?:
-                    | ("exclusive" | "inclusive" | "unspecified")
-                    | undefined
-                  unit_amount?: number | undefined
-                  unit_amount_decimal?: string | undefined
-                }
-              | undefined
-            quantity?: number | undefined
-            tax_rates?: (string[] | "") | undefined
-          }[]
-          iterations?: number | undefined
           metadata?:
             | {
                 [key: string]: string | undefined
               }
             | undefined
-          on_behalf_of?: string | undefined
-          proration_behavior?:
-            | ("always_invoice" | "create_prorations" | "none")
-            | undefined
-          transfer_data?:
+          price?: string | undefined
+          price_data?:
             | {
-                amount_percent?: number | undefined
-                destination: string
+                currency: string
+                product: string
+                recurring: {
+                  interval: "day" | "month" | "week" | "year"
+                  interval_count?: number | undefined
+                }
+                tax_behavior?:
+                  | ("exclusive" | "inclusive" | "unspecified")
+                  | undefined
+                unit_amount?: number | undefined
+                unit_amount_decimal?: string | undefined
               }
             | undefined
-          trial?: boolean | undefined
-          trial_end?: number | undefined
+          quantity?: number | undefined
+          tax_rates?: (string[] | "") | undefined
         }[]
-      | undefined
-    start_date?: (number | "now") | undefined
-  }
+        iterations?: number | undefined
+        metadata?:
+          | {
+              [key: string]: string | undefined
+            }
+          | undefined
+        on_behalf_of?: string | undefined
+        proration_behavior?:
+          | ("always_invoice" | "create_prorations" | "none")
+          | undefined
+        transfer_data?:
+          | {
+              amount_percent?: number | undefined
+              destination: string
+            }
+          | undefined
+        trial?: boolean | undefined
+        trial_end?: number | undefined
+      }[]
+    | undefined
+  start_date?: (number | "now") | undefined
+}
 
 export type t_PostSubscriptionSchedulesScheduleParamSchema = {
   schedule: string
 }
 
-export type t_postSubscriptionSchedulesScheduleApplicationXWwwFormUrlencodedRequestBody =
-  {
-    default_settings?:
-      | {
-          application_fee_percent?: number | undefined
-          automatic_tax?:
-            | {
-                enabled: boolean
-                liability?:
-                  | {
-                      account?: string | undefined
-                      type: "account" | "self"
-                    }
-                  | undefined
-              }
-            | undefined
-          billing_cycle_anchor?: ("automatic" | "phase_start") | undefined
-          billing_thresholds?:
-            | (
-                | {
-                    amount_gte?: number | undefined
-                    reset_billing_cycle_anchor?: boolean | undefined
-                  }
-                | ""
-              )
-            | undefined
-          collection_method?:
-            | ("charge_automatically" | "send_invoice")
-            | undefined
-          default_payment_method?: string | undefined
-          description?: (string | "") | undefined
-          invoice_settings?:
-            | {
-                account_tax_ids?: (string[] | "") | undefined
-                days_until_due?: number | undefined
-                issuer?:
-                  | {
-                      account?: string | undefined
-                      type: "account" | "self"
-                    }
-                  | undefined
-              }
-            | undefined
-          on_behalf_of?: (string | "") | undefined
-          transfer_data?:
-            | (
-                | {
-                    amount_percent?: number | undefined
-                    destination: string
-                  }
-                | ""
-              )
-            | undefined
-        }
-      | undefined
-    end_behavior?: ("cancel" | "none" | "release" | "renew") | undefined
-    expand?: string[] | undefined
-    metadata?:
-      | (
+export type t_PostSubscriptionSchedulesScheduleRequestBody = {
+  default_settings?:
+    | {
+        application_fee_percent?: number | undefined
+        automatic_tax?:
           | {
-              [key: string]: string | undefined
+              enabled: boolean
+              liability?:
+                | {
+                    account?: string | undefined
+                    type: "account" | "self"
+                  }
+                | undefined
             }
-          | ""
-        )
-      | undefined
-    phases?:
-      | {
-          add_invoice_items?:
-            | {
-                discounts?:
-                  | {
-                      coupon?: string | undefined
-                      discount?: string | undefined
-                      promotion_code?: string | undefined
-                    }[]
-                  | undefined
-                price?: string | undefined
-                price_data?:
-                  | {
-                      currency: string
-                      product: string
-                      tax_behavior?:
-                        | ("exclusive" | "inclusive" | "unspecified")
-                        | undefined
-                      unit_amount?: number | undefined
-                      unit_amount_decimal?: string | undefined
-                    }
-                  | undefined
-                quantity?: number | undefined
-                tax_rates?: (string[] | "") | undefined
-              }[]
-            | undefined
-          application_fee_percent?: number | undefined
-          automatic_tax?:
-            | {
-                enabled: boolean
-                liability?:
-                  | {
-                      account?: string | undefined
-                      type: "account" | "self"
-                    }
-                  | undefined
-              }
-            | undefined
-          billing_cycle_anchor?: ("automatic" | "phase_start") | undefined
+          | undefined
+        billing_cycle_anchor?: ("automatic" | "phase_start") | undefined
+        billing_thresholds?:
+          | (
+              | {
+                  amount_gte?: number | undefined
+                  reset_billing_cycle_anchor?: boolean | undefined
+                }
+              | ""
+            )
+          | undefined
+        collection_method?:
+          | ("charge_automatically" | "send_invoice")
+          | undefined
+        default_payment_method?: string | undefined
+        description?: (string | "") | undefined
+        invoice_settings?:
+          | {
+              account_tax_ids?: (string[] | "") | undefined
+              days_until_due?: number | undefined
+              issuer?:
+                | {
+                    account?: string | undefined
+                    type: "account" | "self"
+                  }
+                | undefined
+            }
+          | undefined
+        on_behalf_of?: (string | "") | undefined
+        transfer_data?:
+          | (
+              | {
+                  amount_percent?: number | undefined
+                  destination: string
+                }
+              | ""
+            )
+          | undefined
+      }
+    | undefined
+  end_behavior?: ("cancel" | "none" | "release" | "renew") | undefined
+  expand?: string[] | undefined
+  metadata?:
+    | (
+        | {
+            [key: string]: string | undefined
+          }
+        | ""
+      )
+    | undefined
+  phases?:
+    | {
+        add_invoice_items?:
+          | {
+              discounts?:
+                | {
+                    coupon?: string | undefined
+                    discount?: string | undefined
+                    promotion_code?: string | undefined
+                  }[]
+                | undefined
+              price?: string | undefined
+              price_data?:
+                | {
+                    currency: string
+                    product: string
+                    tax_behavior?:
+                      | ("exclusive" | "inclusive" | "unspecified")
+                      | undefined
+                    unit_amount?: number | undefined
+                    unit_amount_decimal?: string | undefined
+                  }
+                | undefined
+              quantity?: number | undefined
+              tax_rates?: (string[] | "") | undefined
+            }[]
+          | undefined
+        application_fee_percent?: number | undefined
+        automatic_tax?:
+          | {
+              enabled: boolean
+              liability?:
+                | {
+                    account?: string | undefined
+                    type: "account" | "self"
+                  }
+                | undefined
+            }
+          | undefined
+        billing_cycle_anchor?: ("automatic" | "phase_start") | undefined
+        billing_thresholds?:
+          | (
+              | {
+                  amount_gte?: number | undefined
+                  reset_billing_cycle_anchor?: boolean | undefined
+                }
+              | ""
+            )
+          | undefined
+        collection_method?:
+          | ("charge_automatically" | "send_invoice")
+          | undefined
+        default_payment_method?: string | undefined
+        default_tax_rates?: (string[] | "") | undefined
+        description?: (string | "") | undefined
+        discounts?:
+          | (
+              | {
+                  coupon?: string | undefined
+                  discount?: string | undefined
+                  promotion_code?: string | undefined
+                }[]
+              | ""
+            )
+          | undefined
+        duration?:
+          | {
+              interval: "day" | "month" | "week" | "year"
+              interval_count?: number | undefined
+            }
+          | undefined
+        end_date?: (number | "now") | undefined
+        invoice_settings?:
+          | {
+              account_tax_ids?: (string[] | "") | undefined
+              days_until_due?: number | undefined
+              issuer?:
+                | {
+                    account?: string | undefined
+                    type: "account" | "self"
+                  }
+                | undefined
+            }
+          | undefined
+        items: {
           billing_thresholds?:
             | (
                 | {
-                    amount_gte?: number | undefined
-                    reset_billing_cycle_anchor?: boolean | undefined
+                    usage_gte: number
                   }
                 | ""
               )
             | undefined
-          collection_method?:
-            | ("charge_automatically" | "send_invoice")
-            | undefined
-          default_payment_method?: string | undefined
-          default_tax_rates?: (string[] | "") | undefined
-          description?: (string | "") | undefined
           discounts?:
             | (
                 | {
@@ -42593,116 +42400,76 @@ export type t_postSubscriptionSchedulesScheduleApplicationXWwwFormUrlencodedRequ
                 | ""
               )
             | undefined
-          duration?:
-            | {
-                interval: "day" | "month" | "week" | "year"
-                interval_count?: number | undefined
-              }
-            | undefined
-          end_date?: (number | "now") | undefined
-          invoice_settings?:
-            | {
-                account_tax_ids?: (string[] | "") | undefined
-                days_until_due?: number | undefined
-                issuer?:
-                  | {
-                      account?: string | undefined
-                      type: "account" | "self"
-                    }
-                  | undefined
-              }
-            | undefined
-          items: {
-            billing_thresholds?:
-              | (
-                  | {
-                      usage_gte: number
-                    }
-                  | ""
-                )
-              | undefined
-            discounts?:
-              | (
-                  | {
-                      coupon?: string | undefined
-                      discount?: string | undefined
-                      promotion_code?: string | undefined
-                    }[]
-                  | ""
-                )
-              | undefined
-            metadata?:
-              | {
-                  [key: string]: string | undefined
-                }
-              | undefined
-            price?: string | undefined
-            price_data?:
-              | {
-                  currency: string
-                  product: string
-                  recurring: {
-                    interval: "day" | "month" | "week" | "year"
-                    interval_count?: number | undefined
-                  }
-                  tax_behavior?:
-                    | ("exclusive" | "inclusive" | "unspecified")
-                    | undefined
-                  unit_amount?: number | undefined
-                  unit_amount_decimal?: string | undefined
-                }
-              | undefined
-            quantity?: number | undefined
-            tax_rates?: (string[] | "") | undefined
-          }[]
-          iterations?: number | undefined
           metadata?:
             | {
                 [key: string]: string | undefined
               }
             | undefined
-          on_behalf_of?: string | undefined
-          proration_behavior?:
-            | ("always_invoice" | "create_prorations" | "none")
-            | undefined
-          start_date?: (number | "now") | undefined
-          transfer_data?:
+          price?: string | undefined
+          price_data?:
             | {
-                amount_percent?: number | undefined
-                destination: string
+                currency: string
+                product: string
+                recurring: {
+                  interval: "day" | "month" | "week" | "year"
+                  interval_count?: number | undefined
+                }
+                tax_behavior?:
+                  | ("exclusive" | "inclusive" | "unspecified")
+                  | undefined
+                unit_amount?: number | undefined
+                unit_amount_decimal?: string | undefined
               }
             | undefined
-          trial?: boolean | undefined
-          trial_end?: (number | "now") | undefined
+          quantity?: number | undefined
+          tax_rates?: (string[] | "") | undefined
         }[]
-      | undefined
-    proration_behavior?:
-      | ("always_invoice" | "create_prorations" | "none")
-      | undefined
-  }
+        iterations?: number | undefined
+        metadata?:
+          | {
+              [key: string]: string | undefined
+            }
+          | undefined
+        on_behalf_of?: string | undefined
+        proration_behavior?:
+          | ("always_invoice" | "create_prorations" | "none")
+          | undefined
+        start_date?: (number | "now") | undefined
+        transfer_data?:
+          | {
+              amount_percent?: number | undefined
+              destination: string
+            }
+          | undefined
+        trial?: boolean | undefined
+        trial_end?: (number | "now") | undefined
+      }[]
+    | undefined
+  proration_behavior?:
+    | ("always_invoice" | "create_prorations" | "none")
+    | undefined
+}
 
 export type t_PostSubscriptionSchedulesScheduleCancelParamSchema = {
   schedule: string
 }
 
-export type t_postSubscriptionSchedulesScheduleCancelApplicationXWwwFormUrlencodedRequestBody =
-  {
-    expand?: string[] | undefined
-    invoice_now?: boolean | undefined
-    prorate?: boolean | undefined
-  }
+export type t_PostSubscriptionSchedulesScheduleCancelRequestBody = {
+  expand?: string[] | undefined
+  invoice_now?: boolean | undefined
+  prorate?: boolean | undefined
+}
 
 export type t_PostSubscriptionSchedulesScheduleReleaseParamSchema = {
   schedule: string
 }
 
-export type t_postSubscriptionSchedulesScheduleReleaseApplicationXWwwFormUrlencodedRequestBody =
-  {
-    expand?: string[] | undefined
-    preserve_cancel_date?: boolean | undefined
-  }
+export type t_PostSubscriptionSchedulesScheduleReleaseRequestBody = {
+  expand?: string[] | undefined
+  preserve_cancel_date?: boolean | undefined
+}
 
-export type t_postSubscriptionsApplicationXWwwFormUrlencodedRequestBody = {
+export type t_PostSubscriptionsRequestBody = {
   add_invoice_items?:
     | {
         discounts?:
@@ -43062,413 +42829,406 @@ export type t_PostSubscriptionsSubscriptionExposedIdParamSchema = {
   subscription_exposed_id: string
 }
 
-export type t_postSubscriptionsSubscriptionExposedIdApplicationXWwwFormUrlencodedRequestBody =
-  {
-    add_invoice_items?:
-      | {
-          discounts?:
-            | {
-                coupon?: string | undefined
-                discount?: string | undefined
-                promotion_code?: string | undefined
-              }[]
-            | undefined
-          price?: string | undefined
-          price_data?:
-            | {
-                currency: string
-                product: string
-                tax_behavior?:
-                  | ("exclusive" | "inclusive" | "unspecified")
-                  | undefined
-                unit_amount?: number | undefined
-                unit_amount_decimal?: string | undefined
-              }
-            | undefined
-          quantity?: number | undefined
-          tax_rates?: (string[] | "") | undefined
-        }[]
-      | undefined
-    application_fee_percent?: (number | "") | undefined
-    automatic_tax?:
-      | {
-          enabled: boolean
-          liability?:
-            | {
-                account?: string | undefined
-                type: "account" | "self"
-              }
-            | undefined
-        }
-      | undefined
-    billing_cycle_anchor?: ("now" | "unchanged") | undefined
-    billing_thresholds?:
-      | (
-          | {
-              amount_gte?: number | undefined
-              reset_billing_cycle_anchor?: boolean | undefined
-            }
-          | ""
-        )
-      | undefined
-    cancel_at?: (number | "" | "max_period_end" | "min_period_end") | undefined
-    cancel_at_period_end?: boolean | undefined
-    cancellation_details?:
-      | {
-          comment?: (string | "") | undefined
-          feedback?:
-            | (
-                | ""
-                | "customer_service"
-                | "low_quality"
-                | "missing_features"
-                | "other"
-                | "switched_service"
-                | "too_complex"
-                | "too_expensive"
-                | "unused"
-              )
-            | undefined
-        }
-      | undefined
-    collection_method?: ("charge_automatically" | "send_invoice") | undefined
-    days_until_due?: number | undefined
-    default_payment_method?: string | undefined
-    default_source?: (string | "") | undefined
-    default_tax_rates?: (string[] | "") | undefined
-    description?: (string | "") | undefined
-    discounts?:
-      | (
+export type t_PostSubscriptionsSubscriptionExposedIdRequestBody = {
+  add_invoice_items?:
+    | {
+        discounts?:
           | {
               coupon?: string | undefined
               discount?: string | undefined
               promotion_code?: string | undefined
             }[]
-          | ""
-        )
-      | undefined
-    expand?: string[] | undefined
-    invoice_settings?:
-      | {
-          account_tax_ids?: (string[] | "") | undefined
-          issuer?:
-            | {
-                account?: string | undefined
-                type: "account" | "self"
-              }
-            | undefined
-        }
-      | undefined
-    items?:
-      | {
-          billing_thresholds?:
-            | (
-                | {
-                    usage_gte: number
-                  }
-                | ""
-              )
-            | undefined
-          clear_usage?: boolean | undefined
-          deleted?: boolean | undefined
-          discounts?:
-            | (
-                | {
-                    coupon?: string | undefined
-                    discount?: string | undefined
-                    promotion_code?: string | undefined
-                  }[]
-                | ""
-              )
-            | undefined
-          id?: string | undefined
-          metadata?:
-            | (
-                | {
-                    [key: string]: string | undefined
-                  }
-                | ""
-              )
-            | undefined
-          price?: string | undefined
-          price_data?:
-            | {
-                currency: string
-                product: string
-                recurring: {
-                  interval: "day" | "month" | "week" | "year"
-                  interval_count?: number | undefined
-                }
-                tax_behavior?:
-                  | ("exclusive" | "inclusive" | "unspecified")
-                  | undefined
-                unit_amount?: number | undefined
-                unit_amount_decimal?: string | undefined
-              }
-            | undefined
-          quantity?: number | undefined
-          tax_rates?: (string[] | "") | undefined
-        }[]
-      | undefined
-    metadata?:
-      | (
+          | undefined
+        price?: string | undefined
+        price_data?:
           | {
-              [key: string]: string | undefined
+              currency: string
+              product: string
+              tax_behavior?:
+                | ("exclusive" | "inclusive" | "unspecified")
+                | undefined
+              unit_amount?: number | undefined
+              unit_amount_decimal?: string | undefined
             }
-          | ""
-        )
-      | undefined
-    off_session?: boolean | undefined
-    on_behalf_of?: (string | "") | undefined
-    pause_collection?:
-      | (
+          | undefined
+        quantity?: number | undefined
+        tax_rates?: (string[] | "") | undefined
+      }[]
+    | undefined
+  application_fee_percent?: (number | "") | undefined
+  automatic_tax?:
+    | {
+        enabled: boolean
+        liability?:
           | {
-              behavior: "keep_as_draft" | "mark_uncollectible" | "void"
-              resumes_at?: number | undefined
+              account?: string | undefined
+              type: "account" | "self"
             }
-          | ""
-        )
-      | undefined
-    payment_behavior?:
-      | (
-          | "allow_incomplete"
-          | "default_incomplete"
-          | "error_if_incomplete"
-          | "pending_if_incomplete"
-        )
-      | undefined
-    payment_settings?:
-      | {
-          payment_method_options?:
-            | {
-                acss_debit?:
-                  | (
-                      | {
-                          mandate_options?:
-                            | {
-                                transaction_type?:
-                                  | ("business" | "personal")
-                                  | undefined
-                              }
-                            | undefined
-                          verification_method?:
-                            | ("automatic" | "instant" | "microdeposits")
-                            | undefined
-                        }
-                      | ""
-                    )
-                  | undefined
-                bancontact?:
-                  | (
-                      | {
-                          preferred_language?:
-                            | ("de" | "en" | "fr" | "nl")
-                            | undefined
-                        }
-                      | ""
-                    )
-                  | undefined
-                card?:
-                  | (
-                      | {
-                          mandate_options?:
-                            | {
-                                amount?: number | undefined
-                                amount_type?: ("fixed" | "maximum") | undefined
-                                description?: string | undefined
-                              }
-                            | undefined
-                          network?:
-                            | (
-                                | "amex"
-                                | "cartes_bancaires"
-                                | "diners"
-                                | "discover"
-                                | "eftpos_au"
-                                | "girocard"
-                                | "interac"
-                                | "jcb"
-                                | "link"
-                                | "mastercard"
-                                | "unionpay"
-                                | "unknown"
-                                | "visa"
-                              )
-                            | undefined
-                          request_three_d_secure?:
-                            | ("any" | "automatic" | "challenge")
-                            | undefined
-                        }
-                      | ""
-                    )
-                  | undefined
-                customer_balance?:
-                  | (
-                      | {
-                          bank_transfer?:
-                            | {
-                                eu_bank_transfer?:
-                                  | {
-                                      country: string
-                                    }
-                                  | undefined
-                                type?: string | undefined
-                              }
-                            | undefined
-                          funding_type?: string | undefined
-                        }
-                      | ""
-                    )
-                  | undefined
-                konbini?: (EmptyObject | "") | undefined
-                sepa_debit?: (EmptyObject | "") | undefined
-                us_bank_account?:
-                  | (
-                      | {
-                          financial_connections?:
-                            | {
-                                filters?:
-                                  | {
-                                      account_subcategories?:
-                                        | ("checking" | "savings")[]
-                                        | undefined
-                                    }
-                                  | undefined
-                                permissions?:
-                                  | (
-                                      | "balances"
-                                      | "ownership"
-                                      | "payment_method"
-                                      | "transactions"
-                                    )[]
-                                  | undefined
-                                prefetch?:
-                                  | (
-                                      | "balances"
-                                      | "ownership"
-                                      | "transactions"
-                                    )[]
-                                  | undefined
-                              }
-                            | undefined
-                          verification_method?:
-                            | ("automatic" | "instant" | "microdeposits")
-                            | undefined
-                        }
-                      | ""
-                    )
-                  | undefined
-              }
-            | undefined
-          payment_method_types?:
-            | (
-                | (
-                    | "ach_credit_transfer"
-                    | "ach_debit"
-                    | "acss_debit"
-                    | "affirm"
-                    | "amazon_pay"
-                    | "au_becs_debit"
-                    | "bacs_debit"
-                    | "bancontact"
-                    | "boleto"
-                    | "card"
-                    | "cashapp"
-                    | "crypto"
-                    | "customer_balance"
-                    | "eps"
-                    | "fpx"
-                    | "giropay"
-                    | "grabpay"
-                    | "ideal"
-                    | "jp_credit_transfer"
-                    | "kakao_pay"
-                    | "klarna"
-                    | "konbini"
-                    | "kr_card"
-                    | "link"
-                    | "multibanco"
-                    | "naver_pay"
-                    | "nz_bank_account"
-                    | "p24"
-                    | "payco"
-                    | "paynow"
-                    | "paypal"
-                    | "promptpay"
-                    | "revolut_pay"
-                    | "sepa_credit_transfer"
-                    | "sepa_debit"
-                    | "sofort"
-                    | "swish"
-                    | "us_bank_account"
-                    | "wechat_pay"
-                  )[]
-                | ""
-              )
-            | undefined
-          save_default_payment_method?: ("off" | "on_subscription") | undefined
-        }
-      | undefined
-    pending_invoice_item_interval?:
-      | (
-          | {
-              interval: "day" | "month" | "week" | "year"
-              interval_count?: number | undefined
-            }
-          | ""
-        )
-      | undefined
-    proration_behavior?:
-      | ("always_invoice" | "create_prorations" | "none")
-      | undefined
-    proration_date?: number | undefined
-    transfer_data?:
-      | (
-          | {
-              amount_percent?: number | undefined
-              destination: string
-            }
-          | ""
-        )
-      | undefined
-    trial_end?: ("now" | number) | undefined
-    trial_from_plan?: boolean | undefined
-    trial_settings?:
-      | {
-          end_behavior: {
-            missing_payment_method: "cancel" | "create_invoice" | "pause"
+          | undefined
+      }
+    | undefined
+  billing_cycle_anchor?: ("now" | "unchanged") | undefined
+  billing_thresholds?:
+    | (
+        | {
+            amount_gte?: number | undefined
+            reset_billing_cycle_anchor?: boolean | undefined
           }
+        | ""
+      )
+    | undefined
+  cancel_at?: (number | "" | "max_period_end" | "min_period_end") | undefined
+  cancel_at_period_end?: boolean | undefined
+  cancellation_details?:
+    | {
+        comment?: (string | "") | undefined
+        feedback?:
+          | (
+              | ""
+              | "customer_service"
+              | "low_quality"
+              | "missing_features"
+              | "other"
+              | "switched_service"
+              | "too_complex"
+              | "too_expensive"
+              | "unused"
+            )
+          | undefined
+      }
+    | undefined
+  collection_method?: ("charge_automatically" | "send_invoice") | undefined
+  days_until_due?: number | undefined
+  default_payment_method?: string | undefined
+  default_source?: (string | "") | undefined
+  default_tax_rates?: (string[] | "") | undefined
+  description?: (string | "") | undefined
+  discounts?:
+    | (
+        | {
+            coupon?: string | undefined
+            discount?: string | undefined
+            promotion_code?: string | undefined
+          }[]
+        | ""
+      )
+    | undefined
+  expand?: string[] | undefined
+  invoice_settings?:
+    | {
+        account_tax_ids?: (string[] | "") | undefined
+        issuer?:
+          | {
+              account?: string | undefined
+              type: "account" | "self"
+            }
+          | undefined
+      }
+    | undefined
+  items?:
+    | {
+        billing_thresholds?:
+          | (
+              | {
+                  usage_gte: number
+                }
+              | ""
+            )
+          | undefined
+        clear_usage?: boolean | undefined
+        deleted?: boolean | undefined
+        discounts?:
+          | (
+              | {
+                  coupon?: string | undefined
+                  discount?: string | undefined
+                  promotion_code?: string | undefined
+                }[]
+              | ""
+            )
+          | undefined
+        id?: string | undefined
+        metadata?:
+          | (
+              | {
+                  [key: string]: string | undefined
+                }
+              | ""
+            )
+          | undefined
+        price?: string | undefined
+        price_data?:
+          | {
+              currency: string
+              product: string
+              recurring: {
+                interval: "day" | "month" | "week" | "year"
+                interval_count?: number | undefined
+              }
+              tax_behavior?:
+                | ("exclusive" | "inclusive" | "unspecified")
+                | undefined
+              unit_amount?: number | undefined
+              unit_amount_decimal?: string | undefined
+            }
+          | undefined
+        quantity?: number | undefined
+        tax_rates?: (string[] | "") | undefined
+      }[]
+    | undefined
+  metadata?:
+    | (
+        | {
+            [key: string]: string | undefined
+          }
+        | ""
+      )
+    | undefined
+  off_session?: boolean | undefined
+  on_behalf_of?: (string | "") | undefined
+  pause_collection?:
+    | (
+        | {
+            behavior: "keep_as_draft" | "mark_uncollectible" | "void"
+            resumes_at?: number | undefined
+          }
+        | ""
+      )
+    | undefined
+  payment_behavior?:
+    | (
+        | "allow_incomplete"
+        | "default_incomplete"
+        | "error_if_incomplete"
+        | "pending_if_incomplete"
+      )
+    | undefined
+  payment_settings?:
+    | {
+        payment_method_options?:
+          | {
+              acss_debit?:
+                | (
+                    | {
+                        mandate_options?:
+                          | {
+                              transaction_type?:
+                                | ("business" | "personal")
+                                | undefined
+                            }
+                          | undefined
+                        verification_method?:
+                          | ("automatic" | "instant" | "microdeposits")
+                          | undefined
+                      }
+                    | ""
+                  )
+                | undefined
+              bancontact?:
+                | (
+                    | {
+                        preferred_language?:
+                          | ("de" | "en" | "fr" | "nl")
+                          | undefined
+                      }
+                    | ""
+                  )
+                | undefined
+              card?:
+                | (
+                    | {
+                        mandate_options?:
+                          | {
+                              amount?: number | undefined
+                              amount_type?: ("fixed" | "maximum") | undefined
+                              description?: string | undefined
+                            }
+                          | undefined
+                        network?:
+                          | (
+                              | "amex"
+                              | "cartes_bancaires"
+                              | "diners"
+                              | "discover"
+                              | "eftpos_au"
+                              | "girocard"
+                              | "interac"
+                              | "jcb"
+                              | "link"
+                              | "mastercard"
+                              | "unionpay"
+                              | "unknown"
+                              | "visa"
+                            )
+                          | undefined
+                        request_three_d_secure?:
+                          | ("any" | "automatic" | "challenge")
+                          | undefined
+                      }
+                    | ""
+                  )
+                | undefined
+              customer_balance?:
+                | (
+                    | {
+                        bank_transfer?:
+                          | {
+                              eu_bank_transfer?:
+                                | {
+                                    country: string
+                                  }
+                                | undefined
+                              type?: string | undefined
+                            }
+                          | undefined
+                        funding_type?: string | undefined
+                      }
+                    | ""
+                  )
+                | undefined
+              konbini?: (EmptyObject | "") | undefined
+              sepa_debit?: (EmptyObject | "") | undefined
+              us_bank_account?:
+                | (
+                    | {
+                        financial_connections?:
+                          | {
+                              filters?:
+                                | {
+                                    account_subcategories?:
+                                      | ("checking" | "savings")[]
+                                      | undefined
+                                  }
+                                | undefined
+                              permissions?:
+                                | (
+                                    | "balances"
+                                    | "ownership"
+                                    | "payment_method"
+                                    | "transactions"
+                                  )[]
+                                | undefined
+                              prefetch?:
+                                | ("balances" | "ownership" | "transactions")[]
+                                | undefined
+                            }
+                          | undefined
+                        verification_method?:
+                          | ("automatic" | "instant" | "microdeposits")
+                          | undefined
+                      }
+                    | ""
+                  )
+                | undefined
+            }
+          | undefined
+        payment_method_types?:
+          | (
+              | (
+                  | "ach_credit_transfer"
+                  | "ach_debit"
+                  | "acss_debit"
+                  | "affirm"
+                  | "amazon_pay"
+                  | "au_becs_debit"
+                  | "bacs_debit"
+                  | "bancontact"
+                  | "boleto"
+                  | "card"
+                  | "cashapp"
+                  | "crypto"
+                  | "customer_balance"
+                  | "eps"
+                  | "fpx"
+                  | "giropay"
+                  | "grabpay"
+                  | "ideal"
+                  | "jp_credit_transfer"
+                  | "kakao_pay"
+                  | "klarna"
+                  | "konbini"
+                  | "kr_card"
+                  | "link"
+                  | "multibanco"
+                  | "naver_pay"
+                  | "nz_bank_account"
+                  | "p24"
+                  | "payco"
+                  | "paynow"
+                  | "paypal"
+                  | "promptpay"
+                  | "revolut_pay"
+                  | "sepa_credit_transfer"
+                  | "sepa_debit"
+                  | "sofort"
+                  | "swish"
+                  | "us_bank_account"
+                  | "wechat_pay"
+                )[]
+              | ""
+            )
+          | undefined
+        save_default_payment_method?: ("off" | "on_subscription") | undefined
+      }
+    | undefined
+  pending_invoice_item_interval?:
+    | (
+        | {
+            interval: "day" | "month" | "week" | "year"
+            interval_count?: number | undefined
+          }
+        | ""
+      )
+    | undefined
+  proration_behavior?:
+    | ("always_invoice" | "create_prorations" | "none")
+    | undefined
+  proration_date?: number | undefined
+  transfer_data?:
+    | (
+        | {
+            amount_percent?: number | undefined
+            destination: string
+          }
+        | ""
+      )
+    | undefined
+  trial_end?: ("now" | number) | undefined
+  trial_from_plan?: boolean | undefined
+  trial_settings?:
+    | {
+        end_behavior: {
+          missing_payment_method: "cancel" | "create_invoice" | "pause"
         }
-      | undefined
-  }
+      }
+    | undefined
+}
 
 export type t_PostSubscriptionsSubscriptionMigrateParamSchema = {
   subscription: string
 }
 
-export type t_postSubscriptionsSubscriptionMigrateApplicationXWwwFormUrlencodedRequestBody =
-  {
-    billing_mode: {
-      type: "flexible"
-    }
-    expand?: string[] | undefined
+export type t_PostSubscriptionsSubscriptionMigrateRequestBody = {
+  billing_mode: {
+    type: "flexible"
   }
+  expand?: string[] | undefined
+}
 
 export type t_PostSubscriptionsSubscriptionResumeParamSchema = {
   subscription: string
 }
 
-export type t_postSubscriptionsSubscriptionResumeApplicationXWwwFormUrlencodedRequestBody =
-  {
-    billing_cycle_anchor?: ("now" | "unchanged") | undefined
-    expand?: string[] | undefined
-    proration_behavior?:
-      | ("always_invoice" | "create_prorations" | "none")
-      | undefined
-    proration_date?: number | undefined
-  }
+export type t_PostSubscriptionsSubscriptionResumeRequestBody = {
+  billing_cycle_anchor?: ("now" | "unchanged") | undefined
+  expand?: string[] | undefined
+  proration_behavior?:
+    | ("always_invoice" | "create_prorations" | "none")
+    | undefined
+  proration_date?: number | undefined
+}
 
-export type t_postTaxCalculationsApplicationXWwwFormUrlencodedRequestBody = {
+export type t_PostTaxCalculationsRequestBody = {
   currency: string
   customer?: string | undefined
   customer_details?:
@@ -43643,7 +43403,7 @@ export type t_postTaxCalculationsApplicationXWwwFormUrlencodedRequestBody = {
   tax_date?: number | undefined
 }
 
-export type t_postTaxIdsApplicationXWwwFormUrlencodedRequestBody = {
+export type t_PostTaxIdsRequestBody = {
   expand?: string[] | undefined
   owner?:
     | {
@@ -43766,7 +43526,7 @@ export type t_postTaxIdsApplicationXWwwFormUrlencodedRequestBody = {
   value: string
 }
 
-export type t_postTaxRatesApplicationXWwwFormUrlencodedRequestBody = {
+export type t_PostTaxRatesRequestBody = {
   active?: boolean | undefined
   country?: string | undefined
   description?: string | undefined
@@ -43805,7 +43565,7 @@ export type t_PostTaxRatesTaxRateParamSchema = {
   tax_rate: string
 }
 
-export type t_postTaxRatesTaxRateApplicationXWwwFormUrlencodedRequestBody = {
+export type t_PostTaxRatesTaxRateRequestBody = {
   active?: boolean | undefined
   country?: string | undefined
   description?: string | undefined
@@ -43841,7 +43601,7 @@ export type t_postTaxRatesTaxRateApplicationXWwwFormUrlencodedRequestBody = {
     | undefined
 }
 
-export type t_postTaxRegistrationsApplicationXWwwFormUrlencodedRequestBody = {
+export type t_PostTaxRegistrationsRequestBody = {
   active_from: "now" | number
   country: string
   country_options: {
@@ -44807,13 +44567,13 @@ export type t_PostTaxRegistrationsIdParamSchema = {
   id: string
 }
 
-export type t_postTaxRegistrationsIdApplicationXWwwFormUrlencodedRequestBody = {
+export type t_PostTaxRegistrationsIdRequestBody = {
   active_from?: ("now" | number) | undefined
   expand?: string[] | undefined
   expires_at?: ("now" | number | "") | undefined
 }
 
-export type t_postTaxSettingsApplicationXWwwFormUrlencodedRequestBody = {
+export type t_PostTaxSettingsRequestBody = {
   defaults?:
     | {
         tax_behavior?:
@@ -44837,508 +44597,497 @@ export type t_postTaxSettingsApplicationXWwwFormUrlencodedRequestBody = {
     | undefined
 }
 
-export type t_postTaxTransactionsCreateFromCalculationApplicationXWwwFormUrlencodedRequestBody =
-  {
-    calculation: string
-    expand?: string[] | undefined
-    metadata?:
-      | {
-          [key: string]: string | undefined
-        }
-      | undefined
-    posted_at?: number | undefined
-    reference: string
-  }
+export type t_PostTaxTransactionsCreateFromCalculationRequestBody = {
+  calculation: string
+  expand?: string[] | undefined
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | undefined
+  posted_at?: number | undefined
+  reference: string
+}
 
-export type t_postTaxTransactionsCreateReversalApplicationXWwwFormUrlencodedRequestBody =
-  {
-    expand?: string[] | undefined
-    flat_amount?: number | undefined
-    line_items?:
-      | {
-          amount: number
-          amount_tax: number
-          metadata?:
-            | {
-                [key: string]: string | undefined
-              }
-            | undefined
-          original_line_item: string
-          quantity?: number | undefined
-          reference: string
-        }[]
-      | undefined
-    metadata?:
-      | {
-          [key: string]: string | undefined
-        }
-      | undefined
-    mode: "full" | "partial"
-    original_transaction: string
-    reference: string
-    shipping_cost?:
-      | {
-          amount: number
-          amount_tax: number
-        }
-      | undefined
-  }
+export type t_PostTaxTransactionsCreateReversalRequestBody = {
+  expand?: string[] | undefined
+  flat_amount?: number | undefined
+  line_items?:
+    | {
+        amount: number
+        amount_tax: number
+        metadata?:
+          | {
+              [key: string]: string | undefined
+            }
+          | undefined
+        original_line_item: string
+        quantity?: number | undefined
+        reference: string
+      }[]
+    | undefined
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | undefined
+  mode: "full" | "partial"
+  original_transaction: string
+  reference: string
+  shipping_cost?:
+    | {
+        amount: number
+        amount_tax: number
+      }
+    | undefined
+}
 
-export type t_postTerminalConfigurationsApplicationXWwwFormUrlencodedRequestBody =
-  {
-    bbpos_wisepos_e?:
-      | {
-          splashscreen?: (string | "") | undefined
-        }
-      | undefined
-    expand?: string[] | undefined
-    name?: string | undefined
-    offline?:
-      | (
-          | {
-              enabled: boolean
-            }
-          | ""
-        )
-      | undefined
-    reboot_window?:
-      | {
-          end_hour: number
-          start_hour: number
-        }
-      | undefined
-    stripe_s700?:
-      | {
-          splashscreen?: (string | "") | undefined
-        }
-      | undefined
-    tipping?:
-      | (
-          | {
-              aed?:
-                | {
-                    fixed_amounts?: number[] | undefined
-                    percentages?: number[] | undefined
-                    smart_tip_threshold?: number | undefined
-                  }
-                | undefined
-              aud?:
-                | {
-                    fixed_amounts?: number[] | undefined
-                    percentages?: number[] | undefined
-                    smart_tip_threshold?: number | undefined
-                  }
-                | undefined
-              bgn?:
-                | {
-                    fixed_amounts?: number[] | undefined
-                    percentages?: number[] | undefined
-                    smart_tip_threshold?: number | undefined
-                  }
-                | undefined
-              cad?:
-                | {
-                    fixed_amounts?: number[] | undefined
-                    percentages?: number[] | undefined
-                    smart_tip_threshold?: number | undefined
-                  }
-                | undefined
-              chf?:
-                | {
-                    fixed_amounts?: number[] | undefined
-                    percentages?: number[] | undefined
-                    smart_tip_threshold?: number | undefined
-                  }
-                | undefined
-              czk?:
-                | {
-                    fixed_amounts?: number[] | undefined
-                    percentages?: number[] | undefined
-                    smart_tip_threshold?: number | undefined
-                  }
-                | undefined
-              dkk?:
-                | {
-                    fixed_amounts?: number[] | undefined
-                    percentages?: number[] | undefined
-                    smart_tip_threshold?: number | undefined
-                  }
-                | undefined
-              eur?:
-                | {
-                    fixed_amounts?: number[] | undefined
-                    percentages?: number[] | undefined
-                    smart_tip_threshold?: number | undefined
-                  }
-                | undefined
-              gbp?:
-                | {
-                    fixed_amounts?: number[] | undefined
-                    percentages?: number[] | undefined
-                    smart_tip_threshold?: number | undefined
-                  }
-                | undefined
-              hkd?:
-                | {
-                    fixed_amounts?: number[] | undefined
-                    percentages?: number[] | undefined
-                    smart_tip_threshold?: number | undefined
-                  }
-                | undefined
-              huf?:
-                | {
-                    fixed_amounts?: number[] | undefined
-                    percentages?: number[] | undefined
-                    smart_tip_threshold?: number | undefined
-                  }
-                | undefined
-              jpy?:
-                | {
-                    fixed_amounts?: number[] | undefined
-                    percentages?: number[] | undefined
-                    smart_tip_threshold?: number | undefined
-                  }
-                | undefined
-              myr?:
-                | {
-                    fixed_amounts?: number[] | undefined
-                    percentages?: number[] | undefined
-                    smart_tip_threshold?: number | undefined
-                  }
-                | undefined
-              nok?:
-                | {
-                    fixed_amounts?: number[] | undefined
-                    percentages?: number[] | undefined
-                    smart_tip_threshold?: number | undefined
-                  }
-                | undefined
-              nzd?:
-                | {
-                    fixed_amounts?: number[] | undefined
-                    percentages?: number[] | undefined
-                    smart_tip_threshold?: number | undefined
-                  }
-                | undefined
-              pln?:
-                | {
-                    fixed_amounts?: number[] | undefined
-                    percentages?: number[] | undefined
-                    smart_tip_threshold?: number | undefined
-                  }
-                | undefined
-              ron?:
-                | {
-                    fixed_amounts?: number[] | undefined
-                    percentages?: number[] | undefined
-                    smart_tip_threshold?: number | undefined
-                  }
-                | undefined
-              sek?:
-                | {
-                    fixed_amounts?: number[] | undefined
-                    percentages?: number[] | undefined
-                    smart_tip_threshold?: number | undefined
-                  }
-                | undefined
-              sgd?:
-                | {
-                    fixed_amounts?: number[] | undefined
-                    percentages?: number[] | undefined
-                    smart_tip_threshold?: number | undefined
-                  }
-                | undefined
-              usd?:
-                | {
-                    fixed_amounts?: number[] | undefined
-                    percentages?: number[] | undefined
-                    smart_tip_threshold?: number | undefined
-                  }
-                | undefined
-            }
-          | ""
-        )
-      | undefined
-    verifone_p400?:
-      | {
-          splashscreen?: (string | "") | undefined
-        }
-      | undefined
-    wifi?:
-      | (
-          | {
-              enterprise_eap_peap?:
-                | {
-                    ca_certificate_file?: string | undefined
-                    password: string
-                    ssid: string
-                    username: string
-                  }
-                | undefined
-              enterprise_eap_tls?:
-                | {
-                    ca_certificate_file?: string | undefined
-                    client_certificate_file: string
-                    private_key_file: string
-                    private_key_file_password?: string | undefined
-                    ssid: string
-                  }
-                | undefined
-              personal_psk?:
-                | {
-                    password: string
-                    ssid: string
-                  }
-                | undefined
-              type:
-                | "enterprise_eap_peap"
-                | "enterprise_eap_tls"
-                | "personal_psk"
-            }
-          | ""
-        )
-      | undefined
-  }
+export type t_PostTerminalConfigurationsRequestBody = {
+  bbpos_wisepos_e?:
+    | {
+        splashscreen?: (string | "") | undefined
+      }
+    | undefined
+  expand?: string[] | undefined
+  name?: string | undefined
+  offline?:
+    | (
+        | {
+            enabled: boolean
+          }
+        | ""
+      )
+    | undefined
+  reboot_window?:
+    | {
+        end_hour: number
+        start_hour: number
+      }
+    | undefined
+  stripe_s700?:
+    | {
+        splashscreen?: (string | "") | undefined
+      }
+    | undefined
+  tipping?:
+    | (
+        | {
+            aed?:
+              | {
+                  fixed_amounts?: number[] | undefined
+                  percentages?: number[] | undefined
+                  smart_tip_threshold?: number | undefined
+                }
+              | undefined
+            aud?:
+              | {
+                  fixed_amounts?: number[] | undefined
+                  percentages?: number[] | undefined
+                  smart_tip_threshold?: number | undefined
+                }
+              | undefined
+            bgn?:
+              | {
+                  fixed_amounts?: number[] | undefined
+                  percentages?: number[] | undefined
+                  smart_tip_threshold?: number | undefined
+                }
+              | undefined
+            cad?:
+              | {
+                  fixed_amounts?: number[] | undefined
+                  percentages?: number[] | undefined
+                  smart_tip_threshold?: number | undefined
+                }
+              | undefined
+            chf?:
+              | {
+                  fixed_amounts?: number[] | undefined
+                  percentages?: number[] | undefined
+                  smart_tip_threshold?: number | undefined
+                }
+              | undefined
+            czk?:
+              | {
+                  fixed_amounts?: number[] | undefined
+                  percentages?: number[] | undefined
+                  smart_tip_threshold?: number | undefined
+                }
+              | undefined
+            dkk?:
+              | {
+                  fixed_amounts?: number[] | undefined
+                  percentages?: number[] | undefined
+                  smart_tip_threshold?: number | undefined
+                }
+              | undefined
+            eur?:
+              | {
+                  fixed_amounts?: number[] | undefined
+                  percentages?: number[] | undefined
+                  smart_tip_threshold?: number | undefined
+                }
+              | undefined
+            gbp?:
+              | {
+                  fixed_amounts?: number[] | undefined
+                  percentages?: number[] | undefined
+                  smart_tip_threshold?: number | undefined
+                }
+              | undefined
+            hkd?:
+              | {
+                  fixed_amounts?: number[] | undefined
+                  percentages?: number[] | undefined
+                  smart_tip_threshold?: number | undefined
+                }
+              | undefined
+            huf?:
+              | {
+                  fixed_amounts?: number[] | undefined
+                  percentages?: number[] | undefined
+                  smart_tip_threshold?: number | undefined
+                }
+              | undefined
+            jpy?:
+              | {
+                  fixed_amounts?: number[] | undefined
+                  percentages?: number[] | undefined
+                  smart_tip_threshold?: number | undefined
+                }
+              | undefined
+            myr?:
+              | {
+                  fixed_amounts?: number[] | undefined
+                  percentages?: number[] | undefined
+                  smart_tip_threshold?: number | undefined
+                }
+              | undefined
+            nok?:
+              | {
+                  fixed_amounts?: number[] | undefined
+                  percentages?: number[] | undefined
+                  smart_tip_threshold?: number | undefined
+                }
+              | undefined
+            nzd?:
+              | {
+                  fixed_amounts?: number[] | undefined
+                  percentages?: number[] | undefined
+                  smart_tip_threshold?: number | undefined
+                }
+              | undefined
+            pln?:
+              | {
+                  fixed_amounts?: number[] | undefined
+                  percentages?: number[] | undefined
+                  smart_tip_threshold?: number | undefined
+                }
+              | undefined
+            ron?:
+              | {
+                  fixed_amounts?: number[] | undefined
+                  percentages?: number[] | undefined
+                  smart_tip_threshold?: number | undefined
+                }
+              | undefined
+            sek?:
+              | {
+                  fixed_amounts?: number[] | undefined
+                  percentages?: number[] | undefined
+                  smart_tip_threshold?: number | undefined
+                }
+              | undefined
+            sgd?:
+              | {
+                  fixed_amounts?: number[] | undefined
+                  percentages?: number[] | undefined
+                  smart_tip_threshold?: number | undefined
+                }
+              | undefined
+            usd?:
+              | {
+                  fixed_amounts?: number[] | undefined
+                  percentages?: number[] | undefined
+                  smart_tip_threshold?: number | undefined
+                }
+              | undefined
+          }
+        | ""
+      )
+    | undefined
+  verifone_p400?:
+    | {
+        splashscreen?: (string | "") | undefined
+      }
+    | undefined
+  wifi?:
+    | (
+        | {
+            enterprise_eap_peap?:
+              | {
+                  ca_certificate_file?: string | undefined
+                  password: string
+                  ssid: string
+                  username: string
+                }
+              | undefined
+            enterprise_eap_tls?:
+              | {
+                  ca_certificate_file?: string | undefined
+                  client_certificate_file: string
+                  private_key_file: string
+                  private_key_file_password?: string | undefined
+                  ssid: string
+                }
+              | undefined
+            personal_psk?:
+              | {
+                  password: string
+                  ssid: string
+                }
+              | undefined
+            type: "enterprise_eap_peap" | "enterprise_eap_tls" | "personal_psk"
+          }
+        | ""
+      )
+    | undefined
+}
 
 export type t_PostTerminalConfigurationsConfigurationParamSchema = {
   configuration: string
 }
 
-export type t_postTerminalConfigurationsConfigurationApplicationXWwwFormUrlencodedRequestBody =
-  {
-    bbpos_wisepos_e?:
-      | (
-          | {
-              splashscreen?: (string | "") | undefined
-            }
-          | ""
-        )
-      | undefined
-    expand?: string[] | undefined
-    name?: string | undefined
-    offline?:
-      | (
-          | {
-              enabled: boolean
-            }
-          | ""
-        )
-      | undefined
-    reboot_window?:
-      | (
-          | {
-              end_hour: number
-              start_hour: number
-            }
-          | ""
-        )
-      | undefined
-    stripe_s700?:
-      | (
-          | {
-              splashscreen?: (string | "") | undefined
-            }
-          | ""
-        )
-      | undefined
-    tipping?:
-      | (
-          | {
-              aed?:
-                | {
-                    fixed_amounts?: number[] | undefined
-                    percentages?: number[] | undefined
-                    smart_tip_threshold?: number | undefined
-                  }
-                | undefined
-              aud?:
-                | {
-                    fixed_amounts?: number[] | undefined
-                    percentages?: number[] | undefined
-                    smart_tip_threshold?: number | undefined
-                  }
-                | undefined
-              bgn?:
-                | {
-                    fixed_amounts?: number[] | undefined
-                    percentages?: number[] | undefined
-                    smart_tip_threshold?: number | undefined
-                  }
-                | undefined
-              cad?:
-                | {
-                    fixed_amounts?: number[] | undefined
-                    percentages?: number[] | undefined
-                    smart_tip_threshold?: number | undefined
-                  }
-                | undefined
-              chf?:
-                | {
-                    fixed_amounts?: number[] | undefined
-                    percentages?: number[] | undefined
-                    smart_tip_threshold?: number | undefined
-                  }
-                | undefined
-              czk?:
-                | {
-                    fixed_amounts?: number[] | undefined
-                    percentages?: number[] | undefined
-                    smart_tip_threshold?: number | undefined
-                  }
-                | undefined
-              dkk?:
-                | {
-                    fixed_amounts?: number[] | undefined
-                    percentages?: number[] | undefined
-                    smart_tip_threshold?: number | undefined
-                  }
-                | undefined
-              eur?:
-                | {
-                    fixed_amounts?: number[] | undefined
-                    percentages?: number[] | undefined
-                    smart_tip_threshold?: number | undefined
-                  }
-                | undefined
-              gbp?:
-                | {
-                    fixed_amounts?: number[] | undefined
-                    percentages?: number[] | undefined
-                    smart_tip_threshold?: number | undefined
-                  }
-                | undefined
-              hkd?:
-                | {
-                    fixed_amounts?: number[] | undefined
-                    percentages?: number[] | undefined
-                    smart_tip_threshold?: number | undefined
-                  }
-                | undefined
-              huf?:
-                | {
-                    fixed_amounts?: number[] | undefined
-                    percentages?: number[] | undefined
-                    smart_tip_threshold?: number | undefined
-                  }
-                | undefined
-              jpy?:
-                | {
-                    fixed_amounts?: number[] | undefined
-                    percentages?: number[] | undefined
-                    smart_tip_threshold?: number | undefined
-                  }
-                | undefined
-              myr?:
-                | {
-                    fixed_amounts?: number[] | undefined
-                    percentages?: number[] | undefined
-                    smart_tip_threshold?: number | undefined
-                  }
-                | undefined
-              nok?:
-                | {
-                    fixed_amounts?: number[] | undefined
-                    percentages?: number[] | undefined
-                    smart_tip_threshold?: number | undefined
-                  }
-                | undefined
-              nzd?:
-                | {
-                    fixed_amounts?: number[] | undefined
-                    percentages?: number[] | undefined
-                    smart_tip_threshold?: number | undefined
-                  }
-                | undefined
-              pln?:
-                | {
-                    fixed_amounts?: number[] | undefined
-                    percentages?: number[] | undefined
-                    smart_tip_threshold?: number | undefined
-                  }
-                | undefined
-              ron?:
-                | {
-                    fixed_amounts?: number[] | undefined
-                    percentages?: number[] | undefined
-                    smart_tip_threshold?: number | undefined
-                  }
-                | undefined
-              sek?:
-                | {
-                    fixed_amounts?: number[] | undefined
-                    percentages?: number[] | undefined
-                    smart_tip_threshold?: number | undefined
-                  }
-                | undefined
-              sgd?:
-                | {
-                    fixed_amounts?: number[] | undefined
-                    percentages?: number[] | undefined
-                    smart_tip_threshold?: number | undefined
-                  }
-                | undefined
-              usd?:
-                | {
-                    fixed_amounts?: number[] | undefined
-                    percentages?: number[] | undefined
-                    smart_tip_threshold?: number | undefined
-                  }
-                | undefined
-            }
-          | ""
-        )
-      | undefined
-    verifone_p400?:
-      | (
-          | {
-              splashscreen?: (string | "") | undefined
-            }
-          | ""
-        )
-      | undefined
-    wifi?:
-      | (
-          | {
-              enterprise_eap_peap?:
-                | {
-                    ca_certificate_file?: string | undefined
-                    password: string
-                    ssid: string
-                    username: string
-                  }
-                | undefined
-              enterprise_eap_tls?:
-                | {
-                    ca_certificate_file?: string | undefined
-                    client_certificate_file: string
-                    private_key_file: string
-                    private_key_file_password?: string | undefined
-                    ssid: string
-                  }
-                | undefined
-              personal_psk?:
-                | {
-                    password: string
-                    ssid: string
-                  }
-                | undefined
-              type:
-                | "enterprise_eap_peap"
-                | "enterprise_eap_tls"
-                | "personal_psk"
-            }
-          | ""
-        )
-      | undefined
-  }
+export type t_PostTerminalConfigurationsConfigurationRequestBody = {
+  bbpos_wisepos_e?:
+    | (
+        | {
+            splashscreen?: (string | "") | undefined
+          }
+        | ""
+      )
+    | undefined
+  expand?: string[] | undefined
+  name?: string | undefined
+  offline?:
+    | (
+        | {
+            enabled: boolean
+          }
+        | ""
+      )
+    | undefined
+  reboot_window?:
+    | (
+        | {
+            end_hour: number
+            start_hour: number
+          }
+        | ""
+      )
+    | undefined
+  stripe_s700?:
+    | (
+        | {
+            splashscreen?: (string | "") | undefined
+          }
+        | ""
+      )
+    | undefined
+  tipping?:
+    | (
+        | {
+            aed?:
+              | {
+                  fixed_amounts?: number[] | undefined
+                  percentages?: number[] | undefined
+                  smart_tip_threshold?: number | undefined
+                }
+              | undefined
+            aud?:
+              | {
+                  fixed_amounts?: number[] | undefined
+                  percentages?: number[] | undefined
+                  smart_tip_threshold?: number | undefined
+                }
+              | undefined
+            bgn?:
+              | {
+                  fixed_amounts?: number[] | undefined
+                  percentages?: number[] | undefined
+                  smart_tip_threshold?: number | undefined
+                }
+              | undefined
+            cad?:
+              | {
+                  fixed_amounts?: number[] | undefined
+                  percentages?: number[] | undefined
+                  smart_tip_threshold?: number | undefined
+                }
+              | undefined
+            chf?:
+              | {
+                  fixed_amounts?: number[] | undefined
+                  percentages?: number[] | undefined
+                  smart_tip_threshold?: number | undefined
+                }
+              | undefined
+            czk?:
+              | {
+                  fixed_amounts?: number[] | undefined
+                  percentages?: number[] | undefined
+                  smart_tip_threshold?: number | undefined
+                }
+              | undefined
+            dkk?:
+              | {
+                  fixed_amounts?: number[] | undefined
+                  percentages?: number[] | undefined
+                  smart_tip_threshold?: number | undefined
+                }
+              | undefined
+            eur?:
+              | {
+                  fixed_amounts?: number[] | undefined
+                  percentages?: number[] | undefined
+                  smart_tip_threshold?: number | undefined
+                }
+              | undefined
+            gbp?:
+              | {
+                  fixed_amounts?: number[] | undefined
+                  percentages?: number[] | undefined
+                  smart_tip_threshold?: number | undefined
+                }
+              | undefined
+            hkd?:
+              | {
+                  fixed_amounts?: number[] | undefined
+                  percentages?: number[] | undefined
+                  smart_tip_threshold?: number | undefined
+                }
+              | undefined
+            huf?:
+              | {
+                  fixed_amounts?: number[] | undefined
+                  percentages?: number[] | undefined
+                  smart_tip_threshold?: number | undefined
+                }
+              | undefined
+            jpy?:
+              | {
+                  fixed_amounts?: number[] | undefined
+                  percentages?: number[] | undefined
+                  smart_tip_threshold?: number | undefined
+                }
+              | undefined
+            myr?:
+              | {
+                  fixed_amounts?: number[] | undefined
+                  percentages?: number[] | undefined
+                  smart_tip_threshold?: number | undefined
+                }
+              | undefined
+            nok?:
+              | {
+                  fixed_amounts?: number[] | undefined
+                  percentages?: number[] | undefined
+                  smart_tip_threshold?: number | undefined
+                }
+              | undefined
+            nzd?:
+              | {
+                  fixed_amounts?: number[] | undefined
+                  percentages?: number[] | undefined
+                  smart_tip_threshold?: number | undefined
+                }
+              | undefined
+            pln?:
+              | {
+                  fixed_amounts?: number[] | undefined
+                  percentages?: number[] | undefined
+                  smart_tip_threshold?: number | undefined
+                }
+              | undefined
+            ron?:
+              | {
+                  fixed_amounts?: number[] | undefined
+                  percentages?: number[] | undefined
+                  smart_tip_threshold?: number | undefined
+                }
+              | undefined
+            sek?:
+              | {
+                  fixed_amounts?: number[] | undefined
+                  percentages?: number[] | undefined
+                  smart_tip_threshold?: number | undefined
+                }
+              | undefined
+            sgd?:
+              | {
+                  fixed_amounts?: number[] | undefined
+                  percentages?: number[] | undefined
+                  smart_tip_threshold?: number | undefined
+                }
+              | undefined
+            usd?:
+              | {
+                  fixed_amounts?: number[] | undefined
+                  percentages?: number[] | undefined
+                  smart_tip_threshold?: number | undefined
+                }
+              | undefined
+          }
+        | ""
+      )
+    | undefined
+  verifone_p400?:
+    | (
+        | {
+            splashscreen?: (string | "") | undefined
+          }
+        | ""
+      )
+    | undefined
+  wifi?:
+    | (
+        | {
+            enterprise_eap_peap?:
+              | {
+                  ca_certificate_file?: string | undefined
+                  password: string
+                  ssid: string
+                  username: string
+                }
+              | undefined
+            enterprise_eap_tls?:
+              | {
+                  ca_certificate_file?: string | undefined
+                  client_certificate_file: string
+                  private_key_file: string
+                  private_key_file_password?: string | undefined
+                  ssid: string
+                }
+              | undefined
+            personal_psk?:
+              | {
+                  password: string
+                  ssid: string
+                }
+              | undefined
+            type: "enterprise_eap_peap" | "enterprise_eap_tls" | "personal_psk"
+          }
+        | ""
+      )
+    | undefined
+}
 
-export type t_postTerminalConnectionTokensApplicationXWwwFormUrlencodedRequestBody =
-  {
-    expand?: string[] | undefined
-    location?: string | undefined
-  }
+export type t_PostTerminalConnectionTokensRequestBody = {
+  expand?: string[] | undefined
+  location?: string | undefined
+}
 
-export type t_postTerminalLocationsApplicationXWwwFormUrlencodedRequestBody = {
+export type t_PostTerminalLocationsRequestBody = {
   address: {
     city?: string | undefined
     country: string
@@ -45364,32 +45113,31 @@ export type t_PostTerminalLocationsLocationParamSchema = {
   location: string
 }
 
-export type t_postTerminalLocationsLocationApplicationXWwwFormUrlencodedRequestBody =
-  {
-    address?:
-      | {
-          city?: string | undefined
-          country?: string | undefined
-          line1?: string | undefined
-          line2?: string | undefined
-          postal_code?: string | undefined
-          state?: string | undefined
-        }
-      | undefined
-    configuration_overrides?: (string | "") | undefined
-    display_name?: (string | "") | undefined
-    expand?: string[] | undefined
-    metadata?:
-      | (
-          | {
-              [key: string]: string | undefined
-            }
-          | ""
-        )
-      | undefined
-  }
+export type t_PostTerminalLocationsLocationRequestBody = {
+  address?:
+    | {
+        city?: string | undefined
+        country?: string | undefined
+        line1?: string | undefined
+        line2?: string | undefined
+        postal_code?: string | undefined
+        state?: string | undefined
+      }
+    | undefined
+  configuration_overrides?: (string | "") | undefined
+  display_name?: (string | "") | undefined
+  expand?: string[] | undefined
+  metadata?:
+    | (
+        | {
+            [key: string]: string | undefined
+          }
+        | ""
+      )
+    | undefined
+}
 
-export type t_postTerminalReadersApplicationXWwwFormUrlencodedRequestBody = {
+export type t_PostTerminalReadersRequestBody = {
   expand?: string[] | undefined
   label?: string | undefined
   location?: string | undefined
@@ -45408,994 +45156,982 @@ export type t_PostTerminalReadersReaderParamSchema = {
   reader: string
 }
 
-export type t_postTerminalReadersReaderApplicationXWwwFormUrlencodedRequestBody =
-  {
-    expand?: string[] | undefined
-    label?: (string | "") | undefined
-    metadata?:
-      | (
-          | {
-              [key: string]: string | undefined
-            }
-          | ""
-        )
-      | undefined
-  }
+export type t_PostTerminalReadersReaderRequestBody = {
+  expand?: string[] | undefined
+  label?: (string | "") | undefined
+  metadata?:
+    | (
+        | {
+            [key: string]: string | undefined
+          }
+        | ""
+      )
+    | undefined
+}
 
 export type t_PostTerminalReadersReaderCancelActionParamSchema = {
   reader: string
 }
 
-export type t_postTerminalReadersReaderCancelActionApplicationXWwwFormUrlencodedRequestBody =
-  {
-    expand?: string[] | undefined
-  }
+export type t_PostTerminalReadersReaderCancelActionRequestBody = {
+  expand?: string[] | undefined
+}
 
 export type t_PostTerminalReadersReaderCollectInputsParamSchema = {
   reader: string
 }
 
-export type t_postTerminalReadersReaderCollectInputsApplicationXWwwFormUrlencodedRequestBody =
-  {
-    expand?: string[] | undefined
-    inputs: {
-      custom_text: {
-        description?: string | undefined
-        skip_button?: string | undefined
-        submit_button?: string | undefined
-        title: string
-      }
-      required?: boolean | undefined
-      selection?:
-        | {
-            choices: {
-              id: string
-              style?: ("primary" | "secondary") | undefined
-              text: string
-            }[]
-          }
-        | undefined
-      toggles?:
-        | {
-            default_value?: ("disabled" | "enabled") | undefined
-            description?: string | undefined
-            title?: string | undefined
-          }[]
-        | undefined
-      type: "email" | "numeric" | "phone" | "selection" | "signature" | "text"
-    }[]
-    metadata?:
+export type t_PostTerminalReadersReaderCollectInputsRequestBody = {
+  expand?: string[] | undefined
+  inputs: {
+    custom_text: {
+      description?: string | undefined
+      skip_button?: string | undefined
+      submit_button?: string | undefined
+      title: string
+    }
+    required?: boolean | undefined
+    selection?:
       | {
-          [key: string]: string | undefined
+          choices: {
+            id: string
+            style?: ("primary" | "secondary") | undefined
+            text: string
+          }[]
         }
       | undefined
-  }
+    toggles?:
+      | {
+          default_value?: ("disabled" | "enabled") | undefined
+          description?: string | undefined
+          title?: string | undefined
+        }[]
+      | undefined
+    type: "email" | "numeric" | "phone" | "selection" | "signature" | "text"
+  }[]
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | undefined
+}
 
 export type t_PostTerminalReadersReaderCollectPaymentMethodParamSchema = {
   reader: string
 }
 
-export type t_postTerminalReadersReaderCollectPaymentMethodApplicationXWwwFormUrlencodedRequestBody =
-  {
-    collect_config?:
-      | {
-          allow_redisplay?: ("always" | "limited" | "unspecified") | undefined
-          enable_customer_cancellation?: boolean | undefined
-          skip_tipping?: boolean | undefined
-          tipping?:
-            | {
-                amount_eligible?: number | undefined
-              }
-            | undefined
-        }
-      | undefined
-    expand?: string[] | undefined
-    payment_intent: string
-  }
+export type t_PostTerminalReadersReaderCollectPaymentMethodRequestBody = {
+  collect_config?:
+    | {
+        allow_redisplay?: ("always" | "limited" | "unspecified") | undefined
+        enable_customer_cancellation?: boolean | undefined
+        skip_tipping?: boolean | undefined
+        tipping?:
+          | {
+              amount_eligible?: number | undefined
+            }
+          | undefined
+      }
+    | undefined
+  expand?: string[] | undefined
+  payment_intent: string
+}
 
 export type t_PostTerminalReadersReaderConfirmPaymentIntentParamSchema = {
   reader: string
 }
 
-export type t_postTerminalReadersReaderConfirmPaymentIntentApplicationXWwwFormUrlencodedRequestBody =
-  {
-    confirm_config?:
-      | {
-          return_url?: string | undefined
-        }
-      | undefined
-    expand?: string[] | undefined
-    payment_intent: string
-  }
+export type t_PostTerminalReadersReaderConfirmPaymentIntentRequestBody = {
+  confirm_config?:
+    | {
+        return_url?: string | undefined
+      }
+    | undefined
+  expand?: string[] | undefined
+  payment_intent: string
+}
 
 export type t_PostTerminalReadersReaderProcessPaymentIntentParamSchema = {
   reader: string
 }
 
-export type t_postTerminalReadersReaderProcessPaymentIntentApplicationXWwwFormUrlencodedRequestBody =
-  {
-    expand?: string[] | undefined
-    payment_intent: string
-    process_config?:
-      | {
-          allow_redisplay?: ("always" | "limited" | "unspecified") | undefined
-          enable_customer_cancellation?: boolean | undefined
-          return_url?: string | undefined
-          skip_tipping?: boolean | undefined
-          tipping?:
-            | {
-                amount_eligible?: number | undefined
-              }
-            | undefined
-        }
-      | undefined
-  }
+export type t_PostTerminalReadersReaderProcessPaymentIntentRequestBody = {
+  expand?: string[] | undefined
+  payment_intent: string
+  process_config?:
+    | {
+        allow_redisplay?: ("always" | "limited" | "unspecified") | undefined
+        enable_customer_cancellation?: boolean | undefined
+        return_url?: string | undefined
+        skip_tipping?: boolean | undefined
+        tipping?:
+          | {
+              amount_eligible?: number | undefined
+            }
+          | undefined
+      }
+    | undefined
+}
 
 export type t_PostTerminalReadersReaderProcessSetupIntentParamSchema = {
   reader: string
 }
 
-export type t_postTerminalReadersReaderProcessSetupIntentApplicationXWwwFormUrlencodedRequestBody =
-  {
-    allow_redisplay: "always" | "limited" | "unspecified"
-    expand?: string[] | undefined
-    process_config?:
-      | {
-          enable_customer_cancellation?: boolean | undefined
-        }
-      | undefined
-    setup_intent: string
-  }
+export type t_PostTerminalReadersReaderProcessSetupIntentRequestBody = {
+  allow_redisplay: "always" | "limited" | "unspecified"
+  expand?: string[] | undefined
+  process_config?:
+    | {
+        enable_customer_cancellation?: boolean | undefined
+      }
+    | undefined
+  setup_intent: string
+}
 
 export type t_PostTerminalReadersReaderRefundPaymentParamSchema = {
   reader: string
 }
 
-export type t_postTerminalReadersReaderRefundPaymentApplicationXWwwFormUrlencodedRequestBody =
-  {
-    amount?: number | undefined
-    charge?: string | undefined
-    expand?: string[] | undefined
-    metadata?:
-      | {
-          [key: string]: string | undefined
-        }
-      | undefined
-    payment_intent?: string | undefined
-    refund_application_fee?: boolean | undefined
-    refund_payment_config?:
-      | {
-          enable_customer_cancellation?: boolean | undefined
-        }
-      | undefined
-    reverse_transfer?: boolean | undefined
-  }
+export type t_PostTerminalReadersReaderRefundPaymentRequestBody = {
+  amount?: number | undefined
+  charge?: string | undefined
+  expand?: string[] | undefined
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | undefined
+  payment_intent?: string | undefined
+  refund_application_fee?: boolean | undefined
+  refund_payment_config?:
+    | {
+        enable_customer_cancellation?: boolean | undefined
+      }
+    | undefined
+  reverse_transfer?: boolean | undefined
+}
 
 export type t_PostTerminalReadersReaderSetReaderDisplayParamSchema = {
   reader: string
 }
 
-export type t_postTerminalReadersReaderSetReaderDisplayApplicationXWwwFormUrlencodedRequestBody =
-  {
-    cart?:
-      | {
-          currency: string
-          line_items: {
-            amount: number
-            description: string
-            quantity: number
-          }[]
-          tax?: number | undefined
-          total: number
-        }
-      | undefined
-    expand?: string[] | undefined
-    type: "cart"
-  }
+export type t_PostTerminalReadersReaderSetReaderDisplayRequestBody = {
+  cart?:
+    | {
+        currency: string
+        line_items: {
+          amount: number
+          description: string
+          quantity: number
+        }[]
+        tax?: number | undefined
+        total: number
+      }
+    | undefined
+  expand?: string[] | undefined
+  type: "cart"
+}
 
-export type t_postTestHelpersConfirmationTokensApplicationXWwwFormUrlencodedRequestBody =
-  {
-    expand?: string[] | undefined
-    payment_method?: string | undefined
-    payment_method_data?:
-      | {
-          acss_debit?:
-            | {
-                account_number: string
-                institution_number: string
-                transit_number: string
-              }
-            | undefined
-          affirm?: EmptyObject | undefined
-          afterpay_clearpay?: EmptyObject | undefined
-          alipay?: EmptyObject | undefined
-          allow_redisplay?: ("always" | "limited" | "unspecified") | undefined
-          alma?: EmptyObject | undefined
-          amazon_pay?: EmptyObject | undefined
-          au_becs_debit?:
-            | {
-                account_number: string
-                bsb_number: string
-              }
-            | undefined
-          bacs_debit?:
-            | {
-                account_number?: string | undefined
-                sort_code?: string | undefined
-              }
-            | undefined
-          bancontact?: EmptyObject | undefined
-          billie?: EmptyObject | undefined
-          billing_details?:
-            | {
-                address?:
-                  | (
-                      | {
-                          city?: string | undefined
-                          country?: string | undefined
-                          line1?: string | undefined
-                          line2?: string | undefined
-                          postal_code?: string | undefined
-                          state?: string | undefined
-                        }
-                      | ""
-                    )
-                  | undefined
-                email?: (string | "") | undefined
-                name?: (string | "") | undefined
-                phone?: (string | "") | undefined
-                tax_id?: string | undefined
-              }
-            | undefined
-          blik?: EmptyObject | undefined
-          boleto?:
-            | {
-                tax_id: string
-              }
-            | undefined
-          cashapp?: EmptyObject | undefined
-          crypto?: EmptyObject | undefined
-          customer_balance?: EmptyObject | undefined
-          eps?:
-            | {
-                bank?:
-                  | (
-                      | "arzte_und_apotheker_bank"
-                      | "austrian_anadi_bank_ag"
-                      | "bank_austria"
-                      | "bankhaus_carl_spangler"
-                      | "bankhaus_schelhammer_und_schattera_ag"
-                      | "bawag_psk_ag"
-                      | "bks_bank_ag"
-                      | "brull_kallmus_bank_ag"
-                      | "btv_vier_lander_bank"
-                      | "capital_bank_grawe_gruppe_ag"
-                      | "deutsche_bank_ag"
-                      | "dolomitenbank"
-                      | "easybank_ag"
-                      | "erste_bank_und_sparkassen"
-                      | "hypo_alpeadriabank_international_ag"
-                      | "hypo_bank_burgenland_aktiengesellschaft"
-                      | "hypo_noe_lb_fur_niederosterreich_u_wien"
-                      | "hypo_oberosterreich_salzburg_steiermark"
-                      | "hypo_tirol_bank_ag"
-                      | "hypo_vorarlberg_bank_ag"
-                      | "marchfelder_bank"
-                      | "oberbank_ag"
-                      | "raiffeisen_bankengruppe_osterreich"
-                      | "schoellerbank_ag"
-                      | "sparda_bank_wien"
-                      | "volksbank_gruppe"
-                      | "volkskreditbank_ag"
-                      | "vr_bank_braunau"
-                    )
-                  | undefined
-              }
-            | undefined
-          fpx?:
-            | {
-                bank:
-                  | "affin_bank"
-                  | "agrobank"
-                  | "alliance_bank"
-                  | "ambank"
-                  | "bank_islam"
-                  | "bank_muamalat"
-                  | "bank_of_china"
-                  | "bank_rakyat"
-                  | "bsn"
-                  | "cimb"
-                  | "deutsche_bank"
-                  | "hong_leong_bank"
-                  | "hsbc"
-                  | "kfh"
-                  | "maybank2e"
-                  | "maybank2u"
-                  | "ocbc"
-                  | "pb_enterprise"
-                  | "public_bank"
-                  | "rhb"
-                  | "standard_chartered"
-                  | "uob"
-              }
-            | undefined
-          giropay?: EmptyObject | undefined
-          grabpay?: EmptyObject | undefined
-          ideal?:
-            | {
-                bank?:
-                  | (
-                      | "abn_amro"
-                      | "asn_bank"
-                      | "bunq"
-                      | "buut"
-                      | "handelsbanken"
-                      | "ing"
-                      | "knab"
-                      | "moneyou"
-                      | "n26"
-                      | "nn"
-                      | "rabobank"
-                      | "regiobank"
-                      | "revolut"
-                      | "sns_bank"
-                      | "triodos_bank"
-                      | "van_lanschot"
-                      | "yoursafe"
-                    )
-                  | undefined
-              }
-            | undefined
-          interac_present?: EmptyObject | undefined
-          kakao_pay?: EmptyObject | undefined
-          klarna?:
-            | {
-                dob?:
-                  | {
-                      day: number
-                      month: number
-                      year: number
-                    }
-                  | undefined
-              }
-            | undefined
-          konbini?: EmptyObject | undefined
-          kr_card?: EmptyObject | undefined
-          link?: EmptyObject | undefined
-          metadata?:
-            | {
-                [key: string]: string | undefined
-              }
-            | undefined
-          mobilepay?: EmptyObject | undefined
-          multibanco?: EmptyObject | undefined
-          naver_pay?:
-            | {
-                funding?: ("card" | "points") | undefined
-              }
-            | undefined
-          nz_bank_account?:
-            | {
-                account_holder_name?: string | undefined
-                account_number: string
-                bank_code: string
-                branch_code: string
-                reference?: string | undefined
-                suffix: string
-              }
-            | undefined
-          oxxo?: EmptyObject | undefined
-          p24?:
-            | {
-                bank?:
-                  | (
-                      | "alior_bank"
-                      | "bank_millennium"
-                      | "bank_nowy_bfg_sa"
-                      | "bank_pekao_sa"
-                      | "banki_spbdzielcze"
-                      | "blik"
-                      | "bnp_paribas"
-                      | "boz"
-                      | "citi_handlowy"
-                      | "credit_agricole"
-                      | "envelobank"
-                      | "etransfer_pocztowy24"
-                      | "getin_bank"
-                      | "ideabank"
-                      | "ing"
-                      | "inteligo"
-                      | "mbank_mtransfer"
-                      | "nest_przelew"
-                      | "noble_pay"
-                      | "pbac_z_ipko"
-                      | "plus_bank"
-                      | "santander_przelew24"
-                      | "tmobile_usbugi_bankowe"
-                      | "toyota_bank"
-                      | "velobank"
-                      | "volkswagen_bank"
-                    )
-                  | undefined
-              }
-            | undefined
-          pay_by_bank?: EmptyObject | undefined
-          payco?: EmptyObject | undefined
-          paynow?: EmptyObject | undefined
-          paypal?: EmptyObject | undefined
-          pix?: EmptyObject | undefined
-          promptpay?: EmptyObject | undefined
-          radar_options?:
-            | {
-                session?: string | undefined
-              }
-            | undefined
-          revolut_pay?: EmptyObject | undefined
-          samsung_pay?: EmptyObject | undefined
-          satispay?: EmptyObject | undefined
-          sepa_debit?:
-            | {
-                iban: string
-              }
-            | undefined
-          sofort?:
-            | {
-                country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL"
-              }
-            | undefined
-          swish?: EmptyObject | undefined
-          twint?: EmptyObject | undefined
-          type:
-            | "acss_debit"
-            | "affirm"
-            | "afterpay_clearpay"
-            | "alipay"
-            | "alma"
-            | "amazon_pay"
-            | "au_becs_debit"
-            | "bacs_debit"
-            | "bancontact"
-            | "billie"
-            | "blik"
-            | "boleto"
-            | "cashapp"
-            | "crypto"
-            | "customer_balance"
-            | "eps"
-            | "fpx"
-            | "giropay"
-            | "grabpay"
-            | "ideal"
-            | "kakao_pay"
-            | "klarna"
-            | "konbini"
-            | "kr_card"
-            | "link"
-            | "mobilepay"
-            | "multibanco"
-            | "naver_pay"
-            | "nz_bank_account"
-            | "oxxo"
-            | "p24"
-            | "pay_by_bank"
-            | "payco"
-            | "paynow"
-            | "paypal"
-            | "pix"
-            | "promptpay"
-            | "revolut_pay"
-            | "samsung_pay"
-            | "satispay"
-            | "sepa_debit"
-            | "sofort"
-            | "swish"
-            | "twint"
-            | "us_bank_account"
-            | "wechat_pay"
-            | "zip"
-          us_bank_account?:
-            | {
-                account_holder_type?: ("company" | "individual") | undefined
-                account_number?: string | undefined
-                account_type?: ("checking" | "savings") | undefined
-                financial_connections_account?: string | undefined
-                routing_number?: string | undefined
-              }
-            | undefined
-          wechat_pay?: EmptyObject | undefined
-          zip?: EmptyObject | undefined
-        }
-      | undefined
-    payment_method_options?:
-      | {
-          card?:
-            | {
-                installments?:
-                  | {
-                      plan: {
-                        count?: number | undefined
-                        interval?: "month" | undefined
-                        type: "bonus" | "fixed_count" | "revolving"
+export type t_PostTestHelpersConfirmationTokensRequestBody = {
+  expand?: string[] | undefined
+  payment_method?: string | undefined
+  payment_method_data?:
+    | {
+        acss_debit?:
+          | {
+              account_number: string
+              institution_number: string
+              transit_number: string
+            }
+          | undefined
+        affirm?: EmptyObject | undefined
+        afterpay_clearpay?: EmptyObject | undefined
+        alipay?: EmptyObject | undefined
+        allow_redisplay?: ("always" | "limited" | "unspecified") | undefined
+        alma?: EmptyObject | undefined
+        amazon_pay?: EmptyObject | undefined
+        au_becs_debit?:
+          | {
+              account_number: string
+              bsb_number: string
+            }
+          | undefined
+        bacs_debit?:
+          | {
+              account_number?: string | undefined
+              sort_code?: string | undefined
+            }
+          | undefined
+        bancontact?: EmptyObject | undefined
+        billie?: EmptyObject | undefined
+        billing_details?:
+          | {
+              address?:
+                | (
+                    | {
+                        city?: string | undefined
+                        country?: string | undefined
+                        line1?: string | undefined
+                        line2?: string | undefined
+                        postal_code?: string | undefined
+                        state?: string | undefined
                       }
+                    | ""
+                  )
+                | undefined
+              email?: (string | "") | undefined
+              name?: (string | "") | undefined
+              phone?: (string | "") | undefined
+              tax_id?: string | undefined
+            }
+          | undefined
+        blik?: EmptyObject | undefined
+        boleto?:
+          | {
+              tax_id: string
+            }
+          | undefined
+        cashapp?: EmptyObject | undefined
+        crypto?: EmptyObject | undefined
+        customer_balance?: EmptyObject | undefined
+        eps?:
+          | {
+              bank?:
+                | (
+                    | "arzte_und_apotheker_bank"
+                    | "austrian_anadi_bank_ag"
+                    | "bank_austria"
+                    | "bankhaus_carl_spangler"
+                    | "bankhaus_schelhammer_und_schattera_ag"
+                    | "bawag_psk_ag"
+                    | "bks_bank_ag"
+                    | "brull_kallmus_bank_ag"
+                    | "btv_vier_lander_bank"
+                    | "capital_bank_grawe_gruppe_ag"
+                    | "deutsche_bank_ag"
+                    | "dolomitenbank"
+                    | "easybank_ag"
+                    | "erste_bank_und_sparkassen"
+                    | "hypo_alpeadriabank_international_ag"
+                    | "hypo_bank_burgenland_aktiengesellschaft"
+                    | "hypo_noe_lb_fur_niederosterreich_u_wien"
+                    | "hypo_oberosterreich_salzburg_steiermark"
+                    | "hypo_tirol_bank_ag"
+                    | "hypo_vorarlberg_bank_ag"
+                    | "marchfelder_bank"
+                    | "oberbank_ag"
+                    | "raiffeisen_bankengruppe_osterreich"
+                    | "schoellerbank_ag"
+                    | "sparda_bank_wien"
+                    | "volksbank_gruppe"
+                    | "volkskreditbank_ag"
+                    | "vr_bank_braunau"
+                  )
+                | undefined
+            }
+          | undefined
+        fpx?:
+          | {
+              bank:
+                | "affin_bank"
+                | "agrobank"
+                | "alliance_bank"
+                | "ambank"
+                | "bank_islam"
+                | "bank_muamalat"
+                | "bank_of_china"
+                | "bank_rakyat"
+                | "bsn"
+                | "cimb"
+                | "deutsche_bank"
+                | "hong_leong_bank"
+                | "hsbc"
+                | "kfh"
+                | "maybank2e"
+                | "maybank2u"
+                | "ocbc"
+                | "pb_enterprise"
+                | "public_bank"
+                | "rhb"
+                | "standard_chartered"
+                | "uob"
+            }
+          | undefined
+        giropay?: EmptyObject | undefined
+        grabpay?: EmptyObject | undefined
+        ideal?:
+          | {
+              bank?:
+                | (
+                    | "abn_amro"
+                    | "asn_bank"
+                    | "bunq"
+                    | "buut"
+                    | "handelsbanken"
+                    | "ing"
+                    | "knab"
+                    | "moneyou"
+                    | "n26"
+                    | "nn"
+                    | "rabobank"
+                    | "regiobank"
+                    | "revolut"
+                    | "sns_bank"
+                    | "triodos_bank"
+                    | "van_lanschot"
+                    | "yoursafe"
+                  )
+                | undefined
+            }
+          | undefined
+        interac_present?: EmptyObject | undefined
+        kakao_pay?: EmptyObject | undefined
+        klarna?:
+          | {
+              dob?:
+                | {
+                    day: number
+                    month: number
+                    year: number
+                  }
+                | undefined
+            }
+          | undefined
+        konbini?: EmptyObject | undefined
+        kr_card?: EmptyObject | undefined
+        link?: EmptyObject | undefined
+        metadata?:
+          | {
+              [key: string]: string | undefined
+            }
+          | undefined
+        mobilepay?: EmptyObject | undefined
+        multibanco?: EmptyObject | undefined
+        naver_pay?:
+          | {
+              funding?: ("card" | "points") | undefined
+            }
+          | undefined
+        nz_bank_account?:
+          | {
+              account_holder_name?: string | undefined
+              account_number: string
+              bank_code: string
+              branch_code: string
+              reference?: string | undefined
+              suffix: string
+            }
+          | undefined
+        oxxo?: EmptyObject | undefined
+        p24?:
+          | {
+              bank?:
+                | (
+                    | "alior_bank"
+                    | "bank_millennium"
+                    | "bank_nowy_bfg_sa"
+                    | "bank_pekao_sa"
+                    | "banki_spbdzielcze"
+                    | "blik"
+                    | "bnp_paribas"
+                    | "boz"
+                    | "citi_handlowy"
+                    | "credit_agricole"
+                    | "envelobank"
+                    | "etransfer_pocztowy24"
+                    | "getin_bank"
+                    | "ideabank"
+                    | "ing"
+                    | "inteligo"
+                    | "mbank_mtransfer"
+                    | "nest_przelew"
+                    | "noble_pay"
+                    | "pbac_z_ipko"
+                    | "plus_bank"
+                    | "santander_przelew24"
+                    | "tmobile_usbugi_bankowe"
+                    | "toyota_bank"
+                    | "velobank"
+                    | "volkswagen_bank"
+                  )
+                | undefined
+            }
+          | undefined
+        pay_by_bank?: EmptyObject | undefined
+        payco?: EmptyObject | undefined
+        paynow?: EmptyObject | undefined
+        paypal?: EmptyObject | undefined
+        pix?: EmptyObject | undefined
+        promptpay?: EmptyObject | undefined
+        radar_options?:
+          | {
+              session?: string | undefined
+            }
+          | undefined
+        revolut_pay?: EmptyObject | undefined
+        samsung_pay?: EmptyObject | undefined
+        satispay?: EmptyObject | undefined
+        sepa_debit?:
+          | {
+              iban: string
+            }
+          | undefined
+        sofort?:
+          | {
+              country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL"
+            }
+          | undefined
+        swish?: EmptyObject | undefined
+        twint?: EmptyObject | undefined
+        type:
+          | "acss_debit"
+          | "affirm"
+          | "afterpay_clearpay"
+          | "alipay"
+          | "alma"
+          | "amazon_pay"
+          | "au_becs_debit"
+          | "bacs_debit"
+          | "bancontact"
+          | "billie"
+          | "blik"
+          | "boleto"
+          | "cashapp"
+          | "crypto"
+          | "customer_balance"
+          | "eps"
+          | "fpx"
+          | "giropay"
+          | "grabpay"
+          | "ideal"
+          | "kakao_pay"
+          | "klarna"
+          | "konbini"
+          | "kr_card"
+          | "link"
+          | "mobilepay"
+          | "multibanco"
+          | "naver_pay"
+          | "nz_bank_account"
+          | "oxxo"
+          | "p24"
+          | "pay_by_bank"
+          | "payco"
+          | "paynow"
+          | "paypal"
+          | "pix"
+          | "promptpay"
+          | "revolut_pay"
+          | "samsung_pay"
+          | "satispay"
+          | "sepa_debit"
+          | "sofort"
+          | "swish"
+          | "twint"
+          | "us_bank_account"
+          | "wechat_pay"
+          | "zip"
+        us_bank_account?:
+          | {
+              account_holder_type?: ("company" | "individual") | undefined
+              account_number?: string | undefined
+              account_type?: ("checking" | "savings") | undefined
+              financial_connections_account?: string | undefined
+              routing_number?: string | undefined
+            }
+          | undefined
+        wechat_pay?: EmptyObject | undefined
+        zip?: EmptyObject | undefined
+      }
+    | undefined
+  payment_method_options?:
+    | {
+        card?:
+          | {
+              installments?:
+                | {
+                    plan: {
+                      count?: number | undefined
+                      interval?: "month" | undefined
+                      type: "bonus" | "fixed_count" | "revolving"
                     }
-                  | undefined
-              }
-            | undefined
+                  }
+                | undefined
+            }
+          | undefined
+      }
+    | undefined
+  return_url?: string | undefined
+  setup_future_usage?: ("off_session" | "on_session") | undefined
+  shipping?:
+    | {
+        address: {
+          city?: string | undefined
+          country?: string | undefined
+          line1?: string | undefined
+          line2?: string | undefined
+          postal_code?: string | undefined
+          state?: string | undefined
         }
-      | undefined
-    return_url?: string | undefined
-    setup_future_usage?: ("off_session" | "on_session") | undefined
-    shipping?:
-      | {
-          address: {
-            city?: string | undefined
-            country?: string | undefined
-            line1?: string | undefined
-            line2?: string | undefined
-            postal_code?: string | undefined
-            state?: string | undefined
-          }
-          name: string
-          phone?: (string | "") | undefined
-        }
-      | undefined
-  }
+        name: string
+        phone?: (string | "") | undefined
+      }
+    | undefined
+}
 
 export type t_PostTestHelpersCustomersCustomerFundCashBalanceParamSchema = {
   customer: string
 }
 
-export type t_postTestHelpersCustomersCustomerFundCashBalanceApplicationXWwwFormUrlencodedRequestBody =
-  {
-    amount: number
-    currency: string
-    expand?: string[] | undefined
-    reference?: string | undefined
-  }
+export type t_PostTestHelpersCustomersCustomerFundCashBalanceRequestBody = {
+  amount: number
+  currency: string
+  expand?: string[] | undefined
+  reference?: string | undefined
+}
 
-export type t_postTestHelpersIssuingAuthorizationsApplicationXWwwFormUrlencodedRequestBody =
-  {
-    amount?: number | undefined
-    amount_details?:
-      | {
-          atm_fee?: number | undefined
-          cashback_amount?: number | undefined
-        }
-      | undefined
-    authorization_method?:
-      | ("chip" | "contactless" | "keyed_in" | "online" | "swipe")
-      | undefined
-    card: string
-    currency?: string | undefined
-    expand?: string[] | undefined
-    fleet?:
-      | {
-          cardholder_prompt_data?:
-            | {
-                driver_id?: string | undefined
-                odometer?: number | undefined
-                unspecified_id?: string | undefined
-                user_id?: string | undefined
-                vehicle_number?: string | undefined
-              }
-            | undefined
-          purchase_type?:
-            | (
-                | "fuel_and_non_fuel_purchase"
-                | "fuel_purchase"
-                | "non_fuel_purchase"
-              )
-            | undefined
-          reported_breakdown?:
-            | {
-                fuel?:
-                  | {
-                      gross_amount_decimal?: string | undefined
-                    }
-                  | undefined
-                non_fuel?:
-                  | {
-                      gross_amount_decimal?: string | undefined
-                    }
-                  | undefined
-                tax?:
-                  | {
-                      local_amount_decimal?: string | undefined
-                      national_amount_decimal?: string | undefined
-                    }
-                  | undefined
-              }
-            | undefined
-          service_type?:
-            | ("full_service" | "non_fuel_transaction" | "self_service")
-            | undefined
-        }
-      | undefined
-    fuel?:
-      | {
-          industry_product_code?: string | undefined
-          quantity_decimal?: string | undefined
-          type?:
-            | (
-                | "diesel"
-                | "other"
-                | "unleaded_plus"
-                | "unleaded_regular"
-                | "unleaded_super"
-              )
-            | undefined
-          unit?:
-            | (
-                | "charging_minute"
-                | "imperial_gallon"
-                | "kilogram"
-                | "kilowatt_hour"
-                | "liter"
-                | "other"
-                | "pound"
-                | "us_gallon"
-              )
-            | undefined
-          unit_cost_decimal?: string | undefined
-        }
-      | undefined
-    is_amount_controllable?: boolean | undefined
-    merchant_amount?: number | undefined
-    merchant_currency?: string | undefined
-    merchant_data?:
-      | {
-          category?:
-            | (
-                | "ac_refrigeration_repair"
-                | "accounting_bookkeeping_services"
-                | "advertising_services"
-                | "agricultural_cooperative"
-                | "airlines_air_carriers"
-                | "airports_flying_fields"
-                | "ambulance_services"
-                | "amusement_parks_carnivals"
-                | "antique_reproductions"
-                | "antique_shops"
-                | "aquariums"
-                | "architectural_surveying_services"
-                | "art_dealers_and_galleries"
-                | "artists_supply_and_craft_shops"
-                | "auto_and_home_supply_stores"
-                | "auto_body_repair_shops"
-                | "auto_paint_shops"
-                | "auto_service_shops"
-                | "automated_cash_disburse"
-                | "automated_fuel_dispensers"
-                | "automobile_associations"
-                | "automotive_parts_and_accessories_stores"
-                | "automotive_tire_stores"
-                | "bail_and_bond_payments"
-                | "bakeries"
-                | "bands_orchestras"
-                | "barber_and_beauty_shops"
-                | "betting_casino_gambling"
-                | "bicycle_shops"
-                | "billiard_pool_establishments"
-                | "boat_dealers"
-                | "boat_rentals_and_leases"
-                | "book_stores"
-                | "books_periodicals_and_newspapers"
-                | "bowling_alleys"
-                | "bus_lines"
-                | "business_secretarial_schools"
-                | "buying_shopping_services"
-                | "cable_satellite_and_other_pay_television_and_radio"
-                | "camera_and_photographic_supply_stores"
-                | "candy_nut_and_confectionery_stores"
-                | "car_and_truck_dealers_new_used"
-                | "car_and_truck_dealers_used_only"
-                | "car_rental_agencies"
-                | "car_washes"
-                | "carpentry_services"
-                | "carpet_upholstery_cleaning"
-                | "caterers"
-                | "charitable_and_social_service_organizations_fundraising"
-                | "chemicals_and_allied_products"
-                | "child_care_services"
-                | "childrens_and_infants_wear_stores"
-                | "chiropodists_podiatrists"
-                | "chiropractors"
-                | "cigar_stores_and_stands"
-                | "civic_social_fraternal_associations"
-                | "cleaning_and_maintenance"
-                | "clothing_rental"
-                | "colleges_universities"
-                | "commercial_equipment"
-                | "commercial_footwear"
-                | "commercial_photography_art_and_graphics"
-                | "commuter_transport_and_ferries"
-                | "computer_network_services"
-                | "computer_programming"
-                | "computer_repair"
-                | "computer_software_stores"
-                | "computers_peripherals_and_software"
-                | "concrete_work_services"
-                | "construction_materials"
-                | "consulting_public_relations"
-                | "correspondence_schools"
-                | "cosmetic_stores"
-                | "counseling_services"
-                | "country_clubs"
-                | "courier_services"
-                | "court_costs"
-                | "credit_reporting_agencies"
-                | "cruise_lines"
-                | "dairy_products_stores"
-                | "dance_hall_studios_schools"
-                | "dating_escort_services"
-                | "dentists_orthodontists"
-                | "department_stores"
-                | "detective_agencies"
-                | "digital_goods_applications"
-                | "digital_goods_games"
-                | "digital_goods_large_volume"
-                | "digital_goods_media"
-                | "direct_marketing_catalog_merchant"
-                | "direct_marketing_combination_catalog_and_retail_merchant"
-                | "direct_marketing_inbound_telemarketing"
-                | "direct_marketing_insurance_services"
-                | "direct_marketing_other"
-                | "direct_marketing_outbound_telemarketing"
-                | "direct_marketing_subscription"
-                | "direct_marketing_travel"
-                | "discount_stores"
-                | "doctors"
-                | "door_to_door_sales"
-                | "drapery_window_covering_and_upholstery_stores"
-                | "drinking_places"
-                | "drug_stores_and_pharmacies"
-                | "drugs_drug_proprietaries_and_druggist_sundries"
-                | "dry_cleaners"
-                | "durable_goods"
-                | "duty_free_stores"
-                | "eating_places_restaurants"
-                | "educational_services"
-                | "electric_razor_stores"
-                | "electric_vehicle_charging"
-                | "electrical_parts_and_equipment"
-                | "electrical_services"
-                | "electronics_repair_shops"
-                | "electronics_stores"
-                | "elementary_secondary_schools"
-                | "emergency_services_gcas_visa_use_only"
-                | "employment_temp_agencies"
-                | "equipment_rental"
-                | "exterminating_services"
-                | "family_clothing_stores"
-                | "fast_food_restaurants"
-                | "financial_institutions"
-                | "fines_government_administrative_entities"
-                | "fireplace_fireplace_screens_and_accessories_stores"
-                | "floor_covering_stores"
-                | "florists"
-                | "florists_supplies_nursery_stock_and_flowers"
-                | "freezer_and_locker_meat_provisioners"
-                | "fuel_dealers_non_automotive"
-                | "funeral_services_crematories"
-                | "furniture_home_furnishings_and_equipment_stores_except_appliances"
-                | "furniture_repair_refinishing"
-                | "furriers_and_fur_shops"
-                | "general_services"
-                | "gift_card_novelty_and_souvenir_shops"
-                | "glass_paint_and_wallpaper_stores"
-                | "glassware_crystal_stores"
-                | "golf_courses_public"
-                | "government_licensed_horse_dog_racing_us_region_only"
-                | "government_licensed_online_casions_online_gambling_us_region_only"
-                | "government_owned_lotteries_non_us_region"
-                | "government_owned_lotteries_us_region_only"
-                | "government_services"
-                | "grocery_stores_supermarkets"
-                | "hardware_equipment_and_supplies"
-                | "hardware_stores"
-                | "health_and_beauty_spas"
-                | "hearing_aids_sales_and_supplies"
-                | "heating_plumbing_a_c"
-                | "hobby_toy_and_game_shops"
-                | "home_supply_warehouse_stores"
-                | "hospitals"
-                | "hotels_motels_and_resorts"
-                | "household_appliance_stores"
-                | "industrial_supplies"
-                | "information_retrieval_services"
-                | "insurance_default"
-                | "insurance_underwriting_premiums"
-                | "intra_company_purchases"
-                | "jewelry_stores_watches_clocks_and_silverware_stores"
-                | "landscaping_services"
-                | "laundries"
-                | "laundry_cleaning_services"
-                | "legal_services_attorneys"
-                | "luggage_and_leather_goods_stores"
-                | "lumber_building_materials_stores"
-                | "manual_cash_disburse"
-                | "marinas_service_and_supplies"
-                | "marketplaces"
-                | "masonry_stonework_and_plaster"
-                | "massage_parlors"
-                | "medical_and_dental_labs"
-                | "medical_dental_ophthalmic_and_hospital_equipment_and_supplies"
-                | "medical_services"
-                | "membership_organizations"
-                | "mens_and_boys_clothing_and_accessories_stores"
-                | "mens_womens_clothing_stores"
-                | "metal_service_centers"
-                | "miscellaneous_apparel_and_accessory_shops"
-                | "miscellaneous_auto_dealers"
-                | "miscellaneous_business_services"
-                | "miscellaneous_food_stores"
-                | "miscellaneous_general_merchandise"
-                | "miscellaneous_general_services"
-                | "miscellaneous_home_furnishing_specialty_stores"
-                | "miscellaneous_publishing_and_printing"
-                | "miscellaneous_recreation_services"
-                | "miscellaneous_repair_shops"
-                | "miscellaneous_specialty_retail"
-                | "mobile_home_dealers"
-                | "motion_picture_theaters"
-                | "motor_freight_carriers_and_trucking"
-                | "motor_homes_dealers"
-                | "motor_vehicle_supplies_and_new_parts"
-                | "motorcycle_shops_and_dealers"
-                | "motorcycle_shops_dealers"
-                | "music_stores_musical_instruments_pianos_and_sheet_music"
-                | "news_dealers_and_newsstands"
-                | "non_fi_money_orders"
-                | "non_fi_stored_value_card_purchase_load"
-                | "nondurable_goods"
-                | "nurseries_lawn_and_garden_supply_stores"
-                | "nursing_personal_care"
-                | "office_and_commercial_furniture"
-                | "opticians_eyeglasses"
-                | "optometrists_ophthalmologist"
-                | "orthopedic_goods_prosthetic_devices"
-                | "osteopaths"
-                | "package_stores_beer_wine_and_liquor"
-                | "paints_varnishes_and_supplies"
-                | "parking_lots_garages"
-                | "passenger_railways"
-                | "pawn_shops"
-                | "pet_shops_pet_food_and_supplies"
-                | "petroleum_and_petroleum_products"
-                | "photo_developing"
-                | "photographic_photocopy_microfilm_equipment_and_supplies"
-                | "photographic_studios"
-                | "picture_video_production"
-                | "piece_goods_notions_and_other_dry_goods"
-                | "plumbing_heating_equipment_and_supplies"
-                | "political_organizations"
-                | "postal_services_government_only"
-                | "precious_stones_and_metals_watches_and_jewelry"
-                | "professional_services"
-                | "public_warehousing_and_storage"
-                | "quick_copy_repro_and_blueprint"
-                | "railroads"
-                | "real_estate_agents_and_managers_rentals"
-                | "record_stores"
-                | "recreational_vehicle_rentals"
-                | "religious_goods_stores"
-                | "religious_organizations"
-                | "roofing_siding_sheet_metal"
-                | "secretarial_support_services"
-                | "security_brokers_dealers"
-                | "service_stations"
-                | "sewing_needlework_fabric_and_piece_goods_stores"
-                | "shoe_repair_hat_cleaning"
-                | "shoe_stores"
-                | "small_appliance_repair"
-                | "snowmobile_dealers"
-                | "special_trade_services"
-                | "specialty_cleaning"
-                | "sporting_goods_stores"
-                | "sporting_recreation_camps"
-                | "sports_and_riding_apparel_stores"
-                | "sports_clubs_fields"
-                | "stamp_and_coin_stores"
-                | "stationary_office_supplies_printing_and_writing_paper"
-                | "stationery_stores_office_and_school_supply_stores"
-                | "swimming_pools_sales"
-                | "t_ui_travel_germany"
-                | "tailors_alterations"
-                | "tax_payments_government_agencies"
-                | "tax_preparation_services"
-                | "taxicabs_limousines"
-                | "telecommunication_equipment_and_telephone_sales"
-                | "telecommunication_services"
-                | "telegraph_services"
-                | "tent_and_awning_shops"
-                | "testing_laboratories"
-                | "theatrical_ticket_agencies"
-                | "timeshares"
-                | "tire_retreading_and_repair"
-                | "tolls_bridge_fees"
-                | "tourist_attractions_and_exhibits"
-                | "towing_services"
-                | "trailer_parks_campgrounds"
-                | "transportation_services"
-                | "travel_agencies_tour_operators"
-                | "truck_stop_iteration"
-                | "truck_utility_trailer_rentals"
-                | "typesetting_plate_making_and_related_services"
-                | "typewriter_stores"
-                | "u_s_federal_government_agencies_or_departments"
-                | "uniforms_commercial_clothing"
-                | "used_merchandise_and_secondhand_stores"
-                | "utilities"
-                | "variety_stores"
-                | "veterinary_services"
-                | "video_amusement_game_supplies"
-                | "video_game_arcades"
-                | "video_tape_rental_stores"
-                | "vocational_trade_schools"
-                | "watch_jewelry_repair"
-                | "welding_repair"
-                | "wholesale_clubs"
-                | "wig_and_toupee_stores"
-                | "wires_money_orders"
-                | "womens_accessory_and_specialty_shops"
-                | "womens_ready_to_wear_stores"
-                | "wrecking_and_salvage_yards"
-              )
-            | undefined
-          city?: string | undefined
-          country?: string | undefined
-          name?: string | undefined
-          network_id?: string | undefined
-          postal_code?: string | undefined
-          state?: string | undefined
-          terminal_id?: string | undefined
-          url?: string | undefined
-        }
-      | undefined
-    network_data?:
-      | {
-          acquiring_institution_id?: string | undefined
-        }
-      | undefined
-    verification_data?:
-      | {
-          address_line1_check?:
-            | ("match" | "mismatch" | "not_provided")
-            | undefined
-          address_postal_code_check?:
-            | ("match" | "mismatch" | "not_provided")
-            | undefined
-          authentication_exemption?:
-            | {
-                claimed_by: "acquirer" | "issuer"
-                type:
-                  | "low_value_transaction"
-                  | "transaction_risk_analysis"
-                  | "unknown"
-              }
-            | undefined
-          cvc_check?: ("match" | "mismatch" | "not_provided") | undefined
-          expiry_check?: ("match" | "mismatch" | "not_provided") | undefined
-          three_d_secure?:
-            | {
-                result:
-                  | "attempt_acknowledged"
-                  | "authenticated"
-                  | "failed"
-                  | "required"
-              }
-            | undefined
-        }
-      | undefined
-    wallet?: ("apple_pay" | "google_pay" | "samsung_pay") | undefined
-  }
+export type t_PostTestHelpersIssuingAuthorizationsRequestBody = {
+  amount?: number | undefined
+  amount_details?:
+    | {
+        atm_fee?: number | undefined
+        cashback_amount?: number | undefined
+      }
+    | undefined
+  authorization_method?:
+    | ("chip" | "contactless" | "keyed_in" | "online" | "swipe")
+    | undefined
+  card: string
+  currency?: string | undefined
+  expand?: string[] | undefined
+  fleet?:
+    | {
+        cardholder_prompt_data?:
+          | {
+              driver_id?: string | undefined
+              odometer?: number | undefined
+              unspecified_id?: string | undefined
+              user_id?: string | undefined
+              vehicle_number?: string | undefined
+            }
+          | undefined
+        purchase_type?:
+          | (
+              | "fuel_and_non_fuel_purchase"
+              | "fuel_purchase"
+              | "non_fuel_purchase"
+            )
+          | undefined
+        reported_breakdown?:
+          | {
+              fuel?:
+                | {
+                    gross_amount_decimal?: string | undefined
+                  }
+                | undefined
+              non_fuel?:
+                | {
+                    gross_amount_decimal?: string | undefined
+                  }
+                | undefined
+              tax?:
+                | {
+                    local_amount_decimal?: string | undefined
+                    national_amount_decimal?: string | undefined
+                  }
+                | undefined
+            }
+          | undefined
+        service_type?:
+          | ("full_service" | "non_fuel_transaction" | "self_service")
+          | undefined
+      }
+    | undefined
+  fuel?:
+    | {
+        industry_product_code?: string | undefined
+        quantity_decimal?: string | undefined
+        type?:
+          | (
+              | "diesel"
+              | "other"
+              | "unleaded_plus"
+              | "unleaded_regular"
+              | "unleaded_super"
+            )
+          | undefined
+        unit?:
+          | (
+              | "charging_minute"
+              | "imperial_gallon"
+              | "kilogram"
+              | "kilowatt_hour"
+              | "liter"
+              | "other"
+              | "pound"
+              | "us_gallon"
+            )
+          | undefined
+        unit_cost_decimal?: string | undefined
+      }
+    | undefined
+  is_amount_controllable?: boolean | undefined
+  merchant_amount?: number | undefined
+  merchant_currency?: string | undefined
+  merchant_data?:
+    | {
+        category?:
+          | (
+              | "ac_refrigeration_repair"
+              | "accounting_bookkeeping_services"
+              | "advertising_services"
+              | "agricultural_cooperative"
+              | "airlines_air_carriers"
+              | "airports_flying_fields"
+              | "ambulance_services"
+              | "amusement_parks_carnivals"
+              | "antique_reproductions"
+              | "antique_shops"
+              | "aquariums"
+              | "architectural_surveying_services"
+              | "art_dealers_and_galleries"
+              | "artists_supply_and_craft_shops"
+              | "auto_and_home_supply_stores"
+              | "auto_body_repair_shops"
+              | "auto_paint_shops"
+              | "auto_service_shops"
+              | "automated_cash_disburse"
+              | "automated_fuel_dispensers"
+              | "automobile_associations"
+              | "automotive_parts_and_accessories_stores"
+              | "automotive_tire_stores"
+              | "bail_and_bond_payments"
+              | "bakeries"
+              | "bands_orchestras"
+              | "barber_and_beauty_shops"
+              | "betting_casino_gambling"
+              | "bicycle_shops"
+              | "billiard_pool_establishments"
+              | "boat_dealers"
+              | "boat_rentals_and_leases"
+              | "book_stores"
+              | "books_periodicals_and_newspapers"
+              | "bowling_alleys"
+              | "bus_lines"
+              | "business_secretarial_schools"
+              | "buying_shopping_services"
+              | "cable_satellite_and_other_pay_television_and_radio"
+              | "camera_and_photographic_supply_stores"
+              | "candy_nut_and_confectionery_stores"
+              | "car_and_truck_dealers_new_used"
+              | "car_and_truck_dealers_used_only"
+              | "car_rental_agencies"
+              | "car_washes"
+              | "carpentry_services"
+              | "carpet_upholstery_cleaning"
+              | "caterers"
+              | "charitable_and_social_service_organizations_fundraising"
+              | "chemicals_and_allied_products"
+              | "child_care_services"
+              | "childrens_and_infants_wear_stores"
+              | "chiropodists_podiatrists"
+              | "chiropractors"
+              | "cigar_stores_and_stands"
+              | "civic_social_fraternal_associations"
+              | "cleaning_and_maintenance"
+              | "clothing_rental"
+              | "colleges_universities"
+              | "commercial_equipment"
+              | "commercial_footwear"
+              | "commercial_photography_art_and_graphics"
+              | "commuter_transport_and_ferries"
+              | "computer_network_services"
+              | "computer_programming"
+              | "computer_repair"
+              | "computer_software_stores"
+              | "computers_peripherals_and_software"
+              | "concrete_work_services"
+              | "construction_materials"
+              | "consulting_public_relations"
+              | "correspondence_schools"
+              | "cosmetic_stores"
+              | "counseling_services"
+              | "country_clubs"
+              | "courier_services"
+              | "court_costs"
+              | "credit_reporting_agencies"
+              | "cruise_lines"
+              | "dairy_products_stores"
+              | "dance_hall_studios_schools"
+              | "dating_escort_services"
+              | "dentists_orthodontists"
+              | "department_stores"
+              | "detective_agencies"
+              | "digital_goods_applications"
+              | "digital_goods_games"
+              | "digital_goods_large_volume"
+              | "digital_goods_media"
+              | "direct_marketing_catalog_merchant"
+              | "direct_marketing_combination_catalog_and_retail_merchant"
+              | "direct_marketing_inbound_telemarketing"
+              | "direct_marketing_insurance_services"
+              | "direct_marketing_other"
+              | "direct_marketing_outbound_telemarketing"
+              | "direct_marketing_subscription"
+              | "direct_marketing_travel"
+              | "discount_stores"
+              | "doctors"
+              | "door_to_door_sales"
+              | "drapery_window_covering_and_upholstery_stores"
+              | "drinking_places"
+              | "drug_stores_and_pharmacies"
+              | "drugs_drug_proprietaries_and_druggist_sundries"
+              | "dry_cleaners"
+              | "durable_goods"
+              | "duty_free_stores"
+              | "eating_places_restaurants"
+              | "educational_services"
+              | "electric_razor_stores"
+              | "electric_vehicle_charging"
+              | "electrical_parts_and_equipment"
+              | "electrical_services"
+              | "electronics_repair_shops"
+              | "electronics_stores"
+              | "elementary_secondary_schools"
+              | "emergency_services_gcas_visa_use_only"
+              | "employment_temp_agencies"
+              | "equipment_rental"
+              | "exterminating_services"
+              | "family_clothing_stores"
+              | "fast_food_restaurants"
+              | "financial_institutions"
+              | "fines_government_administrative_entities"
+              | "fireplace_fireplace_screens_and_accessories_stores"
+              | "floor_covering_stores"
+              | "florists"
+              | "florists_supplies_nursery_stock_and_flowers"
+              | "freezer_and_locker_meat_provisioners"
+              | "fuel_dealers_non_automotive"
+              | "funeral_services_crematories"
+              | "furniture_home_furnishings_and_equipment_stores_except_appliances"
+              | "furniture_repair_refinishing"
+              | "furriers_and_fur_shops"
+              | "general_services"
+              | "gift_card_novelty_and_souvenir_shops"
+              | "glass_paint_and_wallpaper_stores"
+              | "glassware_crystal_stores"
+              | "golf_courses_public"
+              | "government_licensed_horse_dog_racing_us_region_only"
+              | "government_licensed_online_casions_online_gambling_us_region_only"
+              | "government_owned_lotteries_non_us_region"
+              | "government_owned_lotteries_us_region_only"
+              | "government_services"
+              | "grocery_stores_supermarkets"
+              | "hardware_equipment_and_supplies"
+              | "hardware_stores"
+              | "health_and_beauty_spas"
+              | "hearing_aids_sales_and_supplies"
+              | "heating_plumbing_a_c"
+              | "hobby_toy_and_game_shops"
+              | "home_supply_warehouse_stores"
+              | "hospitals"
+              | "hotels_motels_and_resorts"
+              | "household_appliance_stores"
+              | "industrial_supplies"
+              | "information_retrieval_services"
+              | "insurance_default"
+              | "insurance_underwriting_premiums"
+              | "intra_company_purchases"
+              | "jewelry_stores_watches_clocks_and_silverware_stores"
+              | "landscaping_services"
+              | "laundries"
+              | "laundry_cleaning_services"
+              | "legal_services_attorneys"
+              | "luggage_and_leather_goods_stores"
+              | "lumber_building_materials_stores"
+              | "manual_cash_disburse"
+              | "marinas_service_and_supplies"
+              | "marketplaces"
+              | "masonry_stonework_and_plaster"
+              | "massage_parlors"
+              | "medical_and_dental_labs"
+              | "medical_dental_ophthalmic_and_hospital_equipment_and_supplies"
+              | "medical_services"
+              | "membership_organizations"
+              | "mens_and_boys_clothing_and_accessories_stores"
+              | "mens_womens_clothing_stores"
+              | "metal_service_centers"
+              | "miscellaneous_apparel_and_accessory_shops"
+              | "miscellaneous_auto_dealers"
+              | "miscellaneous_business_services"
+              | "miscellaneous_food_stores"
+              | "miscellaneous_general_merchandise"
+              | "miscellaneous_general_services"
+              | "miscellaneous_home_furnishing_specialty_stores"
+              | "miscellaneous_publishing_and_printing"
+              | "miscellaneous_recreation_services"
+              | "miscellaneous_repair_shops"
+              | "miscellaneous_specialty_retail"
+              | "mobile_home_dealers"
+              | "motion_picture_theaters"
+              | "motor_freight_carriers_and_trucking"
+              | "motor_homes_dealers"
+              | "motor_vehicle_supplies_and_new_parts"
+              | "motorcycle_shops_and_dealers"
+              | "motorcycle_shops_dealers"
+              | "music_stores_musical_instruments_pianos_and_sheet_music"
+              | "news_dealers_and_newsstands"
+              | "non_fi_money_orders"
+              | "non_fi_stored_value_card_purchase_load"
+              | "nondurable_goods"
+              | "nurseries_lawn_and_garden_supply_stores"
+              | "nursing_personal_care"
+              | "office_and_commercial_furniture"
+              | "opticians_eyeglasses"
+              | "optometrists_ophthalmologist"
+              | "orthopedic_goods_prosthetic_devices"
+              | "osteopaths"
+              | "package_stores_beer_wine_and_liquor"
+              | "paints_varnishes_and_supplies"
+              | "parking_lots_garages"
+              | "passenger_railways"
+              | "pawn_shops"
+              | "pet_shops_pet_food_and_supplies"
+              | "petroleum_and_petroleum_products"
+              | "photo_developing"
+              | "photographic_photocopy_microfilm_equipment_and_supplies"
+              | "photographic_studios"
+              | "picture_video_production"
+              | "piece_goods_notions_and_other_dry_goods"
+              | "plumbing_heating_equipment_and_supplies"
+              | "political_organizations"
+              | "postal_services_government_only"
+              | "precious_stones_and_metals_watches_and_jewelry"
+              | "professional_services"
+              | "public_warehousing_and_storage"
+              | "quick_copy_repro_and_blueprint"
+              | "railroads"
+              | "real_estate_agents_and_managers_rentals"
+              | "record_stores"
+              | "recreational_vehicle_rentals"
+              | "religious_goods_stores"
+              | "religious_organizations"
+              | "roofing_siding_sheet_metal"
+              | "secretarial_support_services"
+              | "security_brokers_dealers"
+              | "service_stations"
+              | "sewing_needlework_fabric_and_piece_goods_stores"
+              | "shoe_repair_hat_cleaning"
+              | "shoe_stores"
+              | "small_appliance_repair"
+              | "snowmobile_dealers"
+              | "special_trade_services"
+              | "specialty_cleaning"
+              | "sporting_goods_stores"
+              | "sporting_recreation_camps"
+              | "sports_and_riding_apparel_stores"
+              | "sports_clubs_fields"
+              | "stamp_and_coin_stores"
+              | "stationary_office_supplies_printing_and_writing_paper"
+              | "stationery_stores_office_and_school_supply_stores"
+              | "swimming_pools_sales"
+              | "t_ui_travel_germany"
+              | "tailors_alterations"
+              | "tax_payments_government_agencies"
+              | "tax_preparation_services"
+              | "taxicabs_limousines"
+              | "telecommunication_equipment_and_telephone_sales"
+              | "telecommunication_services"
+              | "telegraph_services"
+              | "tent_and_awning_shops"
+              | "testing_laboratories"
+              | "theatrical_ticket_agencies"
+              | "timeshares"
+              | "tire_retreading_and_repair"
+              | "tolls_bridge_fees"
+              | "tourist_attractions_and_exhibits"
+              | "towing_services"
+              | "trailer_parks_campgrounds"
+              | "transportation_services"
+              | "travel_agencies_tour_operators"
+              | "truck_stop_iteration"
+              | "truck_utility_trailer_rentals"
+              | "typesetting_plate_making_and_related_services"
+              | "typewriter_stores"
+              | "u_s_federal_government_agencies_or_departments"
+              | "uniforms_commercial_clothing"
+              | "used_merchandise_and_secondhand_stores"
+              | "utilities"
+              | "variety_stores"
+              | "veterinary_services"
+              | "video_amusement_game_supplies"
+              | "video_game_arcades"
+              | "video_tape_rental_stores"
+              | "vocational_trade_schools"
+              | "watch_jewelry_repair"
+              | "welding_repair"
+              | "wholesale_clubs"
+              | "wig_and_toupee_stores"
+              | "wires_money_orders"
+              | "womens_accessory_and_specialty_shops"
+              | "womens_ready_to_wear_stores"
+              | "wrecking_and_salvage_yards"
+            )
+          | undefined
+        city?: string | undefined
+        country?: string | undefined
+        name?: string | undefined
+        network_id?: string | undefined
+        postal_code?: string | undefined
+        state?: string | undefined
+        terminal_id?: string | undefined
+        url?: string | undefined
+      }
+    | undefined
+  network_data?:
+    | {
+        acquiring_institution_id?: string | undefined
+      }
+    | undefined
+  verification_data?:
+    | {
+        address_line1_check?:
+          | ("match" | "mismatch" | "not_provided")
+          | undefined
+        address_postal_code_check?:
+          | ("match" | "mismatch" | "not_provided")
+          | undefined
+        authentication_exemption?:
+          | {
+              claimed_by: "acquirer" | "issuer"
+              type:
+                | "low_value_transaction"
+                | "transaction_risk_analysis"
+                | "unknown"
+            }
+          | undefined
+        cvc_check?: ("match" | "mismatch" | "not_provided") | undefined
+        expiry_check?: ("match" | "mismatch" | "not_provided") | undefined
+        three_d_secure?:
+          | {
+              result:
+                | "attempt_acknowledged"
+                | "authenticated"
+                | "failed"
+                | "required"
+            }
+          | undefined
+      }
+    | undefined
+  wallet?: ("apple_pay" | "google_pay" | "samsung_pay") | undefined
+}
 
 export type t_PostTestHelpersIssuingAuthorizationsAuthorizationCaptureParamSchema =
   {
     authorization: string
   }
 
-export type t_postTestHelpersIssuingAuthorizationsAuthorizationCaptureApplicationXWwwFormUrlencodedRequestBody =
+export type t_PostTestHelpersIssuingAuthorizationsAuthorizationCaptureRequestBody =
   {
     capture_amount?: number | undefined
     close_authorization?: boolean | undefined
@@ -46515,7 +46251,7 @@ export type t_PostTestHelpersIssuingAuthorizationsAuthorizationExpireParamSchema
     authorization: string
   }
 
-export type t_postTestHelpersIssuingAuthorizationsAuthorizationExpireApplicationXWwwFormUrlencodedRequestBody =
+export type t_PostTestHelpersIssuingAuthorizationsAuthorizationExpireRequestBody =
   {
     expand?: string[] | undefined
   }
@@ -46525,7 +46261,7 @@ export type t_PostTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmountPar
     authorization: string
   }
 
-export type t_postTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmountApplicationXWwwFormUrlencodedRequestBody =
+export type t_PostTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmountRequestBody =
   {
     expand?: string[] | undefined
     final_amount: number
@@ -46607,7 +46343,7 @@ export type t_PostTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRe
     authorization: string
   }
 
-export type t_postTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespondApplicationXWwwFormUrlencodedRequestBody =
+export type t_PostTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespondRequestBody =
   {
     confirmed: boolean
     expand?: string[] | undefined
@@ -46618,7 +46354,7 @@ export type t_PostTestHelpersIssuingAuthorizationsAuthorizationIncrementParamSch
     authorization: string
   }
 
-export type t_postTestHelpersIssuingAuthorizationsAuthorizationIncrementApplicationXWwwFormUrlencodedRequestBody =
+export type t_PostTestHelpersIssuingAuthorizationsAuthorizationIncrementRequestBody =
   {
     expand?: string[] | undefined
     increment_amount: number
@@ -46630,7 +46366,7 @@ export type t_PostTestHelpersIssuingAuthorizationsAuthorizationReverseParamSchem
     authorization: string
   }
 
-export type t_postTestHelpersIssuingAuthorizationsAuthorizationReverseApplicationXWwwFormUrlencodedRequestBody =
+export type t_PostTestHelpersIssuingAuthorizationsAuthorizationReverseRequestBody =
   {
     expand?: string[] | undefined
     reverse_amount?: number | undefined
@@ -46640,53 +46376,48 @@ export type t_PostTestHelpersIssuingCardsCardShippingDeliverParamSchema = {
   card: string
 }
 
-export type t_postTestHelpersIssuingCardsCardShippingDeliverApplicationXWwwFormUrlencodedRequestBody =
-  {
-    expand?: string[] | undefined
-  }
+export type t_PostTestHelpersIssuingCardsCardShippingDeliverRequestBody = {
+  expand?: string[] | undefined
+}
 
 export type t_PostTestHelpersIssuingCardsCardShippingFailParamSchema = {
   card: string
 }
 
-export type t_postTestHelpersIssuingCardsCardShippingFailApplicationXWwwFormUrlencodedRequestBody =
-  {
-    expand?: string[] | undefined
-  }
+export type t_PostTestHelpersIssuingCardsCardShippingFailRequestBody = {
+  expand?: string[] | undefined
+}
 
 export type t_PostTestHelpersIssuingCardsCardShippingReturnParamSchema = {
   card: string
 }
 
-export type t_postTestHelpersIssuingCardsCardShippingReturnApplicationXWwwFormUrlencodedRequestBody =
-  {
-    expand?: string[] | undefined
-  }
+export type t_PostTestHelpersIssuingCardsCardShippingReturnRequestBody = {
+  expand?: string[] | undefined
+}
 
 export type t_PostTestHelpersIssuingCardsCardShippingShipParamSchema = {
   card: string
 }
 
-export type t_postTestHelpersIssuingCardsCardShippingShipApplicationXWwwFormUrlencodedRequestBody =
-  {
-    expand?: string[] | undefined
-  }
+export type t_PostTestHelpersIssuingCardsCardShippingShipRequestBody = {
+  expand?: string[] | undefined
+}
 
 export type t_PostTestHelpersIssuingCardsCardShippingSubmitParamSchema = {
   card: string
 }
 
-export type t_postTestHelpersIssuingCardsCardShippingSubmitApplicationXWwwFormUrlencodedRequestBody =
-  {
-    expand?: string[] | undefined
-  }
+export type t_PostTestHelpersIssuingCardsCardShippingSubmitRequestBody = {
+  expand?: string[] | undefined
+}
 
 export type t_PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivateParamSchema =
   {
     personalization_design: string
   }
 
-export type t_postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivateApplicationXWwwFormUrlencodedRequestBody =
+export type t_PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivateRequestBody =
   {
     expand?: string[] | undefined
   }
@@ -46696,7 +46427,7 @@ export type t_PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignD
     personalization_design: string
   }
 
-export type t_postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivateApplicationXWwwFormUrlencodedRequestBody =
+export type t_PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivateRequestBody =
   {
     expand?: string[] | undefined
   }
@@ -46706,7 +46437,7 @@ export type t_PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignR
     personalization_design: string
   }
 
-export type t_postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignRejectApplicationXWwwFormUrlencodedRequestBody =
+export type t_PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignRejectRequestBody =
   {
     expand?: string[] | undefined
     rejection_reasons: {
@@ -46736,30 +46467,28 @@ export type t_postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignR
     }
   }
 
-export type t_postTestHelpersIssuingSettlementsApplicationXWwwFormUrlencodedRequestBody =
-  {
-    bin: string
-    clearing_date: number
-    currency: string
-    expand?: string[] | undefined
-    interchange_fees_amount?: number | undefined
-    net_total_amount: number
-    network?: ("maestro" | "visa") | undefined
-    network_settlement_identifier?: string | undefined
-    transaction_amount?: number | undefined
-    transaction_count?: number | undefined
-  }
+export type t_PostTestHelpersIssuingSettlementsRequestBody = {
+  bin: string
+  clearing_date: number
+  currency: string
+  expand?: string[] | undefined
+  interchange_fees_amount?: number | undefined
+  net_total_amount: number
+  network?: ("maestro" | "visa") | undefined
+  network_settlement_identifier?: string | undefined
+  transaction_amount?: number | undefined
+  transaction_count?: number | undefined
+}
 
 export type t_PostTestHelpersIssuingSettlementsSettlementCompleteParamSchema = {
   settlement: string
 }
 
-export type t_postTestHelpersIssuingSettlementsSettlementCompleteApplicationXWwwFormUrlencodedRequestBody =
-  {
-    expand?: string[] | undefined
-  }
+export type t_PostTestHelpersIssuingSettlementsSettlementCompleteRequestBody = {
+  expand?: string[] | undefined
+}
 
-export type t_postTestHelpersIssuingTransactionsCreateForceCaptureApplicationXWwwFormUrlencodedRequestBody =
+export type t_PostTestHelpersIssuingTransactionsCreateForceCaptureRequestBody =
   {
     amount: number
     card: string
@@ -47185,7 +46914,7 @@ export type t_postTestHelpersIssuingTransactionsCreateForceCaptureApplicationXWw
       | undefined
   }
 
-export type t_postTestHelpersIssuingTransactionsCreateUnlinkedRefundApplicationXWwwFormUrlencodedRequestBody =
+export type t_PostTestHelpersIssuingTransactionsCreateUnlinkedRefundRequestBody =
   {
     amount: number
     card: string
@@ -47615,27 +47344,25 @@ export type t_PostTestHelpersIssuingTransactionsTransactionRefundParamSchema = {
   transaction: string
 }
 
-export type t_postTestHelpersIssuingTransactionsTransactionRefundApplicationXWwwFormUrlencodedRequestBody =
-  {
-    expand?: string[] | undefined
-    refund_amount?: number | undefined
-  }
+export type t_PostTestHelpersIssuingTransactionsTransactionRefundRequestBody = {
+  expand?: string[] | undefined
+  refund_amount?: number | undefined
+}
 
 export type t_PostTestHelpersRefundsRefundExpireParamSchema = {
   refund: string
 }
 
-export type t_postTestHelpersRefundsRefundExpireApplicationXWwwFormUrlencodedRequestBody =
-  {
-    expand?: string[] | undefined
-  }
+export type t_PostTestHelpersRefundsRefundExpireRequestBody = {
+  expand?: string[] | undefined
+}
 
 export type t_PostTestHelpersTerminalReadersReaderPresentPaymentMethodParamSchema =
   {
     reader: string
   }
 
-export type t_postTestHelpersTerminalReadersReaderPresentPaymentMethodApplicationXWwwFormUrlencodedRequestBody =
+export type t_PostTestHelpersTerminalReadersReaderPresentPaymentMethodRequestBody =
   {
     amount_tip?: number | undefined
     card_present?:
@@ -47657,7 +47384,7 @@ export type t_PostTestHelpersTerminalReadersReaderSucceedInputCollectionParamSch
     reader: string
   }
 
-export type t_postTestHelpersTerminalReadersReaderSucceedInputCollectionApplicationXWwwFormUrlencodedRequestBody =
+export type t_PostTestHelpersTerminalReadersReaderSucceedInputCollectionRequestBody =
   {
     expand?: string[] | undefined
     skip_non_required_inputs?: ("all" | "none") | undefined
@@ -47668,151 +47395,142 @@ export type t_PostTestHelpersTerminalReadersReaderTimeoutInputCollectionParamSch
     reader: string
   }
 
-export type t_postTestHelpersTerminalReadersReaderTimeoutInputCollectionApplicationXWwwFormUrlencodedRequestBody =
+export type t_PostTestHelpersTerminalReadersReaderTimeoutInputCollectionRequestBody =
   {
     expand?: string[] | undefined
   }
 
-export type t_postTestHelpersTestClocksApplicationXWwwFormUrlencodedRequestBody =
-  {
-    expand?: string[] | undefined
-    frozen_time: number
-    name?: string | undefined
-  }
+export type t_PostTestHelpersTestClocksRequestBody = {
+  expand?: string[] | undefined
+  frozen_time: number
+  name?: string | undefined
+}
 
 export type t_PostTestHelpersTestClocksTestClockAdvanceParamSchema = {
   test_clock: string
 }
 
-export type t_postTestHelpersTestClocksTestClockAdvanceApplicationXWwwFormUrlencodedRequestBody =
-  {
-    expand?: string[] | undefined
-    frozen_time: number
-  }
+export type t_PostTestHelpersTestClocksTestClockAdvanceRequestBody = {
+  expand?: string[] | undefined
+  frozen_time: number
+}
 
 export type t_PostTestHelpersTreasuryInboundTransfersIdFailParamSchema = {
   id: string
 }
 
-export type t_postTestHelpersTreasuryInboundTransfersIdFailApplicationXWwwFormUrlencodedRequestBody =
-  {
-    expand?: string[] | undefined
-    failure_details?:
-      | {
-          code?:
-            | (
-                | "account_closed"
-                | "account_frozen"
-                | "bank_account_restricted"
-                | "bank_ownership_changed"
-                | "debit_not_authorized"
-                | "incorrect_account_holder_address"
-                | "incorrect_account_holder_name"
-                | "incorrect_account_holder_tax_id"
-                | "insufficient_funds"
-                | "invalid_account_number"
-                | "invalid_currency"
-                | "no_account"
-                | "other"
-              )
-            | undefined
-        }
-      | undefined
-  }
+export type t_PostTestHelpersTreasuryInboundTransfersIdFailRequestBody = {
+  expand?: string[] | undefined
+  failure_details?:
+    | {
+        code?:
+          | (
+              | "account_closed"
+              | "account_frozen"
+              | "bank_account_restricted"
+              | "bank_ownership_changed"
+              | "debit_not_authorized"
+              | "incorrect_account_holder_address"
+              | "incorrect_account_holder_name"
+              | "incorrect_account_holder_tax_id"
+              | "insufficient_funds"
+              | "invalid_account_number"
+              | "invalid_currency"
+              | "no_account"
+              | "other"
+            )
+          | undefined
+      }
+    | undefined
+}
 
 export type t_PostTestHelpersTreasuryInboundTransfersIdReturnParamSchema = {
   id: string
 }
 
-export type t_postTestHelpersTreasuryInboundTransfersIdReturnApplicationXWwwFormUrlencodedRequestBody =
-  {
-    expand?: string[] | undefined
-  }
+export type t_PostTestHelpersTreasuryInboundTransfersIdReturnRequestBody = {
+  expand?: string[] | undefined
+}
 
 export type t_PostTestHelpersTreasuryInboundTransfersIdSucceedParamSchema = {
   id: string
 }
 
-export type t_postTestHelpersTreasuryInboundTransfersIdSucceedApplicationXWwwFormUrlencodedRequestBody =
-  {
-    expand?: string[] | undefined
-  }
+export type t_PostTestHelpersTreasuryInboundTransfersIdSucceedRequestBody = {
+  expand?: string[] | undefined
+}
 
 export type t_PostTestHelpersTreasuryOutboundPaymentsIdParamSchema = {
   id: string
 }
 
-export type t_postTestHelpersTreasuryOutboundPaymentsIdApplicationXWwwFormUrlencodedRequestBody =
-  {
-    expand?: string[] | undefined
-    tracking_details: {
-      ach?:
-        | {
-            trace_id: string
-          }
-        | undefined
-      type: "ach" | "us_domestic_wire"
-      us_domestic_wire?:
-        | {
-            chips?: string | undefined
-            imad?: string | undefined
-            omad?: string | undefined
-          }
-        | undefined
-    }
+export type t_PostTestHelpersTreasuryOutboundPaymentsIdRequestBody = {
+  expand?: string[] | undefined
+  tracking_details: {
+    ach?:
+      | {
+          trace_id: string
+        }
+      | undefined
+    type: "ach" | "us_domestic_wire"
+    us_domestic_wire?:
+      | {
+          chips?: string | undefined
+          imad?: string | undefined
+          omad?: string | undefined
+        }
+      | undefined
   }
+}
 
 export type t_PostTestHelpersTreasuryOutboundPaymentsIdFailParamSchema = {
   id: string
 }
 
-export type t_postTestHelpersTreasuryOutboundPaymentsIdFailApplicationXWwwFormUrlencodedRequestBody =
-  {
-    expand?: string[] | undefined
-  }
+export type t_PostTestHelpersTreasuryOutboundPaymentsIdFailRequestBody = {
+  expand?: string[] | undefined
+}
 
 export type t_PostTestHelpersTreasuryOutboundPaymentsIdPostParamSchema = {
   id: string
 }
 
-export type t_postTestHelpersTreasuryOutboundPaymentsIdPostApplicationXWwwFormUrlencodedRequestBody =
-  {
-    expand?: string[] | undefined
-  }
+export type t_PostTestHelpersTreasuryOutboundPaymentsIdPostRequestBody = {
+  expand?: string[] | undefined
+}
 
 export type t_PostTestHelpersTreasuryOutboundPaymentsIdReturnParamSchema = {
   id: string
 }
 
-export type t_postTestHelpersTreasuryOutboundPaymentsIdReturnApplicationXWwwFormUrlencodedRequestBody =
-  {
-    expand?: string[] | undefined
-    returned_details?:
-      | {
-          code?:
-            | (
-                | "account_closed"
-                | "account_frozen"
-                | "bank_account_restricted"
-                | "bank_ownership_changed"
-                | "declined"
-                | "incorrect_account_holder_name"
-                | "invalid_account_number"
-                | "invalid_currency"
-                | "no_account"
-                | "other"
-              )
-            | undefined
-        }
-      | undefined
-  }
+export type t_PostTestHelpersTreasuryOutboundPaymentsIdReturnRequestBody = {
+  expand?: string[] | undefined
+  returned_details?:
+    | {
+        code?:
+          | (
+              | "account_closed"
+              | "account_frozen"
+              | "bank_account_restricted"
+              | "bank_ownership_changed"
+              | "declined"
+              | "incorrect_account_holder_name"
+              | "invalid_account_number"
+              | "invalid_currency"
+              | "no_account"
+              | "other"
+            )
+          | undefined
+      }
+    | undefined
+}
 
 export type t_PostTestHelpersTreasuryOutboundTransfersOutboundTransferParamSchema =
   {
     outbound_transfer: string
   }
 
-export type t_postTestHelpersTreasuryOutboundTransfersOutboundTransferApplicationXWwwFormUrlencodedRequestBody =
+export type t_PostTestHelpersTreasuryOutboundTransfersOutboundTransferRequestBody =
   {
     expand?: string[] | undefined
     tracking_details: {
@@ -47837,7 +47555,7 @@ export type t_PostTestHelpersTreasuryOutboundTransfersOutboundTransferFailParamS
     outbound_transfer: string
   }
 
-export type t_postTestHelpersTreasuryOutboundTransfersOutboundTransferFailApplicationXWwwFormUrlencodedRequestBody =
+export type t_PostTestHelpersTreasuryOutboundTransfersOutboundTransferFailRequestBody =
   {
     expand?: string[] | undefined
   }
@@ -47847,7 +47565,7 @@ export type t_PostTestHelpersTreasuryOutboundTransfersOutboundTransferPostParamS
     outbound_transfer: string
   }
 
-export type t_postTestHelpersTreasuryOutboundTransfersOutboundTransferPostApplicationXWwwFormUrlencodedRequestBody =
+export type t_PostTestHelpersTreasuryOutboundTransfersOutboundTransferPostRequestBody =
   {
     expand?: string[] | undefined
   }
@@ -47857,7 +47575,7 @@ export type t_PostTestHelpersTreasuryOutboundTransfersOutboundTransferReturnPara
     outbound_transfer: string
   }
 
-export type t_postTestHelpersTreasuryOutboundTransfersOutboundTransferReturnApplicationXWwwFormUrlencodedRequestBody =
+export type t_PostTestHelpersTreasuryOutboundTransfersOutboundTransferReturnRequestBody =
   {
     expand?: string[] | undefined
     returned_details?:
@@ -47880,51 +47598,49 @@ export type t_postTestHelpersTreasuryOutboundTransfersOutboundTransferReturnAppl
       | undefined
   }
 
-export type t_postTestHelpersTreasuryReceivedCreditsApplicationXWwwFormUrlencodedRequestBody =
-  {
-    amount: number
-    currency: string
-    description?: string | undefined
-    expand?: string[] | undefined
-    financial_account: string
-    initiating_payment_method_details?:
-      | {
-          type: "us_bank_account"
-          us_bank_account?:
-            | {
-                account_holder_name?: string | undefined
-                account_number?: string | undefined
-                routing_number?: string | undefined
-              }
-            | undefined
-        }
-      | undefined
-    network: "ach" | "us_domestic_wire"
-  }
+export type t_PostTestHelpersTreasuryReceivedCreditsRequestBody = {
+  amount: number
+  currency: string
+  description?: string | undefined
+  expand?: string[] | undefined
+  financial_account: string
+  initiating_payment_method_details?:
+    | {
+        type: "us_bank_account"
+        us_bank_account?:
+          | {
+              account_holder_name?: string | undefined
+              account_number?: string | undefined
+              routing_number?: string | undefined
+            }
+          | undefined
+      }
+    | undefined
+  network: "ach" | "us_domestic_wire"
+}
 
-export type t_postTestHelpersTreasuryReceivedDebitsApplicationXWwwFormUrlencodedRequestBody =
-  {
-    amount: number
-    currency: string
-    description?: string | undefined
-    expand?: string[] | undefined
-    financial_account: string
-    initiating_payment_method_details?:
-      | {
-          type: "us_bank_account"
-          us_bank_account?:
-            | {
-                account_holder_name?: string | undefined
-                account_number?: string | undefined
-                routing_number?: string | undefined
-              }
-            | undefined
-        }
-      | undefined
-    network: "ach"
-  }
+export type t_PostTestHelpersTreasuryReceivedDebitsRequestBody = {
+  amount: number
+  currency: string
+  description?: string | undefined
+  expand?: string[] | undefined
+  financial_account: string
+  initiating_payment_method_details?:
+    | {
+        type: "us_bank_account"
+        us_bank_account?:
+          | {
+              account_holder_name?: string | undefined
+              account_number?: string | undefined
+              routing_number?: string | undefined
+            }
+          | undefined
+      }
+    | undefined
+  network: "ach"
+}
 
-export type t_postTokensApplicationXWwwFormUrlencodedRequestBody = {
+export type t_PostTokensRequestBody = {
   account?:
     | {
         business_type?:
@@ -48400,7 +48116,7 @@ export type t_postTokensApplicationXWwwFormUrlencodedRequestBody = {
     | undefined
 }
 
-export type t_postTopupsApplicationXWwwFormUrlencodedRequestBody = {
+export type t_PostTopupsRequestBody = {
   amount: number
   currency: string
   description?: string | undefined
@@ -48422,7 +48138,7 @@ export type t_PostTopupsTopupParamSchema = {
   topup: string
 }
 
-export type t_postTopupsTopupApplicationXWwwFormUrlencodedRequestBody = {
+export type t_PostTopupsTopupRequestBody = {
   description?: string | undefined
   expand?: string[] | undefined
   metadata?:
@@ -48439,11 +48155,11 @@ export type t_PostTopupsTopupCancelParamSchema = {
   topup: string
 }
 
-export type t_postTopupsTopupCancelApplicationXWwwFormUrlencodedRequestBody = {
+export type t_PostTopupsTopupCancelRequestBody = {
   expand?: string[] | undefined
 }
 
-export type t_postTransfersApplicationXWwwFormUrlencodedRequestBody = {
+export type t_PostTransfersRequestBody = {
   amount?: number | undefined
   currency: string
   description?: string | undefined
@@ -48463,27 +48179,26 @@ export type t_PostTransfersIdReversalsParamSchema = {
   id: string
 }
 
-export type t_postTransfersIdReversalsApplicationXWwwFormUrlencodedRequestBody =
-  {
-    amount?: number | undefined
-    description?: string | undefined
-    expand?: string[] | undefined
-    metadata?:
-      | (
-          | {
-              [key: string]: string | undefined
-            }
-          | ""
-        )
-      | undefined
-    refund_application_fee?: boolean | undefined
-  }
+export type t_PostTransfersIdReversalsRequestBody = {
+  amount?: number | undefined
+  description?: string | undefined
+  expand?: string[] | undefined
+  metadata?:
+    | (
+        | {
+            [key: string]: string | undefined
+          }
+        | ""
+      )
+    | undefined
+  refund_application_fee?: boolean | undefined
+}
 
 export type t_PostTransfersTransferParamSchema = {
   transfer: string
 }
 
-export type t_postTransfersTransferApplicationXWwwFormUrlencodedRequestBody = {
+export type t_PostTransfersTransferRequestBody = {
   description?: string | undefined
   expand?: string[] | undefined
   metadata?:
@@ -48501,239 +48216,233 @@ export type t_PostTransfersTransferReversalsIdParamSchema = {
   transfer: string
 }
 
-export type t_postTransfersTransferReversalsIdApplicationXWwwFormUrlencodedRequestBody =
-  {
-    expand?: string[] | undefined
-    metadata?:
-      | (
+export type t_PostTransfersTransferReversalsIdRequestBody = {
+  expand?: string[] | undefined
+  metadata?:
+    | (
+        | {
+            [key: string]: string | undefined
+          }
+        | ""
+      )
+    | undefined
+}
+
+export type t_PostTreasuryCreditReversalsRequestBody = {
+  expand?: string[] | undefined
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | undefined
+  received_credit: string
+}
+
+export type t_PostTreasuryDebitReversalsRequestBody = {
+  expand?: string[] | undefined
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | undefined
+  received_debit: string
+}
+
+export type t_PostTreasuryFinancialAccountsRequestBody = {
+  expand?: string[] | undefined
+  features?:
+    | {
+        card_issuing?:
           | {
-              [key: string]: string | undefined
+              requested: boolean
             }
-          | ""
-        )
-      | undefined
-  }
-
-export type t_postTreasuryCreditReversalsApplicationXWwwFormUrlencodedRequestBody =
-  {
-    expand?: string[] | undefined
-    metadata?:
-      | {
-          [key: string]: string | undefined
-        }
-      | undefined
-    received_credit: string
-  }
-
-export type t_postTreasuryDebitReversalsApplicationXWwwFormUrlencodedRequestBody =
-  {
-    expand?: string[] | undefined
-    metadata?:
-      | {
-          [key: string]: string | undefined
-        }
-      | undefined
-    received_debit: string
-  }
-
-export type t_postTreasuryFinancialAccountsApplicationXWwwFormUrlencodedRequestBody =
-  {
-    expand?: string[] | undefined
-    features?:
-      | {
-          card_issuing?:
-            | {
-                requested: boolean
-              }
-            | undefined
-          deposit_insurance?:
-            | {
-                requested: boolean
-              }
-            | undefined
-          financial_addresses?:
-            | {
-                aba?:
-                  | {
-                      requested: boolean
-                    }
-                  | undefined
-              }
-            | undefined
-          inbound_transfers?:
-            | {
-                ach?:
-                  | {
-                      requested: boolean
-                    }
-                  | undefined
-              }
-            | undefined
-          intra_stripe_flows?:
-            | {
-                requested: boolean
-              }
-            | undefined
-          outbound_payments?:
-            | {
-                ach?:
-                  | {
-                      requested: boolean
-                    }
-                  | undefined
-                us_domestic_wire?:
-                  | {
-                      requested: boolean
-                    }
-                  | undefined
-              }
-            | undefined
-          outbound_transfers?:
-            | {
-                ach?:
-                  | {
-                      requested: boolean
-                    }
-                  | undefined
-                us_domestic_wire?:
-                  | {
-                      requested: boolean
-                    }
-                  | undefined
-              }
-            | undefined
-        }
-      | undefined
-    metadata?:
-      | {
-          [key: string]: string | undefined
-        }
-      | undefined
-    nickname?: (string | "") | undefined
-    platform_restrictions?:
-      | {
-          inbound_flows?: ("restricted" | "unrestricted") | undefined
-          outbound_flows?: ("restricted" | "unrestricted") | undefined
-        }
-      | undefined
-    supported_currencies: string[]
-  }
+          | undefined
+        deposit_insurance?:
+          | {
+              requested: boolean
+            }
+          | undefined
+        financial_addresses?:
+          | {
+              aba?:
+                | {
+                    requested: boolean
+                  }
+                | undefined
+            }
+          | undefined
+        inbound_transfers?:
+          | {
+              ach?:
+                | {
+                    requested: boolean
+                  }
+                | undefined
+            }
+          | undefined
+        intra_stripe_flows?:
+          | {
+              requested: boolean
+            }
+          | undefined
+        outbound_payments?:
+          | {
+              ach?:
+                | {
+                    requested: boolean
+                  }
+                | undefined
+              us_domestic_wire?:
+                | {
+                    requested: boolean
+                  }
+                | undefined
+            }
+          | undefined
+        outbound_transfers?:
+          | {
+              ach?:
+                | {
+                    requested: boolean
+                  }
+                | undefined
+              us_domestic_wire?:
+                | {
+                    requested: boolean
+                  }
+                | undefined
+            }
+          | undefined
+      }
+    | undefined
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | undefined
+  nickname?: (string | "") | undefined
+  platform_restrictions?:
+    | {
+        inbound_flows?: ("restricted" | "unrestricted") | undefined
+        outbound_flows?: ("restricted" | "unrestricted") | undefined
+      }
+    | undefined
+  supported_currencies: string[]
+}
 
 export type t_PostTreasuryFinancialAccountsFinancialAccountParamSchema = {
   financial_account: string
 }
 
-export type t_postTreasuryFinancialAccountsFinancialAccountApplicationXWwwFormUrlencodedRequestBody =
-  {
-    expand?: string[] | undefined
-    features?:
-      | {
-          card_issuing?:
-            | {
-                requested: boolean
-              }
-            | undefined
-          deposit_insurance?:
-            | {
-                requested: boolean
-              }
-            | undefined
-          financial_addresses?:
-            | {
-                aba?:
-                  | {
-                      requested: boolean
-                    }
-                  | undefined
-              }
-            | undefined
-          inbound_transfers?:
-            | {
-                ach?:
-                  | {
-                      requested: boolean
-                    }
-                  | undefined
-              }
-            | undefined
-          intra_stripe_flows?:
-            | {
-                requested: boolean
-              }
-            | undefined
-          outbound_payments?:
-            | {
-                ach?:
-                  | {
-                      requested: boolean
-                    }
-                  | undefined
-                us_domestic_wire?:
-                  | {
-                      requested: boolean
-                    }
-                  | undefined
-              }
-            | undefined
-          outbound_transfers?:
-            | {
-                ach?:
-                  | {
-                      requested: boolean
-                    }
-                  | undefined
-                us_domestic_wire?:
-                  | {
-                      requested: boolean
-                    }
-                  | undefined
-              }
-            | undefined
-        }
-      | undefined
-    forwarding_settings?:
-      | {
-          financial_account?: string | undefined
-          payment_method?: string | undefined
-          type: "financial_account" | "payment_method"
-        }
-      | undefined
-    metadata?:
-      | {
-          [key: string]: string | undefined
-        }
-      | undefined
-    nickname?: (string | "") | undefined
-    platform_restrictions?:
-      | {
-          inbound_flows?: ("restricted" | "unrestricted") | undefined
-          outbound_flows?: ("restricted" | "unrestricted") | undefined
-        }
-      | undefined
-  }
+export type t_PostTreasuryFinancialAccountsFinancialAccountRequestBody = {
+  expand?: string[] | undefined
+  features?:
+    | {
+        card_issuing?:
+          | {
+              requested: boolean
+            }
+          | undefined
+        deposit_insurance?:
+          | {
+              requested: boolean
+            }
+          | undefined
+        financial_addresses?:
+          | {
+              aba?:
+                | {
+                    requested: boolean
+                  }
+                | undefined
+            }
+          | undefined
+        inbound_transfers?:
+          | {
+              ach?:
+                | {
+                    requested: boolean
+                  }
+                | undefined
+            }
+          | undefined
+        intra_stripe_flows?:
+          | {
+              requested: boolean
+            }
+          | undefined
+        outbound_payments?:
+          | {
+              ach?:
+                | {
+                    requested: boolean
+                  }
+                | undefined
+              us_domestic_wire?:
+                | {
+                    requested: boolean
+                  }
+                | undefined
+            }
+          | undefined
+        outbound_transfers?:
+          | {
+              ach?:
+                | {
+                    requested: boolean
+                  }
+                | undefined
+              us_domestic_wire?:
+                | {
+                    requested: boolean
+                  }
+                | undefined
+            }
+          | undefined
+      }
+    | undefined
+  forwarding_settings?:
+    | {
+        financial_account?: string | undefined
+        payment_method?: string | undefined
+        type: "financial_account" | "payment_method"
+      }
+    | undefined
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | undefined
+  nickname?: (string | "") | undefined
+  platform_restrictions?:
+    | {
+        inbound_flows?: ("restricted" | "unrestricted") | undefined
+        outbound_flows?: ("restricted" | "unrestricted") | undefined
+      }
+    | undefined
+}
 
 export type t_PostTreasuryFinancialAccountsFinancialAccountCloseParamSchema = {
   financial_account: string
 }
 
-export type t_postTreasuryFinancialAccountsFinancialAccountCloseApplicationXWwwFormUrlencodedRequestBody =
-  {
-    expand?: string[] | undefined
-    forwarding_settings?:
-      | {
-          financial_account?: string | undefined
-          payment_method?: string | undefined
-          type: "financial_account" | "payment_method"
-        }
-      | undefined
-  }
+export type t_PostTreasuryFinancialAccountsFinancialAccountCloseRequestBody = {
+  expand?: string[] | undefined
+  forwarding_settings?:
+    | {
+        financial_account?: string | undefined
+        payment_method?: string | undefined
+        type: "financial_account" | "payment_method"
+      }
+    | undefined
+}
 
 export type t_PostTreasuryFinancialAccountsFinancialAccountFeaturesParamSchema =
   {
     financial_account: string
   }
 
-export type t_postTreasuryFinancialAccountsFinancialAccountFeaturesApplicationXWwwFormUrlencodedRequestBody =
+export type t_PostTreasuryFinancialAccountsFinancialAccountFeaturesRequestBody =
   {
     card_issuing?:
       | {
@@ -48799,159 +48508,153 @@ export type t_postTreasuryFinancialAccountsFinancialAccountFeaturesApplicationXW
       | undefined
   }
 
-export type t_postTreasuryInboundTransfersApplicationXWwwFormUrlencodedRequestBody =
-  {
-    amount: number
-    currency: string
-    description?: string | undefined
-    expand?: string[] | undefined
-    financial_account: string
-    metadata?:
-      | {
-          [key: string]: string | undefined
-        }
-      | undefined
-    origin_payment_method: string
-    statement_descriptor?: string | undefined
-  }
+export type t_PostTreasuryInboundTransfersRequestBody = {
+  amount: number
+  currency: string
+  description?: string | undefined
+  expand?: string[] | undefined
+  financial_account: string
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | undefined
+  origin_payment_method: string
+  statement_descriptor?: string | undefined
+}
 
 export type t_PostTreasuryInboundTransfersInboundTransferCancelParamSchema = {
   inbound_transfer: string
 }
 
-export type t_postTreasuryInboundTransfersInboundTransferCancelApplicationXWwwFormUrlencodedRequestBody =
-  {
-    expand?: string[] | undefined
-  }
+export type t_PostTreasuryInboundTransfersInboundTransferCancelRequestBody = {
+  expand?: string[] | undefined
+}
 
-export type t_postTreasuryOutboundPaymentsApplicationXWwwFormUrlencodedRequestBody =
-  {
-    amount: number
-    currency: string
-    customer?: string | undefined
-    description?: string | undefined
-    destination_payment_method?: string | undefined
-    destination_payment_method_data?:
-      | {
-          billing_details?:
-            | {
-                address?:
-                  | (
-                      | {
-                          city?: string | undefined
-                          country?: string | undefined
-                          line1?: string | undefined
-                          line2?: string | undefined
-                          postal_code?: string | undefined
-                          state?: string | undefined
-                        }
-                      | ""
-                    )
-                  | undefined
-                email?: (string | "") | undefined
-                name?: (string | "") | undefined
-                phone?: (string | "") | undefined
-              }
-            | undefined
-          financial_account?: string | undefined
-          metadata?:
-            | {
-                [key: string]: string | undefined
-              }
-            | undefined
-          type: "financial_account" | "us_bank_account"
-          us_bank_account?:
-            | {
-                account_holder_type?: ("company" | "individual") | undefined
-                account_number?: string | undefined
-                account_type?: ("checking" | "savings") | undefined
-                financial_connections_account?: string | undefined
-                routing_number?: string | undefined
-              }
-            | undefined
-        }
-      | undefined
-    destination_payment_method_options?:
-      | {
-          us_bank_account?:
-            | (
-                | {
-                    network?: ("ach" | "us_domestic_wire") | undefined
-                  }
-                | ""
-              )
-            | undefined
-        }
-      | undefined
-    end_user_details?:
-      | {
-          ip_address?: string | undefined
-          present: boolean
-        }
-      | undefined
-    expand?: string[] | undefined
-    financial_account: string
-    metadata?:
-      | {
-          [key: string]: string | undefined
-        }
-      | undefined
-    statement_descriptor?: string | undefined
-  }
+export type t_PostTreasuryOutboundPaymentsRequestBody = {
+  amount: number
+  currency: string
+  customer?: string | undefined
+  description?: string | undefined
+  destination_payment_method?: string | undefined
+  destination_payment_method_data?:
+    | {
+        billing_details?:
+          | {
+              address?:
+                | (
+                    | {
+                        city?: string | undefined
+                        country?: string | undefined
+                        line1?: string | undefined
+                        line2?: string | undefined
+                        postal_code?: string | undefined
+                        state?: string | undefined
+                      }
+                    | ""
+                  )
+                | undefined
+              email?: (string | "") | undefined
+              name?: (string | "") | undefined
+              phone?: (string | "") | undefined
+            }
+          | undefined
+        financial_account?: string | undefined
+        metadata?:
+          | {
+              [key: string]: string | undefined
+            }
+          | undefined
+        type: "financial_account" | "us_bank_account"
+        us_bank_account?:
+          | {
+              account_holder_type?: ("company" | "individual") | undefined
+              account_number?: string | undefined
+              account_type?: ("checking" | "savings") | undefined
+              financial_connections_account?: string | undefined
+              routing_number?: string | undefined
+            }
+          | undefined
+      }
+    | undefined
+  destination_payment_method_options?:
+    | {
+        us_bank_account?:
+          | (
+              | {
+                  network?: ("ach" | "us_domestic_wire") | undefined
+                }
+              | ""
+            )
+          | undefined
+      }
+    | undefined
+  end_user_details?:
+    | {
+        ip_address?: string | undefined
+        present: boolean
+      }
+    | undefined
+  expand?: string[] | undefined
+  financial_account: string
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | undefined
+  statement_descriptor?: string | undefined
+}
 
 export type t_PostTreasuryOutboundPaymentsIdCancelParamSchema = {
   id: string
 }
 
-export type t_postTreasuryOutboundPaymentsIdCancelApplicationXWwwFormUrlencodedRequestBody =
-  {
-    expand?: string[] | undefined
-  }
+export type t_PostTreasuryOutboundPaymentsIdCancelRequestBody = {
+  expand?: string[] | undefined
+}
 
-export type t_postTreasuryOutboundTransfersApplicationXWwwFormUrlencodedRequestBody =
-  {
-    amount: number
-    currency: string
-    description?: string | undefined
-    destination_payment_method?: string | undefined
-    destination_payment_method_data?:
-      | {
-          financial_account?: string | undefined
-          type: "financial_account"
-        }
-      | undefined
-    destination_payment_method_options?:
-      | {
-          us_bank_account?:
-            | (
-                | {
-                    network?: ("ach" | "us_domestic_wire") | undefined
-                  }
-                | ""
-              )
-            | undefined
-        }
-      | undefined
-    expand?: string[] | undefined
-    financial_account: string
-    metadata?:
-      | {
-          [key: string]: string | undefined
-        }
-      | undefined
-    statement_descriptor?: string | undefined
-  }
+export type t_PostTreasuryOutboundTransfersRequestBody = {
+  amount: number
+  currency: string
+  description?: string | undefined
+  destination_payment_method?: string | undefined
+  destination_payment_method_data?:
+    | {
+        financial_account?: string | undefined
+        type: "financial_account"
+      }
+    | undefined
+  destination_payment_method_options?:
+    | {
+        us_bank_account?:
+          | (
+              | {
+                  network?: ("ach" | "us_domestic_wire") | undefined
+                }
+              | ""
+            )
+          | undefined
+      }
+    | undefined
+  expand?: string[] | undefined
+  financial_account: string
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | undefined
+  statement_descriptor?: string | undefined
+}
 
 export type t_PostTreasuryOutboundTransfersOutboundTransferCancelParamSchema = {
   outbound_transfer: string
 }
 
-export type t_postTreasuryOutboundTransfersOutboundTransferCancelApplicationXWwwFormUrlencodedRequestBody =
-  {
-    expand?: string[] | undefined
-  }
+export type t_PostTreasuryOutboundTransfersOutboundTransferCancelRequestBody = {
+  expand?: string[] | undefined
+}
 
-export type t_postWebhookEndpointsApplicationXWwwFormUrlencodedRequestBody = {
+export type t_PostWebhookEndpointsRequestBody = {
   api_version?:
     | (
         | "2011-01-01"
@@ -49333,265 +49036,264 @@ export type t_PostWebhookEndpointsWebhookEndpointParamSchema = {
   webhook_endpoint: string
 }
 
-export type t_postWebhookEndpointsWebhookEndpointApplicationXWwwFormUrlencodedRequestBody =
-  {
-    description?: (string | "") | undefined
-    disabled?: boolean | undefined
-    enabled_events?:
-      | (
-          | "*"
-          | "account.application.authorized"
-          | "account.application.deauthorized"
-          | "account.external_account.created"
-          | "account.external_account.deleted"
-          | "account.external_account.updated"
-          | "account.updated"
-          | "application_fee.created"
-          | "application_fee.refund.updated"
-          | "application_fee.refunded"
-          | "balance.available"
-          | "billing.alert.triggered"
-          | "billing_portal.configuration.created"
-          | "billing_portal.configuration.updated"
-          | "billing_portal.session.created"
-          | "capability.updated"
-          | "cash_balance.funds_available"
-          | "charge.captured"
-          | "charge.dispute.closed"
-          | "charge.dispute.created"
-          | "charge.dispute.funds_reinstated"
-          | "charge.dispute.funds_withdrawn"
-          | "charge.dispute.updated"
-          | "charge.expired"
-          | "charge.failed"
-          | "charge.pending"
-          | "charge.refund.updated"
-          | "charge.refunded"
-          | "charge.succeeded"
-          | "charge.updated"
-          | "checkout.session.async_payment_failed"
-          | "checkout.session.async_payment_succeeded"
-          | "checkout.session.completed"
-          | "checkout.session.expired"
-          | "climate.order.canceled"
-          | "climate.order.created"
-          | "climate.order.delayed"
-          | "climate.order.delivered"
-          | "climate.order.product_substituted"
-          | "climate.product.created"
-          | "climate.product.pricing_updated"
-          | "coupon.created"
-          | "coupon.deleted"
-          | "coupon.updated"
-          | "credit_note.created"
-          | "credit_note.updated"
-          | "credit_note.voided"
-          | "customer.created"
-          | "customer.deleted"
-          | "customer.discount.created"
-          | "customer.discount.deleted"
-          | "customer.discount.updated"
-          | "customer.source.created"
-          | "customer.source.deleted"
-          | "customer.source.expiring"
-          | "customer.source.updated"
-          | "customer.subscription.created"
-          | "customer.subscription.deleted"
-          | "customer.subscription.paused"
-          | "customer.subscription.pending_update_applied"
-          | "customer.subscription.pending_update_expired"
-          | "customer.subscription.resumed"
-          | "customer.subscription.trial_will_end"
-          | "customer.subscription.updated"
-          | "customer.tax_id.created"
-          | "customer.tax_id.deleted"
-          | "customer.tax_id.updated"
-          | "customer.updated"
-          | "customer_cash_balance_transaction.created"
-          | "entitlements.active_entitlement_summary.updated"
-          | "file.created"
-          | "financial_connections.account.created"
-          | "financial_connections.account.deactivated"
-          | "financial_connections.account.disconnected"
-          | "financial_connections.account.reactivated"
-          | "financial_connections.account.refreshed_balance"
-          | "financial_connections.account.refreshed_ownership"
-          | "financial_connections.account.refreshed_transactions"
-          | "identity.verification_session.canceled"
-          | "identity.verification_session.created"
-          | "identity.verification_session.processing"
-          | "identity.verification_session.redacted"
-          | "identity.verification_session.requires_input"
-          | "identity.verification_session.verified"
-          | "invoice.created"
-          | "invoice.deleted"
-          | "invoice.finalization_failed"
-          | "invoice.finalized"
-          | "invoice.marked_uncollectible"
-          | "invoice.overdue"
-          | "invoice.overpaid"
-          | "invoice.paid"
-          | "invoice.payment_action_required"
-          | "invoice.payment_failed"
-          | "invoice.payment_succeeded"
-          | "invoice.sent"
-          | "invoice.upcoming"
-          | "invoice.updated"
-          | "invoice.voided"
-          | "invoice.will_be_due"
-          | "invoice_payment.paid"
-          | "invoiceitem.created"
-          | "invoiceitem.deleted"
-          | "issuing_authorization.created"
-          | "issuing_authorization.request"
-          | "issuing_authorization.updated"
-          | "issuing_card.created"
-          | "issuing_card.updated"
-          | "issuing_cardholder.created"
-          | "issuing_cardholder.updated"
-          | "issuing_dispute.closed"
-          | "issuing_dispute.created"
-          | "issuing_dispute.funds_reinstated"
-          | "issuing_dispute.funds_rescinded"
-          | "issuing_dispute.submitted"
-          | "issuing_dispute.updated"
-          | "issuing_personalization_design.activated"
-          | "issuing_personalization_design.deactivated"
-          | "issuing_personalization_design.rejected"
-          | "issuing_personalization_design.updated"
-          | "issuing_token.created"
-          | "issuing_token.updated"
-          | "issuing_transaction.created"
-          | "issuing_transaction.purchase_details_receipt_updated"
-          | "issuing_transaction.updated"
-          | "mandate.updated"
-          | "payment_intent.amount_capturable_updated"
-          | "payment_intent.canceled"
-          | "payment_intent.created"
-          | "payment_intent.partially_funded"
-          | "payment_intent.payment_failed"
-          | "payment_intent.processing"
-          | "payment_intent.requires_action"
-          | "payment_intent.succeeded"
-          | "payment_link.created"
-          | "payment_link.updated"
-          | "payment_method.attached"
-          | "payment_method.automatically_updated"
-          | "payment_method.detached"
-          | "payment_method.updated"
-          | "payout.canceled"
-          | "payout.created"
-          | "payout.failed"
-          | "payout.paid"
-          | "payout.reconciliation_completed"
-          | "payout.updated"
-          | "person.created"
-          | "person.deleted"
-          | "person.updated"
-          | "plan.created"
-          | "plan.deleted"
-          | "plan.updated"
-          | "price.created"
-          | "price.deleted"
-          | "price.updated"
-          | "product.created"
-          | "product.deleted"
-          | "product.updated"
-          | "promotion_code.created"
-          | "promotion_code.updated"
-          | "quote.accepted"
-          | "quote.canceled"
-          | "quote.created"
-          | "quote.finalized"
-          | "radar.early_fraud_warning.created"
-          | "radar.early_fraud_warning.updated"
-          | "refund.created"
-          | "refund.failed"
-          | "refund.updated"
-          | "reporting.report_run.failed"
-          | "reporting.report_run.succeeded"
-          | "reporting.report_type.updated"
-          | "review.closed"
-          | "review.opened"
-          | "setup_intent.canceled"
-          | "setup_intent.created"
-          | "setup_intent.requires_action"
-          | "setup_intent.setup_failed"
-          | "setup_intent.succeeded"
-          | "sigma.scheduled_query_run.created"
-          | "source.canceled"
-          | "source.chargeable"
-          | "source.failed"
-          | "source.mandate_notification"
-          | "source.refund_attributes_required"
-          | "source.transaction.created"
-          | "source.transaction.updated"
-          | "subscription_schedule.aborted"
-          | "subscription_schedule.canceled"
-          | "subscription_schedule.completed"
-          | "subscription_schedule.created"
-          | "subscription_schedule.expiring"
-          | "subscription_schedule.released"
-          | "subscription_schedule.updated"
-          | "tax.settings.updated"
-          | "tax_rate.created"
-          | "tax_rate.updated"
-          | "terminal.reader.action_failed"
-          | "terminal.reader.action_succeeded"
-          | "terminal.reader.action_updated"
-          | "test_helpers.test_clock.advancing"
-          | "test_helpers.test_clock.created"
-          | "test_helpers.test_clock.deleted"
-          | "test_helpers.test_clock.internal_failure"
-          | "test_helpers.test_clock.ready"
-          | "topup.canceled"
-          | "topup.created"
-          | "topup.failed"
-          | "topup.reversed"
-          | "topup.succeeded"
-          | "transfer.created"
-          | "transfer.reversed"
-          | "transfer.updated"
-          | "treasury.credit_reversal.created"
-          | "treasury.credit_reversal.posted"
-          | "treasury.debit_reversal.completed"
-          | "treasury.debit_reversal.created"
-          | "treasury.debit_reversal.initial_credit_granted"
-          | "treasury.financial_account.closed"
-          | "treasury.financial_account.created"
-          | "treasury.financial_account.features_status_updated"
-          | "treasury.inbound_transfer.canceled"
-          | "treasury.inbound_transfer.created"
-          | "treasury.inbound_transfer.failed"
-          | "treasury.inbound_transfer.succeeded"
-          | "treasury.outbound_payment.canceled"
-          | "treasury.outbound_payment.created"
-          | "treasury.outbound_payment.expected_arrival_date_updated"
-          | "treasury.outbound_payment.failed"
-          | "treasury.outbound_payment.posted"
-          | "treasury.outbound_payment.returned"
-          | "treasury.outbound_payment.tracking_details_updated"
-          | "treasury.outbound_transfer.canceled"
-          | "treasury.outbound_transfer.created"
-          | "treasury.outbound_transfer.expected_arrival_date_updated"
-          | "treasury.outbound_transfer.failed"
-          | "treasury.outbound_transfer.posted"
-          | "treasury.outbound_transfer.returned"
-          | "treasury.outbound_transfer.tracking_details_updated"
-          | "treasury.received_credit.created"
-          | "treasury.received_credit.failed"
-          | "treasury.received_credit.succeeded"
-          | "treasury.received_debit.created"
-        )[]
-      | undefined
-    expand?: string[] | undefined
-    metadata?:
-      | (
-          | {
-              [key: string]: string | undefined
-            }
-          | ""
-        )
-      | undefined
-    url?: string | undefined
-  }
+export type t_PostWebhookEndpointsWebhookEndpointRequestBody = {
+  description?: (string | "") | undefined
+  disabled?: boolean | undefined
+  enabled_events?:
+    | (
+        | "*"
+        | "account.application.authorized"
+        | "account.application.deauthorized"
+        | "account.external_account.created"
+        | "account.external_account.deleted"
+        | "account.external_account.updated"
+        | "account.updated"
+        | "application_fee.created"
+        | "application_fee.refund.updated"
+        | "application_fee.refunded"
+        | "balance.available"
+        | "billing.alert.triggered"
+        | "billing_portal.configuration.created"
+        | "billing_portal.configuration.updated"
+        | "billing_portal.session.created"
+        | "capability.updated"
+        | "cash_balance.funds_available"
+        | "charge.captured"
+        | "charge.dispute.closed"
+        | "charge.dispute.created"
+        | "charge.dispute.funds_reinstated"
+        | "charge.dispute.funds_withdrawn"
+        | "charge.dispute.updated"
+        | "charge.expired"
+        | "charge.failed"
+        | "charge.pending"
+        | "charge.refund.updated"
+        | "charge.refunded"
+        | "charge.succeeded"
+        | "charge.updated"
+        | "checkout.session.async_payment_failed"
+        | "checkout.session.async_payment_succeeded"
+        | "checkout.session.completed"
+        | "checkout.session.expired"
+        | "climate.order.canceled"
+        | "climate.order.created"
+        | "climate.order.delayed"
+        | "climate.order.delivered"
+        | "climate.order.product_substituted"
+        | "climate.product.created"
+        | "climate.product.pricing_updated"
+        | "coupon.created"
+        | "coupon.deleted"
+        | "coupon.updated"
+        | "credit_note.created"
+        | "credit_note.updated"
+        | "credit_note.voided"
+        | "customer.created"
+        | "customer.deleted"
+        | "customer.discount.created"
+        | "customer.discount.deleted"
+        | "customer.discount.updated"
+        | "customer.source.created"
+        | "customer.source.deleted"
+        | "customer.source.expiring"
+        | "customer.source.updated"
+        | "customer.subscription.created"
+        | "customer.subscription.deleted"
+        | "customer.subscription.paused"
+        | "customer.subscription.pending_update_applied"
+        | "customer.subscription.pending_update_expired"
+        | "customer.subscription.resumed"
+        | "customer.subscription.trial_will_end"
+        | "customer.subscription.updated"
+        | "customer.tax_id.created"
+        | "customer.tax_id.deleted"
+        | "customer.tax_id.updated"
+        | "customer.updated"
+        | "customer_cash_balance_transaction.created"
+        | "entitlements.active_entitlement_summary.updated"
+        | "file.created"
+        | "financial_connections.account.created"
+        | "financial_connections.account.deactivated"
+        | "financial_connections.account.disconnected"
+        | "financial_connections.account.reactivated"
+        | "financial_connections.account.refreshed_balance"
+        | "financial_connections.account.refreshed_ownership"
+        | "financial_connections.account.refreshed_transactions"
+        | "identity.verification_session.canceled"
+        | "identity.verification_session.created"
+        | "identity.verification_session.processing"
+        | "identity.verification_session.redacted"
+        | "identity.verification_session.requires_input"
+        | "identity.verification_session.verified"
+        | "invoice.created"
+        | "invoice.deleted"
+        | "invoice.finalization_failed"
+        | "invoice.finalized"
+        | "invoice.marked_uncollectible"
+        | "invoice.overdue"
+        | "invoice.overpaid"
+        | "invoice.paid"
+        | "invoice.payment_action_required"
+        | "invoice.payment_failed"
+        | "invoice.payment_succeeded"
+        | "invoice.sent"
+        | "invoice.upcoming"
+        | "invoice.updated"
+        | "invoice.voided"
+        | "invoice.will_be_due"
+        | "invoice_payment.paid"
+        | "invoiceitem.created"
+        | "invoiceitem.deleted"
+        | "issuing_authorization.created"
+        | "issuing_authorization.request"
+        | "issuing_authorization.updated"
+        | "issuing_card.created"
+        | "issuing_card.updated"
+        | "issuing_cardholder.created"
+        | "issuing_cardholder.updated"
+        | "issuing_dispute.closed"
+        | "issuing_dispute.created"
+        | "issuing_dispute.funds_reinstated"
+        | "issuing_dispute.funds_rescinded"
+        | "issuing_dispute.submitted"
+        | "issuing_dispute.updated"
+        | "issuing_personalization_design.activated"
+        | "issuing_personalization_design.deactivated"
+        | "issuing_personalization_design.rejected"
+        | "issuing_personalization_design.updated"
+        | "issuing_token.created"
+        | "issuing_token.updated"
+        | "issuing_transaction.created"
+        | "issuing_transaction.purchase_details_receipt_updated"
+        | "issuing_transaction.updated"
+        | "mandate.updated"
+        | "payment_intent.amount_capturable_updated"
+        | "payment_intent.canceled"
+        | "payment_intent.created"
+        | "payment_intent.partially_funded"
+        | "payment_intent.payment_failed"
+        | "payment_intent.processing"
+        | "payment_intent.requires_action"
+        | "payment_intent.succeeded"
+        | "payment_link.created"
+        | "payment_link.updated"
+        | "payment_method.attached"
+        | "payment_method.automatically_updated"
+        | "payment_method.detached"
+        | "payment_method.updated"
+        | "payout.canceled"
+        | "payout.created"
+        | "payout.failed"
+        | "payout.paid"
+        | "payout.reconciliation_completed"
+        | "payout.updated"
+        | "person.created"
+        | "person.deleted"
+        | "person.updated"
+        | "plan.created"
+        | "plan.deleted"
+        | "plan.updated"
+        | "price.created"
+        | "price.deleted"
+        | "price.updated"
+        | "product.created"
+        | "product.deleted"
+        | "product.updated"
+        | "promotion_code.created"
+        | "promotion_code.updated"
+        | "quote.accepted"
+        | "quote.canceled"
+        | "quote.created"
+        | "quote.finalized"
+        | "radar.early_fraud_warning.created"
+        | "radar.early_fraud_warning.updated"
+        | "refund.created"
+        | "refund.failed"
+        | "refund.updated"
+        | "reporting.report_run.failed"
+        | "reporting.report_run.succeeded"
+        | "reporting.report_type.updated"
+        | "review.closed"
+        | "review.opened"
+        | "setup_intent.canceled"
+        | "setup_intent.created"
+        | "setup_intent.requires_action"
+        | "setup_intent.setup_failed"
+        | "setup_intent.succeeded"
+        | "sigma.scheduled_query_run.created"
+        | "source.canceled"
+        | "source.chargeable"
+        | "source.failed"
+        | "source.mandate_notification"
+        | "source.refund_attributes_required"
+        | "source.transaction.created"
+        | "source.transaction.updated"
+        | "subscription_schedule.aborted"
+        | "subscription_schedule.canceled"
+        | "subscription_schedule.completed"
+        | "subscription_schedule.created"
+        | "subscription_schedule.expiring"
+        | "subscription_schedule.released"
+        | "subscription_schedule.updated"
+        | "tax.settings.updated"
+        | "tax_rate.created"
+        | "tax_rate.updated"
+        | "terminal.reader.action_failed"
+        | "terminal.reader.action_succeeded"
+        | "terminal.reader.action_updated"
+        | "test_helpers.test_clock.advancing"
+        | "test_helpers.test_clock.created"
+        | "test_helpers.test_clock.deleted"
+        | "test_helpers.test_clock.internal_failure"
+        | "test_helpers.test_clock.ready"
+        | "topup.canceled"
+        | "topup.created"
+        | "topup.failed"
+        | "topup.reversed"
+        | "topup.succeeded"
+        | "transfer.created"
+        | "transfer.reversed"
+        | "transfer.updated"
+        | "treasury.credit_reversal.created"
+        | "treasury.credit_reversal.posted"
+        | "treasury.debit_reversal.completed"
+        | "treasury.debit_reversal.created"
+        | "treasury.debit_reversal.initial_credit_granted"
+        | "treasury.financial_account.closed"
+        | "treasury.financial_account.created"
+        | "treasury.financial_account.features_status_updated"
+        | "treasury.inbound_transfer.canceled"
+        | "treasury.inbound_transfer.created"
+        | "treasury.inbound_transfer.failed"
+        | "treasury.inbound_transfer.succeeded"
+        | "treasury.outbound_payment.canceled"
+        | "treasury.outbound_payment.created"
+        | "treasury.outbound_payment.expected_arrival_date_updated"
+        | "treasury.outbound_payment.failed"
+        | "treasury.outbound_payment.posted"
+        | "treasury.outbound_payment.returned"
+        | "treasury.outbound_payment.tracking_details_updated"
+        | "treasury.outbound_transfer.canceled"
+        | "treasury.outbound_transfer.created"
+        | "treasury.outbound_transfer.expected_arrival_date_updated"
+        | "treasury.outbound_transfer.failed"
+        | "treasury.outbound_transfer.posted"
+        | "treasury.outbound_transfer.returned"
+        | "treasury.outbound_transfer.tracking_details_updated"
+        | "treasury.received_credit.created"
+        | "treasury.received_credit.failed"
+        | "treasury.received_credit.succeeded"
+        | "treasury.received_debit.created"
+      )[]
+    | undefined
+  expand?: string[] | undefined
+  metadata?:
+    | (
+        | {
+            [key: string]: string | undefined
+          }
+        | ""
+      )
+    | undefined
+  url?: string | undefined
+}

@@ -8268,20 +8268,20 @@ export type t_workflow_usage = {
   }
 }
 
-export type t_actionsAddCustomLabelsToSelfHostedRunnerForOrgJsonRequestBody = {
+export type t_ActionsAddCustomLabelsToSelfHostedRunnerForOrgRequestBody = {
   labels: string[]
 }
 
-export type t_actionsAddCustomLabelsToSelfHostedRunnerForRepoJsonRequestBody = {
+export type t_ActionsAddCustomLabelsToSelfHostedRunnerForRepoRequestBody = {
   labels: string[]
 }
 
-export type t_actionsCreateEnvironmentVariableJsonRequestBody = {
+export type t_ActionsCreateEnvironmentVariableRequestBody = {
   name: string
   value: string
 }
 
-export type t_actionsCreateHostedRunnerForOrgJsonRequestBody = {
+export type t_ActionsCreateHostedRunnerForOrgRequestBody = {
   enable_static_ip?: boolean
   image: {
     id?: string
@@ -8293,36 +8293,36 @@ export type t_actionsCreateHostedRunnerForOrgJsonRequestBody = {
   size: string
 }
 
-export type t_actionsCreateOrUpdateEnvironmentSecretJsonRequestBody = {
+export type t_ActionsCreateOrUpdateEnvironmentSecretRequestBody = {
   encrypted_value: string
   key_id: string
 }
 
-export type t_actionsCreateOrUpdateOrgSecretJsonRequestBody = {
+export type t_ActionsCreateOrUpdateOrgSecretRequestBody = {
   encrypted_value: string
   key_id: string
   selected_repository_ids?: number[]
   visibility: "all" | "private" | "selected" | UnknownEnumStringValue
 }
 
-export type t_actionsCreateOrUpdateRepoSecretJsonRequestBody = {
+export type t_ActionsCreateOrUpdateRepoSecretRequestBody = {
   encrypted_value: string
   key_id: string
 }
 
-export type t_actionsCreateOrgVariableJsonRequestBody = {
+export type t_ActionsCreateOrgVariableRequestBody = {
   name: string
   selected_repository_ids?: number[]
   value: string
   visibility: "all" | "private" | "selected" | UnknownEnumStringValue
 }
 
-export type t_actionsCreateRepoVariableJsonRequestBody = {
+export type t_ActionsCreateRepoVariableRequestBody = {
   name: string
   value: string
 }
 
-export type t_actionsCreateSelfHostedRunnerGroupForOrgJsonRequestBody = {
+export type t_ActionsCreateSelfHostedRunnerGroupForOrgRequestBody = {
   allows_public_repositories?: boolean
   name: string
   network_configuration_id?: string
@@ -8333,120 +8333,118 @@ export type t_actionsCreateSelfHostedRunnerGroupForOrgJsonRequestBody = {
   visibility?: "selected" | "all" | "private" | UnknownEnumStringValue
 }
 
-export type t_actionsCreateWorkflowDispatchJsonRequestBody = {
+export type t_ActionsCreateWorkflowDispatchRequestBody = {
   inputs?: {
     [key: string]: unknown | undefined
   }
   ref: string
 }
 
-export type t_actionsGenerateRunnerJitconfigForOrgJsonRequestBody = {
+export type t_ActionsGenerateRunnerJitconfigForOrgRequestBody = {
   labels: string[]
   name: string
   runner_group_id: number
   work_folder?: string
 }
 
-export type t_actionsGenerateRunnerJitconfigForRepoJsonRequestBody = {
+export type t_ActionsGenerateRunnerJitconfigForRepoRequestBody = {
   labels: string[]
   name: string
   runner_group_id: number
   work_folder?: string
 }
 
-export type t_actionsReRunJobForWorkflowRunJsonRequestBody = {
+export type t_ActionsReRunJobForWorkflowRunRequestBody = {
   enable_debug_logging?: boolean
 } | null
 
-export type t_actionsReRunWorkflowJsonRequestBody = {
+export type t_ActionsReRunWorkflowRequestBody = {
   enable_debug_logging?: boolean
 } | null
 
-export type t_actionsReRunWorkflowFailedJobsJsonRequestBody = {
+export type t_ActionsReRunWorkflowFailedJobsRequestBody = {
   enable_debug_logging?: boolean
 } | null
 
-export type t_actionsReviewCustomGatesForRunJsonRequestBody =
+export type t_ActionsReviewCustomGatesForRunRequestBody =
   | t_review_custom_gates_comment_required
   | t_review_custom_gates_state_required
 
-export type t_actionsReviewPendingDeploymentsForRunJsonRequestBody = {
+export type t_ActionsReviewPendingDeploymentsForRunRequestBody = {
   comment: string
   environment_ids: number[]
   state: "approved" | "rejected" | UnknownEnumStringValue
 }
 
-export type t_actionsSetCustomLabelsForSelfHostedRunnerForOrgJsonRequestBody = {
+export type t_ActionsSetCustomLabelsForSelfHostedRunnerForOrgRequestBody = {
   labels: string[]
 }
 
-export type t_actionsSetCustomLabelsForSelfHostedRunnerForRepoJsonRequestBody =
-  {
-    labels: string[]
-  }
+export type t_ActionsSetCustomLabelsForSelfHostedRunnerForRepoRequestBody = {
+  labels: string[]
+}
 
-export type t_actionsSetCustomOidcSubClaimForRepoJsonRequestBody = {
+export type t_ActionsSetCustomOidcSubClaimForRepoRequestBody = {
   include_claim_keys?: string[]
   use_default: boolean
 }
 
-export type t_actionsSetGithubActionsPermissionsOrganizationJsonRequestBody = {
+export type t_ActionsSetGithubActionsPermissionsOrganizationRequestBody = {
   allowed_actions?: t_allowed_actions
   enabled_repositories: t_enabled_repositories
 }
 
-export type t_actionsSetGithubActionsPermissionsRepositoryJsonRequestBody = {
+export type t_ActionsSetGithubActionsPermissionsRepositoryRequestBody = {
   allowed_actions?: t_allowed_actions
   enabled: t_actions_enabled
 }
 
-export type t_actionsSetRepoAccessToSelfHostedRunnerGroupInOrgJsonRequestBody =
+export type t_ActionsSetRepoAccessToSelfHostedRunnerGroupInOrgRequestBody = {
+  selected_repository_ids: number[]
+}
+
+export type t_ActionsSetSelectedReposForOrgSecretRequestBody = {
+  selected_repository_ids: number[]
+}
+
+export type t_ActionsSetSelectedReposForOrgVariableRequestBody = {
+  selected_repository_ids: number[]
+}
+
+export type t_ActionsSetSelectedRepositoriesEnabledGithubActionsOrganizationRequestBody =
   {
     selected_repository_ids: number[]
   }
 
-export type t_actionsSetSelectedReposForOrgSecretJsonRequestBody = {
-  selected_repository_ids: number[]
-}
-
-export type t_actionsSetSelectedReposForOrgVariableJsonRequestBody = {
-  selected_repository_ids: number[]
-}
-
-export type t_actionsSetSelectedRepositoriesEnabledGithubActionsOrganizationJsonRequestBody =
-  {
-    selected_repository_ids: number[]
-  }
-
-export type t_actionsSetSelfHostedRunnersInGroupForOrgJsonRequestBody = {
+export type t_ActionsSetSelfHostedRunnersInGroupForOrgRequestBody = {
   runners: number[]
 }
 
-export type t_actionsUpdateEnvironmentVariableJsonRequestBody = {
+export type t_ActionsUpdateEnvironmentVariableRequestBody = {
   name?: string
   value?: string
 }
 
-export type t_actionsUpdateHostedRunnerForOrgJsonRequestBody = {
+export type t_ActionsUpdateHostedRunnerForOrgRequestBody = {
   enable_static_ip?: boolean
   maximum_runners?: number
   name?: string
   runner_group_id?: number
 }
 
-export type t_actionsUpdateOrgVariableJsonRequestBody = {
+export type t_ActionsUpdateOrgVariableRequestBody = {
   name?: string
   selected_repository_ids?: number[]
   value?: string
   visibility?: "all" | "private" | "selected" | UnknownEnumStringValue
 }
 
-export type t_actionsUpdateRepoVariableJsonRequestBody = {
+export type t_ActionsUpdateRepoVariableRequestBody = {
   name?: string
   value?: string
 }
 
-export type t_actionsUpdateSelfHostedRunnerGroupForOrgJsonRequestBody = {
+export type t_ActionsUpdateSelfHostedRunnerGroupForOrgRequestBody = {
   allows_public_repositories?: boolean
   name: string
   network_configuration_id?: string | null
@@ -8455,47 +8453,47 @@ export type t_actionsUpdateSelfHostedRunnerGroupForOrgJsonRequestBody = {
   visibility?: "selected" | "all" | "private" | UnknownEnumStringValue
 }
 
-export type t_activityMarkNotificationsAsReadJsonRequestBody = {
+export type t_ActivityMarkNotificationsAsReadRequestBody = {
   last_read_at?: string
   read?: boolean
 }
 
-export type t_activityMarkRepoNotificationsAsReadJsonRequestBody = {
+export type t_ActivityMarkRepoNotificationsAsReadRequestBody = {
   last_read_at?: string
 }
 
-export type t_activitySetRepoSubscriptionJsonRequestBody = {
+export type t_ActivitySetRepoSubscriptionRequestBody = {
   ignored?: boolean
   subscribed?: boolean
 }
 
-export type t_activitySetThreadSubscriptionJsonRequestBody = {
+export type t_ActivitySetThreadSubscriptionRequestBody = {
   ignored?: boolean
 }
 
-export type t_appsCheckTokenJsonRequestBody = {
+export type t_AppsCheckTokenRequestBody = {
   access_token: string
 }
 
-export type t_appsCreateInstallationAccessTokenJsonRequestBody = {
+export type t_AppsCreateInstallationAccessTokenRequestBody = {
   permissions?: t_app_permissions
   repositories?: string[]
   repository_ids?: number[]
 }
 
-export type t_appsDeleteAuthorizationJsonRequestBody = {
+export type t_AppsDeleteAuthorizationRequestBody = {
   access_token: string
 }
 
-export type t_appsDeleteTokenJsonRequestBody = {
+export type t_AppsDeleteTokenRequestBody = {
   access_token: string
 }
 
-export type t_appsResetTokenJsonRequestBody = {
+export type t_AppsResetTokenRequestBody = {
   access_token: string
 }
 
-export type t_appsScopeTokenJsonRequestBody = {
+export type t_AppsScopeTokenRequestBody = {
   access_token: string
   permissions?: t_app_permissions
   repositories?: string[]
@@ -8504,14 +8502,14 @@ export type t_appsScopeTokenJsonRequestBody = {
   target_id?: number
 }
 
-export type t_appsUpdateWebhookConfigForAppJsonRequestBody = {
+export type t_AppsUpdateWebhookConfigForAppRequestBody = {
   content_type?: t_webhook_config_content_type
   insecure_ssl?: t_webhook_config_insecure_ssl
   secret?: t_webhook_config_secret
   url?: t_webhook_config_url
 }
 
-export type t_campaignsCreateCampaignJsonRequestBody = {
+export type t_CampaignsCreateCampaignRequestBody = {
   code_scanning_alerts: {
     alert_numbers: number[]
     repository_id: number
@@ -8525,7 +8523,7 @@ export type t_campaignsCreateCampaignJsonRequestBody = {
   team_managers?: string[]
 }
 
-export type t_campaignsUpdateCampaignJsonRequestBody = {
+export type t_CampaignsUpdateCampaignRequestBody = {
   contact_link?: string | null
   description?: string
   ends_at?: string
@@ -8535,7 +8533,7 @@ export type t_campaignsUpdateCampaignJsonRequestBody = {
   team_managers?: string[]
 }
 
-export type t_checksCreateJsonRequestBody =
+export type t_ChecksCreateRequestBody =
   | {
       status: EmptyObject
       [key: string]: unknown | undefined
@@ -8545,18 +8543,18 @@ export type t_checksCreateJsonRequestBody =
       [key: string]: unknown | undefined
     }
 
-export type t_checksCreateSuiteJsonRequestBody = {
+export type t_ChecksCreateSuiteRequestBody = {
   head_sha: string
 }
 
-export type t_checksSetSuitesPreferencesJsonRequestBody = {
+export type t_ChecksSetSuitesPreferencesRequestBody = {
   auto_trigger_checks?: {
     app_id: number
     setting: boolean
   }[]
 }
 
-export type t_checksUpdateJsonRequestBody = {
+export type t_ChecksUpdateRequestBody = {
   actions?: {
     description: string
     identifier: string
@@ -8612,16 +8610,16 @@ export type t_checksUpdateJsonRequestBody = {
     | UnknownEnumStringValue
 }
 
-export type t_codeScanningCreateVariantAnalysisJsonRequestBody = EmptyObject
+export type t_CodeScanningCreateVariantAnalysisRequestBody = EmptyObject
 
-export type t_codeScanningUpdateAlertJsonRequestBody = {
+export type t_CodeScanningUpdateAlertRequestBody = {
   create_request?: t_code_scanning_alert_create_request
   dismissed_comment?: t_code_scanning_alert_dismissed_comment
   dismissed_reason?: t_code_scanning_alert_dismissed_reason
   state: t_code_scanning_alert_set_state
 }
 
-export type t_codeScanningUploadSarifJsonRequestBody = {
+export type t_CodeScanningUploadSarifRequestBody = {
   checkout_uri?: string
   commit_sha: t_code_scanning_analysis_commit_sha
   ref: t_code_scanning_ref_full
@@ -8631,7 +8629,7 @@ export type t_codeScanningUploadSarifJsonRequestBody = {
   validate?: boolean
 }
 
-export type t_codeSecurityAttachConfigurationJsonRequestBody = {
+export type t_CodeSecurityAttachConfigurationRequestBody = {
   scope:
     | "all"
     | "all_without_configurations"
@@ -8642,11 +8640,11 @@ export type t_codeSecurityAttachConfigurationJsonRequestBody = {
   selected_repository_ids?: number[]
 }
 
-export type t_codeSecurityAttachEnterpriseConfigurationJsonRequestBody = {
+export type t_CodeSecurityAttachEnterpriseConfigurationRequestBody = {
   scope: "all" | "all_without_configurations" | UnknownEnumStringValue
 }
 
-export type t_codeSecurityCreateConfigurationJsonRequestBody = {
+export type t_CodeSecurityCreateConfigurationRequestBody = {
   advanced_security?:
     | "enabled"
     | "disabled"
@@ -8737,7 +8735,7 @@ export type t_codeSecurityCreateConfigurationJsonRequestBody = {
     | UnknownEnumStringValue
 }
 
-export type t_codeSecurityCreateConfigurationForEnterpriseJsonRequestBody = {
+export type t_CodeSecurityCreateConfigurationForEnterpriseRequestBody = {
   advanced_security?:
     | "enabled"
     | "disabled"
@@ -8817,11 +8815,11 @@ export type t_codeSecurityCreateConfigurationForEnterpriseJsonRequestBody = {
     | UnknownEnumStringValue
 }
 
-export type t_codeSecurityDetachConfigurationJsonRequestBody = {
+export type t_CodeSecurityDetachConfigurationRequestBody = {
   selected_repository_ids?: number[]
 }
 
-export type t_codeSecuritySetConfigurationAsDefaultJsonRequestBody = {
+export type t_CodeSecuritySetConfigurationAsDefaultRequestBody = {
   default_for_new_repos?:
     | "all"
     | "none"
@@ -8830,17 +8828,16 @@ export type t_codeSecuritySetConfigurationAsDefaultJsonRequestBody = {
     | UnknownEnumStringValue
 }
 
-export type t_codeSecuritySetConfigurationAsDefaultForEnterpriseJsonRequestBody =
-  {
-    default_for_new_repos?:
-      | "all"
-      | "none"
-      | "private_and_internal"
-      | "public"
-      | UnknownEnumStringValue
-  }
+export type t_CodeSecuritySetConfigurationAsDefaultForEnterpriseRequestBody = {
+  default_for_new_repos?:
+    | "all"
+    | "none"
+    | "private_and_internal"
+    | "public"
+    | UnknownEnumStringValue
+}
 
-export type t_codeSecurityUpdateConfigurationJsonRequestBody = {
+export type t_CodeSecurityUpdateConfigurationRequestBody = {
   advanced_security?:
     | "enabled"
     | "disabled"
@@ -8930,7 +8927,7 @@ export type t_codeSecurityUpdateConfigurationJsonRequestBody = {
     | UnknownEnumStringValue
 }
 
-export type t_codeSecurityUpdateEnterpriseConfigurationJsonRequestBody = {
+export type t_CodeSecurityUpdateEnterpriseConfigurationRequestBody = {
   advanced_security?:
     | "enabled"
     | "disabled"
@@ -9009,7 +9006,7 @@ export type t_codeSecurityUpdateEnterpriseConfigurationJsonRequestBody = {
     | UnknownEnumStringValue
 }
 
-export type t_codespacesCreateForAuthenticatedUserJsonRequestBody =
+export type t_CodespacesCreateForAuthenticatedUserRequestBody =
   | {
       client_ip?: string
       devcontainer_path?: string
@@ -9047,26 +9044,25 @@ export type t_codespacesCreateForAuthenticatedUserJsonRequestBody =
       working_directory?: string
     }
 
-export type t_codespacesCreateOrUpdateOrgSecretJsonRequestBody = {
+export type t_CodespacesCreateOrUpdateOrgSecretRequestBody = {
   encrypted_value?: string
   key_id?: string
   selected_repository_ids?: number[]
   visibility: "all" | "private" | "selected" | UnknownEnumStringValue
 }
 
-export type t_codespacesCreateOrUpdateRepoSecretJsonRequestBody = {
+export type t_CodespacesCreateOrUpdateRepoSecretRequestBody = {
   encrypted_value?: string
   key_id?: string
 }
 
-export type t_codespacesCreateOrUpdateSecretForAuthenticatedUserJsonRequestBody =
-  {
-    encrypted_value?: string
-    key_id: string
-    selected_repository_ids?: (number | string)[]
-  }
+export type t_CodespacesCreateOrUpdateSecretForAuthenticatedUserRequestBody = {
+  encrypted_value?: string
+  key_id: string
+  selected_repository_ids?: (number | string)[]
+}
 
-export type t_codespacesCreateWithPrForAuthenticatedUserJsonRequestBody = {
+export type t_CodespacesCreateWithPrForAuthenticatedUserRequestBody = {
   client_ip?: string
   devcontainer_path?: string
   display_name?: string
@@ -9084,7 +9080,7 @@ export type t_codespacesCreateWithPrForAuthenticatedUserJsonRequestBody = {
   working_directory?: string
 } | null
 
-export type t_codespacesCreateWithRepoForAuthenticatedUserJsonRequestBody = {
+export type t_CodespacesCreateWithRepoForAuthenticatedUserRequestBody = {
   client_ip?: string
   devcontainer_path?: string
   display_name?: string
@@ -9103,16 +9099,16 @@ export type t_codespacesCreateWithRepoForAuthenticatedUserJsonRequestBody = {
   working_directory?: string
 } | null
 
-export type t_codespacesDeleteCodespacesAccessUsersJsonRequestBody = {
+export type t_CodespacesDeleteCodespacesAccessUsersRequestBody = {
   selected_usernames: string[]
 }
 
-export type t_codespacesPublishForAuthenticatedUserJsonRequestBody = {
+export type t_CodespacesPublishForAuthenticatedUserRequestBody = {
   name?: string
   private?: boolean
 }
 
-export type t_codespacesSetCodespacesAccessJsonRequestBody = {
+export type t_CodespacesSetCodespacesAccessRequestBody = {
   selected_usernames?: string[]
   visibility:
     | "disabled"
@@ -9122,66 +9118,66 @@ export type t_codespacesSetCodespacesAccessJsonRequestBody = {
     | UnknownEnumStringValue
 }
 
-export type t_codespacesSetCodespacesAccessUsersJsonRequestBody = {
+export type t_CodespacesSetCodespacesAccessUsersRequestBody = {
   selected_usernames: string[]
 }
 
-export type t_codespacesSetRepositoriesForSecretForAuthenticatedUserJsonRequestBody =
+export type t_CodespacesSetRepositoriesForSecretForAuthenticatedUserRequestBody =
   {
     selected_repository_ids: number[]
   }
 
-export type t_codespacesSetSelectedReposForOrgSecretJsonRequestBody = {
+export type t_CodespacesSetSelectedReposForOrgSecretRequestBody = {
   selected_repository_ids: number[]
 }
 
-export type t_codespacesUpdateForAuthenticatedUserJsonRequestBody = {
+export type t_CodespacesUpdateForAuthenticatedUserRequestBody = {
   display_name?: string
   machine?: string
   recent_folders?: string[]
 }
 
-export type t_copilotAddCopilotSeatsForTeamsJsonRequestBody = {
+export type t_CopilotAddCopilotSeatsForTeamsRequestBody = {
   selected_teams: string[]
 }
 
-export type t_copilotAddCopilotSeatsForUsersJsonRequestBody = {
+export type t_CopilotAddCopilotSeatsForUsersRequestBody = {
   selected_usernames: string[]
 }
 
-export type t_copilotCancelCopilotSeatAssignmentForTeamsJsonRequestBody = {
+export type t_CopilotCancelCopilotSeatAssignmentForTeamsRequestBody = {
   selected_teams: string[]
 }
 
-export type t_copilotCancelCopilotSeatAssignmentForUsersJsonRequestBody = {
+export type t_CopilotCancelCopilotSeatAssignmentForUsersRequestBody = {
   selected_usernames: string[]
 }
 
-export type t_credentialsRevokeJsonRequestBody = {
+export type t_CredentialsRevokeRequestBody = {
   credentials: string[]
 }
 
-export type t_dependabotCreateOrUpdateOrgSecretJsonRequestBody = {
+export type t_DependabotCreateOrUpdateOrgSecretRequestBody = {
   encrypted_value?: string
   key_id?: string
   selected_repository_ids?: string[]
   visibility: "all" | "private" | "selected" | UnknownEnumStringValue
 }
 
-export type t_dependabotCreateOrUpdateRepoSecretJsonRequestBody = {
+export type t_DependabotCreateOrUpdateRepoSecretRequestBody = {
   encrypted_value?: string
   key_id?: string
 }
 
-export type t_dependabotSetRepositoryAccessDefaultLevelJsonRequestBody = {
+export type t_DependabotSetRepositoryAccessDefaultLevelRequestBody = {
   default_level: "public" | "internal" | UnknownEnumStringValue
 }
 
-export type t_dependabotSetSelectedReposForOrgSecretJsonRequestBody = {
+export type t_DependabotSetSelectedReposForOrgSecretRequestBody = {
   selected_repository_ids: number[]
 }
 
-export type t_dependabotUpdateAlertJsonRequestBody = {
+export type t_DependabotUpdateAlertRequestBody = {
   dismissed_comment?: string
   dismissed_reason?:
     | "fix_started"
@@ -9193,12 +9189,12 @@ export type t_dependabotUpdateAlertJsonRequestBody = {
   state: "dismissed" | "open" | UnknownEnumStringValue
 }
 
-export type t_dependabotUpdateRepositoryAccessForOrgJsonRequestBody = {
+export type t_DependabotUpdateRepositoryAccessForOrgRequestBody = {
   repository_ids_to_add?: number[]
   repository_ids_to_remove?: number[]
 }
 
-export type t_gistsCreateJsonRequestBody = {
+export type t_GistsCreateRequestBody = {
   description?: string
   files: {
     [key: string]:
@@ -9210,11 +9206,11 @@ export type t_gistsCreateJsonRequestBody = {
   public?: boolean | "true" | "false" | UnknownEnumStringValue
 }
 
-export type t_gistsCreateCommentJsonRequestBody = {
+export type t_GistsCreateCommentRequestBody = {
   body: string
 }
 
-export type t_gistsUpdateJsonRequestBody = {
+export type t_GistsUpdateRequestBody = {
   description?: string
   files?: {
     [key: string]:
@@ -9226,16 +9222,16 @@ export type t_gistsUpdateJsonRequestBody = {
   }
 } | null
 
-export type t_gistsUpdateCommentJsonRequestBody = {
+export type t_GistsUpdateCommentRequestBody = {
   body: string
 }
 
-export type t_gitCreateBlobJsonRequestBody = {
+export type t_GitCreateBlobRequestBody = {
   content: string
   encoding?: string
 }
 
-export type t_gitCreateCommitJsonRequestBody = {
+export type t_GitCreateCommitRequestBody = {
   author?: {
     date?: string
     email: string
@@ -9252,12 +9248,12 @@ export type t_gitCreateCommitJsonRequestBody = {
   tree: string
 }
 
-export type t_gitCreateRefJsonRequestBody = {
+export type t_GitCreateRefRequestBody = {
   ref: string
   sha: string
 }
 
-export type t_gitCreateTagJsonRequestBody = {
+export type t_GitCreateTagRequestBody = {
   message: string
   object: string
   tag: string
@@ -9269,7 +9265,7 @@ export type t_gitCreateTagJsonRequestBody = {
   type: "commit" | "tree" | "blob" | UnknownEnumStringValue
 }
 
-export type t_gitCreateTreeJsonRequestBody = {
+export type t_GitCreateTreeRequestBody = {
   base_tree?: string
   tree: {
     content?: string
@@ -9286,28 +9282,28 @@ export type t_gitCreateTreeJsonRequestBody = {
   }[]
 }
 
-export type t_gitUpdateRefJsonRequestBody = {
+export type t_GitUpdateRefRequestBody = {
   force?: boolean
   sha: string
 }
 
-export type t_hostedComputeCreateNetworkConfigurationForOrgJsonRequestBody = {
+export type t_HostedComputeCreateNetworkConfigurationForOrgRequestBody = {
   compute_service?: "none" | "actions" | UnknownEnumStringValue
   name: string
   network_settings_ids: string[]
 }
 
-export type t_hostedComputeUpdateNetworkConfigurationForOrgJsonRequestBody = {
+export type t_HostedComputeUpdateNetworkConfigurationForOrgRequestBody = {
   compute_service?: "none" | "actions" | UnknownEnumStringValue
   name?: string
   network_settings_ids?: string[]
 }
 
-export type t_issuesAddAssigneesJsonRequestBody = {
+export type t_IssuesAddAssigneesRequestBody = {
   assignees?: string[]
 }
 
-export type t_issuesAddLabelsJsonRequestBody =
+export type t_IssuesAddLabelsRequestBody =
   | {
       labels?: string[]
     }
@@ -9322,12 +9318,12 @@ export type t_issuesAddLabelsJsonRequestBody =
     }[]
   | string
 
-export type t_issuesAddSubIssueJsonRequestBody = {
+export type t_IssuesAddSubIssueRequestBody = {
   replace_parent?: boolean
   sub_issue_id: number
 }
 
-export type t_issuesCreateJsonRequestBody = {
+export type t_IssuesCreateRequestBody = {
   assignee?: string | null
   assignees?: string[]
   body?: string
@@ -9345,24 +9341,24 @@ export type t_issuesCreateJsonRequestBody = {
   type?: string | null
 }
 
-export type t_issuesCreateCommentJsonRequestBody = {
+export type t_IssuesCreateCommentRequestBody = {
   body: string
 }
 
-export type t_issuesCreateLabelJsonRequestBody = {
+export type t_IssuesCreateLabelRequestBody = {
   color?: string
   description?: string
   name: string
 }
 
-export type t_issuesCreateMilestoneJsonRequestBody = {
+export type t_IssuesCreateMilestoneRequestBody = {
   description?: string
   due_on?: string
   state?: "open" | "closed" | UnknownEnumStringValue
   title: string
 }
 
-export type t_issuesLockJsonRequestBody = {
+export type t_IssuesLockRequestBody = {
   lock_reason?:
     | "off-topic"
     | "too heated"
@@ -9371,21 +9367,21 @@ export type t_issuesLockJsonRequestBody = {
     | UnknownEnumStringValue
 } | null
 
-export type t_issuesRemoveAssigneesJsonRequestBody = {
+export type t_IssuesRemoveAssigneesRequestBody = {
   assignees?: string[]
 }
 
-export type t_issuesRemoveSubIssueJsonRequestBody = {
+export type t_IssuesRemoveSubIssueRequestBody = {
   sub_issue_id: number
 }
 
-export type t_issuesReprioritizeSubIssueJsonRequestBody = {
+export type t_IssuesReprioritizeSubIssueRequestBody = {
   after_id?: number
   before_id?: number
   sub_issue_id: number
 }
 
-export type t_issuesSetLabelsJsonRequestBody =
+export type t_IssuesSetLabelsRequestBody =
   | {
       labels?: string[]
     }
@@ -9400,7 +9396,7 @@ export type t_issuesSetLabelsJsonRequestBody =
     }[]
   | string
 
-export type t_issuesUpdateJsonRequestBody = {
+export type t_IssuesUpdateRequestBody = {
   assignee?: string | null
   assignees?: string[]
   body?: string | null
@@ -9426,39 +9422,39 @@ export type t_issuesUpdateJsonRequestBody = {
   type?: string | null
 }
 
-export type t_issuesUpdateCommentJsonRequestBody = {
+export type t_IssuesUpdateCommentRequestBody = {
   body: string
 }
 
-export type t_issuesUpdateLabelJsonRequestBody = {
+export type t_IssuesUpdateLabelRequestBody = {
   color?: string
   description?: string
   new_name?: string
 }
 
-export type t_issuesUpdateMilestoneJsonRequestBody = {
+export type t_IssuesUpdateMilestoneRequestBody = {
   description?: string
   due_on?: string
   state?: "open" | "closed" | UnknownEnumStringValue
   title?: string
 }
 
-export type t_markdownRenderJsonRequestBody = {
+export type t_MarkdownRenderRequestBody = {
   context?: string
   mode?: "markdown" | "gfm" | UnknownEnumStringValue
   text: string
 }
 
-export type t_migrationsMapCommitAuthorJsonRequestBody = {
+export type t_MigrationsMapCommitAuthorRequestBody = {
   email?: string
   name?: string
 }
 
-export type t_migrationsSetLfsPreferenceJsonRequestBody = {
+export type t_MigrationsSetLfsPreferenceRequestBody = {
   use_lfs: "opt_in" | "opt_out" | UnknownEnumStringValue
 }
 
-export type t_migrationsStartForAuthenticatedUserJsonRequestBody = {
+export type t_MigrationsStartForAuthenticatedUserRequestBody = {
   exclude?: ("repositories" | UnknownEnumStringValue)[]
   exclude_attachments?: boolean
   exclude_git_data?: boolean
@@ -9470,7 +9466,7 @@ export type t_migrationsStartForAuthenticatedUserJsonRequestBody = {
   repositories: string[]
 }
 
-export type t_migrationsStartForOrgJsonRequestBody = {
+export type t_MigrationsStartForOrgRequestBody = {
   exclude?: ("repositories" | UnknownEnumStringValue)[]
   exclude_attachments?: boolean
   exclude_git_data?: boolean
@@ -9482,7 +9478,7 @@ export type t_migrationsStartForOrgJsonRequestBody = {
   repositories: string[]
 }
 
-export type t_migrationsStartImportJsonRequestBody = {
+export type t_MigrationsStartImportRequestBody = {
   tfvc_project?: string
   vcs?: "subversion" | "git" | "mercurial" | "tfvc" | UnknownEnumStringValue
   vcs_password?: string
@@ -9490,18 +9486,18 @@ export type t_migrationsStartImportJsonRequestBody = {
   vcs_username?: string
 }
 
-export type t_migrationsUpdateImportJsonRequestBody = {
+export type t_MigrationsUpdateImportRequestBody = {
   tfvc_project?: string
   vcs?: "subversion" | "tfvc" | "git" | "mercurial" | UnknownEnumStringValue
   vcs_password?: string
   vcs_username?: string
 } | null
 
-export type t_orgsConvertMemberToOutsideCollaboratorJsonRequestBody = {
+export type t_OrgsConvertMemberToOutsideCollaboratorRequestBody = {
   async?: boolean
 }
 
-export type t_orgsCreateInvitationJsonRequestBody = {
+export type t_OrgsCreateInvitationRequestBody = {
   email?: string
   invitee_id?: number
   role?:
@@ -9513,17 +9509,16 @@ export type t_orgsCreateInvitationJsonRequestBody = {
   team_ids?: number[]
 }
 
-export type t_orgsCreateOrUpdateCustomPropertiesJsonRequestBody = {
+export type t_OrgsCreateOrUpdateCustomPropertiesRequestBody = {
   properties: t_custom_property[]
 }
 
-export type t_orgsCreateOrUpdateCustomPropertiesValuesForReposJsonRequestBody =
-  {
-    properties: t_custom_property_value[]
-    repository_names: string[]
-  }
+export type t_OrgsCreateOrUpdateCustomPropertiesValuesForReposRequestBody = {
+  properties: t_custom_property_value[]
+  repository_names: string[]
+}
 
-export type t_orgsCreateWebhookJsonRequestBody = {
+export type t_OrgsCreateWebhookRequestBody = {
   active?: boolean
   config: {
     content_type?: t_webhook_config_content_type
@@ -9537,7 +9532,7 @@ export type t_orgsCreateWebhookJsonRequestBody = {
   name: string
 }
 
-export type t_orgsDeleteAttestationsBulkJsonRequestBody =
+export type t_OrgsDeleteAttestationsBulkRequestBody =
   | {
       subject_digests: string[]
     }
@@ -9545,31 +9540,31 @@ export type t_orgsDeleteAttestationsBulkJsonRequestBody =
       attestation_ids: number[]
     }
 
-export type t_orgsEnableOrDisableSecurityProductOnAllOrgReposJsonRequestBody = {
+export type t_OrgsEnableOrDisableSecurityProductOnAllOrgReposRequestBody = {
   query_suite?: "default" | "extended" | UnknownEnumStringValue
 }
 
-export type t_orgsListAttestationsBulkJsonRequestBody = {
+export type t_OrgsListAttestationsBulkRequestBody = {
   predicate_type?: string
   subject_digests: string[]
 }
 
-export type t_orgsReviewPatGrantRequestJsonRequestBody = {
+export type t_OrgsReviewPatGrantRequestRequestBody = {
   action: "approve" | "deny" | UnknownEnumStringValue
   reason?: string | null
 }
 
-export type t_orgsReviewPatGrantRequestsInBulkJsonRequestBody = {
+export type t_OrgsReviewPatGrantRequestsInBulkRequestBody = {
   action: "approve" | "deny" | UnknownEnumStringValue
   pat_request_ids?: number[]
   reason?: string | null
 }
 
-export type t_orgsSetMembershipForUserJsonRequestBody = {
+export type t_OrgsSetMembershipForUserRequestBody = {
   role?: "admin" | "member" | UnknownEnumStringValue
 }
 
-export type t_orgsUpdateJsonRequestBody = {
+export type t_OrgsUpdateRequestBody = {
   advanced_security_enabled_for_new_repositories?: boolean
   billing_email?: string
   blog?: string
@@ -9611,20 +9606,20 @@ export type t_orgsUpdateJsonRequestBody = {
   web_commit_signoff_required?: boolean
 }
 
-export type t_orgsUpdateMembershipForAuthenticatedUserJsonRequestBody = {
+export type t_OrgsUpdateMembershipForAuthenticatedUserRequestBody = {
   state: "active" | UnknownEnumStringValue
 }
 
-export type t_orgsUpdatePatAccessJsonRequestBody = {
+export type t_OrgsUpdatePatAccessRequestBody = {
   action: "revoke" | UnknownEnumStringValue
 }
 
-export type t_orgsUpdatePatAccessesJsonRequestBody = {
+export type t_OrgsUpdatePatAccessesRequestBody = {
   action: "revoke" | UnknownEnumStringValue
   pat_ids: number[]
 }
 
-export type t_orgsUpdateWebhookJsonRequestBody = {
+export type t_OrgsUpdateWebhookRequestBody = {
   active?: boolean
   config?: {
     content_type?: t_webhook_config_content_type
@@ -9636,14 +9631,14 @@ export type t_orgsUpdateWebhookJsonRequestBody = {
   name?: string
 }
 
-export type t_orgsUpdateWebhookConfigForOrgJsonRequestBody = {
+export type t_OrgsUpdateWebhookConfigForOrgRequestBody = {
   content_type?: t_webhook_config_content_type
   insecure_ssl?: t_webhook_config_insecure_ssl
   secret?: t_webhook_config_secret
   url?: t_webhook_config_url
 }
 
-export type t_privateRegistriesCreateOrgPrivateRegistryJsonRequestBody = {
+export type t_PrivateRegistriesCreateOrgPrivateRegistryRequestBody = {
   encrypted_value: string
   key_id: string
   registry_type:
@@ -9669,7 +9664,7 @@ export type t_privateRegistriesCreateOrgPrivateRegistryJsonRequestBody = {
   visibility: "all" | "private" | "selected" | UnknownEnumStringValue
 }
 
-export type t_privateRegistriesUpdateOrgPrivateRegistryJsonRequestBody = {
+export type t_PrivateRegistriesUpdateOrgPrivateRegistryRequestBody = {
   encrypted_value?: string
   key_id?: string
   registry_type?:
@@ -9695,11 +9690,11 @@ export type t_privateRegistriesUpdateOrgPrivateRegistryJsonRequestBody = {
   visibility?: "all" | "private" | "selected" | UnknownEnumStringValue
 }
 
-export type t_projectsClassicAddCollaboratorJsonRequestBody = {
+export type t_ProjectsClassicAddCollaboratorRequestBody = {
   permission?: "read" | "write" | "admin" | UnknownEnumStringValue
 } | null
 
-export type t_projectsClassicCreateCardJsonRequestBody =
+export type t_ProjectsClassicCreateCardRequestBody =
   | {
       note: string | null
     }
@@ -9708,35 +9703,35 @@ export type t_projectsClassicCreateCardJsonRequestBody =
       content_type: string
     }
 
-export type t_projectsClassicCreateColumnJsonRequestBody = {
+export type t_ProjectsClassicCreateColumnRequestBody = {
   name: string
 }
 
-export type t_projectsClassicCreateForAuthenticatedUserJsonRequestBody = {
+export type t_ProjectsClassicCreateForAuthenticatedUserRequestBody = {
   body?: string | null
   name: string
 }
 
-export type t_projectsClassicCreateForOrgJsonRequestBody = {
+export type t_ProjectsClassicCreateForOrgRequestBody = {
   body?: string
   name: string
 }
 
-export type t_projectsClassicCreateForRepoJsonRequestBody = {
+export type t_ProjectsClassicCreateForRepoRequestBody = {
   body?: string
   name: string
 }
 
-export type t_projectsClassicMoveCardJsonRequestBody = {
+export type t_ProjectsClassicMoveCardRequestBody = {
   column_id?: number
   position: string
 }
 
-export type t_projectsClassicMoveColumnJsonRequestBody = {
+export type t_ProjectsClassicMoveColumnRequestBody = {
   position: string
 }
 
-export type t_projectsClassicUpdateJsonRequestBody = {
+export type t_ProjectsClassicUpdateRequestBody = {
   body?: string | null
   name?: string
   organization_permission?:
@@ -9749,16 +9744,16 @@ export type t_projectsClassicUpdateJsonRequestBody = {
   state?: string
 }
 
-export type t_projectsClassicUpdateCardJsonRequestBody = {
+export type t_ProjectsClassicUpdateCardRequestBody = {
   archived?: boolean
   note?: string | null
 }
 
-export type t_projectsClassicUpdateColumnJsonRequestBody = {
+export type t_ProjectsClassicUpdateColumnRequestBody = {
   name: string
 }
 
-export type t_pullsCreateJsonRequestBody = {
+export type t_PullsCreateRequestBody = {
   base: string
   body?: string
   draft?: boolean
@@ -9769,11 +9764,11 @@ export type t_pullsCreateJsonRequestBody = {
   title?: string
 }
 
-export type t_pullsCreateReplyForReviewCommentJsonRequestBody = {
+export type t_PullsCreateReplyForReviewCommentRequestBody = {
   body: string
 }
 
-export type t_pullsCreateReviewJsonRequestBody = {
+export type t_PullsCreateReviewRequestBody = {
   body?: string
   comments?: {
     body: string
@@ -9788,7 +9783,7 @@ export type t_pullsCreateReviewJsonRequestBody = {
   event?: "APPROVE" | "REQUEST_CHANGES" | "COMMENT" | UnknownEnumStringValue
 }
 
-export type t_pullsCreateReviewCommentJsonRequestBody = {
+export type t_PullsCreateReviewCommentRequestBody = {
   body: string
   commit_id: string
   in_reply_to?: number
@@ -9801,34 +9796,34 @@ export type t_pullsCreateReviewCommentJsonRequestBody = {
   subject_type?: "line" | "file" | UnknownEnumStringValue
 }
 
-export type t_pullsDismissReviewJsonRequestBody = {
+export type t_PullsDismissReviewRequestBody = {
   event?: "DISMISS" | UnknownEnumStringValue
   message: string
 }
 
-export type t_pullsMergeJsonRequestBody = {
+export type t_PullsMergeRequestBody = {
   commit_message?: string
   commit_title?: string
   merge_method?: "merge" | "squash" | "rebase" | UnknownEnumStringValue
   sha?: string
 } | null
 
-export type t_pullsRemoveRequestedReviewersJsonRequestBody = {
+export type t_PullsRemoveRequestedReviewersRequestBody = {
   reviewers: string[]
   team_reviewers?: string[]
 }
 
-export type t_pullsRequestReviewersJsonRequestBody = {
+export type t_PullsRequestReviewersRequestBody = {
   reviewers?: string[]
   team_reviewers?: string[]
 }
 
-export type t_pullsSubmitReviewJsonRequestBody = {
+export type t_PullsSubmitReviewRequestBody = {
   body?: string
   event: "APPROVE" | "REQUEST_CHANGES" | "COMMENT" | UnknownEnumStringValue
 }
 
-export type t_pullsUpdateJsonRequestBody = {
+export type t_PullsUpdateRequestBody = {
   base?: string
   body?: string
   maintainer_can_modify?: boolean
@@ -9836,19 +9831,19 @@ export type t_pullsUpdateJsonRequestBody = {
   title?: string
 }
 
-export type t_pullsUpdateBranchJsonRequestBody = {
+export type t_PullsUpdateBranchRequestBody = {
   expected_head_sha?: string
 } | null
 
-export type t_pullsUpdateReviewJsonRequestBody = {
+export type t_PullsUpdateReviewRequestBody = {
   body: string
 }
 
-export type t_pullsUpdateReviewCommentJsonRequestBody = {
+export type t_PullsUpdateReviewCommentRequestBody = {
   body: string
 }
 
-export type t_reactionsCreateForCommitCommentJsonRequestBody = {
+export type t_ReactionsCreateForCommitCommentRequestBody = {
   content:
     | "+1"
     | "-1"
@@ -9861,7 +9856,7 @@ export type t_reactionsCreateForCommitCommentJsonRequestBody = {
     | UnknownEnumStringValue
 }
 
-export type t_reactionsCreateForIssueJsonRequestBody = {
+export type t_ReactionsCreateForIssueRequestBody = {
   content:
     | "+1"
     | "-1"
@@ -9874,7 +9869,7 @@ export type t_reactionsCreateForIssueJsonRequestBody = {
     | UnknownEnumStringValue
 }
 
-export type t_reactionsCreateForIssueCommentJsonRequestBody = {
+export type t_ReactionsCreateForIssueCommentRequestBody = {
   content:
     | "+1"
     | "-1"
@@ -9887,7 +9882,7 @@ export type t_reactionsCreateForIssueCommentJsonRequestBody = {
     | UnknownEnumStringValue
 }
 
-export type t_reactionsCreateForPullRequestReviewCommentJsonRequestBody = {
+export type t_ReactionsCreateForPullRequestReviewCommentRequestBody = {
   content:
     | "+1"
     | "-1"
@@ -9900,7 +9895,7 @@ export type t_reactionsCreateForPullRequestReviewCommentJsonRequestBody = {
     | UnknownEnumStringValue
 }
 
-export type t_reactionsCreateForReleaseJsonRequestBody = {
+export type t_ReactionsCreateForReleaseRequestBody = {
   content:
     | "+1"
     | "laugh"
@@ -9911,20 +9906,7 @@ export type t_reactionsCreateForReleaseJsonRequestBody = {
     | UnknownEnumStringValue
 }
 
-export type t_reactionsCreateForTeamDiscussionCommentInOrgJsonRequestBody = {
-  content:
-    | "+1"
-    | "-1"
-    | "laugh"
-    | "confused"
-    | "heart"
-    | "hooray"
-    | "rocket"
-    | "eyes"
-    | UnknownEnumStringValue
-}
-
-export type t_reactionsCreateForTeamDiscussionCommentLegacyJsonRequestBody = {
+export type t_ReactionsCreateForTeamDiscussionCommentInOrgRequestBody = {
   content:
     | "+1"
     | "-1"
@@ -9937,7 +9919,7 @@ export type t_reactionsCreateForTeamDiscussionCommentLegacyJsonRequestBody = {
     | UnknownEnumStringValue
 }
 
-export type t_reactionsCreateForTeamDiscussionInOrgJsonRequestBody = {
+export type t_ReactionsCreateForTeamDiscussionCommentLegacyRequestBody = {
   content:
     | "+1"
     | "-1"
@@ -9950,7 +9932,7 @@ export type t_reactionsCreateForTeamDiscussionInOrgJsonRequestBody = {
     | UnknownEnumStringValue
 }
 
-export type t_reactionsCreateForTeamDiscussionLegacyJsonRequestBody = {
+export type t_ReactionsCreateForTeamDiscussionInOrgRequestBody = {
   content:
     | "+1"
     | "-1"
@@ -9963,31 +9945,44 @@ export type t_reactionsCreateForTeamDiscussionLegacyJsonRequestBody = {
     | UnknownEnumStringValue
 }
 
-export type t_reposAddAppAccessRestrictionsJsonRequestBody = {
+export type t_ReactionsCreateForTeamDiscussionLegacyRequestBody = {
+  content:
+    | "+1"
+    | "-1"
+    | "laugh"
+    | "confused"
+    | "heart"
+    | "hooray"
+    | "rocket"
+    | "eyes"
+    | UnknownEnumStringValue
+}
+
+export type t_ReposAddAppAccessRestrictionsRequestBody = {
   apps: string[]
 }
 
-export type t_reposAddCollaboratorJsonRequestBody = {
+export type t_ReposAddCollaboratorRequestBody = {
   permission?: string
 }
 
-export type t_reposAddStatusCheckContextsJsonRequestBody =
+export type t_ReposAddStatusCheckContextsRequestBody =
   | {
       contexts: string[]
     }
   | string[]
 
-export type t_reposAddTeamAccessRestrictionsJsonRequestBody =
+export type t_ReposAddTeamAccessRestrictionsRequestBody =
   | {
       teams: string[]
     }
   | string[]
 
-export type t_reposAddUserAccessRestrictionsJsonRequestBody = {
+export type t_ReposAddUserAccessRestrictionsRequestBody = {
   users: string[]
 }
 
-export type t_reposCreateAttestationJsonRequestBody = {
+export type t_ReposCreateAttestationRequestBody = {
   bundle: {
     dsseEnvelope?: {
       [key: string]: unknown | undefined
@@ -9999,33 +9994,33 @@ export type t_reposCreateAttestationJsonRequestBody = {
   }
 }
 
-export type t_reposCreateAutolinkJsonRequestBody = {
+export type t_ReposCreateAutolinkRequestBody = {
   is_alphanumeric?: boolean
   key_prefix: string
   url_template: string
 }
 
-export type t_reposCreateCommitCommentJsonRequestBody = {
+export type t_ReposCreateCommitCommentRequestBody = {
   body: string
   line?: number
   path?: string
   position?: number
 }
 
-export type t_reposCreateCommitStatusJsonRequestBody = {
+export type t_ReposCreateCommitStatusRequestBody = {
   context?: string
   description?: string | null
   state: "error" | "failure" | "pending" | "success" | UnknownEnumStringValue
   target_url?: string | null
 }
 
-export type t_reposCreateDeployKeyJsonRequestBody = {
+export type t_ReposCreateDeployKeyRequestBody = {
   key: string
   read_only?: boolean
   title?: string
 }
 
-export type t_reposCreateDeploymentJsonRequestBody = {
+export type t_ReposCreateDeploymentRequestBody = {
   auto_merge?: boolean
   description?: string | null
   environment?: string
@@ -10041,11 +10036,11 @@ export type t_reposCreateDeploymentJsonRequestBody = {
   transient_environment?: boolean
 }
 
-export type t_reposCreateDeploymentProtectionRuleJsonRequestBody = {
+export type t_ReposCreateDeploymentProtectionRuleRequestBody = {
   integration_id?: number
 }
 
-export type t_reposCreateDeploymentStatusJsonRequestBody = {
+export type t_ReposCreateDeploymentStatusRequestBody = {
   auto_inactive?: boolean
   description?: string
   environment?: string
@@ -10063,14 +10058,14 @@ export type t_reposCreateDeploymentStatusJsonRequestBody = {
   target_url?: string
 }
 
-export type t_reposCreateDispatchEventJsonRequestBody = {
+export type t_ReposCreateDispatchEventRequestBody = {
   client_payload?: {
     [key: string]: unknown | undefined
   }
   event_type: string
 }
 
-export type t_reposCreateForAuthenticatedUserJsonRequestBody = {
+export type t_ReposCreateForAuthenticatedUserRequestBody = {
   allow_auto_merge?: boolean
   allow_merge_commit?: boolean
   allow_rebase_merge?: boolean
@@ -10107,13 +10102,13 @@ export type t_reposCreateForAuthenticatedUserJsonRequestBody = {
   team_id?: number
 }
 
-export type t_reposCreateForkJsonRequestBody = {
+export type t_ReposCreateForkRequestBody = {
   default_branch_only?: boolean
   name?: string
   organization?: string
 } | null
 
-export type t_reposCreateInOrgJsonRequestBody = {
+export type t_ReposCreateInOrgRequestBody = {
   allow_auto_merge?: boolean
   allow_merge_commit?: boolean
   allow_rebase_merge?: boolean
@@ -10154,11 +10149,11 @@ export type t_reposCreateInOrgJsonRequestBody = {
   visibility?: "public" | "private" | UnknownEnumStringValue
 }
 
-export type t_reposCreateOrUpdateCustomPropertiesValuesJsonRequestBody = {
+export type t_ReposCreateOrUpdateCustomPropertiesValuesRequestBody = {
   properties: t_custom_property_value[]
 }
 
-export type t_reposCreateOrUpdateEnvironmentJsonRequestBody = {
+export type t_ReposCreateOrUpdateEnvironmentRequestBody = {
   deployment_branch_policy?: t_deployment_branch_policy_settings
   prevent_self_review?: t_prevent_self_review
   reviewers?:
@@ -10170,7 +10165,7 @@ export type t_reposCreateOrUpdateEnvironmentJsonRequestBody = {
   wait_timer?: t_wait_timer
 } | null
 
-export type t_reposCreateOrUpdateFileContentsJsonRequestBody = {
+export type t_ReposCreateOrUpdateFileContentsRequestBody = {
   author?: {
     date?: string
     email: string
@@ -10187,7 +10182,7 @@ export type t_reposCreateOrUpdateFileContentsJsonRequestBody = {
   sha?: string
 }
 
-export type t_reposCreateOrgRulesetJsonRequestBody = {
+export type t_ReposCreateOrgRulesetRequestBody = {
   bypass_actors?: t_repository_ruleset_bypass_actor[]
   conditions?: t_org_ruleset_conditions
   enforcement: t_repository_rule_enforcement
@@ -10196,7 +10191,7 @@ export type t_reposCreateOrgRulesetJsonRequestBody = {
   target?: "branch" | "tag" | "push" | "repository" | UnknownEnumStringValue
 }
 
-export type t_reposCreatePagesDeploymentJsonRequestBody = {
+export type t_ReposCreatePagesDeploymentRequestBody = {
   artifact_id?: number
   artifact_url?: string
   environment?: string
@@ -10204,7 +10199,7 @@ export type t_reposCreatePagesDeploymentJsonRequestBody = {
   pages_build_version: string
 }
 
-export type t_reposCreatePagesSiteJsonRequestBody = {
+export type t_ReposCreatePagesSiteRequestBody = {
   build_type?: "legacy" | "workflow" | UnknownEnumStringValue
   source?: {
     branch: string
@@ -10212,7 +10207,7 @@ export type t_reposCreatePagesSiteJsonRequestBody = {
   }
 } | null
 
-export type t_reposCreateReleaseJsonRequestBody = {
+export type t_ReposCreateReleaseRequestBody = {
   body?: string
   discussion_category_name?: string
   draft?: boolean
@@ -10224,7 +10219,7 @@ export type t_reposCreateReleaseJsonRequestBody = {
   target_commitish?: string
 }
 
-export type t_reposCreateRepoRulesetJsonRequestBody = {
+export type t_ReposCreateRepoRulesetRequestBody = {
   bypass_actors?: t_repository_ruleset_bypass_actor[]
   conditions?: t_repository_ruleset_conditions
   enforcement: t_repository_rule_enforcement
@@ -10233,11 +10228,11 @@ export type t_reposCreateRepoRulesetJsonRequestBody = {
   target?: "branch" | "tag" | "push" | UnknownEnumStringValue
 }
 
-export type t_reposCreateTagProtectionJsonRequestBody = {
+export type t_ReposCreateTagProtectionRequestBody = {
   pattern: string
 }
 
-export type t_reposCreateUsingTemplateJsonRequestBody = {
+export type t_ReposCreateUsingTemplateRequestBody = {
   description?: string
   include_all_branches?: boolean
   name: string
@@ -10245,7 +10240,7 @@ export type t_reposCreateUsingTemplateJsonRequestBody = {
   private?: boolean
 }
 
-export type t_reposCreateWebhookJsonRequestBody = {
+export type t_ReposCreateWebhookRequestBody = {
   active?: boolean
   config?: {
     content_type?: t_webhook_config_content_type
@@ -10257,7 +10252,7 @@ export type t_reposCreateWebhookJsonRequestBody = {
   name?: string
 } | null
 
-export type t_reposDeleteFileJsonRequestBody = {
+export type t_ReposDeleteFileRequestBody = {
   author?: {
     email?: string
     name?: string
@@ -10271,78 +10266,78 @@ export type t_reposDeleteFileJsonRequestBody = {
   sha: string
 }
 
-export type t_reposGenerateReleaseNotesJsonRequestBody = {
+export type t_ReposGenerateReleaseNotesRequestBody = {
   configuration_file_path?: string
   previous_tag_name?: string
   tag_name: string
   target_commitish?: string
 }
 
-export type t_reposMergeJsonRequestBody = {
+export type t_ReposMergeRequestBody = {
   base: string
   commit_message?: string
   head: string
 }
 
-export type t_reposMergeUpstreamJsonRequestBody = {
+export type t_ReposMergeUpstreamRequestBody = {
   branch: string
 }
 
-export type t_reposRemoveAppAccessRestrictionsJsonRequestBody = {
+export type t_ReposRemoveAppAccessRestrictionsRequestBody = {
   apps: string[]
 }
 
-export type t_reposRemoveStatusCheckContextsJsonRequestBody =
+export type t_ReposRemoveStatusCheckContextsRequestBody =
   | {
       contexts: string[]
     }
   | string[]
 
-export type t_reposRemoveTeamAccessRestrictionsJsonRequestBody =
+export type t_ReposRemoveTeamAccessRestrictionsRequestBody =
   | {
       teams: string[]
     }
   | string[]
 
-export type t_reposRemoveUserAccessRestrictionsJsonRequestBody = {
+export type t_ReposRemoveUserAccessRestrictionsRequestBody = {
   users: string[]
 }
 
-export type t_reposRenameBranchJsonRequestBody = {
+export type t_ReposRenameBranchRequestBody = {
   new_name: string
 }
 
-export type t_reposReplaceAllTopicsJsonRequestBody = {
+export type t_ReposReplaceAllTopicsRequestBody = {
   names: string[]
 }
 
-export type t_reposSetAppAccessRestrictionsJsonRequestBody = {
+export type t_ReposSetAppAccessRestrictionsRequestBody = {
   apps: string[]
 }
 
-export type t_reposSetStatusCheckContextsJsonRequestBody =
+export type t_ReposSetStatusCheckContextsRequestBody =
   | {
       contexts: string[]
     }
   | string[]
 
-export type t_reposSetTeamAccessRestrictionsJsonRequestBody =
+export type t_ReposSetTeamAccessRestrictionsRequestBody =
   | {
       teams: string[]
     }
   | string[]
 
-export type t_reposSetUserAccessRestrictionsJsonRequestBody = {
+export type t_ReposSetUserAccessRestrictionsRequestBody = {
   users: string[]
 }
 
-export type t_reposTransferJsonRequestBody = {
+export type t_ReposTransferRequestBody = {
   new_name?: string
   new_owner: string
   team_ids?: number[]
 }
 
-export type t_reposUpdateJsonRequestBody = {
+export type t_ReposUpdateRequestBody = {
   allow_auto_merge?: boolean
   allow_forking?: boolean
   allow_merge_commit?: boolean
@@ -10400,7 +10395,7 @@ export type t_reposUpdateJsonRequestBody = {
   web_commit_signoff_required?: boolean
 }
 
-export type t_reposUpdateBranchProtectionJsonRequestBody = {
+export type t_ReposUpdateBranchProtectionRequestBody = {
   allow_deletions?: boolean
   allow_force_pushes?: boolean | null
   allow_fork_syncing?: boolean
@@ -10440,11 +10435,11 @@ export type t_reposUpdateBranchProtectionJsonRequestBody = {
   } | null
 }
 
-export type t_reposUpdateCommitCommentJsonRequestBody = {
+export type t_ReposUpdateCommitCommentRequestBody = {
   body: string
 }
 
-export type t_reposUpdateInformationAboutPagesSiteJsonRequestBody = {
+export type t_ReposUpdateInformationAboutPagesSiteRequestBody = {
   build_type?: "legacy" | "workflow" | UnknownEnumStringValue
   cname?: string | null
   https_enforced?: boolean
@@ -10459,7 +10454,7 @@ export type t_reposUpdateInformationAboutPagesSiteJsonRequestBody = {
       }
 }
 
-export type t_reposUpdateInvitationJsonRequestBody = {
+export type t_ReposUpdateInvitationRequestBody = {
   permissions?:
     | "read"
     | "write"
@@ -10469,7 +10464,7 @@ export type t_reposUpdateInvitationJsonRequestBody = {
     | UnknownEnumStringValue
 }
 
-export type t_reposUpdateOrgRulesetJsonRequestBody = {
+export type t_ReposUpdateOrgRulesetRequestBody = {
   bypass_actors?: t_repository_ruleset_bypass_actor[]
   conditions?: t_org_ruleset_conditions
   enforcement?: t_repository_rule_enforcement
@@ -10478,7 +10473,7 @@ export type t_reposUpdateOrgRulesetJsonRequestBody = {
   target?: "branch" | "tag" | "push" | "repository" | UnknownEnumStringValue
 }
 
-export type t_reposUpdatePullRequestReviewProtectionJsonRequestBody = {
+export type t_ReposUpdatePullRequestReviewProtectionRequestBody = {
   bypass_pull_request_allowances?: {
     apps?: string[]
     teams?: string[]
@@ -10495,7 +10490,7 @@ export type t_reposUpdatePullRequestReviewProtectionJsonRequestBody = {
   required_approving_review_count?: number
 }
 
-export type t_reposUpdateReleaseJsonRequestBody = {
+export type t_ReposUpdateReleaseRequestBody = {
   body?: string
   discussion_category_name?: string
   draft?: boolean
@@ -10506,13 +10501,13 @@ export type t_reposUpdateReleaseJsonRequestBody = {
   target_commitish?: string
 }
 
-export type t_reposUpdateReleaseAssetJsonRequestBody = {
+export type t_ReposUpdateReleaseAssetRequestBody = {
   label?: string
   name?: string
   state?: string
 }
 
-export type t_reposUpdateRepoRulesetJsonRequestBody = {
+export type t_ReposUpdateRepoRulesetRequestBody = {
   bypass_actors?: t_repository_ruleset_bypass_actor[]
   conditions?: t_repository_ruleset_conditions
   enforcement?: t_repository_rule_enforcement
@@ -10521,7 +10516,7 @@ export type t_reposUpdateRepoRulesetJsonRequestBody = {
   target?: "branch" | "tag" | "push" | UnknownEnumStringValue
 }
 
-export type t_reposUpdateStatusCheckProtectionJsonRequestBody = {
+export type t_ReposUpdateStatusCheckProtectionRequestBody = {
   checks?: {
     app_id?: number
     context: string
@@ -10530,7 +10525,7 @@ export type t_reposUpdateStatusCheckProtectionJsonRequestBody = {
   strict?: boolean
 }
 
-export type t_reposUpdateWebhookJsonRequestBody = {
+export type t_ReposUpdateWebhookRequestBody = {
   active?: boolean
   add_events?: string[]
   config?: t_webhook_config
@@ -10538,49 +10533,49 @@ export type t_reposUpdateWebhookJsonRequestBody = {
   remove_events?: string[]
 }
 
-export type t_reposUpdateWebhookConfigForRepoJsonRequestBody = {
+export type t_ReposUpdateWebhookConfigForRepoRequestBody = {
   content_type?: t_webhook_config_content_type
   insecure_ssl?: t_webhook_config_insecure_ssl
   secret?: t_webhook_config_secret
   url?: t_webhook_config_url
 }
 
-export type t_secretScanningCreatePushProtectionBypassJsonRequestBody = {
+export type t_SecretScanningCreatePushProtectionBypassRequestBody = {
   placeholder_id: t_secret_scanning_push_protection_bypass_placeholder_id
   reason: t_secret_scanning_push_protection_bypass_reason
 }
 
-export type t_secretScanningUpdateAlertJsonRequestBody = {
+export type t_SecretScanningUpdateAlertRequestBody = {
   resolution?: t_secret_scanning_alert_resolution
   resolution_comment?: t_secret_scanning_alert_resolution_comment
   state: t_secret_scanning_alert_state
 }
 
-export type t_teamsAddOrUpdateMembershipForUserInOrgJsonRequestBody = {
+export type t_TeamsAddOrUpdateMembershipForUserInOrgRequestBody = {
   role?: "member" | "maintainer" | UnknownEnumStringValue
 }
 
-export type t_teamsAddOrUpdateMembershipForUserLegacyJsonRequestBody = {
+export type t_TeamsAddOrUpdateMembershipForUserLegacyRequestBody = {
   role?: "member" | "maintainer" | UnknownEnumStringValue
 }
 
-export type t_teamsAddOrUpdateProjectPermissionsInOrgJsonRequestBody = {
+export type t_TeamsAddOrUpdateProjectPermissionsInOrgRequestBody = {
   permission?: "read" | "write" | "admin" | UnknownEnumStringValue
 } | null
 
-export type t_teamsAddOrUpdateProjectPermissionsLegacyJsonRequestBody = {
+export type t_TeamsAddOrUpdateProjectPermissionsLegacyRequestBody = {
   permission?: "read" | "write" | "admin" | UnknownEnumStringValue
 }
 
-export type t_teamsAddOrUpdateRepoPermissionsInOrgJsonRequestBody = {
+export type t_TeamsAddOrUpdateRepoPermissionsInOrgRequestBody = {
   permission?: string
 }
 
-export type t_teamsAddOrUpdateRepoPermissionsLegacyJsonRequestBody = {
+export type t_TeamsAddOrUpdateRepoPermissionsLegacyRequestBody = {
   permission?: "pull" | "push" | "admin" | UnknownEnumStringValue
 }
 
-export type t_teamsCreateJsonRequestBody = {
+export type t_TeamsCreateRequestBody = {
   description?: string
   maintainers?: string[]
   name: string
@@ -10594,45 +10589,45 @@ export type t_teamsCreateJsonRequestBody = {
   repo_names?: string[]
 }
 
-export type t_teamsCreateDiscussionCommentInOrgJsonRequestBody = {
+export type t_TeamsCreateDiscussionCommentInOrgRequestBody = {
   body: string
 }
 
-export type t_teamsCreateDiscussionCommentLegacyJsonRequestBody = {
+export type t_TeamsCreateDiscussionCommentLegacyRequestBody = {
   body: string
 }
 
-export type t_teamsCreateDiscussionInOrgJsonRequestBody = {
-  body: string
-  private?: boolean
-  title: string
-}
-
-export type t_teamsCreateDiscussionLegacyJsonRequestBody = {
+export type t_TeamsCreateDiscussionInOrgRequestBody = {
   body: string
   private?: boolean
   title: string
 }
 
-export type t_teamsUpdateDiscussionCommentInOrgJsonRequestBody = {
+export type t_TeamsCreateDiscussionLegacyRequestBody = {
+  body: string
+  private?: boolean
+  title: string
+}
+
+export type t_TeamsUpdateDiscussionCommentInOrgRequestBody = {
   body: string
 }
 
-export type t_teamsUpdateDiscussionCommentLegacyJsonRequestBody = {
+export type t_TeamsUpdateDiscussionCommentLegacyRequestBody = {
   body: string
 }
 
-export type t_teamsUpdateDiscussionInOrgJsonRequestBody = {
+export type t_TeamsUpdateDiscussionInOrgRequestBody = {
   body?: string
   title?: string
 }
 
-export type t_teamsUpdateDiscussionLegacyJsonRequestBody = {
+export type t_TeamsUpdateDiscussionLegacyRequestBody = {
   body?: string
   title?: string
 }
 
-export type t_teamsUpdateInOrgJsonRequestBody = {
+export type t_TeamsUpdateInOrgRequestBody = {
   description?: string
   name?: string
   notification_setting?:
@@ -10644,7 +10639,7 @@ export type t_teamsUpdateInOrgJsonRequestBody = {
   privacy?: "secret" | "closed" | UnknownEnumStringValue
 }
 
-export type t_teamsUpdateLegacyJsonRequestBody = {
+export type t_TeamsUpdateLegacyRequestBody = {
   description?: string
   name: string
   notification_setting?:
@@ -10656,33 +10651,33 @@ export type t_teamsUpdateLegacyJsonRequestBody = {
   privacy?: "secret" | "closed" | UnknownEnumStringValue
 }
 
-export type t_usersAddEmailForAuthenticatedUserJsonRequestBody =
+export type t_UsersAddEmailForAuthenticatedUserRequestBody =
   | {
       emails: string[]
     }
   | string[]
   | string
 
-export type t_usersAddSocialAccountForAuthenticatedUserJsonRequestBody = {
+export type t_UsersAddSocialAccountForAuthenticatedUserRequestBody = {
   account_urls: string[]
 }
 
-export type t_usersCreateGpgKeyForAuthenticatedUserJsonRequestBody = {
+export type t_UsersCreateGpgKeyForAuthenticatedUserRequestBody = {
   armored_public_key: string
   name?: string
 }
 
-export type t_usersCreatePublicSshKeyForAuthenticatedUserJsonRequestBody = {
+export type t_UsersCreatePublicSshKeyForAuthenticatedUserRequestBody = {
   key: string
   title?: string
 }
 
-export type t_usersCreateSshSigningKeyForAuthenticatedUserJsonRequestBody = {
+export type t_UsersCreateSshSigningKeyForAuthenticatedUserRequestBody = {
   key: string
   title?: string
 }
 
-export type t_usersDeleteAttestationsBulkJsonRequestBody =
+export type t_UsersDeleteAttestationsBulkRequestBody =
   | {
       subject_digests: string[]
     }
@@ -10690,28 +10685,27 @@ export type t_usersDeleteAttestationsBulkJsonRequestBody =
       attestation_ids: number[]
     }
 
-export type t_usersDeleteEmailForAuthenticatedUserJsonRequestBody =
+export type t_UsersDeleteEmailForAuthenticatedUserRequestBody =
   | {
       emails: string[]
     }
   | string[]
   | string
 
-export type t_usersDeleteSocialAccountForAuthenticatedUserJsonRequestBody = {
+export type t_UsersDeleteSocialAccountForAuthenticatedUserRequestBody = {
   account_urls: string[]
 }
 
-export type t_usersListAttestationsBulkJsonRequestBody = {
+export type t_UsersListAttestationsBulkRequestBody = {
   predicate_type?: string
   subject_digests: string[]
 }
 
-export type t_usersSetPrimaryEmailVisibilityForAuthenticatedUserJsonRequestBody =
-  {
-    visibility: "public" | "private" | UnknownEnumStringValue
-  }
+export type t_UsersSetPrimaryEmailVisibilityForAuthenticatedUserRequestBody = {
+  visibility: "public" | "private" | UnknownEnumStringValue
+}
 
-export type t_usersUpdateAuthenticatedJsonRequestBody = {
+export type t_UsersUpdateAuthenticatedRequestBody = {
   bio?: string
   blog?: string
   company?: string

@@ -476,7 +476,7 @@ export type t_UpdateAuthenticatorEnrollmentRequest = {
   nickname?: string | undefined
 }
 
-export type t_createEmailJsonRequestBody = {
+export type t_CreateEmailRequestBody = {
   profile: {
     email: string
   }
@@ -485,13 +485,13 @@ export type t_createEmailJsonRequestBody = {
   state?: string | undefined
 }
 
-export type t_createPasswordJsonRequestBody = {
+export type t_CreatePasswordRequestBody = {
   profile: {
     password: string
   }
 }
 
-export type t_createPhoneJsonRequestBody = {
+export type t_CreatePhoneRequestBody = {
   method?: ("SMS" | "CALL" | UnknownEnumStringValue) | undefined
   profile: {
     phoneNumber?: string | undefined
@@ -499,29 +499,29 @@ export type t_createPhoneJsonRequestBody = {
   sendCode?: boolean | undefined
 }
 
-export type t_replacePasswordJsonRequestBody = {
+export type t_ReplacePasswordRequestBody = {
   profile: {
     password: string
   }
 }
 
-export type t_replaceProfileJsonRequestBody = {
+export type t_ReplaceProfileRequestBody = {
   profile?: EmptyObject | undefined
 }
 
-export type t_sendEmailChallengeJsonRequestBody = {
+export type t_SendEmailChallengeRequestBody = {
   state: string
 }
 
-export type t_sendPhoneChallengeJsonRequestBody = {
+export type t_SendPhoneChallengeRequestBody = {
   method: "SMS" | "CALL" | UnknownEnumStringValue
   retry?: boolean | undefined
 }
 
-export type t_verifyEmailOtpJsonRequestBody = {
+export type t_VerifyEmailOtpRequestBody = {
   verificationCode: string
 }
 
-export type t_verifyPhoneChallengeJsonRequestBody = {
+export type t_VerifyPhoneChallengeRequestBody = {
   verificationCode: string
 }

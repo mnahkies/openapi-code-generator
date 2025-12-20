@@ -10,6 +10,50 @@ import {
 import type {AxiosRequestConfig, AxiosResponse} from "axios"
 import type {
   EmptyObject,
+  t_ActionsAddCustomLabelsToSelfHostedRunnerForOrgRequestBody,
+  t_ActionsAddCustomLabelsToSelfHostedRunnerForRepoRequestBody,
+  t_ActionsCreateEnvironmentVariableRequestBody,
+  t_ActionsCreateHostedRunnerForOrgRequestBody,
+  t_ActionsCreateOrgVariableRequestBody,
+  t_ActionsCreateOrUpdateEnvironmentSecretRequestBody,
+  t_ActionsCreateOrUpdateOrgSecretRequestBody,
+  t_ActionsCreateOrUpdateRepoSecretRequestBody,
+  t_ActionsCreateRepoVariableRequestBody,
+  t_ActionsCreateSelfHostedRunnerGroupForOrgRequestBody,
+  t_ActionsCreateWorkflowDispatchRequestBody,
+  t_ActionsGenerateRunnerJitconfigForOrgRequestBody,
+  t_ActionsGenerateRunnerJitconfigForRepoRequestBody,
+  t_ActionsReRunJobForWorkflowRunRequestBody,
+  t_ActionsReRunWorkflowFailedJobsRequestBody,
+  t_ActionsReRunWorkflowRequestBody,
+  t_ActionsReviewCustomGatesForRunRequestBody,
+  t_ActionsReviewPendingDeploymentsForRunRequestBody,
+  t_ActionsSetCustomLabelsForSelfHostedRunnerForOrgRequestBody,
+  t_ActionsSetCustomLabelsForSelfHostedRunnerForRepoRequestBody,
+  t_ActionsSetCustomOidcSubClaimForRepoRequestBody,
+  t_ActionsSetGithubActionsPermissionsOrganizationRequestBody,
+  t_ActionsSetGithubActionsPermissionsRepositoryRequestBody,
+  t_ActionsSetRepoAccessToSelfHostedRunnerGroupInOrgRequestBody,
+  t_ActionsSetSelectedReposForOrgSecretRequestBody,
+  t_ActionsSetSelectedReposForOrgVariableRequestBody,
+  t_ActionsSetSelectedRepositoriesEnabledGithubActionsOrganizationRequestBody,
+  t_ActionsSetSelfHostedRunnersInGroupForOrgRequestBody,
+  t_ActionsUpdateEnvironmentVariableRequestBody,
+  t_ActionsUpdateHostedRunnerForOrgRequestBody,
+  t_ActionsUpdateOrgVariableRequestBody,
+  t_ActionsUpdateRepoVariableRequestBody,
+  t_ActionsUpdateSelfHostedRunnerGroupForOrgRequestBody,
+  t_ActivityMarkNotificationsAsReadRequestBody,
+  t_ActivityMarkRepoNotificationsAsReadRequestBody,
+  t_ActivitySetRepoSubscriptionRequestBody,
+  t_ActivitySetThreadSubscriptionRequestBody,
+  t_AppsCheckTokenRequestBody,
+  t_AppsCreateInstallationAccessTokenRequestBody,
+  t_AppsDeleteAuthorizationRequestBody,
+  t_AppsDeleteTokenRequestBody,
+  t_AppsResetTokenRequestBody,
+  t_AppsScopeTokenRequestBody,
+  t_AppsUpdateWebhookConfigForAppRequestBody,
   t_actions_billing_usage,
   t_actions_cache_list,
   t_actions_cache_usage_by_repository,
@@ -26,44 +70,7 @@ import type {
   t_actions_set_default_workflow_permissions,
   t_actions_variable,
   t_actions_workflow_access_to_repository,
-  t_actionsAddCustomLabelsToSelfHostedRunnerForOrgJsonRequestBody,
-  t_actionsAddCustomLabelsToSelfHostedRunnerForRepoJsonRequestBody,
-  t_actionsCreateEnvironmentVariableJsonRequestBody,
-  t_actionsCreateHostedRunnerForOrgJsonRequestBody,
-  t_actionsCreateOrgVariableJsonRequestBody,
-  t_actionsCreateOrUpdateEnvironmentSecretJsonRequestBody,
-  t_actionsCreateOrUpdateOrgSecretJsonRequestBody,
-  t_actionsCreateOrUpdateRepoSecretJsonRequestBody,
-  t_actionsCreateRepoVariableJsonRequestBody,
-  t_actionsCreateSelfHostedRunnerGroupForOrgJsonRequestBody,
-  t_actionsCreateWorkflowDispatchJsonRequestBody,
-  t_actionsGenerateRunnerJitconfigForOrgJsonRequestBody,
-  t_actionsGenerateRunnerJitconfigForRepoJsonRequestBody,
-  t_actionsReRunJobForWorkflowRunJsonRequestBody,
-  t_actionsReRunWorkflowFailedJobsJsonRequestBody,
-  t_actionsReRunWorkflowJsonRequestBody,
-  t_actionsReviewCustomGatesForRunJsonRequestBody,
-  t_actionsReviewPendingDeploymentsForRunJsonRequestBody,
-  t_actionsSetCustomLabelsForSelfHostedRunnerForOrgJsonRequestBody,
-  t_actionsSetCustomLabelsForSelfHostedRunnerForRepoJsonRequestBody,
-  t_actionsSetCustomOidcSubClaimForRepoJsonRequestBody,
-  t_actionsSetGithubActionsPermissionsOrganizationJsonRequestBody,
-  t_actionsSetGithubActionsPermissionsRepositoryJsonRequestBody,
-  t_actionsSetRepoAccessToSelfHostedRunnerGroupInOrgJsonRequestBody,
-  t_actionsSetSelectedReposForOrgSecretJsonRequestBody,
-  t_actionsSetSelectedReposForOrgVariableJsonRequestBody,
-  t_actionsSetSelectedRepositoriesEnabledGithubActionsOrganizationJsonRequestBody,
-  t_actionsSetSelfHostedRunnersInGroupForOrgJsonRequestBody,
-  t_actionsUpdateEnvironmentVariableJsonRequestBody,
-  t_actionsUpdateHostedRunnerForOrgJsonRequestBody,
-  t_actionsUpdateOrgVariableJsonRequestBody,
-  t_actionsUpdateRepoVariableJsonRequestBody,
-  t_actionsUpdateSelfHostedRunnerGroupForOrgJsonRequestBody,
   t_activity,
-  t_activityMarkNotificationsAsReadJsonRequestBody,
-  t_activityMarkRepoNotificationsAsReadJsonRequestBody,
-  t_activitySetRepoSubscriptionJsonRequestBody,
-  t_activitySetThreadSubscriptionJsonRequestBody,
   t_alert_number,
   t_api_insights_route_stats,
   t_api_insights_subject_stats,
@@ -71,13 +78,6 @@ import type {
   t_api_insights_time_stats,
   t_api_insights_user_stats,
   t_api_overview,
-  t_appsCheckTokenJsonRequestBody,
-  t_appsCreateInstallationAccessTokenJsonRequestBody,
-  t_appsDeleteAuthorizationJsonRequestBody,
-  t_appsDeleteTokenJsonRequestBody,
-  t_appsResetTokenJsonRequestBody,
-  t_appsScopeTokenJsonRequestBody,
-  t_appsUpdateWebhookConfigForAppJsonRequestBody,
   t_artifact,
   t_authentication_token,
   t_authorization,
@@ -90,19 +90,49 @@ import type {
   t_branch_restriction_policy,
   t_branch_short,
   t_branch_with_protection,
+  t_CampaignsCreateCampaignRequestBody,
+  t_CampaignsUpdateCampaignRequestBody,
+  t_ChecksCreateRequestBody,
+  t_ChecksCreateSuiteRequestBody,
+  t_ChecksSetSuitesPreferencesRequestBody,
+  t_ChecksUpdateRequestBody,
+  t_CodeScanningCreateVariantAnalysisRequestBody,
+  t_CodeScanningUpdateAlertRequestBody,
+  t_CodeScanningUploadSarifRequestBody,
+  t_CodeSecurityAttachConfigurationRequestBody,
+  t_CodeSecurityAttachEnterpriseConfigurationRequestBody,
+  t_CodeSecurityCreateConfigurationForEnterpriseRequestBody,
+  t_CodeSecurityCreateConfigurationRequestBody,
+  t_CodeSecurityDetachConfigurationRequestBody,
+  t_CodeSecuritySetConfigurationAsDefaultForEnterpriseRequestBody,
+  t_CodeSecuritySetConfigurationAsDefaultRequestBody,
+  t_CodeSecurityUpdateConfigurationRequestBody,
+  t_CodeSecurityUpdateEnterpriseConfigurationRequestBody,
+  t_CodespacesCreateForAuthenticatedUserRequestBody,
+  t_CodespacesCreateOrUpdateOrgSecretRequestBody,
+  t_CodespacesCreateOrUpdateRepoSecretRequestBody,
+  t_CodespacesCreateOrUpdateSecretForAuthenticatedUserRequestBody,
+  t_CodespacesCreateWithPrForAuthenticatedUserRequestBody,
+  t_CodespacesCreateWithRepoForAuthenticatedUserRequestBody,
+  t_CodespacesDeleteCodespacesAccessUsersRequestBody,
+  t_CodespacesPublishForAuthenticatedUserRequestBody,
+  t_CodespacesSetCodespacesAccessRequestBody,
+  t_CodespacesSetCodespacesAccessUsersRequestBody,
+  t_CodespacesSetRepositoriesForSecretForAuthenticatedUserRequestBody,
+  t_CodespacesSetSelectedReposForOrgSecretRequestBody,
+  t_CodespacesUpdateForAuthenticatedUserRequestBody,
+  t_CopilotAddCopilotSeatsForTeamsRequestBody,
+  t_CopilotAddCopilotSeatsForUsersRequestBody,
+  t_CopilotCancelCopilotSeatAssignmentForTeamsRequestBody,
+  t_CopilotCancelCopilotSeatAssignmentForUsersRequestBody,
+  t_CredentialsRevokeRequestBody,
   t_campaign_state,
   t_campaign_summary,
-  t_campaignsCreateCampaignJsonRequestBody,
-  t_campaignsUpdateCampaignJsonRequestBody,
   t_check_annotation,
   t_check_automated_security_fixes,
   t_check_run,
   t_check_suite,
   t_check_suite_preference,
-  t_checksCreateJsonRequestBody,
-  t_checksCreateSuiteJsonRequestBody,
-  t_checksSetSuitesPreferencesJsonRequestBody,
-  t_checksUpdateJsonRequestBody,
   t_classroom,
   t_classroom_accepted_assignment,
   t_classroom_assignment,
@@ -139,18 +169,6 @@ import type {
   t_code_security_configuration_repositories,
   t_code_security_default_configurations,
   t_codeowners_errors,
-  t_codeScanningCreateVariantAnalysisJsonRequestBody,
-  t_codeScanningUpdateAlertJsonRequestBody,
-  t_codeScanningUploadSarifJsonRequestBody,
-  t_codeSecurityAttachConfigurationJsonRequestBody,
-  t_codeSecurityAttachEnterpriseConfigurationJsonRequestBody,
-  t_codeSecurityCreateConfigurationForEnterpriseJsonRequestBody,
-  t_codeSecurityCreateConfigurationJsonRequestBody,
-  t_codeSecurityDetachConfigurationJsonRequestBody,
-  t_codeSecuritySetConfigurationAsDefaultForEnterpriseJsonRequestBody,
-  t_codeSecuritySetConfigurationAsDefaultJsonRequestBody,
-  t_codeSecurityUpdateConfigurationJsonRequestBody,
-  t_codeSecurityUpdateEnterpriseConfigurationJsonRequestBody,
   t_codespace,
   t_codespace_export_details,
   t_codespace_machine,
@@ -160,19 +178,6 @@ import type {
   t_codespaces_public_key,
   t_codespaces_secret,
   t_codespaces_user_public_key,
-  t_codespacesCreateForAuthenticatedUserJsonRequestBody,
-  t_codespacesCreateOrUpdateOrgSecretJsonRequestBody,
-  t_codespacesCreateOrUpdateRepoSecretJsonRequestBody,
-  t_codespacesCreateOrUpdateSecretForAuthenticatedUserJsonRequestBody,
-  t_codespacesCreateWithPrForAuthenticatedUserJsonRequestBody,
-  t_codespacesCreateWithRepoForAuthenticatedUserJsonRequestBody,
-  t_codespacesDeleteCodespacesAccessUsersJsonRequestBody,
-  t_codespacesPublishForAuthenticatedUserJsonRequestBody,
-  t_codespacesSetCodespacesAccessJsonRequestBody,
-  t_codespacesSetCodespacesAccessUsersJsonRequestBody,
-  t_codespacesSetRepositoriesForSecretForAuthenticatedUserJsonRequestBody,
-  t_codespacesSetSelectedReposForOrgSecretJsonRequestBody,
-  t_codespacesUpdateForAuthenticatedUserJsonRequestBody,
   t_collaborator,
   t_combined_billing_usage,
   t_combined_commit_status,
@@ -192,26 +197,21 @@ import type {
   t_copilot_organization_details,
   t_copilot_seat_details,
   t_copilot_usage_metrics_day,
-  t_copilotAddCopilotSeatsForTeamsJsonRequestBody,
-  t_copilotAddCopilotSeatsForUsersJsonRequestBody,
-  t_copilotCancelCopilotSeatAssignmentForTeamsJsonRequestBody,
-  t_copilotCancelCopilotSeatAssignmentForUsersJsonRequestBody,
-  t_credentialsRevokeJsonRequestBody,
   t_custom_deployment_rule_app,
   t_custom_property,
   t_custom_property_set_payload,
   t_custom_property_value,
+  t_DependabotCreateOrUpdateOrgSecretRequestBody,
+  t_DependabotCreateOrUpdateRepoSecretRequestBody,
+  t_DependabotSetRepositoryAccessDefaultLevelRequestBody,
+  t_DependabotSetSelectedReposForOrgSecretRequestBody,
+  t_DependabotUpdateAlertRequestBody,
+  t_DependabotUpdateRepositoryAccessForOrgRequestBody,
   t_dependabot_alert,
   t_dependabot_alert_with_repository,
   t_dependabot_public_key,
   t_dependabot_repository_access_details,
   t_dependabot_secret,
-  t_dependabotCreateOrUpdateOrgSecretJsonRequestBody,
-  t_dependabotCreateOrUpdateRepoSecretJsonRequestBody,
-  t_dependabotSetRepositoryAccessDefaultLevelJsonRequestBody,
-  t_dependabotSetSelectedReposForOrgSecretJsonRequestBody,
-  t_dependabotUpdateAlertJsonRequestBody,
-  t_dependabotUpdateRepositoryAccessForOrgJsonRequestBody,
   t_dependency_graph_diff,
   t_dependency_graph_spdx_sbom,
   t_deploy_key,
@@ -230,32 +230,48 @@ import type {
   t_feed,
   t_file_commit,
   t_full_repository,
+  t_GistsCreateCommentRequestBody,
+  t_GistsCreateRequestBody,
+  t_GistsUpdateCommentRequestBody,
+  t_GistsUpdateRequestBody,
+  t_GitCreateBlobRequestBody,
+  t_GitCreateCommitRequestBody,
+  t_GitCreateRefRequestBody,
+  t_GitCreateTagRequestBody,
+  t_GitCreateTreeRequestBody,
+  t_GitUpdateRefRequestBody,
   t_gist_comment,
   t_gist_commit,
   t_gist_simple,
-  t_gistsCreateCommentJsonRequestBody,
-  t_gistsCreateJsonRequestBody,
-  t_gistsUpdateCommentJsonRequestBody,
-  t_gistsUpdateJsonRequestBody,
   t_git_commit,
   t_git_ref,
   t_git_tag,
   t_git_tree,
-  t_gitCreateBlobJsonRequestBody,
-  t_gitCreateCommitJsonRequestBody,
-  t_gitCreateRefJsonRequestBody,
-  t_gitCreateTagJsonRequestBody,
-  t_gitCreateTreeJsonRequestBody,
   t_gitignore_template,
-  t_gitUpdateRefJsonRequestBody,
   t_global_advisory,
   t_gpg_key,
+  t_HostedComputeCreateNetworkConfigurationForOrgRequestBody,
+  t_HostedComputeUpdateNetworkConfigurationForOrgRequestBody,
   t_hook,
   t_hook_delivery,
   t_hook_delivery_item,
-  t_hostedComputeCreateNetworkConfigurationForOrgJsonRequestBody,
-  t_hostedComputeUpdateNetworkConfigurationForOrgJsonRequestBody,
   t_hovercard,
+  t_IssuesAddAssigneesRequestBody,
+  t_IssuesAddLabelsRequestBody,
+  t_IssuesAddSubIssueRequestBody,
+  t_IssuesCreateCommentRequestBody,
+  t_IssuesCreateLabelRequestBody,
+  t_IssuesCreateMilestoneRequestBody,
+  t_IssuesCreateRequestBody,
+  t_IssuesLockRequestBody,
+  t_IssuesRemoveAssigneesRequestBody,
+  t_IssuesRemoveSubIssueRequestBody,
+  t_IssuesReprioritizeSubIssueRequestBody,
+  t_IssuesSetLabelsRequestBody,
+  t_IssuesUpdateCommentRequestBody,
+  t_IssuesUpdateLabelRequestBody,
+  t_IssuesUpdateMilestoneRequestBody,
+  t_IssuesUpdateRequestBody,
   t_import,
   t_installation,
   t_installation_token,
@@ -269,22 +285,6 @@ import type {
   t_issue_event_for_issue,
   t_issue_search_result_item,
   t_issue_type,
-  t_issuesAddAssigneesJsonRequestBody,
-  t_issuesAddLabelsJsonRequestBody,
-  t_issuesAddSubIssueJsonRequestBody,
-  t_issuesCreateCommentJsonRequestBody,
-  t_issuesCreateJsonRequestBody,
-  t_issuesCreateLabelJsonRequestBody,
-  t_issuesCreateMilestoneJsonRequestBody,
-  t_issuesLockJsonRequestBody,
-  t_issuesRemoveAssigneesJsonRequestBody,
-  t_issuesRemoveSubIssueJsonRequestBody,
-  t_issuesReprioritizeSubIssueJsonRequestBody,
-  t_issuesSetLabelsJsonRequestBody,
-  t_issuesUpdateCommentJsonRequestBody,
-  t_issuesUpdateJsonRequestBody,
-  t_issuesUpdateLabelJsonRequestBody,
-  t_issuesUpdateMilestoneJsonRequestBody,
   t_job,
   t_key,
   t_key_simple,
@@ -294,21 +294,38 @@ import type {
   t_license,
   t_license_content,
   t_license_simple,
-  t_markdownRenderJsonRequestBody,
+  t_MarkdownRenderRequestBody,
+  t_MigrationsMapCommitAuthorRequestBody,
+  t_MigrationsSetLfsPreferenceRequestBody,
+  t_MigrationsStartForAuthenticatedUserRequestBody,
+  t_MigrationsStartForOrgRequestBody,
+  t_MigrationsStartImportRequestBody,
+  t_MigrationsUpdateImportRequestBody,
   t_marketplace_listing_plan,
   t_marketplace_purchase,
   t_merged_upstream,
   t_migration,
-  t_migrationsMapCommitAuthorJsonRequestBody,
-  t_migrationsSetLfsPreferenceJsonRequestBody,
-  t_migrationsStartForAuthenticatedUserJsonRequestBody,
-  t_migrationsStartForOrgJsonRequestBody,
-  t_migrationsStartImportJsonRequestBody,
-  t_migrationsUpdateImportJsonRequestBody,
   t_milestone,
   t_minimal_repository,
   t_network_configuration,
   t_network_settings,
+  t_OrgsConvertMemberToOutsideCollaboratorRequestBody,
+  t_OrgsCreateInvitationRequestBody,
+  t_OrgsCreateOrUpdateCustomPropertiesRequestBody,
+  t_OrgsCreateOrUpdateCustomPropertiesValuesForReposRequestBody,
+  t_OrgsCreateWebhookRequestBody,
+  t_OrgsDeleteAttestationsBulkRequestBody,
+  t_OrgsEnableOrDisableSecurityProductOnAllOrgReposRequestBody,
+  t_OrgsListAttestationsBulkRequestBody,
+  t_OrgsReviewPatGrantRequestRequestBody,
+  t_OrgsReviewPatGrantRequestsInBulkRequestBody,
+  t_OrgsSetMembershipForUserRequestBody,
+  t_OrgsUpdateMembershipForAuthenticatedUserRequestBody,
+  t_OrgsUpdatePatAccessesRequestBody,
+  t_OrgsUpdatePatAccessRequestBody,
+  t_OrgsUpdateRequestBody,
+  t_OrgsUpdateWebhookConfigForOrgRequestBody,
+  t_OrgsUpdateWebhookRequestBody,
   t_oidc_custom_sub,
   t_oidc_custom_sub_repo,
   t_org_hook,
@@ -328,23 +345,32 @@ import type {
   t_organization_secret_scanning_alert,
   t_organization_simple,
   t_organization_update_issue_type,
-  t_orgsConvertMemberToOutsideCollaboratorJsonRequestBody,
-  t_orgsCreateInvitationJsonRequestBody,
-  t_orgsCreateOrUpdateCustomPropertiesJsonRequestBody,
-  t_orgsCreateOrUpdateCustomPropertiesValuesForReposJsonRequestBody,
-  t_orgsCreateWebhookJsonRequestBody,
-  t_orgsDeleteAttestationsBulkJsonRequestBody,
-  t_orgsEnableOrDisableSecurityProductOnAllOrgReposJsonRequestBody,
-  t_orgsListAttestationsBulkJsonRequestBody,
-  t_orgsReviewPatGrantRequestJsonRequestBody,
-  t_orgsReviewPatGrantRequestsInBulkJsonRequestBody,
-  t_orgsSetMembershipForUserJsonRequestBody,
-  t_orgsUpdateJsonRequestBody,
-  t_orgsUpdateMembershipForAuthenticatedUserJsonRequestBody,
-  t_orgsUpdatePatAccessesJsonRequestBody,
-  t_orgsUpdatePatAccessJsonRequestBody,
-  t_orgsUpdateWebhookConfigForOrgJsonRequestBody,
-  t_orgsUpdateWebhookJsonRequestBody,
+  t_PrivateRegistriesCreateOrgPrivateRegistryRequestBody,
+  t_PrivateRegistriesUpdateOrgPrivateRegistryRequestBody,
+  t_ProjectsClassicAddCollaboratorRequestBody,
+  t_ProjectsClassicCreateCardRequestBody,
+  t_ProjectsClassicCreateColumnRequestBody,
+  t_ProjectsClassicCreateForAuthenticatedUserRequestBody,
+  t_ProjectsClassicCreateForOrgRequestBody,
+  t_ProjectsClassicCreateForRepoRequestBody,
+  t_ProjectsClassicMoveCardRequestBody,
+  t_ProjectsClassicMoveColumnRequestBody,
+  t_ProjectsClassicUpdateCardRequestBody,
+  t_ProjectsClassicUpdateColumnRequestBody,
+  t_ProjectsClassicUpdateRequestBody,
+  t_PullsCreateReplyForReviewCommentRequestBody,
+  t_PullsCreateRequestBody,
+  t_PullsCreateReviewCommentRequestBody,
+  t_PullsCreateReviewRequestBody,
+  t_PullsDismissReviewRequestBody,
+  t_PullsMergeRequestBody,
+  t_PullsRemoveRequestedReviewersRequestBody,
+  t_PullsRequestReviewersRequestBody,
+  t_PullsSubmitReviewRequestBody,
+  t_PullsUpdateBranchRequestBody,
+  t_PullsUpdateRequestBody,
+  t_PullsUpdateReviewCommentRequestBody,
+  t_PullsUpdateReviewRequestBody,
   t_package,
   t_package_version,
   t_packages_billing_usage,
@@ -360,23 +386,10 @@ import type {
   t_porter_large_file,
   t_private_user,
   t_private_vulnerability_report_create,
-  t_privateRegistriesCreateOrgPrivateRegistryJsonRequestBody,
-  t_privateRegistriesUpdateOrgPrivateRegistryJsonRequestBody,
   t_project,
   t_project_card,
   t_project_collaborator_permission,
   t_project_column,
-  t_projectsClassicAddCollaboratorJsonRequestBody,
-  t_projectsClassicCreateCardJsonRequestBody,
-  t_projectsClassicCreateColumnJsonRequestBody,
-  t_projectsClassicCreateForAuthenticatedUserJsonRequestBody,
-  t_projectsClassicCreateForOrgJsonRequestBody,
-  t_projectsClassicCreateForRepoJsonRequestBody,
-  t_projectsClassicMoveCardJsonRequestBody,
-  t_projectsClassicMoveColumnJsonRequestBody,
-  t_projectsClassicUpdateCardJsonRequestBody,
-  t_projectsClassicUpdateColumnJsonRequestBody,
-  t_projectsClassicUpdateJsonRequestBody,
   t_protected_branch,
   t_protected_branch_admin_enforced,
   t_protected_branch_pull_request_review,
@@ -387,66 +400,79 @@ import type {
   t_pull_request_review_comment,
   t_pull_request_review_request,
   t_pull_request_simple,
-  t_pullsCreateJsonRequestBody,
-  t_pullsCreateReplyForReviewCommentJsonRequestBody,
-  t_pullsCreateReviewCommentJsonRequestBody,
-  t_pullsCreateReviewJsonRequestBody,
-  t_pullsDismissReviewJsonRequestBody,
-  t_pullsMergeJsonRequestBody,
-  t_pullsRemoveRequestedReviewersJsonRequestBody,
-  t_pullsRequestReviewersJsonRequestBody,
-  t_pullsSubmitReviewJsonRequestBody,
-  t_pullsUpdateBranchJsonRequestBody,
-  t_pullsUpdateJsonRequestBody,
-  t_pullsUpdateReviewCommentJsonRequestBody,
-  t_pullsUpdateReviewJsonRequestBody,
+  t_ReactionsCreateForCommitCommentRequestBody,
+  t_ReactionsCreateForIssueCommentRequestBody,
+  t_ReactionsCreateForIssueRequestBody,
+  t_ReactionsCreateForPullRequestReviewCommentRequestBody,
+  t_ReactionsCreateForReleaseRequestBody,
+  t_ReactionsCreateForTeamDiscussionCommentInOrgRequestBody,
+  t_ReactionsCreateForTeamDiscussionCommentLegacyRequestBody,
+  t_ReactionsCreateForTeamDiscussionInOrgRequestBody,
+  t_ReactionsCreateForTeamDiscussionLegacyRequestBody,
+  t_ReposAddAppAccessRestrictionsRequestBody,
+  t_ReposAddCollaboratorRequestBody,
+  t_ReposAddStatusCheckContextsRequestBody,
+  t_ReposAddTeamAccessRestrictionsRequestBody,
+  t_ReposAddUserAccessRestrictionsRequestBody,
+  t_ReposCreateAttestationRequestBody,
+  t_ReposCreateAutolinkRequestBody,
+  t_ReposCreateCommitCommentRequestBody,
+  t_ReposCreateCommitStatusRequestBody,
+  t_ReposCreateDeployKeyRequestBody,
+  t_ReposCreateDeploymentProtectionRuleRequestBody,
+  t_ReposCreateDeploymentRequestBody,
+  t_ReposCreateDeploymentStatusRequestBody,
+  t_ReposCreateDispatchEventRequestBody,
+  t_ReposCreateForAuthenticatedUserRequestBody,
+  t_ReposCreateForkRequestBody,
+  t_ReposCreateInOrgRequestBody,
+  t_ReposCreateOrgRulesetRequestBody,
+  t_ReposCreateOrUpdateCustomPropertiesValuesRequestBody,
+  t_ReposCreateOrUpdateEnvironmentRequestBody,
+  t_ReposCreateOrUpdateFileContentsRequestBody,
+  t_ReposCreatePagesDeploymentRequestBody,
+  t_ReposCreatePagesSiteRequestBody,
+  t_ReposCreateReleaseRequestBody,
+  t_ReposCreateRepoRulesetRequestBody,
+  t_ReposCreateTagProtectionRequestBody,
+  t_ReposCreateUsingTemplateRequestBody,
+  t_ReposCreateWebhookRequestBody,
+  t_ReposDeleteFileRequestBody,
+  t_ReposGenerateReleaseNotesRequestBody,
+  t_ReposMergeRequestBody,
+  t_ReposMergeUpstreamRequestBody,
+  t_ReposRemoveAppAccessRestrictionsRequestBody,
+  t_ReposRemoveStatusCheckContextsRequestBody,
+  t_ReposRemoveTeamAccessRestrictionsRequestBody,
+  t_ReposRemoveUserAccessRestrictionsRequestBody,
+  t_ReposRenameBranchRequestBody,
+  t_ReposReplaceAllTopicsRequestBody,
+  t_ReposSetAppAccessRestrictionsRequestBody,
+  t_ReposSetStatusCheckContextsRequestBody,
+  t_ReposSetTeamAccessRestrictionsRequestBody,
+  t_ReposSetUserAccessRestrictionsRequestBody,
+  t_ReposTransferRequestBody,
+  t_ReposUpdateBranchProtectionRequestBody,
+  t_ReposUpdateCommitCommentRequestBody,
+  t_ReposUpdateInformationAboutPagesSiteRequestBody,
+  t_ReposUpdateInvitationRequestBody,
+  t_ReposUpdateOrgRulesetRequestBody,
+  t_ReposUpdatePullRequestReviewProtectionRequestBody,
+  t_ReposUpdateReleaseAssetRequestBody,
+  t_ReposUpdateReleaseRequestBody,
+  t_ReposUpdateRepoRulesetRequestBody,
+  t_ReposUpdateRequestBody,
+  t_ReposUpdateStatusCheckProtectionRequestBody,
+  t_ReposUpdateWebhookConfigForRepoRequestBody,
+  t_ReposUpdateWebhookRequestBody,
   t_rate_limit_overview,
   t_reaction,
-  t_reactionsCreateForCommitCommentJsonRequestBody,
-  t_reactionsCreateForIssueCommentJsonRequestBody,
-  t_reactionsCreateForIssueJsonRequestBody,
-  t_reactionsCreateForPullRequestReviewCommentJsonRequestBody,
-  t_reactionsCreateForReleaseJsonRequestBody,
-  t_reactionsCreateForTeamDiscussionCommentInOrgJsonRequestBody,
-  t_reactionsCreateForTeamDiscussionCommentLegacyJsonRequestBody,
-  t_reactionsCreateForTeamDiscussionInOrgJsonRequestBody,
-  t_reactionsCreateForTeamDiscussionLegacyJsonRequestBody,
   t_referrer_traffic,
   t_release,
   t_release_asset,
   t_release_notes_content,
   t_repo_codespaces_secret,
   t_repo_search_result_item,
-  t_reposAddAppAccessRestrictionsJsonRequestBody,
-  t_reposAddCollaboratorJsonRequestBody,
-  t_reposAddStatusCheckContextsJsonRequestBody,
-  t_reposAddTeamAccessRestrictionsJsonRequestBody,
-  t_reposAddUserAccessRestrictionsJsonRequestBody,
-  t_reposCreateAttestationJsonRequestBody,
-  t_reposCreateAutolinkJsonRequestBody,
-  t_reposCreateCommitCommentJsonRequestBody,
-  t_reposCreateCommitStatusJsonRequestBody,
-  t_reposCreateDeployKeyJsonRequestBody,
-  t_reposCreateDeploymentJsonRequestBody,
-  t_reposCreateDeploymentProtectionRuleJsonRequestBody,
-  t_reposCreateDeploymentStatusJsonRequestBody,
-  t_reposCreateDispatchEventJsonRequestBody,
-  t_reposCreateForAuthenticatedUserJsonRequestBody,
-  t_reposCreateForkJsonRequestBody,
-  t_reposCreateInOrgJsonRequestBody,
-  t_reposCreateOrgRulesetJsonRequestBody,
-  t_reposCreateOrUpdateCustomPropertiesValuesJsonRequestBody,
-  t_reposCreateOrUpdateEnvironmentJsonRequestBody,
-  t_reposCreateOrUpdateFileContentsJsonRequestBody,
-  t_reposCreatePagesDeploymentJsonRequestBody,
-  t_reposCreatePagesSiteJsonRequestBody,
-  t_reposCreateReleaseJsonRequestBody,
-  t_reposCreateRepoRulesetJsonRequestBody,
-  t_reposCreateTagProtectionJsonRequestBody,
-  t_reposCreateUsingTemplateJsonRequestBody,
-  t_reposCreateWebhookJsonRequestBody,
-  t_reposDeleteFileJsonRequestBody,
-  t_reposGenerateReleaseNotesJsonRequestBody,
   t_repository,
   t_repository_advisory,
   t_repository_advisory_create,
@@ -456,32 +482,6 @@ import type {
   t_repository_rule_detailed,
   t_repository_ruleset,
   t_repository_subscription,
-  t_reposMergeJsonRequestBody,
-  t_reposMergeUpstreamJsonRequestBody,
-  t_reposRemoveAppAccessRestrictionsJsonRequestBody,
-  t_reposRemoveStatusCheckContextsJsonRequestBody,
-  t_reposRemoveTeamAccessRestrictionsJsonRequestBody,
-  t_reposRemoveUserAccessRestrictionsJsonRequestBody,
-  t_reposRenameBranchJsonRequestBody,
-  t_reposReplaceAllTopicsJsonRequestBody,
-  t_reposSetAppAccessRestrictionsJsonRequestBody,
-  t_reposSetStatusCheckContextsJsonRequestBody,
-  t_reposSetTeamAccessRestrictionsJsonRequestBody,
-  t_reposSetUserAccessRestrictionsJsonRequestBody,
-  t_reposTransferJsonRequestBody,
-  t_reposUpdateBranchProtectionJsonRequestBody,
-  t_reposUpdateCommitCommentJsonRequestBody,
-  t_reposUpdateInformationAboutPagesSiteJsonRequestBody,
-  t_reposUpdateInvitationJsonRequestBody,
-  t_reposUpdateJsonRequestBody,
-  t_reposUpdateOrgRulesetJsonRequestBody,
-  t_reposUpdatePullRequestReviewProtectionJsonRequestBody,
-  t_reposUpdateReleaseAssetJsonRequestBody,
-  t_reposUpdateReleaseJsonRequestBody,
-  t_reposUpdateRepoRulesetJsonRequestBody,
-  t_reposUpdateStatusCheckProtectionJsonRequestBody,
-  t_reposUpdateWebhookConfigForRepoJsonRequestBody,
-  t_reposUpdateWebhookJsonRequestBody,
   t_review_comment,
   t_root,
   t_rule_suite,
@@ -492,12 +492,12 @@ import type {
   t_runner_application,
   t_runner_groups_org,
   t_runner_label,
+  t_SecretScanningCreatePushProtectionBypassRequestBody,
+  t_SecretScanningUpdateAlertRequestBody,
   t_secret_scanning_alert,
   t_secret_scanning_location,
   t_secret_scanning_push_protection_bypass,
   t_secret_scanning_scan_history,
-  t_secretScanningCreatePushProtectionBypassJsonRequestBody,
-  t_secretScanningUpdateAlertJsonRequestBody,
   t_security_advisory_ecosystems,
   t_selected_actions,
   t_short_blob,
@@ -512,6 +512,23 @@ import type {
   t_starred_repository,
   t_status,
   t_status_check_policy,
+  t_TeamsAddOrUpdateMembershipForUserInOrgRequestBody,
+  t_TeamsAddOrUpdateMembershipForUserLegacyRequestBody,
+  t_TeamsAddOrUpdateProjectPermissionsInOrgRequestBody,
+  t_TeamsAddOrUpdateProjectPermissionsLegacyRequestBody,
+  t_TeamsAddOrUpdateRepoPermissionsInOrgRequestBody,
+  t_TeamsAddOrUpdateRepoPermissionsLegacyRequestBody,
+  t_TeamsCreateDiscussionCommentInOrgRequestBody,
+  t_TeamsCreateDiscussionCommentLegacyRequestBody,
+  t_TeamsCreateDiscussionInOrgRequestBody,
+  t_TeamsCreateDiscussionLegacyRequestBody,
+  t_TeamsCreateRequestBody,
+  t_TeamsUpdateDiscussionCommentInOrgRequestBody,
+  t_TeamsUpdateDiscussionCommentLegacyRequestBody,
+  t_TeamsUpdateDiscussionInOrgRequestBody,
+  t_TeamsUpdateDiscussionLegacyRequestBody,
+  t_TeamsUpdateInOrgRequestBody,
+  t_TeamsUpdateLegacyRequestBody,
   t_tag,
   t_tag_protection,
   t_team,
@@ -523,42 +540,25 @@ import type {
   t_team_repository,
   t_team_role_assignment,
   t_team_simple,
-  t_teamsAddOrUpdateMembershipForUserInOrgJsonRequestBody,
-  t_teamsAddOrUpdateMembershipForUserLegacyJsonRequestBody,
-  t_teamsAddOrUpdateProjectPermissionsInOrgJsonRequestBody,
-  t_teamsAddOrUpdateProjectPermissionsLegacyJsonRequestBody,
-  t_teamsAddOrUpdateRepoPermissionsInOrgJsonRequestBody,
-  t_teamsAddOrUpdateRepoPermissionsLegacyJsonRequestBody,
-  t_teamsCreateDiscussionCommentInOrgJsonRequestBody,
-  t_teamsCreateDiscussionCommentLegacyJsonRequestBody,
-  t_teamsCreateDiscussionInOrgJsonRequestBody,
-  t_teamsCreateDiscussionLegacyJsonRequestBody,
-  t_teamsCreateJsonRequestBody,
-  t_teamsUpdateDiscussionCommentInOrgJsonRequestBody,
-  t_teamsUpdateDiscussionCommentLegacyJsonRequestBody,
-  t_teamsUpdateDiscussionInOrgJsonRequestBody,
-  t_teamsUpdateDiscussionLegacyJsonRequestBody,
-  t_teamsUpdateInOrgJsonRequestBody,
-  t_teamsUpdateLegacyJsonRequestBody,
   t_thread,
   t_thread_subscription,
   t_timeline_issue_events,
   t_topic,
   t_topic_search_result_item,
+  t_UsersAddEmailForAuthenticatedUserRequestBody,
+  t_UsersAddSocialAccountForAuthenticatedUserRequestBody,
+  t_UsersCreateGpgKeyForAuthenticatedUserRequestBody,
+  t_UsersCreatePublicSshKeyForAuthenticatedUserRequestBody,
+  t_UsersCreateSshSigningKeyForAuthenticatedUserRequestBody,
+  t_UsersDeleteAttestationsBulkRequestBody,
+  t_UsersDeleteEmailForAuthenticatedUserRequestBody,
+  t_UsersDeleteSocialAccountForAuthenticatedUserRequestBody,
+  t_UsersListAttestationsBulkRequestBody,
+  t_UsersSetPrimaryEmailVisibilityForAuthenticatedUserRequestBody,
+  t_UsersUpdateAuthenticatedRequestBody,
   t_user_marketplace_purchase,
   t_user_role_assignment,
   t_user_search_result_item,
-  t_usersAddEmailForAuthenticatedUserJsonRequestBody,
-  t_usersAddSocialAccountForAuthenticatedUserJsonRequestBody,
-  t_usersCreateGpgKeyForAuthenticatedUserJsonRequestBody,
-  t_usersCreatePublicSshKeyForAuthenticatedUserJsonRequestBody,
-  t_usersCreateSshSigningKeyForAuthenticatedUserJsonRequestBody,
-  t_usersDeleteAttestationsBulkJsonRequestBody,
-  t_usersDeleteEmailForAuthenticatedUserJsonRequestBody,
-  t_usersDeleteSocialAccountForAuthenticatedUserJsonRequestBody,
-  t_usersListAttestationsBulkJsonRequestBody,
-  t_usersSetPrimaryEmailVisibilityForAuthenticatedUserJsonRequestBody,
-  t_usersUpdateAuthenticatedJsonRequestBody,
   t_view_traffic,
   t_webhook_config,
   t_workflow,
@@ -784,7 +784,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
 
   async appsUpdateWebhookConfigForApp(
     p: {
-      requestBody: t_appsUpdateWebhookConfigForAppJsonRequestBody
+      requestBody: t_AppsUpdateWebhookConfigForAppRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -959,7 +959,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async appsCreateInstallationAccessToken(
     p: {
       installationId: number
-      requestBody?: t_appsCreateInstallationAccessTokenJsonRequestBody
+      requestBody?: t_AppsCreateInstallationAccessTokenRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -1027,7 +1027,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async appsDeleteAuthorization(
     p: {
       clientId: string
-      requestBody: t_appsDeleteAuthorizationJsonRequestBody
+      requestBody: t_AppsDeleteAuthorizationRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -1052,7 +1052,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async appsCheckToken(
     p: {
       clientId: string
-      requestBody: t_appsCheckTokenJsonRequestBody
+      requestBody: t_AppsCheckTokenRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -1077,7 +1077,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async appsResetToken(
     p: {
       clientId: string
-      requestBody: t_appsResetTokenJsonRequestBody
+      requestBody: t_AppsResetTokenRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -1102,7 +1102,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async appsDeleteToken(
     p: {
       clientId: string
-      requestBody: t_appsDeleteTokenJsonRequestBody
+      requestBody: t_AppsDeleteTokenRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -1127,7 +1127,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async appsScopeToken(
     p: {
       clientId: string
-      requestBody: t_appsScopeTokenJsonRequestBody
+      requestBody: t_AppsScopeTokenRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -1327,7 +1327,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
 
   async credentialsRevoke(
     p: {
-      requestBody: t_credentialsRevokeJsonRequestBody
+      requestBody: t_CredentialsRevokeRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -1403,7 +1403,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async codeSecurityCreateConfigurationForEnterprise(
     p: {
       enterprise: string
-      requestBody: t_codeSecurityCreateConfigurationForEnterpriseJsonRequestBody
+      requestBody: t_CodeSecurityCreateConfigurationForEnterpriseRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -1468,7 +1468,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       enterprise: string
       configurationId: number
-      requestBody: t_codeSecurityUpdateEnterpriseConfigurationJsonRequestBody
+      requestBody: t_CodeSecurityUpdateEnterpriseConfigurationRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -1514,7 +1514,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       enterprise: string
       configurationId: number
-      requestBody: t_codeSecurityAttachEnterpriseConfigurationJsonRequestBody
+      requestBody: t_CodeSecurityAttachEnterpriseConfigurationRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -1544,7 +1544,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       enterprise: string
       configurationId: number
-      requestBody: t_codeSecuritySetConfigurationAsDefaultForEnterpriseJsonRequestBody
+      requestBody: t_CodeSecuritySetConfigurationAsDefaultForEnterpriseRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -1768,7 +1768,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
 
   async gistsCreate(
     p: {
-      requestBody: t_gistsCreateJsonRequestBody
+      requestBody: t_GistsCreateRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -1864,7 +1864,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async gistsUpdate(
     p: {
       gistId: string
-      requestBody: t_gistsUpdateJsonRequestBody
+      requestBody: t_GistsUpdateRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -1930,7 +1930,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async gistsCreateComment(
     p: {
       gistId: string
-      requestBody: t_gistsCreateCommentJsonRequestBody
+      requestBody: t_GistsCreateCommentRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -1976,7 +1976,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       gistId: string
       commentId: number
-      requestBody: t_gistsUpdateCommentJsonRequestBody
+      requestBody: t_GistsUpdateCommentRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -2334,7 +2334,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
 
   async markdownRender(
     p: {
-      requestBody: t_markdownRenderJsonRequestBody
+      requestBody: t_MarkdownRenderRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -2594,7 +2594,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
 
   async activityMarkNotificationsAsRead(
     p: {
-      requestBody?: t_activityMarkNotificationsAsReadJsonRequestBody
+      requestBody?: t_ActivityMarkNotificationsAsReadRequestBody
     } = {},
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -2705,7 +2705,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async activitySetThreadSubscription(
     p: {
       threadId: number
-      requestBody?: t_activitySetThreadSubscriptionJsonRequestBody
+      requestBody?: t_ActivitySetThreadSubscriptionRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -2817,7 +2817,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async dependabotUpdateRepositoryAccessForOrg(
     p: {
       org: string
-      requestBody: t_dependabotUpdateRepositoryAccessForOrgJsonRequestBody
+      requestBody: t_DependabotUpdateRepositoryAccessForOrgRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -2842,7 +2842,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async dependabotSetRepositoryAccessDefaultLevel(
     p: {
       org: string
-      requestBody: t_dependabotSetRepositoryAccessDefaultLevelJsonRequestBody
+      requestBody: t_DependabotSetRepositoryAccessDefaultLevelRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -2915,7 +2915,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async orgsUpdate(
     p: {
       org: string
-      requestBody?: t_orgsUpdateJsonRequestBody
+      requestBody?: t_OrgsUpdateRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -3041,7 +3041,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async actionsCreateHostedRunnerForOrg(
     p: {
       org: string
-      requestBody: t_actionsCreateHostedRunnerForOrgJsonRequestBody
+      requestBody: t_ActionsCreateHostedRunnerForOrgRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -3202,7 +3202,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       org: string
       hostedRunnerId: number
-      requestBody: t_actionsUpdateHostedRunnerForOrgJsonRequestBody
+      requestBody: t_ActionsUpdateHostedRunnerForOrgRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -3310,7 +3310,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async actionsSetGithubActionsPermissionsOrganization(
     p: {
       org: string
-      requestBody: t_actionsSetGithubActionsPermissionsOrganizationJsonRequestBody
+      requestBody: t_ActionsSetGithubActionsPermissionsOrganizationRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -3362,7 +3362,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async actionsSetSelectedRepositoriesEnabledGithubActionsOrganization(
     p: {
       org: string
-      requestBody: t_actionsSetSelectedRepositoriesEnabledGithubActionsOrganizationJsonRequestBody
+      requestBody: t_ActionsSetSelectedRepositoriesEnabledGithubActionsOrganizationRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -3557,7 +3557,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async actionsCreateSelfHostedRunnerGroupForOrg(
     p: {
       org: string
-      requestBody: t_actionsCreateSelfHostedRunnerGroupForOrgJsonRequestBody
+      requestBody: t_ActionsCreateSelfHostedRunnerGroupForOrgRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -3603,7 +3603,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       org: string
       runnerGroupId: number
-      requestBody: t_actionsUpdateSelfHostedRunnerGroupForOrgJsonRequestBody
+      requestBody: t_ActionsUpdateSelfHostedRunnerGroupForOrgRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -3705,7 +3705,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       org: string
       runnerGroupId: number
-      requestBody: t_actionsSetRepoAccessToSelfHostedRunnerGroupInOrgJsonRequestBody
+      requestBody: t_ActionsSetRepoAccessToSelfHostedRunnerGroupInOrgRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -3801,7 +3801,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       org: string
       runnerGroupId: number
-      requestBody: t_actionsSetSelfHostedRunnersInGroupForOrgJsonRequestBody
+      requestBody: t_ActionsSetSelfHostedRunnersInGroupForOrgRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -3919,7 +3919,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async actionsGenerateRunnerJitconfigForOrg(
     p: {
       org: string
-      requestBody: t_actionsGenerateRunnerJitconfigForOrgJsonRequestBody
+      requestBody: t_ActionsGenerateRunnerJitconfigForOrgRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -4053,7 +4053,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       org: string
       runnerId: number
-      requestBody: t_actionsAddCustomLabelsToSelfHostedRunnerForOrgJsonRequestBody
+      requestBody: t_ActionsAddCustomLabelsToSelfHostedRunnerForOrgRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -4084,7 +4084,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       org: string
       runnerId: number
-      requestBody: t_actionsSetCustomLabelsForSelfHostedRunnerForOrgJsonRequestBody
+      requestBody: t_ActionsSetCustomLabelsForSelfHostedRunnerForOrgRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -4232,7 +4232,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       org: string
       secretName: string
-      requestBody: t_actionsCreateOrUpdateOrgSecretJsonRequestBody
+      requestBody: t_ActionsCreateOrUpdateOrgSecretRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -4306,7 +4306,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       org: string
       secretName: string
-      requestBody: t_actionsSetSelectedReposForOrgSecretJsonRequestBody
+      requestBody: t_ActionsSetSelectedReposForOrgSecretRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -4400,7 +4400,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async actionsCreateOrgVariable(
     p: {
       org: string
-      requestBody: t_actionsCreateOrgVariableJsonRequestBody
+      requestBody: t_ActionsCreateOrgVariableRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -4446,7 +4446,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       org: string
       name: string
-      requestBody: t_actionsUpdateOrgVariableJsonRequestBody
+      requestBody: t_ActionsUpdateOrgVariableRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -4520,7 +4520,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       org: string
       name: string
-      requestBody: t_actionsSetSelectedReposForOrgVariableJsonRequestBody
+      requestBody: t_ActionsSetSelectedReposForOrgVariableRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -4590,7 +4590,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       before?: string
       after?: string
       org: string
-      requestBody: t_orgsListAttestationsBulkJsonRequestBody
+      requestBody: t_OrgsListAttestationsBulkRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -4659,7 +4659,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async orgsDeleteAttestationsBulk(
     p: {
       org: string
-      requestBody: t_orgsDeleteAttestationsBulkJsonRequestBody
+      requestBody: t_OrgsDeleteAttestationsBulkRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -4896,7 +4896,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async campaignsCreateCampaign(
     p: {
       org: string
-      requestBody: t_campaignsCreateCampaignJsonRequestBody
+      requestBody: t_CampaignsCreateCampaignRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -4942,7 +4942,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       org: string
       campaignNumber: number
-      requestBody: t_campaignsUpdateCampaignJsonRequestBody
+      requestBody: t_CampaignsUpdateCampaignRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -5057,7 +5057,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async codeSecurityCreateConfiguration(
     p: {
       org: string
-      requestBody: t_codeSecurityCreateConfigurationJsonRequestBody
+      requestBody: t_CodeSecurityCreateConfigurationRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -5101,7 +5101,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async codeSecurityDetachConfiguration(
     p: {
       org: string
-      requestBody: t_codeSecurityDetachConfigurationJsonRequestBody
+      requestBody: t_CodeSecurityDetachConfigurationRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -5147,7 +5147,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       org: string
       configurationId: number
-      requestBody: t_codeSecurityUpdateConfigurationJsonRequestBody
+      requestBody: t_CodeSecurityUpdateConfigurationRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -5195,7 +5195,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       org: string
       configurationId: number
-      requestBody: t_codeSecurityAttachConfigurationJsonRequestBody
+      requestBody: t_CodeSecurityAttachConfigurationRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -5225,7 +5225,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       org: string
       configurationId: number
-      requestBody: t_codeSecuritySetConfigurationAsDefaultJsonRequestBody
+      requestBody: t_CodeSecuritySetConfigurationAsDefaultRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -5320,7 +5320,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async codespacesSetCodespacesAccess(
     p: {
       org: string
-      requestBody: t_codespacesSetCodespacesAccessJsonRequestBody
+      requestBody: t_CodespacesSetCodespacesAccessRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -5345,7 +5345,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async codespacesSetCodespacesAccessUsers(
     p: {
       org: string
-      requestBody: t_codespacesSetCodespacesAccessUsersJsonRequestBody
+      requestBody: t_CodespacesSetCodespacesAccessUsersRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -5370,7 +5370,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async codespacesDeleteCodespacesAccessUsers(
     p: {
       org: string
-      requestBody: t_codespacesDeleteCodespacesAccessUsersJsonRequestBody
+      requestBody: t_CodespacesDeleteCodespacesAccessUsersRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -5462,7 +5462,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       org: string
       secretName: string
-      requestBody: t_codespacesCreateOrUpdateOrgSecretJsonRequestBody
+      requestBody: t_CodespacesCreateOrUpdateOrgSecretRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -5536,7 +5536,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       org: string
       secretName: string
-      requestBody: t_codespacesSetSelectedReposForOrgSecretJsonRequestBody
+      requestBody: t_CodespacesSetSelectedReposForOrgSecretRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -5649,7 +5649,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async copilotAddCopilotSeatsForTeams(
     p: {
       org: string
-      requestBody: t_copilotAddCopilotSeatsForTeamsJsonRequestBody
+      requestBody: t_CopilotAddCopilotSeatsForTeamsRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -5678,7 +5678,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async copilotCancelCopilotSeatAssignmentForTeams(
     p: {
       org: string
-      requestBody: t_copilotCancelCopilotSeatAssignmentForTeamsJsonRequestBody
+      requestBody: t_CopilotCancelCopilotSeatAssignmentForTeamsRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -5707,7 +5707,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async copilotAddCopilotSeatsForUsers(
     p: {
       org: string
-      requestBody: t_copilotAddCopilotSeatsForUsersJsonRequestBody
+      requestBody: t_CopilotAddCopilotSeatsForUsersRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -5736,7 +5736,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async copilotCancelCopilotSeatAssignmentForUsers(
     p: {
       org: string
-      requestBody: t_copilotCancelCopilotSeatAssignmentForUsersJsonRequestBody
+      requestBody: t_CopilotCancelCopilotSeatAssignmentForUsersRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -5910,7 +5910,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       org: string
       secretName: string
-      requestBody: t_dependabotCreateOrUpdateOrgSecretJsonRequestBody
+      requestBody: t_DependabotCreateOrUpdateOrgSecretRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -5984,7 +5984,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       org: string
       secretName: string
-      requestBody: t_dependabotSetSelectedReposForOrgSecretJsonRequestBody
+      requestBody: t_DependabotSetSelectedReposForOrgSecretRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -6136,7 +6136,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async orgsCreateWebhook(
     p: {
       org: string
-      requestBody: t_orgsCreateWebhookJsonRequestBody
+      requestBody: t_OrgsCreateWebhookRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -6182,7 +6182,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       org: string
       hookId: number
-      requestBody?: t_orgsUpdateWebhookJsonRequestBody
+      requestBody?: t_OrgsUpdateWebhookRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -6253,7 +6253,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       org: string
       hookId: number
-      requestBody?: t_orgsUpdateWebhookConfigForOrgJsonRequestBody
+      requestBody?: t_OrgsUpdateWebhookConfigForOrgRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -6826,7 +6826,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async orgsCreateInvitation(
     p: {
       org: string
-      requestBody?: t_orgsCreateInvitationJsonRequestBody
+      requestBody?: t_OrgsCreateInvitationRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -7219,7 +7219,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       org: string
       username: string
-      requestBody?: t_orgsSetMembershipForUserJsonRequestBody
+      requestBody?: t_OrgsSetMembershipForUserRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -7296,7 +7296,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async migrationsStartForOrg(
     p: {
       org: string
-      requestBody: t_migrationsStartForOrgJsonRequestBody
+      requestBody: t_MigrationsStartForOrgRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -7669,7 +7669,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       org: string
       username: string
-      requestBody?: t_orgsConvertMemberToOutsideCollaboratorJsonRequestBody
+      requestBody?: t_OrgsConvertMemberToOutsideCollaboratorRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -8007,7 +8007,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async orgsReviewPatGrantRequestsInBulk(
     p: {
       org: string
-      requestBody: t_orgsReviewPatGrantRequestsInBulkJsonRequestBody
+      requestBody: t_OrgsReviewPatGrantRequestsInBulkRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -8037,7 +8037,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       org: string
       patRequestId: number
-      requestBody: t_orgsReviewPatGrantRequestJsonRequestBody
+      requestBody: t_OrgsReviewPatGrantRequestRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -8126,7 +8126,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async orgsUpdatePatAccesses(
     p: {
       org: string
-      requestBody: t_orgsUpdatePatAccessesJsonRequestBody
+      requestBody: t_OrgsUpdatePatAccessesRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -8156,7 +8156,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       org: string
       patId: number
-      requestBody: t_orgsUpdatePatAccessJsonRequestBody
+      requestBody: t_OrgsUpdatePatAccessRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -8231,7 +8231,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async privateRegistriesCreateOrgPrivateRegistry(
     p: {
       org: string
-      requestBody: t_privateRegistriesCreateOrgPrivateRegistryJsonRequestBody
+      requestBody: t_PrivateRegistriesCreateOrgPrivateRegistryRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -8303,7 +8303,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       org: string
       secretName: string
-      requestBody: t_privateRegistriesUpdateOrgPrivateRegistryJsonRequestBody
+      requestBody: t_PrivateRegistriesUpdateOrgPrivateRegistryRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -8375,7 +8375,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async projectsClassicCreateForOrg(
     p: {
       org: string
-      requestBody: t_projectsClassicCreateForOrgJsonRequestBody
+      requestBody: t_ProjectsClassicCreateForOrgRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -8419,7 +8419,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async orgsCreateOrUpdateCustomProperties(
     p: {
       org: string
-      requestBody: t_orgsCreateOrUpdateCustomPropertiesJsonRequestBody
+      requestBody: t_OrgsCreateOrUpdateCustomPropertiesRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -8537,7 +8537,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async orgsCreateOrUpdateCustomPropertiesValuesForRepos(
     p: {
       org: string
-      requestBody: t_orgsCreateOrUpdateCustomPropertiesValuesForReposJsonRequestBody
+      requestBody: t_OrgsCreateOrUpdateCustomPropertiesValuesForReposRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -8687,7 +8687,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async reposCreateInOrg(
     p: {
       org: string
-      requestBody: t_reposCreateInOrgJsonRequestBody
+      requestBody: t_ReposCreateInOrgRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -8739,7 +8739,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async reposCreateOrgRuleset(
     p: {
       org: string
-      requestBody: t_reposCreateOrgRulesetJsonRequestBody
+      requestBody: t_ReposCreateOrgRulesetRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -8845,7 +8845,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       org: string
       rulesetId: number
-      requestBody?: t_reposUpdateOrgRulesetJsonRequestBody
+      requestBody?: t_ReposUpdateOrgRulesetRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -9167,7 +9167,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async hostedComputeCreateNetworkConfigurationForOrg(
     p: {
       org: string
-      requestBody: t_hostedComputeCreateNetworkConfigurationForOrgJsonRequestBody
+      requestBody: t_HostedComputeCreateNetworkConfigurationForOrgRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -9213,7 +9213,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       org: string
       networkConfigurationId: string
-      requestBody: t_hostedComputeUpdateNetworkConfigurationForOrgJsonRequestBody
+      requestBody: t_HostedComputeUpdateNetworkConfigurationForOrgRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -9330,7 +9330,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async teamsCreate(
     p: {
       org: string
-      requestBody: t_teamsCreateJsonRequestBody
+      requestBody: t_TeamsCreateRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -9376,7 +9376,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       org: string
       teamSlug: string
-      requestBody?: t_teamsUpdateInOrgJsonRequestBody
+      requestBody?: t_TeamsUpdateInOrgRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -9457,7 +9457,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       org: string
       teamSlug: string
-      requestBody: t_teamsCreateDiscussionInOrgJsonRequestBody
+      requestBody: t_TeamsCreateDiscussionInOrgRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -9505,7 +9505,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       org: string
       teamSlug: string
       discussionNumber: number
-      requestBody?: t_teamsUpdateDiscussionInOrgJsonRequestBody
+      requestBody?: t_TeamsUpdateDiscussionInOrgRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -9587,7 +9587,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       org: string
       teamSlug: string
       discussionNumber: number
-      requestBody: t_teamsCreateDiscussionCommentInOrgJsonRequestBody
+      requestBody: t_TeamsCreateDiscussionCommentInOrgRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -9637,7 +9637,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       teamSlug: string
       discussionNumber: number
       commentNumber: number
-      requestBody: t_teamsUpdateDiscussionCommentInOrgJsonRequestBody
+      requestBody: t_TeamsUpdateDiscussionCommentInOrgRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -9726,7 +9726,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       teamSlug: string
       discussionNumber: number
       commentNumber: number
-      requestBody: t_reactionsCreateForTeamDiscussionCommentInOrgJsonRequestBody
+      requestBody: t_ReactionsCreateForTeamDiscussionCommentInOrgRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -9814,7 +9814,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       org: string
       teamSlug: string
       discussionNumber: number
-      requestBody: t_reactionsCreateForTeamDiscussionInOrgJsonRequestBody
+      requestBody: t_ReactionsCreateForTeamDiscussionInOrgRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -9935,7 +9935,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       org: string
       teamSlug: string
       username: string
-      requestBody?: t_teamsAddOrUpdateMembershipForUserInOrgJsonRequestBody
+      requestBody?: t_TeamsAddOrUpdateMembershipForUserInOrgRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -10032,7 +10032,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       org: string
       teamSlug: string
       projectId: number
-      requestBody?: t_teamsAddOrUpdateProjectPermissionsInOrgJsonRequestBody
+      requestBody?: t_TeamsAddOrUpdateProjectPermissionsInOrgRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -10131,7 +10131,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       teamSlug: string
       owner: string
       repo: string
-      requestBody?: t_teamsAddOrUpdateRepoPermissionsInOrgJsonRequestBody
+      requestBody?: t_TeamsAddOrUpdateRepoPermissionsInOrgRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -10216,7 +10216,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         | "secret_scanning_push_protection"
         | UnknownEnumStringValue
       enablement: "enable_all" | "disable_all" | UnknownEnumStringValue
-      requestBody?: t_orgsEnableOrDisableSecurityProductOnAllOrgReposJsonRequestBody
+      requestBody?: t_OrgsEnableOrDisableSecurityProductOnAllOrgReposRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -10265,7 +10265,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async projectsClassicUpdateCard(
     p: {
       cardId: number
-      requestBody?: t_projectsClassicUpdateCardJsonRequestBody
+      requestBody?: t_ProjectsClassicUpdateCardRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -10314,7 +10314,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async projectsClassicMoveCard(
     p: {
       cardId: number
-      requestBody: t_projectsClassicMoveCardJsonRequestBody
+      requestBody: t_ProjectsClassicMoveCardRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -10358,7 +10358,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async projectsClassicUpdateColumn(
     p: {
       columnId: number
-      requestBody: t_projectsClassicUpdateColumnJsonRequestBody
+      requestBody: t_ProjectsClassicUpdateColumnRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -10433,7 +10433,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async projectsClassicCreateCard(
     p: {
       columnId: number
-      requestBody: t_projectsClassicCreateCardJsonRequestBody
+      requestBody: t_ProjectsClassicCreateCardRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -10458,7 +10458,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async projectsClassicMoveColumn(
     p: {
       columnId: number
-      requestBody: t_projectsClassicMoveColumnJsonRequestBody
+      requestBody: t_ProjectsClassicMoveColumnRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -10502,7 +10502,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async projectsClassicUpdate(
     p: {
       projectId: number
-      requestBody?: t_projectsClassicUpdateJsonRequestBody
+      requestBody?: t_ProjectsClassicUpdateRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -10579,7 +10579,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       projectId: number
       username: string
-      requestBody?: t_projectsClassicAddCollaboratorJsonRequestBody
+      requestBody?: t_ProjectsClassicAddCollaboratorRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -10671,7 +10671,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async projectsClassicCreateColumn(
     p: {
       projectId: number
-      requestBody: t_projectsClassicCreateColumnJsonRequestBody
+      requestBody: t_ProjectsClassicCreateColumnRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -10733,7 +10733,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      requestBody?: t_reposUpdateJsonRequestBody
+      requestBody?: t_ReposUpdateRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -11026,7 +11026,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       jobId: number
-      requestBody?: t_actionsReRunJobForWorkflowRunJsonRequestBody
+      requestBody?: t_ActionsReRunJobForWorkflowRunRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -11077,7 +11077,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      requestBody: t_actionsSetCustomOidcSubClaimForRepoJsonRequestBody
+      requestBody: t_ActionsSetCustomOidcSubClaimForRepoRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -11179,7 +11179,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      requestBody: t_actionsSetGithubActionsPermissionsRepositoryJsonRequestBody
+      requestBody: t_ActionsSetGithubActionsPermissionsRepositoryRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -11401,7 +11401,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      requestBody: t_actionsGenerateRunnerJitconfigForRepoJsonRequestBody
+      requestBody: t_ActionsGenerateRunnerJitconfigForRepoRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -11541,7 +11541,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       runnerId: number
-      requestBody: t_actionsAddCustomLabelsToSelfHostedRunnerForRepoJsonRequestBody
+      requestBody: t_ActionsAddCustomLabelsToSelfHostedRunnerForRepoRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -11573,7 +11573,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       runnerId: number
-      requestBody: t_actionsSetCustomLabelsForSelfHostedRunnerForRepoJsonRequestBody
+      requestBody: t_ActionsSetCustomLabelsForSelfHostedRunnerForRepoRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -11937,7 +11937,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       runId: number
-      requestBody: t_actionsReviewCustomGatesForRunJsonRequestBody
+      requestBody: t_ActionsReviewCustomGatesForRunRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -12082,7 +12082,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       runId: number
-      requestBody: t_actionsReviewPendingDeploymentsForRunJsonRequestBody
+      requestBody: t_ActionsReviewPendingDeploymentsForRunRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -12109,7 +12109,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       runId: number
-      requestBody?: t_actionsReRunWorkflowJsonRequestBody
+      requestBody?: t_ActionsReRunWorkflowRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -12141,7 +12141,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       runId: number
-      requestBody?: t_actionsReRunWorkflowFailedJobsJsonRequestBody
+      requestBody?: t_ActionsReRunWorkflowFailedJobsRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -12263,7 +12263,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       secretName: string
-      requestBody: t_actionsCreateOrUpdateRepoSecretJsonRequestBody
+      requestBody: t_ActionsCreateOrUpdateRepoSecretRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -12338,7 +12338,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      requestBody: t_actionsCreateRepoVariableJsonRequestBody
+      requestBody: t_ActionsCreateRepoVariableRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -12386,7 +12386,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       name: string
-      requestBody: t_actionsUpdateRepoVariableJsonRequestBody
+      requestBody: t_ActionsUpdateRepoVariableRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -12504,7 +12504,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       workflowId: number | string
-      requestBody: t_actionsCreateWorkflowDispatchJsonRequestBody
+      requestBody: t_ActionsCreateWorkflowDispatchRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -12730,7 +12730,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      requestBody: t_reposCreateAttestationJsonRequestBody
+      requestBody: t_ReposCreateAttestationRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -12835,7 +12835,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      requestBody: t_reposCreateAutolinkJsonRequestBody
+      requestBody: t_ReposCreateAutolinkRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -13034,7 +13034,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       branch: string
-      requestBody: t_reposUpdateBranchProtectionJsonRequestBody
+      requestBody: t_ReposUpdateBranchProtectionRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -13166,7 +13166,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       branch: string
-      requestBody?: t_reposUpdatePullRequestReviewProtectionJsonRequestBody
+      requestBody?: t_ReposUpdatePullRequestReviewProtectionRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -13303,7 +13303,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       branch: string
-      requestBody?: t_reposUpdateStatusCheckProtectionJsonRequestBody
+      requestBody?: t_ReposUpdateStatusCheckProtectionRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -13377,7 +13377,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       branch: string
-      requestBody?: t_reposAddStatusCheckContextsJsonRequestBody
+      requestBody?: t_ReposAddStatusCheckContextsRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -13409,7 +13409,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       branch: string
-      requestBody?: t_reposSetStatusCheckContextsJsonRequestBody
+      requestBody?: t_ReposSetStatusCheckContextsRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -13441,7 +13441,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       branch: string
-      requestBody: t_reposRemoveStatusCheckContextsJsonRequestBody
+      requestBody: t_ReposRemoveStatusCheckContextsRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -13531,7 +13531,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       branch: string
-      requestBody: t_reposAddAppAccessRestrictionsJsonRequestBody
+      requestBody: t_ReposAddAppAccessRestrictionsRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -13558,7 +13558,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       branch: string
-      requestBody: t_reposSetAppAccessRestrictionsJsonRequestBody
+      requestBody: t_ReposSetAppAccessRestrictionsRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -13585,7 +13585,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       branch: string
-      requestBody: t_reposRemoveAppAccessRestrictionsJsonRequestBody
+      requestBody: t_ReposRemoveAppAccessRestrictionsRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -13633,7 +13633,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       branch: string
-      requestBody?: t_reposAddTeamAccessRestrictionsJsonRequestBody
+      requestBody?: t_ReposAddTeamAccessRestrictionsRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -13665,7 +13665,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       branch: string
-      requestBody?: t_reposSetTeamAccessRestrictionsJsonRequestBody
+      requestBody?: t_ReposSetTeamAccessRestrictionsRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -13697,7 +13697,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       branch: string
-      requestBody: t_reposRemoveTeamAccessRestrictionsJsonRequestBody
+      requestBody: t_ReposRemoveTeamAccessRestrictionsRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -13745,7 +13745,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       branch: string
-      requestBody: t_reposAddUserAccessRestrictionsJsonRequestBody
+      requestBody: t_ReposAddUserAccessRestrictionsRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -13772,7 +13772,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       branch: string
-      requestBody: t_reposSetUserAccessRestrictionsJsonRequestBody
+      requestBody: t_ReposSetUserAccessRestrictionsRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -13799,7 +13799,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       branch: string
-      requestBody: t_reposRemoveUserAccessRestrictionsJsonRequestBody
+      requestBody: t_ReposRemoveUserAccessRestrictionsRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -13826,7 +13826,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       branch: string
-      requestBody: t_reposRenameBranchJsonRequestBody
+      requestBody: t_ReposRenameBranchRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -13852,7 +13852,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      requestBody: t_checksCreateJsonRequestBody
+      requestBody: t_ChecksCreateRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -13900,7 +13900,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       checkRunId: number
-      requestBody: t_checksUpdateJsonRequestBody
+      requestBody: t_ChecksUpdateRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -13971,7 +13971,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      requestBody: t_checksCreateSuiteJsonRequestBody
+      requestBody: t_ChecksCreateSuiteRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -13997,7 +13997,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      requestBody: t_checksSetSuitesPreferencesJsonRequestBody
+      requestBody: t_ChecksSetSuitesPreferencesRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -14171,7 +14171,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       alertNumber: t_alert_number
-      requestBody: t_codeScanningUpdateAlertJsonRequestBody
+      requestBody: t_CodeScanningUpdateAlertRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -14452,7 +14452,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      requestBody: t_codeScanningCreateVariantAnalysisJsonRequestBody
+      requestBody: t_CodeScanningCreateVariantAnalysisRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -14571,7 +14571,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      requestBody: t_codeScanningUploadSarifJsonRequestBody
+      requestBody: t_CodeScanningUploadSarifRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -14691,7 +14691,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      requestBody: t_codespacesCreateWithRepoForAuthenticatedUserJsonRequestBody
+      requestBody: t_CodespacesCreateWithRepoForAuthenticatedUserRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -14911,7 +14911,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       secretName: string
-      requestBody: t_codespacesCreateOrUpdateRepoSecretJsonRequestBody
+      requestBody: t_CodespacesCreateOrUpdateRepoSecretRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -15016,7 +15016,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       username: string
-      requestBody?: t_reposAddCollaboratorJsonRequestBody
+      requestBody?: t_ReposAddCollaboratorRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -15134,7 +15134,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       commentId: number
-      requestBody: t_reposUpdateCommitCommentJsonRequestBody
+      requestBody: t_ReposUpdateCommitCommentRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -15220,7 +15220,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       commentId: number
-      requestBody: t_reactionsCreateForCommitCommentJsonRequestBody
+      requestBody: t_ReactionsCreateForCommitCommentRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -15352,7 +15352,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       commitSha: string
-      requestBody: t_reposCreateCommitCommentJsonRequestBody
+      requestBody: t_ReposCreateCommitCommentRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -15625,7 +15625,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       path: string
-      requestBody: t_reposCreateOrUpdateFileContentsJsonRequestBody
+      requestBody: t_ReposCreateOrUpdateFileContentsRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -15652,7 +15652,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       path: string
-      requestBody: t_reposDeleteFileJsonRequestBody
+      requestBody: t_ReposDeleteFileRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -15782,7 +15782,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       alertNumber: t_alert_number
-      requestBody: t_dependabotUpdateAlertJsonRequestBody
+      requestBody: t_DependabotUpdateAlertRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -15878,7 +15878,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       secretName: string
-      requestBody: t_dependabotCreateOrUpdateRepoSecretJsonRequestBody
+      requestBody: t_DependabotCreateOrUpdateRepoSecretRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -16035,7 +16035,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      requestBody: t_reposCreateDeploymentJsonRequestBody
+      requestBody: t_ReposCreateDeploymentRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -16133,7 +16133,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       deploymentId: number
-      requestBody: t_reposCreateDeploymentStatusJsonRequestBody
+      requestBody: t_ReposCreateDeploymentStatusRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -16181,7 +16181,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      requestBody: t_reposCreateDispatchEventJsonRequestBody
+      requestBody: t_ReposCreateDispatchEventRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -16257,7 +16257,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       environmentName: string
-      requestBody?: t_reposCreateOrUpdateEnvironmentJsonRequestBody
+      requestBody?: t_ReposCreateOrUpdateEnvironmentRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -16466,7 +16466,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       environmentName: string
       repo: string
       owner: string
-      requestBody: t_reposCreateDeploymentProtectionRuleJsonRequestBody
+      requestBody: t_ReposCreateDeploymentProtectionRuleRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -16641,7 +16641,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       repo: string
       environmentName: string
       secretName: string
-      requestBody: t_actionsCreateOrUpdateEnvironmentSecretJsonRequestBody
+      requestBody: t_ActionsCreateOrUpdateEnvironmentSecretRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -16719,7 +16719,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       environmentName: string
-      requestBody: t_actionsCreateEnvironmentVariableJsonRequestBody
+      requestBody: t_ActionsCreateEnvironmentVariableRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -16769,7 +16769,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       repo: string
       name: string
       environmentName: string
-      requestBody: t_actionsUpdateEnvironmentVariableJsonRequestBody
+      requestBody: t_ActionsUpdateEnvironmentVariableRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -16873,7 +16873,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      requestBody?: t_reposCreateForkJsonRequestBody
+      requestBody?: t_ReposCreateForkRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -16904,7 +16904,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      requestBody: t_gitCreateBlobJsonRequestBody
+      requestBody: t_GitCreateBlobRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -16951,7 +16951,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      requestBody: t_gitCreateCommitJsonRequestBody
+      requestBody: t_GitCreateCommitRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -17040,7 +17040,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      requestBody: t_gitCreateRefJsonRequestBody
+      requestBody: t_GitCreateRefRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -17067,7 +17067,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       ref: string
-      requestBody: t_gitUpdateRefJsonRequestBody
+      requestBody: t_GitUpdateRefRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -17114,7 +17114,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      requestBody: t_gitCreateTagJsonRequestBody
+      requestBody: t_GitCreateTagRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -17161,7 +17161,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      requestBody: t_gitCreateTreeJsonRequestBody
+      requestBody: t_GitCreateTreeRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -17233,7 +17233,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      requestBody?: t_reposCreateWebhookJsonRequestBody
+      requestBody?: t_ReposCreateWebhookRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -17286,7 +17286,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       hookId: number
-      requestBody: t_reposUpdateWebhookJsonRequestBody
+      requestBody: t_ReposUpdateWebhookRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -17355,7 +17355,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       hookId: number
-      requestBody?: t_reposUpdateWebhookConfigForRepoJsonRequestBody
+      requestBody?: t_ReposUpdateWebhookConfigForRepoRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -17520,7 +17520,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      requestBody: t_migrationsStartImportJsonRequestBody
+      requestBody: t_MigrationsStartImportRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -17546,7 +17546,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      requestBody?: t_migrationsUpdateImportJsonRequestBody
+      requestBody?: t_MigrationsUpdateImportRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -17620,7 +17620,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       authorId: number
-      requestBody?: t_migrationsMapCommitAuthorJsonRequestBody
+      requestBody?: t_MigrationsMapCommitAuthorRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -17671,7 +17671,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      requestBody: t_migrationsSetLfsPreferenceJsonRequestBody
+      requestBody: t_MigrationsSetLfsPreferenceRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -17807,7 +17807,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       invitationId: number
-      requestBody?: t_reposUpdateInvitationJsonRequestBody
+      requestBody?: t_ReposUpdateInvitationRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -17905,7 +17905,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      requestBody: t_issuesCreateJsonRequestBody
+      requestBody: t_IssuesCreateRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -17985,7 +17985,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       commentId: number
-      requestBody: t_issuesUpdateCommentJsonRequestBody
+      requestBody: t_IssuesUpdateCommentRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -18071,7 +18071,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       commentId: number
-      requestBody: t_reactionsCreateForIssueCommentJsonRequestBody
+      requestBody: t_ReactionsCreateForIssueCommentRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -18185,7 +18185,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       issueNumber: number
-      requestBody?: t_issuesUpdateJsonRequestBody
+      requestBody?: t_IssuesUpdateRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -18217,7 +18217,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       issueNumber: number
-      requestBody?: t_issuesAddAssigneesJsonRequestBody
+      requestBody?: t_IssuesAddAssigneesRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -18249,7 +18249,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       issueNumber: number
-      requestBody: t_issuesRemoveAssigneesJsonRequestBody
+      requestBody: t_IssuesRemoveAssigneesRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -18327,7 +18327,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       issueNumber: number
-      requestBody: t_issuesCreateCommentJsonRequestBody
+      requestBody: t_IssuesCreateCommentRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -18402,7 +18402,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       issueNumber: number
-      requestBody?: t_issuesAddLabelsJsonRequestBody
+      requestBody?: t_IssuesAddLabelsRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -18434,7 +18434,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       issueNumber: number
-      requestBody?: t_issuesSetLabelsJsonRequestBody
+      requestBody?: t_IssuesSetLabelsRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -18509,7 +18509,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       issueNumber: number
-      requestBody?: t_issuesLockJsonRequestBody
+      requestBody?: t_IssuesLockRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -18600,7 +18600,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       issueNumber: number
-      requestBody: t_reactionsCreateForIssueJsonRequestBody
+      requestBody: t_ReactionsCreateForIssueRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -18649,7 +18649,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       issueNumber: number
-      requestBody: t_issuesRemoveSubIssueJsonRequestBody
+      requestBody: t_IssuesRemoveSubIssueRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -18700,7 +18700,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       issueNumber: number
-      requestBody: t_issuesAddSubIssueJsonRequestBody
+      requestBody: t_IssuesAddSubIssueRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -18727,7 +18727,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       issueNumber: number
-      requestBody: t_issuesReprioritizeSubIssueJsonRequestBody
+      requestBody: t_IssuesReprioritizeSubIssueRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -18800,7 +18800,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      requestBody: t_reposCreateDeployKeyJsonRequestBody
+      requestBody: t_ReposCreateDeployKeyRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -18891,7 +18891,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      requestBody: t_issuesCreateLabelJsonRequestBody
+      requestBody: t_IssuesCreateLabelRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -18939,7 +18939,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       name: string
-      requestBody?: t_issuesUpdateLabelJsonRequestBody
+      requestBody?: t_IssuesUpdateLabelRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -19033,7 +19033,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      requestBody: t_reposMergeUpstreamJsonRequestBody
+      requestBody: t_ReposMergeUpstreamRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -19059,7 +19059,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      requestBody: t_reposMergeJsonRequestBody
+      requestBody: t_ReposMergeRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -19117,7 +19117,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      requestBody: t_issuesCreateMilestoneJsonRequestBody
+      requestBody: t_IssuesCreateMilestoneRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -19165,7 +19165,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       milestoneNumber: number
-      requestBody?: t_issuesUpdateMilestoneJsonRequestBody
+      requestBody?: t_IssuesUpdateMilestoneRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -19275,7 +19275,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      requestBody?: t_activityMarkRepoNotificationsAsReadJsonRequestBody
+      requestBody?: t_ActivityMarkRepoNotificationsAsReadRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -19332,7 +19332,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      requestBody: t_reposCreatePagesSiteJsonRequestBody
+      requestBody: t_ReposCreatePagesSiteRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -19358,7 +19358,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      requestBody: t_reposUpdateInformationAboutPagesSiteJsonRequestBody
+      requestBody: t_ReposUpdateInformationAboutPagesSiteRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -19488,7 +19488,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      requestBody: t_reposCreatePagesDeploymentJsonRequestBody
+      requestBody: t_ReposCreatePagesDeploymentRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -19670,7 +19670,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      requestBody: t_projectsClassicCreateForRepoJsonRequestBody
+      requestBody: t_ProjectsClassicCreateForRepoRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -19716,7 +19716,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      requestBody: t_reposCreateOrUpdateCustomPropertiesValuesJsonRequestBody
+      requestBody: t_ReposCreateOrUpdateCustomPropertiesValuesRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -19783,7 +19783,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      requestBody: t_pullsCreateJsonRequestBody
+      requestBody: t_PullsCreateRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -19863,7 +19863,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       commentId: number
-      requestBody: t_pullsUpdateReviewCommentJsonRequestBody
+      requestBody: t_PullsUpdateReviewCommentRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -19949,7 +19949,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       commentId: number
-      requestBody: t_reactionsCreateForPullRequestReviewCommentJsonRequestBody
+      requestBody: t_ReactionsCreateForPullRequestReviewCommentRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -20019,7 +20019,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       pullNumber: number
-      requestBody?: t_pullsUpdateJsonRequestBody
+      requestBody?: t_PullsUpdateRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -20051,7 +20051,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       pullNumber: number
-      requestBody: t_codespacesCreateWithPrForAuthenticatedUserJsonRequestBody
+      requestBody: t_CodespacesCreateWithPrForAuthenticatedUserRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -20111,7 +20111,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       pullNumber: number
-      requestBody: t_pullsCreateReviewCommentJsonRequestBody
+      requestBody: t_PullsCreateReviewCommentRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -20139,7 +20139,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       repo: string
       pullNumber: number
       commentId: number
-      requestBody: t_pullsCreateReplyForReviewCommentJsonRequestBody
+      requestBody: t_PullsCreateReplyForReviewCommentRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -20235,7 +20235,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       pullNumber: number
-      requestBody?: t_pullsMergeJsonRequestBody
+      requestBody?: t_PullsMergeRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -20288,7 +20288,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       pullNumber: number
-      requestBody?: t_pullsRequestReviewersJsonRequestBody
+      requestBody?: t_PullsRequestReviewersRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -20320,7 +20320,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       pullNumber: number
-      requestBody: t_pullsRemoveRequestedReviewersJsonRequestBody
+      requestBody: t_PullsRemoveRequestedReviewersRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -20371,7 +20371,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       pullNumber: number
-      requestBody?: t_pullsCreateReviewJsonRequestBody
+      requestBody?: t_PullsCreateReviewRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -20426,7 +20426,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       repo: string
       pullNumber: number
       reviewId: number
-      requestBody: t_pullsUpdateReviewJsonRequestBody
+      requestBody: t_PullsUpdateReviewRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -20501,7 +20501,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       repo: string
       pullNumber: number
       reviewId: number
-      requestBody: t_pullsDismissReviewJsonRequestBody
+      requestBody: t_PullsDismissReviewRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -20529,7 +20529,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       repo: string
       pullNumber: number
       reviewId: number
-      requestBody: t_pullsSubmitReviewJsonRequestBody
+      requestBody: t_PullsSubmitReviewRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -20556,7 +20556,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       pullNumber: number
-      requestBody?: t_pullsUpdateBranchJsonRequestBody
+      requestBody?: t_PullsUpdateBranchRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -20660,7 +20660,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      requestBody: t_reposCreateReleaseJsonRequestBody
+      requestBody: t_ReposCreateReleaseRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -20708,7 +20708,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       assetId: number
-      requestBody?: t_reposUpdateReleaseAssetJsonRequestBody
+      requestBody?: t_ReposUpdateReleaseAssetRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -20760,7 +20760,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      requestBody: t_reposGenerateReleaseNotesJsonRequestBody
+      requestBody: t_ReposGenerateReleaseNotesRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -20849,7 +20849,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       releaseId: number
-      requestBody?: t_reposUpdateReleaseJsonRequestBody
+      requestBody?: t_ReposUpdateReleaseRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -20994,7 +20994,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       releaseId: number
-      requestBody: t_reactionsCreateForReleaseJsonRequestBody
+      requestBody: t_ReactionsCreateForReleaseRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -21096,7 +21096,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      requestBody: t_reposCreateRepoRulesetJsonRequestBody
+      requestBody: t_ReposCreateRepoRulesetRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -21206,7 +21206,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       rulesetId: number
-      requestBody?: t_reposUpdateRepoRulesetJsonRequestBody
+      requestBody?: t_ReposUpdateRepoRulesetRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -21376,7 +21376,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       alertNumber: t_alert_number
-      requestBody: t_secretScanningUpdateAlertJsonRequestBody
+      requestBody: t_SecretScanningUpdateAlertRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -21426,7 +21426,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      requestBody: t_secretScanningCreatePushProtectionBypassJsonRequestBody
+      requestBody: t_SecretScanningCreatePushProtectionBypassRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -21799,7 +21799,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       sha: string
-      requestBody: t_reposCreateCommitStatusJsonRequestBody
+      requestBody: t_ReposCreateCommitStatusRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -21868,7 +21868,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      requestBody?: t_activitySetRepoSubscriptionJsonRequestBody
+      requestBody?: t_ActivitySetRepoSubscriptionRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -21962,7 +21962,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      requestBody: t_reposCreateTagProtectionJsonRequestBody
+      requestBody: t_ReposCreateTagProtectionRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -22076,7 +22076,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      requestBody: t_reposReplaceAllTopicsJsonRequestBody
+      requestBody: t_ReposReplaceAllTopicsRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -22186,7 +22186,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      requestBody: t_reposTransferJsonRequestBody
+      requestBody: t_ReposTransferRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -22293,7 +22293,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       templateOwner: string
       templateRepo: string
-      requestBody: t_reposCreateUsingTemplateJsonRequestBody
+      requestBody: t_ReposCreateUsingTemplateRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -22626,7 +22626,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async teamsUpdateLegacy(
     p: {
       teamId: number
-      requestBody: t_teamsUpdateLegacyJsonRequestBody
+      requestBody: t_TeamsUpdateLegacyRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -22697,7 +22697,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async teamsCreateDiscussionLegacy(
     p: {
       teamId: number
-      requestBody: t_teamsCreateDiscussionLegacyJsonRequestBody
+      requestBody: t_TeamsCreateDiscussionLegacyRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -22743,7 +22743,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       teamId: number
       discussionNumber: number
-      requestBody?: t_teamsUpdateDiscussionLegacyJsonRequestBody
+      requestBody?: t_TeamsUpdateDiscussionLegacyRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -22822,7 +22822,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       teamId: number
       discussionNumber: number
-      requestBody: t_teamsCreateDiscussionCommentLegacyJsonRequestBody
+      requestBody: t_TeamsCreateDiscussionCommentLegacyRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -22870,7 +22870,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       teamId: number
       discussionNumber: number
       commentNumber: number
-      requestBody: t_teamsUpdateDiscussionCommentLegacyJsonRequestBody
+      requestBody: t_TeamsUpdateDiscussionCommentLegacyRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -22956,7 +22956,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       teamId: number
       discussionNumber: number
       commentNumber: number
-      requestBody: t_reactionsCreateForTeamDiscussionCommentLegacyJsonRequestBody
+      requestBody: t_ReactionsCreateForTeamDiscussionCommentLegacyRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -23019,7 +23019,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       teamId: number
       discussionNumber: number
-      requestBody: t_reactionsCreateForTeamDiscussionLegacyJsonRequestBody
+      requestBody: t_ReactionsCreateForTeamDiscussionLegacyRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -23174,7 +23174,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       teamId: number
       username: string
-      requestBody?: t_teamsAddOrUpdateMembershipForUserLegacyJsonRequestBody
+      requestBody?: t_TeamsAddOrUpdateMembershipForUserLegacyRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -23267,7 +23267,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       teamId: number
       projectId: number
-      requestBody?: t_teamsAddOrUpdateProjectPermissionsLegacyJsonRequestBody
+      requestBody?: t_TeamsAddOrUpdateProjectPermissionsLegacyRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -23362,7 +23362,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       teamId: number
       owner: string
       repo: string
-      requestBody?: t_teamsAddOrUpdateRepoPermissionsLegacyJsonRequestBody
+      requestBody?: t_TeamsAddOrUpdateRepoPermissionsLegacyRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -23450,7 +23450,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
 
   async usersUpdateAuthenticated(
     p: {
-      requestBody?: t_usersUpdateAuthenticatedJsonRequestBody
+      requestBody?: t_UsersUpdateAuthenticatedRequestBody
     } = {},
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -23588,7 +23588,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
 
   async codespacesCreateForAuthenticatedUser(
     p: {
-      requestBody: t_codespacesCreateForAuthenticatedUserJsonRequestBody
+      requestBody: t_CodespacesCreateForAuthenticatedUserRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -23674,7 +23674,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async codespacesCreateOrUpdateSecretForAuthenticatedUser(
     p: {
       secretName: string
-      requestBody: t_codespacesCreateOrUpdateSecretForAuthenticatedUserJsonRequestBody
+      requestBody: t_CodespacesCreateOrUpdateSecretForAuthenticatedUserRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -23742,7 +23742,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async codespacesSetRepositoriesForSecretForAuthenticatedUser(
     p: {
       secretName: string
-      requestBody: t_codespacesSetRepositoriesForSecretForAuthenticatedUserJsonRequestBody
+      requestBody: t_CodespacesSetRepositoriesForSecretForAuthenticatedUserRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -23826,7 +23826,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async codespacesUpdateForAuthenticatedUser(
     p: {
       codespaceName: string
-      requestBody?: t_codespacesUpdateForAuthenticatedUserJsonRequestBody
+      requestBody?: t_CodespacesUpdateForAuthenticatedUserRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -23942,7 +23942,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async codespacesPublishForAuthenticatedUser(
     p: {
       codespaceName: string
-      requestBody: t_codespacesPublishForAuthenticatedUserJsonRequestBody
+      requestBody: t_CodespacesPublishForAuthenticatedUserRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -24020,7 +24020,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
 
   async usersSetPrimaryEmailVisibilityForAuthenticatedUser(
     p: {
-      requestBody: t_usersSetPrimaryEmailVisibilityForAuthenticatedUserJsonRequestBody
+      requestBody: t_UsersSetPrimaryEmailVisibilityForAuthenticatedUserRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -24065,7 +24065,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
 
   async usersAddEmailForAuthenticatedUser(
     p: {
-      requestBody?: t_usersAddEmailForAuthenticatedUserJsonRequestBody
+      requestBody?: t_UsersAddEmailForAuthenticatedUserRequestBody
     } = {},
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -24094,7 +24094,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
 
   async usersDeleteEmailForAuthenticatedUser(
     p: {
-      requestBody: t_usersDeleteEmailForAuthenticatedUserJsonRequestBody
+      requestBody: t_UsersDeleteEmailForAuthenticatedUserRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -24238,7 +24238,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
 
   async usersCreateGpgKeyForAuthenticatedUser(
     p: {
-      requestBody: t_usersCreateGpgKeyForAuthenticatedUserJsonRequestBody
+      requestBody: t_UsersCreateGpgKeyForAuthenticatedUserRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -24517,7 +24517,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
 
   async usersCreatePublicSshKeyForAuthenticatedUser(
     p: {
-      requestBody: t_usersCreatePublicSshKeyForAuthenticatedUserJsonRequestBody
+      requestBody: t_UsersCreatePublicSshKeyForAuthenticatedUserRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -24667,7 +24667,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async orgsUpdateMembershipForAuthenticatedUser(
     p: {
       org: string
-      requestBody: t_orgsUpdateMembershipForAuthenticatedUserJsonRequestBody
+      requestBody: t_OrgsUpdateMembershipForAuthenticatedUserRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -24712,7 +24712,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
 
   async migrationsStartForAuthenticatedUser(
     p: {
-      requestBody: t_migrationsStartForAuthenticatedUserJsonRequestBody
+      requestBody: t_MigrationsStartForAuthenticatedUserRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -25095,7 +25095,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
 
   async projectsClassicCreateForAuthenticatedUser(
     p: {
-      requestBody: t_projectsClassicCreateForAuthenticatedUserJsonRequestBody
+      requestBody: t_ProjectsClassicCreateForAuthenticatedUserRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -25189,7 +25189,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
 
   async reposCreateForAuthenticatedUser(
     p: {
-      requestBody: t_reposCreateForAuthenticatedUserJsonRequestBody
+      requestBody: t_ReposCreateForAuthenticatedUserRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -25293,7 +25293,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
 
   async usersAddSocialAccountForAuthenticatedUser(
     p: {
-      requestBody: t_usersAddSocialAccountForAuthenticatedUserJsonRequestBody
+      requestBody: t_UsersAddSocialAccountForAuthenticatedUserRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -25317,7 +25317,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
 
   async usersDeleteSocialAccountForAuthenticatedUser(
     p: {
-      requestBody: t_usersDeleteSocialAccountForAuthenticatedUserJsonRequestBody
+      requestBody: t_UsersDeleteSocialAccountForAuthenticatedUserRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -25362,7 +25362,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
 
   async usersCreateSshSigningKeyForAuthenticatedUser(
     p: {
-      requestBody: t_usersCreateSshSigningKeyForAuthenticatedUserJsonRequestBody
+      requestBody: t_UsersCreateSshSigningKeyForAuthenticatedUserRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -25617,7 +25617,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       before?: string
       after?: string
       username: string
-      requestBody: t_usersListAttestationsBulkJsonRequestBody
+      requestBody: t_UsersListAttestationsBulkRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -25686,7 +25686,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async usersDeleteAttestationsBulk(
     p: {
       username: string
-      requestBody: t_usersDeleteAttestationsBulkJsonRequestBody
+      requestBody: t_UsersDeleteAttestationsBulkRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},

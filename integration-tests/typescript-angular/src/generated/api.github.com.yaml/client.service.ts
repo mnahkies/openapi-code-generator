@@ -7,6 +7,50 @@ import {Injectable} from "@angular/core"
 import type {Observable} from "rxjs"
 import type {
   EmptyObject,
+  t_ActionsAddCustomLabelsToSelfHostedRunnerForOrgRequestBody,
+  t_ActionsAddCustomLabelsToSelfHostedRunnerForRepoRequestBody,
+  t_ActionsCreateEnvironmentVariableRequestBody,
+  t_ActionsCreateHostedRunnerForOrgRequestBody,
+  t_ActionsCreateOrgVariableRequestBody,
+  t_ActionsCreateOrUpdateEnvironmentSecretRequestBody,
+  t_ActionsCreateOrUpdateOrgSecretRequestBody,
+  t_ActionsCreateOrUpdateRepoSecretRequestBody,
+  t_ActionsCreateRepoVariableRequestBody,
+  t_ActionsCreateSelfHostedRunnerGroupForOrgRequestBody,
+  t_ActionsCreateWorkflowDispatchRequestBody,
+  t_ActionsGenerateRunnerJitconfigForOrgRequestBody,
+  t_ActionsGenerateRunnerJitconfigForRepoRequestBody,
+  t_ActionsReRunJobForWorkflowRunRequestBody,
+  t_ActionsReRunWorkflowFailedJobsRequestBody,
+  t_ActionsReRunWorkflowRequestBody,
+  t_ActionsReviewCustomGatesForRunRequestBody,
+  t_ActionsReviewPendingDeploymentsForRunRequestBody,
+  t_ActionsSetCustomLabelsForSelfHostedRunnerForOrgRequestBody,
+  t_ActionsSetCustomLabelsForSelfHostedRunnerForRepoRequestBody,
+  t_ActionsSetCustomOidcSubClaimForRepoRequestBody,
+  t_ActionsSetGithubActionsPermissionsOrganizationRequestBody,
+  t_ActionsSetGithubActionsPermissionsRepositoryRequestBody,
+  t_ActionsSetRepoAccessToSelfHostedRunnerGroupInOrgRequestBody,
+  t_ActionsSetSelectedReposForOrgSecretRequestBody,
+  t_ActionsSetSelectedReposForOrgVariableRequestBody,
+  t_ActionsSetSelectedRepositoriesEnabledGithubActionsOrganizationRequestBody,
+  t_ActionsSetSelfHostedRunnersInGroupForOrgRequestBody,
+  t_ActionsUpdateEnvironmentVariableRequestBody,
+  t_ActionsUpdateHostedRunnerForOrgRequestBody,
+  t_ActionsUpdateOrgVariableRequestBody,
+  t_ActionsUpdateRepoVariableRequestBody,
+  t_ActionsUpdateSelfHostedRunnerGroupForOrgRequestBody,
+  t_ActivityMarkNotificationsAsReadRequestBody,
+  t_ActivityMarkRepoNotificationsAsReadRequestBody,
+  t_ActivitySetRepoSubscriptionRequestBody,
+  t_ActivitySetThreadSubscriptionRequestBody,
+  t_AppsCheckTokenRequestBody,
+  t_AppsCreateInstallationAccessTokenRequestBody,
+  t_AppsDeleteAuthorizationRequestBody,
+  t_AppsDeleteTokenRequestBody,
+  t_AppsResetTokenRequestBody,
+  t_AppsScopeTokenRequestBody,
+  t_AppsUpdateWebhookConfigForAppRequestBody,
   t_actions_billing_usage,
   t_actions_cache_list,
   t_actions_cache_usage_by_repository,
@@ -23,44 +67,7 @@ import type {
   t_actions_set_default_workflow_permissions,
   t_actions_variable,
   t_actions_workflow_access_to_repository,
-  t_actionsAddCustomLabelsToSelfHostedRunnerForOrgJsonRequestBody,
-  t_actionsAddCustomLabelsToSelfHostedRunnerForRepoJsonRequestBody,
-  t_actionsCreateEnvironmentVariableJsonRequestBody,
-  t_actionsCreateHostedRunnerForOrgJsonRequestBody,
-  t_actionsCreateOrgVariableJsonRequestBody,
-  t_actionsCreateOrUpdateEnvironmentSecretJsonRequestBody,
-  t_actionsCreateOrUpdateOrgSecretJsonRequestBody,
-  t_actionsCreateOrUpdateRepoSecretJsonRequestBody,
-  t_actionsCreateRepoVariableJsonRequestBody,
-  t_actionsCreateSelfHostedRunnerGroupForOrgJsonRequestBody,
-  t_actionsCreateWorkflowDispatchJsonRequestBody,
-  t_actionsGenerateRunnerJitconfigForOrgJsonRequestBody,
-  t_actionsGenerateRunnerJitconfigForRepoJsonRequestBody,
-  t_actionsReRunJobForWorkflowRunJsonRequestBody,
-  t_actionsReRunWorkflowFailedJobsJsonRequestBody,
-  t_actionsReRunWorkflowJsonRequestBody,
-  t_actionsReviewCustomGatesForRunJsonRequestBody,
-  t_actionsReviewPendingDeploymentsForRunJsonRequestBody,
-  t_actionsSetCustomLabelsForSelfHostedRunnerForOrgJsonRequestBody,
-  t_actionsSetCustomLabelsForSelfHostedRunnerForRepoJsonRequestBody,
-  t_actionsSetCustomOidcSubClaimForRepoJsonRequestBody,
-  t_actionsSetGithubActionsPermissionsOrganizationJsonRequestBody,
-  t_actionsSetGithubActionsPermissionsRepositoryJsonRequestBody,
-  t_actionsSetRepoAccessToSelfHostedRunnerGroupInOrgJsonRequestBody,
-  t_actionsSetSelectedReposForOrgSecretJsonRequestBody,
-  t_actionsSetSelectedReposForOrgVariableJsonRequestBody,
-  t_actionsSetSelectedRepositoriesEnabledGithubActionsOrganizationJsonRequestBody,
-  t_actionsSetSelfHostedRunnersInGroupForOrgJsonRequestBody,
-  t_actionsUpdateEnvironmentVariableJsonRequestBody,
-  t_actionsUpdateHostedRunnerForOrgJsonRequestBody,
-  t_actionsUpdateOrgVariableJsonRequestBody,
-  t_actionsUpdateRepoVariableJsonRequestBody,
-  t_actionsUpdateSelfHostedRunnerGroupForOrgJsonRequestBody,
   t_activity,
-  t_activityMarkNotificationsAsReadJsonRequestBody,
-  t_activityMarkRepoNotificationsAsReadJsonRequestBody,
-  t_activitySetRepoSubscriptionJsonRequestBody,
-  t_activitySetThreadSubscriptionJsonRequestBody,
   t_alert_number,
   t_api_insights_route_stats,
   t_api_insights_subject_stats,
@@ -68,13 +75,6 @@ import type {
   t_api_insights_time_stats,
   t_api_insights_user_stats,
   t_api_overview,
-  t_appsCheckTokenJsonRequestBody,
-  t_appsCreateInstallationAccessTokenJsonRequestBody,
-  t_appsDeleteAuthorizationJsonRequestBody,
-  t_appsDeleteTokenJsonRequestBody,
-  t_appsResetTokenJsonRequestBody,
-  t_appsScopeTokenJsonRequestBody,
-  t_appsUpdateWebhookConfigForAppJsonRequestBody,
   t_artifact,
   t_authentication_token,
   t_authorization,
@@ -88,19 +88,49 @@ import type {
   t_branch_restriction_policy,
   t_branch_short,
   t_branch_with_protection,
+  t_CampaignsCreateCampaignRequestBody,
+  t_CampaignsUpdateCampaignRequestBody,
+  t_ChecksCreateRequestBody,
+  t_ChecksCreateSuiteRequestBody,
+  t_ChecksSetSuitesPreferencesRequestBody,
+  t_ChecksUpdateRequestBody,
+  t_CodeScanningCreateVariantAnalysisRequestBody,
+  t_CodeScanningUpdateAlertRequestBody,
+  t_CodeScanningUploadSarifRequestBody,
+  t_CodeSecurityAttachConfigurationRequestBody,
+  t_CodeSecurityAttachEnterpriseConfigurationRequestBody,
+  t_CodeSecurityCreateConfigurationForEnterpriseRequestBody,
+  t_CodeSecurityCreateConfigurationRequestBody,
+  t_CodeSecurityDetachConfigurationRequestBody,
+  t_CodeSecuritySetConfigurationAsDefaultForEnterpriseRequestBody,
+  t_CodeSecuritySetConfigurationAsDefaultRequestBody,
+  t_CodeSecurityUpdateConfigurationRequestBody,
+  t_CodeSecurityUpdateEnterpriseConfigurationRequestBody,
+  t_CodespacesCreateForAuthenticatedUserRequestBody,
+  t_CodespacesCreateOrUpdateOrgSecretRequestBody,
+  t_CodespacesCreateOrUpdateRepoSecretRequestBody,
+  t_CodespacesCreateOrUpdateSecretForAuthenticatedUserRequestBody,
+  t_CodespacesCreateWithPrForAuthenticatedUserRequestBody,
+  t_CodespacesCreateWithRepoForAuthenticatedUserRequestBody,
+  t_CodespacesDeleteCodespacesAccessUsersRequestBody,
+  t_CodespacesPublishForAuthenticatedUserRequestBody,
+  t_CodespacesSetCodespacesAccessRequestBody,
+  t_CodespacesSetCodespacesAccessUsersRequestBody,
+  t_CodespacesSetRepositoriesForSecretForAuthenticatedUserRequestBody,
+  t_CodespacesSetSelectedReposForOrgSecretRequestBody,
+  t_CodespacesUpdateForAuthenticatedUserRequestBody,
+  t_CopilotAddCopilotSeatsForTeamsRequestBody,
+  t_CopilotAddCopilotSeatsForUsersRequestBody,
+  t_CopilotCancelCopilotSeatAssignmentForTeamsRequestBody,
+  t_CopilotCancelCopilotSeatAssignmentForUsersRequestBody,
+  t_CredentialsRevokeRequestBody,
   t_campaign_state,
   t_campaign_summary,
-  t_campaignsCreateCampaignJsonRequestBody,
-  t_campaignsUpdateCampaignJsonRequestBody,
   t_check_annotation,
   t_check_automated_security_fixes,
   t_check_run,
   t_check_suite,
   t_check_suite_preference,
-  t_checksCreateJsonRequestBody,
-  t_checksCreateSuiteJsonRequestBody,
-  t_checksSetSuitesPreferencesJsonRequestBody,
-  t_checksUpdateJsonRequestBody,
   t_classroom,
   t_classroom_accepted_assignment,
   t_classroom_assignment,
@@ -137,18 +167,6 @@ import type {
   t_code_security_configuration_repositories,
   t_code_security_default_configurations,
   t_codeowners_errors,
-  t_codeScanningCreateVariantAnalysisJsonRequestBody,
-  t_codeScanningUpdateAlertJsonRequestBody,
-  t_codeScanningUploadSarifJsonRequestBody,
-  t_codeSecurityAttachConfigurationJsonRequestBody,
-  t_codeSecurityAttachEnterpriseConfigurationJsonRequestBody,
-  t_codeSecurityCreateConfigurationForEnterpriseJsonRequestBody,
-  t_codeSecurityCreateConfigurationJsonRequestBody,
-  t_codeSecurityDetachConfigurationJsonRequestBody,
-  t_codeSecuritySetConfigurationAsDefaultForEnterpriseJsonRequestBody,
-  t_codeSecuritySetConfigurationAsDefaultJsonRequestBody,
-  t_codeSecurityUpdateConfigurationJsonRequestBody,
-  t_codeSecurityUpdateEnterpriseConfigurationJsonRequestBody,
   t_codespace,
   t_codespace_export_details,
   t_codespace_machine,
@@ -158,19 +176,6 @@ import type {
   t_codespaces_public_key,
   t_codespaces_secret,
   t_codespaces_user_public_key,
-  t_codespacesCreateForAuthenticatedUserJsonRequestBody,
-  t_codespacesCreateOrUpdateOrgSecretJsonRequestBody,
-  t_codespacesCreateOrUpdateRepoSecretJsonRequestBody,
-  t_codespacesCreateOrUpdateSecretForAuthenticatedUserJsonRequestBody,
-  t_codespacesCreateWithPrForAuthenticatedUserJsonRequestBody,
-  t_codespacesCreateWithRepoForAuthenticatedUserJsonRequestBody,
-  t_codespacesDeleteCodespacesAccessUsersJsonRequestBody,
-  t_codespacesPublishForAuthenticatedUserJsonRequestBody,
-  t_codespacesSetCodespacesAccessJsonRequestBody,
-  t_codespacesSetCodespacesAccessUsersJsonRequestBody,
-  t_codespacesSetRepositoriesForSecretForAuthenticatedUserJsonRequestBody,
-  t_codespacesSetSelectedReposForOrgSecretJsonRequestBody,
-  t_codespacesUpdateForAuthenticatedUserJsonRequestBody,
   t_collaborator,
   t_combined_billing_usage,
   t_combined_commit_status,
@@ -190,26 +195,21 @@ import type {
   t_copilot_organization_details,
   t_copilot_seat_details,
   t_copilot_usage_metrics_day,
-  t_copilotAddCopilotSeatsForTeamsJsonRequestBody,
-  t_copilotAddCopilotSeatsForUsersJsonRequestBody,
-  t_copilotCancelCopilotSeatAssignmentForTeamsJsonRequestBody,
-  t_copilotCancelCopilotSeatAssignmentForUsersJsonRequestBody,
-  t_credentialsRevokeJsonRequestBody,
   t_custom_deployment_rule_app,
   t_custom_property,
   t_custom_property_set_payload,
   t_custom_property_value,
+  t_DependabotCreateOrUpdateOrgSecretRequestBody,
+  t_DependabotCreateOrUpdateRepoSecretRequestBody,
+  t_DependabotSetRepositoryAccessDefaultLevelRequestBody,
+  t_DependabotSetSelectedReposForOrgSecretRequestBody,
+  t_DependabotUpdateAlertRequestBody,
+  t_DependabotUpdateRepositoryAccessForOrgRequestBody,
   t_dependabot_alert,
   t_dependabot_alert_with_repository,
   t_dependabot_public_key,
   t_dependabot_repository_access_details,
   t_dependabot_secret,
-  t_dependabotCreateOrUpdateOrgSecretJsonRequestBody,
-  t_dependabotCreateOrUpdateRepoSecretJsonRequestBody,
-  t_dependabotSetRepositoryAccessDefaultLevelJsonRequestBody,
-  t_dependabotSetSelectedReposForOrgSecretJsonRequestBody,
-  t_dependabotUpdateAlertJsonRequestBody,
-  t_dependabotUpdateRepositoryAccessForOrgJsonRequestBody,
   t_dependency_graph_diff,
   t_dependency_graph_spdx_sbom,
   t_deploy_key,
@@ -228,32 +228,48 @@ import type {
   t_feed,
   t_file_commit,
   t_full_repository,
+  t_GistsCreateCommentRequestBody,
+  t_GistsCreateRequestBody,
+  t_GistsUpdateCommentRequestBody,
+  t_GistsUpdateRequestBody,
+  t_GitCreateBlobRequestBody,
+  t_GitCreateCommitRequestBody,
+  t_GitCreateRefRequestBody,
+  t_GitCreateTagRequestBody,
+  t_GitCreateTreeRequestBody,
+  t_GitUpdateRefRequestBody,
   t_gist_comment,
   t_gist_commit,
   t_gist_simple,
-  t_gistsCreateCommentJsonRequestBody,
-  t_gistsCreateJsonRequestBody,
-  t_gistsUpdateCommentJsonRequestBody,
-  t_gistsUpdateJsonRequestBody,
   t_git_commit,
   t_git_ref,
   t_git_tag,
   t_git_tree,
-  t_gitCreateBlobJsonRequestBody,
-  t_gitCreateCommitJsonRequestBody,
-  t_gitCreateRefJsonRequestBody,
-  t_gitCreateTagJsonRequestBody,
-  t_gitCreateTreeJsonRequestBody,
   t_gitignore_template,
-  t_gitUpdateRefJsonRequestBody,
   t_global_advisory,
   t_gpg_key,
+  t_HostedComputeCreateNetworkConfigurationForOrgRequestBody,
+  t_HostedComputeUpdateNetworkConfigurationForOrgRequestBody,
   t_hook,
   t_hook_delivery,
   t_hook_delivery_item,
-  t_hostedComputeCreateNetworkConfigurationForOrgJsonRequestBody,
-  t_hostedComputeUpdateNetworkConfigurationForOrgJsonRequestBody,
   t_hovercard,
+  t_IssuesAddAssigneesRequestBody,
+  t_IssuesAddLabelsRequestBody,
+  t_IssuesAddSubIssueRequestBody,
+  t_IssuesCreateCommentRequestBody,
+  t_IssuesCreateLabelRequestBody,
+  t_IssuesCreateMilestoneRequestBody,
+  t_IssuesCreateRequestBody,
+  t_IssuesLockRequestBody,
+  t_IssuesRemoveAssigneesRequestBody,
+  t_IssuesRemoveSubIssueRequestBody,
+  t_IssuesReprioritizeSubIssueRequestBody,
+  t_IssuesSetLabelsRequestBody,
+  t_IssuesUpdateCommentRequestBody,
+  t_IssuesUpdateLabelRequestBody,
+  t_IssuesUpdateMilestoneRequestBody,
+  t_IssuesUpdateRequestBody,
   t_import,
   t_installation,
   t_installation_token,
@@ -267,22 +283,6 @@ import type {
   t_issue_event_for_issue,
   t_issue_search_result_item,
   t_issue_type,
-  t_issuesAddAssigneesJsonRequestBody,
-  t_issuesAddLabelsJsonRequestBody,
-  t_issuesAddSubIssueJsonRequestBody,
-  t_issuesCreateCommentJsonRequestBody,
-  t_issuesCreateJsonRequestBody,
-  t_issuesCreateLabelJsonRequestBody,
-  t_issuesCreateMilestoneJsonRequestBody,
-  t_issuesLockJsonRequestBody,
-  t_issuesRemoveAssigneesJsonRequestBody,
-  t_issuesRemoveSubIssueJsonRequestBody,
-  t_issuesReprioritizeSubIssueJsonRequestBody,
-  t_issuesSetLabelsJsonRequestBody,
-  t_issuesUpdateCommentJsonRequestBody,
-  t_issuesUpdateJsonRequestBody,
-  t_issuesUpdateLabelJsonRequestBody,
-  t_issuesUpdateMilestoneJsonRequestBody,
   t_job,
   t_key,
   t_key_simple,
@@ -292,21 +292,38 @@ import type {
   t_license,
   t_license_content,
   t_license_simple,
-  t_markdownRenderJsonRequestBody,
+  t_MarkdownRenderRequestBody,
+  t_MigrationsMapCommitAuthorRequestBody,
+  t_MigrationsSetLfsPreferenceRequestBody,
+  t_MigrationsStartForAuthenticatedUserRequestBody,
+  t_MigrationsStartForOrgRequestBody,
+  t_MigrationsStartImportRequestBody,
+  t_MigrationsUpdateImportRequestBody,
   t_marketplace_listing_plan,
   t_marketplace_purchase,
   t_merged_upstream,
   t_migration,
-  t_migrationsMapCommitAuthorJsonRequestBody,
-  t_migrationsSetLfsPreferenceJsonRequestBody,
-  t_migrationsStartForAuthenticatedUserJsonRequestBody,
-  t_migrationsStartForOrgJsonRequestBody,
-  t_migrationsStartImportJsonRequestBody,
-  t_migrationsUpdateImportJsonRequestBody,
   t_milestone,
   t_minimal_repository,
   t_network_configuration,
   t_network_settings,
+  t_OrgsConvertMemberToOutsideCollaboratorRequestBody,
+  t_OrgsCreateInvitationRequestBody,
+  t_OrgsCreateOrUpdateCustomPropertiesRequestBody,
+  t_OrgsCreateOrUpdateCustomPropertiesValuesForReposRequestBody,
+  t_OrgsCreateWebhookRequestBody,
+  t_OrgsDeleteAttestationsBulkRequestBody,
+  t_OrgsEnableOrDisableSecurityProductOnAllOrgReposRequestBody,
+  t_OrgsListAttestationsBulkRequestBody,
+  t_OrgsReviewPatGrantRequestRequestBody,
+  t_OrgsReviewPatGrantRequestsInBulkRequestBody,
+  t_OrgsSetMembershipForUserRequestBody,
+  t_OrgsUpdateMembershipForAuthenticatedUserRequestBody,
+  t_OrgsUpdatePatAccessesRequestBody,
+  t_OrgsUpdatePatAccessRequestBody,
+  t_OrgsUpdateRequestBody,
+  t_OrgsUpdateWebhookConfigForOrgRequestBody,
+  t_OrgsUpdateWebhookRequestBody,
   t_oidc_custom_sub,
   t_oidc_custom_sub_repo,
   t_org_hook,
@@ -326,23 +343,32 @@ import type {
   t_organization_secret_scanning_alert,
   t_organization_simple,
   t_organization_update_issue_type,
-  t_orgsConvertMemberToOutsideCollaboratorJsonRequestBody,
-  t_orgsCreateInvitationJsonRequestBody,
-  t_orgsCreateOrUpdateCustomPropertiesJsonRequestBody,
-  t_orgsCreateOrUpdateCustomPropertiesValuesForReposJsonRequestBody,
-  t_orgsCreateWebhookJsonRequestBody,
-  t_orgsDeleteAttestationsBulkJsonRequestBody,
-  t_orgsEnableOrDisableSecurityProductOnAllOrgReposJsonRequestBody,
-  t_orgsListAttestationsBulkJsonRequestBody,
-  t_orgsReviewPatGrantRequestJsonRequestBody,
-  t_orgsReviewPatGrantRequestsInBulkJsonRequestBody,
-  t_orgsSetMembershipForUserJsonRequestBody,
-  t_orgsUpdateJsonRequestBody,
-  t_orgsUpdateMembershipForAuthenticatedUserJsonRequestBody,
-  t_orgsUpdatePatAccessesJsonRequestBody,
-  t_orgsUpdatePatAccessJsonRequestBody,
-  t_orgsUpdateWebhookConfigForOrgJsonRequestBody,
-  t_orgsUpdateWebhookJsonRequestBody,
+  t_PrivateRegistriesCreateOrgPrivateRegistryRequestBody,
+  t_PrivateRegistriesUpdateOrgPrivateRegistryRequestBody,
+  t_ProjectsClassicAddCollaboratorRequestBody,
+  t_ProjectsClassicCreateCardRequestBody,
+  t_ProjectsClassicCreateColumnRequestBody,
+  t_ProjectsClassicCreateForAuthenticatedUserRequestBody,
+  t_ProjectsClassicCreateForOrgRequestBody,
+  t_ProjectsClassicCreateForRepoRequestBody,
+  t_ProjectsClassicMoveCardRequestBody,
+  t_ProjectsClassicMoveColumnRequestBody,
+  t_ProjectsClassicUpdateCardRequestBody,
+  t_ProjectsClassicUpdateColumnRequestBody,
+  t_ProjectsClassicUpdateRequestBody,
+  t_PullsCreateReplyForReviewCommentRequestBody,
+  t_PullsCreateRequestBody,
+  t_PullsCreateReviewCommentRequestBody,
+  t_PullsCreateReviewRequestBody,
+  t_PullsDismissReviewRequestBody,
+  t_PullsMergeRequestBody,
+  t_PullsRemoveRequestedReviewersRequestBody,
+  t_PullsRequestReviewersRequestBody,
+  t_PullsSubmitReviewRequestBody,
+  t_PullsUpdateBranchRequestBody,
+  t_PullsUpdateRequestBody,
+  t_PullsUpdateReviewCommentRequestBody,
+  t_PullsUpdateReviewRequestBody,
   t_package,
   t_package_version,
   t_packages_billing_usage,
@@ -358,23 +384,10 @@ import type {
   t_porter_large_file,
   t_private_user,
   t_private_vulnerability_report_create,
-  t_privateRegistriesCreateOrgPrivateRegistryJsonRequestBody,
-  t_privateRegistriesUpdateOrgPrivateRegistryJsonRequestBody,
   t_project,
   t_project_card,
   t_project_collaborator_permission,
   t_project_column,
-  t_projectsClassicAddCollaboratorJsonRequestBody,
-  t_projectsClassicCreateCardJsonRequestBody,
-  t_projectsClassicCreateColumnJsonRequestBody,
-  t_projectsClassicCreateForAuthenticatedUserJsonRequestBody,
-  t_projectsClassicCreateForOrgJsonRequestBody,
-  t_projectsClassicCreateForRepoJsonRequestBody,
-  t_projectsClassicMoveCardJsonRequestBody,
-  t_projectsClassicMoveColumnJsonRequestBody,
-  t_projectsClassicUpdateCardJsonRequestBody,
-  t_projectsClassicUpdateColumnJsonRequestBody,
-  t_projectsClassicUpdateJsonRequestBody,
   t_protected_branch,
   t_protected_branch_admin_enforced,
   t_protected_branch_pull_request_review,
@@ -385,66 +398,79 @@ import type {
   t_pull_request_review_comment,
   t_pull_request_review_request,
   t_pull_request_simple,
-  t_pullsCreateJsonRequestBody,
-  t_pullsCreateReplyForReviewCommentJsonRequestBody,
-  t_pullsCreateReviewCommentJsonRequestBody,
-  t_pullsCreateReviewJsonRequestBody,
-  t_pullsDismissReviewJsonRequestBody,
-  t_pullsMergeJsonRequestBody,
-  t_pullsRemoveRequestedReviewersJsonRequestBody,
-  t_pullsRequestReviewersJsonRequestBody,
-  t_pullsSubmitReviewJsonRequestBody,
-  t_pullsUpdateBranchJsonRequestBody,
-  t_pullsUpdateJsonRequestBody,
-  t_pullsUpdateReviewCommentJsonRequestBody,
-  t_pullsUpdateReviewJsonRequestBody,
+  t_ReactionsCreateForCommitCommentRequestBody,
+  t_ReactionsCreateForIssueCommentRequestBody,
+  t_ReactionsCreateForIssueRequestBody,
+  t_ReactionsCreateForPullRequestReviewCommentRequestBody,
+  t_ReactionsCreateForReleaseRequestBody,
+  t_ReactionsCreateForTeamDiscussionCommentInOrgRequestBody,
+  t_ReactionsCreateForTeamDiscussionCommentLegacyRequestBody,
+  t_ReactionsCreateForTeamDiscussionInOrgRequestBody,
+  t_ReactionsCreateForTeamDiscussionLegacyRequestBody,
+  t_ReposAddAppAccessRestrictionsRequestBody,
+  t_ReposAddCollaboratorRequestBody,
+  t_ReposAddStatusCheckContextsRequestBody,
+  t_ReposAddTeamAccessRestrictionsRequestBody,
+  t_ReposAddUserAccessRestrictionsRequestBody,
+  t_ReposCreateAttestationRequestBody,
+  t_ReposCreateAutolinkRequestBody,
+  t_ReposCreateCommitCommentRequestBody,
+  t_ReposCreateCommitStatusRequestBody,
+  t_ReposCreateDeployKeyRequestBody,
+  t_ReposCreateDeploymentProtectionRuleRequestBody,
+  t_ReposCreateDeploymentRequestBody,
+  t_ReposCreateDeploymentStatusRequestBody,
+  t_ReposCreateDispatchEventRequestBody,
+  t_ReposCreateForAuthenticatedUserRequestBody,
+  t_ReposCreateForkRequestBody,
+  t_ReposCreateInOrgRequestBody,
+  t_ReposCreateOrgRulesetRequestBody,
+  t_ReposCreateOrUpdateCustomPropertiesValuesRequestBody,
+  t_ReposCreateOrUpdateEnvironmentRequestBody,
+  t_ReposCreateOrUpdateFileContentsRequestBody,
+  t_ReposCreatePagesDeploymentRequestBody,
+  t_ReposCreatePagesSiteRequestBody,
+  t_ReposCreateReleaseRequestBody,
+  t_ReposCreateRepoRulesetRequestBody,
+  t_ReposCreateTagProtectionRequestBody,
+  t_ReposCreateUsingTemplateRequestBody,
+  t_ReposCreateWebhookRequestBody,
+  t_ReposDeleteFileRequestBody,
+  t_ReposGenerateReleaseNotesRequestBody,
+  t_ReposMergeRequestBody,
+  t_ReposMergeUpstreamRequestBody,
+  t_ReposRemoveAppAccessRestrictionsRequestBody,
+  t_ReposRemoveStatusCheckContextsRequestBody,
+  t_ReposRemoveTeamAccessRestrictionsRequestBody,
+  t_ReposRemoveUserAccessRestrictionsRequestBody,
+  t_ReposRenameBranchRequestBody,
+  t_ReposReplaceAllTopicsRequestBody,
+  t_ReposSetAppAccessRestrictionsRequestBody,
+  t_ReposSetStatusCheckContextsRequestBody,
+  t_ReposSetTeamAccessRestrictionsRequestBody,
+  t_ReposSetUserAccessRestrictionsRequestBody,
+  t_ReposTransferRequestBody,
+  t_ReposUpdateBranchProtectionRequestBody,
+  t_ReposUpdateCommitCommentRequestBody,
+  t_ReposUpdateInformationAboutPagesSiteRequestBody,
+  t_ReposUpdateInvitationRequestBody,
+  t_ReposUpdateOrgRulesetRequestBody,
+  t_ReposUpdatePullRequestReviewProtectionRequestBody,
+  t_ReposUpdateReleaseAssetRequestBody,
+  t_ReposUpdateReleaseRequestBody,
+  t_ReposUpdateRepoRulesetRequestBody,
+  t_ReposUpdateRequestBody,
+  t_ReposUpdateStatusCheckProtectionRequestBody,
+  t_ReposUpdateWebhookConfigForRepoRequestBody,
+  t_ReposUpdateWebhookRequestBody,
   t_rate_limit_overview,
   t_reaction,
-  t_reactionsCreateForCommitCommentJsonRequestBody,
-  t_reactionsCreateForIssueCommentJsonRequestBody,
-  t_reactionsCreateForIssueJsonRequestBody,
-  t_reactionsCreateForPullRequestReviewCommentJsonRequestBody,
-  t_reactionsCreateForReleaseJsonRequestBody,
-  t_reactionsCreateForTeamDiscussionCommentInOrgJsonRequestBody,
-  t_reactionsCreateForTeamDiscussionCommentLegacyJsonRequestBody,
-  t_reactionsCreateForTeamDiscussionInOrgJsonRequestBody,
-  t_reactionsCreateForTeamDiscussionLegacyJsonRequestBody,
   t_referrer_traffic,
   t_release,
   t_release_asset,
   t_release_notes_content,
   t_repo_codespaces_secret,
   t_repo_search_result_item,
-  t_reposAddAppAccessRestrictionsJsonRequestBody,
-  t_reposAddCollaboratorJsonRequestBody,
-  t_reposAddStatusCheckContextsJsonRequestBody,
-  t_reposAddTeamAccessRestrictionsJsonRequestBody,
-  t_reposAddUserAccessRestrictionsJsonRequestBody,
-  t_reposCreateAttestationJsonRequestBody,
-  t_reposCreateAutolinkJsonRequestBody,
-  t_reposCreateCommitCommentJsonRequestBody,
-  t_reposCreateCommitStatusJsonRequestBody,
-  t_reposCreateDeployKeyJsonRequestBody,
-  t_reposCreateDeploymentJsonRequestBody,
-  t_reposCreateDeploymentProtectionRuleJsonRequestBody,
-  t_reposCreateDeploymentStatusJsonRequestBody,
-  t_reposCreateDispatchEventJsonRequestBody,
-  t_reposCreateForAuthenticatedUserJsonRequestBody,
-  t_reposCreateForkJsonRequestBody,
-  t_reposCreateInOrgJsonRequestBody,
-  t_reposCreateOrgRulesetJsonRequestBody,
-  t_reposCreateOrUpdateCustomPropertiesValuesJsonRequestBody,
-  t_reposCreateOrUpdateEnvironmentJsonRequestBody,
-  t_reposCreateOrUpdateFileContentsJsonRequestBody,
-  t_reposCreatePagesDeploymentJsonRequestBody,
-  t_reposCreatePagesSiteJsonRequestBody,
-  t_reposCreateReleaseJsonRequestBody,
-  t_reposCreateRepoRulesetJsonRequestBody,
-  t_reposCreateTagProtectionJsonRequestBody,
-  t_reposCreateUsingTemplateJsonRequestBody,
-  t_reposCreateWebhookJsonRequestBody,
-  t_reposDeleteFileJsonRequestBody,
-  t_reposGenerateReleaseNotesJsonRequestBody,
   t_repository,
   t_repository_advisory,
   t_repository_advisory_create,
@@ -455,32 +481,6 @@ import type {
   t_repository_rule_violation_error,
   t_repository_ruleset,
   t_repository_subscription,
-  t_reposMergeJsonRequestBody,
-  t_reposMergeUpstreamJsonRequestBody,
-  t_reposRemoveAppAccessRestrictionsJsonRequestBody,
-  t_reposRemoveStatusCheckContextsJsonRequestBody,
-  t_reposRemoveTeamAccessRestrictionsJsonRequestBody,
-  t_reposRemoveUserAccessRestrictionsJsonRequestBody,
-  t_reposRenameBranchJsonRequestBody,
-  t_reposReplaceAllTopicsJsonRequestBody,
-  t_reposSetAppAccessRestrictionsJsonRequestBody,
-  t_reposSetStatusCheckContextsJsonRequestBody,
-  t_reposSetTeamAccessRestrictionsJsonRequestBody,
-  t_reposSetUserAccessRestrictionsJsonRequestBody,
-  t_reposTransferJsonRequestBody,
-  t_reposUpdateBranchProtectionJsonRequestBody,
-  t_reposUpdateCommitCommentJsonRequestBody,
-  t_reposUpdateInformationAboutPagesSiteJsonRequestBody,
-  t_reposUpdateInvitationJsonRequestBody,
-  t_reposUpdateJsonRequestBody,
-  t_reposUpdateOrgRulesetJsonRequestBody,
-  t_reposUpdatePullRequestReviewProtectionJsonRequestBody,
-  t_reposUpdateReleaseAssetJsonRequestBody,
-  t_reposUpdateReleaseJsonRequestBody,
-  t_reposUpdateRepoRulesetJsonRequestBody,
-  t_reposUpdateStatusCheckProtectionJsonRequestBody,
-  t_reposUpdateWebhookConfigForRepoJsonRequestBody,
-  t_reposUpdateWebhookJsonRequestBody,
   t_review_comment,
   t_root,
   t_rule_suite,
@@ -491,13 +491,13 @@ import type {
   t_runner_application,
   t_runner_groups_org,
   t_runner_label,
+  t_SecretScanningCreatePushProtectionBypassRequestBody,
+  t_SecretScanningUpdateAlertRequestBody,
   t_scim_error,
   t_secret_scanning_alert,
   t_secret_scanning_location,
   t_secret_scanning_push_protection_bypass,
   t_secret_scanning_scan_history,
-  t_secretScanningCreatePushProtectionBypassJsonRequestBody,
-  t_secretScanningUpdateAlertJsonRequestBody,
   t_security_advisory_ecosystems,
   t_selected_actions,
   t_short_blob,
@@ -512,6 +512,23 @@ import type {
   t_starred_repository,
   t_status,
   t_status_check_policy,
+  t_TeamsAddOrUpdateMembershipForUserInOrgRequestBody,
+  t_TeamsAddOrUpdateMembershipForUserLegacyRequestBody,
+  t_TeamsAddOrUpdateProjectPermissionsInOrgRequestBody,
+  t_TeamsAddOrUpdateProjectPermissionsLegacyRequestBody,
+  t_TeamsAddOrUpdateRepoPermissionsInOrgRequestBody,
+  t_TeamsAddOrUpdateRepoPermissionsLegacyRequestBody,
+  t_TeamsCreateDiscussionCommentInOrgRequestBody,
+  t_TeamsCreateDiscussionCommentLegacyRequestBody,
+  t_TeamsCreateDiscussionInOrgRequestBody,
+  t_TeamsCreateDiscussionLegacyRequestBody,
+  t_TeamsCreateRequestBody,
+  t_TeamsUpdateDiscussionCommentInOrgRequestBody,
+  t_TeamsUpdateDiscussionCommentLegacyRequestBody,
+  t_TeamsUpdateDiscussionInOrgRequestBody,
+  t_TeamsUpdateDiscussionLegacyRequestBody,
+  t_TeamsUpdateInOrgRequestBody,
+  t_TeamsUpdateLegacyRequestBody,
   t_tag,
   t_tag_protection,
   t_team,
@@ -523,42 +540,25 @@ import type {
   t_team_repository,
   t_team_role_assignment,
   t_team_simple,
-  t_teamsAddOrUpdateMembershipForUserInOrgJsonRequestBody,
-  t_teamsAddOrUpdateMembershipForUserLegacyJsonRequestBody,
-  t_teamsAddOrUpdateProjectPermissionsInOrgJsonRequestBody,
-  t_teamsAddOrUpdateProjectPermissionsLegacyJsonRequestBody,
-  t_teamsAddOrUpdateRepoPermissionsInOrgJsonRequestBody,
-  t_teamsAddOrUpdateRepoPermissionsLegacyJsonRequestBody,
-  t_teamsCreateDiscussionCommentInOrgJsonRequestBody,
-  t_teamsCreateDiscussionCommentLegacyJsonRequestBody,
-  t_teamsCreateDiscussionInOrgJsonRequestBody,
-  t_teamsCreateDiscussionLegacyJsonRequestBody,
-  t_teamsCreateJsonRequestBody,
-  t_teamsUpdateDiscussionCommentInOrgJsonRequestBody,
-  t_teamsUpdateDiscussionCommentLegacyJsonRequestBody,
-  t_teamsUpdateDiscussionInOrgJsonRequestBody,
-  t_teamsUpdateDiscussionLegacyJsonRequestBody,
-  t_teamsUpdateInOrgJsonRequestBody,
-  t_teamsUpdateLegacyJsonRequestBody,
   t_thread,
   t_thread_subscription,
   t_timeline_issue_events,
   t_topic,
   t_topic_search_result_item,
+  t_UsersAddEmailForAuthenticatedUserRequestBody,
+  t_UsersAddSocialAccountForAuthenticatedUserRequestBody,
+  t_UsersCreateGpgKeyForAuthenticatedUserRequestBody,
+  t_UsersCreatePublicSshKeyForAuthenticatedUserRequestBody,
+  t_UsersCreateSshSigningKeyForAuthenticatedUserRequestBody,
+  t_UsersDeleteAttestationsBulkRequestBody,
+  t_UsersDeleteEmailForAuthenticatedUserRequestBody,
+  t_UsersDeleteSocialAccountForAuthenticatedUserRequestBody,
+  t_UsersListAttestationsBulkRequestBody,
+  t_UsersSetPrimaryEmailVisibilityForAuthenticatedUserRequestBody,
+  t_UsersUpdateAuthenticatedRequestBody,
   t_user_marketplace_purchase,
   t_user_role_assignment,
   t_user_search_result_item,
-  t_usersAddEmailForAuthenticatedUserJsonRequestBody,
-  t_usersAddSocialAccountForAuthenticatedUserJsonRequestBody,
-  t_usersCreateGpgKeyForAuthenticatedUserJsonRequestBody,
-  t_usersCreatePublicSshKeyForAuthenticatedUserJsonRequestBody,
-  t_usersCreateSshSigningKeyForAuthenticatedUserJsonRequestBody,
-  t_usersDeleteAttestationsBulkJsonRequestBody,
-  t_usersDeleteEmailForAuthenticatedUserJsonRequestBody,
-  t_usersDeleteSocialAccountForAuthenticatedUserJsonRequestBody,
-  t_usersListAttestationsBulkJsonRequestBody,
-  t_usersSetPrimaryEmailVisibilityForAuthenticatedUserJsonRequestBody,
-  t_usersUpdateAuthenticatedJsonRequestBody,
   t_validation_error,
   t_validation_error_simple,
   t_view_traffic,
@@ -854,7 +854,7 @@ export class GitHubV3RestApiService {
   }
 
   appsUpdateWebhookConfigForApp(p: {
-    requestBody: t_appsUpdateWebhookConfigForAppJsonRequestBody
+    requestBody: t_AppsUpdateWebhookConfigForAppRequestBody
   }): Observable<
     (HttpResponse<t_webhook_config> & {status: 200}) | HttpResponse<unknown>
   > {
@@ -1039,7 +1039,7 @@ export class GitHubV3RestApiService {
 
   appsCreateInstallationAccessToken(p: {
     installationId: number
-    requestBody?: t_appsCreateInstallationAccessTokenJsonRequestBody
+    requestBody?: t_AppsCreateInstallationAccessTokenRequestBody
   }): Observable<
     | (HttpResponse<t_installation_token> & {status: 201})
     | (HttpResponse<t_basic_error> & {status: 401})
@@ -1112,7 +1112,7 @@ export class GitHubV3RestApiService {
 
   appsDeleteAuthorization(p: {
     clientId: string
-    requestBody: t_appsDeleteAuthorizationJsonRequestBody
+    requestBody: t_AppsDeleteAuthorizationRequestBody
   }): Observable<
     | (HttpResponse<void> & {status: 204})
     | (HttpResponse<t_validation_error> & {status: 422})
@@ -1138,7 +1138,7 @@ export class GitHubV3RestApiService {
 
   appsCheckToken(p: {
     clientId: string
-    requestBody: t_appsCheckTokenJsonRequestBody
+    requestBody: t_AppsCheckTokenRequestBody
   }): Observable<
     | (HttpResponse<t_authorization> & {status: 200})
     | (HttpResponse<t_basic_error> & {status: 404})
@@ -1165,7 +1165,7 @@ export class GitHubV3RestApiService {
 
   appsResetToken(p: {
     clientId: string
-    requestBody: t_appsResetTokenJsonRequestBody
+    requestBody: t_AppsResetTokenRequestBody
   }): Observable<
     | (HttpResponse<t_authorization> & {status: 200})
     | (HttpResponse<t_validation_error> & {status: 422})
@@ -1191,7 +1191,7 @@ export class GitHubV3RestApiService {
 
   appsDeleteToken(p: {
     clientId: string
-    requestBody: t_appsDeleteTokenJsonRequestBody
+    requestBody: t_AppsDeleteTokenRequestBody
   }): Observable<
     | (HttpResponse<void> & {status: 204})
     | (HttpResponse<t_validation_error> & {status: 422})
@@ -1217,7 +1217,7 @@ export class GitHubV3RestApiService {
 
   appsScopeToken(p: {
     clientId: string
-    requestBody: t_appsScopeTokenJsonRequestBody
+    requestBody: t_AppsScopeTokenRequestBody
   }): Observable<
     | (HttpResponse<t_authorization> & {status: 200})
     | (HttpResponse<t_basic_error> & {status: 401})
@@ -1432,7 +1432,7 @@ export class GitHubV3RestApiService {
   }
 
   credentialsRevoke(p: {
-    requestBody: t_credentialsRevokeJsonRequestBody
+    requestBody: t_CredentialsRevokeRequestBody
   }): Observable<
     | (HttpResponse<{
         [key: string]: unknown | undefined
@@ -1512,7 +1512,7 @@ export class GitHubV3RestApiService {
 
   codeSecurityCreateConfigurationForEnterprise(p: {
     enterprise: string
-    requestBody: t_codeSecurityCreateConfigurationForEnterpriseJsonRequestBody
+    requestBody: t_CodeSecurityCreateConfigurationForEnterpriseRequestBody
   }): Observable<
     | (HttpResponse<t_code_security_configuration> & {status: 201})
     | (HttpResponse<t_scim_error> & {status: 400})
@@ -1586,7 +1586,7 @@ export class GitHubV3RestApiService {
   codeSecurityUpdateEnterpriseConfiguration(p: {
     enterprise: string
     configurationId: number
-    requestBody: t_codeSecurityUpdateEnterpriseConfigurationJsonRequestBody
+    requestBody: t_CodeSecurityUpdateEnterpriseConfigurationRequestBody
   }): Observable<
     | (HttpResponse<t_code_security_configuration> & {status: 200})
     | (HttpResponse<void> & {status: 304})
@@ -1642,7 +1642,7 @@ export class GitHubV3RestApiService {
   codeSecurityAttachEnterpriseConfiguration(p: {
     enterprise: string
     configurationId: number
-    requestBody: t_codeSecurityAttachEnterpriseConfigurationJsonRequestBody
+    requestBody: t_CodeSecurityAttachEnterpriseConfigurationRequestBody
   }): Observable<
     | (HttpResponse<{
         [key: string]: unknown | undefined
@@ -1674,7 +1674,7 @@ export class GitHubV3RestApiService {
   codeSecuritySetConfigurationAsDefaultForEnterprise(p: {
     enterprise: string
     configurationId: number
-    requestBody: t_codeSecuritySetConfigurationAsDefaultForEnterpriseJsonRequestBody
+    requestBody: t_CodeSecuritySetConfigurationAsDefaultForEnterpriseRequestBody
   }): Observable<
     | (HttpResponse<{
         configuration?: t_code_security_configuration
@@ -1924,7 +1924,7 @@ export class GitHubV3RestApiService {
   }
 
   gistsCreate(p: {
-    requestBody: t_gistsCreateJsonRequestBody
+    requestBody: t_GistsCreateRequestBody
   }): Observable<
     | (HttpResponse<t_gist_simple> & {status: 201})
     | (HttpResponse<void> & {status: 304})
@@ -2037,7 +2037,7 @@ export class GitHubV3RestApiService {
 
   gistsUpdate(p: {
     gistId: string
-    requestBody: t_gistsUpdateJsonRequestBody
+    requestBody: t_GistsUpdateRequestBody
   }): Observable<
     | (HttpResponse<t_gist_simple> & {status: 200})
     | (HttpResponse<t_basic_error> & {status: 404})
@@ -2112,7 +2112,7 @@ export class GitHubV3RestApiService {
 
   gistsCreateComment(p: {
     gistId: string
-    requestBody: t_gistsCreateCommentJsonRequestBody
+    requestBody: t_GistsCreateCommentRequestBody
   }): Observable<
     | (HttpResponse<t_gist_comment> & {status: 201})
     | (HttpResponse<void> & {status: 304})
@@ -2169,7 +2169,7 @@ export class GitHubV3RestApiService {
   gistsUpdateComment(p: {
     gistId: string
     commentId: number
-    requestBody: t_gistsUpdateCommentJsonRequestBody
+    requestBody: t_GistsUpdateCommentRequestBody
   }): Observable<
     | (HttpResponse<t_gist_comment> & {status: 200})
     | (HttpResponse<t_basic_error> & {status: 404})
@@ -2568,7 +2568,7 @@ export class GitHubV3RestApiService {
   }
 
   markdownRender(p: {
-    requestBody: t_markdownRenderJsonRequestBody
+    requestBody: t_MarkdownRenderRequestBody
   }): Observable<
     | (HttpResponse<string> & {status: 200})
     | (HttpResponse<void> & {status: 304})
@@ -2853,7 +2853,7 @@ export class GitHubV3RestApiService {
   }
 
   activityMarkNotificationsAsRead(
-    p: {requestBody?: t_activityMarkNotificationsAsReadJsonRequestBody} = {},
+    p: {requestBody?: t_ActivityMarkNotificationsAsReadRequestBody} = {},
   ): Observable<
     | (HttpResponse<{
         message?: string
@@ -2967,7 +2967,7 @@ export class GitHubV3RestApiService {
 
   activitySetThreadSubscription(p: {
     threadId: number
-    requestBody?: t_activitySetThreadSubscriptionJsonRequestBody
+    requestBody?: t_ActivitySetThreadSubscriptionRequestBody
   }): Observable<
     | (HttpResponse<t_thread_subscription> & {status: 200})
     | (HttpResponse<void> & {status: 304})
@@ -3091,7 +3091,7 @@ export class GitHubV3RestApiService {
 
   dependabotUpdateRepositoryAccessForOrg(p: {
     org: string
-    requestBody: t_dependabotUpdateRepositoryAccessForOrgJsonRequestBody
+    requestBody: t_DependabotUpdateRepositoryAccessForOrgRequestBody
   }): Observable<
     | (HttpResponse<void> & {status: 204})
     | (HttpResponse<t_basic_error> & {status: 403})
@@ -3119,7 +3119,7 @@ export class GitHubV3RestApiService {
 
   dependabotSetRepositoryAccessDefaultLevel(p: {
     org: string
-    requestBody: t_dependabotSetRepositoryAccessDefaultLevelJsonRequestBody
+    requestBody: t_DependabotSetRepositoryAccessDefaultLevelRequestBody
   }): Observable<
     | (HttpResponse<void> & {status: 204})
     | (HttpResponse<t_basic_error> & {status: 403})
@@ -3206,7 +3206,7 @@ export class GitHubV3RestApiService {
 
   orgsUpdate(p: {
     org: string
-    requestBody?: t_orgsUpdateJsonRequestBody
+    requestBody?: t_OrgsUpdateRequestBody
   }): Observable<
     | (HttpResponse<t_organization_full> & {status: 200})
     | (HttpResponse<t_basic_error> & {status: 409})
@@ -3329,7 +3329,7 @@ export class GitHubV3RestApiService {
 
   actionsCreateHostedRunnerForOrg(p: {
     org: string
-    requestBody: t_actionsCreateHostedRunnerForOrgJsonRequestBody
+    requestBody: t_ActionsCreateHostedRunnerForOrgRequestBody
   }): Observable<
     | (HttpResponse<t_actions_hosted_runner> & {status: 201})
     | HttpResponse<unknown>
@@ -3479,7 +3479,7 @@ export class GitHubV3RestApiService {
   actionsUpdateHostedRunnerForOrg(p: {
     org: string
     hostedRunnerId: number
-    requestBody: t_actionsUpdateHostedRunnerForOrgJsonRequestBody
+    requestBody: t_ActionsUpdateHostedRunnerForOrgRequestBody
   }): Observable<
     | (HttpResponse<t_actions_hosted_runner> & {status: 200})
     | HttpResponse<unknown>
@@ -3590,7 +3590,7 @@ export class GitHubV3RestApiService {
 
   actionsSetGithubActionsPermissionsOrganization(p: {
     org: string
-    requestBody: t_actionsSetGithubActionsPermissionsOrganizationJsonRequestBody
+    requestBody: t_ActionsSetGithubActionsPermissionsOrganizationRequestBody
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
     const headers = this._headers({
       Accept: "application/json",
@@ -3639,7 +3639,7 @@ export class GitHubV3RestApiService {
 
   actionsSetSelectedRepositoriesEnabledGithubActionsOrganization(p: {
     org: string
-    requestBody: t_actionsSetSelectedRepositoriesEnabledGithubActionsOrganizationJsonRequestBody
+    requestBody: t_ActionsSetSelectedRepositoriesEnabledGithubActionsOrganizationRequestBody
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
     const headers = this._headers({
       Accept: "application/json",
@@ -3814,7 +3814,7 @@ export class GitHubV3RestApiService {
 
   actionsCreateSelfHostedRunnerGroupForOrg(p: {
     org: string
-    requestBody: t_actionsCreateSelfHostedRunnerGroupForOrgJsonRequestBody
+    requestBody: t_ActionsCreateSelfHostedRunnerGroupForOrgRequestBody
   }): Observable<
     (HttpResponse<t_runner_groups_org> & {status: 201}) | HttpResponse<unknown>
   > {
@@ -3859,7 +3859,7 @@ export class GitHubV3RestApiService {
   actionsUpdateSelfHostedRunnerGroupForOrg(p: {
     org: string
     runnerGroupId: number
-    requestBody: t_actionsUpdateSelfHostedRunnerGroupForOrgJsonRequestBody
+    requestBody: t_ActionsUpdateSelfHostedRunnerGroupForOrgRequestBody
   }): Observable<
     (HttpResponse<t_runner_groups_org> & {status: 200}) | HttpResponse<unknown>
   > {
@@ -3959,7 +3959,7 @@ export class GitHubV3RestApiService {
   actionsSetRepoAccessToSelfHostedRunnerGroupInOrg(p: {
     org: string
     runnerGroupId: number
-    requestBody: t_actionsSetRepoAccessToSelfHostedRunnerGroupInOrgJsonRequestBody
+    requestBody: t_ActionsSetRepoAccessToSelfHostedRunnerGroupInOrgRequestBody
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
     const headers = this._headers({
       Accept: "application/json",
@@ -4049,7 +4049,7 @@ export class GitHubV3RestApiService {
   actionsSetSelfHostedRunnersInGroupForOrg(p: {
     org: string
     runnerGroupId: number
-    requestBody: t_actionsSetSelfHostedRunnersInGroupForOrgJsonRequestBody
+    requestBody: t_ActionsSetSelfHostedRunnersInGroupForOrgRequestBody
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
     const headers = this._headers({
       Accept: "application/json",
@@ -4160,7 +4160,7 @@ export class GitHubV3RestApiService {
 
   actionsGenerateRunnerJitconfigForOrg(p: {
     org: string
-    requestBody: t_actionsGenerateRunnerJitconfigForOrgJsonRequestBody
+    requestBody: t_ActionsGenerateRunnerJitconfigForOrgRequestBody
   }): Observable<
     | (HttpResponse<{
         encoded_jit_config: string
@@ -4299,7 +4299,7 @@ export class GitHubV3RestApiService {
   actionsAddCustomLabelsToSelfHostedRunnerForOrg(p: {
     org: string
     runnerId: number
-    requestBody: t_actionsAddCustomLabelsToSelfHostedRunnerForOrgJsonRequestBody
+    requestBody: t_ActionsAddCustomLabelsToSelfHostedRunnerForOrgRequestBody
   }): Observable<
     | (HttpResponse<{
         labels: t_runner_label[]
@@ -4331,7 +4331,7 @@ export class GitHubV3RestApiService {
   actionsSetCustomLabelsForSelfHostedRunnerForOrg(p: {
     org: string
     runnerId: number
-    requestBody: t_actionsSetCustomLabelsForSelfHostedRunnerForOrgJsonRequestBody
+    requestBody: t_ActionsSetCustomLabelsForSelfHostedRunnerForOrgRequestBody
   }): Observable<
     | (HttpResponse<{
         labels: t_runner_label[]
@@ -4480,7 +4480,7 @@ export class GitHubV3RestApiService {
   actionsCreateOrUpdateOrgSecret(p: {
     org: string
     secretName: string
-    requestBody: t_actionsCreateOrUpdateOrgSecretJsonRequestBody
+    requestBody: t_ActionsCreateOrUpdateOrgSecretRequestBody
   }): Observable<
     | (HttpResponse<t_empty_object> & {status: 201})
     | (HttpResponse<void> & {status: 204})
@@ -4554,7 +4554,7 @@ export class GitHubV3RestApiService {
   actionsSetSelectedReposForOrgSecret(p: {
     org: string
     secretName: string
-    requestBody: t_actionsSetSelectedReposForOrgSecretJsonRequestBody
+    requestBody: t_ActionsSetSelectedReposForOrgSecretRequestBody
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
     const headers = this._headers({
       Accept: "application/json",
@@ -4649,7 +4649,7 @@ export class GitHubV3RestApiService {
 
   actionsCreateOrgVariable(p: {
     org: string
-    requestBody: t_actionsCreateOrgVariableJsonRequestBody
+    requestBody: t_ActionsCreateOrgVariableRequestBody
   }): Observable<
     (HttpResponse<t_empty_object> & {status: 201}) | HttpResponse<unknown>
   > {
@@ -4694,7 +4694,7 @@ export class GitHubV3RestApiService {
   actionsUpdateOrgVariable(p: {
     org: string
     name: string
-    requestBody: t_actionsUpdateOrgVariableJsonRequestBody
+    requestBody: t_ActionsUpdateOrgVariableRequestBody
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
     const headers = this._headers({
       Accept: "application/json",
@@ -4763,7 +4763,7 @@ export class GitHubV3RestApiService {
   actionsSetSelectedReposForOrgVariable(p: {
     org: string
     name: string
-    requestBody: t_actionsSetSelectedReposForOrgVariableJsonRequestBody
+    requestBody: t_ActionsSetSelectedReposForOrgVariableRequestBody
   }): Observable<
     | (HttpResponse<void> & {status: 204})
     | (HttpResponse<void> & {status: 409})
@@ -4839,7 +4839,7 @@ export class GitHubV3RestApiService {
     before?: string
     after?: string
     org: string
-    requestBody: t_orgsListAttestationsBulkJsonRequestBody
+    requestBody: t_OrgsListAttestationsBulkRequestBody
   }): Observable<
     | (HttpResponse<{
         attestations_subject_digests?: {
@@ -4897,7 +4897,7 @@ export class GitHubV3RestApiService {
 
   orgsDeleteAttestationsBulk(p: {
     org: string
-    requestBody: t_orgsDeleteAttestationsBulkJsonRequestBody
+    requestBody: t_OrgsDeleteAttestationsBulkRequestBody
   }): Observable<
     | (HttpResponse<void> & {status: 200})
     | (HttpResponse<t_basic_error> & {status: 404})
@@ -5140,7 +5140,7 @@ export class GitHubV3RestApiService {
 
   campaignsCreateCampaign(p: {
     org: string
-    requestBody: t_campaignsCreateCampaignJsonRequestBody
+    requestBody: t_CampaignsCreateCampaignRequestBody
   }): Observable<
     | (HttpResponse<t_campaign_summary> & {status: 200})
     | (HttpResponse<t_basic_error> & {status: 400})
@@ -5203,7 +5203,7 @@ export class GitHubV3RestApiService {
   campaignsUpdateCampaign(p: {
     org: string
     campaignNumber: number
-    requestBody: t_campaignsUpdateCampaignJsonRequestBody
+    requestBody: t_CampaignsUpdateCampaignRequestBody
   }): Observable<
     | (HttpResponse<t_campaign_summary> & {status: 200})
     | (HttpResponse<t_basic_error> & {status: 400})
@@ -5341,7 +5341,7 @@ export class GitHubV3RestApiService {
 
   codeSecurityCreateConfiguration(p: {
     org: string
-    requestBody: t_codeSecurityCreateConfigurationJsonRequestBody
+    requestBody: t_CodeSecurityCreateConfigurationRequestBody
   }): Observable<
     | (HttpResponse<t_code_security_configuration> & {status: 201})
     | HttpResponse<unknown>
@@ -5389,7 +5389,7 @@ export class GitHubV3RestApiService {
 
   codeSecurityDetachConfiguration(p: {
     org: string
-    requestBody: t_codeSecurityDetachConfigurationJsonRequestBody
+    requestBody: t_CodeSecurityDetachConfigurationRequestBody
   }): Observable<
     | (HttpResponse<void> & {status: 204})
     | (HttpResponse<t_scim_error> & {status: 400})
@@ -5444,7 +5444,7 @@ export class GitHubV3RestApiService {
   codeSecurityUpdateConfiguration(p: {
     org: string
     configurationId: number
-    requestBody: t_codeSecurityUpdateConfigurationJsonRequestBody
+    requestBody: t_CodeSecurityUpdateConfigurationRequestBody
   }): Observable<
     | (HttpResponse<t_code_security_configuration> & {status: 200})
     | (HttpResponse<void> & {status: 204})
@@ -5497,7 +5497,7 @@ export class GitHubV3RestApiService {
   codeSecurityAttachConfiguration(p: {
     org: string
     configurationId: number
-    requestBody: t_codeSecurityAttachConfigurationJsonRequestBody
+    requestBody: t_CodeSecurityAttachConfigurationRequestBody
   }): Observable<
     | (HttpResponse<{
         [key: string]: unknown | undefined
@@ -5526,7 +5526,7 @@ export class GitHubV3RestApiService {
   codeSecuritySetConfigurationAsDefault(p: {
     org: string
     configurationId: number
-    requestBody: t_codeSecuritySetConfigurationAsDefaultJsonRequestBody
+    requestBody: t_CodeSecuritySetConfigurationAsDefaultRequestBody
   }): Observable<
     | (HttpResponse<{
         configuration?: t_code_security_configuration
@@ -5629,7 +5629,7 @@ export class GitHubV3RestApiService {
 
   codespacesSetCodespacesAccess(p: {
     org: string
-    requestBody: t_codespacesSetCodespacesAccessJsonRequestBody
+    requestBody: t_CodespacesSetCodespacesAccessRequestBody
   }): Observable<
     | (HttpResponse<void> & {status: 204})
     | (HttpResponse<void> & {status: 304})
@@ -5659,7 +5659,7 @@ export class GitHubV3RestApiService {
 
   codespacesSetCodespacesAccessUsers(p: {
     org: string
-    requestBody: t_codespacesSetCodespacesAccessUsersJsonRequestBody
+    requestBody: t_CodespacesSetCodespacesAccessUsersRequestBody
   }): Observable<
     | (HttpResponse<void> & {status: 204})
     | (HttpResponse<void> & {status: 304})
@@ -5690,7 +5690,7 @@ export class GitHubV3RestApiService {
 
   codespacesDeleteCodespacesAccessUsers(p: {
     org: string
-    requestBody: t_codespacesDeleteCodespacesAccessUsersJsonRequestBody
+    requestBody: t_CodespacesDeleteCodespacesAccessUsersRequestBody
   }): Observable<
     | (HttpResponse<void> & {status: 204})
     | (HttpResponse<void> & {status: 304})
@@ -5788,7 +5788,7 @@ export class GitHubV3RestApiService {
   codespacesCreateOrUpdateOrgSecret(p: {
     org: string
     secretName: string
-    requestBody: t_codespacesCreateOrUpdateOrgSecretJsonRequestBody
+    requestBody: t_CodespacesCreateOrUpdateOrgSecretRequestBody
   }): Observable<
     | (HttpResponse<t_empty_object> & {status: 201})
     | (HttpResponse<void> & {status: 204})
@@ -5869,7 +5869,7 @@ export class GitHubV3RestApiService {
   codespacesSetSelectedReposForOrgSecret(p: {
     org: string
     secretName: string
-    requestBody: t_codespacesSetSelectedReposForOrgSecretJsonRequestBody
+    requestBody: t_CodespacesSetSelectedReposForOrgSecretRequestBody
   }): Observable<
     | (HttpResponse<void> & {status: 204})
     | (HttpResponse<t_basic_error> & {status: 404})
@@ -6001,7 +6001,7 @@ export class GitHubV3RestApiService {
 
   copilotAddCopilotSeatsForTeams(p: {
     org: string
-    requestBody: t_copilotAddCopilotSeatsForTeamsJsonRequestBody
+    requestBody: t_CopilotAddCopilotSeatsForTeamsRequestBody
   }): Observable<
     | (HttpResponse<{
         seats_created: number
@@ -6033,7 +6033,7 @@ export class GitHubV3RestApiService {
 
   copilotCancelCopilotSeatAssignmentForTeams(p: {
     org: string
-    requestBody: t_copilotCancelCopilotSeatAssignmentForTeamsJsonRequestBody
+    requestBody: t_CopilotCancelCopilotSeatAssignmentForTeamsRequestBody
   }): Observable<
     | (HttpResponse<{
         seats_cancelled: number
@@ -6065,7 +6065,7 @@ export class GitHubV3RestApiService {
 
   copilotAddCopilotSeatsForUsers(p: {
     org: string
-    requestBody: t_copilotAddCopilotSeatsForUsersJsonRequestBody
+    requestBody: t_CopilotAddCopilotSeatsForUsersRequestBody
   }): Observable<
     | (HttpResponse<{
         seats_created: number
@@ -6097,7 +6097,7 @@ export class GitHubV3RestApiService {
 
   copilotCancelCopilotSeatAssignmentForUsers(p: {
     org: string
-    requestBody: t_copilotCancelCopilotSeatAssignmentForUsersJsonRequestBody
+    requestBody: t_CopilotCancelCopilotSeatAssignmentForUsersRequestBody
   }): Observable<
     | (HttpResponse<{
         seats_cancelled: number
@@ -6285,7 +6285,7 @@ export class GitHubV3RestApiService {
   dependabotCreateOrUpdateOrgSecret(p: {
     org: string
     secretName: string
-    requestBody: t_dependabotCreateOrUpdateOrgSecretJsonRequestBody
+    requestBody: t_DependabotCreateOrUpdateOrgSecretRequestBody
   }): Observable<
     | (HttpResponse<t_empty_object> & {status: 201})
     | (HttpResponse<void> & {status: 204})
@@ -6359,7 +6359,7 @@ export class GitHubV3RestApiService {
   dependabotSetSelectedReposForOrgSecret(p: {
     org: string
     secretName: string
-    requestBody: t_dependabotSetSelectedReposForOrgSecretJsonRequestBody
+    requestBody: t_DependabotSetSelectedReposForOrgSecretRequestBody
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
     const headers = this._headers({
       Accept: "application/json",
@@ -6519,7 +6519,7 @@ export class GitHubV3RestApiService {
 
   orgsCreateWebhook(p: {
     org: string
-    requestBody: t_orgsCreateWebhookJsonRequestBody
+    requestBody: t_OrgsCreateWebhookRequestBody
   }): Observable<
     | (HttpResponse<t_org_hook> & {status: 201})
     | (HttpResponse<t_basic_error> & {status: 404})
@@ -6568,7 +6568,7 @@ export class GitHubV3RestApiService {
   orgsUpdateWebhook(p: {
     org: string
     hookId: number
-    requestBody?: t_orgsUpdateWebhookJsonRequestBody
+    requestBody?: t_OrgsUpdateWebhookRequestBody
   }): Observable<
     | (HttpResponse<t_org_hook> & {status: 200})
     | (HttpResponse<t_basic_error> & {status: 404})
@@ -6637,7 +6637,7 @@ export class GitHubV3RestApiService {
   orgsUpdateWebhookConfigForOrg(p: {
     org: string
     hookId: number
-    requestBody?: t_orgsUpdateWebhookConfigForOrgJsonRequestBody
+    requestBody?: t_OrgsUpdateWebhookConfigForOrgRequestBody
   }): Observable<
     (HttpResponse<t_webhook_config> & {status: 200}) | HttpResponse<unknown>
   > {
@@ -7230,7 +7230,7 @@ export class GitHubV3RestApiService {
 
   orgsCreateInvitation(p: {
     org: string
-    requestBody?: t_orgsCreateInvitationJsonRequestBody
+    requestBody?: t_OrgsCreateInvitationRequestBody
   }): Observable<
     | (HttpResponse<t_organization_invitation> & {status: 201})
     | (HttpResponse<t_basic_error> & {status: 404})
@@ -7666,7 +7666,7 @@ export class GitHubV3RestApiService {
   orgsSetMembershipForUser(p: {
     org: string
     username: string
-    requestBody?: t_orgsSetMembershipForUserJsonRequestBody
+    requestBody?: t_OrgsSetMembershipForUserRequestBody
   }): Observable<
     | (HttpResponse<t_org_membership> & {status: 200})
     | (HttpResponse<t_basic_error> & {status: 403})
@@ -7743,7 +7743,7 @@ export class GitHubV3RestApiService {
 
   migrationsStartForOrg(p: {
     org: string
-    requestBody: t_migrationsStartForOrgJsonRequestBody
+    requestBody: t_MigrationsStartForOrgRequestBody
   }): Observable<
     | (HttpResponse<t_migration> & {status: 201})
     | (HttpResponse<t_basic_error> & {status: 404})
@@ -8136,7 +8136,7 @@ export class GitHubV3RestApiService {
   orgsConvertMemberToOutsideCollaborator(p: {
     org: string
     username: string
-    requestBody?: t_orgsConvertMemberToOutsideCollaboratorJsonRequestBody
+    requestBody?: t_OrgsConvertMemberToOutsideCollaboratorRequestBody
   }): Observable<
     | (HttpResponse<EmptyObject> & {status: 202})
     | (HttpResponse<void> & {status: 204})
@@ -8507,7 +8507,7 @@ export class GitHubV3RestApiService {
 
   orgsReviewPatGrantRequestsInBulk(p: {
     org: string
-    requestBody: t_orgsReviewPatGrantRequestsInBulkJsonRequestBody
+    requestBody: t_OrgsReviewPatGrantRequestsInBulkRequestBody
   }): Observable<
     | (HttpResponse<{
         [key: string]: unknown | undefined
@@ -8539,7 +8539,7 @@ export class GitHubV3RestApiService {
   orgsReviewPatGrantRequest(p: {
     org: string
     patRequestId: number
-    requestBody: t_orgsReviewPatGrantRequestJsonRequestBody
+    requestBody: t_OrgsReviewPatGrantRequestRequestBody
   }): Observable<
     | (HttpResponse<void> & {status: 204})
     | (HttpResponse<t_basic_error> & {status: 403})
@@ -8643,7 +8643,7 @@ export class GitHubV3RestApiService {
 
   orgsUpdatePatAccesses(p: {
     org: string
-    requestBody: t_orgsUpdatePatAccessesJsonRequestBody
+    requestBody: t_OrgsUpdatePatAccessesRequestBody
   }): Observable<
     | (HttpResponse<{
         [key: string]: unknown | undefined
@@ -8675,7 +8675,7 @@ export class GitHubV3RestApiService {
   orgsUpdatePatAccess(p: {
     org: string
     patId: number
-    requestBody: t_orgsUpdatePatAccessJsonRequestBody
+    requestBody: t_OrgsUpdatePatAccessRequestBody
   }): Observable<
     | (HttpResponse<void> & {status: 204})
     | (HttpResponse<t_basic_error> & {status: 403})
@@ -8761,7 +8761,7 @@ export class GitHubV3RestApiService {
 
   privateRegistriesCreateOrgPrivateRegistry(p: {
     org: string
-    requestBody: t_privateRegistriesCreateOrgPrivateRegistryJsonRequestBody
+    requestBody: t_PrivateRegistriesCreateOrgPrivateRegistryRequestBody
   }): Observable<
     | (HttpResponse<t_org_private_registry_configuration_with_selected_repositories> & {
         status: 201
@@ -8834,7 +8834,7 @@ export class GitHubV3RestApiService {
   privateRegistriesUpdateOrgPrivateRegistry(p: {
     org: string
     secretName: string
-    requestBody: t_privateRegistriesUpdateOrgPrivateRegistryJsonRequestBody
+    requestBody: t_PrivateRegistriesUpdateOrgPrivateRegistryRequestBody
   }): Observable<
     | (HttpResponse<void> & {status: 204})
     | (HttpResponse<t_basic_error> & {status: 404})
@@ -8914,7 +8914,7 @@ export class GitHubV3RestApiService {
 
   projectsClassicCreateForOrg(p: {
     org: string
-    requestBody: t_projectsClassicCreateForOrgJsonRequestBody
+    requestBody: t_ProjectsClassicCreateForOrgRequestBody
   }): Observable<
     | (HttpResponse<t_project> & {status: 201})
     | (HttpResponse<t_basic_error> & {status: 401})
@@ -8965,7 +8965,7 @@ export class GitHubV3RestApiService {
 
   orgsCreateOrUpdateCustomProperties(p: {
     org: string
-    requestBody: t_orgsCreateOrUpdateCustomPropertiesJsonRequestBody
+    requestBody: t_OrgsCreateOrUpdateCustomPropertiesRequestBody
   }): Observable<
     | (HttpResponse<t_custom_property[]> & {status: 200})
     | (HttpResponse<t_basic_error> & {status: 403})
@@ -9097,7 +9097,7 @@ export class GitHubV3RestApiService {
 
   orgsCreateOrUpdateCustomPropertiesValuesForRepos(p: {
     org: string
-    requestBody: t_orgsCreateOrUpdateCustomPropertiesValuesForReposJsonRequestBody
+    requestBody: t_OrgsCreateOrUpdateCustomPropertiesValuesForReposRequestBody
   }): Observable<
     | (HttpResponse<void> & {status: 204})
     | (HttpResponse<t_basic_error> & {status: 403})
@@ -9253,7 +9253,7 @@ export class GitHubV3RestApiService {
 
   reposCreateInOrg(p: {
     org: string
-    requestBody: t_reposCreateInOrgJsonRequestBody
+    requestBody: t_ReposCreateInOrgRequestBody
   }): Observable<
     | (HttpResponse<t_full_repository> & {status: 201})
     | (HttpResponse<t_basic_error> & {status: 403})
@@ -9310,7 +9310,7 @@ export class GitHubV3RestApiService {
 
   reposCreateOrgRuleset(p: {
     org: string
-    requestBody: t_reposCreateOrgRulesetJsonRequestBody
+    requestBody: t_ReposCreateOrgRulesetRequestBody
   }): Observable<
     | (HttpResponse<t_repository_ruleset> & {status: 201})
     | (HttpResponse<t_basic_error> & {status: 404})
@@ -9426,7 +9426,7 @@ export class GitHubV3RestApiService {
   reposUpdateOrgRuleset(p: {
     org: string
     rulesetId: number
-    requestBody?: t_reposUpdateOrgRulesetJsonRequestBody
+    requestBody?: t_ReposUpdateOrgRulesetRequestBody
   }): Observable<
     | (HttpResponse<t_repository_ruleset> & {status: 200})
     | (HttpResponse<t_basic_error> & {status: 404})
@@ -9756,7 +9756,7 @@ export class GitHubV3RestApiService {
 
   hostedComputeCreateNetworkConfigurationForOrg(p: {
     org: string
-    requestBody: t_hostedComputeCreateNetworkConfigurationForOrgJsonRequestBody
+    requestBody: t_HostedComputeCreateNetworkConfigurationForOrgRequestBody
   }): Observable<
     | (HttpResponse<t_network_configuration> & {status: 201})
     | HttpResponse<unknown>
@@ -9804,7 +9804,7 @@ export class GitHubV3RestApiService {
   hostedComputeUpdateNetworkConfigurationForOrg(p: {
     org: string
     networkConfigurationId: string
-    requestBody: t_hostedComputeUpdateNetworkConfigurationForOrgJsonRequestBody
+    requestBody: t_HostedComputeUpdateNetworkConfigurationForOrgRequestBody
   }): Observable<
     | (HttpResponse<t_network_configuration> & {status: 200})
     | HttpResponse<unknown>
@@ -9928,7 +9928,7 @@ export class GitHubV3RestApiService {
 
   teamsCreate(p: {
     org: string
-    requestBody: t_teamsCreateJsonRequestBody
+    requestBody: t_TeamsCreateRequestBody
   }): Observable<
     | (HttpResponse<t_team_full> & {status: 201})
     | (HttpResponse<t_basic_error> & {status: 403})
@@ -9977,7 +9977,7 @@ export class GitHubV3RestApiService {
   teamsUpdateInOrg(p: {
     org: string
     teamSlug: string
-    requestBody?: t_teamsUpdateInOrgJsonRequestBody
+    requestBody?: t_TeamsUpdateInOrgRequestBody
   }): Observable<
     | (HttpResponse<t_team_full> & {status: 200})
     | (HttpResponse<t_team_full> & {status: 201})
@@ -10056,7 +10056,7 @@ export class GitHubV3RestApiService {
   teamsCreateDiscussionInOrg(p: {
     org: string
     teamSlug: string
-    requestBody: t_teamsCreateDiscussionInOrgJsonRequestBody
+    requestBody: t_TeamsCreateDiscussionInOrgRequestBody
   }): Observable<
     (HttpResponse<t_team_discussion> & {status: 201}) | HttpResponse<unknown>
   > {
@@ -10104,7 +10104,7 @@ export class GitHubV3RestApiService {
     org: string
     teamSlug: string
     discussionNumber: number
-    requestBody?: t_teamsUpdateDiscussionInOrgJsonRequestBody
+    requestBody?: t_TeamsUpdateDiscussionInOrgRequestBody
   }): Observable<
     (HttpResponse<t_team_discussion> & {status: 200}) | HttpResponse<unknown>
   > {
@@ -10182,7 +10182,7 @@ export class GitHubV3RestApiService {
     org: string
     teamSlug: string
     discussionNumber: number
-    requestBody: t_teamsCreateDiscussionCommentInOrgJsonRequestBody
+    requestBody: t_TeamsCreateDiscussionCommentInOrgRequestBody
   }): Observable<
     | (HttpResponse<t_team_discussion_comment> & {status: 201})
     | HttpResponse<unknown>
@@ -10234,7 +10234,7 @@ export class GitHubV3RestApiService {
     teamSlug: string
     discussionNumber: number
     commentNumber: number
-    requestBody: t_teamsUpdateDiscussionCommentInOrgJsonRequestBody
+    requestBody: t_TeamsUpdateDiscussionCommentInOrgRequestBody
   }): Observable<
     | (HttpResponse<t_team_discussion_comment> & {status: 200})
     | HttpResponse<unknown>
@@ -10323,7 +10323,7 @@ export class GitHubV3RestApiService {
     teamSlug: string
     discussionNumber: number
     commentNumber: number
-    requestBody: t_reactionsCreateForTeamDiscussionCommentInOrgJsonRequestBody
+    requestBody: t_ReactionsCreateForTeamDiscussionCommentInOrgRequestBody
   }): Observable<
     | (HttpResponse<t_reaction> & {status: 200})
     | (HttpResponse<t_reaction> & {status: 201})
@@ -10412,7 +10412,7 @@ export class GitHubV3RestApiService {
     org: string
     teamSlug: string
     discussionNumber: number
-    requestBody: t_reactionsCreateForTeamDiscussionInOrgJsonRequestBody
+    requestBody: t_ReactionsCreateForTeamDiscussionInOrgRequestBody
   }): Observable<
     | (HttpResponse<t_reaction> & {status: 200})
     | (HttpResponse<t_reaction> & {status: 201})
@@ -10537,7 +10537,7 @@ export class GitHubV3RestApiService {
     org: string
     teamSlug: string
     username: string
-    requestBody?: t_teamsAddOrUpdateMembershipForUserInOrgJsonRequestBody
+    requestBody?: t_TeamsAddOrUpdateMembershipForUserInOrgRequestBody
   }): Observable<
     | (HttpResponse<t_team_membership> & {status: 200})
     | (HttpResponse<void> & {status: 403})
@@ -10638,7 +10638,7 @@ export class GitHubV3RestApiService {
     org: string
     teamSlug: string
     projectId: number
-    requestBody?: t_teamsAddOrUpdateProjectPermissionsInOrgJsonRequestBody
+    requestBody?: t_TeamsAddOrUpdateProjectPermissionsInOrgRequestBody
   }): Observable<
     | (HttpResponse<void> & {status: 204})
     | (HttpResponse<{
@@ -10740,7 +10740,7 @@ export class GitHubV3RestApiService {
     teamSlug: string
     owner: string
     repo: string
-    requestBody?: t_teamsAddOrUpdateRepoPermissionsInOrgJsonRequestBody
+    requestBody?: t_TeamsAddOrUpdateRepoPermissionsInOrgRequestBody
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
     const headers = this._headers({
       Accept: "application/json",
@@ -10817,7 +10817,7 @@ export class GitHubV3RestApiService {
       | "secret_scanning_push_protection"
       | UnknownEnumStringValue
     enablement: "enable_all" | "disable_all" | UnknownEnumStringValue
-    requestBody?: t_orgsEnableOrDisableSecurityProductOnAllOrgReposJsonRequestBody
+    requestBody?: t_OrgsEnableOrDisableSecurityProductOnAllOrgReposRequestBody
   }): Observable<
     | (HttpResponse<void> & {status: 204})
     | (HttpResponse<void> & {status: 422})
@@ -10868,7 +10868,7 @@ export class GitHubV3RestApiService {
 
   projectsClassicUpdateCard(p: {
     cardId: number
-    requestBody?: t_projectsClassicUpdateCardJsonRequestBody
+    requestBody?: t_ProjectsClassicUpdateCardRequestBody
   }): Observable<
     | (HttpResponse<t_project_card> & {status: 200})
     | (HttpResponse<void> & {status: 304})
@@ -10924,7 +10924,7 @@ export class GitHubV3RestApiService {
 
   projectsClassicMoveCard(p: {
     cardId: number
-    requestBody: t_projectsClassicMoveCardJsonRequestBody
+    requestBody: t_ProjectsClassicMoveCardRequestBody
   }): Observable<
     | (HttpResponse<EmptyObject> & {status: 201})
     | (HttpResponse<void> & {status: 304})
@@ -10994,7 +10994,7 @@ export class GitHubV3RestApiService {
 
   projectsClassicUpdateColumn(p: {
     columnId: number
-    requestBody: t_projectsClassicUpdateColumnJsonRequestBody
+    requestBody: t_ProjectsClassicUpdateColumnRequestBody
   }): Observable<
     | (HttpResponse<t_project_column> & {status: 200})
     | (HttpResponse<void> & {status: 304})
@@ -11075,7 +11075,7 @@ export class GitHubV3RestApiService {
 
   projectsClassicCreateCard(p: {
     columnId: number
-    requestBody: t_projectsClassicCreateCardJsonRequestBody
+    requestBody: t_ProjectsClassicCreateCardRequestBody
   }): Observable<
     | (HttpResponse<t_project_card> & {status: 201})
     | (HttpResponse<void> & {status: 304})
@@ -11115,7 +11115,7 @@ export class GitHubV3RestApiService {
 
   projectsClassicMoveColumn(p: {
     columnId: number
-    requestBody: t_projectsClassicMoveColumnJsonRequestBody
+    requestBody: t_ProjectsClassicMoveColumnRequestBody
   }): Observable<
     | (HttpResponse<EmptyObject> & {status: 201})
     | (HttpResponse<void> & {status: 304})
@@ -11166,7 +11166,7 @@ export class GitHubV3RestApiService {
 
   projectsClassicUpdate(p: {
     projectId: number
-    requestBody?: t_projectsClassicUpdateJsonRequestBody
+    requestBody?: t_ProjectsClassicUpdateRequestBody
   }): Observable<
     | (HttpResponse<t_project> & {status: 200})
     | (HttpResponse<void> & {status: 304})
@@ -11262,7 +11262,7 @@ export class GitHubV3RestApiService {
   projectsClassicAddCollaborator(p: {
     projectId: number
     username: string
-    requestBody?: t_projectsClassicAddCollaboratorJsonRequestBody
+    requestBody?: t_ProjectsClassicAddCollaboratorRequestBody
   }): Observable<
     | (HttpResponse<void> & {status: 204})
     | (HttpResponse<void> & {status: 304})
@@ -11372,7 +11372,7 @@ export class GitHubV3RestApiService {
 
   projectsClassicCreateColumn(p: {
     projectId: number
-    requestBody: t_projectsClassicCreateColumnJsonRequestBody
+    requestBody: t_ProjectsClassicCreateColumnRequestBody
   }): Observable<
     | (HttpResponse<t_project_column> & {status: 201})
     | (HttpResponse<void> & {status: 304})
@@ -11444,7 +11444,7 @@ export class GitHubV3RestApiService {
   reposUpdate(p: {
     owner: string
     repo: string
-    requestBody?: t_reposUpdateJsonRequestBody
+    requestBody?: t_ReposUpdateRequestBody
   }): Observable<
     | (HttpResponse<t_full_repository> & {status: 200})
     | (HttpResponse<t_basic_error> & {status: 307})
@@ -11738,7 +11738,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     jobId: number
-    requestBody?: t_actionsReRunJobForWorkflowRunJsonRequestBody
+    requestBody?: t_ActionsReRunJobForWorkflowRunRequestBody
   }): Observable<
     | (HttpResponse<t_empty_object> & {status: 201})
     | (HttpResponse<t_basic_error> & {status: 403})
@@ -11790,7 +11790,7 @@ export class GitHubV3RestApiService {
   actionsSetCustomOidcSubClaimForRepo(p: {
     owner: string
     repo: string
-    requestBody: t_actionsSetCustomOidcSubClaimForRepoJsonRequestBody
+    requestBody: t_ActionsSetCustomOidcSubClaimForRepoRequestBody
   }): Observable<
     | (HttpResponse<t_empty_object> & {status: 201})
     | (HttpResponse<t_scim_error> & {status: 400})
@@ -11897,7 +11897,7 @@ export class GitHubV3RestApiService {
   actionsSetGithubActionsPermissionsRepository(p: {
     owner: string
     repo: string
-    requestBody: t_actionsSetGithubActionsPermissionsRepositoryJsonRequestBody
+    requestBody: t_ActionsSetGithubActionsPermissionsRepositoryRequestBody
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
     const headers = this._headers({
       Accept: "application/json",
@@ -12114,7 +12114,7 @@ export class GitHubV3RestApiService {
   actionsGenerateRunnerJitconfigForRepo(p: {
     owner: string
     repo: string
-    requestBody: t_actionsGenerateRunnerJitconfigForRepoJsonRequestBody
+    requestBody: t_ActionsGenerateRunnerJitconfigForRepoRequestBody
   }): Observable<
     | (HttpResponse<{
         encoded_jit_config: string
@@ -12260,7 +12260,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     runnerId: number
-    requestBody: t_actionsAddCustomLabelsToSelfHostedRunnerForRepoJsonRequestBody
+    requestBody: t_ActionsAddCustomLabelsToSelfHostedRunnerForRepoRequestBody
   }): Observable<
     | (HttpResponse<{
         labels: t_runner_label[]
@@ -12293,7 +12293,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     runnerId: number
-    requestBody: t_actionsSetCustomLabelsForSelfHostedRunnerForRepoJsonRequestBody
+    requestBody: t_ActionsSetCustomLabelsForSelfHostedRunnerForRepoRequestBody
   }): Observable<
     | (HttpResponse<{
         labels: t_runner_label[]
@@ -12667,7 +12667,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     runId: number
-    requestBody: t_actionsReviewCustomGatesForRunJsonRequestBody
+    requestBody: t_ActionsReviewCustomGatesForRunRequestBody
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
     const headers = this._headers({
       Accept: "application/json",
@@ -12814,7 +12814,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     runId: number
-    requestBody: t_actionsReviewPendingDeploymentsForRunJsonRequestBody
+    requestBody: t_ActionsReviewPendingDeploymentsForRunRequestBody
   }): Observable<
     (HttpResponse<t_deployment[]> & {status: 200}) | HttpResponse<unknown>
   > {
@@ -12841,7 +12841,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     runId: number
-    requestBody?: t_actionsReRunWorkflowJsonRequestBody
+    requestBody?: t_ActionsReRunWorkflowRequestBody
   }): Observable<
     (HttpResponse<t_empty_object> & {status: 201}) | HttpResponse<unknown>
   > {
@@ -12869,7 +12869,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     runId: number
-    requestBody?: t_actionsReRunWorkflowFailedJobsJsonRequestBody
+    requestBody?: t_ActionsReRunWorkflowFailedJobsRequestBody
   }): Observable<
     (HttpResponse<t_empty_object> & {status: 201}) | HttpResponse<unknown>
   > {
@@ -12987,7 +12987,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     secretName: string
-    requestBody: t_actionsCreateOrUpdateRepoSecretJsonRequestBody
+    requestBody: t_ActionsCreateOrUpdateRepoSecretRequestBody
   }): Observable<
     | (HttpResponse<t_empty_object> & {status: 201})
     | (HttpResponse<void> & {status: 204})
@@ -13062,7 +13062,7 @@ export class GitHubV3RestApiService {
   actionsCreateRepoVariable(p: {
     owner: string
     repo: string
-    requestBody: t_actionsCreateRepoVariableJsonRequestBody
+    requestBody: t_ActionsCreateRepoVariableRequestBody
   }): Observable<
     (HttpResponse<t_empty_object> & {status: 201}) | HttpResponse<unknown>
   > {
@@ -13110,7 +13110,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     name: string
-    requestBody: t_actionsUpdateRepoVariableJsonRequestBody
+    requestBody: t_ActionsUpdateRepoVariableRequestBody
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
     const headers = this._headers({
       Accept: "application/json",
@@ -13222,7 +13222,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     workflowId: number | string
-    requestBody: t_actionsCreateWorkflowDispatchJsonRequestBody
+    requestBody: t_ActionsCreateWorkflowDispatchRequestBody
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
     const headers = this._headers({
       Accept: "application/json",
@@ -13450,7 +13450,7 @@ export class GitHubV3RestApiService {
   reposCreateAttestation(p: {
     owner: string
     repo: string
-    requestBody: t_reposCreateAttestationJsonRequestBody
+    requestBody: t_ReposCreateAttestationRequestBody
   }): Observable<
     | (HttpResponse<{
         id?: number
@@ -13546,7 +13546,7 @@ export class GitHubV3RestApiService {
   reposCreateAutolink(p: {
     owner: string
     repo: string
-    requestBody: t_reposCreateAutolinkJsonRequestBody
+    requestBody: t_ReposCreateAutolinkRequestBody
   }): Observable<
     | (HttpResponse<t_autolink> & {status: 201})
     | (HttpResponse<t_validation_error> & {status: 422})
@@ -13755,7 +13755,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     branch: string
-    requestBody: t_reposUpdateBranchProtectionJsonRequestBody
+    requestBody: t_ReposUpdateBranchProtectionRequestBody
   }): Observable<
     | (HttpResponse<t_protected_branch> & {status: 200})
     | (HttpResponse<t_basic_error> & {status: 403})
@@ -13898,7 +13898,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     branch: string
-    requestBody?: t_reposUpdatePullRequestReviewProtectionJsonRequestBody
+    requestBody?: t_ReposUpdatePullRequestReviewProtectionRequestBody
   }): Observable<
     | (HttpResponse<t_protected_branch_pull_request_review> & {status: 200})
     | (HttpResponse<t_validation_error> & {status: 422})
@@ -14043,7 +14043,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     branch: string
-    requestBody?: t_reposUpdateStatusCheckProtectionJsonRequestBody
+    requestBody?: t_ReposUpdateStatusCheckProtectionRequestBody
   }): Observable<
     | (HttpResponse<t_status_check_policy> & {status: 200})
     | (HttpResponse<t_basic_error> & {status: 404})
@@ -14116,7 +14116,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     branch: string
-    requestBody?: t_reposAddStatusCheckContextsJsonRequestBody
+    requestBody?: t_ReposAddStatusCheckContextsRequestBody
   }): Observable<
     | (HttpResponse<string[]> & {status: 200})
     | (HttpResponse<t_basic_error> & {status: 403})
@@ -14148,7 +14148,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     branch: string
-    requestBody?: t_reposSetStatusCheckContextsJsonRequestBody
+    requestBody?: t_ReposSetStatusCheckContextsRequestBody
   }): Observable<
     | (HttpResponse<string[]> & {status: 200})
     | (HttpResponse<t_basic_error> & {status: 404})
@@ -14179,7 +14179,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     branch: string
-    requestBody: t_reposRemoveStatusCheckContextsJsonRequestBody
+    requestBody: t_ReposRemoveStatusCheckContextsRequestBody
   }): Observable<
     | (HttpResponse<string[]> & {status: 200})
     | (HttpResponse<t_basic_error> & {status: 404})
@@ -14274,7 +14274,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     branch: string
-    requestBody: t_reposAddAppAccessRestrictionsJsonRequestBody
+    requestBody: t_ReposAddAppAccessRestrictionsRequestBody
   }): Observable<
     | (HttpResponse<t_integration[]> & {status: 200})
     | (HttpResponse<t_validation_error> & {status: 422})
@@ -14303,7 +14303,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     branch: string
-    requestBody: t_reposSetAppAccessRestrictionsJsonRequestBody
+    requestBody: t_ReposSetAppAccessRestrictionsRequestBody
   }): Observable<
     | (HttpResponse<t_integration[]> & {status: 200})
     | (HttpResponse<t_validation_error> & {status: 422})
@@ -14332,7 +14332,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     branch: string
-    requestBody: t_reposRemoveAppAccessRestrictionsJsonRequestBody
+    requestBody: t_ReposRemoveAppAccessRestrictionsRequestBody
   }): Observable<
     | (HttpResponse<t_integration[]> & {status: 200})
     | (HttpResponse<t_validation_error> & {status: 422})
@@ -14384,7 +14384,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     branch: string
-    requestBody?: t_reposAddTeamAccessRestrictionsJsonRequestBody
+    requestBody?: t_ReposAddTeamAccessRestrictionsRequestBody
   }): Observable<
     | (HttpResponse<t_team[]> & {status: 200})
     | (HttpResponse<t_validation_error> & {status: 422})
@@ -14414,7 +14414,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     branch: string
-    requestBody?: t_reposSetTeamAccessRestrictionsJsonRequestBody
+    requestBody?: t_ReposSetTeamAccessRestrictionsRequestBody
   }): Observable<
     | (HttpResponse<t_team[]> & {status: 200})
     | (HttpResponse<t_validation_error> & {status: 422})
@@ -14444,7 +14444,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     branch: string
-    requestBody: t_reposRemoveTeamAccessRestrictionsJsonRequestBody
+    requestBody: t_ReposRemoveTeamAccessRestrictionsRequestBody
   }): Observable<
     | (HttpResponse<t_team[]> & {status: 200})
     | (HttpResponse<t_validation_error> & {status: 422})
@@ -14496,7 +14496,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     branch: string
-    requestBody: t_reposAddUserAccessRestrictionsJsonRequestBody
+    requestBody: t_ReposAddUserAccessRestrictionsRequestBody
   }): Observable<
     | (HttpResponse<t_simple_user[]> & {status: 200})
     | (HttpResponse<t_validation_error> & {status: 422})
@@ -14525,7 +14525,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     branch: string
-    requestBody: t_reposSetUserAccessRestrictionsJsonRequestBody
+    requestBody: t_ReposSetUserAccessRestrictionsRequestBody
   }): Observable<
     | (HttpResponse<t_simple_user[]> & {status: 200})
     | (HttpResponse<t_validation_error> & {status: 422})
@@ -14554,7 +14554,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     branch: string
-    requestBody: t_reposRemoveUserAccessRestrictionsJsonRequestBody
+    requestBody: t_ReposRemoveUserAccessRestrictionsRequestBody
   }): Observable<
     | (HttpResponse<t_simple_user[]> & {status: 200})
     | (HttpResponse<t_validation_error> & {status: 422})
@@ -14583,7 +14583,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     branch: string
-    requestBody: t_reposRenameBranchJsonRequestBody
+    requestBody: t_ReposRenameBranchRequestBody
   }): Observable<
     | (HttpResponse<t_branch_with_protection> & {status: 201})
     | (HttpResponse<t_basic_error> & {status: 403})
@@ -14613,7 +14613,7 @@ export class GitHubV3RestApiService {
   checksCreate(p: {
     owner: string
     repo: string
-    requestBody: t_checksCreateJsonRequestBody
+    requestBody: t_ChecksCreateRequestBody
   }): Observable<
     (HttpResponse<t_check_run> & {status: 201}) | HttpResponse<unknown>
   > {
@@ -14660,7 +14660,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     checkRunId: number
-    requestBody: t_checksUpdateJsonRequestBody
+    requestBody: t_ChecksUpdateRequestBody
   }): Observable<
     (HttpResponse<t_check_run> & {status: 200}) | HttpResponse<unknown>
   > {
@@ -14736,7 +14736,7 @@ export class GitHubV3RestApiService {
   checksCreateSuite(p: {
     owner: string
     repo: string
-    requestBody: t_checksCreateSuiteJsonRequestBody
+    requestBody: t_ChecksCreateSuiteRequestBody
   }): Observable<
     | (HttpResponse<t_check_suite> & {status: 200})
     | (HttpResponse<t_check_suite> & {status: 201})
@@ -14763,7 +14763,7 @@ export class GitHubV3RestApiService {
   checksSetSuitesPreferences(p: {
     owner: string
     repo: string
-    requestBody: t_checksSetSuitesPreferencesJsonRequestBody
+    requestBody: t_ChecksSetSuitesPreferencesRequestBody
   }): Observable<
     | (HttpResponse<t_check_suite_preference> & {status: 200})
     | HttpResponse<unknown>
@@ -14957,7 +14957,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     alertNumber: t_alert_number
-    requestBody: t_codeScanningUpdateAlertJsonRequestBody
+    requestBody: t_CodeScanningUpdateAlertRequestBody
   }): Observable<
     | (HttpResponse<t_code_scanning_alert> & {status: 200})
     | (HttpResponse<t_scim_error> & {status: 400})
@@ -15330,7 +15330,7 @@ export class GitHubV3RestApiService {
   codeScanningCreateVariantAnalysis(p: {
     owner: string
     repo: string
-    requestBody: t_codeScanningCreateVariantAnalysisJsonRequestBody
+    requestBody: t_CodeScanningCreateVariantAnalysisRequestBody
   }): Observable<
     | (HttpResponse<t_code_scanning_variant_analysis> & {status: 201})
     | (HttpResponse<t_basic_error> & {status: 404})
@@ -15486,7 +15486,7 @@ export class GitHubV3RestApiService {
   codeScanningUploadSarif(p: {
     owner: string
     repo: string
-    requestBody: t_codeScanningUploadSarifJsonRequestBody
+    requestBody: t_CodeScanningUploadSarifRequestBody
   }): Observable<
     | (HttpResponse<t_code_scanning_sarifs_receipt> & {status: 202})
     | (HttpResponse<void> & {status: 400})
@@ -15634,7 +15634,7 @@ export class GitHubV3RestApiService {
   codespacesCreateWithRepoForAuthenticatedUser(p: {
     owner: string
     repo: string
-    requestBody: t_codespacesCreateWithRepoForAuthenticatedUserJsonRequestBody
+    requestBody: t_CodespacesCreateWithRepoForAuthenticatedUserRequestBody
   }): Observable<
     | (HttpResponse<t_codespace> & {status: 201})
     | (HttpResponse<t_codespace> & {status: 202})
@@ -15889,7 +15889,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     secretName: string
-    requestBody: t_codespacesCreateOrUpdateRepoSecretJsonRequestBody
+    requestBody: t_CodespacesCreateOrUpdateRepoSecretRequestBody
   }): Observable<
     | (HttpResponse<t_empty_object> & {status: 201})
     | (HttpResponse<void> & {status: 204})
@@ -15998,7 +15998,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     username: string
-    requestBody?: t_reposAddCollaboratorJsonRequestBody
+    requestBody?: t_ReposAddCollaboratorRequestBody
   }): Observable<
     | (HttpResponse<t_repository_invitation> & {status: 201})
     | (HttpResponse<void> & {status: 204})
@@ -16123,7 +16123,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     commentId: number
-    requestBody: t_reposUpdateCommitCommentJsonRequestBody
+    requestBody: t_ReposUpdateCommitCommentRequestBody
   }): Observable<
     | (HttpResponse<t_commit_comment> & {status: 200})
     | (HttpResponse<t_basic_error> & {status: 404})
@@ -16216,7 +16216,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     commentId: number
-    requestBody: t_reactionsCreateForCommitCommentJsonRequestBody
+    requestBody: t_ReactionsCreateForCommitCommentRequestBody
   }): Observable<
     | (HttpResponse<t_reaction> & {status: 200})
     | (HttpResponse<t_reaction> & {status: 201})
@@ -16358,7 +16358,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     commitSha: string
-    requestBody: t_reposCreateCommitCommentJsonRequestBody
+    requestBody: t_ReposCreateCommitCommentRequestBody
   }): Observable<
     | (HttpResponse<t_commit_comment> & {status: 201})
     | (HttpResponse<t_basic_error> & {status: 403})
@@ -16667,7 +16667,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     path: string
-    requestBody: t_reposCreateOrUpdateFileContentsJsonRequestBody
+    requestBody: t_ReposCreateOrUpdateFileContentsRequestBody
   }): Observable<
     | (HttpResponse<t_file_commit> & {status: 200})
     | (HttpResponse<t_file_commit> & {status: 201})
@@ -16701,7 +16701,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     path: string
-    requestBody: t_reposDeleteFileJsonRequestBody
+    requestBody: t_ReposDeleteFileRequestBody
   }): Observable<
     | (HttpResponse<t_file_commit> & {status: 200})
     | (HttpResponse<t_basic_error> & {status: 404})
@@ -16855,7 +16855,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     alertNumber: t_alert_number
-    requestBody: t_dependabotUpdateAlertJsonRequestBody
+    requestBody: t_DependabotUpdateAlertRequestBody
   }): Observable<
     | (HttpResponse<t_dependabot_alert> & {status: 200})
     | (HttpResponse<t_scim_error> & {status: 400})
@@ -16958,7 +16958,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     secretName: string
-    requestBody: t_dependabotCreateOrUpdateRepoSecretJsonRequestBody
+    requestBody: t_DependabotCreateOrUpdateRepoSecretRequestBody
   }): Observable<
     | (HttpResponse<t_empty_object> & {status: 201})
     | (HttpResponse<void> & {status: 204})
@@ -17121,7 +17121,7 @@ export class GitHubV3RestApiService {
   reposCreateDeployment(p: {
     owner: string
     repo: string
-    requestBody: t_reposCreateDeploymentJsonRequestBody
+    requestBody: t_ReposCreateDeploymentRequestBody
   }): Observable<
     | (HttpResponse<t_deployment> & {status: 201})
     | (HttpResponse<{
@@ -17227,7 +17227,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     deploymentId: number
-    requestBody: t_reposCreateDeploymentStatusJsonRequestBody
+    requestBody: t_ReposCreateDeploymentStatusRequestBody
   }): Observable<
     | (HttpResponse<t_deployment_status> & {status: 201})
     | (HttpResponse<t_validation_error> & {status: 422})
@@ -17279,7 +17279,7 @@ export class GitHubV3RestApiService {
   reposCreateDispatchEvent(p: {
     owner: string
     repo: string
-    requestBody: t_reposCreateDispatchEventJsonRequestBody
+    requestBody: t_ReposCreateDispatchEventRequestBody
   }): Observable<
     | (HttpResponse<void> & {status: 204})
     | (HttpResponse<t_basic_error> & {status: 404})
@@ -17356,7 +17356,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     environmentName: string
-    requestBody?: t_reposCreateOrUpdateEnvironmentJsonRequestBody
+    requestBody?: t_ReposCreateOrUpdateEnvironmentRequestBody
   }): Observable<
     | (HttpResponse<t_environment> & {status: 200})
     | (HttpResponse<t_basic_error> & {status: 422})
@@ -17561,7 +17561,7 @@ export class GitHubV3RestApiService {
     environmentName: string
     repo: string
     owner: string
-    requestBody: t_reposCreateDeploymentProtectionRuleJsonRequestBody
+    requestBody: t_ReposCreateDeploymentProtectionRuleRequestBody
   }): Observable<
     | (HttpResponse<t_deployment_protection_rule> & {status: 201})
     | HttpResponse<unknown>
@@ -17734,7 +17734,7 @@ export class GitHubV3RestApiService {
     repo: string
     environmentName: string
     secretName: string
-    requestBody: t_actionsCreateOrUpdateEnvironmentSecretJsonRequestBody
+    requestBody: t_ActionsCreateOrUpdateEnvironmentSecretRequestBody
   }): Observable<
     | (HttpResponse<t_empty_object> & {status: 201})
     | (HttpResponse<void> & {status: 204})
@@ -17812,7 +17812,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     environmentName: string
-    requestBody: t_actionsCreateEnvironmentVariableJsonRequestBody
+    requestBody: t_ActionsCreateEnvironmentVariableRequestBody
   }): Observable<
     (HttpResponse<t_empty_object> & {status: 201}) | HttpResponse<unknown>
   > {
@@ -17862,7 +17862,7 @@ export class GitHubV3RestApiService {
     repo: string
     name: string
     environmentName: string
-    requestBody: t_actionsUpdateEnvironmentVariableJsonRequestBody
+    requestBody: t_ActionsUpdateEnvironmentVariableRequestBody
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
     const headers = this._headers({
       Accept: "application/json",
@@ -17964,7 +17964,7 @@ export class GitHubV3RestApiService {
   reposCreateFork(p: {
     owner: string
     repo: string
-    requestBody?: t_reposCreateForkJsonRequestBody
+    requestBody?: t_ReposCreateForkRequestBody
   }): Observable<
     | (HttpResponse<t_full_repository> & {status: 202})
     | (HttpResponse<t_scim_error> & {status: 400})
@@ -17995,7 +17995,7 @@ export class GitHubV3RestApiService {
   gitCreateBlob(p: {
     owner: string
     repo: string
-    requestBody: t_gitCreateBlobJsonRequestBody
+    requestBody: t_GitCreateBlobRequestBody
   }): Observable<
     | (HttpResponse<t_short_blob> & {status: 201})
     | (HttpResponse<t_basic_error> & {status: 403})
@@ -18053,7 +18053,7 @@ export class GitHubV3RestApiService {
   gitCreateCommit(p: {
     owner: string
     repo: string
-    requestBody: t_gitCreateCommitJsonRequestBody
+    requestBody: t_GitCreateCommitRequestBody
   }): Observable<
     | (HttpResponse<t_git_commit> & {status: 201})
     | (HttpResponse<t_basic_error> & {status: 404})
@@ -18153,7 +18153,7 @@ export class GitHubV3RestApiService {
   gitCreateRef(p: {
     owner: string
     repo: string
-    requestBody: t_gitCreateRefJsonRequestBody
+    requestBody: t_GitCreateRefRequestBody
   }): Observable<
     | (HttpResponse<t_git_ref> & {status: 201})
     | (HttpResponse<t_basic_error> & {status: 409})
@@ -18182,7 +18182,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     ref: string
-    requestBody: t_gitUpdateRefJsonRequestBody
+    requestBody: t_GitUpdateRefRequestBody
   }): Observable<
     | (HttpResponse<t_git_ref> & {status: 200})
     | (HttpResponse<t_basic_error> & {status: 409})
@@ -18235,7 +18235,7 @@ export class GitHubV3RestApiService {
   gitCreateTag(p: {
     owner: string
     repo: string
-    requestBody: t_gitCreateTagJsonRequestBody
+    requestBody: t_GitCreateTagRequestBody
   }): Observable<
     | (HttpResponse<t_git_tag> & {status: 201})
     | (HttpResponse<t_basic_error> & {status: 409})
@@ -18287,7 +18287,7 @@ export class GitHubV3RestApiService {
   gitCreateTree(p: {
     owner: string
     repo: string
-    requestBody: t_gitCreateTreeJsonRequestBody
+    requestBody: t_GitCreateTreeRequestBody
   }): Observable<
     | (HttpResponse<t_git_tree> & {status: 201})
     | (HttpResponse<t_basic_error> & {status: 403})
@@ -18370,7 +18370,7 @@ export class GitHubV3RestApiService {
   reposCreateWebhook(p: {
     owner: string
     repo: string
-    requestBody?: t_reposCreateWebhookJsonRequestBody
+    requestBody?: t_ReposCreateWebhookRequestBody
   }): Observable<
     | (HttpResponse<t_hook> & {status: 201})
     | (HttpResponse<t_basic_error> & {status: 403})
@@ -18424,7 +18424,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     hookId: number
-    requestBody: t_reposUpdateWebhookJsonRequestBody
+    requestBody: t_ReposUpdateWebhookRequestBody
   }): Observable<
     | (HttpResponse<t_hook> & {status: 200})
     | (HttpResponse<t_basic_error> & {status: 404})
@@ -18498,7 +18498,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     hookId: number
-    requestBody?: t_reposUpdateWebhookConfigForRepoJsonRequestBody
+    requestBody?: t_ReposUpdateWebhookConfigForRepoRequestBody
   }): Observable<
     (HttpResponse<t_webhook_config> & {status: 200}) | HttpResponse<unknown>
   > {
@@ -18676,7 +18676,7 @@ export class GitHubV3RestApiService {
   migrationsStartImport(p: {
     owner: string
     repo: string
-    requestBody: t_migrationsStartImportJsonRequestBody
+    requestBody: t_MigrationsStartImportRequestBody
   }): Observable<
     | (HttpResponse<t_import> & {status: 201})
     | (HttpResponse<t_basic_error> & {status: 404})
@@ -18705,7 +18705,7 @@ export class GitHubV3RestApiService {
   migrationsUpdateImport(p: {
     owner: string
     repo: string
-    requestBody?: t_migrationsUpdateImportJsonRequestBody
+    requestBody?: t_MigrationsUpdateImportRequestBody
   }): Observable<
     | (HttpResponse<t_import> & {status: 200})
     | (HttpResponse<t_basic_error> & {status: 503})
@@ -18780,7 +18780,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     authorId: number
-    requestBody?: t_migrationsMapCommitAuthorJsonRequestBody
+    requestBody?: t_MigrationsMapCommitAuthorRequestBody
   }): Observable<
     | (HttpResponse<t_porter_author> & {status: 200})
     | (HttpResponse<t_basic_error> & {status: 404})
@@ -18833,7 +18833,7 @@ export class GitHubV3RestApiService {
   migrationsSetLfsPreference(p: {
     owner: string
     repo: string
-    requestBody: t_migrationsSetLfsPreferenceJsonRequestBody
+    requestBody: t_MigrationsSetLfsPreferenceRequestBody
   }): Observable<
     | (HttpResponse<t_import> & {status: 200})
     | (HttpResponse<t_validation_error> & {status: 422})
@@ -18979,7 +18979,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     invitationId: number
-    requestBody?: t_reposUpdateInvitationJsonRequestBody
+    requestBody?: t_ReposUpdateInvitationRequestBody
   }): Observable<
     | (HttpResponse<t_repository_invitation> & {status: 200})
     | HttpResponse<unknown>
@@ -19076,7 +19076,7 @@ export class GitHubV3RestApiService {
   issuesCreate(p: {
     owner: string
     repo: string
-    requestBody: t_issuesCreateJsonRequestBody
+    requestBody: t_IssuesCreateRequestBody
   }): Observable<
     | (HttpResponse<t_issue> & {status: 201})
     | (HttpResponse<t_scim_error> & {status: 400})
@@ -19172,7 +19172,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     commentId: number
-    requestBody: t_issuesUpdateCommentJsonRequestBody
+    requestBody: t_IssuesUpdateCommentRequestBody
   }): Observable<
     | (HttpResponse<t_issue_comment> & {status: 200})
     | (HttpResponse<t_validation_error> & {status: 422})
@@ -19261,7 +19261,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     commentId: number
-    requestBody: t_reactionsCreateForIssueCommentJsonRequestBody
+    requestBody: t_ReactionsCreateForIssueCommentRequestBody
   }): Observable<
     | (HttpResponse<t_reaction> & {status: 200})
     | (HttpResponse<t_reaction> & {status: 201})
@@ -19387,7 +19387,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     issueNumber: number
-    requestBody?: t_issuesUpdateJsonRequestBody
+    requestBody?: t_IssuesUpdateRequestBody
   }): Observable<
     | (HttpResponse<t_issue> & {status: 200})
     | (HttpResponse<t_basic_error> & {status: 301})
@@ -19426,7 +19426,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     issueNumber: number
-    requestBody?: t_issuesAddAssigneesJsonRequestBody
+    requestBody?: t_IssuesAddAssigneesRequestBody
   }): Observable<
     (HttpResponse<t_issue> & {status: 201}) | HttpResponse<unknown>
   > {
@@ -19454,7 +19454,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     issueNumber: number
-    requestBody: t_issuesRemoveAssigneesJsonRequestBody
+    requestBody: t_IssuesRemoveAssigneesRequestBody
   }): Observable<
     (HttpResponse<t_issue> & {status: 200}) | HttpResponse<unknown>
   > {
@@ -19538,7 +19538,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     issueNumber: number
-    requestBody: t_issuesCreateCommentJsonRequestBody
+    requestBody: t_IssuesCreateCommentRequestBody
   }): Observable<
     | (HttpResponse<t_issue_comment> & {status: 201})
     | (HttpResponse<t_basic_error> & {status: 403})
@@ -19626,7 +19626,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     issueNumber: number
-    requestBody?: t_issuesAddLabelsJsonRequestBody
+    requestBody?: t_IssuesAddLabelsRequestBody
   }): Observable<
     | (HttpResponse<t_label[]> & {status: 200})
     | (HttpResponse<t_basic_error> & {status: 301})
@@ -19659,7 +19659,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     issueNumber: number
-    requestBody?: t_issuesSetLabelsJsonRequestBody
+    requestBody?: t_IssuesSetLabelsRequestBody
   }): Observable<
     | (HttpResponse<t_label[]> & {status: 200})
     | (HttpResponse<t_basic_error> & {status: 301})
@@ -19743,7 +19743,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     issueNumber: number
-    requestBody?: t_issuesLockJsonRequestBody
+    requestBody?: t_IssuesLockRequestBody
   }): Observable<
     | (HttpResponse<void> & {status: 204})
     | (HttpResponse<t_basic_error> & {status: 403})
@@ -19842,7 +19842,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     issueNumber: number
-    requestBody: t_reactionsCreateForIssueJsonRequestBody
+    requestBody: t_ReactionsCreateForIssueRequestBody
   }): Observable<
     | (HttpResponse<t_reaction> & {status: 200})
     | (HttpResponse<t_reaction> & {status: 201})
@@ -19892,7 +19892,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     issueNumber: number
-    requestBody: t_issuesRemoveSubIssueJsonRequestBody
+    requestBody: t_IssuesRemoveSubIssueRequestBody
   }): Observable<
     | (HttpResponse<t_issue> & {status: 200})
     | (HttpResponse<t_scim_error> & {status: 400})
@@ -19950,7 +19950,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     issueNumber: number
-    requestBody: t_issuesAddSubIssueJsonRequestBody
+    requestBody: t_IssuesAddSubIssueRequestBody
   }): Observable<
     | (HttpResponse<t_issue> & {status: 201})
     | (HttpResponse<t_basic_error> & {status: 403})
@@ -19982,7 +19982,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     issueNumber: number
-    requestBody: t_issuesReprioritizeSubIssueJsonRequestBody
+    requestBody: t_IssuesReprioritizeSubIssueRequestBody
   }): Observable<
     | (HttpResponse<t_issue> & {status: 200})
     | (HttpResponse<t_basic_error> & {status: 403})
@@ -20068,7 +20068,7 @@ export class GitHubV3RestApiService {
   reposCreateDeployKey(p: {
     owner: string
     repo: string
-    requestBody: t_reposCreateDeployKeyJsonRequestBody
+    requestBody: t_ReposCreateDeployKeyRequestBody
   }): Observable<
     | (HttpResponse<t_deploy_key> & {status: 201})
     | (HttpResponse<t_validation_error> & {status: 422})
@@ -20162,7 +20162,7 @@ export class GitHubV3RestApiService {
   issuesCreateLabel(p: {
     owner: string
     repo: string
-    requestBody: t_issuesCreateLabelJsonRequestBody
+    requestBody: t_IssuesCreateLabelRequestBody
   }): Observable<
     | (HttpResponse<t_label> & {status: 201})
     | (HttpResponse<t_basic_error> & {status: 404})
@@ -20214,7 +20214,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     name: string
-    requestBody?: t_issuesUpdateLabelJsonRequestBody
+    requestBody?: t_IssuesUpdateLabelRequestBody
   }): Observable<
     (HttpResponse<t_label> & {status: 200}) | HttpResponse<unknown>
   > {
@@ -20303,7 +20303,7 @@ export class GitHubV3RestApiService {
   reposMergeUpstream(p: {
     owner: string
     repo: string
-    requestBody: t_reposMergeUpstreamJsonRequestBody
+    requestBody: t_ReposMergeUpstreamRequestBody
   }): Observable<
     | (HttpResponse<t_merged_upstream> & {status: 200})
     | (HttpResponse<void> & {status: 409})
@@ -20331,7 +20331,7 @@ export class GitHubV3RestApiService {
   reposMerge(p: {
     owner: string
     repo: string
-    requestBody: t_reposMergeJsonRequestBody
+    requestBody: t_ReposMergeRequestBody
   }): Observable<
     | (HttpResponse<t_commit> & {status: 201})
     | (HttpResponse<void> & {status: 204})
@@ -20396,7 +20396,7 @@ export class GitHubV3RestApiService {
   issuesCreateMilestone(p: {
     owner: string
     repo: string
-    requestBody: t_issuesCreateMilestoneJsonRequestBody
+    requestBody: t_IssuesCreateMilestoneRequestBody
   }): Observable<
     | (HttpResponse<t_milestone> & {status: 201})
     | (HttpResponse<t_basic_error> & {status: 404})
@@ -20448,7 +20448,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     milestoneNumber: number
-    requestBody?: t_issuesUpdateMilestoneJsonRequestBody
+    requestBody?: t_IssuesUpdateMilestoneRequestBody
   }): Observable<
     (HttpResponse<t_milestone> & {status: 200}) | HttpResponse<unknown>
   > {
@@ -20557,7 +20557,7 @@ export class GitHubV3RestApiService {
   activityMarkRepoNotificationsAsRead(p: {
     owner: string
     repo: string
-    requestBody?: t_activityMarkRepoNotificationsAsReadJsonRequestBody
+    requestBody?: t_ActivityMarkRepoNotificationsAsReadRequestBody
   }): Observable<
     | (HttpResponse<{
         message?: string
@@ -20609,7 +20609,7 @@ export class GitHubV3RestApiService {
   reposCreatePagesSite(p: {
     owner: string
     repo: string
-    requestBody: t_reposCreatePagesSiteJsonRequestBody
+    requestBody: t_ReposCreatePagesSiteRequestBody
   }): Observable<
     | (HttpResponse<t_page> & {status: 201})
     | (HttpResponse<t_basic_error> & {status: 409})
@@ -20637,7 +20637,7 @@ export class GitHubV3RestApiService {
   reposUpdateInformationAboutPagesSite(p: {
     owner: string
     repo: string
-    requestBody: t_reposUpdateInformationAboutPagesSiteJsonRequestBody
+    requestBody: t_ReposUpdateInformationAboutPagesSiteRequestBody
   }): Observable<
     | (HttpResponse<void> & {status: 204})
     | (HttpResponse<t_scim_error> & {status: 400})
@@ -20772,7 +20772,7 @@ export class GitHubV3RestApiService {
   reposCreatePagesDeployment(p: {
     owner: string
     repo: string
-    requestBody: t_reposCreatePagesDeploymentJsonRequestBody
+    requestBody: t_ReposCreatePagesDeploymentRequestBody
   }): Observable<
     | (HttpResponse<t_page_deployment> & {status: 200})
     | (HttpResponse<t_scim_error> & {status: 400})
@@ -20974,7 +20974,7 @@ export class GitHubV3RestApiService {
   projectsClassicCreateForRepo(p: {
     owner: string
     repo: string
-    requestBody: t_projectsClassicCreateForRepoJsonRequestBody
+    requestBody: t_ProjectsClassicCreateForRepoRequestBody
   }): Observable<
     | (HttpResponse<t_project> & {status: 201})
     | (HttpResponse<t_basic_error> & {status: 401})
@@ -21028,7 +21028,7 @@ export class GitHubV3RestApiService {
   reposCreateOrUpdateCustomPropertiesValues(p: {
     owner: string
     repo: string
-    requestBody: t_reposCreateOrUpdateCustomPropertiesValuesJsonRequestBody
+    requestBody: t_ReposCreateOrUpdateCustomPropertiesValuesRequestBody
   }): Observable<
     | (HttpResponse<void> & {status: 204})
     | (HttpResponse<t_basic_error> & {status: 403})
@@ -21102,7 +21102,7 @@ export class GitHubV3RestApiService {
   pullsCreate(p: {
     owner: string
     repo: string
-    requestBody: t_pullsCreateJsonRequestBody
+    requestBody: t_PullsCreateRequestBody
   }): Observable<
     | (HttpResponse<t_pull_request> & {status: 201})
     | (HttpResponse<t_basic_error> & {status: 403})
@@ -21187,7 +21187,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     commentId: number
-    requestBody: t_pullsUpdateReviewCommentJsonRequestBody
+    requestBody: t_PullsUpdateReviewCommentRequestBody
   }): Observable<
     | (HttpResponse<t_pull_request_review_comment> & {status: 200})
     | HttpResponse<unknown>
@@ -21279,7 +21279,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     commentId: number
-    requestBody: t_reactionsCreateForPullRequestReviewCommentJsonRequestBody
+    requestBody: t_ReactionsCreateForPullRequestReviewCommentRequestBody
   }): Observable<
     | (HttpResponse<t_reaction> & {status: 200})
     | (HttpResponse<t_reaction> & {status: 201})
@@ -21356,7 +21356,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     pullNumber: number
-    requestBody?: t_pullsUpdateJsonRequestBody
+    requestBody?: t_PullsUpdateRequestBody
   }): Observable<
     | (HttpResponse<t_pull_request> & {status: 200})
     | (HttpResponse<t_basic_error> & {status: 403})
@@ -21387,7 +21387,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     pullNumber: number
-    requestBody: t_codespacesCreateWithPrForAuthenticatedUserJsonRequestBody
+    requestBody: t_CodespacesCreateWithPrForAuthenticatedUserRequestBody
   }): Observable<
     | (HttpResponse<t_codespace> & {status: 201})
     | (HttpResponse<t_codespace> & {status: 202})
@@ -21459,7 +21459,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     pullNumber: number
-    requestBody: t_pullsCreateReviewCommentJsonRequestBody
+    requestBody: t_PullsCreateReviewCommentRequestBody
   }): Observable<
     | (HttpResponse<t_pull_request_review_comment> & {status: 201})
     | (HttpResponse<t_basic_error> & {status: 403})
@@ -21490,7 +21490,7 @@ export class GitHubV3RestApiService {
     repo: string
     pullNumber: number
     commentId: number
-    requestBody: t_pullsCreateReplyForReviewCommentJsonRequestBody
+    requestBody: t_PullsCreateReplyForReviewCommentRequestBody
   }): Observable<
     | (HttpResponse<t_pull_request_review_comment> & {status: 201})
     | (HttpResponse<t_basic_error> & {status: 404})
@@ -21600,7 +21600,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     pullNumber: number
-    requestBody?: t_pullsMergeJsonRequestBody
+    requestBody?: t_PullsMergeRequestBody
   }): Observable<
     | (HttpResponse<t_pull_request_merge_result> & {status: 200})
     | (HttpResponse<t_basic_error> & {status: 403})
@@ -21662,7 +21662,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     pullNumber: number
-    requestBody?: t_pullsRequestReviewersJsonRequestBody
+    requestBody?: t_PullsRequestReviewersRequestBody
   }): Observable<
     | (HttpResponse<t_pull_request_simple> & {status: 201})
     | (HttpResponse<t_basic_error> & {status: 403})
@@ -21693,7 +21693,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     pullNumber: number
-    requestBody: t_pullsRemoveRequestedReviewersJsonRequestBody
+    requestBody: t_PullsRemoveRequestedReviewersRequestBody
   }): Observable<
     | (HttpResponse<t_pull_request_simple> & {status: 200})
     | (HttpResponse<t_validation_error> & {status: 422})
@@ -21748,7 +21748,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     pullNumber: number
-    requestBody?: t_pullsCreateReviewJsonRequestBody
+    requestBody?: t_PullsCreateReviewRequestBody
   }): Observable<
     | (HttpResponse<t_pull_request_review> & {status: 200})
     | (HttpResponse<t_basic_error> & {status: 403})
@@ -21804,7 +21804,7 @@ export class GitHubV3RestApiService {
     repo: string
     pullNumber: number
     reviewId: number
-    requestBody: t_pullsUpdateReviewJsonRequestBody
+    requestBody: t_PullsUpdateReviewRequestBody
   }): Observable<
     | (HttpResponse<t_pull_request_review> & {status: 200})
     | (HttpResponse<t_validation_error_simple> & {status: 422})
@@ -21887,7 +21887,7 @@ export class GitHubV3RestApiService {
     repo: string
     pullNumber: number
     reviewId: number
-    requestBody: t_pullsDismissReviewJsonRequestBody
+    requestBody: t_PullsDismissReviewRequestBody
   }): Observable<
     | (HttpResponse<t_pull_request_review> & {status: 200})
     | (HttpResponse<t_basic_error> & {status: 404})
@@ -21918,7 +21918,7 @@ export class GitHubV3RestApiService {
     repo: string
     pullNumber: number
     reviewId: number
-    requestBody: t_pullsSubmitReviewJsonRequestBody
+    requestBody: t_PullsSubmitReviewRequestBody
   }): Observable<
     | (HttpResponse<t_pull_request_review> & {status: 200})
     | (HttpResponse<t_basic_error> & {status: 403})
@@ -21949,7 +21949,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     pullNumber: number
-    requestBody?: t_pullsUpdateBranchJsonRequestBody
+    requestBody?: t_PullsUpdateBranchRequestBody
   }): Observable<
     | (HttpResponse<{
         message?: string
@@ -22060,7 +22060,7 @@ export class GitHubV3RestApiService {
   reposCreateRelease(p: {
     owner: string
     repo: string
-    requestBody: t_reposCreateReleaseJsonRequestBody
+    requestBody: t_ReposCreateReleaseRequestBody
   }): Observable<
     | (HttpResponse<t_release> & {status: 201})
     | (HttpResponse<t_basic_error> & {status: 404})
@@ -22113,7 +22113,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     assetId: number
-    requestBody?: t_reposUpdateReleaseAssetJsonRequestBody
+    requestBody?: t_ReposUpdateReleaseAssetRequestBody
   }): Observable<
     (HttpResponse<t_release_asset> & {status: 200}) | HttpResponse<unknown>
   > {
@@ -22159,7 +22159,7 @@ export class GitHubV3RestApiService {
   reposGenerateReleaseNotes(p: {
     owner: string
     repo: string
-    requestBody: t_reposGenerateReleaseNotesJsonRequestBody
+    requestBody: t_ReposGenerateReleaseNotesRequestBody
   }): Observable<
     | (HttpResponse<t_release_notes_content> & {status: 200})
     | (HttpResponse<t_basic_error> & {status: 404})
@@ -22254,7 +22254,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     releaseId: number
-    requestBody?: t_reposUpdateReleaseJsonRequestBody
+    requestBody?: t_ReposUpdateReleaseRequestBody
   }): Observable<
     | (HttpResponse<t_release> & {status: 200})
     | (HttpResponse<t_basic_error> & {status: 404})
@@ -22403,7 +22403,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     releaseId: number
-    requestBody: t_reactionsCreateForReleaseJsonRequestBody
+    requestBody: t_ReactionsCreateForReleaseRequestBody
   }): Observable<
     | (HttpResponse<t_reaction> & {status: 200})
     | (HttpResponse<t_reaction> & {status: 201})
@@ -22511,7 +22511,7 @@ export class GitHubV3RestApiService {
   reposCreateRepoRuleset(p: {
     owner: string
     repo: string
-    requestBody: t_reposCreateRepoRulesetJsonRequestBody
+    requestBody: t_ReposCreateRepoRulesetRequestBody
   }): Observable<
     | (HttpResponse<t_repository_ruleset> & {status: 201})
     | (HttpResponse<t_basic_error> & {status: 404})
@@ -22634,7 +22634,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     rulesetId: number
-    requestBody?: t_reposUpdateRepoRulesetJsonRequestBody
+    requestBody?: t_ReposUpdateRepoRulesetRequestBody
   }): Observable<
     | (HttpResponse<t_repository_ruleset> & {status: 200})
     | (HttpResponse<t_basic_error> & {status: 404})
@@ -22830,7 +22830,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     alertNumber: t_alert_number
-    requestBody: t_secretScanningUpdateAlertJsonRequestBody
+    requestBody: t_SecretScanningUpdateAlertRequestBody
   }): Observable<
     | (HttpResponse<t_secret_scanning_alert> & {status: 200})
     | (HttpResponse<void> & {status: 400})
@@ -22897,7 +22897,7 @@ export class GitHubV3RestApiService {
   secretScanningCreatePushProtectionBypass(p: {
     owner: string
     repo: string
-    requestBody: t_secretScanningCreatePushProtectionBypassJsonRequestBody
+    requestBody: t_SecretScanningCreatePushProtectionBypassRequestBody
   }): Observable<
     | (HttpResponse<t_secret_scanning_push_protection_bypass> & {status: 200})
     | (HttpResponse<void> & {status: 403})
@@ -23300,7 +23300,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     sha: string
-    requestBody: t_reposCreateCommitStatusJsonRequestBody
+    requestBody: t_ReposCreateCommitStatusRequestBody
   }): Observable<
     (HttpResponse<t_status> & {status: 201}) | HttpResponse<unknown>
   > {
@@ -23371,7 +23371,7 @@ export class GitHubV3RestApiService {
   activitySetRepoSubscription(p: {
     owner: string
     repo: string
-    requestBody?: t_activitySetRepoSubscriptionJsonRequestBody
+    requestBody?: t_ActivitySetRepoSubscriptionRequestBody
   }): Observable<
     | (HttpResponse<t_repository_subscription> & {status: 200})
     | HttpResponse<unknown>
@@ -23461,7 +23461,7 @@ export class GitHubV3RestApiService {
   reposCreateTagProtection(p: {
     owner: string
     repo: string
-    requestBody: t_reposCreateTagProtectionJsonRequestBody
+    requestBody: t_ReposCreateTagProtectionRequestBody
   }): Observable<
     | (HttpResponse<t_tag_protection> & {status: 201})
     | (HttpResponse<t_basic_error> & {status: 403})
@@ -23583,7 +23583,7 @@ export class GitHubV3RestApiService {
   reposReplaceAllTopics(p: {
     owner: string
     repo: string
-    requestBody: t_reposReplaceAllTopicsJsonRequestBody
+    requestBody: t_ReposReplaceAllTopicsRequestBody
   }): Observable<
     | (HttpResponse<t_topic> & {status: 200})
     | (HttpResponse<t_basic_error> & {status: 404})
@@ -23703,7 +23703,7 @@ export class GitHubV3RestApiService {
   reposTransfer(p: {
     owner: string
     repo: string
-    requestBody: t_reposTransferJsonRequestBody
+    requestBody: t_ReposTransferRequestBody
   }): Observable<
     (HttpResponse<t_minimal_repository> & {status: 202}) | HttpResponse<unknown>
   > {
@@ -23805,7 +23805,7 @@ export class GitHubV3RestApiService {
   reposCreateUsingTemplate(p: {
     templateOwner: string
     templateRepo: string
-    requestBody: t_reposCreateUsingTemplateJsonRequestBody
+    requestBody: t_ReposCreateUsingTemplateRequestBody
   }): Observable<
     (HttpResponse<t_full_repository> & {status: 201}) | HttpResponse<unknown>
   > {
@@ -24167,7 +24167,7 @@ export class GitHubV3RestApiService {
 
   teamsUpdateLegacy(p: {
     teamId: number
-    requestBody: t_teamsUpdateLegacyJsonRequestBody
+    requestBody: t_TeamsUpdateLegacyRequestBody
   }): Observable<
     | (HttpResponse<t_team_full> & {status: 200})
     | (HttpResponse<t_team_full> & {status: 201})
@@ -24244,7 +24244,7 @@ export class GitHubV3RestApiService {
 
   teamsCreateDiscussionLegacy(p: {
     teamId: number
-    requestBody: t_teamsCreateDiscussionLegacyJsonRequestBody
+    requestBody: t_TeamsCreateDiscussionLegacyRequestBody
   }): Observable<
     (HttpResponse<t_team_discussion> & {status: 201}) | HttpResponse<unknown>
   > {
@@ -24289,7 +24289,7 @@ export class GitHubV3RestApiService {
   teamsUpdateDiscussionLegacy(p: {
     teamId: number
     discussionNumber: number
-    requestBody?: t_teamsUpdateDiscussionLegacyJsonRequestBody
+    requestBody?: t_TeamsUpdateDiscussionLegacyRequestBody
   }): Observable<
     (HttpResponse<t_team_discussion> & {status: 200}) | HttpResponse<unknown>
   > {
@@ -24364,7 +24364,7 @@ export class GitHubV3RestApiService {
   teamsCreateDiscussionCommentLegacy(p: {
     teamId: number
     discussionNumber: number
-    requestBody: t_teamsCreateDiscussionCommentLegacyJsonRequestBody
+    requestBody: t_TeamsCreateDiscussionCommentLegacyRequestBody
   }): Observable<
     | (HttpResponse<t_team_discussion_comment> & {status: 201})
     | HttpResponse<unknown>
@@ -24414,7 +24414,7 @@ export class GitHubV3RestApiService {
     teamId: number
     discussionNumber: number
     commentNumber: number
-    requestBody: t_teamsUpdateDiscussionCommentLegacyJsonRequestBody
+    requestBody: t_TeamsUpdateDiscussionCommentLegacyRequestBody
   }): Observable<
     | (HttpResponse<t_team_discussion_comment> & {status: 200})
     | HttpResponse<unknown>
@@ -24500,7 +24500,7 @@ export class GitHubV3RestApiService {
     teamId: number
     discussionNumber: number
     commentNumber: number
-    requestBody: t_reactionsCreateForTeamDiscussionCommentLegacyJsonRequestBody
+    requestBody: t_ReactionsCreateForTeamDiscussionCommentLegacyRequestBody
   }): Observable<
     (HttpResponse<t_reaction> & {status: 201}) | HttpResponse<unknown>
   > {
@@ -24564,7 +24564,7 @@ export class GitHubV3RestApiService {
   reactionsCreateForTeamDiscussionLegacy(p: {
     teamId: number
     discussionNumber: number
-    requestBody: t_reactionsCreateForTeamDiscussionLegacyJsonRequestBody
+    requestBody: t_ReactionsCreateForTeamDiscussionLegacyRequestBody
   }): Observable<
     (HttpResponse<t_reaction> & {status: 201}) | HttpResponse<unknown>
   > {
@@ -24729,7 +24729,7 @@ export class GitHubV3RestApiService {
   teamsAddOrUpdateMembershipForUserLegacy(p: {
     teamId: number
     username: string
-    requestBody?: t_teamsAddOrUpdateMembershipForUserLegacyJsonRequestBody
+    requestBody?: t_TeamsAddOrUpdateMembershipForUserLegacyRequestBody
   }): Observable<
     | (HttpResponse<t_team_membership> & {status: 200})
     | (HttpResponse<void> & {status: 403})
@@ -24827,7 +24827,7 @@ export class GitHubV3RestApiService {
   teamsAddOrUpdateProjectPermissionsLegacy(p: {
     teamId: number
     projectId: number
-    requestBody?: t_teamsAddOrUpdateProjectPermissionsLegacyJsonRequestBody
+    requestBody?: t_TeamsAddOrUpdateProjectPermissionsLegacyRequestBody
   }): Observable<
     | (HttpResponse<void> & {status: 204})
     | (HttpResponse<{
@@ -24931,7 +24931,7 @@ export class GitHubV3RestApiService {
     teamId: number
     owner: string
     repo: string
-    requestBody?: t_teamsAddOrUpdateRepoPermissionsLegacyJsonRequestBody
+    requestBody?: t_TeamsAddOrUpdateRepoPermissionsLegacyRequestBody
   }): Observable<
     | (HttpResponse<void> & {status: 204})
     | (HttpResponse<t_basic_error> & {status: 403})
@@ -25020,7 +25020,7 @@ export class GitHubV3RestApiService {
   }
 
   usersUpdateAuthenticated(
-    p: {requestBody?: t_usersUpdateAuthenticatedJsonRequestBody} = {},
+    p: {requestBody?: t_UsersUpdateAuthenticatedRequestBody} = {},
   ): Observable<
     | (HttpResponse<t_private_user> & {status: 200})
     | (HttpResponse<void> & {status: 304})
@@ -25178,7 +25178,7 @@ export class GitHubV3RestApiService {
   }
 
   codespacesCreateForAuthenticatedUser(p: {
-    requestBody: t_codespacesCreateForAuthenticatedUserJsonRequestBody
+    requestBody: t_CodespacesCreateForAuthenticatedUserRequestBody
   }): Observable<
     | (HttpResponse<t_codespace> & {status: 201})
     | (HttpResponse<t_codespace> & {status: 202})
@@ -25271,7 +25271,7 @@ export class GitHubV3RestApiService {
 
   codespacesCreateOrUpdateSecretForAuthenticatedUser(p: {
     secretName: string
-    requestBody: t_codespacesCreateOrUpdateSecretForAuthenticatedUserJsonRequestBody
+    requestBody: t_CodespacesCreateOrUpdateSecretForAuthenticatedUserRequestBody
   }): Observable<
     | (HttpResponse<t_empty_object> & {status: 201})
     | (HttpResponse<void> & {status: 204})
@@ -25342,7 +25342,7 @@ export class GitHubV3RestApiService {
 
   codespacesSetRepositoriesForSecretForAuthenticatedUser(p: {
     secretName: string
-    requestBody: t_codespacesSetRepositoriesForSecretForAuthenticatedUserJsonRequestBody
+    requestBody: t_CodespacesSetRepositoriesForSecretForAuthenticatedUserRequestBody
   }): Observable<
     | (HttpResponse<void> & {status: 204})
     | (HttpResponse<t_basic_error> & {status: 401})
@@ -25446,7 +25446,7 @@ export class GitHubV3RestApiService {
 
   codespacesUpdateForAuthenticatedUser(p: {
     codespaceName: string
-    requestBody?: t_codespacesUpdateForAuthenticatedUserJsonRequestBody
+    requestBody?: t_CodespacesUpdateForAuthenticatedUserRequestBody
   }): Observable<
     | (HttpResponse<t_codespace> & {status: 200})
     | (HttpResponse<t_basic_error> & {status: 401})
@@ -25572,7 +25572,7 @@ export class GitHubV3RestApiService {
 
   codespacesPublishForAuthenticatedUser(p: {
     codespaceName: string
-    requestBody: t_codespacesPublishForAuthenticatedUserJsonRequestBody
+    requestBody: t_CodespacesPublishForAuthenticatedUserRequestBody
   }): Observable<
     | (HttpResponse<t_codespace_with_full_repository> & {status: 201})
     | (HttpResponse<t_basic_error> & {status: 401})
@@ -25666,7 +25666,7 @@ export class GitHubV3RestApiService {
   }
 
   usersSetPrimaryEmailVisibilityForAuthenticatedUser(p: {
-    requestBody: t_usersSetPrimaryEmailVisibilityForAuthenticatedUserJsonRequestBody
+    requestBody: t_UsersSetPrimaryEmailVisibilityForAuthenticatedUserRequestBody
   }): Observable<
     | (HttpResponse<t_email[]> & {status: 200})
     | (HttpResponse<void> & {status: 304})
@@ -25720,7 +25720,7 @@ export class GitHubV3RestApiService {
   }
 
   usersAddEmailForAuthenticatedUser(
-    p: {requestBody?: t_usersAddEmailForAuthenticatedUserJsonRequestBody} = {},
+    p: {requestBody?: t_UsersAddEmailForAuthenticatedUserRequestBody} = {},
   ): Observable<
     | (HttpResponse<t_email[]> & {status: 201})
     | (HttpResponse<void> & {status: 304})
@@ -25750,7 +25750,7 @@ export class GitHubV3RestApiService {
   }
 
   usersDeleteEmailForAuthenticatedUser(p: {
-    requestBody: t_usersDeleteEmailForAuthenticatedUserJsonRequestBody
+    requestBody: t_UsersDeleteEmailForAuthenticatedUserRequestBody
   }): Observable<
     | (HttpResponse<void> & {status: 204})
     | (HttpResponse<void> & {status: 304})
@@ -25922,7 +25922,7 @@ export class GitHubV3RestApiService {
   }
 
   usersCreateGpgKeyForAuthenticatedUser(p: {
-    requestBody: t_usersCreateGpgKeyForAuthenticatedUserJsonRequestBody
+    requestBody: t_UsersCreateGpgKeyForAuthenticatedUserRequestBody
   }): Observable<
     | (HttpResponse<t_gpg_key> & {status: 201})
     | (HttpResponse<void> & {status: 304})
@@ -26237,7 +26237,7 @@ export class GitHubV3RestApiService {
   }
 
   usersCreatePublicSshKeyForAuthenticatedUser(p: {
-    requestBody: t_usersCreatePublicSshKeyForAuthenticatedUserJsonRequestBody
+    requestBody: t_UsersCreatePublicSshKeyForAuthenticatedUserRequestBody
   }): Observable<
     | (HttpResponse<t_key> & {status: 201})
     | (HttpResponse<void> & {status: 304})
@@ -26414,7 +26414,7 @@ export class GitHubV3RestApiService {
 
   orgsUpdateMembershipForAuthenticatedUser(p: {
     org: string
-    requestBody: t_orgsUpdateMembershipForAuthenticatedUserJsonRequestBody
+    requestBody: t_OrgsUpdateMembershipForAuthenticatedUserRequestBody
   }): Observable<
     | (HttpResponse<t_org_membership> & {status: 200})
     | (HttpResponse<t_basic_error> & {status: 403})
@@ -26465,7 +26465,7 @@ export class GitHubV3RestApiService {
   }
 
   migrationsStartForAuthenticatedUser(p: {
-    requestBody: t_migrationsStartForAuthenticatedUserJsonRequestBody
+    requestBody: t_MigrationsStartForAuthenticatedUserRequestBody
   }): Observable<
     | (HttpResponse<t_migration> & {status: 201})
     | (HttpResponse<void> & {status: 304})
@@ -26899,7 +26899,7 @@ export class GitHubV3RestApiService {
   }
 
   projectsClassicCreateForAuthenticatedUser(p: {
-    requestBody: t_projectsClassicCreateForAuthenticatedUserJsonRequestBody
+    requestBody: t_ProjectsClassicCreateForAuthenticatedUserRequestBody
   }): Observable<
     | (HttpResponse<t_project> & {status: 201})
     | (HttpResponse<void> & {status: 304})
@@ -27008,7 +27008,7 @@ export class GitHubV3RestApiService {
   }
 
   reposCreateForAuthenticatedUser(p: {
-    requestBody: t_reposCreateForAuthenticatedUserJsonRequestBody
+    requestBody: t_ReposCreateForAuthenticatedUserRequestBody
   }): Observable<
     | (HttpResponse<t_full_repository> & {status: 201})
     | (HttpResponse<void> & {status: 304})
@@ -27136,7 +27136,7 @@ export class GitHubV3RestApiService {
   }
 
   usersAddSocialAccountForAuthenticatedUser(p: {
-    requestBody: t_usersAddSocialAccountForAuthenticatedUserJsonRequestBody
+    requestBody: t_UsersAddSocialAccountForAuthenticatedUserRequestBody
   }): Observable<
     | (HttpResponse<t_social_account[]> & {status: 201})
     | (HttpResponse<void> & {status: 304})
@@ -27165,7 +27165,7 @@ export class GitHubV3RestApiService {
   }
 
   usersDeleteSocialAccountForAuthenticatedUser(p: {
-    requestBody: t_usersDeleteSocialAccountForAuthenticatedUserJsonRequestBody
+    requestBody: t_UsersDeleteSocialAccountForAuthenticatedUserRequestBody
   }): Observable<
     | (HttpResponse<void> & {status: 204})
     | (HttpResponse<void> & {status: 304})
@@ -27219,7 +27219,7 @@ export class GitHubV3RestApiService {
   }
 
   usersCreateSshSigningKeyForAuthenticatedUser(p: {
-    requestBody: t_usersCreateSshSigningKeyForAuthenticatedUserJsonRequestBody
+    requestBody: t_UsersCreateSshSigningKeyForAuthenticatedUserRequestBody
   }): Observable<
     | (HttpResponse<t_ssh_signing_key> & {status: 201})
     | (HttpResponse<void> & {status: 304})
@@ -27517,7 +27517,7 @@ export class GitHubV3RestApiService {
     before?: string
     after?: string
     username: string
-    requestBody: t_usersListAttestationsBulkJsonRequestBody
+    requestBody: t_UsersListAttestationsBulkRequestBody
   }): Observable<
     | (HttpResponse<{
         attestations_subject_digests?: {
@@ -27575,7 +27575,7 @@ export class GitHubV3RestApiService {
 
   usersDeleteAttestationsBulk(p: {
     username: string
-    requestBody: t_usersDeleteAttestationsBulkJsonRequestBody
+    requestBody: t_UsersDeleteAttestationsBulkRequestBody
   }): Observable<
     | (HttpResponse<void> & {status: 200})
     | (HttpResponse<t_basic_error> & {status: 404})

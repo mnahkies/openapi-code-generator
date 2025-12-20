@@ -25,8 +25,8 @@ import {type NextFunction, type Request, type Response, Router} from "express"
 import {z} from "zod/v4"
 import type {
   t_CreateTodoListItemParamSchema,
+  t_CreateTodoListItemRequestBody,
   t_CreateUpdateTodoList,
-  t_createTodoListItemJsonRequestBody,
   t_DeleteTodoListByIdParamSchema,
   t_Error,
   t_GetTodoListByIdParamSchema,
@@ -37,8 +37,8 @@ import type {
   t_UpdateTodoListByIdParamSchema,
 } from "./models.ts"
 import {
+  s_CreateTodoListItemRequestBody,
   s_CreateUpdateTodoList,
-  s_createTodoListItemJsonRequestBody,
   s_Error,
   s_Statuses,
   s_TodoList,
@@ -133,7 +133,7 @@ export type CreateTodoListItem = (
   params: Params<
     t_CreateTodoListItemParamSchema,
     void,
-    t_createTodoListItemJsonRequestBody,
+    t_CreateTodoListItemRequestBody,
     void
   >,
   respond: CreateTodoListItemResponder,
@@ -556,8 +556,7 @@ export function createRouter(implementation: Implementation): Router {
 
   const createTodoListItemParamSchema = z.object({listId: z.string()})
 
-  const createTodoListItemRequestBodySchema =
-    s_createTodoListItemJsonRequestBody
+  const createTodoListItemRequestBodySchema = s_CreateTodoListItemRequestBody
 
   const createTodoListItemResponseBodyValidator = responseValidationFactory(
     [["204", z.undefined()]],

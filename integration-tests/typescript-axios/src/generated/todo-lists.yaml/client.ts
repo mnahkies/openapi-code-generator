@@ -9,8 +9,8 @@ import {
 } from "@nahkies/typescript-axios-runtime/main"
 import type {AxiosRequestConfig, AxiosResponse} from "axios"
 import type {
+  t_CreateTodoListItemRequestBody,
   t_CreateUpdateTodoList,
-  t_createTodoListItemJsonRequestBody,
   t_Statuses,
   t_TodoList,
   t_UnknownObject,
@@ -272,7 +272,7 @@ export class TodoListsExampleApi extends AbstractAxiosClient {
   async createTodoListItem(
     p: {
       listId: string
-      requestBody: t_createTodoListItemJsonRequestBody
+      requestBody: t_CreateTodoListItemRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},

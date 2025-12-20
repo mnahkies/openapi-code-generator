@@ -13,9 +13,9 @@ import type {
   t_AppAuthenticatorEnrollmentRequest,
   t_Authenticator,
   t_AuthenticatorEnrollment,
-  t_createEmailJsonRequestBody,
-  t_createPasswordJsonRequestBody,
-  t_createPhoneJsonRequestBody,
+  t_CreateEmailRequestBody,
+  t_CreatePasswordRequestBody,
+  t_CreatePhoneRequestBody,
   t_Email,
   t_OktaApplication,
   t_Organization,
@@ -24,15 +24,15 @@ import type {
   t_Profile,
   t_PushNotificationChallenge,
   t_PushNotificationVerification,
-  t_replacePasswordJsonRequestBody,
-  t_replaceProfileJsonRequestBody,
+  t_ReplacePasswordRequestBody,
+  t_ReplaceProfileRequestBody,
   t_Schema,
-  t_sendEmailChallengeJsonRequestBody,
-  t_sendPhoneChallengeJsonRequestBody,
+  t_SendEmailChallengeRequestBody,
+  t_SendPhoneChallengeRequestBody,
   t_UpdateAppAuthenticatorEnrollmentRequest,
   t_UpdateAuthenticatorEnrollmentRequest,
-  t_verifyEmailOtpJsonRequestBody,
-  t_verifyPhoneChallengeJsonRequestBody,
+  t_VerifyEmailOtpRequestBody,
+  t_VerifyPhoneChallengeRequestBody,
   UnknownEnumStringValue,
 } from "./models"
 
@@ -320,7 +320,7 @@ export class MyAccountManagement extends AbstractAxiosClient {
 
   async createEmail(
     p: {
-      requestBody: t_createEmailJsonRequestBody
+      requestBody: t_CreateEmailRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -383,7 +383,7 @@ export class MyAccountManagement extends AbstractAxiosClient {
   async sendEmailChallenge(
     p: {
       id: string
-      requestBody: t_sendEmailChallengeJsonRequestBody
+      requestBody: t_SendEmailChallengeRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -487,7 +487,7 @@ export class MyAccountManagement extends AbstractAxiosClient {
     p: {
       id: string
       challengeId: string
-      requestBody: t_verifyEmailOtpJsonRequestBody
+      requestBody: t_VerifyEmailOtpRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -559,7 +559,7 @@ export class MyAccountManagement extends AbstractAxiosClient {
 
   async createPassword(
     p: {
-      requestBody: t_createPasswordJsonRequestBody
+      requestBody: t_CreatePasswordRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -583,7 +583,7 @@ export class MyAccountManagement extends AbstractAxiosClient {
 
   async replacePassword(
     p: {
-      requestBody: t_replacePasswordJsonRequestBody
+      requestBody: t_ReplacePasswordRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -639,7 +639,7 @@ export class MyAccountManagement extends AbstractAxiosClient {
 
   async createPhone(
     p: {
-      requestBody: t_createPhoneJsonRequestBody
+      requestBody: t_CreatePhoneRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -702,7 +702,7 @@ export class MyAccountManagement extends AbstractAxiosClient {
   async sendPhoneChallenge(
     p: {
       id: string
-      requestBody: t_sendPhoneChallengeJsonRequestBody
+      requestBody: t_SendPhoneChallengeRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -742,7 +742,7 @@ export class MyAccountManagement extends AbstractAxiosClient {
   async verifyPhoneChallenge(
     p: {
       id: string
-      requestBody: t_verifyPhoneChallengeJsonRequestBody
+      requestBody: t_VerifyPhoneChallengeRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -782,7 +782,7 @@ export class MyAccountManagement extends AbstractAxiosClient {
 
   async replaceProfile(
     p: {
-      requestBody: t_replaceProfileJsonRequestBody
+      requestBody: t_ReplaceProfileRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},

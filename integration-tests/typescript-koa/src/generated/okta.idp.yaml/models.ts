@@ -320,7 +320,7 @@ export type t_UpdateAuthenticatorEnrollmentRequest = {
   nickname?: string
 }
 
-export type t_createEmailJsonRequestBody = {
+export type t_CreateEmailRequestBody = {
   profile: {
     email: string
   }
@@ -329,13 +329,13 @@ export type t_createEmailJsonRequestBody = {
   state?: string
 }
 
-export type t_createPasswordJsonRequestBody = {
+export type t_CreatePasswordRequestBody = {
   profile: {
     password: string
   }
 }
 
-export type t_createPhoneJsonRequestBody = {
+export type t_CreatePhoneRequestBody = {
   method?: "SMS" | "CALL"
   profile: {
     phoneNumber?: string
@@ -394,13 +394,13 @@ export type t_PollChallengeForEmailMagicLinkParamSchema = {
   id: string
 }
 
-export type t_replacePasswordJsonRequestBody = {
+export type t_ReplacePasswordRequestBody = {
   profile: {
     password: string
   }
 }
 
-export type t_replaceProfileJsonRequestBody = {
+export type t_ReplaceProfileRequestBody = {
   profile?: EmptyObject
 }
 
@@ -408,7 +408,7 @@ export type t_SendEmailChallengeParamSchema = {
   id: string
 }
 
-export type t_sendEmailChallengeJsonRequestBody = {
+export type t_SendEmailChallengeRequestBody = {
   state: string
 }
 
@@ -416,7 +416,7 @@ export type t_SendPhoneChallengeParamSchema = {
   id: string
 }
 
-export type t_sendPhoneChallengeJsonRequestBody = {
+export type t_SendPhoneChallengeRequestBody = {
   method: "SMS" | "CALL"
   retry?: boolean
 }
@@ -439,7 +439,7 @@ export type t_VerifyEmailOtpParamSchema = {
   id: string
 }
 
-export type t_verifyEmailOtpJsonRequestBody = {
+export type t_VerifyEmailOtpRequestBody = {
   verificationCode: string
 }
 
@@ -447,6 +447,6 @@ export type t_VerifyPhoneChallengeParamSchema = {
   id: string
 }
 
-export type t_verifyPhoneChallengeJsonRequestBody = {
+export type t_VerifyPhoneChallengeRequestBody = {
   verificationCode: string
 }

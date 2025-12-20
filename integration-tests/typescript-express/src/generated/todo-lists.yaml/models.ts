@@ -26,7 +26,7 @@ export type t_CreateTodoListItemParamSchema = {
   listId: string
 }
 
-export type t_createTodoListItemJsonRequestBody = {
+export type t_CreateTodoListItemRequestBody = {
   completedAt?: string | undefined
   content: string
   id: string

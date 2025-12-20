@@ -26,7 +26,7 @@ export type t_TodoList = {
   updated: string
 }
 
-export type t_createTodoListItemJsonRequestBody = {
+export type t_CreateTodoListItemRequestBody = {
   completedAt?: string
   content: string
   id: string

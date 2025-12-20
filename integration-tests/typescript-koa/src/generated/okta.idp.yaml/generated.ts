@@ -28,9 +28,9 @@ import type {
   t_AppAuthenticatorEnrollmentRequest,
   t_Authenticator,
   t_AuthenticatorEnrollment,
-  t_createEmailJsonRequestBody,
-  t_createPasswordJsonRequestBody,
-  t_createPhoneJsonRequestBody,
+  t_CreateEmailRequestBody,
+  t_CreatePasswordRequestBody,
+  t_CreatePhoneRequestBody,
   t_DeleteAppAuthenticatorEnrollmentParamSchema,
   t_DeleteEmailParamSchema,
   t_DeletePhoneParamSchema,
@@ -52,31 +52,31 @@ import type {
   t_Profile,
   t_PushNotificationChallenge,
   t_PushNotificationVerification,
-  t_replacePasswordJsonRequestBody,
-  t_replaceProfileJsonRequestBody,
+  t_ReplacePasswordRequestBody,
+  t_ReplaceProfileRequestBody,
   t_Schema,
   t_SendEmailChallengeParamSchema,
+  t_SendEmailChallengeRequestBody,
   t_SendPhoneChallengeParamSchema,
-  t_sendEmailChallengeJsonRequestBody,
-  t_sendPhoneChallengeJsonRequestBody,
+  t_SendPhoneChallengeRequestBody,
   t_UpdateAppAuthenticatorEnrollmentParamSchema,
   t_UpdateAppAuthenticatorEnrollmentRequest,
   t_UpdateAuthenticatorEnrollmentRequest,
   t_UpdateEnrollmentParamSchema,
   t_VerifyAppAuthenticatorPushNotificationChallengeParamSchema,
   t_VerifyEmailOtpParamSchema,
+  t_VerifyEmailOtpRequestBody,
   t_VerifyPhoneChallengeParamSchema,
-  t_verifyEmailOtpJsonRequestBody,
-  t_verifyPhoneChallengeJsonRequestBody,
+  t_VerifyPhoneChallengeRequestBody,
 } from "./models"
 import {
   s_AppAuthenticatorEnrollment,
   s_AppAuthenticatorEnrollmentRequest,
   s_Authenticator,
   s_AuthenticatorEnrollment,
-  s_createEmailJsonRequestBody,
-  s_createPasswordJsonRequestBody,
-  s_createPhoneJsonRequestBody,
+  s_CreateEmailRequestBody,
+  s_CreatePasswordRequestBody,
+  s_CreatePhoneRequestBody,
   s_Email,
   s_Error,
   s_OktaApplication,
@@ -86,15 +86,15 @@ import {
   s_Profile,
   s_PushNotificationChallenge,
   s_PushNotificationVerification,
-  s_replacePasswordJsonRequestBody,
-  s_replaceProfileJsonRequestBody,
+  s_ReplacePasswordRequestBody,
+  s_ReplaceProfileRequestBody,
   s_Schema,
-  s_sendEmailChallengeJsonRequestBody,
-  s_sendPhoneChallengeJsonRequestBody,
+  s_SendEmailChallengeRequestBody,
+  s_SendPhoneChallengeRequestBody,
   s_UpdateAppAuthenticatorEnrollmentRequest,
   s_UpdateAuthenticatorEnrollmentRequest,
-  s_verifyEmailOtpJsonRequestBody,
-  s_verifyPhoneChallengeJsonRequestBody,
+  s_VerifyEmailOtpRequestBody,
+  s_VerifyPhoneChallengeRequestBody,
 } from "./schemas"
 
 export type CreateAppAuthenticatorEnrollmentResponder = {
@@ -357,7 +357,7 @@ export type CreateEmailResponder = {
 } & KoaRuntimeResponder
 
 export type CreateEmail = (
-  params: Params<void, void, t_createEmailJsonRequestBody, void>,
+  params: Params<void, void, t_CreateEmailRequestBody, void>,
   respond: CreateEmailResponder,
   ctx: RouterContext,
   next: Next,
@@ -441,7 +441,7 @@ export type SendEmailChallenge = (
   params: Params<
     t_SendEmailChallengeParamSchema,
     void,
-    t_sendEmailChallengeJsonRequestBody,
+    t_SendEmailChallengeRequestBody,
     void
   >,
   respond: SendEmailChallengeResponder,
@@ -555,7 +555,7 @@ export type VerifyEmailOtp = (
   params: Params<
     t_VerifyEmailOtpParamSchema,
     void,
-    t_verifyEmailOtpJsonRequestBody,
+    t_VerifyEmailOtpRequestBody,
     void
   >,
   respond: VerifyEmailOtpResponder,
@@ -629,7 +629,7 @@ export type CreatePasswordResponder = {
 } & KoaRuntimeResponder
 
 export type CreatePassword = (
-  params: Params<void, void, t_createPasswordJsonRequestBody, void>,
+  params: Params<void, void, t_CreatePasswordRequestBody, void>,
   respond: CreatePasswordResponder,
   ctx: RouterContext,
   next: Next,
@@ -650,7 +650,7 @@ export type ReplacePasswordResponder = {
 } & KoaRuntimeResponder
 
 export type ReplacePassword = (
-  params: Params<void, void, t_replacePasswordJsonRequestBody, void>,
+  params: Params<void, void, t_ReplacePasswordRequestBody, void>,
   respond: ReplacePasswordResponder,
   ctx: RouterContext,
   next: Next,
@@ -709,7 +709,7 @@ export type CreatePhoneResponder = {
 } & KoaRuntimeResponder
 
 export type CreatePhone = (
-  params: Params<void, void, t_createPhoneJsonRequestBody, void>,
+  params: Params<void, void, t_CreatePhoneRequestBody, void>,
   respond: CreatePhoneResponder,
   ctx: RouterContext,
   next: Next,
@@ -786,7 +786,7 @@ export type SendPhoneChallenge = (
   params: Params<
     t_SendPhoneChallengeParamSchema,
     void,
-    t_sendPhoneChallengeJsonRequestBody,
+    t_SendPhoneChallengeRequestBody,
     void
   >,
   respond: SendPhoneChallengeResponder,
@@ -828,7 +828,7 @@ export type VerifyPhoneChallenge = (
   params: Params<
     t_VerifyPhoneChallengeParamSchema,
     void,
-    t_verifyPhoneChallengeJsonRequestBody,
+    t_VerifyPhoneChallengeRequestBody,
     void
   >,
   respond: VerifyPhoneChallengeResponder,
@@ -869,7 +869,7 @@ export type ReplaceProfileResponder = {
 } & KoaRuntimeResponder
 
 export type ReplaceProfile = (
-  params: Params<void, void, t_replaceProfileJsonRequestBody, void>,
+  params: Params<void, void, t_ReplaceProfileRequestBody, void>,
   respond: ReplaceProfileResponder,
   ctx: RouterContext,
   next: Next,
@@ -1706,7 +1706,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const createEmailBodySchema = s_createEmailJsonRequestBody
+  const createEmailBodySchema = s_CreateEmailRequestBody
 
   const createEmailResponseValidator = responseValidationFactory(
     [
@@ -1891,7 +1891,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const sendEmailChallengeParamSchema = z.object({id: z.string()})
 
-  const sendEmailChallengeBodySchema = s_sendEmailChallengeJsonRequestBody
+  const sendEmailChallengeBodySchema = s_SendEmailChallengeRequestBody
 
   const sendEmailChallengeResponseValidator = responseValidationFactory(
     [
@@ -2112,7 +2112,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     challengeId: z.string(),
   })
 
-  const verifyEmailOtpBodySchema = s_verifyEmailOtpJsonRequestBody
+  const verifyEmailOtpBodySchema = s_VerifyEmailOtpRequestBody
 
   const verifyEmailOtpResponseValidator = responseValidationFactory(
     [
@@ -2330,7 +2330,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const createPasswordBodySchema = s_createPasswordJsonRequestBody
+  const createPasswordBodySchema = s_CreatePasswordRequestBody
 
   const createPasswordResponseValidator = responseValidationFactory(
     [
@@ -2395,7 +2395,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const replacePasswordBodySchema = s_replacePasswordJsonRequestBody
+  const replacePasswordBodySchema = s_ReplacePasswordRequestBody
 
   const replacePasswordResponseValidator = responseValidationFactory(
     [
@@ -2562,7 +2562,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const createPhoneBodySchema = s_createPhoneJsonRequestBody
+  const createPhoneBodySchema = s_CreatePhoneRequestBody
 
   const createPhoneResponseValidator = responseValidationFactory(
     [
@@ -2755,7 +2755,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const sendPhoneChallengeParamSchema = z.object({id: z.string()})
 
-  const sendPhoneChallengeBodySchema = s_sendPhoneChallengeJsonRequestBody
+  const sendPhoneChallengeBodySchema = s_SendPhoneChallengeRequestBody
 
   const sendPhoneChallengeResponseValidator = responseValidationFactory(
     [
@@ -2857,7 +2857,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const verifyPhoneChallengeParamSchema = z.object({id: z.string()})
 
-  const verifyPhoneChallengeBodySchema = s_verifyPhoneChallengeJsonRequestBody
+  const verifyPhoneChallengeBodySchema = s_VerifyPhoneChallengeRequestBody
 
   const verifyPhoneChallengeResponseValidator = responseValidationFactory(
     [
@@ -2981,7 +2981,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const replaceProfileBodySchema = s_replaceProfileJsonRequestBody
+  const replaceProfileBodySchema = s_ReplaceProfileRequestBody
 
   const replaceProfileResponseValidator = responseValidationFactory(
     [
