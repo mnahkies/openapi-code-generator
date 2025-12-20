@@ -2147,7 +2147,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const parOptionsHeaderSchema = z.object({origin: z.string().optional()})
+  const parOptionsRequestHeaderSchema = z.object({
+    origin: z.string().optional(),
+  })
 
   const parOptionsResponseValidator = responseValidationFactory(
     [
@@ -2163,7 +2165,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       query: undefined,
       body: undefined,
       headers: parseRequestInput(
-        parOptionsHeaderSchema,
+        parOptionsRequestHeaderSchema,
         Reflect.get(ctx.request, "headers"),
         RequestInputType.RequestHeader,
       ),
@@ -2322,7 +2324,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const tokenOptionsHeaderSchema = z.object({origin: z.string().optional()})
+  const tokenOptionsRequestHeaderSchema = z.object({
+    origin: z.string().optional(),
+  })
 
   const tokenOptionsResponseValidator = responseValidationFactory(
     [
@@ -2338,7 +2342,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       query: undefined,
       body: undefined,
       headers: parseRequestInput(
-        tokenOptionsHeaderSchema,
+        tokenOptionsRequestHeaderSchema,
         Reflect.get(ctx.request, "headers"),
         RequestInputType.RequestHeader,
       ),
@@ -3334,7 +3338,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     authorizationServerId: z.string(),
   })
 
-  const parOptionsCustomAsHeaderSchema = z.object({
+  const parOptionsCustomAsRequestHeaderSchema = z.object({
     origin: z.string().optional(),
   })
 
@@ -3359,7 +3363,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: undefined,
         headers: parseRequestInput(
-          parOptionsCustomAsHeaderSchema,
+          parOptionsCustomAsRequestHeaderSchema,
           Reflect.get(ctx.request, "headers"),
           RequestInputType.RequestHeader,
         ),
@@ -3545,7 +3549,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     authorizationServerId: z.string(),
   })
 
-  const tokenOptionsCustomAsHeaderSchema = z.object({
+  const tokenOptionsCustomAsRequestHeaderSchema = z.object({
     origin: z.string().optional(),
   })
 
@@ -3570,7 +3574,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         query: undefined,
         body: undefined,
         headers: parseRequestInput(
-          tokenOptionsCustomAsHeaderSchema,
+          tokenOptionsCustomAsRequestHeaderSchema,
           Reflect.get(ctx.request, "headers"),
           RequestInputType.RequestHeader,
         ),
