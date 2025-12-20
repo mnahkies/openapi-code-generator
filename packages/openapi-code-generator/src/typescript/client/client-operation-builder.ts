@@ -134,8 +134,10 @@ export class ClientOperationBuilder {
   }
 
   queryString(): string {
+    const {parameters} = this.operation
+
     // todo: consider style / explode / allowReserved etc here
-    return this.operation.parameters.query.list
+    return parameters.query.list
       .map((it) => `'${it.name}': ${this.paramName(it.name)}`)
       .join(",\n")
   }
@@ -145,7 +147,9 @@ export class ClientOperationBuilder {
   }: {
     nullContentTypeValue: "undefined" | "false"
   }): string {
-    const paramHeaders = this.operation.parameters.header.list.map(
+    const {parameters} = this.operation
+
+    const paramHeaders = parameters.header.list.map(
       (it) => `'${it.name}': ${this.paramName(it.name)}`,
     )
 
@@ -172,7 +176,9 @@ export class ClientOperationBuilder {
   }
 
   hasHeader(name: string): boolean {
-    const parameter = this.operation.parameters.header.list.find(
+    const {parameters} = this.operation
+
+    const parameter = parameters.header.list.find(
       (it) => it.name.toLowerCase() === name.toLowerCase(),
     )
 

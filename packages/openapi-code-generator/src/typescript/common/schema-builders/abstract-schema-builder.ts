@@ -228,7 +228,7 @@ export abstract class AbstractSchemaBuilder<
           // Note: for zod in particular it's desirable to use merge over intersection
           //       where possible, as it returns a more malleable schema
           const isMergable = model.allOf
-            .map((it) => (isRef(it) ? this.input.schema(it) : it))
+            .map((it) => this.input.schema(it))
             .every(
               (it) =>
                 it.type === "object" &&
