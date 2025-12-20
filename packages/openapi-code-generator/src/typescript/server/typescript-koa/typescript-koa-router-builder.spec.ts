@@ -83,7 +83,7 @@ describe("typescript/server/typescript-koa/koa-router-builder", () => {
 
       serverRouterBuilder.add({
         method: "GET",
-        params: {
+        parameters: {
           all: [],
           path: {list: [], name: "", $ref: undefined},
           query: {list: [], name: "", $ref: undefined},
@@ -101,7 +101,7 @@ describe("typescript/server/typescript-koa/koa-router-builder", () => {
       })
       serverRouterBuilder.add({
         method: "GET",
-        params: {
+        parameters: {
           all: [],
           path: {list: [], name: "", $ref: undefined},
           query: {list: [], name: "", $ref: undefined},

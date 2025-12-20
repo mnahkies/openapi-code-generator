@@ -23,7 +23,7 @@ import type {
   IRModelObject,
   IRModelString,
   IROperation,
-  IROperationParams,
+  IROperationParameters,
   IRParameter,
   IRParameterBase,
   IRParameterCookie,
@@ -174,7 +174,7 @@ export class Input {
           servers: this.normalizeServers(
             coalesce(definition.servers, paths.servers, []),
           ),
-          params: this.parameterNormalizer.normalizeParameters(
+          parameters: this.parameterNormalizer.normalizeParameters(
             operationId,
             parameters,
           ),
@@ -458,7 +458,7 @@ export class ParameterNormalizer {
   public normalizeParameters(
     operationId: string,
     parameters: (Parameter | Reference)[] = [],
-  ): IROperationParams {
+  ): IROperationParameters {
     const allParameters = parameters.map((it) => this.loader.parameter(it))
 
     const pathParameters = allParameters.filter((it) => it.in === "path")

@@ -73,7 +73,7 @@ export class ServerOperationBuilder {
   }
 
   get route(): string {
-    const {route, params} = this.operation
+    const {route, parameters} = this.operation
 
     const placeholders = extractPlaceholders(route)
 
@@ -84,7 +84,9 @@ export class ServerOperationBuilder {
         )
       }
 
-      const parameter = params.path.list.find((it) => it.name === placeholder)
+      const parameter = parameters.path.list.find(
+        (it) => it.name === placeholder,
+      )
 
       if (!parameter) {
         throw new Error(
@@ -161,7 +163,7 @@ export class ServerOperationBuilder {
   }
 
   private pathParameters(): Parameters["path"] {
-    const $ref = this.operation.params.path.$ref
+    const $ref = this.operation.parameters.path.$ref
 
     const schema = $ref
       ? this.schemaBuilder.fromModel(this.input.schema($ref), true, true)
@@ -173,11 +175,11 @@ export class ServerOperationBuilder {
       type = this.types.schemaObjectToType($ref)
     }
 
-    return {name: this.operation.params.path.name, schema: schema, type}
+    return {name: this.operation.parameters.path.name, schema: schema, type}
   }
 
   private queryParameters(): Parameters["query"] {
-    const $ref = this.operation.params.query.$ref
+    const $ref = this.operation.parameters.query.$ref
 
     const schema = $ref
       ? this.schemaBuilder.fromModel(this.input.schema($ref), true, true)
@@ -189,11 +191,11 @@ export class ServerOperationBuilder {
       type = this.types.schemaObjectToType($ref)
     }
 
-    return {name: this.operation.params.query.name, schema: schema, type}
+    return {name: this.operation.parameters.query.name, schema: schema, type}
   }
 
   private headerParameters(): Parameters["header"] {
-    const $ref = this.operation.params.header.$ref
+    const $ref = this.operation.parameters.header.$ref
 
     const schema = $ref
       ? this.schemaBuilder.fromModel(this.input.schema($ref), true, true)
@@ -205,7 +207,7 @@ export class ServerOperationBuilder {
       type = this.types.schemaObjectToType($ref)
     }
 
-    return {name: this.operation.params.header.name, schema: schema, type}
+    return {name: this.operation.parameters.header.name, schema: schema, type}
   }
 
   private requestBodyParameter(): Parameters["body"] {

@@ -175,7 +175,7 @@ export type IRParameter =
  * $ref - location of the schema encapsulating params into an object
  * list - list of the parameters
  */
-export interface IROperationParams {
+export interface IROperationParameters {
   all: IRParameter[]
   path: {name: string; list: IRParameterPath[]; $ref: Reference | undefined}
   query: {name: string; list: IRParameterQuery[]; $ref: Reference | undefined}
@@ -188,7 +188,7 @@ export interface IROperation {
   route: string
   method: HttpMethod
 
-  params: IROperationParams
+  parameters: IROperationParameters
 
   tags: string[]
   requestBody: IRRequestBody | undefined
