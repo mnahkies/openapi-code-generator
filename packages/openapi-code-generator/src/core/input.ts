@@ -600,17 +600,6 @@ export class ParameterNormalizer {
           throwUnsupportedStyle(style)
         }
 
-        // todo: add if dereferenced(base.schema).type === "array
-        /*
-
-        "x-internal-preprocess": {
-            deserialize: {
-              fn: "(it: unknown) => Array.isArray(it) || it === undefined ? it : [it]",
-            },
-          },
-
-         */
-
         return {
           ...base,
           in: "query",
