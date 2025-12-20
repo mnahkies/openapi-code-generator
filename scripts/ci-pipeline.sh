@@ -8,7 +8,8 @@ SCHEMA_BUILDERS=(
   zod-v4
 )
 
-pnpm ci-build
+pnpm run build
+pnpm run build:docs
 pnpm ci-test
 
 pnpm lint

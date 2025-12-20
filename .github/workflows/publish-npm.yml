@@ -43,7 +43,7 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
 
-      - run: pnpm ci-build
+      - run: pnpm run build
 
       - name: Publish packages
         run: |

@@ -22,16 +22,16 @@
     "refresh": "./scripts/refresh-data.sh",
     "lint": "biome lint --fix .",
     "format": "biome check --write .",
-    "build": "node ./scripts/generate-ajv-validator.js && tsc -b tsconfig.json && pnpm --filter @nahkies/openapi-code-generator-documentation build",
+    "build": "node ./scripts/generate-ajv-validator.js && tsc -b tsconfig.json",
+    "build:docs": "pnpm --filter @nahkies/openapi-code-generator-documentation build",
     "build:watch": "tsc -b tsconfig.json -w",
-    "test": "NODE_OPTIONS=--experimental-vm-modules jest",
+    "test": "jest",
     "integration:clean": "pnpm --filter @integration/* clean",
     "integration:generate": "node ./scripts/generate.mjs",
     "integration:validate": "pnpm -r validate",
     "e2e:generate": "pnpm --filter e2e clean && pnpm --filter e2e generate",
     "e2e:validate": "pnpm --filter e2e build && pnpm --filter e2e test",
-    "ci-build": "pnpm build",
-    "ci-test": "NODE_OPTIONS=--experimental-vm-modules jest --coverage",
+    "ci-test": "jest --coverage",
     "ci-lint": "biome ci .",
     "ci-pipeline": "./scripts/ci-pipeline.sh",
     "publish:alpha": "./scripts/publish.alpha.sh",
@@ -56,9 +56,9 @@
     "husky": "^9.1.7",
     "jest": "^30.2.0",
     "json5": "^2.2.3",
-    "lerna": "^9.0.1",
+    "lerna": "^9.0.3",
     "lint-staged": "^16.2.7",
-    "prettier": "^3.6.2",
+    "prettier": "^3.7.4",
     "remark": "^15.0.1",
     "remark-toc": "^9.0.0",
     "typescript": "^5.9.3"
@@ -80,5 +80,5 @@
   "engines": {
     "node": ">=20 <25"
   },
-  "packageManager": "pnpm@10.24.0+sha512.01ff8ae71b4419903b65c60fb2dc9d34cf8bb6e06d03bde112ef38f7a34d6904c424ba66bea5cdcf12890230bf39f9580473140ed9c946fef328b6e5238a345a"
+  "packageManager": "pnpm@10.26.1+sha512.664074abc367d2c9324fdc18037097ce0a8f126034160f709928e9e9f95d98714347044e5c3164d65bd5da6c59c6be362b107546292a8eecb7999196e5ce58fa"
 }
