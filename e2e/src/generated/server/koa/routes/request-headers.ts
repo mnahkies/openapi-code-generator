@@ -117,7 +117,7 @@ export function createRequestHeadersRouter(
     },
   )
 
-  const getHeadersRequestHeaderSchema = z.object({
+  const getHeadersRequestRequestHeaderSchema = z.object({
     "route-level-header": z.string().optional(),
     "number-header": z.coerce.number().optional(),
     "boolean-header": PermissiveBoolean.optional(),
@@ -136,7 +136,7 @@ export function createRequestHeadersRouter(
       query: undefined,
       body: undefined,
       headers: parseRequestInput(
-        getHeadersRequestHeaderSchema,
+        getHeadersRequestRequestHeaderSchema,
         Reflect.get(ctx.request, "headers"),
         RequestInputType.RequestHeader,
       ),

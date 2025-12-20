@@ -7,6 +7,7 @@ import {
   isDefined,
   isHttpMethod,
   kebabCase,
+  lowerFirst,
   mediaTypeToIdentifier,
   normalizeFilename,
   snakeCase,
@@ -112,6 +113,18 @@ describe("core/utils", () => {
       ["snake_case", "Snake_case"],
     ])("%s -> %s", (input, expected) => {
       expect(upperFirst(input)).toBe(expected)
+    })
+  })
+
+  describe("#lowerFirst", () => {
+    it.each([
+      ["single", "single"],
+      ["two words", "two words"],
+      ["camelCase", "camelCase"],
+      ["pipe-case", "pipe-case"],
+      ["snake_case", "snake_case"],
+    ])("%s -> %s", (input, expected) => {
+      expect(lowerFirst(input)).toBe(expected)
     })
   })
 

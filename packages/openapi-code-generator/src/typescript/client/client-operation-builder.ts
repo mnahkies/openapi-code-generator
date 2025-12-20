@@ -179,8 +179,7 @@ export class ClientOperationBuilder {
     const {parameters} = this.operation
 
     const parameter = parameters.header.list.find(
-      (it) =>
-        it.in === "header" && it.name.toLowerCase() === name.toLowerCase(),
+      (it) => it.name.toLowerCase() === name.toLowerCase(),
     )
 
     return Boolean(parameter)

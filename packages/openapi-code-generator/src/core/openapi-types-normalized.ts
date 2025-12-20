@@ -7,6 +7,7 @@ export interface IRRef {
 }
 
 export interface IRModelBase {
+  isIRModel: true
   // Note: meaningless for top level objects, maybe we can exclude these somehow in that case
   nullable: boolean /* false */
   readOnly: boolean /* false */
@@ -35,8 +36,8 @@ export interface IRModelNumeric extends IRModelBase {
   enum?: number[] | undefined
   exclusiveMaximum?: number | undefined
   exclusiveMinimum?: number | undefined
-  maximum?: number | undefined
-  minimum?: number | undefined
+  inclusiveMaximum?: number | undefined
+  inclusiveMinimum?: number | undefined
   multipleOf?: number | undefined
 
   "x-enum-extensibility"?: "open" | "closed" | undefined
@@ -166,25 +167,29 @@ export type IRParameter =
   | IRParameterPath
   | IRParameterQuery
   | IRParameterHeader
-  | IRParameterCookie
   | IRParameterRequestBody
+  | IRParameterCookie
 
 /**
- * $ref - location of the virtual schema encapsulating params into an object
+ * name - variable name for generated code
+ * $ref - location of the schema encapsulating params into an object
  * list - list of the parameters
  */
 export interface IROperationParameters {
   all: IRParameter[]
-  path: {list: IRParameterPath[]; $ref: Reference | undefined}
-  query: {list: IRParameterQuery[]; $ref: Reference | undefined}
-  header: {list: IRParameterHeader[]; $ref: Reference | undefined}
+  path: {name: string; list: IRParameterPath[]; $ref: Reference | undefined}
+  query: {name: string; list: IRParameterQuery[]; $ref: Reference | undefined}
+  header: {name: string; list: IRParameterHeader[]; $ref: Reference | undefined}
 }
 
 export interface IROperation {
+  operationId: string
+
   route: string
   method: HttpMethod
+
   parameters: IROperationParameters
-  operationId: string
+
   tags: string[]
   requestBody: IRRequestBody | undefined
   responses:

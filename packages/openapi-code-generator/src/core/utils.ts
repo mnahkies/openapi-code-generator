@@ -69,6 +69,10 @@ export function upperFirst(str: string): string {
   return _.upperFirst(str)
 }
 
+export function lowerFirst(str: string): string {
+  return _.lowerFirst(str)
+}
+
 // TODO: typescript/javascript reserved words probably don't belong in core
 const reservedWords: Set<string> = new Set([
   // JavaScript keywords

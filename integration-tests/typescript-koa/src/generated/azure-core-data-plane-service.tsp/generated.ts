@@ -787,7 +787,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "api-version": z.string().min(1),
   })
 
-  const getServiceStatusHeaderSchema = z.object({
+  const getServiceStatusRequestHeaderSchema = z.object({
     "x-ms-client-request-id": s_Azure_Core_uuid.optional(),
   })
 
@@ -806,7 +806,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       body: undefined,
       headers: parseRequestInput(
-        getServiceStatusHeaderSchema,
+        getServiceStatusRequestHeaderSchema,
         Reflect.get(ctx.request, "headers"),
         RequestInputType.RequestHeader,
       ),
@@ -958,7 +958,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "api-version": z.string().min(1),
   })
 
-  const widgetsCreateOrUpdateWidgetHeaderSchema = z.object({
+  const widgetsCreateOrUpdateWidgetRequestHeaderSchema = z.object({
     "repeatability-request-id": z.string().optional(),
     "repeatability-first-sent": z.string().optional(),
     "if-match": z.string().optional(),
@@ -998,7 +998,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.RequestBody,
         ),
         headers: parseRequestInput(
-          widgetsCreateOrUpdateWidgetHeaderSchema,
+          widgetsCreateOrUpdateWidgetRequestHeaderSchema,
           Reflect.get(ctx.request, "headers"),
           RequestInputType.RequestHeader,
         ),
@@ -1047,7 +1047,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "api-version": z.string().min(1),
   })
 
-  const widgetsGetWidgetHeaderSchema = z.object({
+  const widgetsGetWidgetRequestHeaderSchema = z.object({
     "if-match": z.string().optional(),
     "if-none-match": z.string().optional(),
     "if-unmodified-since": z.string().optional(),
@@ -1074,7 +1074,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       body: undefined,
       headers: parseRequestInput(
-        widgetsGetWidgetHeaderSchema,
+        widgetsGetWidgetRequestHeaderSchema,
         Reflect.get(ctx.request, "headers"),
         RequestInputType.RequestHeader,
       ),
@@ -1119,7 +1119,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "api-version": z.string().min(1),
   })
 
-  const widgetsDeleteWidgetHeaderSchema = z.object({
+  const widgetsDeleteWidgetRequestHeaderSchema = z.object({
     "repeatability-request-id": z.string().optional(),
     "repeatability-first-sent": z.string().optional(),
     "if-match": z.string().optional(),
@@ -1160,7 +1160,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: undefined,
         headers: parseRequestInput(
-          widgetsDeleteWidgetHeaderSchema,
+          widgetsDeleteWidgetRequestHeaderSchema,
           Reflect.get(ctx.request, "headers"),
           RequestInputType.RequestHeader,
         ),
@@ -1217,7 +1217,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       .optional(),
   })
 
-  const widgetsListWidgetsHeaderSchema = z.object({
+  const widgetsListWidgetsRequestHeaderSchema = z.object({
     "x-ms-client-request-id": s_Azure_Core_uuid.optional(),
   })
 
@@ -1236,7 +1236,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       body: undefined,
       headers: parseRequestInput(
-        widgetsListWidgetsHeaderSchema,
+        widgetsListWidgetsRequestHeaderSchema,
         Reflect.get(ctx.request, "headers"),
         RequestInputType.RequestHeader,
       ),
@@ -1281,7 +1281,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "api-version": z.string().min(1),
   })
 
-  const widgetsGetAnalyticsHeaderSchema = z.object({
+  const widgetsGetAnalyticsRequestHeaderSchema = z.object({
     "if-match": z.string().optional(),
     "if-none-match": z.string().optional(),
     "if-unmodified-since": z.string().optional(),
@@ -1311,7 +1311,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: undefined,
         headers: parseRequestInput(
-          widgetsGetAnalyticsHeaderSchema,
+          widgetsGetAnalyticsRequestHeaderSchema,
           Reflect.get(ctx.request, "headers"),
           RequestInputType.RequestHeader,
         ),
@@ -1357,7 +1357,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "api-version": z.string().min(1),
   })
 
-  const widgetsUpdateAnalyticsHeaderSchema = z.object({
+  const widgetsUpdateAnalyticsRequestHeaderSchema = z.object({
     "repeatability-request-id": z.string().optional(),
     "repeatability-first-sent": z.string().optional(),
     "if-match": z.string().optional(),
@@ -1396,7 +1396,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.RequestBody,
         ),
         headers: parseRequestInput(
-          widgetsUpdateAnalyticsHeaderSchema,
+          widgetsUpdateAnalyticsRequestHeaderSchema,
           Reflect.get(ctx.request, "headers"),
           RequestInputType.RequestHeader,
         ),
@@ -1527,7 +1527,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "api-version": z.string().min(1),
   })
 
-  const widgetsScheduleRepairsHeaderSchema = z.object({
+  const widgetsScheduleRepairsRequestHeaderSchema = z.object({
     "repeatability-request-id": z.string().optional(),
     "repeatability-first-sent": z.string().optional(),
     "x-ms-client-request-id": s_Azure_Core_uuid.optional(),
@@ -1577,7 +1577,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.RequestBody,
         ),
         headers: parseRequestInput(
-          widgetsScheduleRepairsHeaderSchema,
+          widgetsScheduleRepairsRequestHeaderSchema,
           Reflect.get(ctx.request, "headers"),
           RequestInputType.RequestHeader,
         ),
@@ -1723,7 +1723,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "api-version": z.string().min(1),
   })
 
-  const widgetPartsCreateWidgetPartHeaderSchema = z.object({
+  const widgetPartsCreateWidgetPartRequestHeaderSchema = z.object({
     "repeatability-request-id": z.string().optional(),
     "repeatability-first-sent": z.string().optional(),
     "if-match": z.string().optional(),
@@ -1760,7 +1760,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.RequestBody,
         ),
         headers: parseRequestInput(
-          widgetPartsCreateWidgetPartHeaderSchema,
+          widgetPartsCreateWidgetPartRequestHeaderSchema,
           Reflect.get(ctx.request, "headers"),
           RequestInputType.RequestHeader,
         ),
@@ -1808,7 +1808,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "api-version": z.string().min(1),
   })
 
-  const widgetPartsListWidgetPartsHeaderSchema = z.object({
+  const widgetPartsListWidgetPartsRequestHeaderSchema = z.object({
     "x-ms-client-request-id": s_Azure_Core_uuid.optional(),
   })
 
@@ -1834,7 +1834,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: undefined,
         headers: parseRequestInput(
-          widgetPartsListWidgetPartsHeaderSchema,
+          widgetPartsListWidgetPartsRequestHeaderSchema,
           Reflect.get(ctx.request, "headers"),
           RequestInputType.RequestHeader,
         ),
@@ -1883,7 +1883,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "api-version": z.string().min(1),
   })
 
-  const widgetPartsGetWidgetPartHeaderSchema = z.object({
+  const widgetPartsGetWidgetPartRequestHeaderSchema = z.object({
     "if-match": z.string().optional(),
     "if-none-match": z.string().optional(),
     "if-unmodified-since": z.string().optional(),
@@ -1913,7 +1913,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: undefined,
         headers: parseRequestInput(
-          widgetPartsGetWidgetPartHeaderSchema,
+          widgetPartsGetWidgetPartRequestHeaderSchema,
           Reflect.get(ctx.request, "headers"),
           RequestInputType.RequestHeader,
         ),
@@ -1962,7 +1962,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "api-version": z.string().min(1),
   })
 
-  const widgetPartsDeleteWidgetPartHeaderSchema = z.object({
+  const widgetPartsDeleteWidgetPartRequestHeaderSchema = z.object({
     "repeatability-request-id": z.string().optional(),
     "repeatability-first-sent": z.string().optional(),
     "if-match": z.string().optional(),
@@ -1995,7 +1995,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: undefined,
         headers: parseRequestInput(
-          widgetPartsDeleteWidgetPartHeaderSchema,
+          widgetPartsDeleteWidgetPartRequestHeaderSchema,
           Reflect.get(ctx.request, "headers"),
           RequestInputType.RequestHeader,
         ),
@@ -2041,7 +2041,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "api-version": z.string().min(1),
   })
 
-  const widgetPartsReorderPartsHeaderSchema = z.object({
+  const widgetPartsReorderPartsRequestHeaderSchema = z.object({
     "repeatability-request-id": z.string().optional(),
     "repeatability-first-sent": z.string().optional(),
     "x-ms-client-request-id": s_Azure_Core_uuid.optional(),
@@ -2082,7 +2082,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.RequestBody,
         ),
         headers: parseRequestInput(
-          widgetPartsReorderPartsHeaderSchema,
+          widgetPartsReorderPartsRequestHeaderSchema,
           Reflect.get(ctx.request, "headers"),
           RequestInputType.RequestHeader,
         ),
@@ -2225,7 +2225,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "api-version": z.string().min(1),
   })
 
-  const manufacturersCreateOrReplaceManufacturerHeaderSchema = z.object({
+  const manufacturersCreateOrReplaceManufacturerRequestHeaderSchema = z.object({
     "repeatability-request-id": z.string().optional(),
     "repeatability-first-sent": z.string().optional(),
     "if-match": z.string().optional(),
@@ -2265,7 +2265,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.RequestBody,
         ),
         headers: parseRequestInput(
-          manufacturersCreateOrReplaceManufacturerHeaderSchema,
+          manufacturersCreateOrReplaceManufacturerRequestHeaderSchema,
           Reflect.get(ctx.request, "headers"),
           RequestInputType.RequestHeader,
         ),
@@ -2319,7 +2319,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "api-version": z.string().min(1),
   })
 
-  const manufacturersGetManufacturerHeaderSchema = z.object({
+  const manufacturersGetManufacturerRequestHeaderSchema = z.object({
     "if-match": z.string().optional(),
     "if-none-match": z.string().optional(),
     "if-unmodified-since": z.string().optional(),
@@ -2350,7 +2350,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: undefined,
         headers: parseRequestInput(
-          manufacturersGetManufacturerHeaderSchema,
+          manufacturersGetManufacturerRequestHeaderSchema,
           Reflect.get(ctx.request, "headers"),
           RequestInputType.RequestHeader,
         ),
@@ -2398,7 +2398,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "api-version": z.string().min(1),
   })
 
-  const manufacturersDeleteManufacturerHeaderSchema = z.object({
+  const manufacturersDeleteManufacturerRequestHeaderSchema = z.object({
     "repeatability-request-id": z.string().optional(),
     "repeatability-first-sent": z.string().optional(),
     "if-match": z.string().optional(),
@@ -2440,7 +2440,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: undefined,
         headers: parseRequestInput(
-          manufacturersDeleteManufacturerHeaderSchema,
+          manufacturersDeleteManufacturerRequestHeaderSchema,
           Reflect.get(ctx.request, "headers"),
           RequestInputType.RequestHeader,
         ),
@@ -2488,7 +2488,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "api-version": z.string().min(1),
   })
 
-  const manufacturersListManufacturersHeaderSchema = z.object({
+  const manufacturersListManufacturersRequestHeaderSchema = z.object({
     "x-ms-client-request-id": s_Azure_Core_uuid.optional(),
   })
 
@@ -2511,7 +2511,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: undefined,
         headers: parseRequestInput(
-          manufacturersListManufacturersHeaderSchema,
+          manufacturersListManufacturersRequestHeaderSchema,
           Reflect.get(ctx.request, "headers"),
           RequestInputType.RequestHeader,
         ),

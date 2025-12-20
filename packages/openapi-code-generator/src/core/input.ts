@@ -43,7 +43,14 @@ import {
   defaultSyntheticNameGenerator,
   type SyntheticNameGenerator,
 } from "./synthetic-name-generator"
-import {camelCase, coalesce, deepEqual, isDefined, isHttpMethod} from "./utils"
+import {
+  camelCase,
+  coalesce,
+  deepEqual,
+  isDefined,
+  isHttpMethod,
+  lowerFirst,
+} from "./utils"
 
 export type OperationGroup = {name: string; operations: IROperation[]}
 export type OperationGroupStrategy = "none" | "first-tag" | "first-slug"
@@ -241,9 +248,15 @@ export class Input {
     ).map(([name, operations]) => ({name, operations}))
   }
 
-  schema(maybeRef: Reference | Schema): IRModel {
-    const schema = this.loader.schema(maybeRef)
-    return this.schemaNormalizer.normalize(schema)
+  schema(maybeRef: MaybeIRModel): IRModel {
+    if (isRef(maybeRef)) {
+      const schema = this.loader.schema(maybeRef)
+      return this.schemaNormalizer.isNormalized(schema)
+        ? schema
+        : this.schemaNormalizer.normalize(schema)
+    }
+
+    return maybeRef
   }
 
   preprocess(maybePreprocess: Reference | xInternalPreproccess): IRPreprocess {
@@ -370,7 +383,9 @@ export class Input {
     const filtered = Object.entries(mediaTypes)
       // Sometimes people pass `{}` as the MediaType for 204 responses, filter these out
       .filter(([, mediaType]) => Boolean(mediaType.schema))
+
     const hasMultipleMediaTypes = filtered.length > 1
+
     return Object.fromEntries(
       filtered.map(([contentType, mediaType]) => {
         return [
@@ -456,6 +471,9 @@ export class ParameterNormalizer {
     return {
       all: normalizedParameters,
       path: {
+        name: lowerFirst(
+          this.syntheticNameGenerator.forPathParameters({operationId}),
+        ),
         list: normalizedParameters.filter((it) => it.in === "path"),
         $ref: pathParameters.length
           ? this.loader.addVirtualType(
@@ -466,6 +484,9 @@ export class ParameterNormalizer {
           : undefined,
       },
       query: {
+        name: lowerFirst(
+          this.syntheticNameGenerator.forQueryParameters({operationId}),
+        ),
         list: normalizedParameters.filter((it) => it.in === "query"),
         $ref: queryParameters.length
           ? this.loader.addVirtualType(
@@ -476,6 +497,9 @@ export class ParameterNormalizer {
           : undefined,
       },
       header: {
+        name: lowerFirst(
+          this.syntheticNameGenerator.forRequestHeaders({operationId}),
+        ),
         list: normalizedParameters.filter((it) => it.in === "header"),
         $ref: headerParameters.length
           ? this.loader.addVirtualType(
@@ -562,6 +586,7 @@ export class ParameterNormalizer {
         return {
           ...base,
           in: "path",
+          required: true,
           style,
           explode,
         } satisfies IRParameterPath
@@ -675,6 +700,10 @@ export class ParameterNormalizer {
 export class SchemaNormalizer {
   constructor(readonly config: InputConfig) {}
 
+  public isNormalized(schema: Schema | IRModel): schema is IRModel {
+    return Reflect.get(schema, "isIRModel")
+  }
+
   public normalize(schemaObject: Schema): IRModel
   public normalize(schemaObject: Reference): IRRef
   public normalize(schemaObject: Schema | Reference): IRModel | IRRef
@@ -685,25 +714,29 @@ export class SchemaNormalizer {
       return schemaObject satisfies IRRef
     }
 
+    if (this.isNormalized(schemaObject)) {
+      throw new Error("double normalization!")
+    }
+
     // TODO: HACK: translates a type array into a a oneOf - unsure if this makes sense,
     //             or is the cleanest way to do it. I'm fairly sure this will work fine
     //             for most things though.
     if (Array.isArray(schemaObject.type)) {
       const nullable = Boolean(schemaObject.type.find((it) => it === "null"))
       return self.normalize({
+        type: "object",
         oneOf: schemaObject.type
           .filter((it) => it !== "null")
-          .map((it) =>
-            self.normalize({
-              ...schemaObject,
-              type: it,
-              nullable,
-            }),
-          ),
+          .map((it) => ({
+            ...schemaObject,
+            type: it,
+            nullable,
+          })),
       })
     }
 
     const base: IRModelBase = {
+      isIRModel: true,
       nullable: schemaObject.nullable || false,
       readOnly: schemaObject.readOnly || false,
       default: schemaObject.default,
@@ -799,18 +832,46 @@ export class SchemaNormalizer {
           Number.isFinite(it),
         )
 
-        let exclusiveMaximum = schemaObject.exclusiveMaximum
+        const calcMaximums = () => {
+          // draft-wright-json-schema-validation-01 changed "exclusiveMaximum"/"exclusiveMinimum" from boolean modifiers
+          // of "maximum"/"minimum" to independent numeric fields.
+          // we need to support both.
+          if (typeof schemaObject.exclusiveMaximum === "boolean") {
+            if (schemaObject.exclusiveMaximum) {
+              return {
+                exclusiveMaximum: schemaObject.maximum,
+                inclusiveMaximum: undefined,
+              }
+            } else {
+              return {
+                exclusiveMaximum: undefined,
+                inclusiveMaximum: schemaObject.maximum,
+              }
+            }
+          }
 
-        if (typeof exclusiveMaximum === "boolean") {
-          logger.warn("boolean exclusiveMaximum not yet supported - ignoring")
-          exclusiveMaximum = undefined
+          return {exclusiveMaximum: schemaObject.exclusiveMaximum}
         }
 
-        let exclusiveMinimum = schemaObject.exclusiveMinimum
+        const calcMinimums = () => {
+          // draft-wright-json-schema-validation-01 changed "exclusiveMaximum"/"exclusiveMinimum" from boolean modifiers
+          // of "maximum"/"minimum" to independent numeric fields.
+          // we need to support both.
+          if (typeof schemaObject.exclusiveMinimum === "boolean") {
+            if (schemaObject.exclusiveMinimum) {
+              return {
+                exclusiveMinimum: schemaObject.minimum,
+                inclusiveMinimum: undefined,
+              }
+            } else {
+              return {
+                exclusiveMinimum: undefined,
+                inclusiveMinimum: schemaObject.minimum,
+              }
+            }
+          }
 
-        if (typeof exclusiveMinimum === "boolean") {
-          logger.warn("boolean exclusiveMinimum not yet supported - ignoring")
-          exclusiveMinimum = undefined
+          return {exclusiveMinimum: schemaObject.exclusiveMinimum}
         }
 
         return {
@@ -820,12 +881,11 @@ export class SchemaNormalizer {
           // todo: https://github.com/mnahkies/openapi-code-generator/issues/51
           format: schemaObject.format,
           enum: enumValues.length ? enumValues : undefined,
-          exclusiveMaximum,
-          exclusiveMinimum,
-          maximum: schemaObject.maximum,
-          minimum: schemaObject.minimum,
+          inclusiveMaximum: schemaObject.maximum,
+          inclusiveMinimum: schemaObject.minimum,
           multipleOf: schemaObject.multipleOf,
-
+          ...calcMaximums(),
+          ...calcMinimums(),
           "x-enum-extensibility": enumValues.length
             ? (schemaObject["x-enum-extensibility"] ??
               self.config.enumExtensibility)
@@ -882,10 +942,11 @@ export class SchemaNormalizer {
           type: "never",
         }
       }
-      default:
+      default: {
         throw new Error(
           `unsupported type '${schemaObject.type satisfies never}'`,
         )
+      }
     }
 
     function normalizeProperties(

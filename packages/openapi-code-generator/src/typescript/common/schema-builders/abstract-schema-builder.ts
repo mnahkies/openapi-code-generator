@@ -195,7 +195,11 @@ export abstract class AbstractSchemaBuilder<
       return result
     }
 
-    const model = this.input.schema(maybeModel)
+    if (!Reflect.get(maybeModel, "isIRModel")) {
+      throw new Error("passed raw schema")
+    }
+
+    const model = maybeModel
 
     switch (model.type) {
       case "string":

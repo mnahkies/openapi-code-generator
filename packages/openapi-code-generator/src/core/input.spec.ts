@@ -14,6 +14,7 @@ import type {
 describe("core/input - SchemaNormalizer", () => {
   const base = {
     any: {
+      isIRModel: true,
       type: "any",
       default: undefined,
       nullable: false,
@@ -21,6 +22,7 @@ describe("core/input - SchemaNormalizer", () => {
       "x-internal-preprocess": undefined,
     } satisfies IRModelAny,
     never: {
+      isIRModel: true,
       type: "never",
       default: undefined,
       nullable: false,
@@ -28,6 +30,7 @@ describe("core/input - SchemaNormalizer", () => {
       "x-internal-preprocess": undefined,
     } satisfies IRModelNever,
     object: {
+      isIRModel: true,
       type: "object",
       default: undefined,
       nullable: false,
@@ -41,6 +44,7 @@ describe("core/input - SchemaNormalizer", () => {
       "x-internal-preprocess": undefined,
     } satisfies IRModelObject,
     array: {
+      isIRModel: true,
       type: "array",
       default: undefined,
       nullable: false,
@@ -51,6 +55,7 @@ describe("core/input - SchemaNormalizer", () => {
       "x-internal-preprocess": undefined,
     } satisfies Omit<IRModelArray, "items">,
     string: {
+      isIRModel: true,
       type: "string",
       format: undefined,
       default: undefined,
@@ -64,14 +69,15 @@ describe("core/input - SchemaNormalizer", () => {
       "x-internal-preprocess": undefined,
     } satisfies IRModelString,
     number: {
+      isIRModel: true,
       type: "number",
       format: undefined,
       default: undefined,
       enum: undefined,
       exclusiveMaximum: undefined,
       exclusiveMinimum: undefined,
-      maximum: undefined,
-      minimum: undefined,
+      inclusiveMaximum: undefined,
+      inclusiveMinimum: undefined,
       multipleOf: undefined,
       nullable: false,
       readOnly: false,
@@ -79,6 +85,7 @@ describe("core/input - SchemaNormalizer", () => {
       "x-internal-preprocess": undefined,
     } satisfies IRModelNumeric,
     boolean: {
+      isIRModel: true,
       type: "boolean",
       default: undefined,
       enum: undefined,
@@ -244,15 +251,14 @@ describe("core/input - SchemaNormalizer", () => {
           ...base.number,
           format: "int64",
           multipleOf: 2,
-          maximum: 4,
-          minimum: -2,
+          inclusiveMaximum: 4,
+          inclusiveMinimum: -2,
           exclusiveMaximum: 5,
           exclusiveMinimum: -3,
         })
       })
 
-      // todo: implement
-      it.skip("handles openapi 3.0 boolean exclusiveMaximum / exclusiveMinimum modifiers (true)", () => {
+      it("handles openapi 3.0 boolean exclusiveMaximum / exclusiveMinimum modifiers (true)", () => {
         const actual = schemaNormalizer.normalize({
           type: "number",
           format: "int64",
@@ -272,8 +278,7 @@ describe("core/input - SchemaNormalizer", () => {
         })
       })
 
-      // todo: implement
-      it.skip("handles openapi 3.0 boolean exclusiveMaximum / exclusiveMinimum modifiers (false)", () => {
+      it("handles openapi 3.0 boolean exclusiveMaximum / exclusiveMinimum modifiers (false)", () => {
         const actual = schemaNormalizer.normalize({
           type: "number",
           format: "int64",
