@@ -65,8 +65,7 @@ export class Input {
     private loader: OpenapiLoader,
     readonly config: InputConfig,
     private readonly syntheticNameGenerator: SyntheticNameGenerator = defaultSyntheticNameGenerator,
-    // todo: make private
-    readonly schemaNormalizer = new SchemaNormalizer(config),
+    private readonly schemaNormalizer = new SchemaNormalizer(config),
     private readonly parameterNormalizer = new ParameterNormalizer(
       loader,
       schemaNormalizer,

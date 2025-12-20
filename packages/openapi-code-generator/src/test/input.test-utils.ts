@@ -2,7 +2,7 @@ import path from "node:path"
 import {jest} from "@jest/globals"
 import yaml from "js-yaml"
 import {NodeFsAdaptor} from "../core/file-system/node-fs-adaptor"
-import {Input} from "../core/input"
+import {Input, type InputConfig, SchemaNormalizer} from "../core/input"
 import {GenericLoader} from "../core/loaders/generic.loader"
 import {TypespecLoader} from "../core/loaders/typespec.loader"
 import {logger} from "../core/logger"
@@ -51,11 +51,14 @@ export async function unitTestInput(
     await TypespecLoader.create(),
   )
 
+  const config = {
+    extractInlineSchemas: true,
+    enumExtensibility: "closed",
+  } satisfies InputConfig
+
   return {
-    input: new Input(loader, {
-      extractInlineSchemas: true,
-      enumExtensibility: "closed",
-    }),
+    input: new Input(loader, config),
+    schemaNormalizer: new SchemaNormalizer(config),
     file,
   }
 }

@@ -1,5 +1,5 @@
 import ts from "typescript"
-import type {Input} from "../../../core/input"
+import type {Input, SchemaNormalizer} from "../../../core/input"
 import type {
   Reference,
   Schema,
@@ -27,20 +27,27 @@ export function schemaBuilderTestHarness(
     schema: Schema,
     config: SchemaBuilderConfig = {allowAny: false},
   ) {
-    const {input} = await unitTestInput(version)
-    return getResult(input, schema, true, config)
+    const {input, schemaNormalizer} = await unitTestInput(version)
+    return getResult(input, schemaNormalizer, schema, true, config)
   }
 
   async function getActual(
     path: string,
     config: SchemaBuilderConfig = {allowAny: false},
   ) {
-    const {input, file} = await unitTestInput(version)
-    return getResult(input, {$ref: `${file}#${path}`}, true, config)
+    const {input, schemaNormalizer, file} = await unitTestInput(version)
+    return getResult(
+      input,
+      schemaNormalizer,
+      {$ref: `${file}#${path}`},
+      true,
+      config,
+    )
   }
 
   async function getResult(
     input: Input,
+    schemaNormalizer: SchemaNormalizer,
     maybeSchema: Schema | Reference,
     required: boolean,
     config: SchemaBuilderConfig,
@@ -70,7 +77,7 @@ export function schemaBuilderTestHarness(
       .fromModel(
         isRef(maybeSchema)
           ? maybeSchema
-          : input.schemaNormalizer.normalize(maybeSchema),
+          : schemaNormalizer.normalize(maybeSchema),
         required,
       )
 
