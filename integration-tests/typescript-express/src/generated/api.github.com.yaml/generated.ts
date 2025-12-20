@@ -22425,9 +22425,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const appsUpdateWebhookConfigForAppRequestBodySchema =
-    s_AppsUpdateWebhookConfigForAppRequestBody
-
   const appsUpdateWebhookConfigForAppResponseBodyValidator =
     responseValidationFactory([["200", s_webhook_config]], undefined)
 
@@ -22440,7 +22437,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            appsUpdateWebhookConfigForAppRequestBodySchema,
+            s_AppsUpdateWebhookConfigForAppRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -23009,9 +23006,6 @@ export function createRouter(implementation: Implementation): Router {
     installation_id: z.coerce.number(),
   })
 
-  const appsCreateInstallationAccessTokenRequestBodySchema =
-    s_AppsCreateInstallationAccessTokenRequestBody.optional()
-
   const appsCreateInstallationAccessTokenResponseBodyValidator =
     responseValidationFactory(
       [
@@ -23037,7 +23031,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            appsCreateInstallationAccessTokenRequestBodySchema,
+            s_AppsCreateInstallationAccessTokenRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -23241,9 +23235,6 @@ export function createRouter(implementation: Implementation): Router {
 
   const appsDeleteAuthorizationParamSchema = z.object({client_id: z.string()})
 
-  const appsDeleteAuthorizationRequestBodySchema =
-    s_AppsDeleteAuthorizationRequestBody
-
   const appsDeleteAuthorizationResponseBodyValidator =
     responseValidationFactory(
       [
@@ -23266,7 +23257,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            appsDeleteAuthorizationRequestBodySchema,
+            s_AppsDeleteAuthorizationRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -23316,8 +23307,6 @@ export function createRouter(implementation: Implementation): Router {
 
   const appsCheckTokenParamSchema = z.object({client_id: z.string()})
 
-  const appsCheckTokenRequestBodySchema = s_AppsCheckTokenRequestBody
-
   const appsCheckTokenResponseBodyValidator = responseValidationFactory(
     [
       ["200", s_authorization],
@@ -23340,7 +23329,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            appsCheckTokenRequestBodySchema,
+            s_AppsCheckTokenRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -23393,8 +23382,6 @@ export function createRouter(implementation: Implementation): Router {
 
   const appsResetTokenParamSchema = z.object({client_id: z.string()})
 
-  const appsResetTokenRequestBodySchema = s_AppsResetTokenRequestBody
-
   const appsResetTokenResponseBodyValidator = responseValidationFactory(
     [
       ["200", s_authorization],
@@ -23416,7 +23403,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            appsResetTokenRequestBodySchema,
+            s_AppsResetTokenRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -23466,8 +23453,6 @@ export function createRouter(implementation: Implementation): Router {
 
   const appsDeleteTokenParamSchema = z.object({client_id: z.string()})
 
-  const appsDeleteTokenRequestBodySchema = s_AppsDeleteTokenRequestBody
-
   const appsDeleteTokenResponseBodyValidator = responseValidationFactory(
     [
       ["204", z.undefined()],
@@ -23489,7 +23474,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            appsDeleteTokenRequestBodySchema,
+            s_AppsDeleteTokenRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -23539,8 +23524,6 @@ export function createRouter(implementation: Implementation): Router {
 
   const appsScopeTokenParamSchema = z.object({client_id: z.string()})
 
-  const appsScopeTokenRequestBodySchema = s_AppsScopeTokenRequestBody
-
   const appsScopeTokenResponseBodyValidator = responseValidationFactory(
     [
       ["200", s_authorization],
@@ -23565,7 +23548,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            appsScopeTokenRequestBodySchema,
+            s_AppsScopeTokenRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -24281,8 +24264,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const credentialsRevokeRequestBodySchema = s_CredentialsRevokeRequestBody
-
   const credentialsRevokeResponseBodyValidator = responseValidationFactory(
     [
       ["202", z.record(z.string(), z.unknown())],
@@ -24301,7 +24282,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            credentialsRevokeRequestBodySchema,
+            s_CredentialsRevokeRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -24518,9 +24499,6 @@ export function createRouter(implementation: Implementation): Router {
     enterprise: z.string(),
   })
 
-  const codeSecurityCreateConfigurationForEnterpriseRequestBodySchema =
-    s_CodeSecurityCreateConfigurationForEnterpriseRequestBody
-
   const codeSecurityCreateConfigurationForEnterpriseResponseBodyValidator =
     responseValidationFactory(
       [
@@ -24545,7 +24523,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            codeSecurityCreateConfigurationForEnterpriseRequestBodySchema,
+            s_CodeSecurityCreateConfigurationForEnterpriseRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -24786,9 +24764,6 @@ export function createRouter(implementation: Implementation): Router {
     configuration_id: z.coerce.number(),
   })
 
-  const codeSecurityUpdateEnterpriseConfigurationRequestBodySchema =
-    s_CodeSecurityUpdateEnterpriseConfigurationRequestBody
-
   const codeSecurityUpdateEnterpriseConfigurationResponseBodyValidator =
     responseValidationFactory(
       [
@@ -24814,7 +24789,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            codeSecurityUpdateEnterpriseConfigurationRequestBodySchema,
+            s_CodeSecurityUpdateEnterpriseConfigurationRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -24983,9 +24958,6 @@ export function createRouter(implementation: Implementation): Router {
     configuration_id: z.coerce.number(),
   })
 
-  const codeSecurityAttachEnterpriseConfigurationRequestBodySchema =
-    s_CodeSecurityAttachEnterpriseConfigurationRequestBody
-
   const codeSecurityAttachEnterpriseConfigurationResponseBodyValidator =
     responseValidationFactory(
       [
@@ -25010,7 +24982,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            codeSecurityAttachEnterpriseConfigurationRequestBodySchema,
+            s_CodeSecurityAttachEnterpriseConfigurationRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -25080,9 +25052,6 @@ export function createRouter(implementation: Implementation): Router {
   const codeSecuritySetConfigurationAsDefaultForEnterpriseParamSchema =
     z.object({enterprise: z.string(), configuration_id: z.coerce.number()})
 
-  const codeSecuritySetConfigurationAsDefaultForEnterpriseRequestBodySchema =
-    s_CodeSecuritySetConfigurationAsDefaultForEnterpriseRequestBody
-
   const codeSecuritySetConfigurationAsDefaultForEnterpriseResponseBodyValidator =
     responseValidationFactory(
       [
@@ -25114,7 +25083,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            codeSecuritySetConfigurationAsDefaultForEnterpriseRequestBodySchema,
+            s_CodeSecuritySetConfigurationAsDefaultForEnterpriseRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -25729,8 +25698,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const gistsCreateRequestBodySchema = s_GistsCreateRequestBody
-
   const gistsCreateResponseBodyValidator = responseValidationFactory(
     [
       ["201", s_gist_simple],
@@ -25751,7 +25718,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            gistsCreateRequestBodySchema,
+            s_GistsCreateRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -26066,8 +26033,6 @@ export function createRouter(implementation: Implementation): Router {
 
   const gistsUpdateParamSchema = z.object({gist_id: z.string()})
 
-  const gistsUpdateRequestBodySchema = s_GistsUpdateRequestBody
-
   const gistsUpdateResponseBodyValidator = responseValidationFactory(
     [
       ["200", s_gist_simple],
@@ -26090,7 +26055,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            gistsUpdateRequestBodySchema,
+            s_GistsUpdateRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -26302,8 +26267,6 @@ export function createRouter(implementation: Implementation): Router {
 
   const gistsCreateCommentParamSchema = z.object({gist_id: z.string()})
 
-  const gistsCreateCommentRequestBodySchema = s_GistsCreateCommentRequestBody
-
   const gistsCreateCommentResponseBodyValidator = responseValidationFactory(
     [
       ["201", s_gist_comment],
@@ -26327,7 +26290,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            gistsCreateCommentRequestBodySchema,
+            s_GistsCreateCommentRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -26487,8 +26450,6 @@ export function createRouter(implementation: Implementation): Router {
     comment_id: z.coerce.number(),
   })
 
-  const gistsUpdateCommentRequestBodySchema = s_GistsUpdateCommentRequestBody
-
   const gistsUpdateCommentResponseBodyValidator = responseValidationFactory(
     [
       ["200", s_gist_comment],
@@ -26510,7 +26471,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            gistsUpdateCommentRequestBodySchema,
+            s_GistsUpdateCommentRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -27717,8 +27678,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const markdownRenderRequestBodySchema = s_MarkdownRenderRequestBody
-
   const markdownRenderResponseBodyValidator = responseValidationFactory(
     [
       ["200", z.string()],
@@ -27736,7 +27695,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            markdownRenderRequestBodySchema,
+            s_MarkdownRenderRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -27784,8 +27743,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const markdownRenderRawRequestBodySchema = z.string().optional()
-
   const markdownRenderRawResponseBodyValidator = responseValidationFactory(
     [
       ["200", z.string()],
@@ -27803,7 +27760,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            markdownRenderRawRequestBodySchema,
+            z.string().optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -28593,9 +28550,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const activityMarkNotificationsAsReadRequestBodySchema =
-    s_ActivityMarkNotificationsAsReadRequestBody.optional()
-
   const activityMarkNotificationsAsReadResponseBodyValidator =
     responseValidationFactory(
       [
@@ -28617,7 +28571,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            activityMarkNotificationsAsReadRequestBodySchema,
+            s_ActivityMarkNotificationsAsReadRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -28981,9 +28935,6 @@ export function createRouter(implementation: Implementation): Router {
     thread_id: z.coerce.number(),
   })
 
-  const activitySetThreadSubscriptionRequestBodySchema =
-    s_ActivitySetThreadSubscriptionRequestBody.optional()
-
   const activitySetThreadSubscriptionResponseBodyValidator =
     responseValidationFactory(
       [
@@ -29008,7 +28959,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            activitySetThreadSubscriptionRequestBodySchema,
+            s_ActivitySetThreadSubscriptionRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -29366,9 +29317,6 @@ export function createRouter(implementation: Implementation): Router {
     org: z.string(),
   })
 
-  const dependabotUpdateRepositoryAccessForOrgRequestBodySchema =
-    s_DependabotUpdateRepositoryAccessForOrgRequestBody
-
   const dependabotUpdateRepositoryAccessForOrgResponseBodyValidator =
     responseValidationFactory(
       [
@@ -29392,7 +29340,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            dependabotUpdateRepositoryAccessForOrgRequestBodySchema,
+            s_DependabotUpdateRepositoryAccessForOrgRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -29458,9 +29406,6 @@ export function createRouter(implementation: Implementation): Router {
     org: z.string(),
   })
 
-  const dependabotSetRepositoryAccessDefaultLevelRequestBodySchema =
-    s_DependabotSetRepositoryAccessDefaultLevelRequestBody
-
   const dependabotSetRepositoryAccessDefaultLevelResponseBodyValidator =
     responseValidationFactory(
       [
@@ -29484,7 +29429,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            dependabotSetRepositoryAccessDefaultLevelRequestBodySchema,
+            s_DependabotSetRepositoryAccessDefaultLevelRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -29730,8 +29675,6 @@ export function createRouter(implementation: Implementation): Router {
 
   const orgsUpdateParamSchema = z.object({org: z.string()})
 
-  const orgsUpdateRequestBodySchema = s_OrgsUpdateRequestBody.optional()
-
   const orgsUpdateResponseBodyValidator = responseValidationFactory(
     [
       ["200", s_organization_full],
@@ -29754,7 +29697,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            orgsUpdateRequestBodySchema,
+            s_OrgsUpdateRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -30134,9 +30077,6 @@ export function createRouter(implementation: Implementation): Router {
 
   const actionsCreateHostedRunnerForOrgParamSchema = z.object({org: z.string()})
 
-  const actionsCreateHostedRunnerForOrgRequestBodySchema =
-    s_ActionsCreateHostedRunnerForOrgRequestBody
-
   const actionsCreateHostedRunnerForOrgResponseBodyValidator =
     responseValidationFactory([["201", s_actions_hosted_runner]], undefined)
 
@@ -30153,7 +30093,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            actionsCreateHostedRunnerForOrgRequestBodySchema,
+            s_ActionsCreateHostedRunnerForOrgRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -30684,9 +30624,6 @@ export function createRouter(implementation: Implementation): Router {
     hosted_runner_id: z.coerce.number(),
   })
 
-  const actionsUpdateHostedRunnerForOrgRequestBodySchema =
-    s_ActionsUpdateHostedRunnerForOrgRequestBody
-
   const actionsUpdateHostedRunnerForOrgResponseBodyValidator =
     responseValidationFactory([["200", s_actions_hosted_runner]], undefined)
 
@@ -30703,7 +30640,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            actionsUpdateHostedRunnerForOrgRequestBodySchema,
+            s_ActionsUpdateHostedRunnerForOrgRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -30884,9 +30821,6 @@ export function createRouter(implementation: Implementation): Router {
     org: z.string(),
   })
 
-  const oidcUpdateOidcCustomSubTemplateForOrgRequestBodySchema =
-    s_oidc_custom_sub
-
   const oidcUpdateOidcCustomSubTemplateForOrgResponseBodyValidator =
     responseValidationFactory(
       [
@@ -30910,7 +30844,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            oidcUpdateOidcCustomSubTemplateForOrgRequestBodySchema,
+            s_oidc_custom_sub,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -31053,9 +30987,6 @@ export function createRouter(implementation: Implementation): Router {
     org: z.string(),
   })
 
-  const actionsSetGithubActionsPermissionsOrganizationRequestBodySchema =
-    s_ActionsSetGithubActionsPermissionsOrganizationRequestBody
-
   const actionsSetGithubActionsPermissionsOrganizationResponseBodyValidator =
     responseValidationFactory([["204", z.undefined()]], undefined)
 
@@ -31072,7 +31003,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            actionsSetGithubActionsPermissionsOrganizationRequestBodySchema,
+            s_ActionsSetGithubActionsPermissionsOrganizationRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -31226,9 +31157,6 @@ export function createRouter(implementation: Implementation): Router {
   const actionsSetSelectedRepositoriesEnabledGithubActionsOrganizationParamSchema =
     z.object({org: z.string()})
 
-  const actionsSetSelectedRepositoriesEnabledGithubActionsOrganizationRequestBodySchema =
-    s_ActionsSetSelectedRepositoriesEnabledGithubActionsOrganizationRequestBody
-
   const actionsSetSelectedRepositoriesEnabledGithubActionsOrganizationResponseBodyValidator =
     responseValidationFactory([["204", z.undefined()]], undefined)
 
@@ -31245,7 +31173,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            actionsSetSelectedRepositoriesEnabledGithubActionsOrganizationRequestBodySchema,
+            s_ActionsSetSelectedRepositoriesEnabledGithubActionsOrganizationRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -31519,9 +31447,6 @@ export function createRouter(implementation: Implementation): Router {
     org: z.string(),
   })
 
-  const actionsSetAllowedActionsOrganizationRequestBodySchema =
-    s_selected_actions.optional()
-
   const actionsSetAllowedActionsOrganizationResponseBodyValidator =
     responseValidationFactory([["204", z.undefined()]], undefined)
 
@@ -31538,7 +31463,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            actionsSetAllowedActionsOrganizationRequestBodySchema,
+            s_selected_actions.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -31673,9 +31598,6 @@ export function createRouter(implementation: Implementation): Router {
   const actionsSetGithubActionsDefaultWorkflowPermissionsOrganizationParamSchema =
     z.object({org: z.string()})
 
-  const actionsSetGithubActionsDefaultWorkflowPermissionsOrganizationRequestBodySchema =
-    s_actions_set_default_workflow_permissions.optional()
-
   const actionsSetGithubActionsDefaultWorkflowPermissionsOrganizationResponseBodyValidator =
     responseValidationFactory([["204", z.undefined()]], undefined)
 
@@ -31692,7 +31614,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            actionsSetGithubActionsDefaultWorkflowPermissionsOrganizationRequestBodySchema,
+            s_actions_set_default_workflow_permissions.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -31848,9 +31770,6 @@ export function createRouter(implementation: Implementation): Router {
     org: z.string(),
   })
 
-  const actionsCreateSelfHostedRunnerGroupForOrgRequestBodySchema =
-    s_ActionsCreateSelfHostedRunnerGroupForOrgRequestBody
-
   const actionsCreateSelfHostedRunnerGroupForOrgResponseBodyValidator =
     responseValidationFactory([["201", s_runner_groups_org]], undefined)
 
@@ -31867,7 +31786,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            actionsCreateSelfHostedRunnerGroupForOrgRequestBodySchema,
+            s_ActionsCreateSelfHostedRunnerGroupForOrgRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -32001,9 +31920,6 @@ export function createRouter(implementation: Implementation): Router {
     runner_group_id: z.coerce.number(),
   })
 
-  const actionsUpdateSelfHostedRunnerGroupForOrgRequestBodySchema =
-    s_ActionsUpdateSelfHostedRunnerGroupForOrgRequestBody
-
   const actionsUpdateSelfHostedRunnerGroupForOrgResponseBodyValidator =
     responseValidationFactory([["200", s_runner_groups_org]], undefined)
 
@@ -32020,7 +31936,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            actionsUpdateSelfHostedRunnerGroupForOrgRequestBodySchema,
+            s_ActionsUpdateSelfHostedRunnerGroupForOrgRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -32347,9 +32263,6 @@ export function createRouter(implementation: Implementation): Router {
     runner_group_id: z.coerce.number(),
   })
 
-  const actionsSetRepoAccessToSelfHostedRunnerGroupInOrgRequestBodySchema =
-    s_ActionsSetRepoAccessToSelfHostedRunnerGroupInOrgRequestBody
-
   const actionsSetRepoAccessToSelfHostedRunnerGroupInOrgResponseBodyValidator =
     responseValidationFactory([["204", z.undefined()]], undefined)
 
@@ -32366,7 +32279,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            actionsSetRepoAccessToSelfHostedRunnerGroupInOrgRequestBodySchema,
+            s_ActionsSetRepoAccessToSelfHostedRunnerGroupInOrgRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -32672,9 +32585,6 @@ export function createRouter(implementation: Implementation): Router {
     runner_group_id: z.coerce.number(),
   })
 
-  const actionsSetSelfHostedRunnersInGroupForOrgRequestBodySchema =
-    s_ActionsSetSelfHostedRunnersInGroupForOrgRequestBody
-
   const actionsSetSelfHostedRunnersInGroupForOrgResponseBodyValidator =
     responseValidationFactory([["204", z.undefined()]], undefined)
 
@@ -32691,7 +32601,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            actionsSetSelfHostedRunnersInGroupForOrgRequestBodySchema,
+            s_ActionsSetSelfHostedRunnersInGroupForOrgRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -33058,9 +32968,6 @@ export function createRouter(implementation: Implementation): Router {
     org: z.string(),
   })
 
-  const actionsGenerateRunnerJitconfigForOrgRequestBodySchema =
-    s_ActionsGenerateRunnerJitconfigForOrgRequestBody
-
   const actionsGenerateRunnerJitconfigForOrgResponseBodyValidator =
     responseValidationFactory(
       [
@@ -33085,7 +32992,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            actionsGenerateRunnerJitconfigForOrgRequestBodySchema,
+            s_ActionsGenerateRunnerJitconfigForOrgRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -33528,9 +33435,6 @@ export function createRouter(implementation: Implementation): Router {
     runner_id: z.coerce.number(),
   })
 
-  const actionsAddCustomLabelsToSelfHostedRunnerForOrgRequestBodySchema =
-    s_ActionsAddCustomLabelsToSelfHostedRunnerForOrgRequestBody
-
   const actionsAddCustomLabelsToSelfHostedRunnerForOrgResponseBodyValidator =
     responseValidationFactory(
       [
@@ -33560,7 +33464,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            actionsAddCustomLabelsToSelfHostedRunnerForOrgRequestBodySchema,
+            s_ActionsAddCustomLabelsToSelfHostedRunnerForOrgRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -33630,9 +33534,6 @@ export function createRouter(implementation: Implementation): Router {
     runner_id: z.coerce.number(),
   })
 
-  const actionsSetCustomLabelsForSelfHostedRunnerForOrgRequestBodySchema =
-    s_ActionsSetCustomLabelsForSelfHostedRunnerForOrgRequestBody
-
   const actionsSetCustomLabelsForSelfHostedRunnerForOrgResponseBodyValidator =
     responseValidationFactory(
       [
@@ -33662,7 +33563,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            actionsSetCustomLabelsForSelfHostedRunnerForOrgRequestBodySchema,
+            s_ActionsSetCustomLabelsForSelfHostedRunnerForOrgRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -34122,9 +34023,6 @@ export function createRouter(implementation: Implementation): Router {
     secret_name: z.string(),
   })
 
-  const actionsCreateOrUpdateOrgSecretRequestBodySchema =
-    s_ActionsCreateOrUpdateOrgSecretRequestBody
-
   const actionsCreateOrUpdateOrgSecretResponseBodyValidator =
     responseValidationFactory(
       [
@@ -34147,7 +34045,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            actionsCreateOrUpdateOrgSecretRequestBodySchema,
+            s_ActionsCreateOrUpdateOrgSecretRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -34362,9 +34260,6 @@ export function createRouter(implementation: Implementation): Router {
     secret_name: z.string(),
   })
 
-  const actionsSetSelectedReposForOrgSecretRequestBodySchema =
-    s_ActionsSetSelectedReposForOrgSecretRequestBody
-
   const actionsSetSelectedReposForOrgSecretResponseBodyValidator =
     responseValidationFactory([["204", z.undefined()]], undefined)
 
@@ -34381,7 +34276,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            actionsSetSelectedReposForOrgSecretRequestBodySchema,
+            s_ActionsSetSelectedReposForOrgSecretRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -34675,9 +34570,6 @@ export function createRouter(implementation: Implementation): Router {
 
   const actionsCreateOrgVariableParamSchema = z.object({org: z.string()})
 
-  const actionsCreateOrgVariableRequestBodySchema =
-    s_ActionsCreateOrgVariableRequestBody
-
   const actionsCreateOrgVariableResponseBodyValidator =
     responseValidationFactory([["201", s_empty_object]], undefined)
 
@@ -34694,7 +34586,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            actionsCreateOrgVariableRequestBodySchema,
+            s_ActionsCreateOrgVariableRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -34810,9 +34702,6 @@ export function createRouter(implementation: Implementation): Router {
     name: z.string(),
   })
 
-  const actionsUpdateOrgVariableRequestBodySchema =
-    s_ActionsUpdateOrgVariableRequestBody
-
   const actionsUpdateOrgVariableResponseBodyValidator =
     responseValidationFactory([["204", z.undefined()]], undefined)
 
@@ -34829,7 +34718,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            actionsUpdateOrgVariableRequestBodySchema,
+            s_ActionsUpdateOrgVariableRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -35041,9 +34930,6 @@ export function createRouter(implementation: Implementation): Router {
     name: z.string(),
   })
 
-  const actionsSetSelectedReposForOrgVariableRequestBodySchema =
-    s_ActionsSetSelectedReposForOrgVariableRequestBody
-
   const actionsSetSelectedReposForOrgVariableResponseBodyValidator =
     responseValidationFactory(
       [
@@ -35066,7 +34952,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            actionsSetSelectedReposForOrgVariableRequestBodySchema,
+            s_ActionsSetSelectedReposForOrgVariableRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -35293,9 +35179,6 @@ export function createRouter(implementation: Implementation): Router {
     after: z.string().optional(),
   })
 
-  const orgsListAttestationsBulkRequestBodySchema =
-    s_OrgsListAttestationsBulkRequestBody
-
   const orgsListAttestationsBulkResponseBodyValidator =
     responseValidationFactory(
       [
@@ -35357,7 +35240,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            orgsListAttestationsBulkRequestBodySchema,
+            s_OrgsListAttestationsBulkRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -35441,9 +35324,6 @@ export function createRouter(implementation: Implementation): Router {
 
   const orgsDeleteAttestationsBulkParamSchema = z.object({org: z.string()})
 
-  const orgsDeleteAttestationsBulkRequestBodySchema =
-    s_OrgsDeleteAttestationsBulkRequestBody
-
   const orgsDeleteAttestationsBulkResponseBodyValidator =
     responseValidationFactory(
       [
@@ -35466,7 +35346,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            orgsDeleteAttestationsBulkRequestBodySchema,
+            s_OrgsDeleteAttestationsBulkRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -36177,9 +36057,6 @@ export function createRouter(implementation: Implementation): Router {
 
   const campaignsCreateCampaignParamSchema = z.object({org: z.string()})
 
-  const campaignsCreateCampaignRequestBodySchema =
-    s_CampaignsCreateCampaignRequestBody
-
   const campaignsCreateCampaignResponseBodyValidator =
     responseValidationFactory(
       [
@@ -36213,7 +36090,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            campaignsCreateCampaignRequestBodySchema,
+            s_CampaignsCreateCampaignRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -36374,9 +36251,6 @@ export function createRouter(implementation: Implementation): Router {
     campaign_number: z.coerce.number(),
   })
 
-  const campaignsUpdateCampaignRequestBodySchema =
-    s_CampaignsUpdateCampaignRequestBody
-
   const campaignsUpdateCampaignResponseBodyValidator =
     responseValidationFactory(
       [
@@ -36409,7 +36283,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            campaignsUpdateCampaignRequestBodySchema,
+            s_CampaignsUpdateCampaignRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -36754,9 +36628,6 @@ export function createRouter(implementation: Implementation): Router {
 
   const codeSecurityCreateConfigurationParamSchema = z.object({org: z.string()})
 
-  const codeSecurityCreateConfigurationRequestBodySchema =
-    s_CodeSecurityCreateConfigurationRequestBody
-
   const codeSecurityCreateConfigurationResponseBodyValidator =
     responseValidationFactory(
       [["201", s_code_security_configuration]],
@@ -36776,7 +36647,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            codeSecurityCreateConfigurationRequestBodySchema,
+            s_CodeSecurityCreateConfigurationRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -36918,9 +36789,6 @@ export function createRouter(implementation: Implementation): Router {
 
   const codeSecurityDetachConfigurationParamSchema = z.object({org: z.string()})
 
-  const codeSecurityDetachConfigurationRequestBodySchema =
-    s_CodeSecurityDetachConfigurationRequestBody
-
   const codeSecurityDetachConfigurationResponseBodyValidator =
     responseValidationFactory(
       [
@@ -36946,7 +36814,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            codeSecurityDetachConfigurationRequestBodySchema,
+            s_CodeSecurityDetachConfigurationRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -37093,9 +36961,6 @@ export function createRouter(implementation: Implementation): Router {
     configuration_id: z.coerce.number(),
   })
 
-  const codeSecurityUpdateConfigurationRequestBodySchema =
-    s_CodeSecurityUpdateConfigurationRequestBody
-
   const codeSecurityUpdateConfigurationResponseBodyValidator =
     responseValidationFactory(
       [
@@ -37118,7 +36983,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            codeSecurityUpdateConfigurationRequestBodySchema,
+            s_CodeSecurityUpdateConfigurationRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -37260,9 +37125,6 @@ export function createRouter(implementation: Implementation): Router {
     configuration_id: z.coerce.number(),
   })
 
-  const codeSecurityAttachConfigurationRequestBodySchema =
-    s_CodeSecurityAttachConfigurationRequestBody
-
   const codeSecurityAttachConfigurationResponseBodyValidator =
     responseValidationFactory(
       [["202", z.record(z.string(), z.unknown())]],
@@ -37282,7 +37144,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            codeSecurityAttachConfigurationRequestBodySchema,
+            s_CodeSecurityAttachConfigurationRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -37336,9 +37198,6 @@ export function createRouter(implementation: Implementation): Router {
     configuration_id: z.coerce.number(),
   })
 
-  const codeSecuritySetConfigurationAsDefaultRequestBodySchema =
-    s_CodeSecuritySetConfigurationAsDefaultRequestBody
-
   const codeSecuritySetConfigurationAsDefaultResponseBodyValidator =
     responseValidationFactory(
       [
@@ -37370,7 +37229,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            codeSecuritySetConfigurationAsDefaultRequestBodySchema,
+            s_CodeSecuritySetConfigurationAsDefaultRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -37642,9 +37501,6 @@ export function createRouter(implementation: Implementation): Router {
 
   const codespacesSetCodespacesAccessParamSchema = z.object({org: z.string()})
 
-  const codespacesSetCodespacesAccessRequestBodySchema =
-    s_CodespacesSetCodespacesAccessRequestBody
-
   const codespacesSetCodespacesAccessResponseBodyValidator =
     responseValidationFactory(
       [
@@ -37671,7 +37527,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            codespacesSetCodespacesAccessRequestBodySchema,
+            s_CodespacesSetCodespacesAccessRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -37737,9 +37593,6 @@ export function createRouter(implementation: Implementation): Router {
     org: z.string(),
   })
 
-  const codespacesSetCodespacesAccessUsersRequestBodySchema =
-    s_CodespacesSetCodespacesAccessUsersRequestBody
-
   const codespacesSetCodespacesAccessUsersResponseBodyValidator =
     responseValidationFactory(
       [
@@ -37766,7 +37619,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            codespacesSetCodespacesAccessUsersRequestBodySchema,
+            s_CodespacesSetCodespacesAccessUsersRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -37835,9 +37688,6 @@ export function createRouter(implementation: Implementation): Router {
     org: z.string(),
   })
 
-  const codespacesDeleteCodespacesAccessUsersRequestBodySchema =
-    s_CodespacesDeleteCodespacesAccessUsersRequestBody
-
   const codespacesDeleteCodespacesAccessUsersResponseBodyValidator =
     responseValidationFactory(
       [
@@ -37864,7 +37714,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            codespacesDeleteCodespacesAccessUsersRequestBodySchema,
+            s_CodespacesDeleteCodespacesAccessUsersRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -38145,9 +37995,6 @@ export function createRouter(implementation: Implementation): Router {
     secret_name: z.string(),
   })
 
-  const codespacesCreateOrUpdateOrgSecretRequestBodySchema =
-    s_CodespacesCreateOrUpdateOrgSecretRequestBody
-
   const codespacesCreateOrUpdateOrgSecretResponseBodyValidator =
     responseValidationFactory(
       [
@@ -38172,7 +38019,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            codespacesCreateOrUpdateOrgSecretRequestBodySchema,
+            s_CodespacesCreateOrUpdateOrgSecretRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -38407,9 +38254,6 @@ export function createRouter(implementation: Implementation): Router {
     secret_name: z.string(),
   })
 
-  const codespacesSetSelectedReposForOrgSecretRequestBodySchema =
-    s_CodespacesSetSelectedReposForOrgSecretRequestBody
-
   const codespacesSetSelectedReposForOrgSecretResponseBodyValidator =
     responseValidationFactory(
       [
@@ -38433,7 +38277,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            codespacesSetSelectedReposForOrgSecretRequestBodySchema,
+            s_CodespacesSetSelectedReposForOrgSecretRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -38876,9 +38720,6 @@ export function createRouter(implementation: Implementation): Router {
 
   const copilotAddCopilotSeatsForTeamsParamSchema = z.object({org: z.string()})
 
-  const copilotAddCopilotSeatsForTeamsRequestBodySchema =
-    s_CopilotAddCopilotSeatsForTeamsRequestBody
-
   const copilotAddCopilotSeatsForTeamsResponseBodyValidator =
     responseValidationFactory(
       [
@@ -38905,7 +38746,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            copilotAddCopilotSeatsForTeamsRequestBodySchema,
+            s_CopilotAddCopilotSeatsForTeamsRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -38973,9 +38814,6 @@ export function createRouter(implementation: Implementation): Router {
     org: z.string(),
   })
 
-  const copilotCancelCopilotSeatAssignmentForTeamsRequestBodySchema =
-    s_CopilotCancelCopilotSeatAssignmentForTeamsRequestBody
-
   const copilotCancelCopilotSeatAssignmentForTeamsResponseBodyValidator =
     responseValidationFactory(
       [
@@ -39002,7 +38840,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            copilotCancelCopilotSeatAssignmentForTeamsRequestBodySchema,
+            s_CopilotCancelCopilotSeatAssignmentForTeamsRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -39077,9 +38915,6 @@ export function createRouter(implementation: Implementation): Router {
 
   const copilotAddCopilotSeatsForUsersParamSchema = z.object({org: z.string()})
 
-  const copilotAddCopilotSeatsForUsersRequestBodySchema =
-    s_CopilotAddCopilotSeatsForUsersRequestBody
-
   const copilotAddCopilotSeatsForUsersResponseBodyValidator =
     responseValidationFactory(
       [
@@ -39106,7 +38941,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            copilotAddCopilotSeatsForUsersRequestBodySchema,
+            s_CopilotAddCopilotSeatsForUsersRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -39174,9 +39009,6 @@ export function createRouter(implementation: Implementation): Router {
     org: z.string(),
   })
 
-  const copilotCancelCopilotSeatAssignmentForUsersRequestBodySchema =
-    s_CopilotCancelCopilotSeatAssignmentForUsersRequestBody
-
   const copilotCancelCopilotSeatAssignmentForUsersResponseBodyValidator =
     responseValidationFactory(
       [
@@ -39203,7 +39035,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            copilotCancelCopilotSeatAssignmentForUsersRequestBodySchema,
+            s_CopilotCancelCopilotSeatAssignmentForUsersRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -39706,9 +39538,6 @@ export function createRouter(implementation: Implementation): Router {
     secret_name: z.string(),
   })
 
-  const dependabotCreateOrUpdateOrgSecretRequestBodySchema =
-    s_DependabotCreateOrUpdateOrgSecretRequestBody
-
   const dependabotCreateOrUpdateOrgSecretResponseBodyValidator =
     responseValidationFactory(
       [
@@ -39731,7 +39560,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            dependabotCreateOrUpdateOrgSecretRequestBodySchema,
+            s_DependabotCreateOrUpdateOrgSecretRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -39947,9 +39776,6 @@ export function createRouter(implementation: Implementation): Router {
     secret_name: z.string(),
   })
 
-  const dependabotSetSelectedReposForOrgSecretRequestBodySchema =
-    s_DependabotSetSelectedReposForOrgSecretRequestBody
-
   const dependabotSetSelectedReposForOrgSecretResponseBodyValidator =
     responseValidationFactory([["204", z.undefined()]], undefined)
 
@@ -39966,7 +39792,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            dependabotSetSelectedReposForOrgSecretRequestBodySchema,
+            s_DependabotSetSelectedReposForOrgSecretRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -40497,8 +40323,6 @@ export function createRouter(implementation: Implementation): Router {
 
   const orgsCreateWebhookParamSchema = z.object({org: z.string()})
 
-  const orgsCreateWebhookRequestBodySchema = s_OrgsCreateWebhookRequestBody
-
   const orgsCreateWebhookResponseBodyValidator = responseValidationFactory(
     [
       ["201", s_org_hook],
@@ -40521,7 +40345,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            orgsCreateWebhookRequestBodySchema,
+            s_OrgsCreateWebhookRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -40647,9 +40471,6 @@ export function createRouter(implementation: Implementation): Router {
     hook_id: z.coerce.number(),
   })
 
-  const orgsUpdateWebhookRequestBodySchema =
-    s_OrgsUpdateWebhookRequestBody.optional()
-
   const orgsUpdateWebhookResponseBodyValidator = responseValidationFactory(
     [
       ["200", s_org_hook],
@@ -40672,7 +40493,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            orgsUpdateWebhookRequestBodySchema,
+            s_OrgsUpdateWebhookRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -40862,9 +40683,6 @@ export function createRouter(implementation: Implementation): Router {
     hook_id: z.coerce.number(),
   })
 
-  const orgsUpdateWebhookConfigForOrgRequestBodySchema =
-    s_OrgsUpdateWebhookConfigForOrgRequestBody.optional()
-
   const orgsUpdateWebhookConfigForOrgResponseBodyValidator =
     responseValidationFactory([["200", s_webhook_config]], undefined)
 
@@ -40881,7 +40699,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            orgsUpdateWebhookConfigForOrgRequestBodySchema,
+            s_OrgsUpdateWebhookConfigForOrgRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -42199,8 +42017,6 @@ export function createRouter(implementation: Implementation): Router {
     org: z.string(),
   })
 
-  const interactionsSetRestrictionsForOrgRequestBodySchema = s_interaction_limit
-
   const interactionsSetRestrictionsForOrgResponseBodyValidator =
     responseValidationFactory(
       [
@@ -42223,7 +42039,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            interactionsSetRestrictionsForOrgRequestBodySchema,
+            s_interaction_limit,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -42443,9 +42259,6 @@ export function createRouter(implementation: Implementation): Router {
 
   const orgsCreateInvitationParamSchema = z.object({org: z.string()})
 
-  const orgsCreateInvitationRequestBodySchema =
-    s_OrgsCreateInvitationRequestBody.optional()
-
   const orgsCreateInvitationResponseBodyValidator = responseValidationFactory(
     [
       ["201", s_organization_invitation],
@@ -42468,7 +42281,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            orgsCreateInvitationRequestBodySchema,
+            s_OrgsCreateInvitationRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -42742,8 +42555,6 @@ export function createRouter(implementation: Implementation): Router {
 
   const orgsCreateIssueTypeParamSchema = z.object({org: z.string()})
 
-  const orgsCreateIssueTypeRequestBodySchema = s_organization_create_issue_type
-
   const orgsCreateIssueTypeResponseBodyValidator = responseValidationFactory(
     [
       ["200", s_issue_type],
@@ -42766,7 +42577,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            orgsCreateIssueTypeRequestBodySchema,
+            s_organization_create_issue_type,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -42822,8 +42633,6 @@ export function createRouter(implementation: Implementation): Router {
     issue_type_id: z.coerce.number(),
   })
 
-  const orgsUpdateIssueTypeRequestBodySchema = s_organization_update_issue_type
-
   const orgsUpdateIssueTypeResponseBodyValidator = responseValidationFactory(
     [
       ["200", s_issue_type],
@@ -42846,7 +42655,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            orgsUpdateIssueTypeRequestBodySchema,
+            s_organization_update_issue_type,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -43752,9 +43561,6 @@ export function createRouter(implementation: Implementation): Router {
     username: z.string(),
   })
 
-  const orgsSetMembershipForUserRequestBodySchema =
-    s_OrgsSetMembershipForUserRequestBody.optional()
-
   const orgsSetMembershipForUserResponseBodyValidator =
     responseValidationFactory(
       [
@@ -43778,7 +43584,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            orgsSetMembershipForUserRequestBodySchema,
+            s_OrgsSetMembershipForUserRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -43984,9 +43790,6 @@ export function createRouter(implementation: Implementation): Router {
 
   const migrationsStartForOrgParamSchema = z.object({org: z.string()})
 
-  const migrationsStartForOrgRequestBodySchema =
-    s_MigrationsStartForOrgRequestBody
-
   const migrationsStartForOrgResponseBodyValidator = responseValidationFactory(
     [
       ["201", s_migration],
@@ -44009,7 +43812,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            migrationsStartForOrgRequestBodySchema,
+            s_MigrationsStartForOrgRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -45249,9 +45052,6 @@ export function createRouter(implementation: Implementation): Router {
     username: z.string(),
   })
 
-  const orgsConvertMemberToOutsideCollaboratorRequestBodySchema =
-    s_OrgsConvertMemberToOutsideCollaboratorRequestBody.optional()
-
   const orgsConvertMemberToOutsideCollaboratorResponseBodyValidator =
     responseValidationFactory(
       [
@@ -45276,7 +45076,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            orgsConvertMemberToOutsideCollaboratorRequestBodySchema,
+            s_OrgsConvertMemberToOutsideCollaboratorRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -46278,9 +46078,6 @@ export function createRouter(implementation: Implementation): Router {
     org: z.string(),
   })
 
-  const orgsReviewPatGrantRequestsInBulkRequestBodySchema =
-    s_OrgsReviewPatGrantRequestsInBulkRequestBody
-
   const orgsReviewPatGrantRequestsInBulkResponseBodyValidator =
     responseValidationFactory(
       [
@@ -46306,7 +46103,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            orgsReviewPatGrantRequestsInBulkRequestBodySchema,
+            s_OrgsReviewPatGrantRequestsInBulkRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -46372,9 +46169,6 @@ export function createRouter(implementation: Implementation): Router {
     pat_request_id: z.coerce.number(),
   })
 
-  const orgsReviewPatGrantRequestRequestBodySchema =
-    s_OrgsReviewPatGrantRequestRequestBody
-
   const orgsReviewPatGrantRequestResponseBodyValidator =
     responseValidationFactory(
       [
@@ -46400,7 +46194,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            orgsReviewPatGrantRequestRequestBodySchema,
+            s_OrgsReviewPatGrantRequestRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -46660,9 +46454,6 @@ export function createRouter(implementation: Implementation): Router {
 
   const orgsUpdatePatAccessesParamSchema = z.object({org: z.string()})
 
-  const orgsUpdatePatAccessesRequestBodySchema =
-    s_OrgsUpdatePatAccessesRequestBody
-
   const orgsUpdatePatAccessesResponseBodyValidator = responseValidationFactory(
     [
       ["202", z.record(z.string(), z.unknown())],
@@ -46687,7 +46478,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            orgsUpdatePatAccessesRequestBodySchema,
+            s_OrgsUpdatePatAccessesRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -46751,8 +46542,6 @@ export function createRouter(implementation: Implementation): Router {
     pat_id: z.coerce.number(),
   })
 
-  const orgsUpdatePatAccessRequestBodySchema = s_OrgsUpdatePatAccessRequestBody
-
   const orgsUpdatePatAccessResponseBodyValidator = responseValidationFactory(
     [
       ["204", z.undefined()],
@@ -46777,7 +46566,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            orgsUpdatePatAccessRequestBodySchema,
+            s_OrgsUpdatePatAccessRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -47031,9 +46820,6 @@ export function createRouter(implementation: Implementation): Router {
     org: z.string(),
   })
 
-  const privateRegistriesCreateOrgPrivateRegistryRequestBodySchema =
-    s_PrivateRegistriesCreateOrgPrivateRegistryRequestBody
-
   const privateRegistriesCreateOrgPrivateRegistryResponseBodyValidator =
     responseValidationFactory(
       [
@@ -47060,7 +46846,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            privateRegistriesCreateOrgPrivateRegistryRequestBodySchema,
+            s_PrivateRegistriesCreateOrgPrivateRegistryRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -47288,9 +47074,6 @@ export function createRouter(implementation: Implementation): Router {
     secret_name: z.string(),
   })
 
-  const privateRegistriesUpdateOrgPrivateRegistryRequestBodySchema =
-    s_PrivateRegistriesUpdateOrgPrivateRegistryRequestBody
-
   const privateRegistriesUpdateOrgPrivateRegistryResponseBodyValidator =
     responseValidationFactory(
       [
@@ -47314,7 +47097,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            privateRegistriesUpdateOrgPrivateRegistryRequestBodySchema,
+            s_PrivateRegistriesUpdateOrgPrivateRegistryRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -47542,9 +47325,6 @@ export function createRouter(implementation: Implementation): Router {
 
   const projectsClassicCreateForOrgParamSchema = z.object({org: z.string()})
 
-  const projectsClassicCreateForOrgRequestBodySchema =
-    s_ProjectsClassicCreateForOrgRequestBody
-
   const projectsClassicCreateForOrgResponseBodyValidator =
     responseValidationFactory(
       [
@@ -47571,7 +47351,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            projectsClassicCreateForOrgRequestBodySchema,
+            s_ProjectsClassicCreateForOrgRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -47711,9 +47491,6 @@ export function createRouter(implementation: Implementation): Router {
     org: z.string(),
   })
 
-  const orgsCreateOrUpdateCustomPropertiesRequestBodySchema =
-    s_OrgsCreateOrUpdateCustomPropertiesRequestBody
-
   const orgsCreateOrUpdateCustomPropertiesResponseBodyValidator =
     responseValidationFactory(
       [
@@ -47737,7 +47514,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            orgsCreateOrUpdateCustomPropertiesRequestBodySchema,
+            s_OrgsCreateOrUpdateCustomPropertiesRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -47872,9 +47649,6 @@ export function createRouter(implementation: Implementation): Router {
     custom_property_name: z.string(),
   })
 
-  const orgsCreateOrUpdateCustomPropertyRequestBodySchema =
-    s_custom_property_set_payload
-
   const orgsCreateOrUpdateCustomPropertyResponseBodyValidator =
     responseValidationFactory(
       [
@@ -47898,7 +47672,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            orgsCreateOrUpdateCustomPropertyRequestBodySchema,
+            s_custom_property_set_payload,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -48127,9 +47901,6 @@ export function createRouter(implementation: Implementation): Router {
     org: z.string(),
   })
 
-  const orgsCreateOrUpdateCustomPropertiesValuesForReposRequestBodySchema =
-    s_OrgsCreateOrUpdateCustomPropertiesValuesForReposRequestBody
-
   const orgsCreateOrUpdateCustomPropertiesValuesForReposResponseBodyValidator =
     responseValidationFactory(
       [
@@ -48154,7 +47925,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            orgsCreateOrUpdateCustomPropertiesValuesForReposRequestBodySchema,
+            s_OrgsCreateOrUpdateCustomPropertiesValuesForReposRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -48598,8 +48369,6 @@ export function createRouter(implementation: Implementation): Router {
 
   const reposCreateInOrgParamSchema = z.object({org: z.string()})
 
-  const reposCreateInOrgRequestBodySchema = s_ReposCreateInOrgRequestBody
-
   const reposCreateInOrgResponseBodyValidator = responseValidationFactory(
     [
       ["201", s_full_repository],
@@ -48622,7 +48391,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            reposCreateInOrgRequestBodySchema,
+            s_ReposCreateInOrgRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -48756,9 +48525,6 @@ export function createRouter(implementation: Implementation): Router {
 
   const reposCreateOrgRulesetParamSchema = z.object({org: z.string()})
 
-  const reposCreateOrgRulesetRequestBodySchema =
-    s_ReposCreateOrgRulesetRequestBody
-
   const reposCreateOrgRulesetResponseBodyValidator = responseValidationFactory(
     [
       ["201", s_repository_ruleset],
@@ -48781,7 +48547,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            reposCreateOrgRulesetRequestBodySchema,
+            s_ReposCreateOrgRulesetRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -49076,9 +48842,6 @@ export function createRouter(implementation: Implementation): Router {
     ruleset_id: z.coerce.number(),
   })
 
-  const reposUpdateOrgRulesetRequestBodySchema =
-    s_ReposUpdateOrgRulesetRequestBody.optional()
-
   const reposUpdateOrgRulesetResponseBodyValidator = responseValidationFactory(
     [
       ["200", s_repository_ruleset],
@@ -49101,7 +48864,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            reposUpdateOrgRulesetRequestBodySchema,
+            s_ReposUpdateOrgRulesetRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -50080,9 +49843,6 @@ export function createRouter(implementation: Implementation): Router {
     org: z.string(),
   })
 
-  const hostedComputeCreateNetworkConfigurationForOrgRequestBodySchema =
-    s_HostedComputeCreateNetworkConfigurationForOrgRequestBody
-
   const hostedComputeCreateNetworkConfigurationForOrgResponseBodyValidator =
     responseValidationFactory([["201", s_network_configuration]], undefined)
 
@@ -50099,7 +49859,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            hostedComputeCreateNetworkConfigurationForOrgRequestBodySchema,
+            s_HostedComputeCreateNetworkConfigurationForOrgRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -50233,9 +49993,6 @@ export function createRouter(implementation: Implementation): Router {
     network_configuration_id: z.string(),
   })
 
-  const hostedComputeUpdateNetworkConfigurationForOrgRequestBodySchema =
-    s_HostedComputeUpdateNetworkConfigurationForOrgRequestBody
-
   const hostedComputeUpdateNetworkConfigurationForOrgResponseBodyValidator =
     responseValidationFactory([["200", s_network_configuration]], undefined)
 
@@ -50252,7 +50009,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            hostedComputeUpdateNetworkConfigurationForOrgRequestBodySchema,
+            s_HostedComputeUpdateNetworkConfigurationForOrgRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -50630,8 +50387,6 @@ export function createRouter(implementation: Implementation): Router {
 
   const teamsCreateParamSchema = z.object({org: z.string()})
 
-  const teamsCreateRequestBodySchema = s_TeamsCreateRequestBody
-
   const teamsCreateResponseBodyValidator = responseValidationFactory(
     [
       ["201", s_team_full],
@@ -50654,7 +50409,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            teamsCreateRequestBodySchema,
+            s_TeamsCreateRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -50780,9 +50535,6 @@ export function createRouter(implementation: Implementation): Router {
     team_slug: z.string(),
   })
 
-  const teamsUpdateInOrgRequestBodySchema =
-    s_TeamsUpdateInOrgRequestBody.optional()
-
   const teamsUpdateInOrgResponseBodyValidator = responseValidationFactory(
     [
       ["200", s_team_full],
@@ -50807,7 +50559,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            teamsUpdateInOrgRequestBodySchema,
+            s_TeamsUpdateInOrgRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -51006,9 +50758,6 @@ export function createRouter(implementation: Implementation): Router {
     team_slug: z.string(),
   })
 
-  const teamsCreateDiscussionInOrgRequestBodySchema =
-    s_TeamsCreateDiscussionInOrgRequestBody
-
   const teamsCreateDiscussionInOrgResponseBodyValidator =
     responseValidationFactory([["201", s_team_discussion]], undefined)
 
@@ -51025,7 +50774,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            teamsCreateDiscussionInOrgRequestBodySchema,
+            s_TeamsCreateDiscussionInOrgRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -51141,9 +50890,6 @@ export function createRouter(implementation: Implementation): Router {
     discussion_number: z.coerce.number(),
   })
 
-  const teamsUpdateDiscussionInOrgRequestBodySchema =
-    s_TeamsUpdateDiscussionInOrgRequestBody.optional()
-
   const teamsUpdateDiscussionInOrgResponseBodyValidator =
     responseValidationFactory([["200", s_team_discussion]], undefined)
 
@@ -51160,7 +50906,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            teamsUpdateDiscussionInOrgRequestBodySchema,
+            s_TeamsUpdateDiscussionInOrgRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -51356,9 +51102,6 @@ export function createRouter(implementation: Implementation): Router {
     discussion_number: z.coerce.number(),
   })
 
-  const teamsCreateDiscussionCommentInOrgRequestBodySchema =
-    s_TeamsCreateDiscussionCommentInOrgRequestBody
-
   const teamsCreateDiscussionCommentInOrgResponseBodyValidator =
     responseValidationFactory([["201", s_team_discussion_comment]], undefined)
 
@@ -51375,7 +51118,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            teamsCreateDiscussionCommentInOrgRequestBodySchema,
+            s_TeamsCreateDiscussionCommentInOrgRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -51498,9 +51241,6 @@ export function createRouter(implementation: Implementation): Router {
     comment_number: z.coerce.number(),
   })
 
-  const teamsUpdateDiscussionCommentInOrgRequestBodySchema =
-    s_TeamsUpdateDiscussionCommentInOrgRequestBody
-
   const teamsUpdateDiscussionCommentInOrgResponseBodyValidator =
     responseValidationFactory([["200", s_team_discussion_comment]], undefined)
 
@@ -51517,7 +51257,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            teamsUpdateDiscussionCommentInOrgRequestBodySchema,
+            s_TeamsUpdateDiscussionCommentInOrgRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -51739,9 +51479,6 @@ export function createRouter(implementation: Implementation): Router {
     comment_number: z.coerce.number(),
   })
 
-  const reactionsCreateForTeamDiscussionCommentInOrgRequestBodySchema =
-    s_ReactionsCreateForTeamDiscussionCommentInOrgRequestBody
-
   const reactionsCreateForTeamDiscussionCommentInOrgResponseBodyValidator =
     responseValidationFactory(
       [
@@ -51764,7 +51501,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            reactionsCreateForTeamDiscussionCommentInOrgRequestBodySchema,
+            s_ReactionsCreateForTeamDiscussionCommentInOrgRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -51994,9 +51731,6 @@ export function createRouter(implementation: Implementation): Router {
     discussion_number: z.coerce.number(),
   })
 
-  const reactionsCreateForTeamDiscussionInOrgRequestBodySchema =
-    s_ReactionsCreateForTeamDiscussionInOrgRequestBody
-
   const reactionsCreateForTeamDiscussionInOrgResponseBodyValidator =
     responseValidationFactory(
       [
@@ -52019,7 +51753,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            reactionsCreateForTeamDiscussionInOrgRequestBodySchema,
+            s_ReactionsCreateForTeamDiscussionInOrgRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -52374,9 +52108,6 @@ export function createRouter(implementation: Implementation): Router {
     username: z.string(),
   })
 
-  const teamsAddOrUpdateMembershipForUserInOrgRequestBodySchema =
-    s_TeamsAddOrUpdateMembershipForUserInOrgRequestBody.optional()
-
   const teamsAddOrUpdateMembershipForUserInOrgResponseBodyValidator =
     responseValidationFactory(
       [
@@ -52400,7 +52131,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            teamsAddOrUpdateMembershipForUserInOrgRequestBodySchema,
+            s_TeamsAddOrUpdateMembershipForUserInOrgRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -52701,9 +52432,6 @@ export function createRouter(implementation: Implementation): Router {
     project_id: z.coerce.number(),
   })
 
-  const teamsAddOrUpdateProjectPermissionsInOrgRequestBodySchema =
-    s_TeamsAddOrUpdateProjectPermissionsInOrgRequestBody.optional()
-
   const teamsAddOrUpdateProjectPermissionsInOrgResponseBodyValidator =
     responseValidationFactory(
       [
@@ -52732,7 +52460,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            teamsAddOrUpdateProjectPermissionsInOrgRequestBodySchema,
+            s_TeamsAddOrUpdateProjectPermissionsInOrgRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -53019,9 +52747,6 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const teamsAddOrUpdateRepoPermissionsInOrgRequestBodySchema =
-    s_TeamsAddOrUpdateRepoPermissionsInOrgRequestBody.optional()
-
   const teamsAddOrUpdateRepoPermissionsInOrgResponseBodyValidator =
     responseValidationFactory([["204", z.undefined()]], undefined)
 
@@ -53038,7 +52763,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            teamsAddOrUpdateRepoPermissionsInOrgRequestBodySchema,
+            s_TeamsAddOrUpdateRepoPermissionsInOrgRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -53247,9 +52972,6 @@ export function createRouter(implementation: Implementation): Router {
     enablement: z.enum(["enable_all", "disable_all"]),
   })
 
-  const orgsEnableOrDisableSecurityProductOnAllOrgReposRequestBodySchema =
-    s_OrgsEnableOrDisableSecurityProductOnAllOrgReposRequestBody.optional()
-
   const orgsEnableOrDisableSecurityProductOnAllOrgReposResponseBodyValidator =
     responseValidationFactory(
       [
@@ -53272,7 +52994,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            orgsEnableOrDisableSecurityProductOnAllOrgReposRequestBodySchema,
+            s_OrgsEnableOrDisableSecurityProductOnAllOrgReposRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -53416,9 +53138,6 @@ export function createRouter(implementation: Implementation): Router {
     card_id: z.coerce.number(),
   })
 
-  const projectsClassicUpdateCardRequestBodySchema =
-    s_ProjectsClassicUpdateCardRequestBody.optional()
-
   const projectsClassicUpdateCardResponseBodyValidator =
     responseValidationFactory(
       [
@@ -53445,7 +53164,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            projectsClassicUpdateCardRequestBodySchema,
+            s_ProjectsClassicUpdateCardRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -53602,9 +53321,6 @@ export function createRouter(implementation: Implementation): Router {
     card_id: z.coerce.number(),
   })
 
-  const projectsClassicMoveCardRequestBodySchema =
-    s_ProjectsClassicMoveCardRequestBody
-
   const projectsClassicMoveCardResponseBodyValidator =
     responseValidationFactory(
       [
@@ -53662,7 +53378,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            projectsClassicMoveCardRequestBodySchema,
+            s_ProjectsClassicMoveCardRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -53829,9 +53545,6 @@ export function createRouter(implementation: Implementation): Router {
     column_id: z.coerce.number(),
   })
 
-  const projectsClassicUpdateColumnRequestBodySchema =
-    s_ProjectsClassicUpdateColumnRequestBody
-
   const projectsClassicUpdateColumnResponseBodyValidator =
     responseValidationFactory(
       [
@@ -53856,7 +53569,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            projectsClassicUpdateColumnRequestBodySchema,
+            s_ProjectsClassicUpdateColumnRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -54087,9 +53800,6 @@ export function createRouter(implementation: Implementation): Router {
     column_id: z.coerce.number(),
   })
 
-  const projectsClassicCreateCardRequestBodySchema =
-    s_ProjectsClassicCreateCardRequestBody
-
   const projectsClassicCreateCardResponseBodyValidator =
     responseValidationFactory(
       [
@@ -54131,7 +53841,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            projectsClassicCreateCardRequestBodySchema,
+            s_ProjectsClassicCreateCardRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -54207,9 +53917,6 @@ export function createRouter(implementation: Implementation): Router {
     column_id: z.coerce.number(),
   })
 
-  const projectsClassicMoveColumnRequestBodySchema =
-    s_ProjectsClassicMoveColumnRequestBody
-
   const projectsClassicMoveColumnResponseBodyValidator =
     responseValidationFactory(
       [
@@ -54235,7 +53942,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            projectsClassicMoveColumnRequestBodySchema,
+            s_ProjectsClassicMoveColumnRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -54373,9 +54080,6 @@ export function createRouter(implementation: Implementation): Router {
     project_id: z.coerce.number(),
   })
 
-  const projectsClassicUpdateRequestBodySchema =
-    s_ProjectsClassicUpdateRequestBody.optional()
-
   const projectsClassicUpdateResponseBodyValidator = responseValidationFactory(
     [
       ["200", s_project],
@@ -54409,7 +54113,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            projectsClassicUpdateRequestBodySchema,
+            s_ProjectsClassicUpdateRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -54675,9 +54379,6 @@ export function createRouter(implementation: Implementation): Router {
     username: z.string(),
   })
 
-  const projectsClassicAddCollaboratorRequestBodySchema =
-    s_ProjectsClassicAddCollaboratorRequestBody.optional()
-
   const projectsClassicAddCollaboratorResponseBodyValidator =
     responseValidationFactory(
       [
@@ -54704,7 +54405,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            projectsClassicAddCollaboratorRequestBodySchema,
+            s_ProjectsClassicAddCollaboratorRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -55045,9 +54746,6 @@ export function createRouter(implementation: Implementation): Router {
     project_id: z.coerce.number(),
   })
 
-  const projectsClassicCreateColumnRequestBodySchema =
-    s_ProjectsClassicCreateColumnRequestBody
-
   const projectsClassicCreateColumnResponseBodyValidator =
     responseValidationFactory(
       [
@@ -55073,7 +54771,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            projectsClassicCreateColumnRequestBodySchema,
+            s_ProjectsClassicCreateColumnRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -55274,8 +54972,6 @@ export function createRouter(implementation: Implementation): Router {
 
   const reposUpdateParamSchema = z.object({owner: z.string(), repo: z.string()})
 
-  const reposUpdateRequestBodySchema = s_ReposUpdateRequestBody.optional()
-
   const reposUpdateResponseBodyValidator = responseValidationFactory(
     [
       ["200", s_full_repository],
@@ -55300,7 +54996,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            reposUpdateRequestBodySchema,
+            s_ReposUpdateRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -56168,9 +55864,6 @@ export function createRouter(implementation: Implementation): Router {
     job_id: z.coerce.number(),
   })
 
-  const actionsReRunJobForWorkflowRunRequestBodySchema =
-    s_ActionsReRunJobForWorkflowRunRequestBody.optional()
-
   const actionsReRunJobForWorkflowRunResponseBodyValidator =
     responseValidationFactory(
       [
@@ -56193,7 +55886,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            actionsReRunJobForWorkflowRunRequestBodySchema,
+            s_ActionsReRunJobForWorkflowRunRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -56328,9 +56021,6 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const actionsSetCustomOidcSubClaimForRepoRequestBodySchema =
-    s_ActionsSetCustomOidcSubClaimForRepoRequestBody
-
   const actionsSetCustomOidcSubClaimForRepoResponseBodyValidator =
     responseValidationFactory(
       [
@@ -56355,7 +56045,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            actionsSetCustomOidcSubClaimForRepoRequestBodySchema,
+            s_ActionsSetCustomOidcSubClaimForRepoRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -56683,9 +56373,6 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const actionsSetGithubActionsPermissionsRepositoryRequestBodySchema =
-    s_ActionsSetGithubActionsPermissionsRepositoryRequestBody
-
   const actionsSetGithubActionsPermissionsRepositoryResponseBodyValidator =
     responseValidationFactory([["204", z.undefined()]], undefined)
 
@@ -56702,7 +56389,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            actionsSetGithubActionsPermissionsRepositoryRequestBodySchema,
+            s_ActionsSetGithubActionsPermissionsRepositoryRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -56841,9 +56528,6 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const actionsSetWorkflowAccessToRepositoryRequestBodySchema =
-    s_actions_workflow_access_to_repository
-
   const actionsSetWorkflowAccessToRepositoryResponseBodyValidator =
     responseValidationFactory([["204", z.undefined()]], undefined)
 
@@ -56860,7 +56544,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            actionsSetWorkflowAccessToRepositoryRequestBodySchema,
+            s_actions_workflow_access_to_repository,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -56988,9 +56672,6 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const actionsSetAllowedActionsRepositoryRequestBodySchema =
-    s_selected_actions.optional()
-
   const actionsSetAllowedActionsRepositoryResponseBodyValidator =
     responseValidationFactory([["204", z.undefined()]], undefined)
 
@@ -57007,7 +56688,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            actionsSetAllowedActionsRepositoryRequestBodySchema,
+            s_selected_actions.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -57136,9 +56817,6 @@ export function createRouter(implementation: Implementation): Router {
   const actionsSetGithubActionsDefaultWorkflowPermissionsRepositoryParamSchema =
     z.object({owner: z.string(), repo: z.string()})
 
-  const actionsSetGithubActionsDefaultWorkflowPermissionsRepositoryRequestBodySchema =
-    s_actions_set_default_workflow_permissions
-
   const actionsSetGithubActionsDefaultWorkflowPermissionsRepositoryResponseBodyValidator =
     responseValidationFactory(
       [
@@ -57161,7 +56839,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            actionsSetGithubActionsDefaultWorkflowPermissionsRepositoryRequestBodySchema,
+            s_actions_set_default_workflow_permissions,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -57392,9 +57070,6 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const actionsGenerateRunnerJitconfigForRepoRequestBodySchema =
-    s_ActionsGenerateRunnerJitconfigForRepoRequestBody
-
   const actionsGenerateRunnerJitconfigForRepoResponseBodyValidator =
     responseValidationFactory(
       [
@@ -57419,7 +57094,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            actionsGenerateRunnerJitconfigForRepoRequestBodySchema,
+            s_ActionsGenerateRunnerJitconfigForRepoRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -57873,9 +57548,6 @@ export function createRouter(implementation: Implementation): Router {
     runner_id: z.coerce.number(),
   })
 
-  const actionsAddCustomLabelsToSelfHostedRunnerForRepoRequestBodySchema =
-    s_ActionsAddCustomLabelsToSelfHostedRunnerForRepoRequestBody
-
   const actionsAddCustomLabelsToSelfHostedRunnerForRepoResponseBodyValidator =
     responseValidationFactory(
       [
@@ -57905,7 +57577,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            actionsAddCustomLabelsToSelfHostedRunnerForRepoRequestBodySchema,
+            s_ActionsAddCustomLabelsToSelfHostedRunnerForRepoRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -57976,9 +57648,6 @@ export function createRouter(implementation: Implementation): Router {
     runner_id: z.coerce.number(),
   })
 
-  const actionsSetCustomLabelsForSelfHostedRunnerForRepoRequestBodySchema =
-    s_ActionsSetCustomLabelsForSelfHostedRunnerForRepoRequestBody
-
   const actionsSetCustomLabelsForSelfHostedRunnerForRepoResponseBodyValidator =
     responseValidationFactory(
       [
@@ -58008,7 +57677,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            actionsSetCustomLabelsForSelfHostedRunnerForRepoRequestBodySchema,
+            s_ActionsSetCustomLabelsForSelfHostedRunnerForRepoRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -59069,9 +58738,6 @@ export function createRouter(implementation: Implementation): Router {
     run_id: z.coerce.number(),
   })
 
-  const actionsReviewCustomGatesForRunRequestBodySchema =
-    s_ActionsReviewCustomGatesForRunRequestBody
-
   const actionsReviewCustomGatesForRunResponseBodyValidator =
     responseValidationFactory([["204", z.undefined()]], undefined)
 
@@ -59088,7 +58754,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            actionsReviewCustomGatesForRunRequestBodySchema,
+            s_ActionsReviewCustomGatesForRunRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -59515,9 +59181,6 @@ export function createRouter(implementation: Implementation): Router {
     run_id: z.coerce.number(),
   })
 
-  const actionsReviewPendingDeploymentsForRunRequestBodySchema =
-    s_ActionsReviewPendingDeploymentsForRunRequestBody
-
   const actionsReviewPendingDeploymentsForRunResponseBodyValidator =
     responseValidationFactory([["200", z.array(s_deployment)]], undefined)
 
@@ -59534,7 +59197,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            actionsReviewPendingDeploymentsForRunRequestBodySchema,
+            s_ActionsReviewPendingDeploymentsForRunRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -59596,9 +59259,6 @@ export function createRouter(implementation: Implementation): Router {
     run_id: z.coerce.number(),
   })
 
-  const actionsReRunWorkflowRequestBodySchema =
-    s_ActionsReRunWorkflowRequestBody.optional()
-
   const actionsReRunWorkflowResponseBodyValidator = responseValidationFactory(
     [["201", s_empty_object]],
     undefined,
@@ -59617,7 +59277,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            actionsReRunWorkflowRequestBodySchema,
+            s_ActionsReRunWorkflowRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -59668,9 +59328,6 @@ export function createRouter(implementation: Implementation): Router {
     run_id: z.coerce.number(),
   })
 
-  const actionsReRunWorkflowFailedJobsRequestBodySchema =
-    s_ActionsReRunWorkflowFailedJobsRequestBody.optional()
-
   const actionsReRunWorkflowFailedJobsResponseBodyValidator =
     responseValidationFactory([["201", s_empty_object]], undefined)
 
@@ -59687,7 +59344,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            actionsReRunWorkflowFailedJobsRequestBodySchema,
+            s_ActionsReRunWorkflowFailedJobsRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -60016,9 +59673,6 @@ export function createRouter(implementation: Implementation): Router {
     secret_name: z.string(),
   })
 
-  const actionsCreateOrUpdateRepoSecretRequestBodySchema =
-    s_ActionsCreateOrUpdateRepoSecretRequestBody
-
   const actionsCreateOrUpdateRepoSecretResponseBodyValidator =
     responseValidationFactory(
       [
@@ -60041,7 +59695,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            actionsCreateOrUpdateRepoSecretRequestBodySchema,
+            s_ActionsCreateOrUpdateRepoSecretRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -60244,9 +59898,6 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const actionsCreateRepoVariableRequestBodySchema =
-    s_ActionsCreateRepoVariableRequestBody
-
   const actionsCreateRepoVariableResponseBodyValidator =
     responseValidationFactory([["201", s_empty_object]], undefined)
 
@@ -60263,7 +59914,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            actionsCreateRepoVariableRequestBodySchema,
+            s_ActionsCreateRepoVariableRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -60379,9 +60030,6 @@ export function createRouter(implementation: Implementation): Router {
     name: z.string(),
   })
 
-  const actionsUpdateRepoVariableRequestBodySchema =
-    s_ActionsUpdateRepoVariableRequestBody
-
   const actionsUpdateRepoVariableResponseBodyValidator =
     responseValidationFactory([["204", z.undefined()]], undefined)
 
@@ -60398,7 +60046,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            actionsUpdateRepoVariableRequestBodySchema,
+            s_ActionsUpdateRepoVariableRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -60727,9 +60375,6 @@ export function createRouter(implementation: Implementation): Router {
     workflow_id: z.union([z.coerce.number(), z.string()]),
   })
 
-  const actionsCreateWorkflowDispatchRequestBodySchema =
-    s_ActionsCreateWorkflowDispatchRequestBody
-
   const actionsCreateWorkflowDispatchResponseBodyValidator =
     responseValidationFactory([["204", z.undefined()]], undefined)
 
@@ -60746,7 +60391,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            actionsCreateWorkflowDispatchRequestBodySchema,
+            s_ActionsCreateWorkflowDispatchRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -61284,9 +60929,6 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const reposCreateAttestationRequestBodySchema =
-    s_ReposCreateAttestationRequestBody
-
   const reposCreateAttestationResponseBodyValidator = responseValidationFactory(
     [
       ["201", z.object({id: z.coerce.number().optional()})],
@@ -61309,7 +60951,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            reposCreateAttestationRequestBodySchema,
+            s_ReposCreateAttestationRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -61552,8 +61194,6 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const reposCreateAutolinkRequestBodySchema = s_ReposCreateAutolinkRequestBody
-
   const reposCreateAutolinkResponseBodyValidator = responseValidationFactory(
     [
       ["201", s_autolink],
@@ -61575,7 +61215,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            reposCreateAutolinkRequestBodySchema,
+            s_ReposCreateAutolinkRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -62207,9 +61847,6 @@ export function createRouter(implementation: Implementation): Router {
     branch: z.string(),
   })
 
-  const reposUpdateBranchProtectionRequestBodySchema =
-    s_ReposUpdateBranchProtectionRequestBody
-
   const reposUpdateBranchProtectionResponseBodyValidator =
     responseValidationFactory(
       [
@@ -62234,7 +61871,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            reposUpdateBranchProtectionRequestBodySchema,
+            s_ReposUpdateBranchProtectionRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -62657,9 +62294,6 @@ export function createRouter(implementation: Implementation): Router {
     branch: z.string(),
   })
 
-  const reposUpdatePullRequestReviewProtectionRequestBodySchema =
-    s_ReposUpdatePullRequestReviewProtectionRequestBody.optional()
-
   const reposUpdatePullRequestReviewProtectionResponseBodyValidator =
     responseValidationFactory(
       [
@@ -62682,7 +62316,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            reposUpdatePullRequestReviewProtectionRequestBodySchema,
+            s_ReposUpdatePullRequestReviewProtectionRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -63153,9 +62787,6 @@ export function createRouter(implementation: Implementation): Router {
     branch: z.string(),
   })
 
-  const reposUpdateStatusCheckProtectionRequestBodySchema =
-    s_ReposUpdateStatusCheckProtectionRequestBody.optional()
-
   const reposUpdateStatusCheckProtectionResponseBodyValidator =
     responseValidationFactory(
       [
@@ -63179,7 +62810,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            reposUpdateStatusCheckProtectionRequestBodySchema,
+            s_ReposUpdateStatusCheckProtectionRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -63377,9 +63008,6 @@ export function createRouter(implementation: Implementation): Router {
     branch: z.string(),
   })
 
-  const reposAddStatusCheckContextsRequestBodySchema =
-    s_ReposAddStatusCheckContextsRequestBody.optional()
-
   const reposAddStatusCheckContextsResponseBodyValidator =
     responseValidationFactory(
       [
@@ -63404,7 +63032,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            reposAddStatusCheckContextsRequestBodySchema,
+            s_ReposAddStatusCheckContextsRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -63466,9 +63094,6 @@ export function createRouter(implementation: Implementation): Router {
     branch: z.string(),
   })
 
-  const reposSetStatusCheckContextsRequestBodySchema =
-    s_ReposSetStatusCheckContextsRequestBody.optional()
-
   const reposSetStatusCheckContextsResponseBodyValidator =
     responseValidationFactory(
       [
@@ -63492,7 +63117,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            reposSetStatusCheckContextsRequestBodySchema,
+            s_ReposSetStatusCheckContextsRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -63551,9 +63176,6 @@ export function createRouter(implementation: Implementation): Router {
     branch: z.string(),
   })
 
-  const reposRemoveStatusCheckContextsRequestBodySchema =
-    s_ReposRemoveStatusCheckContextsRequestBody
-
   const reposRemoveStatusCheckContextsResponseBodyValidator =
     responseValidationFactory(
       [
@@ -63577,7 +63199,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            reposRemoveStatusCheckContextsRequestBodySchema,
+            s_ReposRemoveStatusCheckContextsRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -63858,9 +63480,6 @@ export function createRouter(implementation: Implementation): Router {
     branch: z.string(),
   })
 
-  const reposAddAppAccessRestrictionsRequestBodySchema =
-    s_ReposAddAppAccessRestrictionsRequestBody
-
   const reposAddAppAccessRestrictionsResponseBodyValidator =
     responseValidationFactory(
       [
@@ -63883,7 +63502,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            reposAddAppAccessRestrictionsRequestBodySchema,
+            s_ReposAddAppAccessRestrictionsRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -63939,9 +63558,6 @@ export function createRouter(implementation: Implementation): Router {
     branch: z.string(),
   })
 
-  const reposSetAppAccessRestrictionsRequestBodySchema =
-    s_ReposSetAppAccessRestrictionsRequestBody
-
   const reposSetAppAccessRestrictionsResponseBodyValidator =
     responseValidationFactory(
       [
@@ -63964,7 +63580,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            reposSetAppAccessRestrictionsRequestBodySchema,
+            s_ReposSetAppAccessRestrictionsRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -64020,9 +63636,6 @@ export function createRouter(implementation: Implementation): Router {
     branch: z.string(),
   })
 
-  const reposRemoveAppAccessRestrictionsRequestBodySchema =
-    s_ReposRemoveAppAccessRestrictionsRequestBody
-
   const reposRemoveAppAccessRestrictionsResponseBodyValidator =
     responseValidationFactory(
       [
@@ -64045,7 +63658,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            reposRemoveAppAccessRestrictionsRequestBodySchema,
+            s_ReposRemoveAppAccessRestrictionsRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -64184,9 +63797,6 @@ export function createRouter(implementation: Implementation): Router {
     branch: z.string(),
   })
 
-  const reposAddTeamAccessRestrictionsRequestBodySchema =
-    s_ReposAddTeamAccessRestrictionsRequestBody.optional()
-
   const reposAddTeamAccessRestrictionsResponseBodyValidator =
     responseValidationFactory(
       [
@@ -64209,7 +63819,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            reposAddTeamAccessRestrictionsRequestBodySchema,
+            s_ReposAddTeamAccessRestrictionsRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -64265,9 +63875,6 @@ export function createRouter(implementation: Implementation): Router {
     branch: z.string(),
   })
 
-  const reposSetTeamAccessRestrictionsRequestBodySchema =
-    s_ReposSetTeamAccessRestrictionsRequestBody.optional()
-
   const reposSetTeamAccessRestrictionsResponseBodyValidator =
     responseValidationFactory(
       [
@@ -64290,7 +63897,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            reposSetTeamAccessRestrictionsRequestBodySchema,
+            s_ReposSetTeamAccessRestrictionsRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -64346,9 +63953,6 @@ export function createRouter(implementation: Implementation): Router {
     branch: z.string(),
   })
 
-  const reposRemoveTeamAccessRestrictionsRequestBodySchema =
-    s_ReposRemoveTeamAccessRestrictionsRequestBody
-
   const reposRemoveTeamAccessRestrictionsResponseBodyValidator =
     responseValidationFactory(
       [
@@ -64371,7 +63975,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            reposRemoveTeamAccessRestrictionsRequestBodySchema,
+            s_ReposRemoveTeamAccessRestrictionsRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -64513,9 +64117,6 @@ export function createRouter(implementation: Implementation): Router {
     branch: z.string(),
   })
 
-  const reposAddUserAccessRestrictionsRequestBodySchema =
-    s_ReposAddUserAccessRestrictionsRequestBody
-
   const reposAddUserAccessRestrictionsResponseBodyValidator =
     responseValidationFactory(
       [
@@ -64538,7 +64139,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            reposAddUserAccessRestrictionsRequestBodySchema,
+            s_ReposAddUserAccessRestrictionsRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -64594,9 +64195,6 @@ export function createRouter(implementation: Implementation): Router {
     branch: z.string(),
   })
 
-  const reposSetUserAccessRestrictionsRequestBodySchema =
-    s_ReposSetUserAccessRestrictionsRequestBody
-
   const reposSetUserAccessRestrictionsResponseBodyValidator =
     responseValidationFactory(
       [
@@ -64619,7 +64217,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            reposSetUserAccessRestrictionsRequestBodySchema,
+            s_ReposSetUserAccessRestrictionsRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -64675,9 +64273,6 @@ export function createRouter(implementation: Implementation): Router {
     branch: z.string(),
   })
 
-  const reposRemoveUserAccessRestrictionsRequestBodySchema =
-    s_ReposRemoveUserAccessRestrictionsRequestBody
-
   const reposRemoveUserAccessRestrictionsResponseBodyValidator =
     responseValidationFactory(
       [
@@ -64700,7 +64295,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            reposRemoveUserAccessRestrictionsRequestBodySchema,
+            s_ReposRemoveUserAccessRestrictionsRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -64759,8 +64354,6 @@ export function createRouter(implementation: Implementation): Router {
     branch: z.string(),
   })
 
-  const reposRenameBranchRequestBodySchema = s_ReposRenameBranchRequestBody
-
   const reposRenameBranchResponseBodyValidator = responseValidationFactory(
     [
       ["201", s_branch_with_protection],
@@ -64784,7 +64377,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            reposRenameBranchRequestBodySchema,
+            s_ReposRenameBranchRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -64843,8 +64436,6 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const checksCreateRequestBodySchema = s_ChecksCreateRequestBody
-
   const checksCreateResponseBodyValidator = responseValidationFactory(
     [["201", s_check_run]],
     undefined,
@@ -64863,7 +64454,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            checksCreateRequestBodySchema,
+            s_ChecksCreateRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -64979,8 +64570,6 @@ export function createRouter(implementation: Implementation): Router {
     check_run_id: z.coerce.number(),
   })
 
-  const checksUpdateRequestBodySchema = s_ChecksUpdateRequestBody
-
   const checksUpdateResponseBodyValidator = responseValidationFactory(
     [["200", s_check_run]],
     undefined,
@@ -64999,7 +64588,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            checksUpdateRequestBodySchema,
+            s_ChecksUpdateRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -65202,8 +64791,6 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const checksCreateSuiteRequestBodySchema = s_ChecksCreateSuiteRequestBody
-
   const checksCreateSuiteResponseBodyValidator = responseValidationFactory(
     [
       ["200", s_check_suite],
@@ -65225,7 +64812,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            checksCreateSuiteRequestBodySchema,
+            s_ChecksCreateSuiteRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -65278,9 +64865,6 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const checksSetSuitesPreferencesRequestBodySchema =
-    s_ChecksSetSuitesPreferencesRequestBody
-
   const checksSetSuitesPreferencesResponseBodyValidator =
     responseValidationFactory([["200", s_check_suite_preference]], undefined)
 
@@ -65297,7 +64881,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            checksSetSuitesPreferencesRequestBodySchema,
+            s_ChecksSetSuitesPreferencesRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -65779,9 +65363,6 @@ export function createRouter(implementation: Implementation): Router {
     alert_number: s_alert_number,
   })
 
-  const codeScanningUpdateAlertRequestBodySchema =
-    s_CodeScanningUpdateAlertRequestBody
-
   const codeScanningUpdateAlertResponseBodyValidator =
     responseValidationFactory(
       [
@@ -65814,7 +65395,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            codeScanningUpdateAlertRequestBodySchema,
+            s_CodeScanningUpdateAlertRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -66078,9 +65659,6 @@ export function createRouter(implementation: Implementation): Router {
     alert_number: s_alert_number,
   })
 
-  const codeScanningCommitAutofixRequestBodySchema =
-    s_code_scanning_autofix_commits.optional()
-
   const codeScanningCommitAutofixResponseBodyValidator =
     responseValidationFactory(
       [
@@ -66114,7 +65692,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            codeScanningCommitAutofixRequestBodySchema,
+            s_code_scanning_autofix_commits.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -66889,9 +66467,6 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const codeScanningCreateVariantAnalysisRequestBodySchema =
-    s_CodeScanningCreateVariantAnalysisRequestBody
-
   const codeScanningCreateVariantAnalysisResponseBodyValidator =
     responseValidationFactory(
       [
@@ -66923,7 +66498,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            codeScanningCreateVariantAnalysisRequestBodySchema,
+            s_CodeScanningCreateVariantAnalysisRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -67280,9 +66855,6 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const codeScanningUpdateDefaultSetupRequestBodySchema =
-    s_code_scanning_default_setup_update
-
   const codeScanningUpdateDefaultSetupResponseBodyValidator =
     responseValidationFactory(
       [
@@ -67317,7 +66889,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            codeScanningUpdateDefaultSetupRequestBodySchema,
+            s_code_scanning_default_setup_update,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -67393,9 +66965,6 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const codeScanningUploadSarifRequestBodySchema =
-    s_CodeScanningUploadSarifRequestBody
-
   const codeScanningUploadSarifResponseBodyValidator =
     responseValidationFactory(
       [
@@ -67429,7 +66998,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            codeScanningUploadSarifRequestBodySchema,
+            s_CodeScanningUploadSarifRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -67878,9 +67447,6 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const codespacesCreateWithRepoForAuthenticatedUserRequestBodySchema =
-    s_CodespacesCreateWithRepoForAuthenticatedUserRequestBody
-
   const codespacesCreateWithRepoForAuthenticatedUserResponseBodyValidator =
     responseValidationFactory(
       [
@@ -67915,7 +67481,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            codespacesCreateWithRepoForAuthenticatedUserRequestBodySchema,
+            s_CodespacesCreateWithRepoForAuthenticatedUserRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -68691,9 +68257,6 @@ export function createRouter(implementation: Implementation): Router {
     secret_name: z.string(),
   })
 
-  const codespacesCreateOrUpdateRepoSecretRequestBodySchema =
-    s_CodespacesCreateOrUpdateRepoSecretRequestBody
-
   const codespacesCreateOrUpdateRepoSecretResponseBodyValidator =
     responseValidationFactory(
       [
@@ -68716,7 +68279,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            codespacesCreateOrUpdateRepoSecretRequestBodySchema,
+            s_CodespacesCreateOrUpdateRepoSecretRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -68994,9 +68557,6 @@ export function createRouter(implementation: Implementation): Router {
     username: z.string(),
   })
 
-  const reposAddCollaboratorRequestBodySchema =
-    s_ReposAddCollaboratorRequestBody.optional()
-
   const reposAddCollaboratorResponseBodyValidator = responseValidationFactory(
     [
       ["201", s_repository_invitation],
@@ -69020,7 +68580,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            reposAddCollaboratorRequestBodySchema,
+            s_ReposAddCollaboratorRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -69379,9 +68939,6 @@ export function createRouter(implementation: Implementation): Router {
     comment_id: z.coerce.number(),
   })
 
-  const reposUpdateCommitCommentRequestBodySchema =
-    s_ReposUpdateCommitCommentRequestBody
-
   const reposUpdateCommitCommentResponseBodyValidator =
     responseValidationFactory(
       [
@@ -69404,7 +68961,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            reposUpdateCommitCommentRequestBodySchema,
+            s_ReposUpdateCommitCommentRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -69625,9 +69182,6 @@ export function createRouter(implementation: Implementation): Router {
     comment_id: z.coerce.number(),
   })
 
-  const reactionsCreateForCommitCommentRequestBodySchema =
-    s_ReactionsCreateForCommitCommentRequestBody
-
   const reactionsCreateForCommitCommentResponseBodyValidator =
     responseValidationFactory(
       [
@@ -69651,7 +69205,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            reactionsCreateForCommitCommentRequestBodySchema,
+            s_ReactionsCreateForCommitCommentRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -70025,9 +69579,6 @@ export function createRouter(implementation: Implementation): Router {
     commit_sha: z.string(),
   })
 
-  const reposCreateCommitCommentRequestBodySchema =
-    s_ReposCreateCommitCommentRequestBody
-
   const reposCreateCommitCommentResponseBodyValidator =
     responseValidationFactory(
       [
@@ -70051,7 +69602,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            reposCreateCommitCommentRequestBodySchema,
+            s_ReposCreateCommitCommentRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -70914,9 +70465,6 @@ export function createRouter(implementation: Implementation): Router {
     path: z.string(),
   })
 
-  const reposCreateOrUpdateFileContentsRequestBodySchema =
-    s_ReposCreateOrUpdateFileContentsRequestBody
-
   const reposCreateOrUpdateFileContentsResponseBodyValidator =
     responseValidationFactory(
       [
@@ -70942,7 +70490,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            reposCreateOrUpdateFileContentsRequestBodySchema,
+            s_ReposCreateOrUpdateFileContentsRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -71009,8 +70557,6 @@ export function createRouter(implementation: Implementation): Router {
     path: z.string(),
   })
 
-  const reposDeleteFileRequestBodySchema = s_ReposDeleteFileRequestBody
-
   const reposDeleteFileResponseBodyValidator = responseValidationFactory(
     [
       ["200", s_file_commit],
@@ -71042,7 +70588,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            reposDeleteFileRequestBodySchema,
+            s_ReposDeleteFileRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -71391,9 +70937,6 @@ export function createRouter(implementation: Implementation): Router {
     alert_number: s_alert_number,
   })
 
-  const dependabotUpdateAlertRequestBodySchema =
-    s_DependabotUpdateAlertRequestBody
-
   const dependabotUpdateAlertResponseBodyValidator = responseValidationFactory(
     [
       ["200", s_dependabot_alert],
@@ -71419,7 +70962,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            dependabotUpdateAlertRequestBodySchema,
+            s_DependabotUpdateAlertRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -71697,9 +71240,6 @@ export function createRouter(implementation: Implementation): Router {
     secret_name: z.string(),
   })
 
-  const dependabotCreateOrUpdateRepoSecretRequestBodySchema =
-    s_DependabotCreateOrUpdateRepoSecretRequestBody
-
   const dependabotCreateOrUpdateRepoSecretResponseBodyValidator =
     responseValidationFactory(
       [
@@ -71722,7 +71262,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            dependabotCreateOrUpdateRepoSecretRequestBodySchema,
+            s_DependabotCreateOrUpdateRepoSecretRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -72004,8 +71544,6 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const dependencyGraphCreateRepositorySnapshotRequestBodySchema = s_snapshot
-
   const dependencyGraphCreateRepositorySnapshotResponseBodyValidator =
     responseValidationFactory(
       [
@@ -72035,7 +71573,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            dependencyGraphCreateRepositorySnapshotRequestBodySchema,
+            s_snapshot,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -72178,9 +71716,6 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const reposCreateDeploymentRequestBodySchema =
-    s_ReposCreateDeploymentRequestBody
-
   const reposCreateDeploymentResponseBodyValidator = responseValidationFactory(
     [
       ["201", s_deployment],
@@ -72204,7 +71739,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            reposCreateDeploymentRequestBodySchema,
+            s_ReposCreateDeploymentRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -72495,9 +72030,6 @@ export function createRouter(implementation: Implementation): Router {
     deployment_id: z.coerce.number(),
   })
 
-  const reposCreateDeploymentStatusRequestBodySchema =
-    s_ReposCreateDeploymentStatusRequestBody
-
   const reposCreateDeploymentStatusResponseBodyValidator =
     responseValidationFactory(
       [
@@ -72520,7 +72052,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            reposCreateDeploymentStatusRequestBodySchema,
+            s_ReposCreateDeploymentStatusRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -72648,9 +72180,6 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const reposCreateDispatchEventRequestBodySchema =
-    s_ReposCreateDispatchEventRequestBody
-
   const reposCreateDispatchEventResponseBodyValidator =
     responseValidationFactory(
       [
@@ -72674,7 +72203,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            reposCreateDispatchEventRequestBodySchema,
+            s_ReposCreateDispatchEventRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -72881,9 +72410,6 @@ export function createRouter(implementation: Implementation): Router {
     environment_name: z.string(),
   })
 
-  const reposCreateOrUpdateEnvironmentRequestBodySchema =
-    s_ReposCreateOrUpdateEnvironmentRequestBody.optional()
-
   const reposCreateOrUpdateEnvironmentResponseBodyValidator =
     responseValidationFactory(
       [
@@ -72906,7 +72432,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            reposCreateOrUpdateEnvironmentRequestBodySchema,
+            s_ReposCreateOrUpdateEnvironmentRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -73116,9 +72642,6 @@ export function createRouter(implementation: Implementation): Router {
     environment_name: z.string(),
   })
 
-  const reposCreateDeploymentBranchPolicyRequestBodySchema =
-    s_deployment_branch_policy_name_pattern_with_type
-
   const reposCreateDeploymentBranchPolicyResponseBodyValidator =
     responseValidationFactory(
       [
@@ -73142,7 +72665,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            reposCreateDeploymentBranchPolicyRequestBodySchema,
+            s_deployment_branch_policy_name_pattern_with_type,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -73271,9 +72794,6 @@ export function createRouter(implementation: Implementation): Router {
     branch_policy_id: z.coerce.number(),
   })
 
-  const reposUpdateDeploymentBranchPolicyRequestBodySchema =
-    s_deployment_branch_policy_name_pattern
-
   const reposUpdateDeploymentBranchPolicyResponseBodyValidator =
     responseValidationFactory([["200", s_deployment_branch_policy]], undefined)
 
@@ -73290,7 +72810,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            reposUpdateDeploymentBranchPolicyRequestBodySchema,
+            s_deployment_branch_policy_name_pattern,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -73507,9 +73027,6 @@ export function createRouter(implementation: Implementation): Router {
     owner: z.string(),
   })
 
-  const reposCreateDeploymentProtectionRuleRequestBodySchema =
-    s_ReposCreateDeploymentProtectionRuleRequestBody
-
   const reposCreateDeploymentProtectionRuleResponseBodyValidator =
     responseValidationFactory(
       [["201", s_deployment_protection_rule]],
@@ -73529,7 +73046,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            reposCreateDeploymentProtectionRuleRequestBodySchema,
+            s_ReposCreateDeploymentProtectionRuleRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -74059,9 +73576,6 @@ export function createRouter(implementation: Implementation): Router {
     secret_name: z.string(),
   })
 
-  const actionsCreateOrUpdateEnvironmentSecretRequestBodySchema =
-    s_ActionsCreateOrUpdateEnvironmentSecretRequestBody
-
   const actionsCreateOrUpdateEnvironmentSecretResponseBodyValidator =
     responseValidationFactory(
       [
@@ -74084,7 +73598,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            actionsCreateOrUpdateEnvironmentSecretRequestBodySchema,
+            s_ActionsCreateOrUpdateEnvironmentSecretRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -74303,9 +73817,6 @@ export function createRouter(implementation: Implementation): Router {
     environment_name: z.string(),
   })
 
-  const actionsCreateEnvironmentVariableRequestBodySchema =
-    s_ActionsCreateEnvironmentVariableRequestBody
-
   const actionsCreateEnvironmentVariableResponseBodyValidator =
     responseValidationFactory([["201", s_empty_object]], undefined)
 
@@ -74322,7 +73833,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            actionsCreateEnvironmentVariableRequestBodySchema,
+            s_ActionsCreateEnvironmentVariableRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -74442,9 +73953,6 @@ export function createRouter(implementation: Implementation): Router {
     environment_name: z.string(),
   })
 
-  const actionsUpdateEnvironmentVariableRequestBodySchema =
-    s_ActionsUpdateEnvironmentVariableRequestBody
-
   const actionsUpdateEnvironmentVariableResponseBodyValidator =
     responseValidationFactory([["204", z.undefined()]], undefined)
 
@@ -74461,7 +73969,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            actionsUpdateEnvironmentVariableRequestBodySchema,
+            s_ActionsUpdateEnvironmentVariableRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -74735,9 +74243,6 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const reposCreateForkRequestBodySchema =
-    s_ReposCreateForkRequestBody.optional()
-
   const reposCreateForkResponseBodyValidator = responseValidationFactory(
     [
       ["202", s_full_repository],
@@ -74762,7 +74267,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            reposCreateForkRequestBodySchema,
+            s_ReposCreateForkRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -74824,8 +74329,6 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const gitCreateBlobRequestBodySchema = s_GitCreateBlobRequestBody
-
   const gitCreateBlobResponseBodyValidator = responseValidationFactory(
     [
       ["201", s_short_blob],
@@ -74850,7 +74353,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            gitCreateBlobRequestBodySchema,
+            s_GitCreateBlobRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -74997,8 +74500,6 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const gitCreateCommitRequestBodySchema = s_GitCreateCommitRequestBody
-
   const gitCreateCommitResponseBodyValidator = responseValidationFactory(
     [
       ["201", s_git_commit],
@@ -75022,7 +74523,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            gitCreateCommitRequestBodySchema,
+            s_GitCreateCommitRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -75302,8 +74803,6 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const gitCreateRefRequestBodySchema = s_GitCreateRefRequestBody
-
   const gitCreateRefResponseBodyValidator = responseValidationFactory(
     [
       ["201", s_git_ref],
@@ -75326,7 +74825,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            gitCreateRefRequestBodySchema,
+            s_GitCreateRefRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -75383,8 +74882,6 @@ export function createRouter(implementation: Implementation): Router {
     ref: z.string(),
   })
 
-  const gitUpdateRefRequestBodySchema = s_GitUpdateRefRequestBody
-
   const gitUpdateRefResponseBodyValidator = responseValidationFactory(
     [
       ["200", s_git_ref],
@@ -75407,7 +74904,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            gitUpdateRefRequestBodySchema,
+            s_GitUpdateRefRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -75538,8 +75035,6 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const gitCreateTagRequestBodySchema = s_GitCreateTagRequestBody
-
   const gitCreateTagResponseBodyValidator = responseValidationFactory(
     [
       ["201", s_git_tag],
@@ -75562,7 +75057,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            gitCreateTagRequestBodySchema,
+            s_GitCreateTagRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -75693,8 +75188,6 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const gitCreateTreeRequestBodySchema = s_GitCreateTreeRequestBody
-
   const gitCreateTreeResponseBodyValidator = responseValidationFactory(
     [
       ["201", s_git_tree],
@@ -75719,7 +75212,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            gitCreateTreeRequestBodySchema,
+            s_GitCreateTreeRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -75945,9 +75438,6 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const reposCreateWebhookRequestBodySchema =
-    s_ReposCreateWebhookRequestBody.optional()
-
   const reposCreateWebhookResponseBodyValidator = responseValidationFactory(
     [
       ["201", s_hook],
@@ -75971,7 +75461,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            reposCreateWebhookRequestBodySchema,
+            s_ReposCreateWebhookRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -76102,8 +75592,6 @@ export function createRouter(implementation: Implementation): Router {
     hook_id: z.coerce.number(),
   })
 
-  const reposUpdateWebhookRequestBodySchema = s_ReposUpdateWebhookRequestBody
-
   const reposUpdateWebhookResponseBodyValidator = responseValidationFactory(
     [
       ["200", s_hook],
@@ -76126,7 +75614,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            reposUpdateWebhookRequestBodySchema,
+            s_ReposUpdateWebhookRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -76319,9 +75807,6 @@ export function createRouter(implementation: Implementation): Router {
     hook_id: z.coerce.number(),
   })
 
-  const reposUpdateWebhookConfigForRepoRequestBodySchema =
-    s_ReposUpdateWebhookConfigForRepoRequestBody.optional()
-
   const reposUpdateWebhookConfigForRepoResponseBodyValidator =
     responseValidationFactory([["200", s_webhook_config]], undefined)
 
@@ -76338,7 +75823,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            reposUpdateWebhookConfigForRepoRequestBodySchema,
+            s_ReposUpdateWebhookConfigForRepoRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -76852,9 +76337,6 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const migrationsStartImportRequestBodySchema =
-    s_MigrationsStartImportRequestBody
-
   const migrationsStartImportResponseBodyValidator = responseValidationFactory(
     [
       ["201", s_import],
@@ -76878,7 +76360,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            migrationsStartImportRequestBodySchema,
+            s_MigrationsStartImportRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -76937,9 +76419,6 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const migrationsUpdateImportRequestBodySchema =
-    s_MigrationsUpdateImportRequestBody.optional()
-
   const migrationsUpdateImportResponseBodyValidator = responseValidationFactory(
     [
       ["200", s_import],
@@ -76961,7 +76440,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            migrationsUpdateImportRequestBodySchema,
+            s_MigrationsUpdateImportRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -77170,9 +76649,6 @@ export function createRouter(implementation: Implementation): Router {
     author_id: z.coerce.number(),
   })
 
-  const migrationsMapCommitAuthorRequestBodySchema =
-    s_MigrationsMapCommitAuthorRequestBody.optional()
-
   const migrationsMapCommitAuthorResponseBodyValidator =
     responseValidationFactory(
       [
@@ -77197,7 +76673,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            migrationsMapCommitAuthorRequestBodySchema,
+            s_MigrationsMapCommitAuthorRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -77327,9 +76803,6 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const migrationsSetLfsPreferenceRequestBodySchema =
-    s_MigrationsSetLfsPreferenceRequestBody
-
   const migrationsSetLfsPreferenceResponseBodyValidator =
     responseValidationFactory(
       [
@@ -77353,7 +76826,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            migrationsSetLfsPreferenceRequestBodySchema,
+            s_MigrationsSetLfsPreferenceRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -77558,9 +77031,6 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const interactionsSetRestrictionsForRepoRequestBodySchema =
-    s_interaction_limit
-
   const interactionsSetRestrictionsForRepoResponseBodyValidator =
     responseValidationFactory(
       [
@@ -77583,7 +77053,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            interactionsSetRestrictionsForRepoRequestBodySchema,
+            s_interaction_limit,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -77797,9 +77267,6 @@ export function createRouter(implementation: Implementation): Router {
     invitation_id: z.coerce.number(),
   })
 
-  const reposUpdateInvitationRequestBodySchema =
-    s_ReposUpdateInvitationRequestBody.optional()
-
   const reposUpdateInvitationResponseBodyValidator = responseValidationFactory(
     [["200", s_repository_invitation]],
     undefined,
@@ -77818,7 +77285,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            reposUpdateInvitationRequestBodySchema,
+            s_ReposUpdateInvitationRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -78033,8 +77500,6 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const issuesCreateRequestBodySchema = s_IssuesCreateRequestBody
-
   const issuesCreateResponseBodyValidator = responseValidationFactory(
     [
       ["201", s_issue],
@@ -78068,7 +77533,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            issuesCreateRequestBodySchema,
+            s_IssuesCreateRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -78299,8 +77764,6 @@ export function createRouter(implementation: Implementation): Router {
     comment_id: z.coerce.number(),
   })
 
-  const issuesUpdateCommentRequestBodySchema = s_IssuesUpdateCommentRequestBody
-
   const issuesUpdateCommentResponseBodyValidator = responseValidationFactory(
     [
       ["200", s_issue_comment],
@@ -78322,7 +77785,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            issuesUpdateCommentRequestBodySchema,
+            s_IssuesUpdateCommentRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -78536,9 +77999,6 @@ export function createRouter(implementation: Implementation): Router {
     comment_id: z.coerce.number(),
   })
 
-  const reactionsCreateForIssueCommentRequestBodySchema =
-    s_ReactionsCreateForIssueCommentRequestBody
-
   const reactionsCreateForIssueCommentResponseBodyValidator =
     responseValidationFactory(
       [
@@ -78562,7 +78022,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            reactionsCreateForIssueCommentRequestBodySchema,
+            s_ReactionsCreateForIssueCommentRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -78929,8 +78389,6 @@ export function createRouter(implementation: Implementation): Router {
     issue_number: z.coerce.number(),
   })
 
-  const issuesUpdateRequestBodySchema = s_IssuesUpdateRequestBody.optional()
-
   const issuesUpdateResponseBodyValidator = responseValidationFactory(
     [
       ["200", s_issue],
@@ -78964,7 +78422,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            issuesUpdateRequestBodySchema,
+            s_IssuesUpdateRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -79037,9 +78495,6 @@ export function createRouter(implementation: Implementation): Router {
     issue_number: z.coerce.number(),
   })
 
-  const issuesAddAssigneesRequestBodySchema =
-    s_IssuesAddAssigneesRequestBody.optional()
-
   const issuesAddAssigneesResponseBodyValidator = responseValidationFactory(
     [["201", s_issue]],
     undefined,
@@ -79058,7 +78513,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            issuesAddAssigneesRequestBodySchema,
+            s_IssuesAddAssigneesRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -79109,9 +78564,6 @@ export function createRouter(implementation: Implementation): Router {
     issue_number: z.coerce.number(),
   })
 
-  const issuesRemoveAssigneesRequestBodySchema =
-    s_IssuesRemoveAssigneesRequestBody
-
   const issuesRemoveAssigneesResponseBodyValidator = responseValidationFactory(
     [["200", s_issue]],
     undefined,
@@ -79130,7 +78582,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            issuesRemoveAssigneesRequestBodySchema,
+            s_IssuesRemoveAssigneesRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -79344,8 +78796,6 @@ export function createRouter(implementation: Implementation): Router {
     issue_number: z.coerce.number(),
   })
 
-  const issuesCreateCommentRequestBodySchema = s_IssuesCreateCommentRequestBody
-
   const issuesCreateCommentResponseBodyValidator = responseValidationFactory(
     [
       ["201", s_issue_comment],
@@ -79370,7 +78820,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            issuesCreateCommentRequestBodySchema,
+            s_IssuesCreateCommentRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -79602,9 +79052,6 @@ export function createRouter(implementation: Implementation): Router {
     issue_number: z.coerce.number(),
   })
 
-  const issuesAddLabelsRequestBodySchema =
-    s_IssuesAddLabelsRequestBody.optional()
-
   const issuesAddLabelsResponseBodyValidator = responseValidationFactory(
     [
       ["200", z.array(s_label)],
@@ -79629,7 +79076,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            issuesAddLabelsRequestBodySchema,
+            s_IssuesAddLabelsRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -79692,9 +79139,6 @@ export function createRouter(implementation: Implementation): Router {
     issue_number: z.coerce.number(),
   })
 
-  const issuesSetLabelsRequestBodySchema =
-    s_IssuesSetLabelsRequestBody.optional()
-
   const issuesSetLabelsResponseBodyValidator = responseValidationFactory(
     [
       ["200", z.array(s_label)],
@@ -79719,7 +79163,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            issuesSetLabelsRequestBodySchema,
+            s_IssuesSetLabelsRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -79941,8 +79385,6 @@ export function createRouter(implementation: Implementation): Router {
     issue_number: z.coerce.number(),
   })
 
-  const issuesLockRequestBodySchema = s_IssuesLockRequestBody.optional()
-
   const issuesLockResponseBodyValidator = responseValidationFactory(
     [
       ["204", z.undefined()],
@@ -79967,7 +79409,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            issuesLockRequestBodySchema,
+            s_IssuesLockRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -80201,9 +79643,6 @@ export function createRouter(implementation: Implementation): Router {
     issue_number: z.coerce.number(),
   })
 
-  const reactionsCreateForIssueRequestBodySchema =
-    s_ReactionsCreateForIssueRequestBody
-
   const reactionsCreateForIssueResponseBodyValidator =
     responseValidationFactory(
       [
@@ -80227,7 +79666,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            reactionsCreateForIssueRequestBodySchema,
+            s_ReactionsCreateForIssueRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -80348,9 +79787,6 @@ export function createRouter(implementation: Implementation): Router {
     issue_number: z.coerce.number(),
   })
 
-  const issuesRemoveSubIssueRequestBodySchema =
-    s_IssuesRemoveSubIssueRequestBody
-
   const issuesRemoveSubIssueResponseBodyValidator = responseValidationFactory(
     [
       ["200", s_issue],
@@ -80373,7 +79809,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            issuesRemoveSubIssueRequestBodySchema,
+            s_IssuesRemoveSubIssueRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -80514,8 +79950,6 @@ export function createRouter(implementation: Implementation): Router {
     issue_number: z.coerce.number(),
   })
 
-  const issuesAddSubIssueRequestBodySchema = s_IssuesAddSubIssueRequestBody
-
   const issuesAddSubIssueResponseBodyValidator = responseValidationFactory(
     [
       ["201", s_issue],
@@ -80540,7 +79974,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            issuesAddSubIssueRequestBodySchema,
+            s_IssuesAddSubIssueRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -80603,9 +80037,6 @@ export function createRouter(implementation: Implementation): Router {
     issue_number: z.coerce.number(),
   })
 
-  const issuesReprioritizeSubIssueRequestBodySchema =
-    s_IssuesReprioritizeSubIssueRequestBody
-
   const issuesReprioritizeSubIssueResponseBodyValidator =
     responseValidationFactory(
       [
@@ -80638,7 +80069,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            issuesReprioritizeSubIssueRequestBodySchema,
+            s_IssuesReprioritizeSubIssueRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -80866,9 +80297,6 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const reposCreateDeployKeyRequestBodySchema =
-    s_ReposCreateDeployKeyRequestBody
-
   const reposCreateDeployKeyResponseBodyValidator = responseValidationFactory(
     [
       ["201", s_deploy_key],
@@ -80890,7 +80318,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            reposCreateDeployKeyRequestBodySchema,
+            s_ReposCreateDeployKeyRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -81159,8 +80587,6 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const issuesCreateLabelRequestBodySchema = s_IssuesCreateLabelRequestBody
-
   const issuesCreateLabelResponseBodyValidator = responseValidationFactory(
     [
       ["201", s_label],
@@ -81183,7 +80609,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            issuesCreateLabelRequestBodySchema,
+            s_IssuesCreateLabelRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -81311,9 +80737,6 @@ export function createRouter(implementation: Implementation): Router {
     name: z.string(),
   })
 
-  const issuesUpdateLabelRequestBodySchema =
-    s_IssuesUpdateLabelRequestBody.optional()
-
   const issuesUpdateLabelResponseBodyValidator = responseValidationFactory(
     [["200", s_label]],
     undefined,
@@ -81332,7 +80755,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            issuesUpdateLabelRequestBodySchema,
+            s_IssuesUpdateLabelRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -81589,8 +81012,6 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const reposMergeUpstreamRequestBodySchema = s_ReposMergeUpstreamRequestBody
-
   const reposMergeUpstreamResponseBodyValidator = responseValidationFactory(
     [
       ["200", s_merged_upstream],
@@ -81613,7 +81034,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            reposMergeUpstreamRequestBodySchema,
+            s_ReposMergeUpstreamRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -81666,8 +81087,6 @@ export function createRouter(implementation: Implementation): Router {
 
   const reposMergeParamSchema = z.object({owner: z.string(), repo: z.string()})
 
-  const reposMergeRequestBodySchema = s_ReposMergeRequestBody
-
   const reposMergeResponseBodyValidator = responseValidationFactory(
     [
       ["201", s_commit],
@@ -81693,7 +81112,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            reposMergeRequestBodySchema,
+            s_ReposMergeRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -81840,9 +81259,6 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const issuesCreateMilestoneRequestBodySchema =
-    s_IssuesCreateMilestoneRequestBody
-
   const issuesCreateMilestoneResponseBodyValidator = responseValidationFactory(
     [
       ["201", s_milestone],
@@ -81865,7 +81281,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            issuesCreateMilestoneRequestBodySchema,
+            s_IssuesCreateMilestoneRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -81993,9 +81409,6 @@ export function createRouter(implementation: Implementation): Router {
     milestone_number: z.coerce.number(),
   })
 
-  const issuesUpdateMilestoneRequestBodySchema =
-    s_IssuesUpdateMilestoneRequestBody.optional()
-
   const issuesUpdateMilestoneResponseBodyValidator = responseValidationFactory(
     [["200", s_milestone]],
     undefined,
@@ -82014,7 +81427,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            issuesUpdateMilestoneRequestBodySchema,
+            s_IssuesUpdateMilestoneRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -82296,9 +81709,6 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const activityMarkRepoNotificationsAsReadRequestBodySchema =
-    s_ActivityMarkRepoNotificationsAsReadRequestBody.optional()
-
   const activityMarkRepoNotificationsAsReadResponseBodyValidator =
     responseValidationFactory(
       [
@@ -82327,7 +81737,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            activityMarkRepoNotificationsAsReadRequestBodySchema,
+            s_ActivityMarkRepoNotificationsAsReadRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -82458,9 +81868,6 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const reposCreatePagesSiteRequestBodySchema =
-    s_ReposCreatePagesSiteRequestBody
-
   const reposCreatePagesSiteResponseBodyValidator = responseValidationFactory(
     [
       ["201", s_page],
@@ -82483,7 +81890,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            reposCreatePagesSiteRequestBodySchema,
+            s_ReposCreatePagesSiteRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -82539,9 +81946,6 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const reposUpdateInformationAboutPagesSiteRequestBodySchema =
-    s_ReposUpdateInformationAboutPagesSiteRequestBody
-
   const reposUpdateInformationAboutPagesSiteResponseBodyValidator =
     responseValidationFactory(
       [
@@ -82566,7 +81970,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            reposUpdateInformationAboutPagesSiteRequestBodySchema,
+            s_ReposUpdateInformationAboutPagesSiteRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -82978,9 +82382,6 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const reposCreatePagesDeploymentRequestBodySchema =
-    s_ReposCreatePagesDeploymentRequestBody
-
   const reposCreatePagesDeploymentResponseBodyValidator =
     responseValidationFactory(
       [
@@ -83005,7 +82406,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            reposCreatePagesDeploymentRequestBodySchema,
+            s_ReposCreatePagesDeploymentRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -83642,9 +83043,6 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const projectsClassicCreateForRepoRequestBodySchema =
-    s_ProjectsClassicCreateForRepoRequestBody
-
   const projectsClassicCreateForRepoResponseBodyValidator =
     responseValidationFactory(
       [
@@ -83671,7 +83069,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            projectsClassicCreateForRepoRequestBodySchema,
+            s_ProjectsClassicCreateForRepoRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -83815,9 +83213,6 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const reposCreateOrUpdateCustomPropertiesValuesRequestBodySchema =
-    s_ReposCreateOrUpdateCustomPropertiesValuesRequestBody
-
   const reposCreateOrUpdateCustomPropertiesValuesResponseBodyValidator =
     responseValidationFactory(
       [
@@ -83842,7 +83237,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            reposCreateOrUpdateCustomPropertiesValuesRequestBodySchema,
+            s_ReposCreateOrUpdateCustomPropertiesValuesRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -83997,8 +83392,6 @@ export function createRouter(implementation: Implementation): Router {
 
   const pullsCreateParamSchema = z.object({owner: z.string(), repo: z.string()})
 
-  const pullsCreateRequestBodySchema = s_PullsCreateRequestBody
-
   const pullsCreateResponseBodyValidator = responseValidationFactory(
     [
       ["201", s_pull_request],
@@ -84021,7 +83414,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            pullsCreateRequestBodySchema,
+            s_PullsCreateRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -84232,9 +83625,6 @@ export function createRouter(implementation: Implementation): Router {
     comment_id: z.coerce.number(),
   })
 
-  const pullsUpdateReviewCommentRequestBodySchema =
-    s_PullsUpdateReviewCommentRequestBody
-
   const pullsUpdateReviewCommentResponseBodyValidator =
     responseValidationFactory(
       [["200", s_pull_request_review_comment]],
@@ -84254,7 +83644,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            pullsUpdateReviewCommentRequestBodySchema,
+            s_PullsUpdateReviewCommentRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -84483,9 +83873,6 @@ export function createRouter(implementation: Implementation): Router {
     comment_id: z.coerce.number(),
   })
 
-  const reactionsCreateForPullRequestReviewCommentRequestBodySchema =
-    s_ReactionsCreateForPullRequestReviewCommentRequestBody
-
   const reactionsCreateForPullRequestReviewCommentResponseBodyValidator =
     responseValidationFactory(
       [
@@ -84509,7 +83896,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            reactionsCreateForPullRequestReviewCommentRequestBodySchema,
+            s_ReactionsCreateForPullRequestReviewCommentRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -84750,8 +84137,6 @@ export function createRouter(implementation: Implementation): Router {
     pull_number: z.coerce.number(),
   })
 
-  const pullsUpdateRequestBodySchema = s_PullsUpdateRequestBody.optional()
-
   const pullsUpdateResponseBodyValidator = responseValidationFactory(
     [
       ["200", s_pull_request],
@@ -84774,7 +84159,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            pullsUpdateRequestBodySchema,
+            s_PullsUpdateRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -84831,9 +84216,6 @@ export function createRouter(implementation: Implementation): Router {
     pull_number: z.coerce.number(),
   })
 
-  const codespacesCreateWithPrForAuthenticatedUserRequestBodySchema =
-    s_CodespacesCreateWithPrForAuthenticatedUserRequestBody
-
   const codespacesCreateWithPrForAuthenticatedUserResponseBodyValidator =
     responseValidationFactory(
       [
@@ -84867,7 +84249,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            codespacesCreateWithPrForAuthenticatedUserRequestBodySchema,
+            s_CodespacesCreateWithPrForAuthenticatedUserRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -85028,9 +84410,6 @@ export function createRouter(implementation: Implementation): Router {
     pull_number: z.coerce.number(),
   })
 
-  const pullsCreateReviewCommentRequestBodySchema =
-    s_PullsCreateReviewCommentRequestBody
-
   const pullsCreateReviewCommentResponseBodyValidator =
     responseValidationFactory(
       [
@@ -85054,7 +84433,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            pullsCreateReviewCommentRequestBodySchema,
+            s_PullsCreateReviewCommentRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -85114,9 +84493,6 @@ export function createRouter(implementation: Implementation): Router {
     comment_id: z.coerce.number(),
   })
 
-  const pullsCreateReplyForReviewCommentRequestBodySchema =
-    s_PullsCreateReplyForReviewCommentRequestBody
-
   const pullsCreateReplyForReviewCommentResponseBodyValidator =
     responseValidationFactory(
       [
@@ -85139,7 +84515,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            pullsCreateReplyForReviewCommentRequestBodySchema,
+            s_PullsCreateReplyForReviewCommentRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -85441,8 +84817,6 @@ export function createRouter(implementation: Implementation): Router {
     pull_number: z.coerce.number(),
   })
 
-  const pullsMergeRequestBodySchema = s_PullsMergeRequestBody.optional()
-
   const pullsMergeResponseBodyValidator = responseValidationFactory(
     [
       ["200", s_pull_request_merge_result],
@@ -85480,7 +84854,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            pullsMergeRequestBodySchema,
+            s_PullsMergeRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -85622,9 +84996,6 @@ export function createRouter(implementation: Implementation): Router {
     pull_number: z.coerce.number(),
   })
 
-  const pullsRequestReviewersRequestBodySchema =
-    s_PullsRequestReviewersRequestBody.optional()
-
   const pullsRequestReviewersResponseBodyValidator = responseValidationFactory(
     [
       ["201", s_pull_request_simple],
@@ -85647,7 +85018,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            pullsRequestReviewersRequestBodySchema,
+            s_PullsRequestReviewersRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -85704,9 +85075,6 @@ export function createRouter(implementation: Implementation): Router {
     pull_number: z.coerce.number(),
   })
 
-  const pullsRemoveRequestedReviewersRequestBodySchema =
-    s_PullsRemoveRequestedReviewersRequestBody
-
   const pullsRemoveRequestedReviewersResponseBodyValidator =
     responseValidationFactory(
       [
@@ -85729,7 +85097,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            pullsRemoveRequestedReviewersRequestBodySchema,
+            s_PullsRemoveRequestedReviewersRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -85859,9 +85227,6 @@ export function createRouter(implementation: Implementation): Router {
     pull_number: z.coerce.number(),
   })
 
-  const pullsCreateReviewRequestBodySchema =
-    s_PullsCreateReviewRequestBody.optional()
-
   const pullsCreateReviewResponseBodyValidator = responseValidationFactory(
     [
       ["200", s_pull_request_review],
@@ -85884,7 +85249,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            pullsCreateReviewRequestBodySchema,
+            s_PullsCreateReviewRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -86014,8 +85379,6 @@ export function createRouter(implementation: Implementation): Router {
     review_id: z.coerce.number(),
   })
 
-  const pullsUpdateReviewRequestBodySchema = s_PullsUpdateReviewRequestBody
-
   const pullsUpdateReviewResponseBodyValidator = responseValidationFactory(
     [
       ["200", s_pull_request_review],
@@ -86037,7 +85400,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            pullsUpdateReviewRequestBodySchema,
+            s_PullsUpdateReviewRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -86253,8 +85616,6 @@ export function createRouter(implementation: Implementation): Router {
     review_id: z.coerce.number(),
   })
 
-  const pullsDismissReviewRequestBodySchema = s_PullsDismissReviewRequestBody
-
   const pullsDismissReviewResponseBodyValidator = responseValidationFactory(
     [
       ["200", s_pull_request_review],
@@ -86277,7 +85638,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            pullsDismissReviewRequestBodySchema,
+            s_PullsDismissReviewRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -86335,8 +85696,6 @@ export function createRouter(implementation: Implementation): Router {
     review_id: z.coerce.number(),
   })
 
-  const pullsSubmitReviewRequestBodySchema = s_PullsSubmitReviewRequestBody
-
   const pullsSubmitReviewResponseBodyValidator = responseValidationFactory(
     [
       ["200", s_pull_request_review],
@@ -86360,7 +85719,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            pullsSubmitReviewRequestBodySchema,
+            s_PullsSubmitReviewRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -86420,9 +85779,6 @@ export function createRouter(implementation: Implementation): Router {
     pull_number: z.coerce.number(),
   })
 
-  const pullsUpdateBranchRequestBodySchema =
-    s_PullsUpdateBranchRequestBody.optional()
-
   const pullsUpdateBranchResponseBodyValidator = responseValidationFactory(
     [
       [
@@ -86448,7 +85804,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            pullsUpdateBranchRequestBodySchema,
+            s_PullsUpdateBranchRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -86754,8 +86110,6 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const reposCreateReleaseRequestBodySchema = s_ReposCreateReleaseRequestBody
-
   const reposCreateReleaseResponseBodyValidator = responseValidationFactory(
     [
       ["201", s_release],
@@ -86778,7 +86132,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            reposCreateReleaseRequestBodySchema,
+            s_ReposCreateReleaseRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -86910,9 +86264,6 @@ export function createRouter(implementation: Implementation): Router {
     asset_id: z.coerce.number(),
   })
 
-  const reposUpdateReleaseAssetRequestBodySchema =
-    s_ReposUpdateReleaseAssetRequestBody.optional()
-
   const reposUpdateReleaseAssetResponseBodyValidator =
     responseValidationFactory([["200", s_release_asset]], undefined)
 
@@ -86929,7 +86280,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            reposUpdateReleaseAssetRequestBodySchema,
+            s_ReposUpdateReleaseAssetRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -87042,9 +86393,6 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const reposGenerateReleaseNotesRequestBodySchema =
-    s_ReposGenerateReleaseNotesRequestBody
-
   const reposGenerateReleaseNotesResponseBodyValidator =
     responseValidationFactory(
       [
@@ -87067,7 +86415,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            reposGenerateReleaseNotesRequestBodySchema,
+            s_ReposGenerateReleaseNotesRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -87327,9 +86675,6 @@ export function createRouter(implementation: Implementation): Router {
     release_id: z.coerce.number(),
   })
 
-  const reposUpdateReleaseRequestBodySchema =
-    s_ReposUpdateReleaseRequestBody.optional()
-
   const reposUpdateReleaseResponseBodyValidator = responseValidationFactory(
     [
       ["200", s_release],
@@ -87351,7 +86696,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            reposUpdateReleaseRequestBodySchema,
+            s_ReposUpdateReleaseRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -87549,10 +86894,6 @@ export function createRouter(implementation: Implementation): Router {
     label: z.string().optional(),
   })
 
-  // todo: request bodies with content-type 'application/octet-stream' not yet supported
-
-  const reposUploadReleaseAssetRequestBodySchema = z.never().optional()
-
   const reposUploadReleaseAssetResponseBodyValidator =
     responseValidationFactory(
       [
@@ -87578,8 +86919,9 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
+          // todo: request bodies with content-type 'application/octet-stream' not yet supported
           body: parseRequestInput(
-            reposUploadReleaseAssetRequestBodySchema,
+            z.never().optional(),
             req.body,
             RequestInputType.RequestBody,
           ) as never,
@@ -87717,9 +87059,6 @@ export function createRouter(implementation: Implementation): Router {
     release_id: z.coerce.number(),
   })
 
-  const reactionsCreateForReleaseRequestBodySchema =
-    s_ReactionsCreateForReleaseRequestBody
-
   const reactionsCreateForReleaseResponseBodyValidator =
     responseValidationFactory(
       [
@@ -87743,7 +87082,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            reactionsCreateForReleaseRequestBodySchema,
+            s_ReactionsCreateForReleaseRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -88022,9 +87361,6 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const reposCreateRepoRulesetRequestBodySchema =
-    s_ReposCreateRepoRulesetRequestBody
-
   const reposCreateRepoRulesetResponseBodyValidator = responseValidationFactory(
     [
       ["201", s_repository_ruleset],
@@ -88047,7 +87383,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            reposCreateRepoRulesetRequestBodySchema,
+            s_ReposCreateRepoRulesetRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -88355,9 +87691,6 @@ export function createRouter(implementation: Implementation): Router {
     ruleset_id: z.coerce.number(),
   })
 
-  const reposUpdateRepoRulesetRequestBodySchema =
-    s_ReposUpdateRepoRulesetRequestBody.optional()
-
   const reposUpdateRepoRulesetResponseBodyValidator = responseValidationFactory(
     [
       ["200", s_repository_ruleset],
@@ -88380,7 +87713,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            reposUpdateRepoRulesetRequestBodySchema,
+            s_ReposUpdateRepoRulesetRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -88884,9 +88217,6 @@ export function createRouter(implementation: Implementation): Router {
     alert_number: s_alert_number,
   })
 
-  const secretScanningUpdateAlertRequestBodySchema =
-    s_SecretScanningUpdateAlertRequestBody
-
   const secretScanningUpdateAlertResponseBodyValidator =
     responseValidationFactory(
       [
@@ -88919,7 +88249,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            secretScanningUpdateAlertRequestBodySchema,
+            s_SecretScanningUpdateAlertRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -89086,9 +88416,6 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const secretScanningCreatePushProtectionBypassRequestBodySchema =
-    s_SecretScanningCreatePushProtectionBypassRequestBody
-
   const secretScanningCreatePushProtectionBypassResponseBodyValidator =
     responseValidationFactory(
       [
@@ -89121,7 +88448,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            secretScanningCreatePushProtectionBypassRequestBodySchema,
+            s_SecretScanningCreatePushProtectionBypassRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -89392,9 +88719,6 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const securityAdvisoriesCreateRepositoryAdvisoryRequestBodySchema =
-    s_repository_advisory_create
-
   const securityAdvisoriesCreateRepositoryAdvisoryResponseBodyValidator =
     responseValidationFactory(
       [
@@ -89419,7 +88743,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            securityAdvisoriesCreateRepositoryAdvisoryRequestBodySchema,
+            s_repository_advisory_create,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -89487,9 +88811,6 @@ export function createRouter(implementation: Implementation): Router {
   const securityAdvisoriesCreatePrivateVulnerabilityReportParamSchema =
     z.object({owner: z.string(), repo: z.string()})
 
-  const securityAdvisoriesCreatePrivateVulnerabilityReportRequestBodySchema =
-    s_private_vulnerability_report_create
-
   const securityAdvisoriesCreatePrivateVulnerabilityReportResponseBodyValidator =
     responseValidationFactory(
       [
@@ -89514,7 +88835,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            securityAdvisoriesCreatePrivateVulnerabilityReportRequestBodySchema,
+            s_private_vulnerability_report_create,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -89672,9 +88993,6 @@ export function createRouter(implementation: Implementation): Router {
     ghsa_id: z.string(),
   })
 
-  const securityAdvisoriesUpdateRepositoryAdvisoryRequestBodySchema =
-    s_repository_advisory_update
-
   const securityAdvisoriesUpdateRepositoryAdvisoryResponseBodyValidator =
     responseValidationFactory(
       [
@@ -89699,7 +89017,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            securityAdvisoriesUpdateRepositoryAdvisoryRequestBodySchema,
+            s_repository_advisory_update,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -90416,9 +89734,6 @@ export function createRouter(implementation: Implementation): Router {
     sha: z.string(),
   })
 
-  const reposCreateCommitStatusRequestBodySchema =
-    s_ReposCreateCommitStatusRequestBody
-
   const reposCreateCommitStatusResponseBodyValidator =
     responseValidationFactory([["201", s_status]], undefined)
 
@@ -90435,7 +89750,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            reposCreateCommitStatusRequestBodySchema,
+            s_ReposCreateCommitStatusRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -90635,9 +89950,6 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const activitySetRepoSubscriptionRequestBodySchema =
-    s_ActivitySetRepoSubscriptionRequestBody.optional()
-
   const activitySetRepoSubscriptionResponseBodyValidator =
     responseValidationFactory([["200", s_repository_subscription]], undefined)
 
@@ -90654,7 +89966,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            activitySetRepoSubscriptionRequestBodySchema,
+            s_ActivitySetRepoSubscriptionRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -90917,9 +90229,6 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const reposCreateTagProtectionRequestBodySchema =
-    s_ReposCreateTagProtectionRequestBody
-
   const reposCreateTagProtectionResponseBodyValidator =
     responseValidationFactory(
       [
@@ -90943,7 +90252,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            reposCreateTagProtectionRequestBodySchema,
+            s_ReposCreateTagProtectionRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -91298,9 +90607,6 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const reposReplaceAllTopicsRequestBodySchema =
-    s_ReposReplaceAllTopicsRequestBody
-
   const reposReplaceAllTopicsResponseBodyValidator = responseValidationFactory(
     [
       ["200", s_topic],
@@ -91323,7 +90629,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            reposReplaceAllTopicsRequestBodySchema,
+            s_ReposReplaceAllTopicsRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -91675,8 +90981,6 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const reposTransferRequestBodySchema = s_ReposTransferRequestBody
-
   const reposTransferResponseBodyValidator = responseValidationFactory(
     [["202", s_minimal_repository]],
     undefined,
@@ -91695,7 +90999,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            reposTransferRequestBodySchema,
+            s_ReposTransferRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -92011,9 +91315,6 @@ export function createRouter(implementation: Implementation): Router {
     template_repo: z.string(),
   })
 
-  const reposCreateUsingTemplateRequestBodySchema =
-    s_ReposCreateUsingTemplateRequestBody
-
   const reposCreateUsingTemplateResponseBodyValidator =
     responseValidationFactory([["201", s_full_repository]], undefined)
 
@@ -92030,7 +91331,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            reposCreateUsingTemplateRequestBodySchema,
+            s_ReposCreateUsingTemplateRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -92920,8 +92221,6 @@ export function createRouter(implementation: Implementation): Router {
 
   const teamsUpdateLegacyParamSchema = z.object({team_id: z.coerce.number()})
 
-  const teamsUpdateLegacyRequestBodySchema = s_TeamsUpdateLegacyRequestBody
-
   const teamsUpdateLegacyResponseBodyValidator = responseValidationFactory(
     [
       ["200", s_team_full],
@@ -92946,7 +92245,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            teamsUpdateLegacyRequestBodySchema,
+            s_TeamsUpdateLegacyRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -93151,9 +92450,6 @@ export function createRouter(implementation: Implementation): Router {
     team_id: z.coerce.number(),
   })
 
-  const teamsCreateDiscussionLegacyRequestBodySchema =
-    s_TeamsCreateDiscussionLegacyRequestBody
-
   const teamsCreateDiscussionLegacyResponseBodyValidator =
     responseValidationFactory([["201", s_team_discussion]], undefined)
 
@@ -93170,7 +92466,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            teamsCreateDiscussionLegacyRequestBodySchema,
+            s_TeamsCreateDiscussionLegacyRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -93284,9 +92580,6 @@ export function createRouter(implementation: Implementation): Router {
     discussion_number: z.coerce.number(),
   })
 
-  const teamsUpdateDiscussionLegacyRequestBodySchema =
-    s_TeamsUpdateDiscussionLegacyRequestBody.optional()
-
   const teamsUpdateDiscussionLegacyResponseBodyValidator =
     responseValidationFactory([["200", s_team_discussion]], undefined)
 
@@ -93303,7 +92596,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            teamsUpdateDiscussionLegacyRequestBodySchema,
+            s_TeamsUpdateDiscussionLegacyRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -93499,9 +92792,6 @@ export function createRouter(implementation: Implementation): Router {
     discussion_number: z.coerce.number(),
   })
 
-  const teamsCreateDiscussionCommentLegacyRequestBodySchema =
-    s_TeamsCreateDiscussionCommentLegacyRequestBody
-
   const teamsCreateDiscussionCommentLegacyResponseBodyValidator =
     responseValidationFactory([["201", s_team_discussion_comment]], undefined)
 
@@ -93518,7 +92808,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            teamsCreateDiscussionCommentLegacyRequestBodySchema,
+            s_TeamsCreateDiscussionCommentLegacyRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -93639,9 +92929,6 @@ export function createRouter(implementation: Implementation): Router {
     comment_number: z.coerce.number(),
   })
 
-  const teamsUpdateDiscussionCommentLegacyRequestBodySchema =
-    s_TeamsUpdateDiscussionCommentLegacyRequestBody
-
   const teamsUpdateDiscussionCommentLegacyResponseBodyValidator =
     responseValidationFactory([["200", s_team_discussion_comment]], undefined)
 
@@ -93658,7 +92945,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            teamsUpdateDiscussionCommentLegacyRequestBodySchema,
+            s_TeamsUpdateDiscussionCommentLegacyRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -93877,9 +93164,6 @@ export function createRouter(implementation: Implementation): Router {
     comment_number: z.coerce.number(),
   })
 
-  const reactionsCreateForTeamDiscussionCommentLegacyRequestBodySchema =
-    s_ReactionsCreateForTeamDiscussionCommentLegacyRequestBody
-
   const reactionsCreateForTeamDiscussionCommentLegacyResponseBodyValidator =
     responseValidationFactory([["201", s_reaction]], undefined)
 
@@ -93896,7 +93180,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            reactionsCreateForTeamDiscussionCommentLegacyRequestBodySchema,
+            s_ReactionsCreateForTeamDiscussionCommentLegacyRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -94051,9 +93335,6 @@ export function createRouter(implementation: Implementation): Router {
     discussion_number: z.coerce.number(),
   })
 
-  const reactionsCreateForTeamDiscussionLegacyRequestBodySchema =
-    s_ReactionsCreateForTeamDiscussionLegacyRequestBody
-
   const reactionsCreateForTeamDiscussionLegacyResponseBodyValidator =
     responseValidationFactory([["201", s_reaction]], undefined)
 
@@ -94070,7 +93351,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            reactionsCreateForTeamDiscussionLegacyRequestBodySchema,
+            s_ReactionsCreateForTeamDiscussionLegacyRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -94580,9 +93861,6 @@ export function createRouter(implementation: Implementation): Router {
     username: z.string(),
   })
 
-  const teamsAddOrUpdateMembershipForUserLegacyRequestBodySchema =
-    s_TeamsAddOrUpdateMembershipForUserLegacyRequestBody.optional()
-
   const teamsAddOrUpdateMembershipForUserLegacyResponseBodyValidator =
     responseValidationFactory(
       [
@@ -94607,7 +93885,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            teamsAddOrUpdateMembershipForUserLegacyRequestBodySchema,
+            s_TeamsAddOrUpdateMembershipForUserLegacyRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -94914,9 +94192,6 @@ export function createRouter(implementation: Implementation): Router {
     project_id: z.coerce.number(),
   })
 
-  const teamsAddOrUpdateProjectPermissionsLegacyRequestBodySchema =
-    s_TeamsAddOrUpdateProjectPermissionsLegacyRequestBody.optional()
-
   const teamsAddOrUpdateProjectPermissionsLegacyResponseBodyValidator =
     responseValidationFactory(
       [
@@ -94947,7 +94222,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            teamsAddOrUpdateProjectPermissionsLegacyRequestBodySchema,
+            s_TeamsAddOrUpdateProjectPermissionsLegacyRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -95253,9 +94528,6 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const teamsAddOrUpdateRepoPermissionsLegacyRequestBodySchema =
-    s_TeamsAddOrUpdateRepoPermissionsLegacyRequestBody.optional()
-
   const teamsAddOrUpdateRepoPermissionsLegacyResponseBodyValidator =
     responseValidationFactory(
       [
@@ -95279,7 +94551,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            teamsAddOrUpdateRepoPermissionsLegacyRequestBodySchema,
+            s_TeamsAddOrUpdateRepoPermissionsLegacyRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -95561,9 +94833,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const usersUpdateAuthenticatedRequestBodySchema =
-    s_UsersUpdateAuthenticatedRequestBody.optional()
-
   const usersUpdateAuthenticatedResponseBodyValidator =
     responseValidationFactory(
       [
@@ -95586,7 +94855,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            usersUpdateAuthenticatedRequestBodySchema,
+            s_UsersUpdateAuthenticatedRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -96077,9 +95346,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const codespacesCreateForAuthenticatedUserRequestBodySchema =
-    s_CodespacesCreateForAuthenticatedUserRequestBody
-
   const codespacesCreateForAuthenticatedUserResponseBodyValidator =
     responseValidationFactory(
       [
@@ -96109,7 +95375,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            codespacesCreateForAuthenticatedUserRequestBodySchema,
+            s_CodespacesCreateForAuthenticatedUserRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -96413,9 +95679,6 @@ export function createRouter(implementation: Implementation): Router {
   const codespacesCreateOrUpdateSecretForAuthenticatedUserParamSchema =
     z.object({secret_name: z.string()})
 
-  const codespacesCreateOrUpdateSecretForAuthenticatedUserRequestBodySchema =
-    s_CodespacesCreateOrUpdateSecretForAuthenticatedUserRequestBody
-
   const codespacesCreateOrUpdateSecretForAuthenticatedUserResponseBodyValidator =
     responseValidationFactory(
       [
@@ -96440,7 +95703,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            codespacesCreateOrUpdateSecretForAuthenticatedUserRequestBodySchema,
+            s_CodespacesCreateOrUpdateSecretForAuthenticatedUserRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -96681,9 +95944,6 @@ export function createRouter(implementation: Implementation): Router {
   const codespacesSetRepositoriesForSecretForAuthenticatedUserParamSchema =
     z.object({secret_name: z.string()})
 
-  const codespacesSetRepositoriesForSecretForAuthenticatedUserRequestBodySchema =
-    s_CodespacesSetRepositoriesForSecretForAuthenticatedUserRequestBody
-
   const codespacesSetRepositoriesForSecretForAuthenticatedUserResponseBodyValidator =
     responseValidationFactory(
       [
@@ -96709,7 +95969,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            codespacesSetRepositoriesForSecretForAuthenticatedUserRequestBodySchema,
+            s_CodespacesSetRepositoriesForSecretForAuthenticatedUserRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -97056,9 +96316,6 @@ export function createRouter(implementation: Implementation): Router {
     codespace_name: z.string(),
   })
 
-  const codespacesUpdateForAuthenticatedUserRequestBodySchema =
-    s_CodespacesUpdateForAuthenticatedUserRequestBody.optional()
-
   const codespacesUpdateForAuthenticatedUserResponseBodyValidator =
     responseValidationFactory(
       [
@@ -97083,7 +96340,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            codespacesUpdateForAuthenticatedUserRequestBodySchema,
+            s_CodespacesUpdateForAuthenticatedUserRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -97536,9 +96793,6 @@ export function createRouter(implementation: Implementation): Router {
     codespace_name: z.string(),
   })
 
-  const codespacesPublishForAuthenticatedUserRequestBodySchema =
-    s_CodespacesPublishForAuthenticatedUserRequestBody
-
   const codespacesPublishForAuthenticatedUserResponseBodyValidator =
     responseValidationFactory(
       [
@@ -97564,7 +96818,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            codespacesPublishForAuthenticatedUserRequestBodySchema,
+            s_CodespacesPublishForAuthenticatedUserRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -97888,9 +97142,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const usersSetPrimaryEmailVisibilityForAuthenticatedUserRequestBodySchema =
-    s_UsersSetPrimaryEmailVisibilityForAuthenticatedUserRequestBody
-
   const usersSetPrimaryEmailVisibilityForAuthenticatedUserResponseBodyValidator =
     responseValidationFactory(
       [
@@ -97913,7 +97164,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            usersSetPrimaryEmailVisibilityForAuthenticatedUserRequestBodySchema,
+            s_UsersSetPrimaryEmailVisibilityForAuthenticatedUserRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -98072,9 +97323,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const usersAddEmailForAuthenticatedUserRequestBodySchema =
-    s_UsersAddEmailForAuthenticatedUserRequestBody.optional()
-
   const usersAddEmailForAuthenticatedUserResponseBodyValidator =
     responseValidationFactory(
       [
@@ -98097,7 +97345,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            usersAddEmailForAuthenticatedUserRequestBodySchema,
+            s_UsersAddEmailForAuthenticatedUserRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -98162,9 +97410,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const usersDeleteEmailForAuthenticatedUserRequestBodySchema =
-    s_UsersDeleteEmailForAuthenticatedUserRequestBody
-
   const usersDeleteEmailForAuthenticatedUserResponseBodyValidator =
     responseValidationFactory(
       [
@@ -98187,7 +97432,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            usersDeleteEmailForAuthenticatedUserRequestBodySchema,
+            s_UsersDeleteEmailForAuthenticatedUserRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -98787,9 +98032,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const usersCreateGpgKeyForAuthenticatedUserRequestBodySchema =
-    s_UsersCreateGpgKeyForAuthenticatedUserRequestBody
-
   const usersCreateGpgKeyForAuthenticatedUserResponseBodyValidator =
     responseValidationFactory(
       [
@@ -98812,7 +98054,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            usersCreateGpgKeyForAuthenticatedUserRequestBodySchema,
+            s_UsersCreateGpgKeyForAuthenticatedUserRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -99535,9 +98777,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const interactionsSetRestrictionsForAuthenticatedUserRequestBodySchema =
-    s_interaction_limit
-
   const interactionsSetRestrictionsForAuthenticatedUserResponseBodyValidator =
     responseValidationFactory(
       [
@@ -99556,7 +98795,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            interactionsSetRestrictionsForAuthenticatedUserRequestBodySchema,
+            s_interaction_limit,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -99862,9 +99101,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const usersCreatePublicSshKeyForAuthenticatedUserRequestBodySchema =
-    s_UsersCreatePublicSshKeyForAuthenticatedUserRequestBody
-
   const usersCreatePublicSshKeyForAuthenticatedUserResponseBodyValidator =
     responseValidationFactory(
       [
@@ -99887,7 +99123,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            usersCreatePublicSshKeyForAuthenticatedUserRequestBodySchema,
+            s_UsersCreatePublicSshKeyForAuthenticatedUserRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -100508,9 +99744,6 @@ export function createRouter(implementation: Implementation): Router {
     org: z.string(),
   })
 
-  const orgsUpdateMembershipForAuthenticatedUserRequestBodySchema =
-    s_OrgsUpdateMembershipForAuthenticatedUserRequestBody
-
   const orgsUpdateMembershipForAuthenticatedUserResponseBodyValidator =
     responseValidationFactory(
       [
@@ -100535,7 +99768,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            orgsUpdateMembershipForAuthenticatedUserRequestBodySchema,
+            s_OrgsUpdateMembershipForAuthenticatedUserRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -100684,9 +99917,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const migrationsStartForAuthenticatedUserRequestBodySchema =
-    s_MigrationsStartForAuthenticatedUserRequestBody
-
   const migrationsStartForAuthenticatedUserResponseBodyValidator =
     responseValidationFactory(
       [
@@ -100708,7 +99938,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            migrationsStartForAuthenticatedUserRequestBodySchema,
+            s_MigrationsStartForAuthenticatedUserRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -102084,9 +101314,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const projectsClassicCreateForAuthenticatedUserRequestBodySchema =
-    s_ProjectsClassicCreateForAuthenticatedUserRequestBody
-
   const projectsClassicCreateForAuthenticatedUserResponseBodyValidator =
     responseValidationFactory(
       [
@@ -102108,7 +101335,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            projectsClassicCreateForAuthenticatedUserRequestBodySchema,
+            s_ProjectsClassicCreateForAuthenticatedUserRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -102371,9 +101598,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const reposCreateForAuthenticatedUserRequestBodySchema =
-    s_ReposCreateForAuthenticatedUserRequestBody
-
   const reposCreateForAuthenticatedUserResponseBodyValidator =
     responseValidationFactory(
       [
@@ -102397,7 +101621,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            reposCreateForAuthenticatedUserRequestBodySchema,
+            s_ReposCreateForAuthenticatedUserRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -102836,9 +102060,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const usersAddSocialAccountForAuthenticatedUserRequestBodySchema =
-    s_UsersAddSocialAccountForAuthenticatedUserRequestBody
-
   const usersAddSocialAccountForAuthenticatedUserResponseBodyValidator =
     responseValidationFactory(
       [
@@ -102861,7 +102082,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            usersAddSocialAccountForAuthenticatedUserRequestBodySchema,
+            s_UsersAddSocialAccountForAuthenticatedUserRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -102932,9 +102153,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const usersDeleteSocialAccountForAuthenticatedUserRequestBodySchema =
-    s_UsersDeleteSocialAccountForAuthenticatedUserRequestBody
-
   const usersDeleteSocialAccountForAuthenticatedUserResponseBodyValidator =
     responseValidationFactory(
       [
@@ -102957,7 +102175,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            usersDeleteSocialAccountForAuthenticatedUserRequestBodySchema,
+            s_UsersDeleteSocialAccountForAuthenticatedUserRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -103122,9 +102340,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const usersCreateSshSigningKeyForAuthenticatedUserRequestBodySchema =
-    s_UsersCreateSshSigningKeyForAuthenticatedUserRequestBody
-
   const usersCreateSshSigningKeyForAuthenticatedUserResponseBodyValidator =
     responseValidationFactory(
       [
@@ -103147,7 +102362,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            usersCreateSshSigningKeyForAuthenticatedUserRequestBodySchema,
+            s_UsersCreateSshSigningKeyForAuthenticatedUserRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -104165,9 +103380,6 @@ export function createRouter(implementation: Implementation): Router {
     after: z.string().optional(),
   })
 
-  const usersListAttestationsBulkRequestBodySchema =
-    s_UsersListAttestationsBulkRequestBody
-
   const usersListAttestationsBulkResponseBodyValidator =
     responseValidationFactory(
       [
@@ -104229,7 +103441,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            usersListAttestationsBulkRequestBodySchema,
+            s_UsersListAttestationsBulkRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -104315,9 +103527,6 @@ export function createRouter(implementation: Implementation): Router {
     username: z.string(),
   })
 
-  const usersDeleteAttestationsBulkRequestBodySchema =
-    s_UsersDeleteAttestationsBulkRequestBody
-
   const usersDeleteAttestationsBulkResponseBodyValidator =
     responseValidationFactory(
       [
@@ -104340,7 +103549,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            usersDeleteAttestationsBulkRequestBodySchema,
+            s_UsersDeleteAttestationsBulkRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),

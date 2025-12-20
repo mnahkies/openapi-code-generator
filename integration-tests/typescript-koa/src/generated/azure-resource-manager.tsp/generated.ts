@@ -432,8 +432,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "api-version": z.string().min(1),
   })
 
-  const employeesCreateOrUpdateBodySchema = s_Employee
-
   const employeesCreateOrUpdateResponseValidator = responseValidationFactory(
     [
       ["200", s_Employee],
@@ -458,7 +456,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          employeesCreateOrUpdateBodySchema,
+          s_Employee,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -516,8 +514,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "api-version": z.string().min(1),
   })
 
-  const employeesUpdateBodySchema = s_EmployeeUpdate
-
   const employeesUpdateResponseValidator = responseValidationFactory(
     [["200", s_Employee]],
     s_Azure_ResourceManager_CommonTypes_ErrorResponse,
@@ -539,7 +535,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          employeesUpdateBodySchema,
+          s_EmployeeUpdate,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -887,8 +883,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const employeesMoveQuerySchema = z.object({"api-version": z.string().min(1)})
 
-  const employeesMoveBodySchema = s_MoveRequest
-
   const employeesMoveResponseValidator = responseValidationFactory(
     [["200", s_MoveResponse]],
     s_Azure_ResourceManager_CommonTypes_ErrorResponse,
@@ -910,7 +904,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          employeesMoveBodySchema,
+          s_MoveRequest,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),

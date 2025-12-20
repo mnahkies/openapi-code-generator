@@ -12289,8 +12289,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postAccountLinksRequestBodySchema = s_PostAccountLinksRequestBody
-
   const postAccountLinksResponseBodyValidator = responseValidationFactory(
     [["200", s_account_link]],
     s_error,
@@ -12305,7 +12303,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            postAccountLinksRequestBodySchema,
+            s_PostAccountLinksRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -12353,8 +12351,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postAccountSessionsRequestBodySchema = s_PostAccountSessionsRequestBody
-
   const postAccountSessionsResponseBodyValidator = responseValidationFactory(
     [["200", s_account_session]],
     s_error,
@@ -12369,7 +12365,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            postAccountSessionsRequestBodySchema,
+            s_PostAccountSessionsRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -12517,8 +12513,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postAccountsRequestBodySchema = s_PostAccountsRequestBody.optional()
-
   const postAccountsResponseBodyValidator = responseValidationFactory(
     [["200", s_account]],
     s_error,
@@ -12533,7 +12527,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            postAccountsRequestBodySchema,
+            s_PostAccountsRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -12730,9 +12724,6 @@ export function createRouter(implementation: Implementation): Router {
     account: z.string().max(5000),
   })
 
-  const postAccountsAccountRequestBodySchema =
-    s_PostAccountsAccountRequestBody.optional()
-
   const postAccountsAccountResponseBodyValidator = responseValidationFactory(
     [["200", s_account]],
     s_error,
@@ -12751,7 +12742,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postAccountsAccountRequestBodySchema,
+            s_PostAccountsAccountRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -12803,9 +12794,6 @@ export function createRouter(implementation: Implementation): Router {
     account: z.string().max(5000),
   })
 
-  const postAccountsAccountBankAccountsRequestBodySchema =
-    s_PostAccountsAccountBankAccountsRequestBody.optional()
-
   const postAccountsAccountBankAccountsResponseBodyValidator =
     responseValidationFactory([["200", s_external_account]], s_error)
 
@@ -12822,7 +12810,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postAccountsAccountBankAccountsRequestBodySchema,
+            s_PostAccountsAccountBankAccountsRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -13027,9 +13015,6 @@ export function createRouter(implementation: Implementation): Router {
     id: z.string(),
   })
 
-  const postAccountsAccountBankAccountsIdRequestBodySchema =
-    s_PostAccountsAccountBankAccountsIdRequestBody.optional()
-
   const postAccountsAccountBankAccountsIdResponseBodyValidator =
     responseValidationFactory([["200", s_external_account]], s_error)
 
@@ -13046,7 +13031,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postAccountsAccountBankAccountsIdRequestBodySchema,
+            s_PostAccountsAccountBankAccountsIdRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -13290,9 +13275,6 @@ export function createRouter(implementation: Implementation): Router {
     capability: z.string(),
   })
 
-  const postAccountsAccountCapabilitiesCapabilityRequestBodySchema =
-    s_PostAccountsAccountCapabilitiesCapabilityRequestBody.optional()
-
   const postAccountsAccountCapabilitiesCapabilityResponseBodyValidator =
     responseValidationFactory([["200", s_capability]], s_error)
 
@@ -13309,7 +13291,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postAccountsAccountCapabilitiesCapabilityRequestBodySchema,
+            s_PostAccountsAccountCapabilitiesCapabilityRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -13478,9 +13460,6 @@ export function createRouter(implementation: Implementation): Router {
     account: z.string().max(5000),
   })
 
-  const postAccountsAccountExternalAccountsRequestBodySchema =
-    s_PostAccountsAccountExternalAccountsRequestBody.optional()
-
   const postAccountsAccountExternalAccountsResponseBodyValidator =
     responseValidationFactory([["200", s_external_account]], s_error)
 
@@ -13497,7 +13476,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postAccountsAccountExternalAccountsRequestBodySchema,
+            s_PostAccountsAccountExternalAccountsRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -13720,9 +13699,6 @@ export function createRouter(implementation: Implementation): Router {
     id: z.string(),
   })
 
-  const postAccountsAccountExternalAccountsIdRequestBodySchema =
-    s_PostAccountsAccountExternalAccountsIdRequestBody.optional()
-
   const postAccountsAccountExternalAccountsIdResponseBodyValidator =
     responseValidationFactory([["200", s_external_account]], s_error)
 
@@ -13739,7 +13715,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postAccountsAccountExternalAccountsIdRequestBodySchema,
+            s_PostAccountsAccountExternalAccountsIdRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -13802,9 +13778,6 @@ export function createRouter(implementation: Implementation): Router {
     account: z.string().max(5000),
   })
 
-  const postAccountsAccountLoginLinksRequestBodySchema =
-    s_PostAccountsAccountLoginLinksRequestBody.optional()
-
   const postAccountsAccountLoginLinksResponseBodyValidator =
     responseValidationFactory([["200", s_login_link]], s_error)
 
@@ -13821,7 +13794,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postAccountsAccountLoginLinksRequestBodySchema,
+            s_PostAccountsAccountLoginLinksRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -13983,9 +13956,6 @@ export function createRouter(implementation: Implementation): Router {
     account: z.string().max(5000),
   })
 
-  const postAccountsAccountPeopleRequestBodySchema =
-    s_PostAccountsAccountPeopleRequestBody.optional()
-
   const postAccountsAccountPeopleResponseBodyValidator =
     responseValidationFactory([["200", s_person]], s_error)
 
@@ -14002,7 +13972,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postAccountsAccountPeopleRequestBodySchema,
+            s_PostAccountsAccountPeopleRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -14205,9 +14175,6 @@ export function createRouter(implementation: Implementation): Router {
     person: z.string().max(5000),
   })
 
-  const postAccountsAccountPeoplePersonRequestBodySchema =
-    s_PostAccountsAccountPeoplePersonRequestBody.optional()
-
   const postAccountsAccountPeoplePersonResponseBodyValidator =
     responseValidationFactory([["200", s_person]], s_error)
 
@@ -14224,7 +14191,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postAccountsAccountPeoplePersonRequestBodySchema,
+            s_PostAccountsAccountPeoplePersonRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -14386,9 +14353,6 @@ export function createRouter(implementation: Implementation): Router {
     account: z.string().max(5000),
   })
 
-  const postAccountsAccountPersonsRequestBodySchema =
-    s_PostAccountsAccountPersonsRequestBody.optional()
-
   const postAccountsAccountPersonsResponseBodyValidator =
     responseValidationFactory([["200", s_person]], s_error)
 
@@ -14405,7 +14369,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postAccountsAccountPersonsRequestBodySchema,
+            s_PostAccountsAccountPersonsRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -14610,9 +14574,6 @@ export function createRouter(implementation: Implementation): Router {
     person: z.string().max(5000),
   })
 
-  const postAccountsAccountPersonsPersonRequestBodySchema =
-    s_PostAccountsAccountPersonsPersonRequestBody.optional()
-
   const postAccountsAccountPersonsPersonResponseBodyValidator =
     responseValidationFactory([["200", s_person]], s_error)
 
@@ -14629,7 +14590,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postAccountsAccountPersonsPersonRequestBodySchema,
+            s_PostAccountsAccountPersonsPersonRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -14683,9 +14644,6 @@ export function createRouter(implementation: Implementation): Router {
     account: z.string().max(5000),
   })
 
-  const postAccountsAccountRejectRequestBodySchema =
-    s_PostAccountsAccountRejectRequestBody
-
   const postAccountsAccountRejectResponseBodyValidator =
     responseValidationFactory([["200", s_account]], s_error)
 
@@ -14702,7 +14660,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postAccountsAccountRejectRequestBodySchema,
+            s_PostAccountsAccountRejectRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -14840,8 +14798,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postApplePayDomainsRequestBodySchema = s_PostApplePayDomainsRequestBody
-
   const postApplePayDomainsResponseBodyValidator = responseValidationFactory(
     [["200", s_apple_pay_domain]],
     s_error,
@@ -14856,7 +14812,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            postApplePayDomainsRequestBodySchema,
+            s_PostApplePayDomainsRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -15233,9 +15189,6 @@ export function createRouter(implementation: Implementation): Router {
     id: z.string().max(5000),
   })
 
-  const postApplicationFeesFeeRefundsIdRequestBodySchema =
-    s_PostApplicationFeesFeeRefundsIdRequestBody.optional()
-
   const postApplicationFeesFeeRefundsIdResponseBodyValidator =
     responseValidationFactory([["200", s_fee_refund]], s_error)
 
@@ -15252,7 +15205,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postApplicationFeesFeeRefundsIdRequestBodySchema,
+            s_PostApplicationFeesFeeRefundsIdRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -15383,9 +15336,6 @@ export function createRouter(implementation: Implementation): Router {
     id: z.string().max(5000),
   })
 
-  const postApplicationFeesIdRefundRequestBodySchema =
-    s_PostApplicationFeesIdRefundRequestBody.optional()
-
   const postApplicationFeesIdRefundResponseBodyValidator =
     responseValidationFactory([["200", s_application_fee]], s_error)
 
@@ -15402,7 +15352,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postApplicationFeesIdRefundRequestBodySchema,
+            s_PostApplicationFeesIdRefundRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -15556,9 +15506,6 @@ export function createRouter(implementation: Implementation): Router {
     id: z.string().max(5000),
   })
 
-  const postApplicationFeesIdRefundsRequestBodySchema =
-    s_PostApplicationFeesIdRefundsRequestBody.optional()
-
   const postApplicationFeesIdRefundsResponseBodyValidator =
     responseValidationFactory([["200", s_fee_refund]], s_error)
 
@@ -15575,7 +15522,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postApplicationFeesIdRefundsRequestBodySchema,
+            s_PostApplicationFeesIdRefundsRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -15718,8 +15665,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postAppsSecretsRequestBodySchema = s_PostAppsSecretsRequestBody
-
   const postAppsSecretsResponseBodyValidator = responseValidationFactory(
     [["200", s_apps_secret]],
     s_error,
@@ -15734,7 +15679,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            postAppsSecretsRequestBodySchema,
+            s_PostAppsSecretsRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -15782,9 +15727,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postAppsSecretsDeleteRequestBodySchema =
-    s_PostAppsSecretsDeleteRequestBody
-
   const postAppsSecretsDeleteResponseBodyValidator = responseValidationFactory(
     [["200", s_apps_secret]],
     s_error,
@@ -15799,7 +15741,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            postAppsSecretsDeleteRequestBodySchema,
+            s_PostAppsSecretsDeleteRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -16453,8 +16395,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postBillingAlertsRequestBodySchema = s_PostBillingAlertsRequestBody
-
   const postBillingAlertsResponseBodyValidator = responseValidationFactory(
     [["200", s_billing_alert]],
     s_error,
@@ -16469,7 +16409,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            postBillingAlertsRequestBodySchema,
+            s_PostBillingAlertsRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -16598,9 +16538,6 @@ export function createRouter(implementation: Implementation): Router {
     id: z.string().max(5000),
   })
 
-  const postBillingAlertsIdActivateRequestBodySchema =
-    s_PostBillingAlertsIdActivateRequestBody.optional()
-
   const postBillingAlertsIdActivateResponseBodyValidator =
     responseValidationFactory([["200", s_billing_alert]], s_error)
 
@@ -16617,7 +16554,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postBillingAlertsIdActivateRequestBodySchema,
+            s_PostBillingAlertsIdActivateRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -16671,9 +16608,6 @@ export function createRouter(implementation: Implementation): Router {
     id: z.string().max(5000),
   })
 
-  const postBillingAlertsIdArchiveRequestBodySchema =
-    s_PostBillingAlertsIdArchiveRequestBody.optional()
-
   const postBillingAlertsIdArchiveResponseBodyValidator =
     responseValidationFactory([["200", s_billing_alert]], s_error)
 
@@ -16690,7 +16624,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postBillingAlertsIdArchiveRequestBodySchema,
+            s_PostBillingAlertsIdArchiveRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -16744,9 +16678,6 @@ export function createRouter(implementation: Implementation): Router {
     id: z.string().max(5000),
   })
 
-  const postBillingAlertsIdDeactivateRequestBodySchema =
-    s_PostBillingAlertsIdDeactivateRequestBody.optional()
-
   const postBillingAlertsIdDeactivateResponseBodyValidator =
     responseValidationFactory([["200", s_billing_alert]], s_error)
 
@@ -16763,7 +16694,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postBillingAlertsIdDeactivateRequestBodySchema,
+            s_PostBillingAlertsIdDeactivateRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -17186,9 +17117,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postBillingCreditGrantsRequestBodySchema =
-    s_PostBillingCreditGrantsRequestBody
-
   const postBillingCreditGrantsResponseBodyValidator =
     responseValidationFactory([["200", s_billing_credit_grant]], s_error)
 
@@ -17201,7 +17129,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            postBillingCreditGrantsRequestBodySchema,
+            s_PostBillingCreditGrantsRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -17330,9 +17258,6 @@ export function createRouter(implementation: Implementation): Router {
     id: z.string().max(5000),
   })
 
-  const postBillingCreditGrantsIdRequestBodySchema =
-    s_PostBillingCreditGrantsIdRequestBody.optional()
-
   const postBillingCreditGrantsIdResponseBodyValidator =
     responseValidationFactory([["200", s_billing_credit_grant]], s_error)
 
@@ -17349,7 +17274,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postBillingCreditGrantsIdRequestBodySchema,
+            s_PostBillingCreditGrantsIdRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -17401,9 +17326,6 @@ export function createRouter(implementation: Implementation): Router {
     id: z.string().max(5000),
   })
 
-  const postBillingCreditGrantsIdExpireRequestBodySchema =
-    s_PostBillingCreditGrantsIdExpireRequestBody.optional()
-
   const postBillingCreditGrantsIdExpireResponseBodyValidator =
     responseValidationFactory([["200", s_billing_credit_grant]], s_error)
 
@@ -17420,7 +17342,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postBillingCreditGrantsIdExpireRequestBodySchema,
+            s_PostBillingCreditGrantsIdExpireRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -17474,9 +17396,6 @@ export function createRouter(implementation: Implementation): Router {
     id: z.string().max(5000),
   })
 
-  const postBillingCreditGrantsIdVoidRequestBodySchema =
-    s_PostBillingCreditGrantsIdVoidRequestBody.optional()
-
   const postBillingCreditGrantsIdVoidResponseBodyValidator =
     responseValidationFactory([["200", s_billing_credit_grant]], s_error)
 
@@ -17493,7 +17412,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postBillingCreditGrantsIdVoidRequestBodySchema,
+            s_PostBillingCreditGrantsIdVoidRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -17543,9 +17462,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postBillingMeterEventAdjustmentsRequestBodySchema =
-    s_PostBillingMeterEventAdjustmentsRequestBody
-
   const postBillingMeterEventAdjustmentsResponseBodyValidator =
     responseValidationFactory(
       [["200", s_billing_meter_event_adjustment]],
@@ -17561,7 +17477,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            postBillingMeterEventAdjustmentsRequestBodySchema,
+            s_PostBillingMeterEventAdjustmentsRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -17613,9 +17529,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postBillingMeterEventsRequestBodySchema =
-    s_PostBillingMeterEventsRequestBody
-
   const postBillingMeterEventsResponseBodyValidator = responseValidationFactory(
     [["200", s_billing_meter_event]],
     s_error,
@@ -17630,7 +17543,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            postBillingMeterEventsRequestBodySchema,
+            s_PostBillingMeterEventsRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -17768,8 +17681,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postBillingMetersRequestBodySchema = s_PostBillingMetersRequestBody
-
   const postBillingMetersResponseBodyValidator = responseValidationFactory(
     [["200", s_billing_meter]],
     s_error,
@@ -17784,7 +17695,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            postBillingMetersRequestBodySchema,
+            s_PostBillingMetersRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -17911,9 +17822,6 @@ export function createRouter(implementation: Implementation): Router {
 
   const postBillingMetersIdParamSchema = z.object({id: z.string().max(5000)})
 
-  const postBillingMetersIdRequestBodySchema =
-    s_PostBillingMetersIdRequestBody.optional()
-
   const postBillingMetersIdResponseBodyValidator = responseValidationFactory(
     [["200", s_billing_meter]],
     s_error,
@@ -17932,7 +17840,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postBillingMetersIdRequestBodySchema,
+            s_PostBillingMetersIdRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -17984,9 +17892,6 @@ export function createRouter(implementation: Implementation): Router {
     id: z.string().max(5000),
   })
 
-  const postBillingMetersIdDeactivateRequestBodySchema =
-    s_PostBillingMetersIdDeactivateRequestBody.optional()
-
   const postBillingMetersIdDeactivateResponseBodyValidator =
     responseValidationFactory([["200", s_billing_meter]], s_error)
 
@@ -18003,7 +17908,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postBillingMetersIdDeactivateRequestBodySchema,
+            s_PostBillingMetersIdDeactivateRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -18164,9 +18069,6 @@ export function createRouter(implementation: Implementation): Router {
     id: z.string().max(5000),
   })
 
-  const postBillingMetersIdReactivateRequestBodySchema =
-    s_PostBillingMetersIdReactivateRequestBody.optional()
-
   const postBillingMetersIdReactivateResponseBodyValidator =
     responseValidationFactory([["200", s_billing_meter]], s_error)
 
@@ -18183,7 +18085,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postBillingMetersIdReactivateRequestBodySchema,
+            s_PostBillingMetersIdReactivateRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -18330,9 +18232,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postBillingPortalConfigurationsRequestBodySchema =
-    s_PostBillingPortalConfigurationsRequestBody
-
   const postBillingPortalConfigurationsResponseBodyValidator =
     responseValidationFactory(
       [["200", s_billing_portal_configuration]],
@@ -18348,7 +18247,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            postBillingPortalConfigurationsRequestBodySchema,
+            s_PostBillingPortalConfigurationsRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -18497,9 +18396,6 @@ export function createRouter(implementation: Implementation): Router {
     configuration: z.string().max(5000),
   })
 
-  const postBillingPortalConfigurationsConfigurationRequestBodySchema =
-    s_PostBillingPortalConfigurationsConfigurationRequestBody.optional()
-
   const postBillingPortalConfigurationsConfigurationResponseBodyValidator =
     responseValidationFactory(
       [["200", s_billing_portal_configuration]],
@@ -18519,7 +18415,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postBillingPortalConfigurationsConfigurationRequestBodySchema,
+            s_PostBillingPortalConfigurationsConfigurationRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -18580,9 +18476,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postBillingPortalSessionsRequestBodySchema =
-    s_PostBillingPortalSessionsRequestBody
-
   const postBillingPortalSessionsResponseBodyValidator =
     responseValidationFactory([["200", s_billing_portal_session]], s_error)
 
@@ -18595,7 +18488,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            postBillingPortalSessionsRequestBodySchema,
+            s_PostBillingPortalSessionsRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -18746,8 +18639,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postChargesRequestBodySchema = s_PostChargesRequestBody.optional()
-
   const postChargesResponseBodyValidator = responseValidationFactory(
     [["200", s_charge]],
     s_error,
@@ -18762,7 +18653,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            postChargesRequestBodySchema,
+            s_PostChargesRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -18982,9 +18873,6 @@ export function createRouter(implementation: Implementation): Router {
 
   const postChargesChargeParamSchema = z.object({charge: z.string().max(5000)})
 
-  const postChargesChargeRequestBodySchema =
-    s_PostChargesChargeRequestBody.optional()
-
   const postChargesChargeResponseBodyValidator = responseValidationFactory(
     [["200", s_charge]],
     s_error,
@@ -19003,7 +18891,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postChargesChargeRequestBodySchema,
+            s_PostChargesChargeRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -19055,9 +18943,6 @@ export function createRouter(implementation: Implementation): Router {
     charge: z.string().max(5000),
   })
 
-  const postChargesChargeCaptureRequestBodySchema =
-    s_PostChargesChargeCaptureRequestBody.optional()
-
   const postChargesChargeCaptureResponseBodyValidator =
     responseValidationFactory([["200", s_charge]], s_error)
 
@@ -19074,7 +18959,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postChargesChargeCaptureRequestBodySchema,
+            s_PostChargesChargeCaptureRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -19203,9 +19088,6 @@ export function createRouter(implementation: Implementation): Router {
     charge: z.string().max(5000),
   })
 
-  const postChargesChargeDisputeRequestBodySchema =
-    s_PostChargesChargeDisputeRequestBody.optional()
-
   const postChargesChargeDisputeResponseBodyValidator =
     responseValidationFactory([["200", s_dispute]], s_error)
 
@@ -19222,7 +19104,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postChargesChargeDisputeRequestBodySchema,
+            s_PostChargesChargeDisputeRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -19274,9 +19156,6 @@ export function createRouter(implementation: Implementation): Router {
     charge: z.string().max(5000),
   })
 
-  const postChargesChargeDisputeCloseRequestBodySchema =
-    s_PostChargesChargeDisputeCloseRequestBody.optional()
-
   const postChargesChargeDisputeCloseResponseBodyValidator =
     responseValidationFactory([["200", s_dispute]], s_error)
 
@@ -19293,7 +19172,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postChargesChargeDisputeCloseRequestBodySchema,
+            s_PostChargesChargeDisputeCloseRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -19347,9 +19226,6 @@ export function createRouter(implementation: Implementation): Router {
     charge: z.string().max(5000),
   })
 
-  const postChargesChargeRefundRequestBodySchema =
-    s_PostChargesChargeRefundRequestBody.optional()
-
   const postChargesChargeRefundResponseBodyValidator =
     responseValidationFactory([["200", s_charge]], s_error)
 
@@ -19366,7 +19242,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postChargesChargeRefundRequestBodySchema,
+            s_PostChargesChargeRefundRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -19514,9 +19390,6 @@ export function createRouter(implementation: Implementation): Router {
     charge: z.string().max(5000),
   })
 
-  const postChargesChargeRefundsRequestBodySchema =
-    s_PostChargesChargeRefundsRequestBody.optional()
-
   const postChargesChargeRefundsResponseBodyValidator =
     responseValidationFactory([["200", s_refund]], s_error)
 
@@ -19533,7 +19406,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postChargesChargeRefundsRequestBodySchema,
+            s_PostChargesChargeRefundsRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -19666,9 +19539,6 @@ export function createRouter(implementation: Implementation): Router {
     refund: z.string(),
   })
 
-  const postChargesChargeRefundsRefundRequestBodySchema =
-    s_PostChargesChargeRefundsRefundRequestBody.optional()
-
   const postChargesChargeRefundsRefundResponseBodyValidator =
     responseValidationFactory([["200", s_refund]], s_error)
 
@@ -19685,7 +19555,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postChargesChargeRefundsRefundRequestBodySchema,
+            s_PostChargesChargeRefundsRefundRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -19841,9 +19711,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postCheckoutSessionsRequestBodySchema =
-    s_PostCheckoutSessionsRequestBody.optional()
-
   const postCheckoutSessionsResponseBodyValidator = responseValidationFactory(
     [["200", s_checkout_session]],
     s_error,
@@ -19858,7 +19725,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            postCheckoutSessionsRequestBodySchema,
+            s_PostCheckoutSessionsRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -19989,9 +19856,6 @@ export function createRouter(implementation: Implementation): Router {
     session: z.string().max(5000),
   })
 
-  const postCheckoutSessionsSessionRequestBodySchema =
-    s_PostCheckoutSessionsSessionRequestBody.optional()
-
   const postCheckoutSessionsSessionResponseBodyValidator =
     responseValidationFactory([["200", s_checkout_session]], s_error)
 
@@ -20008,7 +19872,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postCheckoutSessionsSessionRequestBodySchema,
+            s_PostCheckoutSessionsSessionRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -20062,9 +19926,6 @@ export function createRouter(implementation: Implementation): Router {
     session: z.string().max(5000),
   })
 
-  const postCheckoutSessionsSessionExpireRequestBodySchema =
-    s_PostCheckoutSessionsSessionExpireRequestBody.optional()
-
   const postCheckoutSessionsSessionExpireResponseBodyValidator =
     responseValidationFactory([["200", s_checkout_session]], s_error)
 
@@ -20081,7 +19942,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postCheckoutSessionsSessionExpireRequestBodySchema,
+            s_PostCheckoutSessionsSessionExpireRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -20326,8 +20187,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postClimateOrdersRequestBodySchema = s_PostClimateOrdersRequestBody
-
   const postClimateOrdersResponseBodyValidator = responseValidationFactory(
     [["200", s_climate_order]],
     s_error,
@@ -20342,7 +20201,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            postClimateOrdersRequestBodySchema,
+            s_PostClimateOrdersRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -20473,9 +20332,6 @@ export function createRouter(implementation: Implementation): Router {
     order: z.string().max(5000),
   })
 
-  const postClimateOrdersOrderRequestBodySchema =
-    s_PostClimateOrdersOrderRequestBody.optional()
-
   const postClimateOrdersOrderResponseBodyValidator = responseValidationFactory(
     [["200", s_climate_order]],
     s_error,
@@ -20494,7 +20350,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postClimateOrdersOrderRequestBodySchema,
+            s_PostClimateOrdersOrderRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -20546,9 +20402,6 @@ export function createRouter(implementation: Implementation): Router {
     order: z.string().max(5000),
   })
 
-  const postClimateOrdersOrderCancelRequestBodySchema =
-    s_PostClimateOrdersOrderCancelRequestBody.optional()
-
   const postClimateOrdersOrderCancelResponseBodyValidator =
     responseValidationFactory([["200", s_climate_order]], s_error)
 
@@ -20565,7 +20418,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postClimateOrdersOrderCancelRequestBodySchema,
+            s_PostClimateOrdersOrderCancelRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -21305,8 +21158,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postCouponsRequestBodySchema = s_PostCouponsRequestBody.optional()
-
   const postCouponsResponseBodyValidator = responseValidationFactory(
     [["200", s_coupon]],
     s_error,
@@ -21321,7 +21172,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            postCouponsRequestBodySchema,
+            s_PostCouponsRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -21514,9 +21365,6 @@ export function createRouter(implementation: Implementation): Router {
 
   const postCouponsCouponParamSchema = z.object({coupon: z.string().max(5000)})
 
-  const postCouponsCouponRequestBodySchema =
-    s_PostCouponsCouponRequestBody.optional()
-
   const postCouponsCouponResponseBodyValidator = responseValidationFactory(
     [["200", s_coupon]],
     s_error,
@@ -21535,7 +21383,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postCouponsCouponRequestBodySchema,
+            s_PostCouponsCouponRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -21685,8 +21533,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postCreditNotesRequestBodySchema = s_PostCreditNotesRequestBody
-
   const postCreditNotesResponseBodyValidator = responseValidationFactory(
     [["200", s_credit_note]],
     s_error,
@@ -21701,7 +21547,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            postCreditNotesRequestBodySchema,
+            s_PostCreditNotesRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -22215,9 +22061,6 @@ export function createRouter(implementation: Implementation): Router {
 
   const postCreditNotesIdParamSchema = z.object({id: z.string().max(5000)})
 
-  const postCreditNotesIdRequestBodySchema =
-    s_PostCreditNotesIdRequestBody.optional()
-
   const postCreditNotesIdResponseBodyValidator = responseValidationFactory(
     [["200", s_credit_note]],
     s_error,
@@ -22236,7 +22079,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postCreditNotesIdRequestBodySchema,
+            s_PostCreditNotesIdRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -22286,9 +22129,6 @@ export function createRouter(implementation: Implementation): Router {
 
   const postCreditNotesIdVoidParamSchema = z.object({id: z.string().max(5000)})
 
-  const postCreditNotesIdVoidRequestBodySchema =
-    s_PostCreditNotesIdVoidRequestBody.optional()
-
   const postCreditNotesIdVoidResponseBodyValidator = responseValidationFactory(
     [["200", s_credit_note]],
     s_error,
@@ -22307,7 +22147,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postCreditNotesIdVoidRequestBodySchema,
+            s_PostCreditNotesIdVoidRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -22355,9 +22195,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postCustomerSessionsRequestBodySchema =
-    s_PostCustomerSessionsRequestBody
-
   const postCustomerSessionsResponseBodyValidator = responseValidationFactory(
     [["200", s_customer_session]],
     s_error,
@@ -22372,7 +22209,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            postCustomerSessionsRequestBodySchema,
+            s_PostCustomerSessionsRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -22522,8 +22359,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postCustomersRequestBodySchema = s_PostCustomersRequestBody.optional()
-
   const postCustomersResponseBodyValidator = responseValidationFactory(
     [["200", s_customer]],
     s_error,
@@ -22538,7 +22373,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            postCustomersRequestBodySchema,
+            s_PostCustomersRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -22828,9 +22663,6 @@ export function createRouter(implementation: Implementation): Router {
     customer: z.string().max(5000),
   })
 
-  const postCustomersCustomerRequestBodySchema =
-    s_PostCustomersCustomerRequestBody.optional()
-
   const postCustomersCustomerResponseBodyValidator = responseValidationFactory(
     [["200", s_customer]],
     s_error,
@@ -22849,7 +22681,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postCustomersCustomerRequestBodySchema,
+            s_PostCustomersCustomerRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -23010,9 +22842,6 @@ export function createRouter(implementation: Implementation): Router {
     customer: z.string().max(5000),
   })
 
-  const postCustomersCustomerBalanceTransactionsRequestBodySchema =
-    s_PostCustomersCustomerBalanceTransactionsRequestBody
-
   const postCustomersCustomerBalanceTransactionsResponseBodyValidator =
     responseValidationFactory(
       [["200", s_customer_balance_transaction]],
@@ -23032,7 +22861,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postCustomersCustomerBalanceTransactionsRequestBodySchema,
+            s_PostCustomersCustomerBalanceTransactionsRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -23192,9 +23021,6 @@ export function createRouter(implementation: Implementation): Router {
       transaction: z.string().max(5000),
     })
 
-  const postCustomersCustomerBalanceTransactionsTransactionRequestBodySchema =
-    s_PostCustomersCustomerBalanceTransactionsTransactionRequestBody.optional()
-
   const postCustomersCustomerBalanceTransactionsTransactionResponseBodyValidator =
     responseValidationFactory(
       [["200", s_customer_balance_transaction]],
@@ -23214,7 +23040,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postCustomersCustomerBalanceTransactionsTransactionRequestBodySchema,
+            s_PostCustomersCustomerBalanceTransactionsTransactionRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -23379,9 +23205,6 @@ export function createRouter(implementation: Implementation): Router {
     customer: z.string().max(5000),
   })
 
-  const postCustomersCustomerBankAccountsRequestBodySchema =
-    s_PostCustomersCustomerBankAccountsRequestBody.optional()
-
   const postCustomersCustomerBankAccountsResponseBodyValidator =
     responseValidationFactory([["200", s_payment_source]], s_error)
 
@@ -23398,7 +23221,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postCustomersCustomerBankAccountsRequestBodySchema,
+            s_PostCustomersCustomerBankAccountsRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -23456,9 +23279,6 @@ export function createRouter(implementation: Implementation): Router {
     id: z.string(),
   })
 
-  const deleteCustomersCustomerBankAccountsIdRequestBodySchema =
-    s_DeleteCustomersCustomerBankAccountsIdRequestBody.optional()
-
   const deleteCustomersCustomerBankAccountsIdResponseBodyValidator =
     responseValidationFactory(
       [
@@ -23483,7 +23303,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            deleteCustomersCustomerBankAccountsIdRequestBodySchema,
+            s_DeleteCustomersCustomerBankAccountsIdRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -23632,9 +23452,6 @@ export function createRouter(implementation: Implementation): Router {
     id: z.string().max(5000),
   })
 
-  const postCustomersCustomerBankAccountsIdRequestBodySchema =
-    s_PostCustomersCustomerBankAccountsIdRequestBody.optional()
-
   const postCustomersCustomerBankAccountsIdResponseBodyValidator =
     responseValidationFactory(
       [
@@ -23663,7 +23480,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postCustomersCustomerBankAccountsIdRequestBodySchema,
+            s_PostCustomersCustomerBankAccountsIdRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -23723,9 +23540,6 @@ export function createRouter(implementation: Implementation): Router {
     id: z.string().max(5000),
   })
 
-  const postCustomersCustomerBankAccountsIdVerifyRequestBodySchema =
-    s_PostCustomersCustomerBankAccountsIdVerifyRequestBody.optional()
-
   const postCustomersCustomerBankAccountsIdVerifyResponseBodyValidator =
     responseValidationFactory([["200", s_bank_account]], s_error)
 
@@ -23742,7 +23556,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postCustomersCustomerBankAccountsIdVerifyRequestBodySchema,
+            s_PostCustomersCustomerBankAccountsIdVerifyRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -23903,9 +23717,6 @@ export function createRouter(implementation: Implementation): Router {
     customer: z.string().max(5000),
   })
 
-  const postCustomersCustomerCardsRequestBodySchema =
-    s_PostCustomersCustomerCardsRequestBody.optional()
-
   const postCustomersCustomerCardsResponseBodyValidator =
     responseValidationFactory([["200", s_payment_source]], s_error)
 
@@ -23922,7 +23733,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postCustomersCustomerCardsRequestBodySchema,
+            s_PostCustomersCustomerCardsRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -23977,9 +23788,6 @@ export function createRouter(implementation: Implementation): Router {
     id: z.string(),
   })
 
-  const deleteCustomersCustomerCardsIdRequestBodySchema =
-    s_DeleteCustomersCustomerCardsIdRequestBody.optional()
-
   const deleteCustomersCustomerCardsIdResponseBodyValidator =
     responseValidationFactory(
       [
@@ -24004,7 +23812,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            deleteCustomersCustomerCardsIdRequestBodySchema,
+            s_DeleteCustomersCustomerCardsIdRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -24141,9 +23949,6 @@ export function createRouter(implementation: Implementation): Router {
     id: z.string().max(5000),
   })
 
-  const postCustomersCustomerCardsIdRequestBodySchema =
-    s_PostCustomersCustomerCardsIdRequestBody.optional()
-
   const postCustomersCustomerCardsIdResponseBodyValidator =
     responseValidationFactory(
       [
@@ -24172,7 +23977,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postCustomersCustomerCardsIdRequestBodySchema,
+            s_PostCustomersCustomerCardsIdRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -24307,9 +24112,6 @@ export function createRouter(implementation: Implementation): Router {
     customer: z.string().max(5000),
   })
 
-  const postCustomersCustomerCashBalanceRequestBodySchema =
-    s_PostCustomersCustomerCashBalanceRequestBody.optional()
-
   const postCustomersCustomerCashBalanceResponseBodyValidator =
     responseValidationFactory([["200", s_cash_balance]], s_error)
 
@@ -24326,7 +24128,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postCustomersCustomerCashBalanceRequestBodySchema,
+            s_PostCustomersCustomerCashBalanceRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -24727,9 +24529,6 @@ export function createRouter(implementation: Implementation): Router {
     customer: z.string().max(5000),
   })
 
-  const postCustomersCustomerFundingInstructionsRequestBodySchema =
-    s_PostCustomersCustomerFundingInstructionsRequestBody
-
   const postCustomersCustomerFundingInstructionsResponseBodyValidator =
     responseValidationFactory([["200", s_funding_instructions]], s_error)
 
@@ -24746,7 +24545,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postCustomersCustomerFundingInstructionsRequestBodySchema,
+            s_PostCustomersCustomerFundingInstructionsRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -25161,9 +24960,6 @@ export function createRouter(implementation: Implementation): Router {
     customer: z.string().max(5000),
   })
 
-  const postCustomersCustomerSourcesRequestBodySchema =
-    s_PostCustomersCustomerSourcesRequestBody.optional()
-
   const postCustomersCustomerSourcesResponseBodyValidator =
     responseValidationFactory([["200", s_payment_source]], s_error)
 
@@ -25180,7 +24976,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postCustomersCustomerSourcesRequestBodySchema,
+            s_PostCustomersCustomerSourcesRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -25235,9 +25031,6 @@ export function createRouter(implementation: Implementation): Router {
     id: z.string(),
   })
 
-  const deleteCustomersCustomerSourcesIdRequestBodySchema =
-    s_DeleteCustomersCustomerSourcesIdRequestBody.optional()
-
   const deleteCustomersCustomerSourcesIdResponseBodyValidator =
     responseValidationFactory(
       [
@@ -25262,7 +25055,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            deleteCustomersCustomerSourcesIdRequestBodySchema,
+            s_DeleteCustomersCustomerSourcesIdRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -25399,9 +25192,6 @@ export function createRouter(implementation: Implementation): Router {
     id: z.string().max(5000),
   })
 
-  const postCustomersCustomerSourcesIdRequestBodySchema =
-    s_PostCustomersCustomerSourcesIdRequestBody.optional()
-
   const postCustomersCustomerSourcesIdResponseBodyValidator =
     responseValidationFactory(
       [
@@ -25430,7 +25220,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postCustomersCustomerSourcesIdRequestBodySchema,
+            s_PostCustomersCustomerSourcesIdRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -25487,9 +25277,6 @@ export function createRouter(implementation: Implementation): Router {
     id: z.string().max(5000),
   })
 
-  const postCustomersCustomerSourcesIdVerifyRequestBodySchema =
-    s_PostCustomersCustomerSourcesIdVerifyRequestBody.optional()
-
   const postCustomersCustomerSourcesIdVerifyResponseBodyValidator =
     responseValidationFactory([["200", s_bank_account]], s_error)
 
@@ -25506,7 +25293,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postCustomersCustomerSourcesIdVerifyRequestBodySchema,
+            s_PostCustomersCustomerSourcesIdVerifyRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -25672,9 +25459,6 @@ export function createRouter(implementation: Implementation): Router {
     customer: z.string().max(5000),
   })
 
-  const postCustomersCustomerSubscriptionsRequestBodySchema =
-    s_PostCustomersCustomerSubscriptionsRequestBody.optional()
-
   const postCustomersCustomerSubscriptionsResponseBodyValidator =
     responseValidationFactory([["200", s_subscription]], s_error)
 
@@ -25691,7 +25475,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postCustomersCustomerSubscriptionsRequestBodySchema,
+            s_PostCustomersCustomerSubscriptionsRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -25750,9 +25534,6 @@ export function createRouter(implementation: Implementation): Router {
       subscription_exposed_id: z.string().max(5000),
     })
 
-  const deleteCustomersCustomerSubscriptionsSubscriptionExposedIdRequestBodySchema =
-    s_DeleteCustomersCustomerSubscriptionsSubscriptionExposedIdRequestBody.optional()
-
   const deleteCustomersCustomerSubscriptionsSubscriptionExposedIdResponseBodyValidator =
     responseValidationFactory([["200", s_subscription]], s_error)
 
@@ -25769,7 +25550,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            deleteCustomersCustomerSubscriptionsSubscriptionExposedIdRequestBodySchema,
+            s_DeleteCustomersCustomerSubscriptionsSubscriptionExposedIdRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -25925,9 +25706,6 @@ export function createRouter(implementation: Implementation): Router {
       subscription_exposed_id: z.string().max(5000),
     })
 
-  const postCustomersCustomerSubscriptionsSubscriptionExposedIdRequestBodySchema =
-    s_PostCustomersCustomerSubscriptionsSubscriptionExposedIdRequestBody.optional()
-
   const postCustomersCustomerSubscriptionsSubscriptionExposedIdResponseBodyValidator =
     responseValidationFactory([["200", s_subscription]], s_error)
 
@@ -25944,7 +25722,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postCustomersCustomerSubscriptionsSubscriptionExposedIdRequestBodySchema,
+            s_PostCustomersCustomerSubscriptionsSubscriptionExposedIdRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -26275,9 +26053,6 @@ export function createRouter(implementation: Implementation): Router {
     customer: z.string().max(5000),
   })
 
-  const postCustomersCustomerTaxIdsRequestBodySchema =
-    s_PostCustomersCustomerTaxIdsRequestBody
-
   const postCustomersCustomerTaxIdsResponseBodyValidator =
     responseValidationFactory([["200", s_tax_id]], s_error)
 
@@ -26294,7 +26069,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postCustomersCustomerTaxIdsRequestBodySchema,
+            s_PostCustomersCustomerTaxIdsRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -26676,9 +26451,6 @@ export function createRouter(implementation: Implementation): Router {
     dispute: z.string().max(5000),
   })
 
-  const postDisputesDisputeRequestBodySchema =
-    s_PostDisputesDisputeRequestBody.optional()
-
   const postDisputesDisputeResponseBodyValidator = responseValidationFactory(
     [["200", s_dispute]],
     s_error,
@@ -26697,7 +26469,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postDisputesDisputeRequestBodySchema,
+            s_PostDisputesDisputeRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -26749,9 +26521,6 @@ export function createRouter(implementation: Implementation): Router {
     dispute: z.string().max(5000),
   })
 
-  const postDisputesDisputeCloseRequestBodySchema =
-    s_PostDisputesDisputeCloseRequestBody.optional()
-
   const postDisputesDisputeCloseResponseBodyValidator =
     responseValidationFactory([["200", s_dispute]], s_error)
 
@@ -26768,7 +26537,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postDisputesDisputeCloseRequestBodySchema,
+            s_PostDisputesDisputeCloseRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -27094,9 +26863,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postEntitlementsFeaturesRequestBodySchema =
-    s_PostEntitlementsFeaturesRequestBody
-
   const postEntitlementsFeaturesResponseBodyValidator =
     responseValidationFactory([["200", s_entitlements_feature]], s_error)
 
@@ -27109,7 +26875,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            postEntitlementsFeaturesRequestBodySchema,
+            s_PostEntitlementsFeaturesRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -27238,9 +27004,6 @@ export function createRouter(implementation: Implementation): Router {
     id: z.string().max(5000),
   })
 
-  const postEntitlementsFeaturesIdRequestBodySchema =
-    s_PostEntitlementsFeaturesIdRequestBody.optional()
-
   const postEntitlementsFeaturesIdResponseBodyValidator =
     responseValidationFactory([["200", s_entitlements_feature]], s_error)
 
@@ -27257,7 +27020,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postEntitlementsFeaturesIdRequestBodySchema,
+            s_PostEntitlementsFeaturesIdRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -27307,9 +27070,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postEphemeralKeysRequestBodySchema =
-    s_PostEphemeralKeysRequestBody.optional()
-
   const postEphemeralKeysResponseBodyValidator = responseValidationFactory(
     [["200", s_ephemeral_key]],
     s_error,
@@ -27324,7 +27084,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            postEphemeralKeysRequestBodySchema,
+            s_PostEphemeralKeysRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -27376,9 +27136,6 @@ export function createRouter(implementation: Implementation): Router {
     key: z.string().max(5000),
   })
 
-  const deleteEphemeralKeysKeyRequestBodySchema =
-    s_DeleteEphemeralKeysKeyRequestBody.optional()
-
   const deleteEphemeralKeysKeyResponseBodyValidator = responseValidationFactory(
     [["200", s_ephemeral_key]],
     s_error,
@@ -27397,7 +27154,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            deleteEphemeralKeysKeyRequestBodySchema,
+            s_DeleteEphemeralKeysKeyRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -27800,9 +27557,6 @@ export function createRouter(implementation: Implementation): Router {
 
   const postExternalAccountsIdParamSchema = z.object({id: z.string()})
 
-  const postExternalAccountsIdRequestBodySchema =
-    s_PostExternalAccountsIdRequestBody.optional()
-
   const postExternalAccountsIdResponseBodyValidator = responseValidationFactory(
     [["200", s_external_account]],
     s_error,
@@ -27821,7 +27575,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postExternalAccountsIdRequestBodySchema,
+            s_PostExternalAccountsIdRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -27971,8 +27725,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postFileLinksRequestBodySchema = s_PostFileLinksRequestBody
-
   const postFileLinksResponseBodyValidator = responseValidationFactory(
     [["200", s_file_link]],
     s_error,
@@ -27987,7 +27739,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            postFileLinksRequestBodySchema,
+            s_PostFileLinksRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -28114,9 +27866,6 @@ export function createRouter(implementation: Implementation): Router {
 
   const postFileLinksLinkParamSchema = z.object({link: z.string()})
 
-  const postFileLinksLinkRequestBodySchema =
-    s_PostFileLinksLinkRequestBody.optional()
-
   const postFileLinksLinkResponseBodyValidator = responseValidationFactory(
     [["200", s_file_link]],
     s_error,
@@ -28135,7 +27884,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postFileLinksLinkRequestBodySchema,
+            s_PostFileLinksLinkRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -28304,10 +28053,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  // todo: request bodies with content-type 'multipart/form-data' not yet supported
-
-  const postFilesRequestBodySchema = z.never()
-
   const postFilesResponseBodyValidator = responseValidationFactory(
     [["200", s_file]],
     s_error,
@@ -28321,8 +28066,9 @@ export function createRouter(implementation: Implementation): Router {
         const input = {
           params: undefined,
           query: undefined,
+          // todo: request bodies with content-type 'multipart/form-data' not yet supported
           body: parseRequestInput(
-            postFilesRequestBodySchema,
+            z.never(),
             req.body,
             RequestInputType.RequestBody,
           ) as never,
@@ -28646,9 +28392,6 @@ export function createRouter(implementation: Implementation): Router {
     {account: z.string().max(5000)},
   )
 
-  const postFinancialConnectionsAccountsAccountDisconnectRequestBodySchema =
-    s_PostFinancialConnectionsAccountsAccountDisconnectRequestBody.optional()
-
   const postFinancialConnectionsAccountsAccountDisconnectResponseBodyValidator =
     responseValidationFactory(
       [["200", s_financial_connections_account]],
@@ -28668,7 +28411,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postFinancialConnectionsAccountsAccountDisconnectRequestBodySchema,
+            s_PostFinancialConnectionsAccountsAccountDisconnectRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -28843,9 +28586,6 @@ export function createRouter(implementation: Implementation): Router {
     account: z.string().max(5000),
   })
 
-  const postFinancialConnectionsAccountsAccountRefreshRequestBodySchema =
-    s_PostFinancialConnectionsAccountsAccountRefreshRequestBody
-
   const postFinancialConnectionsAccountsAccountRefreshResponseBodyValidator =
     responseValidationFactory(
       [["200", s_financial_connections_account]],
@@ -28865,7 +28605,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postFinancialConnectionsAccountsAccountRefreshRequestBodySchema,
+            s_PostFinancialConnectionsAccountsAccountRefreshRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -28930,9 +28670,6 @@ export function createRouter(implementation: Implementation): Router {
     account: z.string().max(5000),
   })
 
-  const postFinancialConnectionsAccountsAccountSubscribeRequestBodySchema =
-    s_PostFinancialConnectionsAccountsAccountSubscribeRequestBody
-
   const postFinancialConnectionsAccountsAccountSubscribeResponseBodyValidator =
     responseValidationFactory(
       [["200", s_financial_connections_account]],
@@ -28952,7 +28689,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postFinancialConnectionsAccountsAccountSubscribeRequestBodySchema,
+            s_PostFinancialConnectionsAccountsAccountSubscribeRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -29016,9 +28753,6 @@ export function createRouter(implementation: Implementation): Router {
   const postFinancialConnectionsAccountsAccountUnsubscribeParamSchema =
     z.object({account: z.string().max(5000)})
 
-  const postFinancialConnectionsAccountsAccountUnsubscribeRequestBodySchema =
-    s_PostFinancialConnectionsAccountsAccountUnsubscribeRequestBody
-
   const postFinancialConnectionsAccountsAccountUnsubscribeResponseBodyValidator =
     responseValidationFactory(
       [["200", s_financial_connections_account]],
@@ -29038,7 +28772,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postFinancialConnectionsAccountsAccountUnsubscribeRequestBodySchema,
+            s_PostFinancialConnectionsAccountsAccountUnsubscribeRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -29099,9 +28833,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postFinancialConnectionsSessionsRequestBodySchema =
-    s_PostFinancialConnectionsSessionsRequestBody
-
   const postFinancialConnectionsSessionsResponseBodyValidator =
     responseValidationFactory(
       [["200", s_financial_connections_session]],
@@ -29117,7 +28848,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            postFinancialConnectionsSessionsRequestBodySchema,
+            s_PostFinancialConnectionsSessionsRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -29563,9 +29294,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postForwardingRequestsRequestBodySchema =
-    s_PostForwardingRequestsRequestBody
-
   const postForwardingRequestsResponseBodyValidator = responseValidationFactory(
     [["200", s_forwarding_request]],
     s_error,
@@ -29580,7 +29308,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            postForwardingRequestsRequestBodySchema,
+            s_PostForwardingRequestsRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -30018,9 +29746,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postIdentityVerificationSessionsRequestBodySchema =
-    s_PostIdentityVerificationSessionsRequestBody.optional()
-
   const postIdentityVerificationSessionsResponseBodyValidator =
     responseValidationFactory(
       [["200", s_identity_verification_session]],
@@ -30036,7 +29761,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            postIdentityVerificationSessionsRequestBodySchema,
+            s_PostIdentityVerificationSessionsRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -30185,9 +29910,6 @@ export function createRouter(implementation: Implementation): Router {
     session: z.string().max(5000),
   })
 
-  const postIdentityVerificationSessionsSessionRequestBodySchema =
-    s_PostIdentityVerificationSessionsSessionRequestBody.optional()
-
   const postIdentityVerificationSessionsSessionResponseBodyValidator =
     responseValidationFactory(
       [["200", s_identity_verification_session]],
@@ -30207,7 +29929,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postIdentityVerificationSessionsSessionRequestBodySchema,
+            s_PostIdentityVerificationSessionsSessionRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -30272,9 +29994,6 @@ export function createRouter(implementation: Implementation): Router {
     session: z.string().max(5000),
   })
 
-  const postIdentityVerificationSessionsSessionCancelRequestBodySchema =
-    s_PostIdentityVerificationSessionsSessionCancelRequestBody.optional()
-
   const postIdentityVerificationSessionsSessionCancelResponseBodyValidator =
     responseValidationFactory(
       [["200", s_identity_verification_session]],
@@ -30294,7 +30013,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postIdentityVerificationSessionsSessionCancelRequestBodySchema,
+            s_PostIdentityVerificationSessionsSessionCancelRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -30359,9 +30078,6 @@ export function createRouter(implementation: Implementation): Router {
     session: z.string().max(5000),
   })
 
-  const postIdentityVerificationSessionsSessionRedactRequestBodySchema =
-    s_PostIdentityVerificationSessionsSessionRedactRequestBody.optional()
-
   const postIdentityVerificationSessionsSessionRedactResponseBodyValidator =
     responseValidationFactory(
       [["200", s_identity_verification_session]],
@@ -30381,7 +30097,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postIdentityVerificationSessionsSessionRedactRequestBodySchema,
+            s_PostIdentityVerificationSessionsSessionRedactRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -30804,9 +30520,6 @@ export function createRouter(implementation: Implementation): Router {
     template: z.string().max(5000),
   })
 
-  const postInvoiceRenderingTemplatesTemplateArchiveRequestBodySchema =
-    s_PostInvoiceRenderingTemplatesTemplateArchiveRequestBody.optional()
-
   const postInvoiceRenderingTemplatesTemplateArchiveResponseBodyValidator =
     responseValidationFactory([["200", s_invoice_rendering_template]], s_error)
 
@@ -30823,7 +30536,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postInvoiceRenderingTemplatesTemplateArchiveRequestBodySchema,
+            s_PostInvoiceRenderingTemplatesTemplateArchiveRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -30886,9 +30599,6 @@ export function createRouter(implementation: Implementation): Router {
     template: z.string().max(5000),
   })
 
-  const postInvoiceRenderingTemplatesTemplateUnarchiveRequestBodySchema =
-    s_PostInvoiceRenderingTemplatesTemplateUnarchiveRequestBody.optional()
-
   const postInvoiceRenderingTemplatesTemplateUnarchiveResponseBodyValidator =
     responseValidationFactory([["200", s_invoice_rendering_template]], s_error)
 
@@ -30905,7 +30615,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postInvoiceRenderingTemplatesTemplateUnarchiveRequestBodySchema,
+            s_PostInvoiceRenderingTemplatesTemplateUnarchiveRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -31067,8 +30777,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postInvoiceitemsRequestBodySchema = s_PostInvoiceitemsRequestBody
-
   const postInvoiceitemsResponseBodyValidator = responseValidationFactory(
     [["200", s_invoiceitem]],
     s_error,
@@ -31083,7 +30791,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            postInvoiceitemsRequestBodySchema,
+            s_PostInvoiceitemsRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -31280,9 +30988,6 @@ export function createRouter(implementation: Implementation): Router {
     invoiceitem: z.string().max(5000),
   })
 
-  const postInvoiceitemsInvoiceitemRequestBodySchema =
-    s_PostInvoiceitemsInvoiceitemRequestBody.optional()
-
   const postInvoiceitemsInvoiceitemResponseBodyValidator =
     responseValidationFactory([["200", s_invoiceitem]], s_error)
 
@@ -31299,7 +31004,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postInvoiceitemsInvoiceitemRequestBodySchema,
+            s_PostInvoiceitemsInvoiceitemRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -31468,8 +31173,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postInvoicesRequestBodySchema = s_PostInvoicesRequestBody.optional()
-
   const postInvoicesResponseBodyValidator = responseValidationFactory(
     [["200", s_invoice]],
     s_error,
@@ -31484,7 +31187,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            postInvoicesRequestBodySchema,
+            s_PostInvoicesRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -31532,9 +31235,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postInvoicesCreatePreviewRequestBodySchema =
-    s_PostInvoicesCreatePreviewRequestBody.optional()
-
   const postInvoicesCreatePreviewResponseBodyValidator =
     responseValidationFactory([["200", s_invoice]], s_error)
 
@@ -31547,7 +31247,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            postInvoicesCreatePreviewRequestBodySchema,
+            s_PostInvoicesCreatePreviewRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -31837,9 +31537,6 @@ export function createRouter(implementation: Implementation): Router {
     invoice: z.string().max(5000),
   })
 
-  const postInvoicesInvoiceRequestBodySchema =
-    s_PostInvoicesInvoiceRequestBody.optional()
-
   const postInvoicesInvoiceResponseBodyValidator = responseValidationFactory(
     [["200", s_invoice]],
     s_error,
@@ -31858,7 +31555,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postInvoicesInvoiceRequestBodySchema,
+            s_PostInvoicesInvoiceRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -31910,9 +31607,6 @@ export function createRouter(implementation: Implementation): Router {
     invoice: z.string().max(5000),
   })
 
-  const postInvoicesInvoiceAddLinesRequestBodySchema =
-    s_PostInvoicesInvoiceAddLinesRequestBody
-
   const postInvoicesInvoiceAddLinesResponseBodyValidator =
     responseValidationFactory([["200", s_invoice]], s_error)
 
@@ -31929,7 +31623,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postInvoicesInvoiceAddLinesRequestBodySchema,
+            s_PostInvoicesInvoiceAddLinesRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -31983,9 +31677,6 @@ export function createRouter(implementation: Implementation): Router {
     invoice: z.string().max(5000),
   })
 
-  const postInvoicesInvoiceAttachPaymentRequestBodySchema =
-    s_PostInvoicesInvoiceAttachPaymentRequestBody.optional()
-
   const postInvoicesInvoiceAttachPaymentResponseBodyValidator =
     responseValidationFactory([["200", s_invoice]], s_error)
 
@@ -32002,7 +31693,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postInvoicesInvoiceAttachPaymentRequestBodySchema,
+            s_PostInvoicesInvoiceAttachPaymentRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -32056,9 +31747,6 @@ export function createRouter(implementation: Implementation): Router {
     invoice: z.string().max(5000),
   })
 
-  const postInvoicesInvoiceFinalizeRequestBodySchema =
-    s_PostInvoicesInvoiceFinalizeRequestBody.optional()
-
   const postInvoicesInvoiceFinalizeResponseBodyValidator =
     responseValidationFactory([["200", s_invoice]], s_error)
 
@@ -32075,7 +31763,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postInvoicesInvoiceFinalizeRequestBodySchema,
+            s_PostInvoicesInvoiceFinalizeRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -32228,9 +31916,6 @@ export function createRouter(implementation: Implementation): Router {
     line_item_id: z.string().max(5000),
   })
 
-  const postInvoicesInvoiceLinesLineItemIdRequestBodySchema =
-    s_PostInvoicesInvoiceLinesLineItemIdRequestBody.optional()
-
   const postInvoicesInvoiceLinesLineItemIdResponseBodyValidator =
     responseValidationFactory([["200", s_line_item]], s_error)
 
@@ -32247,7 +31932,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postInvoicesInvoiceLinesLineItemIdRequestBodySchema,
+            s_PostInvoicesInvoiceLinesLineItemIdRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -32304,9 +31989,6 @@ export function createRouter(implementation: Implementation): Router {
     invoice: z.string().max(5000),
   })
 
-  const postInvoicesInvoiceMarkUncollectibleRequestBodySchema =
-    s_PostInvoicesInvoiceMarkUncollectibleRequestBody.optional()
-
   const postInvoicesInvoiceMarkUncollectibleResponseBodyValidator =
     responseValidationFactory([["200", s_invoice]], s_error)
 
@@ -32323,7 +32005,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postInvoicesInvoiceMarkUncollectibleRequestBodySchema,
+            s_PostInvoicesInvoiceMarkUncollectibleRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -32386,9 +32068,6 @@ export function createRouter(implementation: Implementation): Router {
     invoice: z.string().max(5000),
   })
 
-  const postInvoicesInvoicePayRequestBodySchema =
-    s_PostInvoicesInvoicePayRequestBody.optional()
-
   const postInvoicesInvoicePayResponseBodyValidator = responseValidationFactory(
     [["200", s_invoice]],
     s_error,
@@ -32407,7 +32086,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postInvoicesInvoicePayRequestBodySchema,
+            s_PostInvoicesInvoicePayRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -32459,9 +32138,6 @@ export function createRouter(implementation: Implementation): Router {
     invoice: z.string().max(5000),
   })
 
-  const postInvoicesInvoiceRemoveLinesRequestBodySchema =
-    s_PostInvoicesInvoiceRemoveLinesRequestBody
-
   const postInvoicesInvoiceRemoveLinesResponseBodyValidator =
     responseValidationFactory([["200", s_invoice]], s_error)
 
@@ -32478,7 +32154,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postInvoicesInvoiceRemoveLinesRequestBodySchema,
+            s_PostInvoicesInvoiceRemoveLinesRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -32532,9 +32208,6 @@ export function createRouter(implementation: Implementation): Router {
     invoice: z.string().max(5000),
   })
 
-  const postInvoicesInvoiceSendRequestBodySchema =
-    s_PostInvoicesInvoiceSendRequestBody.optional()
-
   const postInvoicesInvoiceSendResponseBodyValidator =
     responseValidationFactory([["200", s_invoice]], s_error)
 
@@ -32551,7 +32224,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postInvoicesInvoiceSendRequestBodySchema,
+            s_PostInvoicesInvoiceSendRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -32603,9 +32276,6 @@ export function createRouter(implementation: Implementation): Router {
     invoice: z.string().max(5000),
   })
 
-  const postInvoicesInvoiceUpdateLinesRequestBodySchema =
-    s_PostInvoicesInvoiceUpdateLinesRequestBody
-
   const postInvoicesInvoiceUpdateLinesResponseBodyValidator =
     responseValidationFactory([["200", s_invoice]], s_error)
 
@@ -32622,7 +32292,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postInvoicesInvoiceUpdateLinesRequestBodySchema,
+            s_PostInvoicesInvoiceUpdateLinesRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -32676,9 +32346,6 @@ export function createRouter(implementation: Implementation): Router {
     invoice: z.string().max(5000),
   })
 
-  const postInvoicesInvoiceVoidRequestBodySchema =
-    s_PostInvoicesInvoiceVoidRequestBody.optional()
-
   const postInvoicesInvoiceVoidResponseBodyValidator =
     responseValidationFactory([["200", s_invoice]], s_error)
 
@@ -32695,7 +32362,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postInvoicesInvoiceVoidRequestBodySchema,
+            s_PostInvoicesInvoiceVoidRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -32942,9 +32609,6 @@ export function createRouter(implementation: Implementation): Router {
     authorization: z.string().max(5000),
   })
 
-  const postIssuingAuthorizationsAuthorizationRequestBodySchema =
-    s_PostIssuingAuthorizationsAuthorizationRequestBody.optional()
-
   const postIssuingAuthorizationsAuthorizationResponseBodyValidator =
     responseValidationFactory([["200", s_issuing_authorization]], s_error)
 
@@ -32961,7 +32625,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postIssuingAuthorizationsAuthorizationRequestBodySchema,
+            s_PostIssuingAuthorizationsAuthorizationRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -33024,9 +32688,6 @@ export function createRouter(implementation: Implementation): Router {
     authorization: z.string().max(5000),
   })
 
-  const postIssuingAuthorizationsAuthorizationApproveRequestBodySchema =
-    s_PostIssuingAuthorizationsAuthorizationApproveRequestBody.optional()
-
   const postIssuingAuthorizationsAuthorizationApproveResponseBodyValidator =
     responseValidationFactory([["200", s_issuing_authorization]], s_error)
 
@@ -33043,7 +32704,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postIssuingAuthorizationsAuthorizationApproveRequestBodySchema,
+            s_PostIssuingAuthorizationsAuthorizationApproveRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -33106,9 +32767,6 @@ export function createRouter(implementation: Implementation): Router {
     authorization: z.string().max(5000),
   })
 
-  const postIssuingAuthorizationsAuthorizationDeclineRequestBodySchema =
-    s_PostIssuingAuthorizationsAuthorizationDeclineRequestBody.optional()
-
   const postIssuingAuthorizationsAuthorizationDeclineResponseBodyValidator =
     responseValidationFactory([["200", s_issuing_authorization]], s_error)
 
@@ -33125,7 +32783,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postIssuingAuthorizationsAuthorizationDeclineRequestBodySchema,
+            s_PostIssuingAuthorizationsAuthorizationDeclineRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -33291,9 +32949,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postIssuingCardholdersRequestBodySchema =
-    s_PostIssuingCardholdersRequestBody
-
   const postIssuingCardholdersResponseBodyValidator = responseValidationFactory(
     [["200", s_issuing_cardholder]],
     s_error,
@@ -33308,7 +32963,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            postIssuingCardholdersRequestBodySchema,
+            s_PostIssuingCardholdersRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -33439,9 +33094,6 @@ export function createRouter(implementation: Implementation): Router {
     cardholder: z.string().max(5000),
   })
 
-  const postIssuingCardholdersCardholderRequestBodySchema =
-    s_PostIssuingCardholdersCardholderRequestBody.optional()
-
   const postIssuingCardholdersCardholderResponseBodyValidator =
     responseValidationFactory([["200", s_issuing_cardholder]], s_error)
 
@@ -33458,7 +33110,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postIssuingCardholdersCardholderRequestBodySchema,
+            s_PostIssuingCardholdersCardholderRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -33615,8 +33267,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postIssuingCardsRequestBodySchema = s_PostIssuingCardsRequestBody
-
   const postIssuingCardsResponseBodyValidator = responseValidationFactory(
     [["200", s_issuing_card]],
     s_error,
@@ -33631,7 +33281,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            postIssuingCardsRequestBodySchema,
+            s_PostIssuingCardsRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -33758,9 +33408,6 @@ export function createRouter(implementation: Implementation): Router {
 
   const postIssuingCardsCardParamSchema = z.object({card: z.string().max(5000)})
 
-  const postIssuingCardsCardRequestBodySchema =
-    s_PostIssuingCardsCardRequestBody.optional()
-
   const postIssuingCardsCardResponseBodyValidator = responseValidationFactory(
     [["200", s_issuing_card]],
     s_error,
@@ -33779,7 +33426,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postIssuingCardsCardRequestBodySchema,
+            s_PostIssuingCardsCardRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -33931,9 +33578,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postIssuingDisputesRequestBodySchema =
-    s_PostIssuingDisputesRequestBody.optional()
-
   const postIssuingDisputesResponseBodyValidator = responseValidationFactory(
     [["200", s_issuing_dispute]],
     s_error,
@@ -33948,7 +33592,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            postIssuingDisputesRequestBodySchema,
+            s_PostIssuingDisputesRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -34077,9 +33721,6 @@ export function createRouter(implementation: Implementation): Router {
     dispute: z.string().max(5000),
   })
 
-  const postIssuingDisputesDisputeRequestBodySchema =
-    s_PostIssuingDisputesDisputeRequestBody.optional()
-
   const postIssuingDisputesDisputeResponseBodyValidator =
     responseValidationFactory([["200", s_issuing_dispute]], s_error)
 
@@ -34096,7 +33737,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postIssuingDisputesDisputeRequestBodySchema,
+            s_PostIssuingDisputesDisputeRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -34150,9 +33791,6 @@ export function createRouter(implementation: Implementation): Router {
     dispute: z.string().max(5000),
   })
 
-  const postIssuingDisputesDisputeSubmitRequestBodySchema =
-    s_PostIssuingDisputesDisputeSubmitRequestBody.optional()
-
   const postIssuingDisputesDisputeSubmitResponseBodyValidator =
     responseValidationFactory([["200", s_issuing_dispute]], s_error)
 
@@ -34169,7 +33807,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postIssuingDisputesDisputeSubmitRequestBodySchema,
+            s_PostIssuingDisputesDisputeSubmitRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -34327,9 +33965,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postIssuingPersonalizationDesignsRequestBodySchema =
-    s_PostIssuingPersonalizationDesignsRequestBody
-
   const postIssuingPersonalizationDesignsResponseBodyValidator =
     responseValidationFactory(
       [["200", s_issuing_personalization_design]],
@@ -34345,7 +33980,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            postIssuingPersonalizationDesignsRequestBodySchema,
+            s_PostIssuingPersonalizationDesignsRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -34496,9 +34131,6 @@ export function createRouter(implementation: Implementation): Router {
   const postIssuingPersonalizationDesignsPersonalizationDesignParamSchema =
     z.object({personalization_design: z.string().max(5000)})
 
-  const postIssuingPersonalizationDesignsPersonalizationDesignRequestBodySchema =
-    s_PostIssuingPersonalizationDesignsPersonalizationDesignRequestBody.optional()
-
   const postIssuingPersonalizationDesignsPersonalizationDesignResponseBodyValidator =
     responseValidationFactory(
       [["200", s_issuing_personalization_design]],
@@ -34518,7 +34150,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postIssuingPersonalizationDesignsPersonalizationDesignRequestBodySchema,
+            s_PostIssuingPersonalizationDesignsPersonalizationDesignRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -34845,9 +34477,6 @@ export function createRouter(implementation: Implementation): Router {
     settlement: z.string().max(5000),
   })
 
-  const postIssuingSettlementsSettlementRequestBodySchema =
-    s_PostIssuingSettlementsSettlementRequestBody.optional()
-
   const postIssuingSettlementsSettlementResponseBodyValidator =
     responseValidationFactory([["200", s_issuing_settlement]], s_error)
 
@@ -34864,7 +34493,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postIssuingSettlementsSettlementRequestBodySchema,
+            s_PostIssuingSettlementsSettlementRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -35099,9 +34728,6 @@ export function createRouter(implementation: Implementation): Router {
     token: z.string().max(5000),
   })
 
-  const postIssuingTokensTokenRequestBodySchema =
-    s_PostIssuingTokensTokenRequestBody
-
   const postIssuingTokensTokenResponseBodyValidator = responseValidationFactory(
     [["200", s_issuing_token]],
     s_error,
@@ -35120,7 +34746,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postIssuingTokensTokenRequestBodySchema,
+            s_PostIssuingTokensTokenRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -35360,9 +34986,6 @@ export function createRouter(implementation: Implementation): Router {
     transaction: z.string().max(5000),
   })
 
-  const postIssuingTransactionsTransactionRequestBodySchema =
-    s_PostIssuingTransactionsTransactionRequestBody.optional()
-
   const postIssuingTransactionsTransactionResponseBodyValidator =
     responseValidationFactory([["200", s_issuing_transaction]], s_error)
 
@@ -35379,7 +35002,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postIssuingTransactionsTransactionRequestBodySchema,
+            s_PostIssuingTransactionsTransactionRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -35432,9 +35055,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postLinkAccountSessionsRequestBodySchema =
-    s_PostLinkAccountSessionsRequestBody
-
   const postLinkAccountSessionsResponseBodyValidator =
     responseValidationFactory(
       [["200", s_financial_connections_session]],
@@ -35450,7 +35070,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            postLinkAccountSessionsRequestBodySchema,
+            s_PostLinkAccountSessionsRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -35769,9 +35389,6 @@ export function createRouter(implementation: Implementation): Router {
     account: z.string().max(5000),
   })
 
-  const postLinkedAccountsAccountDisconnectRequestBodySchema =
-    s_PostLinkedAccountsAccountDisconnectRequestBody.optional()
-
   const postLinkedAccountsAccountDisconnectResponseBodyValidator =
     responseValidationFactory(
       [["200", s_financial_connections_account]],
@@ -35791,7 +35408,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postLinkedAccountsAccountDisconnectRequestBodySchema,
+            s_PostLinkedAccountsAccountDisconnectRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -35951,9 +35568,6 @@ export function createRouter(implementation: Implementation): Router {
     account: z.string().max(5000),
   })
 
-  const postLinkedAccountsAccountRefreshRequestBodySchema =
-    s_PostLinkedAccountsAccountRefreshRequestBody
-
   const postLinkedAccountsAccountRefreshResponseBodyValidator =
     responseValidationFactory(
       [["200", s_financial_connections_account]],
@@ -35973,7 +35587,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postLinkedAccountsAccountRefreshRequestBodySchema,
+            s_PostLinkedAccountsAccountRefreshRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -36203,8 +35817,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postPaymentIntentsRequestBodySchema = s_PostPaymentIntentsRequestBody
-
   const postPaymentIntentsResponseBodyValidator = responseValidationFactory(
     [["200", s_payment_intent]],
     s_error,
@@ -36219,7 +35831,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            postPaymentIntentsRequestBodySchema,
+            s_PostPaymentIntentsRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -36443,9 +36055,6 @@ export function createRouter(implementation: Implementation): Router {
     intent: z.string().max(5000),
   })
 
-  const postPaymentIntentsIntentRequestBodySchema =
-    s_PostPaymentIntentsIntentRequestBody.optional()
-
   const postPaymentIntentsIntentResponseBodyValidator =
     responseValidationFactory([["200", s_payment_intent]], s_error)
 
@@ -36462,7 +36071,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postPaymentIntentsIntentRequestBodySchema,
+            s_PostPaymentIntentsIntentRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -36514,9 +36123,6 @@ export function createRouter(implementation: Implementation): Router {
     intent: z.string().max(5000),
   })
 
-  const postPaymentIntentsIntentApplyCustomerBalanceRequestBodySchema =
-    s_PostPaymentIntentsIntentApplyCustomerBalanceRequestBody.optional()
-
   const postPaymentIntentsIntentApplyCustomerBalanceResponseBodyValidator =
     responseValidationFactory([["200", s_payment_intent]], s_error)
 
@@ -36533,7 +36139,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postPaymentIntentsIntentApplyCustomerBalanceRequestBodySchema,
+            s_PostPaymentIntentsIntentApplyCustomerBalanceRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -36596,9 +36202,6 @@ export function createRouter(implementation: Implementation): Router {
     intent: z.string().max(5000),
   })
 
-  const postPaymentIntentsIntentCancelRequestBodySchema =
-    s_PostPaymentIntentsIntentCancelRequestBody.optional()
-
   const postPaymentIntentsIntentCancelResponseBodyValidator =
     responseValidationFactory([["200", s_payment_intent]], s_error)
 
@@ -36615,7 +36218,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postPaymentIntentsIntentCancelRequestBodySchema,
+            s_PostPaymentIntentsIntentCancelRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -36669,9 +36272,6 @@ export function createRouter(implementation: Implementation): Router {
     intent: z.string().max(5000),
   })
 
-  const postPaymentIntentsIntentCaptureRequestBodySchema =
-    s_PostPaymentIntentsIntentCaptureRequestBody.optional()
-
   const postPaymentIntentsIntentCaptureResponseBodyValidator =
     responseValidationFactory([["200", s_payment_intent]], s_error)
 
@@ -36688,7 +36288,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postPaymentIntentsIntentCaptureRequestBodySchema,
+            s_PostPaymentIntentsIntentCaptureRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -36742,9 +36342,6 @@ export function createRouter(implementation: Implementation): Router {
     intent: z.string().max(5000),
   })
 
-  const postPaymentIntentsIntentConfirmRequestBodySchema =
-    s_PostPaymentIntentsIntentConfirmRequestBody.optional()
-
   const postPaymentIntentsIntentConfirmResponseBodyValidator =
     responseValidationFactory([["200", s_payment_intent]], s_error)
 
@@ -36761,7 +36358,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postPaymentIntentsIntentConfirmRequestBodySchema,
+            s_PostPaymentIntentsIntentConfirmRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -36815,9 +36412,6 @@ export function createRouter(implementation: Implementation): Router {
     intent: z.string().max(5000),
   })
 
-  const postPaymentIntentsIntentIncrementAuthorizationRequestBodySchema =
-    s_PostPaymentIntentsIntentIncrementAuthorizationRequestBody
-
   const postPaymentIntentsIntentIncrementAuthorizationResponseBodyValidator =
     responseValidationFactory([["200", s_payment_intent]], s_error)
 
@@ -36834,7 +36428,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postPaymentIntentsIntentIncrementAuthorizationRequestBodySchema,
+            s_PostPaymentIntentsIntentIncrementAuthorizationRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -36897,9 +36491,6 @@ export function createRouter(implementation: Implementation): Router {
     intent: z.string().max(5000),
   })
 
-  const postPaymentIntentsIntentVerifyMicrodepositsRequestBodySchema =
-    s_PostPaymentIntentsIntentVerifyMicrodepositsRequestBody.optional()
-
   const postPaymentIntentsIntentVerifyMicrodepositsResponseBodyValidator =
     responseValidationFactory([["200", s_payment_intent]], s_error)
 
@@ -36916,7 +36507,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postPaymentIntentsIntentVerifyMicrodepositsRequestBodySchema,
+            s_PostPaymentIntentsIntentVerifyMicrodepositsRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -37065,8 +36656,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postPaymentLinksRequestBodySchema = s_PostPaymentLinksRequestBody
-
   const postPaymentLinksResponseBodyValidator = responseValidationFactory(
     [["200", s_payment_link]],
     s_error,
@@ -37081,7 +36670,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            postPaymentLinksRequestBodySchema,
+            s_PostPaymentLinksRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -37212,9 +36801,6 @@ export function createRouter(implementation: Implementation): Router {
     payment_link: z.string().max(5000),
   })
 
-  const postPaymentLinksPaymentLinkRequestBodySchema =
-    s_PostPaymentLinksPaymentLinkRequestBody.optional()
-
   const postPaymentLinksPaymentLinkResponseBodyValidator =
     responseValidationFactory([["200", s_payment_link]], s_error)
 
@@ -37231,7 +36817,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postPaymentLinksPaymentLinkRequestBodySchema,
+            s_PostPaymentLinksPaymentLinkRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -37480,9 +37066,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postPaymentMethodConfigurationsRequestBodySchema =
-    s_PostPaymentMethodConfigurationsRequestBody.optional()
-
   const postPaymentMethodConfigurationsResponseBodyValidator =
     responseValidationFactory(
       [["200", s_payment_method_configuration]],
@@ -37498,7 +37081,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            postPaymentMethodConfigurationsRequestBodySchema,
+            s_PostPaymentMethodConfigurationsRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -37647,9 +37230,6 @@ export function createRouter(implementation: Implementation): Router {
     configuration: z.string().max(5000),
   })
 
-  const postPaymentMethodConfigurationsConfigurationRequestBodySchema =
-    s_PostPaymentMethodConfigurationsConfigurationRequestBody.optional()
-
   const postPaymentMethodConfigurationsConfigurationResponseBodyValidator =
     responseValidationFactory(
       [["200", s_payment_method_configuration]],
@@ -37669,7 +37249,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postPaymentMethodConfigurationsConfigurationRequestBodySchema,
+            s_PostPaymentMethodConfigurationsConfigurationRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -37825,9 +37405,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postPaymentMethodDomainsRequestBodySchema =
-    s_PostPaymentMethodDomainsRequestBody
-
   const postPaymentMethodDomainsResponseBodyValidator =
     responseValidationFactory([["200", s_payment_method_domain]], s_error)
 
@@ -37840,7 +37417,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            postPaymentMethodDomainsRequestBodySchema,
+            s_PostPaymentMethodDomainsRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -37980,9 +37557,6 @@ export function createRouter(implementation: Implementation): Router {
     payment_method_domain: z.string().max(5000),
   })
 
-  const postPaymentMethodDomainsPaymentMethodDomainRequestBodySchema =
-    s_PostPaymentMethodDomainsPaymentMethodDomainRequestBody.optional()
-
   const postPaymentMethodDomainsPaymentMethodDomainResponseBodyValidator =
     responseValidationFactory([["200", s_payment_method_domain]], s_error)
 
@@ -37999,7 +37573,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postPaymentMethodDomainsPaymentMethodDomainRequestBodySchema,
+            s_PostPaymentMethodDomainsPaymentMethodDomainRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -38061,9 +37635,6 @@ export function createRouter(implementation: Implementation): Router {
   const postPaymentMethodDomainsPaymentMethodDomainValidateParamSchema =
     z.object({payment_method_domain: z.string().max(5000)})
 
-  const postPaymentMethodDomainsPaymentMethodDomainValidateRequestBodySchema =
-    s_PostPaymentMethodDomainsPaymentMethodDomainValidateRequestBody.optional()
-
   const postPaymentMethodDomainsPaymentMethodDomainValidateResponseBodyValidator =
     responseValidationFactory([["200", s_payment_method_domain]], s_error)
 
@@ -38080,7 +37651,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postPaymentMethodDomainsPaymentMethodDomainValidateRequestBodySchema,
+            s_PostPaymentMethodDomainsPaymentMethodDomainValidateRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -38281,9 +37852,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postPaymentMethodsRequestBodySchema =
-    s_PostPaymentMethodsRequestBody.optional()
-
   const postPaymentMethodsResponseBodyValidator = responseValidationFactory(
     [["200", s_payment_method]],
     s_error,
@@ -38298,7 +37866,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            postPaymentMethodsRequestBodySchema,
+            s_PostPaymentMethodsRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -38429,9 +37997,6 @@ export function createRouter(implementation: Implementation): Router {
     payment_method: z.string().max(5000),
   })
 
-  const postPaymentMethodsPaymentMethodRequestBodySchema =
-    s_PostPaymentMethodsPaymentMethodRequestBody.optional()
-
   const postPaymentMethodsPaymentMethodResponseBodyValidator =
     responseValidationFactory([["200", s_payment_method]], s_error)
 
@@ -38448,7 +38013,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postPaymentMethodsPaymentMethodRequestBodySchema,
+            s_PostPaymentMethodsPaymentMethodRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -38502,9 +38067,6 @@ export function createRouter(implementation: Implementation): Router {
     payment_method: z.string().max(5000),
   })
 
-  const postPaymentMethodsPaymentMethodAttachRequestBodySchema =
-    s_PostPaymentMethodsPaymentMethodAttachRequestBody
-
   const postPaymentMethodsPaymentMethodAttachResponseBodyValidator =
     responseValidationFactory([["200", s_payment_method]], s_error)
 
@@ -38521,7 +38083,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postPaymentMethodsPaymentMethodAttachRequestBodySchema,
+            s_PostPaymentMethodsPaymentMethodAttachRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -38584,9 +38146,6 @@ export function createRouter(implementation: Implementation): Router {
     payment_method: z.string().max(5000),
   })
 
-  const postPaymentMethodsPaymentMethodDetachRequestBodySchema =
-    s_PostPaymentMethodsPaymentMethodDetachRequestBody.optional()
-
   const postPaymentMethodsPaymentMethodDetachResponseBodyValidator =
     responseValidationFactory([["200", s_payment_method]], s_error)
 
@@ -38603,7 +38162,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postPaymentMethodsPaymentMethodDetachRequestBodySchema,
+            s_PostPaymentMethodsPaymentMethodDetachRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -38775,8 +38334,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postPayoutsRequestBodySchema = s_PostPayoutsRequestBody
-
   const postPayoutsResponseBodyValidator = responseValidationFactory(
     [["200", s_payout]],
     s_error,
@@ -38791,7 +38348,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            postPayoutsRequestBodySchema,
+            s_PostPayoutsRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -38918,9 +38475,6 @@ export function createRouter(implementation: Implementation): Router {
 
   const postPayoutsPayoutParamSchema = z.object({payout: z.string().max(5000)})
 
-  const postPayoutsPayoutRequestBodySchema =
-    s_PostPayoutsPayoutRequestBody.optional()
-
   const postPayoutsPayoutResponseBodyValidator = responseValidationFactory(
     [["200", s_payout]],
     s_error,
@@ -38939,7 +38493,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postPayoutsPayoutRequestBodySchema,
+            s_PostPayoutsPayoutRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -38991,9 +38545,6 @@ export function createRouter(implementation: Implementation): Router {
     payout: z.string().max(5000),
   })
 
-  const postPayoutsPayoutCancelRequestBodySchema =
-    s_PostPayoutsPayoutCancelRequestBody.optional()
-
   const postPayoutsPayoutCancelResponseBodyValidator =
     responseValidationFactory([["200", s_payout]], s_error)
 
@@ -39010,7 +38561,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postPayoutsPayoutCancelRequestBodySchema,
+            s_PostPayoutsPayoutCancelRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -39062,9 +38613,6 @@ export function createRouter(implementation: Implementation): Router {
     payout: z.string().max(5000),
   })
 
-  const postPayoutsPayoutReverseRequestBodySchema =
-    s_PostPayoutsPayoutReverseRequestBody.optional()
-
   const postPayoutsPayoutReverseResponseBodyValidator =
     responseValidationFactory([["200", s_payout]], s_error)
 
@@ -39081,7 +38629,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postPayoutsPayoutReverseRequestBodySchema,
+            s_PostPayoutsPayoutReverseRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -39231,8 +38779,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postPlansRequestBodySchema = s_PostPlansRequestBody
-
   const postPlansResponseBodyValidator = responseValidationFactory(
     [["200", s_plan]],
     s_error,
@@ -39247,7 +38793,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            postPlansRequestBodySchema,
+            s_PostPlansRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -39438,8 +38984,6 @@ export function createRouter(implementation: Implementation): Router {
 
   const postPlansPlanParamSchema = z.object({plan: z.string().max(5000)})
 
-  const postPlansPlanRequestBodySchema = s_PostPlansPlanRequestBody.optional()
-
   const postPlansPlanResponseBodyValidator = responseValidationFactory(
     [["200", s_plan]],
     s_error,
@@ -39458,7 +39002,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postPlansPlanRequestBodySchema,
+            s_PostPlansPlanRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -39623,8 +39167,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postPricesRequestBodySchema = s_PostPricesRequestBody
-
   const postPricesResponseBodyValidator = responseValidationFactory(
     [["200", s_price]],
     s_error,
@@ -39639,7 +39181,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            postPricesRequestBodySchema,
+            s_PostPricesRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -39859,9 +39401,6 @@ export function createRouter(implementation: Implementation): Router {
 
   const postPricesPriceParamSchema = z.object({price: z.string().max(5000)})
 
-  const postPricesPriceRequestBodySchema =
-    s_PostPricesPriceRequestBody.optional()
-
   const postPricesPriceResponseBodyValidator = responseValidationFactory(
     [["200", s_price]],
     s_error,
@@ -39880,7 +39419,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postPricesPriceRequestBodySchema,
+            s_PostPricesPriceRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -40037,8 +39576,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postProductsRequestBodySchema = s_PostProductsRequestBody
-
   const postProductsResponseBodyValidator = responseValidationFactory(
     [["200", s_product]],
     s_error,
@@ -40053,7 +39590,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            postProductsRequestBodySchema,
+            s_PostProductsRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -40337,8 +39874,6 @@ export function createRouter(implementation: Implementation): Router {
 
   const postProductsIdParamSchema = z.object({id: z.string().max(5000)})
 
-  const postProductsIdRequestBodySchema = s_PostProductsIdRequestBody.optional()
-
   const postProductsIdResponseBodyValidator = responseValidationFactory(
     [["200", s_product]],
     s_error,
@@ -40357,7 +39892,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postProductsIdRequestBodySchema,
+            s_PostProductsIdRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -40509,9 +40044,6 @@ export function createRouter(implementation: Implementation): Router {
     product: z.string().max(5000),
   })
 
-  const postProductsProductFeaturesRequestBodySchema =
-    s_PostProductsProductFeaturesRequestBody
-
   const postProductsProductFeaturesResponseBodyValidator =
     responseValidationFactory([["200", s_product_feature]], s_error)
 
@@ -40528,7 +40060,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postProductsProductFeaturesRequestBodySchema,
+            s_PostProductsProductFeaturesRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -40829,8 +40361,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postPromotionCodesRequestBodySchema = s_PostPromotionCodesRequestBody
-
   const postPromotionCodesResponseBodyValidator = responseValidationFactory(
     [["200", s_promotion_code]],
     s_error,
@@ -40845,7 +40375,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            postPromotionCodesRequestBodySchema,
+            s_PostPromotionCodesRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -40976,9 +40506,6 @@ export function createRouter(implementation: Implementation): Router {
     promotion_code: z.string().max(5000),
   })
 
-  const postPromotionCodesPromotionCodeRequestBodySchema =
-    s_PostPromotionCodesPromotionCodeRequestBody.optional()
-
   const postPromotionCodesPromotionCodeResponseBodyValidator =
     responseValidationFactory([["200", s_promotion_code]], s_error)
 
@@ -40995,7 +40522,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postPromotionCodesPromotionCodeRequestBodySchema,
+            s_PostPromotionCodesPromotionCodeRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -41137,8 +40664,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postQuotesRequestBodySchema = s_PostQuotesRequestBody.optional()
-
   const postQuotesResponseBodyValidator = responseValidationFactory(
     [["200", s_quote]],
     s_error,
@@ -41153,7 +40678,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            postQuotesRequestBodySchema,
+            s_PostQuotesRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -41280,9 +40805,6 @@ export function createRouter(implementation: Implementation): Router {
 
   const postQuotesQuoteParamSchema = z.object({quote: z.string().max(5000)})
 
-  const postQuotesQuoteRequestBodySchema =
-    s_PostQuotesQuoteRequestBody.optional()
-
   const postQuotesQuoteResponseBodyValidator = responseValidationFactory(
     [["200", s_quote]],
     s_error,
@@ -41301,7 +40823,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postQuotesQuoteRequestBodySchema,
+            s_PostQuotesQuoteRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -41353,9 +40875,6 @@ export function createRouter(implementation: Implementation): Router {
     quote: z.string().max(5000),
   })
 
-  const postQuotesQuoteAcceptRequestBodySchema =
-    s_PostQuotesQuoteAcceptRequestBody.optional()
-
   const postQuotesQuoteAcceptResponseBodyValidator = responseValidationFactory(
     [["200", s_quote]],
     s_error,
@@ -41374,7 +40893,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postQuotesQuoteAcceptRequestBodySchema,
+            s_PostQuotesQuoteAcceptRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -41426,9 +40945,6 @@ export function createRouter(implementation: Implementation): Router {
     quote: z.string().max(5000),
   })
 
-  const postQuotesQuoteCancelRequestBodySchema =
-    s_PostQuotesQuoteCancelRequestBody.optional()
-
   const postQuotesQuoteCancelResponseBodyValidator = responseValidationFactory(
     [["200", s_quote]],
     s_error,
@@ -41447,7 +40963,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postQuotesQuoteCancelRequestBodySchema,
+            s_PostQuotesQuoteCancelRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -41608,9 +41124,6 @@ export function createRouter(implementation: Implementation): Router {
     quote: z.string().max(5000),
   })
 
-  const postQuotesQuoteFinalizeRequestBodySchema =
-    s_PostQuotesQuoteFinalizeRequestBody.optional()
-
   const postQuotesQuoteFinalizeResponseBodyValidator =
     responseValidationFactory([["200", s_quote]], s_error)
 
@@ -41627,7 +41140,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postQuotesQuoteFinalizeRequestBodySchema,
+            s_PostQuotesQuoteFinalizeRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -42151,9 +41664,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postRadarValueListItemsRequestBodySchema =
-    s_PostRadarValueListItemsRequestBody
-
   const postRadarValueListItemsResponseBodyValidator =
     responseValidationFactory([["200", s_radar_value_list_item]], s_error)
 
@@ -42166,7 +41676,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            postRadarValueListItemsRequestBodySchema,
+            s_PostRadarValueListItemsRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -42466,8 +41976,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postRadarValueListsRequestBodySchema = s_PostRadarValueListsRequestBody
-
   const postRadarValueListsResponseBodyValidator = responseValidationFactory(
     [["200", s_radar_value_list]],
     s_error,
@@ -42482,7 +41990,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            postRadarValueListsRequestBodySchema,
+            s_PostRadarValueListsRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -42679,9 +42187,6 @@ export function createRouter(implementation: Implementation): Router {
     value_list: z.string().max(5000),
   })
 
-  const postRadarValueListsValueListRequestBodySchema =
-    s_PostRadarValueListsValueListRequestBody.optional()
-
   const postRadarValueListsValueListResponseBodyValidator =
     responseValidationFactory([["200", s_radar_value_list]], s_error)
 
@@ -42698,7 +42203,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postRadarValueListsValueListRequestBodySchema,
+            s_PostRadarValueListsValueListRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -42850,8 +42355,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postRefundsRequestBodySchema = s_PostRefundsRequestBody.optional()
-
   const postRefundsResponseBodyValidator = responseValidationFactory(
     [["200", s_refund]],
     s_error,
@@ -42866,7 +42369,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            postRefundsRequestBodySchema,
+            s_PostRefundsRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -42993,9 +42496,6 @@ export function createRouter(implementation: Implementation): Router {
 
   const postRefundsRefundParamSchema = z.object({refund: z.string()})
 
-  const postRefundsRefundRequestBodySchema =
-    s_PostRefundsRefundRequestBody.optional()
-
   const postRefundsRefundResponseBodyValidator = responseValidationFactory(
     [["200", s_refund]],
     s_error,
@@ -43014,7 +42514,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postRefundsRefundRequestBodySchema,
+            s_PostRefundsRefundRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -43064,9 +42564,6 @@ export function createRouter(implementation: Implementation): Router {
 
   const postRefundsRefundCancelParamSchema = z.object({refund: z.string()})
 
-  const postRefundsRefundCancelRequestBodySchema =
-    s_PostRefundsRefundCancelRequestBody.optional()
-
   const postRefundsRefundCancelResponseBodyValidator =
     responseValidationFactory([["200", s_refund]], s_error)
 
@@ -43083,7 +42580,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postRefundsRefundCancelRequestBodySchema,
+            s_PostRefundsRefundCancelRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -43234,9 +42731,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postReportingReportRunsRequestBodySchema =
-    s_PostReportingReportRunsRequestBody
-
   const postReportingReportRunsResponseBodyValidator =
     responseValidationFactory([["200", s_reporting_report_run]], s_error)
 
@@ -43249,7 +42743,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            postReportingReportRunsRequestBodySchema,
+            s_PostReportingReportRunsRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -43726,9 +43220,6 @@ export function createRouter(implementation: Implementation): Router {
     review: z.string().max(5000),
   })
 
-  const postReviewsReviewApproveRequestBodySchema =
-    s_PostReviewsReviewApproveRequestBody.optional()
-
   const postReviewsReviewApproveResponseBodyValidator =
     responseValidationFactory([["200", s_review]], s_error)
 
@@ -43745,7 +43236,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postReviewsReviewApproveRequestBodySchema,
+            s_PostReviewsReviewApproveRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -43997,9 +43488,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postSetupIntentsRequestBodySchema =
-    s_PostSetupIntentsRequestBody.optional()
-
   const postSetupIntentsResponseBodyValidator = responseValidationFactory(
     [["200", s_setup_intent]],
     s_error,
@@ -44014,7 +43502,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            postSetupIntentsRequestBodySchema,
+            s_PostSetupIntentsRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -44146,9 +43634,6 @@ export function createRouter(implementation: Implementation): Router {
     intent: z.string().max(5000),
   })
 
-  const postSetupIntentsIntentRequestBodySchema =
-    s_PostSetupIntentsIntentRequestBody.optional()
-
   const postSetupIntentsIntentResponseBodyValidator = responseValidationFactory(
     [["200", s_setup_intent]],
     s_error,
@@ -44167,7 +43652,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postSetupIntentsIntentRequestBodySchema,
+            s_PostSetupIntentsIntentRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -44219,9 +43704,6 @@ export function createRouter(implementation: Implementation): Router {
     intent: z.string().max(5000),
   })
 
-  const postSetupIntentsIntentCancelRequestBodySchema =
-    s_PostSetupIntentsIntentCancelRequestBody.optional()
-
   const postSetupIntentsIntentCancelResponseBodyValidator =
     responseValidationFactory([["200", s_setup_intent]], s_error)
 
@@ -44238,7 +43720,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postSetupIntentsIntentCancelRequestBodySchema,
+            s_PostSetupIntentsIntentCancelRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -44292,9 +43774,6 @@ export function createRouter(implementation: Implementation): Router {
     intent: z.string().max(5000),
   })
 
-  const postSetupIntentsIntentConfirmRequestBodySchema =
-    s_PostSetupIntentsIntentConfirmRequestBody.optional()
-
   const postSetupIntentsIntentConfirmResponseBodyValidator =
     responseValidationFactory([["200", s_setup_intent]], s_error)
 
@@ -44311,7 +43790,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postSetupIntentsIntentConfirmRequestBodySchema,
+            s_PostSetupIntentsIntentConfirmRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -44365,9 +43844,6 @@ export function createRouter(implementation: Implementation): Router {
     intent: z.string().max(5000),
   })
 
-  const postSetupIntentsIntentVerifyMicrodepositsRequestBodySchema =
-    s_PostSetupIntentsIntentVerifyMicrodepositsRequestBody.optional()
-
   const postSetupIntentsIntentVerifyMicrodepositsResponseBodyValidator =
     responseValidationFactory([["200", s_setup_intent]], s_error)
 
@@ -44384,7 +43860,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postSetupIntentsIntentVerifyMicrodepositsRequestBodySchema,
+            s_PostSetupIntentsIntentVerifyMicrodepositsRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -44545,8 +44021,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postShippingRatesRequestBodySchema = s_PostShippingRatesRequestBody
-
   const postShippingRatesResponseBodyValidator = responseValidationFactory(
     [["200", s_shipping_rate]],
     s_error,
@@ -44561,7 +44035,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            postShippingRatesRequestBodySchema,
+            s_PostShippingRatesRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -44695,9 +44169,6 @@ export function createRouter(implementation: Implementation): Router {
     shipping_rate_token: z.string().max(5000),
   })
 
-  const postShippingRatesShippingRateTokenRequestBodySchema =
-    s_PostShippingRatesShippingRateTokenRequestBody.optional()
-
   const postShippingRatesShippingRateTokenResponseBodyValidator =
     responseValidationFactory([["200", s_shipping_rate]], s_error)
 
@@ -44714,7 +44185,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postShippingRatesShippingRateTokenRequestBodySchema,
+            s_PostShippingRatesShippingRateTokenRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -44771,9 +44242,6 @@ export function createRouter(implementation: Implementation): Router {
     id: z.string().max(5000),
   })
 
-  const postSigmaSavedQueriesIdRequestBodySchema =
-    s_PostSigmaSavedQueriesIdRequestBody.optional()
-
   const postSigmaSavedQueriesIdResponseBodyValidator =
     responseValidationFactory([["200", s_sigma_sigma_api_query]], s_error)
 
@@ -44790,7 +44258,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postSigmaSavedQueriesIdRequestBodySchema,
+            s_PostSigmaSavedQueriesIdRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -45021,8 +44489,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postSourcesRequestBodySchema = s_PostSourcesRequestBody.optional()
-
   const postSourcesResponseBodyValidator = responseValidationFactory(
     [["200", s_source]],
     s_error,
@@ -45037,7 +44503,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            postSourcesRequestBodySchema,
+            s_PostSourcesRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -45165,9 +44631,6 @@ export function createRouter(implementation: Implementation): Router {
 
   const postSourcesSourceParamSchema = z.object({source: z.string().max(5000)})
 
-  const postSourcesSourceRequestBodySchema =
-    s_PostSourcesSourceRequestBody.optional()
-
   const postSourcesSourceResponseBodyValidator = responseValidationFactory(
     [["200", s_source]],
     s_error,
@@ -45186,7 +44649,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postSourcesSourceRequestBodySchema,
+            s_PostSourcesSourceRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -45525,9 +44988,6 @@ export function createRouter(implementation: Implementation): Router {
     source: z.string().max(5000),
   })
 
-  const postSourcesSourceVerifyRequestBodySchema =
-    s_PostSourcesSourceVerifyRequestBody
-
   const postSourcesSourceVerifyResponseBodyValidator =
     responseValidationFactory([["200", s_source]], s_error)
 
@@ -45544,7 +45004,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postSourcesSourceVerifyRequestBodySchema,
+            s_PostSourcesSourceVerifyRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -45685,9 +45145,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postSubscriptionItemsRequestBodySchema =
-    s_PostSubscriptionItemsRequestBody
-
   const postSubscriptionItemsResponseBodyValidator = responseValidationFactory(
     [["200", s_subscription_item]],
     s_error,
@@ -45702,7 +45159,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            postSubscriptionItemsRequestBodySchema,
+            s_PostSubscriptionItemsRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -45754,9 +45211,6 @@ export function createRouter(implementation: Implementation): Router {
     item: z.string().max(5000),
   })
 
-  const deleteSubscriptionItemsItemRequestBodySchema =
-    s_DeleteSubscriptionItemsItemRequestBody.optional()
-
   const deleteSubscriptionItemsItemResponseBodyValidator =
     responseValidationFactory([["200", s_deleted_subscription_item]], s_error)
 
@@ -45773,7 +45227,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            deleteSubscriptionItemsItemRequestBodySchema,
+            s_DeleteSubscriptionItemsItemRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -45904,9 +45358,6 @@ export function createRouter(implementation: Implementation): Router {
     item: z.string().max(5000),
   })
 
-  const postSubscriptionItemsItemRequestBodySchema =
-    s_PostSubscriptionItemsItemRequestBody.optional()
-
   const postSubscriptionItemsItemResponseBodyValidator =
     responseValidationFactory([["200", s_subscription_item]], s_error)
 
@@ -45923,7 +45374,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postSubscriptionItemsItemRequestBodySchema,
+            s_PostSubscriptionItemsItemRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -46110,9 +45561,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postSubscriptionSchedulesRequestBodySchema =
-    s_PostSubscriptionSchedulesRequestBody.optional()
-
   const postSubscriptionSchedulesResponseBodyValidator =
     responseValidationFactory([["200", s_subscription_schedule]], s_error)
 
@@ -46125,7 +45573,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            postSubscriptionSchedulesRequestBodySchema,
+            s_PostSubscriptionSchedulesRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -46256,9 +45704,6 @@ export function createRouter(implementation: Implementation): Router {
     schedule: z.string().max(5000),
   })
 
-  const postSubscriptionSchedulesScheduleRequestBodySchema =
-    s_PostSubscriptionSchedulesScheduleRequestBody.optional()
-
   const postSubscriptionSchedulesScheduleResponseBodyValidator =
     responseValidationFactory([["200", s_subscription_schedule]], s_error)
 
@@ -46275,7 +45720,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postSubscriptionSchedulesScheduleRequestBodySchema,
+            s_PostSubscriptionSchedulesScheduleRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -46332,9 +45777,6 @@ export function createRouter(implementation: Implementation): Router {
     schedule: z.string().max(5000),
   })
 
-  const postSubscriptionSchedulesScheduleCancelRequestBodySchema =
-    s_PostSubscriptionSchedulesScheduleCancelRequestBody.optional()
-
   const postSubscriptionSchedulesScheduleCancelResponseBodyValidator =
     responseValidationFactory([["200", s_subscription_schedule]], s_error)
 
@@ -46351,7 +45793,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postSubscriptionSchedulesScheduleCancelRequestBodySchema,
+            s_PostSubscriptionSchedulesScheduleCancelRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -46414,9 +45856,6 @@ export function createRouter(implementation: Implementation): Router {
     schedule: z.string().max(5000),
   })
 
-  const postSubscriptionSchedulesScheduleReleaseRequestBodySchema =
-    s_PostSubscriptionSchedulesScheduleReleaseRequestBody.optional()
-
   const postSubscriptionSchedulesScheduleReleaseResponseBodyValidator =
     responseValidationFactory([["200", s_subscription_schedule]], s_error)
 
@@ -46433,7 +45872,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postSubscriptionSchedulesScheduleReleaseRequestBodySchema,
+            s_PostSubscriptionSchedulesScheduleReleaseRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -46635,8 +46074,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postSubscriptionsRequestBodySchema = s_PostSubscriptionsRequestBody
-
   const postSubscriptionsResponseBodyValidator = responseValidationFactory(
     [["200", s_subscription]],
     s_error,
@@ -46651,7 +46088,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            postSubscriptionsRequestBodySchema,
+            s_PostSubscriptionsRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -46796,9 +46233,6 @@ export function createRouter(implementation: Implementation): Router {
     subscription_exposed_id: z.string().max(5000),
   })
 
-  const deleteSubscriptionsSubscriptionExposedIdRequestBodySchema =
-    s_DeleteSubscriptionsSubscriptionExposedIdRequestBody.optional()
-
   const deleteSubscriptionsSubscriptionExposedIdResponseBodyValidator =
     responseValidationFactory([["200", s_subscription]], s_error)
 
@@ -46815,7 +46249,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            deleteSubscriptionsSubscriptionExposedIdRequestBodySchema,
+            s_DeleteSubscriptionsSubscriptionExposedIdRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -46966,9 +46400,6 @@ export function createRouter(implementation: Implementation): Router {
     subscription_exposed_id: z.string().max(5000),
   })
 
-  const postSubscriptionsSubscriptionExposedIdRequestBodySchema =
-    s_PostSubscriptionsSubscriptionExposedIdRequestBody.optional()
-
   const postSubscriptionsSubscriptionExposedIdResponseBodyValidator =
     responseValidationFactory([["200", s_subscription]], s_error)
 
@@ -46985,7 +46416,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postSubscriptionsSubscriptionExposedIdRequestBodySchema,
+            s_PostSubscriptionsSubscriptionExposedIdRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -47123,9 +46554,6 @@ export function createRouter(implementation: Implementation): Router {
     subscription: z.string().max(5000),
   })
 
-  const postSubscriptionsSubscriptionMigrateRequestBodySchema =
-    s_PostSubscriptionsSubscriptionMigrateRequestBody
-
   const postSubscriptionsSubscriptionMigrateResponseBodyValidator =
     responseValidationFactory([["200", s_subscription]], s_error)
 
@@ -47142,7 +46570,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postSubscriptionsSubscriptionMigrateRequestBodySchema,
+            s_PostSubscriptionsSubscriptionMigrateRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -47205,9 +46633,6 @@ export function createRouter(implementation: Implementation): Router {
     subscription: z.string().max(5000),
   })
 
-  const postSubscriptionsSubscriptionResumeRequestBodySchema =
-    s_PostSubscriptionsSubscriptionResumeRequestBody.optional()
-
   const postSubscriptionsSubscriptionResumeResponseBodyValidator =
     responseValidationFactory([["200", s_subscription]], s_error)
 
@@ -47224,7 +46649,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postSubscriptionsSubscriptionResumeRequestBodySchema,
+            s_PostSubscriptionsSubscriptionResumeRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -47277,8 +46702,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postTaxCalculationsRequestBodySchema = s_PostTaxCalculationsRequestBody
-
   const postTaxCalculationsResponseBodyValidator = responseValidationFactory(
     [["200", s_tax_calculation]],
     s_error,
@@ -47293,7 +46716,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            postTaxCalculationsRequestBodySchema,
+            s_PostTaxCalculationsRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -47622,9 +47045,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postTaxRegistrationsRequestBodySchema =
-    s_PostTaxRegistrationsRequestBody
-
   const postTaxRegistrationsResponseBodyValidator = responseValidationFactory(
     [["200", s_tax_registration]],
     s_error,
@@ -47639,7 +47059,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            postTaxRegistrationsRequestBodySchema,
+            s_PostTaxRegistrationsRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -47766,9 +47186,6 @@ export function createRouter(implementation: Implementation): Router {
 
   const postTaxRegistrationsIdParamSchema = z.object({id: z.string().max(5000)})
 
-  const postTaxRegistrationsIdRequestBodySchema =
-    s_PostTaxRegistrationsIdRequestBody.optional()
-
   const postTaxRegistrationsIdResponseBodyValidator = responseValidationFactory(
     [["200", s_tax_registration]],
     s_error,
@@ -47787,7 +47204,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postTaxRegistrationsIdRequestBodySchema,
+            s_PostTaxRegistrationsIdRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -47906,9 +47323,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postTaxSettingsRequestBodySchema =
-    s_PostTaxSettingsRequestBody.optional()
-
   const postTaxSettingsResponseBodyValidator = responseValidationFactory(
     [["200", s_tax_settings]],
     s_error,
@@ -47923,7 +47337,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            postTaxSettingsRequestBodySchema,
+            s_PostTaxSettingsRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -47971,9 +47385,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postTaxTransactionsCreateFromCalculationRequestBodySchema =
-    s_PostTaxTransactionsCreateFromCalculationRequestBody
-
   const postTaxTransactionsCreateFromCalculationResponseBodyValidator =
     responseValidationFactory([["200", s_tax_transaction]], s_error)
 
@@ -47986,7 +47397,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            postTaxTransactionsCreateFromCalculationRequestBodySchema,
+            s_PostTaxTransactionsCreateFromCalculationRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -48045,9 +47456,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postTaxTransactionsCreateReversalRequestBodySchema =
-    s_PostTaxTransactionsCreateReversalRequestBody
-
   const postTaxTransactionsCreateReversalResponseBodyValidator =
     responseValidationFactory([["200", s_tax_transaction]], s_error)
 
@@ -48060,7 +47468,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            postTaxTransactionsCreateReversalRequestBodySchema,
+            s_PostTaxTransactionsCreateReversalRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -48566,8 +47974,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postTaxIdsRequestBodySchema = s_PostTaxIdsRequestBody
-
   const postTaxIdsResponseBodyValidator = responseValidationFactory(
     [["200", s_tax_id]],
     s_error,
@@ -48582,7 +47988,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            postTaxIdsRequestBodySchema,
+            s_PostTaxIdsRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -48873,8 +48279,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postTaxRatesRequestBodySchema = s_PostTaxRatesRequestBody
-
   const postTaxRatesResponseBodyValidator = responseValidationFactory(
     [["200", s_tax_rate]],
     s_error,
@@ -48889,7 +48293,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            postTaxRatesRequestBodySchema,
+            s_PostTaxRatesRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -49020,9 +48424,6 @@ export function createRouter(implementation: Implementation): Router {
     tax_rate: z.string().max(5000),
   })
 
-  const postTaxRatesTaxRateRequestBodySchema =
-    s_PostTaxRatesTaxRateRequestBody.optional()
-
   const postTaxRatesTaxRateResponseBodyValidator = responseValidationFactory(
     [["200", s_tax_rate]],
     s_error,
@@ -49041,7 +48442,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postTaxRatesTaxRateRequestBodySchema,
+            s_PostTaxRatesTaxRateRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -49183,9 +48584,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postTerminalConfigurationsRequestBodySchema =
-    s_PostTerminalConfigurationsRequestBody.optional()
-
   const postTerminalConfigurationsResponseBodyValidator =
     responseValidationFactory([["200", s_terminal_configuration]], s_error)
 
@@ -49198,7 +48596,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            postTerminalConfigurationsRequestBodySchema,
+            s_PostTerminalConfigurationsRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -49433,9 +48831,6 @@ export function createRouter(implementation: Implementation): Router {
     configuration: z.string().max(5000),
   })
 
-  const postTerminalConfigurationsConfigurationRequestBodySchema =
-    s_PostTerminalConfigurationsConfigurationRequestBody.optional()
-
   const postTerminalConfigurationsConfigurationResponseBodyValidator =
     responseValidationFactory(
       [
@@ -49463,7 +48858,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postTerminalConfigurationsConfigurationRequestBodySchema,
+            s_PostTerminalConfigurationsConfigurationRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -49524,9 +48919,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postTerminalConnectionTokensRequestBodySchema =
-    s_PostTerminalConnectionTokensRequestBody.optional()
-
   const postTerminalConnectionTokensResponseBodyValidator =
     responseValidationFactory([["200", s_terminal_connection_token]], s_error)
 
@@ -49539,7 +48931,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            postTerminalConnectionTokensRequestBodySchema,
+            s_PostTerminalConnectionTokensRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -49681,9 +49073,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postTerminalLocationsRequestBodySchema =
-    s_PostTerminalLocationsRequestBody
-
   const postTerminalLocationsResponseBodyValidator = responseValidationFactory(
     [["200", s_terminal_location]],
     s_error,
@@ -49698,7 +49087,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            postTerminalLocationsRequestBodySchema,
+            s_PostTerminalLocationsRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -49900,9 +49289,6 @@ export function createRouter(implementation: Implementation): Router {
     location: z.string().max(5000),
   })
 
-  const postTerminalLocationsLocationRequestBodySchema =
-    s_PostTerminalLocationsLocationRequestBody.optional()
-
   const postTerminalLocationsLocationResponseBodyValidator =
     responseValidationFactory(
       [["200", z.union([s_terminal_location, s_deleted_terminal_location])]],
@@ -49922,7 +49308,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postTerminalLocationsLocationRequestBodySchema,
+            s_PostTerminalLocationsLocationRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -50079,8 +49465,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postTerminalReadersRequestBodySchema = s_PostTerminalReadersRequestBody
-
   const postTerminalReadersResponseBodyValidator = responseValidationFactory(
     [["200", s_terminal_reader]],
     s_error,
@@ -50095,7 +49479,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            postTerminalReadersRequestBodySchema,
+            s_PostTerminalReadersRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -50300,9 +49684,6 @@ export function createRouter(implementation: Implementation): Router {
     reader: z.string().max(5000),
   })
 
-  const postTerminalReadersReaderRequestBodySchema =
-    s_PostTerminalReadersReaderRequestBody.optional()
-
   const postTerminalReadersReaderResponseBodyValidator =
     responseValidationFactory(
       [
@@ -50327,7 +49708,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postTerminalReadersReaderRequestBodySchema,
+            s_PostTerminalReadersReaderRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -50381,9 +49762,6 @@ export function createRouter(implementation: Implementation): Router {
     reader: z.string().max(5000),
   })
 
-  const postTerminalReadersReaderCancelActionRequestBodySchema =
-    s_PostTerminalReadersReaderCancelActionRequestBody.optional()
-
   const postTerminalReadersReaderCancelActionResponseBodyValidator =
     responseValidationFactory([["200", s_terminal_reader]], s_error)
 
@@ -50400,7 +49778,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postTerminalReadersReaderCancelActionRequestBodySchema,
+            s_PostTerminalReadersReaderCancelActionRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -50463,9 +49841,6 @@ export function createRouter(implementation: Implementation): Router {
     reader: z.string().max(5000),
   })
 
-  const postTerminalReadersReaderCollectInputsRequestBodySchema =
-    s_PostTerminalReadersReaderCollectInputsRequestBody
-
   const postTerminalReadersReaderCollectInputsResponseBodyValidator =
     responseValidationFactory([["200", s_terminal_reader]], s_error)
 
@@ -50482,7 +49857,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postTerminalReadersReaderCollectInputsRequestBodySchema,
+            s_PostTerminalReadersReaderCollectInputsRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -50545,9 +49920,6 @@ export function createRouter(implementation: Implementation): Router {
     reader: z.string().max(5000),
   })
 
-  const postTerminalReadersReaderCollectPaymentMethodRequestBodySchema =
-    s_PostTerminalReadersReaderCollectPaymentMethodRequestBody
-
   const postTerminalReadersReaderCollectPaymentMethodResponseBodyValidator =
     responseValidationFactory([["200", s_terminal_reader]], s_error)
 
@@ -50564,7 +49936,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postTerminalReadersReaderCollectPaymentMethodRequestBodySchema,
+            s_PostTerminalReadersReaderCollectPaymentMethodRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -50627,9 +49999,6 @@ export function createRouter(implementation: Implementation): Router {
     reader: z.string().max(5000),
   })
 
-  const postTerminalReadersReaderConfirmPaymentIntentRequestBodySchema =
-    s_PostTerminalReadersReaderConfirmPaymentIntentRequestBody
-
   const postTerminalReadersReaderConfirmPaymentIntentResponseBodyValidator =
     responseValidationFactory([["200", s_terminal_reader]], s_error)
 
@@ -50646,7 +50015,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postTerminalReadersReaderConfirmPaymentIntentRequestBodySchema,
+            s_PostTerminalReadersReaderConfirmPaymentIntentRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -50709,9 +50078,6 @@ export function createRouter(implementation: Implementation): Router {
     reader: z.string().max(5000),
   })
 
-  const postTerminalReadersReaderProcessPaymentIntentRequestBodySchema =
-    s_PostTerminalReadersReaderProcessPaymentIntentRequestBody
-
   const postTerminalReadersReaderProcessPaymentIntentResponseBodyValidator =
     responseValidationFactory([["200", s_terminal_reader]], s_error)
 
@@ -50728,7 +50094,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postTerminalReadersReaderProcessPaymentIntentRequestBodySchema,
+            s_PostTerminalReadersReaderProcessPaymentIntentRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -50791,9 +50157,6 @@ export function createRouter(implementation: Implementation): Router {
     reader: z.string().max(5000),
   })
 
-  const postTerminalReadersReaderProcessSetupIntentRequestBodySchema =
-    s_PostTerminalReadersReaderProcessSetupIntentRequestBody
-
   const postTerminalReadersReaderProcessSetupIntentResponseBodyValidator =
     responseValidationFactory([["200", s_terminal_reader]], s_error)
 
@@ -50810,7 +50173,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postTerminalReadersReaderProcessSetupIntentRequestBodySchema,
+            s_PostTerminalReadersReaderProcessSetupIntentRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -50873,9 +50236,6 @@ export function createRouter(implementation: Implementation): Router {
     reader: z.string().max(5000),
   })
 
-  const postTerminalReadersReaderRefundPaymentRequestBodySchema =
-    s_PostTerminalReadersReaderRefundPaymentRequestBody.optional()
-
   const postTerminalReadersReaderRefundPaymentResponseBodyValidator =
     responseValidationFactory([["200", s_terminal_reader]], s_error)
 
@@ -50892,7 +50252,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postTerminalReadersReaderRefundPaymentRequestBodySchema,
+            s_PostTerminalReadersReaderRefundPaymentRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -50955,9 +50315,6 @@ export function createRouter(implementation: Implementation): Router {
     reader: z.string().max(5000),
   })
 
-  const postTerminalReadersReaderSetReaderDisplayRequestBodySchema =
-    s_PostTerminalReadersReaderSetReaderDisplayRequestBody
-
   const postTerminalReadersReaderSetReaderDisplayResponseBodyValidator =
     responseValidationFactory([["200", s_terminal_reader]], s_error)
 
@@ -50974,7 +50331,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postTerminalReadersReaderSetReaderDisplayRequestBodySchema,
+            s_PostTerminalReadersReaderSetReaderDisplayRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -51033,9 +50390,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postTestHelpersConfirmationTokensRequestBodySchema =
-    s_PostTestHelpersConfirmationTokensRequestBody.optional()
-
   const postTestHelpersConfirmationTokensResponseBodyValidator =
     responseValidationFactory([["200", s_confirmation_token]], s_error)
 
@@ -51048,7 +50402,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            postTestHelpersConfirmationTokensRequestBodySchema,
+            s_PostTestHelpersConfirmationTokensRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -51105,9 +50459,6 @@ export function createRouter(implementation: Implementation): Router {
     customer: z.string().max(5000),
   })
 
-  const postTestHelpersCustomersCustomerFundCashBalanceRequestBodySchema =
-    s_PostTestHelpersCustomersCustomerFundCashBalanceRequestBody
-
   const postTestHelpersCustomersCustomerFundCashBalanceResponseBodyValidator =
     responseValidationFactory(
       [["200", s_customer_cash_balance_transaction]],
@@ -51127,7 +50478,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postTestHelpersCustomersCustomerFundCashBalanceRequestBodySchema,
+            s_PostTestHelpersCustomersCustomerFundCashBalanceRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -51188,9 +50539,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postTestHelpersIssuingAuthorizationsRequestBodySchema =
-    s_PostTestHelpersIssuingAuthorizationsRequestBody
-
   const postTestHelpersIssuingAuthorizationsResponseBodyValidator =
     responseValidationFactory([["200", s_issuing_authorization]], s_error)
 
@@ -51203,7 +50551,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            postTestHelpersIssuingAuthorizationsRequestBodySchema,
+            s_PostTestHelpersIssuingAuthorizationsRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -51265,9 +50613,6 @@ export function createRouter(implementation: Implementation): Router {
   const postTestHelpersIssuingAuthorizationsAuthorizationCaptureParamSchema =
     z.object({authorization: z.string().max(5000)})
 
-  const postTestHelpersIssuingAuthorizationsAuthorizationCaptureRequestBodySchema =
-    s_PostTestHelpersIssuingAuthorizationsAuthorizationCaptureRequestBody.optional()
-
   const postTestHelpersIssuingAuthorizationsAuthorizationCaptureResponseBodyValidator =
     responseValidationFactory([["200", s_issuing_authorization]], s_error)
 
@@ -51284,7 +50629,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postTestHelpersIssuingAuthorizationsAuthorizationCaptureRequestBodySchema,
+            s_PostTestHelpersIssuingAuthorizationsAuthorizationCaptureRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -51346,9 +50691,6 @@ export function createRouter(implementation: Implementation): Router {
   const postTestHelpersIssuingAuthorizationsAuthorizationExpireParamSchema =
     z.object({authorization: z.string().max(5000)})
 
-  const postTestHelpersIssuingAuthorizationsAuthorizationExpireRequestBodySchema =
-    s_PostTestHelpersIssuingAuthorizationsAuthorizationExpireRequestBody.optional()
-
   const postTestHelpersIssuingAuthorizationsAuthorizationExpireResponseBodyValidator =
     responseValidationFactory([["200", s_issuing_authorization]], s_error)
 
@@ -51365,7 +50707,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postTestHelpersIssuingAuthorizationsAuthorizationExpireRequestBodySchema,
+            s_PostTestHelpersIssuingAuthorizationsAuthorizationExpireRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -51427,9 +50769,6 @@ export function createRouter(implementation: Implementation): Router {
   const postTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmountParamSchema =
     z.object({authorization: z.string().max(5000)})
 
-  const postTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmountRequestBodySchema =
-    s_PostTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmountRequestBody
-
   const postTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmountResponseBodyValidator =
     responseValidationFactory([["200", s_issuing_authorization]], s_error)
 
@@ -51446,7 +50785,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmountRequestBodySchema,
+            s_PostTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmountRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -51508,9 +50847,6 @@ export function createRouter(implementation: Implementation): Router {
   const postTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespondParamSchema =
     z.object({authorization: z.string().max(5000)})
 
-  const postTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespondRequestBodySchema =
-    s_PostTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespondRequestBody
-
   const postTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespondResponseBodyValidator =
     responseValidationFactory([["200", s_issuing_authorization]], s_error)
 
@@ -51527,7 +50863,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespondRequestBodySchema,
+            s_PostTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespondRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -51589,9 +50925,6 @@ export function createRouter(implementation: Implementation): Router {
   const postTestHelpersIssuingAuthorizationsAuthorizationIncrementParamSchema =
     z.object({authorization: z.string().max(5000)})
 
-  const postTestHelpersIssuingAuthorizationsAuthorizationIncrementRequestBodySchema =
-    s_PostTestHelpersIssuingAuthorizationsAuthorizationIncrementRequestBody
-
   const postTestHelpersIssuingAuthorizationsAuthorizationIncrementResponseBodyValidator =
     responseValidationFactory([["200", s_issuing_authorization]], s_error)
 
@@ -51608,7 +50941,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postTestHelpersIssuingAuthorizationsAuthorizationIncrementRequestBodySchema,
+            s_PostTestHelpersIssuingAuthorizationsAuthorizationIncrementRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -51670,9 +51003,6 @@ export function createRouter(implementation: Implementation): Router {
   const postTestHelpersIssuingAuthorizationsAuthorizationReverseParamSchema =
     z.object({authorization: z.string().max(5000)})
 
-  const postTestHelpersIssuingAuthorizationsAuthorizationReverseRequestBodySchema =
-    s_PostTestHelpersIssuingAuthorizationsAuthorizationReverseRequestBody.optional()
-
   const postTestHelpersIssuingAuthorizationsAuthorizationReverseResponseBodyValidator =
     responseValidationFactory([["200", s_issuing_authorization]], s_error)
 
@@ -51689,7 +51019,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postTestHelpersIssuingAuthorizationsAuthorizationReverseRequestBodySchema,
+            s_PostTestHelpersIssuingAuthorizationsAuthorizationReverseRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -51752,9 +51082,6 @@ export function createRouter(implementation: Implementation): Router {
     card: z.string().max(5000),
   })
 
-  const postTestHelpersIssuingCardsCardShippingDeliverRequestBodySchema =
-    s_PostTestHelpersIssuingCardsCardShippingDeliverRequestBody.optional()
-
   const postTestHelpersIssuingCardsCardShippingDeliverResponseBodyValidator =
     responseValidationFactory([["200", s_issuing_card]], s_error)
 
@@ -51771,7 +51098,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postTestHelpersIssuingCardsCardShippingDeliverRequestBodySchema,
+            s_PostTestHelpersIssuingCardsCardShippingDeliverRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -51834,9 +51161,6 @@ export function createRouter(implementation: Implementation): Router {
     card: z.string().max(5000),
   })
 
-  const postTestHelpersIssuingCardsCardShippingFailRequestBodySchema =
-    s_PostTestHelpersIssuingCardsCardShippingFailRequestBody.optional()
-
   const postTestHelpersIssuingCardsCardShippingFailResponseBodyValidator =
     responseValidationFactory([["200", s_issuing_card]], s_error)
 
@@ -51853,7 +51177,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postTestHelpersIssuingCardsCardShippingFailRequestBodySchema,
+            s_PostTestHelpersIssuingCardsCardShippingFailRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -51916,9 +51240,6 @@ export function createRouter(implementation: Implementation): Router {
     card: z.string().max(5000),
   })
 
-  const postTestHelpersIssuingCardsCardShippingReturnRequestBodySchema =
-    s_PostTestHelpersIssuingCardsCardShippingReturnRequestBody.optional()
-
   const postTestHelpersIssuingCardsCardShippingReturnResponseBodyValidator =
     responseValidationFactory([["200", s_issuing_card]], s_error)
 
@@ -51935,7 +51256,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postTestHelpersIssuingCardsCardShippingReturnRequestBodySchema,
+            s_PostTestHelpersIssuingCardsCardShippingReturnRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -51998,9 +51319,6 @@ export function createRouter(implementation: Implementation): Router {
     card: z.string().max(5000),
   })
 
-  const postTestHelpersIssuingCardsCardShippingShipRequestBodySchema =
-    s_PostTestHelpersIssuingCardsCardShippingShipRequestBody.optional()
-
   const postTestHelpersIssuingCardsCardShippingShipResponseBodyValidator =
     responseValidationFactory([["200", s_issuing_card]], s_error)
 
@@ -52017,7 +51335,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postTestHelpersIssuingCardsCardShippingShipRequestBodySchema,
+            s_PostTestHelpersIssuingCardsCardShippingShipRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -52080,9 +51398,6 @@ export function createRouter(implementation: Implementation): Router {
     card: z.string().max(5000),
   })
 
-  const postTestHelpersIssuingCardsCardShippingSubmitRequestBodySchema =
-    s_PostTestHelpersIssuingCardsCardShippingSubmitRequestBody.optional()
-
   const postTestHelpersIssuingCardsCardShippingSubmitResponseBodyValidator =
     responseValidationFactory([["200", s_issuing_card]], s_error)
 
@@ -52099,7 +51414,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postTestHelpersIssuingCardsCardShippingSubmitRequestBodySchema,
+            s_PostTestHelpersIssuingCardsCardShippingSubmitRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -52161,9 +51476,6 @@ export function createRouter(implementation: Implementation): Router {
   const postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivateParamSchema =
     z.object({personalization_design: z.string().max(5000)})
 
-  const postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivateRequestBodySchema =
-    s_PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivateRequestBody.optional()
-
   const postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivateResponseBodyValidator =
     responseValidationFactory(
       [["200", s_issuing_personalization_design]],
@@ -52183,7 +51495,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivateRequestBodySchema,
+            s_PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivateRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -52247,9 +51559,6 @@ export function createRouter(implementation: Implementation): Router {
   const postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivateParamSchema =
     z.object({personalization_design: z.string().max(5000)})
 
-  const postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivateRequestBodySchema =
-    s_PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivateRequestBody.optional()
-
   const postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivateResponseBodyValidator =
     responseValidationFactory(
       [["200", s_issuing_personalization_design]],
@@ -52269,7 +51578,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivateRequestBodySchema,
+            s_PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivateRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -52333,9 +51642,6 @@ export function createRouter(implementation: Implementation): Router {
   const postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignRejectParamSchema =
     z.object({personalization_design: z.string().max(5000)})
 
-  const postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignRejectRequestBodySchema =
-    s_PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignRejectRequestBody
-
   const postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignRejectResponseBodyValidator =
     responseValidationFactory(
       [["200", s_issuing_personalization_design]],
@@ -52355,7 +51661,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignRejectRequestBodySchema,
+            s_PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignRejectRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -52416,9 +51722,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postTestHelpersIssuingSettlementsRequestBodySchema =
-    s_PostTestHelpersIssuingSettlementsRequestBody
-
   const postTestHelpersIssuingSettlementsResponseBodyValidator =
     responseValidationFactory([["200", s_issuing_settlement]], s_error)
 
@@ -52431,7 +51734,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            postTestHelpersIssuingSettlementsRequestBodySchema,
+            s_PostTestHelpersIssuingSettlementsRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -52487,9 +51790,6 @@ export function createRouter(implementation: Implementation): Router {
   const postTestHelpersIssuingSettlementsSettlementCompleteParamSchema =
     z.object({settlement: z.string().max(5000)})
 
-  const postTestHelpersIssuingSettlementsSettlementCompleteRequestBodySchema =
-    s_PostTestHelpersIssuingSettlementsSettlementCompleteRequestBody.optional()
-
   const postTestHelpersIssuingSettlementsSettlementCompleteResponseBodyValidator =
     responseValidationFactory([["200", s_issuing_settlement]], s_error)
 
@@ -52506,7 +51806,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postTestHelpersIssuingSettlementsSettlementCompleteRequestBodySchema,
+            s_PostTestHelpersIssuingSettlementsSettlementCompleteRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -52565,9 +51865,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postTestHelpersIssuingTransactionsCreateForceCaptureRequestBodySchema =
-    s_PostTestHelpersIssuingTransactionsCreateForceCaptureRequestBody
-
   const postTestHelpersIssuingTransactionsCreateForceCaptureResponseBodyValidator =
     responseValidationFactory([["200", s_issuing_transaction]], s_error)
 
@@ -52580,7 +51877,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            postTestHelpersIssuingTransactionsCreateForceCaptureRequestBodySchema,
+            s_PostTestHelpersIssuingTransactionsCreateForceCaptureRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -52639,9 +51936,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postTestHelpersIssuingTransactionsCreateUnlinkedRefundRequestBodySchema =
-    s_PostTestHelpersIssuingTransactionsCreateUnlinkedRefundRequestBody
-
   const postTestHelpersIssuingTransactionsCreateUnlinkedRefundResponseBodyValidator =
     responseValidationFactory([["200", s_issuing_transaction]], s_error)
 
@@ -52654,7 +51948,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            postTestHelpersIssuingTransactionsCreateUnlinkedRefundRequestBodySchema,
+            s_PostTestHelpersIssuingTransactionsCreateUnlinkedRefundRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -52716,9 +52010,6 @@ export function createRouter(implementation: Implementation): Router {
   const postTestHelpersIssuingTransactionsTransactionRefundParamSchema =
     z.object({transaction: z.string().max(5000)})
 
-  const postTestHelpersIssuingTransactionsTransactionRefundRequestBodySchema =
-    s_PostTestHelpersIssuingTransactionsTransactionRefundRequestBody.optional()
-
   const postTestHelpersIssuingTransactionsTransactionRefundResponseBodyValidator =
     responseValidationFactory([["200", s_issuing_transaction]], s_error)
 
@@ -52735,7 +52026,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postTestHelpersIssuingTransactionsTransactionRefundRequestBodySchema,
+            s_PostTestHelpersIssuingTransactionsTransactionRefundRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -52798,9 +52089,6 @@ export function createRouter(implementation: Implementation): Router {
     refund: z.string(),
   })
 
-  const postTestHelpersRefundsRefundExpireRequestBodySchema =
-    s_PostTestHelpersRefundsRefundExpireRequestBody.optional()
-
   const postTestHelpersRefundsRefundExpireResponseBodyValidator =
     responseValidationFactory([["200", s_refund]], s_error)
 
@@ -52817,7 +52105,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postTestHelpersRefundsRefundExpireRequestBodySchema,
+            s_PostTestHelpersRefundsRefundExpireRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -52873,9 +52161,6 @@ export function createRouter(implementation: Implementation): Router {
   const postTestHelpersTerminalReadersReaderPresentPaymentMethodParamSchema =
     z.object({reader: z.string().max(5000)})
 
-  const postTestHelpersTerminalReadersReaderPresentPaymentMethodRequestBodySchema =
-    s_PostTestHelpersTerminalReadersReaderPresentPaymentMethodRequestBody.optional()
-
   const postTestHelpersTerminalReadersReaderPresentPaymentMethodResponseBodyValidator =
     responseValidationFactory([["200", s_terminal_reader]], s_error)
 
@@ -52892,7 +52177,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postTestHelpersTerminalReadersReaderPresentPaymentMethodRequestBodySchema,
+            s_PostTestHelpersTerminalReadersReaderPresentPaymentMethodRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -52954,9 +52239,6 @@ export function createRouter(implementation: Implementation): Router {
   const postTestHelpersTerminalReadersReaderSucceedInputCollectionParamSchema =
     z.object({reader: z.string().max(5000)})
 
-  const postTestHelpersTerminalReadersReaderSucceedInputCollectionRequestBodySchema =
-    s_PostTestHelpersTerminalReadersReaderSucceedInputCollectionRequestBody.optional()
-
   const postTestHelpersTerminalReadersReaderSucceedInputCollectionResponseBodyValidator =
     responseValidationFactory([["200", s_terminal_reader]], s_error)
 
@@ -52973,7 +52255,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postTestHelpersTerminalReadersReaderSucceedInputCollectionRequestBodySchema,
+            s_PostTestHelpersTerminalReadersReaderSucceedInputCollectionRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -53035,9 +52317,6 @@ export function createRouter(implementation: Implementation): Router {
   const postTestHelpersTerminalReadersReaderTimeoutInputCollectionParamSchema =
     z.object({reader: z.string().max(5000)})
 
-  const postTestHelpersTerminalReadersReaderTimeoutInputCollectionRequestBodySchema =
-    s_PostTestHelpersTerminalReadersReaderTimeoutInputCollectionRequestBody.optional()
-
   const postTestHelpersTerminalReadersReaderTimeoutInputCollectionResponseBodyValidator =
     responseValidationFactory([["200", s_terminal_reader]], s_error)
 
@@ -53054,7 +52333,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postTestHelpersTerminalReadersReaderTimeoutInputCollectionRequestBodySchema,
+            s_PostTestHelpersTerminalReadersReaderTimeoutInputCollectionRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -53206,9 +52485,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postTestHelpersTestClocksRequestBodySchema =
-    s_PostTestHelpersTestClocksRequestBody
-
   const postTestHelpersTestClocksResponseBodyValidator =
     responseValidationFactory([["200", s_test_helpers_test_clock]], s_error)
 
@@ -53221,7 +52497,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            postTestHelpersTestClocksRequestBodySchema,
+            s_PostTestHelpersTestClocksRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -53435,9 +52711,6 @@ export function createRouter(implementation: Implementation): Router {
     test_clock: z.string().max(5000),
   })
 
-  const postTestHelpersTestClocksTestClockAdvanceRequestBodySchema =
-    s_PostTestHelpersTestClocksTestClockAdvanceRequestBody
-
   const postTestHelpersTestClocksTestClockAdvanceResponseBodyValidator =
     responseValidationFactory([["200", s_test_helpers_test_clock]], s_error)
 
@@ -53454,7 +52727,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postTestHelpersTestClocksTestClockAdvanceRequestBodySchema,
+            s_PostTestHelpersTestClocksTestClockAdvanceRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -53517,9 +52790,6 @@ export function createRouter(implementation: Implementation): Router {
     id: z.string().max(5000),
   })
 
-  const postTestHelpersTreasuryInboundTransfersIdFailRequestBodySchema =
-    s_PostTestHelpersTreasuryInboundTransfersIdFailRequestBody.optional()
-
   const postTestHelpersTreasuryInboundTransfersIdFailResponseBodyValidator =
     responseValidationFactory([["200", s_treasury_inbound_transfer]], s_error)
 
@@ -53536,7 +52806,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postTestHelpersTreasuryInboundTransfersIdFailRequestBodySchema,
+            s_PostTestHelpersTreasuryInboundTransfersIdFailRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -53599,9 +52869,6 @@ export function createRouter(implementation: Implementation): Router {
     id: z.string().max(5000),
   })
 
-  const postTestHelpersTreasuryInboundTransfersIdReturnRequestBodySchema =
-    s_PostTestHelpersTreasuryInboundTransfersIdReturnRequestBody.optional()
-
   const postTestHelpersTreasuryInboundTransfersIdReturnResponseBodyValidator =
     responseValidationFactory([["200", s_treasury_inbound_transfer]], s_error)
 
@@ -53618,7 +52885,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postTestHelpersTreasuryInboundTransfersIdReturnRequestBodySchema,
+            s_PostTestHelpersTreasuryInboundTransfersIdReturnRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -53681,9 +52948,6 @@ export function createRouter(implementation: Implementation): Router {
     id: z.string().max(5000),
   })
 
-  const postTestHelpersTreasuryInboundTransfersIdSucceedRequestBodySchema =
-    s_PostTestHelpersTreasuryInboundTransfersIdSucceedRequestBody.optional()
-
   const postTestHelpersTreasuryInboundTransfersIdSucceedResponseBodyValidator =
     responseValidationFactory([["200", s_treasury_inbound_transfer]], s_error)
 
@@ -53700,7 +52964,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postTestHelpersTreasuryInboundTransfersIdSucceedRequestBodySchema,
+            s_PostTestHelpersTreasuryInboundTransfersIdSucceedRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -53763,9 +53027,6 @@ export function createRouter(implementation: Implementation): Router {
     id: z.string().max(5000),
   })
 
-  const postTestHelpersTreasuryOutboundPaymentsIdRequestBodySchema =
-    s_PostTestHelpersTreasuryOutboundPaymentsIdRequestBody
-
   const postTestHelpersTreasuryOutboundPaymentsIdResponseBodyValidator =
     responseValidationFactory([["200", s_treasury_outbound_payment]], s_error)
 
@@ -53782,7 +53043,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postTestHelpersTreasuryOutboundPaymentsIdRequestBodySchema,
+            s_PostTestHelpersTreasuryOutboundPaymentsIdRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -53845,9 +53106,6 @@ export function createRouter(implementation: Implementation): Router {
     id: z.string().max(5000),
   })
 
-  const postTestHelpersTreasuryOutboundPaymentsIdFailRequestBodySchema =
-    s_PostTestHelpersTreasuryOutboundPaymentsIdFailRequestBody.optional()
-
   const postTestHelpersTreasuryOutboundPaymentsIdFailResponseBodyValidator =
     responseValidationFactory([["200", s_treasury_outbound_payment]], s_error)
 
@@ -53864,7 +53122,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postTestHelpersTreasuryOutboundPaymentsIdFailRequestBodySchema,
+            s_PostTestHelpersTreasuryOutboundPaymentsIdFailRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -53927,9 +53185,6 @@ export function createRouter(implementation: Implementation): Router {
     id: z.string().max(5000),
   })
 
-  const postTestHelpersTreasuryOutboundPaymentsIdPostRequestBodySchema =
-    s_PostTestHelpersTreasuryOutboundPaymentsIdPostRequestBody.optional()
-
   const postTestHelpersTreasuryOutboundPaymentsIdPostResponseBodyValidator =
     responseValidationFactory([["200", s_treasury_outbound_payment]], s_error)
 
@@ -53946,7 +53201,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postTestHelpersTreasuryOutboundPaymentsIdPostRequestBodySchema,
+            s_PostTestHelpersTreasuryOutboundPaymentsIdPostRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -54009,9 +53264,6 @@ export function createRouter(implementation: Implementation): Router {
     id: z.string().max(5000),
   })
 
-  const postTestHelpersTreasuryOutboundPaymentsIdReturnRequestBodySchema =
-    s_PostTestHelpersTreasuryOutboundPaymentsIdReturnRequestBody.optional()
-
   const postTestHelpersTreasuryOutboundPaymentsIdReturnResponseBodyValidator =
     responseValidationFactory([["200", s_treasury_outbound_payment]], s_error)
 
@@ -54028,7 +53280,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postTestHelpersTreasuryOutboundPaymentsIdReturnRequestBodySchema,
+            s_PostTestHelpersTreasuryOutboundPaymentsIdReturnRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -54090,9 +53342,6 @@ export function createRouter(implementation: Implementation): Router {
   const postTestHelpersTreasuryOutboundTransfersOutboundTransferParamSchema =
     z.object({outbound_transfer: z.string().max(5000)})
 
-  const postTestHelpersTreasuryOutboundTransfersOutboundTransferRequestBodySchema =
-    s_PostTestHelpersTreasuryOutboundTransfersOutboundTransferRequestBody
-
   const postTestHelpersTreasuryOutboundTransfersOutboundTransferResponseBodyValidator =
     responseValidationFactory([["200", s_treasury_outbound_transfer]], s_error)
 
@@ -54109,7 +53358,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postTestHelpersTreasuryOutboundTransfersOutboundTransferRequestBodySchema,
+            s_PostTestHelpersTreasuryOutboundTransfersOutboundTransferRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -54171,9 +53420,6 @@ export function createRouter(implementation: Implementation): Router {
   const postTestHelpersTreasuryOutboundTransfersOutboundTransferFailParamSchema =
     z.object({outbound_transfer: z.string().max(5000)})
 
-  const postTestHelpersTreasuryOutboundTransfersOutboundTransferFailRequestBodySchema =
-    s_PostTestHelpersTreasuryOutboundTransfersOutboundTransferFailRequestBody.optional()
-
   const postTestHelpersTreasuryOutboundTransfersOutboundTransferFailResponseBodyValidator =
     responseValidationFactory([["200", s_treasury_outbound_transfer]], s_error)
 
@@ -54190,7 +53436,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postTestHelpersTreasuryOutboundTransfersOutboundTransferFailRequestBodySchema,
+            s_PostTestHelpersTreasuryOutboundTransfersOutboundTransferFailRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -54252,9 +53498,6 @@ export function createRouter(implementation: Implementation): Router {
   const postTestHelpersTreasuryOutboundTransfersOutboundTransferPostParamSchema =
     z.object({outbound_transfer: z.string().max(5000)})
 
-  const postTestHelpersTreasuryOutboundTransfersOutboundTransferPostRequestBodySchema =
-    s_PostTestHelpersTreasuryOutboundTransfersOutboundTransferPostRequestBody.optional()
-
   const postTestHelpersTreasuryOutboundTransfersOutboundTransferPostResponseBodyValidator =
     responseValidationFactory([["200", s_treasury_outbound_transfer]], s_error)
 
@@ -54271,7 +53514,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postTestHelpersTreasuryOutboundTransfersOutboundTransferPostRequestBodySchema,
+            s_PostTestHelpersTreasuryOutboundTransfersOutboundTransferPostRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -54333,9 +53576,6 @@ export function createRouter(implementation: Implementation): Router {
   const postTestHelpersTreasuryOutboundTransfersOutboundTransferReturnParamSchema =
     z.object({outbound_transfer: z.string().max(5000)})
 
-  const postTestHelpersTreasuryOutboundTransfersOutboundTransferReturnRequestBodySchema =
-    s_PostTestHelpersTreasuryOutboundTransfersOutboundTransferReturnRequestBody.optional()
-
   const postTestHelpersTreasuryOutboundTransfersOutboundTransferReturnResponseBodyValidator =
     responseValidationFactory([["200", s_treasury_outbound_transfer]], s_error)
 
@@ -54352,7 +53592,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postTestHelpersTreasuryOutboundTransfersOutboundTransferReturnRequestBodySchema,
+            s_PostTestHelpersTreasuryOutboundTransfersOutboundTransferReturnRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -54411,9 +53651,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postTestHelpersTreasuryReceivedCreditsRequestBodySchema =
-    s_PostTestHelpersTreasuryReceivedCreditsRequestBody
-
   const postTestHelpersTreasuryReceivedCreditsResponseBodyValidator =
     responseValidationFactory([["200", s_treasury_received_credit]], s_error)
 
@@ -54426,7 +53663,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            postTestHelpersTreasuryReceivedCreditsRequestBodySchema,
+            s_PostTestHelpersTreasuryReceivedCreditsRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -54485,9 +53722,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postTestHelpersTreasuryReceivedDebitsRequestBodySchema =
-    s_PostTestHelpersTreasuryReceivedDebitsRequestBody
-
   const postTestHelpersTreasuryReceivedDebitsResponseBodyValidator =
     responseValidationFactory([["200", s_treasury_received_debit]], s_error)
 
@@ -54500,7 +53734,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            postTestHelpersTreasuryReceivedDebitsRequestBodySchema,
+            s_PostTestHelpersTreasuryReceivedDebitsRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -54559,8 +53793,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postTokensRequestBodySchema = s_PostTokensRequestBody.optional()
-
   const postTokensResponseBodyValidator = responseValidationFactory(
     [["200", s_token]],
     s_error,
@@ -54575,7 +53807,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            postTokensRequestBodySchema,
+            s_PostTokensRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -54812,8 +54044,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postTopupsRequestBodySchema = s_PostTopupsRequestBody
-
   const postTopupsResponseBodyValidator = responseValidationFactory(
     [["200", s_topup]],
     s_error,
@@ -54828,7 +54058,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            postTopupsRequestBodySchema,
+            s_PostTopupsRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -54955,9 +54185,6 @@ export function createRouter(implementation: Implementation): Router {
 
   const postTopupsTopupParamSchema = z.object({topup: z.string().max(5000)})
 
-  const postTopupsTopupRequestBodySchema =
-    s_PostTopupsTopupRequestBody.optional()
-
   const postTopupsTopupResponseBodyValidator = responseValidationFactory(
     [["200", s_topup]],
     s_error,
@@ -54976,7 +54203,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postTopupsTopupRequestBodySchema,
+            s_PostTopupsTopupRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -55028,9 +54255,6 @@ export function createRouter(implementation: Implementation): Router {
     topup: z.string().max(5000),
   })
 
-  const postTopupsTopupCancelRequestBodySchema =
-    s_PostTopupsTopupCancelRequestBody.optional()
-
   const postTopupsTopupCancelResponseBodyValidator = responseValidationFactory(
     [["200", s_topup]],
     s_error,
@@ -55049,7 +54273,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postTopupsTopupCancelRequestBodySchema,
+            s_PostTopupsTopupCancelRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -55199,8 +54423,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postTransfersRequestBodySchema = s_PostTransfersRequestBody
-
   const postTransfersResponseBodyValidator = responseValidationFactory(
     [["200", s_transfer]],
     s_error,
@@ -55215,7 +54437,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            postTransfersRequestBodySchema,
+            s_PostTransfersRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -55365,9 +54587,6 @@ export function createRouter(implementation: Implementation): Router {
     id: z.string().max(5000),
   })
 
-  const postTransfersIdReversalsRequestBodySchema =
-    s_PostTransfersIdReversalsRequestBody.optional()
-
   const postTransfersIdReversalsResponseBodyValidator =
     responseValidationFactory([["200", s_transfer_reversal]], s_error)
 
@@ -55384,7 +54603,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postTransfersIdReversalsRequestBodySchema,
+            s_PostTransfersIdReversalsRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -55515,9 +54734,6 @@ export function createRouter(implementation: Implementation): Router {
     transfer: z.string().max(5000),
   })
 
-  const postTransfersTransferRequestBodySchema =
-    s_PostTransfersTransferRequestBody.optional()
-
   const postTransfersTransferResponseBodyValidator = responseValidationFactory(
     [["200", s_transfer]],
     s_error,
@@ -55536,7 +54752,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postTransfersTransferRequestBodySchema,
+            s_PostTransfersTransferRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -55669,9 +54885,6 @@ export function createRouter(implementation: Implementation): Router {
     transfer: z.string().max(5000),
   })
 
-  const postTransfersTransferReversalsIdRequestBodySchema =
-    s_PostTransfersTransferReversalsIdRequestBody.optional()
-
   const postTransfersTransferReversalsIdResponseBodyValidator =
     responseValidationFactory([["200", s_transfer_reversal]], s_error)
 
@@ -55688,7 +54901,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postTransfersTransferReversalsIdRequestBodySchema,
+            s_PostTransfersTransferReversalsIdRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -55833,9 +55046,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postTreasuryCreditReversalsRequestBodySchema =
-    s_PostTreasuryCreditReversalsRequestBody
-
   const postTreasuryCreditReversalsResponseBodyValidator =
     responseValidationFactory([["200", s_treasury_credit_reversal]], s_error)
 
@@ -55848,7 +55058,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            postTreasuryCreditReversalsRequestBodySchema,
+            s_PostTreasuryCreditReversalsRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -56080,9 +55290,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postTreasuryDebitReversalsRequestBodySchema =
-    s_PostTreasuryDebitReversalsRequestBody
-
   const postTreasuryDebitReversalsResponseBodyValidator =
     responseValidationFactory([["200", s_treasury_debit_reversal]], s_error)
 
@@ -56095,7 +55302,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            postTreasuryDebitReversalsRequestBodySchema,
+            s_PostTreasuryDebitReversalsRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -56340,9 +55547,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postTreasuryFinancialAccountsRequestBodySchema =
-    s_PostTreasuryFinancialAccountsRequestBody
-
   const postTreasuryFinancialAccountsResponseBodyValidator =
     responseValidationFactory([["200", s_treasury_financial_account]], s_error)
 
@@ -56355,7 +55559,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            postTreasuryFinancialAccountsRequestBodySchema,
+            s_PostTreasuryFinancialAccountsRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -56497,9 +55701,6 @@ export function createRouter(implementation: Implementation): Router {
     financial_account: z.string().max(5000),
   })
 
-  const postTreasuryFinancialAccountsFinancialAccountRequestBodySchema =
-    s_PostTreasuryFinancialAccountsFinancialAccountRequestBody.optional()
-
   const postTreasuryFinancialAccountsFinancialAccountResponseBodyValidator =
     responseValidationFactory([["200", s_treasury_financial_account]], s_error)
 
@@ -56516,7 +55717,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postTreasuryFinancialAccountsFinancialAccountRequestBodySchema,
+            s_PostTreasuryFinancialAccountsFinancialAccountRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -56578,9 +55779,6 @@ export function createRouter(implementation: Implementation): Router {
   const postTreasuryFinancialAccountsFinancialAccountCloseParamSchema =
     z.object({financial_account: z.string().max(5000)})
 
-  const postTreasuryFinancialAccountsFinancialAccountCloseRequestBodySchema =
-    s_PostTreasuryFinancialAccountsFinancialAccountCloseRequestBody.optional()
-
   const postTreasuryFinancialAccountsFinancialAccountCloseResponseBodyValidator =
     responseValidationFactory([["200", s_treasury_financial_account]], s_error)
 
@@ -56597,7 +55795,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postTreasuryFinancialAccountsFinancialAccountCloseRequestBodySchema,
+            s_PostTreasuryFinancialAccountsFinancialAccountCloseRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -56752,9 +55950,6 @@ export function createRouter(implementation: Implementation): Router {
   const postTreasuryFinancialAccountsFinancialAccountFeaturesParamSchema =
     z.object({financial_account: z.string().max(5000)})
 
-  const postTreasuryFinancialAccountsFinancialAccountFeaturesRequestBodySchema =
-    s_PostTreasuryFinancialAccountsFinancialAccountFeaturesRequestBody.optional()
-
   const postTreasuryFinancialAccountsFinancialAccountFeaturesResponseBodyValidator =
     responseValidationFactory(
       [["200", s_treasury_financial_account_features]],
@@ -56774,7 +55969,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postTreasuryFinancialAccountsFinancialAccountFeaturesRequestBodySchema,
+            s_PostTreasuryFinancialAccountsFinancialAccountFeaturesRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -56931,9 +56126,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postTreasuryInboundTransfersRequestBodySchema =
-    s_PostTreasuryInboundTransfersRequestBody
-
   const postTreasuryInboundTransfersResponseBodyValidator =
     responseValidationFactory([["200", s_treasury_inbound_transfer]], s_error)
 
@@ -56946,7 +56138,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            postTreasuryInboundTransfersRequestBodySchema,
+            s_PostTreasuryInboundTransfersRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -57079,9 +56271,6 @@ export function createRouter(implementation: Implementation): Router {
     {inbound_transfer: z.string().max(5000)},
   )
 
-  const postTreasuryInboundTransfersInboundTransferCancelRequestBodySchema =
-    s_PostTreasuryInboundTransfersInboundTransferCancelRequestBody.optional()
-
   const postTreasuryInboundTransfersInboundTransferCancelResponseBodyValidator =
     responseValidationFactory([["200", s_treasury_inbound_transfer]], s_error)
 
@@ -57098,7 +56287,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postTreasuryInboundTransfersInboundTransferCancelRequestBodySchema,
+            s_PostTreasuryInboundTransfersInboundTransferCancelRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -57268,9 +56457,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postTreasuryOutboundPaymentsRequestBodySchema =
-    s_PostTreasuryOutboundPaymentsRequestBody
-
   const postTreasuryOutboundPaymentsResponseBodyValidator =
     responseValidationFactory([["200", s_treasury_outbound_payment]], s_error)
 
@@ -57283,7 +56469,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            postTreasuryOutboundPaymentsRequestBodySchema,
+            s_PostTreasuryOutboundPaymentsRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -57416,9 +56602,6 @@ export function createRouter(implementation: Implementation): Router {
     id: z.string().max(5000),
   })
 
-  const postTreasuryOutboundPaymentsIdCancelRequestBodySchema =
-    s_PostTreasuryOutboundPaymentsIdCancelRequestBody.optional()
-
   const postTreasuryOutboundPaymentsIdCancelResponseBodyValidator =
     responseValidationFactory([["200", s_treasury_outbound_payment]], s_error)
 
@@ -57435,7 +56618,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postTreasuryOutboundPaymentsIdCancelRequestBodySchema,
+            s_PostTreasuryOutboundPaymentsIdCancelRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -57590,9 +56773,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postTreasuryOutboundTransfersRequestBodySchema =
-    s_PostTreasuryOutboundTransfersRequestBody
-
   const postTreasuryOutboundTransfersResponseBodyValidator =
     responseValidationFactory([["200", s_treasury_outbound_transfer]], s_error)
 
@@ -57605,7 +56785,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            postTreasuryOutboundTransfersRequestBodySchema,
+            s_PostTreasuryOutboundTransfersRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -57746,9 +56926,6 @@ export function createRouter(implementation: Implementation): Router {
   const postTreasuryOutboundTransfersOutboundTransferCancelParamSchema =
     z.object({outbound_transfer: z.string().max(5000)})
 
-  const postTreasuryOutboundTransfersOutboundTransferCancelRequestBodySchema =
-    s_PostTreasuryOutboundTransfersOutboundTransferCancelRequestBody.optional()
-
   const postTreasuryOutboundTransfersOutboundTransferCancelResponseBodyValidator =
     responseValidationFactory([["200", s_treasury_outbound_transfer]], s_error)
 
@@ -57765,7 +56942,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postTreasuryOutboundTransfersOutboundTransferCancelRequestBodySchema,
+            s_PostTreasuryOutboundTransfersOutboundTransferCancelRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -58663,9 +57840,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postWebhookEndpointsRequestBodySchema =
-    s_PostWebhookEndpointsRequestBody
-
   const postWebhookEndpointsResponseBodyValidator = responseValidationFactory(
     [["200", s_webhook_endpoint]],
     s_error,
@@ -58680,7 +57854,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            postWebhookEndpointsRequestBodySchema,
+            s_PostWebhookEndpointsRequestBody,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -58889,9 +58063,6 @@ export function createRouter(implementation: Implementation): Router {
     webhook_endpoint: z.string().max(5000),
   })
 
-  const postWebhookEndpointsWebhookEndpointRequestBodySchema =
-    s_PostWebhookEndpointsWebhookEndpointRequestBody.optional()
-
   const postWebhookEndpointsWebhookEndpointResponseBodyValidator =
     responseValidationFactory([["200", s_webhook_endpoint]], s_error)
 
@@ -58908,7 +58079,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            postWebhookEndpointsWebhookEndpointRequestBodySchema,
+            s_PostWebhookEndpointsWebhookEndpointRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),

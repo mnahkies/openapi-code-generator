@@ -1,12 +1,7 @@
 import type {Input} from "../../core/input"
 import {logger} from "../../core/logger"
-import type {
-  IRModelObject,
-  IROperation,
-  IRParameter,
-} from "../../core/openapi-types-normalized"
+import type {IROperation} from "../../core/openapi-types-normalized"
 import {extractPlaceholders} from "../../core/openapi-utils"
-import {upperFirst} from "../../core/utils"
 import type {SchemaBuilder} from "../common/schema-builders/schema-builder"
 import type {TypeBuilder} from "../common/type-builder"
 import {intersect, object} from "../common/type-utils"
@@ -21,7 +16,6 @@ export type ServerSymbols = {
   responderName: string
   paramSchema: string
   querySchema: string
-  requestBodySchema: string
   requestHeaderSchema: string
   responseBodyValidator: string
 }
@@ -108,11 +102,11 @@ export class ServerOperationBuilder {
     return this.operation.method
   }
 
-  parameters(symbols: ServerSymbols): Parameters {
-    const path = this.pathParameters(symbols.paramSchema)
-    const query = this.queryParameters(symbols.querySchema)
-    const header = this.headerParameters(symbols.requestHeaderSchema)
-    const body = this.requestBodyParameter(symbols.requestBodySchema)
+  parameters(): Parameters {
+    const path = this.pathParameters()
+    const query = this.queryParameters()
+    const header = this.headerParameters()
+    const body = this.requestBodyParameter()
 
     const type = `Params<
       ${path.type},
@@ -168,7 +162,7 @@ export class ServerOperationBuilder {
     return {implementation, type}
   }
 
-  private pathParameters(schemaSymbolName: string): Parameters["path"] {
+  private pathParameters(): Parameters["path"] {
     const $ref = this.operation.parameters.path.$ref
 
     const schema =
@@ -185,7 +179,7 @@ export class ServerOperationBuilder {
     return {schema: schema, type}
   }
 
-  private queryParameters(schemaSymbolName: string): Parameters["query"] {
+  private queryParameters(): Parameters["query"] {
     const $ref = this.operation.parameters.query.$ref
 
     const schema =
@@ -202,7 +196,7 @@ export class ServerOperationBuilder {
     return {schema: schema, type}
   }
 
-  private headerParameters(schemaSymbolName: string): Parameters["header"] {
+  private headerParameters(): Parameters["header"] {
     const $ref = this.operation.parameters.header.$ref
 
     const schema =
@@ -219,7 +213,7 @@ export class ServerOperationBuilder {
     return {schema: schema, type}
   }
 
-  private requestBodyParameter(schemaSymbolName: string): Parameters["body"] {
+  private requestBodyParameter(): Parameters["body"] {
     const requestBody = requestBodyAsParameter(
       this.operation,
       this.config.requestBody.supportedMediaTypes,

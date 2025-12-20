@@ -169,8 +169,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const addPetBodySchema = s_NewPet
-
   const addPetResponseValidator = responseValidationFactory(
     [["200", s_Pet]],
     s_Error,
@@ -181,7 +179,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: undefined,
       body: parseRequestInput(
-        addPetBodySchema,
+        s_NewPet,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),

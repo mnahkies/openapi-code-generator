@@ -165,8 +165,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const addPetRequestBodySchema = s_NewPet
-
   const addPetResponseBodyValidator = responseValidationFactory(
     [["200", s_Pet]],
     s_Error,
@@ -181,7 +179,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            addPetRequestBodySchema,
+            s_NewPet,
             req.body,
             RequestInputType.RequestBody,
           ),

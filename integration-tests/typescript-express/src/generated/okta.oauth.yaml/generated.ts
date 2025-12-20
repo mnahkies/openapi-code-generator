@@ -989,8 +989,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const authorizeWithPostRequestBodySchema = s_AuthorizeWithPost
-
   const authorizeWithPostResponseBodyValidator = responseValidationFactory(
     [["429", s_Error]],
     undefined,
@@ -1005,7 +1003,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            authorizeWithPostRequestBodySchema,
+            s_AuthorizeWithPost,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -1050,8 +1048,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const bcAuthorizeRequestBodySchema = s_BackchannelAuthorizeRequest
-
   const bcAuthorizeResponseBodyValidator = responseValidationFactory(
     [
       ["200", s_BackchannelAuthorizeResponse],
@@ -1071,7 +1067,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            bcAuthorizeRequestBodySchema,
+            s_BackchannelAuthorizeRequest,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -1127,8 +1123,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const challengeRequestBodySchema = s_ChallengeRequest
-
   const challengeResponseBodyValidator = responseValidationFactory(
     [
       ["200", s_ChallengeResponse],
@@ -1149,7 +1143,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            challengeRequestBodySchema,
+            s_ChallengeRequest,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -1281,8 +1275,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const createClientRequestBodySchema = s_Client
-
   const createClientResponseBodyValidator = responseValidationFactory(
     [
       ["201", s_Client],
@@ -1302,7 +1294,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            createClientRequestBodySchema,
+            s_Client,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -1433,8 +1425,6 @@ export function createRouter(implementation: Implementation): Router {
 
   const replaceClientParamSchema = z.object({clientId: z.string()})
 
-  const replaceClientRequestBodySchema = s_Client
-
   const replaceClientResponseBodyValidator = responseValidationFactory(
     [
       ["200", s_Client],
@@ -1459,7 +1449,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            replaceClientRequestBodySchema,
+            s_Client,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -1667,8 +1657,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const deviceAuthorizeRequestBodySchema = s_DeviceAuthorizeRequest
-
   const deviceAuthorizeResponseBodyValidator = responseValidationFactory(
     [
       ["200", s_DeviceAuthorizeResponse],
@@ -1688,7 +1676,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            deviceAuthorizeRequestBodySchema,
+            s_DeviceAuthorizeRequest,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -1742,8 +1730,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const globalTokenRevocationRequestBodySchema = s_GlobalTokenRevocationRequest
-
   const globalTokenRevocationResponseBodyValidator = responseValidationFactory(
     [
       ["204", z.undefined()],
@@ -1763,7 +1749,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            globalTokenRevocationRequestBodySchema,
+            s_GlobalTokenRevocationRequest,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -1817,8 +1803,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const introspectRequestBodySchema = s_IntrospectionRequest
-
   const introspectResponseBodyValidator = responseValidationFactory(
     [
       ["200", s_IntrospectionResponse],
@@ -1838,7 +1822,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            introspectRequestBodySchema,
+            s_IntrospectionRequest,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -2030,8 +2014,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const logoutWithPostRequestBodySchema = s_LogoutWithPost
-
   const logoutWithPostResponseBodyValidator = responseValidationFactory(
     [
       ["200", z.undefined()],
@@ -2049,7 +2031,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            logoutWithPostRequestBodySchema,
+            s_LogoutWithPost,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -2097,8 +2079,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const oobAuthenticateRequestBodySchema = s_OobAuthenticateRequest
-
   const oobAuthenticateResponseBodyValidator = responseValidationFactory(
     [
       ["200", s_OobAuthenticateResponse],
@@ -2119,7 +2099,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            oobAuthenticateRequestBodySchema,
+            s_OobAuthenticateRequest,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -2245,8 +2225,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const parRequestBodySchema = s_ParRequest
-
   const parResponseBodyValidator = responseValidationFactory(
     [
       ["200", s_ParResponse],
@@ -2267,7 +2245,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            parRequestBodySchema,
+            s_ParRequest,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -2324,8 +2302,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const revokeRequestBodySchema = s_RevokeRequest
-
   const revokeResponseBodyValidator = responseValidationFactory(
     [
       ["200", z.undefined()],
@@ -2345,7 +2321,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            revokeRequestBodySchema,
+            s_RevokeRequest,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -2468,8 +2444,6 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const tokenRequestBodySchema = s_TokenRequest
-
   const tokenResponseBodyValidator = responseValidationFactory(
     [
       ["200", s_TokenResponse],
@@ -2489,7 +2463,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            tokenRequestBodySchema,
+            s_TokenRequest,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -2892,8 +2866,6 @@ export function createRouter(implementation: Implementation): Router {
     authorizationServerId: z.string(),
   })
 
-  const authorizeCustomAsWithPostRequestBodySchema = s_AuthorizeWithPost
-
   const authorizeCustomAsWithPostResponseBodyValidator =
     responseValidationFactory([["429", s_Error]], undefined)
 
@@ -2910,7 +2882,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            authorizeCustomAsWithPostRequestBodySchema,
+            s_AuthorizeWithPost,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -2959,8 +2931,6 @@ export function createRouter(implementation: Implementation): Router {
     authorizationServerId: z.string(),
   })
 
-  const bcAuthorizeCustomAsRequestBodySchema = s_BackchannelAuthorizeRequest
-
   const bcAuthorizeCustomAsResponseBodyValidator = responseValidationFactory(
     [
       ["200", s_BackchannelAuthorizeResponse],
@@ -2984,7 +2954,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            bcAuthorizeCustomAsRequestBodySchema,
+            s_BackchannelAuthorizeRequest,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -3044,8 +3014,6 @@ export function createRouter(implementation: Implementation): Router {
     authorizationServerId: z.string(),
   })
 
-  const challengeCustomAsRequestBodySchema = s_ChallengeRequest
-
   const challengeCustomAsResponseBodyValidator = responseValidationFactory(
     [
       ["200", s_ChallengeResponse],
@@ -3070,7 +3038,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            challengeCustomAsRequestBodySchema,
+            s_ChallengeRequest,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -3131,8 +3099,6 @@ export function createRouter(implementation: Implementation): Router {
     authorizationServerId: z.string(),
   })
 
-  const deviceAuthorizeCustomAsRequestBodySchema = s_DeviceAuthorizeRequest
-
   const deviceAuthorizeCustomAsResponseBodyValidator =
     responseValidationFactory(
       [
@@ -3157,7 +3123,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            deviceAuthorizeCustomAsRequestBodySchema,
+            s_DeviceAuthorizeRequest,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -3215,8 +3181,6 @@ export function createRouter(implementation: Implementation): Router {
     authorizationServerId: z.string(),
   })
 
-  const introspectCustomAsRequestBodySchema = s_IntrospectionRequest
-
   const introspectCustomAsResponseBodyValidator = responseValidationFactory(
     [
       ["200", s_IntrospectionResponse],
@@ -3240,7 +3204,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            introspectCustomAsRequestBodySchema,
+            s_IntrospectionRequest,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -3446,8 +3410,6 @@ export function createRouter(implementation: Implementation): Router {
     authorizationServerId: z.string(),
   })
 
-  const logoutCustomAsWithPostRequestBodySchema = s_LogoutWithPost
-
   const logoutCustomAsWithPostResponseBodyValidator = responseValidationFactory(
     [
       ["200", z.undefined()],
@@ -3469,7 +3431,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            logoutCustomAsWithPostRequestBodySchema,
+            s_LogoutWithPost,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -3521,8 +3483,6 @@ export function createRouter(implementation: Implementation): Router {
     authorizationServerId: z.string(),
   })
 
-  const oobAuthenticateCustomAsRequestBodySchema = s_OobAuthenticateRequest
-
   const oobAuthenticateCustomAsResponseBodyValidator =
     responseValidationFactory(
       [
@@ -3548,7 +3508,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            oobAuthenticateCustomAsRequestBodySchema,
+            s_OobAuthenticateRequest,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -3684,8 +3644,6 @@ export function createRouter(implementation: Implementation): Router {
 
   const parCustomAsParamSchema = z.object({authorizationServerId: z.string()})
 
-  const parCustomAsRequestBodySchema = s_ParRequest
-
   const parCustomAsResponseBodyValidator = responseValidationFactory(
     [
       ["200", s_ParResponse],
@@ -3710,7 +3668,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            parCustomAsRequestBodySchema,
+            s_ParRequest,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -3771,8 +3729,6 @@ export function createRouter(implementation: Implementation): Router {
     authorizationServerId: z.string(),
   })
 
-  const revokeCustomAsRequestBodySchema = s_RevokeRequest
-
   const revokeCustomAsResponseBodyValidator = responseValidationFactory(
     [
       ["200", z.undefined()],
@@ -3796,7 +3752,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            revokeCustomAsRequestBodySchema,
+            s_RevokeRequest,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -3929,8 +3885,6 @@ export function createRouter(implementation: Implementation): Router {
 
   const tokenCustomAsParamSchema = z.object({authorizationServerId: z.string()})
 
-  const tokenCustomAsRequestBodySchema = s_TokenRequest
-
   const tokenCustomAsResponseBodyValidator = responseValidationFactory(
     [
       ["200", s_TokenResponse],
@@ -3954,7 +3908,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            tokenCustomAsRequestBodySchema,
+            s_TokenRequest,
             req.body,
             RequestInputType.RequestBody,
           ),

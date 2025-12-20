@@ -189,8 +189,6 @@ export function createValidationRouter(
     },
   )
 
-  const postValidationEnumsBodySchema = s_Enumerations
-
   const postValidationEnumsResponseValidator = responseValidationFactory(
     [["200", s_Enumerations]],
     undefined,
@@ -201,7 +199,7 @@ export function createValidationRouter(
       params: undefined,
       query: undefined,
       body: parseRequestInput(
-        postValidationEnumsBodySchema,
+        s_Enumerations,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -236,9 +234,6 @@ export function createValidationRouter(
     return next()
   })
 
-  const postValidationOptionalBodyBodySchema =
-    s_PostValidationOptionalBodyRequestBody.optional()
-
   const postValidationOptionalBodyResponseValidator = responseValidationFactory(
     [
       ["200", s_PostValidationOptionalBody200Response],
@@ -255,7 +250,7 @@ export function createValidationRouter(
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postValidationOptionalBodyBodySchema,
+          s_PostValidationOptionalBodyRequestBody.optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),

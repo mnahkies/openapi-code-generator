@@ -62,8 +62,6 @@ export function createMediaTypesRouter(
 ): KoaRouter {
   const router = new KoaRouter()
 
-  const postMediaTypesTextBodySchema = z.string()
-
   const postMediaTypesTextResponseValidator = responseValidationFactory(
     [["200", z.string()]],
     undefined,
@@ -74,7 +72,7 @@ export function createMediaTypesRouter(
       params: undefined,
       query: undefined,
       body: parseRequestInput(
-        postMediaTypesTextBodySchema,
+        z.string(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -109,8 +107,6 @@ export function createMediaTypesRouter(
     return next()
   })
 
-  const postMediaTypesXWwwFormUrlencodedBodySchema = s_ProductOrder
-
   const postMediaTypesXWwwFormUrlencodedResponseValidator =
     responseValidationFactory([["200", s_ProductOrder]], undefined)
 
@@ -122,7 +118,7 @@ export function createMediaTypesRouter(
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          postMediaTypesXWwwFormUrlencodedBodySchema,
+          s_ProductOrder,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
