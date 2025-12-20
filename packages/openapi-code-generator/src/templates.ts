@@ -1,4 +1,4 @@
-import {legacySyntheticNameGenerator} from "./core/synthetic-name-generator"
+import {defaultSyntheticNameGenerator} from "./core/synthetic-name-generator"
 import type {OpenapiGenerator} from "./templates.types"
 import {generateTypescriptAngular} from "./typescript/client/typescript-angular/typescript-angular.generator"
 import {generateTypescriptAxios} from "./typescript/client/typescript-axios/typescript-axios.generator"
@@ -11,31 +11,31 @@ export const templates = {
     language: "typescript",
     type: "client",
     run: generateTypescriptFetch,
-    syntheticNameGenerator: legacySyntheticNameGenerator,
+    syntheticNameGenerator: defaultSyntheticNameGenerator,
   },
   "typescript-axios": {
     language: "typescript",
     type: "client",
     run: generateTypescriptAxios,
-    syntheticNameGenerator: legacySyntheticNameGenerator,
+    syntheticNameGenerator: defaultSyntheticNameGenerator,
   },
   "typescript-angular": {
     language: "typescript",
     type: "client",
     run: generateTypescriptAngular,
-    syntheticNameGenerator: legacySyntheticNameGenerator,
+    syntheticNameGenerator: defaultSyntheticNameGenerator,
   },
   "typescript-koa": {
     language: "typescript",
     type: "server",
     run: generateTypescriptKoa,
-    syntheticNameGenerator: legacySyntheticNameGenerator,
+    syntheticNameGenerator: defaultSyntheticNameGenerator,
   },
   "typescript-express": {
     language: "typescript",
     type: "server",
     run: generateTypescriptExpress,
-    syntheticNameGenerator: legacySyntheticNameGenerator,
+    syntheticNameGenerator: defaultSyntheticNameGenerator,
   },
 } satisfies {[key: string]: OpenapiGenerator}
 

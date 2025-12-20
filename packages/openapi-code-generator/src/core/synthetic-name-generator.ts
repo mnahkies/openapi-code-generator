@@ -32,34 +32,18 @@ export interface SyntheticNameGenerator {
   }): string
 }
 
-function forPathParameters(ctx: {operationId: string}) {
-  return upperFirst(`${ctx.operationId}ParamSchema`)
-}
-
-function forQueryParameters(ctx: {operationId: string}) {
-  return upperFirst(`${ctx.operationId}QuerySchema`)
-}
-
-function forRequestHeaders(ctx: {operationId: string}) {
-  return upperFirst(`${ctx.operationId}RequestHeaderSchema`)
-}
-
-export const legacySyntheticNameGenerator = {
-  forPathParameters,
-  forQueryParameters,
-  forRequestHeaders,
-  forRequestBody(ctx) {
-    return `${ctx.operationId}${mediaTypeToIdentifier(ctx.mediaType)}RequestBody`
-  },
-  forResponseBody(ctx) {
-    return `${ctx.operationId}${mediaTypeToIdentifier(ctx.mediaType)}${ctx.statusCode ?? ""}Response`
-  },
-} satisfies SyntheticNameGenerator
-
 export const defaultSyntheticNameGenerator = {
-  forPathParameters,
-  forQueryParameters,
-  forRequestHeaders,
+  forPathParameters(ctx) {
+    return upperFirst(`${ctx.operationId}ParamSchema`)
+  },
+
+  forQueryParameters(ctx) {
+    return upperFirst(`${ctx.operationId}QuerySchema`)
+  },
+
+  forRequestHeaders(ctx) {
+    return upperFirst(`${ctx.operationId}RequestHeaderSchema`)
+  },
   forRequestBody(ctx) {
     return `${upperFirst(ctx.operationId)}${ctx.hasMultipleMediaTypes ? mediaTypeToIdentifier(ctx.mediaType) : ""}RequestBody`
   },
