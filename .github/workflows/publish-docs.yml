@@ -33,7 +33,8 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
 
-      - run: pnpm ci-build
+      - run: pnpm run build
+      - run: pnpm run build:docs
 
       - name: Publish documentation
         run: |

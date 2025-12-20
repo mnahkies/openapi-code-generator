@@ -24,12 +24,16 @@ export function pruneModels(fsAdapter: WebFsAdaptor, monaco: Monaco) {
 }
 
 export function listAvailableModels(fsAdapter: WebFsAdaptor, monaco: Monaco) {
-  return monaco.editor
-    .getModels()
-    .filter(
-      (it) =>
-        it.uri.path.includes("/generated/") &&
-        fsAdapter.existsSync(it.uri.path),
-    )
-    .map((it) => it.uri.path)
+  return (
+    monaco.editor
+      .getModels()
+      .filter(
+        // biome-ignore lint/suspicious/noExplicitAny: todo: https://github.com/suren-atoyan/monaco-react/issues/771
+        (it: any) =>
+          it.uri.path.includes("/generated/") &&
+          fsAdapter.existsSync(it.uri.path),
+      )
+      // biome-ignore lint/suspicious/noExplicitAny: todo: https://github.com/suren-atoyan/monaco-react/issues/771
+      .map((it: any): string => it.uri.path)
+  )
 }
