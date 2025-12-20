@@ -136,10 +136,7 @@ export class E2ETestClient extends AbstractFetchClient {
   ): Promise<Res<200, t_GetParamsSimpleQuery200Response>> {
     const url = this.basePath + `/params/simple-query`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      orderBy: p["orderBy"],
-      limit: p["limit"],
-    })
+    const query = this._query({orderBy: p["orderBy"], limit: p["limit"]})
 
     const res = this._fetch(
       url + query,
@@ -166,9 +163,7 @@ export class E2ETestClient extends AbstractFetchClient {
     const url = this.basePath + `/params/default-object-query`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        filter: p["filter"],
-      },
+      {filter: p["filter"]},
       {
         filter: {
           style: "form",
@@ -202,9 +197,7 @@ export class E2ETestClient extends AbstractFetchClient {
     const url = this.basePath + `/params/unexploded-object-query`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        filter: p["filter"],
-      },
+      {filter: p["filter"]},
       {
         filter: {
           style: "form",
@@ -237,11 +230,7 @@ export class E2ETestClient extends AbstractFetchClient {
     const url = this.basePath + `/validation/numbers/random-number`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        max: p["max"],
-        min: p["min"],
-        forbidden: p["forbidden"],
-      },
+      {max: p["max"], min: p["min"], forbidden: p["forbidden"]},
       {
         forbidden: {
           style: "form",

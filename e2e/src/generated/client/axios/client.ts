@@ -141,10 +141,7 @@ export class E2ETestClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_GetParamsSimpleQuery200Response>> {
     const url = `/params/simple-query`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      orderBy: p["orderBy"],
-      limit: p["limit"],
-    })
+    const query = this._query({orderBy: p["orderBy"], limit: p["limit"]})
 
     const res = await this._request({
       url: url + query,
@@ -170,9 +167,7 @@ export class E2ETestClient extends AbstractAxiosClient {
     const url = `/params/default-object-query`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        filter: p["filter"],
-      },
+      {filter: p["filter"]},
       {
         filter: {
           style: "form",
@@ -208,9 +203,7 @@ export class E2ETestClient extends AbstractAxiosClient {
     const url = `/params/unexploded-object-query`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        filter: p["filter"],
-      },
+      {filter: p["filter"]},
       {
         filter: {
           style: "form",
@@ -245,11 +238,7 @@ export class E2ETestClient extends AbstractAxiosClient {
     const url = `/validation/numbers/random-number`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        max: p["max"],
-        min: p["min"],
-        forbidden: p["forbidden"],
-      },
+      {max: p["max"], min: p["min"], forbidden: p["forbidden"]},
       {
         forbidden: {
           style: "form",
