@@ -7,6 +7,11 @@ import {
   type Style,
 } from "./query-parser"
 
+// todo: nodejs v20 doesn't support Iterator.from - replace when v20 support dropped.
+function* toIterator<T>(arr: T[]): IterableIterator<T> {
+  yield* arr
+}
+
 describe("query-parser", () => {
   describe("#parseCsvPairsToObject", () => {
     it("parses a single pair", () => {
@@ -27,7 +32,8 @@ describe("query-parser", () => {
       const expected = ["foo[0]", "foo[1]", "foo[2]"]
       const actual = extractArrayNotationKeys(
         "foo",
-        Iterator.from(["foo[0]", "foo[2]", "foo[1]"]),
+        // biome-ignore lint/suspicious/noExplicitAny: node v20
+        toIterator(["foo[0]", "foo[2]", "foo[1]"]) as any,
       )
 
       expect(actual).toEqual(expected)
@@ -37,7 +43,8 @@ describe("query-parser", () => {
       const expected = ["foo[bar][0]", "foo[bar][1]", "foo[bar][2]"]
       const actual = extractArrayNotationKeys(
         "foo[bar]",
-        Iterator.from(["foo[bar][0]", "foo[bar][2]", "foo[bar][1]"]),
+        // biome-ignore lint/suspicious/noExplicitAny: node v20
+        toIterator(["foo[bar][0]", "foo[bar][2]", "foo[bar][1]"]) as any,
       )
 
       expect(actual).toEqual(expected)
@@ -47,7 +54,8 @@ describe("query-parser", () => {
       const expected: string[] = []
       const actual = extractArrayNotationKeys(
         "foo",
-        Iterator.from(["foo[bar]", "foo[baz]"]),
+        // biome-ignore lint/suspicious/noExplicitAny: node v20
+        toIterator(["foo[bar]", "foo[baz]"]) as any,
       )
 
       expect(actual).toEqual(expected)
