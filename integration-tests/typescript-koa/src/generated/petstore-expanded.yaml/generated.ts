@@ -24,11 +24,11 @@ import {
 import type {Next} from "koa"
 import {z} from "zod/v4"
 import type {
-  t_AddPetBodySchema,
   t_DeletePetParamSchema,
   t_Error,
   t_FindPetByIdParamSchema,
   t_FindPetsQuerySchema,
+  t_NewPet,
   t_Pet,
 } from "./models"
 import {s_Error, s_NewPet, s_Pet} from "./schemas"
@@ -56,7 +56,7 @@ export type AddPetResponder = {
 } & KoaRuntimeResponder
 
 export type AddPet = (
-  params: Params<void, void, t_AddPetBodySchema, void>,
+  params: Params<void, void, t_NewPet, void>,
   respond: AddPetResponder,
   ctx: RouterContext,
   next: Next,

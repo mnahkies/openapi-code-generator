@@ -26,8 +26,9 @@ import {
 import type {Next} from "koa"
 import {z} from "zod/v4"
 import type {
-  t_CreateTodoListItemBodySchema,
   t_CreateTodoListItemParamSchema,
+  t_CreateTodoListItemRequestBody,
+  t_CreateUpdateTodoList,
   t_DeleteTodoListByIdParamSchema,
   t_Error,
   t_GetTodoListByIdParamSchema,
@@ -35,11 +36,10 @@ import type {
   t_GetTodoListsQuerySchema,
   t_TodoList,
   t_UnknownObject,
-  t_UpdateTodoListByIdBodySchema,
   t_UpdateTodoListByIdParamSchema,
-  t_UploadAttachmentBodySchema,
 } from "./models"
 import {
+  s_CreateTodoListItemRequestBody,
   s_CreateUpdateTodoList,
   s_Error,
   s_Statuses,
@@ -91,7 +91,7 @@ export type UpdateTodoListById = (
   params: Params<
     t_UpdateTodoListByIdParamSchema,
     void,
-    t_UpdateTodoListByIdBodySchema,
+    t_CreateUpdateTodoList,
     void
   >,
   respond: UpdateTodoListByIdResponder,
@@ -171,7 +171,7 @@ export type CreateTodoListItem = (
   params: Params<
     t_CreateTodoListItemParamSchema,
     void,
-    t_CreateTodoListItemBodySchema,
+    t_CreateTodoListItemRequestBody,
     void
   >,
   respond: CreateTodoListItemResponder,
@@ -201,7 +201,7 @@ export type UploadAttachmentResponder = {
 } & KoaRuntimeResponder
 
 export type UploadAttachment = (
-  params: Params<void, void, t_UploadAttachmentBodySchema, void>,
+  params: Params<void, void, never, void>,
   respond: UploadAttachmentResponder,
   ctx: RouterContext,
   next: Next,
@@ -529,11 +529,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const createTodoListItemParamSchema = z.object({listId: z.string()})
 
-  const createTodoListItemBodySchema = z.object({
-    id: z.string(),
-    content: z.string(),
-    completedAt: z.iso.datetime({offset: true}).optional(),
-  })
+  const createTodoListItemBodySchema = s_CreateTodoListItemRequestBody
 
   const createTodoListItemResponseValidator = responseValidationFactory(
     [["204", z.undefined()]],

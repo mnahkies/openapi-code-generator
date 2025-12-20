@@ -329,3 +329,53 @@ export type t_UpdateAppAuthenticatorEnrollmentRequest = {
 export type t_UpdateAuthenticatorEnrollmentRequest = {
   nickname?: string
 }
+
+export type t_CreateEmailRequestBody = {
+  profile: {
+    email: string
+  }
+  role?: "PRIMARY" | "SECONDARY" | UnknownEnumStringValue
+  sendEmail?: boolean
+  state?: string
+}
+
+export type t_CreatePasswordRequestBody = {
+  profile: {
+    password: string
+  }
+}
+
+export type t_CreatePhoneRequestBody = {
+  method?: "SMS" | "CALL" | UnknownEnumStringValue
+  profile: {
+    phoneNumber?: string
+  }
+  sendCode?: boolean
+}
+
+export type t_ReplacePasswordRequestBody = {
+  profile: {
+    password: string
+  }
+}
+
+export type t_ReplaceProfileRequestBody = {
+  profile?: EmptyObject
+}
+
+export type t_SendEmailChallengeRequestBody = {
+  state: string
+}
+
+export type t_SendPhoneChallengeRequestBody = {
+  method: "SMS" | "CALL" | UnknownEnumStringValue
+  retry?: boolean
+}
+
+export type t_VerifyEmailOtpRequestBody = {
+  verificationCode: string
+}
+
+export type t_VerifyPhoneChallengeRequestBody = {
+  verificationCode: string
+}

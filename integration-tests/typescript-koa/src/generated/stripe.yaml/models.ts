@@ -14266,16 +14266,12 @@ export type t_DeleteCustomersCustomerParamSchema = {
   customer: string
 }
 
-export type t_DeleteCustomersCustomerBankAccountsIdBodySchema = {
-  expand?: string[]
-}
-
 export type t_DeleteCustomersCustomerBankAccountsIdParamSchema = {
   customer: string
   id: string
 }
 
-export type t_DeleteCustomersCustomerCardsIdBodySchema = {
+export type t_DeleteCustomersCustomerBankAccountsIdRequestBody = {
   expand?: string[]
 }
 
@@ -14284,12 +14280,12 @@ export type t_DeleteCustomersCustomerCardsIdParamSchema = {
   id: string
 }
 
-export type t_DeleteCustomersCustomerDiscountParamSchema = {
-  customer: string
+export type t_DeleteCustomersCustomerCardsIdRequestBody = {
+  expand?: string[]
 }
 
-export type t_DeleteCustomersCustomerSourcesIdBodySchema = {
-  expand?: string[]
+export type t_DeleteCustomersCustomerDiscountParamSchema = {
+  customer: string
 }
 
 export type t_DeleteCustomersCustomerSourcesIdParamSchema = {
@@ -14297,17 +14293,21 @@ export type t_DeleteCustomersCustomerSourcesIdParamSchema = {
   id: string
 }
 
-export type t_DeleteCustomersCustomerSubscriptionsSubscriptionExposedIdBodySchema =
-  {
-    expand?: string[]
-    invoice_now?: boolean
-    prorate?: boolean
-  }
+export type t_DeleteCustomersCustomerSourcesIdRequestBody = {
+  expand?: string[]
+}
 
 export type t_DeleteCustomersCustomerSubscriptionsSubscriptionExposedIdParamSchema =
   {
     customer: string
     subscription_exposed_id: string
+  }
+
+export type t_DeleteCustomersCustomerSubscriptionsSubscriptionExposedIdRequestBody =
+  {
+    expand?: string[]
+    invoice_now?: boolean
+    prorate?: boolean
   }
 
 export type t_DeleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountParamSchema =
@@ -14321,12 +14321,12 @@ export type t_DeleteCustomersCustomerTaxIdsIdParamSchema = {
   id: string
 }
 
-export type t_DeleteEphemeralKeysKeyBodySchema = {
-  expand?: string[]
-}
-
 export type t_DeleteEphemeralKeysKeyParamSchema = {
   key: string
+}
+
+export type t_DeleteEphemeralKeysKeyRequestBody = {
+  expand?: string[]
 }
 
 export type t_DeleteInvoiceitemsInvoiceitemParamSchema = {
@@ -14358,17 +14358,21 @@ export type t_DeleteRadarValueListsValueListParamSchema = {
   value_list: string
 }
 
-export type t_DeleteSubscriptionItemsItemBodySchema = {
+export type t_DeleteSubscriptionItemsItemParamSchema = {
+  item: string
+}
+
+export type t_DeleteSubscriptionItemsItemRequestBody = {
   clear_usage?: boolean
   proration_behavior?: "always_invoice" | "create_prorations" | "none"
   proration_date?: number
 }
 
-export type t_DeleteSubscriptionItemsItemParamSchema = {
-  item: string
+export type t_DeleteSubscriptionsSubscriptionExposedIdParamSchema = {
+  subscription_exposed_id: string
 }
 
-export type t_DeleteSubscriptionsSubscriptionExposedIdBodySchema = {
+export type t_DeleteSubscriptionsSubscriptionExposedIdRequestBody = {
   cancellation_details?: {
     comment?: string | ""
     feedback?:
@@ -14385,10 +14389,6 @@ export type t_DeleteSubscriptionsSubscriptionExposedIdBodySchema = {
   expand?: string[]
   invoice_now?: boolean
   prorate?: boolean
-}
-
-export type t_DeleteSubscriptionsSubscriptionExposedIdParamSchema = {
-  subscription_exposed_id: string
 }
 
 export type t_DeleteSubscriptionsSubscriptionExposedIdDiscountParamSchema = {
@@ -17401,7 +17401,7 @@ export type t_GetWebhookEndpointsWebhookEndpointQuerySchema = {
   expand?: string[]
 }
 
-export type t_PostAccountLinksBodySchema = {
+export type t_PostAccountLinksRequestBody = {
   account: string
   collect?: "currently_due" | "eventually_due"
   collection_options?: {
@@ -17414,7 +17414,7 @@ export type t_PostAccountLinksBodySchema = {
   type: "account_onboarding" | "account_update"
 }
 
-export type t_PostAccountSessionsBodySchema = {
+export type t_PostAccountSessionsRequestBody = {
   account: string
   components: {
     account_management?: {
@@ -17555,7 +17555,7 @@ export type t_PostAccountSessionsBodySchema = {
   expand?: string[]
 }
 
-export type t_PostAccountsBodySchema = {
+export type t_PostAccountsRequestBody = {
   account_token?: string
   bank_account?:
     | {
@@ -18093,7 +18093,11 @@ export type t_PostAccountsBodySchema = {
   type?: "custom" | "express" | "standard"
 }
 
-export type t_PostAccountsAccountBodySchema = {
+export type t_PostAccountsAccountParamSchema = {
+  account: string
+}
+
+export type t_PostAccountsAccountRequestBody = {
   account_token?: string
   business_profile?: {
     annual_revenue?: {
@@ -18601,11 +18605,11 @@ export type t_PostAccountsAccountBodySchema = {
   }
 }
 
-export type t_PostAccountsAccountParamSchema = {
+export type t_PostAccountsAccountBankAccountsParamSchema = {
   account: string
 }
 
-export type t_PostAccountsAccountBankAccountsBodySchema = {
+export type t_PostAccountsAccountBankAccountsRequestBody = {
   bank_account?:
     | {
         account_holder_name?: string
@@ -18629,37 +18633,6 @@ export type t_PostAccountsAccountBankAccountsBodySchema = {
   metadata?: {
     [key: string]: string | undefined
   }
-}
-
-export type t_PostAccountsAccountBankAccountsParamSchema = {
-  account: string
-}
-
-export type t_PostAccountsAccountBankAccountsIdBodySchema = {
-  account_holder_name?: string
-  account_holder_type?: "" | "company" | "individual"
-  account_type?: "checking" | "futsu" | "savings" | "toza"
-  address_city?: string
-  address_country?: string
-  address_line1?: string
-  address_line2?: string
-  address_state?: string
-  address_zip?: string
-  default_for_currency?: boolean
-  documents?: {
-    bank_account_ownership_verification?: {
-      files?: string[]
-    }
-  }
-  exp_month?: string
-  exp_year?: string
-  expand?: string[]
-  metadata?:
-    | {
-        [key: string]: string | undefined
-      }
-    | ""
-  name?: string
 }
 
 export type t_PostAccountsAccountBankAccountsIdParamSchema = {
@@ -18667,47 +18640,7 @@ export type t_PostAccountsAccountBankAccountsIdParamSchema = {
   id: string
 }
 
-export type t_PostAccountsAccountCapabilitiesCapabilityBodySchema = {
-  expand?: string[]
-  requested?: boolean
-}
-
-export type t_PostAccountsAccountCapabilitiesCapabilityParamSchema = {
-  account: string
-  capability: string
-}
-
-export type t_PostAccountsAccountExternalAccountsBodySchema = {
-  bank_account?:
-    | {
-        account_holder_name?: string
-        account_holder_type?: "company" | "individual"
-        account_number: string
-        account_type?: "checking" | "futsu" | "savings" | "toza"
-        country: string
-        currency?: string
-        documents?: {
-          bank_account_ownership_verification?: {
-            files?: string[]
-          }
-        }
-        object?: "bank_account"
-        routing_number?: string
-      }
-    | string
-  default_for_currency?: boolean
-  expand?: string[]
-  external_account?: string
-  metadata?: {
-    [key: string]: string | undefined
-  }
-}
-
-export type t_PostAccountsAccountExternalAccountsParamSchema = {
-  account: string
-}
-
-export type t_PostAccountsAccountExternalAccountsIdBodySchema = {
+export type t_PostAccountsAccountBankAccountsIdRequestBody = {
   account_holder_name?: string
   account_holder_type?: "" | "company" | "individual"
   account_type?: "checking" | "futsu" | "savings" | "toza"
@@ -18734,173 +18667,91 @@ export type t_PostAccountsAccountExternalAccountsIdBodySchema = {
   name?: string
 }
 
+export type t_PostAccountsAccountCapabilitiesCapabilityParamSchema = {
+  account: string
+  capability: string
+}
+
+export type t_PostAccountsAccountCapabilitiesCapabilityRequestBody = {
+  expand?: string[]
+  requested?: boolean
+}
+
+export type t_PostAccountsAccountExternalAccountsParamSchema = {
+  account: string
+}
+
+export type t_PostAccountsAccountExternalAccountsRequestBody = {
+  bank_account?:
+    | {
+        account_holder_name?: string
+        account_holder_type?: "company" | "individual"
+        account_number: string
+        account_type?: "checking" | "futsu" | "savings" | "toza"
+        country: string
+        currency?: string
+        documents?: {
+          bank_account_ownership_verification?: {
+            files?: string[]
+          }
+        }
+        object?: "bank_account"
+        routing_number?: string
+      }
+    | string
+  default_for_currency?: boolean
+  expand?: string[]
+  external_account?: string
+  metadata?: {
+    [key: string]: string | undefined
+  }
+}
+
 export type t_PostAccountsAccountExternalAccountsIdParamSchema = {
   account: string
   id: string
 }
 
-export type t_PostAccountsAccountLoginLinksBodySchema = {
+export type t_PostAccountsAccountExternalAccountsIdRequestBody = {
+  account_holder_name?: string
+  account_holder_type?: "" | "company" | "individual"
+  account_type?: "checking" | "futsu" | "savings" | "toza"
+  address_city?: string
+  address_country?: string
+  address_line1?: string
+  address_line2?: string
+  address_state?: string
+  address_zip?: string
+  default_for_currency?: boolean
+  documents?: {
+    bank_account_ownership_verification?: {
+      files?: string[]
+    }
+  }
+  exp_month?: string
+  exp_year?: string
   expand?: string[]
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | ""
+  name?: string
 }
 
 export type t_PostAccountsAccountLoginLinksParamSchema = {
   account: string
 }
 
-export type t_PostAccountsAccountPeopleBodySchema = {
-  additional_tos_acceptances?: {
-    account?: {
-      date?: number
-      ip?: string
-      user_agent?: string | ""
-    }
-  }
-  address?: {
-    city?: string
-    country?: string
-    line1?: string
-    line2?: string
-    postal_code?: string
-    state?: string
-  }
-  address_kana?: {
-    city?: string
-    country?: string
-    line1?: string
-    line2?: string
-    postal_code?: string
-    state?: string
-    town?: string
-  }
-  address_kanji?: {
-    city?: string
-    country?: string
-    line1?: string
-    line2?: string
-    postal_code?: string
-    state?: string
-    town?: string
-  }
-  dob?:
-    | {
-        day: number
-        month: number
-        year: number
-      }
-    | ""
-  documents?: {
-    company_authorization?: {
-      files?: (string | "")[]
-    }
-    passport?: {
-      files?: (string | "")[]
-    }
-    visa?: {
-      files?: (string | "")[]
-    }
-  }
-  email?: string
+export type t_PostAccountsAccountLoginLinksRequestBody = {
   expand?: string[]
-  first_name?: string
-  first_name_kana?: string
-  first_name_kanji?: string
-  full_name_aliases?: string[] | ""
-  gender?: string
-  id_number?: string
-  id_number_secondary?: string
-  last_name?: string
-  last_name_kana?: string
-  last_name_kanji?: string
-  maiden_name?: string
-  metadata?:
-    | {
-        [key: string]: string | undefined
-      }
-    | ""
-  nationality?: string
-  person_token?: string
-  phone?: string
-  political_exposure?: "existing" | "none"
-  registered_address?: {
-    city?: string
-    country?: string
-    line1?: string
-    line2?: string
-    postal_code?: string
-    state?: string
-  }
-  relationship?: {
-    authorizer?: boolean
-    director?: boolean
-    executive?: boolean
-    legal_guardian?: boolean
-    owner?: boolean
-    percent_ownership?: number | ""
-    representative?: boolean
-    title?: string
-  }
-  ssn_last_4?: string
-  us_cfpb_data?: {
-    ethnicity_details?: {
-      ethnicity?: (
-        | "cuban"
-        | "hispanic_or_latino"
-        | "mexican"
-        | "not_hispanic_or_latino"
-        | "other_hispanic_or_latino"
-        | "prefer_not_to_answer"
-        | "puerto_rican"
-      )[]
-      ethnicity_other?: string
-    }
-    race_details?: {
-      race?: (
-        | "african_american"
-        | "american_indian_or_alaska_native"
-        | "asian"
-        | "asian_indian"
-        | "black_or_african_american"
-        | "chinese"
-        | "ethiopian"
-        | "filipino"
-        | "guamanian_or_chamorro"
-        | "haitian"
-        | "jamaican"
-        | "japanese"
-        | "korean"
-        | "native_hawaiian"
-        | "native_hawaiian_or_other_pacific_islander"
-        | "nigerian"
-        | "other_asian"
-        | "other_black_or_african_american"
-        | "other_pacific_islander"
-        | "prefer_not_to_answer"
-        | "samoan"
-        | "somali"
-        | "vietnamese"
-        | "white"
-      )[]
-      race_other?: string
-    }
-    self_identified_gender?: string
-  }
-  verification?: {
-    additional_document?: {
-      back?: string
-      front?: string
-    }
-    document?: {
-      back?: string
-      front?: string
-    }
-  }
 }
 
 export type t_PostAccountsAccountPeopleParamSchema = {
   account: string
 }
 
-export type t_PostAccountsAccountPeoplePersonBodySchema = {
+export type t_PostAccountsAccountPeopleRequestBody = {
   additional_tos_acceptances?: {
     account?: {
       date?: number
@@ -19054,7 +18905,7 @@ export type t_PostAccountsAccountPeoplePersonParamSchema = {
   person: string
 }
 
-export type t_PostAccountsAccountPersonsBodySchema = {
+export type t_PostAccountsAccountPeoplePersonRequestBody = {
   additional_tos_acceptances?: {
     account?: {
       date?: number
@@ -19207,7 +19058,7 @@ export type t_PostAccountsAccountPersonsParamSchema = {
   account: string
 }
 
-export type t_PostAccountsAccountPersonsPersonBodySchema = {
+export type t_PostAccountsAccountPersonsRequestBody = {
   additional_tos_acceptances?: {
     account?: {
       date?: number
@@ -19361,21 +19212,175 @@ export type t_PostAccountsAccountPersonsPersonParamSchema = {
   person: string
 }
 
-export type t_PostAccountsAccountRejectBodySchema = {
+export type t_PostAccountsAccountPersonsPersonRequestBody = {
+  additional_tos_acceptances?: {
+    account?: {
+      date?: number
+      ip?: string
+      user_agent?: string | ""
+    }
+  }
+  address?: {
+    city?: string
+    country?: string
+    line1?: string
+    line2?: string
+    postal_code?: string
+    state?: string
+  }
+  address_kana?: {
+    city?: string
+    country?: string
+    line1?: string
+    line2?: string
+    postal_code?: string
+    state?: string
+    town?: string
+  }
+  address_kanji?: {
+    city?: string
+    country?: string
+    line1?: string
+    line2?: string
+    postal_code?: string
+    state?: string
+    town?: string
+  }
+  dob?:
+    | {
+        day: number
+        month: number
+        year: number
+      }
+    | ""
+  documents?: {
+    company_authorization?: {
+      files?: (string | "")[]
+    }
+    passport?: {
+      files?: (string | "")[]
+    }
+    visa?: {
+      files?: (string | "")[]
+    }
+  }
+  email?: string
   expand?: string[]
-  reason: string
+  first_name?: string
+  first_name_kana?: string
+  first_name_kanji?: string
+  full_name_aliases?: string[] | ""
+  gender?: string
+  id_number?: string
+  id_number_secondary?: string
+  last_name?: string
+  last_name_kana?: string
+  last_name_kanji?: string
+  maiden_name?: string
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | ""
+  nationality?: string
+  person_token?: string
+  phone?: string
+  political_exposure?: "existing" | "none"
+  registered_address?: {
+    city?: string
+    country?: string
+    line1?: string
+    line2?: string
+    postal_code?: string
+    state?: string
+  }
+  relationship?: {
+    authorizer?: boolean
+    director?: boolean
+    executive?: boolean
+    legal_guardian?: boolean
+    owner?: boolean
+    percent_ownership?: number | ""
+    representative?: boolean
+    title?: string
+  }
+  ssn_last_4?: string
+  us_cfpb_data?: {
+    ethnicity_details?: {
+      ethnicity?: (
+        | "cuban"
+        | "hispanic_or_latino"
+        | "mexican"
+        | "not_hispanic_or_latino"
+        | "other_hispanic_or_latino"
+        | "prefer_not_to_answer"
+        | "puerto_rican"
+      )[]
+      ethnicity_other?: string
+    }
+    race_details?: {
+      race?: (
+        | "african_american"
+        | "american_indian_or_alaska_native"
+        | "asian"
+        | "asian_indian"
+        | "black_or_african_american"
+        | "chinese"
+        | "ethiopian"
+        | "filipino"
+        | "guamanian_or_chamorro"
+        | "haitian"
+        | "jamaican"
+        | "japanese"
+        | "korean"
+        | "native_hawaiian"
+        | "native_hawaiian_or_other_pacific_islander"
+        | "nigerian"
+        | "other_asian"
+        | "other_black_or_african_american"
+        | "other_pacific_islander"
+        | "prefer_not_to_answer"
+        | "samoan"
+        | "somali"
+        | "vietnamese"
+        | "white"
+      )[]
+      race_other?: string
+    }
+    self_identified_gender?: string
+  }
+  verification?: {
+    additional_document?: {
+      back?: string
+      front?: string
+    }
+    document?: {
+      back?: string
+      front?: string
+    }
+  }
 }
 
 export type t_PostAccountsAccountRejectParamSchema = {
   account: string
 }
 
-export type t_PostApplePayDomainsBodySchema = {
+export type t_PostAccountsAccountRejectRequestBody = {
+  expand?: string[]
+  reason: string
+}
+
+export type t_PostApplePayDomainsRequestBody = {
   domain_name: string
   expand?: string[]
 }
 
-export type t_PostApplicationFeesFeeRefundsIdBodySchema = {
+export type t_PostApplicationFeesFeeRefundsIdParamSchema = {
+  fee: string
+  id: string
+}
+
+export type t_PostApplicationFeesFeeRefundsIdRequestBody = {
   expand?: string[]
   metadata?:
     | {
@@ -19384,22 +19389,21 @@ export type t_PostApplicationFeesFeeRefundsIdBodySchema = {
     | ""
 }
 
-export type t_PostApplicationFeesFeeRefundsIdParamSchema = {
-  fee: string
+export type t_PostApplicationFeesIdRefundParamSchema = {
   id: string
 }
 
-export type t_PostApplicationFeesIdRefundBodySchema = {
+export type t_PostApplicationFeesIdRefundRequestBody = {
   amount?: number
   directive?: string
   expand?: string[]
 }
 
-export type t_PostApplicationFeesIdRefundParamSchema = {
+export type t_PostApplicationFeesIdRefundsParamSchema = {
   id: string
 }
 
-export type t_PostApplicationFeesIdRefundsBodySchema = {
+export type t_PostApplicationFeesIdRefundsRequestBody = {
   amount?: number
   expand?: string[]
   metadata?: {
@@ -19407,11 +19411,7 @@ export type t_PostApplicationFeesIdRefundsBodySchema = {
   }
 }
 
-export type t_PostApplicationFeesIdRefundsParamSchema = {
-  id: string
-}
-
-export type t_PostAppsSecretsBodySchema = {
+export type t_PostAppsSecretsRequestBody = {
   expand?: string[]
   expires_at?: number
   name: string
@@ -19422,7 +19422,7 @@ export type t_PostAppsSecretsBodySchema = {
   }
 }
 
-export type t_PostAppsSecretsDeleteBodySchema = {
+export type t_PostAppsSecretsDeleteRequestBody = {
   expand?: string[]
   name: string
   scope: {
@@ -19431,7 +19431,7 @@ export type t_PostAppsSecretsDeleteBodySchema = {
   }
 }
 
-export type t_PostBillingAlertsBodySchema = {
+export type t_PostBillingAlertsRequestBody = {
   alert_type: "usage_threshold"
   expand?: string[]
   title: string
@@ -19446,15 +19446,11 @@ export type t_PostBillingAlertsBodySchema = {
   }
 }
 
-export type t_PostBillingAlertsIdActivateBodySchema = {
-  expand?: string[]
-}
-
 export type t_PostBillingAlertsIdActivateParamSchema = {
   id: string
 }
 
-export type t_PostBillingAlertsIdArchiveBodySchema = {
+export type t_PostBillingAlertsIdActivateRequestBody = {
   expand?: string[]
 }
 
@@ -19462,7 +19458,7 @@ export type t_PostBillingAlertsIdArchiveParamSchema = {
   id: string
 }
 
-export type t_PostBillingAlertsIdDeactivateBodySchema = {
+export type t_PostBillingAlertsIdArchiveRequestBody = {
   expand?: string[]
 }
 
@@ -19470,7 +19466,11 @@ export type t_PostBillingAlertsIdDeactivateParamSchema = {
   id: string
 }
 
-export type t_PostBillingCreditGrantsBodySchema = {
+export type t_PostBillingAlertsIdDeactivateRequestBody = {
+  expand?: string[]
+}
+
+export type t_PostBillingCreditGrantsRequestBody = {
   amount: {
     monetary?: {
       currency: string
@@ -19498,7 +19498,11 @@ export type t_PostBillingCreditGrantsBodySchema = {
   priority?: number
 }
 
-export type t_PostBillingCreditGrantsIdBodySchema = {
+export type t_PostBillingCreditGrantsIdParamSchema = {
+  id: string
+}
+
+export type t_PostBillingCreditGrantsIdRequestBody = {
   expand?: string[]
   expires_at?: number | ""
   metadata?: {
@@ -19506,19 +19510,11 @@ export type t_PostBillingCreditGrantsIdBodySchema = {
   }
 }
 
-export type t_PostBillingCreditGrantsIdParamSchema = {
-  id: string
-}
-
-export type t_PostBillingCreditGrantsIdExpireBodySchema = {
-  expand?: string[]
-}
-
 export type t_PostBillingCreditGrantsIdExpireParamSchema = {
   id: string
 }
 
-export type t_PostBillingCreditGrantsIdVoidBodySchema = {
+export type t_PostBillingCreditGrantsIdExpireRequestBody = {
   expand?: string[]
 }
 
@@ -19526,7 +19522,11 @@ export type t_PostBillingCreditGrantsIdVoidParamSchema = {
   id: string
 }
 
-export type t_PostBillingMeterEventAdjustmentsBodySchema = {
+export type t_PostBillingCreditGrantsIdVoidRequestBody = {
+  expand?: string[]
+}
+
+export type t_PostBillingMeterEventAdjustmentsRequestBody = {
   cancel?: {
     identifier?: string
   }
@@ -19535,7 +19535,7 @@ export type t_PostBillingMeterEventAdjustmentsBodySchema = {
   type: "cancel"
 }
 
-export type t_PostBillingMeterEventsBodySchema = {
+export type t_PostBillingMeterEventsRequestBody = {
   event_name: string
   expand?: string[]
   identifier?: string
@@ -19545,7 +19545,7 @@ export type t_PostBillingMeterEventsBodySchema = {
   timestamp?: number
 }
 
-export type t_PostBillingMetersBodySchema = {
+export type t_PostBillingMetersRequestBody = {
   customer_mapping?: {
     event_payload_key: string
     type: "by_id"
@@ -19562,16 +19562,12 @@ export type t_PostBillingMetersBodySchema = {
   }
 }
 
-export type t_PostBillingMetersIdBodySchema = {
-  display_name?: string
-  expand?: string[]
-}
-
 export type t_PostBillingMetersIdParamSchema = {
   id: string
 }
 
-export type t_PostBillingMetersIdDeactivateBodySchema = {
+export type t_PostBillingMetersIdRequestBody = {
+  display_name?: string
   expand?: string[]
 }
 
@@ -19579,7 +19575,7 @@ export type t_PostBillingMetersIdDeactivateParamSchema = {
   id: string
 }
 
-export type t_PostBillingMetersIdReactivateBodySchema = {
+export type t_PostBillingMetersIdDeactivateRequestBody = {
   expand?: string[]
 }
 
@@ -19587,7 +19583,11 @@ export type t_PostBillingMetersIdReactivateParamSchema = {
   id: string
 }
 
-export type t_PostBillingPortalConfigurationsBodySchema = {
+export type t_PostBillingMetersIdReactivateRequestBody = {
+  expand?: string[]
+}
+
+export type t_PostBillingPortalConfigurationsRequestBody = {
   business_profile?: {
     headline?: string | ""
     privacy_policy_url?: string
@@ -19658,7 +19658,11 @@ export type t_PostBillingPortalConfigurationsBodySchema = {
   }
 }
 
-export type t_PostBillingPortalConfigurationsConfigurationBodySchema = {
+export type t_PostBillingPortalConfigurationsConfigurationParamSchema = {
+  configuration: string
+}
+
+export type t_PostBillingPortalConfigurationsConfigurationRequestBody = {
   active?: boolean
   business_profile?: {
     headline?: string | ""
@@ -19734,11 +19738,7 @@ export type t_PostBillingPortalConfigurationsConfigurationBodySchema = {
     | ""
 }
 
-export type t_PostBillingPortalConfigurationsConfigurationParamSchema = {
-  configuration: string
-}
-
-export type t_PostBillingPortalSessionsBodySchema = {
+export type t_PostBillingPortalSessionsRequestBody = {
   configuration?: string
   customer: string
   expand?: string[]
@@ -19834,7 +19834,7 @@ export type t_PostBillingPortalSessionsBodySchema = {
   return_url?: string
 }
 
-export type t_PostChargesBodySchema = {
+export type t_PostChargesRequestBody = {
   amount?: number
   application_fee?: number
   application_fee_amount?: number
@@ -19902,7 +19902,11 @@ export type t_PostChargesBodySchema = {
   transfer_group?: string
 }
 
-export type t_PostChargesChargeBodySchema = {
+export type t_PostChargesChargeParamSchema = {
+  charge: string
+}
+
+export type t_PostChargesChargeRequestBody = {
   customer?: string
   description?: string
   expand?: string[]
@@ -19932,11 +19936,11 @@ export type t_PostChargesChargeBodySchema = {
   transfer_group?: string
 }
 
-export type t_PostChargesChargeParamSchema = {
+export type t_PostChargesChargeCaptureParamSchema = {
   charge: string
 }
 
-export type t_PostChargesChargeCaptureBodySchema = {
+export type t_PostChargesChargeCaptureRequestBody = {
   amount?: number
   application_fee?: number
   application_fee_amount?: number
@@ -19950,11 +19954,11 @@ export type t_PostChargesChargeCaptureBodySchema = {
   transfer_group?: string
 }
 
-export type t_PostChargesChargeCaptureParamSchema = {
+export type t_PostChargesChargeDisputeParamSchema = {
   charge: string
 }
 
-export type t_PostChargesChargeDisputeBodySchema = {
+export type t_PostChargesChargeDisputeRequestBody = {
   evidence?: {
     access_activity_log?: string
     billing_address?: string
@@ -20036,19 +20040,19 @@ export type t_PostChargesChargeDisputeBodySchema = {
   submit?: boolean
 }
 
-export type t_PostChargesChargeDisputeParamSchema = {
-  charge: string
-}
-
-export type t_PostChargesChargeDisputeCloseBodySchema = {
-  expand?: string[]
-}
-
 export type t_PostChargesChargeDisputeCloseParamSchema = {
   charge: string
 }
 
-export type t_PostChargesChargeRefundBodySchema = {
+export type t_PostChargesChargeDisputeCloseRequestBody = {
+  expand?: string[]
+}
+
+export type t_PostChargesChargeRefundParamSchema = {
+  charge: string
+}
+
+export type t_PostChargesChargeRefundRequestBody = {
   amount?: number
   expand?: string[]
   instructions_email?: string
@@ -20063,11 +20067,11 @@ export type t_PostChargesChargeRefundBodySchema = {
   reverse_transfer?: boolean
 }
 
-export type t_PostChargesChargeRefundParamSchema = {
+export type t_PostChargesChargeRefundsParamSchema = {
   charge: string
 }
 
-export type t_PostChargesChargeRefundsBodySchema = {
+export type t_PostChargesChargeRefundsRequestBody = {
   amount?: number
   currency?: string
   customer?: string
@@ -20085,11 +20089,12 @@ export type t_PostChargesChargeRefundsBodySchema = {
   reverse_transfer?: boolean
 }
 
-export type t_PostChargesChargeRefundsParamSchema = {
+export type t_PostChargesChargeRefundsRefundParamSchema = {
   charge: string
+  refund: string
 }
 
-export type t_PostChargesChargeRefundsRefundBodySchema = {
+export type t_PostChargesChargeRefundsRefundRequestBody = {
   expand?: string[]
   metadata?:
     | {
@@ -20098,12 +20103,7 @@ export type t_PostChargesChargeRefundsRefundBodySchema = {
     | ""
 }
 
-export type t_PostChargesChargeRefundsRefundParamSchema = {
-  charge: string
-  refund: string
-}
-
-export type t_PostCheckoutSessionsBodySchema = {
+export type t_PostCheckoutSessionsRequestBody = {
   adaptive_pricing?: {
     enabled?: boolean
   }
@@ -20969,7 +20969,11 @@ export type t_PostCheckoutSessionsBodySchema = {
   }
 }
 
-export type t_PostCheckoutSessionsSessionBodySchema = {
+export type t_PostCheckoutSessionsSessionParamSchema = {
+  session: string
+}
+
+export type t_PostCheckoutSessionsSessionRequestBody = {
   collected_information?: {
     shipping_details?: {
       address: {
@@ -21027,19 +21031,15 @@ export type t_PostCheckoutSessionsSessionBodySchema = {
     | ""
 }
 
-export type t_PostCheckoutSessionsSessionParamSchema = {
-  session: string
-}
-
-export type t_PostCheckoutSessionsSessionExpireBodySchema = {
-  expand?: string[]
-}
-
 export type t_PostCheckoutSessionsSessionExpireParamSchema = {
   session: string
 }
 
-export type t_PostClimateOrdersBodySchema = {
+export type t_PostCheckoutSessionsSessionExpireRequestBody = {
+  expand?: string[]
+}
+
+export type t_PostClimateOrdersRequestBody = {
   amount?: number
   beneficiary?: {
     public_name: string
@@ -21053,7 +21053,11 @@ export type t_PostClimateOrdersBodySchema = {
   product: string
 }
 
-export type t_PostClimateOrdersOrderBodySchema = {
+export type t_PostClimateOrdersOrderParamSchema = {
+  order: string
+}
+
+export type t_PostClimateOrdersOrderRequestBody = {
   beneficiary?:
     | {
         public_name: string | ""
@@ -21065,19 +21069,15 @@ export type t_PostClimateOrdersOrderBodySchema = {
   }
 }
 
-export type t_PostClimateOrdersOrderParamSchema = {
-  order: string
-}
-
-export type t_PostClimateOrdersOrderCancelBodySchema = {
-  expand?: string[]
-}
-
 export type t_PostClimateOrdersOrderCancelParamSchema = {
   order: string
 }
 
-export type t_PostCouponsBodySchema = {
+export type t_PostClimateOrdersOrderCancelRequestBody = {
+  expand?: string[]
+}
+
+export type t_PostCouponsRequestBody = {
   amount_off?: number
   applies_to?: {
     products?: string[]
@@ -21105,7 +21105,11 @@ export type t_PostCouponsBodySchema = {
   redeem_by?: number
 }
 
-export type t_PostCouponsCouponBodySchema = {
+export type t_PostCouponsCouponParamSchema = {
+  coupon: string
+}
+
+export type t_PostCouponsCouponRequestBody = {
   currency_options?: {
     [key: string]:
       | {
@@ -21122,11 +21126,7 @@ export type t_PostCouponsCouponBodySchema = {
   name?: string
 }
 
-export type t_PostCouponsCouponParamSchema = {
-  coupon: string
-}
-
-export type t_PostCreditNotesBodySchema = {
+export type t_PostCreditNotesRequestBody = {
   amount?: number
   credit_amount?: number
   effective_at?: number
@@ -21170,7 +21170,11 @@ export type t_PostCreditNotesBodySchema = {
   }
 }
 
-export type t_PostCreditNotesIdBodySchema = {
+export type t_PostCreditNotesIdParamSchema = {
+  id: string
+}
+
+export type t_PostCreditNotesIdRequestBody = {
   expand?: string[]
   memo?: string
   metadata?: {
@@ -21178,19 +21182,15 @@ export type t_PostCreditNotesIdBodySchema = {
   }
 }
 
-export type t_PostCreditNotesIdParamSchema = {
-  id: string
-}
-
-export type t_PostCreditNotesIdVoidBodySchema = {
-  expand?: string[]
-}
-
 export type t_PostCreditNotesIdVoidParamSchema = {
   id: string
 }
 
-export type t_PostCustomerSessionsBodySchema = {
+export type t_PostCreditNotesIdVoidRequestBody = {
+  expand?: string[]
+}
+
+export type t_PostCustomerSessionsRequestBody = {
   components: {
     buy_button?: {
       enabled: boolean
@@ -21218,7 +21218,7 @@ export type t_PostCustomerSessionsBodySchema = {
   expand?: string[]
 }
 
-export type t_PostCustomersBodySchema = {
+export type t_PostCustomersRequestBody = {
   address?:
     | {
         city?: string
@@ -21402,7 +21402,11 @@ export type t_PostCustomersBodySchema = {
   test_clock?: string
 }
 
-export type t_PostCustomersCustomerBodySchema = {
+export type t_PostCustomersCustomerParamSchema = {
+  customer: string
+}
+
+export type t_PostCustomersCustomerRequestBody = {
   address?:
     | {
         city?: string
@@ -21504,27 +21508,13 @@ export type t_PostCustomersCustomerBodySchema = {
   tax_exempt?: "" | "exempt" | "none" | "reverse"
 }
 
-export type t_PostCustomersCustomerParamSchema = {
-  customer: string
-}
-
-export type t_PostCustomersCustomerBalanceTransactionsBodySchema = {
-  amount: number
-  currency: string
-  description?: string
-  expand?: string[]
-  metadata?:
-    | {
-        [key: string]: string | undefined
-      }
-    | ""
-}
-
 export type t_PostCustomersCustomerBalanceTransactionsParamSchema = {
   customer: string
 }
 
-export type t_PostCustomersCustomerBalanceTransactionsTransactionBodySchema = {
+export type t_PostCustomersCustomerBalanceTransactionsRequestBody = {
+  amount: number
+  currency: string
   description?: string
   expand?: string[]
   metadata?:
@@ -21539,7 +21529,21 @@ export type t_PostCustomersCustomerBalanceTransactionsTransactionParamSchema = {
   transaction: string
 }
 
-export type t_PostCustomersCustomerBankAccountsBodySchema = {
+export type t_PostCustomersCustomerBalanceTransactionsTransactionRequestBody = {
+  description?: string
+  expand?: string[]
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | ""
+}
+
+export type t_PostCustomersCustomerBankAccountsParamSchema = {
+  customer: string
+}
+
+export type t_PostCustomersCustomerBankAccountsRequestBody = {
   alipay_account?: string
   bank_account?:
     | {
@@ -21576,43 +21580,6 @@ export type t_PostCustomersCustomerBankAccountsBodySchema = {
     [key: string]: string | undefined
   }
   source?: string
-}
-
-export type t_PostCustomersCustomerBankAccountsParamSchema = {
-  customer: string
-}
-
-export type t_PostCustomersCustomerBankAccountsIdBodySchema = {
-  account_holder_name?: string
-  account_holder_type?: "company" | "individual"
-  address_city?: string
-  address_country?: string
-  address_line1?: string
-  address_line2?: string
-  address_state?: string
-  address_zip?: string
-  exp_month?: string
-  exp_year?: string
-  expand?: string[]
-  metadata?:
-    | {
-        [key: string]: string | undefined
-      }
-    | ""
-  name?: string
-  owner?: {
-    address?: {
-      city?: string
-      country?: string
-      line1?: string
-      line2?: string
-      postal_code?: string
-      state?: string
-    }
-    email?: string
-    name?: string
-    phone?: string
-  }
 }
 
 export type t_PostCustomersCustomerBankAccountsIdParamSchema = {
@@ -21620,9 +21587,37 @@ export type t_PostCustomersCustomerBankAccountsIdParamSchema = {
   id: string
 }
 
-export type t_PostCustomersCustomerBankAccountsIdVerifyBodySchema = {
-  amounts?: number[]
+export type t_PostCustomersCustomerBankAccountsIdRequestBody = {
+  account_holder_name?: string
+  account_holder_type?: "company" | "individual"
+  address_city?: string
+  address_country?: string
+  address_line1?: string
+  address_line2?: string
+  address_state?: string
+  address_zip?: string
+  exp_month?: string
+  exp_year?: string
   expand?: string[]
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | ""
+  name?: string
+  owner?: {
+    address?: {
+      city?: string
+      country?: string
+      line1?: string
+      line2?: string
+      postal_code?: string
+      state?: string
+    }
+    email?: string
+    name?: string
+    phone?: string
+  }
 }
 
 export type t_PostCustomersCustomerBankAccountsIdVerifyParamSchema = {
@@ -21630,7 +21625,16 @@ export type t_PostCustomersCustomerBankAccountsIdVerifyParamSchema = {
   id: string
 }
 
-export type t_PostCustomersCustomerCardsBodySchema = {
+export type t_PostCustomersCustomerBankAccountsIdVerifyRequestBody = {
+  amounts?: number[]
+  expand?: string[]
+}
+
+export type t_PostCustomersCustomerCardsParamSchema = {
+  customer: string
+}
+
+export type t_PostCustomersCustomerCardsRequestBody = {
   alipay_account?: string
   bank_account?:
     | {
@@ -21669,11 +21673,12 @@ export type t_PostCustomersCustomerCardsBodySchema = {
   source?: string
 }
 
-export type t_PostCustomersCustomerCardsParamSchema = {
+export type t_PostCustomersCustomerCardsIdParamSchema = {
   customer: string
+  id: string
 }
 
-export type t_PostCustomersCustomerCardsIdBodySchema = {
+export type t_PostCustomersCustomerCardsIdRequestBody = {
   account_holder_name?: string
   account_holder_type?: "company" | "individual"
   address_city?: string
@@ -21706,23 +21711,22 @@ export type t_PostCustomersCustomerCardsIdBodySchema = {
   }
 }
 
-export type t_PostCustomersCustomerCardsIdParamSchema = {
+export type t_PostCustomersCustomerCashBalanceParamSchema = {
   customer: string
-  id: string
 }
 
-export type t_PostCustomersCustomerCashBalanceBodySchema = {
+export type t_PostCustomersCustomerCashBalanceRequestBody = {
   expand?: string[]
   settings?: {
     reconciliation_mode?: "automatic" | "manual" | "merchant_default"
   }
 }
 
-export type t_PostCustomersCustomerCashBalanceParamSchema = {
+export type t_PostCustomersCustomerFundingInstructionsParamSchema = {
   customer: string
 }
 
-export type t_PostCustomersCustomerFundingInstructionsBodySchema = {
+export type t_PostCustomersCustomerFundingInstructionsRequestBody = {
   bank_transfer: {
     eu_bank_transfer?: {
       country: string
@@ -21740,11 +21744,11 @@ export type t_PostCustomersCustomerFundingInstructionsBodySchema = {
   funding_type: "bank_transfer"
 }
 
-export type t_PostCustomersCustomerFundingInstructionsParamSchema = {
+export type t_PostCustomersCustomerSourcesParamSchema = {
   customer: string
 }
 
-export type t_PostCustomersCustomerSourcesBodySchema = {
+export type t_PostCustomersCustomerSourcesRequestBody = {
   alipay_account?: string
   bank_account?:
     | {
@@ -21783,11 +21787,12 @@ export type t_PostCustomersCustomerSourcesBodySchema = {
   source?: string
 }
 
-export type t_PostCustomersCustomerSourcesParamSchema = {
+export type t_PostCustomersCustomerSourcesIdParamSchema = {
   customer: string
+  id: string
 }
 
-export type t_PostCustomersCustomerSourcesIdBodySchema = {
+export type t_PostCustomersCustomerSourcesIdRequestBody = {
   account_holder_name?: string
   account_holder_type?: "company" | "individual"
   address_city?: string
@@ -21820,22 +21825,21 @@ export type t_PostCustomersCustomerSourcesIdBodySchema = {
   }
 }
 
-export type t_PostCustomersCustomerSourcesIdParamSchema = {
-  customer: string
-  id: string
-}
-
-export type t_PostCustomersCustomerSourcesIdVerifyBodySchema = {
-  amounts?: number[]
-  expand?: string[]
-}
-
 export type t_PostCustomersCustomerSourcesIdVerifyParamSchema = {
   customer: string
   id: string
 }
 
-export type t_PostCustomersCustomerSubscriptionsBodySchema = {
+export type t_PostCustomersCustomerSourcesIdVerifyRequestBody = {
+  amounts?: number[]
+  expand?: string[]
+}
+
+export type t_PostCustomersCustomerSubscriptionsParamSchema = {
+  customer: string
+}
+
+export type t_PostCustomersCustomerSubscriptionsRequestBody = {
   add_invoice_items?: {
     discounts?: {
       coupon?: string
@@ -22070,11 +22074,13 @@ export type t_PostCustomersCustomerSubscriptionsBodySchema = {
   }
 }
 
-export type t_PostCustomersCustomerSubscriptionsParamSchema = {
-  customer: string
-}
+export type t_PostCustomersCustomerSubscriptionsSubscriptionExposedIdParamSchema =
+  {
+    customer: string
+    subscription_exposed_id: string
+  }
 
-export type t_PostCustomersCustomerSubscriptionsSubscriptionExposedIdBodySchema =
+export type t_PostCustomersCustomerSubscriptionsSubscriptionExposedIdRequestBody =
   {
     add_invoice_items?: {
       discounts?: {
@@ -22334,13 +22340,11 @@ export type t_PostCustomersCustomerSubscriptionsSubscriptionExposedIdBodySchema 
     }
   }
 
-export type t_PostCustomersCustomerSubscriptionsSubscriptionExposedIdParamSchema =
-  {
-    customer: string
-    subscription_exposed_id: string
-  }
+export type t_PostCustomersCustomerTaxIdsParamSchema = {
+  customer: string
+}
 
-export type t_PostCustomersCustomerTaxIdsBodySchema = {
+export type t_PostCustomersCustomerTaxIdsRequestBody = {
   expand?: string[]
   type:
     | "ad_nrt"
@@ -22456,11 +22460,11 @@ export type t_PostCustomersCustomerTaxIdsBodySchema = {
   value: string
 }
 
-export type t_PostCustomersCustomerTaxIdsParamSchema = {
-  customer: string
+export type t_PostDisputesDisputeParamSchema = {
+  dispute: string
 }
 
-export type t_PostDisputesDisputeBodySchema = {
+export type t_PostDisputesDisputeRequestBody = {
   evidence?: {
     access_activity_log?: string
     billing_address?: string
@@ -22542,19 +22546,15 @@ export type t_PostDisputesDisputeBodySchema = {
   submit?: boolean
 }
 
-export type t_PostDisputesDisputeParamSchema = {
-  dispute: string
-}
-
-export type t_PostDisputesDisputeCloseBodySchema = {
-  expand?: string[]
-}
-
 export type t_PostDisputesDisputeCloseParamSchema = {
   dispute: string
 }
 
-export type t_PostEntitlementsFeaturesBodySchema = {
+export type t_PostDisputesDisputeCloseRequestBody = {
+  expand?: string[]
+}
+
+export type t_PostEntitlementsFeaturesRequestBody = {
   expand?: string[]
   lookup_key: string
   metadata?: {
@@ -22563,7 +22563,11 @@ export type t_PostEntitlementsFeaturesBodySchema = {
   name: string
 }
 
-export type t_PostEntitlementsFeaturesIdBodySchema = {
+export type t_PostEntitlementsFeaturesIdParamSchema = {
+  id: string
+}
+
+export type t_PostEntitlementsFeaturesIdRequestBody = {
   active?: boolean
   expand?: string[]
   metadata?:
@@ -22574,11 +22578,7 @@ export type t_PostEntitlementsFeaturesIdBodySchema = {
   name?: string
 }
 
-export type t_PostEntitlementsFeaturesIdParamSchema = {
-  id: string
-}
-
-export type t_PostEphemeralKeysBodySchema = {
+export type t_PostEphemeralKeysRequestBody = {
   customer?: string
   expand?: string[]
   issuing_card?: string
@@ -22586,7 +22586,11 @@ export type t_PostEphemeralKeysBodySchema = {
   verification_session?: string
 }
 
-export type t_PostExternalAccountsIdBodySchema = {
+export type t_PostExternalAccountsIdParamSchema = {
+  id: string
+}
+
+export type t_PostExternalAccountsIdRequestBody = {
   account_holder_name?: string
   account_holder_type?: "" | "company" | "individual"
   account_type?: "checking" | "futsu" | "savings" | "toza"
@@ -22613,24 +22617,10 @@ export type t_PostExternalAccountsIdBodySchema = {
   name?: string
 }
 
-export type t_PostExternalAccountsIdParamSchema = {
-  id: string
-}
-
-export type t_PostFileLinksBodySchema = {
+export type t_PostFileLinksRequestBody = {
   expand?: string[]
   expires_at?: number
   file: string
-  metadata?:
-    | {
-        [key: string]: string | undefined
-      }
-    | ""
-}
-
-export type t_PostFileLinksLinkBodySchema = {
-  expand?: string[]
-  expires_at?: "now" | number | ""
   metadata?:
     | {
         [key: string]: string | undefined
@@ -22642,35 +22632,38 @@ export type t_PostFileLinksLinkParamSchema = {
   link: string
 }
 
-export type t_PostFilesBodySchema = never
-
-export type t_PostFinancialConnectionsAccountsAccountDisconnectBodySchema = {
+export type t_PostFileLinksLinkRequestBody = {
   expand?: string[]
+  expires_at?: "now" | number | ""
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | ""
 }
 
 export type t_PostFinancialConnectionsAccountsAccountDisconnectParamSchema = {
   account: string
 }
 
-export type t_PostFinancialConnectionsAccountsAccountRefreshBodySchema = {
+export type t_PostFinancialConnectionsAccountsAccountDisconnectRequestBody = {
   expand?: string[]
-  features: ("balance" | "ownership" | "transactions")[]
 }
 
 export type t_PostFinancialConnectionsAccountsAccountRefreshParamSchema = {
   account: string
 }
 
-export type t_PostFinancialConnectionsAccountsAccountSubscribeBodySchema = {
+export type t_PostFinancialConnectionsAccountsAccountRefreshRequestBody = {
   expand?: string[]
-  features: "transactions"[]
+  features: ("balance" | "ownership" | "transactions")[]
 }
 
 export type t_PostFinancialConnectionsAccountsAccountSubscribeParamSchema = {
   account: string
 }
 
-export type t_PostFinancialConnectionsAccountsAccountUnsubscribeBodySchema = {
+export type t_PostFinancialConnectionsAccountsAccountSubscribeRequestBody = {
   expand?: string[]
   features: "transactions"[]
 }
@@ -22679,7 +22672,12 @@ export type t_PostFinancialConnectionsAccountsAccountUnsubscribeParamSchema = {
   account: string
 }
 
-export type t_PostFinancialConnectionsSessionsBodySchema = {
+export type t_PostFinancialConnectionsAccountsAccountUnsubscribeRequestBody = {
+  expand?: string[]
+  features: "transactions"[]
+}
+
+export type t_PostFinancialConnectionsSessionsRequestBody = {
   account_holder: {
     account?: string
     customer?: string
@@ -22701,7 +22699,7 @@ export type t_PostFinancialConnectionsSessionsBodySchema = {
   return_url?: string
 }
 
-export type t_PostForwardingRequestsBodySchema = {
+export type t_PostForwardingRequestsRequestBody = {
   expand?: string[]
   metadata?: {
     [key: string]: string | undefined
@@ -22724,7 +22722,7 @@ export type t_PostForwardingRequestsBodySchema = {
   url: string
 }
 
-export type t_PostIdentityVerificationSessionsBodySchema = {
+export type t_PostIdentityVerificationSessionsRequestBody = {
   client_reference_id?: string
   expand?: string[]
   metadata?: {
@@ -22754,7 +22752,11 @@ export type t_PostIdentityVerificationSessionsBodySchema = {
   verification_flow?: string
 }
 
-export type t_PostIdentityVerificationSessionsSessionBodySchema = {
+export type t_PostIdentityVerificationSessionsSessionParamSchema = {
+  session: string
+}
+
+export type t_PostIdentityVerificationSessionsSessionRequestBody = {
   expand?: string[]
   metadata?: {
     [key: string]: string | undefined
@@ -22776,19 +22778,11 @@ export type t_PostIdentityVerificationSessionsSessionBodySchema = {
   type?: "document" | "id_number"
 }
 
-export type t_PostIdentityVerificationSessionsSessionParamSchema = {
-  session: string
-}
-
-export type t_PostIdentityVerificationSessionsSessionCancelBodySchema = {
-  expand?: string[]
-}
-
 export type t_PostIdentityVerificationSessionsSessionCancelParamSchema = {
   session: string
 }
 
-export type t_PostIdentityVerificationSessionsSessionRedactBodySchema = {
+export type t_PostIdentityVerificationSessionsSessionCancelRequestBody = {
   expand?: string[]
 }
 
@@ -22796,7 +22790,7 @@ export type t_PostIdentityVerificationSessionsSessionRedactParamSchema = {
   session: string
 }
 
-export type t_PostInvoiceRenderingTemplatesTemplateArchiveBodySchema = {
+export type t_PostIdentityVerificationSessionsSessionRedactRequestBody = {
   expand?: string[]
 }
 
@@ -22804,7 +22798,7 @@ export type t_PostInvoiceRenderingTemplatesTemplateArchiveParamSchema = {
   template: string
 }
 
-export type t_PostInvoiceRenderingTemplatesTemplateUnarchiveBodySchema = {
+export type t_PostInvoiceRenderingTemplatesTemplateArchiveRequestBody = {
   expand?: string[]
 }
 
@@ -22812,7 +22806,11 @@ export type t_PostInvoiceRenderingTemplatesTemplateUnarchiveParamSchema = {
   template: string
 }
 
-export type t_PostInvoiceitemsBodySchema = {
+export type t_PostInvoiceRenderingTemplatesTemplateUnarchiveRequestBody = {
+  expand?: string[]
+}
+
+export type t_PostInvoiceitemsRequestBody = {
   amount?: number
   currency?: string
   customer: string
@@ -22854,7 +22852,11 @@ export type t_PostInvoiceitemsBodySchema = {
   unit_amount_decimal?: string
 }
 
-export type t_PostInvoiceitemsInvoiceitemBodySchema = {
+export type t_PostInvoiceitemsInvoiceitemParamSchema = {
+  invoiceitem: string
+}
+
+export type t_PostInvoiceitemsInvoiceitemRequestBody = {
   amount?: number
   description?: string
   discountable?: boolean
@@ -22892,11 +22894,7 @@ export type t_PostInvoiceitemsInvoiceitemBodySchema = {
   unit_amount_decimal?: string
 }
 
-export type t_PostInvoiceitemsInvoiceitemParamSchema = {
-  invoiceitem: string
-}
-
-export type t_PostInvoicesBodySchema = {
+export type t_PostInvoicesRequestBody = {
   account_tax_ids?: string[] | ""
   application_fee_amount?: number
   auto_advance?: boolean
@@ -23117,7 +23115,7 @@ export type t_PostInvoicesBodySchema = {
   }
 }
 
-export type t_PostInvoicesCreatePreviewBodySchema = {
+export type t_PostInvoicesCreatePreviewRequestBody = {
   automatic_tax?: {
     enabled: boolean
     liability?: {
@@ -23486,7 +23484,11 @@ export type t_PostInvoicesCreatePreviewBodySchema = {
   }
 }
 
-export type t_PostInvoicesInvoiceBodySchema = {
+export type t_PostInvoicesInvoiceParamSchema = {
+  invoice: string
+}
+
+export type t_PostInvoicesInvoiceRequestBody = {
   account_tax_ids?: string[] | ""
   application_fee_amount?: number
   auto_advance?: boolean
@@ -23705,11 +23707,11 @@ export type t_PostInvoicesInvoiceBodySchema = {
     | ""
 }
 
-export type t_PostInvoicesInvoiceParamSchema = {
+export type t_PostInvoicesInvoiceAddLinesParamSchema = {
   invoice: string
 }
 
-export type t_PostInvoicesInvoiceAddLinesBodySchema = {
+export type t_PostInvoicesInvoiceAddLinesRequestBody = {
   expand?: string[]
   invoice_metadata?:
     | {
@@ -23814,29 +23816,30 @@ export type t_PostInvoicesInvoiceAddLinesBodySchema = {
   }[]
 }
 
-export type t_PostInvoicesInvoiceAddLinesParamSchema = {
-  invoice: string
-}
-
-export type t_PostInvoicesInvoiceAttachPaymentBodySchema = {
-  expand?: string[]
-  payment_intent?: string
-}
-
 export type t_PostInvoicesInvoiceAttachPaymentParamSchema = {
   invoice: string
 }
 
-export type t_PostInvoicesInvoiceFinalizeBodySchema = {
-  auto_advance?: boolean
+export type t_PostInvoicesInvoiceAttachPaymentRequestBody = {
   expand?: string[]
+  payment_intent?: string
 }
 
 export type t_PostInvoicesInvoiceFinalizeParamSchema = {
   invoice: string
 }
 
-export type t_PostInvoicesInvoiceLinesLineItemIdBodySchema = {
+export type t_PostInvoicesInvoiceFinalizeRequestBody = {
+  auto_advance?: boolean
+  expand?: string[]
+}
+
+export type t_PostInvoicesInvoiceLinesLineItemIdParamSchema = {
+  invoice: string
+  line_item_id: string
+}
+
+export type t_PostInvoicesInvoiceLinesLineItemIdRequestBody = {
   amount?: number
   description?: string
   discountable?: boolean
@@ -23933,20 +23936,19 @@ export type t_PostInvoicesInvoiceLinesLineItemIdBodySchema = {
   tax_rates?: string[] | ""
 }
 
-export type t_PostInvoicesInvoiceLinesLineItemIdParamSchema = {
-  invoice: string
-  line_item_id: string
-}
-
-export type t_PostInvoicesInvoiceMarkUncollectibleBodySchema = {
-  expand?: string[]
-}
-
 export type t_PostInvoicesInvoiceMarkUncollectibleParamSchema = {
   invoice: string
 }
 
-export type t_PostInvoicesInvoicePayBodySchema = {
+export type t_PostInvoicesInvoiceMarkUncollectibleRequestBody = {
+  expand?: string[]
+}
+
+export type t_PostInvoicesInvoicePayParamSchema = {
+  invoice: string
+}
+
+export type t_PostInvoicesInvoicePayRequestBody = {
   expand?: string[]
   forgive?: boolean
   mandate?: string | ""
@@ -23956,11 +23958,11 @@ export type t_PostInvoicesInvoicePayBodySchema = {
   source?: string
 }
 
-export type t_PostInvoicesInvoicePayParamSchema = {
+export type t_PostInvoicesInvoiceRemoveLinesParamSchema = {
   invoice: string
 }
 
-export type t_PostInvoicesInvoiceRemoveLinesBodySchema = {
+export type t_PostInvoicesInvoiceRemoveLinesRequestBody = {
   expand?: string[]
   invoice_metadata?:
     | {
@@ -23973,19 +23975,19 @@ export type t_PostInvoicesInvoiceRemoveLinesBodySchema = {
   }[]
 }
 
-export type t_PostInvoicesInvoiceRemoveLinesParamSchema = {
-  invoice: string
-}
-
-export type t_PostInvoicesInvoiceSendBodySchema = {
-  expand?: string[]
-}
-
 export type t_PostInvoicesInvoiceSendParamSchema = {
   invoice: string
 }
 
-export type t_PostInvoicesInvoiceUpdateLinesBodySchema = {
+export type t_PostInvoicesInvoiceSendRequestBody = {
+  expand?: string[]
+}
+
+export type t_PostInvoicesInvoiceUpdateLinesParamSchema = {
+  invoice: string
+}
+
+export type t_PostInvoicesInvoiceUpdateLinesRequestBody = {
   expand?: string[]
   invoice_metadata?:
     | {
@@ -24090,33 +24092,19 @@ export type t_PostInvoicesInvoiceUpdateLinesBodySchema = {
   }[]
 }
 
-export type t_PostInvoicesInvoiceUpdateLinesParamSchema = {
-  invoice: string
-}
-
-export type t_PostInvoicesInvoiceVoidBodySchema = {
-  expand?: string[]
-}
-
 export type t_PostInvoicesInvoiceVoidParamSchema = {
   invoice: string
 }
 
-export type t_PostIssuingAuthorizationsAuthorizationBodySchema = {
+export type t_PostInvoicesInvoiceVoidRequestBody = {
   expand?: string[]
-  metadata?:
-    | {
-        [key: string]: string | undefined
-      }
-    | ""
 }
 
 export type t_PostIssuingAuthorizationsAuthorizationParamSchema = {
   authorization: string
 }
 
-export type t_PostIssuingAuthorizationsAuthorizationApproveBodySchema = {
-  amount?: number
+export type t_PostIssuingAuthorizationsAuthorizationRequestBody = {
   expand?: string[]
   metadata?:
     | {
@@ -24129,7 +24117,8 @@ export type t_PostIssuingAuthorizationsAuthorizationApproveParamSchema = {
   authorization: string
 }
 
-export type t_PostIssuingAuthorizationsAuthorizationDeclineBodySchema = {
+export type t_PostIssuingAuthorizationsAuthorizationApproveRequestBody = {
+  amount?: number
   expand?: string[]
   metadata?:
     | {
@@ -24142,7 +24131,16 @@ export type t_PostIssuingAuthorizationsAuthorizationDeclineParamSchema = {
   authorization: string
 }
 
-export type t_PostIssuingCardholdersBodySchema = {
+export type t_PostIssuingAuthorizationsAuthorizationDeclineRequestBody = {
+  expand?: string[]
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | ""
+}
+
+export type t_PostIssuingCardholdersRequestBody = {
   billing: {
     address: {
       city: string
@@ -25096,7 +25094,11 @@ export type t_PostIssuingCardholdersBodySchema = {
   type?: "company" | "individual"
 }
 
-export type t_PostIssuingCardholdersCardholderBodySchema = {
+export type t_PostIssuingCardholdersCardholderParamSchema = {
+  cardholder: string
+}
+
+export type t_PostIssuingCardholdersCardholderRequestBody = {
   billing?: {
     address: {
       city: string
@@ -26048,11 +26050,7 @@ export type t_PostIssuingCardholdersCardholderBodySchema = {
   status?: "active" | "inactive"
 }
 
-export type t_PostIssuingCardholdersCardholderParamSchema = {
-  cardholder: string
-}
-
-export type t_PostIssuingCardsBodySchema = {
+export type t_PostIssuingCardsRequestBody = {
   cardholder?: string
   currency: string
   expand?: string[]
@@ -26997,7 +26995,11 @@ export type t_PostIssuingCardsBodySchema = {
   type: "physical" | "virtual"
 }
 
-export type t_PostIssuingCardsCardBodySchema = {
+export type t_PostIssuingCardsCardParamSchema = {
+  card: string
+}
+
+export type t_PostIssuingCardsCardRequestBody = {
   cancellation_reason?: "lost" | "stolen"
   expand?: string[]
   metadata?:
@@ -27938,11 +27940,7 @@ export type t_PostIssuingCardsCardBodySchema = {
   status?: "active" | "canceled" | "inactive"
 }
 
-export type t_PostIssuingCardsCardParamSchema = {
-  card: string
-}
-
-export type t_PostIssuingDisputesBodySchema = {
+export type t_PostIssuingDisputesRequestBody = {
   amount?: number
   evidence?: {
     canceled?:
@@ -28037,7 +28035,11 @@ export type t_PostIssuingDisputesBodySchema = {
   }
 }
 
-export type t_PostIssuingDisputesDisputeBodySchema = {
+export type t_PostIssuingDisputesDisputeParamSchema = {
+  dispute: string
+}
+
+export type t_PostIssuingDisputesDisputeRequestBody = {
   amount?: number
   evidence?: {
     canceled?:
@@ -28130,11 +28132,11 @@ export type t_PostIssuingDisputesDisputeBodySchema = {
     | ""
 }
 
-export type t_PostIssuingDisputesDisputeParamSchema = {
+export type t_PostIssuingDisputesDisputeSubmitParamSchema = {
   dispute: string
 }
 
-export type t_PostIssuingDisputesDisputeSubmitBodySchema = {
+export type t_PostIssuingDisputesDisputeSubmitRequestBody = {
   expand?: string[]
   metadata?:
     | {
@@ -28143,11 +28145,7 @@ export type t_PostIssuingDisputesDisputeSubmitBodySchema = {
     | ""
 }
 
-export type t_PostIssuingDisputesDisputeSubmitParamSchema = {
-  dispute: string
-}
-
-export type t_PostIssuingPersonalizationDesignsBodySchema = {
+export type t_PostIssuingPersonalizationDesignsRequestBody = {
   card_logo?: string
   carrier_text?: {
     footer_body?: string | ""
@@ -28168,7 +28166,12 @@ export type t_PostIssuingPersonalizationDesignsBodySchema = {
   transfer_lookup_key?: boolean
 }
 
-export type t_PostIssuingPersonalizationDesignsPersonalizationDesignBodySchema =
+export type t_PostIssuingPersonalizationDesignsPersonalizationDesignParamSchema =
+  {
+    personalization_design: string
+  }
+
+export type t_PostIssuingPersonalizationDesignsPersonalizationDesignRequestBody =
   {
     card_logo?: string | ""
     carrier_text?:
@@ -28192,32 +28195,31 @@ export type t_PostIssuingPersonalizationDesignsPersonalizationDesignBodySchema =
     transfer_lookup_key?: boolean
   }
 
-export type t_PostIssuingPersonalizationDesignsPersonalizationDesignParamSchema =
-  {
-    personalization_design: string
-  }
+export type t_PostIssuingSettlementsSettlementParamSchema = {
+  settlement: string
+}
 
-export type t_PostIssuingSettlementsSettlementBodySchema = {
+export type t_PostIssuingSettlementsSettlementRequestBody = {
   expand?: string[]
   metadata?: {
     [key: string]: string | undefined
   }
 }
 
-export type t_PostIssuingSettlementsSettlementParamSchema = {
-  settlement: string
-}
-
-export type t_PostIssuingTokensTokenBodySchema = {
-  expand?: string[]
-  status: "active" | "deleted" | "suspended"
-}
-
 export type t_PostIssuingTokensTokenParamSchema = {
   token: string
 }
 
-export type t_PostIssuingTransactionsTransactionBodySchema = {
+export type t_PostIssuingTokensTokenRequestBody = {
+  expand?: string[]
+  status: "active" | "deleted" | "suspended"
+}
+
+export type t_PostIssuingTransactionsTransactionParamSchema = {
+  transaction: string
+}
+
+export type t_PostIssuingTransactionsTransactionRequestBody = {
   expand?: string[]
   metadata?:
     | {
@@ -28226,11 +28228,7 @@ export type t_PostIssuingTransactionsTransactionBodySchema = {
     | ""
 }
 
-export type t_PostIssuingTransactionsTransactionParamSchema = {
-  transaction: string
-}
-
-export type t_PostLinkAccountSessionsBodySchema = {
+export type t_PostLinkAccountSessionsRequestBody = {
   account_holder: {
     account?: string
     customer?: string
@@ -28252,24 +28250,24 @@ export type t_PostLinkAccountSessionsBodySchema = {
   return_url?: string
 }
 
-export type t_PostLinkedAccountsAccountDisconnectBodySchema = {
-  expand?: string[]
-}
-
 export type t_PostLinkedAccountsAccountDisconnectParamSchema = {
   account: string
 }
 
-export type t_PostLinkedAccountsAccountRefreshBodySchema = {
+export type t_PostLinkedAccountsAccountDisconnectRequestBody = {
   expand?: string[]
-  features: ("balance" | "ownership" | "transactions")[]
 }
 
 export type t_PostLinkedAccountsAccountRefreshParamSchema = {
   account: string
 }
 
-export type t_PostPaymentIntentsBodySchema = {
+export type t_PostLinkedAccountsAccountRefreshRequestBody = {
+  expand?: string[]
+  features: ("balance" | "ownership" | "transactions")[]
+}
+
+export type t_PostPaymentIntentsRequestBody = {
   amount: number
   application_fee_amount?: number
   automatic_payment_methods?: {
@@ -29093,7 +29091,11 @@ export type t_PostPaymentIntentsBodySchema = {
   use_stripe_sdk?: boolean
 }
 
-export type t_PostPaymentIntentsIntentBodySchema = {
+export type t_PostPaymentIntentsIntentParamSchema = {
+  intent: string
+}
+
+export type t_PostPaymentIntentsIntentRequestBody = {
   amount?: number
   application_fee_amount?: number | ""
   capture_method?: "automatic" | "automatic_async" | "manual"
@@ -29891,21 +29893,21 @@ export type t_PostPaymentIntentsIntentBodySchema = {
   transfer_group?: string
 }
 
-export type t_PostPaymentIntentsIntentParamSchema = {
+export type t_PostPaymentIntentsIntentApplyCustomerBalanceParamSchema = {
   intent: string
 }
 
-export type t_PostPaymentIntentsIntentApplyCustomerBalanceBodySchema = {
+export type t_PostPaymentIntentsIntentApplyCustomerBalanceRequestBody = {
   amount?: number
   currency?: string
   expand?: string[]
 }
 
-export type t_PostPaymentIntentsIntentApplyCustomerBalanceParamSchema = {
+export type t_PostPaymentIntentsIntentCancelParamSchema = {
   intent: string
 }
 
-export type t_PostPaymentIntentsIntentCancelBodySchema = {
+export type t_PostPaymentIntentsIntentCancelRequestBody = {
   cancellation_reason?:
     | "abandoned"
     | "duplicate"
@@ -29914,11 +29916,11 @@ export type t_PostPaymentIntentsIntentCancelBodySchema = {
   expand?: string[]
 }
 
-export type t_PostPaymentIntentsIntentCancelParamSchema = {
+export type t_PostPaymentIntentsIntentCaptureParamSchema = {
   intent: string
 }
 
-export type t_PostPaymentIntentsIntentCaptureBodySchema = {
+export type t_PostPaymentIntentsIntentCaptureRequestBody = {
   amount_to_capture?: number
   application_fee_amount?: number
   expand?: string[]
@@ -29935,11 +29937,11 @@ export type t_PostPaymentIntentsIntentCaptureBodySchema = {
   }
 }
 
-export type t_PostPaymentIntentsIntentCaptureParamSchema = {
+export type t_PostPaymentIntentsIntentConfirmParamSchema = {
   intent: string
 }
 
-export type t_PostPaymentIntentsIntentConfirmBodySchema = {
+export type t_PostPaymentIntentsIntentConfirmRequestBody = {
   capture_method?: "automatic" | "automatic_async" | "manual"
   client_secret?: string
   confirmation_token?: string
@@ -30752,11 +30754,11 @@ export type t_PostPaymentIntentsIntentConfirmBodySchema = {
   use_stripe_sdk?: boolean
 }
 
-export type t_PostPaymentIntentsIntentConfirmParamSchema = {
+export type t_PostPaymentIntentsIntentIncrementAuthorizationParamSchema = {
   intent: string
 }
 
-export type t_PostPaymentIntentsIntentIncrementAuthorizationBodySchema = {
+export type t_PostPaymentIntentsIntentIncrementAuthorizationRequestBody = {
   amount: number
   application_fee_amount?: number
   description?: string
@@ -30770,22 +30772,18 @@ export type t_PostPaymentIntentsIntentIncrementAuthorizationBodySchema = {
   }
 }
 
-export type t_PostPaymentIntentsIntentIncrementAuthorizationParamSchema = {
+export type t_PostPaymentIntentsIntentVerifyMicrodepositsParamSchema = {
   intent: string
 }
 
-export type t_PostPaymentIntentsIntentVerifyMicrodepositsBodySchema = {
+export type t_PostPaymentIntentsIntentVerifyMicrodepositsRequestBody = {
   amounts?: number[]
   client_secret?: string
   descriptor_code?: string
   expand?: string[]
 }
 
-export type t_PostPaymentIntentsIntentVerifyMicrodepositsParamSchema = {
-  intent: string
-}
-
-export type t_PostPaymentLinksBodySchema = {
+export type t_PostPaymentLinksRequestBody = {
   after_completion?: {
     hosted_confirmation?: {
       custom_message?: string
@@ -31269,7 +31267,11 @@ export type t_PostPaymentLinksBodySchema = {
   }
 }
 
-export type t_PostPaymentLinksPaymentLinkBodySchema = {
+export type t_PostPaymentLinksPaymentLinkParamSchema = {
+  payment_link: string
+}
+
+export type t_PostPaymentLinksPaymentLinkRequestBody = {
   active?: boolean
   after_completion?: {
     hosted_confirmation?: {
@@ -31718,11 +31720,7 @@ export type t_PostPaymentLinksPaymentLinkBodySchema = {
   }
 }
 
-export type t_PostPaymentLinksPaymentLinkParamSchema = {
-  payment_link: string
-}
-
-export type t_PostPaymentMethodConfigurationsBodySchema = {
+export type t_PostPaymentMethodConfigurationsRequestBody = {
   acss_debit?: {
     display_preference?: {
       preference?: "none" | "off" | "on"
@@ -31988,7 +31986,11 @@ export type t_PostPaymentMethodConfigurationsBodySchema = {
   }
 }
 
-export type t_PostPaymentMethodConfigurationsConfigurationBodySchema = {
+export type t_PostPaymentMethodConfigurationsConfigurationParamSchema = {
+  configuration: string
+}
+
+export type t_PostPaymentMethodConfigurationsConfigurationRequestBody = {
   acss_debit?: {
     display_preference?: {
       preference?: "none" | "off" | "on"
@@ -32254,17 +32256,8 @@ export type t_PostPaymentMethodConfigurationsConfigurationBodySchema = {
   }
 }
 
-export type t_PostPaymentMethodConfigurationsConfigurationParamSchema = {
-  configuration: string
-}
-
-export type t_PostPaymentMethodDomainsBodySchema = {
+export type t_PostPaymentMethodDomainsRequestBody = {
   domain_name: string
-  enabled?: boolean
-  expand?: string[]
-}
-
-export type t_PostPaymentMethodDomainsPaymentMethodDomainBodySchema = {
   enabled?: boolean
   expand?: string[]
 }
@@ -32273,7 +32266,8 @@ export type t_PostPaymentMethodDomainsPaymentMethodDomainParamSchema = {
   payment_method_domain: string
 }
 
-export type t_PostPaymentMethodDomainsPaymentMethodDomainValidateBodySchema = {
+export type t_PostPaymentMethodDomainsPaymentMethodDomainRequestBody = {
+  enabled?: boolean
   expand?: string[]
 }
 
@@ -32281,7 +32275,11 @@ export type t_PostPaymentMethodDomainsPaymentMethodDomainValidateParamSchema = {
   payment_method_domain: string
 }
 
-export type t_PostPaymentMethodsBodySchema = {
+export type t_PostPaymentMethodDomainsPaymentMethodDomainValidateRequestBody = {
+  expand?: string[]
+}
+
+export type t_PostPaymentMethodsRequestBody = {
   acss_debit?: {
     account_number: string
     institution_number: string
@@ -32558,7 +32556,11 @@ export type t_PostPaymentMethodsBodySchema = {
   zip?: EmptyObject
 }
 
-export type t_PostPaymentMethodsPaymentMethodBodySchema = {
+export type t_PostPaymentMethodsPaymentMethodParamSchema = {
+  payment_method: string
+}
+
+export type t_PostPaymentMethodsPaymentMethodRequestBody = {
   allow_redisplay?: "always" | "limited" | "unspecified"
   billing_details?: {
     address?:
@@ -32597,20 +32599,12 @@ export type t_PostPaymentMethodsPaymentMethodBodySchema = {
   }
 }
 
-export type t_PostPaymentMethodsPaymentMethodParamSchema = {
-  payment_method: string
-}
-
-export type t_PostPaymentMethodsPaymentMethodAttachBodySchema = {
-  customer: string
-  expand?: string[]
-}
-
 export type t_PostPaymentMethodsPaymentMethodAttachParamSchema = {
   payment_method: string
 }
 
-export type t_PostPaymentMethodsPaymentMethodDetachBodySchema = {
+export type t_PostPaymentMethodsPaymentMethodAttachRequestBody = {
+  customer: string
   expand?: string[]
 }
 
@@ -32618,7 +32612,11 @@ export type t_PostPaymentMethodsPaymentMethodDetachParamSchema = {
   payment_method: string
 }
 
-export type t_PostPayoutsBodySchema = {
+export type t_PostPaymentMethodsPaymentMethodDetachRequestBody = {
+  expand?: string[]
+}
+
+export type t_PostPayoutsRequestBody = {
   amount: number
   currency: string
   description?: string
@@ -32632,7 +32630,11 @@ export type t_PostPayoutsBodySchema = {
   statement_descriptor?: string
 }
 
-export type t_PostPayoutsPayoutBodySchema = {
+export type t_PostPayoutsPayoutParamSchema = {
+  payout: string
+}
+
+export type t_PostPayoutsPayoutRequestBody = {
   expand?: string[]
   metadata?:
     | {
@@ -32641,30 +32643,26 @@ export type t_PostPayoutsPayoutBodySchema = {
     | ""
 }
 
-export type t_PostPayoutsPayoutParamSchema = {
-  payout: string
-}
-
-export type t_PostPayoutsPayoutCancelBodySchema = {
-  expand?: string[]
-}
-
 export type t_PostPayoutsPayoutCancelParamSchema = {
   payout: string
 }
 
-export type t_PostPayoutsPayoutReverseBodySchema = {
+export type t_PostPayoutsPayoutCancelRequestBody = {
   expand?: string[]
-  metadata?: {
-    [key: string]: string | undefined
-  }
 }
 
 export type t_PostPayoutsPayoutReverseParamSchema = {
   payout: string
 }
 
-export type t_PostPlansBodySchema = {
+export type t_PostPayoutsPayoutReverseRequestBody = {
+  expand?: string[]
+  metadata?: {
+    [key: string]: string | undefined
+  }
+}
+
+export type t_PostPlansRequestBody = {
   active?: boolean
   amount?: number
   amount_decimal?: string
@@ -32710,7 +32708,11 @@ export type t_PostPlansBodySchema = {
   usage_type?: "licensed" | "metered"
 }
 
-export type t_PostPlansPlanBodySchema = {
+export type t_PostPlansPlanParamSchema = {
+  plan: string
+}
+
+export type t_PostPlansPlanRequestBody = {
   active?: boolean
   expand?: string[]
   metadata?:
@@ -32723,11 +32725,7 @@ export type t_PostPlansPlanBodySchema = {
   trial_period_days?: number
 }
 
-export type t_PostPlansPlanParamSchema = {
-  plan: string
-}
-
-export type t_PostPricesBodySchema = {
+export type t_PostPricesRequestBody = {
   active?: boolean
   billing_scheme?: "per_unit" | "tiered"
   currency: string
@@ -32801,7 +32799,11 @@ export type t_PostPricesBodySchema = {
   unit_amount_decimal?: string
 }
 
-export type t_PostPricesPriceBodySchema = {
+export type t_PostPricesPriceParamSchema = {
+  price: string
+}
+
+export type t_PostPricesPriceRequestBody = {
   active?: boolean
   currency_options?:
     | {
@@ -32839,11 +32841,7 @@ export type t_PostPricesPriceBodySchema = {
   transfer_lookup_key?: boolean
 }
 
-export type t_PostPricesPriceParamSchema = {
-  price: string
-}
-
-export type t_PostProductsBodySchema = {
+export type t_PostProductsRequestBody = {
   active?: boolean
   default_price_data?: {
     currency: string
@@ -32910,7 +32908,11 @@ export type t_PostProductsBodySchema = {
   url?: string
 }
 
-export type t_PostProductsIdBodySchema = {
+export type t_PostProductsIdParamSchema = {
+  id: string
+}
+
+export type t_PostProductsIdRequestBody = {
   active?: boolean
   default_price?: string
   description?: string | ""
@@ -32942,20 +32944,16 @@ export type t_PostProductsIdBodySchema = {
   url?: string | ""
 }
 
-export type t_PostProductsIdParamSchema = {
-  id: string
-}
-
-export type t_PostProductsProductFeaturesBodySchema = {
-  entitlement_feature: string
-  expand?: string[]
-}
-
 export type t_PostProductsProductFeaturesParamSchema = {
   product: string
 }
 
-export type t_PostPromotionCodesBodySchema = {
+export type t_PostProductsProductFeaturesRequestBody = {
+  entitlement_feature: string
+  expand?: string[]
+}
+
+export type t_PostPromotionCodesRequestBody = {
   active?: boolean
   code?: string
   coupon: string
@@ -32980,7 +32978,11 @@ export type t_PostPromotionCodesBodySchema = {
   }
 }
 
-export type t_PostPromotionCodesPromotionCodeBodySchema = {
+export type t_PostPromotionCodesPromotionCodeParamSchema = {
+  promotion_code: string
+}
+
+export type t_PostPromotionCodesPromotionCodeRequestBody = {
   active?: boolean
   expand?: string[]
   metadata?:
@@ -32999,11 +33001,7 @@ export type t_PostPromotionCodesPromotionCodeBodySchema = {
   }
 }
 
-export type t_PostPromotionCodesPromotionCodeParamSchema = {
-  promotion_code: string
-}
-
-export type t_PostQuotesBodySchema = {
+export type t_PostQuotesRequestBody = {
   application_fee_amount?: number | ""
   application_fee_percent?: number | ""
   automatic_tax?: {
@@ -33087,7 +33085,11 @@ export type t_PostQuotesBodySchema = {
     | ""
 }
 
-export type t_PostQuotesQuoteBodySchema = {
+export type t_PostQuotesQuoteParamSchema = {
+  quote: string
+}
+
+export type t_PostQuotesQuoteRequestBody = {
   application_fee_amount?: number | ""
   application_fee_percent?: number | ""
   automatic_tax?: {
@@ -33164,19 +33166,11 @@ export type t_PostQuotesQuoteBodySchema = {
     | ""
 }
 
-export type t_PostQuotesQuoteParamSchema = {
-  quote: string
-}
-
-export type t_PostQuotesQuoteAcceptBodySchema = {
-  expand?: string[]
-}
-
 export type t_PostQuotesQuoteAcceptParamSchema = {
   quote: string
 }
 
-export type t_PostQuotesQuoteCancelBodySchema = {
+export type t_PostQuotesQuoteAcceptRequestBody = {
   expand?: string[]
 }
 
@@ -33184,22 +33178,26 @@ export type t_PostQuotesQuoteCancelParamSchema = {
   quote: string
 }
 
-export type t_PostQuotesQuoteFinalizeBodySchema = {
+export type t_PostQuotesQuoteCancelRequestBody = {
   expand?: string[]
-  expires_at?: number
 }
 
 export type t_PostQuotesQuoteFinalizeParamSchema = {
   quote: string
 }
 
-export type t_PostRadarValueListItemsBodySchema = {
+export type t_PostQuotesQuoteFinalizeRequestBody = {
+  expand?: string[]
+  expires_at?: number
+}
+
+export type t_PostRadarValueListItemsRequestBody = {
   expand?: string[]
   value: string
   value_list: string
 }
 
-export type t_PostRadarValueListsBodySchema = {
+export type t_PostRadarValueListsRequestBody = {
   alias: string
   expand?: string[]
   item_type?:
@@ -33219,7 +33217,11 @@ export type t_PostRadarValueListsBodySchema = {
   name: string
 }
 
-export type t_PostRadarValueListsValueListBodySchema = {
+export type t_PostRadarValueListsValueListParamSchema = {
+  value_list: string
+}
+
+export type t_PostRadarValueListsValueListRequestBody = {
   alias?: string
   expand?: string[]
   metadata?: {
@@ -33228,11 +33230,7 @@ export type t_PostRadarValueListsValueListBodySchema = {
   name?: string
 }
 
-export type t_PostRadarValueListsValueListParamSchema = {
-  value_list: string
-}
-
-export type t_PostRefundsBodySchema = {
+export type t_PostRefundsRequestBody = {
   amount?: number
   charge?: string
   currency?: string
@@ -33251,7 +33249,11 @@ export type t_PostRefundsBodySchema = {
   reverse_transfer?: boolean
 }
 
-export type t_PostRefundsRefundBodySchema = {
+export type t_PostRefundsRefundParamSchema = {
+  refund: string
+}
+
+export type t_PostRefundsRefundRequestBody = {
   expand?: string[]
   metadata?:
     | {
@@ -33260,19 +33262,15 @@ export type t_PostRefundsRefundBodySchema = {
     | ""
 }
 
-export type t_PostRefundsRefundParamSchema = {
-  refund: string
-}
-
-export type t_PostRefundsRefundCancelBodySchema = {
-  expand?: string[]
-}
-
 export type t_PostRefundsRefundCancelParamSchema = {
   refund: string
 }
 
-export type t_PostReportingReportRunsBodySchema = {
+export type t_PostRefundsRefundCancelRequestBody = {
+  expand?: string[]
+}
+
+export type t_PostReportingReportRunsRequestBody = {
   expand?: string[]
   parameters?: {
     columns?: string[]
@@ -33923,15 +33921,15 @@ export type t_PostReportingReportRunsBodySchema = {
   report_type: string
 }
 
-export type t_PostReviewsReviewApproveBodySchema = {
-  expand?: string[]
-}
-
 export type t_PostReviewsReviewApproveParamSchema = {
   review: string
 }
 
-export type t_PostSetupIntentsBodySchema = {
+export type t_PostReviewsReviewApproveRequestBody = {
+  expand?: string[]
+}
+
+export type t_PostSetupIntentsRequestBody = {
   attach_to_self?: boolean
   automatic_payment_methods?: {
     allow_redirects?: "always" | "never"
@@ -34395,7 +34393,11 @@ export type t_PostSetupIntentsBodySchema = {
   use_stripe_sdk?: boolean
 }
 
-export type t_PostSetupIntentsIntentBodySchema = {
+export type t_PostSetupIntentsIntentParamSchema = {
+  intent: string
+}
+
+export type t_PostSetupIntentsIntentRequestBody = {
   attach_to_self?: boolean
   customer?: string
   description?: string
@@ -34834,20 +34836,20 @@ export type t_PostSetupIntentsIntentBodySchema = {
   payment_method_types?: string[]
 }
 
-export type t_PostSetupIntentsIntentParamSchema = {
-  intent: string
-}
-
-export type t_PostSetupIntentsIntentCancelBodySchema = {
-  cancellation_reason?: "abandoned" | "duplicate" | "requested_by_customer"
-  expand?: string[]
-}
-
 export type t_PostSetupIntentsIntentCancelParamSchema = {
   intent: string
 }
 
-export type t_PostSetupIntentsIntentConfirmBodySchema = {
+export type t_PostSetupIntentsIntentCancelRequestBody = {
+  cancellation_reason?: "abandoned" | "duplicate" | "requested_by_customer"
+  expand?: string[]
+}
+
+export type t_PostSetupIntentsIntentConfirmParamSchema = {
+  intent: string
+}
+
+export type t_PostSetupIntentsIntentConfirmRequestBody = {
   client_secret?: string
   confirmation_token?: string
   expand?: string[]
@@ -35301,22 +35303,18 @@ export type t_PostSetupIntentsIntentConfirmBodySchema = {
   use_stripe_sdk?: boolean
 }
 
-export type t_PostSetupIntentsIntentConfirmParamSchema = {
+export type t_PostSetupIntentsIntentVerifyMicrodepositsParamSchema = {
   intent: string
 }
 
-export type t_PostSetupIntentsIntentVerifyMicrodepositsBodySchema = {
+export type t_PostSetupIntentsIntentVerifyMicrodepositsRequestBody = {
   amounts?: number[]
   client_secret?: string
   descriptor_code?: string
   expand?: string[]
 }
 
-export type t_PostSetupIntentsIntentVerifyMicrodepositsParamSchema = {
-  intent: string
-}
-
-export type t_PostShippingRatesBodySchema = {
+export type t_PostShippingRatesRequestBody = {
   delivery_estimate?: {
     maximum?: {
       unit: "business_day" | "day" | "hour" | "month" | "week"
@@ -35349,7 +35347,11 @@ export type t_PostShippingRatesBodySchema = {
   type?: "fixed_amount"
 }
 
-export type t_PostShippingRatesShippingRateTokenBodySchema = {
+export type t_PostShippingRatesShippingRateTokenParamSchema = {
+  shipping_rate_token: string
+}
+
+export type t_PostShippingRatesShippingRateTokenRequestBody = {
   active?: boolean
   expand?: string[]
   fixed_amount?: {
@@ -35370,21 +35372,17 @@ export type t_PostShippingRatesShippingRateTokenBodySchema = {
   tax_behavior?: "exclusive" | "inclusive" | "unspecified"
 }
 
-export type t_PostShippingRatesShippingRateTokenParamSchema = {
-  shipping_rate_token: string
+export type t_PostSigmaSavedQueriesIdParamSchema = {
+  id: string
 }
 
-export type t_PostSigmaSavedQueriesIdBodySchema = {
+export type t_PostSigmaSavedQueriesIdRequestBody = {
   expand?: string[]
   name?: string
   sql?: string
 }
 
-export type t_PostSigmaSavedQueriesIdParamSchema = {
-  id: string
-}
-
-export type t_PostSourcesBodySchema = {
+export type t_PostSourcesRequestBody = {
   amount?: number
   currency?: string
   customer?: string
@@ -35469,7 +35467,11 @@ export type t_PostSourcesBodySchema = {
   usage?: "reusable" | "single_use"
 }
 
-export type t_PostSourcesSourceBodySchema = {
+export type t_PostSourcesSourceParamSchema = {
+  source: string
+}
+
+export type t_PostSourcesSourceRequestBody = {
   amount?: number
   expand?: string[]
   mandate?: {
@@ -35542,20 +35544,16 @@ export type t_PostSourcesSourceBodySchema = {
   }
 }
 
-export type t_PostSourcesSourceParamSchema = {
-  source: string
-}
-
-export type t_PostSourcesSourceVerifyBodySchema = {
-  expand?: string[]
-  values: string[]
-}
-
 export type t_PostSourcesSourceVerifyParamSchema = {
   source: string
 }
 
-export type t_PostSubscriptionItemsBodySchema = {
+export type t_PostSourcesSourceVerifyRequestBody = {
+  expand?: string[]
+  values: string[]
+}
+
+export type t_PostSubscriptionItemsRequestBody = {
   billing_thresholds?:
     | {
         usage_gte: number
@@ -35596,7 +35594,11 @@ export type t_PostSubscriptionItemsBodySchema = {
   tax_rates?: string[] | ""
 }
 
-export type t_PostSubscriptionItemsItemBodySchema = {
+export type t_PostSubscriptionItemsItemParamSchema = {
+  item: string
+}
+
+export type t_PostSubscriptionItemsItemRequestBody = {
   billing_thresholds?:
     | {
         usage_gte: number
@@ -35639,11 +35641,7 @@ export type t_PostSubscriptionItemsItemBodySchema = {
   tax_rates?: string[] | ""
 }
 
-export type t_PostSubscriptionItemsItemParamSchema = {
-  item: string
-}
-
-export type t_PostSubscriptionSchedulesBodySchema = {
+export type t_PostSubscriptionSchedulesRequestBody = {
   billing_mode?: {
     type: "classic" | "flexible"
   }
@@ -35796,7 +35794,11 @@ export type t_PostSubscriptionSchedulesBodySchema = {
   start_date?: number | "now"
 }
 
-export type t_PostSubscriptionSchedulesScheduleBodySchema = {
+export type t_PostSubscriptionSchedulesScheduleParamSchema = {
+  schedule: string
+}
+
+export type t_PostSubscriptionSchedulesScheduleRequestBody = {
   default_settings?: {
     application_fee_percent?: number
     automatic_tax?: {
@@ -35944,30 +35946,26 @@ export type t_PostSubscriptionSchedulesScheduleBodySchema = {
   proration_behavior?: "always_invoice" | "create_prorations" | "none"
 }
 
-export type t_PostSubscriptionSchedulesScheduleParamSchema = {
-  schedule: string
-}
-
-export type t_PostSubscriptionSchedulesScheduleCancelBodySchema = {
-  expand?: string[]
-  invoice_now?: boolean
-  prorate?: boolean
-}
-
 export type t_PostSubscriptionSchedulesScheduleCancelParamSchema = {
   schedule: string
 }
 
-export type t_PostSubscriptionSchedulesScheduleReleaseBodySchema = {
+export type t_PostSubscriptionSchedulesScheduleCancelRequestBody = {
   expand?: string[]
-  preserve_cancel_date?: boolean
+  invoice_now?: boolean
+  prorate?: boolean
 }
 
 export type t_PostSubscriptionSchedulesScheduleReleaseParamSchema = {
   schedule: string
 }
 
-export type t_PostSubscriptionsBodySchema = {
+export type t_PostSubscriptionSchedulesScheduleReleaseRequestBody = {
+  expand?: string[]
+  preserve_cancel_date?: boolean
+}
+
+export type t_PostSubscriptionsRequestBody = {
   add_invoice_items?: {
     discounts?: {
       coupon?: string
@@ -36215,7 +36213,11 @@ export type t_PostSubscriptionsBodySchema = {
   }
 }
 
-export type t_PostSubscriptionsSubscriptionExposedIdBodySchema = {
+export type t_PostSubscriptionsSubscriptionExposedIdParamSchema = {
+  subscription_exposed_id: string
+}
+
+export type t_PostSubscriptionsSubscriptionExposedIdRequestBody = {
   add_invoice_items?: {
     discounts?: {
       coupon?: string
@@ -36476,33 +36478,29 @@ export type t_PostSubscriptionsSubscriptionExposedIdBodySchema = {
   }
 }
 
-export type t_PostSubscriptionsSubscriptionExposedIdParamSchema = {
-  subscription_exposed_id: string
+export type t_PostSubscriptionsSubscriptionMigrateParamSchema = {
+  subscription: string
 }
 
-export type t_PostSubscriptionsSubscriptionMigrateBodySchema = {
+export type t_PostSubscriptionsSubscriptionMigrateRequestBody = {
   billing_mode: {
     type: "flexible"
   }
   expand?: string[]
 }
 
-export type t_PostSubscriptionsSubscriptionMigrateParamSchema = {
+export type t_PostSubscriptionsSubscriptionResumeParamSchema = {
   subscription: string
 }
 
-export type t_PostSubscriptionsSubscriptionResumeBodySchema = {
+export type t_PostSubscriptionsSubscriptionResumeRequestBody = {
   billing_cycle_anchor?: "now" | "unchanged"
   expand?: string[]
   proration_behavior?: "always_invoice" | "create_prorations" | "none"
   proration_date?: number
 }
 
-export type t_PostSubscriptionsSubscriptionResumeParamSchema = {
-  subscription: string
-}
-
-export type t_PostTaxCalculationsBodySchema = {
+export type t_PostTaxCalculationsRequestBody = {
   currency: string
   customer?: string
   customer_details?: {
@@ -36663,7 +36661,7 @@ export type t_PostTaxCalculationsBodySchema = {
   tax_date?: number
 }
 
-export type t_PostTaxIdsBodySchema = {
+export type t_PostTaxIdsRequestBody = {
   expand?: string[]
   owner?: {
     account?: string
@@ -36784,7 +36782,7 @@ export type t_PostTaxIdsBodySchema = {
   value: string
 }
 
-export type t_PostTaxRatesBodySchema = {
+export type t_PostTaxRatesRequestBody = {
   active?: boolean
   country?: string
   description?: string
@@ -36814,7 +36812,11 @@ export type t_PostTaxRatesBodySchema = {
     | "vat"
 }
 
-export type t_PostTaxRatesTaxRateBodySchema = {
+export type t_PostTaxRatesTaxRateParamSchema = {
+  tax_rate: string
+}
+
+export type t_PostTaxRatesTaxRateRequestBody = {
   active?: boolean
   country?: string
   description?: string
@@ -36844,11 +36846,7 @@ export type t_PostTaxRatesTaxRateBodySchema = {
     | "vat"
 }
 
-export type t_PostTaxRatesTaxRateParamSchema = {
-  tax_rate: string
-}
-
-export type t_PostTaxRegistrationsBodySchema = {
+export type t_PostTaxRegistrationsRequestBody = {
   active_from: "now" | number
   country: string
   country_options: {
@@ -37349,17 +37347,17 @@ export type t_PostTaxRegistrationsBodySchema = {
   expires_at?: number
 }
 
-export type t_PostTaxRegistrationsIdBodySchema = {
+export type t_PostTaxRegistrationsIdParamSchema = {
+  id: string
+}
+
+export type t_PostTaxRegistrationsIdRequestBody = {
   active_from?: "now" | number
   expand?: string[]
   expires_at?: "now" | number | ""
 }
 
-export type t_PostTaxRegistrationsIdParamSchema = {
-  id: string
-}
-
-export type t_PostTaxSettingsBodySchema = {
+export type t_PostTaxSettingsRequestBody = {
   defaults?: {
     tax_behavior?: "exclusive" | "inclusive" | "inferred_by_currency"
     tax_code?: string
@@ -37377,7 +37375,7 @@ export type t_PostTaxSettingsBodySchema = {
   }
 }
 
-export type t_PostTaxTransactionsCreateFromCalculationBodySchema = {
+export type t_PostTaxTransactionsCreateFromCalculationRequestBody = {
   calculation: string
   expand?: string[]
   metadata?: {
@@ -37387,7 +37385,7 @@ export type t_PostTaxTransactionsCreateFromCalculationBodySchema = {
   reference: string
 }
 
-export type t_PostTaxTransactionsCreateReversalBodySchema = {
+export type t_PostTaxTransactionsCreateReversalRequestBody = {
   expand?: string[]
   flat_amount?: number
   line_items?: {
@@ -37412,7 +37410,7 @@ export type t_PostTaxTransactionsCreateReversalBodySchema = {
   }
 }
 
-export type t_PostTerminalConfigurationsBodySchema = {
+export type t_PostTerminalConfigurationsRequestBody = {
   bbpos_wisepos_e?: {
     splashscreen?: string | ""
   }
@@ -37561,7 +37559,11 @@ export type t_PostTerminalConfigurationsBodySchema = {
     | ""
 }
 
-export type t_PostTerminalConfigurationsConfigurationBodySchema = {
+export type t_PostTerminalConfigurationsConfigurationParamSchema = {
+  configuration: string
+}
+
+export type t_PostTerminalConfigurationsConfigurationRequestBody = {
   bbpos_wisepos_e?:
     | {
         splashscreen?: string | ""
@@ -37718,16 +37720,12 @@ export type t_PostTerminalConfigurationsConfigurationBodySchema = {
     | ""
 }
 
-export type t_PostTerminalConfigurationsConfigurationParamSchema = {
-  configuration: string
-}
-
-export type t_PostTerminalConnectionTokensBodySchema = {
+export type t_PostTerminalConnectionTokensRequestBody = {
   expand?: string[]
   location?: string
 }
 
-export type t_PostTerminalLocationsBodySchema = {
+export type t_PostTerminalLocationsRequestBody = {
   address: {
     city?: string
     country: string
@@ -37746,7 +37744,11 @@ export type t_PostTerminalLocationsBodySchema = {
     | ""
 }
 
-export type t_PostTerminalLocationsLocationBodySchema = {
+export type t_PostTerminalLocationsLocationParamSchema = {
+  location: string
+}
+
+export type t_PostTerminalLocationsLocationRequestBody = {
   address?: {
     city?: string
     country?: string
@@ -37765,11 +37767,7 @@ export type t_PostTerminalLocationsLocationBodySchema = {
     | ""
 }
 
-export type t_PostTerminalLocationsLocationParamSchema = {
-  location: string
-}
-
-export type t_PostTerminalReadersBodySchema = {
+export type t_PostTerminalReadersRequestBody = {
   expand?: string[]
   label?: string
   location?: string
@@ -37781,7 +37779,11 @@ export type t_PostTerminalReadersBodySchema = {
   registration_code: string
 }
 
-export type t_PostTerminalReadersReaderBodySchema = {
+export type t_PostTerminalReadersReaderParamSchema = {
+  reader: string
+}
+
+export type t_PostTerminalReadersReaderRequestBody = {
   expand?: string[]
   label?: string | ""
   metadata?:
@@ -37791,19 +37793,19 @@ export type t_PostTerminalReadersReaderBodySchema = {
     | ""
 }
 
-export type t_PostTerminalReadersReaderParamSchema = {
-  reader: string
-}
-
-export type t_PostTerminalReadersReaderCancelActionBodySchema = {
-  expand?: string[]
-}
-
 export type t_PostTerminalReadersReaderCancelActionParamSchema = {
   reader: string
 }
 
-export type t_PostTerminalReadersReaderCollectInputsBodySchema = {
+export type t_PostTerminalReadersReaderCancelActionRequestBody = {
+  expand?: string[]
+}
+
+export type t_PostTerminalReadersReaderCollectInputsParamSchema = {
+  reader: string
+}
+
+export type t_PostTerminalReadersReaderCollectInputsRequestBody = {
   expand?: string[]
   inputs: {
     custom_text: {
@@ -37832,11 +37834,11 @@ export type t_PostTerminalReadersReaderCollectInputsBodySchema = {
   }
 }
 
-export type t_PostTerminalReadersReaderCollectInputsParamSchema = {
+export type t_PostTerminalReadersReaderCollectPaymentMethodParamSchema = {
   reader: string
 }
 
-export type t_PostTerminalReadersReaderCollectPaymentMethodBodySchema = {
+export type t_PostTerminalReadersReaderCollectPaymentMethodRequestBody = {
   collect_config?: {
     allow_redisplay?: "always" | "limited" | "unspecified"
     enable_customer_cancellation?: boolean
@@ -37849,11 +37851,11 @@ export type t_PostTerminalReadersReaderCollectPaymentMethodBodySchema = {
   payment_intent: string
 }
 
-export type t_PostTerminalReadersReaderCollectPaymentMethodParamSchema = {
+export type t_PostTerminalReadersReaderConfirmPaymentIntentParamSchema = {
   reader: string
 }
 
-export type t_PostTerminalReadersReaderConfirmPaymentIntentBodySchema = {
+export type t_PostTerminalReadersReaderConfirmPaymentIntentRequestBody = {
   confirm_config?: {
     return_url?: string
   }
@@ -37861,11 +37863,11 @@ export type t_PostTerminalReadersReaderConfirmPaymentIntentBodySchema = {
   payment_intent: string
 }
 
-export type t_PostTerminalReadersReaderConfirmPaymentIntentParamSchema = {
+export type t_PostTerminalReadersReaderProcessPaymentIntentParamSchema = {
   reader: string
 }
 
-export type t_PostTerminalReadersReaderProcessPaymentIntentBodySchema = {
+export type t_PostTerminalReadersReaderProcessPaymentIntentRequestBody = {
   expand?: string[]
   payment_intent: string
   process_config?: {
@@ -37879,11 +37881,11 @@ export type t_PostTerminalReadersReaderProcessPaymentIntentBodySchema = {
   }
 }
 
-export type t_PostTerminalReadersReaderProcessPaymentIntentParamSchema = {
+export type t_PostTerminalReadersReaderProcessSetupIntentParamSchema = {
   reader: string
 }
 
-export type t_PostTerminalReadersReaderProcessSetupIntentBodySchema = {
+export type t_PostTerminalReadersReaderProcessSetupIntentRequestBody = {
   allow_redisplay: "always" | "limited" | "unspecified"
   expand?: string[]
   process_config?: {
@@ -37892,11 +37894,11 @@ export type t_PostTerminalReadersReaderProcessSetupIntentBodySchema = {
   setup_intent: string
 }
 
-export type t_PostTerminalReadersReaderProcessSetupIntentParamSchema = {
+export type t_PostTerminalReadersReaderRefundPaymentParamSchema = {
   reader: string
 }
 
-export type t_PostTerminalReadersReaderRefundPaymentBodySchema = {
+export type t_PostTerminalReadersReaderRefundPaymentRequestBody = {
   amount?: number
   charge?: string
   expand?: string[]
@@ -37911,11 +37913,11 @@ export type t_PostTerminalReadersReaderRefundPaymentBodySchema = {
   reverse_transfer?: boolean
 }
 
-export type t_PostTerminalReadersReaderRefundPaymentParamSchema = {
+export type t_PostTerminalReadersReaderSetReaderDisplayParamSchema = {
   reader: string
 }
 
-export type t_PostTerminalReadersReaderSetReaderDisplayBodySchema = {
+export type t_PostTerminalReadersReaderSetReaderDisplayRequestBody = {
   cart?: {
     currency: string
     line_items: {
@@ -37930,11 +37932,7 @@ export type t_PostTerminalReadersReaderSetReaderDisplayBodySchema = {
   type: "cart"
 }
 
-export type t_PostTerminalReadersReaderSetReaderDisplayParamSchema = {
-  reader: string
-}
-
-export type t_PostTestHelpersConfirmationTokensBodySchema = {
+export type t_PostTestHelpersConfirmationTokensRequestBody = {
   expand?: string[]
   payment_method?: string
   payment_method_data?: {
@@ -38223,18 +38221,18 @@ export type t_PostTestHelpersConfirmationTokensBodySchema = {
   }
 }
 
-export type t_PostTestHelpersCustomersCustomerFundCashBalanceBodySchema = {
+export type t_PostTestHelpersCustomersCustomerFundCashBalanceParamSchema = {
+  customer: string
+}
+
+export type t_PostTestHelpersCustomersCustomerFundCashBalanceRequestBody = {
   amount: number
   currency: string
   expand?: string[]
   reference?: string
 }
 
-export type t_PostTestHelpersCustomersCustomerFundCashBalanceParamSchema = {
-  customer: string
-}
-
-export type t_PostTestHelpersIssuingAuthorizationsBodySchema = {
+export type t_PostTestHelpersIssuingAuthorizationsRequestBody = {
   amount?: number
   amount_details?: {
     atm_fee?: number
@@ -38622,7 +38620,12 @@ export type t_PostTestHelpersIssuingAuthorizationsBodySchema = {
   wallet?: "apple_pay" | "google_pay" | "samsung_pay"
 }
 
-export type t_PostTestHelpersIssuingAuthorizationsAuthorizationCaptureBodySchema =
+export type t_PostTestHelpersIssuingAuthorizationsAuthorizationCaptureParamSchema =
+  {
+    authorization: string
+  }
+
+export type t_PostTestHelpersIssuingAuthorizationsAuthorizationCaptureRequestBody =
   {
     capture_amount?: number
     close_authorization?: boolean
@@ -38702,22 +38705,22 @@ export type t_PostTestHelpersIssuingAuthorizationsAuthorizationCaptureBodySchema
     }
   }
 
-export type t_PostTestHelpersIssuingAuthorizationsAuthorizationCaptureParamSchema =
-  {
-    authorization: string
-  }
-
-export type t_PostTestHelpersIssuingAuthorizationsAuthorizationExpireBodySchema =
-  {
-    expand?: string[]
-  }
-
 export type t_PostTestHelpersIssuingAuthorizationsAuthorizationExpireParamSchema =
   {
     authorization: string
   }
 
-export type t_PostTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmountBodySchema =
+export type t_PostTestHelpersIssuingAuthorizationsAuthorizationExpireRequestBody =
+  {
+    expand?: string[]
+  }
+
+export type t_PostTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmountParamSchema =
+  {
+    authorization: string
+  }
+
+export type t_PostTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmountRequestBody =
   {
     expand?: string[]
     final_amount: number
@@ -38769,27 +38772,15 @@ export type t_PostTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmountBod
     }
   }
 
-export type t_PostTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmountParamSchema =
-  {
-    authorization: string
-  }
-
-export type t_PostTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespondBodySchema =
-  {
-    confirmed: boolean
-    expand?: string[]
-  }
-
 export type t_PostTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespondParamSchema =
   {
     authorization: string
   }
 
-export type t_PostTestHelpersIssuingAuthorizationsAuthorizationIncrementBodySchema =
+export type t_PostTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespondRequestBody =
   {
+    confirmed: boolean
     expand?: string[]
-    increment_amount: number
-    is_amount_controllable?: boolean
   }
 
 export type t_PostTestHelpersIssuingAuthorizationsAuthorizationIncrementParamSchema =
@@ -38797,10 +38788,11 @@ export type t_PostTestHelpersIssuingAuthorizationsAuthorizationIncrementParamSch
     authorization: string
   }
 
-export type t_PostTestHelpersIssuingAuthorizationsAuthorizationReverseBodySchema =
+export type t_PostTestHelpersIssuingAuthorizationsAuthorizationIncrementRequestBody =
   {
     expand?: string[]
-    reverse_amount?: number
+    increment_amount: number
+    is_amount_controllable?: boolean
   }
 
 export type t_PostTestHelpersIssuingAuthorizationsAuthorizationReverseParamSchema =
@@ -38808,15 +38800,17 @@ export type t_PostTestHelpersIssuingAuthorizationsAuthorizationReverseParamSchem
     authorization: string
   }
 
-export type t_PostTestHelpersIssuingCardsCardShippingDeliverBodySchema = {
-  expand?: string[]
-}
+export type t_PostTestHelpersIssuingAuthorizationsAuthorizationReverseRequestBody =
+  {
+    expand?: string[]
+    reverse_amount?: number
+  }
 
 export type t_PostTestHelpersIssuingCardsCardShippingDeliverParamSchema = {
   card: string
 }
 
-export type t_PostTestHelpersIssuingCardsCardShippingFailBodySchema = {
+export type t_PostTestHelpersIssuingCardsCardShippingDeliverRequestBody = {
   expand?: string[]
 }
 
@@ -38824,7 +38818,7 @@ export type t_PostTestHelpersIssuingCardsCardShippingFailParamSchema = {
   card: string
 }
 
-export type t_PostTestHelpersIssuingCardsCardShippingReturnBodySchema = {
+export type t_PostTestHelpersIssuingCardsCardShippingFailRequestBody = {
   expand?: string[]
 }
 
@@ -38832,7 +38826,7 @@ export type t_PostTestHelpersIssuingCardsCardShippingReturnParamSchema = {
   card: string
 }
 
-export type t_PostTestHelpersIssuingCardsCardShippingShipBodySchema = {
+export type t_PostTestHelpersIssuingCardsCardShippingReturnRequestBody = {
   expand?: string[]
 }
 
@@ -38840,7 +38834,7 @@ export type t_PostTestHelpersIssuingCardsCardShippingShipParamSchema = {
   card: string
 }
 
-export type t_PostTestHelpersIssuingCardsCardShippingSubmitBodySchema = {
+export type t_PostTestHelpersIssuingCardsCardShippingShipRequestBody = {
   expand?: string[]
 }
 
@@ -38848,17 +38842,16 @@ export type t_PostTestHelpersIssuingCardsCardShippingSubmitParamSchema = {
   card: string
 }
 
-export type t_PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivateBodySchema =
-  {
-    expand?: string[]
-  }
+export type t_PostTestHelpersIssuingCardsCardShippingSubmitRequestBody = {
+  expand?: string[]
+}
 
 export type t_PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivateParamSchema =
   {
     personalization_design: string
   }
 
-export type t_PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivateBodySchema =
+export type t_PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivateRequestBody =
   {
     expand?: string[]
   }
@@ -38868,7 +38861,17 @@ export type t_PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignD
     personalization_design: string
   }
 
-export type t_PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignRejectBodySchema =
+export type t_PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivateRequestBody =
+  {
+    expand?: string[]
+  }
+
+export type t_PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignRejectParamSchema =
+  {
+    personalization_design: string
+  }
+
+export type t_PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignRejectRequestBody =
   {
     expand?: string[]
     rejection_reasons: {
@@ -38894,12 +38897,7 @@ export type t_PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignR
     }
   }
 
-export type t_PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignRejectParamSchema =
-  {
-    personalization_design: string
-  }
-
-export type t_PostTestHelpersIssuingSettlementsBodySchema = {
+export type t_PostTestHelpersIssuingSettlementsRequestBody = {
   bin: string
   clearing_date: number
   currency: string
@@ -38912,400 +38910,15 @@ export type t_PostTestHelpersIssuingSettlementsBodySchema = {
   transaction_count?: number
 }
 
-export type t_PostTestHelpersIssuingSettlementsSettlementCompleteBodySchema = {
-  expand?: string[]
-}
-
 export type t_PostTestHelpersIssuingSettlementsSettlementCompleteParamSchema = {
   settlement: string
 }
 
-export type t_PostTestHelpersIssuingTransactionsCreateForceCaptureBodySchema = {
-  amount: number
-  card: string
-  currency?: string
+export type t_PostTestHelpersIssuingSettlementsSettlementCompleteRequestBody = {
   expand?: string[]
-  merchant_data?: {
-    category?:
-      | "ac_refrigeration_repair"
-      | "accounting_bookkeeping_services"
-      | "advertising_services"
-      | "agricultural_cooperative"
-      | "airlines_air_carriers"
-      | "airports_flying_fields"
-      | "ambulance_services"
-      | "amusement_parks_carnivals"
-      | "antique_reproductions"
-      | "antique_shops"
-      | "aquariums"
-      | "architectural_surveying_services"
-      | "art_dealers_and_galleries"
-      | "artists_supply_and_craft_shops"
-      | "auto_and_home_supply_stores"
-      | "auto_body_repair_shops"
-      | "auto_paint_shops"
-      | "auto_service_shops"
-      | "automated_cash_disburse"
-      | "automated_fuel_dispensers"
-      | "automobile_associations"
-      | "automotive_parts_and_accessories_stores"
-      | "automotive_tire_stores"
-      | "bail_and_bond_payments"
-      | "bakeries"
-      | "bands_orchestras"
-      | "barber_and_beauty_shops"
-      | "betting_casino_gambling"
-      | "bicycle_shops"
-      | "billiard_pool_establishments"
-      | "boat_dealers"
-      | "boat_rentals_and_leases"
-      | "book_stores"
-      | "books_periodicals_and_newspapers"
-      | "bowling_alleys"
-      | "bus_lines"
-      | "business_secretarial_schools"
-      | "buying_shopping_services"
-      | "cable_satellite_and_other_pay_television_and_radio"
-      | "camera_and_photographic_supply_stores"
-      | "candy_nut_and_confectionery_stores"
-      | "car_and_truck_dealers_new_used"
-      | "car_and_truck_dealers_used_only"
-      | "car_rental_agencies"
-      | "car_washes"
-      | "carpentry_services"
-      | "carpet_upholstery_cleaning"
-      | "caterers"
-      | "charitable_and_social_service_organizations_fundraising"
-      | "chemicals_and_allied_products"
-      | "child_care_services"
-      | "childrens_and_infants_wear_stores"
-      | "chiropodists_podiatrists"
-      | "chiropractors"
-      | "cigar_stores_and_stands"
-      | "civic_social_fraternal_associations"
-      | "cleaning_and_maintenance"
-      | "clothing_rental"
-      | "colleges_universities"
-      | "commercial_equipment"
-      | "commercial_footwear"
-      | "commercial_photography_art_and_graphics"
-      | "commuter_transport_and_ferries"
-      | "computer_network_services"
-      | "computer_programming"
-      | "computer_repair"
-      | "computer_software_stores"
-      | "computers_peripherals_and_software"
-      | "concrete_work_services"
-      | "construction_materials"
-      | "consulting_public_relations"
-      | "correspondence_schools"
-      | "cosmetic_stores"
-      | "counseling_services"
-      | "country_clubs"
-      | "courier_services"
-      | "court_costs"
-      | "credit_reporting_agencies"
-      | "cruise_lines"
-      | "dairy_products_stores"
-      | "dance_hall_studios_schools"
-      | "dating_escort_services"
-      | "dentists_orthodontists"
-      | "department_stores"
-      | "detective_agencies"
-      | "digital_goods_applications"
-      | "digital_goods_games"
-      | "digital_goods_large_volume"
-      | "digital_goods_media"
-      | "direct_marketing_catalog_merchant"
-      | "direct_marketing_combination_catalog_and_retail_merchant"
-      | "direct_marketing_inbound_telemarketing"
-      | "direct_marketing_insurance_services"
-      | "direct_marketing_other"
-      | "direct_marketing_outbound_telemarketing"
-      | "direct_marketing_subscription"
-      | "direct_marketing_travel"
-      | "discount_stores"
-      | "doctors"
-      | "door_to_door_sales"
-      | "drapery_window_covering_and_upholstery_stores"
-      | "drinking_places"
-      | "drug_stores_and_pharmacies"
-      | "drugs_drug_proprietaries_and_druggist_sundries"
-      | "dry_cleaners"
-      | "durable_goods"
-      | "duty_free_stores"
-      | "eating_places_restaurants"
-      | "educational_services"
-      | "electric_razor_stores"
-      | "electric_vehicle_charging"
-      | "electrical_parts_and_equipment"
-      | "electrical_services"
-      | "electronics_repair_shops"
-      | "electronics_stores"
-      | "elementary_secondary_schools"
-      | "emergency_services_gcas_visa_use_only"
-      | "employment_temp_agencies"
-      | "equipment_rental"
-      | "exterminating_services"
-      | "family_clothing_stores"
-      | "fast_food_restaurants"
-      | "financial_institutions"
-      | "fines_government_administrative_entities"
-      | "fireplace_fireplace_screens_and_accessories_stores"
-      | "floor_covering_stores"
-      | "florists"
-      | "florists_supplies_nursery_stock_and_flowers"
-      | "freezer_and_locker_meat_provisioners"
-      | "fuel_dealers_non_automotive"
-      | "funeral_services_crematories"
-      | "furniture_home_furnishings_and_equipment_stores_except_appliances"
-      | "furniture_repair_refinishing"
-      | "furriers_and_fur_shops"
-      | "general_services"
-      | "gift_card_novelty_and_souvenir_shops"
-      | "glass_paint_and_wallpaper_stores"
-      | "glassware_crystal_stores"
-      | "golf_courses_public"
-      | "government_licensed_horse_dog_racing_us_region_only"
-      | "government_licensed_online_casions_online_gambling_us_region_only"
-      | "government_owned_lotteries_non_us_region"
-      | "government_owned_lotteries_us_region_only"
-      | "government_services"
-      | "grocery_stores_supermarkets"
-      | "hardware_equipment_and_supplies"
-      | "hardware_stores"
-      | "health_and_beauty_spas"
-      | "hearing_aids_sales_and_supplies"
-      | "heating_plumbing_a_c"
-      | "hobby_toy_and_game_shops"
-      | "home_supply_warehouse_stores"
-      | "hospitals"
-      | "hotels_motels_and_resorts"
-      | "household_appliance_stores"
-      | "industrial_supplies"
-      | "information_retrieval_services"
-      | "insurance_default"
-      | "insurance_underwriting_premiums"
-      | "intra_company_purchases"
-      | "jewelry_stores_watches_clocks_and_silverware_stores"
-      | "landscaping_services"
-      | "laundries"
-      | "laundry_cleaning_services"
-      | "legal_services_attorneys"
-      | "luggage_and_leather_goods_stores"
-      | "lumber_building_materials_stores"
-      | "manual_cash_disburse"
-      | "marinas_service_and_supplies"
-      | "marketplaces"
-      | "masonry_stonework_and_plaster"
-      | "massage_parlors"
-      | "medical_and_dental_labs"
-      | "medical_dental_ophthalmic_and_hospital_equipment_and_supplies"
-      | "medical_services"
-      | "membership_organizations"
-      | "mens_and_boys_clothing_and_accessories_stores"
-      | "mens_womens_clothing_stores"
-      | "metal_service_centers"
-      | "miscellaneous_apparel_and_accessory_shops"
-      | "miscellaneous_auto_dealers"
-      | "miscellaneous_business_services"
-      | "miscellaneous_food_stores"
-      | "miscellaneous_general_merchandise"
-      | "miscellaneous_general_services"
-      | "miscellaneous_home_furnishing_specialty_stores"
-      | "miscellaneous_publishing_and_printing"
-      | "miscellaneous_recreation_services"
-      | "miscellaneous_repair_shops"
-      | "miscellaneous_specialty_retail"
-      | "mobile_home_dealers"
-      | "motion_picture_theaters"
-      | "motor_freight_carriers_and_trucking"
-      | "motor_homes_dealers"
-      | "motor_vehicle_supplies_and_new_parts"
-      | "motorcycle_shops_and_dealers"
-      | "motorcycle_shops_dealers"
-      | "music_stores_musical_instruments_pianos_and_sheet_music"
-      | "news_dealers_and_newsstands"
-      | "non_fi_money_orders"
-      | "non_fi_stored_value_card_purchase_load"
-      | "nondurable_goods"
-      | "nurseries_lawn_and_garden_supply_stores"
-      | "nursing_personal_care"
-      | "office_and_commercial_furniture"
-      | "opticians_eyeglasses"
-      | "optometrists_ophthalmologist"
-      | "orthopedic_goods_prosthetic_devices"
-      | "osteopaths"
-      | "package_stores_beer_wine_and_liquor"
-      | "paints_varnishes_and_supplies"
-      | "parking_lots_garages"
-      | "passenger_railways"
-      | "pawn_shops"
-      | "pet_shops_pet_food_and_supplies"
-      | "petroleum_and_petroleum_products"
-      | "photo_developing"
-      | "photographic_photocopy_microfilm_equipment_and_supplies"
-      | "photographic_studios"
-      | "picture_video_production"
-      | "piece_goods_notions_and_other_dry_goods"
-      | "plumbing_heating_equipment_and_supplies"
-      | "political_organizations"
-      | "postal_services_government_only"
-      | "precious_stones_and_metals_watches_and_jewelry"
-      | "professional_services"
-      | "public_warehousing_and_storage"
-      | "quick_copy_repro_and_blueprint"
-      | "railroads"
-      | "real_estate_agents_and_managers_rentals"
-      | "record_stores"
-      | "recreational_vehicle_rentals"
-      | "religious_goods_stores"
-      | "religious_organizations"
-      | "roofing_siding_sheet_metal"
-      | "secretarial_support_services"
-      | "security_brokers_dealers"
-      | "service_stations"
-      | "sewing_needlework_fabric_and_piece_goods_stores"
-      | "shoe_repair_hat_cleaning"
-      | "shoe_stores"
-      | "small_appliance_repair"
-      | "snowmobile_dealers"
-      | "special_trade_services"
-      | "specialty_cleaning"
-      | "sporting_goods_stores"
-      | "sporting_recreation_camps"
-      | "sports_and_riding_apparel_stores"
-      | "sports_clubs_fields"
-      | "stamp_and_coin_stores"
-      | "stationary_office_supplies_printing_and_writing_paper"
-      | "stationery_stores_office_and_school_supply_stores"
-      | "swimming_pools_sales"
-      | "t_ui_travel_germany"
-      | "tailors_alterations"
-      | "tax_payments_government_agencies"
-      | "tax_preparation_services"
-      | "taxicabs_limousines"
-      | "telecommunication_equipment_and_telephone_sales"
-      | "telecommunication_services"
-      | "telegraph_services"
-      | "tent_and_awning_shops"
-      | "testing_laboratories"
-      | "theatrical_ticket_agencies"
-      | "timeshares"
-      | "tire_retreading_and_repair"
-      | "tolls_bridge_fees"
-      | "tourist_attractions_and_exhibits"
-      | "towing_services"
-      | "trailer_parks_campgrounds"
-      | "transportation_services"
-      | "travel_agencies_tour_operators"
-      | "truck_stop_iteration"
-      | "truck_utility_trailer_rentals"
-      | "typesetting_plate_making_and_related_services"
-      | "typewriter_stores"
-      | "u_s_federal_government_agencies_or_departments"
-      | "uniforms_commercial_clothing"
-      | "used_merchandise_and_secondhand_stores"
-      | "utilities"
-      | "variety_stores"
-      | "veterinary_services"
-      | "video_amusement_game_supplies"
-      | "video_game_arcades"
-      | "video_tape_rental_stores"
-      | "vocational_trade_schools"
-      | "watch_jewelry_repair"
-      | "welding_repair"
-      | "wholesale_clubs"
-      | "wig_and_toupee_stores"
-      | "wires_money_orders"
-      | "womens_accessory_and_specialty_shops"
-      | "womens_ready_to_wear_stores"
-      | "wrecking_and_salvage_yards"
-    city?: string
-    country?: string
-    name?: string
-    network_id?: string
-    postal_code?: string
-    state?: string
-    terminal_id?: string
-    url?: string
-  }
-  purchase_details?: {
-    fleet?: {
-      cardholder_prompt_data?: {
-        driver_id?: string
-        odometer?: number
-        unspecified_id?: string
-        user_id?: string
-        vehicle_number?: string
-      }
-      purchase_type?:
-        | "fuel_and_non_fuel_purchase"
-        | "fuel_purchase"
-        | "non_fuel_purchase"
-      reported_breakdown?: {
-        fuel?: {
-          gross_amount_decimal?: string
-        }
-        non_fuel?: {
-          gross_amount_decimal?: string
-        }
-        tax?: {
-          local_amount_decimal?: string
-          national_amount_decimal?: string
-        }
-      }
-      service_type?: "full_service" | "non_fuel_transaction" | "self_service"
-    }
-    flight?: {
-      departure_at?: number
-      passenger_name?: string
-      refundable?: boolean
-      segments?: {
-        arrival_airport_code?: string
-        carrier?: string
-        departure_airport_code?: string
-        flight_number?: string
-        service_class?: string
-        stopover_allowed?: boolean
-      }[]
-      travel_agency?: string
-    }
-    fuel?: {
-      industry_product_code?: string
-      quantity_decimal?: string
-      type?:
-        | "diesel"
-        | "other"
-        | "unleaded_plus"
-        | "unleaded_regular"
-        | "unleaded_super"
-      unit?:
-        | "charging_minute"
-        | "imperial_gallon"
-        | "kilogram"
-        | "kilowatt_hour"
-        | "liter"
-        | "other"
-        | "pound"
-        | "us_gallon"
-      unit_cost_decimal?: string
-    }
-    lodging?: {
-      check_in_at?: number
-      nights?: number
-    }
-    receipt?: {
-      description?: string
-      quantity?: string
-      total?: number
-      unit_cost?: number
-    }[]
-    reference?: string
-  }
 }
 
-export type t_PostTestHelpersIssuingTransactionsCreateUnlinkedRefundBodySchema =
+export type t_PostTestHelpersIssuingTransactionsCreateForceCaptureRequestBody =
   {
     amount: number
     card: string
@@ -39691,24 +39304,415 @@ export type t_PostTestHelpersIssuingTransactionsCreateUnlinkedRefundBodySchema =
     }
   }
 
-export type t_PostTestHelpersIssuingTransactionsTransactionRefundBodySchema = {
-  expand?: string[]
-  refund_amount?: number
-}
+export type t_PostTestHelpersIssuingTransactionsCreateUnlinkedRefundRequestBody =
+  {
+    amount: number
+    card: string
+    currency?: string
+    expand?: string[]
+    merchant_data?: {
+      category?:
+        | "ac_refrigeration_repair"
+        | "accounting_bookkeeping_services"
+        | "advertising_services"
+        | "agricultural_cooperative"
+        | "airlines_air_carriers"
+        | "airports_flying_fields"
+        | "ambulance_services"
+        | "amusement_parks_carnivals"
+        | "antique_reproductions"
+        | "antique_shops"
+        | "aquariums"
+        | "architectural_surveying_services"
+        | "art_dealers_and_galleries"
+        | "artists_supply_and_craft_shops"
+        | "auto_and_home_supply_stores"
+        | "auto_body_repair_shops"
+        | "auto_paint_shops"
+        | "auto_service_shops"
+        | "automated_cash_disburse"
+        | "automated_fuel_dispensers"
+        | "automobile_associations"
+        | "automotive_parts_and_accessories_stores"
+        | "automotive_tire_stores"
+        | "bail_and_bond_payments"
+        | "bakeries"
+        | "bands_orchestras"
+        | "barber_and_beauty_shops"
+        | "betting_casino_gambling"
+        | "bicycle_shops"
+        | "billiard_pool_establishments"
+        | "boat_dealers"
+        | "boat_rentals_and_leases"
+        | "book_stores"
+        | "books_periodicals_and_newspapers"
+        | "bowling_alleys"
+        | "bus_lines"
+        | "business_secretarial_schools"
+        | "buying_shopping_services"
+        | "cable_satellite_and_other_pay_television_and_radio"
+        | "camera_and_photographic_supply_stores"
+        | "candy_nut_and_confectionery_stores"
+        | "car_and_truck_dealers_new_used"
+        | "car_and_truck_dealers_used_only"
+        | "car_rental_agencies"
+        | "car_washes"
+        | "carpentry_services"
+        | "carpet_upholstery_cleaning"
+        | "caterers"
+        | "charitable_and_social_service_organizations_fundraising"
+        | "chemicals_and_allied_products"
+        | "child_care_services"
+        | "childrens_and_infants_wear_stores"
+        | "chiropodists_podiatrists"
+        | "chiropractors"
+        | "cigar_stores_and_stands"
+        | "civic_social_fraternal_associations"
+        | "cleaning_and_maintenance"
+        | "clothing_rental"
+        | "colleges_universities"
+        | "commercial_equipment"
+        | "commercial_footwear"
+        | "commercial_photography_art_and_graphics"
+        | "commuter_transport_and_ferries"
+        | "computer_network_services"
+        | "computer_programming"
+        | "computer_repair"
+        | "computer_software_stores"
+        | "computers_peripherals_and_software"
+        | "concrete_work_services"
+        | "construction_materials"
+        | "consulting_public_relations"
+        | "correspondence_schools"
+        | "cosmetic_stores"
+        | "counseling_services"
+        | "country_clubs"
+        | "courier_services"
+        | "court_costs"
+        | "credit_reporting_agencies"
+        | "cruise_lines"
+        | "dairy_products_stores"
+        | "dance_hall_studios_schools"
+        | "dating_escort_services"
+        | "dentists_orthodontists"
+        | "department_stores"
+        | "detective_agencies"
+        | "digital_goods_applications"
+        | "digital_goods_games"
+        | "digital_goods_large_volume"
+        | "digital_goods_media"
+        | "direct_marketing_catalog_merchant"
+        | "direct_marketing_combination_catalog_and_retail_merchant"
+        | "direct_marketing_inbound_telemarketing"
+        | "direct_marketing_insurance_services"
+        | "direct_marketing_other"
+        | "direct_marketing_outbound_telemarketing"
+        | "direct_marketing_subscription"
+        | "direct_marketing_travel"
+        | "discount_stores"
+        | "doctors"
+        | "door_to_door_sales"
+        | "drapery_window_covering_and_upholstery_stores"
+        | "drinking_places"
+        | "drug_stores_and_pharmacies"
+        | "drugs_drug_proprietaries_and_druggist_sundries"
+        | "dry_cleaners"
+        | "durable_goods"
+        | "duty_free_stores"
+        | "eating_places_restaurants"
+        | "educational_services"
+        | "electric_razor_stores"
+        | "electric_vehicle_charging"
+        | "electrical_parts_and_equipment"
+        | "electrical_services"
+        | "electronics_repair_shops"
+        | "electronics_stores"
+        | "elementary_secondary_schools"
+        | "emergency_services_gcas_visa_use_only"
+        | "employment_temp_agencies"
+        | "equipment_rental"
+        | "exterminating_services"
+        | "family_clothing_stores"
+        | "fast_food_restaurants"
+        | "financial_institutions"
+        | "fines_government_administrative_entities"
+        | "fireplace_fireplace_screens_and_accessories_stores"
+        | "floor_covering_stores"
+        | "florists"
+        | "florists_supplies_nursery_stock_and_flowers"
+        | "freezer_and_locker_meat_provisioners"
+        | "fuel_dealers_non_automotive"
+        | "funeral_services_crematories"
+        | "furniture_home_furnishings_and_equipment_stores_except_appliances"
+        | "furniture_repair_refinishing"
+        | "furriers_and_fur_shops"
+        | "general_services"
+        | "gift_card_novelty_and_souvenir_shops"
+        | "glass_paint_and_wallpaper_stores"
+        | "glassware_crystal_stores"
+        | "golf_courses_public"
+        | "government_licensed_horse_dog_racing_us_region_only"
+        | "government_licensed_online_casions_online_gambling_us_region_only"
+        | "government_owned_lotteries_non_us_region"
+        | "government_owned_lotteries_us_region_only"
+        | "government_services"
+        | "grocery_stores_supermarkets"
+        | "hardware_equipment_and_supplies"
+        | "hardware_stores"
+        | "health_and_beauty_spas"
+        | "hearing_aids_sales_and_supplies"
+        | "heating_plumbing_a_c"
+        | "hobby_toy_and_game_shops"
+        | "home_supply_warehouse_stores"
+        | "hospitals"
+        | "hotels_motels_and_resorts"
+        | "household_appliance_stores"
+        | "industrial_supplies"
+        | "information_retrieval_services"
+        | "insurance_default"
+        | "insurance_underwriting_premiums"
+        | "intra_company_purchases"
+        | "jewelry_stores_watches_clocks_and_silverware_stores"
+        | "landscaping_services"
+        | "laundries"
+        | "laundry_cleaning_services"
+        | "legal_services_attorneys"
+        | "luggage_and_leather_goods_stores"
+        | "lumber_building_materials_stores"
+        | "manual_cash_disburse"
+        | "marinas_service_and_supplies"
+        | "marketplaces"
+        | "masonry_stonework_and_plaster"
+        | "massage_parlors"
+        | "medical_and_dental_labs"
+        | "medical_dental_ophthalmic_and_hospital_equipment_and_supplies"
+        | "medical_services"
+        | "membership_organizations"
+        | "mens_and_boys_clothing_and_accessories_stores"
+        | "mens_womens_clothing_stores"
+        | "metal_service_centers"
+        | "miscellaneous_apparel_and_accessory_shops"
+        | "miscellaneous_auto_dealers"
+        | "miscellaneous_business_services"
+        | "miscellaneous_food_stores"
+        | "miscellaneous_general_merchandise"
+        | "miscellaneous_general_services"
+        | "miscellaneous_home_furnishing_specialty_stores"
+        | "miscellaneous_publishing_and_printing"
+        | "miscellaneous_recreation_services"
+        | "miscellaneous_repair_shops"
+        | "miscellaneous_specialty_retail"
+        | "mobile_home_dealers"
+        | "motion_picture_theaters"
+        | "motor_freight_carriers_and_trucking"
+        | "motor_homes_dealers"
+        | "motor_vehicle_supplies_and_new_parts"
+        | "motorcycle_shops_and_dealers"
+        | "motorcycle_shops_dealers"
+        | "music_stores_musical_instruments_pianos_and_sheet_music"
+        | "news_dealers_and_newsstands"
+        | "non_fi_money_orders"
+        | "non_fi_stored_value_card_purchase_load"
+        | "nondurable_goods"
+        | "nurseries_lawn_and_garden_supply_stores"
+        | "nursing_personal_care"
+        | "office_and_commercial_furniture"
+        | "opticians_eyeglasses"
+        | "optometrists_ophthalmologist"
+        | "orthopedic_goods_prosthetic_devices"
+        | "osteopaths"
+        | "package_stores_beer_wine_and_liquor"
+        | "paints_varnishes_and_supplies"
+        | "parking_lots_garages"
+        | "passenger_railways"
+        | "pawn_shops"
+        | "pet_shops_pet_food_and_supplies"
+        | "petroleum_and_petroleum_products"
+        | "photo_developing"
+        | "photographic_photocopy_microfilm_equipment_and_supplies"
+        | "photographic_studios"
+        | "picture_video_production"
+        | "piece_goods_notions_and_other_dry_goods"
+        | "plumbing_heating_equipment_and_supplies"
+        | "political_organizations"
+        | "postal_services_government_only"
+        | "precious_stones_and_metals_watches_and_jewelry"
+        | "professional_services"
+        | "public_warehousing_and_storage"
+        | "quick_copy_repro_and_blueprint"
+        | "railroads"
+        | "real_estate_agents_and_managers_rentals"
+        | "record_stores"
+        | "recreational_vehicle_rentals"
+        | "religious_goods_stores"
+        | "religious_organizations"
+        | "roofing_siding_sheet_metal"
+        | "secretarial_support_services"
+        | "security_brokers_dealers"
+        | "service_stations"
+        | "sewing_needlework_fabric_and_piece_goods_stores"
+        | "shoe_repair_hat_cleaning"
+        | "shoe_stores"
+        | "small_appliance_repair"
+        | "snowmobile_dealers"
+        | "special_trade_services"
+        | "specialty_cleaning"
+        | "sporting_goods_stores"
+        | "sporting_recreation_camps"
+        | "sports_and_riding_apparel_stores"
+        | "sports_clubs_fields"
+        | "stamp_and_coin_stores"
+        | "stationary_office_supplies_printing_and_writing_paper"
+        | "stationery_stores_office_and_school_supply_stores"
+        | "swimming_pools_sales"
+        | "t_ui_travel_germany"
+        | "tailors_alterations"
+        | "tax_payments_government_agencies"
+        | "tax_preparation_services"
+        | "taxicabs_limousines"
+        | "telecommunication_equipment_and_telephone_sales"
+        | "telecommunication_services"
+        | "telegraph_services"
+        | "tent_and_awning_shops"
+        | "testing_laboratories"
+        | "theatrical_ticket_agencies"
+        | "timeshares"
+        | "tire_retreading_and_repair"
+        | "tolls_bridge_fees"
+        | "tourist_attractions_and_exhibits"
+        | "towing_services"
+        | "trailer_parks_campgrounds"
+        | "transportation_services"
+        | "travel_agencies_tour_operators"
+        | "truck_stop_iteration"
+        | "truck_utility_trailer_rentals"
+        | "typesetting_plate_making_and_related_services"
+        | "typewriter_stores"
+        | "u_s_federal_government_agencies_or_departments"
+        | "uniforms_commercial_clothing"
+        | "used_merchandise_and_secondhand_stores"
+        | "utilities"
+        | "variety_stores"
+        | "veterinary_services"
+        | "video_amusement_game_supplies"
+        | "video_game_arcades"
+        | "video_tape_rental_stores"
+        | "vocational_trade_schools"
+        | "watch_jewelry_repair"
+        | "welding_repair"
+        | "wholesale_clubs"
+        | "wig_and_toupee_stores"
+        | "wires_money_orders"
+        | "womens_accessory_and_specialty_shops"
+        | "womens_ready_to_wear_stores"
+        | "wrecking_and_salvage_yards"
+      city?: string
+      country?: string
+      name?: string
+      network_id?: string
+      postal_code?: string
+      state?: string
+      terminal_id?: string
+      url?: string
+    }
+    purchase_details?: {
+      fleet?: {
+        cardholder_prompt_data?: {
+          driver_id?: string
+          odometer?: number
+          unspecified_id?: string
+          user_id?: string
+          vehicle_number?: string
+        }
+        purchase_type?:
+          | "fuel_and_non_fuel_purchase"
+          | "fuel_purchase"
+          | "non_fuel_purchase"
+        reported_breakdown?: {
+          fuel?: {
+            gross_amount_decimal?: string
+          }
+          non_fuel?: {
+            gross_amount_decimal?: string
+          }
+          tax?: {
+            local_amount_decimal?: string
+            national_amount_decimal?: string
+          }
+        }
+        service_type?: "full_service" | "non_fuel_transaction" | "self_service"
+      }
+      flight?: {
+        departure_at?: number
+        passenger_name?: string
+        refundable?: boolean
+        segments?: {
+          arrival_airport_code?: string
+          carrier?: string
+          departure_airport_code?: string
+          flight_number?: string
+          service_class?: string
+          stopover_allowed?: boolean
+        }[]
+        travel_agency?: string
+      }
+      fuel?: {
+        industry_product_code?: string
+        quantity_decimal?: string
+        type?:
+          | "diesel"
+          | "other"
+          | "unleaded_plus"
+          | "unleaded_regular"
+          | "unleaded_super"
+        unit?:
+          | "charging_minute"
+          | "imperial_gallon"
+          | "kilogram"
+          | "kilowatt_hour"
+          | "liter"
+          | "other"
+          | "pound"
+          | "us_gallon"
+        unit_cost_decimal?: string
+      }
+      lodging?: {
+        check_in_at?: number
+        nights?: number
+      }
+      receipt?: {
+        description?: string
+        quantity?: string
+        total?: number
+        unit_cost?: number
+      }[]
+      reference?: string
+    }
+  }
 
 export type t_PostTestHelpersIssuingTransactionsTransactionRefundParamSchema = {
   transaction: string
 }
 
-export type t_PostTestHelpersRefundsRefundExpireBodySchema = {
+export type t_PostTestHelpersIssuingTransactionsTransactionRefundRequestBody = {
   expand?: string[]
+  refund_amount?: number
 }
 
 export type t_PostTestHelpersRefundsRefundExpireParamSchema = {
   refund: string
 }
 
-export type t_PostTestHelpersTerminalReadersReaderPresentPaymentMethodBodySchema =
+export type t_PostTestHelpersRefundsRefundExpireRequestBody = {
+  expand?: string[]
+}
+
+export type t_PostTestHelpersTerminalReadersReaderPresentPaymentMethodParamSchema =
+  {
+    reader: string
+  }
+
+export type t_PostTestHelpersTerminalReadersReaderPresentPaymentMethodRequestBody =
   {
     amount_tip?: number
     card_present?: {
@@ -39721,25 +39725,15 @@ export type t_PostTestHelpersTerminalReadersReaderPresentPaymentMethodBodySchema
     type?: "card_present" | "interac_present"
   }
 
-export type t_PostTestHelpersTerminalReadersReaderPresentPaymentMethodParamSchema =
-  {
-    reader: string
-  }
-
-export type t_PostTestHelpersTerminalReadersReaderSucceedInputCollectionBodySchema =
-  {
-    expand?: string[]
-    skip_non_required_inputs?: "all" | "none"
-  }
-
 export type t_PostTestHelpersTerminalReadersReaderSucceedInputCollectionParamSchema =
   {
     reader: string
   }
 
-export type t_PostTestHelpersTerminalReadersReaderTimeoutInputCollectionBodySchema =
+export type t_PostTestHelpersTerminalReadersReaderSucceedInputCollectionRequestBody =
   {
     expand?: string[]
+    skip_non_required_inputs?: "all" | "none"
   }
 
 export type t_PostTestHelpersTerminalReadersReaderTimeoutInputCollectionParamSchema =
@@ -39747,22 +39741,31 @@ export type t_PostTestHelpersTerminalReadersReaderTimeoutInputCollectionParamSch
     reader: string
   }
 
-export type t_PostTestHelpersTestClocksBodySchema = {
+export type t_PostTestHelpersTerminalReadersReaderTimeoutInputCollectionRequestBody =
+  {
+    expand?: string[]
+  }
+
+export type t_PostTestHelpersTestClocksRequestBody = {
   expand?: string[]
   frozen_time: number
   name?: string
-}
-
-export type t_PostTestHelpersTestClocksTestClockAdvanceBodySchema = {
-  expand?: string[]
-  frozen_time: number
 }
 
 export type t_PostTestHelpersTestClocksTestClockAdvanceParamSchema = {
   test_clock: string
 }
 
-export type t_PostTestHelpersTreasuryInboundTransfersIdFailBodySchema = {
+export type t_PostTestHelpersTestClocksTestClockAdvanceRequestBody = {
+  expand?: string[]
+  frozen_time: number
+}
+
+export type t_PostTestHelpersTreasuryInboundTransfersIdFailParamSchema = {
+  id: string
+}
+
+export type t_PostTestHelpersTreasuryInboundTransfersIdFailRequestBody = {
   expand?: string[]
   failure_details?: {
     code?:
@@ -39782,19 +39785,11 @@ export type t_PostTestHelpersTreasuryInboundTransfersIdFailBodySchema = {
   }
 }
 
-export type t_PostTestHelpersTreasuryInboundTransfersIdFailParamSchema = {
-  id: string
-}
-
-export type t_PostTestHelpersTreasuryInboundTransfersIdReturnBodySchema = {
-  expand?: string[]
-}
-
 export type t_PostTestHelpersTreasuryInboundTransfersIdReturnParamSchema = {
   id: string
 }
 
-export type t_PostTestHelpersTreasuryInboundTransfersIdSucceedBodySchema = {
+export type t_PostTestHelpersTreasuryInboundTransfersIdReturnRequestBody = {
   expand?: string[]
 }
 
@@ -39802,7 +39797,15 @@ export type t_PostTestHelpersTreasuryInboundTransfersIdSucceedParamSchema = {
   id: string
 }
 
-export type t_PostTestHelpersTreasuryOutboundPaymentsIdBodySchema = {
+export type t_PostTestHelpersTreasuryInboundTransfersIdSucceedRequestBody = {
+  expand?: string[]
+}
+
+export type t_PostTestHelpersTreasuryOutboundPaymentsIdParamSchema = {
+  id: string
+}
+
+export type t_PostTestHelpersTreasuryOutboundPaymentsIdRequestBody = {
   expand?: string[]
   tracking_details: {
     ach?: {
@@ -39817,19 +39820,11 @@ export type t_PostTestHelpersTreasuryOutboundPaymentsIdBodySchema = {
   }
 }
 
-export type t_PostTestHelpersTreasuryOutboundPaymentsIdParamSchema = {
-  id: string
-}
-
-export type t_PostTestHelpersTreasuryOutboundPaymentsIdFailBodySchema = {
-  expand?: string[]
-}
-
 export type t_PostTestHelpersTreasuryOutboundPaymentsIdFailParamSchema = {
   id: string
 }
 
-export type t_PostTestHelpersTreasuryOutboundPaymentsIdPostBodySchema = {
+export type t_PostTestHelpersTreasuryOutboundPaymentsIdFailRequestBody = {
   expand?: string[]
 }
 
@@ -39837,7 +39832,15 @@ export type t_PostTestHelpersTreasuryOutboundPaymentsIdPostParamSchema = {
   id: string
 }
 
-export type t_PostTestHelpersTreasuryOutboundPaymentsIdReturnBodySchema = {
+export type t_PostTestHelpersTreasuryOutboundPaymentsIdPostRequestBody = {
+  expand?: string[]
+}
+
+export type t_PostTestHelpersTreasuryOutboundPaymentsIdReturnParamSchema = {
+  id: string
+}
+
+export type t_PostTestHelpersTreasuryOutboundPaymentsIdReturnRequestBody = {
   expand?: string[]
   returned_details?: {
     code?:
@@ -39854,11 +39857,12 @@ export type t_PostTestHelpersTreasuryOutboundPaymentsIdReturnBodySchema = {
   }
 }
 
-export type t_PostTestHelpersTreasuryOutboundPaymentsIdReturnParamSchema = {
-  id: string
-}
+export type t_PostTestHelpersTreasuryOutboundTransfersOutboundTransferParamSchema =
+  {
+    outbound_transfer: string
+  }
 
-export type t_PostTestHelpersTreasuryOutboundTransfersOutboundTransferBodySchema =
+export type t_PostTestHelpersTreasuryOutboundTransfersOutboundTransferRequestBody =
   {
     expand?: string[]
     tracking_details: {
@@ -39874,22 +39878,12 @@ export type t_PostTestHelpersTreasuryOutboundTransfersOutboundTransferBodySchema
     }
   }
 
-export type t_PostTestHelpersTreasuryOutboundTransfersOutboundTransferParamSchema =
-  {
-    outbound_transfer: string
-  }
-
-export type t_PostTestHelpersTreasuryOutboundTransfersOutboundTransferFailBodySchema =
-  {
-    expand?: string[]
-  }
-
 export type t_PostTestHelpersTreasuryOutboundTransfersOutboundTransferFailParamSchema =
   {
     outbound_transfer: string
   }
 
-export type t_PostTestHelpersTreasuryOutboundTransfersOutboundTransferPostBodySchema =
+export type t_PostTestHelpersTreasuryOutboundTransfersOutboundTransferFailRequestBody =
   {
     expand?: string[]
   }
@@ -39899,7 +39893,17 @@ export type t_PostTestHelpersTreasuryOutboundTransfersOutboundTransferPostParamS
     outbound_transfer: string
   }
 
-export type t_PostTestHelpersTreasuryOutboundTransfersOutboundTransferReturnBodySchema =
+export type t_PostTestHelpersTreasuryOutboundTransfersOutboundTransferPostRequestBody =
+  {
+    expand?: string[]
+  }
+
+export type t_PostTestHelpersTreasuryOutboundTransfersOutboundTransferReturnParamSchema =
+  {
+    outbound_transfer: string
+  }
+
+export type t_PostTestHelpersTreasuryOutboundTransfersOutboundTransferReturnRequestBody =
   {
     expand?: string[]
     returned_details?: {
@@ -39917,12 +39921,7 @@ export type t_PostTestHelpersTreasuryOutboundTransfersOutboundTransferReturnBody
     }
   }
 
-export type t_PostTestHelpersTreasuryOutboundTransfersOutboundTransferReturnParamSchema =
-  {
-    outbound_transfer: string
-  }
-
-export type t_PostTestHelpersTreasuryReceivedCreditsBodySchema = {
+export type t_PostTestHelpersTreasuryReceivedCreditsRequestBody = {
   amount: number
   currency: string
   description?: string
@@ -39939,7 +39938,7 @@ export type t_PostTestHelpersTreasuryReceivedCreditsBodySchema = {
   network: "ach" | "us_domestic_wire"
 }
 
-export type t_PostTestHelpersTreasuryReceivedDebitsBodySchema = {
+export type t_PostTestHelpersTreasuryReceivedDebitsRequestBody = {
   amount: number
   currency: string
   description?: string
@@ -39956,7 +39955,7 @@ export type t_PostTestHelpersTreasuryReceivedDebitsBodySchema = {
   network: "ach"
 }
 
-export type t_PostTokensBodySchema = {
+export type t_PostTokensRequestBody = {
   account?: {
     business_type?:
       | "company"
@@ -40324,7 +40323,7 @@ export type t_PostTokensBodySchema = {
   }
 }
 
-export type t_PostTopupsBodySchema = {
+export type t_PostTopupsRequestBody = {
   amount: number
   currency: string
   description?: string
@@ -40339,7 +40338,11 @@ export type t_PostTopupsBodySchema = {
   transfer_group?: string
 }
 
-export type t_PostTopupsTopupBodySchema = {
+export type t_PostTopupsTopupParamSchema = {
+  topup: string
+}
+
+export type t_PostTopupsTopupRequestBody = {
   description?: string
   expand?: string[]
   metadata?:
@@ -40349,19 +40352,15 @@ export type t_PostTopupsTopupBodySchema = {
     | ""
 }
 
-export type t_PostTopupsTopupParamSchema = {
-  topup: string
-}
-
-export type t_PostTopupsTopupCancelBodySchema = {
-  expand?: string[]
-}
-
 export type t_PostTopupsTopupCancelParamSchema = {
   topup: string
 }
 
-export type t_PostTransfersBodySchema = {
+export type t_PostTopupsTopupCancelRequestBody = {
+  expand?: string[]
+}
+
+export type t_PostTransfersRequestBody = {
   amount?: number
   currency: string
   description?: string
@@ -40375,7 +40374,11 @@ export type t_PostTransfersBodySchema = {
   transfer_group?: string
 }
 
-export type t_PostTransfersIdReversalsBodySchema = {
+export type t_PostTransfersIdReversalsParamSchema = {
+  id: string
+}
+
+export type t_PostTransfersIdReversalsRequestBody = {
   amount?: number
   description?: string
   expand?: string[]
@@ -40387,25 +40390,12 @@ export type t_PostTransfersIdReversalsBodySchema = {
   refund_application_fee?: boolean
 }
 
-export type t_PostTransfersIdReversalsParamSchema = {
-  id: string
-}
-
-export type t_PostTransfersTransferBodySchema = {
-  description?: string
-  expand?: string[]
-  metadata?:
-    | {
-        [key: string]: string | undefined
-      }
-    | ""
-}
-
 export type t_PostTransfersTransferParamSchema = {
   transfer: string
 }
 
-export type t_PostTransfersTransferReversalsIdBodySchema = {
+export type t_PostTransfersTransferRequestBody = {
+  description?: string
   expand?: string[]
   metadata?:
     | {
@@ -40419,7 +40409,16 @@ export type t_PostTransfersTransferReversalsIdParamSchema = {
   transfer: string
 }
 
-export type t_PostTreasuryCreditReversalsBodySchema = {
+export type t_PostTransfersTransferReversalsIdRequestBody = {
+  expand?: string[]
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | ""
+}
+
+export type t_PostTreasuryCreditReversalsRequestBody = {
   expand?: string[]
   metadata?: {
     [key: string]: string | undefined
@@ -40427,7 +40426,7 @@ export type t_PostTreasuryCreditReversalsBodySchema = {
   received_credit: string
 }
 
-export type t_PostTreasuryDebitReversalsBodySchema = {
+export type t_PostTreasuryDebitReversalsRequestBody = {
   expand?: string[]
   metadata?: {
     [key: string]: string | undefined
@@ -40435,7 +40434,7 @@ export type t_PostTreasuryDebitReversalsBodySchema = {
   received_debit: string
 }
 
-export type t_PostTreasuryFinancialAccountsBodySchema = {
+export type t_PostTreasuryFinancialAccountsRequestBody = {
   expand?: string[]
   features?: {
     card_issuing?: {
@@ -40485,7 +40484,11 @@ export type t_PostTreasuryFinancialAccountsBodySchema = {
   supported_currencies: string[]
 }
 
-export type t_PostTreasuryFinancialAccountsFinancialAccountBodySchema = {
+export type t_PostTreasuryFinancialAccountsFinancialAccountParamSchema = {
+  financial_account: string
+}
+
+export type t_PostTreasuryFinancialAccountsFinancialAccountRequestBody = {
   expand?: string[]
   features?: {
     card_issuing?: {
@@ -40539,11 +40542,11 @@ export type t_PostTreasuryFinancialAccountsFinancialAccountBodySchema = {
   }
 }
 
-export type t_PostTreasuryFinancialAccountsFinancialAccountParamSchema = {
+export type t_PostTreasuryFinancialAccountsFinancialAccountCloseParamSchema = {
   financial_account: string
 }
 
-export type t_PostTreasuryFinancialAccountsFinancialAccountCloseBodySchema = {
+export type t_PostTreasuryFinancialAccountsFinancialAccountCloseRequestBody = {
   expand?: string[]
   forwarding_settings?: {
     financial_account?: string
@@ -40552,11 +40555,12 @@ export type t_PostTreasuryFinancialAccountsFinancialAccountCloseBodySchema = {
   }
 }
 
-export type t_PostTreasuryFinancialAccountsFinancialAccountCloseParamSchema = {
-  financial_account: string
-}
+export type t_PostTreasuryFinancialAccountsFinancialAccountFeaturesParamSchema =
+  {
+    financial_account: string
+  }
 
-export type t_PostTreasuryFinancialAccountsFinancialAccountFeaturesBodySchema =
+export type t_PostTreasuryFinancialAccountsFinancialAccountFeaturesRequestBody =
   {
     card_issuing?: {
       requested: boolean
@@ -40596,12 +40600,7 @@ export type t_PostTreasuryFinancialAccountsFinancialAccountFeaturesBodySchema =
     }
   }
 
-export type t_PostTreasuryFinancialAccountsFinancialAccountFeaturesParamSchema =
-  {
-    financial_account: string
-  }
-
-export type t_PostTreasuryInboundTransfersBodySchema = {
+export type t_PostTreasuryInboundTransfersRequestBody = {
   amount: number
   currency: string
   description?: string
@@ -40614,15 +40613,15 @@ export type t_PostTreasuryInboundTransfersBodySchema = {
   statement_descriptor?: string
 }
 
-export type t_PostTreasuryInboundTransfersInboundTransferCancelBodySchema = {
-  expand?: string[]
-}
-
 export type t_PostTreasuryInboundTransfersInboundTransferCancelParamSchema = {
   inbound_transfer: string
 }
 
-export type t_PostTreasuryOutboundPaymentsBodySchema = {
+export type t_PostTreasuryInboundTransfersInboundTransferCancelRequestBody = {
+  expand?: string[]
+}
+
+export type t_PostTreasuryOutboundPaymentsRequestBody = {
   amount: number
   currency: string
   customer?: string
@@ -40676,15 +40675,15 @@ export type t_PostTreasuryOutboundPaymentsBodySchema = {
   statement_descriptor?: string
 }
 
-export type t_PostTreasuryOutboundPaymentsIdCancelBodySchema = {
-  expand?: string[]
-}
-
 export type t_PostTreasuryOutboundPaymentsIdCancelParamSchema = {
   id: string
 }
 
-export type t_PostTreasuryOutboundTransfersBodySchema = {
+export type t_PostTreasuryOutboundPaymentsIdCancelRequestBody = {
+  expand?: string[]
+}
+
+export type t_PostTreasuryOutboundTransfersRequestBody = {
   amount: number
   currency: string
   description?: string
@@ -40708,15 +40707,15 @@ export type t_PostTreasuryOutboundTransfersBodySchema = {
   statement_descriptor?: string
 }
 
-export type t_PostTreasuryOutboundTransfersOutboundTransferCancelBodySchema = {
-  expand?: string[]
-}
-
 export type t_PostTreasuryOutboundTransfersOutboundTransferCancelParamSchema = {
   outbound_transfer: string
 }
 
-export type t_PostWebhookEndpointsBodySchema = {
+export type t_PostTreasuryOutboundTransfersOutboundTransferCancelRequestBody = {
+  expand?: string[]
+}
+
+export type t_PostWebhookEndpointsRequestBody = {
   api_version?:
     | "2011-01-01"
     | "2011-06-21"
@@ -41088,7 +41087,11 @@ export type t_PostWebhookEndpointsBodySchema = {
   url: string
 }
 
-export type t_PostWebhookEndpointsWebhookEndpointBodySchema = {
+export type t_PostWebhookEndpointsWebhookEndpointParamSchema = {
+  webhook_endpoint: string
+}
+
+export type t_PostWebhookEndpointsWebhookEndpointRequestBody = {
   description?: string | ""
   disabled?: boolean
   enabled_events?: (
@@ -41343,8 +41346,4 @@ export type t_PostWebhookEndpointsWebhookEndpointBodySchema = {
       }
     | ""
   url?: string
-}
-
-export type t_PostWebhookEndpointsWebhookEndpointParamSchema = {
-  webhook_endpoint: string
 }

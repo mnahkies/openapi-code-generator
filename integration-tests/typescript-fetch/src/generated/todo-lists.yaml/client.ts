@@ -12,6 +12,7 @@ import {
   type StatusCode5xx,
 } from "@nahkies/typescript-fetch-runtime/main"
 import type {
+  t_CreateTodoListItemRequestBody,
   t_CreateUpdateTodoList,
   t_Error,
   t_Statuses,
@@ -260,11 +261,7 @@ export class TodoListsExampleApi extends AbstractFetchClient {
   async createTodoListItem(
     p: {
       listId: string
-      requestBody: {
-        completedAt?: string
-        content: string
-        id: string
-      }
+      requestBody: t_CreateTodoListItemRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},

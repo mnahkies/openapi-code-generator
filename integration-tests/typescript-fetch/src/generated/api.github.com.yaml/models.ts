@@ -8267,3 +8267,2451 @@ export type t_workflow_usage = {
     }
   }
 }
+
+export type t_ActionsAddCustomLabelsToSelfHostedRunnerForOrgRequestBody = {
+  labels: string[]
+}
+
+export type t_ActionsAddCustomLabelsToSelfHostedRunnerForRepoRequestBody = {
+  labels: string[]
+}
+
+export type t_ActionsCreateEnvironmentVariableRequestBody = {
+  name: string
+  value: string
+}
+
+export type t_ActionsCreateHostedRunnerForOrgRequestBody = {
+  enable_static_ip?: boolean
+  image: {
+    id?: string
+    source?: "github" | "partner" | "custom" | UnknownEnumStringValue
+  }
+  maximum_runners?: number
+  name: string
+  runner_group_id: number
+  size: string
+}
+
+export type t_ActionsCreateOrUpdateEnvironmentSecretRequestBody = {
+  encrypted_value: string
+  key_id: string
+}
+
+export type t_ActionsCreateOrUpdateOrgSecretRequestBody = {
+  encrypted_value: string
+  key_id: string
+  selected_repository_ids?: number[]
+  visibility: "all" | "private" | "selected" | UnknownEnumStringValue
+}
+
+export type t_ActionsCreateOrUpdateRepoSecretRequestBody = {
+  encrypted_value: string
+  key_id: string
+}
+
+export type t_ActionsCreateOrgVariableRequestBody = {
+  name: string
+  selected_repository_ids?: number[]
+  value: string
+  visibility: "all" | "private" | "selected" | UnknownEnumStringValue
+}
+
+export type t_ActionsCreateRepoVariableRequestBody = {
+  name: string
+  value: string
+}
+
+export type t_ActionsCreateSelfHostedRunnerGroupForOrgRequestBody = {
+  allows_public_repositories?: boolean
+  name: string
+  network_configuration_id?: string
+  restricted_to_workflows?: boolean
+  runners?: number[]
+  selected_repository_ids?: number[]
+  selected_workflows?: string[]
+  visibility?: "selected" | "all" | "private" | UnknownEnumStringValue
+}
+
+export type t_ActionsCreateWorkflowDispatchRequestBody = {
+  inputs?: {
+    [key: string]: unknown | undefined
+  }
+  ref: string
+}
+
+export type t_ActionsGenerateRunnerJitconfigForOrgRequestBody = {
+  labels: string[]
+  name: string
+  runner_group_id: number
+  work_folder?: string
+}
+
+export type t_ActionsGenerateRunnerJitconfigForRepoRequestBody = {
+  labels: string[]
+  name: string
+  runner_group_id: number
+  work_folder?: string
+}
+
+export type t_ActionsReRunJobForWorkflowRunRequestBody = {
+  enable_debug_logging?: boolean
+} | null
+
+export type t_ActionsReRunWorkflowRequestBody = {
+  enable_debug_logging?: boolean
+} | null
+
+export type t_ActionsReRunWorkflowFailedJobsRequestBody = {
+  enable_debug_logging?: boolean
+} | null
+
+export type t_ActionsReviewCustomGatesForRunRequestBody =
+  | t_review_custom_gates_comment_required
+  | t_review_custom_gates_state_required
+
+export type t_ActionsReviewPendingDeploymentsForRunRequestBody = {
+  comment: string
+  environment_ids: number[]
+  state: "approved" | "rejected" | UnknownEnumStringValue
+}
+
+export type t_ActionsSetCustomLabelsForSelfHostedRunnerForOrgRequestBody = {
+  labels: string[]
+}
+
+export type t_ActionsSetCustomLabelsForSelfHostedRunnerForRepoRequestBody = {
+  labels: string[]
+}
+
+export type t_ActionsSetCustomOidcSubClaimForRepoRequestBody = {
+  include_claim_keys?: string[]
+  use_default: boolean
+}
+
+export type t_ActionsSetGithubActionsPermissionsOrganizationRequestBody = {
+  allowed_actions?: t_allowed_actions
+  enabled_repositories: t_enabled_repositories
+}
+
+export type t_ActionsSetGithubActionsPermissionsRepositoryRequestBody = {
+  allowed_actions?: t_allowed_actions
+  enabled: t_actions_enabled
+}
+
+export type t_ActionsSetRepoAccessToSelfHostedRunnerGroupInOrgRequestBody = {
+  selected_repository_ids: number[]
+}
+
+export type t_ActionsSetSelectedReposForOrgSecretRequestBody = {
+  selected_repository_ids: number[]
+}
+
+export type t_ActionsSetSelectedReposForOrgVariableRequestBody = {
+  selected_repository_ids: number[]
+}
+
+export type t_ActionsSetSelectedRepositoriesEnabledGithubActionsOrganizationRequestBody =
+  {
+    selected_repository_ids: number[]
+  }
+
+export type t_ActionsSetSelfHostedRunnersInGroupForOrgRequestBody = {
+  runners: number[]
+}
+
+export type t_ActionsUpdateEnvironmentVariableRequestBody = {
+  name?: string
+  value?: string
+}
+
+export type t_ActionsUpdateHostedRunnerForOrgRequestBody = {
+  enable_static_ip?: boolean
+  maximum_runners?: number
+  name?: string
+  runner_group_id?: number
+}
+
+export type t_ActionsUpdateOrgVariableRequestBody = {
+  name?: string
+  selected_repository_ids?: number[]
+  value?: string
+  visibility?: "all" | "private" | "selected" | UnknownEnumStringValue
+}
+
+export type t_ActionsUpdateRepoVariableRequestBody = {
+  name?: string
+  value?: string
+}
+
+export type t_ActionsUpdateSelfHostedRunnerGroupForOrgRequestBody = {
+  allows_public_repositories?: boolean
+  name: string
+  network_configuration_id?: string | null
+  restricted_to_workflows?: boolean
+  selected_workflows?: string[]
+  visibility?: "selected" | "all" | "private" | UnknownEnumStringValue
+}
+
+export type t_ActivityMarkNotificationsAsReadRequestBody = {
+  last_read_at?: string
+  read?: boolean
+}
+
+export type t_ActivityMarkRepoNotificationsAsReadRequestBody = {
+  last_read_at?: string
+}
+
+export type t_ActivitySetRepoSubscriptionRequestBody = {
+  ignored?: boolean
+  subscribed?: boolean
+}
+
+export type t_ActivitySetThreadSubscriptionRequestBody = {
+  ignored?: boolean
+}
+
+export type t_AppsCheckTokenRequestBody = {
+  access_token: string
+}
+
+export type t_AppsCreateInstallationAccessTokenRequestBody = {
+  permissions?: t_app_permissions
+  repositories?: string[]
+  repository_ids?: number[]
+}
+
+export type t_AppsDeleteAuthorizationRequestBody = {
+  access_token: string
+}
+
+export type t_AppsDeleteTokenRequestBody = {
+  access_token: string
+}
+
+export type t_AppsResetTokenRequestBody = {
+  access_token: string
+}
+
+export type t_AppsScopeTokenRequestBody = {
+  access_token: string
+  permissions?: t_app_permissions
+  repositories?: string[]
+  repository_ids?: number[]
+  target?: string
+  target_id?: number
+}
+
+export type t_AppsUpdateWebhookConfigForAppRequestBody = {
+  content_type?: t_webhook_config_content_type
+  insecure_ssl?: t_webhook_config_insecure_ssl
+  secret?: t_webhook_config_secret
+  url?: t_webhook_config_url
+}
+
+export type t_CampaignsCreateCampaignRequestBody = {
+  code_scanning_alerts: {
+    alert_numbers: number[]
+    repository_id: number
+  }[]
+  contact_link?: string | null
+  description: string
+  ends_at: string
+  generate_issues?: boolean
+  managers?: string[]
+  name: string
+  team_managers?: string[]
+}
+
+export type t_CampaignsUpdateCampaignRequestBody = {
+  contact_link?: string | null
+  description?: string
+  ends_at?: string
+  managers?: string[]
+  name?: string
+  state?: t_campaign_state
+  team_managers?: string[]
+}
+
+export type t_ChecksCreateRequestBody =
+  | {
+      status: EmptyObject
+      [key: string]: unknown | undefined
+    }
+  | {
+      status?: EmptyObject
+      [key: string]: unknown | undefined
+    }
+
+export type t_ChecksCreateSuiteRequestBody = {
+  head_sha: string
+}
+
+export type t_ChecksSetSuitesPreferencesRequestBody = {
+  auto_trigger_checks?: {
+    app_id: number
+    setting: boolean
+  }[]
+}
+
+export type t_ChecksUpdateRequestBody = {
+  actions?: {
+    description: string
+    identifier: string
+    label: string
+  }[]
+  completed_at?: string
+  conclusion?:
+    | "action_required"
+    | "cancelled"
+    | "failure"
+    | "neutral"
+    | "success"
+    | "skipped"
+    | "stale"
+    | "timed_out"
+    | UnknownEnumStringValue
+  details_url?: string
+  external_id?: string
+  name?: string
+  output?: {
+    annotations?: {
+      annotation_level:
+        | "notice"
+        | "warning"
+        | "failure"
+        | UnknownEnumStringValue
+      end_column?: number
+      end_line: number
+      message: string
+      path: string
+      raw_details?: string
+      start_column?: number
+      start_line: number
+      title?: string
+    }[]
+    images?: {
+      alt: string
+      caption?: string
+      image_url: string
+    }[]
+    summary: string
+    text?: string
+    title?: string
+  }
+  started_at?: string
+  status?:
+    | "queued"
+    | "in_progress"
+    | "completed"
+    | "waiting"
+    | "requested"
+    | "pending"
+    | UnknownEnumStringValue
+}
+
+export type t_CodeScanningCreateVariantAnalysisRequestBody = EmptyObject
+
+export type t_CodeScanningUpdateAlertRequestBody = {
+  create_request?: t_code_scanning_alert_create_request
+  dismissed_comment?: t_code_scanning_alert_dismissed_comment
+  dismissed_reason?: t_code_scanning_alert_dismissed_reason
+  state: t_code_scanning_alert_set_state
+}
+
+export type t_CodeScanningUploadSarifRequestBody = {
+  checkout_uri?: string
+  commit_sha: t_code_scanning_analysis_commit_sha
+  ref: t_code_scanning_ref_full
+  sarif: t_code_scanning_analysis_sarif_file
+  started_at?: string
+  tool_name?: string
+  validate?: boolean
+}
+
+export type t_CodeSecurityAttachConfigurationRequestBody = {
+  scope:
+    | "all"
+    | "all_without_configurations"
+    | "public"
+    | "private_or_internal"
+    | "selected"
+    | UnknownEnumStringValue
+  selected_repository_ids?: number[]
+}
+
+export type t_CodeSecurityAttachEnterpriseConfigurationRequestBody = {
+  scope: "all" | "all_without_configurations" | UnknownEnumStringValue
+}
+
+export type t_CodeSecurityCreateConfigurationRequestBody = {
+  advanced_security?:
+    | "enabled"
+    | "disabled"
+    | "code_security"
+    | "secret_protection"
+    | UnknownEnumStringValue
+  code_scanning_default_setup?:
+    | "enabled"
+    | "disabled"
+    | "not_set"
+    | UnknownEnumStringValue
+  code_scanning_default_setup_options?: t_code_scanning_default_setup_options
+  code_scanning_delegated_alert_dismissal?:
+    | "enabled"
+    | "disabled"
+    | "not_set"
+    | UnknownEnumStringValue
+  code_scanning_options?: t_code_scanning_options
+  code_security?: "enabled" | "disabled" | "not_set" | UnknownEnumStringValue
+  dependabot_alerts?:
+    | "enabled"
+    | "disabled"
+    | "not_set"
+    | UnknownEnumStringValue
+  dependabot_security_updates?:
+    | "enabled"
+    | "disabled"
+    | "not_set"
+    | UnknownEnumStringValue
+  dependency_graph?: "enabled" | "disabled" | "not_set" | UnknownEnumStringValue
+  dependency_graph_autosubmit_action?:
+    | "enabled"
+    | "disabled"
+    | "not_set"
+    | UnknownEnumStringValue
+  dependency_graph_autosubmit_action_options?: {
+    labeled_runners?: boolean
+  }
+  description: string
+  enforcement?: "enforced" | "unenforced" | UnknownEnumStringValue
+  name: string
+  private_vulnerability_reporting?:
+    | "enabled"
+    | "disabled"
+    | "not_set"
+    | UnknownEnumStringValue
+  secret_protection?:
+    | "enabled"
+    | "disabled"
+    | "not_set"
+    | UnknownEnumStringValue
+  secret_scanning?: "enabled" | "disabled" | "not_set" | UnknownEnumStringValue
+  secret_scanning_delegated_alert_dismissal?:
+    | "enabled"
+    | "disabled"
+    | "not_set"
+    | UnknownEnumStringValue
+  secret_scanning_delegated_bypass?:
+    | "enabled"
+    | "disabled"
+    | "not_set"
+    | UnknownEnumStringValue
+  secret_scanning_delegated_bypass_options?: {
+    reviewers?: {
+      reviewer_id: number
+      reviewer_type: "TEAM" | "ROLE" | UnknownEnumStringValue
+    }[]
+  }
+  secret_scanning_generic_secrets?:
+    | "enabled"
+    | "disabled"
+    | "not_set"
+    | UnknownEnumStringValue
+  secret_scanning_non_provider_patterns?:
+    | "enabled"
+    | "disabled"
+    | "not_set"
+    | UnknownEnumStringValue
+  secret_scanning_push_protection?:
+    | "enabled"
+    | "disabled"
+    | "not_set"
+    | UnknownEnumStringValue
+  secret_scanning_validity_checks?:
+    | "enabled"
+    | "disabled"
+    | "not_set"
+    | UnknownEnumStringValue
+}
+
+export type t_CodeSecurityCreateConfigurationForEnterpriseRequestBody = {
+  advanced_security?:
+    | "enabled"
+    | "disabled"
+    | "code_security"
+    | "secret_protection"
+    | UnknownEnumStringValue
+  code_scanning_default_setup?:
+    | "enabled"
+    | "disabled"
+    | "not_set"
+    | UnknownEnumStringValue
+  code_scanning_default_setup_options?: t_code_scanning_default_setup_options
+  code_scanning_delegated_alert_dismissal?:
+    | "enabled"
+    | "disabled"
+    | "not_set"
+    | UnknownEnumStringValue
+  code_scanning_options?: t_code_scanning_options
+  code_security?: "enabled" | "disabled" | "not_set" | UnknownEnumStringValue
+  dependabot_alerts?:
+    | "enabled"
+    | "disabled"
+    | "not_set"
+    | UnknownEnumStringValue
+  dependabot_security_updates?:
+    | "enabled"
+    | "disabled"
+    | "not_set"
+    | UnknownEnumStringValue
+  dependency_graph?: "enabled" | "disabled" | "not_set" | UnknownEnumStringValue
+  dependency_graph_autosubmit_action?:
+    | "enabled"
+    | "disabled"
+    | "not_set"
+    | UnknownEnumStringValue
+  dependency_graph_autosubmit_action_options?: {
+    labeled_runners?: boolean
+  }
+  description: string
+  enforcement?: "enforced" | "unenforced" | UnknownEnumStringValue
+  name: string
+  private_vulnerability_reporting?:
+    | "enabled"
+    | "disabled"
+    | "not_set"
+    | UnknownEnumStringValue
+  secret_protection?:
+    | "enabled"
+    | "disabled"
+    | "not_set"
+    | UnknownEnumStringValue
+  secret_scanning?: "enabled" | "disabled" | "not_set" | UnknownEnumStringValue
+  secret_scanning_delegated_alert_dismissal?:
+    | "enabled"
+    | "disabled"
+    | "not_set"
+    | UnknownEnumStringValue
+  secret_scanning_generic_secrets?:
+    | "enabled"
+    | "disabled"
+    | "not_set"
+    | UnknownEnumStringValue
+  secret_scanning_non_provider_patterns?:
+    | "enabled"
+    | "disabled"
+    | "not_set"
+    | UnknownEnumStringValue
+  secret_scanning_push_protection?:
+    | "enabled"
+    | "disabled"
+    | "not_set"
+    | UnknownEnumStringValue
+  secret_scanning_validity_checks?:
+    | "enabled"
+    | "disabled"
+    | "not_set"
+    | UnknownEnumStringValue
+}
+
+export type t_CodeSecurityDetachConfigurationRequestBody = {
+  selected_repository_ids?: number[]
+}
+
+export type t_CodeSecuritySetConfigurationAsDefaultRequestBody = {
+  default_for_new_repos?:
+    | "all"
+    | "none"
+    | "private_and_internal"
+    | "public"
+    | UnknownEnumStringValue
+}
+
+export type t_CodeSecuritySetConfigurationAsDefaultForEnterpriseRequestBody = {
+  default_for_new_repos?:
+    | "all"
+    | "none"
+    | "private_and_internal"
+    | "public"
+    | UnknownEnumStringValue
+}
+
+export type t_CodeSecurityUpdateConfigurationRequestBody = {
+  advanced_security?:
+    | "enabled"
+    | "disabled"
+    | "code_security"
+    | "secret_protection"
+    | UnknownEnumStringValue
+  code_scanning_default_setup?:
+    | "enabled"
+    | "disabled"
+    | "not_set"
+    | UnknownEnumStringValue
+  code_scanning_default_setup_options?: t_code_scanning_default_setup_options
+  code_scanning_delegated_alert_dismissal?:
+    | "enabled"
+    | "disabled"
+    | "not_set"
+    | UnknownEnumStringValue
+  code_security?: "enabled" | "disabled" | "not_set" | UnknownEnumStringValue
+  dependabot_alerts?:
+    | "enabled"
+    | "disabled"
+    | "not_set"
+    | UnknownEnumStringValue
+  dependabot_security_updates?:
+    | "enabled"
+    | "disabled"
+    | "not_set"
+    | UnknownEnumStringValue
+  dependency_graph?: "enabled" | "disabled" | "not_set" | UnknownEnumStringValue
+  dependency_graph_autosubmit_action?:
+    | "enabled"
+    | "disabled"
+    | "not_set"
+    | UnknownEnumStringValue
+  dependency_graph_autosubmit_action_options?: {
+    labeled_runners?: boolean
+  }
+  description?: string
+  enforcement?: "enforced" | "unenforced" | UnknownEnumStringValue
+  name?: string
+  private_vulnerability_reporting?:
+    | "enabled"
+    | "disabled"
+    | "not_set"
+    | UnknownEnumStringValue
+  secret_protection?:
+    | "enabled"
+    | "disabled"
+    | "not_set"
+    | UnknownEnumStringValue
+  secret_scanning?: "enabled" | "disabled" | "not_set" | UnknownEnumStringValue
+  secret_scanning_delegated_alert_dismissal?:
+    | "enabled"
+    | "disabled"
+    | "not_set"
+    | UnknownEnumStringValue
+  secret_scanning_delegated_bypass?:
+    | "enabled"
+    | "disabled"
+    | "not_set"
+    | UnknownEnumStringValue
+  secret_scanning_delegated_bypass_options?: {
+    reviewers?: {
+      reviewer_id: number
+      reviewer_type: "TEAM" | "ROLE" | UnknownEnumStringValue
+    }[]
+  }
+  secret_scanning_generic_secrets?:
+    | "enabled"
+    | "disabled"
+    | "not_set"
+    | UnknownEnumStringValue
+  secret_scanning_non_provider_patterns?:
+    | "enabled"
+    | "disabled"
+    | "not_set"
+    | UnknownEnumStringValue
+  secret_scanning_push_protection?:
+    | "enabled"
+    | "disabled"
+    | "not_set"
+    | UnknownEnumStringValue
+  secret_scanning_validity_checks?:
+    | "enabled"
+    | "disabled"
+    | "not_set"
+    | UnknownEnumStringValue
+}
+
+export type t_CodeSecurityUpdateEnterpriseConfigurationRequestBody = {
+  advanced_security?:
+    | "enabled"
+    | "disabled"
+    | "code_security"
+    | "secret_protection"
+    | UnknownEnumStringValue
+  code_scanning_default_setup?:
+    | "enabled"
+    | "disabled"
+    | "not_set"
+    | UnknownEnumStringValue
+  code_scanning_default_setup_options?: t_code_scanning_default_setup_options
+  code_scanning_delegated_alert_dismissal?:
+    | "enabled"
+    | "disabled"
+    | "not_set"
+    | UnknownEnumStringValue
+  code_security?: "enabled" | "disabled" | "not_set" | UnknownEnumStringValue
+  dependabot_alerts?:
+    | "enabled"
+    | "disabled"
+    | "not_set"
+    | UnknownEnumStringValue
+  dependabot_security_updates?:
+    | "enabled"
+    | "disabled"
+    | "not_set"
+    | UnknownEnumStringValue
+  dependency_graph?: "enabled" | "disabled" | "not_set" | UnknownEnumStringValue
+  dependency_graph_autosubmit_action?:
+    | "enabled"
+    | "disabled"
+    | "not_set"
+    | UnknownEnumStringValue
+  dependency_graph_autosubmit_action_options?: {
+    labeled_runners?: boolean
+  }
+  description?: string
+  enforcement?: "enforced" | "unenforced" | UnknownEnumStringValue
+  name?: string
+  private_vulnerability_reporting?:
+    | "enabled"
+    | "disabled"
+    | "not_set"
+    | UnknownEnumStringValue
+  secret_protection?:
+    | "enabled"
+    | "disabled"
+    | "not_set"
+    | UnknownEnumStringValue
+  secret_scanning?: "enabled" | "disabled" | "not_set" | UnknownEnumStringValue
+  secret_scanning_delegated_alert_dismissal?:
+    | "enabled"
+    | "disabled"
+    | "not_set"
+    | UnknownEnumStringValue
+  secret_scanning_generic_secrets?:
+    | "enabled"
+    | "disabled"
+    | "not_set"
+    | UnknownEnumStringValue
+  secret_scanning_non_provider_patterns?:
+    | "enabled"
+    | "disabled"
+    | "not_set"
+    | UnknownEnumStringValue
+  secret_scanning_push_protection?:
+    | "enabled"
+    | "disabled"
+    | "not_set"
+    | UnknownEnumStringValue
+  secret_scanning_validity_checks?:
+    | "enabled"
+    | "disabled"
+    | "not_set"
+    | UnknownEnumStringValue
+}
+
+export type t_CodespacesCreateForAuthenticatedUserRequestBody =
+  | {
+      client_ip?: string
+      devcontainer_path?: string
+      display_name?: string
+      geo?:
+        | "EuropeWest"
+        | "SoutheastAsia"
+        | "UsEast"
+        | "UsWest"
+        | UnknownEnumStringValue
+      idle_timeout_minutes?: number
+      location?: string
+      machine?: string
+      multi_repo_permissions_opt_out?: boolean
+      ref?: string
+      repository_id: number
+      retention_period_minutes?: number
+      working_directory?: string
+    }
+  | {
+      devcontainer_path?: string
+      geo?:
+        | "EuropeWest"
+        | "SoutheastAsia"
+        | "UsEast"
+        | "UsWest"
+        | UnknownEnumStringValue
+      idle_timeout_minutes?: number
+      location?: string
+      machine?: string
+      pull_request: {
+        pull_request_number: number
+        repository_id: number
+      }
+      working_directory?: string
+    }
+
+export type t_CodespacesCreateOrUpdateOrgSecretRequestBody = {
+  encrypted_value?: string
+  key_id?: string
+  selected_repository_ids?: number[]
+  visibility: "all" | "private" | "selected" | UnknownEnumStringValue
+}
+
+export type t_CodespacesCreateOrUpdateRepoSecretRequestBody = {
+  encrypted_value?: string
+  key_id?: string
+}
+
+export type t_CodespacesCreateOrUpdateSecretForAuthenticatedUserRequestBody = {
+  encrypted_value?: string
+  key_id: string
+  selected_repository_ids?: (number | string)[]
+}
+
+export type t_CodespacesCreateWithPrForAuthenticatedUserRequestBody = {
+  client_ip?: string
+  devcontainer_path?: string
+  display_name?: string
+  geo?:
+    | "EuropeWest"
+    | "SoutheastAsia"
+    | "UsEast"
+    | "UsWest"
+    | UnknownEnumStringValue
+  idle_timeout_minutes?: number
+  location?: string
+  machine?: string
+  multi_repo_permissions_opt_out?: boolean
+  retention_period_minutes?: number
+  working_directory?: string
+} | null
+
+export type t_CodespacesCreateWithRepoForAuthenticatedUserRequestBody = {
+  client_ip?: string
+  devcontainer_path?: string
+  display_name?: string
+  geo?:
+    | "EuropeWest"
+    | "SoutheastAsia"
+    | "UsEast"
+    | "UsWest"
+    | UnknownEnumStringValue
+  idle_timeout_minutes?: number
+  location?: string
+  machine?: string
+  multi_repo_permissions_opt_out?: boolean
+  ref?: string
+  retention_period_minutes?: number
+  working_directory?: string
+} | null
+
+export type t_CodespacesDeleteCodespacesAccessUsersRequestBody = {
+  selected_usernames: string[]
+}
+
+export type t_CodespacesPublishForAuthenticatedUserRequestBody = {
+  name?: string
+  private?: boolean
+}
+
+export type t_CodespacesSetCodespacesAccessRequestBody = {
+  selected_usernames?: string[]
+  visibility:
+    | "disabled"
+    | "selected_members"
+    | "all_members"
+    | "all_members_and_outside_collaborators"
+    | UnknownEnumStringValue
+}
+
+export type t_CodespacesSetCodespacesAccessUsersRequestBody = {
+  selected_usernames: string[]
+}
+
+export type t_CodespacesSetRepositoriesForSecretForAuthenticatedUserRequestBody =
+  {
+    selected_repository_ids: number[]
+  }
+
+export type t_CodespacesSetSelectedReposForOrgSecretRequestBody = {
+  selected_repository_ids: number[]
+}
+
+export type t_CodespacesUpdateForAuthenticatedUserRequestBody = {
+  display_name?: string
+  machine?: string
+  recent_folders?: string[]
+}
+
+export type t_CopilotAddCopilotSeatsForTeamsRequestBody = {
+  selected_teams: string[]
+}
+
+export type t_CopilotAddCopilotSeatsForUsersRequestBody = {
+  selected_usernames: string[]
+}
+
+export type t_CopilotCancelCopilotSeatAssignmentForTeamsRequestBody = {
+  selected_teams: string[]
+}
+
+export type t_CopilotCancelCopilotSeatAssignmentForUsersRequestBody = {
+  selected_usernames: string[]
+}
+
+export type t_CredentialsRevokeRequestBody = {
+  credentials: string[]
+}
+
+export type t_DependabotCreateOrUpdateOrgSecretRequestBody = {
+  encrypted_value?: string
+  key_id?: string
+  selected_repository_ids?: string[]
+  visibility: "all" | "private" | "selected" | UnknownEnumStringValue
+}
+
+export type t_DependabotCreateOrUpdateRepoSecretRequestBody = {
+  encrypted_value?: string
+  key_id?: string
+}
+
+export type t_DependabotSetRepositoryAccessDefaultLevelRequestBody = {
+  default_level: "public" | "internal" | UnknownEnumStringValue
+}
+
+export type t_DependabotSetSelectedReposForOrgSecretRequestBody = {
+  selected_repository_ids: number[]
+}
+
+export type t_DependabotUpdateAlertRequestBody = {
+  dismissed_comment?: string
+  dismissed_reason?:
+    | "fix_started"
+    | "inaccurate"
+    | "no_bandwidth"
+    | "not_used"
+    | "tolerable_risk"
+    | UnknownEnumStringValue
+  state: "dismissed" | "open" | UnknownEnumStringValue
+}
+
+export type t_DependabotUpdateRepositoryAccessForOrgRequestBody = {
+  repository_ids_to_add?: number[]
+  repository_ids_to_remove?: number[]
+}
+
+export type t_GistsCreateRequestBody = {
+  description?: string
+  files: {
+    [key: string]:
+      | {
+          content: string
+        }
+      | undefined
+  }
+  public?: boolean | "true" | "false" | UnknownEnumStringValue
+}
+
+export type t_GistsCreateCommentRequestBody = {
+  body: string
+}
+
+export type t_GistsUpdateRequestBody = {
+  description?: string
+  files?: {
+    [key: string]:
+      | ({
+          content?: string
+          filename?: string | null
+        } | null)
+      | undefined
+  }
+} | null
+
+export type t_GistsUpdateCommentRequestBody = {
+  body: string
+}
+
+export type t_GitCreateBlobRequestBody = {
+  content: string
+  encoding?: string
+}
+
+export type t_GitCreateCommitRequestBody = {
+  author?: {
+    date?: string
+    email: string
+    name: string
+  }
+  committer?: {
+    date?: string
+    email?: string
+    name?: string
+  }
+  message: string
+  parents?: string[]
+  signature?: string
+  tree: string
+}
+
+export type t_GitCreateRefRequestBody = {
+  ref: string
+  sha: string
+}
+
+export type t_GitCreateTagRequestBody = {
+  message: string
+  object: string
+  tag: string
+  tagger?: {
+    date?: string
+    email: string
+    name: string
+  }
+  type: "commit" | "tree" | "blob" | UnknownEnumStringValue
+}
+
+export type t_GitCreateTreeRequestBody = {
+  base_tree?: string
+  tree: {
+    content?: string
+    mode?:
+      | "100644"
+      | "100755"
+      | "040000"
+      | "160000"
+      | "120000"
+      | UnknownEnumStringValue
+    path?: string
+    sha?: string | null
+    type?: "blob" | "tree" | "commit" | UnknownEnumStringValue
+  }[]
+}
+
+export type t_GitUpdateRefRequestBody = {
+  force?: boolean
+  sha: string
+}
+
+export type t_HostedComputeCreateNetworkConfigurationForOrgRequestBody = {
+  compute_service?: "none" | "actions" | UnknownEnumStringValue
+  name: string
+  network_settings_ids: string[]
+}
+
+export type t_HostedComputeUpdateNetworkConfigurationForOrgRequestBody = {
+  compute_service?: "none" | "actions" | UnknownEnumStringValue
+  name?: string
+  network_settings_ids?: string[]
+}
+
+export type t_IssuesAddAssigneesRequestBody = {
+  assignees?: string[]
+}
+
+export type t_IssuesAddLabelsRequestBody =
+  | {
+      labels?: string[]
+    }
+  | string[]
+  | {
+      labels?: {
+        name: string
+      }[]
+    }
+  | {
+      name: string
+    }[]
+  | string
+
+export type t_IssuesAddSubIssueRequestBody = {
+  replace_parent?: boolean
+  sub_issue_id: number
+}
+
+export type t_IssuesCreateRequestBody = {
+  assignee?: string | null
+  assignees?: string[]
+  body?: string
+  labels?: (
+    | string
+    | {
+        color?: string | null
+        description?: string | null
+        id?: number
+        name?: string
+      }
+  )[]
+  milestone?: string | number | null
+  title: string | number
+  type?: string | null
+}
+
+export type t_IssuesCreateCommentRequestBody = {
+  body: string
+}
+
+export type t_IssuesCreateLabelRequestBody = {
+  color?: string
+  description?: string
+  name: string
+}
+
+export type t_IssuesCreateMilestoneRequestBody = {
+  description?: string
+  due_on?: string
+  state?: "open" | "closed" | UnknownEnumStringValue
+  title: string
+}
+
+export type t_IssuesLockRequestBody = {
+  lock_reason?:
+    | "off-topic"
+    | "too heated"
+    | "resolved"
+    | "spam"
+    | UnknownEnumStringValue
+} | null
+
+export type t_IssuesRemoveAssigneesRequestBody = {
+  assignees?: string[]
+}
+
+export type t_IssuesRemoveSubIssueRequestBody = {
+  sub_issue_id: number
+}
+
+export type t_IssuesReprioritizeSubIssueRequestBody = {
+  after_id?: number
+  before_id?: number
+  sub_issue_id: number
+}
+
+export type t_IssuesSetLabelsRequestBody =
+  | {
+      labels?: string[]
+    }
+  | string[]
+  | {
+      labels?: {
+        name: string
+      }[]
+    }
+  | {
+      name: string
+    }[]
+  | string
+
+export type t_IssuesUpdateRequestBody = {
+  assignee?: string | null
+  assignees?: string[]
+  body?: string | null
+  labels?: (
+    | string
+    | {
+        color?: string | null
+        description?: string | null
+        id?: number
+        name?: string
+      }
+  )[]
+  milestone?: string | number | null
+  state?: "open" | "closed" | UnknownEnumStringValue
+  state_reason?:
+    | "completed"
+    | "not_planned"
+    | "duplicate"
+    | "reopened"
+    | UnknownEnumStringValue
+    | null
+  title?: string | number | null
+  type?: string | null
+}
+
+export type t_IssuesUpdateCommentRequestBody = {
+  body: string
+}
+
+export type t_IssuesUpdateLabelRequestBody = {
+  color?: string
+  description?: string
+  new_name?: string
+}
+
+export type t_IssuesUpdateMilestoneRequestBody = {
+  description?: string
+  due_on?: string
+  state?: "open" | "closed" | UnknownEnumStringValue
+  title?: string
+}
+
+export type t_MarkdownRenderRequestBody = {
+  context?: string
+  mode?: "markdown" | "gfm" | UnknownEnumStringValue
+  text: string
+}
+
+export type t_MigrationsMapCommitAuthorRequestBody = {
+  email?: string
+  name?: string
+}
+
+export type t_MigrationsSetLfsPreferenceRequestBody = {
+  use_lfs: "opt_in" | "opt_out" | UnknownEnumStringValue
+}
+
+export type t_MigrationsStartForAuthenticatedUserRequestBody = {
+  exclude?: ("repositories" | UnknownEnumStringValue)[]
+  exclude_attachments?: boolean
+  exclude_git_data?: boolean
+  exclude_metadata?: boolean
+  exclude_owner_projects?: boolean
+  exclude_releases?: boolean
+  lock_repositories?: boolean
+  org_metadata_only?: boolean
+  repositories: string[]
+}
+
+export type t_MigrationsStartForOrgRequestBody = {
+  exclude?: ("repositories" | UnknownEnumStringValue)[]
+  exclude_attachments?: boolean
+  exclude_git_data?: boolean
+  exclude_metadata?: boolean
+  exclude_owner_projects?: boolean
+  exclude_releases?: boolean
+  lock_repositories?: boolean
+  org_metadata_only?: boolean
+  repositories: string[]
+}
+
+export type t_MigrationsStartImportRequestBody = {
+  tfvc_project?: string
+  vcs?: "subversion" | "git" | "mercurial" | "tfvc" | UnknownEnumStringValue
+  vcs_password?: string
+  vcs_url: string
+  vcs_username?: string
+}
+
+export type t_MigrationsUpdateImportRequestBody = {
+  tfvc_project?: string
+  vcs?: "subversion" | "tfvc" | "git" | "mercurial" | UnknownEnumStringValue
+  vcs_password?: string
+  vcs_username?: string
+} | null
+
+export type t_OrgsConvertMemberToOutsideCollaboratorRequestBody = {
+  async?: boolean
+}
+
+export type t_OrgsCreateInvitationRequestBody = {
+  email?: string
+  invitee_id?: number
+  role?:
+    | "admin"
+    | "direct_member"
+    | "billing_manager"
+    | "reinstate"
+    | UnknownEnumStringValue
+  team_ids?: number[]
+}
+
+export type t_OrgsCreateOrUpdateCustomPropertiesRequestBody = {
+  properties: t_custom_property[]
+}
+
+export type t_OrgsCreateOrUpdateCustomPropertiesValuesForReposRequestBody = {
+  properties: t_custom_property_value[]
+  repository_names: string[]
+}
+
+export type t_OrgsCreateWebhookRequestBody = {
+  active?: boolean
+  config: {
+    content_type?: t_webhook_config_content_type
+    insecure_ssl?: t_webhook_config_insecure_ssl
+    password?: string
+    secret?: t_webhook_config_secret
+    url: t_webhook_config_url
+    username?: string
+  }
+  events?: string[]
+  name: string
+}
+
+export type t_OrgsDeleteAttestationsBulkRequestBody =
+  | {
+      subject_digests: string[]
+    }
+  | {
+      attestation_ids: number[]
+    }
+
+export type t_OrgsEnableOrDisableSecurityProductOnAllOrgReposRequestBody = {
+  query_suite?: "default" | "extended" | UnknownEnumStringValue
+}
+
+export type t_OrgsListAttestationsBulkRequestBody = {
+  predicate_type?: string
+  subject_digests: string[]
+}
+
+export type t_OrgsReviewPatGrantRequestRequestBody = {
+  action: "approve" | "deny" | UnknownEnumStringValue
+  reason?: string | null
+}
+
+export type t_OrgsReviewPatGrantRequestsInBulkRequestBody = {
+  action: "approve" | "deny" | UnknownEnumStringValue
+  pat_request_ids?: number[]
+  reason?: string | null
+}
+
+export type t_OrgsSetMembershipForUserRequestBody = {
+  role?: "admin" | "member" | UnknownEnumStringValue
+}
+
+export type t_OrgsUpdateRequestBody = {
+  advanced_security_enabled_for_new_repositories?: boolean
+  billing_email?: string
+  blog?: string
+  company?: string
+  default_repository_permission?:
+    | "read"
+    | "write"
+    | "admin"
+    | "none"
+    | UnknownEnumStringValue
+  dependabot_alerts_enabled_for_new_repositories?: boolean
+  dependabot_security_updates_enabled_for_new_repositories?: boolean
+  dependency_graph_enabled_for_new_repositories?: boolean
+  deploy_keys_enabled_for_repositories?: boolean
+  description?: string
+  email?: string
+  has_organization_projects?: boolean
+  has_repository_projects?: boolean
+  location?: string
+  members_allowed_repository_creation_type?:
+    | "all"
+    | "private"
+    | "none"
+    | UnknownEnumStringValue
+  members_can_create_internal_repositories?: boolean
+  members_can_create_pages?: boolean
+  members_can_create_private_pages?: boolean
+  members_can_create_private_repositories?: boolean
+  members_can_create_public_pages?: boolean
+  members_can_create_public_repositories?: boolean
+  members_can_create_repositories?: boolean
+  members_can_fork_private_repositories?: boolean
+  name?: string
+  secret_scanning_enabled_for_new_repositories?: boolean
+  secret_scanning_push_protection_custom_link?: string
+  secret_scanning_push_protection_custom_link_enabled?: boolean
+  secret_scanning_push_protection_enabled_for_new_repositories?: boolean
+  twitter_username?: string
+  web_commit_signoff_required?: boolean
+}
+
+export type t_OrgsUpdateMembershipForAuthenticatedUserRequestBody = {
+  state: "active" | UnknownEnumStringValue
+}
+
+export type t_OrgsUpdatePatAccessRequestBody = {
+  action: "revoke" | UnknownEnumStringValue
+}
+
+export type t_OrgsUpdatePatAccessesRequestBody = {
+  action: "revoke" | UnknownEnumStringValue
+  pat_ids: number[]
+}
+
+export type t_OrgsUpdateWebhookRequestBody = {
+  active?: boolean
+  config?: {
+    content_type?: t_webhook_config_content_type
+    insecure_ssl?: t_webhook_config_insecure_ssl
+    secret?: t_webhook_config_secret
+    url: t_webhook_config_url
+  }
+  events?: string[]
+  name?: string
+}
+
+export type t_OrgsUpdateWebhookConfigForOrgRequestBody = {
+  content_type?: t_webhook_config_content_type
+  insecure_ssl?: t_webhook_config_insecure_ssl
+  secret?: t_webhook_config_secret
+  url?: t_webhook_config_url
+}
+
+export type t_PrivateRegistriesCreateOrgPrivateRegistryRequestBody = {
+  encrypted_value: string
+  key_id: string
+  registry_type:
+    | "maven_repository"
+    | "nuget_feed"
+    | "goproxy_server"
+    | "npm_registry"
+    | "rubygems_server"
+    | "cargo_registry"
+    | "composer_repository"
+    | "docker_registry"
+    | "git_source"
+    | "helm_registry"
+    | "hex_organization"
+    | "hex_repository"
+    | "pub_repository"
+    | "python_index"
+    | "terraform_registry"
+    | UnknownEnumStringValue
+  selected_repository_ids?: number[]
+  url: string
+  username?: string | null
+  visibility: "all" | "private" | "selected" | UnknownEnumStringValue
+}
+
+export type t_PrivateRegistriesUpdateOrgPrivateRegistryRequestBody = {
+  encrypted_value?: string
+  key_id?: string
+  registry_type?:
+    | "maven_repository"
+    | "nuget_feed"
+    | "goproxy_server"
+    | "npm_registry"
+    | "rubygems_server"
+    | "cargo_registry"
+    | "composer_repository"
+    | "docker_registry"
+    | "git_source"
+    | "helm_registry"
+    | "hex_organization"
+    | "hex_repository"
+    | "pub_repository"
+    | "python_index"
+    | "terraform_registry"
+    | UnknownEnumStringValue
+  selected_repository_ids?: number[]
+  url?: string
+  username?: string | null
+  visibility?: "all" | "private" | "selected" | UnknownEnumStringValue
+}
+
+export type t_ProjectsClassicAddCollaboratorRequestBody = {
+  permission?: "read" | "write" | "admin" | UnknownEnumStringValue
+} | null
+
+export type t_ProjectsClassicCreateCardRequestBody =
+  | {
+      note: string | null
+    }
+  | {
+      content_id: number
+      content_type: string
+    }
+
+export type t_ProjectsClassicCreateColumnRequestBody = {
+  name: string
+}
+
+export type t_ProjectsClassicCreateForAuthenticatedUserRequestBody = {
+  body?: string | null
+  name: string
+}
+
+export type t_ProjectsClassicCreateForOrgRequestBody = {
+  body?: string
+  name: string
+}
+
+export type t_ProjectsClassicCreateForRepoRequestBody = {
+  body?: string
+  name: string
+}
+
+export type t_ProjectsClassicMoveCardRequestBody = {
+  column_id?: number
+  position: string
+}
+
+export type t_ProjectsClassicMoveColumnRequestBody = {
+  position: string
+}
+
+export type t_ProjectsClassicUpdateRequestBody = {
+  body?: string | null
+  name?: string
+  organization_permission?:
+    | "read"
+    | "write"
+    | "admin"
+    | "none"
+    | UnknownEnumStringValue
+  private?: boolean
+  state?: string
+}
+
+export type t_ProjectsClassicUpdateCardRequestBody = {
+  archived?: boolean
+  note?: string | null
+}
+
+export type t_ProjectsClassicUpdateColumnRequestBody = {
+  name: string
+}
+
+export type t_PullsCreateRequestBody = {
+  base: string
+  body?: string
+  draft?: boolean
+  head: string
+  head_repo?: string
+  issue?: number
+  maintainer_can_modify?: boolean
+  title?: string
+}
+
+export type t_PullsCreateReplyForReviewCommentRequestBody = {
+  body: string
+}
+
+export type t_PullsCreateReviewRequestBody = {
+  body?: string
+  comments?: {
+    body: string
+    line?: number
+    path: string
+    position?: number
+    side?: string
+    start_line?: number
+    start_side?: string
+  }[]
+  commit_id?: string
+  event?: "APPROVE" | "REQUEST_CHANGES" | "COMMENT" | UnknownEnumStringValue
+}
+
+export type t_PullsCreateReviewCommentRequestBody = {
+  body: string
+  commit_id: string
+  in_reply_to?: number
+  line?: number
+  path: string
+  position?: number
+  side?: "LEFT" | "RIGHT" | UnknownEnumStringValue
+  start_line?: number
+  start_side?: "LEFT" | "RIGHT" | "side" | UnknownEnumStringValue
+  subject_type?: "line" | "file" | UnknownEnumStringValue
+}
+
+export type t_PullsDismissReviewRequestBody = {
+  event?: "DISMISS" | UnknownEnumStringValue
+  message: string
+}
+
+export type t_PullsMergeRequestBody = {
+  commit_message?: string
+  commit_title?: string
+  merge_method?: "merge" | "squash" | "rebase" | UnknownEnumStringValue
+  sha?: string
+} | null
+
+export type t_PullsRemoveRequestedReviewersRequestBody = {
+  reviewers: string[]
+  team_reviewers?: string[]
+}
+
+export type t_PullsRequestReviewersRequestBody = {
+  reviewers?: string[]
+  team_reviewers?: string[]
+}
+
+export type t_PullsSubmitReviewRequestBody = {
+  body?: string
+  event: "APPROVE" | "REQUEST_CHANGES" | "COMMENT" | UnknownEnumStringValue
+}
+
+export type t_PullsUpdateRequestBody = {
+  base?: string
+  body?: string
+  maintainer_can_modify?: boolean
+  state?: "open" | "closed" | UnknownEnumStringValue
+  title?: string
+}
+
+export type t_PullsUpdateBranchRequestBody = {
+  expected_head_sha?: string
+} | null
+
+export type t_PullsUpdateReviewRequestBody = {
+  body: string
+}
+
+export type t_PullsUpdateReviewCommentRequestBody = {
+  body: string
+}
+
+export type t_ReactionsCreateForCommitCommentRequestBody = {
+  content:
+    | "+1"
+    | "-1"
+    | "laugh"
+    | "confused"
+    | "heart"
+    | "hooray"
+    | "rocket"
+    | "eyes"
+    | UnknownEnumStringValue
+}
+
+export type t_ReactionsCreateForIssueRequestBody = {
+  content:
+    | "+1"
+    | "-1"
+    | "laugh"
+    | "confused"
+    | "heart"
+    | "hooray"
+    | "rocket"
+    | "eyes"
+    | UnknownEnumStringValue
+}
+
+export type t_ReactionsCreateForIssueCommentRequestBody = {
+  content:
+    | "+1"
+    | "-1"
+    | "laugh"
+    | "confused"
+    | "heart"
+    | "hooray"
+    | "rocket"
+    | "eyes"
+    | UnknownEnumStringValue
+}
+
+export type t_ReactionsCreateForPullRequestReviewCommentRequestBody = {
+  content:
+    | "+1"
+    | "-1"
+    | "laugh"
+    | "confused"
+    | "heart"
+    | "hooray"
+    | "rocket"
+    | "eyes"
+    | UnknownEnumStringValue
+}
+
+export type t_ReactionsCreateForReleaseRequestBody = {
+  content:
+    | "+1"
+    | "laugh"
+    | "heart"
+    | "hooray"
+    | "rocket"
+    | "eyes"
+    | UnknownEnumStringValue
+}
+
+export type t_ReactionsCreateForTeamDiscussionCommentInOrgRequestBody = {
+  content:
+    | "+1"
+    | "-1"
+    | "laugh"
+    | "confused"
+    | "heart"
+    | "hooray"
+    | "rocket"
+    | "eyes"
+    | UnknownEnumStringValue
+}
+
+export type t_ReactionsCreateForTeamDiscussionCommentLegacyRequestBody = {
+  content:
+    | "+1"
+    | "-1"
+    | "laugh"
+    | "confused"
+    | "heart"
+    | "hooray"
+    | "rocket"
+    | "eyes"
+    | UnknownEnumStringValue
+}
+
+export type t_ReactionsCreateForTeamDiscussionInOrgRequestBody = {
+  content:
+    | "+1"
+    | "-1"
+    | "laugh"
+    | "confused"
+    | "heart"
+    | "hooray"
+    | "rocket"
+    | "eyes"
+    | UnknownEnumStringValue
+}
+
+export type t_ReactionsCreateForTeamDiscussionLegacyRequestBody = {
+  content:
+    | "+1"
+    | "-1"
+    | "laugh"
+    | "confused"
+    | "heart"
+    | "hooray"
+    | "rocket"
+    | "eyes"
+    | UnknownEnumStringValue
+}
+
+export type t_ReposAddAppAccessRestrictionsRequestBody = {
+  apps: string[]
+}
+
+export type t_ReposAddCollaboratorRequestBody = {
+  permission?: string
+}
+
+export type t_ReposAddStatusCheckContextsRequestBody =
+  | {
+      contexts: string[]
+    }
+  | string[]
+
+export type t_ReposAddTeamAccessRestrictionsRequestBody =
+  | {
+      teams: string[]
+    }
+  | string[]
+
+export type t_ReposAddUserAccessRestrictionsRequestBody = {
+  users: string[]
+}
+
+export type t_ReposCreateAttestationRequestBody = {
+  bundle: {
+    dsseEnvelope?: {
+      [key: string]: unknown | undefined
+    }
+    mediaType?: string
+    verificationMaterial?: {
+      [key: string]: unknown | undefined
+    }
+  }
+}
+
+export type t_ReposCreateAutolinkRequestBody = {
+  is_alphanumeric?: boolean
+  key_prefix: string
+  url_template: string
+}
+
+export type t_ReposCreateCommitCommentRequestBody = {
+  body: string
+  line?: number
+  path?: string
+  position?: number
+}
+
+export type t_ReposCreateCommitStatusRequestBody = {
+  context?: string
+  description?: string | null
+  state: "error" | "failure" | "pending" | "success" | UnknownEnumStringValue
+  target_url?: string | null
+}
+
+export type t_ReposCreateDeployKeyRequestBody = {
+  key: string
+  read_only?: boolean
+  title?: string
+}
+
+export type t_ReposCreateDeploymentRequestBody = {
+  auto_merge?: boolean
+  description?: string | null
+  environment?: string
+  payload?:
+    | {
+        [key: string]: unknown | undefined
+      }
+    | string
+  production_environment?: boolean
+  ref: string
+  required_contexts?: string[]
+  task?: string
+  transient_environment?: boolean
+}
+
+export type t_ReposCreateDeploymentProtectionRuleRequestBody = {
+  integration_id?: number
+}
+
+export type t_ReposCreateDeploymentStatusRequestBody = {
+  auto_inactive?: boolean
+  description?: string
+  environment?: string
+  environment_url?: string
+  log_url?: string
+  state:
+    | "error"
+    | "failure"
+    | "inactive"
+    | "in_progress"
+    | "queued"
+    | "pending"
+    | "success"
+    | UnknownEnumStringValue
+  target_url?: string
+}
+
+export type t_ReposCreateDispatchEventRequestBody = {
+  client_payload?: {
+    [key: string]: unknown | undefined
+  }
+  event_type: string
+}
+
+export type t_ReposCreateForAuthenticatedUserRequestBody = {
+  allow_auto_merge?: boolean
+  allow_merge_commit?: boolean
+  allow_rebase_merge?: boolean
+  allow_squash_merge?: boolean
+  auto_init?: boolean
+  delete_branch_on_merge?: boolean
+  description?: string
+  gitignore_template?: string
+  has_discussions?: boolean
+  has_downloads?: boolean
+  has_issues?: boolean
+  has_projects?: boolean
+  has_wiki?: boolean
+  homepage?: string
+  is_template?: boolean
+  license_template?: string
+  merge_commit_message?:
+    | "PR_BODY"
+    | "PR_TITLE"
+    | "BLANK"
+    | UnknownEnumStringValue
+  merge_commit_title?: "PR_TITLE" | "MERGE_MESSAGE" | UnknownEnumStringValue
+  name: string
+  private?: boolean
+  squash_merge_commit_message?:
+    | "PR_BODY"
+    | "COMMIT_MESSAGES"
+    | "BLANK"
+    | UnknownEnumStringValue
+  squash_merge_commit_title?:
+    | "PR_TITLE"
+    | "COMMIT_OR_PR_TITLE"
+    | UnknownEnumStringValue
+  team_id?: number
+}
+
+export type t_ReposCreateForkRequestBody = {
+  default_branch_only?: boolean
+  name?: string
+  organization?: string
+} | null
+
+export type t_ReposCreateInOrgRequestBody = {
+  allow_auto_merge?: boolean
+  allow_merge_commit?: boolean
+  allow_rebase_merge?: boolean
+  allow_squash_merge?: boolean
+  auto_init?: boolean
+  custom_properties?: {
+    [key: string]: unknown | undefined
+  }
+  delete_branch_on_merge?: boolean
+  description?: string
+  gitignore_template?: string
+  has_downloads?: boolean
+  has_issues?: boolean
+  has_projects?: boolean
+  has_wiki?: boolean
+  homepage?: string
+  is_template?: boolean
+  license_template?: string
+  merge_commit_message?:
+    | "PR_BODY"
+    | "PR_TITLE"
+    | "BLANK"
+    | UnknownEnumStringValue
+  merge_commit_title?: "PR_TITLE" | "MERGE_MESSAGE" | UnknownEnumStringValue
+  name: string
+  private?: boolean
+  squash_merge_commit_message?:
+    | "PR_BODY"
+    | "COMMIT_MESSAGES"
+    | "BLANK"
+    | UnknownEnumStringValue
+  squash_merge_commit_title?:
+    | "PR_TITLE"
+    | "COMMIT_OR_PR_TITLE"
+    | UnknownEnumStringValue
+  team_id?: number
+  use_squash_pr_title_as_default?: boolean
+  visibility?: "public" | "private" | UnknownEnumStringValue
+}
+
+export type t_ReposCreateOrUpdateCustomPropertiesValuesRequestBody = {
+  properties: t_custom_property_value[]
+}
+
+export type t_ReposCreateOrUpdateEnvironmentRequestBody = {
+  deployment_branch_policy?: t_deployment_branch_policy_settings
+  prevent_self_review?: t_prevent_self_review
+  reviewers?:
+    | {
+        id?: number
+        type?: t_deployment_reviewer_type
+      }[]
+    | null
+  wait_timer?: t_wait_timer
+} | null
+
+export type t_ReposCreateOrUpdateFileContentsRequestBody = {
+  author?: {
+    date?: string
+    email: string
+    name: string
+  }
+  branch?: string
+  committer?: {
+    date?: string
+    email: string
+    name: string
+  }
+  content: string
+  message: string
+  sha?: string
+}
+
+export type t_ReposCreateOrgRulesetRequestBody = {
+  bypass_actors?: t_repository_ruleset_bypass_actor[]
+  conditions?: t_org_ruleset_conditions
+  enforcement: t_repository_rule_enforcement
+  name: string
+  rules?: t_org_rules[]
+  target?: "branch" | "tag" | "push" | "repository" | UnknownEnumStringValue
+}
+
+export type t_ReposCreatePagesDeploymentRequestBody = {
+  artifact_id?: number
+  artifact_url?: string
+  environment?: string
+  oidc_token: string
+  pages_build_version: string
+}
+
+export type t_ReposCreatePagesSiteRequestBody = {
+  build_type?: "legacy" | "workflow" | UnknownEnumStringValue
+  source?: {
+    branch: string
+    path?: "/" | "/docs" | UnknownEnumStringValue
+  }
+} | null
+
+export type t_ReposCreateReleaseRequestBody = {
+  body?: string
+  discussion_category_name?: string
+  draft?: boolean
+  generate_release_notes?: boolean
+  make_latest?: "true" | "false" | "legacy" | UnknownEnumStringValue
+  name?: string
+  prerelease?: boolean
+  tag_name: string
+  target_commitish?: string
+}
+
+export type t_ReposCreateRepoRulesetRequestBody = {
+  bypass_actors?: t_repository_ruleset_bypass_actor[]
+  conditions?: t_repository_ruleset_conditions
+  enforcement: t_repository_rule_enforcement
+  name: string
+  rules?: t_repository_rule[]
+  target?: "branch" | "tag" | "push" | UnknownEnumStringValue
+}
+
+export type t_ReposCreateTagProtectionRequestBody = {
+  pattern: string
+}
+
+export type t_ReposCreateUsingTemplateRequestBody = {
+  description?: string
+  include_all_branches?: boolean
+  name: string
+  owner?: string
+  private?: boolean
+}
+
+export type t_ReposCreateWebhookRequestBody = {
+  active?: boolean
+  config?: {
+    content_type?: t_webhook_config_content_type
+    insecure_ssl?: t_webhook_config_insecure_ssl
+    secret?: t_webhook_config_secret
+    url?: t_webhook_config_url
+  }
+  events?: string[]
+  name?: string
+} | null
+
+export type t_ReposDeleteFileRequestBody = {
+  author?: {
+    email?: string
+    name?: string
+  }
+  branch?: string
+  committer?: {
+    email?: string
+    name?: string
+  }
+  message: string
+  sha: string
+}
+
+export type t_ReposGenerateReleaseNotesRequestBody = {
+  configuration_file_path?: string
+  previous_tag_name?: string
+  tag_name: string
+  target_commitish?: string
+}
+
+export type t_ReposMergeRequestBody = {
+  base: string
+  commit_message?: string
+  head: string
+}
+
+export type t_ReposMergeUpstreamRequestBody = {
+  branch: string
+}
+
+export type t_ReposRemoveAppAccessRestrictionsRequestBody = {
+  apps: string[]
+}
+
+export type t_ReposRemoveStatusCheckContextsRequestBody =
+  | {
+      contexts: string[]
+    }
+  | string[]
+
+export type t_ReposRemoveTeamAccessRestrictionsRequestBody =
+  | {
+      teams: string[]
+    }
+  | string[]
+
+export type t_ReposRemoveUserAccessRestrictionsRequestBody = {
+  users: string[]
+}
+
+export type t_ReposRenameBranchRequestBody = {
+  new_name: string
+}
+
+export type t_ReposReplaceAllTopicsRequestBody = {
+  names: string[]
+}
+
+export type t_ReposSetAppAccessRestrictionsRequestBody = {
+  apps: string[]
+}
+
+export type t_ReposSetStatusCheckContextsRequestBody =
+  | {
+      contexts: string[]
+    }
+  | string[]
+
+export type t_ReposSetTeamAccessRestrictionsRequestBody =
+  | {
+      teams: string[]
+    }
+  | string[]
+
+export type t_ReposSetUserAccessRestrictionsRequestBody = {
+  users: string[]
+}
+
+export type t_ReposTransferRequestBody = {
+  new_name?: string
+  new_owner: string
+  team_ids?: number[]
+}
+
+export type t_ReposUpdateRequestBody = {
+  allow_auto_merge?: boolean
+  allow_forking?: boolean
+  allow_merge_commit?: boolean
+  allow_rebase_merge?: boolean
+  allow_squash_merge?: boolean
+  allow_update_branch?: boolean
+  archived?: boolean
+  default_branch?: string
+  delete_branch_on_merge?: boolean
+  description?: string
+  has_issues?: boolean
+  has_projects?: boolean
+  has_wiki?: boolean
+  homepage?: string
+  is_template?: boolean
+  merge_commit_message?:
+    | "PR_BODY"
+    | "PR_TITLE"
+    | "BLANK"
+    | UnknownEnumStringValue
+  merge_commit_title?: "PR_TITLE" | "MERGE_MESSAGE" | UnknownEnumStringValue
+  name?: string
+  private?: boolean
+  security_and_analysis?: {
+    advanced_security?: {
+      status?: string
+    }
+    code_security?: {
+      status?: string
+    }
+    secret_scanning?: {
+      status?: string
+    }
+    secret_scanning_ai_detection?: {
+      status?: string
+    }
+    secret_scanning_non_provider_patterns?: {
+      status?: string
+    }
+    secret_scanning_push_protection?: {
+      status?: string
+    }
+  } | null
+  squash_merge_commit_message?:
+    | "PR_BODY"
+    | "COMMIT_MESSAGES"
+    | "BLANK"
+    | UnknownEnumStringValue
+  squash_merge_commit_title?:
+    | "PR_TITLE"
+    | "COMMIT_OR_PR_TITLE"
+    | UnknownEnumStringValue
+  use_squash_pr_title_as_default?: boolean
+  visibility?: "public" | "private" | UnknownEnumStringValue
+  web_commit_signoff_required?: boolean
+}
+
+export type t_ReposUpdateBranchProtectionRequestBody = {
+  allow_deletions?: boolean
+  allow_force_pushes?: boolean | null
+  allow_fork_syncing?: boolean
+  block_creations?: boolean
+  enforce_admins: boolean | null
+  lock_branch?: boolean
+  required_conversation_resolution?: boolean
+  required_linear_history?: boolean
+  required_pull_request_reviews: {
+    bypass_pull_request_allowances?: {
+      apps?: string[]
+      teams?: string[]
+      users?: string[]
+    }
+    dismiss_stale_reviews?: boolean
+    dismissal_restrictions?: {
+      apps?: string[]
+      teams?: string[]
+      users?: string[]
+    }
+    require_code_owner_reviews?: boolean
+    require_last_push_approval?: boolean
+    required_approving_review_count?: number
+  } | null
+  required_status_checks: {
+    checks?: {
+      app_id?: number
+      context: string
+    }[]
+    contexts: string[]
+    strict: boolean
+  } | null
+  restrictions: {
+    apps?: string[]
+    teams: string[]
+    users: string[]
+  } | null
+}
+
+export type t_ReposUpdateCommitCommentRequestBody = {
+  body: string
+}
+
+export type t_ReposUpdateInformationAboutPagesSiteRequestBody = {
+  build_type?: "legacy" | "workflow" | UnknownEnumStringValue
+  cname?: string | null
+  https_enforced?: boolean
+  source?:
+    | "gh-pages"
+    | "master"
+    | "master /docs"
+    | UnknownEnumStringValue
+    | {
+        branch: string
+        path: "/" | "/docs" | UnknownEnumStringValue
+      }
+}
+
+export type t_ReposUpdateInvitationRequestBody = {
+  permissions?:
+    | "read"
+    | "write"
+    | "maintain"
+    | "triage"
+    | "admin"
+    | UnknownEnumStringValue
+}
+
+export type t_ReposUpdateOrgRulesetRequestBody = {
+  bypass_actors?: t_repository_ruleset_bypass_actor[]
+  conditions?: t_org_ruleset_conditions
+  enforcement?: t_repository_rule_enforcement
+  name?: string
+  rules?: t_org_rules[]
+  target?: "branch" | "tag" | "push" | "repository" | UnknownEnumStringValue
+}
+
+export type t_ReposUpdatePullRequestReviewProtectionRequestBody = {
+  bypass_pull_request_allowances?: {
+    apps?: string[]
+    teams?: string[]
+    users?: string[]
+  }
+  dismiss_stale_reviews?: boolean
+  dismissal_restrictions?: {
+    apps?: string[]
+    teams?: string[]
+    users?: string[]
+  }
+  require_code_owner_reviews?: boolean
+  require_last_push_approval?: boolean
+  required_approving_review_count?: number
+}
+
+export type t_ReposUpdateReleaseRequestBody = {
+  body?: string
+  discussion_category_name?: string
+  draft?: boolean
+  make_latest?: "true" | "false" | "legacy" | UnknownEnumStringValue
+  name?: string
+  prerelease?: boolean
+  tag_name?: string
+  target_commitish?: string
+}
+
+export type t_ReposUpdateReleaseAssetRequestBody = {
+  label?: string
+  name?: string
+  state?: string
+}
+
+export type t_ReposUpdateRepoRulesetRequestBody = {
+  bypass_actors?: t_repository_ruleset_bypass_actor[]
+  conditions?: t_repository_ruleset_conditions
+  enforcement?: t_repository_rule_enforcement
+  name?: string
+  rules?: t_repository_rule[]
+  target?: "branch" | "tag" | "push" | UnknownEnumStringValue
+}
+
+export type t_ReposUpdateStatusCheckProtectionRequestBody = {
+  checks?: {
+    app_id?: number
+    context: string
+  }[]
+  contexts?: string[]
+  strict?: boolean
+}
+
+export type t_ReposUpdateWebhookRequestBody = {
+  active?: boolean
+  add_events?: string[]
+  config?: t_webhook_config
+  events?: string[]
+  remove_events?: string[]
+}
+
+export type t_ReposUpdateWebhookConfigForRepoRequestBody = {
+  content_type?: t_webhook_config_content_type
+  insecure_ssl?: t_webhook_config_insecure_ssl
+  secret?: t_webhook_config_secret
+  url?: t_webhook_config_url
+}
+
+export type t_SecretScanningCreatePushProtectionBypassRequestBody = {
+  placeholder_id: t_secret_scanning_push_protection_bypass_placeholder_id
+  reason: t_secret_scanning_push_protection_bypass_reason
+}
+
+export type t_SecretScanningUpdateAlertRequestBody = {
+  resolution?: t_secret_scanning_alert_resolution
+  resolution_comment?: t_secret_scanning_alert_resolution_comment
+  state: t_secret_scanning_alert_state
+}
+
+export type t_TeamsAddOrUpdateMembershipForUserInOrgRequestBody = {
+  role?: "member" | "maintainer" | UnknownEnumStringValue
+}
+
+export type t_TeamsAddOrUpdateMembershipForUserLegacyRequestBody = {
+  role?: "member" | "maintainer" | UnknownEnumStringValue
+}
+
+export type t_TeamsAddOrUpdateProjectPermissionsInOrgRequestBody = {
+  permission?: "read" | "write" | "admin" | UnknownEnumStringValue
+} | null
+
+export type t_TeamsAddOrUpdateProjectPermissionsLegacyRequestBody = {
+  permission?: "read" | "write" | "admin" | UnknownEnumStringValue
+}
+
+export type t_TeamsAddOrUpdateRepoPermissionsInOrgRequestBody = {
+  permission?: string
+}
+
+export type t_TeamsAddOrUpdateRepoPermissionsLegacyRequestBody = {
+  permission?: "pull" | "push" | "admin" | UnknownEnumStringValue
+}
+
+export type t_TeamsCreateRequestBody = {
+  description?: string
+  maintainers?: string[]
+  name: string
+  notification_setting?:
+    | "notifications_enabled"
+    | "notifications_disabled"
+    | UnknownEnumStringValue
+  parent_team_id?: number
+  permission?: "pull" | "push" | UnknownEnumStringValue
+  privacy?: "secret" | "closed" | UnknownEnumStringValue
+  repo_names?: string[]
+}
+
+export type t_TeamsCreateDiscussionCommentInOrgRequestBody = {
+  body: string
+}
+
+export type t_TeamsCreateDiscussionCommentLegacyRequestBody = {
+  body: string
+}
+
+export type t_TeamsCreateDiscussionInOrgRequestBody = {
+  body: string
+  private?: boolean
+  title: string
+}
+
+export type t_TeamsCreateDiscussionLegacyRequestBody = {
+  body: string
+  private?: boolean
+  title: string
+}
+
+export type t_TeamsUpdateDiscussionCommentInOrgRequestBody = {
+  body: string
+}
+
+export type t_TeamsUpdateDiscussionCommentLegacyRequestBody = {
+  body: string
+}
+
+export type t_TeamsUpdateDiscussionInOrgRequestBody = {
+  body?: string
+  title?: string
+}
+
+export type t_TeamsUpdateDiscussionLegacyRequestBody = {
+  body?: string
+  title?: string
+}
+
+export type t_TeamsUpdateInOrgRequestBody = {
+  description?: string
+  name?: string
+  notification_setting?:
+    | "notifications_enabled"
+    | "notifications_disabled"
+    | UnknownEnumStringValue
+  parent_team_id?: number | null
+  permission?: "pull" | "push" | "admin" | UnknownEnumStringValue
+  privacy?: "secret" | "closed" | UnknownEnumStringValue
+}
+
+export type t_TeamsUpdateLegacyRequestBody = {
+  description?: string
+  name: string
+  notification_setting?:
+    | "notifications_enabled"
+    | "notifications_disabled"
+    | UnknownEnumStringValue
+  parent_team_id?: number | null
+  permission?: "pull" | "push" | "admin" | UnknownEnumStringValue
+  privacy?: "secret" | "closed" | UnknownEnumStringValue
+}
+
+export type t_UsersAddEmailForAuthenticatedUserRequestBody =
+  | {
+      emails: string[]
+    }
+  | string[]
+  | string
+
+export type t_UsersAddSocialAccountForAuthenticatedUserRequestBody = {
+  account_urls: string[]
+}
+
+export type t_UsersCreateGpgKeyForAuthenticatedUserRequestBody = {
+  armored_public_key: string
+  name?: string
+}
+
+export type t_UsersCreatePublicSshKeyForAuthenticatedUserRequestBody = {
+  key: string
+  title?: string
+}
+
+export type t_UsersCreateSshSigningKeyForAuthenticatedUserRequestBody = {
+  key: string
+  title?: string
+}
+
+export type t_UsersDeleteAttestationsBulkRequestBody =
+  | {
+      subject_digests: string[]
+    }
+  | {
+      attestation_ids: number[]
+    }
+
+export type t_UsersDeleteEmailForAuthenticatedUserRequestBody =
+  | {
+      emails: string[]
+    }
+  | string[]
+  | string
+
+export type t_UsersDeleteSocialAccountForAuthenticatedUserRequestBody = {
+  account_urls: string[]
+}
+
+export type t_UsersListAttestationsBulkRequestBody = {
+  predicate_type?: string
+  subject_digests: string[]
+}
+
+export type t_UsersSetPrimaryEmailVisibilityForAuthenticatedUserRequestBody = {
+  visibility: "public" | "private" | UnknownEnumStringValue
+}
+
+export type t_UsersUpdateAuthenticatedRequestBody = {
+  bio?: string
+  blog?: string
+  company?: string
+  email?: string
+  hireable?: boolean
+  location?: string
+  name?: string
+  twitter_username?: string | null
+}

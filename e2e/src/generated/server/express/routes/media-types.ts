@@ -19,11 +19,7 @@ import {
 } from "@nahkies/typescript-express-runtime/zod-v4"
 import {type NextFunction, type Request, type Response, Router} from "express"
 import {z} from "zod/v4"
-import type {
-  t_PostMediaTypesTextRequestBodySchema,
-  t_PostMediaTypesXWwwFormUrlencodedRequestBodySchema,
-  t_ProductOrder,
-} from "../models.ts"
+import type {t_ProductOrder} from "../models.ts"
 import {s_ProductOrder} from "../schemas.ts"
 
 export type PostMediaTypesTextResponder = {
@@ -31,7 +27,7 @@ export type PostMediaTypesTextResponder = {
 } & ExpressRuntimeResponder
 
 export type PostMediaTypesText = (
-  params: Params<void, void, t_PostMediaTypesTextRequestBodySchema, void>,
+  params: Params<void, void, string, void>,
   respond: PostMediaTypesTextResponder,
   req: Request,
   res: Response,
@@ -43,12 +39,7 @@ export type PostMediaTypesXWwwFormUrlencodedResponder = {
 } & ExpressRuntimeResponder
 
 export type PostMediaTypesXWwwFormUrlencoded = (
-  params: Params<
-    void,
-    void,
-    t_PostMediaTypesXWwwFormUrlencodedRequestBodySchema,
-    void
-  >,
+  params: Params<void, void, t_ProductOrder, void>,
   respond: PostMediaTypesXWwwFormUrlencodedResponder,
   req: Request,
   res: Response,

@@ -12,19 +12,19 @@ import {responseValidationFactory} from "@nahkies/typescript-fetch-runtime/zod-v
 import {z} from "zod/v4"
 import type {
   t_Enumerations,
-  t_getHeadersRequestJson200Response,
-  t_getHeadersUndeclaredJson200Response,
+  t_GetHeadersRequest200Response,
+  t_GetHeadersUndeclared200Response,
+  t_PostValidationOptionalBody200Response,
+  t_PostValidationOptionalBodyRequestBody,
   t_ProductOrder,
-  t_postValidationOptionalBodyJson200Response,
-  t_postValidationOptionalBodyJsonRequestBody,
   t_RandomNumber,
 } from "./models.ts"
 import {
   s_Enumerations,
-  s_getHeadersRequestJson200Response,
-  s_getHeadersUndeclaredJson200Response,
+  s_GetHeadersRequest200Response,
+  s_GetHeadersUndeclared200Response,
+  s_PostValidationOptionalBody200Response,
   s_ProductOrder,
-  s_postValidationOptionalBodyJson200Response,
   s_RandomNumber,
 } from "./schemas.ts"
 
@@ -75,14 +75,14 @@ export class E2ETestClient extends AbstractFetchClient {
   async getHeadersUndeclared(
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_getHeadersUndeclaredJson200Response>> {
+  ): Promise<Res<200, t_GetHeadersUndeclared200Response>> {
     const url = this.basePath + `/headers/undeclared`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
 
     const res = this._fetch(url, {method: "GET", ...opts, headers}, timeout)
 
     return responseValidationFactory(
-      [["200", s_getHeadersUndeclaredJson200Response]],
+      [["200", s_GetHeadersUndeclared200Response]],
       undefined,
     )(res)
   }
@@ -97,7 +97,7 @@ export class E2ETestClient extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_getHeadersRequestJson200Response>> {
+  ): Promise<Res<200, t_GetHeadersRequest200Response>> {
     const url = this.basePath + `/headers/request`
     const headers = this._headers(
       {
@@ -114,7 +114,7 @@ export class E2ETestClient extends AbstractFetchClient {
     const res = this._fetch(url, {method: "GET", ...opts, headers}, timeout)
 
     return responseValidationFactory(
-      [["200", s_getHeadersRequestJson200Response]],
+      [["200", s_GetHeadersRequest200Response]],
       undefined,
     )(res)
   }
@@ -170,12 +170,12 @@ export class E2ETestClient extends AbstractFetchClient {
 
   async postValidationOptionalBody(
     p: {
-      requestBody?: t_postValidationOptionalBodyJsonRequestBody
+      requestBody?: t_PostValidationOptionalBodyRequestBody
     } = {},
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    Res<200, t_postValidationOptionalBodyJson200Response> | Res<204, void>
+    Res<200, t_PostValidationOptionalBody200Response> | Res<204, void>
   > {
     const url = this.basePath + `/validation/optional-body`
     const headers = this._headers(
@@ -197,7 +197,7 @@ export class E2ETestClient extends AbstractFetchClient {
 
     return responseValidationFactory(
       [
-        ["200", s_postValidationOptionalBodyJson200Response],
+        ["200", s_PostValidationOptionalBody200Response],
         ["204", z.any()],
       ],
       undefined,

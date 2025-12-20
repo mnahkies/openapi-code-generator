@@ -26,33 +26,6 @@ export type ServerSymbols = {
   responseBodyValidator: string
 }
 
-export function reduceParamsToOpenApiSchema(
-  parameters: IRParameter[],
-): IRModelObject {
-  return parameters.reduce(
-    (model, parameter) => {
-      model.properties[parameter.name] = parameter.schema
-
-      if (parameter.required) {
-        model.required.push(parameter.name)
-      }
-
-      return model
-    },
-    {
-      type: "object",
-      properties: {},
-      required: [],
-      oneOf: [],
-      allOf: [],
-      anyOf: [],
-      additionalProperties: false,
-      nullable: false,
-      readOnly: false,
-    } as IRModelObject,
-  )
-}
-
 export type ServerOperationResponseSchemas = {
   specific: {
     statusString: string
@@ -117,8 +90,8 @@ export class ServerOperationBuilder {
         )
       }
 
-      const parameter = parameters.find(
-        (it) => it.name === placeholder && it.in === "path",
+      const parameter = parameters.path.list.find(
+        (it) => it.name === placeholder,
       )
 
       if (!parameter) {
@@ -196,72 +169,51 @@ export class ServerOperationBuilder {
   }
 
   private pathParameters(schemaSymbolName: string): Parameters["path"] {
-    const parameters = this.operation.parameters.filter(
-      (it) => it.in === "path",
-    )
+    const $ref = this.operation.parameters.path.$ref
 
-    const schema = parameters.length
-      ? this.schemaBuilder.fromParameters(parameters)
-      : undefined
+    const schema =
+      $ref !== undefined
+        ? this.schemaBuilder.fromModel(this.input.schema($ref), true, true)
+        : undefined
 
     let type = "void"
 
-    if (schema) {
-      type = this.types.schemaObjectToType(
-        this.input.loader.addVirtualType(
-          this.operationId,
-          upperFirst(schemaSymbolName),
-          reduceParamsToOpenApiSchema(parameters),
-        ),
-      )
+    if ($ref && schema) {
+      type = this.types.schemaObjectToType($ref)
     }
 
     return {schema: schema, type}
   }
 
   private queryParameters(schemaSymbolName: string): Parameters["query"] {
-    const parameters = this.operation.parameters.filter(
-      (it) => it.in === "query",
-    )
+    const $ref = this.operation.parameters.query.$ref
 
-    const schema = parameters.length
-      ? this.schemaBuilder.fromParameters(parameters)
-      : undefined
+    const schema =
+      $ref !== undefined
+        ? this.schemaBuilder.fromModel(this.input.schema($ref), true, true)
+        : undefined
 
     let type = "void"
 
-    if (schema) {
-      type = this.types.schemaObjectToType(
-        this.input.loader.addVirtualType(
-          this.operationId,
-          upperFirst(schemaSymbolName),
-          reduceParamsToOpenApiSchema(parameters),
-        ),
-      )
+    if ($ref && schema) {
+      type = this.types.schemaObjectToType($ref)
     }
 
     return {schema: schema, type}
   }
 
   private headerParameters(schemaSymbolName: string): Parameters["header"] {
-    const parameters = this.operation.parameters
-      .filter((it) => it.in === "header")
-      .map((it) => ({...it, name: it.name.toLowerCase()}))
+    const $ref = this.operation.parameters.header.$ref
 
-    const schema = parameters.length
-      ? this.schemaBuilder.fromParameters(parameters)
-      : undefined
+    const schema =
+      $ref !== undefined
+        ? this.schemaBuilder.fromModel(this.input.schema($ref), true, true)
+        : undefined
 
     let type = "void"
 
-    if (schema) {
-      type = this.types.schemaObjectToType(
-        this.input.loader.addVirtualType(
-          this.operationId,
-          upperFirst(schemaSymbolName),
-          reduceParamsToOpenApiSchema(parameters),
-        ),
-      )
+    if ($ref && schema) {
+      type = this.types.schemaObjectToType($ref)
     }
 
     return {schema: schema, type}
@@ -303,13 +255,7 @@ export class ServerOperationBuilder {
     let type = "void"
 
     if (schema && requestBody?.parameter) {
-      type = this.types.schemaObjectToType(
-        this.input.loader.addVirtualType(
-          this.operationId,
-          upperFirst(schemaSymbolName),
-          this.input.schema(requestBody.parameter.schema),
-        ),
-      )
+      type = this.types.schemaObjectToType(requestBody.parameter.schema)
     }
 
     return {

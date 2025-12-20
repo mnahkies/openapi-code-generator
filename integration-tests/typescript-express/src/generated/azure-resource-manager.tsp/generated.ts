@@ -29,7 +29,6 @@ import type {
   t_EmployeesCheckExistenceQuerySchema,
   t_EmployeesCreateOrUpdateParamSchema,
   t_EmployeesCreateOrUpdateQuerySchema,
-  t_EmployeesCreateOrUpdateRequestBodySchema,
   t_EmployeesDeleteParamSchema,
   t_EmployeesDeleteQuerySchema,
   t_EmployeesGetParamSchema,
@@ -40,10 +39,10 @@ import type {
   t_EmployeesListBySubscriptionQuerySchema,
   t_EmployeesMoveParamSchema,
   t_EmployeesMoveQuerySchema,
-  t_EmployeesMoveRequestBodySchema,
   t_EmployeesUpdateParamSchema,
   t_EmployeesUpdateQuerySchema,
-  t_EmployeesUpdateRequestBodySchema,
+  t_EmployeeUpdate,
+  t_MoveRequest,
   t_MoveResponse,
   t_OperationListResult,
   t_OperationsListQuerySchema,
@@ -106,7 +105,7 @@ export type EmployeesCreateOrUpdate = (
   params: Params<
     t_EmployeesCreateOrUpdateParamSchema,
     t_EmployeesCreateOrUpdateQuerySchema,
-    t_EmployeesCreateOrUpdateRequestBodySchema,
+    t_Employee,
     void
   >,
   respond: EmployeesCreateOrUpdateResponder,
@@ -126,7 +125,7 @@ export type EmployeesUpdate = (
   params: Params<
     t_EmployeesUpdateParamSchema,
     t_EmployeesUpdateQuerySchema,
-    t_EmployeesUpdateRequestBodySchema,
+    t_EmployeeUpdate,
     void
   >,
   respond: EmployeesUpdateResponder,
@@ -228,7 +227,7 @@ export type EmployeesMove = (
   params: Params<
     t_EmployeesMoveParamSchema,
     t_EmployeesMoveQuerySchema,
-    t_EmployeesMoveRequestBodySchema,
+    t_MoveRequest,
     void
   >,
   respond: EmployeesMoveResponder,

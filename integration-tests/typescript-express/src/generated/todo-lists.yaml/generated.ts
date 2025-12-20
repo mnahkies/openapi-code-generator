@@ -25,7 +25,8 @@ import {type NextFunction, type Request, type Response, Router} from "express"
 import {z} from "zod/v4"
 import type {
   t_CreateTodoListItemParamSchema,
-  t_CreateTodoListItemRequestBodySchema,
+  t_CreateTodoListItemRequestBody,
+  t_CreateUpdateTodoList,
   t_DeleteTodoListByIdParamSchema,
   t_Error,
   t_GetTodoListByIdParamSchema,
@@ -34,10 +35,9 @@ import type {
   t_TodoList,
   t_UnknownObject,
   t_UpdateTodoListByIdParamSchema,
-  t_UpdateTodoListByIdRequestBodySchema,
-  t_UploadAttachmentRequestBodySchema,
 } from "./models.ts"
 import {
+  s_CreateTodoListItemRequestBody,
   s_CreateUpdateTodoList,
   s_Error,
   s_Statuses,
@@ -81,7 +81,7 @@ export type UpdateTodoListById = (
   params: Params<
     t_UpdateTodoListByIdParamSchema,
     void,
-    t_UpdateTodoListByIdRequestBodySchema,
+    t_CreateUpdateTodoList,
     void
   >,
   respond: UpdateTodoListByIdResponder,
@@ -133,7 +133,7 @@ export type CreateTodoListItem = (
   params: Params<
     t_CreateTodoListItemParamSchema,
     void,
-    t_CreateTodoListItemRequestBodySchema,
+    t_CreateTodoListItemRequestBody,
     void
   >,
   respond: CreateTodoListItemResponder,
@@ -159,7 +159,7 @@ export type UploadAttachmentResponder = {
 } & ExpressRuntimeResponder
 
 export type UploadAttachment = (
-  params: Params<void, void, t_UploadAttachmentRequestBodySchema, void>,
+  params: Params<void, void, never, void>,
   respond: UploadAttachmentResponder,
   req: Request,
   res: Response,
@@ -556,11 +556,7 @@ export function createRouter(implementation: Implementation): Router {
 
   const createTodoListItemParamSchema = z.object({listId: z.string()})
 
-  const createTodoListItemRequestBodySchema = z.object({
-    id: z.string(),
-    content: z.string(),
-    completedAt: z.iso.datetime({offset: true}).optional(),
-  })
+  const createTodoListItemRequestBodySchema = s_CreateTodoListItemRequestBody
 
   const createTodoListItemResponseBodyValidator = responseValidationFactory(
     [["204", z.undefined()]],

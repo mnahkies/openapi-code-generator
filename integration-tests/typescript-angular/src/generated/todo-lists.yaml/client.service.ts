@@ -6,6 +6,7 @@ import {HttpClient, HttpParams, type HttpResponse} from "@angular/common/http"
 import {Injectable} from "@angular/core"
 import type {Observable} from "rxjs"
 import type {
+  t_CreateTodoListItemRequestBody,
   t_CreateUpdateTodoList,
   t_Error,
   t_Statuses,
@@ -344,11 +345,7 @@ export class TodoListsExampleApiService {
 
   createTodoListItem(p: {
     listId: string
-    requestBody: {
-      completedAt?: string
-      content: string
-      id: string
-    }
+    requestBody: t_CreateTodoListItemRequestBody
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
     const headers = this._headers({
       Accept: "application/json",

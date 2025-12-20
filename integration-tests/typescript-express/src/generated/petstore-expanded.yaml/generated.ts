@@ -22,11 +22,11 @@ import {
 import {type NextFunction, type Request, type Response, Router} from "express"
 import {z} from "zod/v4"
 import type {
-  t_AddPetRequestBodySchema,
   t_DeletePetParamSchema,
   t_Error,
   t_FindPetByIdParamSchema,
   t_FindPetsQuerySchema,
+  t_NewPet,
   t_Pet,
 } from "./models.ts"
 import {s_Error, s_NewPet, s_Pet} from "./schemas.ts"
@@ -50,7 +50,7 @@ export type AddPetResponder = {
 } & ExpressRuntimeResponder
 
 export type AddPet = (
-  params: Params<void, void, t_AddPetRequestBodySchema, void>,
+  params: Params<void, void, t_NewPet, void>,
   respond: AddPetResponder,
   req: Request,
   res: Response,

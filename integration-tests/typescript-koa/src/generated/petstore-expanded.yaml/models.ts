@@ -16,11 +16,6 @@ export type t_Pet = t_NewPet & {
   id: number
 }
 
-export type t_AddPetBodySchema = {
-  name: string
-  tag?: string
-}
-
 export type t_DeletePetParamSchema = {
   id: number
 }

@@ -157,43 +157,6 @@ export abstract class AbstractSchemaBuilder<
 
   protected abstract schemaFromRef(reference: Reference): ExportDefinition
 
-  fromParameters(parameters: IRParameter[]): string {
-    const model: IRModelObject = {
-      type: "object",
-      required: [],
-      properties: {},
-      allOf: [],
-      oneOf: [],
-      anyOf: [],
-      readOnly: false,
-      nullable: false,
-      additionalProperties: false,
-    }
-
-    for (const parameter of parameters) {
-      if (parameter.required) {
-        model.required.push(parameter.name)
-      }
-
-      const dereferenced = this.input.loader.schema(parameter.schema)
-
-      if (parameter.in === "query" && dereferenced.type === "array") {
-        model.properties[parameter.name] = {
-          ...parameter.schema,
-          "x-internal-preprocess": {
-            deserialize: {
-              fn: "(it: unknown) => Array.isArray(it) || it === undefined ? it : [it]",
-            },
-          },
-        }
-      } else {
-        model.properties[parameter.name] = parameter.schema
-      }
-    }
-
-    return this.fromModel(model, true, true)
-  }
-
   // todo: rethink the isAnonymous parameter - it would be better to just provide more context
   fromModel(
     maybeModel: MaybeIRModel,
@@ -218,7 +181,7 @@ export abstract class AbstractSchemaBuilder<
       }
 
       if (maybeModel["x-internal-preprocess"]) {
-        const dereferenced = this.input.loader.preprocess(
+        const dereferenced = this.input.preprocess(
           maybeModel["x-internal-preprocess"],
         )
         if (dereferenced.deserialize) {
@@ -356,9 +319,7 @@ export abstract class AbstractSchemaBuilder<
     }
 
     if (model["x-internal-preprocess"]) {
-      const dereferenced = this.input.loader.preprocess(
-        model["x-internal-preprocess"],
-      )
+      const dereferenced = this.input.preprocess(model["x-internal-preprocess"])
       if (dereferenced.deserialize) {
         result = this.preprocess(result, dereferenced.deserialize.fn)
       }

@@ -24,15 +24,14 @@ import {z} from "zod/v4"
 import type {
   t_Enumerations,
   t_GetValidationNumbersRandomNumberQuerySchema,
-  t_PostValidationEnumsBodySchema,
-  t_PostValidationOptionalBodyBodySchema,
-  t_postValidationOptionalBodyJson200Response,
+  t_PostValidationOptionalBody200Response,
+  t_PostValidationOptionalBodyRequestBody,
   t_RandomNumber,
 } from "../models.ts"
 import {
   s_Enumerations,
-  s_postValidationOptionalBodyJson200Response,
-  s_postValidationOptionalBodyJsonRequestBody,
+  s_PostValidationOptionalBody200Response,
+  s_PostValidationOptionalBodyRequestBody,
   s_RandomNumber,
 } from "../schemas.ts"
 
@@ -61,7 +60,7 @@ export type PostValidationEnumsResponder = {
 } & KoaRuntimeResponder
 
 export type PostValidationEnums = (
-  params: Params<void, void, t_PostValidationEnumsBodySchema, void>,
+  params: Params<void, void, t_Enumerations, void>,
   respond: PostValidationEnumsResponder,
   ctx: RouterContext,
   next: Next,
@@ -72,7 +71,7 @@ export type PostValidationEnums = (
 >
 
 export type PostValidationOptionalBodyResponder = {
-  with200(): KoaRuntimeResponse<t_postValidationOptionalBodyJson200Response>
+  with200(): KoaRuntimeResponse<t_PostValidationOptionalBody200Response>
   with204(): KoaRuntimeResponse<void>
 } & KoaRuntimeResponder
 
@@ -80,7 +79,7 @@ export type PostValidationOptionalBody = (
   params: Params<
     void,
     void,
-    t_PostValidationOptionalBodyBodySchema | undefined,
+    t_PostValidationOptionalBodyRequestBody | undefined,
     void
   >,
   respond: PostValidationOptionalBodyResponder,
@@ -88,7 +87,7 @@ export type PostValidationOptionalBody = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_postValidationOptionalBodyJson200Response>
+  | Response<200, t_PostValidationOptionalBody200Response>
   | Response<204, void>
   | typeof SkipResponse
 >
@@ -238,11 +237,11 @@ export function createValidationRouter(
   })
 
   const postValidationOptionalBodyBodySchema =
-    s_postValidationOptionalBodyJsonRequestBody.optional()
+    s_PostValidationOptionalBodyRequestBody.optional()
 
   const postValidationOptionalBodyResponseValidator = responseValidationFactory(
     [
-      ["200", s_postValidationOptionalBodyJson200Response],
+      ["200", s_PostValidationOptionalBody200Response],
       ["204", z.undefined()],
     ],
     undefined,
@@ -265,7 +264,7 @@ export function createValidationRouter(
 
       const responder = {
         with200() {
-          return new KoaRuntimeResponse<t_postValidationOptionalBodyJson200Response>(
+          return new KoaRuntimeResponse<t_PostValidationOptionalBody200Response>(
             200,
           )
         },

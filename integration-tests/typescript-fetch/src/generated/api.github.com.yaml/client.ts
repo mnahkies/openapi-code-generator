@@ -10,11 +10,54 @@ import {
 } from "@nahkies/typescript-fetch-runtime/main"
 import type {
   EmptyObject,
+  t_ActionsAddCustomLabelsToSelfHostedRunnerForOrgRequestBody,
+  t_ActionsAddCustomLabelsToSelfHostedRunnerForRepoRequestBody,
+  t_ActionsCreateEnvironmentVariableRequestBody,
+  t_ActionsCreateHostedRunnerForOrgRequestBody,
+  t_ActionsCreateOrgVariableRequestBody,
+  t_ActionsCreateOrUpdateEnvironmentSecretRequestBody,
+  t_ActionsCreateOrUpdateOrgSecretRequestBody,
+  t_ActionsCreateOrUpdateRepoSecretRequestBody,
+  t_ActionsCreateRepoVariableRequestBody,
+  t_ActionsCreateSelfHostedRunnerGroupForOrgRequestBody,
+  t_ActionsCreateWorkflowDispatchRequestBody,
+  t_ActionsGenerateRunnerJitconfigForOrgRequestBody,
+  t_ActionsGenerateRunnerJitconfigForRepoRequestBody,
+  t_ActionsReRunJobForWorkflowRunRequestBody,
+  t_ActionsReRunWorkflowFailedJobsRequestBody,
+  t_ActionsReRunWorkflowRequestBody,
+  t_ActionsReviewCustomGatesForRunRequestBody,
+  t_ActionsReviewPendingDeploymentsForRunRequestBody,
+  t_ActionsSetCustomLabelsForSelfHostedRunnerForOrgRequestBody,
+  t_ActionsSetCustomLabelsForSelfHostedRunnerForRepoRequestBody,
+  t_ActionsSetCustomOidcSubClaimForRepoRequestBody,
+  t_ActionsSetGithubActionsPermissionsOrganizationRequestBody,
+  t_ActionsSetGithubActionsPermissionsRepositoryRequestBody,
+  t_ActionsSetRepoAccessToSelfHostedRunnerGroupInOrgRequestBody,
+  t_ActionsSetSelectedReposForOrgSecretRequestBody,
+  t_ActionsSetSelectedReposForOrgVariableRequestBody,
+  t_ActionsSetSelectedRepositoriesEnabledGithubActionsOrganizationRequestBody,
+  t_ActionsSetSelfHostedRunnersInGroupForOrgRequestBody,
+  t_ActionsUpdateEnvironmentVariableRequestBody,
+  t_ActionsUpdateHostedRunnerForOrgRequestBody,
+  t_ActionsUpdateOrgVariableRequestBody,
+  t_ActionsUpdateRepoVariableRequestBody,
+  t_ActionsUpdateSelfHostedRunnerGroupForOrgRequestBody,
+  t_ActivityMarkNotificationsAsReadRequestBody,
+  t_ActivityMarkRepoNotificationsAsReadRequestBody,
+  t_ActivitySetRepoSubscriptionRequestBody,
+  t_ActivitySetThreadSubscriptionRequestBody,
+  t_AppsCheckTokenRequestBody,
+  t_AppsCreateInstallationAccessTokenRequestBody,
+  t_AppsDeleteAuthorizationRequestBody,
+  t_AppsDeleteTokenRequestBody,
+  t_AppsResetTokenRequestBody,
+  t_AppsScopeTokenRequestBody,
+  t_AppsUpdateWebhookConfigForAppRequestBody,
   t_actions_billing_usage,
   t_actions_cache_list,
   t_actions_cache_usage_by_repository,
   t_actions_cache_usage_org_enterprise,
-  t_actions_enabled,
   t_actions_get_default_workflow_permissions,
   t_actions_hosted_runner,
   t_actions_hosted_runner_image,
@@ -29,14 +72,12 @@ import type {
   t_actions_workflow_access_to_repository,
   t_activity,
   t_alert_number,
-  t_allowed_actions,
   t_api_insights_route_stats,
   t_api_insights_subject_stats,
   t_api_insights_summary_stats,
   t_api_insights_time_stats,
   t_api_insights_user_stats,
   t_api_overview,
-  t_app_permissions,
   t_artifact,
   t_authentication_token,
   t_authorization,
@@ -50,6 +91,42 @@ import type {
   t_branch_restriction_policy,
   t_branch_short,
   t_branch_with_protection,
+  t_CampaignsCreateCampaignRequestBody,
+  t_CampaignsUpdateCampaignRequestBody,
+  t_ChecksCreateRequestBody,
+  t_ChecksCreateSuiteRequestBody,
+  t_ChecksSetSuitesPreferencesRequestBody,
+  t_ChecksUpdateRequestBody,
+  t_CodeScanningCreateVariantAnalysisRequestBody,
+  t_CodeScanningUpdateAlertRequestBody,
+  t_CodeScanningUploadSarifRequestBody,
+  t_CodeSecurityAttachConfigurationRequestBody,
+  t_CodeSecurityAttachEnterpriseConfigurationRequestBody,
+  t_CodeSecurityCreateConfigurationForEnterpriseRequestBody,
+  t_CodeSecurityCreateConfigurationRequestBody,
+  t_CodeSecurityDetachConfigurationRequestBody,
+  t_CodeSecuritySetConfigurationAsDefaultForEnterpriseRequestBody,
+  t_CodeSecuritySetConfigurationAsDefaultRequestBody,
+  t_CodeSecurityUpdateConfigurationRequestBody,
+  t_CodeSecurityUpdateEnterpriseConfigurationRequestBody,
+  t_CodespacesCreateForAuthenticatedUserRequestBody,
+  t_CodespacesCreateOrUpdateOrgSecretRequestBody,
+  t_CodespacesCreateOrUpdateRepoSecretRequestBody,
+  t_CodespacesCreateOrUpdateSecretForAuthenticatedUserRequestBody,
+  t_CodespacesCreateWithPrForAuthenticatedUserRequestBody,
+  t_CodespacesCreateWithRepoForAuthenticatedUserRequestBody,
+  t_CodespacesDeleteCodespacesAccessUsersRequestBody,
+  t_CodespacesPublishForAuthenticatedUserRequestBody,
+  t_CodespacesSetCodespacesAccessRequestBody,
+  t_CodespacesSetCodespacesAccessUsersRequestBody,
+  t_CodespacesSetRepositoriesForSecretForAuthenticatedUserRequestBody,
+  t_CodespacesSetSelectedReposForOrgSecretRequestBody,
+  t_CodespacesUpdateForAuthenticatedUserRequestBody,
+  t_CopilotAddCopilotSeatsForTeamsRequestBody,
+  t_CopilotAddCopilotSeatsForUsersRequestBody,
+  t_CopilotCancelCopilotSeatAssignmentForTeamsRequestBody,
+  t_CopilotCancelCopilotSeatAssignmentForUsersRequestBody,
+  t_CredentialsRevokeRequestBody,
   t_campaign_state,
   t_campaign_summary,
   t_check_annotation,
@@ -65,18 +142,12 @@ import type {
   t_code_frequency_stat,
   t_code_of_conduct,
   t_code_scanning_alert,
-  t_code_scanning_alert_create_request,
-  t_code_scanning_alert_dismissed_comment,
-  t_code_scanning_alert_dismissed_reason,
   t_code_scanning_alert_instance,
   t_code_scanning_alert_items,
-  t_code_scanning_alert_set_state,
   t_code_scanning_alert_severity,
   t_code_scanning_alert_state_query,
   t_code_scanning_analysis,
-  t_code_scanning_analysis_commit_sha,
   t_code_scanning_analysis_deletion,
-  t_code_scanning_analysis_sarif_file,
   t_code_scanning_analysis_sarif_id,
   t_code_scanning_analysis_tool_guid,
   t_code_scanning_analysis_tool_name,
@@ -85,13 +156,10 @@ import type {
   t_code_scanning_autofix_commits_response,
   t_code_scanning_codeql_database,
   t_code_scanning_default_setup,
-  t_code_scanning_default_setup_options,
   t_code_scanning_default_setup_update,
   t_code_scanning_default_setup_update_response,
-  t_code_scanning_options,
   t_code_scanning_organization_alert_items,
   t_code_scanning_ref,
-  t_code_scanning_ref_full,
   t_code_scanning_sarifs_receipt,
   t_code_scanning_sarifs_status,
   t_code_scanning_variant_analysis,
@@ -134,6 +202,12 @@ import type {
   t_custom_property,
   t_custom_property_set_payload,
   t_custom_property_value,
+  t_DependabotCreateOrUpdateOrgSecretRequestBody,
+  t_DependabotCreateOrUpdateRepoSecretRequestBody,
+  t_DependabotSetRepositoryAccessDefaultLevelRequestBody,
+  t_DependabotSetSelectedReposForOrgSecretRequestBody,
+  t_DependabotUpdateAlertRequestBody,
+  t_DependabotUpdateRepositoryAccessForOrgRequestBody,
   t_dependabot_alert,
   t_dependabot_alert_with_repository,
   t_dependabot_public_key,
@@ -146,20 +220,27 @@ import type {
   t_deployment_branch_policy,
   t_deployment_branch_policy_name_pattern,
   t_deployment_branch_policy_name_pattern_with_type,
-  t_deployment_branch_policy_settings,
   t_deployment_protection_rule,
-  t_deployment_reviewer_type,
   t_deployment_status,
   t_diff_entry,
   t_email,
   t_empty_object,
-  t_enabled_repositories,
   t_environment,
   t_environment_approvals,
   t_event,
   t_feed,
   t_file_commit,
   t_full_repository,
+  t_GistsCreateCommentRequestBody,
+  t_GistsCreateRequestBody,
+  t_GistsUpdateCommentRequestBody,
+  t_GistsUpdateRequestBody,
+  t_GitCreateBlobRequestBody,
+  t_GitCreateCommitRequestBody,
+  t_GitCreateRefRequestBody,
+  t_GitCreateTagRequestBody,
+  t_GitCreateTreeRequestBody,
+  t_GitUpdateRefRequestBody,
   t_gist_comment,
   t_gist_commit,
   t_gist_simple,
@@ -170,10 +251,28 @@ import type {
   t_gitignore_template,
   t_global_advisory,
   t_gpg_key,
+  t_HostedComputeCreateNetworkConfigurationForOrgRequestBody,
+  t_HostedComputeUpdateNetworkConfigurationForOrgRequestBody,
   t_hook,
   t_hook_delivery,
   t_hook_delivery_item,
   t_hovercard,
+  t_IssuesAddAssigneesRequestBody,
+  t_IssuesAddLabelsRequestBody,
+  t_IssuesAddSubIssueRequestBody,
+  t_IssuesCreateCommentRequestBody,
+  t_IssuesCreateLabelRequestBody,
+  t_IssuesCreateMilestoneRequestBody,
+  t_IssuesCreateRequestBody,
+  t_IssuesLockRequestBody,
+  t_IssuesRemoveAssigneesRequestBody,
+  t_IssuesRemoveSubIssueRequestBody,
+  t_IssuesReprioritizeSubIssueRequestBody,
+  t_IssuesSetLabelsRequestBody,
+  t_IssuesUpdateCommentRequestBody,
+  t_IssuesUpdateLabelRequestBody,
+  t_IssuesUpdateMilestoneRequestBody,
+  t_IssuesUpdateRequestBody,
   t_import,
   t_installation,
   t_installation_token,
@@ -196,6 +295,13 @@ import type {
   t_license,
   t_license_content,
   t_license_simple,
+  t_MarkdownRenderRequestBody,
+  t_MigrationsMapCommitAuthorRequestBody,
+  t_MigrationsSetLfsPreferenceRequestBody,
+  t_MigrationsStartForAuthenticatedUserRequestBody,
+  t_MigrationsStartForOrgRequestBody,
+  t_MigrationsStartImportRequestBody,
+  t_MigrationsUpdateImportRequestBody,
   t_marketplace_listing_plan,
   t_marketplace_purchase,
   t_merged_upstream,
@@ -204,6 +310,23 @@ import type {
   t_minimal_repository,
   t_network_configuration,
   t_network_settings,
+  t_OrgsConvertMemberToOutsideCollaboratorRequestBody,
+  t_OrgsCreateInvitationRequestBody,
+  t_OrgsCreateOrUpdateCustomPropertiesRequestBody,
+  t_OrgsCreateOrUpdateCustomPropertiesValuesForReposRequestBody,
+  t_OrgsCreateWebhookRequestBody,
+  t_OrgsDeleteAttestationsBulkRequestBody,
+  t_OrgsEnableOrDisableSecurityProductOnAllOrgReposRequestBody,
+  t_OrgsListAttestationsBulkRequestBody,
+  t_OrgsReviewPatGrantRequestRequestBody,
+  t_OrgsReviewPatGrantRequestsInBulkRequestBody,
+  t_OrgsSetMembershipForUserRequestBody,
+  t_OrgsUpdateMembershipForAuthenticatedUserRequestBody,
+  t_OrgsUpdatePatAccessesRequestBody,
+  t_OrgsUpdatePatAccessRequestBody,
+  t_OrgsUpdateRequestBody,
+  t_OrgsUpdateWebhookConfigForOrgRequestBody,
+  t_OrgsUpdateWebhookRequestBody,
   t_oidc_custom_sub,
   t_oidc_custom_sub_repo,
   t_org_hook,
@@ -211,8 +334,6 @@ import type {
   t_org_private_registry_configuration,
   t_org_private_registry_configuration_with_selected_repositories,
   t_org_repo_custom_property_values,
-  t_org_rules,
-  t_org_ruleset_conditions,
   t_organization_actions_secret,
   t_organization_actions_variable,
   t_organization_create_issue_type,
@@ -225,6 +346,32 @@ import type {
   t_organization_secret_scanning_alert,
   t_organization_simple,
   t_organization_update_issue_type,
+  t_PrivateRegistriesCreateOrgPrivateRegistryRequestBody,
+  t_PrivateRegistriesUpdateOrgPrivateRegistryRequestBody,
+  t_ProjectsClassicAddCollaboratorRequestBody,
+  t_ProjectsClassicCreateCardRequestBody,
+  t_ProjectsClassicCreateColumnRequestBody,
+  t_ProjectsClassicCreateForAuthenticatedUserRequestBody,
+  t_ProjectsClassicCreateForOrgRequestBody,
+  t_ProjectsClassicCreateForRepoRequestBody,
+  t_ProjectsClassicMoveCardRequestBody,
+  t_ProjectsClassicMoveColumnRequestBody,
+  t_ProjectsClassicUpdateCardRequestBody,
+  t_ProjectsClassicUpdateColumnRequestBody,
+  t_ProjectsClassicUpdateRequestBody,
+  t_PullsCreateReplyForReviewCommentRequestBody,
+  t_PullsCreateRequestBody,
+  t_PullsCreateReviewCommentRequestBody,
+  t_PullsCreateReviewRequestBody,
+  t_PullsDismissReviewRequestBody,
+  t_PullsMergeRequestBody,
+  t_PullsRemoveRequestedReviewersRequestBody,
+  t_PullsRequestReviewersRequestBody,
+  t_PullsSubmitReviewRequestBody,
+  t_PullsUpdateBranchRequestBody,
+  t_PullsUpdateRequestBody,
+  t_PullsUpdateReviewCommentRequestBody,
+  t_PullsUpdateReviewRequestBody,
   t_package,
   t_package_version,
   t_packages_billing_usage,
@@ -238,7 +385,6 @@ import type {
   t_pending_deployment,
   t_porter_author,
   t_porter_large_file,
-  t_prevent_self_review,
   t_private_user,
   t_private_vulnerability_report_create,
   t_project,
@@ -255,6 +401,71 @@ import type {
   t_pull_request_review_comment,
   t_pull_request_review_request,
   t_pull_request_simple,
+  t_ReactionsCreateForCommitCommentRequestBody,
+  t_ReactionsCreateForIssueCommentRequestBody,
+  t_ReactionsCreateForIssueRequestBody,
+  t_ReactionsCreateForPullRequestReviewCommentRequestBody,
+  t_ReactionsCreateForReleaseRequestBody,
+  t_ReactionsCreateForTeamDiscussionCommentInOrgRequestBody,
+  t_ReactionsCreateForTeamDiscussionCommentLegacyRequestBody,
+  t_ReactionsCreateForTeamDiscussionInOrgRequestBody,
+  t_ReactionsCreateForTeamDiscussionLegacyRequestBody,
+  t_ReposAddAppAccessRestrictionsRequestBody,
+  t_ReposAddCollaboratorRequestBody,
+  t_ReposAddStatusCheckContextsRequestBody,
+  t_ReposAddTeamAccessRestrictionsRequestBody,
+  t_ReposAddUserAccessRestrictionsRequestBody,
+  t_ReposCreateAttestationRequestBody,
+  t_ReposCreateAutolinkRequestBody,
+  t_ReposCreateCommitCommentRequestBody,
+  t_ReposCreateCommitStatusRequestBody,
+  t_ReposCreateDeployKeyRequestBody,
+  t_ReposCreateDeploymentProtectionRuleRequestBody,
+  t_ReposCreateDeploymentRequestBody,
+  t_ReposCreateDeploymentStatusRequestBody,
+  t_ReposCreateDispatchEventRequestBody,
+  t_ReposCreateForAuthenticatedUserRequestBody,
+  t_ReposCreateForkRequestBody,
+  t_ReposCreateInOrgRequestBody,
+  t_ReposCreateOrgRulesetRequestBody,
+  t_ReposCreateOrUpdateCustomPropertiesValuesRequestBody,
+  t_ReposCreateOrUpdateEnvironmentRequestBody,
+  t_ReposCreateOrUpdateFileContentsRequestBody,
+  t_ReposCreatePagesDeploymentRequestBody,
+  t_ReposCreatePagesSiteRequestBody,
+  t_ReposCreateReleaseRequestBody,
+  t_ReposCreateRepoRulesetRequestBody,
+  t_ReposCreateTagProtectionRequestBody,
+  t_ReposCreateUsingTemplateRequestBody,
+  t_ReposCreateWebhookRequestBody,
+  t_ReposDeleteFileRequestBody,
+  t_ReposGenerateReleaseNotesRequestBody,
+  t_ReposMergeRequestBody,
+  t_ReposMergeUpstreamRequestBody,
+  t_ReposRemoveAppAccessRestrictionsRequestBody,
+  t_ReposRemoveStatusCheckContextsRequestBody,
+  t_ReposRemoveTeamAccessRestrictionsRequestBody,
+  t_ReposRemoveUserAccessRestrictionsRequestBody,
+  t_ReposRenameBranchRequestBody,
+  t_ReposReplaceAllTopicsRequestBody,
+  t_ReposSetAppAccessRestrictionsRequestBody,
+  t_ReposSetStatusCheckContextsRequestBody,
+  t_ReposSetTeamAccessRestrictionsRequestBody,
+  t_ReposSetUserAccessRestrictionsRequestBody,
+  t_ReposTransferRequestBody,
+  t_ReposUpdateBranchProtectionRequestBody,
+  t_ReposUpdateCommitCommentRequestBody,
+  t_ReposUpdateInformationAboutPagesSiteRequestBody,
+  t_ReposUpdateInvitationRequestBody,
+  t_ReposUpdateOrgRulesetRequestBody,
+  t_ReposUpdatePullRequestReviewProtectionRequestBody,
+  t_ReposUpdateReleaseAssetRequestBody,
+  t_ReposUpdateReleaseRequestBody,
+  t_ReposUpdateRepoRulesetRequestBody,
+  t_ReposUpdateRequestBody,
+  t_ReposUpdateStatusCheckProtectionRequestBody,
+  t_ReposUpdateWebhookConfigForRepoRequestBody,
+  t_ReposUpdateWebhookRequestBody,
   t_rate_limit_overview,
   t_reaction,
   t_referrer_traffic,
@@ -269,17 +480,11 @@ import type {
   t_repository_advisory_update,
   t_repository_collaborator_permission,
   t_repository_invitation,
-  t_repository_rule,
   t_repository_rule_detailed,
-  t_repository_rule_enforcement,
   t_repository_rule_violation_error,
   t_repository_ruleset,
-  t_repository_ruleset_bypass_actor,
-  t_repository_ruleset_conditions,
   t_repository_subscription,
   t_review_comment,
-  t_review_custom_gates_comment_required,
-  t_review_custom_gates_state_required,
   t_root,
   t_rule_suite,
   t_rule_suites,
@@ -289,15 +494,12 @@ import type {
   t_runner_application,
   t_runner_groups_org,
   t_runner_label,
+  t_SecretScanningCreatePushProtectionBypassRequestBody,
+  t_SecretScanningUpdateAlertRequestBody,
   t_scim_error,
   t_secret_scanning_alert,
-  t_secret_scanning_alert_resolution,
-  t_secret_scanning_alert_resolution_comment,
-  t_secret_scanning_alert_state,
   t_secret_scanning_location,
   t_secret_scanning_push_protection_bypass,
-  t_secret_scanning_push_protection_bypass_placeholder_id,
-  t_secret_scanning_push_protection_bypass_reason,
   t_secret_scanning_scan_history,
   t_security_advisory_ecosystems,
   t_selected_actions,
@@ -313,6 +515,23 @@ import type {
   t_starred_repository,
   t_status,
   t_status_check_policy,
+  t_TeamsAddOrUpdateMembershipForUserInOrgRequestBody,
+  t_TeamsAddOrUpdateMembershipForUserLegacyRequestBody,
+  t_TeamsAddOrUpdateProjectPermissionsInOrgRequestBody,
+  t_TeamsAddOrUpdateProjectPermissionsLegacyRequestBody,
+  t_TeamsAddOrUpdateRepoPermissionsInOrgRequestBody,
+  t_TeamsAddOrUpdateRepoPermissionsLegacyRequestBody,
+  t_TeamsCreateDiscussionCommentInOrgRequestBody,
+  t_TeamsCreateDiscussionCommentLegacyRequestBody,
+  t_TeamsCreateDiscussionInOrgRequestBody,
+  t_TeamsCreateDiscussionLegacyRequestBody,
+  t_TeamsCreateRequestBody,
+  t_TeamsUpdateDiscussionCommentInOrgRequestBody,
+  t_TeamsUpdateDiscussionCommentLegacyRequestBody,
+  t_TeamsUpdateDiscussionInOrgRequestBody,
+  t_TeamsUpdateDiscussionLegacyRequestBody,
+  t_TeamsUpdateInOrgRequestBody,
+  t_TeamsUpdateLegacyRequestBody,
   t_tag,
   t_tag_protection,
   t_team,
@@ -329,18 +548,24 @@ import type {
   t_timeline_issue_events,
   t_topic,
   t_topic_search_result_item,
+  t_UsersAddEmailForAuthenticatedUserRequestBody,
+  t_UsersAddSocialAccountForAuthenticatedUserRequestBody,
+  t_UsersCreateGpgKeyForAuthenticatedUserRequestBody,
+  t_UsersCreatePublicSshKeyForAuthenticatedUserRequestBody,
+  t_UsersCreateSshSigningKeyForAuthenticatedUserRequestBody,
+  t_UsersDeleteAttestationsBulkRequestBody,
+  t_UsersDeleteEmailForAuthenticatedUserRequestBody,
+  t_UsersDeleteSocialAccountForAuthenticatedUserRequestBody,
+  t_UsersListAttestationsBulkRequestBody,
+  t_UsersSetPrimaryEmailVisibilityForAuthenticatedUserRequestBody,
+  t_UsersUpdateAuthenticatedRequestBody,
   t_user_marketplace_purchase,
   t_user_role_assignment,
   t_user_search_result_item,
   t_validation_error,
   t_validation_error_simple,
   t_view_traffic,
-  t_wait_timer,
   t_webhook_config,
-  t_webhook_config_content_type,
-  t_webhook_config_insecure_ssl,
-  t_webhook_config_secret,
-  t_webhook_config_url,
   t_workflow,
   t_workflow_run,
   t_workflow_run_usage,
@@ -535,12 +760,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
 
   async appsUpdateWebhookConfigForApp(
     p: {
-      requestBody: {
-        content_type?: t_webhook_config_content_type
-        insecure_ssl?: t_webhook_config_insecure_ssl
-        secret?: t_webhook_config_secret
-        url?: t_webhook_config_url
-      }
+      requestBody: t_AppsUpdateWebhookConfigForAppRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -684,11 +904,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   async appsCreateInstallationAccessToken(
     p: {
       installationId: number
-      requestBody?: {
-        permissions?: t_app_permissions
-        repositories?: string[]
-        repository_ids?: number[]
-      }
+      requestBody?: t_AppsCreateInstallationAccessTokenRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -746,9 +962,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   async appsDeleteAuthorization(
     p: {
       clientId: string
-      requestBody: {
-        access_token: string
-      }
+      requestBody: t_AppsDeleteAuthorizationRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -766,9 +980,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   async appsCheckToken(
     p: {
       clientId: string
-      requestBody: {
-        access_token: string
-      }
+      requestBody: t_AppsCheckTokenRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -790,9 +1002,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   async appsResetToken(
     p: {
       clientId: string
-      requestBody: {
-        access_token: string
-      }
+      requestBody: t_AppsResetTokenRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -810,9 +1020,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   async appsDeleteToken(
     p: {
       clientId: string
-      requestBody: {
-        access_token: string
-      }
+      requestBody: t_AppsDeleteTokenRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -830,14 +1038,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   async appsScopeToken(
     p: {
       clientId: string
-      requestBody: {
-        access_token: string
-        permissions?: t_app_permissions
-        repositories?: string[]
-        repository_ids?: number[]
-        target?: string
-        target_id?: number
-      }
+      requestBody: t_AppsScopeTokenRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -989,9 +1190,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
 
   async credentialsRevoke(
     p: {
-      requestBody: {
-        credentials: string[]
-      }
+      requestBody: t_CredentialsRevokeRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -1063,97 +1262,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   async codeSecurityCreateConfigurationForEnterprise(
     p: {
       enterprise: string
-      requestBody: {
-        advanced_security?:
-          | "enabled"
-          | "disabled"
-          | "code_security"
-          | "secret_protection"
-          | UnknownEnumStringValue
-        code_scanning_default_setup?:
-          | "enabled"
-          | "disabled"
-          | "not_set"
-          | UnknownEnumStringValue
-        code_scanning_default_setup_options?: t_code_scanning_default_setup_options
-        code_scanning_delegated_alert_dismissal?:
-          | "enabled"
-          | "disabled"
-          | "not_set"
-          | UnknownEnumStringValue
-        code_scanning_options?: t_code_scanning_options
-        code_security?:
-          | "enabled"
-          | "disabled"
-          | "not_set"
-          | UnknownEnumStringValue
-        dependabot_alerts?:
-          | "enabled"
-          | "disabled"
-          | "not_set"
-          | UnknownEnumStringValue
-        dependabot_security_updates?:
-          | "enabled"
-          | "disabled"
-          | "not_set"
-          | UnknownEnumStringValue
-        dependency_graph?:
-          | "enabled"
-          | "disabled"
-          | "not_set"
-          | UnknownEnumStringValue
-        dependency_graph_autosubmit_action?:
-          | "enabled"
-          | "disabled"
-          | "not_set"
-          | UnknownEnumStringValue
-        dependency_graph_autosubmit_action_options?: {
-          labeled_runners?: boolean
-        }
-        description: string
-        enforcement?: "enforced" | "unenforced" | UnknownEnumStringValue
-        name: string
-        private_vulnerability_reporting?:
-          | "enabled"
-          | "disabled"
-          | "not_set"
-          | UnknownEnumStringValue
-        secret_protection?:
-          | "enabled"
-          | "disabled"
-          | "not_set"
-          | UnknownEnumStringValue
-        secret_scanning?:
-          | "enabled"
-          | "disabled"
-          | "not_set"
-          | UnknownEnumStringValue
-        secret_scanning_delegated_alert_dismissal?:
-          | "enabled"
-          | "disabled"
-          | "not_set"
-          | UnknownEnumStringValue
-        secret_scanning_generic_secrets?:
-          | "enabled"
-          | "disabled"
-          | "not_set"
-          | UnknownEnumStringValue
-        secret_scanning_non_provider_patterns?:
-          | "enabled"
-          | "disabled"
-          | "not_set"
-          | UnknownEnumStringValue
-        secret_scanning_push_protection?:
-          | "enabled"
-          | "disabled"
-          | "not_set"
-          | UnknownEnumStringValue
-        secret_scanning_validity_checks?:
-          | "enabled"
-          | "disabled"
-          | "not_set"
-          | UnknownEnumStringValue
-      }
+      requestBody: t_CodeSecurityCreateConfigurationForEnterpriseRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -1215,96 +1324,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       enterprise: string
       configurationId: number
-      requestBody: {
-        advanced_security?:
-          | "enabled"
-          | "disabled"
-          | "code_security"
-          | "secret_protection"
-          | UnknownEnumStringValue
-        code_scanning_default_setup?:
-          | "enabled"
-          | "disabled"
-          | "not_set"
-          | UnknownEnumStringValue
-        code_scanning_default_setup_options?: t_code_scanning_default_setup_options
-        code_scanning_delegated_alert_dismissal?:
-          | "enabled"
-          | "disabled"
-          | "not_set"
-          | UnknownEnumStringValue
-        code_security?:
-          | "enabled"
-          | "disabled"
-          | "not_set"
-          | UnknownEnumStringValue
-        dependabot_alerts?:
-          | "enabled"
-          | "disabled"
-          | "not_set"
-          | UnknownEnumStringValue
-        dependabot_security_updates?:
-          | "enabled"
-          | "disabled"
-          | "not_set"
-          | UnknownEnumStringValue
-        dependency_graph?:
-          | "enabled"
-          | "disabled"
-          | "not_set"
-          | UnknownEnumStringValue
-        dependency_graph_autosubmit_action?:
-          | "enabled"
-          | "disabled"
-          | "not_set"
-          | UnknownEnumStringValue
-        dependency_graph_autosubmit_action_options?: {
-          labeled_runners?: boolean
-        }
-        description?: string
-        enforcement?: "enforced" | "unenforced" | UnknownEnumStringValue
-        name?: string
-        private_vulnerability_reporting?:
-          | "enabled"
-          | "disabled"
-          | "not_set"
-          | UnknownEnumStringValue
-        secret_protection?:
-          | "enabled"
-          | "disabled"
-          | "not_set"
-          | UnknownEnumStringValue
-        secret_scanning?:
-          | "enabled"
-          | "disabled"
-          | "not_set"
-          | UnknownEnumStringValue
-        secret_scanning_delegated_alert_dismissal?:
-          | "enabled"
-          | "disabled"
-          | "not_set"
-          | UnknownEnumStringValue
-        secret_scanning_generic_secrets?:
-          | "enabled"
-          | "disabled"
-          | "not_set"
-          | UnknownEnumStringValue
-        secret_scanning_non_provider_patterns?:
-          | "enabled"
-          | "disabled"
-          | "not_set"
-          | UnknownEnumStringValue
-        secret_scanning_push_protection?:
-          | "enabled"
-          | "disabled"
-          | "not_set"
-          | UnknownEnumStringValue
-        secret_scanning_validity_checks?:
-          | "enabled"
-          | "disabled"
-          | "not_set"
-          | UnknownEnumStringValue
-      }
+      requestBody: t_CodeSecurityUpdateEnterpriseConfigurationRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -1353,9 +1373,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       enterprise: string
       configurationId: number
-      requestBody: {
-        scope: "all" | "all_without_configurations" | UnknownEnumStringValue
-      }
+      requestBody: t_CodeSecurityAttachEnterpriseConfigurationRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -1386,14 +1404,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       enterprise: string
       configurationId: number
-      requestBody: {
-        default_for_new_repos?:
-          | "all"
-          | "none"
-          | "private_and_internal"
-          | "public"
-          | UnknownEnumStringValue
-      }
+      requestBody: t_CodeSecuritySetConfigurationAsDefaultForEnterpriseRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -1617,17 +1628,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
 
   async gistsCreate(
     p: {
-      requestBody: {
-        description?: string
-        files: {
-          [key: string]:
-            | {
-                content: string
-              }
-            | undefined
-        }
-        public?: boolean | "true" | "false" | UnknownEnumStringValue
-      }
+      requestBody: t_GistsCreateRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -1730,17 +1731,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   async gistsUpdate(
     p: {
       gistId: string
-      requestBody: {
-        description?: string
-        files?: {
-          [key: string]:
-            | ({
-                content?: string
-                filename?: string | null
-              } | null)
-            | undefined
-        }
-      } | null
+      requestBody: t_GistsUpdateRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -1801,9 +1792,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   async gistsCreateComment(
     p: {
       gistId: string
-      requestBody: {
-        body: string
-      }
+      requestBody: t_GistsCreateCommentRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -1858,9 +1847,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       gistId: string
       commentId: number
-      requestBody: {
-        body: string
-      }
+      requestBody: t_GistsUpdateCommentRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -2180,11 +2167,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
 
   async markdownRender(
     p: {
-      requestBody: {
-        context?: string
-        mode?: "markdown" | "gfm" | UnknownEnumStringValue
-        text: string
-      }
+      requestBody: t_MarkdownRenderRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -2408,10 +2391,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
 
   async activityMarkNotificationsAsRead(
     p: {
-      requestBody?: {
-        last_read_at?: string
-        read?: boolean
-      }
+      requestBody?: t_ActivityMarkNotificationsAsReadRequestBody
     } = {},
     timeout?: number,
     opts: RequestInit = {},
@@ -2508,9 +2488,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   async activitySetThreadSubscription(
     p: {
       threadId: number
-      requestBody?: {
-        ignored?: boolean
-      }
+      requestBody?: t_ActivitySetThreadSubscriptionRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -2608,10 +2586,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   async dependabotUpdateRepositoryAccessForOrg(
     p: {
       org: string
-      requestBody: {
-        repository_ids_to_add?: number[]
-        repository_ids_to_remove?: number[]
-      }
+      requestBody: t_DependabotUpdateRepositoryAccessForOrgRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -2632,9 +2607,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   async dependabotSetRepositoryAccessDefaultLevel(
     p: {
       org: string
-      requestBody: {
-        default_level: "public" | "internal" | UnknownEnumStringValue
-      }
+      requestBody: t_DependabotSetRepositoryAccessDefaultLevelRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -2706,47 +2679,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   async orgsUpdate(
     p: {
       org: string
-      requestBody?: {
-        advanced_security_enabled_for_new_repositories?: boolean
-        billing_email?: string
-        blog?: string
-        company?: string
-        default_repository_permission?:
-          | "read"
-          | "write"
-          | "admin"
-          | "none"
-          | UnknownEnumStringValue
-        dependabot_alerts_enabled_for_new_repositories?: boolean
-        dependabot_security_updates_enabled_for_new_repositories?: boolean
-        dependency_graph_enabled_for_new_repositories?: boolean
-        deploy_keys_enabled_for_repositories?: boolean
-        description?: string
-        email?: string
-        has_organization_projects?: boolean
-        has_repository_projects?: boolean
-        location?: string
-        members_allowed_repository_creation_type?:
-          | "all"
-          | "private"
-          | "none"
-          | UnknownEnumStringValue
-        members_can_create_internal_repositories?: boolean
-        members_can_create_pages?: boolean
-        members_can_create_private_pages?: boolean
-        members_can_create_private_repositories?: boolean
-        members_can_create_public_pages?: boolean
-        members_can_create_public_repositories?: boolean
-        members_can_create_repositories?: boolean
-        members_can_fork_private_repositories?: boolean
-        name?: string
-        secret_scanning_enabled_for_new_repositories?: boolean
-        secret_scanning_push_protection_custom_link?: string
-        secret_scanning_push_protection_custom_link_enabled?: boolean
-        secret_scanning_push_protection_enabled_for_new_repositories?: boolean
-        twitter_username?: string
-        web_commit_signoff_required?: boolean
-      }
+      requestBody?: t_OrgsUpdateRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -2857,17 +2790,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   async actionsCreateHostedRunnerForOrg(
     p: {
       org: string
-      requestBody: {
-        enable_static_ip?: boolean
-        image: {
-          id?: string
-          source?: "github" | "partner" | "custom" | UnknownEnumStringValue
-        }
-        maximum_runners?: number
-        name: string
-        runner_group_id: number
-        size: string
-      }
+      requestBody: t_ActionsCreateHostedRunnerForOrgRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -3005,12 +2928,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       org: string
       hostedRunnerId: number
-      requestBody: {
-        enable_static_ip?: boolean
-        maximum_runners?: number
-        name?: string
-        runner_group_id?: number
-      }
+      requestBody: t_ActionsUpdateHostedRunnerForOrgRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -3094,10 +3012,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   async actionsSetGithubActionsPermissionsOrganization(
     p: {
       org: string
-      requestBody: {
-        allowed_actions?: t_allowed_actions
-        enabled_repositories: t_enabled_repositories
-      }
+      requestBody: t_ActionsSetGithubActionsPermissionsOrganizationRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -3140,9 +3055,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   async actionsSetSelectedRepositoriesEnabledGithubActionsOrganization(
     p: {
       org: string
-      requestBody: {
-        selected_repository_ids: number[]
-      }
+      requestBody: t_ActionsSetSelectedRepositoriesEnabledGithubActionsOrganizationRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -3296,16 +3209,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   async actionsCreateSelfHostedRunnerGroupForOrg(
     p: {
       org: string
-      requestBody: {
-        allows_public_repositories?: boolean
-        name: string
-        network_configuration_id?: string
-        restricted_to_workflows?: boolean
-        runners?: number[]
-        selected_repository_ids?: number[]
-        selected_workflows?: string[]
-        visibility?: "selected" | "all" | "private" | UnknownEnumStringValue
-      }
+      requestBody: t_ActionsCreateSelfHostedRunnerGroupForOrgRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -3340,14 +3244,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       org: string
       runnerGroupId: number
-      requestBody: {
-        allows_public_repositories?: boolean
-        name: string
-        network_configuration_id?: string | null
-        restricted_to_workflows?: boolean
-        selected_workflows?: string[]
-        visibility?: "selected" | "all" | "private" | UnknownEnumStringValue
-      }
+      requestBody: t_ActionsUpdateSelfHostedRunnerGroupForOrgRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -3438,9 +3335,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       org: string
       runnerGroupId: number
-      requestBody: {
-        selected_repository_ids: number[]
-      }
+      requestBody: t_ActionsSetRepoAccessToSelfHostedRunnerGroupInOrgRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -3522,9 +3417,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       org: string
       runnerGroupId: number
-      requestBody: {
-        runners: number[]
-      }
+      requestBody: t_ActionsSetSelfHostedRunnersInGroupForOrgRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -3620,12 +3513,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   async actionsGenerateRunnerJitconfigForOrg(
     p: {
       org: string
-      requestBody: {
-        labels: string[]
-        name: string
-        runner_group_id: number
-        work_folder?: string
-      }
+      requestBody: t_ActionsGenerateRunnerJitconfigForOrgRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -3738,9 +3626,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       org: string
       runnerId: number
-      requestBody: {
-        labels: string[]
-      }
+      requestBody: t_ActionsAddCustomLabelsToSelfHostedRunnerForOrgRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -3771,9 +3657,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       org: string
       runnerId: number
-      requestBody: {
-        labels: string[]
-      }
+      requestBody: t_ActionsSetCustomLabelsForSelfHostedRunnerForOrgRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -3908,12 +3792,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       org: string
       secretName: string
-      requestBody: {
-        encrypted_value: string
-        key_id: string
-        selected_repository_ids?: number[]
-        visibility: "all" | "private" | "selected" | UnknownEnumStringValue
-      }
+      requestBody: t_ActionsCreateOrUpdateOrgSecretRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -3975,9 +3854,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       org: string
       secretName: string
-      requestBody: {
-        selected_repository_ids: number[]
-      }
+      requestBody: t_ActionsSetSelectedReposForOrgSecretRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -4055,12 +3932,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   async actionsCreateOrgVariable(
     p: {
       org: string
-      requestBody: {
-        name: string
-        selected_repository_ids?: number[]
-        value: string
-        visibility: "all" | "private" | "selected" | UnknownEnumStringValue
-      }
+      requestBody: t_ActionsCreateOrgVariableRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -4094,12 +3966,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       org: string
       name: string
-      requestBody: {
-        name?: string
-        selected_repository_ids?: number[]
-        value?: string
-        visibility?: "all" | "private" | "selected" | UnknownEnumStringValue
-      }
+      requestBody: t_ActionsUpdateOrgVariableRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -4162,9 +4029,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       org: string
       name: string
-      requestBody: {
-        selected_repository_ids: number[]
-      }
+      requestBody: t_ActionsSetSelectedReposForOrgVariableRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -4221,10 +4086,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       before?: string
       after?: string
       org: string
-      requestBody: {
-        predicate_type?: string
-        subject_digests: string[]
-      }
+      requestBody: t_OrgsListAttestationsBulkRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -4283,13 +4145,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   async orgsDeleteAttestationsBulk(
     p: {
       org: string
-      requestBody:
-        | {
-            subject_digests: string[]
-          }
-        | {
-            attestation_ids: number[]
-          }
+      requestBody: t_OrgsDeleteAttestationsBulkRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -4486,19 +4342,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   async campaignsCreateCampaign(
     p: {
       org: string
-      requestBody: {
-        code_scanning_alerts: {
-          alert_numbers: number[]
-          repository_id: number
-        }[]
-        contact_link?: string | null
-        description: string
-        ends_at: string
-        generate_issues?: boolean
-        managers?: string[]
-        name: string
-        team_managers?: string[]
-      }
+      requestBody: t_CampaignsCreateCampaignRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -4558,15 +4402,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       org: string
       campaignNumber: number
-      requestBody: {
-        contact_link?: string | null
-        description?: string
-        ends_at?: string
-        managers?: string[]
-        name?: string
-        state?: t_campaign_state
-        team_managers?: string[]
-      }
+      requestBody: t_CampaignsUpdateCampaignRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -4697,108 +4533,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   async codeSecurityCreateConfiguration(
     p: {
       org: string
-      requestBody: {
-        advanced_security?:
-          | "enabled"
-          | "disabled"
-          | "code_security"
-          | "secret_protection"
-          | UnknownEnumStringValue
-        code_scanning_default_setup?:
-          | "enabled"
-          | "disabled"
-          | "not_set"
-          | UnknownEnumStringValue
-        code_scanning_default_setup_options?: t_code_scanning_default_setup_options
-        code_scanning_delegated_alert_dismissal?:
-          | "enabled"
-          | "disabled"
-          | "not_set"
-          | UnknownEnumStringValue
-        code_scanning_options?: t_code_scanning_options
-        code_security?:
-          | "enabled"
-          | "disabled"
-          | "not_set"
-          | UnknownEnumStringValue
-        dependabot_alerts?:
-          | "enabled"
-          | "disabled"
-          | "not_set"
-          | UnknownEnumStringValue
-        dependabot_security_updates?:
-          | "enabled"
-          | "disabled"
-          | "not_set"
-          | UnknownEnumStringValue
-        dependency_graph?:
-          | "enabled"
-          | "disabled"
-          | "not_set"
-          | UnknownEnumStringValue
-        dependency_graph_autosubmit_action?:
-          | "enabled"
-          | "disabled"
-          | "not_set"
-          | UnknownEnumStringValue
-        dependency_graph_autosubmit_action_options?: {
-          labeled_runners?: boolean
-        }
-        description: string
-        enforcement?: "enforced" | "unenforced" | UnknownEnumStringValue
-        name: string
-        private_vulnerability_reporting?:
-          | "enabled"
-          | "disabled"
-          | "not_set"
-          | UnknownEnumStringValue
-        secret_protection?:
-          | "enabled"
-          | "disabled"
-          | "not_set"
-          | UnknownEnumStringValue
-        secret_scanning?:
-          | "enabled"
-          | "disabled"
-          | "not_set"
-          | UnknownEnumStringValue
-        secret_scanning_delegated_alert_dismissal?:
-          | "enabled"
-          | "disabled"
-          | "not_set"
-          | UnknownEnumStringValue
-        secret_scanning_delegated_bypass?:
-          | "enabled"
-          | "disabled"
-          | "not_set"
-          | UnknownEnumStringValue
-        secret_scanning_delegated_bypass_options?: {
-          reviewers?: {
-            reviewer_id: number
-            reviewer_type: "TEAM" | "ROLE" | UnknownEnumStringValue
-          }[]
-        }
-        secret_scanning_generic_secrets?:
-          | "enabled"
-          | "disabled"
-          | "not_set"
-          | UnknownEnumStringValue
-        secret_scanning_non_provider_patterns?:
-          | "enabled"
-          | "disabled"
-          | "not_set"
-          | UnknownEnumStringValue
-        secret_scanning_push_protection?:
-          | "enabled"
-          | "disabled"
-          | "not_set"
-          | UnknownEnumStringValue
-        secret_scanning_validity_checks?:
-          | "enabled"
-          | "disabled"
-          | "not_set"
-          | UnknownEnumStringValue
-      }
+      requestBody: t_CodeSecurityCreateConfigurationRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -4835,9 +4570,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   async codeSecurityDetachConfiguration(
     p: {
       org: string
-      requestBody: {
-        selected_repository_ids?: number[]
-      }
+      requestBody: t_CodeSecurityDetachConfigurationRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -4884,107 +4617,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       org: string
       configurationId: number
-      requestBody: {
-        advanced_security?:
-          | "enabled"
-          | "disabled"
-          | "code_security"
-          | "secret_protection"
-          | UnknownEnumStringValue
-        code_scanning_default_setup?:
-          | "enabled"
-          | "disabled"
-          | "not_set"
-          | UnknownEnumStringValue
-        code_scanning_default_setup_options?: t_code_scanning_default_setup_options
-        code_scanning_delegated_alert_dismissal?:
-          | "enabled"
-          | "disabled"
-          | "not_set"
-          | UnknownEnumStringValue
-        code_security?:
-          | "enabled"
-          | "disabled"
-          | "not_set"
-          | UnknownEnumStringValue
-        dependabot_alerts?:
-          | "enabled"
-          | "disabled"
-          | "not_set"
-          | UnknownEnumStringValue
-        dependabot_security_updates?:
-          | "enabled"
-          | "disabled"
-          | "not_set"
-          | UnknownEnumStringValue
-        dependency_graph?:
-          | "enabled"
-          | "disabled"
-          | "not_set"
-          | UnknownEnumStringValue
-        dependency_graph_autosubmit_action?:
-          | "enabled"
-          | "disabled"
-          | "not_set"
-          | UnknownEnumStringValue
-        dependency_graph_autosubmit_action_options?: {
-          labeled_runners?: boolean
-        }
-        description?: string
-        enforcement?: "enforced" | "unenforced" | UnknownEnumStringValue
-        name?: string
-        private_vulnerability_reporting?:
-          | "enabled"
-          | "disabled"
-          | "not_set"
-          | UnknownEnumStringValue
-        secret_protection?:
-          | "enabled"
-          | "disabled"
-          | "not_set"
-          | UnknownEnumStringValue
-        secret_scanning?:
-          | "enabled"
-          | "disabled"
-          | "not_set"
-          | UnknownEnumStringValue
-        secret_scanning_delegated_alert_dismissal?:
-          | "enabled"
-          | "disabled"
-          | "not_set"
-          | UnknownEnumStringValue
-        secret_scanning_delegated_bypass?:
-          | "enabled"
-          | "disabled"
-          | "not_set"
-          | UnknownEnumStringValue
-        secret_scanning_delegated_bypass_options?: {
-          reviewers?: {
-            reviewer_id: number
-            reviewer_type: "TEAM" | "ROLE" | UnknownEnumStringValue
-          }[]
-        }
-        secret_scanning_generic_secrets?:
-          | "enabled"
-          | "disabled"
-          | "not_set"
-          | UnknownEnumStringValue
-        secret_scanning_non_provider_patterns?:
-          | "enabled"
-          | "disabled"
-          | "not_set"
-          | UnknownEnumStringValue
-        secret_scanning_push_protection?:
-          | "enabled"
-          | "disabled"
-          | "not_set"
-          | UnknownEnumStringValue
-        secret_scanning_validity_checks?:
-          | "enabled"
-          | "disabled"
-          | "not_set"
-          | UnknownEnumStringValue
-      }
+      requestBody: t_CodeSecurityUpdateConfigurationRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -5027,16 +4660,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       org: string
       configurationId: number
-      requestBody: {
-        scope:
-          | "all"
-          | "all_without_configurations"
-          | "public"
-          | "private_or_internal"
-          | "selected"
-          | UnknownEnumStringValue
-        selected_repository_ids?: number[]
-      }
+      requestBody: t_CodeSecurityAttachConfigurationRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -5064,14 +4688,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       org: string
       configurationId: number
-      requestBody: {
-        default_for_new_repos?:
-          | "all"
-          | "none"
-          | "private_and_internal"
-          | "public"
-          | UnknownEnumStringValue
-      }
+      requestBody: t_CodeSecuritySetConfigurationAsDefaultRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -5165,15 +4782,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   async codespacesSetCodespacesAccess(
     p: {
       org: string
-      requestBody: {
-        selected_usernames?: string[]
-        visibility:
-          | "disabled"
-          | "selected_members"
-          | "all_members"
-          | "all_members_and_outside_collaborators"
-          | UnknownEnumStringValue
-      }
+      requestBody: t_CodespacesSetCodespacesAccessRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -5198,9 +4807,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   async codespacesSetCodespacesAccessUsers(
     p: {
       org: string
-      requestBody: {
-        selected_usernames: string[]
-      }
+      requestBody: t_CodespacesSetCodespacesAccessUsersRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -5226,9 +4833,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   async codespacesDeleteCodespacesAccessUsers(
     p: {
       org: string
-      requestBody: {
-        selected_usernames: string[]
-      }
+      requestBody: t_CodespacesDeleteCodespacesAccessUsersRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -5308,12 +4913,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       org: string
       secretName: string
-      requestBody: {
-        encrypted_value?: string
-        key_id?: string
-        selected_repository_ids?: number[]
-        visibility: "all" | "private" | "selected" | UnknownEnumStringValue
-      }
+      requestBody: t_CodespacesCreateOrUpdateOrgSecretRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -5381,9 +4981,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       org: string
       secretName: string
-      requestBody: {
-        selected_repository_ids: number[]
-      }
+      requestBody: t_CodespacesSetSelectedReposForOrgSecretRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -5495,9 +5093,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   async copilotAddCopilotSeatsForTeams(
     p: {
       org: string
-      requestBody: {
-        selected_teams: string[]
-      }
+      requestBody: t_CopilotAddCopilotSeatsForTeamsRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -5528,9 +5124,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   async copilotCancelCopilotSeatAssignmentForTeams(
     p: {
       org: string
-      requestBody: {
-        selected_teams: string[]
-      }
+      requestBody: t_CopilotCancelCopilotSeatAssignmentForTeamsRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -5561,9 +5155,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   async copilotAddCopilotSeatsForUsers(
     p: {
       org: string
-      requestBody: {
-        selected_usernames: string[]
-      }
+      requestBody: t_CopilotAddCopilotSeatsForUsersRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -5594,9 +5186,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   async copilotCancelCopilotSeatAssignmentForUsers(
     p: {
       org: string
-      requestBody: {
-        selected_usernames: string[]
-      }
+      requestBody: t_CopilotCancelCopilotSeatAssignmentForUsersRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -5760,12 +5350,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       org: string
       secretName: string
-      requestBody: {
-        encrypted_value?: string
-        key_id?: string
-        selected_repository_ids?: string[]
-        visibility: "all" | "private" | "selected" | UnknownEnumStringValue
-      }
+      requestBody: t_DependabotCreateOrUpdateOrgSecretRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -5827,9 +5412,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       org: string
       secretName: string
-      requestBody: {
-        selected_repository_ids: number[]
-      }
+      requestBody: t_DependabotSetSelectedReposForOrgSecretRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -5946,19 +5529,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   async orgsCreateWebhook(
     p: {
       org: string
-      requestBody: {
-        active?: boolean
-        config: {
-          content_type?: t_webhook_config_content_type
-          insecure_ssl?: t_webhook_config_insecure_ssl
-          password?: string
-          secret?: t_webhook_config_secret
-          url: t_webhook_config_url
-          username?: string
-        }
-        events?: string[]
-        name: string
-      }
+      requestBody: t_OrgsCreateWebhookRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -5995,17 +5566,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       org: string
       hookId: number
-      requestBody?: {
-        active?: boolean
-        config?: {
-          content_type?: t_webhook_config_content_type
-          insecure_ssl?: t_webhook_config_insecure_ssl
-          secret?: t_webhook_config_secret
-          url: t_webhook_config_url
-        }
-        events?: string[]
-        name?: string
-      }
+      requestBody?: t_OrgsUpdateWebhookRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -6061,12 +5622,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       org: string
       hookId: number
-      requestBody?: {
-        content_type?: t_webhook_config_content_type
-        insecure_ssl?: t_webhook_config_insecure_ssl
-        secret?: t_webhook_config_secret
-        url?: t_webhook_config_url
-      }
+      requestBody?: t_OrgsUpdateWebhookConfigForOrgRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -6551,17 +6107,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   async orgsCreateInvitation(
     p: {
       org: string
-      requestBody?: {
-        email?: string
-        invitee_id?: number
-        role?:
-          | "admin"
-          | "direct_member"
-          | "billing_manager"
-          | "reinstate"
-          | UnknownEnumStringValue
-        team_ids?: number[]
-      }
+      requestBody?: t_OrgsCreateInvitationRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -6917,9 +6463,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       org: string
       username: string
-      requestBody?: {
-        role?: "admin" | "member" | UnknownEnumStringValue
-      }
+      requestBody?: t_OrgsSetMembershipForUserRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -6983,17 +6527,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   async migrationsStartForOrg(
     p: {
       org: string
-      requestBody: {
-        exclude?: ("repositories" | UnknownEnumStringValue)[]
-        exclude_attachments?: boolean
-        exclude_git_data?: boolean
-        exclude_metadata?: boolean
-        exclude_owner_projects?: boolean
-        exclude_releases?: boolean
-        lock_repositories?: boolean
-        org_metadata_only?: boolean
-        repositories: string[]
-      }
+      requestBody: t_MigrationsStartForOrgRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -7304,9 +6838,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       org: string
       username: string
-      requestBody?: {
-        async?: boolean
-      }
+      requestBody?: t_OrgsConvertMemberToOutsideCollaboratorRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -7642,11 +7174,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   async orgsReviewPatGrantRequestsInBulk(
     p: {
       org: string
-      requestBody: {
-        action: "approve" | "deny" | UnknownEnumStringValue
-        pat_request_ids?: number[]
-        reason?: string | null
-      }
+      requestBody: t_OrgsReviewPatGrantRequestsInBulkRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -7677,10 +7205,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       org: string
       patRequestId: number
-      requestBody: {
-        action: "approve" | "deny" | UnknownEnumStringValue
-        reason?: string | null
-      }
+      requestBody: t_OrgsReviewPatGrantRequestRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -7771,10 +7296,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   async orgsUpdatePatAccesses(
     p: {
       org: string
-      requestBody: {
-        action: "revoke" | UnknownEnumStringValue
-        pat_ids: number[]
-      }
+      requestBody: t_OrgsUpdatePatAccessesRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -7804,9 +7326,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       org: string
       patId: number
-      requestBody: {
-        action: "revoke" | UnknownEnumStringValue
-      }
+      requestBody: t_OrgsUpdatePatAccessRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -7881,31 +7401,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   async privateRegistriesCreateOrgPrivateRegistry(
     p: {
       org: string
-      requestBody: {
-        encrypted_value: string
-        key_id: string
-        registry_type:
-          | "maven_repository"
-          | "nuget_feed"
-          | "goproxy_server"
-          | "npm_registry"
-          | "rubygems_server"
-          | "cargo_registry"
-          | "composer_repository"
-          | "docker_registry"
-          | "git_source"
-          | "helm_registry"
-          | "hex_organization"
-          | "hex_repository"
-          | "pub_repository"
-          | "python_index"
-          | "terraform_registry"
-          | UnknownEnumStringValue
-        selected_repository_ids?: number[]
-        url: string
-        username?: string | null
-        visibility: "all" | "private" | "selected" | UnknownEnumStringValue
-      }
+      requestBody: t_PrivateRegistriesCreateOrgPrivateRegistryRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -7968,31 +7464,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       org: string
       secretName: string
-      requestBody: {
-        encrypted_value?: string
-        key_id?: string
-        registry_type?:
-          | "maven_repository"
-          | "nuget_feed"
-          | "goproxy_server"
-          | "npm_registry"
-          | "rubygems_server"
-          | "cargo_registry"
-          | "composer_repository"
-          | "docker_registry"
-          | "git_source"
-          | "helm_registry"
-          | "hex_organization"
-          | "hex_repository"
-          | "pub_repository"
-          | "python_index"
-          | "terraform_registry"
-          | UnknownEnumStringValue
-        selected_repository_ids?: number[]
-        url?: string
-        username?: string | null
-        visibility?: "all" | "private" | "selected" | UnknownEnumStringValue
-      }
+      requestBody: t_PrivateRegistriesUpdateOrgPrivateRegistryRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -8051,10 +7523,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   async projectsClassicCreateForOrg(
     p: {
       org: string
-      requestBody: {
-        body?: string
-        name: string
-      }
+      requestBody: t_ProjectsClassicCreateForOrgRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -8096,9 +7565,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   async orgsCreateOrUpdateCustomProperties(
     p: {
       org: string
-      requestBody: {
-        properties: t_custom_property[]
-      }
+      requestBody: t_OrgsCreateOrUpdateCustomPropertiesRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -8208,10 +7675,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   async orgsCreateOrUpdateCustomPropertiesValuesForRepos(
     p: {
       org: string
-      requestBody: {
-        properties: t_custom_property_value[]
-        repository_names: string[]
-      }
+      requestBody: t_OrgsCreateOrUpdateCustomPropertiesValuesForReposRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -8332,49 +7796,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   async reposCreateInOrg(
     p: {
       org: string
-      requestBody: {
-        allow_auto_merge?: boolean
-        allow_merge_commit?: boolean
-        allow_rebase_merge?: boolean
-        allow_squash_merge?: boolean
-        auto_init?: boolean
-        custom_properties?: {
-          [key: string]: unknown | undefined
-        }
-        delete_branch_on_merge?: boolean
-        description?: string
-        gitignore_template?: string
-        has_downloads?: boolean
-        has_issues?: boolean
-        has_projects?: boolean
-        has_wiki?: boolean
-        homepage?: string
-        is_template?: boolean
-        license_template?: string
-        merge_commit_message?:
-          | "PR_BODY"
-          | "PR_TITLE"
-          | "BLANK"
-          | UnknownEnumStringValue
-        merge_commit_title?:
-          | "PR_TITLE"
-          | "MERGE_MESSAGE"
-          | UnknownEnumStringValue
-        name: string
-        private?: boolean
-        squash_merge_commit_message?:
-          | "PR_BODY"
-          | "COMMIT_MESSAGES"
-          | "BLANK"
-          | UnknownEnumStringValue
-        squash_merge_commit_title?:
-          | "PR_TITLE"
-          | "COMMIT_OR_PR_TITLE"
-          | UnknownEnumStringValue
-        team_id?: number
-        use_squash_pr_title_as_default?: boolean
-        visibility?: "public" | "private" | UnknownEnumStringValue
-      }
+      requestBody: t_ReposCreateInOrgRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -8421,19 +7843,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   async reposCreateOrgRuleset(
     p: {
       org: string
-      requestBody: {
-        bypass_actors?: t_repository_ruleset_bypass_actor[]
-        conditions?: t_org_ruleset_conditions
-        enforcement: t_repository_rule_enforcement
-        name: string
-        rules?: t_org_rules[]
-        target?:
-          | "branch"
-          | "tag"
-          | "push"
-          | "repository"
-          | UnknownEnumStringValue
-      }
+      requestBody: t_ReposCreateOrgRulesetRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -8528,19 +7938,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       org: string
       rulesetId: number
-      requestBody?: {
-        bypass_actors?: t_repository_ruleset_bypass_actor[]
-        conditions?: t_org_ruleset_conditions
-        enforcement?: t_repository_rule_enforcement
-        name?: string
-        rules?: t_org_rules[]
-        target?:
-          | "branch"
-          | "tag"
-          | "push"
-          | "repository"
-          | UnknownEnumStringValue
-      }
+      requestBody?: t_ReposUpdateOrgRulesetRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -8824,11 +8222,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   async hostedComputeCreateNetworkConfigurationForOrg(
     p: {
       org: string
-      requestBody: {
-        compute_service?: "none" | "actions" | UnknownEnumStringValue
-        name: string
-        network_settings_ids: string[]
-      }
+      requestBody: t_HostedComputeCreateNetworkConfigurationForOrgRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -8864,11 +8258,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       org: string
       networkConfigurationId: string
-      requestBody: {
-        compute_service?: "none" | "actions" | UnknownEnumStringValue
-        name?: string
-        network_settings_ids?: string[]
-      }
+      requestBody: t_HostedComputeUpdateNetworkConfigurationForOrgRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -8967,19 +8357,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   async teamsCreate(
     p: {
       org: string
-      requestBody: {
-        description?: string
-        maintainers?: string[]
-        name: string
-        notification_setting?:
-          | "notifications_enabled"
-          | "notifications_disabled"
-          | UnknownEnumStringValue
-        parent_team_id?: number
-        permission?: "pull" | "push" | UnknownEnumStringValue
-        privacy?: "secret" | "closed" | UnknownEnumStringValue
-        repo_names?: string[]
-      }
+      requestBody: t_TeamsCreateRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -9016,17 +8394,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       org: string
       teamSlug: string
-      requestBody?: {
-        description?: string
-        name?: string
-        notification_setting?:
-          | "notifications_enabled"
-          | "notifications_disabled"
-          | UnknownEnumStringValue
-        parent_team_id?: number | null
-        permission?: "pull" | "push" | "admin" | UnknownEnumStringValue
-        privacy?: "secret" | "closed" | UnknownEnumStringValue
-      }
+      requestBody?: t_TeamsUpdateInOrgRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -9095,11 +8463,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       org: string
       teamSlug: string
-      requestBody: {
-        body: string
-        private?: boolean
-        title: string
-      }
+      requestBody: t_TeamsCreateDiscussionInOrgRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -9137,10 +8501,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       org: string
       teamSlug: string
       discussionNumber: number
-      requestBody?: {
-        body?: string
-        title?: string
-      }
+      requestBody?: t_TeamsUpdateDiscussionInOrgRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -9209,9 +8570,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       org: string
       teamSlug: string
       discussionNumber: number
-      requestBody: {
-        body: string
-      }
+      requestBody: t_TeamsCreateDiscussionCommentInOrgRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -9252,9 +8611,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       teamSlug: string
       discussionNumber: number
       commentNumber: number
-      requestBody: {
-        body: string
-      }
+      requestBody: t_TeamsUpdateDiscussionCommentInOrgRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -9330,18 +8687,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       teamSlug: string
       discussionNumber: number
       commentNumber: number
-      requestBody: {
-        content:
-          | "+1"
-          | "-1"
-          | "laugh"
-          | "confused"
-          | "heart"
-          | "hooray"
-          | "rocket"
-          | "eyes"
-          | UnknownEnumStringValue
-      }
+      requestBody: t_ReactionsCreateForTeamDiscussionCommentInOrgRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -9416,18 +8762,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       org: string
       teamSlug: string
       discussionNumber: number
-      requestBody: {
-        content:
-          | "+1"
-          | "-1"
-          | "laugh"
-          | "confused"
-          | "heart"
-          | "hooray"
-          | "rocket"
-          | "eyes"
-          | UnknownEnumStringValue
-      }
+      requestBody: t_ReactionsCreateForTeamDiscussionInOrgRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -9525,9 +8860,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       org: string
       teamSlug: string
       username: string
-      requestBody?: {
-        role?: "member" | "maintainer" | UnknownEnumStringValue
-      }
+      requestBody?: t_TeamsAddOrUpdateMembershipForUserInOrgRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -9606,9 +8939,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       org: string
       teamSlug: string
       projectId: number
-      requestBody?: {
-        permission?: "read" | "write" | "admin" | UnknownEnumStringValue
-      } | null
+      requestBody?: t_TeamsAddOrUpdateProjectPermissionsInOrgRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -9697,9 +9028,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       teamSlug: string
       owner: string
       repo: string
-      requestBody?: {
-        permission?: string
-      }
+      requestBody?: t_TeamsAddOrUpdateRepoPermissionsInOrgRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -9769,9 +9098,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         | "secret_scanning_push_protection"
         | UnknownEnumStringValue
       enablement: "enable_all" | "disable_all" | UnknownEnumStringValue
-      requestBody?: {
-        query_suite?: "default" | "extended" | UnknownEnumStringValue
-      }
+      requestBody?: t_OrgsEnableOrDisableSecurityProductOnAllOrgReposRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -9815,10 +9142,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   async projectsClassicUpdateCard(
     p: {
       cardId: number
-      requestBody?: {
-        archived?: boolean
-        note?: string | null
-      }
+      requestBody?: t_ProjectsClassicUpdateCardRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -9874,10 +9198,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   async projectsClassicMoveCard(
     p: {
       cardId: number
-      requestBody: {
-        column_id?: number
-        position: string
-      }
+      requestBody: t_ProjectsClassicMoveCardRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -9944,9 +9265,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   async projectsClassicUpdateColumn(
     p: {
       columnId: number
-      requestBody: {
-        name: string
-      }
+      requestBody: t_ProjectsClassicUpdateColumnRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -10017,14 +9336,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   async projectsClassicCreateCard(
     p: {
       columnId: number
-      requestBody:
-        | {
-            note: string | null
-          }
-        | {
-            content_id: number
-            content_type: string
-          }
+      requestBody: t_ProjectsClassicCreateCardRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -10060,9 +9372,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   async projectsClassicMoveColumn(
     p: {
       columnId: number
-      requestBody: {
-        position: string
-      }
+      requestBody: t_ProjectsClassicMoveColumnRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -10104,18 +9414,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   async projectsClassicUpdate(
     p: {
       projectId: number
-      requestBody?: {
-        body?: string | null
-        name?: string
-        organization_permission?:
-          | "read"
-          | "write"
-          | "admin"
-          | "none"
-          | UnknownEnumStringValue
-        private?: boolean
-        state?: string
-      }
+      requestBody?: t_ProjectsClassicUpdateRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -10209,9 +9508,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       projectId: number
       username: string
-      requestBody?: {
-        permission?: "read" | "write" | "admin" | UnknownEnumStringValue
-      } | null
+      requestBody?: t_ProjectsClassicAddCollaboratorRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -10310,9 +9607,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   async projectsClassicCreateColumn(
     p: {
       projectId: number
-      requestBody: {
-        name: string
-      }
+      requestBody: t_ProjectsClassicCreateColumnRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -10368,66 +9663,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       owner: string
       repo: string
-      requestBody?: {
-        allow_auto_merge?: boolean
-        allow_forking?: boolean
-        allow_merge_commit?: boolean
-        allow_rebase_merge?: boolean
-        allow_squash_merge?: boolean
-        allow_update_branch?: boolean
-        archived?: boolean
-        default_branch?: string
-        delete_branch_on_merge?: boolean
-        description?: string
-        has_issues?: boolean
-        has_projects?: boolean
-        has_wiki?: boolean
-        homepage?: string
-        is_template?: boolean
-        merge_commit_message?:
-          | "PR_BODY"
-          | "PR_TITLE"
-          | "BLANK"
-          | UnknownEnumStringValue
-        merge_commit_title?:
-          | "PR_TITLE"
-          | "MERGE_MESSAGE"
-          | UnknownEnumStringValue
-        name?: string
-        private?: boolean
-        security_and_analysis?: {
-          advanced_security?: {
-            status?: string
-          }
-          code_security?: {
-            status?: string
-          }
-          secret_scanning?: {
-            status?: string
-          }
-          secret_scanning_ai_detection?: {
-            status?: string
-          }
-          secret_scanning_non_provider_patterns?: {
-            status?: string
-          }
-          secret_scanning_push_protection?: {
-            status?: string
-          }
-        } | null
-        squash_merge_commit_message?:
-          | "PR_BODY"
-          | "COMMIT_MESSAGES"
-          | "BLANK"
-          | UnknownEnumStringValue
-        squash_merge_commit_title?:
-          | "PR_TITLE"
-          | "COMMIT_OR_PR_TITLE"
-          | UnknownEnumStringValue
-        use_squash_pr_title_as_default?: boolean
-        visibility?: "public" | "private" | UnknownEnumStringValue
-        web_commit_signoff_required?: boolean
-      }
+      requestBody?: t_ReposUpdateRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -10688,9 +9924,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       owner: string
       repo: string
       jobId: number
-      requestBody?: {
-        enable_debug_logging?: boolean
-      } | null
+      requestBody?: t_ActionsReRunJobForWorkflowRunRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -10736,10 +9970,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       owner: string
       repo: string
-      requestBody: {
-        include_claim_keys?: string[]
-        use_default: boolean
-      }
+      requestBody: t_ActionsSetCustomOidcSubClaimForRepoRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -10834,10 +10065,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       owner: string
       repo: string
-      requestBody: {
-        allowed_actions?: t_allowed_actions
-        enabled: t_actions_enabled
-      }
+      requestBody: t_ActionsSetGithubActionsPermissionsRepositoryRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -11020,12 +10248,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       owner: string
       repo: string
-      requestBody: {
-        labels: string[]
-        name: string
-        runner_group_id: number
-        work_folder?: string
-      }
+      requestBody: t_ActionsGenerateRunnerJitconfigForRepoRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -11150,9 +10373,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       owner: string
       repo: string
       runnerId: number
-      requestBody: {
-        labels: string[]
-      }
+      requestBody: t_ActionsAddCustomLabelsToSelfHostedRunnerForRepoRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -11184,9 +10405,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       owner: string
       repo: string
       runnerId: number
-      requestBody: {
-        labels: string[]
-      }
+      requestBody: t_ActionsSetCustomLabelsForSelfHostedRunnerForRepoRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -11521,9 +10740,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       owner: string
       repo: string
       runId: number
-      requestBody:
-        | t_review_custom_gates_comment_required
-        | t_review_custom_gates_state_required
+      requestBody: t_ActionsReviewCustomGatesForRunRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -11648,11 +10865,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       owner: string
       repo: string
       runId: number
-      requestBody: {
-        comment: string
-        environment_ids: number[]
-        state: "approved" | "rejected" | UnknownEnumStringValue
-      }
+      requestBody: t_ActionsReviewPendingDeploymentsForRunRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -11674,9 +10887,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       owner: string
       repo: string
       runId: number
-      requestBody?: {
-        enable_debug_logging?: boolean
-      } | null
+      requestBody?: t_ActionsReRunWorkflowRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -11703,9 +10914,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       owner: string
       repo: string
       runId: number
-      requestBody?: {
-        enable_debug_logging?: boolean
-      } | null
+      requestBody?: t_ActionsReRunWorkflowFailedJobsRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -11808,10 +11017,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       owner: string
       repo: string
       secretName: string
-      requestBody: {
-        encrypted_value: string
-        key_id: string
-      }
+      requestBody: t_ActionsCreateOrUpdateRepoSecretRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -11875,10 +11081,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       owner: string
       repo: string
-      requestBody: {
-        name: string
-        value: string
-      }
+      requestBody: t_ActionsCreateRepoVariableRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -11916,10 +11119,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       owner: string
       repo: string
       name: string
-      requestBody: {
-        name?: string
-        value?: string
-      }
+      requestBody: t_ActionsUpdateRepoVariableRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -12018,12 +11218,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       owner: string
       repo: string
       workflowId: number | string
-      requestBody: {
-        inputs?: {
-          [key: string]: unknown | undefined
-        }
-        ref: string
-      }
+      requestBody: t_ActionsCreateWorkflowDispatchRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -12219,17 +11414,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       owner: string
       repo: string
-      requestBody: {
-        bundle: {
-          dsseEnvelope?: {
-            [key: string]: unknown | undefined
-          }
-          mediaType?: string
-          verificationMaterial?: {
-            [key: string]: unknown | undefined
-          }
-        }
-      }
+      requestBody: t_ReposCreateAttestationRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -12317,11 +11502,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       owner: string
       repo: string
-      requestBody: {
-        is_alphanumeric?: boolean
-        key_prefix: string
-        url_template: string
-      }
+      requestBody: t_ReposCreateAutolinkRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -12483,45 +11664,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       owner: string
       repo: string
       branch: string
-      requestBody: {
-        allow_deletions?: boolean
-        allow_force_pushes?: boolean | null
-        allow_fork_syncing?: boolean
-        block_creations?: boolean
-        enforce_admins: boolean | null
-        lock_branch?: boolean
-        required_conversation_resolution?: boolean
-        required_linear_history?: boolean
-        required_pull_request_reviews: {
-          bypass_pull_request_allowances?: {
-            apps?: string[]
-            teams?: string[]
-            users?: string[]
-          }
-          dismiss_stale_reviews?: boolean
-          dismissal_restrictions?: {
-            apps?: string[]
-            teams?: string[]
-            users?: string[]
-          }
-          require_code_owner_reviews?: boolean
-          require_last_push_approval?: boolean
-          required_approving_review_count?: number
-        } | null
-        required_status_checks: {
-          checks?: {
-            app_id?: number
-            context: string
-          }[]
-          contexts: string[]
-          strict: boolean
-        } | null
-        restrictions: {
-          apps?: string[]
-          teams: string[]
-          users: string[]
-        } | null
-      }
+      requestBody: t_ReposUpdateBranchProtectionRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -12633,22 +11776,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       owner: string
       repo: string
       branch: string
-      requestBody?: {
-        bypass_pull_request_allowances?: {
-          apps?: string[]
-          teams?: string[]
-          users?: string[]
-        }
-        dismiss_stale_reviews?: boolean
-        dismissal_restrictions?: {
-          apps?: string[]
-          teams?: string[]
-          users?: string[]
-        }
-        require_code_owner_reviews?: boolean
-        require_last_push_approval?: boolean
-        required_approving_review_count?: number
-      }
+      requestBody?: t_ReposUpdatePullRequestReviewProtectionRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -12767,14 +11895,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       owner: string
       repo: string
       branch: string
-      requestBody?: {
-        checks?: {
-          app_id?: number
-          context: string
-        }[]
-        contexts?: string[]
-        strict?: boolean
-      }
+      requestBody?: t_ReposUpdateStatusCheckProtectionRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -12839,11 +11960,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       owner: string
       repo: string
       branch: string
-      requestBody?:
-        | {
-            contexts: string[]
-          }
-        | string[]
+      requestBody?: t_ReposAddStatusCheckContextsRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -12875,11 +11992,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       owner: string
       repo: string
       branch: string
-      requestBody?:
-        | {
-            contexts: string[]
-          }
-        | string[]
+      requestBody?: t_ReposSetStatusCheckContextsRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -12908,11 +12021,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       owner: string
       repo: string
       branch: string
-      requestBody:
-        | {
-            contexts: string[]
-          }
-        | string[]
+      requestBody: t_ReposRemoveStatusCheckContextsRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -12987,9 +12096,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       owner: string
       repo: string
       branch: string
-      requestBody: {
-        apps: string[]
-      }
+      requestBody: t_ReposAddAppAccessRestrictionsRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -13011,9 +12118,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       owner: string
       repo: string
       branch: string
-      requestBody: {
-        apps: string[]
-      }
+      requestBody: t_ReposSetAppAccessRestrictionsRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -13035,9 +12140,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       owner: string
       repo: string
       branch: string
-      requestBody: {
-        apps: string[]
-      }
+      requestBody: t_ReposRemoveAppAccessRestrictionsRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -13076,11 +12179,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       owner: string
       repo: string
       branch: string
-      requestBody?:
-        | {
-            teams: string[]
-          }
-        | string[]
+      requestBody?: t_ReposAddTeamAccessRestrictionsRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -13107,11 +12206,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       owner: string
       repo: string
       branch: string
-      requestBody?:
-        | {
-            teams: string[]
-          }
-        | string[]
+      requestBody?: t_ReposSetTeamAccessRestrictionsRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -13138,11 +12233,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       owner: string
       repo: string
       branch: string
-      requestBody:
-        | {
-            teams: string[]
-          }
-        | string[]
+      requestBody: t_ReposRemoveTeamAccessRestrictionsRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -13181,9 +12272,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       owner: string
       repo: string
       branch: string
-      requestBody: {
-        users: string[]
-      }
+      requestBody: t_ReposAddUserAccessRestrictionsRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -13205,9 +12294,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       owner: string
       repo: string
       branch: string
-      requestBody: {
-        users: string[]
-      }
+      requestBody: t_ReposSetUserAccessRestrictionsRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -13229,9 +12316,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       owner: string
       repo: string
       branch: string
-      requestBody: {
-        users: string[]
-      }
+      requestBody: t_ReposRemoveUserAccessRestrictionsRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -13253,9 +12338,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       owner: string
       repo: string
       branch: string
-      requestBody: {
-        new_name: string
-      }
+      requestBody: t_ReposRenameBranchRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -13281,15 +12364,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       owner: string
       repo: string
-      requestBody:
-        | {
-            status: EmptyObject
-            [key: string]: unknown | undefined
-          }
-        | {
-            status?: EmptyObject
-            [key: string]: unknown | undefined
-          }
+      requestBody: t_ChecksCreateRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -13326,61 +12401,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       owner: string
       repo: string
       checkRunId: number
-      requestBody: {
-        actions?: {
-          description: string
-          identifier: string
-          label: string
-        }[]
-        completed_at?: string
-        conclusion?:
-          | "action_required"
-          | "cancelled"
-          | "failure"
-          | "neutral"
-          | "success"
-          | "skipped"
-          | "stale"
-          | "timed_out"
-          | UnknownEnumStringValue
-        details_url?: string
-        external_id?: string
-        name?: string
-        output?: {
-          annotations?: {
-            annotation_level:
-              | "notice"
-              | "warning"
-              | "failure"
-              | UnknownEnumStringValue
-            end_column?: number
-            end_line: number
-            message: string
-            path: string
-            raw_details?: string
-            start_column?: number
-            start_line: number
-            title?: string
-          }[]
-          images?: {
-            alt: string
-            caption?: string
-            image_url: string
-          }[]
-          summary: string
-          text?: string
-          title?: string
-        }
-        started_at?: string
-        status?:
-          | "queued"
-          | "in_progress"
-          | "completed"
-          | "waiting"
-          | "requested"
-          | "pending"
-          | UnknownEnumStringValue
-      }
+      requestBody: t_ChecksUpdateRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -13443,9 +12464,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       owner: string
       repo: string
-      requestBody: {
-        head_sha: string
-      }
+      requestBody: t_ChecksCreateSuiteRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -13464,12 +12483,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       owner: string
       repo: string
-      requestBody: {
-        auto_trigger_checks?: {
-          app_id: number
-          setting: boolean
-        }[]
-      }
+      requestBody: t_ChecksSetSuitesPreferencesRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -13646,12 +12660,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       owner: string
       repo: string
       alertNumber: t_alert_number
-      requestBody: {
-        create_request?: t_code_scanning_alert_create_request
-        dismissed_comment?: t_code_scanning_alert_dismissed_comment
-        dismissed_reason?: t_code_scanning_alert_dismissed_reason
-        state: t_code_scanning_alert_set_state
-      }
+      requestBody: t_CodeScanningUpdateAlertRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -14032,7 +13041,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       owner: string
       repo: string
-      requestBody: EmptyObject
+      requestBody: t_CodeScanningCreateVariantAnalysisRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -14187,15 +13196,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       owner: string
       repo: string
-      requestBody: {
-        checkout_uri?: string
-        commit_sha: t_code_scanning_analysis_commit_sha
-        ref: t_code_scanning_ref_full
-        sarif: t_code_scanning_analysis_sarif_file
-        started_at?: string
-        tool_name?: string
-        validate?: boolean
-      }
+      requestBody: t_CodeScanningUploadSarifRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -14326,24 +13327,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       owner: string
       repo: string
-      requestBody: {
-        client_ip?: string
-        devcontainer_path?: string
-        display_name?: string
-        geo?:
-          | "EuropeWest"
-          | "SoutheastAsia"
-          | "UsEast"
-          | "UsWest"
-          | UnknownEnumStringValue
-        idle_timeout_minutes?: number
-        location?: string
-        machine?: string
-        multi_repo_permissions_opt_out?: boolean
-        ref?: string
-        retention_period_minutes?: number
-        working_directory?: string
-      } | null
+      requestBody: t_CodespacesCreateWithRepoForAuthenticatedUserRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -14577,10 +13561,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       owner: string
       repo: string
       secretName: string
-      requestBody: {
-        encrypted_value?: string
-        key_id?: string
-      }
+      requestBody: t_CodespacesCreateOrUpdateRepoSecretRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -14667,9 +13648,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       owner: string
       repo: string
       username: string
-      requestBody?: {
-        permission?: string
-      }
+      requestBody?: t_ReposAddCollaboratorRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -14773,9 +13752,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       owner: string
       repo: string
       commentId: number
-      requestBody: {
-        body: string
-      }
+      requestBody: t_ReposUpdateCommitCommentRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -14848,18 +13825,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       owner: string
       repo: string
       commentId: number
-      requestBody: {
-        content:
-          | "+1"
-          | "-1"
-          | "laugh"
-          | "confused"
-          | "heart"
-          | "hooray"
-          | "rocket"
-          | "eyes"
-          | UnknownEnumStringValue
-      }
+      requestBody: t_ReactionsCreateForCommitCommentRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -14980,12 +13946,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       owner: string
       repo: string
       commitSha: string
-      requestBody: {
-        body: string
-        line?: number
-        path?: string
-        position?: number
-      }
+      requestBody: t_ReposCreateCommitCommentRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -15255,22 +14216,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       owner: string
       repo: string
       path: string
-      requestBody: {
-        author?: {
-          date?: string
-          email: string
-          name: string
-        }
-        branch?: string
-        committer?: {
-          date?: string
-          email: string
-          name: string
-        }
-        content: string
-        message: string
-        sha?: string
-      }
+      requestBody: t_ReposCreateOrUpdateFileContentsRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -15297,19 +14243,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       owner: string
       repo: string
       path: string
-      requestBody: {
-        author?: {
-          email?: string
-          name?: string
-        }
-        branch?: string
-        committer?: {
-          email?: string
-          name?: string
-        }
-        message: string
-        sha: string
-      }
+      requestBody: t_ReposDeleteFileRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -15448,17 +14382,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       owner: string
       repo: string
       alertNumber: t_alert_number
-      requestBody: {
-        dismissed_comment?: string
-        dismissed_reason?:
-          | "fix_started"
-          | "inaccurate"
-          | "no_bandwidth"
-          | "not_used"
-          | "tolerable_risk"
-          | UnknownEnumStringValue
-        state: "dismissed" | "open" | UnknownEnumStringValue
-      }
+      requestBody: t_DependabotUpdateAlertRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -15546,10 +14470,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       owner: string
       repo: string
       secretName: string
-      requestBody: {
-        encrypted_value?: string
-        key_id?: string
-      }
+      requestBody: t_DependabotCreateOrUpdateRepoSecretRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -15688,21 +14609,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       owner: string
       repo: string
-      requestBody: {
-        auto_merge?: boolean
-        description?: string | null
-        environment?: string
-        payload?:
-          | {
-              [key: string]: unknown | undefined
-            }
-          | string
-        production_environment?: boolean
-        ref: string
-        required_contexts?: string[]
-        task?: string
-        transient_environment?: boolean
-      }
+      requestBody: t_ReposCreateDeploymentRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -15790,23 +14697,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       owner: string
       repo: string
       deploymentId: number
-      requestBody: {
-        auto_inactive?: boolean
-        description?: string
-        environment?: string
-        environment_url?: string
-        log_url?: string
-        state:
-          | "error"
-          | "failure"
-          | "inactive"
-          | "in_progress"
-          | "queued"
-          | "pending"
-          | "success"
-          | UnknownEnumStringValue
-        target_url?: string
-      }
+      requestBody: t_ReposCreateDeploymentStatusRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -15845,12 +14736,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       owner: string
       repo: string
-      requestBody: {
-        client_payload?: {
-          [key: string]: unknown | undefined
-        }
-        event_type: string
-      }
+      requestBody: t_ReposCreateDispatchEventRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -15914,17 +14800,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       owner: string
       repo: string
       environmentName: string
-      requestBody?: {
-        deployment_branch_policy?: t_deployment_branch_policy_settings
-        prevent_self_review?: t_prevent_self_review
-        reviewers?:
-          | {
-              id?: number
-              type?: t_deployment_reviewer_type
-            }[]
-          | null
-        wait_timer?: t_wait_timer
-      } | null
+      requestBody?: t_ReposCreateOrUpdateEnvironmentRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -16104,9 +14980,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       environmentName: string
       repo: string
       owner: string
-      requestBody: {
-        integration_id?: number
-      }
+      requestBody: t_ReposCreateDeploymentProtectionRuleRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -16256,10 +15130,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       repo: string
       environmentName: string
       secretName: string
-      requestBody: {
-        encrypted_value: string
-        key_id: string
-      }
+      requestBody: t_ActionsCreateOrUpdateEnvironmentSecretRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -16327,10 +15198,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       owner: string
       repo: string
       environmentName: string
-      requestBody: {
-        name: string
-        value: string
-      }
+      requestBody: t_ActionsCreateEnvironmentVariableRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -16371,10 +15239,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       repo: string
       name: string
       environmentName: string
-      requestBody: {
-        name?: string
-        value?: string
-      }
+      requestBody: t_ActionsUpdateEnvironmentVariableRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -16457,11 +15322,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       owner: string
       repo: string
-      requestBody?: {
-        default_branch_only?: boolean
-        name?: string
-        organization?: string
-      } | null
+      requestBody?: t_ReposCreateForkRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -16491,10 +15352,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       owner: string
       repo: string
-      requestBody: {
-        content: string
-        encoding?: string
-      }
+      requestBody: t_GitCreateBlobRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -16542,22 +15400,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       owner: string
       repo: string
-      requestBody: {
-        author?: {
-          date?: string
-          email: string
-          name: string
-        }
-        committer?: {
-          date?: string
-          email?: string
-          name?: string
-        }
-        message: string
-        parents?: string[]
-        signature?: string
-        tree: string
-      }
+      requestBody: t_GitCreateCommitRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -16635,10 +15478,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       owner: string
       repo: string
-      requestBody: {
-        ref: string
-        sha: string
-      }
+      requestBody: t_GitCreateRefRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -16660,10 +15500,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       owner: string
       repo: string
       ref: string
-      requestBody: {
-        force?: boolean
-        sha: string
-      }
+      requestBody: t_GitUpdateRefRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -16701,17 +15538,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       owner: string
       repo: string
-      requestBody: {
-        message: string
-        object: string
-        tag: string
-        tagger?: {
-          date?: string
-          email: string
-          name: string
-        }
-        type: "commit" | "tree" | "blob" | UnknownEnumStringValue
-      }
+      requestBody: t_GitCreateTagRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -16751,22 +15578,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       owner: string
       repo: string
-      requestBody: {
-        base_tree?: string
-        tree: {
-          content?: string
-          mode?:
-            | "100644"
-            | "100755"
-            | "040000"
-            | "160000"
-            | "120000"
-            | UnknownEnumStringValue
-          path?: string
-          sha?: string | null
-          type?: "blob" | "tree" | "commit" | UnknownEnumStringValue
-        }[]
-      }
+      requestBody: t_GitCreateTreeRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -16832,17 +15644,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       owner: string
       repo: string
-      requestBody?: {
-        active?: boolean
-        config?: {
-          content_type?: t_webhook_config_content_type
-          insecure_ssl?: t_webhook_config_insecure_ssl
-          secret?: t_webhook_config_secret
-          url?: t_webhook_config_url
-        }
-        events?: string[]
-        name?: string
-      } | null
+      requestBody?: t_ReposCreateWebhookRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -16888,13 +15690,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       owner: string
       repo: string
       hookId: number
-      requestBody: {
-        active?: boolean
-        add_events?: string[]
-        config?: t_webhook_config
-        events?: string[]
-        remove_events?: string[]
-      }
+      requestBody: t_ReposUpdateWebhookRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -16950,12 +15746,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       owner: string
       repo: string
       hookId: number
-      requestBody?: {
-        content_type?: t_webhook_config_content_type
-        insecure_ssl?: t_webhook_config_insecure_ssl
-        secret?: t_webhook_config_secret
-        url?: t_webhook_config_url
-      }
+      requestBody?: t_ReposUpdateWebhookConfigForRepoRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -17104,18 +15895,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       owner: string
       repo: string
-      requestBody: {
-        tfvc_project?: string
-        vcs?:
-          | "subversion"
-          | "git"
-          | "mercurial"
-          | "tfvc"
-          | UnknownEnumStringValue
-        vcs_password?: string
-        vcs_url: string
-        vcs_username?: string
-      }
+      requestBody: t_MigrationsStartImportRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -17139,17 +15919,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       owner: string
       repo: string
-      requestBody?: {
-        tfvc_project?: string
-        vcs?:
-          | "subversion"
-          | "tfvc"
-          | "git"
-          | "mercurial"
-          | UnknownEnumStringValue
-        vcs_password?: string
-        vcs_username?: string
-      } | null
+      requestBody?: t_MigrationsUpdateImportRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -17209,10 +15979,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       owner: string
       repo: string
       authorId: number
-      requestBody?: {
-        email?: string
-        name?: string
-      }
+      requestBody?: t_MigrationsMapCommitAuthorRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -17258,9 +16025,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       owner: string
       repo: string
-      requestBody: {
-        use_lfs: "opt_in" | "opt_out" | UnknownEnumStringValue
-      }
+      requestBody: t_MigrationsSetLfsPreferenceRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -17365,15 +16130,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       owner: string
       repo: string
       invitationId: number
-      requestBody?: {
-        permissions?:
-          | "read"
-          | "write"
-          | "maintain"
-          | "triage"
-          | "admin"
-          | UnknownEnumStringValue
-      }
+      requestBody?: t_ReposUpdateInvitationRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -17461,23 +16218,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       owner: string
       repo: string
-      requestBody: {
-        assignee?: string | null
-        assignees?: string[]
-        body?: string
-        labels?: (
-          | string
-          | {
-              color?: string | null
-              description?: string | null
-              id?: number
-              name?: string
-            }
-        )[]
-        milestone?: string | number | null
-        title: string | number
-        type?: string | null
-      }
+      requestBody: t_IssuesCreateRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -17560,9 +16301,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       owner: string
       repo: string
       commentId: number
-      requestBody: {
-        body: string
-      }
+      requestBody: t_IssuesUpdateCommentRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -17635,18 +16374,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       owner: string
       repo: string
       commentId: number
-      requestBody: {
-        content:
-          | "+1"
-          | "-1"
-          | "laugh"
-          | "confused"
-          | "heart"
-          | "hooray"
-          | "rocket"
-          | "eyes"
-          | UnknownEnumStringValue
-      }
+      requestBody: t_ReactionsCreateForIssueCommentRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -17751,31 +16479,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       owner: string
       repo: string
       issueNumber: number
-      requestBody?: {
-        assignee?: string | null
-        assignees?: string[]
-        body?: string | null
-        labels?: (
-          | string
-          | {
-              color?: string | null
-              description?: string | null
-              id?: number
-              name?: string
-            }
-        )[]
-        milestone?: string | number | null
-        state?: "open" | "closed" | UnknownEnumStringValue
-        state_reason?:
-          | "completed"
-          | "not_planned"
-          | "duplicate"
-          | "reopened"
-          | UnknownEnumStringValue
-          | null
-        title?: string | number | null
-        type?: string | null
-      }
+      requestBody?: t_IssuesUpdateRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -17817,9 +16521,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       owner: string
       repo: string
       issueNumber: number
-      requestBody?: {
-        assignees?: string[]
-      }
+      requestBody?: t_IssuesAddAssigneesRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -17846,9 +16548,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       owner: string
       repo: string
       issueNumber: number
-      requestBody: {
-        assignees?: string[]
-      }
+      requestBody: t_IssuesRemoveAssigneesRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -17917,9 +16617,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       owner: string
       repo: string
       issueNumber: number
-      requestBody: {
-        body: string
-      }
+      requestBody: t_IssuesCreateCommentRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -17992,20 +16690,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       owner: string
       repo: string
       issueNumber: number
-      requestBody?:
-        | {
-            labels?: string[]
-          }
-        | string[]
-        | {
-            labels?: {
-              name: string
-            }[]
-          }
-        | {
-            name: string
-          }[]
-        | string
+      requestBody?: t_IssuesAddLabelsRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -18038,20 +16723,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       owner: string
       repo: string
       issueNumber: number
-      requestBody?:
-        | {
-            labels?: string[]
-          }
-        | string[]
-        | {
-            labels?: {
-              name: string
-            }[]
-          }
-        | {
-            name: string
-          }[]
-        | string
+      requestBody?: t_IssuesSetLabelsRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -18129,14 +16801,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       owner: string
       repo: string
       issueNumber: number
-      requestBody?: {
-        lock_reason?:
-          | "off-topic"
-          | "too heated"
-          | "resolved"
-          | "spam"
-          | UnknownEnumStringValue
-      } | null
+      requestBody?: t_IssuesLockRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -18224,18 +16889,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       owner: string
       repo: string
       issueNumber: number
-      requestBody: {
-        content:
-          | "+1"
-          | "-1"
-          | "laugh"
-          | "confused"
-          | "heart"
-          | "hooray"
-          | "rocket"
-          | "eyes"
-          | UnknownEnumStringValue
-      }
+      requestBody: t_ReactionsCreateForIssueRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -18277,9 +16931,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       owner: string
       repo: string
       issueNumber: number
-      requestBody: {
-        sub_issue_id: number
-      }
+      requestBody: t_IssuesRemoveSubIssueRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -18325,10 +16977,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       owner: string
       repo: string
       issueNumber: number
-      requestBody: {
-        replace_parent?: boolean
-        sub_issue_id: number
-      }
+      requestBody: t_IssuesAddSubIssueRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -18356,11 +17005,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       owner: string
       repo: string
       issueNumber: number
-      requestBody: {
-        after_id?: number
-        before_id?: number
-        sub_issue_id: number
-      }
+      requestBody: t_IssuesReprioritizeSubIssueRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -18435,11 +17080,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       owner: string
       repo: string
-      requestBody: {
-        key: string
-        read_only?: boolean
-        title?: string
-      }
+      requestBody: t_ReposCreateDeployKeyRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -18507,11 +17148,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       owner: string
       repo: string
-      requestBody: {
-        color?: string
-        description?: string
-        name: string
-      }
+      requestBody: t_IssuesCreateLabelRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -18549,11 +17186,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       owner: string
       repo: string
       name: string
-      requestBody?: {
-        color?: string
-        description?: string
-        new_name?: string
-      }
+      requestBody?: t_IssuesUpdateLabelRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -18624,9 +17257,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       owner: string
       repo: string
-      requestBody: {
-        branch: string
-      }
+      requestBody: t_ReposMergeUpstreamRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -18646,11 +17277,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       owner: string
       repo: string
-      requestBody: {
-        base: string
-        commit_message?: string
-        head: string
-      }
+      requestBody: t_ReposMergeRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -18702,12 +17329,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       owner: string
       repo: string
-      requestBody: {
-        description?: string
-        due_on?: string
-        state?: "open" | "closed" | UnknownEnumStringValue
-        title: string
-      }
+      requestBody: t_IssuesCreateMilestoneRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -18748,12 +17370,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       owner: string
       repo: string
       milestoneNumber: number
-      requestBody?: {
-        description?: string
-        due_on?: string
-        state?: "open" | "closed" | UnknownEnumStringValue
-        title?: string
-      }
+      requestBody?: t_IssuesUpdateMilestoneRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -18845,9 +17462,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       owner: string
       repo: string
-      requestBody?: {
-        last_read_at?: string
-      }
+      requestBody?: t_ActivityMarkRepoNotificationsAsReadRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -18895,13 +17510,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       owner: string
       repo: string
-      requestBody: {
-        build_type?: "legacy" | "workflow" | UnknownEnumStringValue
-        source?: {
-          branch: string
-          path?: "/" | "/docs" | UnknownEnumStringValue
-        }
-      } | null
+      requestBody: t_ReposCreatePagesSiteRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -18922,20 +17531,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       owner: string
       repo: string
-      requestBody: {
-        build_type?: "legacy" | "workflow" | UnknownEnumStringValue
-        cname?: string | null
-        https_enforced?: boolean
-        source?:
-          | "gh-pages"
-          | "master"
-          | "master /docs"
-          | UnknownEnumStringValue
-          | {
-              branch: string
-              path: "/" | "/docs" | UnknownEnumStringValue
-            }
-      }
+      requestBody: t_ReposUpdateInformationAboutPagesSiteRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -19041,13 +17637,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       owner: string
       repo: string
-      requestBody: {
-        artifact_id?: number
-        artifact_url?: string
-        environment?: string
-        oidc_token: string
-        pages_build_version: string
-      }
+      requestBody: t_ReposCreatePagesDeploymentRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -19211,10 +17801,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       owner: string
       repo: string
-      requestBody: {
-        body?: string
-        name: string
-      }
+      requestBody: t_ProjectsClassicCreateForRepoRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -19259,9 +17846,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       owner: string
       repo: string
-      requestBody: {
-        properties: t_custom_property_value[]
-      }
+      requestBody: t_ReposCreateOrUpdateCustomPropertiesValuesRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -19325,16 +17910,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       owner: string
       repo: string
-      requestBody: {
-        base: string
-        body?: string
-        draft?: boolean
-        head: string
-        head_repo?: string
-        issue?: number
-        maintainer_can_modify?: boolean
-        title?: string
-      }
+      requestBody: t_PullsCreateRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -19404,9 +17980,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       owner: string
       repo: string
       commentId: number
-      requestBody: {
-        body: string
-      }
+      requestBody: t_PullsUpdateReviewCommentRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -19479,18 +18053,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       owner: string
       repo: string
       commentId: number
-      requestBody: {
-        content:
-          | "+1"
-          | "-1"
-          | "laugh"
-          | "confused"
-          | "heart"
-          | "hooray"
-          | "rocket"
-          | "eyes"
-          | UnknownEnumStringValue
-      }
+      requestBody: t_ReactionsCreateForPullRequestReviewCommentRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -19563,13 +18126,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       owner: string
       repo: string
       pullNumber: number
-      requestBody?: {
-        base?: string
-        body?: string
-        maintainer_can_modify?: boolean
-        state?: "open" | "closed" | UnknownEnumStringValue
-        title?: string
-      }
+      requestBody?: t_PullsUpdateRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -19600,23 +18157,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       owner: string
       repo: string
       pullNumber: number
-      requestBody: {
-        client_ip?: string
-        devcontainer_path?: string
-        display_name?: string
-        geo?:
-          | "EuropeWest"
-          | "SoutheastAsia"
-          | "UsEast"
-          | "UsWest"
-          | UnknownEnumStringValue
-        idle_timeout_minutes?: number
-        location?: string
-        machine?: string
-        multi_repo_permissions_opt_out?: boolean
-        retention_period_minutes?: number
-        working_directory?: string
-      } | null
+      requestBody: t_CodespacesCreateWithPrForAuthenticatedUserRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -19681,18 +18222,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       owner: string
       repo: string
       pullNumber: number
-      requestBody: {
-        body: string
-        commit_id: string
-        in_reply_to?: number
-        line?: number
-        path: string
-        position?: number
-        side?: "LEFT" | "RIGHT" | UnknownEnumStringValue
-        start_line?: number
-        start_side?: "LEFT" | "RIGHT" | "side" | UnknownEnumStringValue
-        subject_type?: "line" | "file" | UnknownEnumStringValue
-      }
+      requestBody: t_PullsCreateReviewCommentRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -19719,9 +18249,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       repo: string
       pullNumber: number
       commentId: number
-      requestBody: {
-        body: string
-      }
+      requestBody: t_PullsCreateReplyForReviewCommentRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -19814,12 +18342,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       owner: string
       repo: string
       pullNumber: number
-      requestBody?: {
-        commit_message?: string
-        commit_title?: string
-        merge_method?: "merge" | "squash" | "rebase" | UnknownEnumStringValue
-        sha?: string
-      } | null
+      requestBody?: t_PullsMergeRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -19882,10 +18405,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       owner: string
       repo: string
       pullNumber: number
-      requestBody?: {
-        reviewers?: string[]
-        team_reviewers?: string[]
-      }
+      requestBody?: t_PullsRequestReviewersRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -19914,10 +18434,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       owner: string
       repo: string
       pullNumber: number
-      requestBody: {
-        reviewers: string[]
-        team_reviewers?: string[]
-      }
+      requestBody: t_PullsRemoveRequestedReviewersRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -19959,24 +18476,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       owner: string
       repo: string
       pullNumber: number
-      requestBody?: {
-        body?: string
-        comments?: {
-          body: string
-          line?: number
-          path: string
-          position?: number
-          side?: string
-          start_line?: number
-          start_side?: string
-        }[]
-        commit_id?: string
-        event?:
-          | "APPROVE"
-          | "REQUEST_CHANGES"
-          | "COMMENT"
-          | UnknownEnumStringValue
-      }
+      requestBody?: t_PullsCreateReviewRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -20026,9 +18526,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       repo: string
       pullNumber: number
       reviewId: number
-      requestBody: {
-        body: string
-      }
+      requestBody: t_PullsUpdateReviewRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -20096,10 +18594,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       repo: string
       pullNumber: number
       reviewId: number
-      requestBody: {
-        event?: "DISMISS" | UnknownEnumStringValue
-        message: string
-      }
+      requestBody: t_PullsDismissReviewRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -20126,14 +18621,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       repo: string
       pullNumber: number
       reviewId: number
-      requestBody: {
-        body?: string
-        event:
-          | "APPROVE"
-          | "REQUEST_CHANGES"
-          | "COMMENT"
-          | UnknownEnumStringValue
-      }
+      requestBody: t_PullsSubmitReviewRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -20160,9 +18648,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       owner: string
       repo: string
       pullNumber: number
-      requestBody?: {
-        expected_head_sha?: string
-      } | null
+      requestBody?: t_PullsUpdateBranchRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -20258,17 +18744,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       owner: string
       repo: string
-      requestBody: {
-        body?: string
-        discussion_category_name?: string
-        draft?: boolean
-        generate_release_notes?: boolean
-        make_latest?: "true" | "false" | "legacy" | UnknownEnumStringValue
-        name?: string
-        prerelease?: boolean
-        tag_name: string
-        target_commitish?: string
-      }
+      requestBody: t_ReposCreateReleaseRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -20309,11 +18785,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       owner: string
       repo: string
       assetId: number
-      requestBody?: {
-        label?: string
-        name?: string
-        state?: string
-      }
+      requestBody?: t_ReposUpdateReleaseAssetRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -20356,12 +18828,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       owner: string
       repo: string
-      requestBody: {
-        configuration_file_path?: string
-        previous_tag_name?: string
-        tag_name: string
-        target_commitish?: string
-      }
+      requestBody: t_ReposGenerateReleaseNotesRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -20432,16 +18899,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       owner: string
       repo: string
       releaseId: number
-      requestBody?: {
-        body?: string
-        discussion_category_name?: string
-        draft?: boolean
-        make_latest?: "true" | "false" | "legacy" | UnknownEnumStringValue
-        name?: string
-        prerelease?: boolean
-        tag_name?: string
-        target_commitish?: string
-      }
+      requestBody?: t_ReposUpdateReleaseRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -20572,16 +19030,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       owner: string
       repo: string
       releaseId: number
-      requestBody: {
-        content:
-          | "+1"
-          | "laugh"
-          | "heart"
-          | "hooray"
-          | "rocket"
-          | "eyes"
-          | UnknownEnumStringValue
-      }
+      requestBody: t_ReactionsCreateForReleaseRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -20670,14 +19119,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       owner: string
       repo: string
-      requestBody: {
-        bypass_actors?: t_repository_ruleset_bypass_actor[]
-        conditions?: t_repository_ruleset_conditions
-        enforcement: t_repository_rule_enforcement
-        name: string
-        rules?: t_repository_rule[]
-        target?: "branch" | "tag" | "push" | UnknownEnumStringValue
-      }
+      requestBody: t_ReposCreateRepoRulesetRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -20779,14 +19221,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       owner: string
       repo: string
       rulesetId: number
-      requestBody?: {
-        bypass_actors?: t_repository_ruleset_bypass_actor[]
-        conditions?: t_repository_ruleset_conditions
-        enforcement?: t_repository_rule_enforcement
-        name?: string
-        rules?: t_repository_rule[]
-        target?: "branch" | "tag" | "push" | UnknownEnumStringValue
-      }
+      requestBody?: t_ReposUpdateRepoRulesetRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -20967,11 +19402,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       owner: string
       repo: string
       alertNumber: t_alert_number
-      requestBody: {
-        resolution?: t_secret_scanning_alert_resolution
-        resolution_comment?: t_secret_scanning_alert_resolution_comment
-        state: t_secret_scanning_alert_state
-      }
+      requestBody: t_SecretScanningUpdateAlertRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -21036,10 +19467,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       owner: string
       repo: string
-      requestBody: {
-        placeholder_id: t_secret_scanning_push_protection_bypass_placeholder_id
-        reason: t_secret_scanning_push_protection_bypass_reason
-      }
+      requestBody: t_SecretScanningCreatePushProtectionBypassRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -21411,17 +19839,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       owner: string
       repo: string
       sha: string
-      requestBody: {
-        context?: string
-        description?: string | null
-        state:
-          | "error"
-          | "failure"
-          | "pending"
-          | "success"
-          | UnknownEnumStringValue
-        target_url?: string | null
-      }
+      requestBody: t_ReposCreateCommitStatusRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -21476,10 +19894,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       owner: string
       repo: string
-      requestBody?: {
-        ignored?: boolean
-        subscribed?: boolean
-      }
+      requestBody?: t_ActivitySetRepoSubscriptionRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -21553,9 +19968,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       owner: string
       repo: string
-      requestBody: {
-        pattern: string
-      }
+      requestBody: t_ReposCreateTagProtectionRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -21648,9 +20061,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       owner: string
       repo: string
-      requestBody: {
-        names: string[]
-      }
+      requestBody: t_ReposReplaceAllTopicsRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -21738,11 +20149,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       owner: string
       repo: string
-      requestBody: {
-        new_name?: string
-        new_owner: string
-        team_ids?: number[]
-      }
+      requestBody: t_ReposTransferRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -21822,13 +20229,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       templateOwner: string
       templateRepo: string
-      requestBody: {
-        description?: string
-        include_all_branches?: boolean
-        name: string
-        owner?: string
-        private?: boolean
-      }
+      requestBody: t_ReposCreateUsingTemplateRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -22175,17 +20576,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   async teamsUpdateLegacy(
     p: {
       teamId: number
-      requestBody: {
-        description?: string
-        name: string
-        notification_setting?:
-          | "notifications_enabled"
-          | "notifications_disabled"
-          | UnknownEnumStringValue
-        parent_team_id?: number | null
-        permission?: "pull" | "push" | "admin" | UnknownEnumStringValue
-        privacy?: "secret" | "closed" | UnknownEnumStringValue
-      }
+      requestBody: t_TeamsUpdateLegacyRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -22245,11 +20636,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   async teamsCreateDiscussionLegacy(
     p: {
       teamId: number
-      requestBody: {
-        body: string
-        private?: boolean
-        title: string
-      }
+      requestBody: t_TeamsCreateDiscussionLegacyRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -22284,10 +20671,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       teamId: number
       discussionNumber: number
-      requestBody?: {
-        body?: string
-        title?: string
-      }
+      requestBody?: t_TeamsUpdateDiscussionLegacyRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -22353,9 +20737,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       teamId: number
       discussionNumber: number
-      requestBody: {
-        body: string
-      }
+      requestBody: t_TeamsCreateDiscussionCommentLegacyRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -22394,9 +20776,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       teamId: number
       discussionNumber: number
       commentNumber: number
-      requestBody: {
-        body: string
-      }
+      requestBody: t_TeamsUpdateDiscussionCommentLegacyRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -22469,18 +20849,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       teamId: number
       discussionNumber: number
       commentNumber: number
-      requestBody: {
-        content:
-          | "+1"
-          | "-1"
-          | "laugh"
-          | "confused"
-          | "heart"
-          | "hooray"
-          | "rocket"
-          | "eyes"
-          | UnknownEnumStringValue
-      }
+      requestBody: t_ReactionsCreateForTeamDiscussionCommentLegacyRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -22534,18 +20903,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       teamId: number
       discussionNumber: number
-      requestBody: {
-        content:
-          | "+1"
-          | "-1"
-          | "laugh"
-          | "confused"
-          | "heart"
-          | "hooray"
-          | "rocket"
-          | "eyes"
-          | UnknownEnumStringValue
-      }
+      requestBody: t_ReactionsCreateForTeamDiscussionLegacyRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -22662,9 +21020,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       teamId: number
       username: string
-      requestBody?: {
-        role?: "member" | "maintainer" | UnknownEnumStringValue
-      }
+      requestBody?: t_TeamsAddOrUpdateMembershipForUserLegacyRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -22740,9 +21096,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       teamId: number
       projectId: number
-      requestBody?: {
-        permission?: "read" | "write" | "admin" | UnknownEnumStringValue
-      }
+      requestBody?: t_TeamsAddOrUpdateProjectPermissionsLegacyRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -22828,9 +21182,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       teamId: number
       owner: string
       repo: string
-      requestBody?: {
-        permission?: "pull" | "push" | "admin" | UnknownEnumStringValue
-      }
+      requestBody?: t_TeamsAddOrUpdateRepoPermissionsLegacyRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -22907,16 +21259,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
 
   async usersUpdateAuthenticated(
     p: {
-      requestBody?: {
-        bio?: string
-        blog?: string
-        company?: string
-        email?: string
-        hireable?: boolean
-        location?: string
-        name?: string
-        twitter_username?: string | null
-      }
+      requestBody?: t_UsersUpdateAuthenticatedRequestBody
     } = {},
     timeout?: number,
     opts: RequestInit = {},
@@ -23057,43 +21400,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
 
   async codespacesCreateForAuthenticatedUser(
     p: {
-      requestBody:
-        | {
-            client_ip?: string
-            devcontainer_path?: string
-            display_name?: string
-            geo?:
-              | "EuropeWest"
-              | "SoutheastAsia"
-              | "UsEast"
-              | "UsWest"
-              | UnknownEnumStringValue
-            idle_timeout_minutes?: number
-            location?: string
-            machine?: string
-            multi_repo_permissions_opt_out?: boolean
-            ref?: string
-            repository_id: number
-            retention_period_minutes?: number
-            working_directory?: string
-          }
-        | {
-            devcontainer_path?: string
-            geo?:
-              | "EuropeWest"
-              | "SoutheastAsia"
-              | "UsEast"
-              | "UsWest"
-              | UnknownEnumStringValue
-            idle_timeout_minutes?: number
-            location?: string
-            machine?: string
-            pull_request: {
-              pull_request_number: number
-              repository_id: number
-            }
-            working_directory?: string
-          }
+      requestBody: t_CodespacesCreateForAuthenticatedUserRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -23171,11 +21478,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   async codespacesCreateOrUpdateSecretForAuthenticatedUser(
     p: {
       secretName: string
-      requestBody: {
-        encrypted_value?: string
-        key_id: string
-        selected_repository_ids?: (number | string)[]
-      }
+      requestBody: t_CodespacesCreateOrUpdateSecretForAuthenticatedUserRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -23237,9 +21540,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   async codespacesSetRepositoriesForSecretForAuthenticatedUser(
     p: {
       secretName: string
-      requestBody: {
-        selected_repository_ids: number[]
-      }
+      requestBody: t_CodespacesSetRepositoriesForSecretForAuthenticatedUserRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -23328,11 +21629,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   async codespacesUpdateForAuthenticatedUser(
     p: {
       codespaceName: string
-      requestBody?: {
-        display_name?: string
-        machine?: string
-        recent_folders?: string[]
-      }
+      requestBody?: t_CodespacesUpdateForAuthenticatedUserRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -23448,10 +21745,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   async codespacesPublishForAuthenticatedUser(
     p: {
       codespaceName: string
-      requestBody: {
-        name?: string
-        private?: boolean
-      }
+      requestBody: t_CodespacesPublishForAuthenticatedUserRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -23526,9 +21820,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
 
   async usersSetPrimaryEmailVisibilityForAuthenticatedUser(
     p: {
-      requestBody: {
-        visibility: "public" | "private" | UnknownEnumStringValue
-      }
+      requestBody: t_UsersSetPrimaryEmailVisibilityForAuthenticatedUserRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -23573,12 +21865,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
 
   async usersAddEmailForAuthenticatedUser(
     p: {
-      requestBody?:
-        | {
-            emails: string[]
-          }
-        | string[]
-        | string
+      requestBody?: t_UsersAddEmailForAuthenticatedUserRequestBody
     } = {},
     timeout?: number,
     opts: RequestInit = {},
@@ -23607,12 +21894,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
 
   async usersDeleteEmailForAuthenticatedUser(
     p: {
-      requestBody:
-        | {
-            emails: string[]
-          }
-        | string[]
-        | string
+      requestBody: t_UsersDeleteEmailForAuthenticatedUserRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -23755,10 +22037,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
 
   async usersCreateGpgKeyForAuthenticatedUser(
     p: {
-      requestBody: {
-        armored_public_key: string
-        name?: string
-      }
+      requestBody: t_UsersCreateGpgKeyForAuthenticatedUserRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -24018,10 +22297,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
 
   async usersCreatePublicSshKeyForAuthenticatedUser(
     p: {
-      requestBody: {
-        key: string
-        title?: string
-      }
+      requestBody: t_UsersCreatePublicSshKeyForAuthenticatedUserRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -24166,9 +22442,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   async orgsUpdateMembershipForAuthenticatedUser(
     p: {
       org: string
-      requestBody: {
-        state: "active" | UnknownEnumStringValue
-      }
+      requestBody: t_OrgsUpdateMembershipForAuthenticatedUserRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -24210,17 +22484,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
 
   async migrationsStartForAuthenticatedUser(
     p: {
-      requestBody: {
-        exclude?: ("repositories" | UnknownEnumStringValue)[]
-        exclude_attachments?: boolean
-        exclude_git_data?: boolean
-        exclude_metadata?: boolean
-        exclude_owner_projects?: boolean
-        exclude_releases?: boolean
-        lock_repositories?: boolean
-        org_metadata_only?: boolean
-        repositories: string[]
-      }
+      requestBody: t_MigrationsStartForAuthenticatedUserRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -24586,10 +22850,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
 
   async projectsClassicCreateForAuthenticatedUser(
     p: {
-      requestBody: {
-        body?: string | null
-        name: string
-      }
+      requestBody: t_ProjectsClassicCreateForAuthenticatedUserRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -24682,45 +22943,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
 
   async reposCreateForAuthenticatedUser(
     p: {
-      requestBody: {
-        allow_auto_merge?: boolean
-        allow_merge_commit?: boolean
-        allow_rebase_merge?: boolean
-        allow_squash_merge?: boolean
-        auto_init?: boolean
-        delete_branch_on_merge?: boolean
-        description?: string
-        gitignore_template?: string
-        has_discussions?: boolean
-        has_downloads?: boolean
-        has_issues?: boolean
-        has_projects?: boolean
-        has_wiki?: boolean
-        homepage?: string
-        is_template?: boolean
-        license_template?: string
-        merge_commit_message?:
-          | "PR_BODY"
-          | "PR_TITLE"
-          | "BLANK"
-          | UnknownEnumStringValue
-        merge_commit_title?:
-          | "PR_TITLE"
-          | "MERGE_MESSAGE"
-          | UnknownEnumStringValue
-        name: string
-        private?: boolean
-        squash_merge_commit_message?:
-          | "PR_BODY"
-          | "COMMIT_MESSAGES"
-          | "BLANK"
-          | UnknownEnumStringValue
-        squash_merge_commit_title?:
-          | "PR_TITLE"
-          | "COMMIT_OR_PR_TITLE"
-          | UnknownEnumStringValue
-        team_id?: number
-      }
+      requestBody: t_ReposCreateForAuthenticatedUserRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -24827,9 +23050,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
 
   async usersAddSocialAccountForAuthenticatedUser(
     p: {
-      requestBody: {
-        account_urls: string[]
-      }
+      requestBody: t_UsersAddSocialAccountForAuthenticatedUserRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -24853,9 +23074,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
 
   async usersDeleteSocialAccountForAuthenticatedUser(
     p: {
-      requestBody: {
-        account_urls: string[]
-      }
+      requestBody: t_UsersDeleteSocialAccountForAuthenticatedUserRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -24900,10 +23119,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
 
   async usersCreateSshSigningKeyForAuthenticatedUser(
     p: {
-      requestBody: {
-        key: string
-        title?: string
-      }
+      requestBody: t_UsersCreateSshSigningKeyForAuthenticatedUserRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -25141,10 +23357,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       before?: string
       after?: string
       username: string
-      requestBody: {
-        predicate_type?: string
-        subject_digests: string[]
-      }
+      requestBody: t_UsersListAttestationsBulkRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -25203,13 +23416,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   async usersDeleteAttestationsBulk(
     p: {
       username: string
-      requestBody:
-        | {
-            subject_digests: string[]
-          }
-        | {
-            attestation_ids: number[]
-          }
+      requestBody: t_UsersDeleteAttestationsBulkRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},

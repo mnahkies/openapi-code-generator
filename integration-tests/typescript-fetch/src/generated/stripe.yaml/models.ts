@@ -15271,3 +15271,26063 @@ export type t_webhook_endpoint = {
   status: string
   url: string
 }
+
+export type t_DeleteCustomersCustomerBankAccountsIdRequestBody = {
+  expand?: string[]
+}
+
+export type t_DeleteCustomersCustomerCardsIdRequestBody = {
+  expand?: string[]
+}
+
+export type t_DeleteCustomersCustomerSourcesIdRequestBody = {
+  expand?: string[]
+}
+
+export type t_DeleteCustomersCustomerSubscriptionsSubscriptionExposedIdRequestBody =
+  {
+    expand?: string[]
+    invoice_now?: boolean
+    prorate?: boolean
+  }
+
+export type t_DeleteEphemeralKeysKeyRequestBody = {
+  expand?: string[]
+}
+
+export type t_DeleteSubscriptionItemsItemRequestBody = {
+  clear_usage?: boolean
+  proration_behavior?:
+    | "always_invoice"
+    | "create_prorations"
+    | "none"
+    | UnknownEnumStringValue
+  proration_date?: number
+}
+
+export type t_DeleteSubscriptionsSubscriptionExposedIdRequestBody = {
+  cancellation_details?: {
+    comment?: string | "" | UnknownEnumStringValue
+    feedback?:
+      | ""
+      | "customer_service"
+      | "low_quality"
+      | "missing_features"
+      | "other"
+      | "switched_service"
+      | "too_complex"
+      | "too_expensive"
+      | "unused"
+      | UnknownEnumStringValue
+  }
+  expand?: string[]
+  invoice_now?: boolean
+  prorate?: boolean
+}
+
+export type t_PostAccountLinksRequestBody = {
+  account: string
+  collect?: "currently_due" | "eventually_due" | UnknownEnumStringValue
+  collection_options?: {
+    fields?: "currently_due" | "eventually_due" | UnknownEnumStringValue
+    future_requirements?: "include" | "omit" | UnknownEnumStringValue
+  }
+  expand?: string[]
+  refresh_url?: string
+  return_url?: string
+  type: "account_onboarding" | "account_update" | UnknownEnumStringValue
+}
+
+export type t_PostAccountSessionsRequestBody = {
+  account: string
+  components: {
+    account_management?: {
+      enabled: boolean
+      features?: {
+        disable_stripe_user_authentication?: boolean
+        external_account_collection?: boolean
+      }
+    }
+    account_onboarding?: {
+      enabled: boolean
+      features?: {
+        disable_stripe_user_authentication?: boolean
+        external_account_collection?: boolean
+      }
+    }
+    balances?: {
+      enabled: boolean
+      features?: {
+        disable_stripe_user_authentication?: boolean
+        edit_payout_schedule?: boolean
+        external_account_collection?: boolean
+        instant_payouts?: boolean
+        standard_payouts?: boolean
+      }
+    }
+    disputes_list?: {
+      enabled: boolean
+      features?: {
+        capture_payments?: boolean
+        destination_on_behalf_of_charge_management?: boolean
+        dispute_management?: boolean
+        refund_management?: boolean
+      }
+    }
+    documents?: {
+      enabled: boolean
+      features?: EmptyObject
+    }
+    financial_account?: {
+      enabled: boolean
+      features?: {
+        disable_stripe_user_authentication?: boolean
+        external_account_collection?: boolean
+        send_money?: boolean
+        transfer_balance?: boolean
+      }
+    }
+    financial_account_transactions?: {
+      enabled: boolean
+      features?: {
+        card_spend_dispute_management?: boolean
+      }
+    }
+    instant_payouts_promotion?: {
+      enabled: boolean
+      features?: {
+        disable_stripe_user_authentication?: boolean
+        external_account_collection?: boolean
+        instant_payouts?: boolean
+      }
+    }
+    issuing_card?: {
+      enabled: boolean
+      features?: {
+        card_management?: boolean
+        card_spend_dispute_management?: boolean
+        cardholder_management?: boolean
+        spend_control_management?: boolean
+      }
+    }
+    issuing_cards_list?: {
+      enabled: boolean
+      features?: {
+        card_management?: boolean
+        card_spend_dispute_management?: boolean
+        cardholder_management?: boolean
+        disable_stripe_user_authentication?: boolean
+        spend_control_management?: boolean
+      }
+    }
+    notification_banner?: {
+      enabled: boolean
+      features?: {
+        disable_stripe_user_authentication?: boolean
+        external_account_collection?: boolean
+      }
+    }
+    payment_details?: {
+      enabled: boolean
+      features?: {
+        capture_payments?: boolean
+        destination_on_behalf_of_charge_management?: boolean
+        dispute_management?: boolean
+        refund_management?: boolean
+      }
+    }
+    payment_disputes?: {
+      enabled: boolean
+      features?: {
+        destination_on_behalf_of_charge_management?: boolean
+        dispute_management?: boolean
+        refund_management?: boolean
+      }
+    }
+    payments?: {
+      enabled: boolean
+      features?: {
+        capture_payments?: boolean
+        destination_on_behalf_of_charge_management?: boolean
+        dispute_management?: boolean
+        refund_management?: boolean
+      }
+    }
+    payouts?: {
+      enabled: boolean
+      features?: {
+        disable_stripe_user_authentication?: boolean
+        edit_payout_schedule?: boolean
+        external_account_collection?: boolean
+        instant_payouts?: boolean
+        standard_payouts?: boolean
+      }
+    }
+    payouts_list?: {
+      enabled: boolean
+      features?: EmptyObject
+    }
+    tax_registrations?: {
+      enabled: boolean
+      features?: EmptyObject
+    }
+    tax_settings?: {
+      enabled: boolean
+      features?: EmptyObject
+    }
+  }
+  expand?: string[]
+}
+
+export type t_PostAccountsRequestBody = {
+  account_token?: string
+  bank_account?:
+    | {
+        account_holder_name?: string
+        account_holder_type?: "company" | "individual" | UnknownEnumStringValue
+        account_number: string
+        account_type?:
+          | "checking"
+          | "futsu"
+          | "savings"
+          | "toza"
+          | UnknownEnumStringValue
+        country: string
+        currency?: string
+        documents?: {
+          bank_account_ownership_verification?: {
+            files?: string[]
+          }
+        }
+        object?: "bank_account" | UnknownEnumStringValue
+        routing_number?: string
+      }
+    | string
+  business_profile?: {
+    annual_revenue?: {
+      amount: number
+      currency: string
+      fiscal_year_end: string
+    }
+    estimated_worker_count?: number
+    mcc?: string
+    minority_owned_business_designation?: (
+      | "lgbtqi_owned_business"
+      | "minority_owned_business"
+      | "none_of_these_apply"
+      | "prefer_not_to_answer"
+      | "women_owned_business"
+      | UnknownEnumStringValue
+    )[]
+    monthly_estimated_revenue?: {
+      amount: number
+      currency: string
+    }
+    name?: string
+    product_description?: string
+    support_address?: {
+      city?: string
+      country?: string
+      line1?: string
+      line2?: string
+      postal_code?: string
+      state?: string
+    }
+    support_email?: string
+    support_phone?: string
+    support_url?: string | "" | UnknownEnumStringValue
+    url?: string
+  }
+  business_type?:
+    | "company"
+    | "government_entity"
+    | "individual"
+    | "non_profit"
+    | UnknownEnumStringValue
+  capabilities?: {
+    acss_debit_payments?: {
+      requested?: boolean
+    }
+    affirm_payments?: {
+      requested?: boolean
+    }
+    afterpay_clearpay_payments?: {
+      requested?: boolean
+    }
+    alma_payments?: {
+      requested?: boolean
+    }
+    amazon_pay_payments?: {
+      requested?: boolean
+    }
+    au_becs_debit_payments?: {
+      requested?: boolean
+    }
+    bacs_debit_payments?: {
+      requested?: boolean
+    }
+    bancontact_payments?: {
+      requested?: boolean
+    }
+    bank_transfer_payments?: {
+      requested?: boolean
+    }
+    billie_payments?: {
+      requested?: boolean
+    }
+    blik_payments?: {
+      requested?: boolean
+    }
+    boleto_payments?: {
+      requested?: boolean
+    }
+    card_issuing?: {
+      requested?: boolean
+    }
+    card_payments?: {
+      requested?: boolean
+    }
+    cartes_bancaires_payments?: {
+      requested?: boolean
+    }
+    cashapp_payments?: {
+      requested?: boolean
+    }
+    crypto_payments?: {
+      requested?: boolean
+    }
+    eps_payments?: {
+      requested?: boolean
+    }
+    fpx_payments?: {
+      requested?: boolean
+    }
+    gb_bank_transfer_payments?: {
+      requested?: boolean
+    }
+    giropay_payments?: {
+      requested?: boolean
+    }
+    grabpay_payments?: {
+      requested?: boolean
+    }
+    ideal_payments?: {
+      requested?: boolean
+    }
+    india_international_payments?: {
+      requested?: boolean
+    }
+    jcb_payments?: {
+      requested?: boolean
+    }
+    jp_bank_transfer_payments?: {
+      requested?: boolean
+    }
+    kakao_pay_payments?: {
+      requested?: boolean
+    }
+    klarna_payments?: {
+      requested?: boolean
+    }
+    konbini_payments?: {
+      requested?: boolean
+    }
+    kr_card_payments?: {
+      requested?: boolean
+    }
+    legacy_payments?: {
+      requested?: boolean
+    }
+    link_payments?: {
+      requested?: boolean
+    }
+    mobilepay_payments?: {
+      requested?: boolean
+    }
+    multibanco_payments?: {
+      requested?: boolean
+    }
+    mx_bank_transfer_payments?: {
+      requested?: boolean
+    }
+    naver_pay_payments?: {
+      requested?: boolean
+    }
+    nz_bank_account_becs_debit_payments?: {
+      requested?: boolean
+    }
+    oxxo_payments?: {
+      requested?: boolean
+    }
+    p24_payments?: {
+      requested?: boolean
+    }
+    pay_by_bank_payments?: {
+      requested?: boolean
+    }
+    payco_payments?: {
+      requested?: boolean
+    }
+    paynow_payments?: {
+      requested?: boolean
+    }
+    pix_payments?: {
+      requested?: boolean
+    }
+    promptpay_payments?: {
+      requested?: boolean
+    }
+    revolut_pay_payments?: {
+      requested?: boolean
+    }
+    samsung_pay_payments?: {
+      requested?: boolean
+    }
+    satispay_payments?: {
+      requested?: boolean
+    }
+    sepa_bank_transfer_payments?: {
+      requested?: boolean
+    }
+    sepa_debit_payments?: {
+      requested?: boolean
+    }
+    sofort_payments?: {
+      requested?: boolean
+    }
+    swish_payments?: {
+      requested?: boolean
+    }
+    tax_reporting_us_1099_k?: {
+      requested?: boolean
+    }
+    tax_reporting_us_1099_misc?: {
+      requested?: boolean
+    }
+    transfers?: {
+      requested?: boolean
+    }
+    treasury?: {
+      requested?: boolean
+    }
+    twint_payments?: {
+      requested?: boolean
+    }
+    us_bank_account_ach_payments?: {
+      requested?: boolean
+    }
+    us_bank_transfer_payments?: {
+      requested?: boolean
+    }
+    zip_payments?: {
+      requested?: boolean
+    }
+  }
+  company?: {
+    address?: {
+      city?: string
+      country?: string
+      line1?: string
+      line2?: string
+      postal_code?: string
+      state?: string
+    }
+    address_kana?: {
+      city?: string
+      country?: string
+      line1?: string
+      line2?: string
+      postal_code?: string
+      state?: string
+      town?: string
+    }
+    address_kanji?: {
+      city?: string
+      country?: string
+      line1?: string
+      line2?: string
+      postal_code?: string
+      state?: string
+      town?: string
+    }
+    directors_provided?: boolean
+    directorship_declaration?: {
+      date?: number
+      ip?: string
+      user_agent?: string
+    }
+    executives_provided?: boolean
+    export_license_id?: string
+    export_purpose_code?: string
+    name?: string
+    name_kana?: string
+    name_kanji?: string
+    owners_provided?: boolean
+    ownership_declaration?: {
+      date?: number
+      ip?: string
+      user_agent?: string
+    }
+    ownership_exemption_reason?:
+      | ""
+      | "qualified_entity_exceeds_ownership_threshold"
+      | "qualifies_as_financial_institution"
+      | UnknownEnumStringValue
+    phone?: string
+    registration_date?:
+      | {
+          day: number
+          month: number
+          year: number
+        }
+      | ""
+      | UnknownEnumStringValue
+    registration_number?: string
+    structure?:
+      | ""
+      | "free_zone_establishment"
+      | "free_zone_llc"
+      | "government_instrumentality"
+      | "governmental_unit"
+      | "incorporated_non_profit"
+      | "incorporated_partnership"
+      | "limited_liability_partnership"
+      | "llc"
+      | "multi_member_llc"
+      | "private_company"
+      | "private_corporation"
+      | "private_partnership"
+      | "public_company"
+      | "public_corporation"
+      | "public_partnership"
+      | "registered_charity"
+      | "single_member_llc"
+      | "sole_establishment"
+      | "sole_proprietorship"
+      | "tax_exempt_government_instrumentality"
+      | "unincorporated_association"
+      | "unincorporated_non_profit"
+      | "unincorporated_partnership"
+      | UnknownEnumStringValue
+    tax_id?: string
+    tax_id_registrar?: string
+    vat_id?: string
+    verification?: {
+      document?: {
+        back?: string
+        front?: string
+      }
+    }
+  }
+  controller?: {
+    fees?: {
+      payer?: "account" | "application" | UnknownEnumStringValue
+    }
+    losses?: {
+      payments?: "application" | "stripe" | UnknownEnumStringValue
+    }
+    requirement_collection?: "application" | "stripe" | UnknownEnumStringValue
+    stripe_dashboard?: {
+      type?: "express" | "full" | "none" | UnknownEnumStringValue
+    }
+  }
+  country?: string
+  default_currency?: string
+  documents?: {
+    bank_account_ownership_verification?: {
+      files?: string[]
+    }
+    company_license?: {
+      files?: string[]
+    }
+    company_memorandum_of_association?: {
+      files?: string[]
+    }
+    company_ministerial_decree?: {
+      files?: string[]
+    }
+    company_registration_verification?: {
+      files?: string[]
+    }
+    company_tax_id_verification?: {
+      files?: string[]
+    }
+    proof_of_address?: {
+      files?: string[]
+    }
+    proof_of_registration?: {
+      files?: string[]
+    }
+    proof_of_ultimate_beneficial_ownership?: {
+      files?: string[]
+    }
+  }
+  email?: string
+  expand?: string[]
+  external_account?: string
+  groups?: {
+    payments_pricing?: string | "" | UnknownEnumStringValue
+  }
+  individual?: {
+    address?: {
+      city?: string
+      country?: string
+      line1?: string
+      line2?: string
+      postal_code?: string
+      state?: string
+    }
+    address_kana?: {
+      city?: string
+      country?: string
+      line1?: string
+      line2?: string
+      postal_code?: string
+      state?: string
+      town?: string
+    }
+    address_kanji?: {
+      city?: string
+      country?: string
+      line1?: string
+      line2?: string
+      postal_code?: string
+      state?: string
+      town?: string
+    }
+    dob?:
+      | {
+          day: number
+          month: number
+          year: number
+        }
+      | ""
+      | UnknownEnumStringValue
+    email?: string
+    first_name?: string
+    first_name_kana?: string
+    first_name_kanji?: string
+    full_name_aliases?: string[] | "" | UnknownEnumStringValue
+    gender?: string
+    id_number?: string
+    id_number_secondary?: string
+    last_name?: string
+    last_name_kana?: string
+    last_name_kanji?: string
+    maiden_name?: string
+    metadata?:
+      | {
+          [key: string]: string | undefined
+        }
+      | ""
+      | UnknownEnumStringValue
+    phone?: string
+    political_exposure?: "existing" | "none" | UnknownEnumStringValue
+    registered_address?: {
+      city?: string
+      country?: string
+      line1?: string
+      line2?: string
+      postal_code?: string
+      state?: string
+    }
+    relationship?: {
+      director?: boolean
+      executive?: boolean
+      owner?: boolean
+      percent_ownership?: number | "" | UnknownEnumStringValue
+      title?: string
+    }
+    ssn_last_4?: string
+    verification?: {
+      additional_document?: {
+        back?: string
+        front?: string
+      }
+      document?: {
+        back?: string
+        front?: string
+      }
+    }
+  }
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | ""
+    | UnknownEnumStringValue
+  settings?: {
+    bacs_debit_payments?: {
+      display_name?: string
+    }
+    branding?: {
+      icon?: string
+      logo?: string
+      primary_color?: string
+      secondary_color?: string
+    }
+    card_issuing?: {
+      tos_acceptance?: {
+        date?: number
+        ip?: string
+        user_agent?: string | "" | UnknownEnumStringValue
+      }
+    }
+    card_payments?: {
+      decline_on?: {
+        avs_failure?: boolean
+        cvc_failure?: boolean
+      }
+      statement_descriptor_prefix?: string
+      statement_descriptor_prefix_kana?: string | "" | UnknownEnumStringValue
+      statement_descriptor_prefix_kanji?: string | "" | UnknownEnumStringValue
+    }
+    invoices?: {
+      hosted_payment_method_save?:
+        | "always"
+        | "never"
+        | "offer"
+        | UnknownEnumStringValue
+    }
+    payments?: {
+      statement_descriptor?: string
+      statement_descriptor_kana?: string
+      statement_descriptor_kanji?: string
+    }
+    payouts?: {
+      debit_negative_balances?: boolean
+      schedule?: {
+        delay_days?: "minimum" | UnknownEnumStringValue | number
+        interval?:
+          | "daily"
+          | "manual"
+          | "monthly"
+          | "weekly"
+          | UnknownEnumStringValue
+        monthly_anchor?: number
+        monthly_payout_days?: number[]
+        weekly_anchor?:
+          | "friday"
+          | "monday"
+          | "saturday"
+          | "sunday"
+          | "thursday"
+          | "tuesday"
+          | "wednesday"
+          | UnknownEnumStringValue
+        weekly_payout_days?: (
+          | "friday"
+          | "monday"
+          | "saturday"
+          | "sunday"
+          | "thursday"
+          | "tuesday"
+          | "wednesday"
+          | UnknownEnumStringValue
+        )[]
+      }
+      statement_descriptor?: string
+    }
+    treasury?: {
+      tos_acceptance?: {
+        date?: number
+        ip?: string
+        user_agent?: string | "" | UnknownEnumStringValue
+      }
+    }
+  }
+  tos_acceptance?: {
+    date?: number
+    ip?: string
+    service_agreement?: string
+    user_agent?: string
+  }
+  type?: "custom" | "express" | "standard" | UnknownEnumStringValue
+}
+
+export type t_PostAccountsAccountRequestBody = {
+  account_token?: string
+  business_profile?: {
+    annual_revenue?: {
+      amount: number
+      currency: string
+      fiscal_year_end: string
+    }
+    estimated_worker_count?: number
+    mcc?: string
+    minority_owned_business_designation?: (
+      | "lgbtqi_owned_business"
+      | "minority_owned_business"
+      | "none_of_these_apply"
+      | "prefer_not_to_answer"
+      | "women_owned_business"
+      | UnknownEnumStringValue
+    )[]
+    monthly_estimated_revenue?: {
+      amount: number
+      currency: string
+    }
+    name?: string
+    product_description?: string
+    support_address?: {
+      city?: string
+      country?: string
+      line1?: string
+      line2?: string
+      postal_code?: string
+      state?: string
+    }
+    support_email?: string
+    support_phone?: string
+    support_url?: string | "" | UnknownEnumStringValue
+    url?: string
+  }
+  business_type?:
+    | "company"
+    | "government_entity"
+    | "individual"
+    | "non_profit"
+    | UnknownEnumStringValue
+  capabilities?: {
+    acss_debit_payments?: {
+      requested?: boolean
+    }
+    affirm_payments?: {
+      requested?: boolean
+    }
+    afterpay_clearpay_payments?: {
+      requested?: boolean
+    }
+    alma_payments?: {
+      requested?: boolean
+    }
+    amazon_pay_payments?: {
+      requested?: boolean
+    }
+    au_becs_debit_payments?: {
+      requested?: boolean
+    }
+    bacs_debit_payments?: {
+      requested?: boolean
+    }
+    bancontact_payments?: {
+      requested?: boolean
+    }
+    bank_transfer_payments?: {
+      requested?: boolean
+    }
+    billie_payments?: {
+      requested?: boolean
+    }
+    blik_payments?: {
+      requested?: boolean
+    }
+    boleto_payments?: {
+      requested?: boolean
+    }
+    card_issuing?: {
+      requested?: boolean
+    }
+    card_payments?: {
+      requested?: boolean
+    }
+    cartes_bancaires_payments?: {
+      requested?: boolean
+    }
+    cashapp_payments?: {
+      requested?: boolean
+    }
+    crypto_payments?: {
+      requested?: boolean
+    }
+    eps_payments?: {
+      requested?: boolean
+    }
+    fpx_payments?: {
+      requested?: boolean
+    }
+    gb_bank_transfer_payments?: {
+      requested?: boolean
+    }
+    giropay_payments?: {
+      requested?: boolean
+    }
+    grabpay_payments?: {
+      requested?: boolean
+    }
+    ideal_payments?: {
+      requested?: boolean
+    }
+    india_international_payments?: {
+      requested?: boolean
+    }
+    jcb_payments?: {
+      requested?: boolean
+    }
+    jp_bank_transfer_payments?: {
+      requested?: boolean
+    }
+    kakao_pay_payments?: {
+      requested?: boolean
+    }
+    klarna_payments?: {
+      requested?: boolean
+    }
+    konbini_payments?: {
+      requested?: boolean
+    }
+    kr_card_payments?: {
+      requested?: boolean
+    }
+    legacy_payments?: {
+      requested?: boolean
+    }
+    link_payments?: {
+      requested?: boolean
+    }
+    mobilepay_payments?: {
+      requested?: boolean
+    }
+    multibanco_payments?: {
+      requested?: boolean
+    }
+    mx_bank_transfer_payments?: {
+      requested?: boolean
+    }
+    naver_pay_payments?: {
+      requested?: boolean
+    }
+    nz_bank_account_becs_debit_payments?: {
+      requested?: boolean
+    }
+    oxxo_payments?: {
+      requested?: boolean
+    }
+    p24_payments?: {
+      requested?: boolean
+    }
+    pay_by_bank_payments?: {
+      requested?: boolean
+    }
+    payco_payments?: {
+      requested?: boolean
+    }
+    paynow_payments?: {
+      requested?: boolean
+    }
+    pix_payments?: {
+      requested?: boolean
+    }
+    promptpay_payments?: {
+      requested?: boolean
+    }
+    revolut_pay_payments?: {
+      requested?: boolean
+    }
+    samsung_pay_payments?: {
+      requested?: boolean
+    }
+    satispay_payments?: {
+      requested?: boolean
+    }
+    sepa_bank_transfer_payments?: {
+      requested?: boolean
+    }
+    sepa_debit_payments?: {
+      requested?: boolean
+    }
+    sofort_payments?: {
+      requested?: boolean
+    }
+    swish_payments?: {
+      requested?: boolean
+    }
+    tax_reporting_us_1099_k?: {
+      requested?: boolean
+    }
+    tax_reporting_us_1099_misc?: {
+      requested?: boolean
+    }
+    transfers?: {
+      requested?: boolean
+    }
+    treasury?: {
+      requested?: boolean
+    }
+    twint_payments?: {
+      requested?: boolean
+    }
+    us_bank_account_ach_payments?: {
+      requested?: boolean
+    }
+    us_bank_transfer_payments?: {
+      requested?: boolean
+    }
+    zip_payments?: {
+      requested?: boolean
+    }
+  }
+  company?: {
+    address?: {
+      city?: string
+      country?: string
+      line1?: string
+      line2?: string
+      postal_code?: string
+      state?: string
+    }
+    address_kana?: {
+      city?: string
+      country?: string
+      line1?: string
+      line2?: string
+      postal_code?: string
+      state?: string
+      town?: string
+    }
+    address_kanji?: {
+      city?: string
+      country?: string
+      line1?: string
+      line2?: string
+      postal_code?: string
+      state?: string
+      town?: string
+    }
+    directors_provided?: boolean
+    directorship_declaration?: {
+      date?: number
+      ip?: string
+      user_agent?: string
+    }
+    executives_provided?: boolean
+    export_license_id?: string
+    export_purpose_code?: string
+    name?: string
+    name_kana?: string
+    name_kanji?: string
+    owners_provided?: boolean
+    ownership_declaration?: {
+      date?: number
+      ip?: string
+      user_agent?: string
+    }
+    ownership_exemption_reason?:
+      | ""
+      | "qualified_entity_exceeds_ownership_threshold"
+      | "qualifies_as_financial_institution"
+      | UnknownEnumStringValue
+    phone?: string
+    registration_date?:
+      | {
+          day: number
+          month: number
+          year: number
+        }
+      | ""
+      | UnknownEnumStringValue
+    registration_number?: string
+    structure?:
+      | ""
+      | "free_zone_establishment"
+      | "free_zone_llc"
+      | "government_instrumentality"
+      | "governmental_unit"
+      | "incorporated_non_profit"
+      | "incorporated_partnership"
+      | "limited_liability_partnership"
+      | "llc"
+      | "multi_member_llc"
+      | "private_company"
+      | "private_corporation"
+      | "private_partnership"
+      | "public_company"
+      | "public_corporation"
+      | "public_partnership"
+      | "registered_charity"
+      | "single_member_llc"
+      | "sole_establishment"
+      | "sole_proprietorship"
+      | "tax_exempt_government_instrumentality"
+      | "unincorporated_association"
+      | "unincorporated_non_profit"
+      | "unincorporated_partnership"
+      | UnknownEnumStringValue
+    tax_id?: string
+    tax_id_registrar?: string
+    vat_id?: string
+    verification?: {
+      document?: {
+        back?: string
+        front?: string
+      }
+    }
+  }
+  default_currency?: string
+  documents?: {
+    bank_account_ownership_verification?: {
+      files?: string[]
+    }
+    company_license?: {
+      files?: string[]
+    }
+    company_memorandum_of_association?: {
+      files?: string[]
+    }
+    company_ministerial_decree?: {
+      files?: string[]
+    }
+    company_registration_verification?: {
+      files?: string[]
+    }
+    company_tax_id_verification?: {
+      files?: string[]
+    }
+    proof_of_address?: {
+      files?: string[]
+    }
+    proof_of_registration?: {
+      files?: string[]
+    }
+    proof_of_ultimate_beneficial_ownership?: {
+      files?: string[]
+    }
+  }
+  email?: string
+  expand?: string[]
+  external_account?: string
+  groups?: {
+    payments_pricing?: string | "" | UnknownEnumStringValue
+  }
+  individual?: {
+    address?: {
+      city?: string
+      country?: string
+      line1?: string
+      line2?: string
+      postal_code?: string
+      state?: string
+    }
+    address_kana?: {
+      city?: string
+      country?: string
+      line1?: string
+      line2?: string
+      postal_code?: string
+      state?: string
+      town?: string
+    }
+    address_kanji?: {
+      city?: string
+      country?: string
+      line1?: string
+      line2?: string
+      postal_code?: string
+      state?: string
+      town?: string
+    }
+    dob?:
+      | {
+          day: number
+          month: number
+          year: number
+        }
+      | ""
+      | UnknownEnumStringValue
+    email?: string
+    first_name?: string
+    first_name_kana?: string
+    first_name_kanji?: string
+    full_name_aliases?: string[] | "" | UnknownEnumStringValue
+    gender?: string
+    id_number?: string
+    id_number_secondary?: string
+    last_name?: string
+    last_name_kana?: string
+    last_name_kanji?: string
+    maiden_name?: string
+    metadata?:
+      | {
+          [key: string]: string | undefined
+        }
+      | ""
+      | UnknownEnumStringValue
+    phone?: string
+    political_exposure?: "existing" | "none" | UnknownEnumStringValue
+    registered_address?: {
+      city?: string
+      country?: string
+      line1?: string
+      line2?: string
+      postal_code?: string
+      state?: string
+    }
+    relationship?: {
+      director?: boolean
+      executive?: boolean
+      owner?: boolean
+      percent_ownership?: number | "" | UnknownEnumStringValue
+      title?: string
+    }
+    ssn_last_4?: string
+    verification?: {
+      additional_document?: {
+        back?: string
+        front?: string
+      }
+      document?: {
+        back?: string
+        front?: string
+      }
+    }
+  }
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | ""
+    | UnknownEnumStringValue
+  settings?: {
+    bacs_debit_payments?: {
+      display_name?: string
+    }
+    branding?: {
+      icon?: string
+      logo?: string
+      primary_color?: string
+      secondary_color?: string
+    }
+    card_issuing?: {
+      tos_acceptance?: {
+        date?: number
+        ip?: string
+        user_agent?: string | "" | UnknownEnumStringValue
+      }
+    }
+    card_payments?: {
+      decline_on?: {
+        avs_failure?: boolean
+        cvc_failure?: boolean
+      }
+      statement_descriptor_prefix?: string
+      statement_descriptor_prefix_kana?: string | "" | UnknownEnumStringValue
+      statement_descriptor_prefix_kanji?: string | "" | UnknownEnumStringValue
+    }
+    invoices?: {
+      default_account_tax_ids?: string[] | "" | UnknownEnumStringValue
+      hosted_payment_method_save?:
+        | "always"
+        | "never"
+        | "offer"
+        | UnknownEnumStringValue
+    }
+    payments?: {
+      statement_descriptor?: string
+      statement_descriptor_kana?: string
+      statement_descriptor_kanji?: string
+    }
+    payouts?: {
+      debit_negative_balances?: boolean
+      schedule?: {
+        delay_days?: "minimum" | UnknownEnumStringValue | number
+        interval?:
+          | "daily"
+          | "manual"
+          | "monthly"
+          | "weekly"
+          | UnknownEnumStringValue
+        monthly_anchor?: number
+        monthly_payout_days?: number[]
+        weekly_anchor?:
+          | "friday"
+          | "monday"
+          | "saturday"
+          | "sunday"
+          | "thursday"
+          | "tuesday"
+          | "wednesday"
+          | UnknownEnumStringValue
+        weekly_payout_days?: (
+          | "friday"
+          | "monday"
+          | "saturday"
+          | "sunday"
+          | "thursday"
+          | "tuesday"
+          | "wednesday"
+          | UnknownEnumStringValue
+        )[]
+      }
+      statement_descriptor?: string
+    }
+    treasury?: {
+      tos_acceptance?: {
+        date?: number
+        ip?: string
+        user_agent?: string | "" | UnknownEnumStringValue
+      }
+    }
+  }
+  tos_acceptance?: {
+    date?: number
+    ip?: string
+    service_agreement?: string
+    user_agent?: string
+  }
+}
+
+export type t_PostAccountsAccountBankAccountsRequestBody = {
+  bank_account?:
+    | {
+        account_holder_name?: string
+        account_holder_type?: "company" | "individual" | UnknownEnumStringValue
+        account_number: string
+        account_type?:
+          | "checking"
+          | "futsu"
+          | "savings"
+          | "toza"
+          | UnknownEnumStringValue
+        country: string
+        currency?: string
+        documents?: {
+          bank_account_ownership_verification?: {
+            files?: string[]
+          }
+        }
+        object?: "bank_account" | UnknownEnumStringValue
+        routing_number?: string
+      }
+    | string
+  default_for_currency?: boolean
+  expand?: string[]
+  external_account?: string
+  metadata?: {
+    [key: string]: string | undefined
+  }
+}
+
+export type t_PostAccountsAccountBankAccountsIdRequestBody = {
+  account_holder_name?: string
+  account_holder_type?: "" | "company" | "individual" | UnknownEnumStringValue
+  account_type?:
+    | "checking"
+    | "futsu"
+    | "savings"
+    | "toza"
+    | UnknownEnumStringValue
+  address_city?: string
+  address_country?: string
+  address_line1?: string
+  address_line2?: string
+  address_state?: string
+  address_zip?: string
+  default_for_currency?: boolean
+  documents?: {
+    bank_account_ownership_verification?: {
+      files?: string[]
+    }
+  }
+  exp_month?: string
+  exp_year?: string
+  expand?: string[]
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | ""
+    | UnknownEnumStringValue
+  name?: string
+}
+
+export type t_PostAccountsAccountCapabilitiesCapabilityRequestBody = {
+  expand?: string[]
+  requested?: boolean
+}
+
+export type t_PostAccountsAccountExternalAccountsRequestBody = {
+  bank_account?:
+    | {
+        account_holder_name?: string
+        account_holder_type?: "company" | "individual" | UnknownEnumStringValue
+        account_number: string
+        account_type?:
+          | "checking"
+          | "futsu"
+          | "savings"
+          | "toza"
+          | UnknownEnumStringValue
+        country: string
+        currency?: string
+        documents?: {
+          bank_account_ownership_verification?: {
+            files?: string[]
+          }
+        }
+        object?: "bank_account" | UnknownEnumStringValue
+        routing_number?: string
+      }
+    | string
+  default_for_currency?: boolean
+  expand?: string[]
+  external_account?: string
+  metadata?: {
+    [key: string]: string | undefined
+  }
+}
+
+export type t_PostAccountsAccountExternalAccountsIdRequestBody = {
+  account_holder_name?: string
+  account_holder_type?: "" | "company" | "individual" | UnknownEnumStringValue
+  account_type?:
+    | "checking"
+    | "futsu"
+    | "savings"
+    | "toza"
+    | UnknownEnumStringValue
+  address_city?: string
+  address_country?: string
+  address_line1?: string
+  address_line2?: string
+  address_state?: string
+  address_zip?: string
+  default_for_currency?: boolean
+  documents?: {
+    bank_account_ownership_verification?: {
+      files?: string[]
+    }
+  }
+  exp_month?: string
+  exp_year?: string
+  expand?: string[]
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | ""
+    | UnknownEnumStringValue
+  name?: string
+}
+
+export type t_PostAccountsAccountLoginLinksRequestBody = {
+  expand?: string[]
+}
+
+export type t_PostAccountsAccountPeopleRequestBody = {
+  additional_tos_acceptances?: {
+    account?: {
+      date?: number
+      ip?: string
+      user_agent?: string | "" | UnknownEnumStringValue
+    }
+  }
+  address?: {
+    city?: string
+    country?: string
+    line1?: string
+    line2?: string
+    postal_code?: string
+    state?: string
+  }
+  address_kana?: {
+    city?: string
+    country?: string
+    line1?: string
+    line2?: string
+    postal_code?: string
+    state?: string
+    town?: string
+  }
+  address_kanji?: {
+    city?: string
+    country?: string
+    line1?: string
+    line2?: string
+    postal_code?: string
+    state?: string
+    town?: string
+  }
+  dob?:
+    | {
+        day: number
+        month: number
+        year: number
+      }
+    | ""
+    | UnknownEnumStringValue
+  documents?: {
+    company_authorization?: {
+      files?: (string | "" | UnknownEnumStringValue)[]
+    }
+    passport?: {
+      files?: (string | "" | UnknownEnumStringValue)[]
+    }
+    visa?: {
+      files?: (string | "" | UnknownEnumStringValue)[]
+    }
+  }
+  email?: string
+  expand?: string[]
+  first_name?: string
+  first_name_kana?: string
+  first_name_kanji?: string
+  full_name_aliases?: string[] | "" | UnknownEnumStringValue
+  gender?: string
+  id_number?: string
+  id_number_secondary?: string
+  last_name?: string
+  last_name_kana?: string
+  last_name_kanji?: string
+  maiden_name?: string
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | ""
+    | UnknownEnumStringValue
+  nationality?: string
+  person_token?: string
+  phone?: string
+  political_exposure?: "existing" | "none" | UnknownEnumStringValue
+  registered_address?: {
+    city?: string
+    country?: string
+    line1?: string
+    line2?: string
+    postal_code?: string
+    state?: string
+  }
+  relationship?: {
+    authorizer?: boolean
+    director?: boolean
+    executive?: boolean
+    legal_guardian?: boolean
+    owner?: boolean
+    percent_ownership?: number | "" | UnknownEnumStringValue
+    representative?: boolean
+    title?: string
+  }
+  ssn_last_4?: string
+  us_cfpb_data?: {
+    ethnicity_details?: {
+      ethnicity?: (
+        | "cuban"
+        | "hispanic_or_latino"
+        | "mexican"
+        | "not_hispanic_or_latino"
+        | "other_hispanic_or_latino"
+        | "prefer_not_to_answer"
+        | "puerto_rican"
+        | UnknownEnumStringValue
+      )[]
+      ethnicity_other?: string
+    }
+    race_details?: {
+      race?: (
+        | "african_american"
+        | "american_indian_or_alaska_native"
+        | "asian"
+        | "asian_indian"
+        | "black_or_african_american"
+        | "chinese"
+        | "ethiopian"
+        | "filipino"
+        | "guamanian_or_chamorro"
+        | "haitian"
+        | "jamaican"
+        | "japanese"
+        | "korean"
+        | "native_hawaiian"
+        | "native_hawaiian_or_other_pacific_islander"
+        | "nigerian"
+        | "other_asian"
+        | "other_black_or_african_american"
+        | "other_pacific_islander"
+        | "prefer_not_to_answer"
+        | "samoan"
+        | "somali"
+        | "vietnamese"
+        | "white"
+        | UnknownEnumStringValue
+      )[]
+      race_other?: string
+    }
+    self_identified_gender?: string
+  }
+  verification?: {
+    additional_document?: {
+      back?: string
+      front?: string
+    }
+    document?: {
+      back?: string
+      front?: string
+    }
+  }
+}
+
+export type t_PostAccountsAccountPeoplePersonRequestBody = {
+  additional_tos_acceptances?: {
+    account?: {
+      date?: number
+      ip?: string
+      user_agent?: string | "" | UnknownEnumStringValue
+    }
+  }
+  address?: {
+    city?: string
+    country?: string
+    line1?: string
+    line2?: string
+    postal_code?: string
+    state?: string
+  }
+  address_kana?: {
+    city?: string
+    country?: string
+    line1?: string
+    line2?: string
+    postal_code?: string
+    state?: string
+    town?: string
+  }
+  address_kanji?: {
+    city?: string
+    country?: string
+    line1?: string
+    line2?: string
+    postal_code?: string
+    state?: string
+    town?: string
+  }
+  dob?:
+    | {
+        day: number
+        month: number
+        year: number
+      }
+    | ""
+    | UnknownEnumStringValue
+  documents?: {
+    company_authorization?: {
+      files?: (string | "" | UnknownEnumStringValue)[]
+    }
+    passport?: {
+      files?: (string | "" | UnknownEnumStringValue)[]
+    }
+    visa?: {
+      files?: (string | "" | UnknownEnumStringValue)[]
+    }
+  }
+  email?: string
+  expand?: string[]
+  first_name?: string
+  first_name_kana?: string
+  first_name_kanji?: string
+  full_name_aliases?: string[] | "" | UnknownEnumStringValue
+  gender?: string
+  id_number?: string
+  id_number_secondary?: string
+  last_name?: string
+  last_name_kana?: string
+  last_name_kanji?: string
+  maiden_name?: string
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | ""
+    | UnknownEnumStringValue
+  nationality?: string
+  person_token?: string
+  phone?: string
+  political_exposure?: "existing" | "none" | UnknownEnumStringValue
+  registered_address?: {
+    city?: string
+    country?: string
+    line1?: string
+    line2?: string
+    postal_code?: string
+    state?: string
+  }
+  relationship?: {
+    authorizer?: boolean
+    director?: boolean
+    executive?: boolean
+    legal_guardian?: boolean
+    owner?: boolean
+    percent_ownership?: number | "" | UnknownEnumStringValue
+    representative?: boolean
+    title?: string
+  }
+  ssn_last_4?: string
+  us_cfpb_data?: {
+    ethnicity_details?: {
+      ethnicity?: (
+        | "cuban"
+        | "hispanic_or_latino"
+        | "mexican"
+        | "not_hispanic_or_latino"
+        | "other_hispanic_or_latino"
+        | "prefer_not_to_answer"
+        | "puerto_rican"
+        | UnknownEnumStringValue
+      )[]
+      ethnicity_other?: string
+    }
+    race_details?: {
+      race?: (
+        | "african_american"
+        | "american_indian_or_alaska_native"
+        | "asian"
+        | "asian_indian"
+        | "black_or_african_american"
+        | "chinese"
+        | "ethiopian"
+        | "filipino"
+        | "guamanian_or_chamorro"
+        | "haitian"
+        | "jamaican"
+        | "japanese"
+        | "korean"
+        | "native_hawaiian"
+        | "native_hawaiian_or_other_pacific_islander"
+        | "nigerian"
+        | "other_asian"
+        | "other_black_or_african_american"
+        | "other_pacific_islander"
+        | "prefer_not_to_answer"
+        | "samoan"
+        | "somali"
+        | "vietnamese"
+        | "white"
+        | UnknownEnumStringValue
+      )[]
+      race_other?: string
+    }
+    self_identified_gender?: string
+  }
+  verification?: {
+    additional_document?: {
+      back?: string
+      front?: string
+    }
+    document?: {
+      back?: string
+      front?: string
+    }
+  }
+}
+
+export type t_PostAccountsAccountPersonsRequestBody = {
+  additional_tos_acceptances?: {
+    account?: {
+      date?: number
+      ip?: string
+      user_agent?: string | "" | UnknownEnumStringValue
+    }
+  }
+  address?: {
+    city?: string
+    country?: string
+    line1?: string
+    line2?: string
+    postal_code?: string
+    state?: string
+  }
+  address_kana?: {
+    city?: string
+    country?: string
+    line1?: string
+    line2?: string
+    postal_code?: string
+    state?: string
+    town?: string
+  }
+  address_kanji?: {
+    city?: string
+    country?: string
+    line1?: string
+    line2?: string
+    postal_code?: string
+    state?: string
+    town?: string
+  }
+  dob?:
+    | {
+        day: number
+        month: number
+        year: number
+      }
+    | ""
+    | UnknownEnumStringValue
+  documents?: {
+    company_authorization?: {
+      files?: (string | "" | UnknownEnumStringValue)[]
+    }
+    passport?: {
+      files?: (string | "" | UnknownEnumStringValue)[]
+    }
+    visa?: {
+      files?: (string | "" | UnknownEnumStringValue)[]
+    }
+  }
+  email?: string
+  expand?: string[]
+  first_name?: string
+  first_name_kana?: string
+  first_name_kanji?: string
+  full_name_aliases?: string[] | "" | UnknownEnumStringValue
+  gender?: string
+  id_number?: string
+  id_number_secondary?: string
+  last_name?: string
+  last_name_kana?: string
+  last_name_kanji?: string
+  maiden_name?: string
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | ""
+    | UnknownEnumStringValue
+  nationality?: string
+  person_token?: string
+  phone?: string
+  political_exposure?: "existing" | "none" | UnknownEnumStringValue
+  registered_address?: {
+    city?: string
+    country?: string
+    line1?: string
+    line2?: string
+    postal_code?: string
+    state?: string
+  }
+  relationship?: {
+    authorizer?: boolean
+    director?: boolean
+    executive?: boolean
+    legal_guardian?: boolean
+    owner?: boolean
+    percent_ownership?: number | "" | UnknownEnumStringValue
+    representative?: boolean
+    title?: string
+  }
+  ssn_last_4?: string
+  us_cfpb_data?: {
+    ethnicity_details?: {
+      ethnicity?: (
+        | "cuban"
+        | "hispanic_or_latino"
+        | "mexican"
+        | "not_hispanic_or_latino"
+        | "other_hispanic_or_latino"
+        | "prefer_not_to_answer"
+        | "puerto_rican"
+        | UnknownEnumStringValue
+      )[]
+      ethnicity_other?: string
+    }
+    race_details?: {
+      race?: (
+        | "african_american"
+        | "american_indian_or_alaska_native"
+        | "asian"
+        | "asian_indian"
+        | "black_or_african_american"
+        | "chinese"
+        | "ethiopian"
+        | "filipino"
+        | "guamanian_or_chamorro"
+        | "haitian"
+        | "jamaican"
+        | "japanese"
+        | "korean"
+        | "native_hawaiian"
+        | "native_hawaiian_or_other_pacific_islander"
+        | "nigerian"
+        | "other_asian"
+        | "other_black_or_african_american"
+        | "other_pacific_islander"
+        | "prefer_not_to_answer"
+        | "samoan"
+        | "somali"
+        | "vietnamese"
+        | "white"
+        | UnknownEnumStringValue
+      )[]
+      race_other?: string
+    }
+    self_identified_gender?: string
+  }
+  verification?: {
+    additional_document?: {
+      back?: string
+      front?: string
+    }
+    document?: {
+      back?: string
+      front?: string
+    }
+  }
+}
+
+export type t_PostAccountsAccountPersonsPersonRequestBody = {
+  additional_tos_acceptances?: {
+    account?: {
+      date?: number
+      ip?: string
+      user_agent?: string | "" | UnknownEnumStringValue
+    }
+  }
+  address?: {
+    city?: string
+    country?: string
+    line1?: string
+    line2?: string
+    postal_code?: string
+    state?: string
+  }
+  address_kana?: {
+    city?: string
+    country?: string
+    line1?: string
+    line2?: string
+    postal_code?: string
+    state?: string
+    town?: string
+  }
+  address_kanji?: {
+    city?: string
+    country?: string
+    line1?: string
+    line2?: string
+    postal_code?: string
+    state?: string
+    town?: string
+  }
+  dob?:
+    | {
+        day: number
+        month: number
+        year: number
+      }
+    | ""
+    | UnknownEnumStringValue
+  documents?: {
+    company_authorization?: {
+      files?: (string | "" | UnknownEnumStringValue)[]
+    }
+    passport?: {
+      files?: (string | "" | UnknownEnumStringValue)[]
+    }
+    visa?: {
+      files?: (string | "" | UnknownEnumStringValue)[]
+    }
+  }
+  email?: string
+  expand?: string[]
+  first_name?: string
+  first_name_kana?: string
+  first_name_kanji?: string
+  full_name_aliases?: string[] | "" | UnknownEnumStringValue
+  gender?: string
+  id_number?: string
+  id_number_secondary?: string
+  last_name?: string
+  last_name_kana?: string
+  last_name_kanji?: string
+  maiden_name?: string
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | ""
+    | UnknownEnumStringValue
+  nationality?: string
+  person_token?: string
+  phone?: string
+  political_exposure?: "existing" | "none" | UnknownEnumStringValue
+  registered_address?: {
+    city?: string
+    country?: string
+    line1?: string
+    line2?: string
+    postal_code?: string
+    state?: string
+  }
+  relationship?: {
+    authorizer?: boolean
+    director?: boolean
+    executive?: boolean
+    legal_guardian?: boolean
+    owner?: boolean
+    percent_ownership?: number | "" | UnknownEnumStringValue
+    representative?: boolean
+    title?: string
+  }
+  ssn_last_4?: string
+  us_cfpb_data?: {
+    ethnicity_details?: {
+      ethnicity?: (
+        | "cuban"
+        | "hispanic_or_latino"
+        | "mexican"
+        | "not_hispanic_or_latino"
+        | "other_hispanic_or_latino"
+        | "prefer_not_to_answer"
+        | "puerto_rican"
+        | UnknownEnumStringValue
+      )[]
+      ethnicity_other?: string
+    }
+    race_details?: {
+      race?: (
+        | "african_american"
+        | "american_indian_or_alaska_native"
+        | "asian"
+        | "asian_indian"
+        | "black_or_african_american"
+        | "chinese"
+        | "ethiopian"
+        | "filipino"
+        | "guamanian_or_chamorro"
+        | "haitian"
+        | "jamaican"
+        | "japanese"
+        | "korean"
+        | "native_hawaiian"
+        | "native_hawaiian_or_other_pacific_islander"
+        | "nigerian"
+        | "other_asian"
+        | "other_black_or_african_american"
+        | "other_pacific_islander"
+        | "prefer_not_to_answer"
+        | "samoan"
+        | "somali"
+        | "vietnamese"
+        | "white"
+        | UnknownEnumStringValue
+      )[]
+      race_other?: string
+    }
+    self_identified_gender?: string
+  }
+  verification?: {
+    additional_document?: {
+      back?: string
+      front?: string
+    }
+    document?: {
+      back?: string
+      front?: string
+    }
+  }
+}
+
+export type t_PostAccountsAccountRejectRequestBody = {
+  expand?: string[]
+  reason: string
+}
+
+export type t_PostApplePayDomainsRequestBody = {
+  domain_name: string
+  expand?: string[]
+}
+
+export type t_PostApplicationFeesFeeRefundsIdRequestBody = {
+  expand?: string[]
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | ""
+    | UnknownEnumStringValue
+}
+
+export type t_PostApplicationFeesIdRefundRequestBody = {
+  amount?: number
+  directive?: string
+  expand?: string[]
+}
+
+export type t_PostApplicationFeesIdRefundsRequestBody = {
+  amount?: number
+  expand?: string[]
+  metadata?: {
+    [key: string]: string | undefined
+  }
+}
+
+export type t_PostAppsSecretsRequestBody = {
+  expand?: string[]
+  expires_at?: number
+  name: string
+  payload: string
+  scope: {
+    type: "account" | "user" | UnknownEnumStringValue
+    user?: string
+  }
+}
+
+export type t_PostAppsSecretsDeleteRequestBody = {
+  expand?: string[]
+  name: string
+  scope: {
+    type: "account" | "user" | UnknownEnumStringValue
+    user?: string
+  }
+}
+
+export type t_PostBillingAlertsRequestBody = {
+  alert_type: "usage_threshold" | UnknownEnumStringValue
+  expand?: string[]
+  title: string
+  usage_threshold?: {
+    filters?: {
+      customer?: string
+      type: "customer" | UnknownEnumStringValue
+    }[]
+    gte: number
+    meter: string
+    recurrence: "one_time" | UnknownEnumStringValue
+  }
+}
+
+export type t_PostBillingAlertsIdActivateRequestBody = {
+  expand?: string[]
+}
+
+export type t_PostBillingAlertsIdArchiveRequestBody = {
+  expand?: string[]
+}
+
+export type t_PostBillingAlertsIdDeactivateRequestBody = {
+  expand?: string[]
+}
+
+export type t_PostBillingCreditGrantsRequestBody = {
+  amount: {
+    monetary?: {
+      currency: string
+      value: number
+    }
+    type: "monetary" | UnknownEnumStringValue
+  }
+  applicability_config: {
+    scope: {
+      price_type?: "metered" | UnknownEnumStringValue
+      prices?: {
+        id: string
+      }[]
+    }
+  }
+  category: "paid" | "promotional" | UnknownEnumStringValue
+  customer: string
+  effective_at?: number
+  expand?: string[]
+  expires_at?: number
+  metadata?: {
+    [key: string]: string | undefined
+  }
+  name?: string
+  priority?: number
+}
+
+export type t_PostBillingCreditGrantsIdRequestBody = {
+  expand?: string[]
+  expires_at?: number | "" | UnknownEnumStringValue
+  metadata?: {
+    [key: string]: string | undefined
+  }
+}
+
+export type t_PostBillingCreditGrantsIdExpireRequestBody = {
+  expand?: string[]
+}
+
+export type t_PostBillingCreditGrantsIdVoidRequestBody = {
+  expand?: string[]
+}
+
+export type t_PostBillingMeterEventAdjustmentsRequestBody = {
+  cancel?: {
+    identifier?: string
+  }
+  event_name: string
+  expand?: string[]
+  type: "cancel" | UnknownEnumStringValue
+}
+
+export type t_PostBillingMeterEventsRequestBody = {
+  event_name: string
+  expand?: string[]
+  identifier?: string
+  payload: {
+    [key: string]: string | undefined
+  }
+  timestamp?: number
+}
+
+export type t_PostBillingMetersRequestBody = {
+  customer_mapping?: {
+    event_payload_key: string
+    type: "by_id" | UnknownEnumStringValue
+  }
+  default_aggregation: {
+    formula: "count" | "last" | "sum" | UnknownEnumStringValue
+  }
+  display_name: string
+  event_name: string
+  event_time_window?: "day" | "hour" | UnknownEnumStringValue
+  expand?: string[]
+  value_settings?: {
+    event_payload_key: string
+  }
+}
+
+export type t_PostBillingMetersIdRequestBody = {
+  display_name?: string
+  expand?: string[]
+}
+
+export type t_PostBillingMetersIdDeactivateRequestBody = {
+  expand?: string[]
+}
+
+export type t_PostBillingMetersIdReactivateRequestBody = {
+  expand?: string[]
+}
+
+export type t_PostBillingPortalConfigurationsRequestBody = {
+  business_profile?: {
+    headline?: string | "" | UnknownEnumStringValue
+    privacy_policy_url?: string
+    terms_of_service_url?: string
+  }
+  default_return_url?: string | "" | UnknownEnumStringValue
+  expand?: string[]
+  features: {
+    customer_update?: {
+      allowed_updates?:
+        | (
+            | "address"
+            | "email"
+            | "name"
+            | "phone"
+            | "shipping"
+            | "tax_id"
+            | UnknownEnumStringValue
+          )[]
+        | ""
+        | UnknownEnumStringValue
+      enabled: boolean
+    }
+    invoice_history?: {
+      enabled: boolean
+    }
+    payment_method_update?: {
+      enabled: boolean
+    }
+    subscription_cancel?: {
+      cancellation_reason?: {
+        enabled: boolean
+        options:
+          | (
+              | "customer_service"
+              | "low_quality"
+              | "missing_features"
+              | "other"
+              | "switched_service"
+              | "too_complex"
+              | "too_expensive"
+              | "unused"
+              | UnknownEnumStringValue
+            )[]
+          | ""
+          | UnknownEnumStringValue
+      }
+      enabled: boolean
+      mode?: "at_period_end" | "immediately" | UnknownEnumStringValue
+      proration_behavior?:
+        | "always_invoice"
+        | "create_prorations"
+        | "none"
+        | UnknownEnumStringValue
+    }
+    subscription_update?: {
+      default_allowed_updates?:
+        | ("price" | "promotion_code" | "quantity" | UnknownEnumStringValue)[]
+        | ""
+        | UnknownEnumStringValue
+      enabled: boolean
+      products?:
+        | {
+            adjustable_quantity?: {
+              enabled: boolean
+              maximum?: number
+              minimum?: number
+            }
+            prices: string[]
+            product: string
+          }[]
+        | ""
+        | UnknownEnumStringValue
+      proration_behavior?:
+        | "always_invoice"
+        | "create_prorations"
+        | "none"
+        | UnknownEnumStringValue
+      schedule_at_period_end?: {
+        conditions?: {
+          type:
+            | "decreasing_item_amount"
+            | "shortening_interval"
+            | UnknownEnumStringValue
+        }[]
+      }
+    }
+  }
+  login_page?: {
+    enabled: boolean
+  }
+  metadata?: {
+    [key: string]: string | undefined
+  }
+}
+
+export type t_PostBillingPortalConfigurationsConfigurationRequestBody = {
+  active?: boolean
+  business_profile?: {
+    headline?: string | "" | UnknownEnumStringValue
+    privacy_policy_url?: string | "" | UnknownEnumStringValue
+    terms_of_service_url?: string | "" | UnknownEnumStringValue
+  }
+  default_return_url?: string | "" | UnknownEnumStringValue
+  expand?: string[]
+  features?: {
+    customer_update?: {
+      allowed_updates?:
+        | (
+            | "address"
+            | "email"
+            | "name"
+            | "phone"
+            | "shipping"
+            | "tax_id"
+            | UnknownEnumStringValue
+          )[]
+        | ""
+        | UnknownEnumStringValue
+      enabled?: boolean
+    }
+    invoice_history?: {
+      enabled: boolean
+    }
+    payment_method_update?: {
+      enabled: boolean
+    }
+    subscription_cancel?: {
+      cancellation_reason?: {
+        enabled: boolean
+        options?:
+          | (
+              | "customer_service"
+              | "low_quality"
+              | "missing_features"
+              | "other"
+              | "switched_service"
+              | "too_complex"
+              | "too_expensive"
+              | "unused"
+              | UnknownEnumStringValue
+            )[]
+          | ""
+          | UnknownEnumStringValue
+      }
+      enabled?: boolean
+      mode?: "at_period_end" | "immediately" | UnknownEnumStringValue
+      proration_behavior?:
+        | "always_invoice"
+        | "create_prorations"
+        | "none"
+        | UnknownEnumStringValue
+    }
+    subscription_update?: {
+      default_allowed_updates?:
+        | ("price" | "promotion_code" | "quantity" | UnknownEnumStringValue)[]
+        | ""
+        | UnknownEnumStringValue
+      enabled?: boolean
+      products?:
+        | {
+            adjustable_quantity?: {
+              enabled: boolean
+              maximum?: number
+              minimum?: number
+            }
+            prices: string[]
+            product: string
+          }[]
+        | ""
+        | UnknownEnumStringValue
+      proration_behavior?:
+        | "always_invoice"
+        | "create_prorations"
+        | "none"
+        | UnknownEnumStringValue
+      schedule_at_period_end?: {
+        conditions?:
+          | {
+              type:
+                | "decreasing_item_amount"
+                | "shortening_interval"
+                | UnknownEnumStringValue
+            }[]
+          | ""
+          | UnknownEnumStringValue
+      }
+    }
+  }
+  login_page?: {
+    enabled: boolean
+  }
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | ""
+    | UnknownEnumStringValue
+}
+
+export type t_PostBillingPortalSessionsRequestBody = {
+  configuration?: string
+  customer: string
+  expand?: string[]
+  flow_data?: {
+    after_completion?: {
+      hosted_confirmation?: {
+        custom_message?: string
+      }
+      redirect?: {
+        return_url: string
+      }
+      type:
+        | "hosted_confirmation"
+        | "portal_homepage"
+        | "redirect"
+        | UnknownEnumStringValue
+    }
+    subscription_cancel?: {
+      retention?: {
+        coupon_offer: {
+          coupon: string
+        }
+        type: "coupon_offer" | UnknownEnumStringValue
+      }
+      subscription: string
+    }
+    subscription_update?: {
+      subscription: string
+    }
+    subscription_update_confirm?: {
+      discounts?: {
+        coupon?: string
+        promotion_code?: string
+      }[]
+      items: {
+        id: string
+        price?: string
+        quantity?: number
+      }[]
+      subscription: string
+    }
+    type:
+      | "payment_method_update"
+      | "subscription_cancel"
+      | "subscription_update"
+      | "subscription_update_confirm"
+      | UnknownEnumStringValue
+  }
+  locale?:
+    | "auto"
+    | "bg"
+    | "cs"
+    | "da"
+    | "de"
+    | "el"
+    | "en"
+    | "en-AU"
+    | "en-CA"
+    | "en-GB"
+    | "en-IE"
+    | "en-IN"
+    | "en-NZ"
+    | "en-SG"
+    | "es"
+    | "es-419"
+    | "et"
+    | "fi"
+    | "fil"
+    | "fr"
+    | "fr-CA"
+    | "hr"
+    | "hu"
+    | "id"
+    | "it"
+    | "ja"
+    | "ko"
+    | "lt"
+    | "lv"
+    | "ms"
+    | "mt"
+    | "nb"
+    | "nl"
+    | "pl"
+    | "pt"
+    | "pt-BR"
+    | "ro"
+    | "ru"
+    | "sk"
+    | "sl"
+    | "sv"
+    | "th"
+    | "tr"
+    | "vi"
+    | "zh"
+    | "zh-HK"
+    | "zh-TW"
+    | UnknownEnumStringValue
+  on_behalf_of?: string
+  return_url?: string
+}
+
+export type t_PostChargesRequestBody = {
+  amount?: number
+  application_fee?: number
+  application_fee_amount?: number
+  capture?: boolean
+  card?:
+    | {
+        address_city?: string
+        address_country?: string
+        address_line1?: string
+        address_line2?: string
+        address_state?: string
+        address_zip?: string
+        cvc?: string
+        exp_month: number
+        exp_year: number
+        metadata?: {
+          [key: string]: string | undefined
+        }
+        name?: string
+        number: string
+        object?: "card" | UnknownEnumStringValue
+      }
+    | string
+  currency?: string
+  customer?: string
+  description?: string
+  destination?:
+    | {
+        account: string
+        amount?: number
+      }
+    | string
+  expand?: string[]
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | ""
+    | UnknownEnumStringValue
+  on_behalf_of?: string
+  radar_options?: {
+    session?: string
+  }
+  receipt_email?: string
+  shipping?: {
+    address: {
+      city?: string
+      country?: string
+      line1?: string
+      line2?: string
+      postal_code?: string
+      state?: string
+    }
+    carrier?: string
+    name: string
+    phone?: string
+    tracking_number?: string
+  }
+  source?: string
+  statement_descriptor?: string
+  statement_descriptor_suffix?: string
+  transfer_data?: {
+    amount?: number
+    destination: string
+  }
+  transfer_group?: string
+}
+
+export type t_PostChargesChargeRequestBody = {
+  customer?: string
+  description?: string
+  expand?: string[]
+  fraud_details?: {
+    user_report: "" | "fraudulent" | "safe" | UnknownEnumStringValue
+  }
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | ""
+    | UnknownEnumStringValue
+  receipt_email?: string
+  shipping?: {
+    address: {
+      city?: string
+      country?: string
+      line1?: string
+      line2?: string
+      postal_code?: string
+      state?: string
+    }
+    carrier?: string
+    name: string
+    phone?: string
+    tracking_number?: string
+  }
+  transfer_group?: string
+}
+
+export type t_PostChargesChargeCaptureRequestBody = {
+  amount?: number
+  application_fee?: number
+  application_fee_amount?: number
+  expand?: string[]
+  receipt_email?: string
+  statement_descriptor?: string
+  statement_descriptor_suffix?: string
+  transfer_data?: {
+    amount?: number
+  }
+  transfer_group?: string
+}
+
+export type t_PostChargesChargeDisputeRequestBody = {
+  evidence?: {
+    access_activity_log?: string
+    billing_address?: string
+    cancellation_policy?: string
+    cancellation_policy_disclosure?: string
+    cancellation_rebuttal?: string
+    customer_communication?: string
+    customer_email_address?: string
+    customer_name?: string
+    customer_purchase_ip?: string
+    customer_signature?: string
+    duplicate_charge_documentation?: string
+    duplicate_charge_explanation?: string
+    duplicate_charge_id?: string
+    enhanced_evidence?:
+      | {
+          visa_compelling_evidence_3?: {
+            disputed_transaction?: {
+              customer_account_id?: string | "" | UnknownEnumStringValue
+              customer_device_fingerprint?: string | "" | UnknownEnumStringValue
+              customer_device_id?: string | "" | UnknownEnumStringValue
+              customer_email_address?: string | "" | UnknownEnumStringValue
+              customer_purchase_ip?: string | "" | UnknownEnumStringValue
+              merchandise_or_services?:
+                | "merchandise"
+                | "services"
+                | UnknownEnumStringValue
+              product_description?: string | "" | UnknownEnumStringValue
+              shipping_address?: {
+                city?: string | "" | UnknownEnumStringValue
+                country?: string | "" | UnknownEnumStringValue
+                line1?: string | "" | UnknownEnumStringValue
+                line2?: string | "" | UnknownEnumStringValue
+                postal_code?: string | "" | UnknownEnumStringValue
+                state?: string | "" | UnknownEnumStringValue
+              }
+            }
+            prior_undisputed_transactions?: {
+              charge: string
+              customer_account_id?: string | "" | UnknownEnumStringValue
+              customer_device_fingerprint?: string | "" | UnknownEnumStringValue
+              customer_device_id?: string | "" | UnknownEnumStringValue
+              customer_email_address?: string | "" | UnknownEnumStringValue
+              customer_purchase_ip?: string | "" | UnknownEnumStringValue
+              product_description?: string | "" | UnknownEnumStringValue
+              shipping_address?: {
+                city?: string | "" | UnknownEnumStringValue
+                country?: string | "" | UnknownEnumStringValue
+                line1?: string | "" | UnknownEnumStringValue
+                line2?: string | "" | UnknownEnumStringValue
+                postal_code?: string | "" | UnknownEnumStringValue
+                state?: string | "" | UnknownEnumStringValue
+              }
+            }[]
+          }
+          visa_compliance?: {
+            fee_acknowledged?: boolean
+          }
+        }
+      | ""
+      | UnknownEnumStringValue
+    product_description?: string
+    receipt?: string
+    refund_policy?: string
+    refund_policy_disclosure?: string
+    refund_refusal_explanation?: string
+    service_date?: string
+    service_documentation?: string
+    shipping_address?: string
+    shipping_carrier?: string
+    shipping_date?: string
+    shipping_documentation?: string
+    shipping_tracking_number?: string
+    uncategorized_file?: string
+    uncategorized_text?: string
+  }
+  expand?: string[]
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | ""
+    | UnknownEnumStringValue
+  submit?: boolean
+}
+
+export type t_PostChargesChargeDisputeCloseRequestBody = {
+  expand?: string[]
+}
+
+export type t_PostChargesChargeRefundRequestBody = {
+  amount?: number
+  expand?: string[]
+  instructions_email?: string
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | ""
+    | UnknownEnumStringValue
+  payment_intent?: string
+  reason?:
+    | "duplicate"
+    | "fraudulent"
+    | "requested_by_customer"
+    | UnknownEnumStringValue
+  refund_application_fee?: boolean
+  reverse_transfer?: boolean
+}
+
+export type t_PostChargesChargeRefundsRequestBody = {
+  amount?: number
+  currency?: string
+  customer?: string
+  expand?: string[]
+  instructions_email?: string
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | ""
+    | UnknownEnumStringValue
+  origin?: "customer_balance" | UnknownEnumStringValue
+  payment_intent?: string
+  reason?:
+    | "duplicate"
+    | "fraudulent"
+    | "requested_by_customer"
+    | UnknownEnumStringValue
+  refund_application_fee?: boolean
+  reverse_transfer?: boolean
+}
+
+export type t_PostChargesChargeRefundsRefundRequestBody = {
+  expand?: string[]
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | ""
+    | UnknownEnumStringValue
+}
+
+export type t_PostCheckoutSessionsRequestBody = {
+  adaptive_pricing?: {
+    enabled?: boolean
+  }
+  after_expiration?: {
+    recovery?: {
+      allow_promotion_codes?: boolean
+      enabled: boolean
+    }
+  }
+  allow_promotion_codes?: boolean
+  automatic_tax?: {
+    enabled: boolean
+    liability?: {
+      account?: string
+      type: "account" | "self" | UnknownEnumStringValue
+    }
+  }
+  billing_address_collection?: "auto" | "required" | UnknownEnumStringValue
+  cancel_url?: string
+  client_reference_id?: string
+  consent_collection?: {
+    payment_method_reuse_agreement?: {
+      position: "auto" | "hidden" | UnknownEnumStringValue
+    }
+    promotions?: "auto" | "none" | UnknownEnumStringValue
+    terms_of_service?: "none" | "required" | UnknownEnumStringValue
+  }
+  currency?: string
+  custom_fields?: {
+    dropdown?: {
+      default_value?: string
+      options: {
+        label: string
+        value: string
+      }[]
+    }
+    key: string
+    label: {
+      custom: string
+      type: "custom" | UnknownEnumStringValue
+    }
+    numeric?: {
+      default_value?: string
+      maximum_length?: number
+      minimum_length?: number
+    }
+    optional?: boolean
+    text?: {
+      default_value?: string
+      maximum_length?: number
+      minimum_length?: number
+    }
+    type: "dropdown" | "numeric" | "text" | UnknownEnumStringValue
+  }[]
+  custom_text?: {
+    after_submit?:
+      | {
+          message: string
+        }
+      | ""
+      | UnknownEnumStringValue
+    shipping_address?:
+      | {
+          message: string
+        }
+      | ""
+      | UnknownEnumStringValue
+    submit?:
+      | {
+          message: string
+        }
+      | ""
+      | UnknownEnumStringValue
+    terms_of_service_acceptance?:
+      | {
+          message: string
+        }
+      | ""
+      | UnknownEnumStringValue
+  }
+  customer?: string
+  customer_creation?: "always" | "if_required" | UnknownEnumStringValue
+  customer_email?: string
+  customer_update?: {
+    address?: "auto" | "never" | UnknownEnumStringValue
+    name?: "auto" | "never" | UnknownEnumStringValue
+    shipping?: "auto" | "never" | UnknownEnumStringValue
+  }
+  discounts?: {
+    coupon?: string
+    promotion_code?: string
+  }[]
+  expand?: string[]
+  expires_at?: number
+  invoice_creation?: {
+    enabled: boolean
+    invoice_data?: {
+      account_tax_ids?: string[] | "" | UnknownEnumStringValue
+      custom_fields?:
+        | {
+            name: string
+            value: string
+          }[]
+        | ""
+        | UnknownEnumStringValue
+      description?: string
+      footer?: string
+      issuer?: {
+        account?: string
+        type: "account" | "self" | UnknownEnumStringValue
+      }
+      metadata?: {
+        [key: string]: string | undefined
+      }
+      rendering_options?:
+        | {
+            amount_tax_display?:
+              | ""
+              | "exclude_tax"
+              | "include_inclusive_tax"
+              | UnknownEnumStringValue
+            template?: string
+          }
+        | ""
+        | UnknownEnumStringValue
+    }
+  }
+  line_items?: {
+    adjustable_quantity?: {
+      enabled: boolean
+      maximum?: number
+      minimum?: number
+    }
+    dynamic_tax_rates?: string[]
+    price?: string
+    price_data?: {
+      currency: string
+      product?: string
+      product_data?: {
+        description?: string
+        images?: string[]
+        metadata?: {
+          [key: string]: string | undefined
+        }
+        name: string
+        tax_code?: string
+      }
+      recurring?: {
+        interval: "day" | "month" | "week" | "year" | UnknownEnumStringValue
+        interval_count?: number
+      }
+      tax_behavior?:
+        | "exclusive"
+        | "inclusive"
+        | "unspecified"
+        | UnknownEnumStringValue
+      unit_amount?: number
+      unit_amount_decimal?: string
+    }
+    quantity?: number
+    tax_rates?: string[]
+  }[]
+  locale?:
+    | "auto"
+    | "bg"
+    | "cs"
+    | "da"
+    | "de"
+    | "el"
+    | "en"
+    | "en-GB"
+    | "es"
+    | "es-419"
+    | "et"
+    | "fi"
+    | "fil"
+    | "fr"
+    | "fr-CA"
+    | "hr"
+    | "hu"
+    | "id"
+    | "it"
+    | "ja"
+    | "ko"
+    | "lt"
+    | "lv"
+    | "ms"
+    | "mt"
+    | "nb"
+    | "nl"
+    | "pl"
+    | "pt"
+    | "pt-BR"
+    | "ro"
+    | "ru"
+    | "sk"
+    | "sl"
+    | "sv"
+    | "th"
+    | "tr"
+    | "vi"
+    | "zh"
+    | "zh-HK"
+    | "zh-TW"
+    | UnknownEnumStringValue
+  metadata?: {
+    [key: string]: string | undefined
+  }
+  mode?: "payment" | "setup" | "subscription" | UnknownEnumStringValue
+  optional_items?: {
+    adjustable_quantity?: {
+      enabled: boolean
+      maximum?: number
+      minimum?: number
+    }
+    price: string
+    quantity: number
+  }[]
+  origin_context?: "mobile_app" | "web" | UnknownEnumStringValue
+  payment_intent_data?: {
+    application_fee_amount?: number
+    capture_method?:
+      | "automatic"
+      | "automatic_async"
+      | "manual"
+      | UnknownEnumStringValue
+    description?: string
+    metadata?: {
+      [key: string]: string | undefined
+    }
+    on_behalf_of?: string
+    receipt_email?: string
+    setup_future_usage?: "off_session" | "on_session" | UnknownEnumStringValue
+    shipping?: {
+      address: {
+        city?: string
+        country?: string
+        line1: string
+        line2?: string
+        postal_code?: string
+        state?: string
+      }
+      carrier?: string
+      name: string
+      phone?: string
+      tracking_number?: string
+    }
+    statement_descriptor?: string
+    statement_descriptor_suffix?: string
+    transfer_data?: {
+      amount?: number
+      destination: string
+    }
+    transfer_group?: string
+  }
+  payment_method_collection?: "always" | "if_required" | UnknownEnumStringValue
+  payment_method_configuration?: string
+  payment_method_data?: {
+    allow_redisplay?:
+      | "always"
+      | "limited"
+      | "unspecified"
+      | UnknownEnumStringValue
+  }
+  payment_method_options?: {
+    acss_debit?: {
+      currency?: "cad" | "usd" | UnknownEnumStringValue
+      mandate_options?: {
+        custom_mandate_url?: string | "" | UnknownEnumStringValue
+        default_for?: ("invoice" | "subscription" | UnknownEnumStringValue)[]
+        interval_description?: string
+        payment_schedule?:
+          | "combined"
+          | "interval"
+          | "sporadic"
+          | UnknownEnumStringValue
+        transaction_type?: "business" | "personal" | UnknownEnumStringValue
+      }
+      setup_future_usage?:
+        | "none"
+        | "off_session"
+        | "on_session"
+        | UnknownEnumStringValue
+      target_date?: string
+      verification_method?:
+        | "automatic"
+        | "instant"
+        | "microdeposits"
+        | UnknownEnumStringValue
+    }
+    affirm?: {
+      setup_future_usage?: "none" | UnknownEnumStringValue
+    }
+    afterpay_clearpay?: {
+      setup_future_usage?: "none" | UnknownEnumStringValue
+    }
+    alipay?: {
+      setup_future_usage?: "none" | UnknownEnumStringValue
+    }
+    amazon_pay?: {
+      setup_future_usage?: "none" | "off_session" | UnknownEnumStringValue
+    }
+    au_becs_debit?: {
+      setup_future_usage?: "none" | UnknownEnumStringValue
+      target_date?: string
+    }
+    bacs_debit?: {
+      mandate_options?: {
+        reference_prefix?: string | "" | UnknownEnumStringValue
+      }
+      setup_future_usage?:
+        | "none"
+        | "off_session"
+        | "on_session"
+        | UnknownEnumStringValue
+      target_date?: string
+    }
+    bancontact?: {
+      setup_future_usage?: "none" | UnknownEnumStringValue
+    }
+    boleto?: {
+      expires_after_days?: number
+      setup_future_usage?:
+        | "none"
+        | "off_session"
+        | "on_session"
+        | UnknownEnumStringValue
+    }
+    card?: {
+      installments?: {
+        enabled?: boolean
+      }
+      request_extended_authorization?:
+        | "if_available"
+        | "never"
+        | UnknownEnumStringValue
+      request_incremental_authorization?:
+        | "if_available"
+        | "never"
+        | UnknownEnumStringValue
+      request_multicapture?: "if_available" | "never" | UnknownEnumStringValue
+      request_overcapture?: "if_available" | "never" | UnknownEnumStringValue
+      request_three_d_secure?:
+        | "any"
+        | "automatic"
+        | "challenge"
+        | UnknownEnumStringValue
+      restrictions?: {
+        brands_blocked?: (
+          | "american_express"
+          | "discover_global_network"
+          | "mastercard"
+          | "visa"
+          | UnknownEnumStringValue
+        )[]
+      }
+      setup_future_usage?: "off_session" | "on_session" | UnknownEnumStringValue
+      statement_descriptor_suffix_kana?: string
+      statement_descriptor_suffix_kanji?: string
+    }
+    cashapp?: {
+      setup_future_usage?:
+        | "none"
+        | "off_session"
+        | "on_session"
+        | UnknownEnumStringValue
+    }
+    customer_balance?: {
+      bank_transfer?: {
+        eu_bank_transfer?: {
+          country: string
+        }
+        requested_address_types?: (
+          | "aba"
+          | "iban"
+          | "sepa"
+          | "sort_code"
+          | "spei"
+          | "swift"
+          | "zengin"
+          | UnknownEnumStringValue
+        )[]
+        type:
+          | "eu_bank_transfer"
+          | "gb_bank_transfer"
+          | "jp_bank_transfer"
+          | "mx_bank_transfer"
+          | "us_bank_transfer"
+          | UnknownEnumStringValue
+      }
+      funding_type?: "bank_transfer" | UnknownEnumStringValue
+      setup_future_usage?: "none" | UnknownEnumStringValue
+    }
+    eps?: {
+      setup_future_usage?: "none" | UnknownEnumStringValue
+    }
+    fpx?: {
+      setup_future_usage?: "none" | UnknownEnumStringValue
+    }
+    giropay?: {
+      setup_future_usage?: "none" | UnknownEnumStringValue
+    }
+    grabpay?: {
+      setup_future_usage?: "none" | UnknownEnumStringValue
+    }
+    ideal?: {
+      setup_future_usage?: "none" | UnknownEnumStringValue
+    }
+    kakao_pay?: {
+      capture_method?: "manual" | UnknownEnumStringValue
+      setup_future_usage?: "none" | "off_session" | UnknownEnumStringValue
+    }
+    klarna?: {
+      setup_future_usage?: "none" | UnknownEnumStringValue
+      subscriptions?:
+        | {
+            interval: "day" | "month" | "week" | "year" | UnknownEnumStringValue
+            interval_count?: number
+            name?: string
+            next_billing: {
+              amount: number
+              date: string
+            }
+            reference: string
+          }[]
+        | ""
+        | UnknownEnumStringValue
+    }
+    konbini?: {
+      expires_after_days?: number
+      setup_future_usage?: "none" | UnknownEnumStringValue
+    }
+    kr_card?: {
+      capture_method?: "manual" | UnknownEnumStringValue
+      setup_future_usage?: "none" | "off_session" | UnknownEnumStringValue
+    }
+    link?: {
+      setup_future_usage?: "none" | "off_session" | UnknownEnumStringValue
+    }
+    mobilepay?: {
+      setup_future_usage?: "none" | UnknownEnumStringValue
+    }
+    multibanco?: {
+      setup_future_usage?: "none" | UnknownEnumStringValue
+    }
+    naver_pay?: {
+      capture_method?: "manual" | UnknownEnumStringValue
+      setup_future_usage?: "none" | "off_session" | UnknownEnumStringValue
+    }
+    oxxo?: {
+      expires_after_days?: number
+      setup_future_usage?: "none" | UnknownEnumStringValue
+    }
+    p24?: {
+      setup_future_usage?: "none" | UnknownEnumStringValue
+      tos_shown_and_accepted?: boolean
+    }
+    pay_by_bank?: EmptyObject
+    payco?: {
+      capture_method?: "manual" | UnknownEnumStringValue
+    }
+    paynow?: {
+      setup_future_usage?: "none" | UnknownEnumStringValue
+    }
+    paypal?: {
+      capture_method?: "" | "manual" | UnknownEnumStringValue
+      preferred_locale?:
+        | "cs-CZ"
+        | "da-DK"
+        | "de-AT"
+        | "de-DE"
+        | "de-LU"
+        | "el-GR"
+        | "en-GB"
+        | "en-US"
+        | "es-ES"
+        | "fi-FI"
+        | "fr-BE"
+        | "fr-FR"
+        | "fr-LU"
+        | "hu-HU"
+        | "it-IT"
+        | "nl-BE"
+        | "nl-NL"
+        | "pl-PL"
+        | "pt-PT"
+        | "sk-SK"
+        | "sv-SE"
+        | UnknownEnumStringValue
+      reference?: string
+      risk_correlation_id?: string
+      setup_future_usage?: "" | "none" | "off_session" | UnknownEnumStringValue
+    }
+    pix?: {
+      expires_after_seconds?: number
+      setup_future_usage?: "none" | UnknownEnumStringValue
+    }
+    revolut_pay?: {
+      setup_future_usage?: "none" | "off_session" | UnknownEnumStringValue
+    }
+    samsung_pay?: {
+      capture_method?: "manual" | UnknownEnumStringValue
+    }
+    sepa_debit?: {
+      mandate_options?: {
+        reference_prefix?: string | "" | UnknownEnumStringValue
+      }
+      setup_future_usage?:
+        | "none"
+        | "off_session"
+        | "on_session"
+        | UnknownEnumStringValue
+      target_date?: string
+    }
+    sofort?: {
+      setup_future_usage?: "none" | UnknownEnumStringValue
+    }
+    swish?: {
+      reference?: string
+    }
+    us_bank_account?: {
+      financial_connections?: {
+        permissions?: (
+          | "balances"
+          | "ownership"
+          | "payment_method"
+          | "transactions"
+          | UnknownEnumStringValue
+        )[]
+        prefetch?: (
+          | "balances"
+          | "ownership"
+          | "transactions"
+          | UnknownEnumStringValue
+        )[]
+      }
+      setup_future_usage?:
+        | "none"
+        | "off_session"
+        | "on_session"
+        | UnknownEnumStringValue
+      target_date?: string
+      verification_method?: "automatic" | "instant" | UnknownEnumStringValue
+    }
+    wechat_pay?: {
+      app_id?: string
+      client: "android" | "ios" | "web" | UnknownEnumStringValue
+      setup_future_usage?: "none" | UnknownEnumStringValue
+    }
+  }
+  payment_method_types?: (
+    | "acss_debit"
+    | "affirm"
+    | "afterpay_clearpay"
+    | "alipay"
+    | "alma"
+    | "amazon_pay"
+    | "au_becs_debit"
+    | "bacs_debit"
+    | "bancontact"
+    | "billie"
+    | "blik"
+    | "boleto"
+    | "card"
+    | "cashapp"
+    | "crypto"
+    | "customer_balance"
+    | "eps"
+    | "fpx"
+    | "giropay"
+    | "grabpay"
+    | "ideal"
+    | "kakao_pay"
+    | "klarna"
+    | "konbini"
+    | "kr_card"
+    | "link"
+    | "mobilepay"
+    | "multibanco"
+    | "naver_pay"
+    | "nz_bank_account"
+    | "oxxo"
+    | "p24"
+    | "pay_by_bank"
+    | "payco"
+    | "paynow"
+    | "paypal"
+    | "pix"
+    | "promptpay"
+    | "revolut_pay"
+    | "samsung_pay"
+    | "satispay"
+    | "sepa_debit"
+    | "sofort"
+    | "swish"
+    | "twint"
+    | "us_bank_account"
+    | "wechat_pay"
+    | "zip"
+    | UnknownEnumStringValue
+  )[]
+  permissions?: {
+    update_shipping_details?:
+      | "client_only"
+      | "server_only"
+      | UnknownEnumStringValue
+  }
+  phone_number_collection?: {
+    enabled: boolean
+  }
+  redirect_on_completion?:
+    | "always"
+    | "if_required"
+    | "never"
+    | UnknownEnumStringValue
+  return_url?: string
+  saved_payment_method_options?: {
+    allow_redisplay_filters?: (
+      | "always"
+      | "limited"
+      | "unspecified"
+      | UnknownEnumStringValue
+    )[]
+    payment_method_remove?: "disabled" | "enabled" | UnknownEnumStringValue
+    payment_method_save?: "disabled" | "enabled" | UnknownEnumStringValue
+  }
+  setup_intent_data?: {
+    description?: string
+    metadata?: {
+      [key: string]: string | undefined
+    }
+    on_behalf_of?: string
+  }
+  shipping_address_collection?: {
+    allowed_countries: (
+      | "AC"
+      | "AD"
+      | "AE"
+      | "AF"
+      | "AG"
+      | "AI"
+      | "AL"
+      | "AM"
+      | "AO"
+      | "AQ"
+      | "AR"
+      | "AT"
+      | "AU"
+      | "AW"
+      | "AX"
+      | "AZ"
+      | "BA"
+      | "BB"
+      | "BD"
+      | "BE"
+      | "BF"
+      | "BG"
+      | "BH"
+      | "BI"
+      | "BJ"
+      | "BL"
+      | "BM"
+      | "BN"
+      | "BO"
+      | "BQ"
+      | "BR"
+      | "BS"
+      | "BT"
+      | "BV"
+      | "BW"
+      | "BY"
+      | "BZ"
+      | "CA"
+      | "CD"
+      | "CF"
+      | "CG"
+      | "CH"
+      | "CI"
+      | "CK"
+      | "CL"
+      | "CM"
+      | "CN"
+      | "CO"
+      | "CR"
+      | "CV"
+      | "CW"
+      | "CY"
+      | "CZ"
+      | "DE"
+      | "DJ"
+      | "DK"
+      | "DM"
+      | "DO"
+      | "DZ"
+      | "EC"
+      | "EE"
+      | "EG"
+      | "EH"
+      | "ER"
+      | "ES"
+      | "ET"
+      | "FI"
+      | "FJ"
+      | "FK"
+      | "FO"
+      | "FR"
+      | "GA"
+      | "GB"
+      | "GD"
+      | "GE"
+      | "GF"
+      | "GG"
+      | "GH"
+      | "GI"
+      | "GL"
+      | "GM"
+      | "GN"
+      | "GP"
+      | "GQ"
+      | "GR"
+      | "GS"
+      | "GT"
+      | "GU"
+      | "GW"
+      | "GY"
+      | "HK"
+      | "HN"
+      | "HR"
+      | "HT"
+      | "HU"
+      | "ID"
+      | "IE"
+      | "IL"
+      | "IM"
+      | "IN"
+      | "IO"
+      | "IQ"
+      | "IS"
+      | "IT"
+      | "JE"
+      | "JM"
+      | "JO"
+      | "JP"
+      | "KE"
+      | "KG"
+      | "KH"
+      | "KI"
+      | "KM"
+      | "KN"
+      | "KR"
+      | "KW"
+      | "KY"
+      | "KZ"
+      | "LA"
+      | "LB"
+      | "LC"
+      | "LI"
+      | "LK"
+      | "LR"
+      | "LS"
+      | "LT"
+      | "LU"
+      | "LV"
+      | "LY"
+      | "MA"
+      | "MC"
+      | "MD"
+      | "ME"
+      | "MF"
+      | "MG"
+      | "MK"
+      | "ML"
+      | "MM"
+      | "MN"
+      | "MO"
+      | "MQ"
+      | "MR"
+      | "MS"
+      | "MT"
+      | "MU"
+      | "MV"
+      | "MW"
+      | "MX"
+      | "MY"
+      | "MZ"
+      | "NA"
+      | "NC"
+      | "NE"
+      | "NG"
+      | "NI"
+      | "NL"
+      | "NO"
+      | "NP"
+      | "NR"
+      | "NU"
+      | "NZ"
+      | "OM"
+      | "PA"
+      | "PE"
+      | "PF"
+      | "PG"
+      | "PH"
+      | "PK"
+      | "PL"
+      | "PM"
+      | "PN"
+      | "PR"
+      | "PS"
+      | "PT"
+      | "PY"
+      | "QA"
+      | "RE"
+      | "RO"
+      | "RS"
+      | "RU"
+      | "RW"
+      | "SA"
+      | "SB"
+      | "SC"
+      | "SD"
+      | "SE"
+      | "SG"
+      | "SH"
+      | "SI"
+      | "SJ"
+      | "SK"
+      | "SL"
+      | "SM"
+      | "SN"
+      | "SO"
+      | "SR"
+      | "SS"
+      | "ST"
+      | "SV"
+      | "SX"
+      | "SZ"
+      | "TA"
+      | "TC"
+      | "TD"
+      | "TF"
+      | "TG"
+      | "TH"
+      | "TJ"
+      | "TK"
+      | "TL"
+      | "TM"
+      | "TN"
+      | "TO"
+      | "TR"
+      | "TT"
+      | "TV"
+      | "TW"
+      | "TZ"
+      | "UA"
+      | "UG"
+      | "US"
+      | "UY"
+      | "UZ"
+      | "VA"
+      | "VC"
+      | "VE"
+      | "VG"
+      | "VN"
+      | "VU"
+      | "WF"
+      | "WS"
+      | "XK"
+      | "YE"
+      | "YT"
+      | "ZA"
+      | "ZM"
+      | "ZW"
+      | "ZZ"
+      | UnknownEnumStringValue
+    )[]
+  }
+  shipping_options?: {
+    shipping_rate?: string
+    shipping_rate_data?: {
+      delivery_estimate?: {
+        maximum?: {
+          unit:
+            | "business_day"
+            | "day"
+            | "hour"
+            | "month"
+            | "week"
+            | UnknownEnumStringValue
+          value: number
+        }
+        minimum?: {
+          unit:
+            | "business_day"
+            | "day"
+            | "hour"
+            | "month"
+            | "week"
+            | UnknownEnumStringValue
+          value: number
+        }
+      }
+      display_name: string
+      fixed_amount?: {
+        amount: number
+        currency: string
+        currency_options?: {
+          [key: string]:
+            | {
+                amount: number
+                tax_behavior?:
+                  | "exclusive"
+                  | "inclusive"
+                  | "unspecified"
+                  | UnknownEnumStringValue
+              }
+            | undefined
+        }
+      }
+      metadata?: {
+        [key: string]: string | undefined
+      }
+      tax_behavior?:
+        | "exclusive"
+        | "inclusive"
+        | "unspecified"
+        | UnknownEnumStringValue
+      tax_code?: string
+      type?: "fixed_amount" | UnknownEnumStringValue
+    }
+  }[]
+  submit_type?:
+    | "auto"
+    | "book"
+    | "donate"
+    | "pay"
+    | "subscribe"
+    | UnknownEnumStringValue
+  subscription_data?: {
+    application_fee_percent?: number
+    billing_cycle_anchor?: number
+    billing_mode?: {
+      type: "classic" | "flexible" | UnknownEnumStringValue
+    }
+    default_tax_rates?: string[]
+    description?: string
+    invoice_settings?: {
+      issuer?: {
+        account?: string
+        type: "account" | "self" | UnknownEnumStringValue
+      }
+    }
+    metadata?: {
+      [key: string]: string | undefined
+    }
+    on_behalf_of?: string
+    proration_behavior?: "create_prorations" | "none" | UnknownEnumStringValue
+    transfer_data?: {
+      amount_percent?: number
+      destination: string
+    }
+    trial_end?: number
+    trial_period_days?: number
+    trial_settings?: {
+      end_behavior: {
+        missing_payment_method:
+          | "cancel"
+          | "create_invoice"
+          | "pause"
+          | UnknownEnumStringValue
+      }
+    }
+  }
+  success_url?: string
+  tax_id_collection?: {
+    enabled: boolean
+    required?: "if_supported" | "never" | UnknownEnumStringValue
+  }
+  ui_mode?: "custom" | "embedded" | "hosted" | UnknownEnumStringValue
+  wallet_options?: {
+    link?: {
+      display?: "auto" | "never" | UnknownEnumStringValue
+    }
+  }
+}
+
+export type t_PostCheckoutSessionsSessionRequestBody = {
+  collected_information?: {
+    shipping_details?: {
+      address: {
+        city?: string
+        country: string
+        line1: string
+        line2?: string
+        postal_code?: string
+        state?: string
+      }
+      name: string
+    }
+  }
+  expand?: string[]
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | ""
+    | UnknownEnumStringValue
+  shipping_options?:
+    | {
+        shipping_rate?: string
+        shipping_rate_data?: {
+          delivery_estimate?: {
+            maximum?: {
+              unit:
+                | "business_day"
+                | "day"
+                | "hour"
+                | "month"
+                | "week"
+                | UnknownEnumStringValue
+              value: number
+            }
+            minimum?: {
+              unit:
+                | "business_day"
+                | "day"
+                | "hour"
+                | "month"
+                | "week"
+                | UnknownEnumStringValue
+              value: number
+            }
+          }
+          display_name: string
+          fixed_amount?: {
+            amount: number
+            currency: string
+            currency_options?: {
+              [key: string]:
+                | {
+                    amount: number
+                    tax_behavior?:
+                      | "exclusive"
+                      | "inclusive"
+                      | "unspecified"
+                      | UnknownEnumStringValue
+                  }
+                | undefined
+            }
+          }
+          metadata?: {
+            [key: string]: string | undefined
+          }
+          tax_behavior?:
+            | "exclusive"
+            | "inclusive"
+            | "unspecified"
+            | UnknownEnumStringValue
+          tax_code?: string
+          type?: "fixed_amount" | UnknownEnumStringValue
+        }
+      }[]
+    | ""
+    | UnknownEnumStringValue
+}
+
+export type t_PostCheckoutSessionsSessionExpireRequestBody = {
+  expand?: string[]
+}
+
+export type t_PostClimateOrdersRequestBody = {
+  amount?: number
+  beneficiary?: {
+    public_name: string
+  }
+  currency?: string
+  expand?: string[]
+  metadata?: {
+    [key: string]: string | undefined
+  }
+  metric_tons?: string
+  product: string
+}
+
+export type t_PostClimateOrdersOrderRequestBody = {
+  beneficiary?:
+    | {
+        public_name: string | "" | UnknownEnumStringValue
+      }
+    | ""
+    | UnknownEnumStringValue
+  expand?: string[]
+  metadata?: {
+    [key: string]: string | undefined
+  }
+}
+
+export type t_PostClimateOrdersOrderCancelRequestBody = {
+  expand?: string[]
+}
+
+export type t_PostCouponsRequestBody = {
+  amount_off?: number
+  applies_to?: {
+    products?: string[]
+  }
+  currency?: string
+  currency_options?: {
+    [key: string]:
+      | {
+          amount_off: number
+        }
+      | undefined
+  }
+  duration?: "forever" | "once" | "repeating" | UnknownEnumStringValue
+  duration_in_months?: number
+  expand?: string[]
+  id?: string
+  max_redemptions?: number
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | ""
+    | UnknownEnumStringValue
+  name?: string
+  percent_off?: number
+  redeem_by?: number
+}
+
+export type t_PostCouponsCouponRequestBody = {
+  currency_options?: {
+    [key: string]:
+      | {
+          amount_off: number
+        }
+      | undefined
+  }
+  expand?: string[]
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | ""
+    | UnknownEnumStringValue
+  name?: string
+}
+
+export type t_PostCreditNotesRequestBody = {
+  amount?: number
+  credit_amount?: number
+  effective_at?: number
+  email_type?: "credit_note" | "none" | UnknownEnumStringValue
+  expand?: string[]
+  invoice: string
+  lines?: {
+    amount?: number
+    description?: string
+    invoice_line_item?: string
+    quantity?: number
+    tax_amounts?:
+      | {
+          amount: number
+          tax_rate: string
+          taxable_amount: number
+        }[]
+      | ""
+      | UnknownEnumStringValue
+    tax_rates?: string[] | "" | UnknownEnumStringValue
+    type: "custom_line_item" | "invoice_line_item" | UnknownEnumStringValue
+    unit_amount?: number
+    unit_amount_decimal?: string
+  }[]
+  memo?: string
+  metadata?: {
+    [key: string]: string | undefined
+  }
+  out_of_band_amount?: number
+  reason?:
+    | "duplicate"
+    | "fraudulent"
+    | "order_change"
+    | "product_unsatisfactory"
+    | UnknownEnumStringValue
+  refund_amount?: number
+  refunds?: {
+    amount_refunded?: number
+    refund?: string
+  }[]
+  shipping_cost?: {
+    shipping_rate?: string
+  }
+}
+
+export type t_PostCreditNotesIdRequestBody = {
+  expand?: string[]
+  memo?: string
+  metadata?: {
+    [key: string]: string | undefined
+  }
+}
+
+export type t_PostCreditNotesIdVoidRequestBody = {
+  expand?: string[]
+}
+
+export type t_PostCustomerSessionsRequestBody = {
+  components: {
+    buy_button?: {
+      enabled: boolean
+    }
+    payment_element?: {
+      enabled: boolean
+      features?: {
+        payment_method_allow_redisplay_filters?: (
+          | "always"
+          | "limited"
+          | "unspecified"
+          | UnknownEnumStringValue
+        )[]
+        payment_method_redisplay?:
+          | "disabled"
+          | "enabled"
+          | UnknownEnumStringValue
+        payment_method_redisplay_limit?: number
+        payment_method_remove?: "disabled" | "enabled" | UnknownEnumStringValue
+        payment_method_save?: "disabled" | "enabled" | UnknownEnumStringValue
+        payment_method_save_usage?:
+          | "off_session"
+          | "on_session"
+          | UnknownEnumStringValue
+      }
+    }
+    pricing_table?: {
+      enabled: boolean
+    }
+  }
+  customer: string
+  expand?: string[]
+}
+
+export type t_PostCustomersRequestBody = {
+  address?:
+    | {
+        city?: string
+        country?: string
+        line1?: string
+        line2?: string
+        postal_code?: string
+        state?: string
+      }
+    | ""
+    | UnknownEnumStringValue
+  balance?: number
+  cash_balance?: {
+    settings?: {
+      reconciliation_mode?:
+        | "automatic"
+        | "manual"
+        | "merchant_default"
+        | UnknownEnumStringValue
+    }
+  }
+  description?: string
+  email?: string
+  expand?: string[]
+  invoice_prefix?: string
+  invoice_settings?: {
+    custom_fields?:
+      | {
+          name: string
+          value: string
+        }[]
+      | ""
+      | UnknownEnumStringValue
+    default_payment_method?: string
+    footer?: string
+    rendering_options?:
+      | {
+          amount_tax_display?:
+            | ""
+            | "exclude_tax"
+            | "include_inclusive_tax"
+            | UnknownEnumStringValue
+          template?: string
+        }
+      | ""
+      | UnknownEnumStringValue
+  }
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | ""
+    | UnknownEnumStringValue
+  name?: string
+  next_invoice_sequence?: number
+  payment_method?: string
+  phone?: string
+  preferred_locales?: string[]
+  shipping?:
+    | {
+        address: {
+          city?: string
+          country?: string
+          line1?: string
+          line2?: string
+          postal_code?: string
+          state?: string
+        }
+        name: string
+        phone?: string
+      }
+    | ""
+    | UnknownEnumStringValue
+  source?: string
+  tax?: {
+    ip_address?: string | "" | UnknownEnumStringValue
+    validate_location?: "deferred" | "immediately" | UnknownEnumStringValue
+  }
+  tax_exempt?: "" | "exempt" | "none" | "reverse" | UnknownEnumStringValue
+  tax_id_data?: {
+    type:
+      | "ad_nrt"
+      | "ae_trn"
+      | "al_tin"
+      | "am_tin"
+      | "ao_tin"
+      | "ar_cuit"
+      | "au_abn"
+      | "au_arn"
+      | "aw_tin"
+      | "az_tin"
+      | "ba_tin"
+      | "bb_tin"
+      | "bd_bin"
+      | "bf_ifu"
+      | "bg_uic"
+      | "bh_vat"
+      | "bj_ifu"
+      | "bo_tin"
+      | "br_cnpj"
+      | "br_cpf"
+      | "bs_tin"
+      | "by_tin"
+      | "ca_bn"
+      | "ca_gst_hst"
+      | "ca_pst_bc"
+      | "ca_pst_mb"
+      | "ca_pst_sk"
+      | "ca_qst"
+      | "cd_nif"
+      | "ch_uid"
+      | "ch_vat"
+      | "cl_tin"
+      | "cm_niu"
+      | "cn_tin"
+      | "co_nit"
+      | "cr_tin"
+      | "cv_nif"
+      | "de_stn"
+      | "do_rcn"
+      | "ec_ruc"
+      | "eg_tin"
+      | "es_cif"
+      | "et_tin"
+      | "eu_oss_vat"
+      | "eu_vat"
+      | "gb_vat"
+      | "ge_vat"
+      | "gn_nif"
+      | "hk_br"
+      | "hr_oib"
+      | "hu_tin"
+      | "id_npwp"
+      | "il_vat"
+      | "in_gst"
+      | "is_vat"
+      | "jp_cn"
+      | "jp_rn"
+      | "jp_trn"
+      | "ke_pin"
+      | "kg_tin"
+      | "kh_tin"
+      | "kr_brn"
+      | "kz_bin"
+      | "la_tin"
+      | "li_uid"
+      | "li_vat"
+      | "ma_vat"
+      | "md_vat"
+      | "me_pib"
+      | "mk_vat"
+      | "mr_nif"
+      | "mx_rfc"
+      | "my_frp"
+      | "my_itn"
+      | "my_sst"
+      | "ng_tin"
+      | "no_vat"
+      | "no_voec"
+      | "np_pan"
+      | "nz_gst"
+      | "om_vat"
+      | "pe_ruc"
+      | "ph_tin"
+      | "ro_tin"
+      | "rs_pib"
+      | "ru_inn"
+      | "ru_kpp"
+      | "sa_vat"
+      | "sg_gst"
+      | "sg_uen"
+      | "si_tin"
+      | "sn_ninea"
+      | "sr_fin"
+      | "sv_nit"
+      | "th_vat"
+      | "tj_tin"
+      | "tr_tin"
+      | "tw_vat"
+      | "tz_vat"
+      | "ua_vat"
+      | "ug_tin"
+      | "us_ein"
+      | "uy_ruc"
+      | "uz_tin"
+      | "uz_vat"
+      | "ve_rif"
+      | "vn_tin"
+      | "za_vat"
+      | "zm_tin"
+      | "zw_tin"
+      | UnknownEnumStringValue
+    value: string
+  }[]
+  test_clock?: string
+}
+
+export type t_PostCustomersCustomerRequestBody = {
+  address?:
+    | {
+        city?: string
+        country?: string
+        line1?: string
+        line2?: string
+        postal_code?: string
+        state?: string
+      }
+    | ""
+    | UnknownEnumStringValue
+  balance?: number
+  bank_account?:
+    | {
+        account_holder_name?: string
+        account_holder_type?: "company" | "individual" | UnknownEnumStringValue
+        account_number: string
+        country: string
+        currency?: string
+        object?: "bank_account" | UnknownEnumStringValue
+        routing_number?: string
+      }
+    | string
+  card?:
+    | {
+        address_city?: string
+        address_country?: string
+        address_line1?: string
+        address_line2?: string
+        address_state?: string
+        address_zip?: string
+        cvc?: string
+        exp_month: number
+        exp_year: number
+        metadata?: {
+          [key: string]: string | undefined
+        }
+        name?: string
+        number: string
+        object?: "card" | UnknownEnumStringValue
+      }
+    | string
+  cash_balance?: {
+    settings?: {
+      reconciliation_mode?:
+        | "automatic"
+        | "manual"
+        | "merchant_default"
+        | UnknownEnumStringValue
+    }
+  }
+  default_alipay_account?: string
+  default_bank_account?: string
+  default_card?: string
+  default_source?: string
+  description?: string
+  email?: string
+  expand?: string[]
+  invoice_prefix?: string
+  invoice_settings?: {
+    custom_fields?:
+      | {
+          name: string
+          value: string
+        }[]
+      | ""
+      | UnknownEnumStringValue
+    default_payment_method?: string
+    footer?: string
+    rendering_options?:
+      | {
+          amount_tax_display?:
+            | ""
+            | "exclude_tax"
+            | "include_inclusive_tax"
+            | UnknownEnumStringValue
+          template?: string
+        }
+      | ""
+      | UnknownEnumStringValue
+  }
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | ""
+    | UnknownEnumStringValue
+  name?: string
+  next_invoice_sequence?: number
+  phone?: string
+  preferred_locales?: string[]
+  shipping?:
+    | {
+        address: {
+          city?: string
+          country?: string
+          line1?: string
+          line2?: string
+          postal_code?: string
+          state?: string
+        }
+        name: string
+        phone?: string
+      }
+    | ""
+    | UnknownEnumStringValue
+  source?: string
+  tax?: {
+    ip_address?: string | "" | UnknownEnumStringValue
+    validate_location?:
+      | "auto"
+      | "deferred"
+      | "immediately"
+      | UnknownEnumStringValue
+  }
+  tax_exempt?: "" | "exempt" | "none" | "reverse" | UnknownEnumStringValue
+}
+
+export type t_PostCustomersCustomerBalanceTransactionsRequestBody = {
+  amount: number
+  currency: string
+  description?: string
+  expand?: string[]
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | ""
+    | UnknownEnumStringValue
+}
+
+export type t_PostCustomersCustomerBalanceTransactionsTransactionRequestBody = {
+  description?: string
+  expand?: string[]
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | ""
+    | UnknownEnumStringValue
+}
+
+export type t_PostCustomersCustomerBankAccountsRequestBody = {
+  alipay_account?: string
+  bank_account?:
+    | {
+        account_holder_name?: string
+        account_holder_type?: "company" | "individual" | UnknownEnumStringValue
+        account_number: string
+        country: string
+        currency?: string
+        object?: "bank_account" | UnknownEnumStringValue
+        routing_number?: string
+      }
+    | string
+  card?:
+    | {
+        address_city?: string
+        address_country?: string
+        address_line1?: string
+        address_line2?: string
+        address_state?: string
+        address_zip?: string
+        cvc?: string
+        exp_month: number
+        exp_year: number
+        metadata?: {
+          [key: string]: string | undefined
+        }
+        name?: string
+        number: string
+        object?: "card" | UnknownEnumStringValue
+      }
+    | string
+  expand?: string[]
+  metadata?: {
+    [key: string]: string | undefined
+  }
+  source?: string
+}
+
+export type t_PostCustomersCustomerBankAccountsIdRequestBody = {
+  account_holder_name?: string
+  account_holder_type?: "company" | "individual" | UnknownEnumStringValue
+  address_city?: string
+  address_country?: string
+  address_line1?: string
+  address_line2?: string
+  address_state?: string
+  address_zip?: string
+  exp_month?: string
+  exp_year?: string
+  expand?: string[]
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | ""
+    | UnknownEnumStringValue
+  name?: string
+  owner?: {
+    address?: {
+      city?: string
+      country?: string
+      line1?: string
+      line2?: string
+      postal_code?: string
+      state?: string
+    }
+    email?: string
+    name?: string
+    phone?: string
+  }
+}
+
+export type t_PostCustomersCustomerBankAccountsIdVerifyRequestBody = {
+  amounts?: number[]
+  expand?: string[]
+}
+
+export type t_PostCustomersCustomerCardsRequestBody = {
+  alipay_account?: string
+  bank_account?:
+    | {
+        account_holder_name?: string
+        account_holder_type?: "company" | "individual" | UnknownEnumStringValue
+        account_number: string
+        country: string
+        currency?: string
+        object?: "bank_account" | UnknownEnumStringValue
+        routing_number?: string
+      }
+    | string
+  card?:
+    | {
+        address_city?: string
+        address_country?: string
+        address_line1?: string
+        address_line2?: string
+        address_state?: string
+        address_zip?: string
+        cvc?: string
+        exp_month: number
+        exp_year: number
+        metadata?: {
+          [key: string]: string | undefined
+        }
+        name?: string
+        number: string
+        object?: "card" | UnknownEnumStringValue
+      }
+    | string
+  expand?: string[]
+  metadata?: {
+    [key: string]: string | undefined
+  }
+  source?: string
+}
+
+export type t_PostCustomersCustomerCardsIdRequestBody = {
+  account_holder_name?: string
+  account_holder_type?: "company" | "individual" | UnknownEnumStringValue
+  address_city?: string
+  address_country?: string
+  address_line1?: string
+  address_line2?: string
+  address_state?: string
+  address_zip?: string
+  exp_month?: string
+  exp_year?: string
+  expand?: string[]
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | ""
+    | UnknownEnumStringValue
+  name?: string
+  owner?: {
+    address?: {
+      city?: string
+      country?: string
+      line1?: string
+      line2?: string
+      postal_code?: string
+      state?: string
+    }
+    email?: string
+    name?: string
+    phone?: string
+  }
+}
+
+export type t_PostCustomersCustomerCashBalanceRequestBody = {
+  expand?: string[]
+  settings?: {
+    reconciliation_mode?:
+      | "automatic"
+      | "manual"
+      | "merchant_default"
+      | UnknownEnumStringValue
+  }
+}
+
+export type t_PostCustomersCustomerFundingInstructionsRequestBody = {
+  bank_transfer: {
+    eu_bank_transfer?: {
+      country: string
+    }
+    requested_address_types?: (
+      | "iban"
+      | "sort_code"
+      | "spei"
+      | "zengin"
+      | UnknownEnumStringValue
+    )[]
+    type:
+      | "eu_bank_transfer"
+      | "gb_bank_transfer"
+      | "jp_bank_transfer"
+      | "mx_bank_transfer"
+      | "us_bank_transfer"
+      | UnknownEnumStringValue
+  }
+  currency: string
+  expand?: string[]
+  funding_type: "bank_transfer" | UnknownEnumStringValue
+}
+
+export type t_PostCustomersCustomerSourcesRequestBody = {
+  alipay_account?: string
+  bank_account?:
+    | {
+        account_holder_name?: string
+        account_holder_type?: "company" | "individual" | UnknownEnumStringValue
+        account_number: string
+        country: string
+        currency?: string
+        object?: "bank_account" | UnknownEnumStringValue
+        routing_number?: string
+      }
+    | string
+  card?:
+    | {
+        address_city?: string
+        address_country?: string
+        address_line1?: string
+        address_line2?: string
+        address_state?: string
+        address_zip?: string
+        cvc?: string
+        exp_month: number
+        exp_year: number
+        metadata?: {
+          [key: string]: string | undefined
+        }
+        name?: string
+        number: string
+        object?: "card" | UnknownEnumStringValue
+      }
+    | string
+  expand?: string[]
+  metadata?: {
+    [key: string]: string | undefined
+  }
+  source?: string
+}
+
+export type t_PostCustomersCustomerSourcesIdRequestBody = {
+  account_holder_name?: string
+  account_holder_type?: "company" | "individual" | UnknownEnumStringValue
+  address_city?: string
+  address_country?: string
+  address_line1?: string
+  address_line2?: string
+  address_state?: string
+  address_zip?: string
+  exp_month?: string
+  exp_year?: string
+  expand?: string[]
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | ""
+    | UnknownEnumStringValue
+  name?: string
+  owner?: {
+    address?: {
+      city?: string
+      country?: string
+      line1?: string
+      line2?: string
+      postal_code?: string
+      state?: string
+    }
+    email?: string
+    name?: string
+    phone?: string
+  }
+}
+
+export type t_PostCustomersCustomerSourcesIdVerifyRequestBody = {
+  amounts?: number[]
+  expand?: string[]
+}
+
+export type t_PostCustomersCustomerSubscriptionsRequestBody = {
+  add_invoice_items?: {
+    discounts?: {
+      coupon?: string
+      discount?: string
+      promotion_code?: string
+    }[]
+    price?: string
+    price_data?: {
+      currency: string
+      product: string
+      tax_behavior?:
+        | "exclusive"
+        | "inclusive"
+        | "unspecified"
+        | UnknownEnumStringValue
+      unit_amount?: number
+      unit_amount_decimal?: string
+    }
+    quantity?: number
+    tax_rates?: string[] | "" | UnknownEnumStringValue
+  }[]
+  application_fee_percent?: number | "" | UnknownEnumStringValue
+  automatic_tax?: {
+    enabled: boolean
+    liability?: {
+      account?: string
+      type: "account" | "self" | UnknownEnumStringValue
+    }
+  }
+  backdate_start_date?: number
+  billing_cycle_anchor?: number
+  billing_thresholds?:
+    | {
+        amount_gte?: number
+        reset_billing_cycle_anchor?: boolean
+      }
+    | ""
+    | UnknownEnumStringValue
+  cancel_at?:
+    | number
+    | "max_period_end"
+    | "min_period_end"
+    | UnknownEnumStringValue
+  cancel_at_period_end?: boolean
+  collection_method?:
+    | "charge_automatically"
+    | "send_invoice"
+    | UnknownEnumStringValue
+  currency?: string
+  days_until_due?: number
+  default_payment_method?: string
+  default_source?: string
+  default_tax_rates?: string[] | "" | UnknownEnumStringValue
+  discounts?:
+    | {
+        coupon?: string
+        discount?: string
+        promotion_code?: string
+      }[]
+    | ""
+    | UnknownEnumStringValue
+  expand?: string[]
+  invoice_settings?: {
+    account_tax_ids?: string[] | "" | UnknownEnumStringValue
+    issuer?: {
+      account?: string
+      type: "account" | "self" | UnknownEnumStringValue
+    }
+  }
+  items?: {
+    billing_thresholds?:
+      | {
+          usage_gte: number
+        }
+      | ""
+      | UnknownEnumStringValue
+    discounts?:
+      | {
+          coupon?: string
+          discount?: string
+          promotion_code?: string
+        }[]
+      | ""
+      | UnknownEnumStringValue
+    metadata?: {
+      [key: string]: string | undefined
+    }
+    price?: string
+    price_data?: {
+      currency: string
+      product: string
+      recurring: {
+        interval: "day" | "month" | "week" | "year" | UnknownEnumStringValue
+        interval_count?: number
+      }
+      tax_behavior?:
+        | "exclusive"
+        | "inclusive"
+        | "unspecified"
+        | UnknownEnumStringValue
+      unit_amount?: number
+      unit_amount_decimal?: string
+    }
+    quantity?: number
+    tax_rates?: string[] | "" | UnknownEnumStringValue
+  }[]
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | ""
+    | UnknownEnumStringValue
+  off_session?: boolean
+  payment_behavior?:
+    | "allow_incomplete"
+    | "default_incomplete"
+    | "error_if_incomplete"
+    | "pending_if_incomplete"
+    | UnknownEnumStringValue
+  payment_settings?: {
+    payment_method_options?: {
+      acss_debit?:
+        | {
+            mandate_options?: {
+              transaction_type?:
+                | "business"
+                | "personal"
+                | UnknownEnumStringValue
+            }
+            verification_method?:
+              | "automatic"
+              | "instant"
+              | "microdeposits"
+              | UnknownEnumStringValue
+          }
+        | ""
+        | UnknownEnumStringValue
+      bancontact?:
+        | {
+            preferred_language?:
+              | "de"
+              | "en"
+              | "fr"
+              | "nl"
+              | UnknownEnumStringValue
+          }
+        | ""
+        | UnknownEnumStringValue
+      card?:
+        | {
+            mandate_options?: {
+              amount?: number
+              amount_type?: "fixed" | "maximum" | UnknownEnumStringValue
+              description?: string
+            }
+            network?:
+              | "amex"
+              | "cartes_bancaires"
+              | "diners"
+              | "discover"
+              | "eftpos_au"
+              | "girocard"
+              | "interac"
+              | "jcb"
+              | "link"
+              | "mastercard"
+              | "unionpay"
+              | "unknown"
+              | "visa"
+              | UnknownEnumStringValue
+            request_three_d_secure?:
+              | "any"
+              | "automatic"
+              | "challenge"
+              | UnknownEnumStringValue
+          }
+        | ""
+        | UnknownEnumStringValue
+      customer_balance?:
+        | {
+            bank_transfer?: {
+              eu_bank_transfer?: {
+                country: string
+              }
+              type?: string
+            }
+            funding_type?: string
+          }
+        | ""
+        | UnknownEnumStringValue
+      konbini?: EmptyObject | "" | UnknownEnumStringValue
+      sepa_debit?: EmptyObject | "" | UnknownEnumStringValue
+      us_bank_account?:
+        | {
+            financial_connections?: {
+              filters?: {
+                account_subcategories?: (
+                  | "checking"
+                  | "savings"
+                  | UnknownEnumStringValue
+                )[]
+              }
+              permissions?: (
+                | "balances"
+                | "ownership"
+                | "payment_method"
+                | "transactions"
+                | UnknownEnumStringValue
+              )[]
+              prefetch?: (
+                | "balances"
+                | "ownership"
+                | "transactions"
+                | UnknownEnumStringValue
+              )[]
+            }
+            verification_method?:
+              | "automatic"
+              | "instant"
+              | "microdeposits"
+              | UnknownEnumStringValue
+          }
+        | ""
+        | UnknownEnumStringValue
+    }
+    payment_method_types?:
+      | (
+          | "ach_credit_transfer"
+          | "ach_debit"
+          | "acss_debit"
+          | "affirm"
+          | "amazon_pay"
+          | "au_becs_debit"
+          | "bacs_debit"
+          | "bancontact"
+          | "boleto"
+          | "card"
+          | "cashapp"
+          | "crypto"
+          | "customer_balance"
+          | "eps"
+          | "fpx"
+          | "giropay"
+          | "grabpay"
+          | "ideal"
+          | "jp_credit_transfer"
+          | "kakao_pay"
+          | "klarna"
+          | "konbini"
+          | "kr_card"
+          | "link"
+          | "multibanco"
+          | "naver_pay"
+          | "nz_bank_account"
+          | "p24"
+          | "payco"
+          | "paynow"
+          | "paypal"
+          | "promptpay"
+          | "revolut_pay"
+          | "sepa_credit_transfer"
+          | "sepa_debit"
+          | "sofort"
+          | "swish"
+          | "us_bank_account"
+          | "wechat_pay"
+          | UnknownEnumStringValue
+        )[]
+      | ""
+      | UnknownEnumStringValue
+    save_default_payment_method?:
+      | "off"
+      | "on_subscription"
+      | UnknownEnumStringValue
+  }
+  pending_invoice_item_interval?:
+    | {
+        interval: "day" | "month" | "week" | "year" | UnknownEnumStringValue
+        interval_count?: number
+      }
+    | ""
+    | UnknownEnumStringValue
+  proration_behavior?:
+    | "always_invoice"
+    | "create_prorations"
+    | "none"
+    | UnknownEnumStringValue
+  transfer_data?: {
+    amount_percent?: number
+    destination: string
+  }
+  trial_end?: "now" | UnknownEnumStringValue | number
+  trial_from_plan?: boolean
+  trial_period_days?: number
+  trial_settings?: {
+    end_behavior: {
+      missing_payment_method:
+        | "cancel"
+        | "create_invoice"
+        | "pause"
+        | UnknownEnumStringValue
+    }
+  }
+}
+
+export type t_PostCustomersCustomerSubscriptionsSubscriptionExposedIdRequestBody =
+  {
+    add_invoice_items?: {
+      discounts?: {
+        coupon?: string
+        discount?: string
+        promotion_code?: string
+      }[]
+      price?: string
+      price_data?: {
+        currency: string
+        product: string
+        tax_behavior?:
+          | "exclusive"
+          | "inclusive"
+          | "unspecified"
+          | UnknownEnumStringValue
+        unit_amount?: number
+        unit_amount_decimal?: string
+      }
+      quantity?: number
+      tax_rates?: string[] | "" | UnknownEnumStringValue
+    }[]
+    application_fee_percent?: number | "" | UnknownEnumStringValue
+    automatic_tax?: {
+      enabled: boolean
+      liability?: {
+        account?: string
+        type: "account" | "self" | UnknownEnumStringValue
+      }
+    }
+    billing_cycle_anchor?: "now" | "unchanged" | UnknownEnumStringValue
+    billing_thresholds?:
+      | {
+          amount_gte?: number
+          reset_billing_cycle_anchor?: boolean
+        }
+      | ""
+      | UnknownEnumStringValue
+    cancel_at?:
+      | number
+      | ""
+      | UnknownEnumStringValue
+      | "max_period_end"
+      | "min_period_end"
+    cancel_at_period_end?: boolean
+    cancellation_details?: {
+      comment?: string | "" | UnknownEnumStringValue
+      feedback?:
+        | ""
+        | "customer_service"
+        | "low_quality"
+        | "missing_features"
+        | "other"
+        | "switched_service"
+        | "too_complex"
+        | "too_expensive"
+        | "unused"
+        | UnknownEnumStringValue
+    }
+    collection_method?:
+      | "charge_automatically"
+      | "send_invoice"
+      | UnknownEnumStringValue
+    days_until_due?: number
+    default_payment_method?: string
+    default_source?: string | "" | UnknownEnumStringValue
+    default_tax_rates?: string[] | "" | UnknownEnumStringValue
+    discounts?:
+      | {
+          coupon?: string
+          discount?: string
+          promotion_code?: string
+        }[]
+      | ""
+      | UnknownEnumStringValue
+    expand?: string[]
+    invoice_settings?: {
+      account_tax_ids?: string[] | "" | UnknownEnumStringValue
+      issuer?: {
+        account?: string
+        type: "account" | "self" | UnknownEnumStringValue
+      }
+    }
+    items?: {
+      billing_thresholds?:
+        | {
+            usage_gte: number
+          }
+        | ""
+        | UnknownEnumStringValue
+      clear_usage?: boolean
+      deleted?: boolean
+      discounts?:
+        | {
+            coupon?: string
+            discount?: string
+            promotion_code?: string
+          }[]
+        | ""
+        | UnknownEnumStringValue
+      id?: string
+      metadata?:
+        | {
+            [key: string]: string | undefined
+          }
+        | ""
+        | UnknownEnumStringValue
+      price?: string
+      price_data?: {
+        currency: string
+        product: string
+        recurring: {
+          interval: "day" | "month" | "week" | "year" | UnknownEnumStringValue
+          interval_count?: number
+        }
+        tax_behavior?:
+          | "exclusive"
+          | "inclusive"
+          | "unspecified"
+          | UnknownEnumStringValue
+        unit_amount?: number
+        unit_amount_decimal?: string
+      }
+      quantity?: number
+      tax_rates?: string[] | "" | UnknownEnumStringValue
+    }[]
+    metadata?:
+      | {
+          [key: string]: string | undefined
+        }
+      | ""
+      | UnknownEnumStringValue
+    off_session?: boolean
+    pause_collection?:
+      | {
+          behavior:
+            | "keep_as_draft"
+            | "mark_uncollectible"
+            | "void"
+            | UnknownEnumStringValue
+          resumes_at?: number
+        }
+      | ""
+      | UnknownEnumStringValue
+    payment_behavior?:
+      | "allow_incomplete"
+      | "default_incomplete"
+      | "error_if_incomplete"
+      | "pending_if_incomplete"
+      | UnknownEnumStringValue
+    payment_settings?: {
+      payment_method_options?: {
+        acss_debit?:
+          | {
+              mandate_options?: {
+                transaction_type?:
+                  | "business"
+                  | "personal"
+                  | UnknownEnumStringValue
+              }
+              verification_method?:
+                | "automatic"
+                | "instant"
+                | "microdeposits"
+                | UnknownEnumStringValue
+            }
+          | ""
+          | UnknownEnumStringValue
+        bancontact?:
+          | {
+              preferred_language?:
+                | "de"
+                | "en"
+                | "fr"
+                | "nl"
+                | UnknownEnumStringValue
+            }
+          | ""
+          | UnknownEnumStringValue
+        card?:
+          | {
+              mandate_options?: {
+                amount?: number
+                amount_type?: "fixed" | "maximum" | UnknownEnumStringValue
+                description?: string
+              }
+              network?:
+                | "amex"
+                | "cartes_bancaires"
+                | "diners"
+                | "discover"
+                | "eftpos_au"
+                | "girocard"
+                | "interac"
+                | "jcb"
+                | "link"
+                | "mastercard"
+                | "unionpay"
+                | "unknown"
+                | "visa"
+                | UnknownEnumStringValue
+              request_three_d_secure?:
+                | "any"
+                | "automatic"
+                | "challenge"
+                | UnknownEnumStringValue
+            }
+          | ""
+          | UnknownEnumStringValue
+        customer_balance?:
+          | {
+              bank_transfer?: {
+                eu_bank_transfer?: {
+                  country: string
+                }
+                type?: string
+              }
+              funding_type?: string
+            }
+          | ""
+          | UnknownEnumStringValue
+        konbini?: EmptyObject | "" | UnknownEnumStringValue
+        sepa_debit?: EmptyObject | "" | UnknownEnumStringValue
+        us_bank_account?:
+          | {
+              financial_connections?: {
+                filters?: {
+                  account_subcategories?: (
+                    | "checking"
+                    | "savings"
+                    | UnknownEnumStringValue
+                  )[]
+                }
+                permissions?: (
+                  | "balances"
+                  | "ownership"
+                  | "payment_method"
+                  | "transactions"
+                  | UnknownEnumStringValue
+                )[]
+                prefetch?: (
+                  | "balances"
+                  | "ownership"
+                  | "transactions"
+                  | UnknownEnumStringValue
+                )[]
+              }
+              verification_method?:
+                | "automatic"
+                | "instant"
+                | "microdeposits"
+                | UnknownEnumStringValue
+            }
+          | ""
+          | UnknownEnumStringValue
+      }
+      payment_method_types?:
+        | (
+            | "ach_credit_transfer"
+            | "ach_debit"
+            | "acss_debit"
+            | "affirm"
+            | "amazon_pay"
+            | "au_becs_debit"
+            | "bacs_debit"
+            | "bancontact"
+            | "boleto"
+            | "card"
+            | "cashapp"
+            | "crypto"
+            | "customer_balance"
+            | "eps"
+            | "fpx"
+            | "giropay"
+            | "grabpay"
+            | "ideal"
+            | "jp_credit_transfer"
+            | "kakao_pay"
+            | "klarna"
+            | "konbini"
+            | "kr_card"
+            | "link"
+            | "multibanco"
+            | "naver_pay"
+            | "nz_bank_account"
+            | "p24"
+            | "payco"
+            | "paynow"
+            | "paypal"
+            | "promptpay"
+            | "revolut_pay"
+            | "sepa_credit_transfer"
+            | "sepa_debit"
+            | "sofort"
+            | "swish"
+            | "us_bank_account"
+            | "wechat_pay"
+            | UnknownEnumStringValue
+          )[]
+        | ""
+        | UnknownEnumStringValue
+      save_default_payment_method?:
+        | "off"
+        | "on_subscription"
+        | UnknownEnumStringValue
+    }
+    pending_invoice_item_interval?:
+      | {
+          interval: "day" | "month" | "week" | "year" | UnknownEnumStringValue
+          interval_count?: number
+        }
+      | ""
+      | UnknownEnumStringValue
+    proration_behavior?:
+      | "always_invoice"
+      | "create_prorations"
+      | "none"
+      | UnknownEnumStringValue
+    proration_date?: number
+    transfer_data?:
+      | {
+          amount_percent?: number
+          destination: string
+        }
+      | ""
+      | UnknownEnumStringValue
+    trial_end?: "now" | UnknownEnumStringValue | number
+    trial_from_plan?: boolean
+    trial_settings?: {
+      end_behavior: {
+        missing_payment_method:
+          | "cancel"
+          | "create_invoice"
+          | "pause"
+          | UnknownEnumStringValue
+      }
+    }
+  }
+
+export type t_PostCustomersCustomerTaxIdsRequestBody = {
+  expand?: string[]
+  type:
+    | "ad_nrt"
+    | "ae_trn"
+    | "al_tin"
+    | "am_tin"
+    | "ao_tin"
+    | "ar_cuit"
+    | "au_abn"
+    | "au_arn"
+    | "aw_tin"
+    | "az_tin"
+    | "ba_tin"
+    | "bb_tin"
+    | "bd_bin"
+    | "bf_ifu"
+    | "bg_uic"
+    | "bh_vat"
+    | "bj_ifu"
+    | "bo_tin"
+    | "br_cnpj"
+    | "br_cpf"
+    | "bs_tin"
+    | "by_tin"
+    | "ca_bn"
+    | "ca_gst_hst"
+    | "ca_pst_bc"
+    | "ca_pst_mb"
+    | "ca_pst_sk"
+    | "ca_qst"
+    | "cd_nif"
+    | "ch_uid"
+    | "ch_vat"
+    | "cl_tin"
+    | "cm_niu"
+    | "cn_tin"
+    | "co_nit"
+    | "cr_tin"
+    | "cv_nif"
+    | "de_stn"
+    | "do_rcn"
+    | "ec_ruc"
+    | "eg_tin"
+    | "es_cif"
+    | "et_tin"
+    | "eu_oss_vat"
+    | "eu_vat"
+    | "gb_vat"
+    | "ge_vat"
+    | "gn_nif"
+    | "hk_br"
+    | "hr_oib"
+    | "hu_tin"
+    | "id_npwp"
+    | "il_vat"
+    | "in_gst"
+    | "is_vat"
+    | "jp_cn"
+    | "jp_rn"
+    | "jp_trn"
+    | "ke_pin"
+    | "kg_tin"
+    | "kh_tin"
+    | "kr_brn"
+    | "kz_bin"
+    | "la_tin"
+    | "li_uid"
+    | "li_vat"
+    | "ma_vat"
+    | "md_vat"
+    | "me_pib"
+    | "mk_vat"
+    | "mr_nif"
+    | "mx_rfc"
+    | "my_frp"
+    | "my_itn"
+    | "my_sst"
+    | "ng_tin"
+    | "no_vat"
+    | "no_voec"
+    | "np_pan"
+    | "nz_gst"
+    | "om_vat"
+    | "pe_ruc"
+    | "ph_tin"
+    | "ro_tin"
+    | "rs_pib"
+    | "ru_inn"
+    | "ru_kpp"
+    | "sa_vat"
+    | "sg_gst"
+    | "sg_uen"
+    | "si_tin"
+    | "sn_ninea"
+    | "sr_fin"
+    | "sv_nit"
+    | "th_vat"
+    | "tj_tin"
+    | "tr_tin"
+    | "tw_vat"
+    | "tz_vat"
+    | "ua_vat"
+    | "ug_tin"
+    | "us_ein"
+    | "uy_ruc"
+    | "uz_tin"
+    | "uz_vat"
+    | "ve_rif"
+    | "vn_tin"
+    | "za_vat"
+    | "zm_tin"
+    | "zw_tin"
+    | UnknownEnumStringValue
+  value: string
+}
+
+export type t_PostDisputesDisputeRequestBody = {
+  evidence?: {
+    access_activity_log?: string
+    billing_address?: string
+    cancellation_policy?: string
+    cancellation_policy_disclosure?: string
+    cancellation_rebuttal?: string
+    customer_communication?: string
+    customer_email_address?: string
+    customer_name?: string
+    customer_purchase_ip?: string
+    customer_signature?: string
+    duplicate_charge_documentation?: string
+    duplicate_charge_explanation?: string
+    duplicate_charge_id?: string
+    enhanced_evidence?:
+      | {
+          visa_compelling_evidence_3?: {
+            disputed_transaction?: {
+              customer_account_id?: string | "" | UnknownEnumStringValue
+              customer_device_fingerprint?: string | "" | UnknownEnumStringValue
+              customer_device_id?: string | "" | UnknownEnumStringValue
+              customer_email_address?: string | "" | UnknownEnumStringValue
+              customer_purchase_ip?: string | "" | UnknownEnumStringValue
+              merchandise_or_services?:
+                | "merchandise"
+                | "services"
+                | UnknownEnumStringValue
+              product_description?: string | "" | UnknownEnumStringValue
+              shipping_address?: {
+                city?: string | "" | UnknownEnumStringValue
+                country?: string | "" | UnknownEnumStringValue
+                line1?: string | "" | UnknownEnumStringValue
+                line2?: string | "" | UnknownEnumStringValue
+                postal_code?: string | "" | UnknownEnumStringValue
+                state?: string | "" | UnknownEnumStringValue
+              }
+            }
+            prior_undisputed_transactions?: {
+              charge: string
+              customer_account_id?: string | "" | UnknownEnumStringValue
+              customer_device_fingerprint?: string | "" | UnknownEnumStringValue
+              customer_device_id?: string | "" | UnknownEnumStringValue
+              customer_email_address?: string | "" | UnknownEnumStringValue
+              customer_purchase_ip?: string | "" | UnknownEnumStringValue
+              product_description?: string | "" | UnknownEnumStringValue
+              shipping_address?: {
+                city?: string | "" | UnknownEnumStringValue
+                country?: string | "" | UnknownEnumStringValue
+                line1?: string | "" | UnknownEnumStringValue
+                line2?: string | "" | UnknownEnumStringValue
+                postal_code?: string | "" | UnknownEnumStringValue
+                state?: string | "" | UnknownEnumStringValue
+              }
+            }[]
+          }
+          visa_compliance?: {
+            fee_acknowledged?: boolean
+          }
+        }
+      | ""
+      | UnknownEnumStringValue
+    product_description?: string
+    receipt?: string
+    refund_policy?: string
+    refund_policy_disclosure?: string
+    refund_refusal_explanation?: string
+    service_date?: string
+    service_documentation?: string
+    shipping_address?: string
+    shipping_carrier?: string
+    shipping_date?: string
+    shipping_documentation?: string
+    shipping_tracking_number?: string
+    uncategorized_file?: string
+    uncategorized_text?: string
+  }
+  expand?: string[]
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | ""
+    | UnknownEnumStringValue
+  submit?: boolean
+}
+
+export type t_PostDisputesDisputeCloseRequestBody = {
+  expand?: string[]
+}
+
+export type t_PostEntitlementsFeaturesRequestBody = {
+  expand?: string[]
+  lookup_key: string
+  metadata?: {
+    [key: string]: string | undefined
+  }
+  name: string
+}
+
+export type t_PostEntitlementsFeaturesIdRequestBody = {
+  active?: boolean
+  expand?: string[]
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | ""
+    | UnknownEnumStringValue
+  name?: string
+}
+
+export type t_PostEphemeralKeysRequestBody = {
+  customer?: string
+  expand?: string[]
+  issuing_card?: string
+  nonce?: string
+  verification_session?: string
+}
+
+export type t_PostExternalAccountsIdRequestBody = {
+  account_holder_name?: string
+  account_holder_type?: "" | "company" | "individual" | UnknownEnumStringValue
+  account_type?:
+    | "checking"
+    | "futsu"
+    | "savings"
+    | "toza"
+    | UnknownEnumStringValue
+  address_city?: string
+  address_country?: string
+  address_line1?: string
+  address_line2?: string
+  address_state?: string
+  address_zip?: string
+  default_for_currency?: boolean
+  documents?: {
+    bank_account_ownership_verification?: {
+      files?: string[]
+    }
+  }
+  exp_month?: string
+  exp_year?: string
+  expand?: string[]
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | ""
+    | UnknownEnumStringValue
+  name?: string
+}
+
+export type t_PostFileLinksRequestBody = {
+  expand?: string[]
+  expires_at?: number
+  file: string
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | ""
+    | UnknownEnumStringValue
+}
+
+export type t_PostFileLinksLinkRequestBody = {
+  expand?: string[]
+  expires_at?: "now" | UnknownEnumStringValue | number | ""
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | ""
+    | UnknownEnumStringValue
+}
+
+export type t_PostFinancialConnectionsAccountsAccountDisconnectRequestBody = {
+  expand?: string[]
+}
+
+export type t_PostFinancialConnectionsAccountsAccountRefreshRequestBody = {
+  expand?: string[]
+  features: (
+    | "balance"
+    | "ownership"
+    | "transactions"
+    | UnknownEnumStringValue
+  )[]
+}
+
+export type t_PostFinancialConnectionsAccountsAccountSubscribeRequestBody = {
+  expand?: string[]
+  features: ("transactions" | UnknownEnumStringValue)[]
+}
+
+export type t_PostFinancialConnectionsAccountsAccountUnsubscribeRequestBody = {
+  expand?: string[]
+  features: ("transactions" | UnknownEnumStringValue)[]
+}
+
+export type t_PostFinancialConnectionsSessionsRequestBody = {
+  account_holder: {
+    account?: string
+    customer?: string
+    type: "account" | "customer" | UnknownEnumStringValue
+  }
+  expand?: string[]
+  filters?: {
+    account_subcategories?: (
+      | "checking"
+      | "credit_card"
+      | "line_of_credit"
+      | "mortgage"
+      | "savings"
+      | UnknownEnumStringValue
+    )[]
+    countries?: string[]
+  }
+  permissions: (
+    | "balances"
+    | "ownership"
+    | "payment_method"
+    | "transactions"
+    | UnknownEnumStringValue
+  )[]
+  prefetch?: (
+    | "balances"
+    | "ownership"
+    | "transactions"
+    | UnknownEnumStringValue
+  )[]
+  return_url?: string
+}
+
+export type t_PostForwardingRequestsRequestBody = {
+  expand?: string[]
+  metadata?: {
+    [key: string]: string | undefined
+  }
+  payment_method: string
+  replacements: (
+    | "card_cvc"
+    | "card_expiry"
+    | "card_number"
+    | "cardholder_name"
+    | "request_signature"
+    | UnknownEnumStringValue
+  )[]
+  request?: {
+    body?: string
+    headers?: {
+      name: string
+      value: string
+    }[]
+  }
+  url: string
+}
+
+export type t_PostIdentityVerificationSessionsRequestBody = {
+  client_reference_id?: string
+  expand?: string[]
+  metadata?: {
+    [key: string]: string | undefined
+  }
+  options?: {
+    document?:
+      | {
+          allowed_types?: (
+            | "driving_license"
+            | "id_card"
+            | "passport"
+            | UnknownEnumStringValue
+          )[]
+          require_id_number?: boolean
+          require_live_capture?: boolean
+          require_matching_selfie?: boolean
+        }
+      | ""
+      | UnknownEnumStringValue
+  }
+  provided_details?: {
+    email?: string
+    phone?: string
+  }
+  related_customer?: string
+  related_person?: {
+    account: string
+    person: string
+  }
+  return_url?: string
+  type?: "document" | "id_number" | UnknownEnumStringValue
+  verification_flow?: string
+}
+
+export type t_PostIdentityVerificationSessionsSessionRequestBody = {
+  expand?: string[]
+  metadata?: {
+    [key: string]: string | undefined
+  }
+  options?: {
+    document?:
+      | {
+          allowed_types?: (
+            | "driving_license"
+            | "id_card"
+            | "passport"
+            | UnknownEnumStringValue
+          )[]
+          require_id_number?: boolean
+          require_live_capture?: boolean
+          require_matching_selfie?: boolean
+        }
+      | ""
+      | UnknownEnumStringValue
+  }
+  provided_details?: {
+    email?: string
+    phone?: string
+  }
+  type?: "document" | "id_number" | UnknownEnumStringValue
+}
+
+export type t_PostIdentityVerificationSessionsSessionCancelRequestBody = {
+  expand?: string[]
+}
+
+export type t_PostIdentityVerificationSessionsSessionRedactRequestBody = {
+  expand?: string[]
+}
+
+export type t_PostInvoiceRenderingTemplatesTemplateArchiveRequestBody = {
+  expand?: string[]
+}
+
+export type t_PostInvoiceRenderingTemplatesTemplateUnarchiveRequestBody = {
+  expand?: string[]
+}
+
+export type t_PostInvoiceitemsRequestBody = {
+  amount?: number
+  currency?: string
+  customer: string
+  description?: string
+  discountable?: boolean
+  discounts?:
+    | {
+        coupon?: string
+        discount?: string
+        promotion_code?: string
+      }[]
+    | ""
+    | UnknownEnumStringValue
+  expand?: string[]
+  invoice?: string
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | ""
+    | UnknownEnumStringValue
+  period?: {
+    end: number
+    start: number
+  }
+  price_data?: {
+    currency: string
+    product: string
+    tax_behavior?:
+      | "exclusive"
+      | "inclusive"
+      | "unspecified"
+      | UnknownEnumStringValue
+    unit_amount?: number
+    unit_amount_decimal?: string
+  }
+  pricing?: {
+    price?: string
+  }
+  quantity?: number
+  subscription?: string
+  tax_behavior?:
+    | "exclusive"
+    | "inclusive"
+    | "unspecified"
+    | UnknownEnumStringValue
+  tax_code?: string | "" | UnknownEnumStringValue
+  tax_rates?: string[]
+  unit_amount_decimal?: string
+}
+
+export type t_PostInvoiceitemsInvoiceitemRequestBody = {
+  amount?: number
+  description?: string
+  discountable?: boolean
+  discounts?:
+    | {
+        coupon?: string
+        discount?: string
+        promotion_code?: string
+      }[]
+    | ""
+    | UnknownEnumStringValue
+  expand?: string[]
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | ""
+    | UnknownEnumStringValue
+  period?: {
+    end: number
+    start: number
+  }
+  price_data?: {
+    currency: string
+    product: string
+    tax_behavior?:
+      | "exclusive"
+      | "inclusive"
+      | "unspecified"
+      | UnknownEnumStringValue
+    unit_amount?: number
+    unit_amount_decimal?: string
+  }
+  pricing?: {
+    price?: string
+  }
+  quantity?: number
+  tax_behavior?:
+    | "exclusive"
+    | "inclusive"
+    | "unspecified"
+    | UnknownEnumStringValue
+  tax_code?: string | "" | UnknownEnumStringValue
+  tax_rates?: string[] | "" | UnknownEnumStringValue
+  unit_amount_decimal?: string
+}
+
+export type t_PostInvoicesRequestBody = {
+  account_tax_ids?: string[] | "" | UnknownEnumStringValue
+  application_fee_amount?: number
+  auto_advance?: boolean
+  automatic_tax?: {
+    enabled: boolean
+    liability?: {
+      account?: string
+      type: "account" | "self" | UnknownEnumStringValue
+    }
+  }
+  automatically_finalizes_at?: number
+  collection_method?:
+    | "charge_automatically"
+    | "send_invoice"
+    | UnknownEnumStringValue
+  currency?: string
+  custom_fields?:
+    | {
+        name: string
+        value: string
+      }[]
+    | ""
+    | UnknownEnumStringValue
+  customer?: string
+  days_until_due?: number
+  default_payment_method?: string
+  default_source?: string
+  default_tax_rates?: string[]
+  description?: string
+  discounts?:
+    | {
+        coupon?: string
+        discount?: string
+        promotion_code?: string
+      }[]
+    | ""
+    | UnknownEnumStringValue
+  due_date?: number
+  effective_at?: number
+  expand?: string[]
+  footer?: string
+  from_invoice?: {
+    action: "revision" | UnknownEnumStringValue
+    invoice: string
+  }
+  issuer?: {
+    account?: string
+    type: "account" | "self" | UnknownEnumStringValue
+  }
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | ""
+    | UnknownEnumStringValue
+  number?: string
+  on_behalf_of?: string
+  payment_settings?: {
+    default_mandate?: string | "" | UnknownEnumStringValue
+    payment_method_options?: {
+      acss_debit?:
+        | {
+            mandate_options?: {
+              transaction_type?:
+                | "business"
+                | "personal"
+                | UnknownEnumStringValue
+            }
+            verification_method?:
+              | "automatic"
+              | "instant"
+              | "microdeposits"
+              | UnknownEnumStringValue
+          }
+        | ""
+        | UnknownEnumStringValue
+      bancontact?:
+        | {
+            preferred_language?:
+              | "de"
+              | "en"
+              | "fr"
+              | "nl"
+              | UnknownEnumStringValue
+          }
+        | ""
+        | UnknownEnumStringValue
+      card?:
+        | {
+            installments?: {
+              enabled?: boolean
+              plan?:
+                | {
+                    count?: number
+                    interval?: "month" | UnknownEnumStringValue
+                    type:
+                      | "bonus"
+                      | "fixed_count"
+                      | "revolving"
+                      | UnknownEnumStringValue
+                  }
+                | ""
+                | UnknownEnumStringValue
+            }
+            request_three_d_secure?:
+              | "any"
+              | "automatic"
+              | "challenge"
+              | UnknownEnumStringValue
+          }
+        | ""
+        | UnknownEnumStringValue
+      customer_balance?:
+        | {
+            bank_transfer?: {
+              eu_bank_transfer?: {
+                country: string
+              }
+              type?: string
+            }
+            funding_type?: string
+          }
+        | ""
+        | UnknownEnumStringValue
+      konbini?: EmptyObject | "" | UnknownEnumStringValue
+      sepa_debit?: EmptyObject | "" | UnknownEnumStringValue
+      us_bank_account?:
+        | {
+            financial_connections?: {
+              filters?: {
+                account_subcategories?: (
+                  | "checking"
+                  | "savings"
+                  | UnknownEnumStringValue
+                )[]
+              }
+              permissions?: (
+                | "balances"
+                | "ownership"
+                | "payment_method"
+                | "transactions"
+                | UnknownEnumStringValue
+              )[]
+              prefetch?: (
+                | "balances"
+                | "ownership"
+                | "transactions"
+                | UnknownEnumStringValue
+              )[]
+            }
+            verification_method?:
+              | "automatic"
+              | "instant"
+              | "microdeposits"
+              | UnknownEnumStringValue
+          }
+        | ""
+        | UnknownEnumStringValue
+    }
+    payment_method_types?:
+      | (
+          | "ach_credit_transfer"
+          | "ach_debit"
+          | "acss_debit"
+          | "affirm"
+          | "amazon_pay"
+          | "au_becs_debit"
+          | "bacs_debit"
+          | "bancontact"
+          | "boleto"
+          | "card"
+          | "cashapp"
+          | "crypto"
+          | "customer_balance"
+          | "eps"
+          | "fpx"
+          | "giropay"
+          | "grabpay"
+          | "ideal"
+          | "jp_credit_transfer"
+          | "kakao_pay"
+          | "klarna"
+          | "konbini"
+          | "kr_card"
+          | "link"
+          | "multibanco"
+          | "naver_pay"
+          | "nz_bank_account"
+          | "p24"
+          | "payco"
+          | "paynow"
+          | "paypal"
+          | "promptpay"
+          | "revolut_pay"
+          | "sepa_credit_transfer"
+          | "sepa_debit"
+          | "sofort"
+          | "swish"
+          | "us_bank_account"
+          | "wechat_pay"
+          | UnknownEnumStringValue
+        )[]
+      | ""
+      | UnknownEnumStringValue
+  }
+  pending_invoice_items_behavior?:
+    | "exclude"
+    | "include"
+    | UnknownEnumStringValue
+  rendering?: {
+    amount_tax_display?:
+      | ""
+      | "exclude_tax"
+      | "include_inclusive_tax"
+      | UnknownEnumStringValue
+    pdf?: {
+      page_size?: "a4" | "auto" | "letter" | UnknownEnumStringValue
+    }
+    template?: string
+    template_version?: number | "" | UnknownEnumStringValue
+  }
+  shipping_cost?: {
+    shipping_rate?: string
+    shipping_rate_data?: {
+      delivery_estimate?: {
+        maximum?: {
+          unit:
+            | "business_day"
+            | "day"
+            | "hour"
+            | "month"
+            | "week"
+            | UnknownEnumStringValue
+          value: number
+        }
+        minimum?: {
+          unit:
+            | "business_day"
+            | "day"
+            | "hour"
+            | "month"
+            | "week"
+            | UnknownEnumStringValue
+          value: number
+        }
+      }
+      display_name: string
+      fixed_amount?: {
+        amount: number
+        currency: string
+        currency_options?: {
+          [key: string]:
+            | {
+                amount: number
+                tax_behavior?:
+                  | "exclusive"
+                  | "inclusive"
+                  | "unspecified"
+                  | UnknownEnumStringValue
+              }
+            | undefined
+        }
+      }
+      metadata?: {
+        [key: string]: string | undefined
+      }
+      tax_behavior?:
+        | "exclusive"
+        | "inclusive"
+        | "unspecified"
+        | UnknownEnumStringValue
+      tax_code?: string
+      type?: "fixed_amount" | UnknownEnumStringValue
+    }
+  }
+  shipping_details?: {
+    address: {
+      city?: string
+      country?: string
+      line1?: string
+      line2?: string
+      postal_code?: string
+      state?: string
+    }
+    name: string
+    phone?: string | "" | UnknownEnumStringValue
+  }
+  statement_descriptor?: string
+  subscription?: string
+  transfer_data?: {
+    amount?: number
+    destination: string
+  }
+}
+
+export type t_PostInvoicesCreatePreviewRequestBody = {
+  automatic_tax?: {
+    enabled: boolean
+    liability?: {
+      account?: string
+      type: "account" | "self" | UnknownEnumStringValue
+    }
+  }
+  currency?: string
+  customer?: string
+  customer_details?: {
+    address?:
+      | {
+          city?: string
+          country?: string
+          line1?: string
+          line2?: string
+          postal_code?: string
+          state?: string
+        }
+      | ""
+      | UnknownEnumStringValue
+    shipping?:
+      | {
+          address: {
+            city?: string
+            country?: string
+            line1?: string
+            line2?: string
+            postal_code?: string
+            state?: string
+          }
+          name: string
+          phone?: string
+        }
+      | ""
+      | UnknownEnumStringValue
+    tax?: {
+      ip_address?: string | "" | UnknownEnumStringValue
+    }
+    tax_exempt?: "" | "exempt" | "none" | "reverse" | UnknownEnumStringValue
+    tax_ids?: {
+      type:
+        | "ad_nrt"
+        | "ae_trn"
+        | "al_tin"
+        | "am_tin"
+        | "ao_tin"
+        | "ar_cuit"
+        | "au_abn"
+        | "au_arn"
+        | "aw_tin"
+        | "az_tin"
+        | "ba_tin"
+        | "bb_tin"
+        | "bd_bin"
+        | "bf_ifu"
+        | "bg_uic"
+        | "bh_vat"
+        | "bj_ifu"
+        | "bo_tin"
+        | "br_cnpj"
+        | "br_cpf"
+        | "bs_tin"
+        | "by_tin"
+        | "ca_bn"
+        | "ca_gst_hst"
+        | "ca_pst_bc"
+        | "ca_pst_mb"
+        | "ca_pst_sk"
+        | "ca_qst"
+        | "cd_nif"
+        | "ch_uid"
+        | "ch_vat"
+        | "cl_tin"
+        | "cm_niu"
+        | "cn_tin"
+        | "co_nit"
+        | "cr_tin"
+        | "cv_nif"
+        | "de_stn"
+        | "do_rcn"
+        | "ec_ruc"
+        | "eg_tin"
+        | "es_cif"
+        | "et_tin"
+        | "eu_oss_vat"
+        | "eu_vat"
+        | "gb_vat"
+        | "ge_vat"
+        | "gn_nif"
+        | "hk_br"
+        | "hr_oib"
+        | "hu_tin"
+        | "id_npwp"
+        | "il_vat"
+        | "in_gst"
+        | "is_vat"
+        | "jp_cn"
+        | "jp_rn"
+        | "jp_trn"
+        | "ke_pin"
+        | "kg_tin"
+        | "kh_tin"
+        | "kr_brn"
+        | "kz_bin"
+        | "la_tin"
+        | "li_uid"
+        | "li_vat"
+        | "ma_vat"
+        | "md_vat"
+        | "me_pib"
+        | "mk_vat"
+        | "mr_nif"
+        | "mx_rfc"
+        | "my_frp"
+        | "my_itn"
+        | "my_sst"
+        | "ng_tin"
+        | "no_vat"
+        | "no_voec"
+        | "np_pan"
+        | "nz_gst"
+        | "om_vat"
+        | "pe_ruc"
+        | "ph_tin"
+        | "ro_tin"
+        | "rs_pib"
+        | "ru_inn"
+        | "ru_kpp"
+        | "sa_vat"
+        | "sg_gst"
+        | "sg_uen"
+        | "si_tin"
+        | "sn_ninea"
+        | "sr_fin"
+        | "sv_nit"
+        | "th_vat"
+        | "tj_tin"
+        | "tr_tin"
+        | "tw_vat"
+        | "tz_vat"
+        | "ua_vat"
+        | "ug_tin"
+        | "us_ein"
+        | "uy_ruc"
+        | "uz_tin"
+        | "uz_vat"
+        | "ve_rif"
+        | "vn_tin"
+        | "za_vat"
+        | "zm_tin"
+        | "zw_tin"
+        | UnknownEnumStringValue
+      value: string
+    }[]
+  }
+  discounts?:
+    | {
+        coupon?: string
+        discount?: string
+        promotion_code?: string
+      }[]
+    | ""
+    | UnknownEnumStringValue
+  expand?: string[]
+  invoice_items?: {
+    amount?: number
+    currency?: string
+    description?: string
+    discountable?: boolean
+    discounts?:
+      | {
+          coupon?: string
+          discount?: string
+          promotion_code?: string
+        }[]
+      | ""
+      | UnknownEnumStringValue
+    invoiceitem?: string
+    metadata?:
+      | {
+          [key: string]: string | undefined
+        }
+      | ""
+      | UnknownEnumStringValue
+    period?: {
+      end: number
+      start: number
+    }
+    price?: string
+    price_data?: {
+      currency: string
+      product: string
+      tax_behavior?:
+        | "exclusive"
+        | "inclusive"
+        | "unspecified"
+        | UnknownEnumStringValue
+      unit_amount?: number
+      unit_amount_decimal?: string
+    }
+    quantity?: number
+    tax_behavior?:
+      | "exclusive"
+      | "inclusive"
+      | "unspecified"
+      | UnknownEnumStringValue
+    tax_code?: string | "" | UnknownEnumStringValue
+    tax_rates?: string[] | "" | UnknownEnumStringValue
+    unit_amount?: number
+    unit_amount_decimal?: string
+  }[]
+  issuer?: {
+    account?: string
+    type: "account" | "self" | UnknownEnumStringValue
+  }
+  on_behalf_of?: string | "" | UnknownEnumStringValue
+  preview_mode?: "next" | "recurring" | UnknownEnumStringValue
+  schedule?: string
+  schedule_details?: {
+    billing_mode?: {
+      type: "classic" | "flexible" | UnknownEnumStringValue
+    }
+    end_behavior?: "cancel" | "release" | UnknownEnumStringValue
+    phases?: {
+      add_invoice_items?: {
+        discounts?: {
+          coupon?: string
+          discount?: string
+          promotion_code?: string
+        }[]
+        price?: string
+        price_data?: {
+          currency: string
+          product: string
+          tax_behavior?:
+            | "exclusive"
+            | "inclusive"
+            | "unspecified"
+            | UnknownEnumStringValue
+          unit_amount?: number
+          unit_amount_decimal?: string
+        }
+        quantity?: number
+        tax_rates?: string[] | "" | UnknownEnumStringValue
+      }[]
+      application_fee_percent?: number
+      automatic_tax?: {
+        enabled: boolean
+        liability?: {
+          account?: string
+          type: "account" | "self" | UnknownEnumStringValue
+        }
+      }
+      billing_cycle_anchor?:
+        | "automatic"
+        | "phase_start"
+        | UnknownEnumStringValue
+      billing_thresholds?:
+        | {
+            amount_gte?: number
+            reset_billing_cycle_anchor?: boolean
+          }
+        | ""
+        | UnknownEnumStringValue
+      collection_method?:
+        | "charge_automatically"
+        | "send_invoice"
+        | UnknownEnumStringValue
+      default_payment_method?: string
+      default_tax_rates?: string[] | "" | UnknownEnumStringValue
+      description?: string | "" | UnknownEnumStringValue
+      discounts?:
+        | {
+            coupon?: string
+            discount?: string
+            promotion_code?: string
+          }[]
+        | ""
+        | UnknownEnumStringValue
+      duration?: {
+        interval: "day" | "month" | "week" | "year" | UnknownEnumStringValue
+        interval_count?: number
+      }
+      end_date?: number | "now" | UnknownEnumStringValue
+      invoice_settings?: {
+        account_tax_ids?: string[] | "" | UnknownEnumStringValue
+        days_until_due?: number
+        issuer?: {
+          account?: string
+          type: "account" | "self" | UnknownEnumStringValue
+        }
+      }
+      items: {
+        billing_thresholds?:
+          | {
+              usage_gte: number
+            }
+          | ""
+          | UnknownEnumStringValue
+        discounts?:
+          | {
+              coupon?: string
+              discount?: string
+              promotion_code?: string
+            }[]
+          | ""
+          | UnknownEnumStringValue
+        metadata?: {
+          [key: string]: string | undefined
+        }
+        price?: string
+        price_data?: {
+          currency: string
+          product: string
+          recurring: {
+            interval: "day" | "month" | "week" | "year" | UnknownEnumStringValue
+            interval_count?: number
+          }
+          tax_behavior?:
+            | "exclusive"
+            | "inclusive"
+            | "unspecified"
+            | UnknownEnumStringValue
+          unit_amount?: number
+          unit_amount_decimal?: string
+        }
+        quantity?: number
+        tax_rates?: string[] | "" | UnknownEnumStringValue
+      }[]
+      iterations?: number
+      metadata?: {
+        [key: string]: string | undefined
+      }
+      on_behalf_of?: string
+      proration_behavior?:
+        | "always_invoice"
+        | "create_prorations"
+        | "none"
+        | UnknownEnumStringValue
+      start_date?: number | "now" | UnknownEnumStringValue
+      transfer_data?: {
+        amount_percent?: number
+        destination: string
+      }
+      trial?: boolean
+      trial_end?: number | "now" | UnknownEnumStringValue
+    }[]
+    proration_behavior?:
+      | "always_invoice"
+      | "create_prorations"
+      | "none"
+      | UnknownEnumStringValue
+  }
+  subscription?: string
+  subscription_details?: {
+    billing_cycle_anchor?: "now" | "unchanged" | UnknownEnumStringValue | number
+    billing_mode?: {
+      type: "classic" | "flexible" | UnknownEnumStringValue
+    }
+    cancel_at?:
+      | number
+      | ""
+      | UnknownEnumStringValue
+      | "max_period_end"
+      | "min_period_end"
+    cancel_at_period_end?: boolean
+    cancel_now?: boolean
+    default_tax_rates?: string[] | "" | UnknownEnumStringValue
+    items?: {
+      billing_thresholds?:
+        | {
+            usage_gte: number
+          }
+        | ""
+        | UnknownEnumStringValue
+      clear_usage?: boolean
+      deleted?: boolean
+      discounts?:
+        | {
+            coupon?: string
+            discount?: string
+            promotion_code?: string
+          }[]
+        | ""
+        | UnknownEnumStringValue
+      id?: string
+      metadata?:
+        | {
+            [key: string]: string | undefined
+          }
+        | ""
+        | UnknownEnumStringValue
+      price?: string
+      price_data?: {
+        currency: string
+        product: string
+        recurring: {
+          interval: "day" | "month" | "week" | "year" | UnknownEnumStringValue
+          interval_count?: number
+        }
+        tax_behavior?:
+          | "exclusive"
+          | "inclusive"
+          | "unspecified"
+          | UnknownEnumStringValue
+        unit_amount?: number
+        unit_amount_decimal?: string
+      }
+      quantity?: number
+      tax_rates?: string[] | "" | UnknownEnumStringValue
+    }[]
+    proration_behavior?:
+      | "always_invoice"
+      | "create_prorations"
+      | "none"
+      | UnknownEnumStringValue
+    proration_date?: number
+    resume_at?: "now" | UnknownEnumStringValue
+    start_date?: number
+    trial_end?: "now" | UnknownEnumStringValue | number
+  }
+}
+
+export type t_PostInvoicesInvoiceRequestBody = {
+  account_tax_ids?: string[] | "" | UnknownEnumStringValue
+  application_fee_amount?: number
+  auto_advance?: boolean
+  automatic_tax?: {
+    enabled: boolean
+    liability?: {
+      account?: string
+      type: "account" | "self" | UnknownEnumStringValue
+    }
+  }
+  automatically_finalizes_at?: number
+  collection_method?:
+    | "charge_automatically"
+    | "send_invoice"
+    | UnknownEnumStringValue
+  custom_fields?:
+    | {
+        name: string
+        value: string
+      }[]
+    | ""
+    | UnknownEnumStringValue
+  days_until_due?: number
+  default_payment_method?: string
+  default_source?: string | "" | UnknownEnumStringValue
+  default_tax_rates?: string[] | "" | UnknownEnumStringValue
+  description?: string
+  discounts?:
+    | {
+        coupon?: string
+        discount?: string
+        promotion_code?: string
+      }[]
+    | ""
+    | UnknownEnumStringValue
+  due_date?: number
+  effective_at?: number | "" | UnknownEnumStringValue
+  expand?: string[]
+  footer?: string
+  issuer?: {
+    account?: string
+    type: "account" | "self" | UnknownEnumStringValue
+  }
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | ""
+    | UnknownEnumStringValue
+  number?: string | "" | UnknownEnumStringValue
+  on_behalf_of?: string | "" | UnknownEnumStringValue
+  payment_settings?: {
+    default_mandate?: string | "" | UnknownEnumStringValue
+    payment_method_options?: {
+      acss_debit?:
+        | {
+            mandate_options?: {
+              transaction_type?:
+                | "business"
+                | "personal"
+                | UnknownEnumStringValue
+            }
+            verification_method?:
+              | "automatic"
+              | "instant"
+              | "microdeposits"
+              | UnknownEnumStringValue
+          }
+        | ""
+        | UnknownEnumStringValue
+      bancontact?:
+        | {
+            preferred_language?:
+              | "de"
+              | "en"
+              | "fr"
+              | "nl"
+              | UnknownEnumStringValue
+          }
+        | ""
+        | UnknownEnumStringValue
+      card?:
+        | {
+            installments?: {
+              enabled?: boolean
+              plan?:
+                | {
+                    count?: number
+                    interval?: "month" | UnknownEnumStringValue
+                    type:
+                      | "bonus"
+                      | "fixed_count"
+                      | "revolving"
+                      | UnknownEnumStringValue
+                  }
+                | ""
+                | UnknownEnumStringValue
+            }
+            request_three_d_secure?:
+              | "any"
+              | "automatic"
+              | "challenge"
+              | UnknownEnumStringValue
+          }
+        | ""
+        | UnknownEnumStringValue
+      customer_balance?:
+        | {
+            bank_transfer?: {
+              eu_bank_transfer?: {
+                country: string
+              }
+              type?: string
+            }
+            funding_type?: string
+          }
+        | ""
+        | UnknownEnumStringValue
+      konbini?: EmptyObject | "" | UnknownEnumStringValue
+      sepa_debit?: EmptyObject | "" | UnknownEnumStringValue
+      us_bank_account?:
+        | {
+            financial_connections?: {
+              filters?: {
+                account_subcategories?: (
+                  | "checking"
+                  | "savings"
+                  | UnknownEnumStringValue
+                )[]
+              }
+              permissions?: (
+                | "balances"
+                | "ownership"
+                | "payment_method"
+                | "transactions"
+                | UnknownEnumStringValue
+              )[]
+              prefetch?: (
+                | "balances"
+                | "ownership"
+                | "transactions"
+                | UnknownEnumStringValue
+              )[]
+            }
+            verification_method?:
+              | "automatic"
+              | "instant"
+              | "microdeposits"
+              | UnknownEnumStringValue
+          }
+        | ""
+        | UnknownEnumStringValue
+    }
+    payment_method_types?:
+      | (
+          | "ach_credit_transfer"
+          | "ach_debit"
+          | "acss_debit"
+          | "affirm"
+          | "amazon_pay"
+          | "au_becs_debit"
+          | "bacs_debit"
+          | "bancontact"
+          | "boleto"
+          | "card"
+          | "cashapp"
+          | "crypto"
+          | "customer_balance"
+          | "eps"
+          | "fpx"
+          | "giropay"
+          | "grabpay"
+          | "ideal"
+          | "jp_credit_transfer"
+          | "kakao_pay"
+          | "klarna"
+          | "konbini"
+          | "kr_card"
+          | "link"
+          | "multibanco"
+          | "naver_pay"
+          | "nz_bank_account"
+          | "p24"
+          | "payco"
+          | "paynow"
+          | "paypal"
+          | "promptpay"
+          | "revolut_pay"
+          | "sepa_credit_transfer"
+          | "sepa_debit"
+          | "sofort"
+          | "swish"
+          | "us_bank_account"
+          | "wechat_pay"
+          | UnknownEnumStringValue
+        )[]
+      | ""
+      | UnknownEnumStringValue
+  }
+  rendering?: {
+    amount_tax_display?:
+      | ""
+      | "exclude_tax"
+      | "include_inclusive_tax"
+      | UnknownEnumStringValue
+    pdf?: {
+      page_size?: "a4" | "auto" | "letter" | UnknownEnumStringValue
+    }
+    template?: string
+    template_version?: number | "" | UnknownEnumStringValue
+  }
+  shipping_cost?:
+    | {
+        shipping_rate?: string
+        shipping_rate_data?: {
+          delivery_estimate?: {
+            maximum?: {
+              unit:
+                | "business_day"
+                | "day"
+                | "hour"
+                | "month"
+                | "week"
+                | UnknownEnumStringValue
+              value: number
+            }
+            minimum?: {
+              unit:
+                | "business_day"
+                | "day"
+                | "hour"
+                | "month"
+                | "week"
+                | UnknownEnumStringValue
+              value: number
+            }
+          }
+          display_name: string
+          fixed_amount?: {
+            amount: number
+            currency: string
+            currency_options?: {
+              [key: string]:
+                | {
+                    amount: number
+                    tax_behavior?:
+                      | "exclusive"
+                      | "inclusive"
+                      | "unspecified"
+                      | UnknownEnumStringValue
+                  }
+                | undefined
+            }
+          }
+          metadata?: {
+            [key: string]: string | undefined
+          }
+          tax_behavior?:
+            | "exclusive"
+            | "inclusive"
+            | "unspecified"
+            | UnknownEnumStringValue
+          tax_code?: string
+          type?: "fixed_amount" | UnknownEnumStringValue
+        }
+      }
+    | ""
+    | UnknownEnumStringValue
+  shipping_details?:
+    | {
+        address: {
+          city?: string
+          country?: string
+          line1?: string
+          line2?: string
+          postal_code?: string
+          state?: string
+        }
+        name: string
+        phone?: string | "" | UnknownEnumStringValue
+      }
+    | ""
+    | UnknownEnumStringValue
+  statement_descriptor?: string
+  transfer_data?:
+    | {
+        amount?: number
+        destination: string
+      }
+    | ""
+    | UnknownEnumStringValue
+}
+
+export type t_PostInvoicesInvoiceAddLinesRequestBody = {
+  expand?: string[]
+  invoice_metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | ""
+    | UnknownEnumStringValue
+  lines: {
+    amount?: number
+    description?: string
+    discountable?: boolean
+    discounts?:
+      | {
+          coupon?: string
+          discount?: string
+          promotion_code?: string
+        }[]
+      | ""
+      | UnknownEnumStringValue
+    invoice_item?: string
+    metadata?:
+      | {
+          [key: string]: string | undefined
+        }
+      | ""
+      | UnknownEnumStringValue
+    period?: {
+      end: number
+      start: number
+    }
+    price_data?: {
+      currency: string
+      product?: string
+      product_data?: {
+        description?: string
+        images?: string[]
+        metadata?: {
+          [key: string]: string | undefined
+        }
+        name: string
+        tax_code?: string
+      }
+      tax_behavior?:
+        | "exclusive"
+        | "inclusive"
+        | "unspecified"
+        | UnknownEnumStringValue
+      unit_amount?: number
+      unit_amount_decimal?: string
+    }
+    pricing?: {
+      price?: string
+    }
+    quantity?: number
+    tax_amounts?:
+      | {
+          amount: number
+          tax_rate_data: {
+            country?: string
+            description?: string
+            display_name: string
+            inclusive: boolean
+            jurisdiction?: string
+            jurisdiction_level?:
+              | "city"
+              | "country"
+              | "county"
+              | "district"
+              | "multiple"
+              | "state"
+              | UnknownEnumStringValue
+            percentage: number
+            state?: string
+            tax_type?:
+              | "amusement_tax"
+              | "communications_tax"
+              | "gst"
+              | "hst"
+              | "igst"
+              | "jct"
+              | "lease_tax"
+              | "pst"
+              | "qst"
+              | "retail_delivery_fee"
+              | "rst"
+              | "sales_tax"
+              | "service_tax"
+              | "vat"
+              | UnknownEnumStringValue
+          }
+          taxability_reason?:
+            | "customer_exempt"
+            | "not_collecting"
+            | "not_subject_to_tax"
+            | "not_supported"
+            | "portion_product_exempt"
+            | "portion_reduced_rated"
+            | "portion_standard_rated"
+            | "product_exempt"
+            | "product_exempt_holiday"
+            | "proportionally_rated"
+            | "reduced_rated"
+            | "reverse_charge"
+            | "standard_rated"
+            | "taxable_basis_reduced"
+            | "zero_rated"
+            | UnknownEnumStringValue
+          taxable_amount: number
+        }[]
+      | ""
+      | UnknownEnumStringValue
+    tax_rates?: string[] | "" | UnknownEnumStringValue
+  }[]
+}
+
+export type t_PostInvoicesInvoiceAttachPaymentRequestBody = {
+  expand?: string[]
+  payment_intent?: string
+}
+
+export type t_PostInvoicesInvoiceFinalizeRequestBody = {
+  auto_advance?: boolean
+  expand?: string[]
+}
+
+export type t_PostInvoicesInvoiceLinesLineItemIdRequestBody = {
+  amount?: number
+  description?: string
+  discountable?: boolean
+  discounts?:
+    | {
+        coupon?: string
+        discount?: string
+        promotion_code?: string
+      }[]
+    | ""
+    | UnknownEnumStringValue
+  expand?: string[]
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | ""
+    | UnknownEnumStringValue
+  period?: {
+    end: number
+    start: number
+  }
+  price_data?: {
+    currency: string
+    product?: string
+    product_data?: {
+      description?: string
+      images?: string[]
+      metadata?: {
+        [key: string]: string | undefined
+      }
+      name: string
+      tax_code?: string
+    }
+    tax_behavior?:
+      | "exclusive"
+      | "inclusive"
+      | "unspecified"
+      | UnknownEnumStringValue
+    unit_amount?: number
+    unit_amount_decimal?: string
+  }
+  pricing?: {
+    price?: string
+  }
+  quantity?: number
+  tax_amounts?:
+    | {
+        amount: number
+        tax_rate_data: {
+          country?: string
+          description?: string
+          display_name: string
+          inclusive: boolean
+          jurisdiction?: string
+          jurisdiction_level?:
+            | "city"
+            | "country"
+            | "county"
+            | "district"
+            | "multiple"
+            | "state"
+            | UnknownEnumStringValue
+          percentage: number
+          state?: string
+          tax_type?:
+            | "amusement_tax"
+            | "communications_tax"
+            | "gst"
+            | "hst"
+            | "igst"
+            | "jct"
+            | "lease_tax"
+            | "pst"
+            | "qst"
+            | "retail_delivery_fee"
+            | "rst"
+            | "sales_tax"
+            | "service_tax"
+            | "vat"
+            | UnknownEnumStringValue
+        }
+        taxability_reason?:
+          | "customer_exempt"
+          | "not_collecting"
+          | "not_subject_to_tax"
+          | "not_supported"
+          | "portion_product_exempt"
+          | "portion_reduced_rated"
+          | "portion_standard_rated"
+          | "product_exempt"
+          | "product_exempt_holiday"
+          | "proportionally_rated"
+          | "reduced_rated"
+          | "reverse_charge"
+          | "standard_rated"
+          | "taxable_basis_reduced"
+          | "zero_rated"
+          | UnknownEnumStringValue
+        taxable_amount: number
+      }[]
+    | ""
+    | UnknownEnumStringValue
+  tax_rates?: string[] | "" | UnknownEnumStringValue
+}
+
+export type t_PostInvoicesInvoiceMarkUncollectibleRequestBody = {
+  expand?: string[]
+}
+
+export type t_PostInvoicesInvoicePayRequestBody = {
+  expand?: string[]
+  forgive?: boolean
+  mandate?: string | "" | UnknownEnumStringValue
+  off_session?: boolean
+  paid_out_of_band?: boolean
+  payment_method?: string
+  source?: string
+}
+
+export type t_PostInvoicesInvoiceRemoveLinesRequestBody = {
+  expand?: string[]
+  invoice_metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | ""
+    | UnknownEnumStringValue
+  lines: {
+    behavior: "delete" | "unassign" | UnknownEnumStringValue
+    id: string
+  }[]
+}
+
+export type t_PostInvoicesInvoiceSendRequestBody = {
+  expand?: string[]
+}
+
+export type t_PostInvoicesInvoiceUpdateLinesRequestBody = {
+  expand?: string[]
+  invoice_metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | ""
+    | UnknownEnumStringValue
+  lines: {
+    amount?: number
+    description?: string
+    discountable?: boolean
+    discounts?:
+      | {
+          coupon?: string
+          discount?: string
+          promotion_code?: string
+        }[]
+      | ""
+      | UnknownEnumStringValue
+    id: string
+    metadata?:
+      | {
+          [key: string]: string | undefined
+        }
+      | ""
+      | UnknownEnumStringValue
+    period?: {
+      end: number
+      start: number
+    }
+    price_data?: {
+      currency: string
+      product?: string
+      product_data?: {
+        description?: string
+        images?: string[]
+        metadata?: {
+          [key: string]: string | undefined
+        }
+        name: string
+        tax_code?: string
+      }
+      tax_behavior?:
+        | "exclusive"
+        | "inclusive"
+        | "unspecified"
+        | UnknownEnumStringValue
+      unit_amount?: number
+      unit_amount_decimal?: string
+    }
+    pricing?: {
+      price?: string
+    }
+    quantity?: number
+    tax_amounts?:
+      | {
+          amount: number
+          tax_rate_data: {
+            country?: string
+            description?: string
+            display_name: string
+            inclusive: boolean
+            jurisdiction?: string
+            jurisdiction_level?:
+              | "city"
+              | "country"
+              | "county"
+              | "district"
+              | "multiple"
+              | "state"
+              | UnknownEnumStringValue
+            percentage: number
+            state?: string
+            tax_type?:
+              | "amusement_tax"
+              | "communications_tax"
+              | "gst"
+              | "hst"
+              | "igst"
+              | "jct"
+              | "lease_tax"
+              | "pst"
+              | "qst"
+              | "retail_delivery_fee"
+              | "rst"
+              | "sales_tax"
+              | "service_tax"
+              | "vat"
+              | UnknownEnumStringValue
+          }
+          taxability_reason?:
+            | "customer_exempt"
+            | "not_collecting"
+            | "not_subject_to_tax"
+            | "not_supported"
+            | "portion_product_exempt"
+            | "portion_reduced_rated"
+            | "portion_standard_rated"
+            | "product_exempt"
+            | "product_exempt_holiday"
+            | "proportionally_rated"
+            | "reduced_rated"
+            | "reverse_charge"
+            | "standard_rated"
+            | "taxable_basis_reduced"
+            | "zero_rated"
+            | UnknownEnumStringValue
+          taxable_amount: number
+        }[]
+      | ""
+      | UnknownEnumStringValue
+    tax_rates?: string[] | "" | UnknownEnumStringValue
+  }[]
+}
+
+export type t_PostInvoicesInvoiceVoidRequestBody = {
+  expand?: string[]
+}
+
+export type t_PostIssuingAuthorizationsAuthorizationRequestBody = {
+  expand?: string[]
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | ""
+    | UnknownEnumStringValue
+}
+
+export type t_PostIssuingAuthorizationsAuthorizationApproveRequestBody = {
+  amount?: number
+  expand?: string[]
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | ""
+    | UnknownEnumStringValue
+}
+
+export type t_PostIssuingAuthorizationsAuthorizationDeclineRequestBody = {
+  expand?: string[]
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | ""
+    | UnknownEnumStringValue
+}
+
+export type t_PostIssuingCardholdersRequestBody = {
+  billing: {
+    address: {
+      city: string
+      country: string
+      line1: string
+      line2?: string
+      postal_code: string
+      state?: string
+    }
+  }
+  company?: {
+    tax_id?: string
+  }
+  email?: string
+  expand?: string[]
+  individual?: {
+    card_issuing?: {
+      user_terms_acceptance?: {
+        date?: number
+        ip?: string
+        user_agent?: string | "" | UnknownEnumStringValue
+      }
+    }
+    dob?: {
+      day: number
+      month: number
+      year: number
+    }
+    first_name?: string
+    last_name?: string
+    verification?: {
+      document?: {
+        back?: string
+        front?: string
+      }
+    }
+  }
+  metadata?: {
+    [key: string]: string | undefined
+  }
+  name: string
+  phone_number?: string
+  preferred_locales?: (
+    | "de"
+    | "en"
+    | "es"
+    | "fr"
+    | "it"
+    | UnknownEnumStringValue
+  )[]
+  spending_controls?: {
+    allowed_categories?: (
+      | "ac_refrigeration_repair"
+      | "accounting_bookkeeping_services"
+      | "advertising_services"
+      | "agricultural_cooperative"
+      | "airlines_air_carriers"
+      | "airports_flying_fields"
+      | "ambulance_services"
+      | "amusement_parks_carnivals"
+      | "antique_reproductions"
+      | "antique_shops"
+      | "aquariums"
+      | "architectural_surveying_services"
+      | "art_dealers_and_galleries"
+      | "artists_supply_and_craft_shops"
+      | "auto_and_home_supply_stores"
+      | "auto_body_repair_shops"
+      | "auto_paint_shops"
+      | "auto_service_shops"
+      | "automated_cash_disburse"
+      | "automated_fuel_dispensers"
+      | "automobile_associations"
+      | "automotive_parts_and_accessories_stores"
+      | "automotive_tire_stores"
+      | "bail_and_bond_payments"
+      | "bakeries"
+      | "bands_orchestras"
+      | "barber_and_beauty_shops"
+      | "betting_casino_gambling"
+      | "bicycle_shops"
+      | "billiard_pool_establishments"
+      | "boat_dealers"
+      | "boat_rentals_and_leases"
+      | "book_stores"
+      | "books_periodicals_and_newspapers"
+      | "bowling_alleys"
+      | "bus_lines"
+      | "business_secretarial_schools"
+      | "buying_shopping_services"
+      | "cable_satellite_and_other_pay_television_and_radio"
+      | "camera_and_photographic_supply_stores"
+      | "candy_nut_and_confectionery_stores"
+      | "car_and_truck_dealers_new_used"
+      | "car_and_truck_dealers_used_only"
+      | "car_rental_agencies"
+      | "car_washes"
+      | "carpentry_services"
+      | "carpet_upholstery_cleaning"
+      | "caterers"
+      | "charitable_and_social_service_organizations_fundraising"
+      | "chemicals_and_allied_products"
+      | "child_care_services"
+      | "childrens_and_infants_wear_stores"
+      | "chiropodists_podiatrists"
+      | "chiropractors"
+      | "cigar_stores_and_stands"
+      | "civic_social_fraternal_associations"
+      | "cleaning_and_maintenance"
+      | "clothing_rental"
+      | "colleges_universities"
+      | "commercial_equipment"
+      | "commercial_footwear"
+      | "commercial_photography_art_and_graphics"
+      | "commuter_transport_and_ferries"
+      | "computer_network_services"
+      | "computer_programming"
+      | "computer_repair"
+      | "computer_software_stores"
+      | "computers_peripherals_and_software"
+      | "concrete_work_services"
+      | "construction_materials"
+      | "consulting_public_relations"
+      | "correspondence_schools"
+      | "cosmetic_stores"
+      | "counseling_services"
+      | "country_clubs"
+      | "courier_services"
+      | "court_costs"
+      | "credit_reporting_agencies"
+      | "cruise_lines"
+      | "dairy_products_stores"
+      | "dance_hall_studios_schools"
+      | "dating_escort_services"
+      | "dentists_orthodontists"
+      | "department_stores"
+      | "detective_agencies"
+      | "digital_goods_applications"
+      | "digital_goods_games"
+      | "digital_goods_large_volume"
+      | "digital_goods_media"
+      | "direct_marketing_catalog_merchant"
+      | "direct_marketing_combination_catalog_and_retail_merchant"
+      | "direct_marketing_inbound_telemarketing"
+      | "direct_marketing_insurance_services"
+      | "direct_marketing_other"
+      | "direct_marketing_outbound_telemarketing"
+      | "direct_marketing_subscription"
+      | "direct_marketing_travel"
+      | "discount_stores"
+      | "doctors"
+      | "door_to_door_sales"
+      | "drapery_window_covering_and_upholstery_stores"
+      | "drinking_places"
+      | "drug_stores_and_pharmacies"
+      | "drugs_drug_proprietaries_and_druggist_sundries"
+      | "dry_cleaners"
+      | "durable_goods"
+      | "duty_free_stores"
+      | "eating_places_restaurants"
+      | "educational_services"
+      | "electric_razor_stores"
+      | "electric_vehicle_charging"
+      | "electrical_parts_and_equipment"
+      | "electrical_services"
+      | "electronics_repair_shops"
+      | "electronics_stores"
+      | "elementary_secondary_schools"
+      | "emergency_services_gcas_visa_use_only"
+      | "employment_temp_agencies"
+      | "equipment_rental"
+      | "exterminating_services"
+      | "family_clothing_stores"
+      | "fast_food_restaurants"
+      | "financial_institutions"
+      | "fines_government_administrative_entities"
+      | "fireplace_fireplace_screens_and_accessories_stores"
+      | "floor_covering_stores"
+      | "florists"
+      | "florists_supplies_nursery_stock_and_flowers"
+      | "freezer_and_locker_meat_provisioners"
+      | "fuel_dealers_non_automotive"
+      | "funeral_services_crematories"
+      | "furniture_home_furnishings_and_equipment_stores_except_appliances"
+      | "furniture_repair_refinishing"
+      | "furriers_and_fur_shops"
+      | "general_services"
+      | "gift_card_novelty_and_souvenir_shops"
+      | "glass_paint_and_wallpaper_stores"
+      | "glassware_crystal_stores"
+      | "golf_courses_public"
+      | "government_licensed_horse_dog_racing_us_region_only"
+      | "government_licensed_online_casions_online_gambling_us_region_only"
+      | "government_owned_lotteries_non_us_region"
+      | "government_owned_lotteries_us_region_only"
+      | "government_services"
+      | "grocery_stores_supermarkets"
+      | "hardware_equipment_and_supplies"
+      | "hardware_stores"
+      | "health_and_beauty_spas"
+      | "hearing_aids_sales_and_supplies"
+      | "heating_plumbing_a_c"
+      | "hobby_toy_and_game_shops"
+      | "home_supply_warehouse_stores"
+      | "hospitals"
+      | "hotels_motels_and_resorts"
+      | "household_appliance_stores"
+      | "industrial_supplies"
+      | "information_retrieval_services"
+      | "insurance_default"
+      | "insurance_underwriting_premiums"
+      | "intra_company_purchases"
+      | "jewelry_stores_watches_clocks_and_silverware_stores"
+      | "landscaping_services"
+      | "laundries"
+      | "laundry_cleaning_services"
+      | "legal_services_attorneys"
+      | "luggage_and_leather_goods_stores"
+      | "lumber_building_materials_stores"
+      | "manual_cash_disburse"
+      | "marinas_service_and_supplies"
+      | "marketplaces"
+      | "masonry_stonework_and_plaster"
+      | "massage_parlors"
+      | "medical_and_dental_labs"
+      | "medical_dental_ophthalmic_and_hospital_equipment_and_supplies"
+      | "medical_services"
+      | "membership_organizations"
+      | "mens_and_boys_clothing_and_accessories_stores"
+      | "mens_womens_clothing_stores"
+      | "metal_service_centers"
+      | "miscellaneous"
+      | "miscellaneous_apparel_and_accessory_shops"
+      | "miscellaneous_auto_dealers"
+      | "miscellaneous_business_services"
+      | "miscellaneous_food_stores"
+      | "miscellaneous_general_merchandise"
+      | "miscellaneous_general_services"
+      | "miscellaneous_home_furnishing_specialty_stores"
+      | "miscellaneous_publishing_and_printing"
+      | "miscellaneous_recreation_services"
+      | "miscellaneous_repair_shops"
+      | "miscellaneous_specialty_retail"
+      | "mobile_home_dealers"
+      | "motion_picture_theaters"
+      | "motor_freight_carriers_and_trucking"
+      | "motor_homes_dealers"
+      | "motor_vehicle_supplies_and_new_parts"
+      | "motorcycle_shops_and_dealers"
+      | "motorcycle_shops_dealers"
+      | "music_stores_musical_instruments_pianos_and_sheet_music"
+      | "news_dealers_and_newsstands"
+      | "non_fi_money_orders"
+      | "non_fi_stored_value_card_purchase_load"
+      | "nondurable_goods"
+      | "nurseries_lawn_and_garden_supply_stores"
+      | "nursing_personal_care"
+      | "office_and_commercial_furniture"
+      | "opticians_eyeglasses"
+      | "optometrists_ophthalmologist"
+      | "orthopedic_goods_prosthetic_devices"
+      | "osteopaths"
+      | "package_stores_beer_wine_and_liquor"
+      | "paints_varnishes_and_supplies"
+      | "parking_lots_garages"
+      | "passenger_railways"
+      | "pawn_shops"
+      | "pet_shops_pet_food_and_supplies"
+      | "petroleum_and_petroleum_products"
+      | "photo_developing"
+      | "photographic_photocopy_microfilm_equipment_and_supplies"
+      | "photographic_studios"
+      | "picture_video_production"
+      | "piece_goods_notions_and_other_dry_goods"
+      | "plumbing_heating_equipment_and_supplies"
+      | "political_organizations"
+      | "postal_services_government_only"
+      | "precious_stones_and_metals_watches_and_jewelry"
+      | "professional_services"
+      | "public_warehousing_and_storage"
+      | "quick_copy_repro_and_blueprint"
+      | "railroads"
+      | "real_estate_agents_and_managers_rentals"
+      | "record_stores"
+      | "recreational_vehicle_rentals"
+      | "religious_goods_stores"
+      | "religious_organizations"
+      | "roofing_siding_sheet_metal"
+      | "secretarial_support_services"
+      | "security_brokers_dealers"
+      | "service_stations"
+      | "sewing_needlework_fabric_and_piece_goods_stores"
+      | "shoe_repair_hat_cleaning"
+      | "shoe_stores"
+      | "small_appliance_repair"
+      | "snowmobile_dealers"
+      | "special_trade_services"
+      | "specialty_cleaning"
+      | "sporting_goods_stores"
+      | "sporting_recreation_camps"
+      | "sports_and_riding_apparel_stores"
+      | "sports_clubs_fields"
+      | "stamp_and_coin_stores"
+      | "stationary_office_supplies_printing_and_writing_paper"
+      | "stationery_stores_office_and_school_supply_stores"
+      | "swimming_pools_sales"
+      | "t_ui_travel_germany"
+      | "tailors_alterations"
+      | "tax_payments_government_agencies"
+      | "tax_preparation_services"
+      | "taxicabs_limousines"
+      | "telecommunication_equipment_and_telephone_sales"
+      | "telecommunication_services"
+      | "telegraph_services"
+      | "tent_and_awning_shops"
+      | "testing_laboratories"
+      | "theatrical_ticket_agencies"
+      | "timeshares"
+      | "tire_retreading_and_repair"
+      | "tolls_bridge_fees"
+      | "tourist_attractions_and_exhibits"
+      | "towing_services"
+      | "trailer_parks_campgrounds"
+      | "transportation_services"
+      | "travel_agencies_tour_operators"
+      | "truck_stop_iteration"
+      | "truck_utility_trailer_rentals"
+      | "typesetting_plate_making_and_related_services"
+      | "typewriter_stores"
+      | "u_s_federal_government_agencies_or_departments"
+      | "uniforms_commercial_clothing"
+      | "used_merchandise_and_secondhand_stores"
+      | "utilities"
+      | "variety_stores"
+      | "veterinary_services"
+      | "video_amusement_game_supplies"
+      | "video_game_arcades"
+      | "video_tape_rental_stores"
+      | "vocational_trade_schools"
+      | "watch_jewelry_repair"
+      | "welding_repair"
+      | "wholesale_clubs"
+      | "wig_and_toupee_stores"
+      | "wires_money_orders"
+      | "womens_accessory_and_specialty_shops"
+      | "womens_ready_to_wear_stores"
+      | "wrecking_and_salvage_yards"
+      | UnknownEnumStringValue
+    )[]
+    allowed_merchant_countries?: string[]
+    blocked_categories?: (
+      | "ac_refrigeration_repair"
+      | "accounting_bookkeeping_services"
+      | "advertising_services"
+      | "agricultural_cooperative"
+      | "airlines_air_carriers"
+      | "airports_flying_fields"
+      | "ambulance_services"
+      | "amusement_parks_carnivals"
+      | "antique_reproductions"
+      | "antique_shops"
+      | "aquariums"
+      | "architectural_surveying_services"
+      | "art_dealers_and_galleries"
+      | "artists_supply_and_craft_shops"
+      | "auto_and_home_supply_stores"
+      | "auto_body_repair_shops"
+      | "auto_paint_shops"
+      | "auto_service_shops"
+      | "automated_cash_disburse"
+      | "automated_fuel_dispensers"
+      | "automobile_associations"
+      | "automotive_parts_and_accessories_stores"
+      | "automotive_tire_stores"
+      | "bail_and_bond_payments"
+      | "bakeries"
+      | "bands_orchestras"
+      | "barber_and_beauty_shops"
+      | "betting_casino_gambling"
+      | "bicycle_shops"
+      | "billiard_pool_establishments"
+      | "boat_dealers"
+      | "boat_rentals_and_leases"
+      | "book_stores"
+      | "books_periodicals_and_newspapers"
+      | "bowling_alleys"
+      | "bus_lines"
+      | "business_secretarial_schools"
+      | "buying_shopping_services"
+      | "cable_satellite_and_other_pay_television_and_radio"
+      | "camera_and_photographic_supply_stores"
+      | "candy_nut_and_confectionery_stores"
+      | "car_and_truck_dealers_new_used"
+      | "car_and_truck_dealers_used_only"
+      | "car_rental_agencies"
+      | "car_washes"
+      | "carpentry_services"
+      | "carpet_upholstery_cleaning"
+      | "caterers"
+      | "charitable_and_social_service_organizations_fundraising"
+      | "chemicals_and_allied_products"
+      | "child_care_services"
+      | "childrens_and_infants_wear_stores"
+      | "chiropodists_podiatrists"
+      | "chiropractors"
+      | "cigar_stores_and_stands"
+      | "civic_social_fraternal_associations"
+      | "cleaning_and_maintenance"
+      | "clothing_rental"
+      | "colleges_universities"
+      | "commercial_equipment"
+      | "commercial_footwear"
+      | "commercial_photography_art_and_graphics"
+      | "commuter_transport_and_ferries"
+      | "computer_network_services"
+      | "computer_programming"
+      | "computer_repair"
+      | "computer_software_stores"
+      | "computers_peripherals_and_software"
+      | "concrete_work_services"
+      | "construction_materials"
+      | "consulting_public_relations"
+      | "correspondence_schools"
+      | "cosmetic_stores"
+      | "counseling_services"
+      | "country_clubs"
+      | "courier_services"
+      | "court_costs"
+      | "credit_reporting_agencies"
+      | "cruise_lines"
+      | "dairy_products_stores"
+      | "dance_hall_studios_schools"
+      | "dating_escort_services"
+      | "dentists_orthodontists"
+      | "department_stores"
+      | "detective_agencies"
+      | "digital_goods_applications"
+      | "digital_goods_games"
+      | "digital_goods_large_volume"
+      | "digital_goods_media"
+      | "direct_marketing_catalog_merchant"
+      | "direct_marketing_combination_catalog_and_retail_merchant"
+      | "direct_marketing_inbound_telemarketing"
+      | "direct_marketing_insurance_services"
+      | "direct_marketing_other"
+      | "direct_marketing_outbound_telemarketing"
+      | "direct_marketing_subscription"
+      | "direct_marketing_travel"
+      | "discount_stores"
+      | "doctors"
+      | "door_to_door_sales"
+      | "drapery_window_covering_and_upholstery_stores"
+      | "drinking_places"
+      | "drug_stores_and_pharmacies"
+      | "drugs_drug_proprietaries_and_druggist_sundries"
+      | "dry_cleaners"
+      | "durable_goods"
+      | "duty_free_stores"
+      | "eating_places_restaurants"
+      | "educational_services"
+      | "electric_razor_stores"
+      | "electric_vehicle_charging"
+      | "electrical_parts_and_equipment"
+      | "electrical_services"
+      | "electronics_repair_shops"
+      | "electronics_stores"
+      | "elementary_secondary_schools"
+      | "emergency_services_gcas_visa_use_only"
+      | "employment_temp_agencies"
+      | "equipment_rental"
+      | "exterminating_services"
+      | "family_clothing_stores"
+      | "fast_food_restaurants"
+      | "financial_institutions"
+      | "fines_government_administrative_entities"
+      | "fireplace_fireplace_screens_and_accessories_stores"
+      | "floor_covering_stores"
+      | "florists"
+      | "florists_supplies_nursery_stock_and_flowers"
+      | "freezer_and_locker_meat_provisioners"
+      | "fuel_dealers_non_automotive"
+      | "funeral_services_crematories"
+      | "furniture_home_furnishings_and_equipment_stores_except_appliances"
+      | "furniture_repair_refinishing"
+      | "furriers_and_fur_shops"
+      | "general_services"
+      | "gift_card_novelty_and_souvenir_shops"
+      | "glass_paint_and_wallpaper_stores"
+      | "glassware_crystal_stores"
+      | "golf_courses_public"
+      | "government_licensed_horse_dog_racing_us_region_only"
+      | "government_licensed_online_casions_online_gambling_us_region_only"
+      | "government_owned_lotteries_non_us_region"
+      | "government_owned_lotteries_us_region_only"
+      | "government_services"
+      | "grocery_stores_supermarkets"
+      | "hardware_equipment_and_supplies"
+      | "hardware_stores"
+      | "health_and_beauty_spas"
+      | "hearing_aids_sales_and_supplies"
+      | "heating_plumbing_a_c"
+      | "hobby_toy_and_game_shops"
+      | "home_supply_warehouse_stores"
+      | "hospitals"
+      | "hotels_motels_and_resorts"
+      | "household_appliance_stores"
+      | "industrial_supplies"
+      | "information_retrieval_services"
+      | "insurance_default"
+      | "insurance_underwriting_premiums"
+      | "intra_company_purchases"
+      | "jewelry_stores_watches_clocks_and_silverware_stores"
+      | "landscaping_services"
+      | "laundries"
+      | "laundry_cleaning_services"
+      | "legal_services_attorneys"
+      | "luggage_and_leather_goods_stores"
+      | "lumber_building_materials_stores"
+      | "manual_cash_disburse"
+      | "marinas_service_and_supplies"
+      | "marketplaces"
+      | "masonry_stonework_and_plaster"
+      | "massage_parlors"
+      | "medical_and_dental_labs"
+      | "medical_dental_ophthalmic_and_hospital_equipment_and_supplies"
+      | "medical_services"
+      | "membership_organizations"
+      | "mens_and_boys_clothing_and_accessories_stores"
+      | "mens_womens_clothing_stores"
+      | "metal_service_centers"
+      | "miscellaneous"
+      | "miscellaneous_apparel_and_accessory_shops"
+      | "miscellaneous_auto_dealers"
+      | "miscellaneous_business_services"
+      | "miscellaneous_food_stores"
+      | "miscellaneous_general_merchandise"
+      | "miscellaneous_general_services"
+      | "miscellaneous_home_furnishing_specialty_stores"
+      | "miscellaneous_publishing_and_printing"
+      | "miscellaneous_recreation_services"
+      | "miscellaneous_repair_shops"
+      | "miscellaneous_specialty_retail"
+      | "mobile_home_dealers"
+      | "motion_picture_theaters"
+      | "motor_freight_carriers_and_trucking"
+      | "motor_homes_dealers"
+      | "motor_vehicle_supplies_and_new_parts"
+      | "motorcycle_shops_and_dealers"
+      | "motorcycle_shops_dealers"
+      | "music_stores_musical_instruments_pianos_and_sheet_music"
+      | "news_dealers_and_newsstands"
+      | "non_fi_money_orders"
+      | "non_fi_stored_value_card_purchase_load"
+      | "nondurable_goods"
+      | "nurseries_lawn_and_garden_supply_stores"
+      | "nursing_personal_care"
+      | "office_and_commercial_furniture"
+      | "opticians_eyeglasses"
+      | "optometrists_ophthalmologist"
+      | "orthopedic_goods_prosthetic_devices"
+      | "osteopaths"
+      | "package_stores_beer_wine_and_liquor"
+      | "paints_varnishes_and_supplies"
+      | "parking_lots_garages"
+      | "passenger_railways"
+      | "pawn_shops"
+      | "pet_shops_pet_food_and_supplies"
+      | "petroleum_and_petroleum_products"
+      | "photo_developing"
+      | "photographic_photocopy_microfilm_equipment_and_supplies"
+      | "photographic_studios"
+      | "picture_video_production"
+      | "piece_goods_notions_and_other_dry_goods"
+      | "plumbing_heating_equipment_and_supplies"
+      | "political_organizations"
+      | "postal_services_government_only"
+      | "precious_stones_and_metals_watches_and_jewelry"
+      | "professional_services"
+      | "public_warehousing_and_storage"
+      | "quick_copy_repro_and_blueprint"
+      | "railroads"
+      | "real_estate_agents_and_managers_rentals"
+      | "record_stores"
+      | "recreational_vehicle_rentals"
+      | "religious_goods_stores"
+      | "religious_organizations"
+      | "roofing_siding_sheet_metal"
+      | "secretarial_support_services"
+      | "security_brokers_dealers"
+      | "service_stations"
+      | "sewing_needlework_fabric_and_piece_goods_stores"
+      | "shoe_repair_hat_cleaning"
+      | "shoe_stores"
+      | "small_appliance_repair"
+      | "snowmobile_dealers"
+      | "special_trade_services"
+      | "specialty_cleaning"
+      | "sporting_goods_stores"
+      | "sporting_recreation_camps"
+      | "sports_and_riding_apparel_stores"
+      | "sports_clubs_fields"
+      | "stamp_and_coin_stores"
+      | "stationary_office_supplies_printing_and_writing_paper"
+      | "stationery_stores_office_and_school_supply_stores"
+      | "swimming_pools_sales"
+      | "t_ui_travel_germany"
+      | "tailors_alterations"
+      | "tax_payments_government_agencies"
+      | "tax_preparation_services"
+      | "taxicabs_limousines"
+      | "telecommunication_equipment_and_telephone_sales"
+      | "telecommunication_services"
+      | "telegraph_services"
+      | "tent_and_awning_shops"
+      | "testing_laboratories"
+      | "theatrical_ticket_agencies"
+      | "timeshares"
+      | "tire_retreading_and_repair"
+      | "tolls_bridge_fees"
+      | "tourist_attractions_and_exhibits"
+      | "towing_services"
+      | "trailer_parks_campgrounds"
+      | "transportation_services"
+      | "travel_agencies_tour_operators"
+      | "truck_stop_iteration"
+      | "truck_utility_trailer_rentals"
+      | "typesetting_plate_making_and_related_services"
+      | "typewriter_stores"
+      | "u_s_federal_government_agencies_or_departments"
+      | "uniforms_commercial_clothing"
+      | "used_merchandise_and_secondhand_stores"
+      | "utilities"
+      | "variety_stores"
+      | "veterinary_services"
+      | "video_amusement_game_supplies"
+      | "video_game_arcades"
+      | "video_tape_rental_stores"
+      | "vocational_trade_schools"
+      | "watch_jewelry_repair"
+      | "welding_repair"
+      | "wholesale_clubs"
+      | "wig_and_toupee_stores"
+      | "wires_money_orders"
+      | "womens_accessory_and_specialty_shops"
+      | "womens_ready_to_wear_stores"
+      | "wrecking_and_salvage_yards"
+      | UnknownEnumStringValue
+    )[]
+    blocked_merchant_countries?: string[]
+    spending_limits?: {
+      amount: number
+      categories?: (
+        | "ac_refrigeration_repair"
+        | "accounting_bookkeeping_services"
+        | "advertising_services"
+        | "agricultural_cooperative"
+        | "airlines_air_carriers"
+        | "airports_flying_fields"
+        | "ambulance_services"
+        | "amusement_parks_carnivals"
+        | "antique_reproductions"
+        | "antique_shops"
+        | "aquariums"
+        | "architectural_surveying_services"
+        | "art_dealers_and_galleries"
+        | "artists_supply_and_craft_shops"
+        | "auto_and_home_supply_stores"
+        | "auto_body_repair_shops"
+        | "auto_paint_shops"
+        | "auto_service_shops"
+        | "automated_cash_disburse"
+        | "automated_fuel_dispensers"
+        | "automobile_associations"
+        | "automotive_parts_and_accessories_stores"
+        | "automotive_tire_stores"
+        | "bail_and_bond_payments"
+        | "bakeries"
+        | "bands_orchestras"
+        | "barber_and_beauty_shops"
+        | "betting_casino_gambling"
+        | "bicycle_shops"
+        | "billiard_pool_establishments"
+        | "boat_dealers"
+        | "boat_rentals_and_leases"
+        | "book_stores"
+        | "books_periodicals_and_newspapers"
+        | "bowling_alleys"
+        | "bus_lines"
+        | "business_secretarial_schools"
+        | "buying_shopping_services"
+        | "cable_satellite_and_other_pay_television_and_radio"
+        | "camera_and_photographic_supply_stores"
+        | "candy_nut_and_confectionery_stores"
+        | "car_and_truck_dealers_new_used"
+        | "car_and_truck_dealers_used_only"
+        | "car_rental_agencies"
+        | "car_washes"
+        | "carpentry_services"
+        | "carpet_upholstery_cleaning"
+        | "caterers"
+        | "charitable_and_social_service_organizations_fundraising"
+        | "chemicals_and_allied_products"
+        | "child_care_services"
+        | "childrens_and_infants_wear_stores"
+        | "chiropodists_podiatrists"
+        | "chiropractors"
+        | "cigar_stores_and_stands"
+        | "civic_social_fraternal_associations"
+        | "cleaning_and_maintenance"
+        | "clothing_rental"
+        | "colleges_universities"
+        | "commercial_equipment"
+        | "commercial_footwear"
+        | "commercial_photography_art_and_graphics"
+        | "commuter_transport_and_ferries"
+        | "computer_network_services"
+        | "computer_programming"
+        | "computer_repair"
+        | "computer_software_stores"
+        | "computers_peripherals_and_software"
+        | "concrete_work_services"
+        | "construction_materials"
+        | "consulting_public_relations"
+        | "correspondence_schools"
+        | "cosmetic_stores"
+        | "counseling_services"
+        | "country_clubs"
+        | "courier_services"
+        | "court_costs"
+        | "credit_reporting_agencies"
+        | "cruise_lines"
+        | "dairy_products_stores"
+        | "dance_hall_studios_schools"
+        | "dating_escort_services"
+        | "dentists_orthodontists"
+        | "department_stores"
+        | "detective_agencies"
+        | "digital_goods_applications"
+        | "digital_goods_games"
+        | "digital_goods_large_volume"
+        | "digital_goods_media"
+        | "direct_marketing_catalog_merchant"
+        | "direct_marketing_combination_catalog_and_retail_merchant"
+        | "direct_marketing_inbound_telemarketing"
+        | "direct_marketing_insurance_services"
+        | "direct_marketing_other"
+        | "direct_marketing_outbound_telemarketing"
+        | "direct_marketing_subscription"
+        | "direct_marketing_travel"
+        | "discount_stores"
+        | "doctors"
+        | "door_to_door_sales"
+        | "drapery_window_covering_and_upholstery_stores"
+        | "drinking_places"
+        | "drug_stores_and_pharmacies"
+        | "drugs_drug_proprietaries_and_druggist_sundries"
+        | "dry_cleaners"
+        | "durable_goods"
+        | "duty_free_stores"
+        | "eating_places_restaurants"
+        | "educational_services"
+        | "electric_razor_stores"
+        | "electric_vehicle_charging"
+        | "electrical_parts_and_equipment"
+        | "electrical_services"
+        | "electronics_repair_shops"
+        | "electronics_stores"
+        | "elementary_secondary_schools"
+        | "emergency_services_gcas_visa_use_only"
+        | "employment_temp_agencies"
+        | "equipment_rental"
+        | "exterminating_services"
+        | "family_clothing_stores"
+        | "fast_food_restaurants"
+        | "financial_institutions"
+        | "fines_government_administrative_entities"
+        | "fireplace_fireplace_screens_and_accessories_stores"
+        | "floor_covering_stores"
+        | "florists"
+        | "florists_supplies_nursery_stock_and_flowers"
+        | "freezer_and_locker_meat_provisioners"
+        | "fuel_dealers_non_automotive"
+        | "funeral_services_crematories"
+        | "furniture_home_furnishings_and_equipment_stores_except_appliances"
+        | "furniture_repair_refinishing"
+        | "furriers_and_fur_shops"
+        | "general_services"
+        | "gift_card_novelty_and_souvenir_shops"
+        | "glass_paint_and_wallpaper_stores"
+        | "glassware_crystal_stores"
+        | "golf_courses_public"
+        | "government_licensed_horse_dog_racing_us_region_only"
+        | "government_licensed_online_casions_online_gambling_us_region_only"
+        | "government_owned_lotteries_non_us_region"
+        | "government_owned_lotteries_us_region_only"
+        | "government_services"
+        | "grocery_stores_supermarkets"
+        | "hardware_equipment_and_supplies"
+        | "hardware_stores"
+        | "health_and_beauty_spas"
+        | "hearing_aids_sales_and_supplies"
+        | "heating_plumbing_a_c"
+        | "hobby_toy_and_game_shops"
+        | "home_supply_warehouse_stores"
+        | "hospitals"
+        | "hotels_motels_and_resorts"
+        | "household_appliance_stores"
+        | "industrial_supplies"
+        | "information_retrieval_services"
+        | "insurance_default"
+        | "insurance_underwriting_premiums"
+        | "intra_company_purchases"
+        | "jewelry_stores_watches_clocks_and_silverware_stores"
+        | "landscaping_services"
+        | "laundries"
+        | "laundry_cleaning_services"
+        | "legal_services_attorneys"
+        | "luggage_and_leather_goods_stores"
+        | "lumber_building_materials_stores"
+        | "manual_cash_disburse"
+        | "marinas_service_and_supplies"
+        | "marketplaces"
+        | "masonry_stonework_and_plaster"
+        | "massage_parlors"
+        | "medical_and_dental_labs"
+        | "medical_dental_ophthalmic_and_hospital_equipment_and_supplies"
+        | "medical_services"
+        | "membership_organizations"
+        | "mens_and_boys_clothing_and_accessories_stores"
+        | "mens_womens_clothing_stores"
+        | "metal_service_centers"
+        | "miscellaneous"
+        | "miscellaneous_apparel_and_accessory_shops"
+        | "miscellaneous_auto_dealers"
+        | "miscellaneous_business_services"
+        | "miscellaneous_food_stores"
+        | "miscellaneous_general_merchandise"
+        | "miscellaneous_general_services"
+        | "miscellaneous_home_furnishing_specialty_stores"
+        | "miscellaneous_publishing_and_printing"
+        | "miscellaneous_recreation_services"
+        | "miscellaneous_repair_shops"
+        | "miscellaneous_specialty_retail"
+        | "mobile_home_dealers"
+        | "motion_picture_theaters"
+        | "motor_freight_carriers_and_trucking"
+        | "motor_homes_dealers"
+        | "motor_vehicle_supplies_and_new_parts"
+        | "motorcycle_shops_and_dealers"
+        | "motorcycle_shops_dealers"
+        | "music_stores_musical_instruments_pianos_and_sheet_music"
+        | "news_dealers_and_newsstands"
+        | "non_fi_money_orders"
+        | "non_fi_stored_value_card_purchase_load"
+        | "nondurable_goods"
+        | "nurseries_lawn_and_garden_supply_stores"
+        | "nursing_personal_care"
+        | "office_and_commercial_furniture"
+        | "opticians_eyeglasses"
+        | "optometrists_ophthalmologist"
+        | "orthopedic_goods_prosthetic_devices"
+        | "osteopaths"
+        | "package_stores_beer_wine_and_liquor"
+        | "paints_varnishes_and_supplies"
+        | "parking_lots_garages"
+        | "passenger_railways"
+        | "pawn_shops"
+        | "pet_shops_pet_food_and_supplies"
+        | "petroleum_and_petroleum_products"
+        | "photo_developing"
+        | "photographic_photocopy_microfilm_equipment_and_supplies"
+        | "photographic_studios"
+        | "picture_video_production"
+        | "piece_goods_notions_and_other_dry_goods"
+        | "plumbing_heating_equipment_and_supplies"
+        | "political_organizations"
+        | "postal_services_government_only"
+        | "precious_stones_and_metals_watches_and_jewelry"
+        | "professional_services"
+        | "public_warehousing_and_storage"
+        | "quick_copy_repro_and_blueprint"
+        | "railroads"
+        | "real_estate_agents_and_managers_rentals"
+        | "record_stores"
+        | "recreational_vehicle_rentals"
+        | "religious_goods_stores"
+        | "religious_organizations"
+        | "roofing_siding_sheet_metal"
+        | "secretarial_support_services"
+        | "security_brokers_dealers"
+        | "service_stations"
+        | "sewing_needlework_fabric_and_piece_goods_stores"
+        | "shoe_repair_hat_cleaning"
+        | "shoe_stores"
+        | "small_appliance_repair"
+        | "snowmobile_dealers"
+        | "special_trade_services"
+        | "specialty_cleaning"
+        | "sporting_goods_stores"
+        | "sporting_recreation_camps"
+        | "sports_and_riding_apparel_stores"
+        | "sports_clubs_fields"
+        | "stamp_and_coin_stores"
+        | "stationary_office_supplies_printing_and_writing_paper"
+        | "stationery_stores_office_and_school_supply_stores"
+        | "swimming_pools_sales"
+        | "t_ui_travel_germany"
+        | "tailors_alterations"
+        | "tax_payments_government_agencies"
+        | "tax_preparation_services"
+        | "taxicabs_limousines"
+        | "telecommunication_equipment_and_telephone_sales"
+        | "telecommunication_services"
+        | "telegraph_services"
+        | "tent_and_awning_shops"
+        | "testing_laboratories"
+        | "theatrical_ticket_agencies"
+        | "timeshares"
+        | "tire_retreading_and_repair"
+        | "tolls_bridge_fees"
+        | "tourist_attractions_and_exhibits"
+        | "towing_services"
+        | "trailer_parks_campgrounds"
+        | "transportation_services"
+        | "travel_agencies_tour_operators"
+        | "truck_stop_iteration"
+        | "truck_utility_trailer_rentals"
+        | "typesetting_plate_making_and_related_services"
+        | "typewriter_stores"
+        | "u_s_federal_government_agencies_or_departments"
+        | "uniforms_commercial_clothing"
+        | "used_merchandise_and_secondhand_stores"
+        | "utilities"
+        | "variety_stores"
+        | "veterinary_services"
+        | "video_amusement_game_supplies"
+        | "video_game_arcades"
+        | "video_tape_rental_stores"
+        | "vocational_trade_schools"
+        | "watch_jewelry_repair"
+        | "welding_repair"
+        | "wholesale_clubs"
+        | "wig_and_toupee_stores"
+        | "wires_money_orders"
+        | "womens_accessory_and_specialty_shops"
+        | "womens_ready_to_wear_stores"
+        | "wrecking_and_salvage_yards"
+        | UnknownEnumStringValue
+      )[]
+      interval:
+        | "all_time"
+        | "daily"
+        | "monthly"
+        | "per_authorization"
+        | "weekly"
+        | "yearly"
+        | UnknownEnumStringValue
+    }[]
+    spending_limits_currency?: string
+  }
+  status?: "active" | "inactive" | UnknownEnumStringValue
+  type?: "company" | "individual" | UnknownEnumStringValue
+}
+
+export type t_PostIssuingCardholdersCardholderRequestBody = {
+  billing?: {
+    address: {
+      city: string
+      country: string
+      line1: string
+      line2?: string
+      postal_code: string
+      state?: string
+    }
+  }
+  company?: {
+    tax_id?: string
+  }
+  email?: string
+  expand?: string[]
+  individual?: {
+    card_issuing?: {
+      user_terms_acceptance?: {
+        date?: number
+        ip?: string
+        user_agent?: string | "" | UnknownEnumStringValue
+      }
+    }
+    dob?: {
+      day: number
+      month: number
+      year: number
+    }
+    first_name?: string
+    last_name?: string
+    verification?: {
+      document?: {
+        back?: string
+        front?: string
+      }
+    }
+  }
+  metadata?: {
+    [key: string]: string | undefined
+  }
+  phone_number?: string
+  preferred_locales?: (
+    | "de"
+    | "en"
+    | "es"
+    | "fr"
+    | "it"
+    | UnknownEnumStringValue
+  )[]
+  spending_controls?: {
+    allowed_categories?: (
+      | "ac_refrigeration_repair"
+      | "accounting_bookkeeping_services"
+      | "advertising_services"
+      | "agricultural_cooperative"
+      | "airlines_air_carriers"
+      | "airports_flying_fields"
+      | "ambulance_services"
+      | "amusement_parks_carnivals"
+      | "antique_reproductions"
+      | "antique_shops"
+      | "aquariums"
+      | "architectural_surveying_services"
+      | "art_dealers_and_galleries"
+      | "artists_supply_and_craft_shops"
+      | "auto_and_home_supply_stores"
+      | "auto_body_repair_shops"
+      | "auto_paint_shops"
+      | "auto_service_shops"
+      | "automated_cash_disburse"
+      | "automated_fuel_dispensers"
+      | "automobile_associations"
+      | "automotive_parts_and_accessories_stores"
+      | "automotive_tire_stores"
+      | "bail_and_bond_payments"
+      | "bakeries"
+      | "bands_orchestras"
+      | "barber_and_beauty_shops"
+      | "betting_casino_gambling"
+      | "bicycle_shops"
+      | "billiard_pool_establishments"
+      | "boat_dealers"
+      | "boat_rentals_and_leases"
+      | "book_stores"
+      | "books_periodicals_and_newspapers"
+      | "bowling_alleys"
+      | "bus_lines"
+      | "business_secretarial_schools"
+      | "buying_shopping_services"
+      | "cable_satellite_and_other_pay_television_and_radio"
+      | "camera_and_photographic_supply_stores"
+      | "candy_nut_and_confectionery_stores"
+      | "car_and_truck_dealers_new_used"
+      | "car_and_truck_dealers_used_only"
+      | "car_rental_agencies"
+      | "car_washes"
+      | "carpentry_services"
+      | "carpet_upholstery_cleaning"
+      | "caterers"
+      | "charitable_and_social_service_organizations_fundraising"
+      | "chemicals_and_allied_products"
+      | "child_care_services"
+      | "childrens_and_infants_wear_stores"
+      | "chiropodists_podiatrists"
+      | "chiropractors"
+      | "cigar_stores_and_stands"
+      | "civic_social_fraternal_associations"
+      | "cleaning_and_maintenance"
+      | "clothing_rental"
+      | "colleges_universities"
+      | "commercial_equipment"
+      | "commercial_footwear"
+      | "commercial_photography_art_and_graphics"
+      | "commuter_transport_and_ferries"
+      | "computer_network_services"
+      | "computer_programming"
+      | "computer_repair"
+      | "computer_software_stores"
+      | "computers_peripherals_and_software"
+      | "concrete_work_services"
+      | "construction_materials"
+      | "consulting_public_relations"
+      | "correspondence_schools"
+      | "cosmetic_stores"
+      | "counseling_services"
+      | "country_clubs"
+      | "courier_services"
+      | "court_costs"
+      | "credit_reporting_agencies"
+      | "cruise_lines"
+      | "dairy_products_stores"
+      | "dance_hall_studios_schools"
+      | "dating_escort_services"
+      | "dentists_orthodontists"
+      | "department_stores"
+      | "detective_agencies"
+      | "digital_goods_applications"
+      | "digital_goods_games"
+      | "digital_goods_large_volume"
+      | "digital_goods_media"
+      | "direct_marketing_catalog_merchant"
+      | "direct_marketing_combination_catalog_and_retail_merchant"
+      | "direct_marketing_inbound_telemarketing"
+      | "direct_marketing_insurance_services"
+      | "direct_marketing_other"
+      | "direct_marketing_outbound_telemarketing"
+      | "direct_marketing_subscription"
+      | "direct_marketing_travel"
+      | "discount_stores"
+      | "doctors"
+      | "door_to_door_sales"
+      | "drapery_window_covering_and_upholstery_stores"
+      | "drinking_places"
+      | "drug_stores_and_pharmacies"
+      | "drugs_drug_proprietaries_and_druggist_sundries"
+      | "dry_cleaners"
+      | "durable_goods"
+      | "duty_free_stores"
+      | "eating_places_restaurants"
+      | "educational_services"
+      | "electric_razor_stores"
+      | "electric_vehicle_charging"
+      | "electrical_parts_and_equipment"
+      | "electrical_services"
+      | "electronics_repair_shops"
+      | "electronics_stores"
+      | "elementary_secondary_schools"
+      | "emergency_services_gcas_visa_use_only"
+      | "employment_temp_agencies"
+      | "equipment_rental"
+      | "exterminating_services"
+      | "family_clothing_stores"
+      | "fast_food_restaurants"
+      | "financial_institutions"
+      | "fines_government_administrative_entities"
+      | "fireplace_fireplace_screens_and_accessories_stores"
+      | "floor_covering_stores"
+      | "florists"
+      | "florists_supplies_nursery_stock_and_flowers"
+      | "freezer_and_locker_meat_provisioners"
+      | "fuel_dealers_non_automotive"
+      | "funeral_services_crematories"
+      | "furniture_home_furnishings_and_equipment_stores_except_appliances"
+      | "furniture_repair_refinishing"
+      | "furriers_and_fur_shops"
+      | "general_services"
+      | "gift_card_novelty_and_souvenir_shops"
+      | "glass_paint_and_wallpaper_stores"
+      | "glassware_crystal_stores"
+      | "golf_courses_public"
+      | "government_licensed_horse_dog_racing_us_region_only"
+      | "government_licensed_online_casions_online_gambling_us_region_only"
+      | "government_owned_lotteries_non_us_region"
+      | "government_owned_lotteries_us_region_only"
+      | "government_services"
+      | "grocery_stores_supermarkets"
+      | "hardware_equipment_and_supplies"
+      | "hardware_stores"
+      | "health_and_beauty_spas"
+      | "hearing_aids_sales_and_supplies"
+      | "heating_plumbing_a_c"
+      | "hobby_toy_and_game_shops"
+      | "home_supply_warehouse_stores"
+      | "hospitals"
+      | "hotels_motels_and_resorts"
+      | "household_appliance_stores"
+      | "industrial_supplies"
+      | "information_retrieval_services"
+      | "insurance_default"
+      | "insurance_underwriting_premiums"
+      | "intra_company_purchases"
+      | "jewelry_stores_watches_clocks_and_silverware_stores"
+      | "landscaping_services"
+      | "laundries"
+      | "laundry_cleaning_services"
+      | "legal_services_attorneys"
+      | "luggage_and_leather_goods_stores"
+      | "lumber_building_materials_stores"
+      | "manual_cash_disburse"
+      | "marinas_service_and_supplies"
+      | "marketplaces"
+      | "masonry_stonework_and_plaster"
+      | "massage_parlors"
+      | "medical_and_dental_labs"
+      | "medical_dental_ophthalmic_and_hospital_equipment_and_supplies"
+      | "medical_services"
+      | "membership_organizations"
+      | "mens_and_boys_clothing_and_accessories_stores"
+      | "mens_womens_clothing_stores"
+      | "metal_service_centers"
+      | "miscellaneous"
+      | "miscellaneous_apparel_and_accessory_shops"
+      | "miscellaneous_auto_dealers"
+      | "miscellaneous_business_services"
+      | "miscellaneous_food_stores"
+      | "miscellaneous_general_merchandise"
+      | "miscellaneous_general_services"
+      | "miscellaneous_home_furnishing_specialty_stores"
+      | "miscellaneous_publishing_and_printing"
+      | "miscellaneous_recreation_services"
+      | "miscellaneous_repair_shops"
+      | "miscellaneous_specialty_retail"
+      | "mobile_home_dealers"
+      | "motion_picture_theaters"
+      | "motor_freight_carriers_and_trucking"
+      | "motor_homes_dealers"
+      | "motor_vehicle_supplies_and_new_parts"
+      | "motorcycle_shops_and_dealers"
+      | "motorcycle_shops_dealers"
+      | "music_stores_musical_instruments_pianos_and_sheet_music"
+      | "news_dealers_and_newsstands"
+      | "non_fi_money_orders"
+      | "non_fi_stored_value_card_purchase_load"
+      | "nondurable_goods"
+      | "nurseries_lawn_and_garden_supply_stores"
+      | "nursing_personal_care"
+      | "office_and_commercial_furniture"
+      | "opticians_eyeglasses"
+      | "optometrists_ophthalmologist"
+      | "orthopedic_goods_prosthetic_devices"
+      | "osteopaths"
+      | "package_stores_beer_wine_and_liquor"
+      | "paints_varnishes_and_supplies"
+      | "parking_lots_garages"
+      | "passenger_railways"
+      | "pawn_shops"
+      | "pet_shops_pet_food_and_supplies"
+      | "petroleum_and_petroleum_products"
+      | "photo_developing"
+      | "photographic_photocopy_microfilm_equipment_and_supplies"
+      | "photographic_studios"
+      | "picture_video_production"
+      | "piece_goods_notions_and_other_dry_goods"
+      | "plumbing_heating_equipment_and_supplies"
+      | "political_organizations"
+      | "postal_services_government_only"
+      | "precious_stones_and_metals_watches_and_jewelry"
+      | "professional_services"
+      | "public_warehousing_and_storage"
+      | "quick_copy_repro_and_blueprint"
+      | "railroads"
+      | "real_estate_agents_and_managers_rentals"
+      | "record_stores"
+      | "recreational_vehicle_rentals"
+      | "religious_goods_stores"
+      | "religious_organizations"
+      | "roofing_siding_sheet_metal"
+      | "secretarial_support_services"
+      | "security_brokers_dealers"
+      | "service_stations"
+      | "sewing_needlework_fabric_and_piece_goods_stores"
+      | "shoe_repair_hat_cleaning"
+      | "shoe_stores"
+      | "small_appliance_repair"
+      | "snowmobile_dealers"
+      | "special_trade_services"
+      | "specialty_cleaning"
+      | "sporting_goods_stores"
+      | "sporting_recreation_camps"
+      | "sports_and_riding_apparel_stores"
+      | "sports_clubs_fields"
+      | "stamp_and_coin_stores"
+      | "stationary_office_supplies_printing_and_writing_paper"
+      | "stationery_stores_office_and_school_supply_stores"
+      | "swimming_pools_sales"
+      | "t_ui_travel_germany"
+      | "tailors_alterations"
+      | "tax_payments_government_agencies"
+      | "tax_preparation_services"
+      | "taxicabs_limousines"
+      | "telecommunication_equipment_and_telephone_sales"
+      | "telecommunication_services"
+      | "telegraph_services"
+      | "tent_and_awning_shops"
+      | "testing_laboratories"
+      | "theatrical_ticket_agencies"
+      | "timeshares"
+      | "tire_retreading_and_repair"
+      | "tolls_bridge_fees"
+      | "tourist_attractions_and_exhibits"
+      | "towing_services"
+      | "trailer_parks_campgrounds"
+      | "transportation_services"
+      | "travel_agencies_tour_operators"
+      | "truck_stop_iteration"
+      | "truck_utility_trailer_rentals"
+      | "typesetting_plate_making_and_related_services"
+      | "typewriter_stores"
+      | "u_s_federal_government_agencies_or_departments"
+      | "uniforms_commercial_clothing"
+      | "used_merchandise_and_secondhand_stores"
+      | "utilities"
+      | "variety_stores"
+      | "veterinary_services"
+      | "video_amusement_game_supplies"
+      | "video_game_arcades"
+      | "video_tape_rental_stores"
+      | "vocational_trade_schools"
+      | "watch_jewelry_repair"
+      | "welding_repair"
+      | "wholesale_clubs"
+      | "wig_and_toupee_stores"
+      | "wires_money_orders"
+      | "womens_accessory_and_specialty_shops"
+      | "womens_ready_to_wear_stores"
+      | "wrecking_and_salvage_yards"
+      | UnknownEnumStringValue
+    )[]
+    allowed_merchant_countries?: string[]
+    blocked_categories?: (
+      | "ac_refrigeration_repair"
+      | "accounting_bookkeeping_services"
+      | "advertising_services"
+      | "agricultural_cooperative"
+      | "airlines_air_carriers"
+      | "airports_flying_fields"
+      | "ambulance_services"
+      | "amusement_parks_carnivals"
+      | "antique_reproductions"
+      | "antique_shops"
+      | "aquariums"
+      | "architectural_surveying_services"
+      | "art_dealers_and_galleries"
+      | "artists_supply_and_craft_shops"
+      | "auto_and_home_supply_stores"
+      | "auto_body_repair_shops"
+      | "auto_paint_shops"
+      | "auto_service_shops"
+      | "automated_cash_disburse"
+      | "automated_fuel_dispensers"
+      | "automobile_associations"
+      | "automotive_parts_and_accessories_stores"
+      | "automotive_tire_stores"
+      | "bail_and_bond_payments"
+      | "bakeries"
+      | "bands_orchestras"
+      | "barber_and_beauty_shops"
+      | "betting_casino_gambling"
+      | "bicycle_shops"
+      | "billiard_pool_establishments"
+      | "boat_dealers"
+      | "boat_rentals_and_leases"
+      | "book_stores"
+      | "books_periodicals_and_newspapers"
+      | "bowling_alleys"
+      | "bus_lines"
+      | "business_secretarial_schools"
+      | "buying_shopping_services"
+      | "cable_satellite_and_other_pay_television_and_radio"
+      | "camera_and_photographic_supply_stores"
+      | "candy_nut_and_confectionery_stores"
+      | "car_and_truck_dealers_new_used"
+      | "car_and_truck_dealers_used_only"
+      | "car_rental_agencies"
+      | "car_washes"
+      | "carpentry_services"
+      | "carpet_upholstery_cleaning"
+      | "caterers"
+      | "charitable_and_social_service_organizations_fundraising"
+      | "chemicals_and_allied_products"
+      | "child_care_services"
+      | "childrens_and_infants_wear_stores"
+      | "chiropodists_podiatrists"
+      | "chiropractors"
+      | "cigar_stores_and_stands"
+      | "civic_social_fraternal_associations"
+      | "cleaning_and_maintenance"
+      | "clothing_rental"
+      | "colleges_universities"
+      | "commercial_equipment"
+      | "commercial_footwear"
+      | "commercial_photography_art_and_graphics"
+      | "commuter_transport_and_ferries"
+      | "computer_network_services"
+      | "computer_programming"
+      | "computer_repair"
+      | "computer_software_stores"
+      | "computers_peripherals_and_software"
+      | "concrete_work_services"
+      | "construction_materials"
+      | "consulting_public_relations"
+      | "correspondence_schools"
+      | "cosmetic_stores"
+      | "counseling_services"
+      | "country_clubs"
+      | "courier_services"
+      | "court_costs"
+      | "credit_reporting_agencies"
+      | "cruise_lines"
+      | "dairy_products_stores"
+      | "dance_hall_studios_schools"
+      | "dating_escort_services"
+      | "dentists_orthodontists"
+      | "department_stores"
+      | "detective_agencies"
+      | "digital_goods_applications"
+      | "digital_goods_games"
+      | "digital_goods_large_volume"
+      | "digital_goods_media"
+      | "direct_marketing_catalog_merchant"
+      | "direct_marketing_combination_catalog_and_retail_merchant"
+      | "direct_marketing_inbound_telemarketing"
+      | "direct_marketing_insurance_services"
+      | "direct_marketing_other"
+      | "direct_marketing_outbound_telemarketing"
+      | "direct_marketing_subscription"
+      | "direct_marketing_travel"
+      | "discount_stores"
+      | "doctors"
+      | "door_to_door_sales"
+      | "drapery_window_covering_and_upholstery_stores"
+      | "drinking_places"
+      | "drug_stores_and_pharmacies"
+      | "drugs_drug_proprietaries_and_druggist_sundries"
+      | "dry_cleaners"
+      | "durable_goods"
+      | "duty_free_stores"
+      | "eating_places_restaurants"
+      | "educational_services"
+      | "electric_razor_stores"
+      | "electric_vehicle_charging"
+      | "electrical_parts_and_equipment"
+      | "electrical_services"
+      | "electronics_repair_shops"
+      | "electronics_stores"
+      | "elementary_secondary_schools"
+      | "emergency_services_gcas_visa_use_only"
+      | "employment_temp_agencies"
+      | "equipment_rental"
+      | "exterminating_services"
+      | "family_clothing_stores"
+      | "fast_food_restaurants"
+      | "financial_institutions"
+      | "fines_government_administrative_entities"
+      | "fireplace_fireplace_screens_and_accessories_stores"
+      | "floor_covering_stores"
+      | "florists"
+      | "florists_supplies_nursery_stock_and_flowers"
+      | "freezer_and_locker_meat_provisioners"
+      | "fuel_dealers_non_automotive"
+      | "funeral_services_crematories"
+      | "furniture_home_furnishings_and_equipment_stores_except_appliances"
+      | "furniture_repair_refinishing"
+      | "furriers_and_fur_shops"
+      | "general_services"
+      | "gift_card_novelty_and_souvenir_shops"
+      | "glass_paint_and_wallpaper_stores"
+      | "glassware_crystal_stores"
+      | "golf_courses_public"
+      | "government_licensed_horse_dog_racing_us_region_only"
+      | "government_licensed_online_casions_online_gambling_us_region_only"
+      | "government_owned_lotteries_non_us_region"
+      | "government_owned_lotteries_us_region_only"
+      | "government_services"
+      | "grocery_stores_supermarkets"
+      | "hardware_equipment_and_supplies"
+      | "hardware_stores"
+      | "health_and_beauty_spas"
+      | "hearing_aids_sales_and_supplies"
+      | "heating_plumbing_a_c"
+      | "hobby_toy_and_game_shops"
+      | "home_supply_warehouse_stores"
+      | "hospitals"
+      | "hotels_motels_and_resorts"
+      | "household_appliance_stores"
+      | "industrial_supplies"
+      | "information_retrieval_services"
+      | "insurance_default"
+      | "insurance_underwriting_premiums"
+      | "intra_company_purchases"
+      | "jewelry_stores_watches_clocks_and_silverware_stores"
+      | "landscaping_services"
+      | "laundries"
+      | "laundry_cleaning_services"
+      | "legal_services_attorneys"
+      | "luggage_and_leather_goods_stores"
+      | "lumber_building_materials_stores"
+      | "manual_cash_disburse"
+      | "marinas_service_and_supplies"
+      | "marketplaces"
+      | "masonry_stonework_and_plaster"
+      | "massage_parlors"
+      | "medical_and_dental_labs"
+      | "medical_dental_ophthalmic_and_hospital_equipment_and_supplies"
+      | "medical_services"
+      | "membership_organizations"
+      | "mens_and_boys_clothing_and_accessories_stores"
+      | "mens_womens_clothing_stores"
+      | "metal_service_centers"
+      | "miscellaneous"
+      | "miscellaneous_apparel_and_accessory_shops"
+      | "miscellaneous_auto_dealers"
+      | "miscellaneous_business_services"
+      | "miscellaneous_food_stores"
+      | "miscellaneous_general_merchandise"
+      | "miscellaneous_general_services"
+      | "miscellaneous_home_furnishing_specialty_stores"
+      | "miscellaneous_publishing_and_printing"
+      | "miscellaneous_recreation_services"
+      | "miscellaneous_repair_shops"
+      | "miscellaneous_specialty_retail"
+      | "mobile_home_dealers"
+      | "motion_picture_theaters"
+      | "motor_freight_carriers_and_trucking"
+      | "motor_homes_dealers"
+      | "motor_vehicle_supplies_and_new_parts"
+      | "motorcycle_shops_and_dealers"
+      | "motorcycle_shops_dealers"
+      | "music_stores_musical_instruments_pianos_and_sheet_music"
+      | "news_dealers_and_newsstands"
+      | "non_fi_money_orders"
+      | "non_fi_stored_value_card_purchase_load"
+      | "nondurable_goods"
+      | "nurseries_lawn_and_garden_supply_stores"
+      | "nursing_personal_care"
+      | "office_and_commercial_furniture"
+      | "opticians_eyeglasses"
+      | "optometrists_ophthalmologist"
+      | "orthopedic_goods_prosthetic_devices"
+      | "osteopaths"
+      | "package_stores_beer_wine_and_liquor"
+      | "paints_varnishes_and_supplies"
+      | "parking_lots_garages"
+      | "passenger_railways"
+      | "pawn_shops"
+      | "pet_shops_pet_food_and_supplies"
+      | "petroleum_and_petroleum_products"
+      | "photo_developing"
+      | "photographic_photocopy_microfilm_equipment_and_supplies"
+      | "photographic_studios"
+      | "picture_video_production"
+      | "piece_goods_notions_and_other_dry_goods"
+      | "plumbing_heating_equipment_and_supplies"
+      | "political_organizations"
+      | "postal_services_government_only"
+      | "precious_stones_and_metals_watches_and_jewelry"
+      | "professional_services"
+      | "public_warehousing_and_storage"
+      | "quick_copy_repro_and_blueprint"
+      | "railroads"
+      | "real_estate_agents_and_managers_rentals"
+      | "record_stores"
+      | "recreational_vehicle_rentals"
+      | "religious_goods_stores"
+      | "religious_organizations"
+      | "roofing_siding_sheet_metal"
+      | "secretarial_support_services"
+      | "security_brokers_dealers"
+      | "service_stations"
+      | "sewing_needlework_fabric_and_piece_goods_stores"
+      | "shoe_repair_hat_cleaning"
+      | "shoe_stores"
+      | "small_appliance_repair"
+      | "snowmobile_dealers"
+      | "special_trade_services"
+      | "specialty_cleaning"
+      | "sporting_goods_stores"
+      | "sporting_recreation_camps"
+      | "sports_and_riding_apparel_stores"
+      | "sports_clubs_fields"
+      | "stamp_and_coin_stores"
+      | "stationary_office_supplies_printing_and_writing_paper"
+      | "stationery_stores_office_and_school_supply_stores"
+      | "swimming_pools_sales"
+      | "t_ui_travel_germany"
+      | "tailors_alterations"
+      | "tax_payments_government_agencies"
+      | "tax_preparation_services"
+      | "taxicabs_limousines"
+      | "telecommunication_equipment_and_telephone_sales"
+      | "telecommunication_services"
+      | "telegraph_services"
+      | "tent_and_awning_shops"
+      | "testing_laboratories"
+      | "theatrical_ticket_agencies"
+      | "timeshares"
+      | "tire_retreading_and_repair"
+      | "tolls_bridge_fees"
+      | "tourist_attractions_and_exhibits"
+      | "towing_services"
+      | "trailer_parks_campgrounds"
+      | "transportation_services"
+      | "travel_agencies_tour_operators"
+      | "truck_stop_iteration"
+      | "truck_utility_trailer_rentals"
+      | "typesetting_plate_making_and_related_services"
+      | "typewriter_stores"
+      | "u_s_federal_government_agencies_or_departments"
+      | "uniforms_commercial_clothing"
+      | "used_merchandise_and_secondhand_stores"
+      | "utilities"
+      | "variety_stores"
+      | "veterinary_services"
+      | "video_amusement_game_supplies"
+      | "video_game_arcades"
+      | "video_tape_rental_stores"
+      | "vocational_trade_schools"
+      | "watch_jewelry_repair"
+      | "welding_repair"
+      | "wholesale_clubs"
+      | "wig_and_toupee_stores"
+      | "wires_money_orders"
+      | "womens_accessory_and_specialty_shops"
+      | "womens_ready_to_wear_stores"
+      | "wrecking_and_salvage_yards"
+      | UnknownEnumStringValue
+    )[]
+    blocked_merchant_countries?: string[]
+    spending_limits?: {
+      amount: number
+      categories?: (
+        | "ac_refrigeration_repair"
+        | "accounting_bookkeeping_services"
+        | "advertising_services"
+        | "agricultural_cooperative"
+        | "airlines_air_carriers"
+        | "airports_flying_fields"
+        | "ambulance_services"
+        | "amusement_parks_carnivals"
+        | "antique_reproductions"
+        | "antique_shops"
+        | "aquariums"
+        | "architectural_surveying_services"
+        | "art_dealers_and_galleries"
+        | "artists_supply_and_craft_shops"
+        | "auto_and_home_supply_stores"
+        | "auto_body_repair_shops"
+        | "auto_paint_shops"
+        | "auto_service_shops"
+        | "automated_cash_disburse"
+        | "automated_fuel_dispensers"
+        | "automobile_associations"
+        | "automotive_parts_and_accessories_stores"
+        | "automotive_tire_stores"
+        | "bail_and_bond_payments"
+        | "bakeries"
+        | "bands_orchestras"
+        | "barber_and_beauty_shops"
+        | "betting_casino_gambling"
+        | "bicycle_shops"
+        | "billiard_pool_establishments"
+        | "boat_dealers"
+        | "boat_rentals_and_leases"
+        | "book_stores"
+        | "books_periodicals_and_newspapers"
+        | "bowling_alleys"
+        | "bus_lines"
+        | "business_secretarial_schools"
+        | "buying_shopping_services"
+        | "cable_satellite_and_other_pay_television_and_radio"
+        | "camera_and_photographic_supply_stores"
+        | "candy_nut_and_confectionery_stores"
+        | "car_and_truck_dealers_new_used"
+        | "car_and_truck_dealers_used_only"
+        | "car_rental_agencies"
+        | "car_washes"
+        | "carpentry_services"
+        | "carpet_upholstery_cleaning"
+        | "caterers"
+        | "charitable_and_social_service_organizations_fundraising"
+        | "chemicals_and_allied_products"
+        | "child_care_services"
+        | "childrens_and_infants_wear_stores"
+        | "chiropodists_podiatrists"
+        | "chiropractors"
+        | "cigar_stores_and_stands"
+        | "civic_social_fraternal_associations"
+        | "cleaning_and_maintenance"
+        | "clothing_rental"
+        | "colleges_universities"
+        | "commercial_equipment"
+        | "commercial_footwear"
+        | "commercial_photography_art_and_graphics"
+        | "commuter_transport_and_ferries"
+        | "computer_network_services"
+        | "computer_programming"
+        | "computer_repair"
+        | "computer_software_stores"
+        | "computers_peripherals_and_software"
+        | "concrete_work_services"
+        | "construction_materials"
+        | "consulting_public_relations"
+        | "correspondence_schools"
+        | "cosmetic_stores"
+        | "counseling_services"
+        | "country_clubs"
+        | "courier_services"
+        | "court_costs"
+        | "credit_reporting_agencies"
+        | "cruise_lines"
+        | "dairy_products_stores"
+        | "dance_hall_studios_schools"
+        | "dating_escort_services"
+        | "dentists_orthodontists"
+        | "department_stores"
+        | "detective_agencies"
+        | "digital_goods_applications"
+        | "digital_goods_games"
+        | "digital_goods_large_volume"
+        | "digital_goods_media"
+        | "direct_marketing_catalog_merchant"
+        | "direct_marketing_combination_catalog_and_retail_merchant"
+        | "direct_marketing_inbound_telemarketing"
+        | "direct_marketing_insurance_services"
+        | "direct_marketing_other"
+        | "direct_marketing_outbound_telemarketing"
+        | "direct_marketing_subscription"
+        | "direct_marketing_travel"
+        | "discount_stores"
+        | "doctors"
+        | "door_to_door_sales"
+        | "drapery_window_covering_and_upholstery_stores"
+        | "drinking_places"
+        | "drug_stores_and_pharmacies"
+        | "drugs_drug_proprietaries_and_druggist_sundries"
+        | "dry_cleaners"
+        | "durable_goods"
+        | "duty_free_stores"
+        | "eating_places_restaurants"
+        | "educational_services"
+        | "electric_razor_stores"
+        | "electric_vehicle_charging"
+        | "electrical_parts_and_equipment"
+        | "electrical_services"
+        | "electronics_repair_shops"
+        | "electronics_stores"
+        | "elementary_secondary_schools"
+        | "emergency_services_gcas_visa_use_only"
+        | "employment_temp_agencies"
+        | "equipment_rental"
+        | "exterminating_services"
+        | "family_clothing_stores"
+        | "fast_food_restaurants"
+        | "financial_institutions"
+        | "fines_government_administrative_entities"
+        | "fireplace_fireplace_screens_and_accessories_stores"
+        | "floor_covering_stores"
+        | "florists"
+        | "florists_supplies_nursery_stock_and_flowers"
+        | "freezer_and_locker_meat_provisioners"
+        | "fuel_dealers_non_automotive"
+        | "funeral_services_crematories"
+        | "furniture_home_furnishings_and_equipment_stores_except_appliances"
+        | "furniture_repair_refinishing"
+        | "furriers_and_fur_shops"
+        | "general_services"
+        | "gift_card_novelty_and_souvenir_shops"
+        | "glass_paint_and_wallpaper_stores"
+        | "glassware_crystal_stores"
+        | "golf_courses_public"
+        | "government_licensed_horse_dog_racing_us_region_only"
+        | "government_licensed_online_casions_online_gambling_us_region_only"
+        | "government_owned_lotteries_non_us_region"
+        | "government_owned_lotteries_us_region_only"
+        | "government_services"
+        | "grocery_stores_supermarkets"
+        | "hardware_equipment_and_supplies"
+        | "hardware_stores"
+        | "health_and_beauty_spas"
+        | "hearing_aids_sales_and_supplies"
+        | "heating_plumbing_a_c"
+        | "hobby_toy_and_game_shops"
+        | "home_supply_warehouse_stores"
+        | "hospitals"
+        | "hotels_motels_and_resorts"
+        | "household_appliance_stores"
+        | "industrial_supplies"
+        | "information_retrieval_services"
+        | "insurance_default"
+        | "insurance_underwriting_premiums"
+        | "intra_company_purchases"
+        | "jewelry_stores_watches_clocks_and_silverware_stores"
+        | "landscaping_services"
+        | "laundries"
+        | "laundry_cleaning_services"
+        | "legal_services_attorneys"
+        | "luggage_and_leather_goods_stores"
+        | "lumber_building_materials_stores"
+        | "manual_cash_disburse"
+        | "marinas_service_and_supplies"
+        | "marketplaces"
+        | "masonry_stonework_and_plaster"
+        | "massage_parlors"
+        | "medical_and_dental_labs"
+        | "medical_dental_ophthalmic_and_hospital_equipment_and_supplies"
+        | "medical_services"
+        | "membership_organizations"
+        | "mens_and_boys_clothing_and_accessories_stores"
+        | "mens_womens_clothing_stores"
+        | "metal_service_centers"
+        | "miscellaneous"
+        | "miscellaneous_apparel_and_accessory_shops"
+        | "miscellaneous_auto_dealers"
+        | "miscellaneous_business_services"
+        | "miscellaneous_food_stores"
+        | "miscellaneous_general_merchandise"
+        | "miscellaneous_general_services"
+        | "miscellaneous_home_furnishing_specialty_stores"
+        | "miscellaneous_publishing_and_printing"
+        | "miscellaneous_recreation_services"
+        | "miscellaneous_repair_shops"
+        | "miscellaneous_specialty_retail"
+        | "mobile_home_dealers"
+        | "motion_picture_theaters"
+        | "motor_freight_carriers_and_trucking"
+        | "motor_homes_dealers"
+        | "motor_vehicle_supplies_and_new_parts"
+        | "motorcycle_shops_and_dealers"
+        | "motorcycle_shops_dealers"
+        | "music_stores_musical_instruments_pianos_and_sheet_music"
+        | "news_dealers_and_newsstands"
+        | "non_fi_money_orders"
+        | "non_fi_stored_value_card_purchase_load"
+        | "nondurable_goods"
+        | "nurseries_lawn_and_garden_supply_stores"
+        | "nursing_personal_care"
+        | "office_and_commercial_furniture"
+        | "opticians_eyeglasses"
+        | "optometrists_ophthalmologist"
+        | "orthopedic_goods_prosthetic_devices"
+        | "osteopaths"
+        | "package_stores_beer_wine_and_liquor"
+        | "paints_varnishes_and_supplies"
+        | "parking_lots_garages"
+        | "passenger_railways"
+        | "pawn_shops"
+        | "pet_shops_pet_food_and_supplies"
+        | "petroleum_and_petroleum_products"
+        | "photo_developing"
+        | "photographic_photocopy_microfilm_equipment_and_supplies"
+        | "photographic_studios"
+        | "picture_video_production"
+        | "piece_goods_notions_and_other_dry_goods"
+        | "plumbing_heating_equipment_and_supplies"
+        | "political_organizations"
+        | "postal_services_government_only"
+        | "precious_stones_and_metals_watches_and_jewelry"
+        | "professional_services"
+        | "public_warehousing_and_storage"
+        | "quick_copy_repro_and_blueprint"
+        | "railroads"
+        | "real_estate_agents_and_managers_rentals"
+        | "record_stores"
+        | "recreational_vehicle_rentals"
+        | "religious_goods_stores"
+        | "religious_organizations"
+        | "roofing_siding_sheet_metal"
+        | "secretarial_support_services"
+        | "security_brokers_dealers"
+        | "service_stations"
+        | "sewing_needlework_fabric_and_piece_goods_stores"
+        | "shoe_repair_hat_cleaning"
+        | "shoe_stores"
+        | "small_appliance_repair"
+        | "snowmobile_dealers"
+        | "special_trade_services"
+        | "specialty_cleaning"
+        | "sporting_goods_stores"
+        | "sporting_recreation_camps"
+        | "sports_and_riding_apparel_stores"
+        | "sports_clubs_fields"
+        | "stamp_and_coin_stores"
+        | "stationary_office_supplies_printing_and_writing_paper"
+        | "stationery_stores_office_and_school_supply_stores"
+        | "swimming_pools_sales"
+        | "t_ui_travel_germany"
+        | "tailors_alterations"
+        | "tax_payments_government_agencies"
+        | "tax_preparation_services"
+        | "taxicabs_limousines"
+        | "telecommunication_equipment_and_telephone_sales"
+        | "telecommunication_services"
+        | "telegraph_services"
+        | "tent_and_awning_shops"
+        | "testing_laboratories"
+        | "theatrical_ticket_agencies"
+        | "timeshares"
+        | "tire_retreading_and_repair"
+        | "tolls_bridge_fees"
+        | "tourist_attractions_and_exhibits"
+        | "towing_services"
+        | "trailer_parks_campgrounds"
+        | "transportation_services"
+        | "travel_agencies_tour_operators"
+        | "truck_stop_iteration"
+        | "truck_utility_trailer_rentals"
+        | "typesetting_plate_making_and_related_services"
+        | "typewriter_stores"
+        | "u_s_federal_government_agencies_or_departments"
+        | "uniforms_commercial_clothing"
+        | "used_merchandise_and_secondhand_stores"
+        | "utilities"
+        | "variety_stores"
+        | "veterinary_services"
+        | "video_amusement_game_supplies"
+        | "video_game_arcades"
+        | "video_tape_rental_stores"
+        | "vocational_trade_schools"
+        | "watch_jewelry_repair"
+        | "welding_repair"
+        | "wholesale_clubs"
+        | "wig_and_toupee_stores"
+        | "wires_money_orders"
+        | "womens_accessory_and_specialty_shops"
+        | "womens_ready_to_wear_stores"
+        | "wrecking_and_salvage_yards"
+        | UnknownEnumStringValue
+      )[]
+      interval:
+        | "all_time"
+        | "daily"
+        | "monthly"
+        | "per_authorization"
+        | "weekly"
+        | "yearly"
+        | UnknownEnumStringValue
+    }[]
+    spending_limits_currency?: string
+  }
+  status?: "active" | "inactive" | UnknownEnumStringValue
+}
+
+export type t_PostIssuingCardsRequestBody = {
+  cardholder?: string
+  currency: string
+  expand?: string[]
+  financial_account?: string
+  metadata?: {
+    [key: string]: string | undefined
+  }
+  personalization_design?: string
+  pin?: {
+    encrypted_number?: string
+  }
+  replacement_for?: string
+  replacement_reason?:
+    | "damaged"
+    | "expired"
+    | "lost"
+    | "stolen"
+    | UnknownEnumStringValue
+  second_line?: string | "" | UnknownEnumStringValue
+  shipping?: {
+    address: {
+      city: string
+      country: string
+      line1: string
+      line2?: string
+      postal_code: string
+      state?: string
+    }
+    address_validation?: {
+      mode:
+        | "disabled"
+        | "normalization_only"
+        | "validation_and_normalization"
+        | UnknownEnumStringValue
+    }
+    customs?: {
+      eori_number?: string
+    }
+    name: string
+    phone_number?: string
+    require_signature?: boolean
+    service?: "express" | "priority" | "standard" | UnknownEnumStringValue
+    type?: "bulk" | "individual" | UnknownEnumStringValue
+  }
+  spending_controls?: {
+    allowed_categories?: (
+      | "ac_refrigeration_repair"
+      | "accounting_bookkeeping_services"
+      | "advertising_services"
+      | "agricultural_cooperative"
+      | "airlines_air_carriers"
+      | "airports_flying_fields"
+      | "ambulance_services"
+      | "amusement_parks_carnivals"
+      | "antique_reproductions"
+      | "antique_shops"
+      | "aquariums"
+      | "architectural_surveying_services"
+      | "art_dealers_and_galleries"
+      | "artists_supply_and_craft_shops"
+      | "auto_and_home_supply_stores"
+      | "auto_body_repair_shops"
+      | "auto_paint_shops"
+      | "auto_service_shops"
+      | "automated_cash_disburse"
+      | "automated_fuel_dispensers"
+      | "automobile_associations"
+      | "automotive_parts_and_accessories_stores"
+      | "automotive_tire_stores"
+      | "bail_and_bond_payments"
+      | "bakeries"
+      | "bands_orchestras"
+      | "barber_and_beauty_shops"
+      | "betting_casino_gambling"
+      | "bicycle_shops"
+      | "billiard_pool_establishments"
+      | "boat_dealers"
+      | "boat_rentals_and_leases"
+      | "book_stores"
+      | "books_periodicals_and_newspapers"
+      | "bowling_alleys"
+      | "bus_lines"
+      | "business_secretarial_schools"
+      | "buying_shopping_services"
+      | "cable_satellite_and_other_pay_television_and_radio"
+      | "camera_and_photographic_supply_stores"
+      | "candy_nut_and_confectionery_stores"
+      | "car_and_truck_dealers_new_used"
+      | "car_and_truck_dealers_used_only"
+      | "car_rental_agencies"
+      | "car_washes"
+      | "carpentry_services"
+      | "carpet_upholstery_cleaning"
+      | "caterers"
+      | "charitable_and_social_service_organizations_fundraising"
+      | "chemicals_and_allied_products"
+      | "child_care_services"
+      | "childrens_and_infants_wear_stores"
+      | "chiropodists_podiatrists"
+      | "chiropractors"
+      | "cigar_stores_and_stands"
+      | "civic_social_fraternal_associations"
+      | "cleaning_and_maintenance"
+      | "clothing_rental"
+      | "colleges_universities"
+      | "commercial_equipment"
+      | "commercial_footwear"
+      | "commercial_photography_art_and_graphics"
+      | "commuter_transport_and_ferries"
+      | "computer_network_services"
+      | "computer_programming"
+      | "computer_repair"
+      | "computer_software_stores"
+      | "computers_peripherals_and_software"
+      | "concrete_work_services"
+      | "construction_materials"
+      | "consulting_public_relations"
+      | "correspondence_schools"
+      | "cosmetic_stores"
+      | "counseling_services"
+      | "country_clubs"
+      | "courier_services"
+      | "court_costs"
+      | "credit_reporting_agencies"
+      | "cruise_lines"
+      | "dairy_products_stores"
+      | "dance_hall_studios_schools"
+      | "dating_escort_services"
+      | "dentists_orthodontists"
+      | "department_stores"
+      | "detective_agencies"
+      | "digital_goods_applications"
+      | "digital_goods_games"
+      | "digital_goods_large_volume"
+      | "digital_goods_media"
+      | "direct_marketing_catalog_merchant"
+      | "direct_marketing_combination_catalog_and_retail_merchant"
+      | "direct_marketing_inbound_telemarketing"
+      | "direct_marketing_insurance_services"
+      | "direct_marketing_other"
+      | "direct_marketing_outbound_telemarketing"
+      | "direct_marketing_subscription"
+      | "direct_marketing_travel"
+      | "discount_stores"
+      | "doctors"
+      | "door_to_door_sales"
+      | "drapery_window_covering_and_upholstery_stores"
+      | "drinking_places"
+      | "drug_stores_and_pharmacies"
+      | "drugs_drug_proprietaries_and_druggist_sundries"
+      | "dry_cleaners"
+      | "durable_goods"
+      | "duty_free_stores"
+      | "eating_places_restaurants"
+      | "educational_services"
+      | "electric_razor_stores"
+      | "electric_vehicle_charging"
+      | "electrical_parts_and_equipment"
+      | "electrical_services"
+      | "electronics_repair_shops"
+      | "electronics_stores"
+      | "elementary_secondary_schools"
+      | "emergency_services_gcas_visa_use_only"
+      | "employment_temp_agencies"
+      | "equipment_rental"
+      | "exterminating_services"
+      | "family_clothing_stores"
+      | "fast_food_restaurants"
+      | "financial_institutions"
+      | "fines_government_administrative_entities"
+      | "fireplace_fireplace_screens_and_accessories_stores"
+      | "floor_covering_stores"
+      | "florists"
+      | "florists_supplies_nursery_stock_and_flowers"
+      | "freezer_and_locker_meat_provisioners"
+      | "fuel_dealers_non_automotive"
+      | "funeral_services_crematories"
+      | "furniture_home_furnishings_and_equipment_stores_except_appliances"
+      | "furniture_repair_refinishing"
+      | "furriers_and_fur_shops"
+      | "general_services"
+      | "gift_card_novelty_and_souvenir_shops"
+      | "glass_paint_and_wallpaper_stores"
+      | "glassware_crystal_stores"
+      | "golf_courses_public"
+      | "government_licensed_horse_dog_racing_us_region_only"
+      | "government_licensed_online_casions_online_gambling_us_region_only"
+      | "government_owned_lotteries_non_us_region"
+      | "government_owned_lotteries_us_region_only"
+      | "government_services"
+      | "grocery_stores_supermarkets"
+      | "hardware_equipment_and_supplies"
+      | "hardware_stores"
+      | "health_and_beauty_spas"
+      | "hearing_aids_sales_and_supplies"
+      | "heating_plumbing_a_c"
+      | "hobby_toy_and_game_shops"
+      | "home_supply_warehouse_stores"
+      | "hospitals"
+      | "hotels_motels_and_resorts"
+      | "household_appliance_stores"
+      | "industrial_supplies"
+      | "information_retrieval_services"
+      | "insurance_default"
+      | "insurance_underwriting_premiums"
+      | "intra_company_purchases"
+      | "jewelry_stores_watches_clocks_and_silverware_stores"
+      | "landscaping_services"
+      | "laundries"
+      | "laundry_cleaning_services"
+      | "legal_services_attorneys"
+      | "luggage_and_leather_goods_stores"
+      | "lumber_building_materials_stores"
+      | "manual_cash_disburse"
+      | "marinas_service_and_supplies"
+      | "marketplaces"
+      | "masonry_stonework_and_plaster"
+      | "massage_parlors"
+      | "medical_and_dental_labs"
+      | "medical_dental_ophthalmic_and_hospital_equipment_and_supplies"
+      | "medical_services"
+      | "membership_organizations"
+      | "mens_and_boys_clothing_and_accessories_stores"
+      | "mens_womens_clothing_stores"
+      | "metal_service_centers"
+      | "miscellaneous"
+      | "miscellaneous_apparel_and_accessory_shops"
+      | "miscellaneous_auto_dealers"
+      | "miscellaneous_business_services"
+      | "miscellaneous_food_stores"
+      | "miscellaneous_general_merchandise"
+      | "miscellaneous_general_services"
+      | "miscellaneous_home_furnishing_specialty_stores"
+      | "miscellaneous_publishing_and_printing"
+      | "miscellaneous_recreation_services"
+      | "miscellaneous_repair_shops"
+      | "miscellaneous_specialty_retail"
+      | "mobile_home_dealers"
+      | "motion_picture_theaters"
+      | "motor_freight_carriers_and_trucking"
+      | "motor_homes_dealers"
+      | "motor_vehicle_supplies_and_new_parts"
+      | "motorcycle_shops_and_dealers"
+      | "motorcycle_shops_dealers"
+      | "music_stores_musical_instruments_pianos_and_sheet_music"
+      | "news_dealers_and_newsstands"
+      | "non_fi_money_orders"
+      | "non_fi_stored_value_card_purchase_load"
+      | "nondurable_goods"
+      | "nurseries_lawn_and_garden_supply_stores"
+      | "nursing_personal_care"
+      | "office_and_commercial_furniture"
+      | "opticians_eyeglasses"
+      | "optometrists_ophthalmologist"
+      | "orthopedic_goods_prosthetic_devices"
+      | "osteopaths"
+      | "package_stores_beer_wine_and_liquor"
+      | "paints_varnishes_and_supplies"
+      | "parking_lots_garages"
+      | "passenger_railways"
+      | "pawn_shops"
+      | "pet_shops_pet_food_and_supplies"
+      | "petroleum_and_petroleum_products"
+      | "photo_developing"
+      | "photographic_photocopy_microfilm_equipment_and_supplies"
+      | "photographic_studios"
+      | "picture_video_production"
+      | "piece_goods_notions_and_other_dry_goods"
+      | "plumbing_heating_equipment_and_supplies"
+      | "political_organizations"
+      | "postal_services_government_only"
+      | "precious_stones_and_metals_watches_and_jewelry"
+      | "professional_services"
+      | "public_warehousing_and_storage"
+      | "quick_copy_repro_and_blueprint"
+      | "railroads"
+      | "real_estate_agents_and_managers_rentals"
+      | "record_stores"
+      | "recreational_vehicle_rentals"
+      | "religious_goods_stores"
+      | "religious_organizations"
+      | "roofing_siding_sheet_metal"
+      | "secretarial_support_services"
+      | "security_brokers_dealers"
+      | "service_stations"
+      | "sewing_needlework_fabric_and_piece_goods_stores"
+      | "shoe_repair_hat_cleaning"
+      | "shoe_stores"
+      | "small_appliance_repair"
+      | "snowmobile_dealers"
+      | "special_trade_services"
+      | "specialty_cleaning"
+      | "sporting_goods_stores"
+      | "sporting_recreation_camps"
+      | "sports_and_riding_apparel_stores"
+      | "sports_clubs_fields"
+      | "stamp_and_coin_stores"
+      | "stationary_office_supplies_printing_and_writing_paper"
+      | "stationery_stores_office_and_school_supply_stores"
+      | "swimming_pools_sales"
+      | "t_ui_travel_germany"
+      | "tailors_alterations"
+      | "tax_payments_government_agencies"
+      | "tax_preparation_services"
+      | "taxicabs_limousines"
+      | "telecommunication_equipment_and_telephone_sales"
+      | "telecommunication_services"
+      | "telegraph_services"
+      | "tent_and_awning_shops"
+      | "testing_laboratories"
+      | "theatrical_ticket_agencies"
+      | "timeshares"
+      | "tire_retreading_and_repair"
+      | "tolls_bridge_fees"
+      | "tourist_attractions_and_exhibits"
+      | "towing_services"
+      | "trailer_parks_campgrounds"
+      | "transportation_services"
+      | "travel_agencies_tour_operators"
+      | "truck_stop_iteration"
+      | "truck_utility_trailer_rentals"
+      | "typesetting_plate_making_and_related_services"
+      | "typewriter_stores"
+      | "u_s_federal_government_agencies_or_departments"
+      | "uniforms_commercial_clothing"
+      | "used_merchandise_and_secondhand_stores"
+      | "utilities"
+      | "variety_stores"
+      | "veterinary_services"
+      | "video_amusement_game_supplies"
+      | "video_game_arcades"
+      | "video_tape_rental_stores"
+      | "vocational_trade_schools"
+      | "watch_jewelry_repair"
+      | "welding_repair"
+      | "wholesale_clubs"
+      | "wig_and_toupee_stores"
+      | "wires_money_orders"
+      | "womens_accessory_and_specialty_shops"
+      | "womens_ready_to_wear_stores"
+      | "wrecking_and_salvage_yards"
+      | UnknownEnumStringValue
+    )[]
+    allowed_merchant_countries?: string[]
+    blocked_categories?: (
+      | "ac_refrigeration_repair"
+      | "accounting_bookkeeping_services"
+      | "advertising_services"
+      | "agricultural_cooperative"
+      | "airlines_air_carriers"
+      | "airports_flying_fields"
+      | "ambulance_services"
+      | "amusement_parks_carnivals"
+      | "antique_reproductions"
+      | "antique_shops"
+      | "aquariums"
+      | "architectural_surveying_services"
+      | "art_dealers_and_galleries"
+      | "artists_supply_and_craft_shops"
+      | "auto_and_home_supply_stores"
+      | "auto_body_repair_shops"
+      | "auto_paint_shops"
+      | "auto_service_shops"
+      | "automated_cash_disburse"
+      | "automated_fuel_dispensers"
+      | "automobile_associations"
+      | "automotive_parts_and_accessories_stores"
+      | "automotive_tire_stores"
+      | "bail_and_bond_payments"
+      | "bakeries"
+      | "bands_orchestras"
+      | "barber_and_beauty_shops"
+      | "betting_casino_gambling"
+      | "bicycle_shops"
+      | "billiard_pool_establishments"
+      | "boat_dealers"
+      | "boat_rentals_and_leases"
+      | "book_stores"
+      | "books_periodicals_and_newspapers"
+      | "bowling_alleys"
+      | "bus_lines"
+      | "business_secretarial_schools"
+      | "buying_shopping_services"
+      | "cable_satellite_and_other_pay_television_and_radio"
+      | "camera_and_photographic_supply_stores"
+      | "candy_nut_and_confectionery_stores"
+      | "car_and_truck_dealers_new_used"
+      | "car_and_truck_dealers_used_only"
+      | "car_rental_agencies"
+      | "car_washes"
+      | "carpentry_services"
+      | "carpet_upholstery_cleaning"
+      | "caterers"
+      | "charitable_and_social_service_organizations_fundraising"
+      | "chemicals_and_allied_products"
+      | "child_care_services"
+      | "childrens_and_infants_wear_stores"
+      | "chiropodists_podiatrists"
+      | "chiropractors"
+      | "cigar_stores_and_stands"
+      | "civic_social_fraternal_associations"
+      | "cleaning_and_maintenance"
+      | "clothing_rental"
+      | "colleges_universities"
+      | "commercial_equipment"
+      | "commercial_footwear"
+      | "commercial_photography_art_and_graphics"
+      | "commuter_transport_and_ferries"
+      | "computer_network_services"
+      | "computer_programming"
+      | "computer_repair"
+      | "computer_software_stores"
+      | "computers_peripherals_and_software"
+      | "concrete_work_services"
+      | "construction_materials"
+      | "consulting_public_relations"
+      | "correspondence_schools"
+      | "cosmetic_stores"
+      | "counseling_services"
+      | "country_clubs"
+      | "courier_services"
+      | "court_costs"
+      | "credit_reporting_agencies"
+      | "cruise_lines"
+      | "dairy_products_stores"
+      | "dance_hall_studios_schools"
+      | "dating_escort_services"
+      | "dentists_orthodontists"
+      | "department_stores"
+      | "detective_agencies"
+      | "digital_goods_applications"
+      | "digital_goods_games"
+      | "digital_goods_large_volume"
+      | "digital_goods_media"
+      | "direct_marketing_catalog_merchant"
+      | "direct_marketing_combination_catalog_and_retail_merchant"
+      | "direct_marketing_inbound_telemarketing"
+      | "direct_marketing_insurance_services"
+      | "direct_marketing_other"
+      | "direct_marketing_outbound_telemarketing"
+      | "direct_marketing_subscription"
+      | "direct_marketing_travel"
+      | "discount_stores"
+      | "doctors"
+      | "door_to_door_sales"
+      | "drapery_window_covering_and_upholstery_stores"
+      | "drinking_places"
+      | "drug_stores_and_pharmacies"
+      | "drugs_drug_proprietaries_and_druggist_sundries"
+      | "dry_cleaners"
+      | "durable_goods"
+      | "duty_free_stores"
+      | "eating_places_restaurants"
+      | "educational_services"
+      | "electric_razor_stores"
+      | "electric_vehicle_charging"
+      | "electrical_parts_and_equipment"
+      | "electrical_services"
+      | "electronics_repair_shops"
+      | "electronics_stores"
+      | "elementary_secondary_schools"
+      | "emergency_services_gcas_visa_use_only"
+      | "employment_temp_agencies"
+      | "equipment_rental"
+      | "exterminating_services"
+      | "family_clothing_stores"
+      | "fast_food_restaurants"
+      | "financial_institutions"
+      | "fines_government_administrative_entities"
+      | "fireplace_fireplace_screens_and_accessories_stores"
+      | "floor_covering_stores"
+      | "florists"
+      | "florists_supplies_nursery_stock_and_flowers"
+      | "freezer_and_locker_meat_provisioners"
+      | "fuel_dealers_non_automotive"
+      | "funeral_services_crematories"
+      | "furniture_home_furnishings_and_equipment_stores_except_appliances"
+      | "furniture_repair_refinishing"
+      | "furriers_and_fur_shops"
+      | "general_services"
+      | "gift_card_novelty_and_souvenir_shops"
+      | "glass_paint_and_wallpaper_stores"
+      | "glassware_crystal_stores"
+      | "golf_courses_public"
+      | "government_licensed_horse_dog_racing_us_region_only"
+      | "government_licensed_online_casions_online_gambling_us_region_only"
+      | "government_owned_lotteries_non_us_region"
+      | "government_owned_lotteries_us_region_only"
+      | "government_services"
+      | "grocery_stores_supermarkets"
+      | "hardware_equipment_and_supplies"
+      | "hardware_stores"
+      | "health_and_beauty_spas"
+      | "hearing_aids_sales_and_supplies"
+      | "heating_plumbing_a_c"
+      | "hobby_toy_and_game_shops"
+      | "home_supply_warehouse_stores"
+      | "hospitals"
+      | "hotels_motels_and_resorts"
+      | "household_appliance_stores"
+      | "industrial_supplies"
+      | "information_retrieval_services"
+      | "insurance_default"
+      | "insurance_underwriting_premiums"
+      | "intra_company_purchases"
+      | "jewelry_stores_watches_clocks_and_silverware_stores"
+      | "landscaping_services"
+      | "laundries"
+      | "laundry_cleaning_services"
+      | "legal_services_attorneys"
+      | "luggage_and_leather_goods_stores"
+      | "lumber_building_materials_stores"
+      | "manual_cash_disburse"
+      | "marinas_service_and_supplies"
+      | "marketplaces"
+      | "masonry_stonework_and_plaster"
+      | "massage_parlors"
+      | "medical_and_dental_labs"
+      | "medical_dental_ophthalmic_and_hospital_equipment_and_supplies"
+      | "medical_services"
+      | "membership_organizations"
+      | "mens_and_boys_clothing_and_accessories_stores"
+      | "mens_womens_clothing_stores"
+      | "metal_service_centers"
+      | "miscellaneous"
+      | "miscellaneous_apparel_and_accessory_shops"
+      | "miscellaneous_auto_dealers"
+      | "miscellaneous_business_services"
+      | "miscellaneous_food_stores"
+      | "miscellaneous_general_merchandise"
+      | "miscellaneous_general_services"
+      | "miscellaneous_home_furnishing_specialty_stores"
+      | "miscellaneous_publishing_and_printing"
+      | "miscellaneous_recreation_services"
+      | "miscellaneous_repair_shops"
+      | "miscellaneous_specialty_retail"
+      | "mobile_home_dealers"
+      | "motion_picture_theaters"
+      | "motor_freight_carriers_and_trucking"
+      | "motor_homes_dealers"
+      | "motor_vehicle_supplies_and_new_parts"
+      | "motorcycle_shops_and_dealers"
+      | "motorcycle_shops_dealers"
+      | "music_stores_musical_instruments_pianos_and_sheet_music"
+      | "news_dealers_and_newsstands"
+      | "non_fi_money_orders"
+      | "non_fi_stored_value_card_purchase_load"
+      | "nondurable_goods"
+      | "nurseries_lawn_and_garden_supply_stores"
+      | "nursing_personal_care"
+      | "office_and_commercial_furniture"
+      | "opticians_eyeglasses"
+      | "optometrists_ophthalmologist"
+      | "orthopedic_goods_prosthetic_devices"
+      | "osteopaths"
+      | "package_stores_beer_wine_and_liquor"
+      | "paints_varnishes_and_supplies"
+      | "parking_lots_garages"
+      | "passenger_railways"
+      | "pawn_shops"
+      | "pet_shops_pet_food_and_supplies"
+      | "petroleum_and_petroleum_products"
+      | "photo_developing"
+      | "photographic_photocopy_microfilm_equipment_and_supplies"
+      | "photographic_studios"
+      | "picture_video_production"
+      | "piece_goods_notions_and_other_dry_goods"
+      | "plumbing_heating_equipment_and_supplies"
+      | "political_organizations"
+      | "postal_services_government_only"
+      | "precious_stones_and_metals_watches_and_jewelry"
+      | "professional_services"
+      | "public_warehousing_and_storage"
+      | "quick_copy_repro_and_blueprint"
+      | "railroads"
+      | "real_estate_agents_and_managers_rentals"
+      | "record_stores"
+      | "recreational_vehicle_rentals"
+      | "religious_goods_stores"
+      | "religious_organizations"
+      | "roofing_siding_sheet_metal"
+      | "secretarial_support_services"
+      | "security_brokers_dealers"
+      | "service_stations"
+      | "sewing_needlework_fabric_and_piece_goods_stores"
+      | "shoe_repair_hat_cleaning"
+      | "shoe_stores"
+      | "small_appliance_repair"
+      | "snowmobile_dealers"
+      | "special_trade_services"
+      | "specialty_cleaning"
+      | "sporting_goods_stores"
+      | "sporting_recreation_camps"
+      | "sports_and_riding_apparel_stores"
+      | "sports_clubs_fields"
+      | "stamp_and_coin_stores"
+      | "stationary_office_supplies_printing_and_writing_paper"
+      | "stationery_stores_office_and_school_supply_stores"
+      | "swimming_pools_sales"
+      | "t_ui_travel_germany"
+      | "tailors_alterations"
+      | "tax_payments_government_agencies"
+      | "tax_preparation_services"
+      | "taxicabs_limousines"
+      | "telecommunication_equipment_and_telephone_sales"
+      | "telecommunication_services"
+      | "telegraph_services"
+      | "tent_and_awning_shops"
+      | "testing_laboratories"
+      | "theatrical_ticket_agencies"
+      | "timeshares"
+      | "tire_retreading_and_repair"
+      | "tolls_bridge_fees"
+      | "tourist_attractions_and_exhibits"
+      | "towing_services"
+      | "trailer_parks_campgrounds"
+      | "transportation_services"
+      | "travel_agencies_tour_operators"
+      | "truck_stop_iteration"
+      | "truck_utility_trailer_rentals"
+      | "typesetting_plate_making_and_related_services"
+      | "typewriter_stores"
+      | "u_s_federal_government_agencies_or_departments"
+      | "uniforms_commercial_clothing"
+      | "used_merchandise_and_secondhand_stores"
+      | "utilities"
+      | "variety_stores"
+      | "veterinary_services"
+      | "video_amusement_game_supplies"
+      | "video_game_arcades"
+      | "video_tape_rental_stores"
+      | "vocational_trade_schools"
+      | "watch_jewelry_repair"
+      | "welding_repair"
+      | "wholesale_clubs"
+      | "wig_and_toupee_stores"
+      | "wires_money_orders"
+      | "womens_accessory_and_specialty_shops"
+      | "womens_ready_to_wear_stores"
+      | "wrecking_and_salvage_yards"
+      | UnknownEnumStringValue
+    )[]
+    blocked_merchant_countries?: string[]
+    spending_limits?: {
+      amount: number
+      categories?: (
+        | "ac_refrigeration_repair"
+        | "accounting_bookkeeping_services"
+        | "advertising_services"
+        | "agricultural_cooperative"
+        | "airlines_air_carriers"
+        | "airports_flying_fields"
+        | "ambulance_services"
+        | "amusement_parks_carnivals"
+        | "antique_reproductions"
+        | "antique_shops"
+        | "aquariums"
+        | "architectural_surveying_services"
+        | "art_dealers_and_galleries"
+        | "artists_supply_and_craft_shops"
+        | "auto_and_home_supply_stores"
+        | "auto_body_repair_shops"
+        | "auto_paint_shops"
+        | "auto_service_shops"
+        | "automated_cash_disburse"
+        | "automated_fuel_dispensers"
+        | "automobile_associations"
+        | "automotive_parts_and_accessories_stores"
+        | "automotive_tire_stores"
+        | "bail_and_bond_payments"
+        | "bakeries"
+        | "bands_orchestras"
+        | "barber_and_beauty_shops"
+        | "betting_casino_gambling"
+        | "bicycle_shops"
+        | "billiard_pool_establishments"
+        | "boat_dealers"
+        | "boat_rentals_and_leases"
+        | "book_stores"
+        | "books_periodicals_and_newspapers"
+        | "bowling_alleys"
+        | "bus_lines"
+        | "business_secretarial_schools"
+        | "buying_shopping_services"
+        | "cable_satellite_and_other_pay_television_and_radio"
+        | "camera_and_photographic_supply_stores"
+        | "candy_nut_and_confectionery_stores"
+        | "car_and_truck_dealers_new_used"
+        | "car_and_truck_dealers_used_only"
+        | "car_rental_agencies"
+        | "car_washes"
+        | "carpentry_services"
+        | "carpet_upholstery_cleaning"
+        | "caterers"
+        | "charitable_and_social_service_organizations_fundraising"
+        | "chemicals_and_allied_products"
+        | "child_care_services"
+        | "childrens_and_infants_wear_stores"
+        | "chiropodists_podiatrists"
+        | "chiropractors"
+        | "cigar_stores_and_stands"
+        | "civic_social_fraternal_associations"
+        | "cleaning_and_maintenance"
+        | "clothing_rental"
+        | "colleges_universities"
+        | "commercial_equipment"
+        | "commercial_footwear"
+        | "commercial_photography_art_and_graphics"
+        | "commuter_transport_and_ferries"
+        | "computer_network_services"
+        | "computer_programming"
+        | "computer_repair"
+        | "computer_software_stores"
+        | "computers_peripherals_and_software"
+        | "concrete_work_services"
+        | "construction_materials"
+        | "consulting_public_relations"
+        | "correspondence_schools"
+        | "cosmetic_stores"
+        | "counseling_services"
+        | "country_clubs"
+        | "courier_services"
+        | "court_costs"
+        | "credit_reporting_agencies"
+        | "cruise_lines"
+        | "dairy_products_stores"
+        | "dance_hall_studios_schools"
+        | "dating_escort_services"
+        | "dentists_orthodontists"
+        | "department_stores"
+        | "detective_agencies"
+        | "digital_goods_applications"
+        | "digital_goods_games"
+        | "digital_goods_large_volume"
+        | "digital_goods_media"
+        | "direct_marketing_catalog_merchant"
+        | "direct_marketing_combination_catalog_and_retail_merchant"
+        | "direct_marketing_inbound_telemarketing"
+        | "direct_marketing_insurance_services"
+        | "direct_marketing_other"
+        | "direct_marketing_outbound_telemarketing"
+        | "direct_marketing_subscription"
+        | "direct_marketing_travel"
+        | "discount_stores"
+        | "doctors"
+        | "door_to_door_sales"
+        | "drapery_window_covering_and_upholstery_stores"
+        | "drinking_places"
+        | "drug_stores_and_pharmacies"
+        | "drugs_drug_proprietaries_and_druggist_sundries"
+        | "dry_cleaners"
+        | "durable_goods"
+        | "duty_free_stores"
+        | "eating_places_restaurants"
+        | "educational_services"
+        | "electric_razor_stores"
+        | "electric_vehicle_charging"
+        | "electrical_parts_and_equipment"
+        | "electrical_services"
+        | "electronics_repair_shops"
+        | "electronics_stores"
+        | "elementary_secondary_schools"
+        | "emergency_services_gcas_visa_use_only"
+        | "employment_temp_agencies"
+        | "equipment_rental"
+        | "exterminating_services"
+        | "family_clothing_stores"
+        | "fast_food_restaurants"
+        | "financial_institutions"
+        | "fines_government_administrative_entities"
+        | "fireplace_fireplace_screens_and_accessories_stores"
+        | "floor_covering_stores"
+        | "florists"
+        | "florists_supplies_nursery_stock_and_flowers"
+        | "freezer_and_locker_meat_provisioners"
+        | "fuel_dealers_non_automotive"
+        | "funeral_services_crematories"
+        | "furniture_home_furnishings_and_equipment_stores_except_appliances"
+        | "furniture_repair_refinishing"
+        | "furriers_and_fur_shops"
+        | "general_services"
+        | "gift_card_novelty_and_souvenir_shops"
+        | "glass_paint_and_wallpaper_stores"
+        | "glassware_crystal_stores"
+        | "golf_courses_public"
+        | "government_licensed_horse_dog_racing_us_region_only"
+        | "government_licensed_online_casions_online_gambling_us_region_only"
+        | "government_owned_lotteries_non_us_region"
+        | "government_owned_lotteries_us_region_only"
+        | "government_services"
+        | "grocery_stores_supermarkets"
+        | "hardware_equipment_and_supplies"
+        | "hardware_stores"
+        | "health_and_beauty_spas"
+        | "hearing_aids_sales_and_supplies"
+        | "heating_plumbing_a_c"
+        | "hobby_toy_and_game_shops"
+        | "home_supply_warehouse_stores"
+        | "hospitals"
+        | "hotels_motels_and_resorts"
+        | "household_appliance_stores"
+        | "industrial_supplies"
+        | "information_retrieval_services"
+        | "insurance_default"
+        | "insurance_underwriting_premiums"
+        | "intra_company_purchases"
+        | "jewelry_stores_watches_clocks_and_silverware_stores"
+        | "landscaping_services"
+        | "laundries"
+        | "laundry_cleaning_services"
+        | "legal_services_attorneys"
+        | "luggage_and_leather_goods_stores"
+        | "lumber_building_materials_stores"
+        | "manual_cash_disburse"
+        | "marinas_service_and_supplies"
+        | "marketplaces"
+        | "masonry_stonework_and_plaster"
+        | "massage_parlors"
+        | "medical_and_dental_labs"
+        | "medical_dental_ophthalmic_and_hospital_equipment_and_supplies"
+        | "medical_services"
+        | "membership_organizations"
+        | "mens_and_boys_clothing_and_accessories_stores"
+        | "mens_womens_clothing_stores"
+        | "metal_service_centers"
+        | "miscellaneous"
+        | "miscellaneous_apparel_and_accessory_shops"
+        | "miscellaneous_auto_dealers"
+        | "miscellaneous_business_services"
+        | "miscellaneous_food_stores"
+        | "miscellaneous_general_merchandise"
+        | "miscellaneous_general_services"
+        | "miscellaneous_home_furnishing_specialty_stores"
+        | "miscellaneous_publishing_and_printing"
+        | "miscellaneous_recreation_services"
+        | "miscellaneous_repair_shops"
+        | "miscellaneous_specialty_retail"
+        | "mobile_home_dealers"
+        | "motion_picture_theaters"
+        | "motor_freight_carriers_and_trucking"
+        | "motor_homes_dealers"
+        | "motor_vehicle_supplies_and_new_parts"
+        | "motorcycle_shops_and_dealers"
+        | "motorcycle_shops_dealers"
+        | "music_stores_musical_instruments_pianos_and_sheet_music"
+        | "news_dealers_and_newsstands"
+        | "non_fi_money_orders"
+        | "non_fi_stored_value_card_purchase_load"
+        | "nondurable_goods"
+        | "nurseries_lawn_and_garden_supply_stores"
+        | "nursing_personal_care"
+        | "office_and_commercial_furniture"
+        | "opticians_eyeglasses"
+        | "optometrists_ophthalmologist"
+        | "orthopedic_goods_prosthetic_devices"
+        | "osteopaths"
+        | "package_stores_beer_wine_and_liquor"
+        | "paints_varnishes_and_supplies"
+        | "parking_lots_garages"
+        | "passenger_railways"
+        | "pawn_shops"
+        | "pet_shops_pet_food_and_supplies"
+        | "petroleum_and_petroleum_products"
+        | "photo_developing"
+        | "photographic_photocopy_microfilm_equipment_and_supplies"
+        | "photographic_studios"
+        | "picture_video_production"
+        | "piece_goods_notions_and_other_dry_goods"
+        | "plumbing_heating_equipment_and_supplies"
+        | "political_organizations"
+        | "postal_services_government_only"
+        | "precious_stones_and_metals_watches_and_jewelry"
+        | "professional_services"
+        | "public_warehousing_and_storage"
+        | "quick_copy_repro_and_blueprint"
+        | "railroads"
+        | "real_estate_agents_and_managers_rentals"
+        | "record_stores"
+        | "recreational_vehicle_rentals"
+        | "religious_goods_stores"
+        | "religious_organizations"
+        | "roofing_siding_sheet_metal"
+        | "secretarial_support_services"
+        | "security_brokers_dealers"
+        | "service_stations"
+        | "sewing_needlework_fabric_and_piece_goods_stores"
+        | "shoe_repair_hat_cleaning"
+        | "shoe_stores"
+        | "small_appliance_repair"
+        | "snowmobile_dealers"
+        | "special_trade_services"
+        | "specialty_cleaning"
+        | "sporting_goods_stores"
+        | "sporting_recreation_camps"
+        | "sports_and_riding_apparel_stores"
+        | "sports_clubs_fields"
+        | "stamp_and_coin_stores"
+        | "stationary_office_supplies_printing_and_writing_paper"
+        | "stationery_stores_office_and_school_supply_stores"
+        | "swimming_pools_sales"
+        | "t_ui_travel_germany"
+        | "tailors_alterations"
+        | "tax_payments_government_agencies"
+        | "tax_preparation_services"
+        | "taxicabs_limousines"
+        | "telecommunication_equipment_and_telephone_sales"
+        | "telecommunication_services"
+        | "telegraph_services"
+        | "tent_and_awning_shops"
+        | "testing_laboratories"
+        | "theatrical_ticket_agencies"
+        | "timeshares"
+        | "tire_retreading_and_repair"
+        | "tolls_bridge_fees"
+        | "tourist_attractions_and_exhibits"
+        | "towing_services"
+        | "trailer_parks_campgrounds"
+        | "transportation_services"
+        | "travel_agencies_tour_operators"
+        | "truck_stop_iteration"
+        | "truck_utility_trailer_rentals"
+        | "typesetting_plate_making_and_related_services"
+        | "typewriter_stores"
+        | "u_s_federal_government_agencies_or_departments"
+        | "uniforms_commercial_clothing"
+        | "used_merchandise_and_secondhand_stores"
+        | "utilities"
+        | "variety_stores"
+        | "veterinary_services"
+        | "video_amusement_game_supplies"
+        | "video_game_arcades"
+        | "video_tape_rental_stores"
+        | "vocational_trade_schools"
+        | "watch_jewelry_repair"
+        | "welding_repair"
+        | "wholesale_clubs"
+        | "wig_and_toupee_stores"
+        | "wires_money_orders"
+        | "womens_accessory_and_specialty_shops"
+        | "womens_ready_to_wear_stores"
+        | "wrecking_and_salvage_yards"
+        | UnknownEnumStringValue
+      )[]
+      interval:
+        | "all_time"
+        | "daily"
+        | "monthly"
+        | "per_authorization"
+        | "weekly"
+        | "yearly"
+        | UnknownEnumStringValue
+    }[]
+  }
+  status?: "active" | "inactive" | UnknownEnumStringValue
+  type: "physical" | "virtual" | UnknownEnumStringValue
+}
+
+export type t_PostIssuingCardsCardRequestBody = {
+  cancellation_reason?: "lost" | "stolen" | UnknownEnumStringValue
+  expand?: string[]
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | ""
+    | UnknownEnumStringValue
+  personalization_design?: string
+  pin?: {
+    encrypted_number?: string
+  }
+  shipping?: {
+    address: {
+      city: string
+      country: string
+      line1: string
+      line2?: string
+      postal_code: string
+      state?: string
+    }
+    address_validation?: {
+      mode:
+        | "disabled"
+        | "normalization_only"
+        | "validation_and_normalization"
+        | UnknownEnumStringValue
+    }
+    customs?: {
+      eori_number?: string
+    }
+    name: string
+    phone_number?: string
+    require_signature?: boolean
+    service?: "express" | "priority" | "standard" | UnknownEnumStringValue
+    type?: "bulk" | "individual" | UnknownEnumStringValue
+  }
+  spending_controls?: {
+    allowed_categories?: (
+      | "ac_refrigeration_repair"
+      | "accounting_bookkeeping_services"
+      | "advertising_services"
+      | "agricultural_cooperative"
+      | "airlines_air_carriers"
+      | "airports_flying_fields"
+      | "ambulance_services"
+      | "amusement_parks_carnivals"
+      | "antique_reproductions"
+      | "antique_shops"
+      | "aquariums"
+      | "architectural_surveying_services"
+      | "art_dealers_and_galleries"
+      | "artists_supply_and_craft_shops"
+      | "auto_and_home_supply_stores"
+      | "auto_body_repair_shops"
+      | "auto_paint_shops"
+      | "auto_service_shops"
+      | "automated_cash_disburse"
+      | "automated_fuel_dispensers"
+      | "automobile_associations"
+      | "automotive_parts_and_accessories_stores"
+      | "automotive_tire_stores"
+      | "bail_and_bond_payments"
+      | "bakeries"
+      | "bands_orchestras"
+      | "barber_and_beauty_shops"
+      | "betting_casino_gambling"
+      | "bicycle_shops"
+      | "billiard_pool_establishments"
+      | "boat_dealers"
+      | "boat_rentals_and_leases"
+      | "book_stores"
+      | "books_periodicals_and_newspapers"
+      | "bowling_alleys"
+      | "bus_lines"
+      | "business_secretarial_schools"
+      | "buying_shopping_services"
+      | "cable_satellite_and_other_pay_television_and_radio"
+      | "camera_and_photographic_supply_stores"
+      | "candy_nut_and_confectionery_stores"
+      | "car_and_truck_dealers_new_used"
+      | "car_and_truck_dealers_used_only"
+      | "car_rental_agencies"
+      | "car_washes"
+      | "carpentry_services"
+      | "carpet_upholstery_cleaning"
+      | "caterers"
+      | "charitable_and_social_service_organizations_fundraising"
+      | "chemicals_and_allied_products"
+      | "child_care_services"
+      | "childrens_and_infants_wear_stores"
+      | "chiropodists_podiatrists"
+      | "chiropractors"
+      | "cigar_stores_and_stands"
+      | "civic_social_fraternal_associations"
+      | "cleaning_and_maintenance"
+      | "clothing_rental"
+      | "colleges_universities"
+      | "commercial_equipment"
+      | "commercial_footwear"
+      | "commercial_photography_art_and_graphics"
+      | "commuter_transport_and_ferries"
+      | "computer_network_services"
+      | "computer_programming"
+      | "computer_repair"
+      | "computer_software_stores"
+      | "computers_peripherals_and_software"
+      | "concrete_work_services"
+      | "construction_materials"
+      | "consulting_public_relations"
+      | "correspondence_schools"
+      | "cosmetic_stores"
+      | "counseling_services"
+      | "country_clubs"
+      | "courier_services"
+      | "court_costs"
+      | "credit_reporting_agencies"
+      | "cruise_lines"
+      | "dairy_products_stores"
+      | "dance_hall_studios_schools"
+      | "dating_escort_services"
+      | "dentists_orthodontists"
+      | "department_stores"
+      | "detective_agencies"
+      | "digital_goods_applications"
+      | "digital_goods_games"
+      | "digital_goods_large_volume"
+      | "digital_goods_media"
+      | "direct_marketing_catalog_merchant"
+      | "direct_marketing_combination_catalog_and_retail_merchant"
+      | "direct_marketing_inbound_telemarketing"
+      | "direct_marketing_insurance_services"
+      | "direct_marketing_other"
+      | "direct_marketing_outbound_telemarketing"
+      | "direct_marketing_subscription"
+      | "direct_marketing_travel"
+      | "discount_stores"
+      | "doctors"
+      | "door_to_door_sales"
+      | "drapery_window_covering_and_upholstery_stores"
+      | "drinking_places"
+      | "drug_stores_and_pharmacies"
+      | "drugs_drug_proprietaries_and_druggist_sundries"
+      | "dry_cleaners"
+      | "durable_goods"
+      | "duty_free_stores"
+      | "eating_places_restaurants"
+      | "educational_services"
+      | "electric_razor_stores"
+      | "electric_vehicle_charging"
+      | "electrical_parts_and_equipment"
+      | "electrical_services"
+      | "electronics_repair_shops"
+      | "electronics_stores"
+      | "elementary_secondary_schools"
+      | "emergency_services_gcas_visa_use_only"
+      | "employment_temp_agencies"
+      | "equipment_rental"
+      | "exterminating_services"
+      | "family_clothing_stores"
+      | "fast_food_restaurants"
+      | "financial_institutions"
+      | "fines_government_administrative_entities"
+      | "fireplace_fireplace_screens_and_accessories_stores"
+      | "floor_covering_stores"
+      | "florists"
+      | "florists_supplies_nursery_stock_and_flowers"
+      | "freezer_and_locker_meat_provisioners"
+      | "fuel_dealers_non_automotive"
+      | "funeral_services_crematories"
+      | "furniture_home_furnishings_and_equipment_stores_except_appliances"
+      | "furniture_repair_refinishing"
+      | "furriers_and_fur_shops"
+      | "general_services"
+      | "gift_card_novelty_and_souvenir_shops"
+      | "glass_paint_and_wallpaper_stores"
+      | "glassware_crystal_stores"
+      | "golf_courses_public"
+      | "government_licensed_horse_dog_racing_us_region_only"
+      | "government_licensed_online_casions_online_gambling_us_region_only"
+      | "government_owned_lotteries_non_us_region"
+      | "government_owned_lotteries_us_region_only"
+      | "government_services"
+      | "grocery_stores_supermarkets"
+      | "hardware_equipment_and_supplies"
+      | "hardware_stores"
+      | "health_and_beauty_spas"
+      | "hearing_aids_sales_and_supplies"
+      | "heating_plumbing_a_c"
+      | "hobby_toy_and_game_shops"
+      | "home_supply_warehouse_stores"
+      | "hospitals"
+      | "hotels_motels_and_resorts"
+      | "household_appliance_stores"
+      | "industrial_supplies"
+      | "information_retrieval_services"
+      | "insurance_default"
+      | "insurance_underwriting_premiums"
+      | "intra_company_purchases"
+      | "jewelry_stores_watches_clocks_and_silverware_stores"
+      | "landscaping_services"
+      | "laundries"
+      | "laundry_cleaning_services"
+      | "legal_services_attorneys"
+      | "luggage_and_leather_goods_stores"
+      | "lumber_building_materials_stores"
+      | "manual_cash_disburse"
+      | "marinas_service_and_supplies"
+      | "marketplaces"
+      | "masonry_stonework_and_plaster"
+      | "massage_parlors"
+      | "medical_and_dental_labs"
+      | "medical_dental_ophthalmic_and_hospital_equipment_and_supplies"
+      | "medical_services"
+      | "membership_organizations"
+      | "mens_and_boys_clothing_and_accessories_stores"
+      | "mens_womens_clothing_stores"
+      | "metal_service_centers"
+      | "miscellaneous"
+      | "miscellaneous_apparel_and_accessory_shops"
+      | "miscellaneous_auto_dealers"
+      | "miscellaneous_business_services"
+      | "miscellaneous_food_stores"
+      | "miscellaneous_general_merchandise"
+      | "miscellaneous_general_services"
+      | "miscellaneous_home_furnishing_specialty_stores"
+      | "miscellaneous_publishing_and_printing"
+      | "miscellaneous_recreation_services"
+      | "miscellaneous_repair_shops"
+      | "miscellaneous_specialty_retail"
+      | "mobile_home_dealers"
+      | "motion_picture_theaters"
+      | "motor_freight_carriers_and_trucking"
+      | "motor_homes_dealers"
+      | "motor_vehicle_supplies_and_new_parts"
+      | "motorcycle_shops_and_dealers"
+      | "motorcycle_shops_dealers"
+      | "music_stores_musical_instruments_pianos_and_sheet_music"
+      | "news_dealers_and_newsstands"
+      | "non_fi_money_orders"
+      | "non_fi_stored_value_card_purchase_load"
+      | "nondurable_goods"
+      | "nurseries_lawn_and_garden_supply_stores"
+      | "nursing_personal_care"
+      | "office_and_commercial_furniture"
+      | "opticians_eyeglasses"
+      | "optometrists_ophthalmologist"
+      | "orthopedic_goods_prosthetic_devices"
+      | "osteopaths"
+      | "package_stores_beer_wine_and_liquor"
+      | "paints_varnishes_and_supplies"
+      | "parking_lots_garages"
+      | "passenger_railways"
+      | "pawn_shops"
+      | "pet_shops_pet_food_and_supplies"
+      | "petroleum_and_petroleum_products"
+      | "photo_developing"
+      | "photographic_photocopy_microfilm_equipment_and_supplies"
+      | "photographic_studios"
+      | "picture_video_production"
+      | "piece_goods_notions_and_other_dry_goods"
+      | "plumbing_heating_equipment_and_supplies"
+      | "political_organizations"
+      | "postal_services_government_only"
+      | "precious_stones_and_metals_watches_and_jewelry"
+      | "professional_services"
+      | "public_warehousing_and_storage"
+      | "quick_copy_repro_and_blueprint"
+      | "railroads"
+      | "real_estate_agents_and_managers_rentals"
+      | "record_stores"
+      | "recreational_vehicle_rentals"
+      | "religious_goods_stores"
+      | "religious_organizations"
+      | "roofing_siding_sheet_metal"
+      | "secretarial_support_services"
+      | "security_brokers_dealers"
+      | "service_stations"
+      | "sewing_needlework_fabric_and_piece_goods_stores"
+      | "shoe_repair_hat_cleaning"
+      | "shoe_stores"
+      | "small_appliance_repair"
+      | "snowmobile_dealers"
+      | "special_trade_services"
+      | "specialty_cleaning"
+      | "sporting_goods_stores"
+      | "sporting_recreation_camps"
+      | "sports_and_riding_apparel_stores"
+      | "sports_clubs_fields"
+      | "stamp_and_coin_stores"
+      | "stationary_office_supplies_printing_and_writing_paper"
+      | "stationery_stores_office_and_school_supply_stores"
+      | "swimming_pools_sales"
+      | "t_ui_travel_germany"
+      | "tailors_alterations"
+      | "tax_payments_government_agencies"
+      | "tax_preparation_services"
+      | "taxicabs_limousines"
+      | "telecommunication_equipment_and_telephone_sales"
+      | "telecommunication_services"
+      | "telegraph_services"
+      | "tent_and_awning_shops"
+      | "testing_laboratories"
+      | "theatrical_ticket_agencies"
+      | "timeshares"
+      | "tire_retreading_and_repair"
+      | "tolls_bridge_fees"
+      | "tourist_attractions_and_exhibits"
+      | "towing_services"
+      | "trailer_parks_campgrounds"
+      | "transportation_services"
+      | "travel_agencies_tour_operators"
+      | "truck_stop_iteration"
+      | "truck_utility_trailer_rentals"
+      | "typesetting_plate_making_and_related_services"
+      | "typewriter_stores"
+      | "u_s_federal_government_agencies_or_departments"
+      | "uniforms_commercial_clothing"
+      | "used_merchandise_and_secondhand_stores"
+      | "utilities"
+      | "variety_stores"
+      | "veterinary_services"
+      | "video_amusement_game_supplies"
+      | "video_game_arcades"
+      | "video_tape_rental_stores"
+      | "vocational_trade_schools"
+      | "watch_jewelry_repair"
+      | "welding_repair"
+      | "wholesale_clubs"
+      | "wig_and_toupee_stores"
+      | "wires_money_orders"
+      | "womens_accessory_and_specialty_shops"
+      | "womens_ready_to_wear_stores"
+      | "wrecking_and_salvage_yards"
+      | UnknownEnumStringValue
+    )[]
+    allowed_merchant_countries?: string[]
+    blocked_categories?: (
+      | "ac_refrigeration_repair"
+      | "accounting_bookkeeping_services"
+      | "advertising_services"
+      | "agricultural_cooperative"
+      | "airlines_air_carriers"
+      | "airports_flying_fields"
+      | "ambulance_services"
+      | "amusement_parks_carnivals"
+      | "antique_reproductions"
+      | "antique_shops"
+      | "aquariums"
+      | "architectural_surveying_services"
+      | "art_dealers_and_galleries"
+      | "artists_supply_and_craft_shops"
+      | "auto_and_home_supply_stores"
+      | "auto_body_repair_shops"
+      | "auto_paint_shops"
+      | "auto_service_shops"
+      | "automated_cash_disburse"
+      | "automated_fuel_dispensers"
+      | "automobile_associations"
+      | "automotive_parts_and_accessories_stores"
+      | "automotive_tire_stores"
+      | "bail_and_bond_payments"
+      | "bakeries"
+      | "bands_orchestras"
+      | "barber_and_beauty_shops"
+      | "betting_casino_gambling"
+      | "bicycle_shops"
+      | "billiard_pool_establishments"
+      | "boat_dealers"
+      | "boat_rentals_and_leases"
+      | "book_stores"
+      | "books_periodicals_and_newspapers"
+      | "bowling_alleys"
+      | "bus_lines"
+      | "business_secretarial_schools"
+      | "buying_shopping_services"
+      | "cable_satellite_and_other_pay_television_and_radio"
+      | "camera_and_photographic_supply_stores"
+      | "candy_nut_and_confectionery_stores"
+      | "car_and_truck_dealers_new_used"
+      | "car_and_truck_dealers_used_only"
+      | "car_rental_agencies"
+      | "car_washes"
+      | "carpentry_services"
+      | "carpet_upholstery_cleaning"
+      | "caterers"
+      | "charitable_and_social_service_organizations_fundraising"
+      | "chemicals_and_allied_products"
+      | "child_care_services"
+      | "childrens_and_infants_wear_stores"
+      | "chiropodists_podiatrists"
+      | "chiropractors"
+      | "cigar_stores_and_stands"
+      | "civic_social_fraternal_associations"
+      | "cleaning_and_maintenance"
+      | "clothing_rental"
+      | "colleges_universities"
+      | "commercial_equipment"
+      | "commercial_footwear"
+      | "commercial_photography_art_and_graphics"
+      | "commuter_transport_and_ferries"
+      | "computer_network_services"
+      | "computer_programming"
+      | "computer_repair"
+      | "computer_software_stores"
+      | "computers_peripherals_and_software"
+      | "concrete_work_services"
+      | "construction_materials"
+      | "consulting_public_relations"
+      | "correspondence_schools"
+      | "cosmetic_stores"
+      | "counseling_services"
+      | "country_clubs"
+      | "courier_services"
+      | "court_costs"
+      | "credit_reporting_agencies"
+      | "cruise_lines"
+      | "dairy_products_stores"
+      | "dance_hall_studios_schools"
+      | "dating_escort_services"
+      | "dentists_orthodontists"
+      | "department_stores"
+      | "detective_agencies"
+      | "digital_goods_applications"
+      | "digital_goods_games"
+      | "digital_goods_large_volume"
+      | "digital_goods_media"
+      | "direct_marketing_catalog_merchant"
+      | "direct_marketing_combination_catalog_and_retail_merchant"
+      | "direct_marketing_inbound_telemarketing"
+      | "direct_marketing_insurance_services"
+      | "direct_marketing_other"
+      | "direct_marketing_outbound_telemarketing"
+      | "direct_marketing_subscription"
+      | "direct_marketing_travel"
+      | "discount_stores"
+      | "doctors"
+      | "door_to_door_sales"
+      | "drapery_window_covering_and_upholstery_stores"
+      | "drinking_places"
+      | "drug_stores_and_pharmacies"
+      | "drugs_drug_proprietaries_and_druggist_sundries"
+      | "dry_cleaners"
+      | "durable_goods"
+      | "duty_free_stores"
+      | "eating_places_restaurants"
+      | "educational_services"
+      | "electric_razor_stores"
+      | "electric_vehicle_charging"
+      | "electrical_parts_and_equipment"
+      | "electrical_services"
+      | "electronics_repair_shops"
+      | "electronics_stores"
+      | "elementary_secondary_schools"
+      | "emergency_services_gcas_visa_use_only"
+      | "employment_temp_agencies"
+      | "equipment_rental"
+      | "exterminating_services"
+      | "family_clothing_stores"
+      | "fast_food_restaurants"
+      | "financial_institutions"
+      | "fines_government_administrative_entities"
+      | "fireplace_fireplace_screens_and_accessories_stores"
+      | "floor_covering_stores"
+      | "florists"
+      | "florists_supplies_nursery_stock_and_flowers"
+      | "freezer_and_locker_meat_provisioners"
+      | "fuel_dealers_non_automotive"
+      | "funeral_services_crematories"
+      | "furniture_home_furnishings_and_equipment_stores_except_appliances"
+      | "furniture_repair_refinishing"
+      | "furriers_and_fur_shops"
+      | "general_services"
+      | "gift_card_novelty_and_souvenir_shops"
+      | "glass_paint_and_wallpaper_stores"
+      | "glassware_crystal_stores"
+      | "golf_courses_public"
+      | "government_licensed_horse_dog_racing_us_region_only"
+      | "government_licensed_online_casions_online_gambling_us_region_only"
+      | "government_owned_lotteries_non_us_region"
+      | "government_owned_lotteries_us_region_only"
+      | "government_services"
+      | "grocery_stores_supermarkets"
+      | "hardware_equipment_and_supplies"
+      | "hardware_stores"
+      | "health_and_beauty_spas"
+      | "hearing_aids_sales_and_supplies"
+      | "heating_plumbing_a_c"
+      | "hobby_toy_and_game_shops"
+      | "home_supply_warehouse_stores"
+      | "hospitals"
+      | "hotels_motels_and_resorts"
+      | "household_appliance_stores"
+      | "industrial_supplies"
+      | "information_retrieval_services"
+      | "insurance_default"
+      | "insurance_underwriting_premiums"
+      | "intra_company_purchases"
+      | "jewelry_stores_watches_clocks_and_silverware_stores"
+      | "landscaping_services"
+      | "laundries"
+      | "laundry_cleaning_services"
+      | "legal_services_attorneys"
+      | "luggage_and_leather_goods_stores"
+      | "lumber_building_materials_stores"
+      | "manual_cash_disburse"
+      | "marinas_service_and_supplies"
+      | "marketplaces"
+      | "masonry_stonework_and_plaster"
+      | "massage_parlors"
+      | "medical_and_dental_labs"
+      | "medical_dental_ophthalmic_and_hospital_equipment_and_supplies"
+      | "medical_services"
+      | "membership_organizations"
+      | "mens_and_boys_clothing_and_accessories_stores"
+      | "mens_womens_clothing_stores"
+      | "metal_service_centers"
+      | "miscellaneous"
+      | "miscellaneous_apparel_and_accessory_shops"
+      | "miscellaneous_auto_dealers"
+      | "miscellaneous_business_services"
+      | "miscellaneous_food_stores"
+      | "miscellaneous_general_merchandise"
+      | "miscellaneous_general_services"
+      | "miscellaneous_home_furnishing_specialty_stores"
+      | "miscellaneous_publishing_and_printing"
+      | "miscellaneous_recreation_services"
+      | "miscellaneous_repair_shops"
+      | "miscellaneous_specialty_retail"
+      | "mobile_home_dealers"
+      | "motion_picture_theaters"
+      | "motor_freight_carriers_and_trucking"
+      | "motor_homes_dealers"
+      | "motor_vehicle_supplies_and_new_parts"
+      | "motorcycle_shops_and_dealers"
+      | "motorcycle_shops_dealers"
+      | "music_stores_musical_instruments_pianos_and_sheet_music"
+      | "news_dealers_and_newsstands"
+      | "non_fi_money_orders"
+      | "non_fi_stored_value_card_purchase_load"
+      | "nondurable_goods"
+      | "nurseries_lawn_and_garden_supply_stores"
+      | "nursing_personal_care"
+      | "office_and_commercial_furniture"
+      | "opticians_eyeglasses"
+      | "optometrists_ophthalmologist"
+      | "orthopedic_goods_prosthetic_devices"
+      | "osteopaths"
+      | "package_stores_beer_wine_and_liquor"
+      | "paints_varnishes_and_supplies"
+      | "parking_lots_garages"
+      | "passenger_railways"
+      | "pawn_shops"
+      | "pet_shops_pet_food_and_supplies"
+      | "petroleum_and_petroleum_products"
+      | "photo_developing"
+      | "photographic_photocopy_microfilm_equipment_and_supplies"
+      | "photographic_studios"
+      | "picture_video_production"
+      | "piece_goods_notions_and_other_dry_goods"
+      | "plumbing_heating_equipment_and_supplies"
+      | "political_organizations"
+      | "postal_services_government_only"
+      | "precious_stones_and_metals_watches_and_jewelry"
+      | "professional_services"
+      | "public_warehousing_and_storage"
+      | "quick_copy_repro_and_blueprint"
+      | "railroads"
+      | "real_estate_agents_and_managers_rentals"
+      | "record_stores"
+      | "recreational_vehicle_rentals"
+      | "religious_goods_stores"
+      | "religious_organizations"
+      | "roofing_siding_sheet_metal"
+      | "secretarial_support_services"
+      | "security_brokers_dealers"
+      | "service_stations"
+      | "sewing_needlework_fabric_and_piece_goods_stores"
+      | "shoe_repair_hat_cleaning"
+      | "shoe_stores"
+      | "small_appliance_repair"
+      | "snowmobile_dealers"
+      | "special_trade_services"
+      | "specialty_cleaning"
+      | "sporting_goods_stores"
+      | "sporting_recreation_camps"
+      | "sports_and_riding_apparel_stores"
+      | "sports_clubs_fields"
+      | "stamp_and_coin_stores"
+      | "stationary_office_supplies_printing_and_writing_paper"
+      | "stationery_stores_office_and_school_supply_stores"
+      | "swimming_pools_sales"
+      | "t_ui_travel_germany"
+      | "tailors_alterations"
+      | "tax_payments_government_agencies"
+      | "tax_preparation_services"
+      | "taxicabs_limousines"
+      | "telecommunication_equipment_and_telephone_sales"
+      | "telecommunication_services"
+      | "telegraph_services"
+      | "tent_and_awning_shops"
+      | "testing_laboratories"
+      | "theatrical_ticket_agencies"
+      | "timeshares"
+      | "tire_retreading_and_repair"
+      | "tolls_bridge_fees"
+      | "tourist_attractions_and_exhibits"
+      | "towing_services"
+      | "trailer_parks_campgrounds"
+      | "transportation_services"
+      | "travel_agencies_tour_operators"
+      | "truck_stop_iteration"
+      | "truck_utility_trailer_rentals"
+      | "typesetting_plate_making_and_related_services"
+      | "typewriter_stores"
+      | "u_s_federal_government_agencies_or_departments"
+      | "uniforms_commercial_clothing"
+      | "used_merchandise_and_secondhand_stores"
+      | "utilities"
+      | "variety_stores"
+      | "veterinary_services"
+      | "video_amusement_game_supplies"
+      | "video_game_arcades"
+      | "video_tape_rental_stores"
+      | "vocational_trade_schools"
+      | "watch_jewelry_repair"
+      | "welding_repair"
+      | "wholesale_clubs"
+      | "wig_and_toupee_stores"
+      | "wires_money_orders"
+      | "womens_accessory_and_specialty_shops"
+      | "womens_ready_to_wear_stores"
+      | "wrecking_and_salvage_yards"
+      | UnknownEnumStringValue
+    )[]
+    blocked_merchant_countries?: string[]
+    spending_limits?: {
+      amount: number
+      categories?: (
+        | "ac_refrigeration_repair"
+        | "accounting_bookkeeping_services"
+        | "advertising_services"
+        | "agricultural_cooperative"
+        | "airlines_air_carriers"
+        | "airports_flying_fields"
+        | "ambulance_services"
+        | "amusement_parks_carnivals"
+        | "antique_reproductions"
+        | "antique_shops"
+        | "aquariums"
+        | "architectural_surveying_services"
+        | "art_dealers_and_galleries"
+        | "artists_supply_and_craft_shops"
+        | "auto_and_home_supply_stores"
+        | "auto_body_repair_shops"
+        | "auto_paint_shops"
+        | "auto_service_shops"
+        | "automated_cash_disburse"
+        | "automated_fuel_dispensers"
+        | "automobile_associations"
+        | "automotive_parts_and_accessories_stores"
+        | "automotive_tire_stores"
+        | "bail_and_bond_payments"
+        | "bakeries"
+        | "bands_orchestras"
+        | "barber_and_beauty_shops"
+        | "betting_casino_gambling"
+        | "bicycle_shops"
+        | "billiard_pool_establishments"
+        | "boat_dealers"
+        | "boat_rentals_and_leases"
+        | "book_stores"
+        | "books_periodicals_and_newspapers"
+        | "bowling_alleys"
+        | "bus_lines"
+        | "business_secretarial_schools"
+        | "buying_shopping_services"
+        | "cable_satellite_and_other_pay_television_and_radio"
+        | "camera_and_photographic_supply_stores"
+        | "candy_nut_and_confectionery_stores"
+        | "car_and_truck_dealers_new_used"
+        | "car_and_truck_dealers_used_only"
+        | "car_rental_agencies"
+        | "car_washes"
+        | "carpentry_services"
+        | "carpet_upholstery_cleaning"
+        | "caterers"
+        | "charitable_and_social_service_organizations_fundraising"
+        | "chemicals_and_allied_products"
+        | "child_care_services"
+        | "childrens_and_infants_wear_stores"
+        | "chiropodists_podiatrists"
+        | "chiropractors"
+        | "cigar_stores_and_stands"
+        | "civic_social_fraternal_associations"
+        | "cleaning_and_maintenance"
+        | "clothing_rental"
+        | "colleges_universities"
+        | "commercial_equipment"
+        | "commercial_footwear"
+        | "commercial_photography_art_and_graphics"
+        | "commuter_transport_and_ferries"
+        | "computer_network_services"
+        | "computer_programming"
+        | "computer_repair"
+        | "computer_software_stores"
+        | "computers_peripherals_and_software"
+        | "concrete_work_services"
+        | "construction_materials"
+        | "consulting_public_relations"
+        | "correspondence_schools"
+        | "cosmetic_stores"
+        | "counseling_services"
+        | "country_clubs"
+        | "courier_services"
+        | "court_costs"
+        | "credit_reporting_agencies"
+        | "cruise_lines"
+        | "dairy_products_stores"
+        | "dance_hall_studios_schools"
+        | "dating_escort_services"
+        | "dentists_orthodontists"
+        | "department_stores"
+        | "detective_agencies"
+        | "digital_goods_applications"
+        | "digital_goods_games"
+        | "digital_goods_large_volume"
+        | "digital_goods_media"
+        | "direct_marketing_catalog_merchant"
+        | "direct_marketing_combination_catalog_and_retail_merchant"
+        | "direct_marketing_inbound_telemarketing"
+        | "direct_marketing_insurance_services"
+        | "direct_marketing_other"
+        | "direct_marketing_outbound_telemarketing"
+        | "direct_marketing_subscription"
+        | "direct_marketing_travel"
+        | "discount_stores"
+        | "doctors"
+        | "door_to_door_sales"
+        | "drapery_window_covering_and_upholstery_stores"
+        | "drinking_places"
+        | "drug_stores_and_pharmacies"
+        | "drugs_drug_proprietaries_and_druggist_sundries"
+        | "dry_cleaners"
+        | "durable_goods"
+        | "duty_free_stores"
+        | "eating_places_restaurants"
+        | "educational_services"
+        | "electric_razor_stores"
+        | "electric_vehicle_charging"
+        | "electrical_parts_and_equipment"
+        | "electrical_services"
+        | "electronics_repair_shops"
+        | "electronics_stores"
+        | "elementary_secondary_schools"
+        | "emergency_services_gcas_visa_use_only"
+        | "employment_temp_agencies"
+        | "equipment_rental"
+        | "exterminating_services"
+        | "family_clothing_stores"
+        | "fast_food_restaurants"
+        | "financial_institutions"
+        | "fines_government_administrative_entities"
+        | "fireplace_fireplace_screens_and_accessories_stores"
+        | "floor_covering_stores"
+        | "florists"
+        | "florists_supplies_nursery_stock_and_flowers"
+        | "freezer_and_locker_meat_provisioners"
+        | "fuel_dealers_non_automotive"
+        | "funeral_services_crematories"
+        | "furniture_home_furnishings_and_equipment_stores_except_appliances"
+        | "furniture_repair_refinishing"
+        | "furriers_and_fur_shops"
+        | "general_services"
+        | "gift_card_novelty_and_souvenir_shops"
+        | "glass_paint_and_wallpaper_stores"
+        | "glassware_crystal_stores"
+        | "golf_courses_public"
+        | "government_licensed_horse_dog_racing_us_region_only"
+        | "government_licensed_online_casions_online_gambling_us_region_only"
+        | "government_owned_lotteries_non_us_region"
+        | "government_owned_lotteries_us_region_only"
+        | "government_services"
+        | "grocery_stores_supermarkets"
+        | "hardware_equipment_and_supplies"
+        | "hardware_stores"
+        | "health_and_beauty_spas"
+        | "hearing_aids_sales_and_supplies"
+        | "heating_plumbing_a_c"
+        | "hobby_toy_and_game_shops"
+        | "home_supply_warehouse_stores"
+        | "hospitals"
+        | "hotels_motels_and_resorts"
+        | "household_appliance_stores"
+        | "industrial_supplies"
+        | "information_retrieval_services"
+        | "insurance_default"
+        | "insurance_underwriting_premiums"
+        | "intra_company_purchases"
+        | "jewelry_stores_watches_clocks_and_silverware_stores"
+        | "landscaping_services"
+        | "laundries"
+        | "laundry_cleaning_services"
+        | "legal_services_attorneys"
+        | "luggage_and_leather_goods_stores"
+        | "lumber_building_materials_stores"
+        | "manual_cash_disburse"
+        | "marinas_service_and_supplies"
+        | "marketplaces"
+        | "masonry_stonework_and_plaster"
+        | "massage_parlors"
+        | "medical_and_dental_labs"
+        | "medical_dental_ophthalmic_and_hospital_equipment_and_supplies"
+        | "medical_services"
+        | "membership_organizations"
+        | "mens_and_boys_clothing_and_accessories_stores"
+        | "mens_womens_clothing_stores"
+        | "metal_service_centers"
+        | "miscellaneous"
+        | "miscellaneous_apparel_and_accessory_shops"
+        | "miscellaneous_auto_dealers"
+        | "miscellaneous_business_services"
+        | "miscellaneous_food_stores"
+        | "miscellaneous_general_merchandise"
+        | "miscellaneous_general_services"
+        | "miscellaneous_home_furnishing_specialty_stores"
+        | "miscellaneous_publishing_and_printing"
+        | "miscellaneous_recreation_services"
+        | "miscellaneous_repair_shops"
+        | "miscellaneous_specialty_retail"
+        | "mobile_home_dealers"
+        | "motion_picture_theaters"
+        | "motor_freight_carriers_and_trucking"
+        | "motor_homes_dealers"
+        | "motor_vehicle_supplies_and_new_parts"
+        | "motorcycle_shops_and_dealers"
+        | "motorcycle_shops_dealers"
+        | "music_stores_musical_instruments_pianos_and_sheet_music"
+        | "news_dealers_and_newsstands"
+        | "non_fi_money_orders"
+        | "non_fi_stored_value_card_purchase_load"
+        | "nondurable_goods"
+        | "nurseries_lawn_and_garden_supply_stores"
+        | "nursing_personal_care"
+        | "office_and_commercial_furniture"
+        | "opticians_eyeglasses"
+        | "optometrists_ophthalmologist"
+        | "orthopedic_goods_prosthetic_devices"
+        | "osteopaths"
+        | "package_stores_beer_wine_and_liquor"
+        | "paints_varnishes_and_supplies"
+        | "parking_lots_garages"
+        | "passenger_railways"
+        | "pawn_shops"
+        | "pet_shops_pet_food_and_supplies"
+        | "petroleum_and_petroleum_products"
+        | "photo_developing"
+        | "photographic_photocopy_microfilm_equipment_and_supplies"
+        | "photographic_studios"
+        | "picture_video_production"
+        | "piece_goods_notions_and_other_dry_goods"
+        | "plumbing_heating_equipment_and_supplies"
+        | "political_organizations"
+        | "postal_services_government_only"
+        | "precious_stones_and_metals_watches_and_jewelry"
+        | "professional_services"
+        | "public_warehousing_and_storage"
+        | "quick_copy_repro_and_blueprint"
+        | "railroads"
+        | "real_estate_agents_and_managers_rentals"
+        | "record_stores"
+        | "recreational_vehicle_rentals"
+        | "religious_goods_stores"
+        | "religious_organizations"
+        | "roofing_siding_sheet_metal"
+        | "secretarial_support_services"
+        | "security_brokers_dealers"
+        | "service_stations"
+        | "sewing_needlework_fabric_and_piece_goods_stores"
+        | "shoe_repair_hat_cleaning"
+        | "shoe_stores"
+        | "small_appliance_repair"
+        | "snowmobile_dealers"
+        | "special_trade_services"
+        | "specialty_cleaning"
+        | "sporting_goods_stores"
+        | "sporting_recreation_camps"
+        | "sports_and_riding_apparel_stores"
+        | "sports_clubs_fields"
+        | "stamp_and_coin_stores"
+        | "stationary_office_supplies_printing_and_writing_paper"
+        | "stationery_stores_office_and_school_supply_stores"
+        | "swimming_pools_sales"
+        | "t_ui_travel_germany"
+        | "tailors_alterations"
+        | "tax_payments_government_agencies"
+        | "tax_preparation_services"
+        | "taxicabs_limousines"
+        | "telecommunication_equipment_and_telephone_sales"
+        | "telecommunication_services"
+        | "telegraph_services"
+        | "tent_and_awning_shops"
+        | "testing_laboratories"
+        | "theatrical_ticket_agencies"
+        | "timeshares"
+        | "tire_retreading_and_repair"
+        | "tolls_bridge_fees"
+        | "tourist_attractions_and_exhibits"
+        | "towing_services"
+        | "trailer_parks_campgrounds"
+        | "transportation_services"
+        | "travel_agencies_tour_operators"
+        | "truck_stop_iteration"
+        | "truck_utility_trailer_rentals"
+        | "typesetting_plate_making_and_related_services"
+        | "typewriter_stores"
+        | "u_s_federal_government_agencies_or_departments"
+        | "uniforms_commercial_clothing"
+        | "used_merchandise_and_secondhand_stores"
+        | "utilities"
+        | "variety_stores"
+        | "veterinary_services"
+        | "video_amusement_game_supplies"
+        | "video_game_arcades"
+        | "video_tape_rental_stores"
+        | "vocational_trade_schools"
+        | "watch_jewelry_repair"
+        | "welding_repair"
+        | "wholesale_clubs"
+        | "wig_and_toupee_stores"
+        | "wires_money_orders"
+        | "womens_accessory_and_specialty_shops"
+        | "womens_ready_to_wear_stores"
+        | "wrecking_and_salvage_yards"
+        | UnknownEnumStringValue
+      )[]
+      interval:
+        | "all_time"
+        | "daily"
+        | "monthly"
+        | "per_authorization"
+        | "weekly"
+        | "yearly"
+        | UnknownEnumStringValue
+    }[]
+  }
+  status?: "active" | "canceled" | "inactive" | UnknownEnumStringValue
+}
+
+export type t_PostIssuingDisputesRequestBody = {
+  amount?: number
+  evidence?: {
+    canceled?:
+      | {
+          additional_documentation?: string | "" | UnknownEnumStringValue
+          canceled_at?: number | "" | UnknownEnumStringValue
+          cancellation_policy_provided?: boolean | "" | UnknownEnumStringValue
+          cancellation_reason?: string | "" | UnknownEnumStringValue
+          expected_at?: number | "" | UnknownEnumStringValue
+          explanation?: string | "" | UnknownEnumStringValue
+          product_description?: string | "" | UnknownEnumStringValue
+          product_type?: "" | "merchandise" | "service" | UnknownEnumStringValue
+          return_status?:
+            | ""
+            | "merchant_rejected"
+            | "successful"
+            | UnknownEnumStringValue
+          returned_at?: number | "" | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    duplicate?:
+      | {
+          additional_documentation?: string | "" | UnknownEnumStringValue
+          card_statement?: string | "" | UnknownEnumStringValue
+          cash_receipt?: string | "" | UnknownEnumStringValue
+          check_image?: string | "" | UnknownEnumStringValue
+          explanation?: string | "" | UnknownEnumStringValue
+          original_transaction?: string
+        }
+      | ""
+      | UnknownEnumStringValue
+    fraudulent?:
+      | {
+          additional_documentation?: string | "" | UnknownEnumStringValue
+          explanation?: string | "" | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    merchandise_not_as_described?:
+      | {
+          additional_documentation?: string | "" | UnknownEnumStringValue
+          explanation?: string | "" | UnknownEnumStringValue
+          received_at?: number | "" | UnknownEnumStringValue
+          return_description?: string | "" | UnknownEnumStringValue
+          return_status?:
+            | ""
+            | "merchant_rejected"
+            | "successful"
+            | UnknownEnumStringValue
+          returned_at?: number | "" | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    no_valid_authorization?:
+      | {
+          additional_documentation?: string | "" | UnknownEnumStringValue
+          explanation?: string | "" | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    not_received?:
+      | {
+          additional_documentation?: string | "" | UnknownEnumStringValue
+          expected_at?: number | "" | UnknownEnumStringValue
+          explanation?: string | "" | UnknownEnumStringValue
+          product_description?: string | "" | UnknownEnumStringValue
+          product_type?: "" | "merchandise" | "service" | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    other?:
+      | {
+          additional_documentation?: string | "" | UnknownEnumStringValue
+          explanation?: string | "" | UnknownEnumStringValue
+          product_description?: string | "" | UnknownEnumStringValue
+          product_type?: "" | "merchandise" | "service" | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    reason?:
+      | "canceled"
+      | "duplicate"
+      | "fraudulent"
+      | "merchandise_not_as_described"
+      | "no_valid_authorization"
+      | "not_received"
+      | "other"
+      | "service_not_as_described"
+      | UnknownEnumStringValue
+    service_not_as_described?:
+      | {
+          additional_documentation?: string | "" | UnknownEnumStringValue
+          canceled_at?: number | "" | UnknownEnumStringValue
+          cancellation_reason?: string | "" | UnknownEnumStringValue
+          explanation?: string | "" | UnknownEnumStringValue
+          received_at?: number | "" | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+  }
+  expand?: string[]
+  metadata?: {
+    [key: string]: string | undefined
+  }
+  transaction?: string
+  treasury?: {
+    received_debit: string
+  }
+}
+
+export type t_PostIssuingDisputesDisputeRequestBody = {
+  amount?: number
+  evidence?: {
+    canceled?:
+      | {
+          additional_documentation?: string | "" | UnknownEnumStringValue
+          canceled_at?: number | "" | UnknownEnumStringValue
+          cancellation_policy_provided?: boolean | "" | UnknownEnumStringValue
+          cancellation_reason?: string | "" | UnknownEnumStringValue
+          expected_at?: number | "" | UnknownEnumStringValue
+          explanation?: string | "" | UnknownEnumStringValue
+          product_description?: string | "" | UnknownEnumStringValue
+          product_type?: "" | "merchandise" | "service" | UnknownEnumStringValue
+          return_status?:
+            | ""
+            | "merchant_rejected"
+            | "successful"
+            | UnknownEnumStringValue
+          returned_at?: number | "" | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    duplicate?:
+      | {
+          additional_documentation?: string | "" | UnknownEnumStringValue
+          card_statement?: string | "" | UnknownEnumStringValue
+          cash_receipt?: string | "" | UnknownEnumStringValue
+          check_image?: string | "" | UnknownEnumStringValue
+          explanation?: string | "" | UnknownEnumStringValue
+          original_transaction?: string
+        }
+      | ""
+      | UnknownEnumStringValue
+    fraudulent?:
+      | {
+          additional_documentation?: string | "" | UnknownEnumStringValue
+          explanation?: string | "" | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    merchandise_not_as_described?:
+      | {
+          additional_documentation?: string | "" | UnknownEnumStringValue
+          explanation?: string | "" | UnknownEnumStringValue
+          received_at?: number | "" | UnknownEnumStringValue
+          return_description?: string | "" | UnknownEnumStringValue
+          return_status?:
+            | ""
+            | "merchant_rejected"
+            | "successful"
+            | UnknownEnumStringValue
+          returned_at?: number | "" | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    no_valid_authorization?:
+      | {
+          additional_documentation?: string | "" | UnknownEnumStringValue
+          explanation?: string | "" | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    not_received?:
+      | {
+          additional_documentation?: string | "" | UnknownEnumStringValue
+          expected_at?: number | "" | UnknownEnumStringValue
+          explanation?: string | "" | UnknownEnumStringValue
+          product_description?: string | "" | UnknownEnumStringValue
+          product_type?: "" | "merchandise" | "service" | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    other?:
+      | {
+          additional_documentation?: string | "" | UnknownEnumStringValue
+          explanation?: string | "" | UnknownEnumStringValue
+          product_description?: string | "" | UnknownEnumStringValue
+          product_type?: "" | "merchandise" | "service" | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    reason?:
+      | "canceled"
+      | "duplicate"
+      | "fraudulent"
+      | "merchandise_not_as_described"
+      | "no_valid_authorization"
+      | "not_received"
+      | "other"
+      | "service_not_as_described"
+      | UnknownEnumStringValue
+    service_not_as_described?:
+      | {
+          additional_documentation?: string | "" | UnknownEnumStringValue
+          canceled_at?: number | "" | UnknownEnumStringValue
+          cancellation_reason?: string | "" | UnknownEnumStringValue
+          explanation?: string | "" | UnknownEnumStringValue
+          received_at?: number | "" | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+  }
+  expand?: string[]
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | ""
+    | UnknownEnumStringValue
+}
+
+export type t_PostIssuingDisputesDisputeSubmitRequestBody = {
+  expand?: string[]
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | ""
+    | UnknownEnumStringValue
+}
+
+export type t_PostIssuingPersonalizationDesignsRequestBody = {
+  card_logo?: string
+  carrier_text?: {
+    footer_body?: string | "" | UnknownEnumStringValue
+    footer_title?: string | "" | UnknownEnumStringValue
+    header_body?: string | "" | UnknownEnumStringValue
+    header_title?: string | "" | UnknownEnumStringValue
+  }
+  expand?: string[]
+  lookup_key?: string
+  metadata?: {
+    [key: string]: string | undefined
+  }
+  name?: string
+  physical_bundle: string
+  preferences?: {
+    is_default: boolean
+  }
+  transfer_lookup_key?: boolean
+}
+
+export type t_PostIssuingPersonalizationDesignsPersonalizationDesignRequestBody =
+  {
+    card_logo?: string | "" | UnknownEnumStringValue
+    carrier_text?:
+      | {
+          footer_body?: string | "" | UnknownEnumStringValue
+          footer_title?: string | "" | UnknownEnumStringValue
+          header_body?: string | "" | UnknownEnumStringValue
+          header_title?: string | "" | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    expand?: string[]
+    lookup_key?: string | "" | UnknownEnumStringValue
+    metadata?: {
+      [key: string]: string | undefined
+    }
+    name?: string | "" | UnknownEnumStringValue
+    physical_bundle?: string
+    preferences?: {
+      is_default: boolean
+    }
+    transfer_lookup_key?: boolean
+  }
+
+export type t_PostIssuingSettlementsSettlementRequestBody = {
+  expand?: string[]
+  metadata?: {
+    [key: string]: string | undefined
+  }
+}
+
+export type t_PostIssuingTokensTokenRequestBody = {
+  expand?: string[]
+  status: "active" | "deleted" | "suspended" | UnknownEnumStringValue
+}
+
+export type t_PostIssuingTransactionsTransactionRequestBody = {
+  expand?: string[]
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | ""
+    | UnknownEnumStringValue
+}
+
+export type t_PostLinkAccountSessionsRequestBody = {
+  account_holder: {
+    account?: string
+    customer?: string
+    type: "account" | "customer" | UnknownEnumStringValue
+  }
+  expand?: string[]
+  filters?: {
+    account_subcategories?: (
+      | "checking"
+      | "credit_card"
+      | "line_of_credit"
+      | "mortgage"
+      | "savings"
+      | UnknownEnumStringValue
+    )[]
+    countries?: string[]
+  }
+  permissions: (
+    | "balances"
+    | "ownership"
+    | "payment_method"
+    | "transactions"
+    | UnknownEnumStringValue
+  )[]
+  prefetch?: (
+    | "balances"
+    | "ownership"
+    | "transactions"
+    | UnknownEnumStringValue
+  )[]
+  return_url?: string
+}
+
+export type t_PostLinkedAccountsAccountDisconnectRequestBody = {
+  expand?: string[]
+}
+
+export type t_PostLinkedAccountsAccountRefreshRequestBody = {
+  expand?: string[]
+  features: (
+    | "balance"
+    | "ownership"
+    | "transactions"
+    | UnknownEnumStringValue
+  )[]
+}
+
+export type t_PostPaymentIntentsRequestBody = {
+  amount: number
+  application_fee_amount?: number
+  automatic_payment_methods?: {
+    allow_redirects?: "always" | "never" | UnknownEnumStringValue
+    enabled: boolean
+  }
+  capture_method?:
+    | "automatic"
+    | "automatic_async"
+    | "manual"
+    | UnknownEnumStringValue
+  confirm?: boolean
+  confirmation_method?: "automatic" | "manual" | UnknownEnumStringValue
+  confirmation_token?: string
+  currency: string
+  customer?: string
+  description?: string
+  error_on_requires_action?: boolean
+  expand?: string[]
+  mandate?: string
+  mandate_data?:
+    | {
+        customer_acceptance: {
+          accepted_at?: number
+          offline?: EmptyObject
+          online?: {
+            ip_address: string
+            user_agent: string
+          }
+          type: "offline" | "online" | UnknownEnumStringValue
+        }
+      }
+    | ""
+    | UnknownEnumStringValue
+  metadata?: {
+    [key: string]: string | undefined
+  }
+  off_session?: boolean | "one_off" | "recurring" | UnknownEnumStringValue
+  on_behalf_of?: string
+  payment_method?: string
+  payment_method_configuration?: string
+  payment_method_data?: {
+    acss_debit?: {
+      account_number: string
+      institution_number: string
+      transit_number: string
+    }
+    affirm?: EmptyObject
+    afterpay_clearpay?: EmptyObject
+    alipay?: EmptyObject
+    allow_redisplay?:
+      | "always"
+      | "limited"
+      | "unspecified"
+      | UnknownEnumStringValue
+    alma?: EmptyObject
+    amazon_pay?: EmptyObject
+    au_becs_debit?: {
+      account_number: string
+      bsb_number: string
+    }
+    bacs_debit?: {
+      account_number?: string
+      sort_code?: string
+    }
+    bancontact?: EmptyObject
+    billie?: EmptyObject
+    billing_details?: {
+      address?:
+        | {
+            city?: string
+            country?: string
+            line1?: string
+            line2?: string
+            postal_code?: string
+            state?: string
+          }
+        | ""
+        | UnknownEnumStringValue
+      email?: string | "" | UnknownEnumStringValue
+      name?: string | "" | UnknownEnumStringValue
+      phone?: string | "" | UnknownEnumStringValue
+      tax_id?: string
+    }
+    blik?: EmptyObject
+    boleto?: {
+      tax_id: string
+    }
+    cashapp?: EmptyObject
+    crypto?: EmptyObject
+    customer_balance?: EmptyObject
+    eps?: {
+      bank?:
+        | "arzte_und_apotheker_bank"
+        | "austrian_anadi_bank_ag"
+        | "bank_austria"
+        | "bankhaus_carl_spangler"
+        | "bankhaus_schelhammer_und_schattera_ag"
+        | "bawag_psk_ag"
+        | "bks_bank_ag"
+        | "brull_kallmus_bank_ag"
+        | "btv_vier_lander_bank"
+        | "capital_bank_grawe_gruppe_ag"
+        | "deutsche_bank_ag"
+        | "dolomitenbank"
+        | "easybank_ag"
+        | "erste_bank_und_sparkassen"
+        | "hypo_alpeadriabank_international_ag"
+        | "hypo_bank_burgenland_aktiengesellschaft"
+        | "hypo_noe_lb_fur_niederosterreich_u_wien"
+        | "hypo_oberosterreich_salzburg_steiermark"
+        | "hypo_tirol_bank_ag"
+        | "hypo_vorarlberg_bank_ag"
+        | "marchfelder_bank"
+        | "oberbank_ag"
+        | "raiffeisen_bankengruppe_osterreich"
+        | "schoellerbank_ag"
+        | "sparda_bank_wien"
+        | "volksbank_gruppe"
+        | "volkskreditbank_ag"
+        | "vr_bank_braunau"
+        | UnknownEnumStringValue
+    }
+    fpx?: {
+      bank:
+        | "affin_bank"
+        | "agrobank"
+        | "alliance_bank"
+        | "ambank"
+        | "bank_islam"
+        | "bank_muamalat"
+        | "bank_of_china"
+        | "bank_rakyat"
+        | "bsn"
+        | "cimb"
+        | "deutsche_bank"
+        | "hong_leong_bank"
+        | "hsbc"
+        | "kfh"
+        | "maybank2e"
+        | "maybank2u"
+        | "ocbc"
+        | "pb_enterprise"
+        | "public_bank"
+        | "rhb"
+        | "standard_chartered"
+        | "uob"
+        | UnknownEnumStringValue
+    }
+    giropay?: EmptyObject
+    grabpay?: EmptyObject
+    ideal?: {
+      bank?:
+        | "abn_amro"
+        | "asn_bank"
+        | "bunq"
+        | "buut"
+        | "handelsbanken"
+        | "ing"
+        | "knab"
+        | "moneyou"
+        | "n26"
+        | "nn"
+        | "rabobank"
+        | "regiobank"
+        | "revolut"
+        | "sns_bank"
+        | "triodos_bank"
+        | "van_lanschot"
+        | "yoursafe"
+        | UnknownEnumStringValue
+    }
+    interac_present?: EmptyObject
+    kakao_pay?: EmptyObject
+    klarna?: {
+      dob?: {
+        day: number
+        month: number
+        year: number
+      }
+    }
+    konbini?: EmptyObject
+    kr_card?: EmptyObject
+    link?: EmptyObject
+    metadata?: {
+      [key: string]: string | undefined
+    }
+    mobilepay?: EmptyObject
+    multibanco?: EmptyObject
+    naver_pay?: {
+      funding?: "card" | "points" | UnknownEnumStringValue
+    }
+    nz_bank_account?: {
+      account_holder_name?: string
+      account_number: string
+      bank_code: string
+      branch_code: string
+      reference?: string
+      suffix: string
+    }
+    oxxo?: EmptyObject
+    p24?: {
+      bank?:
+        | "alior_bank"
+        | "bank_millennium"
+        | "bank_nowy_bfg_sa"
+        | "bank_pekao_sa"
+        | "banki_spbdzielcze"
+        | "blik"
+        | "bnp_paribas"
+        | "boz"
+        | "citi_handlowy"
+        | "credit_agricole"
+        | "envelobank"
+        | "etransfer_pocztowy24"
+        | "getin_bank"
+        | "ideabank"
+        | "ing"
+        | "inteligo"
+        | "mbank_mtransfer"
+        | "nest_przelew"
+        | "noble_pay"
+        | "pbac_z_ipko"
+        | "plus_bank"
+        | "santander_przelew24"
+        | "tmobile_usbugi_bankowe"
+        | "toyota_bank"
+        | "velobank"
+        | "volkswagen_bank"
+        | UnknownEnumStringValue
+    }
+    pay_by_bank?: EmptyObject
+    payco?: EmptyObject
+    paynow?: EmptyObject
+    paypal?: EmptyObject
+    pix?: EmptyObject
+    promptpay?: EmptyObject
+    radar_options?: {
+      session?: string
+    }
+    revolut_pay?: EmptyObject
+    samsung_pay?: EmptyObject
+    satispay?: EmptyObject
+    sepa_debit?: {
+      iban: string
+    }
+    sofort?: {
+      country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL" | UnknownEnumStringValue
+    }
+    swish?: EmptyObject
+    twint?: EmptyObject
+    type:
+      | "acss_debit"
+      | "affirm"
+      | "afterpay_clearpay"
+      | "alipay"
+      | "alma"
+      | "amazon_pay"
+      | "au_becs_debit"
+      | "bacs_debit"
+      | "bancontact"
+      | "billie"
+      | "blik"
+      | "boleto"
+      | "cashapp"
+      | "crypto"
+      | "customer_balance"
+      | "eps"
+      | "fpx"
+      | "giropay"
+      | "grabpay"
+      | "ideal"
+      | "kakao_pay"
+      | "klarna"
+      | "konbini"
+      | "kr_card"
+      | "link"
+      | "mobilepay"
+      | "multibanco"
+      | "naver_pay"
+      | "nz_bank_account"
+      | "oxxo"
+      | "p24"
+      | "pay_by_bank"
+      | "payco"
+      | "paynow"
+      | "paypal"
+      | "pix"
+      | "promptpay"
+      | "revolut_pay"
+      | "samsung_pay"
+      | "satispay"
+      | "sepa_debit"
+      | "sofort"
+      | "swish"
+      | "twint"
+      | "us_bank_account"
+      | "wechat_pay"
+      | "zip"
+      | UnknownEnumStringValue
+    us_bank_account?: {
+      account_holder_type?: "company" | "individual" | UnknownEnumStringValue
+      account_number?: string
+      account_type?: "checking" | "savings" | UnknownEnumStringValue
+      financial_connections_account?: string
+      routing_number?: string
+    }
+    wechat_pay?: EmptyObject
+    zip?: EmptyObject
+  }
+  payment_method_options?: {
+    acss_debit?:
+      | {
+          mandate_options?: {
+            custom_mandate_url?: string | "" | UnknownEnumStringValue
+            interval_description?: string
+            payment_schedule?:
+              | "combined"
+              | "interval"
+              | "sporadic"
+              | UnknownEnumStringValue
+            transaction_type?: "business" | "personal" | UnknownEnumStringValue
+          }
+          setup_future_usage?:
+            | ""
+            | "none"
+            | "off_session"
+            | "on_session"
+            | UnknownEnumStringValue
+          target_date?: string
+          verification_method?:
+            | "automatic"
+            | "instant"
+            | "microdeposits"
+            | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    affirm?:
+      | {
+          capture_method?: "" | "manual" | UnknownEnumStringValue
+          preferred_locale?: string
+          setup_future_usage?: "none" | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    afterpay_clearpay?:
+      | {
+          capture_method?: "" | "manual" | UnknownEnumStringValue
+          reference?: string
+          setup_future_usage?: "none" | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    alipay?:
+      | {
+          setup_future_usage?:
+            | ""
+            | "none"
+            | "off_session"
+            | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    alma?:
+      | {
+          capture_method?: "" | "manual" | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    amazon_pay?:
+      | {
+          capture_method?: "" | "manual" | UnknownEnumStringValue
+          setup_future_usage?:
+            | ""
+            | "none"
+            | "off_session"
+            | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    au_becs_debit?:
+      | {
+          setup_future_usage?:
+            | ""
+            | "none"
+            | "off_session"
+            | "on_session"
+            | UnknownEnumStringValue
+          target_date?: string
+        }
+      | ""
+      | UnknownEnumStringValue
+    bacs_debit?:
+      | {
+          mandate_options?: {
+            reference_prefix?: string | "" | UnknownEnumStringValue
+          }
+          setup_future_usage?:
+            | ""
+            | "none"
+            | "off_session"
+            | "on_session"
+            | UnknownEnumStringValue
+          target_date?: string
+        }
+      | ""
+      | UnknownEnumStringValue
+    bancontact?:
+      | {
+          preferred_language?:
+            | "de"
+            | "en"
+            | "fr"
+            | "nl"
+            | UnknownEnumStringValue
+          setup_future_usage?:
+            | ""
+            | "none"
+            | "off_session"
+            | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    billie?:
+      | {
+          capture_method?: "" | "manual" | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    blik?:
+      | {
+          code?: string
+          setup_future_usage?: "" | "none" | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    boleto?:
+      | {
+          expires_after_days?: number
+          setup_future_usage?:
+            | ""
+            | "none"
+            | "off_session"
+            | "on_session"
+            | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    card?:
+      | {
+          capture_method?: "" | "manual" | UnknownEnumStringValue
+          cvc_token?: string
+          installments?: {
+            enabled?: boolean
+            plan?:
+              | {
+                  count?: number
+                  interval?: "month" | UnknownEnumStringValue
+                  type:
+                    | "bonus"
+                    | "fixed_count"
+                    | "revolving"
+                    | UnknownEnumStringValue
+                }
+              | ""
+              | UnknownEnumStringValue
+          }
+          mandate_options?: {
+            amount: number
+            amount_type: "fixed" | "maximum" | UnknownEnumStringValue
+            description?: string
+            end_date?: number
+            interval:
+              | "day"
+              | "month"
+              | "sporadic"
+              | "week"
+              | "year"
+              | UnknownEnumStringValue
+            interval_count?: number
+            reference: string
+            start_date: number
+            supported_types?: ("india" | UnknownEnumStringValue)[]
+          }
+          network?:
+            | "amex"
+            | "cartes_bancaires"
+            | "diners"
+            | "discover"
+            | "eftpos_au"
+            | "girocard"
+            | "interac"
+            | "jcb"
+            | "link"
+            | "mastercard"
+            | "unionpay"
+            | "unknown"
+            | "visa"
+            | UnknownEnumStringValue
+          request_extended_authorization?:
+            | "if_available"
+            | "never"
+            | UnknownEnumStringValue
+          request_incremental_authorization?:
+            | "if_available"
+            | "never"
+            | UnknownEnumStringValue
+          request_multicapture?:
+            | "if_available"
+            | "never"
+            | UnknownEnumStringValue
+          request_overcapture?:
+            | "if_available"
+            | "never"
+            | UnknownEnumStringValue
+          request_three_d_secure?:
+            | "any"
+            | "automatic"
+            | "challenge"
+            | UnknownEnumStringValue
+          require_cvc_recollection?: boolean
+          setup_future_usage?:
+            | ""
+            | "none"
+            | "off_session"
+            | "on_session"
+            | UnknownEnumStringValue
+          statement_descriptor_suffix_kana?:
+            | string
+            | ""
+            | UnknownEnumStringValue
+          statement_descriptor_suffix_kanji?:
+            | string
+            | ""
+            | UnknownEnumStringValue
+          three_d_secure?: {
+            ares_trans_status?:
+              | "A"
+              | "C"
+              | "I"
+              | "N"
+              | "R"
+              | "U"
+              | "Y"
+              | UnknownEnumStringValue
+            cryptogram: string
+            electronic_commerce_indicator?:
+              | "01"
+              | "02"
+              | "05"
+              | "06"
+              | "07"
+              | UnknownEnumStringValue
+            exemption_indicator?: "low_risk" | "none" | UnknownEnumStringValue
+            network_options?: {
+              cartes_bancaires?: {
+                cb_avalgo:
+                  | "0"
+                  | "1"
+                  | "2"
+                  | "3"
+                  | "4"
+                  | "A"
+                  | UnknownEnumStringValue
+                cb_exemption?: string
+                cb_score?: number
+              }
+            }
+            requestor_challenge_indicator?: string
+            transaction_id: string
+            version: "1.0.2" | "2.1.0" | "2.2.0" | UnknownEnumStringValue
+          }
+        }
+      | ""
+      | UnknownEnumStringValue
+    card_present?:
+      | {
+          request_extended_authorization?: boolean
+          request_incremental_authorization_support?: boolean
+          routing?: {
+            requested_priority?:
+              | "domestic"
+              | "international"
+              | UnknownEnumStringValue
+          }
+        }
+      | ""
+      | UnknownEnumStringValue
+    cashapp?:
+      | {
+          capture_method?: "" | "manual" | UnknownEnumStringValue
+          setup_future_usage?:
+            | ""
+            | "none"
+            | "off_session"
+            | "on_session"
+            | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    crypto?:
+      | {
+          setup_future_usage?: "none" | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    customer_balance?:
+      | {
+          bank_transfer?: {
+            eu_bank_transfer?: {
+              country: string
+            }
+            requested_address_types?: (
+              | "aba"
+              | "iban"
+              | "sepa"
+              | "sort_code"
+              | "spei"
+              | "swift"
+              | "zengin"
+              | UnknownEnumStringValue
+            )[]
+            type:
+              | "eu_bank_transfer"
+              | "gb_bank_transfer"
+              | "jp_bank_transfer"
+              | "mx_bank_transfer"
+              | "us_bank_transfer"
+              | UnknownEnumStringValue
+          }
+          funding_type?: "bank_transfer" | UnknownEnumStringValue
+          setup_future_usage?: "none" | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    eps?:
+      | {
+          setup_future_usage?: "none" | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    fpx?:
+      | {
+          setup_future_usage?: "none" | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    giropay?:
+      | {
+          setup_future_usage?: "none" | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    grabpay?:
+      | {
+          setup_future_usage?: "none" | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    ideal?:
+      | {
+          setup_future_usage?:
+            | ""
+            | "none"
+            | "off_session"
+            | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    interac_present?: EmptyObject | "" | UnknownEnumStringValue
+    kakao_pay?:
+      | {
+          capture_method?: "" | "manual" | UnknownEnumStringValue
+          setup_future_usage?:
+            | ""
+            | "none"
+            | "off_session"
+            | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    klarna?:
+      | {
+          capture_method?: "" | "manual" | UnknownEnumStringValue
+          on_demand?: {
+            average_amount?: number
+            maximum_amount?: number
+            minimum_amount?: number
+            purchase_interval?:
+              | "day"
+              | "month"
+              | "week"
+              | "year"
+              | UnknownEnumStringValue
+            purchase_interval_count?: number
+          }
+          preferred_locale?:
+            | "cs-CZ"
+            | "da-DK"
+            | "de-AT"
+            | "de-CH"
+            | "de-DE"
+            | "el-GR"
+            | "en-AT"
+            | "en-AU"
+            | "en-BE"
+            | "en-CA"
+            | "en-CH"
+            | "en-CZ"
+            | "en-DE"
+            | "en-DK"
+            | "en-ES"
+            | "en-FI"
+            | "en-FR"
+            | "en-GB"
+            | "en-GR"
+            | "en-IE"
+            | "en-IT"
+            | "en-NL"
+            | "en-NO"
+            | "en-NZ"
+            | "en-PL"
+            | "en-PT"
+            | "en-RO"
+            | "en-SE"
+            | "en-US"
+            | "es-ES"
+            | "es-US"
+            | "fi-FI"
+            | "fr-BE"
+            | "fr-CA"
+            | "fr-CH"
+            | "fr-FR"
+            | "it-CH"
+            | "it-IT"
+            | "nb-NO"
+            | "nl-BE"
+            | "nl-NL"
+            | "pl-PL"
+            | "pt-PT"
+            | "ro-RO"
+            | "sv-FI"
+            | "sv-SE"
+            | UnknownEnumStringValue
+          setup_future_usage?:
+            | "none"
+            | "off_session"
+            | "on_session"
+            | UnknownEnumStringValue
+          subscriptions?:
+            | {
+                interval:
+                  | "day"
+                  | "month"
+                  | "week"
+                  | "year"
+                  | UnknownEnumStringValue
+                interval_count?: number
+                name?: string
+                next_billing?: {
+                  amount: number
+                  date: string
+                }
+                reference: string
+              }[]
+            | ""
+            | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    konbini?:
+      | {
+          confirmation_number?: string | "" | UnknownEnumStringValue
+          expires_after_days?: number | "" | UnknownEnumStringValue
+          expires_at?: number | "" | UnknownEnumStringValue
+          product_description?: string | "" | UnknownEnumStringValue
+          setup_future_usage?: "none" | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    kr_card?:
+      | {
+          capture_method?: "" | "manual" | UnknownEnumStringValue
+          setup_future_usage?:
+            | ""
+            | "none"
+            | "off_session"
+            | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    link?:
+      | {
+          capture_method?: "" | "manual" | UnknownEnumStringValue
+          setup_future_usage?:
+            | ""
+            | "none"
+            | "off_session"
+            | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    mobilepay?:
+      | {
+          capture_method?: "" | "manual" | UnknownEnumStringValue
+          setup_future_usage?: "none" | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    multibanco?:
+      | {
+          setup_future_usage?: "none" | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    naver_pay?:
+      | {
+          capture_method?: "" | "manual" | UnknownEnumStringValue
+          setup_future_usage?:
+            | ""
+            | "none"
+            | "off_session"
+            | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    nz_bank_account?:
+      | {
+          setup_future_usage?:
+            | ""
+            | "none"
+            | "off_session"
+            | "on_session"
+            | UnknownEnumStringValue
+          target_date?: string
+        }
+      | ""
+      | UnknownEnumStringValue
+    oxxo?:
+      | {
+          expires_after_days?: number
+          setup_future_usage?: "none" | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    p24?:
+      | {
+          setup_future_usage?: "none" | UnknownEnumStringValue
+          tos_shown_and_accepted?: boolean
+        }
+      | ""
+      | UnknownEnumStringValue
+    pay_by_bank?: EmptyObject | "" | UnknownEnumStringValue
+    payco?:
+      | {
+          capture_method?: "" | "manual" | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    paynow?:
+      | {
+          setup_future_usage?: "none" | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    paypal?:
+      | {
+          capture_method?: "" | "manual" | UnknownEnumStringValue
+          preferred_locale?:
+            | "cs-CZ"
+            | "da-DK"
+            | "de-AT"
+            | "de-DE"
+            | "de-LU"
+            | "el-GR"
+            | "en-GB"
+            | "en-US"
+            | "es-ES"
+            | "fi-FI"
+            | "fr-BE"
+            | "fr-FR"
+            | "fr-LU"
+            | "hu-HU"
+            | "it-IT"
+            | "nl-BE"
+            | "nl-NL"
+            | "pl-PL"
+            | "pt-PT"
+            | "sk-SK"
+            | "sv-SE"
+            | UnknownEnumStringValue
+          reference?: string
+          risk_correlation_id?: string
+          setup_future_usage?:
+            | ""
+            | "none"
+            | "off_session"
+            | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    pix?:
+      | {
+          expires_after_seconds?: number
+          expires_at?: number
+          setup_future_usage?: "none" | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    promptpay?:
+      | {
+          setup_future_usage?: "none" | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    revolut_pay?:
+      | {
+          capture_method?: "" | "manual" | UnknownEnumStringValue
+          setup_future_usage?:
+            | ""
+            | "none"
+            | "off_session"
+            | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    samsung_pay?:
+      | {
+          capture_method?: "" | "manual" | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    satispay?:
+      | {
+          capture_method?: "" | "manual" | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    sepa_debit?:
+      | {
+          mandate_options?: {
+            reference_prefix?: string | "" | UnknownEnumStringValue
+          }
+          setup_future_usage?:
+            | ""
+            | "none"
+            | "off_session"
+            | "on_session"
+            | UnknownEnumStringValue
+          target_date?: string
+        }
+      | ""
+      | UnknownEnumStringValue
+    sofort?:
+      | {
+          preferred_language?:
+            | ""
+            | "de"
+            | "en"
+            | "es"
+            | "fr"
+            | "it"
+            | "nl"
+            | "pl"
+            | UnknownEnumStringValue
+          setup_future_usage?:
+            | ""
+            | "none"
+            | "off_session"
+            | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    swish?:
+      | {
+          reference?: string | "" | UnknownEnumStringValue
+          setup_future_usage?: "none" | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    twint?:
+      | {
+          setup_future_usage?: "none" | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    us_bank_account?:
+      | {
+          financial_connections?: {
+            filters?: {
+              account_subcategories?: (
+                | "checking"
+                | "savings"
+                | UnknownEnumStringValue
+              )[]
+            }
+            permissions?: (
+              | "balances"
+              | "ownership"
+              | "payment_method"
+              | "transactions"
+              | UnknownEnumStringValue
+            )[]
+            prefetch?: (
+              | "balances"
+              | "ownership"
+              | "transactions"
+              | UnknownEnumStringValue
+            )[]
+            return_url?: string
+          }
+          mandate_options?: {
+            collection_method?: "" | "paper" | UnknownEnumStringValue
+          }
+          networks?: {
+            requested?: ("ach" | "us_domestic_wire" | UnknownEnumStringValue)[]
+          }
+          preferred_settlement_speed?:
+            | ""
+            | "fastest"
+            | "standard"
+            | UnknownEnumStringValue
+          setup_future_usage?:
+            | ""
+            | "none"
+            | "off_session"
+            | "on_session"
+            | UnknownEnumStringValue
+          target_date?: string
+          verification_method?:
+            | "automatic"
+            | "instant"
+            | "microdeposits"
+            | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    wechat_pay?:
+      | {
+          app_id?: string
+          client?: "android" | "ios" | "web" | UnknownEnumStringValue
+          setup_future_usage?: "none" | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    zip?:
+      | {
+          setup_future_usage?: "none" | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+  }
+  payment_method_types?: string[]
+  radar_options?: {
+    session?: string
+  }
+  receipt_email?: string
+  return_url?: string
+  setup_future_usage?: "off_session" | "on_session" | UnknownEnumStringValue
+  shipping?: {
+    address: {
+      city?: string
+      country?: string
+      line1?: string
+      line2?: string
+      postal_code?: string
+      state?: string
+    }
+    carrier?: string
+    name: string
+    phone?: string
+    tracking_number?: string
+  }
+  statement_descriptor?: string
+  statement_descriptor_suffix?: string
+  transfer_data?: {
+    amount?: number
+    destination: string
+  }
+  transfer_group?: string
+  use_stripe_sdk?: boolean
+}
+
+export type t_PostPaymentIntentsIntentRequestBody = {
+  amount?: number
+  application_fee_amount?: number | "" | UnknownEnumStringValue
+  capture_method?:
+    | "automatic"
+    | "automatic_async"
+    | "manual"
+    | UnknownEnumStringValue
+  currency?: string
+  customer?: string
+  description?: string
+  expand?: string[]
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | ""
+    | UnknownEnumStringValue
+  payment_method?: string
+  payment_method_configuration?: string
+  payment_method_data?: {
+    acss_debit?: {
+      account_number: string
+      institution_number: string
+      transit_number: string
+    }
+    affirm?: EmptyObject
+    afterpay_clearpay?: EmptyObject
+    alipay?: EmptyObject
+    allow_redisplay?:
+      | "always"
+      | "limited"
+      | "unspecified"
+      | UnknownEnumStringValue
+    alma?: EmptyObject
+    amazon_pay?: EmptyObject
+    au_becs_debit?: {
+      account_number: string
+      bsb_number: string
+    }
+    bacs_debit?: {
+      account_number?: string
+      sort_code?: string
+    }
+    bancontact?: EmptyObject
+    billie?: EmptyObject
+    billing_details?: {
+      address?:
+        | {
+            city?: string
+            country?: string
+            line1?: string
+            line2?: string
+            postal_code?: string
+            state?: string
+          }
+        | ""
+        | UnknownEnumStringValue
+      email?: string | "" | UnknownEnumStringValue
+      name?: string | "" | UnknownEnumStringValue
+      phone?: string | "" | UnknownEnumStringValue
+      tax_id?: string
+    }
+    blik?: EmptyObject
+    boleto?: {
+      tax_id: string
+    }
+    cashapp?: EmptyObject
+    crypto?: EmptyObject
+    customer_balance?: EmptyObject
+    eps?: {
+      bank?:
+        | "arzte_und_apotheker_bank"
+        | "austrian_anadi_bank_ag"
+        | "bank_austria"
+        | "bankhaus_carl_spangler"
+        | "bankhaus_schelhammer_und_schattera_ag"
+        | "bawag_psk_ag"
+        | "bks_bank_ag"
+        | "brull_kallmus_bank_ag"
+        | "btv_vier_lander_bank"
+        | "capital_bank_grawe_gruppe_ag"
+        | "deutsche_bank_ag"
+        | "dolomitenbank"
+        | "easybank_ag"
+        | "erste_bank_und_sparkassen"
+        | "hypo_alpeadriabank_international_ag"
+        | "hypo_bank_burgenland_aktiengesellschaft"
+        | "hypo_noe_lb_fur_niederosterreich_u_wien"
+        | "hypo_oberosterreich_salzburg_steiermark"
+        | "hypo_tirol_bank_ag"
+        | "hypo_vorarlberg_bank_ag"
+        | "marchfelder_bank"
+        | "oberbank_ag"
+        | "raiffeisen_bankengruppe_osterreich"
+        | "schoellerbank_ag"
+        | "sparda_bank_wien"
+        | "volksbank_gruppe"
+        | "volkskreditbank_ag"
+        | "vr_bank_braunau"
+        | UnknownEnumStringValue
+    }
+    fpx?: {
+      bank:
+        | "affin_bank"
+        | "agrobank"
+        | "alliance_bank"
+        | "ambank"
+        | "bank_islam"
+        | "bank_muamalat"
+        | "bank_of_china"
+        | "bank_rakyat"
+        | "bsn"
+        | "cimb"
+        | "deutsche_bank"
+        | "hong_leong_bank"
+        | "hsbc"
+        | "kfh"
+        | "maybank2e"
+        | "maybank2u"
+        | "ocbc"
+        | "pb_enterprise"
+        | "public_bank"
+        | "rhb"
+        | "standard_chartered"
+        | "uob"
+        | UnknownEnumStringValue
+    }
+    giropay?: EmptyObject
+    grabpay?: EmptyObject
+    ideal?: {
+      bank?:
+        | "abn_amro"
+        | "asn_bank"
+        | "bunq"
+        | "buut"
+        | "handelsbanken"
+        | "ing"
+        | "knab"
+        | "moneyou"
+        | "n26"
+        | "nn"
+        | "rabobank"
+        | "regiobank"
+        | "revolut"
+        | "sns_bank"
+        | "triodos_bank"
+        | "van_lanschot"
+        | "yoursafe"
+        | UnknownEnumStringValue
+    }
+    interac_present?: EmptyObject
+    kakao_pay?: EmptyObject
+    klarna?: {
+      dob?: {
+        day: number
+        month: number
+        year: number
+      }
+    }
+    konbini?: EmptyObject
+    kr_card?: EmptyObject
+    link?: EmptyObject
+    metadata?: {
+      [key: string]: string | undefined
+    }
+    mobilepay?: EmptyObject
+    multibanco?: EmptyObject
+    naver_pay?: {
+      funding?: "card" | "points" | UnknownEnumStringValue
+    }
+    nz_bank_account?: {
+      account_holder_name?: string
+      account_number: string
+      bank_code: string
+      branch_code: string
+      reference?: string
+      suffix: string
+    }
+    oxxo?: EmptyObject
+    p24?: {
+      bank?:
+        | "alior_bank"
+        | "bank_millennium"
+        | "bank_nowy_bfg_sa"
+        | "bank_pekao_sa"
+        | "banki_spbdzielcze"
+        | "blik"
+        | "bnp_paribas"
+        | "boz"
+        | "citi_handlowy"
+        | "credit_agricole"
+        | "envelobank"
+        | "etransfer_pocztowy24"
+        | "getin_bank"
+        | "ideabank"
+        | "ing"
+        | "inteligo"
+        | "mbank_mtransfer"
+        | "nest_przelew"
+        | "noble_pay"
+        | "pbac_z_ipko"
+        | "plus_bank"
+        | "santander_przelew24"
+        | "tmobile_usbugi_bankowe"
+        | "toyota_bank"
+        | "velobank"
+        | "volkswagen_bank"
+        | UnknownEnumStringValue
+    }
+    pay_by_bank?: EmptyObject
+    payco?: EmptyObject
+    paynow?: EmptyObject
+    paypal?: EmptyObject
+    pix?: EmptyObject
+    promptpay?: EmptyObject
+    radar_options?: {
+      session?: string
+    }
+    revolut_pay?: EmptyObject
+    samsung_pay?: EmptyObject
+    satispay?: EmptyObject
+    sepa_debit?: {
+      iban: string
+    }
+    sofort?: {
+      country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL" | UnknownEnumStringValue
+    }
+    swish?: EmptyObject
+    twint?: EmptyObject
+    type:
+      | "acss_debit"
+      | "affirm"
+      | "afterpay_clearpay"
+      | "alipay"
+      | "alma"
+      | "amazon_pay"
+      | "au_becs_debit"
+      | "bacs_debit"
+      | "bancontact"
+      | "billie"
+      | "blik"
+      | "boleto"
+      | "cashapp"
+      | "crypto"
+      | "customer_balance"
+      | "eps"
+      | "fpx"
+      | "giropay"
+      | "grabpay"
+      | "ideal"
+      | "kakao_pay"
+      | "klarna"
+      | "konbini"
+      | "kr_card"
+      | "link"
+      | "mobilepay"
+      | "multibanco"
+      | "naver_pay"
+      | "nz_bank_account"
+      | "oxxo"
+      | "p24"
+      | "pay_by_bank"
+      | "payco"
+      | "paynow"
+      | "paypal"
+      | "pix"
+      | "promptpay"
+      | "revolut_pay"
+      | "samsung_pay"
+      | "satispay"
+      | "sepa_debit"
+      | "sofort"
+      | "swish"
+      | "twint"
+      | "us_bank_account"
+      | "wechat_pay"
+      | "zip"
+      | UnknownEnumStringValue
+    us_bank_account?: {
+      account_holder_type?: "company" | "individual" | UnknownEnumStringValue
+      account_number?: string
+      account_type?: "checking" | "savings" | UnknownEnumStringValue
+      financial_connections_account?: string
+      routing_number?: string
+    }
+    wechat_pay?: EmptyObject
+    zip?: EmptyObject
+  }
+  payment_method_options?: {
+    acss_debit?:
+      | {
+          mandate_options?: {
+            custom_mandate_url?: string | "" | UnknownEnumStringValue
+            interval_description?: string
+            payment_schedule?:
+              | "combined"
+              | "interval"
+              | "sporadic"
+              | UnknownEnumStringValue
+            transaction_type?: "business" | "personal" | UnknownEnumStringValue
+          }
+          setup_future_usage?:
+            | ""
+            | "none"
+            | "off_session"
+            | "on_session"
+            | UnknownEnumStringValue
+          target_date?: string
+          verification_method?:
+            | "automatic"
+            | "instant"
+            | "microdeposits"
+            | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    affirm?:
+      | {
+          capture_method?: "" | "manual" | UnknownEnumStringValue
+          preferred_locale?: string
+          setup_future_usage?: "none" | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    afterpay_clearpay?:
+      | {
+          capture_method?: "" | "manual" | UnknownEnumStringValue
+          reference?: string
+          setup_future_usage?: "none" | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    alipay?:
+      | {
+          setup_future_usage?:
+            | ""
+            | "none"
+            | "off_session"
+            | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    alma?:
+      | {
+          capture_method?: "" | "manual" | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    amazon_pay?:
+      | {
+          capture_method?: "" | "manual" | UnknownEnumStringValue
+          setup_future_usage?:
+            | ""
+            | "none"
+            | "off_session"
+            | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    au_becs_debit?:
+      | {
+          setup_future_usage?:
+            | ""
+            | "none"
+            | "off_session"
+            | "on_session"
+            | UnknownEnumStringValue
+          target_date?: string
+        }
+      | ""
+      | UnknownEnumStringValue
+    bacs_debit?:
+      | {
+          mandate_options?: {
+            reference_prefix?: string | "" | UnknownEnumStringValue
+          }
+          setup_future_usage?:
+            | ""
+            | "none"
+            | "off_session"
+            | "on_session"
+            | UnknownEnumStringValue
+          target_date?: string
+        }
+      | ""
+      | UnknownEnumStringValue
+    bancontact?:
+      | {
+          preferred_language?:
+            | "de"
+            | "en"
+            | "fr"
+            | "nl"
+            | UnknownEnumStringValue
+          setup_future_usage?:
+            | ""
+            | "none"
+            | "off_session"
+            | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    billie?:
+      | {
+          capture_method?: "" | "manual" | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    blik?:
+      | {
+          code?: string
+          setup_future_usage?: "" | "none" | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    boleto?:
+      | {
+          expires_after_days?: number
+          setup_future_usage?:
+            | ""
+            | "none"
+            | "off_session"
+            | "on_session"
+            | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    card?:
+      | {
+          capture_method?: "" | "manual" | UnknownEnumStringValue
+          cvc_token?: string
+          installments?: {
+            enabled?: boolean
+            plan?:
+              | {
+                  count?: number
+                  interval?: "month" | UnknownEnumStringValue
+                  type:
+                    | "bonus"
+                    | "fixed_count"
+                    | "revolving"
+                    | UnknownEnumStringValue
+                }
+              | ""
+              | UnknownEnumStringValue
+          }
+          mandate_options?: {
+            amount: number
+            amount_type: "fixed" | "maximum" | UnknownEnumStringValue
+            description?: string
+            end_date?: number
+            interval:
+              | "day"
+              | "month"
+              | "sporadic"
+              | "week"
+              | "year"
+              | UnknownEnumStringValue
+            interval_count?: number
+            reference: string
+            start_date: number
+            supported_types?: ("india" | UnknownEnumStringValue)[]
+          }
+          network?:
+            | "amex"
+            | "cartes_bancaires"
+            | "diners"
+            | "discover"
+            | "eftpos_au"
+            | "girocard"
+            | "interac"
+            | "jcb"
+            | "link"
+            | "mastercard"
+            | "unionpay"
+            | "unknown"
+            | "visa"
+            | UnknownEnumStringValue
+          request_extended_authorization?:
+            | "if_available"
+            | "never"
+            | UnknownEnumStringValue
+          request_incremental_authorization?:
+            | "if_available"
+            | "never"
+            | UnknownEnumStringValue
+          request_multicapture?:
+            | "if_available"
+            | "never"
+            | UnknownEnumStringValue
+          request_overcapture?:
+            | "if_available"
+            | "never"
+            | UnknownEnumStringValue
+          request_three_d_secure?:
+            | "any"
+            | "automatic"
+            | "challenge"
+            | UnknownEnumStringValue
+          require_cvc_recollection?: boolean
+          setup_future_usage?:
+            | ""
+            | "none"
+            | "off_session"
+            | "on_session"
+            | UnknownEnumStringValue
+          statement_descriptor_suffix_kana?:
+            | string
+            | ""
+            | UnknownEnumStringValue
+          statement_descriptor_suffix_kanji?:
+            | string
+            | ""
+            | UnknownEnumStringValue
+          three_d_secure?: {
+            ares_trans_status?:
+              | "A"
+              | "C"
+              | "I"
+              | "N"
+              | "R"
+              | "U"
+              | "Y"
+              | UnknownEnumStringValue
+            cryptogram: string
+            electronic_commerce_indicator?:
+              | "01"
+              | "02"
+              | "05"
+              | "06"
+              | "07"
+              | UnknownEnumStringValue
+            exemption_indicator?: "low_risk" | "none" | UnknownEnumStringValue
+            network_options?: {
+              cartes_bancaires?: {
+                cb_avalgo:
+                  | "0"
+                  | "1"
+                  | "2"
+                  | "3"
+                  | "4"
+                  | "A"
+                  | UnknownEnumStringValue
+                cb_exemption?: string
+                cb_score?: number
+              }
+            }
+            requestor_challenge_indicator?: string
+            transaction_id: string
+            version: "1.0.2" | "2.1.0" | "2.2.0" | UnknownEnumStringValue
+          }
+        }
+      | ""
+      | UnknownEnumStringValue
+    card_present?:
+      | {
+          request_extended_authorization?: boolean
+          request_incremental_authorization_support?: boolean
+          routing?: {
+            requested_priority?:
+              | "domestic"
+              | "international"
+              | UnknownEnumStringValue
+          }
+        }
+      | ""
+      | UnknownEnumStringValue
+    cashapp?:
+      | {
+          capture_method?: "" | "manual" | UnknownEnumStringValue
+          setup_future_usage?:
+            | ""
+            | "none"
+            | "off_session"
+            | "on_session"
+            | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    crypto?:
+      | {
+          setup_future_usage?: "none" | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    customer_balance?:
+      | {
+          bank_transfer?: {
+            eu_bank_transfer?: {
+              country: string
+            }
+            requested_address_types?: (
+              | "aba"
+              | "iban"
+              | "sepa"
+              | "sort_code"
+              | "spei"
+              | "swift"
+              | "zengin"
+              | UnknownEnumStringValue
+            )[]
+            type:
+              | "eu_bank_transfer"
+              | "gb_bank_transfer"
+              | "jp_bank_transfer"
+              | "mx_bank_transfer"
+              | "us_bank_transfer"
+              | UnknownEnumStringValue
+          }
+          funding_type?: "bank_transfer" | UnknownEnumStringValue
+          setup_future_usage?: "none" | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    eps?:
+      | {
+          setup_future_usage?: "none" | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    fpx?:
+      | {
+          setup_future_usage?: "none" | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    giropay?:
+      | {
+          setup_future_usage?: "none" | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    grabpay?:
+      | {
+          setup_future_usage?: "none" | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    ideal?:
+      | {
+          setup_future_usage?:
+            | ""
+            | "none"
+            | "off_session"
+            | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    interac_present?: EmptyObject | "" | UnknownEnumStringValue
+    kakao_pay?:
+      | {
+          capture_method?: "" | "manual" | UnknownEnumStringValue
+          setup_future_usage?:
+            | ""
+            | "none"
+            | "off_session"
+            | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    klarna?:
+      | {
+          capture_method?: "" | "manual" | UnknownEnumStringValue
+          on_demand?: {
+            average_amount?: number
+            maximum_amount?: number
+            minimum_amount?: number
+            purchase_interval?:
+              | "day"
+              | "month"
+              | "week"
+              | "year"
+              | UnknownEnumStringValue
+            purchase_interval_count?: number
+          }
+          preferred_locale?:
+            | "cs-CZ"
+            | "da-DK"
+            | "de-AT"
+            | "de-CH"
+            | "de-DE"
+            | "el-GR"
+            | "en-AT"
+            | "en-AU"
+            | "en-BE"
+            | "en-CA"
+            | "en-CH"
+            | "en-CZ"
+            | "en-DE"
+            | "en-DK"
+            | "en-ES"
+            | "en-FI"
+            | "en-FR"
+            | "en-GB"
+            | "en-GR"
+            | "en-IE"
+            | "en-IT"
+            | "en-NL"
+            | "en-NO"
+            | "en-NZ"
+            | "en-PL"
+            | "en-PT"
+            | "en-RO"
+            | "en-SE"
+            | "en-US"
+            | "es-ES"
+            | "es-US"
+            | "fi-FI"
+            | "fr-BE"
+            | "fr-CA"
+            | "fr-CH"
+            | "fr-FR"
+            | "it-CH"
+            | "it-IT"
+            | "nb-NO"
+            | "nl-BE"
+            | "nl-NL"
+            | "pl-PL"
+            | "pt-PT"
+            | "ro-RO"
+            | "sv-FI"
+            | "sv-SE"
+            | UnknownEnumStringValue
+          setup_future_usage?:
+            | "none"
+            | "off_session"
+            | "on_session"
+            | UnknownEnumStringValue
+          subscriptions?:
+            | {
+                interval:
+                  | "day"
+                  | "month"
+                  | "week"
+                  | "year"
+                  | UnknownEnumStringValue
+                interval_count?: number
+                name?: string
+                next_billing?: {
+                  amount: number
+                  date: string
+                }
+                reference: string
+              }[]
+            | ""
+            | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    konbini?:
+      | {
+          confirmation_number?: string | "" | UnknownEnumStringValue
+          expires_after_days?: number | "" | UnknownEnumStringValue
+          expires_at?: number | "" | UnknownEnumStringValue
+          product_description?: string | "" | UnknownEnumStringValue
+          setup_future_usage?: "none" | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    kr_card?:
+      | {
+          capture_method?: "" | "manual" | UnknownEnumStringValue
+          setup_future_usage?:
+            | ""
+            | "none"
+            | "off_session"
+            | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    link?:
+      | {
+          capture_method?: "" | "manual" | UnknownEnumStringValue
+          setup_future_usage?:
+            | ""
+            | "none"
+            | "off_session"
+            | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    mobilepay?:
+      | {
+          capture_method?: "" | "manual" | UnknownEnumStringValue
+          setup_future_usage?: "none" | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    multibanco?:
+      | {
+          setup_future_usage?: "none" | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    naver_pay?:
+      | {
+          capture_method?: "" | "manual" | UnknownEnumStringValue
+          setup_future_usage?:
+            | ""
+            | "none"
+            | "off_session"
+            | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    nz_bank_account?:
+      | {
+          setup_future_usage?:
+            | ""
+            | "none"
+            | "off_session"
+            | "on_session"
+            | UnknownEnumStringValue
+          target_date?: string
+        }
+      | ""
+      | UnknownEnumStringValue
+    oxxo?:
+      | {
+          expires_after_days?: number
+          setup_future_usage?: "none" | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    p24?:
+      | {
+          setup_future_usage?: "none" | UnknownEnumStringValue
+          tos_shown_and_accepted?: boolean
+        }
+      | ""
+      | UnknownEnumStringValue
+    pay_by_bank?: EmptyObject | "" | UnknownEnumStringValue
+    payco?:
+      | {
+          capture_method?: "" | "manual" | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    paynow?:
+      | {
+          setup_future_usage?: "none" | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    paypal?:
+      | {
+          capture_method?: "" | "manual" | UnknownEnumStringValue
+          preferred_locale?:
+            | "cs-CZ"
+            | "da-DK"
+            | "de-AT"
+            | "de-DE"
+            | "de-LU"
+            | "el-GR"
+            | "en-GB"
+            | "en-US"
+            | "es-ES"
+            | "fi-FI"
+            | "fr-BE"
+            | "fr-FR"
+            | "fr-LU"
+            | "hu-HU"
+            | "it-IT"
+            | "nl-BE"
+            | "nl-NL"
+            | "pl-PL"
+            | "pt-PT"
+            | "sk-SK"
+            | "sv-SE"
+            | UnknownEnumStringValue
+          reference?: string
+          risk_correlation_id?: string
+          setup_future_usage?:
+            | ""
+            | "none"
+            | "off_session"
+            | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    pix?:
+      | {
+          expires_after_seconds?: number
+          expires_at?: number
+          setup_future_usage?: "none" | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    promptpay?:
+      | {
+          setup_future_usage?: "none" | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    revolut_pay?:
+      | {
+          capture_method?: "" | "manual" | UnknownEnumStringValue
+          setup_future_usage?:
+            | ""
+            | "none"
+            | "off_session"
+            | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    samsung_pay?:
+      | {
+          capture_method?: "" | "manual" | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    satispay?:
+      | {
+          capture_method?: "" | "manual" | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    sepa_debit?:
+      | {
+          mandate_options?: {
+            reference_prefix?: string | "" | UnknownEnumStringValue
+          }
+          setup_future_usage?:
+            | ""
+            | "none"
+            | "off_session"
+            | "on_session"
+            | UnknownEnumStringValue
+          target_date?: string
+        }
+      | ""
+      | UnknownEnumStringValue
+    sofort?:
+      | {
+          preferred_language?:
+            | ""
+            | "de"
+            | "en"
+            | "es"
+            | "fr"
+            | "it"
+            | "nl"
+            | "pl"
+            | UnknownEnumStringValue
+          setup_future_usage?:
+            | ""
+            | "none"
+            | "off_session"
+            | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    swish?:
+      | {
+          reference?: string | "" | UnknownEnumStringValue
+          setup_future_usage?: "none" | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    twint?:
+      | {
+          setup_future_usage?: "none" | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    us_bank_account?:
+      | {
+          financial_connections?: {
+            filters?: {
+              account_subcategories?: (
+                | "checking"
+                | "savings"
+                | UnknownEnumStringValue
+              )[]
+            }
+            permissions?: (
+              | "balances"
+              | "ownership"
+              | "payment_method"
+              | "transactions"
+              | UnknownEnumStringValue
+            )[]
+            prefetch?: (
+              | "balances"
+              | "ownership"
+              | "transactions"
+              | UnknownEnumStringValue
+            )[]
+            return_url?: string
+          }
+          mandate_options?: {
+            collection_method?: "" | "paper" | UnknownEnumStringValue
+          }
+          networks?: {
+            requested?: ("ach" | "us_domestic_wire" | UnknownEnumStringValue)[]
+          }
+          preferred_settlement_speed?:
+            | ""
+            | "fastest"
+            | "standard"
+            | UnknownEnumStringValue
+          setup_future_usage?:
+            | ""
+            | "none"
+            | "off_session"
+            | "on_session"
+            | UnknownEnumStringValue
+          target_date?: string
+          verification_method?:
+            | "automatic"
+            | "instant"
+            | "microdeposits"
+            | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    wechat_pay?:
+      | {
+          app_id?: string
+          client?: "android" | "ios" | "web" | UnknownEnumStringValue
+          setup_future_usage?: "none" | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    zip?:
+      | {
+          setup_future_usage?: "none" | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+  }
+  payment_method_types?: string[]
+  receipt_email?: string | "" | UnknownEnumStringValue
+  setup_future_usage?:
+    | ""
+    | "off_session"
+    | "on_session"
+    | UnknownEnumStringValue
+  shipping?:
+    | {
+        address: {
+          city?: string
+          country?: string
+          line1?: string
+          line2?: string
+          postal_code?: string
+          state?: string
+        }
+        carrier?: string
+        name: string
+        phone?: string
+        tracking_number?: string
+      }
+    | ""
+    | UnknownEnumStringValue
+  statement_descriptor?: string
+  statement_descriptor_suffix?: string
+  transfer_data?: {
+    amount?: number
+  }
+  transfer_group?: string
+}
+
+export type t_PostPaymentIntentsIntentApplyCustomerBalanceRequestBody = {
+  amount?: number
+  currency?: string
+  expand?: string[]
+}
+
+export type t_PostPaymentIntentsIntentCancelRequestBody = {
+  cancellation_reason?:
+    | "abandoned"
+    | "duplicate"
+    | "fraudulent"
+    | "requested_by_customer"
+    | UnknownEnumStringValue
+  expand?: string[]
+}
+
+export type t_PostPaymentIntentsIntentCaptureRequestBody = {
+  amount_to_capture?: number
+  application_fee_amount?: number
+  expand?: string[]
+  final_capture?: boolean
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | ""
+    | UnknownEnumStringValue
+  statement_descriptor?: string
+  statement_descriptor_suffix?: string
+  transfer_data?: {
+    amount?: number
+  }
+}
+
+export type t_PostPaymentIntentsIntentConfirmRequestBody = {
+  capture_method?:
+    | "automatic"
+    | "automatic_async"
+    | "manual"
+    | UnknownEnumStringValue
+  client_secret?: string
+  confirmation_token?: string
+  error_on_requires_action?: boolean
+  expand?: string[]
+  mandate?: string
+  mandate_data?:
+    | {
+        customer_acceptance: {
+          accepted_at?: number
+          offline?: EmptyObject
+          online?: {
+            ip_address: string
+            user_agent: string
+          }
+          type: "offline" | "online" | UnknownEnumStringValue
+        }
+      }
+    | ""
+    | UnknownEnumStringValue
+    | {
+        customer_acceptance: {
+          online: {
+            ip_address?: string
+            user_agent?: string
+          }
+          type: "online" | UnknownEnumStringValue
+        }
+      }
+  off_session?: boolean | "one_off" | "recurring" | UnknownEnumStringValue
+  payment_method?: string
+  payment_method_data?: {
+    acss_debit?: {
+      account_number: string
+      institution_number: string
+      transit_number: string
+    }
+    affirm?: EmptyObject
+    afterpay_clearpay?: EmptyObject
+    alipay?: EmptyObject
+    allow_redisplay?:
+      | "always"
+      | "limited"
+      | "unspecified"
+      | UnknownEnumStringValue
+    alma?: EmptyObject
+    amazon_pay?: EmptyObject
+    au_becs_debit?: {
+      account_number: string
+      bsb_number: string
+    }
+    bacs_debit?: {
+      account_number?: string
+      sort_code?: string
+    }
+    bancontact?: EmptyObject
+    billie?: EmptyObject
+    billing_details?: {
+      address?:
+        | {
+            city?: string
+            country?: string
+            line1?: string
+            line2?: string
+            postal_code?: string
+            state?: string
+          }
+        | ""
+        | UnknownEnumStringValue
+      email?: string | "" | UnknownEnumStringValue
+      name?: string | "" | UnknownEnumStringValue
+      phone?: string | "" | UnknownEnumStringValue
+      tax_id?: string
+    }
+    blik?: EmptyObject
+    boleto?: {
+      tax_id: string
+    }
+    cashapp?: EmptyObject
+    crypto?: EmptyObject
+    customer_balance?: EmptyObject
+    eps?: {
+      bank?:
+        | "arzte_und_apotheker_bank"
+        | "austrian_anadi_bank_ag"
+        | "bank_austria"
+        | "bankhaus_carl_spangler"
+        | "bankhaus_schelhammer_und_schattera_ag"
+        | "bawag_psk_ag"
+        | "bks_bank_ag"
+        | "brull_kallmus_bank_ag"
+        | "btv_vier_lander_bank"
+        | "capital_bank_grawe_gruppe_ag"
+        | "deutsche_bank_ag"
+        | "dolomitenbank"
+        | "easybank_ag"
+        | "erste_bank_und_sparkassen"
+        | "hypo_alpeadriabank_international_ag"
+        | "hypo_bank_burgenland_aktiengesellschaft"
+        | "hypo_noe_lb_fur_niederosterreich_u_wien"
+        | "hypo_oberosterreich_salzburg_steiermark"
+        | "hypo_tirol_bank_ag"
+        | "hypo_vorarlberg_bank_ag"
+        | "marchfelder_bank"
+        | "oberbank_ag"
+        | "raiffeisen_bankengruppe_osterreich"
+        | "schoellerbank_ag"
+        | "sparda_bank_wien"
+        | "volksbank_gruppe"
+        | "volkskreditbank_ag"
+        | "vr_bank_braunau"
+        | UnknownEnumStringValue
+    }
+    fpx?: {
+      bank:
+        | "affin_bank"
+        | "agrobank"
+        | "alliance_bank"
+        | "ambank"
+        | "bank_islam"
+        | "bank_muamalat"
+        | "bank_of_china"
+        | "bank_rakyat"
+        | "bsn"
+        | "cimb"
+        | "deutsche_bank"
+        | "hong_leong_bank"
+        | "hsbc"
+        | "kfh"
+        | "maybank2e"
+        | "maybank2u"
+        | "ocbc"
+        | "pb_enterprise"
+        | "public_bank"
+        | "rhb"
+        | "standard_chartered"
+        | "uob"
+        | UnknownEnumStringValue
+    }
+    giropay?: EmptyObject
+    grabpay?: EmptyObject
+    ideal?: {
+      bank?:
+        | "abn_amro"
+        | "asn_bank"
+        | "bunq"
+        | "buut"
+        | "handelsbanken"
+        | "ing"
+        | "knab"
+        | "moneyou"
+        | "n26"
+        | "nn"
+        | "rabobank"
+        | "regiobank"
+        | "revolut"
+        | "sns_bank"
+        | "triodos_bank"
+        | "van_lanschot"
+        | "yoursafe"
+        | UnknownEnumStringValue
+    }
+    interac_present?: EmptyObject
+    kakao_pay?: EmptyObject
+    klarna?: {
+      dob?: {
+        day: number
+        month: number
+        year: number
+      }
+    }
+    konbini?: EmptyObject
+    kr_card?: EmptyObject
+    link?: EmptyObject
+    metadata?: {
+      [key: string]: string | undefined
+    }
+    mobilepay?: EmptyObject
+    multibanco?: EmptyObject
+    naver_pay?: {
+      funding?: "card" | "points" | UnknownEnumStringValue
+    }
+    nz_bank_account?: {
+      account_holder_name?: string
+      account_number: string
+      bank_code: string
+      branch_code: string
+      reference?: string
+      suffix: string
+    }
+    oxxo?: EmptyObject
+    p24?: {
+      bank?:
+        | "alior_bank"
+        | "bank_millennium"
+        | "bank_nowy_bfg_sa"
+        | "bank_pekao_sa"
+        | "banki_spbdzielcze"
+        | "blik"
+        | "bnp_paribas"
+        | "boz"
+        | "citi_handlowy"
+        | "credit_agricole"
+        | "envelobank"
+        | "etransfer_pocztowy24"
+        | "getin_bank"
+        | "ideabank"
+        | "ing"
+        | "inteligo"
+        | "mbank_mtransfer"
+        | "nest_przelew"
+        | "noble_pay"
+        | "pbac_z_ipko"
+        | "plus_bank"
+        | "santander_przelew24"
+        | "tmobile_usbugi_bankowe"
+        | "toyota_bank"
+        | "velobank"
+        | "volkswagen_bank"
+        | UnknownEnumStringValue
+    }
+    pay_by_bank?: EmptyObject
+    payco?: EmptyObject
+    paynow?: EmptyObject
+    paypal?: EmptyObject
+    pix?: EmptyObject
+    promptpay?: EmptyObject
+    radar_options?: {
+      session?: string
+    }
+    revolut_pay?: EmptyObject
+    samsung_pay?: EmptyObject
+    satispay?: EmptyObject
+    sepa_debit?: {
+      iban: string
+    }
+    sofort?: {
+      country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL" | UnknownEnumStringValue
+    }
+    swish?: EmptyObject
+    twint?: EmptyObject
+    type:
+      | "acss_debit"
+      | "affirm"
+      | "afterpay_clearpay"
+      | "alipay"
+      | "alma"
+      | "amazon_pay"
+      | "au_becs_debit"
+      | "bacs_debit"
+      | "bancontact"
+      | "billie"
+      | "blik"
+      | "boleto"
+      | "cashapp"
+      | "crypto"
+      | "customer_balance"
+      | "eps"
+      | "fpx"
+      | "giropay"
+      | "grabpay"
+      | "ideal"
+      | "kakao_pay"
+      | "klarna"
+      | "konbini"
+      | "kr_card"
+      | "link"
+      | "mobilepay"
+      | "multibanco"
+      | "naver_pay"
+      | "nz_bank_account"
+      | "oxxo"
+      | "p24"
+      | "pay_by_bank"
+      | "payco"
+      | "paynow"
+      | "paypal"
+      | "pix"
+      | "promptpay"
+      | "revolut_pay"
+      | "samsung_pay"
+      | "satispay"
+      | "sepa_debit"
+      | "sofort"
+      | "swish"
+      | "twint"
+      | "us_bank_account"
+      | "wechat_pay"
+      | "zip"
+      | UnknownEnumStringValue
+    us_bank_account?: {
+      account_holder_type?: "company" | "individual" | UnknownEnumStringValue
+      account_number?: string
+      account_type?: "checking" | "savings" | UnknownEnumStringValue
+      financial_connections_account?: string
+      routing_number?: string
+    }
+    wechat_pay?: EmptyObject
+    zip?: EmptyObject
+  }
+  payment_method_options?: {
+    acss_debit?:
+      | {
+          mandate_options?: {
+            custom_mandate_url?: string | "" | UnknownEnumStringValue
+            interval_description?: string
+            payment_schedule?:
+              | "combined"
+              | "interval"
+              | "sporadic"
+              | UnknownEnumStringValue
+            transaction_type?: "business" | "personal" | UnknownEnumStringValue
+          }
+          setup_future_usage?:
+            | ""
+            | "none"
+            | "off_session"
+            | "on_session"
+            | UnknownEnumStringValue
+          target_date?: string
+          verification_method?:
+            | "automatic"
+            | "instant"
+            | "microdeposits"
+            | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    affirm?:
+      | {
+          capture_method?: "" | "manual" | UnknownEnumStringValue
+          preferred_locale?: string
+          setup_future_usage?: "none" | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    afterpay_clearpay?:
+      | {
+          capture_method?: "" | "manual" | UnknownEnumStringValue
+          reference?: string
+          setup_future_usage?: "none" | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    alipay?:
+      | {
+          setup_future_usage?:
+            | ""
+            | "none"
+            | "off_session"
+            | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    alma?:
+      | {
+          capture_method?: "" | "manual" | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    amazon_pay?:
+      | {
+          capture_method?: "" | "manual" | UnknownEnumStringValue
+          setup_future_usage?:
+            | ""
+            | "none"
+            | "off_session"
+            | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    au_becs_debit?:
+      | {
+          setup_future_usage?:
+            | ""
+            | "none"
+            | "off_session"
+            | "on_session"
+            | UnknownEnumStringValue
+          target_date?: string
+        }
+      | ""
+      | UnknownEnumStringValue
+    bacs_debit?:
+      | {
+          mandate_options?: {
+            reference_prefix?: string | "" | UnknownEnumStringValue
+          }
+          setup_future_usage?:
+            | ""
+            | "none"
+            | "off_session"
+            | "on_session"
+            | UnknownEnumStringValue
+          target_date?: string
+        }
+      | ""
+      | UnknownEnumStringValue
+    bancontact?:
+      | {
+          preferred_language?:
+            | "de"
+            | "en"
+            | "fr"
+            | "nl"
+            | UnknownEnumStringValue
+          setup_future_usage?:
+            | ""
+            | "none"
+            | "off_session"
+            | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    billie?:
+      | {
+          capture_method?: "" | "manual" | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    blik?:
+      | {
+          code?: string
+          setup_future_usage?: "" | "none" | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    boleto?:
+      | {
+          expires_after_days?: number
+          setup_future_usage?:
+            | ""
+            | "none"
+            | "off_session"
+            | "on_session"
+            | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    card?:
+      | {
+          capture_method?: "" | "manual" | UnknownEnumStringValue
+          cvc_token?: string
+          installments?: {
+            enabled?: boolean
+            plan?:
+              | {
+                  count?: number
+                  interval?: "month" | UnknownEnumStringValue
+                  type:
+                    | "bonus"
+                    | "fixed_count"
+                    | "revolving"
+                    | UnknownEnumStringValue
+                }
+              | ""
+              | UnknownEnumStringValue
+          }
+          mandate_options?: {
+            amount: number
+            amount_type: "fixed" | "maximum" | UnknownEnumStringValue
+            description?: string
+            end_date?: number
+            interval:
+              | "day"
+              | "month"
+              | "sporadic"
+              | "week"
+              | "year"
+              | UnknownEnumStringValue
+            interval_count?: number
+            reference: string
+            start_date: number
+            supported_types?: ("india" | UnknownEnumStringValue)[]
+          }
+          network?:
+            | "amex"
+            | "cartes_bancaires"
+            | "diners"
+            | "discover"
+            | "eftpos_au"
+            | "girocard"
+            | "interac"
+            | "jcb"
+            | "link"
+            | "mastercard"
+            | "unionpay"
+            | "unknown"
+            | "visa"
+            | UnknownEnumStringValue
+          request_extended_authorization?:
+            | "if_available"
+            | "never"
+            | UnknownEnumStringValue
+          request_incremental_authorization?:
+            | "if_available"
+            | "never"
+            | UnknownEnumStringValue
+          request_multicapture?:
+            | "if_available"
+            | "never"
+            | UnknownEnumStringValue
+          request_overcapture?:
+            | "if_available"
+            | "never"
+            | UnknownEnumStringValue
+          request_three_d_secure?:
+            | "any"
+            | "automatic"
+            | "challenge"
+            | UnknownEnumStringValue
+          require_cvc_recollection?: boolean
+          setup_future_usage?:
+            | ""
+            | "none"
+            | "off_session"
+            | "on_session"
+            | UnknownEnumStringValue
+          statement_descriptor_suffix_kana?:
+            | string
+            | ""
+            | UnknownEnumStringValue
+          statement_descriptor_suffix_kanji?:
+            | string
+            | ""
+            | UnknownEnumStringValue
+          three_d_secure?: {
+            ares_trans_status?:
+              | "A"
+              | "C"
+              | "I"
+              | "N"
+              | "R"
+              | "U"
+              | "Y"
+              | UnknownEnumStringValue
+            cryptogram: string
+            electronic_commerce_indicator?:
+              | "01"
+              | "02"
+              | "05"
+              | "06"
+              | "07"
+              | UnknownEnumStringValue
+            exemption_indicator?: "low_risk" | "none" | UnknownEnumStringValue
+            network_options?: {
+              cartes_bancaires?: {
+                cb_avalgo:
+                  | "0"
+                  | "1"
+                  | "2"
+                  | "3"
+                  | "4"
+                  | "A"
+                  | UnknownEnumStringValue
+                cb_exemption?: string
+                cb_score?: number
+              }
+            }
+            requestor_challenge_indicator?: string
+            transaction_id: string
+            version: "1.0.2" | "2.1.0" | "2.2.0" | UnknownEnumStringValue
+          }
+        }
+      | ""
+      | UnknownEnumStringValue
+    card_present?:
+      | {
+          request_extended_authorization?: boolean
+          request_incremental_authorization_support?: boolean
+          routing?: {
+            requested_priority?:
+              | "domestic"
+              | "international"
+              | UnknownEnumStringValue
+          }
+        }
+      | ""
+      | UnknownEnumStringValue
+    cashapp?:
+      | {
+          capture_method?: "" | "manual" | UnknownEnumStringValue
+          setup_future_usage?:
+            | ""
+            | "none"
+            | "off_session"
+            | "on_session"
+            | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    crypto?:
+      | {
+          setup_future_usage?: "none" | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    customer_balance?:
+      | {
+          bank_transfer?: {
+            eu_bank_transfer?: {
+              country: string
+            }
+            requested_address_types?: (
+              | "aba"
+              | "iban"
+              | "sepa"
+              | "sort_code"
+              | "spei"
+              | "swift"
+              | "zengin"
+              | UnknownEnumStringValue
+            )[]
+            type:
+              | "eu_bank_transfer"
+              | "gb_bank_transfer"
+              | "jp_bank_transfer"
+              | "mx_bank_transfer"
+              | "us_bank_transfer"
+              | UnknownEnumStringValue
+          }
+          funding_type?: "bank_transfer" | UnknownEnumStringValue
+          setup_future_usage?: "none" | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    eps?:
+      | {
+          setup_future_usage?: "none" | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    fpx?:
+      | {
+          setup_future_usage?: "none" | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    giropay?:
+      | {
+          setup_future_usage?: "none" | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    grabpay?:
+      | {
+          setup_future_usage?: "none" | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    ideal?:
+      | {
+          setup_future_usage?:
+            | ""
+            | "none"
+            | "off_session"
+            | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    interac_present?: EmptyObject | "" | UnknownEnumStringValue
+    kakao_pay?:
+      | {
+          capture_method?: "" | "manual" | UnknownEnumStringValue
+          setup_future_usage?:
+            | ""
+            | "none"
+            | "off_session"
+            | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    klarna?:
+      | {
+          capture_method?: "" | "manual" | UnknownEnumStringValue
+          on_demand?: {
+            average_amount?: number
+            maximum_amount?: number
+            minimum_amount?: number
+            purchase_interval?:
+              | "day"
+              | "month"
+              | "week"
+              | "year"
+              | UnknownEnumStringValue
+            purchase_interval_count?: number
+          }
+          preferred_locale?:
+            | "cs-CZ"
+            | "da-DK"
+            | "de-AT"
+            | "de-CH"
+            | "de-DE"
+            | "el-GR"
+            | "en-AT"
+            | "en-AU"
+            | "en-BE"
+            | "en-CA"
+            | "en-CH"
+            | "en-CZ"
+            | "en-DE"
+            | "en-DK"
+            | "en-ES"
+            | "en-FI"
+            | "en-FR"
+            | "en-GB"
+            | "en-GR"
+            | "en-IE"
+            | "en-IT"
+            | "en-NL"
+            | "en-NO"
+            | "en-NZ"
+            | "en-PL"
+            | "en-PT"
+            | "en-RO"
+            | "en-SE"
+            | "en-US"
+            | "es-ES"
+            | "es-US"
+            | "fi-FI"
+            | "fr-BE"
+            | "fr-CA"
+            | "fr-CH"
+            | "fr-FR"
+            | "it-CH"
+            | "it-IT"
+            | "nb-NO"
+            | "nl-BE"
+            | "nl-NL"
+            | "pl-PL"
+            | "pt-PT"
+            | "ro-RO"
+            | "sv-FI"
+            | "sv-SE"
+            | UnknownEnumStringValue
+          setup_future_usage?:
+            | "none"
+            | "off_session"
+            | "on_session"
+            | UnknownEnumStringValue
+          subscriptions?:
+            | {
+                interval:
+                  | "day"
+                  | "month"
+                  | "week"
+                  | "year"
+                  | UnknownEnumStringValue
+                interval_count?: number
+                name?: string
+                next_billing?: {
+                  amount: number
+                  date: string
+                }
+                reference: string
+              }[]
+            | ""
+            | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    konbini?:
+      | {
+          confirmation_number?: string | "" | UnknownEnumStringValue
+          expires_after_days?: number | "" | UnknownEnumStringValue
+          expires_at?: number | "" | UnknownEnumStringValue
+          product_description?: string | "" | UnknownEnumStringValue
+          setup_future_usage?: "none" | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    kr_card?:
+      | {
+          capture_method?: "" | "manual" | UnknownEnumStringValue
+          setup_future_usage?:
+            | ""
+            | "none"
+            | "off_session"
+            | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    link?:
+      | {
+          capture_method?: "" | "manual" | UnknownEnumStringValue
+          setup_future_usage?:
+            | ""
+            | "none"
+            | "off_session"
+            | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    mobilepay?:
+      | {
+          capture_method?: "" | "manual" | UnknownEnumStringValue
+          setup_future_usage?: "none" | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    multibanco?:
+      | {
+          setup_future_usage?: "none" | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    naver_pay?:
+      | {
+          capture_method?: "" | "manual" | UnknownEnumStringValue
+          setup_future_usage?:
+            | ""
+            | "none"
+            | "off_session"
+            | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    nz_bank_account?:
+      | {
+          setup_future_usage?:
+            | ""
+            | "none"
+            | "off_session"
+            | "on_session"
+            | UnknownEnumStringValue
+          target_date?: string
+        }
+      | ""
+      | UnknownEnumStringValue
+    oxxo?:
+      | {
+          expires_after_days?: number
+          setup_future_usage?: "none" | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    p24?:
+      | {
+          setup_future_usage?: "none" | UnknownEnumStringValue
+          tos_shown_and_accepted?: boolean
+        }
+      | ""
+      | UnknownEnumStringValue
+    pay_by_bank?: EmptyObject | "" | UnknownEnumStringValue
+    payco?:
+      | {
+          capture_method?: "" | "manual" | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    paynow?:
+      | {
+          setup_future_usage?: "none" | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    paypal?:
+      | {
+          capture_method?: "" | "manual" | UnknownEnumStringValue
+          preferred_locale?:
+            | "cs-CZ"
+            | "da-DK"
+            | "de-AT"
+            | "de-DE"
+            | "de-LU"
+            | "el-GR"
+            | "en-GB"
+            | "en-US"
+            | "es-ES"
+            | "fi-FI"
+            | "fr-BE"
+            | "fr-FR"
+            | "fr-LU"
+            | "hu-HU"
+            | "it-IT"
+            | "nl-BE"
+            | "nl-NL"
+            | "pl-PL"
+            | "pt-PT"
+            | "sk-SK"
+            | "sv-SE"
+            | UnknownEnumStringValue
+          reference?: string
+          risk_correlation_id?: string
+          setup_future_usage?:
+            | ""
+            | "none"
+            | "off_session"
+            | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    pix?:
+      | {
+          expires_after_seconds?: number
+          expires_at?: number
+          setup_future_usage?: "none" | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    promptpay?:
+      | {
+          setup_future_usage?: "none" | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    revolut_pay?:
+      | {
+          capture_method?: "" | "manual" | UnknownEnumStringValue
+          setup_future_usage?:
+            | ""
+            | "none"
+            | "off_session"
+            | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    samsung_pay?:
+      | {
+          capture_method?: "" | "manual" | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    satispay?:
+      | {
+          capture_method?: "" | "manual" | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    sepa_debit?:
+      | {
+          mandate_options?: {
+            reference_prefix?: string | "" | UnknownEnumStringValue
+          }
+          setup_future_usage?:
+            | ""
+            | "none"
+            | "off_session"
+            | "on_session"
+            | UnknownEnumStringValue
+          target_date?: string
+        }
+      | ""
+      | UnknownEnumStringValue
+    sofort?:
+      | {
+          preferred_language?:
+            | ""
+            | "de"
+            | "en"
+            | "es"
+            | "fr"
+            | "it"
+            | "nl"
+            | "pl"
+            | UnknownEnumStringValue
+          setup_future_usage?:
+            | ""
+            | "none"
+            | "off_session"
+            | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    swish?:
+      | {
+          reference?: string | "" | UnknownEnumStringValue
+          setup_future_usage?: "none" | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    twint?:
+      | {
+          setup_future_usage?: "none" | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    us_bank_account?:
+      | {
+          financial_connections?: {
+            filters?: {
+              account_subcategories?: (
+                | "checking"
+                | "savings"
+                | UnknownEnumStringValue
+              )[]
+            }
+            permissions?: (
+              | "balances"
+              | "ownership"
+              | "payment_method"
+              | "transactions"
+              | UnknownEnumStringValue
+            )[]
+            prefetch?: (
+              | "balances"
+              | "ownership"
+              | "transactions"
+              | UnknownEnumStringValue
+            )[]
+            return_url?: string
+          }
+          mandate_options?: {
+            collection_method?: "" | "paper" | UnknownEnumStringValue
+          }
+          networks?: {
+            requested?: ("ach" | "us_domestic_wire" | UnknownEnumStringValue)[]
+          }
+          preferred_settlement_speed?:
+            | ""
+            | "fastest"
+            | "standard"
+            | UnknownEnumStringValue
+          setup_future_usage?:
+            | ""
+            | "none"
+            | "off_session"
+            | "on_session"
+            | UnknownEnumStringValue
+          target_date?: string
+          verification_method?:
+            | "automatic"
+            | "instant"
+            | "microdeposits"
+            | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    wechat_pay?:
+      | {
+          app_id?: string
+          client?: "android" | "ios" | "web" | UnknownEnumStringValue
+          setup_future_usage?: "none" | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+    zip?:
+      | {
+          setup_future_usage?: "none" | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+  }
+  payment_method_types?: string[]
+  radar_options?: {
+    session?: string
+  }
+  receipt_email?: string | "" | UnknownEnumStringValue
+  return_url?: string
+  setup_future_usage?:
+    | ""
+    | "off_session"
+    | "on_session"
+    | UnknownEnumStringValue
+  shipping?:
+    | {
+        address: {
+          city?: string
+          country?: string
+          line1?: string
+          line2?: string
+          postal_code?: string
+          state?: string
+        }
+        carrier?: string
+        name: string
+        phone?: string
+        tracking_number?: string
+      }
+    | ""
+    | UnknownEnumStringValue
+  use_stripe_sdk?: boolean
+}
+
+export type t_PostPaymentIntentsIntentIncrementAuthorizationRequestBody = {
+  amount: number
+  application_fee_amount?: number
+  description?: string
+  expand?: string[]
+  metadata?: {
+    [key: string]: string | undefined
+  }
+  statement_descriptor?: string
+  transfer_data?: {
+    amount?: number
+  }
+}
+
+export type t_PostPaymentIntentsIntentVerifyMicrodepositsRequestBody = {
+  amounts?: number[]
+  client_secret?: string
+  descriptor_code?: string
+  expand?: string[]
+}
+
+export type t_PostPaymentLinksRequestBody = {
+  after_completion?: {
+    hosted_confirmation?: {
+      custom_message?: string
+    }
+    redirect?: {
+      url: string
+    }
+    type: "hosted_confirmation" | "redirect" | UnknownEnumStringValue
+  }
+  allow_promotion_codes?: boolean
+  application_fee_amount?: number
+  application_fee_percent?: number
+  automatic_tax?: {
+    enabled: boolean
+    liability?: {
+      account?: string
+      type: "account" | "self" | UnknownEnumStringValue
+    }
+  }
+  billing_address_collection?: "auto" | "required" | UnknownEnumStringValue
+  consent_collection?: {
+    payment_method_reuse_agreement?: {
+      position: "auto" | "hidden" | UnknownEnumStringValue
+    }
+    promotions?: "auto" | "none" | UnknownEnumStringValue
+    terms_of_service?: "none" | "required" | UnknownEnumStringValue
+  }
+  currency?: string
+  custom_fields?: {
+    dropdown?: {
+      default_value?: string
+      options: {
+        label: string
+        value: string
+      }[]
+    }
+    key: string
+    label: {
+      custom: string
+      type: "custom" | UnknownEnumStringValue
+    }
+    numeric?: {
+      default_value?: string
+      maximum_length?: number
+      minimum_length?: number
+    }
+    optional?: boolean
+    text?: {
+      default_value?: string
+      maximum_length?: number
+      minimum_length?: number
+    }
+    type: "dropdown" | "numeric" | "text" | UnknownEnumStringValue
+  }[]
+  custom_text?: {
+    after_submit?:
+      | {
+          message: string
+        }
+      | ""
+      | UnknownEnumStringValue
+    shipping_address?:
+      | {
+          message: string
+        }
+      | ""
+      | UnknownEnumStringValue
+    submit?:
+      | {
+          message: string
+        }
+      | ""
+      | UnknownEnumStringValue
+    terms_of_service_acceptance?:
+      | {
+          message: string
+        }
+      | ""
+      | UnknownEnumStringValue
+  }
+  customer_creation?: "always" | "if_required" | UnknownEnumStringValue
+  expand?: string[]
+  inactive_message?: string
+  invoice_creation?: {
+    enabled: boolean
+    invoice_data?: {
+      account_tax_ids?: string[] | "" | UnknownEnumStringValue
+      custom_fields?:
+        | {
+            name: string
+            value: string
+          }[]
+        | ""
+        | UnknownEnumStringValue
+      description?: string
+      footer?: string
+      issuer?: {
+        account?: string
+        type: "account" | "self" | UnknownEnumStringValue
+      }
+      metadata?:
+        | {
+            [key: string]: string | undefined
+          }
+        | ""
+        | UnknownEnumStringValue
+      rendering_options?:
+        | {
+            amount_tax_display?:
+              | ""
+              | "exclude_tax"
+              | "include_inclusive_tax"
+              | UnknownEnumStringValue
+            template?: string
+          }
+        | ""
+        | UnknownEnumStringValue
+    }
+  }
+  line_items: {
+    adjustable_quantity?: {
+      enabled: boolean
+      maximum?: number
+      minimum?: number
+    }
+    price?: string
+    price_data?: {
+      currency: string
+      product?: string
+      product_data?: {
+        description?: string
+        images?: string[]
+        metadata?: {
+          [key: string]: string | undefined
+        }
+        name: string
+        tax_code?: string
+      }
+      recurring?: {
+        interval: "day" | "month" | "week" | "year" | UnknownEnumStringValue
+        interval_count?: number
+      }
+      tax_behavior?:
+        | "exclusive"
+        | "inclusive"
+        | "unspecified"
+        | UnknownEnumStringValue
+      unit_amount?: number
+      unit_amount_decimal?: string
+    }
+    quantity: number
+  }[]
+  metadata?: {
+    [key: string]: string | undefined
+  }
+  on_behalf_of?: string
+  optional_items?: {
+    adjustable_quantity?: {
+      enabled: boolean
+      maximum?: number
+      minimum?: number
+    }
+    price: string
+    quantity: number
+  }[]
+  payment_intent_data?: {
+    capture_method?:
+      | "automatic"
+      | "automatic_async"
+      | "manual"
+      | UnknownEnumStringValue
+    description?: string
+    metadata?: {
+      [key: string]: string | undefined
+    }
+    setup_future_usage?: "off_session" | "on_session" | UnknownEnumStringValue
+    statement_descriptor?: string
+    statement_descriptor_suffix?: string
+    transfer_group?: string
+  }
+  payment_method_collection?: "always" | "if_required" | UnknownEnumStringValue
+  payment_method_types?: (
+    | "affirm"
+    | "afterpay_clearpay"
+    | "alipay"
+    | "alma"
+    | "au_becs_debit"
+    | "bacs_debit"
+    | "bancontact"
+    | "billie"
+    | "blik"
+    | "boleto"
+    | "card"
+    | "cashapp"
+    | "eps"
+    | "fpx"
+    | "giropay"
+    | "grabpay"
+    | "ideal"
+    | "klarna"
+    | "konbini"
+    | "link"
+    | "mobilepay"
+    | "multibanco"
+    | "oxxo"
+    | "p24"
+    | "pay_by_bank"
+    | "paynow"
+    | "paypal"
+    | "pix"
+    | "promptpay"
+    | "satispay"
+    | "sepa_debit"
+    | "sofort"
+    | "swish"
+    | "twint"
+    | "us_bank_account"
+    | "wechat_pay"
+    | "zip"
+    | UnknownEnumStringValue
+  )[]
+  phone_number_collection?: {
+    enabled: boolean
+  }
+  restrictions?: {
+    completed_sessions: {
+      limit: number
+    }
+  }
+  shipping_address_collection?: {
+    allowed_countries: (
+      | "AC"
+      | "AD"
+      | "AE"
+      | "AF"
+      | "AG"
+      | "AI"
+      | "AL"
+      | "AM"
+      | "AO"
+      | "AQ"
+      | "AR"
+      | "AT"
+      | "AU"
+      | "AW"
+      | "AX"
+      | "AZ"
+      | "BA"
+      | "BB"
+      | "BD"
+      | "BE"
+      | "BF"
+      | "BG"
+      | "BH"
+      | "BI"
+      | "BJ"
+      | "BL"
+      | "BM"
+      | "BN"
+      | "BO"
+      | "BQ"
+      | "BR"
+      | "BS"
+      | "BT"
+      | "BV"
+      | "BW"
+      | "BY"
+      | "BZ"
+      | "CA"
+      | "CD"
+      | "CF"
+      | "CG"
+      | "CH"
+      | "CI"
+      | "CK"
+      | "CL"
+      | "CM"
+      | "CN"
+      | "CO"
+      | "CR"
+      | "CV"
+      | "CW"
+      | "CY"
+      | "CZ"
+      | "DE"
+      | "DJ"
+      | "DK"
+      | "DM"
+      | "DO"
+      | "DZ"
+      | "EC"
+      | "EE"
+      | "EG"
+      | "EH"
+      | "ER"
+      | "ES"
+      | "ET"
+      | "FI"
+      | "FJ"
+      | "FK"
+      | "FO"
+      | "FR"
+      | "GA"
+      | "GB"
+      | "GD"
+      | "GE"
+      | "GF"
+      | "GG"
+      | "GH"
+      | "GI"
+      | "GL"
+      | "GM"
+      | "GN"
+      | "GP"
+      | "GQ"
+      | "GR"
+      | "GS"
+      | "GT"
+      | "GU"
+      | "GW"
+      | "GY"
+      | "HK"
+      | "HN"
+      | "HR"
+      | "HT"
+      | "HU"
+      | "ID"
+      | "IE"
+      | "IL"
+      | "IM"
+      | "IN"
+      | "IO"
+      | "IQ"
+      | "IS"
+      | "IT"
+      | "JE"
+      | "JM"
+      | "JO"
+      | "JP"
+      | "KE"
+      | "KG"
+      | "KH"
+      | "KI"
+      | "KM"
+      | "KN"
+      | "KR"
+      | "KW"
+      | "KY"
+      | "KZ"
+      | "LA"
+      | "LB"
+      | "LC"
+      | "LI"
+      | "LK"
+      | "LR"
+      | "LS"
+      | "LT"
+      | "LU"
+      | "LV"
+      | "LY"
+      | "MA"
+      | "MC"
+      | "MD"
+      | "ME"
+      | "MF"
+      | "MG"
+      | "MK"
+      | "ML"
+      | "MM"
+      | "MN"
+      | "MO"
+      | "MQ"
+      | "MR"
+      | "MS"
+      | "MT"
+      | "MU"
+      | "MV"
+      | "MW"
+      | "MX"
+      | "MY"
+      | "MZ"
+      | "NA"
+      | "NC"
+      | "NE"
+      | "NG"
+      | "NI"
+      | "NL"
+      | "NO"
+      | "NP"
+      | "NR"
+      | "NU"
+      | "NZ"
+      | "OM"
+      | "PA"
+      | "PE"
+      | "PF"
+      | "PG"
+      | "PH"
+      | "PK"
+      | "PL"
+      | "PM"
+      | "PN"
+      | "PR"
+      | "PS"
+      | "PT"
+      | "PY"
+      | "QA"
+      | "RE"
+      | "RO"
+      | "RS"
+      | "RU"
+      | "RW"
+      | "SA"
+      | "SB"
+      | "SC"
+      | "SD"
+      | "SE"
+      | "SG"
+      | "SH"
+      | "SI"
+      | "SJ"
+      | "SK"
+      | "SL"
+      | "SM"
+      | "SN"
+      | "SO"
+      | "SR"
+      | "SS"
+      | "ST"
+      | "SV"
+      | "SX"
+      | "SZ"
+      | "TA"
+      | "TC"
+      | "TD"
+      | "TF"
+      | "TG"
+      | "TH"
+      | "TJ"
+      | "TK"
+      | "TL"
+      | "TM"
+      | "TN"
+      | "TO"
+      | "TR"
+      | "TT"
+      | "TV"
+      | "TW"
+      | "TZ"
+      | "UA"
+      | "UG"
+      | "US"
+      | "UY"
+      | "UZ"
+      | "VA"
+      | "VC"
+      | "VE"
+      | "VG"
+      | "VN"
+      | "VU"
+      | "WF"
+      | "WS"
+      | "XK"
+      | "YE"
+      | "YT"
+      | "ZA"
+      | "ZM"
+      | "ZW"
+      | "ZZ"
+      | UnknownEnumStringValue
+    )[]
+  }
+  shipping_options?: {
+    shipping_rate?: string
+  }[]
+  submit_type?:
+    | "auto"
+    | "book"
+    | "donate"
+    | "pay"
+    | "subscribe"
+    | UnknownEnumStringValue
+  subscription_data?: {
+    description?: string
+    invoice_settings?: {
+      issuer?: {
+        account?: string
+        type: "account" | "self" | UnknownEnumStringValue
+      }
+    }
+    metadata?: {
+      [key: string]: string | undefined
+    }
+    trial_period_days?: number
+    trial_settings?: {
+      end_behavior: {
+        missing_payment_method:
+          | "cancel"
+          | "create_invoice"
+          | "pause"
+          | UnknownEnumStringValue
+      }
+    }
+  }
+  tax_id_collection?: {
+    enabled: boolean
+    required?: "if_supported" | "never" | UnknownEnumStringValue
+  }
+  transfer_data?: {
+    amount?: number
+    destination: string
+  }
+}
+
+export type t_PostPaymentLinksPaymentLinkRequestBody = {
+  active?: boolean
+  after_completion?: {
+    hosted_confirmation?: {
+      custom_message?: string
+    }
+    redirect?: {
+      url: string
+    }
+    type: "hosted_confirmation" | "redirect" | UnknownEnumStringValue
+  }
+  allow_promotion_codes?: boolean
+  automatic_tax?: {
+    enabled: boolean
+    liability?: {
+      account?: string
+      type: "account" | "self" | UnknownEnumStringValue
+    }
+  }
+  billing_address_collection?: "auto" | "required" | UnknownEnumStringValue
+  custom_fields?:
+    | {
+        dropdown?: {
+          default_value?: string
+          options: {
+            label: string
+            value: string
+          }[]
+        }
+        key: string
+        label: {
+          custom: string
+          type: "custom" | UnknownEnumStringValue
+        }
+        numeric?: {
+          default_value?: string
+          maximum_length?: number
+          minimum_length?: number
+        }
+        optional?: boolean
+        text?: {
+          default_value?: string
+          maximum_length?: number
+          minimum_length?: number
+        }
+        type: "dropdown" | "numeric" | "text" | UnknownEnumStringValue
+      }[]
+    | ""
+    | UnknownEnumStringValue
+  custom_text?: {
+    after_submit?:
+      | {
+          message: string
+        }
+      | ""
+      | UnknownEnumStringValue
+    shipping_address?:
+      | {
+          message: string
+        }
+      | ""
+      | UnknownEnumStringValue
+    submit?:
+      | {
+          message: string
+        }
+      | ""
+      | UnknownEnumStringValue
+    terms_of_service_acceptance?:
+      | {
+          message: string
+        }
+      | ""
+      | UnknownEnumStringValue
+  }
+  customer_creation?: "always" | "if_required" | UnknownEnumStringValue
+  expand?: string[]
+  inactive_message?: string | "" | UnknownEnumStringValue
+  invoice_creation?: {
+    enabled: boolean
+    invoice_data?: {
+      account_tax_ids?: string[] | "" | UnknownEnumStringValue
+      custom_fields?:
+        | {
+            name: string
+            value: string
+          }[]
+        | ""
+        | UnknownEnumStringValue
+      description?: string
+      footer?: string
+      issuer?: {
+        account?: string
+        type: "account" | "self" | UnknownEnumStringValue
+      }
+      metadata?:
+        | {
+            [key: string]: string | undefined
+          }
+        | ""
+        | UnknownEnumStringValue
+      rendering_options?:
+        | {
+            amount_tax_display?:
+              | ""
+              | "exclude_tax"
+              | "include_inclusive_tax"
+              | UnknownEnumStringValue
+            template?: string
+          }
+        | ""
+        | UnknownEnumStringValue
+    }
+  }
+  line_items?: {
+    adjustable_quantity?: {
+      enabled: boolean
+      maximum?: number
+      minimum?: number
+    }
+    id: string
+    quantity?: number
+  }[]
+  metadata?: {
+    [key: string]: string | undefined
+  }
+  payment_intent_data?: {
+    description?: string | "" | UnknownEnumStringValue
+    metadata?:
+      | {
+          [key: string]: string | undefined
+        }
+      | ""
+      | UnknownEnumStringValue
+    statement_descriptor?: string | "" | UnknownEnumStringValue
+    statement_descriptor_suffix?: string | "" | UnknownEnumStringValue
+    transfer_group?: string | "" | UnknownEnumStringValue
+  }
+  payment_method_collection?: "always" | "if_required" | UnknownEnumStringValue
+  payment_method_types?:
+    | (
+        | "affirm"
+        | "afterpay_clearpay"
+        | "alipay"
+        | "alma"
+        | "au_becs_debit"
+        | "bacs_debit"
+        | "bancontact"
+        | "billie"
+        | "blik"
+        | "boleto"
+        | "card"
+        | "cashapp"
+        | "eps"
+        | "fpx"
+        | "giropay"
+        | "grabpay"
+        | "ideal"
+        | "klarna"
+        | "konbini"
+        | "link"
+        | "mobilepay"
+        | "multibanco"
+        | "oxxo"
+        | "p24"
+        | "pay_by_bank"
+        | "paynow"
+        | "paypal"
+        | "pix"
+        | "promptpay"
+        | "satispay"
+        | "sepa_debit"
+        | "sofort"
+        | "swish"
+        | "twint"
+        | "us_bank_account"
+        | "wechat_pay"
+        | "zip"
+        | UnknownEnumStringValue
+      )[]
+    | ""
+    | UnknownEnumStringValue
+  phone_number_collection?: {
+    enabled: boolean
+  }
+  restrictions?:
+    | {
+        completed_sessions: {
+          limit: number
+        }
+      }
+    | ""
+    | UnknownEnumStringValue
+  shipping_address_collection?:
+    | {
+        allowed_countries: (
+          | "AC"
+          | "AD"
+          | "AE"
+          | "AF"
+          | "AG"
+          | "AI"
+          | "AL"
+          | "AM"
+          | "AO"
+          | "AQ"
+          | "AR"
+          | "AT"
+          | "AU"
+          | "AW"
+          | "AX"
+          | "AZ"
+          | "BA"
+          | "BB"
+          | "BD"
+          | "BE"
+          | "BF"
+          | "BG"
+          | "BH"
+          | "BI"
+          | "BJ"
+          | "BL"
+          | "BM"
+          | "BN"
+          | "BO"
+          | "BQ"
+          | "BR"
+          | "BS"
+          | "BT"
+          | "BV"
+          | "BW"
+          | "BY"
+          | "BZ"
+          | "CA"
+          | "CD"
+          | "CF"
+          | "CG"
+          | "CH"
+          | "CI"
+          | "CK"
+          | "CL"
+          | "CM"
+          | "CN"
+          | "CO"
+          | "CR"
+          | "CV"
+          | "CW"
+          | "CY"
+          | "CZ"
+          | "DE"
+          | "DJ"
+          | "DK"
+          | "DM"
+          | "DO"
+          | "DZ"
+          | "EC"
+          | "EE"
+          | "EG"
+          | "EH"
+          | "ER"
+          | "ES"
+          | "ET"
+          | "FI"
+          | "FJ"
+          | "FK"
+          | "FO"
+          | "FR"
+          | "GA"
+          | "GB"
+          | "GD"
+          | "GE"
+          | "GF"
+          | "GG"
+          | "GH"
+          | "GI"
+          | "GL"
+          | "GM"
+          | "GN"
+          | "GP"
+          | "GQ"
+          | "GR"
+          | "GS"
+          | "GT"
+          | "GU"
+          | "GW"
+          | "GY"
+          | "HK"
+          | "HN"
+          | "HR"
+          | "HT"
+          | "HU"
+          | "ID"
+          | "IE"
+          | "IL"
+          | "IM"
+          | "IN"
+          | "IO"
+          | "IQ"
+          | "IS"
+          | "IT"
+          | "JE"
+          | "JM"
+          | "JO"
+          | "JP"
+          | "KE"
+          | "KG"
+          | "KH"
+          | "KI"
+          | "KM"
+          | "KN"
+          | "KR"
+          | "KW"
+          | "KY"
+          | "KZ"
+          | "LA"
+          | "LB"
+          | "LC"
+          | "LI"
+          | "LK"
+          | "LR"
+          | "LS"
+          | "LT"
+          | "LU"
+          | "LV"
+          | "LY"
+          | "MA"
+          | "MC"
+          | "MD"
+          | "ME"
+          | "MF"
+          | "MG"
+          | "MK"
+          | "ML"
+          | "MM"
+          | "MN"
+          | "MO"
+          | "MQ"
+          | "MR"
+          | "MS"
+          | "MT"
+          | "MU"
+          | "MV"
+          | "MW"
+          | "MX"
+          | "MY"
+          | "MZ"
+          | "NA"
+          | "NC"
+          | "NE"
+          | "NG"
+          | "NI"
+          | "NL"
+          | "NO"
+          | "NP"
+          | "NR"
+          | "NU"
+          | "NZ"
+          | "OM"
+          | "PA"
+          | "PE"
+          | "PF"
+          | "PG"
+          | "PH"
+          | "PK"
+          | "PL"
+          | "PM"
+          | "PN"
+          | "PR"
+          | "PS"
+          | "PT"
+          | "PY"
+          | "QA"
+          | "RE"
+          | "RO"
+          | "RS"
+          | "RU"
+          | "RW"
+          | "SA"
+          | "SB"
+          | "SC"
+          | "SD"
+          | "SE"
+          | "SG"
+          | "SH"
+          | "SI"
+          | "SJ"
+          | "SK"
+          | "SL"
+          | "SM"
+          | "SN"
+          | "SO"
+          | "SR"
+          | "SS"
+          | "ST"
+          | "SV"
+          | "SX"
+          | "SZ"
+          | "TA"
+          | "TC"
+          | "TD"
+          | "TF"
+          | "TG"
+          | "TH"
+          | "TJ"
+          | "TK"
+          | "TL"
+          | "TM"
+          | "TN"
+          | "TO"
+          | "TR"
+          | "TT"
+          | "TV"
+          | "TW"
+          | "TZ"
+          | "UA"
+          | "UG"
+          | "US"
+          | "UY"
+          | "UZ"
+          | "VA"
+          | "VC"
+          | "VE"
+          | "VG"
+          | "VN"
+          | "VU"
+          | "WF"
+          | "WS"
+          | "XK"
+          | "YE"
+          | "YT"
+          | "ZA"
+          | "ZM"
+          | "ZW"
+          | "ZZ"
+          | UnknownEnumStringValue
+        )[]
+      }
+    | ""
+    | UnknownEnumStringValue
+  submit_type?:
+    | "auto"
+    | "book"
+    | "donate"
+    | "pay"
+    | "subscribe"
+    | UnknownEnumStringValue
+  subscription_data?: {
+    invoice_settings?: {
+      issuer?: {
+        account?: string
+        type: "account" | "self" | UnknownEnumStringValue
+      }
+    }
+    metadata?:
+      | {
+          [key: string]: string | undefined
+        }
+      | ""
+      | UnknownEnumStringValue
+    trial_period_days?: number | "" | UnknownEnumStringValue
+    trial_settings?:
+      | {
+          end_behavior: {
+            missing_payment_method:
+              | "cancel"
+              | "create_invoice"
+              | "pause"
+              | UnknownEnumStringValue
+          }
+        }
+      | ""
+      | UnknownEnumStringValue
+  }
+  tax_id_collection?: {
+    enabled: boolean
+    required?: "if_supported" | "never" | UnknownEnumStringValue
+  }
+}
+
+export type t_PostPaymentMethodConfigurationsRequestBody = {
+  acss_debit?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  affirm?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  afterpay_clearpay?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  alipay?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  alma?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  amazon_pay?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  apple_pay?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  apple_pay_later?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  au_becs_debit?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  bacs_debit?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  bancontact?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  billie?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  blik?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  boleto?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  card?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  cartes_bancaires?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  cashapp?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  customer_balance?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  eps?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  expand?: string[]
+  fpx?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  giropay?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  google_pay?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  grabpay?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  ideal?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  jcb?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  kakao_pay?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  klarna?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  konbini?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  kr_card?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  link?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  mobilepay?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  multibanco?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  name?: string
+  naver_pay?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  nz_bank_account?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  oxxo?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  p24?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  parent?: string
+  pay_by_bank?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  payco?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  paynow?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  paypal?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  pix?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  promptpay?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  revolut_pay?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  samsung_pay?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  satispay?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  sepa_debit?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  sofort?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  swish?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  twint?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  us_bank_account?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  wechat_pay?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  zip?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+}
+
+export type t_PostPaymentMethodConfigurationsConfigurationRequestBody = {
+  acss_debit?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  active?: boolean
+  affirm?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  afterpay_clearpay?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  alipay?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  alma?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  amazon_pay?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  apple_pay?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  apple_pay_later?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  au_becs_debit?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  bacs_debit?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  bancontact?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  billie?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  blik?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  boleto?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  card?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  cartes_bancaires?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  cashapp?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  customer_balance?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  eps?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  expand?: string[]
+  fpx?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  giropay?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  google_pay?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  grabpay?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  ideal?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  jcb?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  kakao_pay?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  klarna?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  konbini?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  kr_card?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  link?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  mobilepay?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  multibanco?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  name?: string
+  naver_pay?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  nz_bank_account?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  oxxo?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  p24?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  pay_by_bank?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  payco?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  paynow?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  paypal?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  pix?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  promptpay?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  revolut_pay?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  samsung_pay?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  satispay?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  sepa_debit?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  sofort?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  swish?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  twint?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  us_bank_account?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  wechat_pay?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+  zip?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on" | UnknownEnumStringValue
+    }
+  }
+}
+
+export type t_PostPaymentMethodDomainsRequestBody = {
+  domain_name: string
+  enabled?: boolean
+  expand?: string[]
+}
+
+export type t_PostPaymentMethodDomainsPaymentMethodDomainRequestBody = {
+  enabled?: boolean
+  expand?: string[]
+}
+
+export type t_PostPaymentMethodDomainsPaymentMethodDomainValidateRequestBody = {
+  expand?: string[]
+}
+
+export type t_PostPaymentMethodsRequestBody = {
+  acss_debit?: {
+    account_number: string
+    institution_number: string
+    transit_number: string
+  }
+  affirm?: EmptyObject
+  afterpay_clearpay?: EmptyObject
+  alipay?: EmptyObject
+  allow_redisplay?:
+    | "always"
+    | "limited"
+    | "unspecified"
+    | UnknownEnumStringValue
+  alma?: EmptyObject
+  amazon_pay?: EmptyObject
+  au_becs_debit?: {
+    account_number: string
+    bsb_number: string
+  }
+  bacs_debit?: {
+    account_number?: string
+    sort_code?: string
+  }
+  bancontact?: EmptyObject
+  billie?: EmptyObject
+  billing_details?: {
+    address?:
+      | {
+          city?: string
+          country?: string
+          line1?: string
+          line2?: string
+          postal_code?: string
+          state?: string
+        }
+      | ""
+      | UnknownEnumStringValue
+    email?: string | "" | UnknownEnumStringValue
+    name?: string | "" | UnknownEnumStringValue
+    phone?: string | "" | UnknownEnumStringValue
+    tax_id?: string
+  }
+  blik?: EmptyObject
+  boleto?: {
+    tax_id: string
+  }
+  card?:
+    | {
+        cvc?: string
+        exp_month: number
+        exp_year: number
+        networks?: {
+          preferred?:
+            | "cartes_bancaires"
+            | "mastercard"
+            | "visa"
+            | UnknownEnumStringValue
+        }
+        number: string
+      }
+    | {
+        token: string
+      }
+  cashapp?: EmptyObject
+  crypto?: EmptyObject
+  customer?: string
+  customer_balance?: EmptyObject
+  eps?: {
+    bank?:
+      | "arzte_und_apotheker_bank"
+      | "austrian_anadi_bank_ag"
+      | "bank_austria"
+      | "bankhaus_carl_spangler"
+      | "bankhaus_schelhammer_und_schattera_ag"
+      | "bawag_psk_ag"
+      | "bks_bank_ag"
+      | "brull_kallmus_bank_ag"
+      | "btv_vier_lander_bank"
+      | "capital_bank_grawe_gruppe_ag"
+      | "deutsche_bank_ag"
+      | "dolomitenbank"
+      | "easybank_ag"
+      | "erste_bank_und_sparkassen"
+      | "hypo_alpeadriabank_international_ag"
+      | "hypo_bank_burgenland_aktiengesellschaft"
+      | "hypo_noe_lb_fur_niederosterreich_u_wien"
+      | "hypo_oberosterreich_salzburg_steiermark"
+      | "hypo_tirol_bank_ag"
+      | "hypo_vorarlberg_bank_ag"
+      | "marchfelder_bank"
+      | "oberbank_ag"
+      | "raiffeisen_bankengruppe_osterreich"
+      | "schoellerbank_ag"
+      | "sparda_bank_wien"
+      | "volksbank_gruppe"
+      | "volkskreditbank_ag"
+      | "vr_bank_braunau"
+      | UnknownEnumStringValue
+  }
+  expand?: string[]
+  fpx?: {
+    bank:
+      | "affin_bank"
+      | "agrobank"
+      | "alliance_bank"
+      | "ambank"
+      | "bank_islam"
+      | "bank_muamalat"
+      | "bank_of_china"
+      | "bank_rakyat"
+      | "bsn"
+      | "cimb"
+      | "deutsche_bank"
+      | "hong_leong_bank"
+      | "hsbc"
+      | "kfh"
+      | "maybank2e"
+      | "maybank2u"
+      | "ocbc"
+      | "pb_enterprise"
+      | "public_bank"
+      | "rhb"
+      | "standard_chartered"
+      | "uob"
+      | UnknownEnumStringValue
+  }
+  giropay?: EmptyObject
+  grabpay?: EmptyObject
+  ideal?: {
+    bank?:
+      | "abn_amro"
+      | "asn_bank"
+      | "bunq"
+      | "buut"
+      | "handelsbanken"
+      | "ing"
+      | "knab"
+      | "moneyou"
+      | "n26"
+      | "nn"
+      | "rabobank"
+      | "regiobank"
+      | "revolut"
+      | "sns_bank"
+      | "triodos_bank"
+      | "van_lanschot"
+      | "yoursafe"
+      | UnknownEnumStringValue
+  }
+  interac_present?: EmptyObject
+  kakao_pay?: EmptyObject
+  klarna?: {
+    dob?: {
+      day: number
+      month: number
+      year: number
+    }
+  }
+  konbini?: EmptyObject
+  kr_card?: EmptyObject
+  link?: EmptyObject
+  metadata?: {
+    [key: string]: string | undefined
+  }
+  mobilepay?: EmptyObject
+  multibanco?: EmptyObject
+  naver_pay?: {
+    funding?: "card" | "points" | UnknownEnumStringValue
+  }
+  nz_bank_account?: {
+    account_holder_name?: string
+    account_number: string
+    bank_code: string
+    branch_code: string
+    reference?: string
+    suffix: string
+  }
+  oxxo?: EmptyObject
+  p24?: {
+    bank?:
+      | "alior_bank"
+      | "bank_millennium"
+      | "bank_nowy_bfg_sa"
+      | "bank_pekao_sa"
+      | "banki_spbdzielcze"
+      | "blik"
+      | "bnp_paribas"
+      | "boz"
+      | "citi_handlowy"
+      | "credit_agricole"
+      | "envelobank"
+      | "etransfer_pocztowy24"
+      | "getin_bank"
+      | "ideabank"
+      | "ing"
+      | "inteligo"
+      | "mbank_mtransfer"
+      | "nest_przelew"
+      | "noble_pay"
+      | "pbac_z_ipko"
+      | "plus_bank"
+      | "santander_przelew24"
+      | "tmobile_usbugi_bankowe"
+      | "toyota_bank"
+      | "velobank"
+      | "volkswagen_bank"
+      | UnknownEnumStringValue
+  }
+  pay_by_bank?: EmptyObject
+  payco?: EmptyObject
+  payment_method?: string
+  paynow?: EmptyObject
+  paypal?: EmptyObject
+  pix?: EmptyObject
+  promptpay?: EmptyObject
+  radar_options?: {
+    session?: string
+  }
+  revolut_pay?: EmptyObject
+  samsung_pay?: EmptyObject
+  satispay?: EmptyObject
+  sepa_debit?: {
+    iban: string
+  }
+  sofort?: {
+    country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL" | UnknownEnumStringValue
+  }
+  swish?: EmptyObject
+  twint?: EmptyObject
+  type?:
+    | "acss_debit"
+    | "affirm"
+    | "afterpay_clearpay"
+    | "alipay"
+    | "alma"
+    | "amazon_pay"
+    | "au_becs_debit"
+    | "bacs_debit"
+    | "bancontact"
+    | "billie"
+    | "blik"
+    | "boleto"
+    | "card"
+    | "cashapp"
+    | "crypto"
+    | "customer_balance"
+    | "eps"
+    | "fpx"
+    | "giropay"
+    | "grabpay"
+    | "ideal"
+    | "kakao_pay"
+    | "klarna"
+    | "konbini"
+    | "kr_card"
+    | "link"
+    | "mobilepay"
+    | "multibanco"
+    | "naver_pay"
+    | "nz_bank_account"
+    | "oxxo"
+    | "p24"
+    | "pay_by_bank"
+    | "payco"
+    | "paynow"
+    | "paypal"
+    | "pix"
+    | "promptpay"
+    | "revolut_pay"
+    | "samsung_pay"
+    | "satispay"
+    | "sepa_debit"
+    | "sofort"
+    | "swish"
+    | "twint"
+    | "us_bank_account"
+    | "wechat_pay"
+    | "zip"
+    | UnknownEnumStringValue
+  us_bank_account?: {
+    account_holder_type?: "company" | "individual" | UnknownEnumStringValue
+    account_number?: string
+    account_type?: "checking" | "savings" | UnknownEnumStringValue
+    financial_connections_account?: string
+    routing_number?: string
+  }
+  wechat_pay?: EmptyObject
+  zip?: EmptyObject
+}
+
+export type t_PostPaymentMethodsPaymentMethodRequestBody = {
+  allow_redisplay?:
+    | "always"
+    | "limited"
+    | "unspecified"
+    | UnknownEnumStringValue
+  billing_details?: {
+    address?:
+      | {
+          city?: string
+          country?: string
+          line1?: string
+          line2?: string
+          postal_code?: string
+          state?: string
+        }
+      | ""
+      | UnknownEnumStringValue
+    email?: string | "" | UnknownEnumStringValue
+    name?: string | "" | UnknownEnumStringValue
+    phone?: string | "" | UnknownEnumStringValue
+    tax_id?: string
+  }
+  card?: {
+    exp_month?: number
+    exp_year?: number
+    networks?: {
+      preferred?:
+        | ""
+        | "cartes_bancaires"
+        | "mastercard"
+        | "visa"
+        | UnknownEnumStringValue
+    }
+  }
+  expand?: string[]
+  link?: EmptyObject
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | ""
+    | UnknownEnumStringValue
+  pay_by_bank?: EmptyObject
+  us_bank_account?: {
+    account_holder_type?: "company" | "individual" | UnknownEnumStringValue
+    account_type?: "checking" | "savings" | UnknownEnumStringValue
+  }
+}
+
+export type t_PostPaymentMethodsPaymentMethodAttachRequestBody = {
+  customer: string
+  expand?: string[]
+}
+
+export type t_PostPaymentMethodsPaymentMethodDetachRequestBody = {
+  expand?: string[]
+}
+
+export type t_PostPayoutsRequestBody = {
+  amount: number
+  currency: string
+  description?: string
+  destination?: string
+  expand?: string[]
+  metadata?: {
+    [key: string]: string | undefined
+  }
+  method?: "instant" | "standard" | UnknownEnumStringValue
+  source_type?: "bank_account" | "card" | "fpx" | UnknownEnumStringValue
+  statement_descriptor?: string
+}
+
+export type t_PostPayoutsPayoutRequestBody = {
+  expand?: string[]
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | ""
+    | UnknownEnumStringValue
+}
+
+export type t_PostPayoutsPayoutCancelRequestBody = {
+  expand?: string[]
+}
+
+export type t_PostPayoutsPayoutReverseRequestBody = {
+  expand?: string[]
+  metadata?: {
+    [key: string]: string | undefined
+  }
+}
+
+export type t_PostPlansRequestBody = {
+  active?: boolean
+  amount?: number
+  amount_decimal?: string
+  billing_scheme?: "per_unit" | "tiered" | UnknownEnumStringValue
+  currency: string
+  expand?: string[]
+  id?: string
+  interval: "day" | "month" | "week" | "year" | UnknownEnumStringValue
+  interval_count?: number
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | ""
+    | UnknownEnumStringValue
+  meter?: string
+  nickname?: string
+  product?:
+    | {
+        active?: boolean
+        id?: string
+        metadata?: {
+          [key: string]: string | undefined
+        }
+        name: string
+        statement_descriptor?: string
+        tax_code?: string
+        unit_label?: string
+      }
+    | string
+  tiers?: {
+    flat_amount?: number
+    flat_amount_decimal?: string
+    unit_amount?: number
+    unit_amount_decimal?: string
+    up_to: "inf" | UnknownEnumStringValue | number
+  }[]
+  tiers_mode?: "graduated" | "volume" | UnknownEnumStringValue
+  transform_usage?: {
+    divide_by: number
+    round: "down" | "up" | UnknownEnumStringValue
+  }
+  trial_period_days?: number
+  usage_type?: "licensed" | "metered" | UnknownEnumStringValue
+}
+
+export type t_PostPlansPlanRequestBody = {
+  active?: boolean
+  expand?: string[]
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | ""
+    | UnknownEnumStringValue
+  nickname?: string
+  product?: string
+  trial_period_days?: number
+}
+
+export type t_PostPricesRequestBody = {
+  active?: boolean
+  billing_scheme?: "per_unit" | "tiered" | UnknownEnumStringValue
+  currency: string
+  currency_options?: {
+    [key: string]:
+      | {
+          custom_unit_amount?: {
+            enabled: boolean
+            maximum?: number
+            minimum?: number
+            preset?: number
+          }
+          tax_behavior?:
+            | "exclusive"
+            | "inclusive"
+            | "unspecified"
+            | UnknownEnumStringValue
+          tiers?: {
+            flat_amount?: number
+            flat_amount_decimal?: string
+            unit_amount?: number
+            unit_amount_decimal?: string
+            up_to: "inf" | UnknownEnumStringValue | number
+          }[]
+          unit_amount?: number
+          unit_amount_decimal?: string
+        }
+      | undefined
+  }
+  custom_unit_amount?: {
+    enabled: boolean
+    maximum?: number
+    minimum?: number
+    preset?: number
+  }
+  expand?: string[]
+  lookup_key?: string
+  metadata?: {
+    [key: string]: string | undefined
+  }
+  nickname?: string
+  product?: string
+  product_data?: {
+    active?: boolean
+    id?: string
+    metadata?: {
+      [key: string]: string | undefined
+    }
+    name: string
+    statement_descriptor?: string
+    tax_code?: string
+    unit_label?: string
+  }
+  recurring?: {
+    interval: "day" | "month" | "week" | "year" | UnknownEnumStringValue
+    interval_count?: number
+    meter?: string
+    usage_type?: "licensed" | "metered" | UnknownEnumStringValue
+  }
+  tax_behavior?:
+    | "exclusive"
+    | "inclusive"
+    | "unspecified"
+    | UnknownEnumStringValue
+  tiers?: {
+    flat_amount?: number
+    flat_amount_decimal?: string
+    unit_amount?: number
+    unit_amount_decimal?: string
+    up_to: "inf" | UnknownEnumStringValue | number
+  }[]
+  tiers_mode?: "graduated" | "volume" | UnknownEnumStringValue
+  transfer_lookup_key?: boolean
+  transform_quantity?: {
+    divide_by: number
+    round: "down" | "up" | UnknownEnumStringValue
+  }
+  unit_amount?: number
+  unit_amount_decimal?: string
+}
+
+export type t_PostPricesPriceRequestBody = {
+  active?: boolean
+  currency_options?:
+    | {
+        [key: string]:
+          | {
+              custom_unit_amount?: {
+                enabled: boolean
+                maximum?: number
+                minimum?: number
+                preset?: number
+              }
+              tax_behavior?:
+                | "exclusive"
+                | "inclusive"
+                | "unspecified"
+                | UnknownEnumStringValue
+              tiers?: {
+                flat_amount?: number
+                flat_amount_decimal?: string
+                unit_amount?: number
+                unit_amount_decimal?: string
+                up_to: "inf" | UnknownEnumStringValue | number
+              }[]
+              unit_amount?: number
+              unit_amount_decimal?: string
+            }
+          | undefined
+      }
+    | ""
+    | UnknownEnumStringValue
+  expand?: string[]
+  lookup_key?: string
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | ""
+    | UnknownEnumStringValue
+  nickname?: string
+  tax_behavior?:
+    | "exclusive"
+    | "inclusive"
+    | "unspecified"
+    | UnknownEnumStringValue
+  transfer_lookup_key?: boolean
+}
+
+export type t_PostProductsRequestBody = {
+  active?: boolean
+  default_price_data?: {
+    currency: string
+    currency_options?: {
+      [key: string]:
+        | {
+            custom_unit_amount?: {
+              enabled: boolean
+              maximum?: number
+              minimum?: number
+              preset?: number
+            }
+            tax_behavior?:
+              | "exclusive"
+              | "inclusive"
+              | "unspecified"
+              | UnknownEnumStringValue
+            tiers?: {
+              flat_amount?: number
+              flat_amount_decimal?: string
+              unit_amount?: number
+              unit_amount_decimal?: string
+              up_to: "inf" | UnknownEnumStringValue | number
+            }[]
+            unit_amount?: number
+            unit_amount_decimal?: string
+          }
+        | undefined
+    }
+    custom_unit_amount?: {
+      enabled: boolean
+      maximum?: number
+      minimum?: number
+      preset?: number
+    }
+    metadata?: {
+      [key: string]: string | undefined
+    }
+    recurring?: {
+      interval: "day" | "month" | "week" | "year" | UnknownEnumStringValue
+      interval_count?: number
+    }
+    tax_behavior?:
+      | "exclusive"
+      | "inclusive"
+      | "unspecified"
+      | UnknownEnumStringValue
+    unit_amount?: number
+    unit_amount_decimal?: string
+  }
+  description?: string
+  expand?: string[]
+  id?: string
+  images?: string[]
+  marketing_features?: {
+    name: string
+  }[]
+  metadata?: {
+    [key: string]: string | undefined
+  }
+  name: string
+  package_dimensions?: {
+    height: number
+    length: number
+    weight: number
+    width: number
+  }
+  shippable?: boolean
+  statement_descriptor?: string
+  tax_code?: string
+  unit_label?: string
+  url?: string
+}
+
+export type t_PostProductsIdRequestBody = {
+  active?: boolean
+  default_price?: string
+  description?: string | "" | UnknownEnumStringValue
+  expand?: string[]
+  images?: string[] | "" | UnknownEnumStringValue
+  marketing_features?:
+    | {
+        name: string
+      }[]
+    | ""
+    | UnknownEnumStringValue
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | ""
+    | UnknownEnumStringValue
+  name?: string
+  package_dimensions?:
+    | {
+        height: number
+        length: number
+        weight: number
+        width: number
+      }
+    | ""
+    | UnknownEnumStringValue
+  shippable?: boolean
+  statement_descriptor?: string
+  tax_code?: string | "" | UnknownEnumStringValue
+  unit_label?: string | "" | UnknownEnumStringValue
+  url?: string | "" | UnknownEnumStringValue
+}
+
+export type t_PostProductsProductFeaturesRequestBody = {
+  entitlement_feature: string
+  expand?: string[]
+}
+
+export type t_PostPromotionCodesRequestBody = {
+  active?: boolean
+  code?: string
+  coupon: string
+  customer?: string
+  expand?: string[]
+  expires_at?: number
+  max_redemptions?: number
+  metadata?: {
+    [key: string]: string | undefined
+  }
+  restrictions?: {
+    currency_options?: {
+      [key: string]:
+        | {
+            minimum_amount?: number
+          }
+        | undefined
+    }
+    first_time_transaction?: boolean
+    minimum_amount?: number
+    minimum_amount_currency?: string
+  }
+}
+
+export type t_PostPromotionCodesPromotionCodeRequestBody = {
+  active?: boolean
+  expand?: string[]
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | ""
+    | UnknownEnumStringValue
+  restrictions?: {
+    currency_options?: {
+      [key: string]:
+        | {
+            minimum_amount?: number
+          }
+        | undefined
+    }
+  }
+}
+
+export type t_PostQuotesRequestBody = {
+  application_fee_amount?: number | "" | UnknownEnumStringValue
+  application_fee_percent?: number | "" | UnknownEnumStringValue
+  automatic_tax?: {
+    enabled: boolean
+    liability?: {
+      account?: string
+      type: "account" | "self" | UnknownEnumStringValue
+    }
+  }
+  collection_method?:
+    | "charge_automatically"
+    | "send_invoice"
+    | UnknownEnumStringValue
+  customer?: string
+  default_tax_rates?: string[] | "" | UnknownEnumStringValue
+  description?: string | "" | UnknownEnumStringValue
+  discounts?:
+    | {
+        coupon?: string
+        discount?: string
+        promotion_code?: string
+      }[]
+    | ""
+    | UnknownEnumStringValue
+  expand?: string[]
+  expires_at?: number
+  footer?: string | "" | UnknownEnumStringValue
+  from_quote?: {
+    is_revision?: boolean
+    quote: string
+  }
+  header?: string | "" | UnknownEnumStringValue
+  invoice_settings?: {
+    days_until_due?: number
+    issuer?: {
+      account?: string
+      type: "account" | "self" | UnknownEnumStringValue
+    }
+  }
+  line_items?: {
+    discounts?:
+      | {
+          coupon?: string
+          discount?: string
+          promotion_code?: string
+        }[]
+      | ""
+      | UnknownEnumStringValue
+    price?: string
+    price_data?: {
+      currency: string
+      product: string
+      recurring?: {
+        interval: "day" | "month" | "week" | "year" | UnknownEnumStringValue
+        interval_count?: number
+      }
+      tax_behavior?:
+        | "exclusive"
+        | "inclusive"
+        | "unspecified"
+        | UnknownEnumStringValue
+      unit_amount?: number
+      unit_amount_decimal?: string
+    }
+    quantity?: number
+    tax_rates?: string[] | "" | UnknownEnumStringValue
+  }[]
+  metadata?: {
+    [key: string]: string | undefined
+  }
+  on_behalf_of?: string | "" | UnknownEnumStringValue
+  subscription_data?: {
+    billing_mode?: {
+      type: "classic" | "flexible" | UnknownEnumStringValue
+    }
+    description?: string
+    effective_date?: "current_period_end" | UnknownEnumStringValue | number | ""
+    metadata?: {
+      [key: string]: string | undefined
+    }
+    trial_period_days?: number | "" | UnknownEnumStringValue
+  }
+  test_clock?: string
+  transfer_data?:
+    | {
+        amount?: number
+        amount_percent?: number
+        destination: string
+      }
+    | ""
+    | UnknownEnumStringValue
+}
+
+export type t_PostQuotesQuoteRequestBody = {
+  application_fee_amount?: number | "" | UnknownEnumStringValue
+  application_fee_percent?: number | "" | UnknownEnumStringValue
+  automatic_tax?: {
+    enabled: boolean
+    liability?: {
+      account?: string
+      type: "account" | "self" | UnknownEnumStringValue
+    }
+  }
+  collection_method?:
+    | "charge_automatically"
+    | "send_invoice"
+    | UnknownEnumStringValue
+  customer?: string
+  default_tax_rates?: string[] | "" | UnknownEnumStringValue
+  description?: string | "" | UnknownEnumStringValue
+  discounts?:
+    | {
+        coupon?: string
+        discount?: string
+        promotion_code?: string
+      }[]
+    | ""
+    | UnknownEnumStringValue
+  expand?: string[]
+  expires_at?: number
+  footer?: string | "" | UnknownEnumStringValue
+  header?: string | "" | UnknownEnumStringValue
+  invoice_settings?: {
+    days_until_due?: number
+    issuer?: {
+      account?: string
+      type: "account" | "self" | UnknownEnumStringValue
+    }
+  }
+  line_items?: {
+    discounts?:
+      | {
+          coupon?: string
+          discount?: string
+          promotion_code?: string
+        }[]
+      | ""
+      | UnknownEnumStringValue
+    id?: string
+    price?: string
+    price_data?: {
+      currency: string
+      product: string
+      recurring?: {
+        interval: "day" | "month" | "week" | "year" | UnknownEnumStringValue
+        interval_count?: number
+      }
+      tax_behavior?:
+        | "exclusive"
+        | "inclusive"
+        | "unspecified"
+        | UnknownEnumStringValue
+      unit_amount?: number
+      unit_amount_decimal?: string
+    }
+    quantity?: number
+    tax_rates?: string[] | "" | UnknownEnumStringValue
+  }[]
+  metadata?: {
+    [key: string]: string | undefined
+  }
+  on_behalf_of?: string | "" | UnknownEnumStringValue
+  subscription_data?: {
+    description?: string | "" | UnknownEnumStringValue
+    effective_date?: "current_period_end" | UnknownEnumStringValue | number | ""
+    metadata?: {
+      [key: string]: string | undefined
+    }
+    trial_period_days?: number | "" | UnknownEnumStringValue
+  }
+  transfer_data?:
+    | {
+        amount?: number
+        amount_percent?: number
+        destination: string
+      }
+    | ""
+    | UnknownEnumStringValue
+}
+
+export type t_PostQuotesQuoteAcceptRequestBody = {
+  expand?: string[]
+}
+
+export type t_PostQuotesQuoteCancelRequestBody = {
+  expand?: string[]
+}
+
+export type t_PostQuotesQuoteFinalizeRequestBody = {
+  expand?: string[]
+  expires_at?: number
+}
+
+export type t_PostRadarValueListItemsRequestBody = {
+  expand?: string[]
+  value: string
+  value_list: string
+}
+
+export type t_PostRadarValueListsRequestBody = {
+  alias: string
+  expand?: string[]
+  item_type?:
+    | "card_bin"
+    | "card_fingerprint"
+    | "case_sensitive_string"
+    | "country"
+    | "customer_id"
+    | "email"
+    | "ip_address"
+    | "sepa_debit_fingerprint"
+    | "string"
+    | "us_bank_account_fingerprint"
+    | UnknownEnumStringValue
+  metadata?: {
+    [key: string]: string | undefined
+  }
+  name: string
+}
+
+export type t_PostRadarValueListsValueListRequestBody = {
+  alias?: string
+  expand?: string[]
+  metadata?: {
+    [key: string]: string | undefined
+  }
+  name?: string
+}
+
+export type t_PostRefundsRequestBody = {
+  amount?: number
+  charge?: string
+  currency?: string
+  customer?: string
+  expand?: string[]
+  instructions_email?: string
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | ""
+    | UnknownEnumStringValue
+  origin?: "customer_balance" | UnknownEnumStringValue
+  payment_intent?: string
+  reason?:
+    | "duplicate"
+    | "fraudulent"
+    | "requested_by_customer"
+    | UnknownEnumStringValue
+  refund_application_fee?: boolean
+  reverse_transfer?: boolean
+}
+
+export type t_PostRefundsRefundRequestBody = {
+  expand?: string[]
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | ""
+    | UnknownEnumStringValue
+}
+
+export type t_PostRefundsRefundCancelRequestBody = {
+  expand?: string[]
+}
+
+export type t_PostReportingReportRunsRequestBody = {
+  expand?: string[]
+  parameters?: {
+    columns?: string[]
+    connected_account?: string
+    currency?: string
+    interval_end?: number
+    interval_start?: number
+    payout?: string
+    reporting_category?:
+      | "advance"
+      | "advance_funding"
+      | "anticipation_repayment"
+      | "charge"
+      | "charge_failure"
+      | "climate_order_purchase"
+      | "climate_order_refund"
+      | "connect_collection_transfer"
+      | "connect_reserved_funds"
+      | "contribution"
+      | "dispute"
+      | "dispute_reversal"
+      | "fee"
+      | "financing_paydown"
+      | "financing_paydown_reversal"
+      | "financing_payout"
+      | "financing_payout_reversal"
+      | "issuing_authorization_hold"
+      | "issuing_authorization_release"
+      | "issuing_dispute"
+      | "issuing_transaction"
+      | "network_cost"
+      | "other_adjustment"
+      | "partial_capture_reversal"
+      | "payout"
+      | "payout_reversal"
+      | "platform_earning"
+      | "platform_earning_refund"
+      | "refund"
+      | "refund_failure"
+      | "risk_reserved_funds"
+      | "tax"
+      | "topup"
+      | "topup_reversal"
+      | "transfer"
+      | "transfer_reversal"
+      | "unreconciled_customer_funds"
+      | UnknownEnumStringValue
+    timezone?:
+      | "Africa/Abidjan"
+      | "Africa/Accra"
+      | "Africa/Addis_Ababa"
+      | "Africa/Algiers"
+      | "Africa/Asmara"
+      | "Africa/Asmera"
+      | "Africa/Bamako"
+      | "Africa/Bangui"
+      | "Africa/Banjul"
+      | "Africa/Bissau"
+      | "Africa/Blantyre"
+      | "Africa/Brazzaville"
+      | "Africa/Bujumbura"
+      | "Africa/Cairo"
+      | "Africa/Casablanca"
+      | "Africa/Ceuta"
+      | "Africa/Conakry"
+      | "Africa/Dakar"
+      | "Africa/Dar_es_Salaam"
+      | "Africa/Djibouti"
+      | "Africa/Douala"
+      | "Africa/El_Aaiun"
+      | "Africa/Freetown"
+      | "Africa/Gaborone"
+      | "Africa/Harare"
+      | "Africa/Johannesburg"
+      | "Africa/Juba"
+      | "Africa/Kampala"
+      | "Africa/Khartoum"
+      | "Africa/Kigali"
+      | "Africa/Kinshasa"
+      | "Africa/Lagos"
+      | "Africa/Libreville"
+      | "Africa/Lome"
+      | "Africa/Luanda"
+      | "Africa/Lubumbashi"
+      | "Africa/Lusaka"
+      | "Africa/Malabo"
+      | "Africa/Maputo"
+      | "Africa/Maseru"
+      | "Africa/Mbabane"
+      | "Africa/Mogadishu"
+      | "Africa/Monrovia"
+      | "Africa/Nairobi"
+      | "Africa/Ndjamena"
+      | "Africa/Niamey"
+      | "Africa/Nouakchott"
+      | "Africa/Ouagadougou"
+      | "Africa/Porto-Novo"
+      | "Africa/Sao_Tome"
+      | "Africa/Timbuktu"
+      | "Africa/Tripoli"
+      | "Africa/Tunis"
+      | "Africa/Windhoek"
+      | "America/Adak"
+      | "America/Anchorage"
+      | "America/Anguilla"
+      | "America/Antigua"
+      | "America/Araguaina"
+      | "America/Argentina/Buenos_Aires"
+      | "America/Argentina/Catamarca"
+      | "America/Argentina/ComodRivadavia"
+      | "America/Argentina/Cordoba"
+      | "America/Argentina/Jujuy"
+      | "America/Argentina/La_Rioja"
+      | "America/Argentina/Mendoza"
+      | "America/Argentina/Rio_Gallegos"
+      | "America/Argentina/Salta"
+      | "America/Argentina/San_Juan"
+      | "America/Argentina/San_Luis"
+      | "America/Argentina/Tucuman"
+      | "America/Argentina/Ushuaia"
+      | "America/Aruba"
+      | "America/Asuncion"
+      | "America/Atikokan"
+      | "America/Atka"
+      | "America/Bahia"
+      | "America/Bahia_Banderas"
+      | "America/Barbados"
+      | "America/Belem"
+      | "America/Belize"
+      | "America/Blanc-Sablon"
+      | "America/Boa_Vista"
+      | "America/Bogota"
+      | "America/Boise"
+      | "America/Buenos_Aires"
+      | "America/Cambridge_Bay"
+      | "America/Campo_Grande"
+      | "America/Cancun"
+      | "America/Caracas"
+      | "America/Catamarca"
+      | "America/Cayenne"
+      | "America/Cayman"
+      | "America/Chicago"
+      | "America/Chihuahua"
+      | "America/Ciudad_Juarez"
+      | "America/Coral_Harbour"
+      | "America/Cordoba"
+      | "America/Costa_Rica"
+      | "America/Coyhaique"
+      | "America/Creston"
+      | "America/Cuiaba"
+      | "America/Curacao"
+      | "America/Danmarkshavn"
+      | "America/Dawson"
+      | "America/Dawson_Creek"
+      | "America/Denver"
+      | "America/Detroit"
+      | "America/Dominica"
+      | "America/Edmonton"
+      | "America/Eirunepe"
+      | "America/El_Salvador"
+      | "America/Ensenada"
+      | "America/Fort_Nelson"
+      | "America/Fort_Wayne"
+      | "America/Fortaleza"
+      | "America/Glace_Bay"
+      | "America/Godthab"
+      | "America/Goose_Bay"
+      | "America/Grand_Turk"
+      | "America/Grenada"
+      | "America/Guadeloupe"
+      | "America/Guatemala"
+      | "America/Guayaquil"
+      | "America/Guyana"
+      | "America/Halifax"
+      | "America/Havana"
+      | "America/Hermosillo"
+      | "America/Indiana/Indianapolis"
+      | "America/Indiana/Knox"
+      | "America/Indiana/Marengo"
+      | "America/Indiana/Petersburg"
+      | "America/Indiana/Tell_City"
+      | "America/Indiana/Vevay"
+      | "America/Indiana/Vincennes"
+      | "America/Indiana/Winamac"
+      | "America/Indianapolis"
+      | "America/Inuvik"
+      | "America/Iqaluit"
+      | "America/Jamaica"
+      | "America/Jujuy"
+      | "America/Juneau"
+      | "America/Kentucky/Louisville"
+      | "America/Kentucky/Monticello"
+      | "America/Knox_IN"
+      | "America/Kralendijk"
+      | "America/La_Paz"
+      | "America/Lima"
+      | "America/Los_Angeles"
+      | "America/Louisville"
+      | "America/Lower_Princes"
+      | "America/Maceio"
+      | "America/Managua"
+      | "America/Manaus"
+      | "America/Marigot"
+      | "America/Martinique"
+      | "America/Matamoros"
+      | "America/Mazatlan"
+      | "America/Mendoza"
+      | "America/Menominee"
+      | "America/Merida"
+      | "America/Metlakatla"
+      | "America/Mexico_City"
+      | "America/Miquelon"
+      | "America/Moncton"
+      | "America/Monterrey"
+      | "America/Montevideo"
+      | "America/Montreal"
+      | "America/Montserrat"
+      | "America/Nassau"
+      | "America/New_York"
+      | "America/Nipigon"
+      | "America/Nome"
+      | "America/Noronha"
+      | "America/North_Dakota/Beulah"
+      | "America/North_Dakota/Center"
+      | "America/North_Dakota/New_Salem"
+      | "America/Nuuk"
+      | "America/Ojinaga"
+      | "America/Panama"
+      | "America/Pangnirtung"
+      | "America/Paramaribo"
+      | "America/Phoenix"
+      | "America/Port-au-Prince"
+      | "America/Port_of_Spain"
+      | "America/Porto_Acre"
+      | "America/Porto_Velho"
+      | "America/Puerto_Rico"
+      | "America/Punta_Arenas"
+      | "America/Rainy_River"
+      | "America/Rankin_Inlet"
+      | "America/Recife"
+      | "America/Regina"
+      | "America/Resolute"
+      | "America/Rio_Branco"
+      | "America/Rosario"
+      | "America/Santa_Isabel"
+      | "America/Santarem"
+      | "America/Santiago"
+      | "America/Santo_Domingo"
+      | "America/Sao_Paulo"
+      | "America/Scoresbysund"
+      | "America/Shiprock"
+      | "America/Sitka"
+      | "America/St_Barthelemy"
+      | "America/St_Johns"
+      | "America/St_Kitts"
+      | "America/St_Lucia"
+      | "America/St_Thomas"
+      | "America/St_Vincent"
+      | "America/Swift_Current"
+      | "America/Tegucigalpa"
+      | "America/Thule"
+      | "America/Thunder_Bay"
+      | "America/Tijuana"
+      | "America/Toronto"
+      | "America/Tortola"
+      | "America/Vancouver"
+      | "America/Virgin"
+      | "America/Whitehorse"
+      | "America/Winnipeg"
+      | "America/Yakutat"
+      | "America/Yellowknife"
+      | "Antarctica/Casey"
+      | "Antarctica/Davis"
+      | "Antarctica/DumontDUrville"
+      | "Antarctica/Macquarie"
+      | "Antarctica/Mawson"
+      | "Antarctica/McMurdo"
+      | "Antarctica/Palmer"
+      | "Antarctica/Rothera"
+      | "Antarctica/South_Pole"
+      | "Antarctica/Syowa"
+      | "Antarctica/Troll"
+      | "Antarctica/Vostok"
+      | "Arctic/Longyearbyen"
+      | "Asia/Aden"
+      | "Asia/Almaty"
+      | "Asia/Amman"
+      | "Asia/Anadyr"
+      | "Asia/Aqtau"
+      | "Asia/Aqtobe"
+      | "Asia/Ashgabat"
+      | "Asia/Ashkhabad"
+      | "Asia/Atyrau"
+      | "Asia/Baghdad"
+      | "Asia/Bahrain"
+      | "Asia/Baku"
+      | "Asia/Bangkok"
+      | "Asia/Barnaul"
+      | "Asia/Beirut"
+      | "Asia/Bishkek"
+      | "Asia/Brunei"
+      | "Asia/Calcutta"
+      | "Asia/Chita"
+      | "Asia/Choibalsan"
+      | "Asia/Chongqing"
+      | "Asia/Chungking"
+      | "Asia/Colombo"
+      | "Asia/Dacca"
+      | "Asia/Damascus"
+      | "Asia/Dhaka"
+      | "Asia/Dili"
+      | "Asia/Dubai"
+      | "Asia/Dushanbe"
+      | "Asia/Famagusta"
+      | "Asia/Gaza"
+      | "Asia/Harbin"
+      | "Asia/Hebron"
+      | "Asia/Ho_Chi_Minh"
+      | "Asia/Hong_Kong"
+      | "Asia/Hovd"
+      | "Asia/Irkutsk"
+      | "Asia/Istanbul"
+      | "Asia/Jakarta"
+      | "Asia/Jayapura"
+      | "Asia/Jerusalem"
+      | "Asia/Kabul"
+      | "Asia/Kamchatka"
+      | "Asia/Karachi"
+      | "Asia/Kashgar"
+      | "Asia/Kathmandu"
+      | "Asia/Katmandu"
+      | "Asia/Khandyga"
+      | "Asia/Kolkata"
+      | "Asia/Krasnoyarsk"
+      | "Asia/Kuala_Lumpur"
+      | "Asia/Kuching"
+      | "Asia/Kuwait"
+      | "Asia/Macao"
+      | "Asia/Macau"
+      | "Asia/Magadan"
+      | "Asia/Makassar"
+      | "Asia/Manila"
+      | "Asia/Muscat"
+      | "Asia/Nicosia"
+      | "Asia/Novokuznetsk"
+      | "Asia/Novosibirsk"
+      | "Asia/Omsk"
+      | "Asia/Oral"
+      | "Asia/Phnom_Penh"
+      | "Asia/Pontianak"
+      | "Asia/Pyongyang"
+      | "Asia/Qatar"
+      | "Asia/Qostanay"
+      | "Asia/Qyzylorda"
+      | "Asia/Rangoon"
+      | "Asia/Riyadh"
+      | "Asia/Saigon"
+      | "Asia/Sakhalin"
+      | "Asia/Samarkand"
+      | "Asia/Seoul"
+      | "Asia/Shanghai"
+      | "Asia/Singapore"
+      | "Asia/Srednekolymsk"
+      | "Asia/Taipei"
+      | "Asia/Tashkent"
+      | "Asia/Tbilisi"
+      | "Asia/Tehran"
+      | "Asia/Tel_Aviv"
+      | "Asia/Thimbu"
+      | "Asia/Thimphu"
+      | "Asia/Tokyo"
+      | "Asia/Tomsk"
+      | "Asia/Ujung_Pandang"
+      | "Asia/Ulaanbaatar"
+      | "Asia/Ulan_Bator"
+      | "Asia/Urumqi"
+      | "Asia/Ust-Nera"
+      | "Asia/Vientiane"
+      | "Asia/Vladivostok"
+      | "Asia/Yakutsk"
+      | "Asia/Yangon"
+      | "Asia/Yekaterinburg"
+      | "Asia/Yerevan"
+      | "Atlantic/Azores"
+      | "Atlantic/Bermuda"
+      | "Atlantic/Canary"
+      | "Atlantic/Cape_Verde"
+      | "Atlantic/Faeroe"
+      | "Atlantic/Faroe"
+      | "Atlantic/Jan_Mayen"
+      | "Atlantic/Madeira"
+      | "Atlantic/Reykjavik"
+      | "Atlantic/South_Georgia"
+      | "Atlantic/St_Helena"
+      | "Atlantic/Stanley"
+      | "Australia/ACT"
+      | "Australia/Adelaide"
+      | "Australia/Brisbane"
+      | "Australia/Broken_Hill"
+      | "Australia/Canberra"
+      | "Australia/Currie"
+      | "Australia/Darwin"
+      | "Australia/Eucla"
+      | "Australia/Hobart"
+      | "Australia/LHI"
+      | "Australia/Lindeman"
+      | "Australia/Lord_Howe"
+      | "Australia/Melbourne"
+      | "Australia/NSW"
+      | "Australia/North"
+      | "Australia/Perth"
+      | "Australia/Queensland"
+      | "Australia/South"
+      | "Australia/Sydney"
+      | "Australia/Tasmania"
+      | "Australia/Victoria"
+      | "Australia/West"
+      | "Australia/Yancowinna"
+      | "Brazil/Acre"
+      | "Brazil/DeNoronha"
+      | "Brazil/East"
+      | "Brazil/West"
+      | "CET"
+      | "CST6CDT"
+      | "Canada/Atlantic"
+      | "Canada/Central"
+      | "Canada/Eastern"
+      | "Canada/Mountain"
+      | "Canada/Newfoundland"
+      | "Canada/Pacific"
+      | "Canada/Saskatchewan"
+      | "Canada/Yukon"
+      | "Chile/Continental"
+      | "Chile/EasterIsland"
+      | "Cuba"
+      | "EET"
+      | "EST"
+      | "EST5EDT"
+      | "Egypt"
+      | "Eire"
+      | "Etc/GMT"
+      | "Etc/GMT+0"
+      | "Etc/GMT+1"
+      | "Etc/GMT+10"
+      | "Etc/GMT+11"
+      | "Etc/GMT+12"
+      | "Etc/GMT+2"
+      | "Etc/GMT+3"
+      | "Etc/GMT+4"
+      | "Etc/GMT+5"
+      | "Etc/GMT+6"
+      | "Etc/GMT+7"
+      | "Etc/GMT+8"
+      | "Etc/GMT+9"
+      | "Etc/GMT-0"
+      | "Etc/GMT-1"
+      | "Etc/GMT-10"
+      | "Etc/GMT-11"
+      | "Etc/GMT-12"
+      | "Etc/GMT-13"
+      | "Etc/GMT-14"
+      | "Etc/GMT-2"
+      | "Etc/GMT-3"
+      | "Etc/GMT-4"
+      | "Etc/GMT-5"
+      | "Etc/GMT-6"
+      | "Etc/GMT-7"
+      | "Etc/GMT-8"
+      | "Etc/GMT-9"
+      | "Etc/GMT0"
+      | "Etc/Greenwich"
+      | "Etc/UCT"
+      | "Etc/UTC"
+      | "Etc/Universal"
+      | "Etc/Zulu"
+      | "Europe/Amsterdam"
+      | "Europe/Andorra"
+      | "Europe/Astrakhan"
+      | "Europe/Athens"
+      | "Europe/Belfast"
+      | "Europe/Belgrade"
+      | "Europe/Berlin"
+      | "Europe/Bratislava"
+      | "Europe/Brussels"
+      | "Europe/Bucharest"
+      | "Europe/Budapest"
+      | "Europe/Busingen"
+      | "Europe/Chisinau"
+      | "Europe/Copenhagen"
+      | "Europe/Dublin"
+      | "Europe/Gibraltar"
+      | "Europe/Guernsey"
+      | "Europe/Helsinki"
+      | "Europe/Isle_of_Man"
+      | "Europe/Istanbul"
+      | "Europe/Jersey"
+      | "Europe/Kaliningrad"
+      | "Europe/Kiev"
+      | "Europe/Kirov"
+      | "Europe/Kyiv"
+      | "Europe/Lisbon"
+      | "Europe/Ljubljana"
+      | "Europe/London"
+      | "Europe/Luxembourg"
+      | "Europe/Madrid"
+      | "Europe/Malta"
+      | "Europe/Mariehamn"
+      | "Europe/Minsk"
+      | "Europe/Monaco"
+      | "Europe/Moscow"
+      | "Europe/Nicosia"
+      | "Europe/Oslo"
+      | "Europe/Paris"
+      | "Europe/Podgorica"
+      | "Europe/Prague"
+      | "Europe/Riga"
+      | "Europe/Rome"
+      | "Europe/Samara"
+      | "Europe/San_Marino"
+      | "Europe/Sarajevo"
+      | "Europe/Saratov"
+      | "Europe/Simferopol"
+      | "Europe/Skopje"
+      | "Europe/Sofia"
+      | "Europe/Stockholm"
+      | "Europe/Tallinn"
+      | "Europe/Tirane"
+      | "Europe/Tiraspol"
+      | "Europe/Ulyanovsk"
+      | "Europe/Uzhgorod"
+      | "Europe/Vaduz"
+      | "Europe/Vatican"
+      | "Europe/Vienna"
+      | "Europe/Vilnius"
+      | "Europe/Volgograd"
+      | "Europe/Warsaw"
+      | "Europe/Zagreb"
+      | "Europe/Zaporozhye"
+      | "Europe/Zurich"
+      | "Factory"
+      | "GB"
+      | "GB-Eire"
+      | "GMT"
+      | "GMT+0"
+      | "GMT-0"
+      | "GMT0"
+      | "Greenwich"
+      | "HST"
+      | "Hongkong"
+      | "Iceland"
+      | "Indian/Antananarivo"
+      | "Indian/Chagos"
+      | "Indian/Christmas"
+      | "Indian/Cocos"
+      | "Indian/Comoro"
+      | "Indian/Kerguelen"
+      | "Indian/Mahe"
+      | "Indian/Maldives"
+      | "Indian/Mauritius"
+      | "Indian/Mayotte"
+      | "Indian/Reunion"
+      | "Iran"
+      | "Israel"
+      | "Jamaica"
+      | "Japan"
+      | "Kwajalein"
+      | "Libya"
+      | "MET"
+      | "MST"
+      | "MST7MDT"
+      | "Mexico/BajaNorte"
+      | "Mexico/BajaSur"
+      | "Mexico/General"
+      | "NZ"
+      | "NZ-CHAT"
+      | "Navajo"
+      | "PRC"
+      | "PST8PDT"
+      | "Pacific/Apia"
+      | "Pacific/Auckland"
+      | "Pacific/Bougainville"
+      | "Pacific/Chatham"
+      | "Pacific/Chuuk"
+      | "Pacific/Easter"
+      | "Pacific/Efate"
+      | "Pacific/Enderbury"
+      | "Pacific/Fakaofo"
+      | "Pacific/Fiji"
+      | "Pacific/Funafuti"
+      | "Pacific/Galapagos"
+      | "Pacific/Gambier"
+      | "Pacific/Guadalcanal"
+      | "Pacific/Guam"
+      | "Pacific/Honolulu"
+      | "Pacific/Johnston"
+      | "Pacific/Kanton"
+      | "Pacific/Kiritimati"
+      | "Pacific/Kosrae"
+      | "Pacific/Kwajalein"
+      | "Pacific/Majuro"
+      | "Pacific/Marquesas"
+      | "Pacific/Midway"
+      | "Pacific/Nauru"
+      | "Pacific/Niue"
+      | "Pacific/Norfolk"
+      | "Pacific/Noumea"
+      | "Pacific/Pago_Pago"
+      | "Pacific/Palau"
+      | "Pacific/Pitcairn"
+      | "Pacific/Pohnpei"
+      | "Pacific/Ponape"
+      | "Pacific/Port_Moresby"
+      | "Pacific/Rarotonga"
+      | "Pacific/Saipan"
+      | "Pacific/Samoa"
+      | "Pacific/Tahiti"
+      | "Pacific/Tarawa"
+      | "Pacific/Tongatapu"
+      | "Pacific/Truk"
+      | "Pacific/Wake"
+      | "Pacific/Wallis"
+      | "Pacific/Yap"
+      | "Poland"
+      | "Portugal"
+      | "ROC"
+      | "ROK"
+      | "Singapore"
+      | "Turkey"
+      | "UCT"
+      | "US/Alaska"
+      | "US/Aleutian"
+      | "US/Arizona"
+      | "US/Central"
+      | "US/East-Indiana"
+      | "US/Eastern"
+      | "US/Hawaii"
+      | "US/Indiana-Starke"
+      | "US/Michigan"
+      | "US/Mountain"
+      | "US/Pacific"
+      | "US/Pacific-New"
+      | "US/Samoa"
+      | "UTC"
+      | "Universal"
+      | "W-SU"
+      | "WET"
+      | "Zulu"
+      | UnknownEnumStringValue
+  }
+  report_type: string
+}
+
+export type t_PostReviewsReviewApproveRequestBody = {
+  expand?: string[]
+}
+
+export type t_PostSetupIntentsRequestBody = {
+  attach_to_self?: boolean
+  automatic_payment_methods?: {
+    allow_redirects?: "always" | "never" | UnknownEnumStringValue
+    enabled: boolean
+  }
+  confirm?: boolean
+  confirmation_token?: string
+  customer?: string
+  description?: string
+  expand?: string[]
+  flow_directions?: ("inbound" | "outbound" | UnknownEnumStringValue)[]
+  mandate_data?:
+    | {
+        customer_acceptance: {
+          accepted_at?: number
+          offline?: EmptyObject
+          online?: {
+            ip_address: string
+            user_agent: string
+          }
+          type: "offline" | "online" | UnknownEnumStringValue
+        }
+      }
+    | ""
+    | UnknownEnumStringValue
+  metadata?: {
+    [key: string]: string | undefined
+  }
+  on_behalf_of?: string
+  payment_method?: string
+  payment_method_configuration?: string
+  payment_method_data?: {
+    acss_debit?: {
+      account_number: string
+      institution_number: string
+      transit_number: string
+    }
+    affirm?: EmptyObject
+    afterpay_clearpay?: EmptyObject
+    alipay?: EmptyObject
+    allow_redisplay?:
+      | "always"
+      | "limited"
+      | "unspecified"
+      | UnknownEnumStringValue
+    alma?: EmptyObject
+    amazon_pay?: EmptyObject
+    au_becs_debit?: {
+      account_number: string
+      bsb_number: string
+    }
+    bacs_debit?: {
+      account_number?: string
+      sort_code?: string
+    }
+    bancontact?: EmptyObject
+    billie?: EmptyObject
+    billing_details?: {
+      address?:
+        | {
+            city?: string
+            country?: string
+            line1?: string
+            line2?: string
+            postal_code?: string
+            state?: string
+          }
+        | ""
+        | UnknownEnumStringValue
+      email?: string | "" | UnknownEnumStringValue
+      name?: string | "" | UnknownEnumStringValue
+      phone?: string | "" | UnknownEnumStringValue
+      tax_id?: string
+    }
+    blik?: EmptyObject
+    boleto?: {
+      tax_id: string
+    }
+    cashapp?: EmptyObject
+    crypto?: EmptyObject
+    customer_balance?: EmptyObject
+    eps?: {
+      bank?:
+        | "arzte_und_apotheker_bank"
+        | "austrian_anadi_bank_ag"
+        | "bank_austria"
+        | "bankhaus_carl_spangler"
+        | "bankhaus_schelhammer_und_schattera_ag"
+        | "bawag_psk_ag"
+        | "bks_bank_ag"
+        | "brull_kallmus_bank_ag"
+        | "btv_vier_lander_bank"
+        | "capital_bank_grawe_gruppe_ag"
+        | "deutsche_bank_ag"
+        | "dolomitenbank"
+        | "easybank_ag"
+        | "erste_bank_und_sparkassen"
+        | "hypo_alpeadriabank_international_ag"
+        | "hypo_bank_burgenland_aktiengesellschaft"
+        | "hypo_noe_lb_fur_niederosterreich_u_wien"
+        | "hypo_oberosterreich_salzburg_steiermark"
+        | "hypo_tirol_bank_ag"
+        | "hypo_vorarlberg_bank_ag"
+        | "marchfelder_bank"
+        | "oberbank_ag"
+        | "raiffeisen_bankengruppe_osterreich"
+        | "schoellerbank_ag"
+        | "sparda_bank_wien"
+        | "volksbank_gruppe"
+        | "volkskreditbank_ag"
+        | "vr_bank_braunau"
+        | UnknownEnumStringValue
+    }
+    fpx?: {
+      bank:
+        | "affin_bank"
+        | "agrobank"
+        | "alliance_bank"
+        | "ambank"
+        | "bank_islam"
+        | "bank_muamalat"
+        | "bank_of_china"
+        | "bank_rakyat"
+        | "bsn"
+        | "cimb"
+        | "deutsche_bank"
+        | "hong_leong_bank"
+        | "hsbc"
+        | "kfh"
+        | "maybank2e"
+        | "maybank2u"
+        | "ocbc"
+        | "pb_enterprise"
+        | "public_bank"
+        | "rhb"
+        | "standard_chartered"
+        | "uob"
+        | UnknownEnumStringValue
+    }
+    giropay?: EmptyObject
+    grabpay?: EmptyObject
+    ideal?: {
+      bank?:
+        | "abn_amro"
+        | "asn_bank"
+        | "bunq"
+        | "buut"
+        | "handelsbanken"
+        | "ing"
+        | "knab"
+        | "moneyou"
+        | "n26"
+        | "nn"
+        | "rabobank"
+        | "regiobank"
+        | "revolut"
+        | "sns_bank"
+        | "triodos_bank"
+        | "van_lanschot"
+        | "yoursafe"
+        | UnknownEnumStringValue
+    }
+    interac_present?: EmptyObject
+    kakao_pay?: EmptyObject
+    klarna?: {
+      dob?: {
+        day: number
+        month: number
+        year: number
+      }
+    }
+    konbini?: EmptyObject
+    kr_card?: EmptyObject
+    link?: EmptyObject
+    metadata?: {
+      [key: string]: string | undefined
+    }
+    mobilepay?: EmptyObject
+    multibanco?: EmptyObject
+    naver_pay?: {
+      funding?: "card" | "points" | UnknownEnumStringValue
+    }
+    nz_bank_account?: {
+      account_holder_name?: string
+      account_number: string
+      bank_code: string
+      branch_code: string
+      reference?: string
+      suffix: string
+    }
+    oxxo?: EmptyObject
+    p24?: {
+      bank?:
+        | "alior_bank"
+        | "bank_millennium"
+        | "bank_nowy_bfg_sa"
+        | "bank_pekao_sa"
+        | "banki_spbdzielcze"
+        | "blik"
+        | "bnp_paribas"
+        | "boz"
+        | "citi_handlowy"
+        | "credit_agricole"
+        | "envelobank"
+        | "etransfer_pocztowy24"
+        | "getin_bank"
+        | "ideabank"
+        | "ing"
+        | "inteligo"
+        | "mbank_mtransfer"
+        | "nest_przelew"
+        | "noble_pay"
+        | "pbac_z_ipko"
+        | "plus_bank"
+        | "santander_przelew24"
+        | "tmobile_usbugi_bankowe"
+        | "toyota_bank"
+        | "velobank"
+        | "volkswagen_bank"
+        | UnknownEnumStringValue
+    }
+    pay_by_bank?: EmptyObject
+    payco?: EmptyObject
+    paynow?: EmptyObject
+    paypal?: EmptyObject
+    pix?: EmptyObject
+    promptpay?: EmptyObject
+    radar_options?: {
+      session?: string
+    }
+    revolut_pay?: EmptyObject
+    samsung_pay?: EmptyObject
+    satispay?: EmptyObject
+    sepa_debit?: {
+      iban: string
+    }
+    sofort?: {
+      country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL" | UnknownEnumStringValue
+    }
+    swish?: EmptyObject
+    twint?: EmptyObject
+    type:
+      | "acss_debit"
+      | "affirm"
+      | "afterpay_clearpay"
+      | "alipay"
+      | "alma"
+      | "amazon_pay"
+      | "au_becs_debit"
+      | "bacs_debit"
+      | "bancontact"
+      | "billie"
+      | "blik"
+      | "boleto"
+      | "cashapp"
+      | "crypto"
+      | "customer_balance"
+      | "eps"
+      | "fpx"
+      | "giropay"
+      | "grabpay"
+      | "ideal"
+      | "kakao_pay"
+      | "klarna"
+      | "konbini"
+      | "kr_card"
+      | "link"
+      | "mobilepay"
+      | "multibanco"
+      | "naver_pay"
+      | "nz_bank_account"
+      | "oxxo"
+      | "p24"
+      | "pay_by_bank"
+      | "payco"
+      | "paynow"
+      | "paypal"
+      | "pix"
+      | "promptpay"
+      | "revolut_pay"
+      | "samsung_pay"
+      | "satispay"
+      | "sepa_debit"
+      | "sofort"
+      | "swish"
+      | "twint"
+      | "us_bank_account"
+      | "wechat_pay"
+      | "zip"
+      | UnknownEnumStringValue
+    us_bank_account?: {
+      account_holder_type?: "company" | "individual" | UnknownEnumStringValue
+      account_number?: string
+      account_type?: "checking" | "savings" | UnknownEnumStringValue
+      financial_connections_account?: string
+      routing_number?: string
+    }
+    wechat_pay?: EmptyObject
+    zip?: EmptyObject
+  }
+  payment_method_options?: {
+    acss_debit?: {
+      currency?: "cad" | "usd" | UnknownEnumStringValue
+      mandate_options?: {
+        custom_mandate_url?: string | "" | UnknownEnumStringValue
+        default_for?: ("invoice" | "subscription" | UnknownEnumStringValue)[]
+        interval_description?: string
+        payment_schedule?:
+          | "combined"
+          | "interval"
+          | "sporadic"
+          | UnknownEnumStringValue
+        transaction_type?: "business" | "personal" | UnknownEnumStringValue
+      }
+      verification_method?:
+        | "automatic"
+        | "instant"
+        | "microdeposits"
+        | UnknownEnumStringValue
+    }
+    amazon_pay?: EmptyObject
+    bacs_debit?: {
+      mandate_options?: {
+        reference_prefix?: string | "" | UnknownEnumStringValue
+      }
+    }
+    card?: {
+      mandate_options?: {
+        amount: number
+        amount_type: "fixed" | "maximum" | UnknownEnumStringValue
+        currency: string
+        description?: string
+        end_date?: number
+        interval:
+          | "day"
+          | "month"
+          | "sporadic"
+          | "week"
+          | "year"
+          | UnknownEnumStringValue
+        interval_count?: number
+        reference: string
+        start_date: number
+        supported_types?: ("india" | UnknownEnumStringValue)[]
+      }
+      network?:
+        | "amex"
+        | "cartes_bancaires"
+        | "diners"
+        | "discover"
+        | "eftpos_au"
+        | "girocard"
+        | "interac"
+        | "jcb"
+        | "link"
+        | "mastercard"
+        | "unionpay"
+        | "unknown"
+        | "visa"
+        | UnknownEnumStringValue
+      request_three_d_secure?:
+        | "any"
+        | "automatic"
+        | "challenge"
+        | UnknownEnumStringValue
+      three_d_secure?: {
+        ares_trans_status?:
+          | "A"
+          | "C"
+          | "I"
+          | "N"
+          | "R"
+          | "U"
+          | "Y"
+          | UnknownEnumStringValue
+        cryptogram?: string
+        electronic_commerce_indicator?:
+          | "01"
+          | "02"
+          | "05"
+          | "06"
+          | "07"
+          | UnknownEnumStringValue
+        network_options?: {
+          cartes_bancaires?: {
+            cb_avalgo:
+              | "0"
+              | "1"
+              | "2"
+              | "3"
+              | "4"
+              | "A"
+              | UnknownEnumStringValue
+            cb_exemption?: string
+            cb_score?: number
+          }
+        }
+        requestor_challenge_indicator?: string
+        transaction_id?: string
+        version?: "1.0.2" | "2.1.0" | "2.2.0" | UnknownEnumStringValue
+      }
+    }
+    card_present?: EmptyObject
+    klarna?: {
+      currency?: string
+      on_demand?: {
+        average_amount?: number
+        maximum_amount?: number
+        minimum_amount?: number
+        purchase_interval?:
+          | "day"
+          | "month"
+          | "week"
+          | "year"
+          | UnknownEnumStringValue
+        purchase_interval_count?: number
+      }
+      preferred_locale?:
+        | "cs-CZ"
+        | "da-DK"
+        | "de-AT"
+        | "de-CH"
+        | "de-DE"
+        | "el-GR"
+        | "en-AT"
+        | "en-AU"
+        | "en-BE"
+        | "en-CA"
+        | "en-CH"
+        | "en-CZ"
+        | "en-DE"
+        | "en-DK"
+        | "en-ES"
+        | "en-FI"
+        | "en-FR"
+        | "en-GB"
+        | "en-GR"
+        | "en-IE"
+        | "en-IT"
+        | "en-NL"
+        | "en-NO"
+        | "en-NZ"
+        | "en-PL"
+        | "en-PT"
+        | "en-RO"
+        | "en-SE"
+        | "en-US"
+        | "es-ES"
+        | "es-US"
+        | "fi-FI"
+        | "fr-BE"
+        | "fr-CA"
+        | "fr-CH"
+        | "fr-FR"
+        | "it-CH"
+        | "it-IT"
+        | "nb-NO"
+        | "nl-BE"
+        | "nl-NL"
+        | "pl-PL"
+        | "pt-PT"
+        | "ro-RO"
+        | "sv-FI"
+        | "sv-SE"
+        | UnknownEnumStringValue
+      subscriptions?:
+        | {
+            interval: "day" | "month" | "week" | "year" | UnknownEnumStringValue
+            interval_count?: number
+            name?: string
+            next_billing: {
+              amount: number
+              date: string
+            }
+            reference: string
+          }[]
+        | ""
+        | UnknownEnumStringValue
+    }
+    link?: EmptyObject
+    paypal?: {
+      billing_agreement_id?: string
+    }
+    sepa_debit?: {
+      mandate_options?: {
+        reference_prefix?: string | "" | UnknownEnumStringValue
+      }
+    }
+    us_bank_account?: {
+      financial_connections?: {
+        filters?: {
+          account_subcategories?: (
+            | "checking"
+            | "savings"
+            | UnknownEnumStringValue
+          )[]
+        }
+        permissions?: (
+          | "balances"
+          | "ownership"
+          | "payment_method"
+          | "transactions"
+          | UnknownEnumStringValue
+        )[]
+        prefetch?: (
+          | "balances"
+          | "ownership"
+          | "transactions"
+          | UnknownEnumStringValue
+        )[]
+        return_url?: string
+      }
+      mandate_options?: {
+        collection_method?: "" | "paper" | UnknownEnumStringValue
+      }
+      networks?: {
+        requested?: ("ach" | "us_domestic_wire" | UnknownEnumStringValue)[]
+      }
+      verification_method?:
+        | "automatic"
+        | "instant"
+        | "microdeposits"
+        | UnknownEnumStringValue
+    }
+  }
+  payment_method_types?: string[]
+  return_url?: string
+  single_use?: {
+    amount: number
+    currency: string
+  }
+  usage?: "off_session" | "on_session" | UnknownEnumStringValue
+  use_stripe_sdk?: boolean
+}
+
+export type t_PostSetupIntentsIntentRequestBody = {
+  attach_to_self?: boolean
+  customer?: string
+  description?: string
+  expand?: string[]
+  flow_directions?: ("inbound" | "outbound" | UnknownEnumStringValue)[]
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | ""
+    | UnknownEnumStringValue
+  payment_method?: string
+  payment_method_configuration?: string
+  payment_method_data?: {
+    acss_debit?: {
+      account_number: string
+      institution_number: string
+      transit_number: string
+    }
+    affirm?: EmptyObject
+    afterpay_clearpay?: EmptyObject
+    alipay?: EmptyObject
+    allow_redisplay?:
+      | "always"
+      | "limited"
+      | "unspecified"
+      | UnknownEnumStringValue
+    alma?: EmptyObject
+    amazon_pay?: EmptyObject
+    au_becs_debit?: {
+      account_number: string
+      bsb_number: string
+    }
+    bacs_debit?: {
+      account_number?: string
+      sort_code?: string
+    }
+    bancontact?: EmptyObject
+    billie?: EmptyObject
+    billing_details?: {
+      address?:
+        | {
+            city?: string
+            country?: string
+            line1?: string
+            line2?: string
+            postal_code?: string
+            state?: string
+          }
+        | ""
+        | UnknownEnumStringValue
+      email?: string | "" | UnknownEnumStringValue
+      name?: string | "" | UnknownEnumStringValue
+      phone?: string | "" | UnknownEnumStringValue
+      tax_id?: string
+    }
+    blik?: EmptyObject
+    boleto?: {
+      tax_id: string
+    }
+    cashapp?: EmptyObject
+    crypto?: EmptyObject
+    customer_balance?: EmptyObject
+    eps?: {
+      bank?:
+        | "arzte_und_apotheker_bank"
+        | "austrian_anadi_bank_ag"
+        | "bank_austria"
+        | "bankhaus_carl_spangler"
+        | "bankhaus_schelhammer_und_schattera_ag"
+        | "bawag_psk_ag"
+        | "bks_bank_ag"
+        | "brull_kallmus_bank_ag"
+        | "btv_vier_lander_bank"
+        | "capital_bank_grawe_gruppe_ag"
+        | "deutsche_bank_ag"
+        | "dolomitenbank"
+        | "easybank_ag"
+        | "erste_bank_und_sparkassen"
+        | "hypo_alpeadriabank_international_ag"
+        | "hypo_bank_burgenland_aktiengesellschaft"
+        | "hypo_noe_lb_fur_niederosterreich_u_wien"
+        | "hypo_oberosterreich_salzburg_steiermark"
+        | "hypo_tirol_bank_ag"
+        | "hypo_vorarlberg_bank_ag"
+        | "marchfelder_bank"
+        | "oberbank_ag"
+        | "raiffeisen_bankengruppe_osterreich"
+        | "schoellerbank_ag"
+        | "sparda_bank_wien"
+        | "volksbank_gruppe"
+        | "volkskreditbank_ag"
+        | "vr_bank_braunau"
+        | UnknownEnumStringValue
+    }
+    fpx?: {
+      bank:
+        | "affin_bank"
+        | "agrobank"
+        | "alliance_bank"
+        | "ambank"
+        | "bank_islam"
+        | "bank_muamalat"
+        | "bank_of_china"
+        | "bank_rakyat"
+        | "bsn"
+        | "cimb"
+        | "deutsche_bank"
+        | "hong_leong_bank"
+        | "hsbc"
+        | "kfh"
+        | "maybank2e"
+        | "maybank2u"
+        | "ocbc"
+        | "pb_enterprise"
+        | "public_bank"
+        | "rhb"
+        | "standard_chartered"
+        | "uob"
+        | UnknownEnumStringValue
+    }
+    giropay?: EmptyObject
+    grabpay?: EmptyObject
+    ideal?: {
+      bank?:
+        | "abn_amro"
+        | "asn_bank"
+        | "bunq"
+        | "buut"
+        | "handelsbanken"
+        | "ing"
+        | "knab"
+        | "moneyou"
+        | "n26"
+        | "nn"
+        | "rabobank"
+        | "regiobank"
+        | "revolut"
+        | "sns_bank"
+        | "triodos_bank"
+        | "van_lanschot"
+        | "yoursafe"
+        | UnknownEnumStringValue
+    }
+    interac_present?: EmptyObject
+    kakao_pay?: EmptyObject
+    klarna?: {
+      dob?: {
+        day: number
+        month: number
+        year: number
+      }
+    }
+    konbini?: EmptyObject
+    kr_card?: EmptyObject
+    link?: EmptyObject
+    metadata?: {
+      [key: string]: string | undefined
+    }
+    mobilepay?: EmptyObject
+    multibanco?: EmptyObject
+    naver_pay?: {
+      funding?: "card" | "points" | UnknownEnumStringValue
+    }
+    nz_bank_account?: {
+      account_holder_name?: string
+      account_number: string
+      bank_code: string
+      branch_code: string
+      reference?: string
+      suffix: string
+    }
+    oxxo?: EmptyObject
+    p24?: {
+      bank?:
+        | "alior_bank"
+        | "bank_millennium"
+        | "bank_nowy_bfg_sa"
+        | "bank_pekao_sa"
+        | "banki_spbdzielcze"
+        | "blik"
+        | "bnp_paribas"
+        | "boz"
+        | "citi_handlowy"
+        | "credit_agricole"
+        | "envelobank"
+        | "etransfer_pocztowy24"
+        | "getin_bank"
+        | "ideabank"
+        | "ing"
+        | "inteligo"
+        | "mbank_mtransfer"
+        | "nest_przelew"
+        | "noble_pay"
+        | "pbac_z_ipko"
+        | "plus_bank"
+        | "santander_przelew24"
+        | "tmobile_usbugi_bankowe"
+        | "toyota_bank"
+        | "velobank"
+        | "volkswagen_bank"
+        | UnknownEnumStringValue
+    }
+    pay_by_bank?: EmptyObject
+    payco?: EmptyObject
+    paynow?: EmptyObject
+    paypal?: EmptyObject
+    pix?: EmptyObject
+    promptpay?: EmptyObject
+    radar_options?: {
+      session?: string
+    }
+    revolut_pay?: EmptyObject
+    samsung_pay?: EmptyObject
+    satispay?: EmptyObject
+    sepa_debit?: {
+      iban: string
+    }
+    sofort?: {
+      country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL" | UnknownEnumStringValue
+    }
+    swish?: EmptyObject
+    twint?: EmptyObject
+    type:
+      | "acss_debit"
+      | "affirm"
+      | "afterpay_clearpay"
+      | "alipay"
+      | "alma"
+      | "amazon_pay"
+      | "au_becs_debit"
+      | "bacs_debit"
+      | "bancontact"
+      | "billie"
+      | "blik"
+      | "boleto"
+      | "cashapp"
+      | "crypto"
+      | "customer_balance"
+      | "eps"
+      | "fpx"
+      | "giropay"
+      | "grabpay"
+      | "ideal"
+      | "kakao_pay"
+      | "klarna"
+      | "konbini"
+      | "kr_card"
+      | "link"
+      | "mobilepay"
+      | "multibanco"
+      | "naver_pay"
+      | "nz_bank_account"
+      | "oxxo"
+      | "p24"
+      | "pay_by_bank"
+      | "payco"
+      | "paynow"
+      | "paypal"
+      | "pix"
+      | "promptpay"
+      | "revolut_pay"
+      | "samsung_pay"
+      | "satispay"
+      | "sepa_debit"
+      | "sofort"
+      | "swish"
+      | "twint"
+      | "us_bank_account"
+      | "wechat_pay"
+      | "zip"
+      | UnknownEnumStringValue
+    us_bank_account?: {
+      account_holder_type?: "company" | "individual" | UnknownEnumStringValue
+      account_number?: string
+      account_type?: "checking" | "savings" | UnknownEnumStringValue
+      financial_connections_account?: string
+      routing_number?: string
+    }
+    wechat_pay?: EmptyObject
+    zip?: EmptyObject
+  }
+  payment_method_options?: {
+    acss_debit?: {
+      currency?: "cad" | "usd" | UnknownEnumStringValue
+      mandate_options?: {
+        custom_mandate_url?: string | "" | UnknownEnumStringValue
+        default_for?: ("invoice" | "subscription" | UnknownEnumStringValue)[]
+        interval_description?: string
+        payment_schedule?:
+          | "combined"
+          | "interval"
+          | "sporadic"
+          | UnknownEnumStringValue
+        transaction_type?: "business" | "personal" | UnknownEnumStringValue
+      }
+      verification_method?:
+        | "automatic"
+        | "instant"
+        | "microdeposits"
+        | UnknownEnumStringValue
+    }
+    amazon_pay?: EmptyObject
+    bacs_debit?: {
+      mandate_options?: {
+        reference_prefix?: string | "" | UnknownEnumStringValue
+      }
+    }
+    card?: {
+      mandate_options?: {
+        amount: number
+        amount_type: "fixed" | "maximum" | UnknownEnumStringValue
+        currency: string
+        description?: string
+        end_date?: number
+        interval:
+          | "day"
+          | "month"
+          | "sporadic"
+          | "week"
+          | "year"
+          | UnknownEnumStringValue
+        interval_count?: number
+        reference: string
+        start_date: number
+        supported_types?: ("india" | UnknownEnumStringValue)[]
+      }
+      network?:
+        | "amex"
+        | "cartes_bancaires"
+        | "diners"
+        | "discover"
+        | "eftpos_au"
+        | "girocard"
+        | "interac"
+        | "jcb"
+        | "link"
+        | "mastercard"
+        | "unionpay"
+        | "unknown"
+        | "visa"
+        | UnknownEnumStringValue
+      request_three_d_secure?:
+        | "any"
+        | "automatic"
+        | "challenge"
+        | UnknownEnumStringValue
+      three_d_secure?: {
+        ares_trans_status?:
+          | "A"
+          | "C"
+          | "I"
+          | "N"
+          | "R"
+          | "U"
+          | "Y"
+          | UnknownEnumStringValue
+        cryptogram?: string
+        electronic_commerce_indicator?:
+          | "01"
+          | "02"
+          | "05"
+          | "06"
+          | "07"
+          | UnknownEnumStringValue
+        network_options?: {
+          cartes_bancaires?: {
+            cb_avalgo:
+              | "0"
+              | "1"
+              | "2"
+              | "3"
+              | "4"
+              | "A"
+              | UnknownEnumStringValue
+            cb_exemption?: string
+            cb_score?: number
+          }
+        }
+        requestor_challenge_indicator?: string
+        transaction_id?: string
+        version?: "1.0.2" | "2.1.0" | "2.2.0" | UnknownEnumStringValue
+      }
+    }
+    card_present?: EmptyObject
+    klarna?: {
+      currency?: string
+      on_demand?: {
+        average_amount?: number
+        maximum_amount?: number
+        minimum_amount?: number
+        purchase_interval?:
+          | "day"
+          | "month"
+          | "week"
+          | "year"
+          | UnknownEnumStringValue
+        purchase_interval_count?: number
+      }
+      preferred_locale?:
+        | "cs-CZ"
+        | "da-DK"
+        | "de-AT"
+        | "de-CH"
+        | "de-DE"
+        | "el-GR"
+        | "en-AT"
+        | "en-AU"
+        | "en-BE"
+        | "en-CA"
+        | "en-CH"
+        | "en-CZ"
+        | "en-DE"
+        | "en-DK"
+        | "en-ES"
+        | "en-FI"
+        | "en-FR"
+        | "en-GB"
+        | "en-GR"
+        | "en-IE"
+        | "en-IT"
+        | "en-NL"
+        | "en-NO"
+        | "en-NZ"
+        | "en-PL"
+        | "en-PT"
+        | "en-RO"
+        | "en-SE"
+        | "en-US"
+        | "es-ES"
+        | "es-US"
+        | "fi-FI"
+        | "fr-BE"
+        | "fr-CA"
+        | "fr-CH"
+        | "fr-FR"
+        | "it-CH"
+        | "it-IT"
+        | "nb-NO"
+        | "nl-BE"
+        | "nl-NL"
+        | "pl-PL"
+        | "pt-PT"
+        | "ro-RO"
+        | "sv-FI"
+        | "sv-SE"
+        | UnknownEnumStringValue
+      subscriptions?:
+        | {
+            interval: "day" | "month" | "week" | "year" | UnknownEnumStringValue
+            interval_count?: number
+            name?: string
+            next_billing: {
+              amount: number
+              date: string
+            }
+            reference: string
+          }[]
+        | ""
+        | UnknownEnumStringValue
+    }
+    link?: EmptyObject
+    paypal?: {
+      billing_agreement_id?: string
+    }
+    sepa_debit?: {
+      mandate_options?: {
+        reference_prefix?: string | "" | UnknownEnumStringValue
+      }
+    }
+    us_bank_account?: {
+      financial_connections?: {
+        filters?: {
+          account_subcategories?: (
+            | "checking"
+            | "savings"
+            | UnknownEnumStringValue
+          )[]
+        }
+        permissions?: (
+          | "balances"
+          | "ownership"
+          | "payment_method"
+          | "transactions"
+          | UnknownEnumStringValue
+        )[]
+        prefetch?: (
+          | "balances"
+          | "ownership"
+          | "transactions"
+          | UnknownEnumStringValue
+        )[]
+        return_url?: string
+      }
+      mandate_options?: {
+        collection_method?: "" | "paper" | UnknownEnumStringValue
+      }
+      networks?: {
+        requested?: ("ach" | "us_domestic_wire" | UnknownEnumStringValue)[]
+      }
+      verification_method?:
+        | "automatic"
+        | "instant"
+        | "microdeposits"
+        | UnknownEnumStringValue
+    }
+  }
+  payment_method_types?: string[]
+}
+
+export type t_PostSetupIntentsIntentCancelRequestBody = {
+  cancellation_reason?:
+    | "abandoned"
+    | "duplicate"
+    | "requested_by_customer"
+    | UnknownEnumStringValue
+  expand?: string[]
+}
+
+export type t_PostSetupIntentsIntentConfirmRequestBody = {
+  client_secret?: string
+  confirmation_token?: string
+  expand?: string[]
+  mandate_data?:
+    | {
+        customer_acceptance: {
+          accepted_at?: number
+          offline?: EmptyObject
+          online?: {
+            ip_address: string
+            user_agent: string
+          }
+          type: "offline" | "online" | UnknownEnumStringValue
+        }
+      }
+    | ""
+    | UnknownEnumStringValue
+    | {
+        customer_acceptance: {
+          online: {
+            ip_address?: string
+            user_agent?: string
+          }
+          type: "online" | UnknownEnumStringValue
+        }
+      }
+  payment_method?: string
+  payment_method_data?: {
+    acss_debit?: {
+      account_number: string
+      institution_number: string
+      transit_number: string
+    }
+    affirm?: EmptyObject
+    afterpay_clearpay?: EmptyObject
+    alipay?: EmptyObject
+    allow_redisplay?:
+      | "always"
+      | "limited"
+      | "unspecified"
+      | UnknownEnumStringValue
+    alma?: EmptyObject
+    amazon_pay?: EmptyObject
+    au_becs_debit?: {
+      account_number: string
+      bsb_number: string
+    }
+    bacs_debit?: {
+      account_number?: string
+      sort_code?: string
+    }
+    bancontact?: EmptyObject
+    billie?: EmptyObject
+    billing_details?: {
+      address?:
+        | {
+            city?: string
+            country?: string
+            line1?: string
+            line2?: string
+            postal_code?: string
+            state?: string
+          }
+        | ""
+        | UnknownEnumStringValue
+      email?: string | "" | UnknownEnumStringValue
+      name?: string | "" | UnknownEnumStringValue
+      phone?: string | "" | UnknownEnumStringValue
+      tax_id?: string
+    }
+    blik?: EmptyObject
+    boleto?: {
+      tax_id: string
+    }
+    cashapp?: EmptyObject
+    crypto?: EmptyObject
+    customer_balance?: EmptyObject
+    eps?: {
+      bank?:
+        | "arzte_und_apotheker_bank"
+        | "austrian_anadi_bank_ag"
+        | "bank_austria"
+        | "bankhaus_carl_spangler"
+        | "bankhaus_schelhammer_und_schattera_ag"
+        | "bawag_psk_ag"
+        | "bks_bank_ag"
+        | "brull_kallmus_bank_ag"
+        | "btv_vier_lander_bank"
+        | "capital_bank_grawe_gruppe_ag"
+        | "deutsche_bank_ag"
+        | "dolomitenbank"
+        | "easybank_ag"
+        | "erste_bank_und_sparkassen"
+        | "hypo_alpeadriabank_international_ag"
+        | "hypo_bank_burgenland_aktiengesellschaft"
+        | "hypo_noe_lb_fur_niederosterreich_u_wien"
+        | "hypo_oberosterreich_salzburg_steiermark"
+        | "hypo_tirol_bank_ag"
+        | "hypo_vorarlberg_bank_ag"
+        | "marchfelder_bank"
+        | "oberbank_ag"
+        | "raiffeisen_bankengruppe_osterreich"
+        | "schoellerbank_ag"
+        | "sparda_bank_wien"
+        | "volksbank_gruppe"
+        | "volkskreditbank_ag"
+        | "vr_bank_braunau"
+        | UnknownEnumStringValue
+    }
+    fpx?: {
+      bank:
+        | "affin_bank"
+        | "agrobank"
+        | "alliance_bank"
+        | "ambank"
+        | "bank_islam"
+        | "bank_muamalat"
+        | "bank_of_china"
+        | "bank_rakyat"
+        | "bsn"
+        | "cimb"
+        | "deutsche_bank"
+        | "hong_leong_bank"
+        | "hsbc"
+        | "kfh"
+        | "maybank2e"
+        | "maybank2u"
+        | "ocbc"
+        | "pb_enterprise"
+        | "public_bank"
+        | "rhb"
+        | "standard_chartered"
+        | "uob"
+        | UnknownEnumStringValue
+    }
+    giropay?: EmptyObject
+    grabpay?: EmptyObject
+    ideal?: {
+      bank?:
+        | "abn_amro"
+        | "asn_bank"
+        | "bunq"
+        | "buut"
+        | "handelsbanken"
+        | "ing"
+        | "knab"
+        | "moneyou"
+        | "n26"
+        | "nn"
+        | "rabobank"
+        | "regiobank"
+        | "revolut"
+        | "sns_bank"
+        | "triodos_bank"
+        | "van_lanschot"
+        | "yoursafe"
+        | UnknownEnumStringValue
+    }
+    interac_present?: EmptyObject
+    kakao_pay?: EmptyObject
+    klarna?: {
+      dob?: {
+        day: number
+        month: number
+        year: number
+      }
+    }
+    konbini?: EmptyObject
+    kr_card?: EmptyObject
+    link?: EmptyObject
+    metadata?: {
+      [key: string]: string | undefined
+    }
+    mobilepay?: EmptyObject
+    multibanco?: EmptyObject
+    naver_pay?: {
+      funding?: "card" | "points" | UnknownEnumStringValue
+    }
+    nz_bank_account?: {
+      account_holder_name?: string
+      account_number: string
+      bank_code: string
+      branch_code: string
+      reference?: string
+      suffix: string
+    }
+    oxxo?: EmptyObject
+    p24?: {
+      bank?:
+        | "alior_bank"
+        | "bank_millennium"
+        | "bank_nowy_bfg_sa"
+        | "bank_pekao_sa"
+        | "banki_spbdzielcze"
+        | "blik"
+        | "bnp_paribas"
+        | "boz"
+        | "citi_handlowy"
+        | "credit_agricole"
+        | "envelobank"
+        | "etransfer_pocztowy24"
+        | "getin_bank"
+        | "ideabank"
+        | "ing"
+        | "inteligo"
+        | "mbank_mtransfer"
+        | "nest_przelew"
+        | "noble_pay"
+        | "pbac_z_ipko"
+        | "plus_bank"
+        | "santander_przelew24"
+        | "tmobile_usbugi_bankowe"
+        | "toyota_bank"
+        | "velobank"
+        | "volkswagen_bank"
+        | UnknownEnumStringValue
+    }
+    pay_by_bank?: EmptyObject
+    payco?: EmptyObject
+    paynow?: EmptyObject
+    paypal?: EmptyObject
+    pix?: EmptyObject
+    promptpay?: EmptyObject
+    radar_options?: {
+      session?: string
+    }
+    revolut_pay?: EmptyObject
+    samsung_pay?: EmptyObject
+    satispay?: EmptyObject
+    sepa_debit?: {
+      iban: string
+    }
+    sofort?: {
+      country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL" | UnknownEnumStringValue
+    }
+    swish?: EmptyObject
+    twint?: EmptyObject
+    type:
+      | "acss_debit"
+      | "affirm"
+      | "afterpay_clearpay"
+      | "alipay"
+      | "alma"
+      | "amazon_pay"
+      | "au_becs_debit"
+      | "bacs_debit"
+      | "bancontact"
+      | "billie"
+      | "blik"
+      | "boleto"
+      | "cashapp"
+      | "crypto"
+      | "customer_balance"
+      | "eps"
+      | "fpx"
+      | "giropay"
+      | "grabpay"
+      | "ideal"
+      | "kakao_pay"
+      | "klarna"
+      | "konbini"
+      | "kr_card"
+      | "link"
+      | "mobilepay"
+      | "multibanco"
+      | "naver_pay"
+      | "nz_bank_account"
+      | "oxxo"
+      | "p24"
+      | "pay_by_bank"
+      | "payco"
+      | "paynow"
+      | "paypal"
+      | "pix"
+      | "promptpay"
+      | "revolut_pay"
+      | "samsung_pay"
+      | "satispay"
+      | "sepa_debit"
+      | "sofort"
+      | "swish"
+      | "twint"
+      | "us_bank_account"
+      | "wechat_pay"
+      | "zip"
+      | UnknownEnumStringValue
+    us_bank_account?: {
+      account_holder_type?: "company" | "individual" | UnknownEnumStringValue
+      account_number?: string
+      account_type?: "checking" | "savings" | UnknownEnumStringValue
+      financial_connections_account?: string
+      routing_number?: string
+    }
+    wechat_pay?: EmptyObject
+    zip?: EmptyObject
+  }
+  payment_method_options?: {
+    acss_debit?: {
+      currency?: "cad" | "usd" | UnknownEnumStringValue
+      mandate_options?: {
+        custom_mandate_url?: string | "" | UnknownEnumStringValue
+        default_for?: ("invoice" | "subscription" | UnknownEnumStringValue)[]
+        interval_description?: string
+        payment_schedule?:
+          | "combined"
+          | "interval"
+          | "sporadic"
+          | UnknownEnumStringValue
+        transaction_type?: "business" | "personal" | UnknownEnumStringValue
+      }
+      verification_method?:
+        | "automatic"
+        | "instant"
+        | "microdeposits"
+        | UnknownEnumStringValue
+    }
+    amazon_pay?: EmptyObject
+    bacs_debit?: {
+      mandate_options?: {
+        reference_prefix?: string | "" | UnknownEnumStringValue
+      }
+    }
+    card?: {
+      mandate_options?: {
+        amount: number
+        amount_type: "fixed" | "maximum" | UnknownEnumStringValue
+        currency: string
+        description?: string
+        end_date?: number
+        interval:
+          | "day"
+          | "month"
+          | "sporadic"
+          | "week"
+          | "year"
+          | UnknownEnumStringValue
+        interval_count?: number
+        reference: string
+        start_date: number
+        supported_types?: ("india" | UnknownEnumStringValue)[]
+      }
+      network?:
+        | "amex"
+        | "cartes_bancaires"
+        | "diners"
+        | "discover"
+        | "eftpos_au"
+        | "girocard"
+        | "interac"
+        | "jcb"
+        | "link"
+        | "mastercard"
+        | "unionpay"
+        | "unknown"
+        | "visa"
+        | UnknownEnumStringValue
+      request_three_d_secure?:
+        | "any"
+        | "automatic"
+        | "challenge"
+        | UnknownEnumStringValue
+      three_d_secure?: {
+        ares_trans_status?:
+          | "A"
+          | "C"
+          | "I"
+          | "N"
+          | "R"
+          | "U"
+          | "Y"
+          | UnknownEnumStringValue
+        cryptogram?: string
+        electronic_commerce_indicator?:
+          | "01"
+          | "02"
+          | "05"
+          | "06"
+          | "07"
+          | UnknownEnumStringValue
+        network_options?: {
+          cartes_bancaires?: {
+            cb_avalgo:
+              | "0"
+              | "1"
+              | "2"
+              | "3"
+              | "4"
+              | "A"
+              | UnknownEnumStringValue
+            cb_exemption?: string
+            cb_score?: number
+          }
+        }
+        requestor_challenge_indicator?: string
+        transaction_id?: string
+        version?: "1.0.2" | "2.1.0" | "2.2.0" | UnknownEnumStringValue
+      }
+    }
+    card_present?: EmptyObject
+    klarna?: {
+      currency?: string
+      on_demand?: {
+        average_amount?: number
+        maximum_amount?: number
+        minimum_amount?: number
+        purchase_interval?:
+          | "day"
+          | "month"
+          | "week"
+          | "year"
+          | UnknownEnumStringValue
+        purchase_interval_count?: number
+      }
+      preferred_locale?:
+        | "cs-CZ"
+        | "da-DK"
+        | "de-AT"
+        | "de-CH"
+        | "de-DE"
+        | "el-GR"
+        | "en-AT"
+        | "en-AU"
+        | "en-BE"
+        | "en-CA"
+        | "en-CH"
+        | "en-CZ"
+        | "en-DE"
+        | "en-DK"
+        | "en-ES"
+        | "en-FI"
+        | "en-FR"
+        | "en-GB"
+        | "en-GR"
+        | "en-IE"
+        | "en-IT"
+        | "en-NL"
+        | "en-NO"
+        | "en-NZ"
+        | "en-PL"
+        | "en-PT"
+        | "en-RO"
+        | "en-SE"
+        | "en-US"
+        | "es-ES"
+        | "es-US"
+        | "fi-FI"
+        | "fr-BE"
+        | "fr-CA"
+        | "fr-CH"
+        | "fr-FR"
+        | "it-CH"
+        | "it-IT"
+        | "nb-NO"
+        | "nl-BE"
+        | "nl-NL"
+        | "pl-PL"
+        | "pt-PT"
+        | "ro-RO"
+        | "sv-FI"
+        | "sv-SE"
+        | UnknownEnumStringValue
+      subscriptions?:
+        | {
+            interval: "day" | "month" | "week" | "year" | UnknownEnumStringValue
+            interval_count?: number
+            name?: string
+            next_billing: {
+              amount: number
+              date: string
+            }
+            reference: string
+          }[]
+        | ""
+        | UnknownEnumStringValue
+    }
+    link?: EmptyObject
+    paypal?: {
+      billing_agreement_id?: string
+    }
+    sepa_debit?: {
+      mandate_options?: {
+        reference_prefix?: string | "" | UnknownEnumStringValue
+      }
+    }
+    us_bank_account?: {
+      financial_connections?: {
+        filters?: {
+          account_subcategories?: (
+            | "checking"
+            | "savings"
+            | UnknownEnumStringValue
+          )[]
+        }
+        permissions?: (
+          | "balances"
+          | "ownership"
+          | "payment_method"
+          | "transactions"
+          | UnknownEnumStringValue
+        )[]
+        prefetch?: (
+          | "balances"
+          | "ownership"
+          | "transactions"
+          | UnknownEnumStringValue
+        )[]
+        return_url?: string
+      }
+      mandate_options?: {
+        collection_method?: "" | "paper" | UnknownEnumStringValue
+      }
+      networks?: {
+        requested?: ("ach" | "us_domestic_wire" | UnknownEnumStringValue)[]
+      }
+      verification_method?:
+        | "automatic"
+        | "instant"
+        | "microdeposits"
+        | UnknownEnumStringValue
+    }
+  }
+  return_url?: string
+  use_stripe_sdk?: boolean
+}
+
+export type t_PostSetupIntentsIntentVerifyMicrodepositsRequestBody = {
+  amounts?: number[]
+  client_secret?: string
+  descriptor_code?: string
+  expand?: string[]
+}
+
+export type t_PostShippingRatesRequestBody = {
+  delivery_estimate?: {
+    maximum?: {
+      unit:
+        | "business_day"
+        | "day"
+        | "hour"
+        | "month"
+        | "week"
+        | UnknownEnumStringValue
+      value: number
+    }
+    minimum?: {
+      unit:
+        | "business_day"
+        | "day"
+        | "hour"
+        | "month"
+        | "week"
+        | UnknownEnumStringValue
+      value: number
+    }
+  }
+  display_name: string
+  expand?: string[]
+  fixed_amount?: {
+    amount: number
+    currency: string
+    currency_options?: {
+      [key: string]:
+        | {
+            amount: number
+            tax_behavior?:
+              | "exclusive"
+              | "inclusive"
+              | "unspecified"
+              | UnknownEnumStringValue
+          }
+        | undefined
+    }
+  }
+  metadata?: {
+    [key: string]: string | undefined
+  }
+  tax_behavior?:
+    | "exclusive"
+    | "inclusive"
+    | "unspecified"
+    | UnknownEnumStringValue
+  tax_code?: string
+  type?: "fixed_amount" | UnknownEnumStringValue
+}
+
+export type t_PostShippingRatesShippingRateTokenRequestBody = {
+  active?: boolean
+  expand?: string[]
+  fixed_amount?: {
+    currency_options?: {
+      [key: string]:
+        | {
+            amount?: number
+            tax_behavior?:
+              | "exclusive"
+              | "inclusive"
+              | "unspecified"
+              | UnknownEnumStringValue
+          }
+        | undefined
+    }
+  }
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | ""
+    | UnknownEnumStringValue
+  tax_behavior?:
+    | "exclusive"
+    | "inclusive"
+    | "unspecified"
+    | UnknownEnumStringValue
+}
+
+export type t_PostSigmaSavedQueriesIdRequestBody = {
+  expand?: string[]
+  name?: string
+  sql?: string
+}
+
+export type t_PostSourcesRequestBody = {
+  amount?: number
+  currency?: string
+  customer?: string
+  expand?: string[]
+  flow?:
+    | "code_verification"
+    | "none"
+    | "receiver"
+    | "redirect"
+    | UnknownEnumStringValue
+  mandate?: {
+    acceptance?: {
+      date?: number
+      ip?: string
+      offline?: {
+        contact_email: string
+      }
+      online?: {
+        date?: number
+        ip?: string
+        user_agent?: string
+      }
+      status:
+        | "accepted"
+        | "pending"
+        | "refused"
+        | "revoked"
+        | UnknownEnumStringValue
+      type?: "offline" | "online" | UnknownEnumStringValue
+      user_agent?: string
+    }
+    amount?: number | "" | UnknownEnumStringValue
+    currency?: string
+    interval?: "one_time" | "scheduled" | "variable" | UnknownEnumStringValue
+    notification_method?:
+      | "deprecated_none"
+      | "email"
+      | "manual"
+      | "none"
+      | "stripe_email"
+      | UnknownEnumStringValue
+  }
+  metadata?: {
+    [key: string]: string | undefined
+  }
+  original_source?: string
+  owner?: {
+    address?: {
+      city?: string
+      country?: string
+      line1?: string
+      line2?: string
+      postal_code?: string
+      state?: string
+    }
+    email?: string
+    name?: string
+    phone?: string
+  }
+  receiver?: {
+    refund_attributes_method?:
+      | "email"
+      | "manual"
+      | "none"
+      | UnknownEnumStringValue
+  }
+  redirect?: {
+    return_url: string
+  }
+  source_order?: {
+    items?: {
+      amount?: number
+      currency?: string
+      description?: string
+      parent?: string
+      quantity?: number
+      type?: "discount" | "shipping" | "sku" | "tax" | UnknownEnumStringValue
+    }[]
+    shipping?: {
+      address: {
+        city?: string
+        country?: string
+        line1: string
+        line2?: string
+        postal_code?: string
+        state?: string
+      }
+      carrier?: string
+      name?: string
+      phone?: string
+      tracking_number?: string
+    }
+  }
+  statement_descriptor?: string
+  token?: string
+  type?: string
+  usage?: "reusable" | "single_use" | UnknownEnumStringValue
+}
+
+export type t_PostSourcesSourceRequestBody = {
+  amount?: number
+  expand?: string[]
+  mandate?: {
+    acceptance?: {
+      date?: number
+      ip?: string
+      offline?: {
+        contact_email: string
+      }
+      online?: {
+        date?: number
+        ip?: string
+        user_agent?: string
+      }
+      status:
+        | "accepted"
+        | "pending"
+        | "refused"
+        | "revoked"
+        | UnknownEnumStringValue
+      type?: "offline" | "online" | UnknownEnumStringValue
+      user_agent?: string
+    }
+    amount?: number | "" | UnknownEnumStringValue
+    currency?: string
+    interval?: "one_time" | "scheduled" | "variable" | UnknownEnumStringValue
+    notification_method?:
+      | "deprecated_none"
+      | "email"
+      | "manual"
+      | "none"
+      | "stripe_email"
+      | UnknownEnumStringValue
+  }
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | ""
+    | UnknownEnumStringValue
+  owner?: {
+    address?: {
+      city?: string
+      country?: string
+      line1?: string
+      line2?: string
+      postal_code?: string
+      state?: string
+    }
+    email?: string
+    name?: string
+    phone?: string
+  }
+  source_order?: {
+    items?: {
+      amount?: number
+      currency?: string
+      description?: string
+      parent?: string
+      quantity?: number
+      type?: "discount" | "shipping" | "sku" | "tax" | UnknownEnumStringValue
+    }[]
+    shipping?: {
+      address: {
+        city?: string
+        country?: string
+        line1: string
+        line2?: string
+        postal_code?: string
+        state?: string
+      }
+      carrier?: string
+      name?: string
+      phone?: string
+      tracking_number?: string
+    }
+  }
+}
+
+export type t_PostSourcesSourceVerifyRequestBody = {
+  expand?: string[]
+  values: string[]
+}
+
+export type t_PostSubscriptionItemsRequestBody = {
+  billing_thresholds?:
+    | {
+        usage_gte: number
+      }
+    | ""
+    | UnknownEnumStringValue
+  discounts?:
+    | {
+        coupon?: string
+        discount?: string
+        promotion_code?: string
+      }[]
+    | ""
+    | UnknownEnumStringValue
+  expand?: string[]
+  metadata?: {
+    [key: string]: string | undefined
+  }
+  payment_behavior?:
+    | "allow_incomplete"
+    | "default_incomplete"
+    | "error_if_incomplete"
+    | "pending_if_incomplete"
+    | UnknownEnumStringValue
+  price?: string
+  price_data?: {
+    currency: string
+    product: string
+    recurring: {
+      interval: "day" | "month" | "week" | "year" | UnknownEnumStringValue
+      interval_count?: number
+    }
+    tax_behavior?:
+      | "exclusive"
+      | "inclusive"
+      | "unspecified"
+      | UnknownEnumStringValue
+    unit_amount?: number
+    unit_amount_decimal?: string
+  }
+  proration_behavior?:
+    | "always_invoice"
+    | "create_prorations"
+    | "none"
+    | UnknownEnumStringValue
+  proration_date?: number
+  quantity?: number
+  subscription: string
+  tax_rates?: string[] | "" | UnknownEnumStringValue
+}
+
+export type t_PostSubscriptionItemsItemRequestBody = {
+  billing_thresholds?:
+    | {
+        usage_gte: number
+      }
+    | ""
+    | UnknownEnumStringValue
+  discounts?:
+    | {
+        coupon?: string
+        discount?: string
+        promotion_code?: string
+      }[]
+    | ""
+    | UnknownEnumStringValue
+  expand?: string[]
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | ""
+    | UnknownEnumStringValue
+  off_session?: boolean
+  payment_behavior?:
+    | "allow_incomplete"
+    | "default_incomplete"
+    | "error_if_incomplete"
+    | "pending_if_incomplete"
+    | UnknownEnumStringValue
+  price?: string
+  price_data?: {
+    currency: string
+    product: string
+    recurring: {
+      interval: "day" | "month" | "week" | "year" | UnknownEnumStringValue
+      interval_count?: number
+    }
+    tax_behavior?:
+      | "exclusive"
+      | "inclusive"
+      | "unspecified"
+      | UnknownEnumStringValue
+    unit_amount?: number
+    unit_amount_decimal?: string
+  }
+  proration_behavior?:
+    | "always_invoice"
+    | "create_prorations"
+    | "none"
+    | UnknownEnumStringValue
+  proration_date?: number
+  quantity?: number
+  tax_rates?: string[] | "" | UnknownEnumStringValue
+}
+
+export type t_PostSubscriptionSchedulesRequestBody = {
+  billing_mode?: {
+    type: "classic" | "flexible" | UnknownEnumStringValue
+  }
+  customer?: string
+  default_settings?: {
+    application_fee_percent?: number
+    automatic_tax?: {
+      enabled: boolean
+      liability?: {
+        account?: string
+        type: "account" | "self" | UnknownEnumStringValue
+      }
+    }
+    billing_cycle_anchor?: "automatic" | "phase_start" | UnknownEnumStringValue
+    billing_thresholds?:
+      | {
+          amount_gte?: number
+          reset_billing_cycle_anchor?: boolean
+        }
+      | ""
+      | UnknownEnumStringValue
+    collection_method?:
+      | "charge_automatically"
+      | "send_invoice"
+      | UnknownEnumStringValue
+    default_payment_method?: string
+    description?: string | "" | UnknownEnumStringValue
+    invoice_settings?: {
+      account_tax_ids?: string[] | "" | UnknownEnumStringValue
+      days_until_due?: number
+      issuer?: {
+        account?: string
+        type: "account" | "self" | UnknownEnumStringValue
+      }
+    }
+    on_behalf_of?: string | "" | UnknownEnumStringValue
+    transfer_data?:
+      | {
+          amount_percent?: number
+          destination: string
+        }
+      | ""
+      | UnknownEnumStringValue
+  }
+  end_behavior?:
+    | "cancel"
+    | "none"
+    | "release"
+    | "renew"
+    | UnknownEnumStringValue
+  expand?: string[]
+  from_subscription?: string
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | ""
+    | UnknownEnumStringValue
+  phases?: {
+    add_invoice_items?: {
+      discounts?: {
+        coupon?: string
+        discount?: string
+        promotion_code?: string
+      }[]
+      price?: string
+      price_data?: {
+        currency: string
+        product: string
+        tax_behavior?:
+          | "exclusive"
+          | "inclusive"
+          | "unspecified"
+          | UnknownEnumStringValue
+        unit_amount?: number
+        unit_amount_decimal?: string
+      }
+      quantity?: number
+      tax_rates?: string[] | "" | UnknownEnumStringValue
+    }[]
+    application_fee_percent?: number
+    automatic_tax?: {
+      enabled: boolean
+      liability?: {
+        account?: string
+        type: "account" | "self" | UnknownEnumStringValue
+      }
+    }
+    billing_cycle_anchor?: "automatic" | "phase_start" | UnknownEnumStringValue
+    billing_thresholds?:
+      | {
+          amount_gte?: number
+          reset_billing_cycle_anchor?: boolean
+        }
+      | ""
+      | UnknownEnumStringValue
+    collection_method?:
+      | "charge_automatically"
+      | "send_invoice"
+      | UnknownEnumStringValue
+    currency?: string
+    default_payment_method?: string
+    default_tax_rates?: string[] | "" | UnknownEnumStringValue
+    description?: string | "" | UnknownEnumStringValue
+    discounts?:
+      | {
+          coupon?: string
+          discount?: string
+          promotion_code?: string
+        }[]
+      | ""
+      | UnknownEnumStringValue
+    duration?: {
+      interval: "day" | "month" | "week" | "year" | UnknownEnumStringValue
+      interval_count?: number
+    }
+    end_date?: number
+    invoice_settings?: {
+      account_tax_ids?: string[] | "" | UnknownEnumStringValue
+      days_until_due?: number
+      issuer?: {
+        account?: string
+        type: "account" | "self" | UnknownEnumStringValue
+      }
+    }
+    items: {
+      billing_thresholds?:
+        | {
+            usage_gte: number
+          }
+        | ""
+        | UnknownEnumStringValue
+      discounts?:
+        | {
+            coupon?: string
+            discount?: string
+            promotion_code?: string
+          }[]
+        | ""
+        | UnknownEnumStringValue
+      metadata?: {
+        [key: string]: string | undefined
+      }
+      price?: string
+      price_data?: {
+        currency: string
+        product: string
+        recurring: {
+          interval: "day" | "month" | "week" | "year" | UnknownEnumStringValue
+          interval_count?: number
+        }
+        tax_behavior?:
+          | "exclusive"
+          | "inclusive"
+          | "unspecified"
+          | UnknownEnumStringValue
+        unit_amount?: number
+        unit_amount_decimal?: string
+      }
+      quantity?: number
+      tax_rates?: string[] | "" | UnknownEnumStringValue
+    }[]
+    iterations?: number
+    metadata?: {
+      [key: string]: string | undefined
+    }
+    on_behalf_of?: string
+    proration_behavior?:
+      | "always_invoice"
+      | "create_prorations"
+      | "none"
+      | UnknownEnumStringValue
+    transfer_data?: {
+      amount_percent?: number
+      destination: string
+    }
+    trial?: boolean
+    trial_end?: number
+  }[]
+  start_date?: number | "now" | UnknownEnumStringValue
+}
+
+export type t_PostSubscriptionSchedulesScheduleRequestBody = {
+  default_settings?: {
+    application_fee_percent?: number
+    automatic_tax?: {
+      enabled: boolean
+      liability?: {
+        account?: string
+        type: "account" | "self" | UnknownEnumStringValue
+      }
+    }
+    billing_cycle_anchor?: "automatic" | "phase_start" | UnknownEnumStringValue
+    billing_thresholds?:
+      | {
+          amount_gte?: number
+          reset_billing_cycle_anchor?: boolean
+        }
+      | ""
+      | UnknownEnumStringValue
+    collection_method?:
+      | "charge_automatically"
+      | "send_invoice"
+      | UnknownEnumStringValue
+    default_payment_method?: string
+    description?: string | "" | UnknownEnumStringValue
+    invoice_settings?: {
+      account_tax_ids?: string[] | "" | UnknownEnumStringValue
+      days_until_due?: number
+      issuer?: {
+        account?: string
+        type: "account" | "self" | UnknownEnumStringValue
+      }
+    }
+    on_behalf_of?: string | "" | UnknownEnumStringValue
+    transfer_data?:
+      | {
+          amount_percent?: number
+          destination: string
+        }
+      | ""
+      | UnknownEnumStringValue
+  }
+  end_behavior?:
+    | "cancel"
+    | "none"
+    | "release"
+    | "renew"
+    | UnknownEnumStringValue
+  expand?: string[]
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | ""
+    | UnknownEnumStringValue
+  phases?: {
+    add_invoice_items?: {
+      discounts?: {
+        coupon?: string
+        discount?: string
+        promotion_code?: string
+      }[]
+      price?: string
+      price_data?: {
+        currency: string
+        product: string
+        tax_behavior?:
+          | "exclusive"
+          | "inclusive"
+          | "unspecified"
+          | UnknownEnumStringValue
+        unit_amount?: number
+        unit_amount_decimal?: string
+      }
+      quantity?: number
+      tax_rates?: string[] | "" | UnknownEnumStringValue
+    }[]
+    application_fee_percent?: number
+    automatic_tax?: {
+      enabled: boolean
+      liability?: {
+        account?: string
+        type: "account" | "self" | UnknownEnumStringValue
+      }
+    }
+    billing_cycle_anchor?: "automatic" | "phase_start" | UnknownEnumStringValue
+    billing_thresholds?:
+      | {
+          amount_gte?: number
+          reset_billing_cycle_anchor?: boolean
+        }
+      | ""
+      | UnknownEnumStringValue
+    collection_method?:
+      | "charge_automatically"
+      | "send_invoice"
+      | UnknownEnumStringValue
+    default_payment_method?: string
+    default_tax_rates?: string[] | "" | UnknownEnumStringValue
+    description?: string | "" | UnknownEnumStringValue
+    discounts?:
+      | {
+          coupon?: string
+          discount?: string
+          promotion_code?: string
+        }[]
+      | ""
+      | UnknownEnumStringValue
+    duration?: {
+      interval: "day" | "month" | "week" | "year" | UnknownEnumStringValue
+      interval_count?: number
+    }
+    end_date?: number | "now" | UnknownEnumStringValue
+    invoice_settings?: {
+      account_tax_ids?: string[] | "" | UnknownEnumStringValue
+      days_until_due?: number
+      issuer?: {
+        account?: string
+        type: "account" | "self" | UnknownEnumStringValue
+      }
+    }
+    items: {
+      billing_thresholds?:
+        | {
+            usage_gte: number
+          }
+        | ""
+        | UnknownEnumStringValue
+      discounts?:
+        | {
+            coupon?: string
+            discount?: string
+            promotion_code?: string
+          }[]
+        | ""
+        | UnknownEnumStringValue
+      metadata?: {
+        [key: string]: string | undefined
+      }
+      price?: string
+      price_data?: {
+        currency: string
+        product: string
+        recurring: {
+          interval: "day" | "month" | "week" | "year" | UnknownEnumStringValue
+          interval_count?: number
+        }
+        tax_behavior?:
+          | "exclusive"
+          | "inclusive"
+          | "unspecified"
+          | UnknownEnumStringValue
+        unit_amount?: number
+        unit_amount_decimal?: string
+      }
+      quantity?: number
+      tax_rates?: string[] | "" | UnknownEnumStringValue
+    }[]
+    iterations?: number
+    metadata?: {
+      [key: string]: string | undefined
+    }
+    on_behalf_of?: string
+    proration_behavior?:
+      | "always_invoice"
+      | "create_prorations"
+      | "none"
+      | UnknownEnumStringValue
+    start_date?: number | "now" | UnknownEnumStringValue
+    transfer_data?: {
+      amount_percent?: number
+      destination: string
+    }
+    trial?: boolean
+    trial_end?: number | "now" | UnknownEnumStringValue
+  }[]
+  proration_behavior?:
+    | "always_invoice"
+    | "create_prorations"
+    | "none"
+    | UnknownEnumStringValue
+}
+
+export type t_PostSubscriptionSchedulesScheduleCancelRequestBody = {
+  expand?: string[]
+  invoice_now?: boolean
+  prorate?: boolean
+}
+
+export type t_PostSubscriptionSchedulesScheduleReleaseRequestBody = {
+  expand?: string[]
+  preserve_cancel_date?: boolean
+}
+
+export type t_PostSubscriptionsRequestBody = {
+  add_invoice_items?: {
+    discounts?: {
+      coupon?: string
+      discount?: string
+      promotion_code?: string
+    }[]
+    price?: string
+    price_data?: {
+      currency: string
+      product: string
+      tax_behavior?:
+        | "exclusive"
+        | "inclusive"
+        | "unspecified"
+        | UnknownEnumStringValue
+      unit_amount?: number
+      unit_amount_decimal?: string
+    }
+    quantity?: number
+    tax_rates?: string[] | "" | UnknownEnumStringValue
+  }[]
+  application_fee_percent?: number | "" | UnknownEnumStringValue
+  automatic_tax?: {
+    enabled: boolean
+    liability?: {
+      account?: string
+      type: "account" | "self" | UnknownEnumStringValue
+    }
+  }
+  backdate_start_date?: number
+  billing_cycle_anchor?: number
+  billing_cycle_anchor_config?: {
+    day_of_month: number
+    hour?: number
+    minute?: number
+    month?: number
+    second?: number
+  }
+  billing_mode?: {
+    type: "classic" | "flexible" | UnknownEnumStringValue
+  }
+  billing_thresholds?:
+    | {
+        amount_gte?: number
+        reset_billing_cycle_anchor?: boolean
+      }
+    | ""
+    | UnknownEnumStringValue
+  cancel_at?:
+    | number
+    | "max_period_end"
+    | "min_period_end"
+    | UnknownEnumStringValue
+  cancel_at_period_end?: boolean
+  collection_method?:
+    | "charge_automatically"
+    | "send_invoice"
+    | UnknownEnumStringValue
+  currency?: string
+  customer: string
+  days_until_due?: number
+  default_payment_method?: string
+  default_source?: string
+  default_tax_rates?: string[] | "" | UnknownEnumStringValue
+  description?: string
+  discounts?:
+    | {
+        coupon?: string
+        discount?: string
+        promotion_code?: string
+      }[]
+    | ""
+    | UnknownEnumStringValue
+  expand?: string[]
+  invoice_settings?: {
+    account_tax_ids?: string[] | "" | UnknownEnumStringValue
+    issuer?: {
+      account?: string
+      type: "account" | "self" | UnknownEnumStringValue
+    }
+  }
+  items?: {
+    billing_thresholds?:
+      | {
+          usage_gte: number
+        }
+      | ""
+      | UnknownEnumStringValue
+    discounts?:
+      | {
+          coupon?: string
+          discount?: string
+          promotion_code?: string
+        }[]
+      | ""
+      | UnknownEnumStringValue
+    metadata?: {
+      [key: string]: string | undefined
+    }
+    price?: string
+    price_data?: {
+      currency: string
+      product: string
+      recurring: {
+        interval: "day" | "month" | "week" | "year" | UnknownEnumStringValue
+        interval_count?: number
+      }
+      tax_behavior?:
+        | "exclusive"
+        | "inclusive"
+        | "unspecified"
+        | UnknownEnumStringValue
+      unit_amount?: number
+      unit_amount_decimal?: string
+    }
+    quantity?: number
+    tax_rates?: string[] | "" | UnknownEnumStringValue
+  }[]
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | ""
+    | UnknownEnumStringValue
+  off_session?: boolean
+  on_behalf_of?: string | "" | UnknownEnumStringValue
+  payment_behavior?:
+    | "allow_incomplete"
+    | "default_incomplete"
+    | "error_if_incomplete"
+    | "pending_if_incomplete"
+    | UnknownEnumStringValue
+  payment_settings?: {
+    payment_method_options?: {
+      acss_debit?:
+        | {
+            mandate_options?: {
+              transaction_type?:
+                | "business"
+                | "personal"
+                | UnknownEnumStringValue
+            }
+            verification_method?:
+              | "automatic"
+              | "instant"
+              | "microdeposits"
+              | UnknownEnumStringValue
+          }
+        | ""
+        | UnknownEnumStringValue
+      bancontact?:
+        | {
+            preferred_language?:
+              | "de"
+              | "en"
+              | "fr"
+              | "nl"
+              | UnknownEnumStringValue
+          }
+        | ""
+        | UnknownEnumStringValue
+      card?:
+        | {
+            mandate_options?: {
+              amount?: number
+              amount_type?: "fixed" | "maximum" | UnknownEnumStringValue
+              description?: string
+            }
+            network?:
+              | "amex"
+              | "cartes_bancaires"
+              | "diners"
+              | "discover"
+              | "eftpos_au"
+              | "girocard"
+              | "interac"
+              | "jcb"
+              | "link"
+              | "mastercard"
+              | "unionpay"
+              | "unknown"
+              | "visa"
+              | UnknownEnumStringValue
+            request_three_d_secure?:
+              | "any"
+              | "automatic"
+              | "challenge"
+              | UnknownEnumStringValue
+          }
+        | ""
+        | UnknownEnumStringValue
+      customer_balance?:
+        | {
+            bank_transfer?: {
+              eu_bank_transfer?: {
+                country: string
+              }
+              type?: string
+            }
+            funding_type?: string
+          }
+        | ""
+        | UnknownEnumStringValue
+      konbini?: EmptyObject | "" | UnknownEnumStringValue
+      sepa_debit?: EmptyObject | "" | UnknownEnumStringValue
+      us_bank_account?:
+        | {
+            financial_connections?: {
+              filters?: {
+                account_subcategories?: (
+                  | "checking"
+                  | "savings"
+                  | UnknownEnumStringValue
+                )[]
+              }
+              permissions?: (
+                | "balances"
+                | "ownership"
+                | "payment_method"
+                | "transactions"
+                | UnknownEnumStringValue
+              )[]
+              prefetch?: (
+                | "balances"
+                | "ownership"
+                | "transactions"
+                | UnknownEnumStringValue
+              )[]
+            }
+            verification_method?:
+              | "automatic"
+              | "instant"
+              | "microdeposits"
+              | UnknownEnumStringValue
+          }
+        | ""
+        | UnknownEnumStringValue
+    }
+    payment_method_types?:
+      | (
+          | "ach_credit_transfer"
+          | "ach_debit"
+          | "acss_debit"
+          | "affirm"
+          | "amazon_pay"
+          | "au_becs_debit"
+          | "bacs_debit"
+          | "bancontact"
+          | "boleto"
+          | "card"
+          | "cashapp"
+          | "crypto"
+          | "customer_balance"
+          | "eps"
+          | "fpx"
+          | "giropay"
+          | "grabpay"
+          | "ideal"
+          | "jp_credit_transfer"
+          | "kakao_pay"
+          | "klarna"
+          | "konbini"
+          | "kr_card"
+          | "link"
+          | "multibanco"
+          | "naver_pay"
+          | "nz_bank_account"
+          | "p24"
+          | "payco"
+          | "paynow"
+          | "paypal"
+          | "promptpay"
+          | "revolut_pay"
+          | "sepa_credit_transfer"
+          | "sepa_debit"
+          | "sofort"
+          | "swish"
+          | "us_bank_account"
+          | "wechat_pay"
+          | UnknownEnumStringValue
+        )[]
+      | ""
+      | UnknownEnumStringValue
+    save_default_payment_method?:
+      | "off"
+      | "on_subscription"
+      | UnknownEnumStringValue
+  }
+  pending_invoice_item_interval?:
+    | {
+        interval: "day" | "month" | "week" | "year" | UnknownEnumStringValue
+        interval_count?: number
+      }
+    | ""
+    | UnknownEnumStringValue
+  proration_behavior?:
+    | "always_invoice"
+    | "create_prorations"
+    | "none"
+    | UnknownEnumStringValue
+  transfer_data?: {
+    amount_percent?: number
+    destination: string
+  }
+  trial_end?: "now" | UnknownEnumStringValue | number
+  trial_from_plan?: boolean
+  trial_period_days?: number
+  trial_settings?: {
+    end_behavior: {
+      missing_payment_method:
+        | "cancel"
+        | "create_invoice"
+        | "pause"
+        | UnknownEnumStringValue
+    }
+  }
+}
+
+export type t_PostSubscriptionsSubscriptionExposedIdRequestBody = {
+  add_invoice_items?: {
+    discounts?: {
+      coupon?: string
+      discount?: string
+      promotion_code?: string
+    }[]
+    price?: string
+    price_data?: {
+      currency: string
+      product: string
+      tax_behavior?:
+        | "exclusive"
+        | "inclusive"
+        | "unspecified"
+        | UnknownEnumStringValue
+      unit_amount?: number
+      unit_amount_decimal?: string
+    }
+    quantity?: number
+    tax_rates?: string[] | "" | UnknownEnumStringValue
+  }[]
+  application_fee_percent?: number | "" | UnknownEnumStringValue
+  automatic_tax?: {
+    enabled: boolean
+    liability?: {
+      account?: string
+      type: "account" | "self" | UnknownEnumStringValue
+    }
+  }
+  billing_cycle_anchor?: "now" | "unchanged" | UnknownEnumStringValue
+  billing_thresholds?:
+    | {
+        amount_gte?: number
+        reset_billing_cycle_anchor?: boolean
+      }
+    | ""
+    | UnknownEnumStringValue
+  cancel_at?:
+    | number
+    | ""
+    | UnknownEnumStringValue
+    | "max_period_end"
+    | "min_period_end"
+  cancel_at_period_end?: boolean
+  cancellation_details?: {
+    comment?: string | "" | UnknownEnumStringValue
+    feedback?:
+      | ""
+      | "customer_service"
+      | "low_quality"
+      | "missing_features"
+      | "other"
+      | "switched_service"
+      | "too_complex"
+      | "too_expensive"
+      | "unused"
+      | UnknownEnumStringValue
+  }
+  collection_method?:
+    | "charge_automatically"
+    | "send_invoice"
+    | UnknownEnumStringValue
+  days_until_due?: number
+  default_payment_method?: string
+  default_source?: string | "" | UnknownEnumStringValue
+  default_tax_rates?: string[] | "" | UnknownEnumStringValue
+  description?: string | "" | UnknownEnumStringValue
+  discounts?:
+    | {
+        coupon?: string
+        discount?: string
+        promotion_code?: string
+      }[]
+    | ""
+    | UnknownEnumStringValue
+  expand?: string[]
+  invoice_settings?: {
+    account_tax_ids?: string[] | "" | UnknownEnumStringValue
+    issuer?: {
+      account?: string
+      type: "account" | "self" | UnknownEnumStringValue
+    }
+  }
+  items?: {
+    billing_thresholds?:
+      | {
+          usage_gte: number
+        }
+      | ""
+      | UnknownEnumStringValue
+    clear_usage?: boolean
+    deleted?: boolean
+    discounts?:
+      | {
+          coupon?: string
+          discount?: string
+          promotion_code?: string
+        }[]
+      | ""
+      | UnknownEnumStringValue
+    id?: string
+    metadata?:
+      | {
+          [key: string]: string | undefined
+        }
+      | ""
+      | UnknownEnumStringValue
+    price?: string
+    price_data?: {
+      currency: string
+      product: string
+      recurring: {
+        interval: "day" | "month" | "week" | "year" | UnknownEnumStringValue
+        interval_count?: number
+      }
+      tax_behavior?:
+        | "exclusive"
+        | "inclusive"
+        | "unspecified"
+        | UnknownEnumStringValue
+      unit_amount?: number
+      unit_amount_decimal?: string
+    }
+    quantity?: number
+    tax_rates?: string[] | "" | UnknownEnumStringValue
+  }[]
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | ""
+    | UnknownEnumStringValue
+  off_session?: boolean
+  on_behalf_of?: string | "" | UnknownEnumStringValue
+  pause_collection?:
+    | {
+        behavior:
+          | "keep_as_draft"
+          | "mark_uncollectible"
+          | "void"
+          | UnknownEnumStringValue
+        resumes_at?: number
+      }
+    | ""
+    | UnknownEnumStringValue
+  payment_behavior?:
+    | "allow_incomplete"
+    | "default_incomplete"
+    | "error_if_incomplete"
+    | "pending_if_incomplete"
+    | UnknownEnumStringValue
+  payment_settings?: {
+    payment_method_options?: {
+      acss_debit?:
+        | {
+            mandate_options?: {
+              transaction_type?:
+                | "business"
+                | "personal"
+                | UnknownEnumStringValue
+            }
+            verification_method?:
+              | "automatic"
+              | "instant"
+              | "microdeposits"
+              | UnknownEnumStringValue
+          }
+        | ""
+        | UnknownEnumStringValue
+      bancontact?:
+        | {
+            preferred_language?:
+              | "de"
+              | "en"
+              | "fr"
+              | "nl"
+              | UnknownEnumStringValue
+          }
+        | ""
+        | UnknownEnumStringValue
+      card?:
+        | {
+            mandate_options?: {
+              amount?: number
+              amount_type?: "fixed" | "maximum" | UnknownEnumStringValue
+              description?: string
+            }
+            network?:
+              | "amex"
+              | "cartes_bancaires"
+              | "diners"
+              | "discover"
+              | "eftpos_au"
+              | "girocard"
+              | "interac"
+              | "jcb"
+              | "link"
+              | "mastercard"
+              | "unionpay"
+              | "unknown"
+              | "visa"
+              | UnknownEnumStringValue
+            request_three_d_secure?:
+              | "any"
+              | "automatic"
+              | "challenge"
+              | UnknownEnumStringValue
+          }
+        | ""
+        | UnknownEnumStringValue
+      customer_balance?:
+        | {
+            bank_transfer?: {
+              eu_bank_transfer?: {
+                country: string
+              }
+              type?: string
+            }
+            funding_type?: string
+          }
+        | ""
+        | UnknownEnumStringValue
+      konbini?: EmptyObject | "" | UnknownEnumStringValue
+      sepa_debit?: EmptyObject | "" | UnknownEnumStringValue
+      us_bank_account?:
+        | {
+            financial_connections?: {
+              filters?: {
+                account_subcategories?: (
+                  | "checking"
+                  | "savings"
+                  | UnknownEnumStringValue
+                )[]
+              }
+              permissions?: (
+                | "balances"
+                | "ownership"
+                | "payment_method"
+                | "transactions"
+                | UnknownEnumStringValue
+              )[]
+              prefetch?: (
+                | "balances"
+                | "ownership"
+                | "transactions"
+                | UnknownEnumStringValue
+              )[]
+            }
+            verification_method?:
+              | "automatic"
+              | "instant"
+              | "microdeposits"
+              | UnknownEnumStringValue
+          }
+        | ""
+        | UnknownEnumStringValue
+    }
+    payment_method_types?:
+      | (
+          | "ach_credit_transfer"
+          | "ach_debit"
+          | "acss_debit"
+          | "affirm"
+          | "amazon_pay"
+          | "au_becs_debit"
+          | "bacs_debit"
+          | "bancontact"
+          | "boleto"
+          | "card"
+          | "cashapp"
+          | "crypto"
+          | "customer_balance"
+          | "eps"
+          | "fpx"
+          | "giropay"
+          | "grabpay"
+          | "ideal"
+          | "jp_credit_transfer"
+          | "kakao_pay"
+          | "klarna"
+          | "konbini"
+          | "kr_card"
+          | "link"
+          | "multibanco"
+          | "naver_pay"
+          | "nz_bank_account"
+          | "p24"
+          | "payco"
+          | "paynow"
+          | "paypal"
+          | "promptpay"
+          | "revolut_pay"
+          | "sepa_credit_transfer"
+          | "sepa_debit"
+          | "sofort"
+          | "swish"
+          | "us_bank_account"
+          | "wechat_pay"
+          | UnknownEnumStringValue
+        )[]
+      | ""
+      | UnknownEnumStringValue
+    save_default_payment_method?:
+      | "off"
+      | "on_subscription"
+      | UnknownEnumStringValue
+  }
+  pending_invoice_item_interval?:
+    | {
+        interval: "day" | "month" | "week" | "year" | UnknownEnumStringValue
+        interval_count?: number
+      }
+    | ""
+    | UnknownEnumStringValue
+  proration_behavior?:
+    | "always_invoice"
+    | "create_prorations"
+    | "none"
+    | UnknownEnumStringValue
+  proration_date?: number
+  transfer_data?:
+    | {
+        amount_percent?: number
+        destination: string
+      }
+    | ""
+    | UnknownEnumStringValue
+  trial_end?: "now" | UnknownEnumStringValue | number
+  trial_from_plan?: boolean
+  trial_settings?: {
+    end_behavior: {
+      missing_payment_method:
+        | "cancel"
+        | "create_invoice"
+        | "pause"
+        | UnknownEnumStringValue
+    }
+  }
+}
+
+export type t_PostSubscriptionsSubscriptionMigrateRequestBody = {
+  billing_mode: {
+    type: "flexible" | UnknownEnumStringValue
+  }
+  expand?: string[]
+}
+
+export type t_PostSubscriptionsSubscriptionResumeRequestBody = {
+  billing_cycle_anchor?: "now" | "unchanged" | UnknownEnumStringValue
+  expand?: string[]
+  proration_behavior?:
+    | "always_invoice"
+    | "create_prorations"
+    | "none"
+    | UnknownEnumStringValue
+  proration_date?: number
+}
+
+export type t_PostTaxCalculationsRequestBody = {
+  currency: string
+  customer?: string
+  customer_details?: {
+    address?: {
+      city?: string | "" | UnknownEnumStringValue
+      country: string
+      line1?: string | "" | UnknownEnumStringValue
+      line2?: string | "" | UnknownEnumStringValue
+      postal_code?: string | "" | UnknownEnumStringValue
+      state?: string | "" | UnknownEnumStringValue
+    }
+    address_source?: "billing" | "shipping" | UnknownEnumStringValue
+    ip_address?: string
+    tax_ids?: {
+      type:
+        | "ad_nrt"
+        | "ae_trn"
+        | "al_tin"
+        | "am_tin"
+        | "ao_tin"
+        | "ar_cuit"
+        | "au_abn"
+        | "au_arn"
+        | "aw_tin"
+        | "az_tin"
+        | "ba_tin"
+        | "bb_tin"
+        | "bd_bin"
+        | "bf_ifu"
+        | "bg_uic"
+        | "bh_vat"
+        | "bj_ifu"
+        | "bo_tin"
+        | "br_cnpj"
+        | "br_cpf"
+        | "bs_tin"
+        | "by_tin"
+        | "ca_bn"
+        | "ca_gst_hst"
+        | "ca_pst_bc"
+        | "ca_pst_mb"
+        | "ca_pst_sk"
+        | "ca_qst"
+        | "cd_nif"
+        | "ch_uid"
+        | "ch_vat"
+        | "cl_tin"
+        | "cm_niu"
+        | "cn_tin"
+        | "co_nit"
+        | "cr_tin"
+        | "cv_nif"
+        | "de_stn"
+        | "do_rcn"
+        | "ec_ruc"
+        | "eg_tin"
+        | "es_cif"
+        | "et_tin"
+        | "eu_oss_vat"
+        | "eu_vat"
+        | "gb_vat"
+        | "ge_vat"
+        | "gn_nif"
+        | "hk_br"
+        | "hr_oib"
+        | "hu_tin"
+        | "id_npwp"
+        | "il_vat"
+        | "in_gst"
+        | "is_vat"
+        | "jp_cn"
+        | "jp_rn"
+        | "jp_trn"
+        | "ke_pin"
+        | "kg_tin"
+        | "kh_tin"
+        | "kr_brn"
+        | "kz_bin"
+        | "la_tin"
+        | "li_uid"
+        | "li_vat"
+        | "ma_vat"
+        | "md_vat"
+        | "me_pib"
+        | "mk_vat"
+        | "mr_nif"
+        | "mx_rfc"
+        | "my_frp"
+        | "my_itn"
+        | "my_sst"
+        | "ng_tin"
+        | "no_vat"
+        | "no_voec"
+        | "np_pan"
+        | "nz_gst"
+        | "om_vat"
+        | "pe_ruc"
+        | "ph_tin"
+        | "ro_tin"
+        | "rs_pib"
+        | "ru_inn"
+        | "ru_kpp"
+        | "sa_vat"
+        | "sg_gst"
+        | "sg_uen"
+        | "si_tin"
+        | "sn_ninea"
+        | "sr_fin"
+        | "sv_nit"
+        | "th_vat"
+        | "tj_tin"
+        | "tr_tin"
+        | "tw_vat"
+        | "tz_vat"
+        | "ua_vat"
+        | "ug_tin"
+        | "us_ein"
+        | "uy_ruc"
+        | "uz_tin"
+        | "uz_vat"
+        | "ve_rif"
+        | "vn_tin"
+        | "za_vat"
+        | "zm_tin"
+        | "zw_tin"
+        | UnknownEnumStringValue
+      value: string
+    }[]
+    taxability_override?:
+      | "customer_exempt"
+      | "none"
+      | "reverse_charge"
+      | UnknownEnumStringValue
+  }
+  expand?: string[]
+  line_items: {
+    amount: number
+    metadata?: {
+      [key: string]: string | undefined
+    }
+    product?: string
+    quantity?: number
+    reference?: string
+    tax_behavior?: "exclusive" | "inclusive" | UnknownEnumStringValue
+    tax_code?: string
+  }[]
+  ship_from_details?: {
+    address: {
+      city?: string | "" | UnknownEnumStringValue
+      country: string
+      line1?: string | "" | UnknownEnumStringValue
+      line2?: string | "" | UnknownEnumStringValue
+      postal_code?: string | "" | UnknownEnumStringValue
+      state?: string | "" | UnknownEnumStringValue
+    }
+  }
+  shipping_cost?: {
+    amount?: number
+    shipping_rate?: string
+    tax_behavior?: "exclusive" | "inclusive" | UnknownEnumStringValue
+    tax_code?: string
+  }
+  tax_date?: number
+}
+
+export type t_PostTaxIdsRequestBody = {
+  expand?: string[]
+  owner?: {
+    account?: string
+    customer?: string
+    type:
+      | "account"
+      | "application"
+      | "customer"
+      | "self"
+      | UnknownEnumStringValue
+  }
+  type:
+    | "ad_nrt"
+    | "ae_trn"
+    | "al_tin"
+    | "am_tin"
+    | "ao_tin"
+    | "ar_cuit"
+    | "au_abn"
+    | "au_arn"
+    | "aw_tin"
+    | "az_tin"
+    | "ba_tin"
+    | "bb_tin"
+    | "bd_bin"
+    | "bf_ifu"
+    | "bg_uic"
+    | "bh_vat"
+    | "bj_ifu"
+    | "bo_tin"
+    | "br_cnpj"
+    | "br_cpf"
+    | "bs_tin"
+    | "by_tin"
+    | "ca_bn"
+    | "ca_gst_hst"
+    | "ca_pst_bc"
+    | "ca_pst_mb"
+    | "ca_pst_sk"
+    | "ca_qst"
+    | "cd_nif"
+    | "ch_uid"
+    | "ch_vat"
+    | "cl_tin"
+    | "cm_niu"
+    | "cn_tin"
+    | "co_nit"
+    | "cr_tin"
+    | "cv_nif"
+    | "de_stn"
+    | "do_rcn"
+    | "ec_ruc"
+    | "eg_tin"
+    | "es_cif"
+    | "et_tin"
+    | "eu_oss_vat"
+    | "eu_vat"
+    | "gb_vat"
+    | "ge_vat"
+    | "gn_nif"
+    | "hk_br"
+    | "hr_oib"
+    | "hu_tin"
+    | "id_npwp"
+    | "il_vat"
+    | "in_gst"
+    | "is_vat"
+    | "jp_cn"
+    | "jp_rn"
+    | "jp_trn"
+    | "ke_pin"
+    | "kg_tin"
+    | "kh_tin"
+    | "kr_brn"
+    | "kz_bin"
+    | "la_tin"
+    | "li_uid"
+    | "li_vat"
+    | "ma_vat"
+    | "md_vat"
+    | "me_pib"
+    | "mk_vat"
+    | "mr_nif"
+    | "mx_rfc"
+    | "my_frp"
+    | "my_itn"
+    | "my_sst"
+    | "ng_tin"
+    | "no_vat"
+    | "no_voec"
+    | "np_pan"
+    | "nz_gst"
+    | "om_vat"
+    | "pe_ruc"
+    | "ph_tin"
+    | "ro_tin"
+    | "rs_pib"
+    | "ru_inn"
+    | "ru_kpp"
+    | "sa_vat"
+    | "sg_gst"
+    | "sg_uen"
+    | "si_tin"
+    | "sn_ninea"
+    | "sr_fin"
+    | "sv_nit"
+    | "th_vat"
+    | "tj_tin"
+    | "tr_tin"
+    | "tw_vat"
+    | "tz_vat"
+    | "ua_vat"
+    | "ug_tin"
+    | "us_ein"
+    | "uy_ruc"
+    | "uz_tin"
+    | "uz_vat"
+    | "ve_rif"
+    | "vn_tin"
+    | "za_vat"
+    | "zm_tin"
+    | "zw_tin"
+    | UnknownEnumStringValue
+  value: string
+}
+
+export type t_PostTaxRatesRequestBody = {
+  active?: boolean
+  country?: string
+  description?: string
+  display_name: string
+  expand?: string[]
+  inclusive: boolean
+  jurisdiction?: string
+  metadata?: {
+    [key: string]: string | undefined
+  }
+  percentage: number
+  state?: string
+  tax_type?:
+    | "amusement_tax"
+    | "communications_tax"
+    | "gst"
+    | "hst"
+    | "igst"
+    | "jct"
+    | "lease_tax"
+    | "pst"
+    | "qst"
+    | "retail_delivery_fee"
+    | "rst"
+    | "sales_tax"
+    | "service_tax"
+    | "vat"
+    | UnknownEnumStringValue
+}
+
+export type t_PostTaxRatesTaxRateRequestBody = {
+  active?: boolean
+  country?: string
+  description?: string
+  display_name?: string
+  expand?: string[]
+  jurisdiction?: string
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | ""
+    | UnknownEnumStringValue
+  state?: string
+  tax_type?:
+    | "amusement_tax"
+    | "communications_tax"
+    | "gst"
+    | "hst"
+    | "igst"
+    | "jct"
+    | "lease_tax"
+    | "pst"
+    | "qst"
+    | "retail_delivery_fee"
+    | "rst"
+    | "sales_tax"
+    | "service_tax"
+    | "vat"
+    | UnknownEnumStringValue
+}
+
+export type t_PostTaxRegistrationsRequestBody = {
+  active_from: "now" | UnknownEnumStringValue | number
+  country: string
+  country_options: {
+    ae?: {
+      standard?: {
+        place_of_supply_scheme?:
+          | "inbound_goods"
+          | "standard"
+          | UnknownEnumStringValue
+      }
+      type: "standard" | UnknownEnumStringValue
+    }
+    al?: {
+      standard?: {
+        place_of_supply_scheme?:
+          | "inbound_goods"
+          | "standard"
+          | UnknownEnumStringValue
+      }
+      type: "standard" | UnknownEnumStringValue
+    }
+    am?: {
+      type: "simplified" | UnknownEnumStringValue
+    }
+    ao?: {
+      standard?: {
+        place_of_supply_scheme?:
+          | "inbound_goods"
+          | "standard"
+          | UnknownEnumStringValue
+      }
+      type: "standard" | UnknownEnumStringValue
+    }
+    at?: {
+      standard?: {
+        place_of_supply_scheme:
+          | "inbound_goods"
+          | "small_seller"
+          | "standard"
+          | UnknownEnumStringValue
+      }
+      type:
+        | "ioss"
+        | "oss_non_union"
+        | "oss_union"
+        | "standard"
+        | UnknownEnumStringValue
+    }
+    au?: {
+      standard?: {
+        place_of_supply_scheme?:
+          | "inbound_goods"
+          | "standard"
+          | UnknownEnumStringValue
+      }
+      type: "standard" | UnknownEnumStringValue
+    }
+    aw?: {
+      standard?: {
+        place_of_supply_scheme?:
+          | "inbound_goods"
+          | "standard"
+          | UnknownEnumStringValue
+      }
+      type: "standard" | UnknownEnumStringValue
+    }
+    az?: {
+      type: "simplified" | UnknownEnumStringValue
+    }
+    ba?: {
+      standard?: {
+        place_of_supply_scheme?:
+          | "inbound_goods"
+          | "standard"
+          | UnknownEnumStringValue
+      }
+      type: "standard" | UnknownEnumStringValue
+    }
+    bb?: {
+      standard?: {
+        place_of_supply_scheme?:
+          | "inbound_goods"
+          | "standard"
+          | UnknownEnumStringValue
+      }
+      type: "standard" | UnknownEnumStringValue
+    }
+    bd?: {
+      standard?: {
+        place_of_supply_scheme?:
+          | "inbound_goods"
+          | "standard"
+          | UnknownEnumStringValue
+      }
+      type: "standard" | UnknownEnumStringValue
+    }
+    be?: {
+      standard?: {
+        place_of_supply_scheme:
+          | "inbound_goods"
+          | "small_seller"
+          | "standard"
+          | UnknownEnumStringValue
+      }
+      type:
+        | "ioss"
+        | "oss_non_union"
+        | "oss_union"
+        | "standard"
+        | UnknownEnumStringValue
+    }
+    bf?: {
+      standard?: {
+        place_of_supply_scheme?:
+          | "inbound_goods"
+          | "standard"
+          | UnknownEnumStringValue
+      }
+      type: "standard" | UnknownEnumStringValue
+    }
+    bg?: {
+      standard?: {
+        place_of_supply_scheme:
+          | "inbound_goods"
+          | "small_seller"
+          | "standard"
+          | UnknownEnumStringValue
+      }
+      type:
+        | "ioss"
+        | "oss_non_union"
+        | "oss_union"
+        | "standard"
+        | UnknownEnumStringValue
+    }
+    bh?: {
+      standard?: {
+        place_of_supply_scheme?:
+          | "inbound_goods"
+          | "standard"
+          | UnknownEnumStringValue
+      }
+      type: "standard" | UnknownEnumStringValue
+    }
+    bj?: {
+      type: "simplified" | UnknownEnumStringValue
+    }
+    bs?: {
+      standard?: {
+        place_of_supply_scheme?:
+          | "inbound_goods"
+          | "standard"
+          | UnknownEnumStringValue
+      }
+      type: "standard" | UnknownEnumStringValue
+    }
+    by?: {
+      type: "simplified" | UnknownEnumStringValue
+    }
+    ca?: {
+      province_standard?: {
+        province: string
+      }
+      type:
+        | "province_standard"
+        | "simplified"
+        | "standard"
+        | UnknownEnumStringValue
+    }
+    cd?: {
+      standard?: {
+        place_of_supply_scheme?:
+          | "inbound_goods"
+          | "standard"
+          | UnknownEnumStringValue
+      }
+      type: "standard" | UnknownEnumStringValue
+    }
+    ch?: {
+      standard?: {
+        place_of_supply_scheme?:
+          | "inbound_goods"
+          | "standard"
+          | UnknownEnumStringValue
+      }
+      type: "standard" | UnknownEnumStringValue
+    }
+    cl?: {
+      type: "simplified" | UnknownEnumStringValue
+    }
+    cm?: {
+      type: "simplified" | UnknownEnumStringValue
+    }
+    co?: {
+      type: "simplified" | UnknownEnumStringValue
+    }
+    cr?: {
+      type: "simplified" | UnknownEnumStringValue
+    }
+    cv?: {
+      type: "simplified" | UnknownEnumStringValue
+    }
+    cy?: {
+      standard?: {
+        place_of_supply_scheme:
+          | "inbound_goods"
+          | "small_seller"
+          | "standard"
+          | UnknownEnumStringValue
+      }
+      type:
+        | "ioss"
+        | "oss_non_union"
+        | "oss_union"
+        | "standard"
+        | UnknownEnumStringValue
+    }
+    cz?: {
+      standard?: {
+        place_of_supply_scheme:
+          | "inbound_goods"
+          | "small_seller"
+          | "standard"
+          | UnknownEnumStringValue
+      }
+      type:
+        | "ioss"
+        | "oss_non_union"
+        | "oss_union"
+        | "standard"
+        | UnknownEnumStringValue
+    }
+    de?: {
+      standard?: {
+        place_of_supply_scheme:
+          | "inbound_goods"
+          | "small_seller"
+          | "standard"
+          | UnknownEnumStringValue
+      }
+      type:
+        | "ioss"
+        | "oss_non_union"
+        | "oss_union"
+        | "standard"
+        | UnknownEnumStringValue
+    }
+    dk?: {
+      standard?: {
+        place_of_supply_scheme:
+          | "inbound_goods"
+          | "small_seller"
+          | "standard"
+          | UnknownEnumStringValue
+      }
+      type:
+        | "ioss"
+        | "oss_non_union"
+        | "oss_union"
+        | "standard"
+        | UnknownEnumStringValue
+    }
+    ec?: {
+      type: "simplified" | UnknownEnumStringValue
+    }
+    ee?: {
+      standard?: {
+        place_of_supply_scheme:
+          | "inbound_goods"
+          | "small_seller"
+          | "standard"
+          | UnknownEnumStringValue
+      }
+      type:
+        | "ioss"
+        | "oss_non_union"
+        | "oss_union"
+        | "standard"
+        | UnknownEnumStringValue
+    }
+    eg?: {
+      type: "simplified" | UnknownEnumStringValue
+    }
+    es?: {
+      standard?: {
+        place_of_supply_scheme:
+          | "inbound_goods"
+          | "small_seller"
+          | "standard"
+          | UnknownEnumStringValue
+      }
+      type:
+        | "ioss"
+        | "oss_non_union"
+        | "oss_union"
+        | "standard"
+        | UnknownEnumStringValue
+    }
+    et?: {
+      standard?: {
+        place_of_supply_scheme?:
+          | "inbound_goods"
+          | "standard"
+          | UnknownEnumStringValue
+      }
+      type: "standard" | UnknownEnumStringValue
+    }
+    fi?: {
+      standard?: {
+        place_of_supply_scheme:
+          | "inbound_goods"
+          | "small_seller"
+          | "standard"
+          | UnknownEnumStringValue
+      }
+      type:
+        | "ioss"
+        | "oss_non_union"
+        | "oss_union"
+        | "standard"
+        | UnknownEnumStringValue
+    }
+    fr?: {
+      standard?: {
+        place_of_supply_scheme:
+          | "inbound_goods"
+          | "small_seller"
+          | "standard"
+          | UnknownEnumStringValue
+      }
+      type:
+        | "ioss"
+        | "oss_non_union"
+        | "oss_union"
+        | "standard"
+        | UnknownEnumStringValue
+    }
+    gb?: {
+      standard?: {
+        place_of_supply_scheme?:
+          | "inbound_goods"
+          | "standard"
+          | UnknownEnumStringValue
+      }
+      type: "standard" | UnknownEnumStringValue
+    }
+    ge?: {
+      type: "simplified" | UnknownEnumStringValue
+    }
+    gn?: {
+      standard?: {
+        place_of_supply_scheme?:
+          | "inbound_goods"
+          | "standard"
+          | UnknownEnumStringValue
+      }
+      type: "standard" | UnknownEnumStringValue
+    }
+    gr?: {
+      standard?: {
+        place_of_supply_scheme:
+          | "inbound_goods"
+          | "small_seller"
+          | "standard"
+          | UnknownEnumStringValue
+      }
+      type:
+        | "ioss"
+        | "oss_non_union"
+        | "oss_union"
+        | "standard"
+        | UnknownEnumStringValue
+    }
+    hr?: {
+      standard?: {
+        place_of_supply_scheme:
+          | "inbound_goods"
+          | "small_seller"
+          | "standard"
+          | UnknownEnumStringValue
+      }
+      type:
+        | "ioss"
+        | "oss_non_union"
+        | "oss_union"
+        | "standard"
+        | UnknownEnumStringValue
+    }
+    hu?: {
+      standard?: {
+        place_of_supply_scheme:
+          | "inbound_goods"
+          | "small_seller"
+          | "standard"
+          | UnknownEnumStringValue
+      }
+      type:
+        | "ioss"
+        | "oss_non_union"
+        | "oss_union"
+        | "standard"
+        | UnknownEnumStringValue
+    }
+    id?: {
+      type: "simplified" | UnknownEnumStringValue
+    }
+    ie?: {
+      standard?: {
+        place_of_supply_scheme:
+          | "inbound_goods"
+          | "small_seller"
+          | "standard"
+          | UnknownEnumStringValue
+      }
+      type:
+        | "ioss"
+        | "oss_non_union"
+        | "oss_union"
+        | "standard"
+        | UnknownEnumStringValue
+    }
+    in?: {
+      type: "simplified" | UnknownEnumStringValue
+    }
+    is?: {
+      standard?: {
+        place_of_supply_scheme?:
+          | "inbound_goods"
+          | "standard"
+          | UnknownEnumStringValue
+      }
+      type: "standard" | UnknownEnumStringValue
+    }
+    it?: {
+      standard?: {
+        place_of_supply_scheme:
+          | "inbound_goods"
+          | "small_seller"
+          | "standard"
+          | UnknownEnumStringValue
+      }
+      type:
+        | "ioss"
+        | "oss_non_union"
+        | "oss_union"
+        | "standard"
+        | UnknownEnumStringValue
+    }
+    jp?: {
+      standard?: {
+        place_of_supply_scheme?:
+          | "inbound_goods"
+          | "standard"
+          | UnknownEnumStringValue
+      }
+      type: "standard" | UnknownEnumStringValue
+    }
+    ke?: {
+      type: "simplified" | UnknownEnumStringValue
+    }
+    kg?: {
+      type: "simplified" | UnknownEnumStringValue
+    }
+    kh?: {
+      type: "simplified" | UnknownEnumStringValue
+    }
+    kr?: {
+      type: "simplified" | UnknownEnumStringValue
+    }
+    kz?: {
+      type: "simplified" | UnknownEnumStringValue
+    }
+    la?: {
+      type: "simplified" | UnknownEnumStringValue
+    }
+    lt?: {
+      standard?: {
+        place_of_supply_scheme:
+          | "inbound_goods"
+          | "small_seller"
+          | "standard"
+          | UnknownEnumStringValue
+      }
+      type:
+        | "ioss"
+        | "oss_non_union"
+        | "oss_union"
+        | "standard"
+        | UnknownEnumStringValue
+    }
+    lu?: {
+      standard?: {
+        place_of_supply_scheme:
+          | "inbound_goods"
+          | "small_seller"
+          | "standard"
+          | UnknownEnumStringValue
+      }
+      type:
+        | "ioss"
+        | "oss_non_union"
+        | "oss_union"
+        | "standard"
+        | UnknownEnumStringValue
+    }
+    lv?: {
+      standard?: {
+        place_of_supply_scheme:
+          | "inbound_goods"
+          | "small_seller"
+          | "standard"
+          | UnknownEnumStringValue
+      }
+      type:
+        | "ioss"
+        | "oss_non_union"
+        | "oss_union"
+        | "standard"
+        | UnknownEnumStringValue
+    }
+    ma?: {
+      type: "simplified" | UnknownEnumStringValue
+    }
+    md?: {
+      type: "simplified" | UnknownEnumStringValue
+    }
+    me?: {
+      standard?: {
+        place_of_supply_scheme?:
+          | "inbound_goods"
+          | "standard"
+          | UnknownEnumStringValue
+      }
+      type: "standard" | UnknownEnumStringValue
+    }
+    mk?: {
+      standard?: {
+        place_of_supply_scheme?:
+          | "inbound_goods"
+          | "standard"
+          | UnknownEnumStringValue
+      }
+      type: "standard" | UnknownEnumStringValue
+    }
+    mr?: {
+      standard?: {
+        place_of_supply_scheme?:
+          | "inbound_goods"
+          | "standard"
+          | UnknownEnumStringValue
+      }
+      type: "standard" | UnknownEnumStringValue
+    }
+    mt?: {
+      standard?: {
+        place_of_supply_scheme:
+          | "inbound_goods"
+          | "small_seller"
+          | "standard"
+          | UnknownEnumStringValue
+      }
+      type:
+        | "ioss"
+        | "oss_non_union"
+        | "oss_union"
+        | "standard"
+        | UnknownEnumStringValue
+    }
+    mx?: {
+      type: "simplified" | UnknownEnumStringValue
+    }
+    my?: {
+      type: "simplified" | UnknownEnumStringValue
+    }
+    ng?: {
+      type: "simplified" | UnknownEnumStringValue
+    }
+    nl?: {
+      standard?: {
+        place_of_supply_scheme:
+          | "inbound_goods"
+          | "small_seller"
+          | "standard"
+          | UnknownEnumStringValue
+      }
+      type:
+        | "ioss"
+        | "oss_non_union"
+        | "oss_union"
+        | "standard"
+        | UnknownEnumStringValue
+    }
+    no?: {
+      standard?: {
+        place_of_supply_scheme?:
+          | "inbound_goods"
+          | "standard"
+          | UnknownEnumStringValue
+      }
+      type: "standard" | UnknownEnumStringValue
+    }
+    np?: {
+      type: "simplified" | UnknownEnumStringValue
+    }
+    nz?: {
+      standard?: {
+        place_of_supply_scheme?:
+          | "inbound_goods"
+          | "standard"
+          | UnknownEnumStringValue
+      }
+      type: "standard" | UnknownEnumStringValue
+    }
+    om?: {
+      standard?: {
+        place_of_supply_scheme?:
+          | "inbound_goods"
+          | "standard"
+          | UnknownEnumStringValue
+      }
+      type: "standard" | UnknownEnumStringValue
+    }
+    pe?: {
+      type: "simplified" | UnknownEnumStringValue
+    }
+    ph?: {
+      type: "simplified" | UnknownEnumStringValue
+    }
+    pl?: {
+      standard?: {
+        place_of_supply_scheme:
+          | "inbound_goods"
+          | "small_seller"
+          | "standard"
+          | UnknownEnumStringValue
+      }
+      type:
+        | "ioss"
+        | "oss_non_union"
+        | "oss_union"
+        | "standard"
+        | UnknownEnumStringValue
+    }
+    pt?: {
+      standard?: {
+        place_of_supply_scheme:
+          | "inbound_goods"
+          | "small_seller"
+          | "standard"
+          | UnknownEnumStringValue
+      }
+      type:
+        | "ioss"
+        | "oss_non_union"
+        | "oss_union"
+        | "standard"
+        | UnknownEnumStringValue
+    }
+    ro?: {
+      standard?: {
+        place_of_supply_scheme:
+          | "inbound_goods"
+          | "small_seller"
+          | "standard"
+          | UnknownEnumStringValue
+      }
+      type:
+        | "ioss"
+        | "oss_non_union"
+        | "oss_union"
+        | "standard"
+        | UnknownEnumStringValue
+    }
+    rs?: {
+      standard?: {
+        place_of_supply_scheme?:
+          | "inbound_goods"
+          | "standard"
+          | UnknownEnumStringValue
+      }
+      type: "standard" | UnknownEnumStringValue
+    }
+    ru?: {
+      type: "simplified" | UnknownEnumStringValue
+    }
+    sa?: {
+      type: "simplified" | UnknownEnumStringValue
+    }
+    se?: {
+      standard?: {
+        place_of_supply_scheme:
+          | "inbound_goods"
+          | "small_seller"
+          | "standard"
+          | UnknownEnumStringValue
+      }
+      type:
+        | "ioss"
+        | "oss_non_union"
+        | "oss_union"
+        | "standard"
+        | UnknownEnumStringValue
+    }
+    sg?: {
+      standard?: {
+        place_of_supply_scheme?:
+          | "inbound_goods"
+          | "standard"
+          | UnknownEnumStringValue
+      }
+      type: "standard" | UnknownEnumStringValue
+    }
+    si?: {
+      standard?: {
+        place_of_supply_scheme:
+          | "inbound_goods"
+          | "small_seller"
+          | "standard"
+          | UnknownEnumStringValue
+      }
+      type:
+        | "ioss"
+        | "oss_non_union"
+        | "oss_union"
+        | "standard"
+        | UnknownEnumStringValue
+    }
+    sk?: {
+      standard?: {
+        place_of_supply_scheme:
+          | "inbound_goods"
+          | "small_seller"
+          | "standard"
+          | UnknownEnumStringValue
+      }
+      type:
+        | "ioss"
+        | "oss_non_union"
+        | "oss_union"
+        | "standard"
+        | UnknownEnumStringValue
+    }
+    sn?: {
+      type: "simplified" | UnknownEnumStringValue
+    }
+    sr?: {
+      standard?: {
+        place_of_supply_scheme?:
+          | "inbound_goods"
+          | "standard"
+          | UnknownEnumStringValue
+      }
+      type: "standard" | UnknownEnumStringValue
+    }
+    th?: {
+      type: "simplified" | UnknownEnumStringValue
+    }
+    tj?: {
+      type: "simplified" | UnknownEnumStringValue
+    }
+    tr?: {
+      type: "simplified" | UnknownEnumStringValue
+    }
+    tz?: {
+      type: "simplified" | UnknownEnumStringValue
+    }
+    ua?: {
+      type: "simplified" | UnknownEnumStringValue
+    }
+    ug?: {
+      type: "simplified" | UnknownEnumStringValue
+    }
+    us?: {
+      local_amusement_tax?: {
+        jurisdiction: string
+      }
+      local_lease_tax?: {
+        jurisdiction: string
+      }
+      state: string
+      state_sales_tax?: {
+        elections: {
+          jurisdiction?: string
+          type:
+            | "local_use_tax"
+            | "simplified_sellers_use_tax"
+            | "single_local_use_tax"
+            | UnknownEnumStringValue
+        }[]
+      }
+      type:
+        | "local_amusement_tax"
+        | "local_lease_tax"
+        | "state_communications_tax"
+        | "state_retail_delivery_fee"
+        | "state_sales_tax"
+        | UnknownEnumStringValue
+    }
+    uy?: {
+      standard?: {
+        place_of_supply_scheme?:
+          | "inbound_goods"
+          | "standard"
+          | UnknownEnumStringValue
+      }
+      type: "standard" | UnknownEnumStringValue
+    }
+    uz?: {
+      type: "simplified" | UnknownEnumStringValue
+    }
+    vn?: {
+      type: "simplified" | UnknownEnumStringValue
+    }
+    za?: {
+      standard?: {
+        place_of_supply_scheme?:
+          | "inbound_goods"
+          | "standard"
+          | UnknownEnumStringValue
+      }
+      type: "standard" | UnknownEnumStringValue
+    }
+    zm?: {
+      type: "simplified" | UnknownEnumStringValue
+    }
+    zw?: {
+      standard?: {
+        place_of_supply_scheme?:
+          | "inbound_goods"
+          | "standard"
+          | UnknownEnumStringValue
+      }
+      type: "standard" | UnknownEnumStringValue
+    }
+  }
+  expand?: string[]
+  expires_at?: number
+}
+
+export type t_PostTaxRegistrationsIdRequestBody = {
+  active_from?: "now" | UnknownEnumStringValue | number
+  expand?: string[]
+  expires_at?: "now" | UnknownEnumStringValue | number | ""
+}
+
+export type t_PostTaxSettingsRequestBody = {
+  defaults?: {
+    tax_behavior?:
+      | "exclusive"
+      | "inclusive"
+      | "inferred_by_currency"
+      | UnknownEnumStringValue
+    tax_code?: string
+  }
+  expand?: string[]
+  head_office?: {
+    address: {
+      city?: string
+      country?: string
+      line1?: string
+      line2?: string
+      postal_code?: string
+      state?: string
+    }
+  }
+}
+
+export type t_PostTaxTransactionsCreateFromCalculationRequestBody = {
+  calculation: string
+  expand?: string[]
+  metadata?: {
+    [key: string]: string | undefined
+  }
+  posted_at?: number
+  reference: string
+}
+
+export type t_PostTaxTransactionsCreateReversalRequestBody = {
+  expand?: string[]
+  flat_amount?: number
+  line_items?: {
+    amount: number
+    amount_tax: number
+    metadata?: {
+      [key: string]: string | undefined
+    }
+    original_line_item: string
+    quantity?: number
+    reference: string
+  }[]
+  metadata?: {
+    [key: string]: string | undefined
+  }
+  mode: "full" | "partial" | UnknownEnumStringValue
+  original_transaction: string
+  reference: string
+  shipping_cost?: {
+    amount: number
+    amount_tax: number
+  }
+}
+
+export type t_PostTerminalConfigurationsRequestBody = {
+  bbpos_wisepos_e?: {
+    splashscreen?: string | "" | UnknownEnumStringValue
+  }
+  expand?: string[]
+  name?: string
+  offline?:
+    | {
+        enabled: boolean
+      }
+    | ""
+    | UnknownEnumStringValue
+  reboot_window?: {
+    end_hour: number
+    start_hour: number
+  }
+  stripe_s700?: {
+    splashscreen?: string | "" | UnknownEnumStringValue
+  }
+  tipping?:
+    | {
+        aed?: {
+          fixed_amounts?: number[]
+          percentages?: number[]
+          smart_tip_threshold?: number
+        }
+        aud?: {
+          fixed_amounts?: number[]
+          percentages?: number[]
+          smart_tip_threshold?: number
+        }
+        bgn?: {
+          fixed_amounts?: number[]
+          percentages?: number[]
+          smart_tip_threshold?: number
+        }
+        cad?: {
+          fixed_amounts?: number[]
+          percentages?: number[]
+          smart_tip_threshold?: number
+        }
+        chf?: {
+          fixed_amounts?: number[]
+          percentages?: number[]
+          smart_tip_threshold?: number
+        }
+        czk?: {
+          fixed_amounts?: number[]
+          percentages?: number[]
+          smart_tip_threshold?: number
+        }
+        dkk?: {
+          fixed_amounts?: number[]
+          percentages?: number[]
+          smart_tip_threshold?: number
+        }
+        eur?: {
+          fixed_amounts?: number[]
+          percentages?: number[]
+          smart_tip_threshold?: number
+        }
+        gbp?: {
+          fixed_amounts?: number[]
+          percentages?: number[]
+          smart_tip_threshold?: number
+        }
+        hkd?: {
+          fixed_amounts?: number[]
+          percentages?: number[]
+          smart_tip_threshold?: number
+        }
+        huf?: {
+          fixed_amounts?: number[]
+          percentages?: number[]
+          smart_tip_threshold?: number
+        }
+        jpy?: {
+          fixed_amounts?: number[]
+          percentages?: number[]
+          smart_tip_threshold?: number
+        }
+        myr?: {
+          fixed_amounts?: number[]
+          percentages?: number[]
+          smart_tip_threshold?: number
+        }
+        nok?: {
+          fixed_amounts?: number[]
+          percentages?: number[]
+          smart_tip_threshold?: number
+        }
+        nzd?: {
+          fixed_amounts?: number[]
+          percentages?: number[]
+          smart_tip_threshold?: number
+        }
+        pln?: {
+          fixed_amounts?: number[]
+          percentages?: number[]
+          smart_tip_threshold?: number
+        }
+        ron?: {
+          fixed_amounts?: number[]
+          percentages?: number[]
+          smart_tip_threshold?: number
+        }
+        sek?: {
+          fixed_amounts?: number[]
+          percentages?: number[]
+          smart_tip_threshold?: number
+        }
+        sgd?: {
+          fixed_amounts?: number[]
+          percentages?: number[]
+          smart_tip_threshold?: number
+        }
+        usd?: {
+          fixed_amounts?: number[]
+          percentages?: number[]
+          smart_tip_threshold?: number
+        }
+      }
+    | ""
+    | UnknownEnumStringValue
+  verifone_p400?: {
+    splashscreen?: string | "" | UnknownEnumStringValue
+  }
+  wifi?:
+    | {
+        enterprise_eap_peap?: {
+          ca_certificate_file?: string
+          password: string
+          ssid: string
+          username: string
+        }
+        enterprise_eap_tls?: {
+          ca_certificate_file?: string
+          client_certificate_file: string
+          private_key_file: string
+          private_key_file_password?: string
+          ssid: string
+        }
+        personal_psk?: {
+          password: string
+          ssid: string
+        }
+        type:
+          | "enterprise_eap_peap"
+          | "enterprise_eap_tls"
+          | "personal_psk"
+          | UnknownEnumStringValue
+      }
+    | ""
+    | UnknownEnumStringValue
+}
+
+export type t_PostTerminalConfigurationsConfigurationRequestBody = {
+  bbpos_wisepos_e?:
+    | {
+        splashscreen?: string | "" | UnknownEnumStringValue
+      }
+    | ""
+    | UnknownEnumStringValue
+  expand?: string[]
+  name?: string
+  offline?:
+    | {
+        enabled: boolean
+      }
+    | ""
+    | UnknownEnumStringValue
+  reboot_window?:
+    | {
+        end_hour: number
+        start_hour: number
+      }
+    | ""
+    | UnknownEnumStringValue
+  stripe_s700?:
+    | {
+        splashscreen?: string | "" | UnknownEnumStringValue
+      }
+    | ""
+    | UnknownEnumStringValue
+  tipping?:
+    | {
+        aed?: {
+          fixed_amounts?: number[]
+          percentages?: number[]
+          smart_tip_threshold?: number
+        }
+        aud?: {
+          fixed_amounts?: number[]
+          percentages?: number[]
+          smart_tip_threshold?: number
+        }
+        bgn?: {
+          fixed_amounts?: number[]
+          percentages?: number[]
+          smart_tip_threshold?: number
+        }
+        cad?: {
+          fixed_amounts?: number[]
+          percentages?: number[]
+          smart_tip_threshold?: number
+        }
+        chf?: {
+          fixed_amounts?: number[]
+          percentages?: number[]
+          smart_tip_threshold?: number
+        }
+        czk?: {
+          fixed_amounts?: number[]
+          percentages?: number[]
+          smart_tip_threshold?: number
+        }
+        dkk?: {
+          fixed_amounts?: number[]
+          percentages?: number[]
+          smart_tip_threshold?: number
+        }
+        eur?: {
+          fixed_amounts?: number[]
+          percentages?: number[]
+          smart_tip_threshold?: number
+        }
+        gbp?: {
+          fixed_amounts?: number[]
+          percentages?: number[]
+          smart_tip_threshold?: number
+        }
+        hkd?: {
+          fixed_amounts?: number[]
+          percentages?: number[]
+          smart_tip_threshold?: number
+        }
+        huf?: {
+          fixed_amounts?: number[]
+          percentages?: number[]
+          smart_tip_threshold?: number
+        }
+        jpy?: {
+          fixed_amounts?: number[]
+          percentages?: number[]
+          smart_tip_threshold?: number
+        }
+        myr?: {
+          fixed_amounts?: number[]
+          percentages?: number[]
+          smart_tip_threshold?: number
+        }
+        nok?: {
+          fixed_amounts?: number[]
+          percentages?: number[]
+          smart_tip_threshold?: number
+        }
+        nzd?: {
+          fixed_amounts?: number[]
+          percentages?: number[]
+          smart_tip_threshold?: number
+        }
+        pln?: {
+          fixed_amounts?: number[]
+          percentages?: number[]
+          smart_tip_threshold?: number
+        }
+        ron?: {
+          fixed_amounts?: number[]
+          percentages?: number[]
+          smart_tip_threshold?: number
+        }
+        sek?: {
+          fixed_amounts?: number[]
+          percentages?: number[]
+          smart_tip_threshold?: number
+        }
+        sgd?: {
+          fixed_amounts?: number[]
+          percentages?: number[]
+          smart_tip_threshold?: number
+        }
+        usd?: {
+          fixed_amounts?: number[]
+          percentages?: number[]
+          smart_tip_threshold?: number
+        }
+      }
+    | ""
+    | UnknownEnumStringValue
+  verifone_p400?:
+    | {
+        splashscreen?: string | "" | UnknownEnumStringValue
+      }
+    | ""
+    | UnknownEnumStringValue
+  wifi?:
+    | {
+        enterprise_eap_peap?: {
+          ca_certificate_file?: string
+          password: string
+          ssid: string
+          username: string
+        }
+        enterprise_eap_tls?: {
+          ca_certificate_file?: string
+          client_certificate_file: string
+          private_key_file: string
+          private_key_file_password?: string
+          ssid: string
+        }
+        personal_psk?: {
+          password: string
+          ssid: string
+        }
+        type:
+          | "enterprise_eap_peap"
+          | "enterprise_eap_tls"
+          | "personal_psk"
+          | UnknownEnumStringValue
+      }
+    | ""
+    | UnknownEnumStringValue
+}
+
+export type t_PostTerminalConnectionTokensRequestBody = {
+  expand?: string[]
+  location?: string
+}
+
+export type t_PostTerminalLocationsRequestBody = {
+  address: {
+    city?: string
+    country: string
+    line1?: string
+    line2?: string
+    postal_code?: string
+    state?: string
+  }
+  configuration_overrides?: string
+  display_name: string
+  expand?: string[]
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | ""
+    | UnknownEnumStringValue
+}
+
+export type t_PostTerminalLocationsLocationRequestBody = {
+  address?: {
+    city?: string
+    country?: string
+    line1?: string
+    line2?: string
+    postal_code?: string
+    state?: string
+  }
+  configuration_overrides?: string | "" | UnknownEnumStringValue
+  display_name?: string | "" | UnknownEnumStringValue
+  expand?: string[]
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | ""
+    | UnknownEnumStringValue
+}
+
+export type t_PostTerminalReadersRequestBody = {
+  expand?: string[]
+  label?: string
+  location?: string
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | ""
+    | UnknownEnumStringValue
+  registration_code: string
+}
+
+export type t_PostTerminalReadersReaderRequestBody = {
+  expand?: string[]
+  label?: string | "" | UnknownEnumStringValue
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | ""
+    | UnknownEnumStringValue
+}
+
+export type t_PostTerminalReadersReaderCancelActionRequestBody = {
+  expand?: string[]
+}
+
+export type t_PostTerminalReadersReaderCollectInputsRequestBody = {
+  expand?: string[]
+  inputs: {
+    custom_text: {
+      description?: string
+      skip_button?: string
+      submit_button?: string
+      title: string
+    }
+    required?: boolean
+    selection?: {
+      choices: {
+        id: string
+        style?: "primary" | "secondary" | UnknownEnumStringValue
+        text: string
+      }[]
+    }
+    toggles?: {
+      default_value?: "disabled" | "enabled" | UnknownEnumStringValue
+      description?: string
+      title?: string
+    }[]
+    type:
+      | "email"
+      | "numeric"
+      | "phone"
+      | "selection"
+      | "signature"
+      | "text"
+      | UnknownEnumStringValue
+  }[]
+  metadata?: {
+    [key: string]: string | undefined
+  }
+}
+
+export type t_PostTerminalReadersReaderCollectPaymentMethodRequestBody = {
+  collect_config?: {
+    allow_redisplay?:
+      | "always"
+      | "limited"
+      | "unspecified"
+      | UnknownEnumStringValue
+    enable_customer_cancellation?: boolean
+    skip_tipping?: boolean
+    tipping?: {
+      amount_eligible?: number
+    }
+  }
+  expand?: string[]
+  payment_intent: string
+}
+
+export type t_PostTerminalReadersReaderConfirmPaymentIntentRequestBody = {
+  confirm_config?: {
+    return_url?: string
+  }
+  expand?: string[]
+  payment_intent: string
+}
+
+export type t_PostTerminalReadersReaderProcessPaymentIntentRequestBody = {
+  expand?: string[]
+  payment_intent: string
+  process_config?: {
+    allow_redisplay?:
+      | "always"
+      | "limited"
+      | "unspecified"
+      | UnknownEnumStringValue
+    enable_customer_cancellation?: boolean
+    return_url?: string
+    skip_tipping?: boolean
+    tipping?: {
+      amount_eligible?: number
+    }
+  }
+}
+
+export type t_PostTerminalReadersReaderProcessSetupIntentRequestBody = {
+  allow_redisplay: "always" | "limited" | "unspecified" | UnknownEnumStringValue
+  expand?: string[]
+  process_config?: {
+    enable_customer_cancellation?: boolean
+  }
+  setup_intent: string
+}
+
+export type t_PostTerminalReadersReaderRefundPaymentRequestBody = {
+  amount?: number
+  charge?: string
+  expand?: string[]
+  metadata?: {
+    [key: string]: string | undefined
+  }
+  payment_intent?: string
+  refund_application_fee?: boolean
+  refund_payment_config?: {
+    enable_customer_cancellation?: boolean
+  }
+  reverse_transfer?: boolean
+}
+
+export type t_PostTerminalReadersReaderSetReaderDisplayRequestBody = {
+  cart?: {
+    currency: string
+    line_items: {
+      amount: number
+      description: string
+      quantity: number
+    }[]
+    tax?: number
+    total: number
+  }
+  expand?: string[]
+  type: "cart" | UnknownEnumStringValue
+}
+
+export type t_PostTestHelpersConfirmationTokensRequestBody = {
+  expand?: string[]
+  payment_method?: string
+  payment_method_data?: {
+    acss_debit?: {
+      account_number: string
+      institution_number: string
+      transit_number: string
+    }
+    affirm?: EmptyObject
+    afterpay_clearpay?: EmptyObject
+    alipay?: EmptyObject
+    allow_redisplay?:
+      | "always"
+      | "limited"
+      | "unspecified"
+      | UnknownEnumStringValue
+    alma?: EmptyObject
+    amazon_pay?: EmptyObject
+    au_becs_debit?: {
+      account_number: string
+      bsb_number: string
+    }
+    bacs_debit?: {
+      account_number?: string
+      sort_code?: string
+    }
+    bancontact?: EmptyObject
+    billie?: EmptyObject
+    billing_details?: {
+      address?:
+        | {
+            city?: string
+            country?: string
+            line1?: string
+            line2?: string
+            postal_code?: string
+            state?: string
+          }
+        | ""
+        | UnknownEnumStringValue
+      email?: string | "" | UnknownEnumStringValue
+      name?: string | "" | UnknownEnumStringValue
+      phone?: string | "" | UnknownEnumStringValue
+      tax_id?: string
+    }
+    blik?: EmptyObject
+    boleto?: {
+      tax_id: string
+    }
+    cashapp?: EmptyObject
+    crypto?: EmptyObject
+    customer_balance?: EmptyObject
+    eps?: {
+      bank?:
+        | "arzte_und_apotheker_bank"
+        | "austrian_anadi_bank_ag"
+        | "bank_austria"
+        | "bankhaus_carl_spangler"
+        | "bankhaus_schelhammer_und_schattera_ag"
+        | "bawag_psk_ag"
+        | "bks_bank_ag"
+        | "brull_kallmus_bank_ag"
+        | "btv_vier_lander_bank"
+        | "capital_bank_grawe_gruppe_ag"
+        | "deutsche_bank_ag"
+        | "dolomitenbank"
+        | "easybank_ag"
+        | "erste_bank_und_sparkassen"
+        | "hypo_alpeadriabank_international_ag"
+        | "hypo_bank_burgenland_aktiengesellschaft"
+        | "hypo_noe_lb_fur_niederosterreich_u_wien"
+        | "hypo_oberosterreich_salzburg_steiermark"
+        | "hypo_tirol_bank_ag"
+        | "hypo_vorarlberg_bank_ag"
+        | "marchfelder_bank"
+        | "oberbank_ag"
+        | "raiffeisen_bankengruppe_osterreich"
+        | "schoellerbank_ag"
+        | "sparda_bank_wien"
+        | "volksbank_gruppe"
+        | "volkskreditbank_ag"
+        | "vr_bank_braunau"
+        | UnknownEnumStringValue
+    }
+    fpx?: {
+      bank:
+        | "affin_bank"
+        | "agrobank"
+        | "alliance_bank"
+        | "ambank"
+        | "bank_islam"
+        | "bank_muamalat"
+        | "bank_of_china"
+        | "bank_rakyat"
+        | "bsn"
+        | "cimb"
+        | "deutsche_bank"
+        | "hong_leong_bank"
+        | "hsbc"
+        | "kfh"
+        | "maybank2e"
+        | "maybank2u"
+        | "ocbc"
+        | "pb_enterprise"
+        | "public_bank"
+        | "rhb"
+        | "standard_chartered"
+        | "uob"
+        | UnknownEnumStringValue
+    }
+    giropay?: EmptyObject
+    grabpay?: EmptyObject
+    ideal?: {
+      bank?:
+        | "abn_amro"
+        | "asn_bank"
+        | "bunq"
+        | "buut"
+        | "handelsbanken"
+        | "ing"
+        | "knab"
+        | "moneyou"
+        | "n26"
+        | "nn"
+        | "rabobank"
+        | "regiobank"
+        | "revolut"
+        | "sns_bank"
+        | "triodos_bank"
+        | "van_lanschot"
+        | "yoursafe"
+        | UnknownEnumStringValue
+    }
+    interac_present?: EmptyObject
+    kakao_pay?: EmptyObject
+    klarna?: {
+      dob?: {
+        day: number
+        month: number
+        year: number
+      }
+    }
+    konbini?: EmptyObject
+    kr_card?: EmptyObject
+    link?: EmptyObject
+    metadata?: {
+      [key: string]: string | undefined
+    }
+    mobilepay?: EmptyObject
+    multibanco?: EmptyObject
+    naver_pay?: {
+      funding?: "card" | "points" | UnknownEnumStringValue
+    }
+    nz_bank_account?: {
+      account_holder_name?: string
+      account_number: string
+      bank_code: string
+      branch_code: string
+      reference?: string
+      suffix: string
+    }
+    oxxo?: EmptyObject
+    p24?: {
+      bank?:
+        | "alior_bank"
+        | "bank_millennium"
+        | "bank_nowy_bfg_sa"
+        | "bank_pekao_sa"
+        | "banki_spbdzielcze"
+        | "blik"
+        | "bnp_paribas"
+        | "boz"
+        | "citi_handlowy"
+        | "credit_agricole"
+        | "envelobank"
+        | "etransfer_pocztowy24"
+        | "getin_bank"
+        | "ideabank"
+        | "ing"
+        | "inteligo"
+        | "mbank_mtransfer"
+        | "nest_przelew"
+        | "noble_pay"
+        | "pbac_z_ipko"
+        | "plus_bank"
+        | "santander_przelew24"
+        | "tmobile_usbugi_bankowe"
+        | "toyota_bank"
+        | "velobank"
+        | "volkswagen_bank"
+        | UnknownEnumStringValue
+    }
+    pay_by_bank?: EmptyObject
+    payco?: EmptyObject
+    paynow?: EmptyObject
+    paypal?: EmptyObject
+    pix?: EmptyObject
+    promptpay?: EmptyObject
+    radar_options?: {
+      session?: string
+    }
+    revolut_pay?: EmptyObject
+    samsung_pay?: EmptyObject
+    satispay?: EmptyObject
+    sepa_debit?: {
+      iban: string
+    }
+    sofort?: {
+      country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL" | UnknownEnumStringValue
+    }
+    swish?: EmptyObject
+    twint?: EmptyObject
+    type:
+      | "acss_debit"
+      | "affirm"
+      | "afterpay_clearpay"
+      | "alipay"
+      | "alma"
+      | "amazon_pay"
+      | "au_becs_debit"
+      | "bacs_debit"
+      | "bancontact"
+      | "billie"
+      | "blik"
+      | "boleto"
+      | "cashapp"
+      | "crypto"
+      | "customer_balance"
+      | "eps"
+      | "fpx"
+      | "giropay"
+      | "grabpay"
+      | "ideal"
+      | "kakao_pay"
+      | "klarna"
+      | "konbini"
+      | "kr_card"
+      | "link"
+      | "mobilepay"
+      | "multibanco"
+      | "naver_pay"
+      | "nz_bank_account"
+      | "oxxo"
+      | "p24"
+      | "pay_by_bank"
+      | "payco"
+      | "paynow"
+      | "paypal"
+      | "pix"
+      | "promptpay"
+      | "revolut_pay"
+      | "samsung_pay"
+      | "satispay"
+      | "sepa_debit"
+      | "sofort"
+      | "swish"
+      | "twint"
+      | "us_bank_account"
+      | "wechat_pay"
+      | "zip"
+      | UnknownEnumStringValue
+    us_bank_account?: {
+      account_holder_type?: "company" | "individual" | UnknownEnumStringValue
+      account_number?: string
+      account_type?: "checking" | "savings" | UnknownEnumStringValue
+      financial_connections_account?: string
+      routing_number?: string
+    }
+    wechat_pay?: EmptyObject
+    zip?: EmptyObject
+  }
+  payment_method_options?: {
+    card?: {
+      installments?: {
+        plan: {
+          count?: number
+          interval?: "month" | UnknownEnumStringValue
+          type: "bonus" | "fixed_count" | "revolving" | UnknownEnumStringValue
+        }
+      }
+    }
+  }
+  return_url?: string
+  setup_future_usage?: "off_session" | "on_session" | UnknownEnumStringValue
+  shipping?: {
+    address: {
+      city?: string
+      country?: string
+      line1?: string
+      line2?: string
+      postal_code?: string
+      state?: string
+    }
+    name: string
+    phone?: string | "" | UnknownEnumStringValue
+  }
+}
+
+export type t_PostTestHelpersCustomersCustomerFundCashBalanceRequestBody = {
+  amount: number
+  currency: string
+  expand?: string[]
+  reference?: string
+}
+
+export type t_PostTestHelpersIssuingAuthorizationsRequestBody = {
+  amount?: number
+  amount_details?: {
+    atm_fee?: number
+    cashback_amount?: number
+  }
+  authorization_method?:
+    | "chip"
+    | "contactless"
+    | "keyed_in"
+    | "online"
+    | "swipe"
+    | UnknownEnumStringValue
+  card: string
+  currency?: string
+  expand?: string[]
+  fleet?: {
+    cardholder_prompt_data?: {
+      driver_id?: string
+      odometer?: number
+      unspecified_id?: string
+      user_id?: string
+      vehicle_number?: string
+    }
+    purchase_type?:
+      | "fuel_and_non_fuel_purchase"
+      | "fuel_purchase"
+      | "non_fuel_purchase"
+      | UnknownEnumStringValue
+    reported_breakdown?: {
+      fuel?: {
+        gross_amount_decimal?: string
+      }
+      non_fuel?: {
+        gross_amount_decimal?: string
+      }
+      tax?: {
+        local_amount_decimal?: string
+        national_amount_decimal?: string
+      }
+    }
+    service_type?:
+      | "full_service"
+      | "non_fuel_transaction"
+      | "self_service"
+      | UnknownEnumStringValue
+  }
+  fuel?: {
+    industry_product_code?: string
+    quantity_decimal?: string
+    type?:
+      | "diesel"
+      | "other"
+      | "unleaded_plus"
+      | "unleaded_regular"
+      | "unleaded_super"
+      | UnknownEnumStringValue
+    unit?:
+      | "charging_minute"
+      | "imperial_gallon"
+      | "kilogram"
+      | "kilowatt_hour"
+      | "liter"
+      | "other"
+      | "pound"
+      | "us_gallon"
+      | UnknownEnumStringValue
+    unit_cost_decimal?: string
+  }
+  is_amount_controllable?: boolean
+  merchant_amount?: number
+  merchant_currency?: string
+  merchant_data?: {
+    category?:
+      | "ac_refrigeration_repair"
+      | "accounting_bookkeeping_services"
+      | "advertising_services"
+      | "agricultural_cooperative"
+      | "airlines_air_carriers"
+      | "airports_flying_fields"
+      | "ambulance_services"
+      | "amusement_parks_carnivals"
+      | "antique_reproductions"
+      | "antique_shops"
+      | "aquariums"
+      | "architectural_surveying_services"
+      | "art_dealers_and_galleries"
+      | "artists_supply_and_craft_shops"
+      | "auto_and_home_supply_stores"
+      | "auto_body_repair_shops"
+      | "auto_paint_shops"
+      | "auto_service_shops"
+      | "automated_cash_disburse"
+      | "automated_fuel_dispensers"
+      | "automobile_associations"
+      | "automotive_parts_and_accessories_stores"
+      | "automotive_tire_stores"
+      | "bail_and_bond_payments"
+      | "bakeries"
+      | "bands_orchestras"
+      | "barber_and_beauty_shops"
+      | "betting_casino_gambling"
+      | "bicycle_shops"
+      | "billiard_pool_establishments"
+      | "boat_dealers"
+      | "boat_rentals_and_leases"
+      | "book_stores"
+      | "books_periodicals_and_newspapers"
+      | "bowling_alleys"
+      | "bus_lines"
+      | "business_secretarial_schools"
+      | "buying_shopping_services"
+      | "cable_satellite_and_other_pay_television_and_radio"
+      | "camera_and_photographic_supply_stores"
+      | "candy_nut_and_confectionery_stores"
+      | "car_and_truck_dealers_new_used"
+      | "car_and_truck_dealers_used_only"
+      | "car_rental_agencies"
+      | "car_washes"
+      | "carpentry_services"
+      | "carpet_upholstery_cleaning"
+      | "caterers"
+      | "charitable_and_social_service_organizations_fundraising"
+      | "chemicals_and_allied_products"
+      | "child_care_services"
+      | "childrens_and_infants_wear_stores"
+      | "chiropodists_podiatrists"
+      | "chiropractors"
+      | "cigar_stores_and_stands"
+      | "civic_social_fraternal_associations"
+      | "cleaning_and_maintenance"
+      | "clothing_rental"
+      | "colleges_universities"
+      | "commercial_equipment"
+      | "commercial_footwear"
+      | "commercial_photography_art_and_graphics"
+      | "commuter_transport_and_ferries"
+      | "computer_network_services"
+      | "computer_programming"
+      | "computer_repair"
+      | "computer_software_stores"
+      | "computers_peripherals_and_software"
+      | "concrete_work_services"
+      | "construction_materials"
+      | "consulting_public_relations"
+      | "correspondence_schools"
+      | "cosmetic_stores"
+      | "counseling_services"
+      | "country_clubs"
+      | "courier_services"
+      | "court_costs"
+      | "credit_reporting_agencies"
+      | "cruise_lines"
+      | "dairy_products_stores"
+      | "dance_hall_studios_schools"
+      | "dating_escort_services"
+      | "dentists_orthodontists"
+      | "department_stores"
+      | "detective_agencies"
+      | "digital_goods_applications"
+      | "digital_goods_games"
+      | "digital_goods_large_volume"
+      | "digital_goods_media"
+      | "direct_marketing_catalog_merchant"
+      | "direct_marketing_combination_catalog_and_retail_merchant"
+      | "direct_marketing_inbound_telemarketing"
+      | "direct_marketing_insurance_services"
+      | "direct_marketing_other"
+      | "direct_marketing_outbound_telemarketing"
+      | "direct_marketing_subscription"
+      | "direct_marketing_travel"
+      | "discount_stores"
+      | "doctors"
+      | "door_to_door_sales"
+      | "drapery_window_covering_and_upholstery_stores"
+      | "drinking_places"
+      | "drug_stores_and_pharmacies"
+      | "drugs_drug_proprietaries_and_druggist_sundries"
+      | "dry_cleaners"
+      | "durable_goods"
+      | "duty_free_stores"
+      | "eating_places_restaurants"
+      | "educational_services"
+      | "electric_razor_stores"
+      | "electric_vehicle_charging"
+      | "electrical_parts_and_equipment"
+      | "electrical_services"
+      | "electronics_repair_shops"
+      | "electronics_stores"
+      | "elementary_secondary_schools"
+      | "emergency_services_gcas_visa_use_only"
+      | "employment_temp_agencies"
+      | "equipment_rental"
+      | "exterminating_services"
+      | "family_clothing_stores"
+      | "fast_food_restaurants"
+      | "financial_institutions"
+      | "fines_government_administrative_entities"
+      | "fireplace_fireplace_screens_and_accessories_stores"
+      | "floor_covering_stores"
+      | "florists"
+      | "florists_supplies_nursery_stock_and_flowers"
+      | "freezer_and_locker_meat_provisioners"
+      | "fuel_dealers_non_automotive"
+      | "funeral_services_crematories"
+      | "furniture_home_furnishings_and_equipment_stores_except_appliances"
+      | "furniture_repair_refinishing"
+      | "furriers_and_fur_shops"
+      | "general_services"
+      | "gift_card_novelty_and_souvenir_shops"
+      | "glass_paint_and_wallpaper_stores"
+      | "glassware_crystal_stores"
+      | "golf_courses_public"
+      | "government_licensed_horse_dog_racing_us_region_only"
+      | "government_licensed_online_casions_online_gambling_us_region_only"
+      | "government_owned_lotteries_non_us_region"
+      | "government_owned_lotteries_us_region_only"
+      | "government_services"
+      | "grocery_stores_supermarkets"
+      | "hardware_equipment_and_supplies"
+      | "hardware_stores"
+      | "health_and_beauty_spas"
+      | "hearing_aids_sales_and_supplies"
+      | "heating_plumbing_a_c"
+      | "hobby_toy_and_game_shops"
+      | "home_supply_warehouse_stores"
+      | "hospitals"
+      | "hotels_motels_and_resorts"
+      | "household_appliance_stores"
+      | "industrial_supplies"
+      | "information_retrieval_services"
+      | "insurance_default"
+      | "insurance_underwriting_premiums"
+      | "intra_company_purchases"
+      | "jewelry_stores_watches_clocks_and_silverware_stores"
+      | "landscaping_services"
+      | "laundries"
+      | "laundry_cleaning_services"
+      | "legal_services_attorneys"
+      | "luggage_and_leather_goods_stores"
+      | "lumber_building_materials_stores"
+      | "manual_cash_disburse"
+      | "marinas_service_and_supplies"
+      | "marketplaces"
+      | "masonry_stonework_and_plaster"
+      | "massage_parlors"
+      | "medical_and_dental_labs"
+      | "medical_dental_ophthalmic_and_hospital_equipment_and_supplies"
+      | "medical_services"
+      | "membership_organizations"
+      | "mens_and_boys_clothing_and_accessories_stores"
+      | "mens_womens_clothing_stores"
+      | "metal_service_centers"
+      | "miscellaneous_apparel_and_accessory_shops"
+      | "miscellaneous_auto_dealers"
+      | "miscellaneous_business_services"
+      | "miscellaneous_food_stores"
+      | "miscellaneous_general_merchandise"
+      | "miscellaneous_general_services"
+      | "miscellaneous_home_furnishing_specialty_stores"
+      | "miscellaneous_publishing_and_printing"
+      | "miscellaneous_recreation_services"
+      | "miscellaneous_repair_shops"
+      | "miscellaneous_specialty_retail"
+      | "mobile_home_dealers"
+      | "motion_picture_theaters"
+      | "motor_freight_carriers_and_trucking"
+      | "motor_homes_dealers"
+      | "motor_vehicle_supplies_and_new_parts"
+      | "motorcycle_shops_and_dealers"
+      | "motorcycle_shops_dealers"
+      | "music_stores_musical_instruments_pianos_and_sheet_music"
+      | "news_dealers_and_newsstands"
+      | "non_fi_money_orders"
+      | "non_fi_stored_value_card_purchase_load"
+      | "nondurable_goods"
+      | "nurseries_lawn_and_garden_supply_stores"
+      | "nursing_personal_care"
+      | "office_and_commercial_furniture"
+      | "opticians_eyeglasses"
+      | "optometrists_ophthalmologist"
+      | "orthopedic_goods_prosthetic_devices"
+      | "osteopaths"
+      | "package_stores_beer_wine_and_liquor"
+      | "paints_varnishes_and_supplies"
+      | "parking_lots_garages"
+      | "passenger_railways"
+      | "pawn_shops"
+      | "pet_shops_pet_food_and_supplies"
+      | "petroleum_and_petroleum_products"
+      | "photo_developing"
+      | "photographic_photocopy_microfilm_equipment_and_supplies"
+      | "photographic_studios"
+      | "picture_video_production"
+      | "piece_goods_notions_and_other_dry_goods"
+      | "plumbing_heating_equipment_and_supplies"
+      | "political_organizations"
+      | "postal_services_government_only"
+      | "precious_stones_and_metals_watches_and_jewelry"
+      | "professional_services"
+      | "public_warehousing_and_storage"
+      | "quick_copy_repro_and_blueprint"
+      | "railroads"
+      | "real_estate_agents_and_managers_rentals"
+      | "record_stores"
+      | "recreational_vehicle_rentals"
+      | "religious_goods_stores"
+      | "religious_organizations"
+      | "roofing_siding_sheet_metal"
+      | "secretarial_support_services"
+      | "security_brokers_dealers"
+      | "service_stations"
+      | "sewing_needlework_fabric_and_piece_goods_stores"
+      | "shoe_repair_hat_cleaning"
+      | "shoe_stores"
+      | "small_appliance_repair"
+      | "snowmobile_dealers"
+      | "special_trade_services"
+      | "specialty_cleaning"
+      | "sporting_goods_stores"
+      | "sporting_recreation_camps"
+      | "sports_and_riding_apparel_stores"
+      | "sports_clubs_fields"
+      | "stamp_and_coin_stores"
+      | "stationary_office_supplies_printing_and_writing_paper"
+      | "stationery_stores_office_and_school_supply_stores"
+      | "swimming_pools_sales"
+      | "t_ui_travel_germany"
+      | "tailors_alterations"
+      | "tax_payments_government_agencies"
+      | "tax_preparation_services"
+      | "taxicabs_limousines"
+      | "telecommunication_equipment_and_telephone_sales"
+      | "telecommunication_services"
+      | "telegraph_services"
+      | "tent_and_awning_shops"
+      | "testing_laboratories"
+      | "theatrical_ticket_agencies"
+      | "timeshares"
+      | "tire_retreading_and_repair"
+      | "tolls_bridge_fees"
+      | "tourist_attractions_and_exhibits"
+      | "towing_services"
+      | "trailer_parks_campgrounds"
+      | "transportation_services"
+      | "travel_agencies_tour_operators"
+      | "truck_stop_iteration"
+      | "truck_utility_trailer_rentals"
+      | "typesetting_plate_making_and_related_services"
+      | "typewriter_stores"
+      | "u_s_federal_government_agencies_or_departments"
+      | "uniforms_commercial_clothing"
+      | "used_merchandise_and_secondhand_stores"
+      | "utilities"
+      | "variety_stores"
+      | "veterinary_services"
+      | "video_amusement_game_supplies"
+      | "video_game_arcades"
+      | "video_tape_rental_stores"
+      | "vocational_trade_schools"
+      | "watch_jewelry_repair"
+      | "welding_repair"
+      | "wholesale_clubs"
+      | "wig_and_toupee_stores"
+      | "wires_money_orders"
+      | "womens_accessory_and_specialty_shops"
+      | "womens_ready_to_wear_stores"
+      | "wrecking_and_salvage_yards"
+      | UnknownEnumStringValue
+    city?: string
+    country?: string
+    name?: string
+    network_id?: string
+    postal_code?: string
+    state?: string
+    terminal_id?: string
+    url?: string
+  }
+  network_data?: {
+    acquiring_institution_id?: string
+  }
+  verification_data?: {
+    address_line1_check?:
+      | "match"
+      | "mismatch"
+      | "not_provided"
+      | UnknownEnumStringValue
+    address_postal_code_check?:
+      | "match"
+      | "mismatch"
+      | "not_provided"
+      | UnknownEnumStringValue
+    authentication_exemption?: {
+      claimed_by: "acquirer" | "issuer" | UnknownEnumStringValue
+      type:
+        | "low_value_transaction"
+        | "transaction_risk_analysis"
+        | "unknown"
+        | UnknownEnumStringValue
+    }
+    cvc_check?: "match" | "mismatch" | "not_provided" | UnknownEnumStringValue
+    expiry_check?:
+      | "match"
+      | "mismatch"
+      | "not_provided"
+      | UnknownEnumStringValue
+    three_d_secure?: {
+      result:
+        | "attempt_acknowledged"
+        | "authenticated"
+        | "failed"
+        | "required"
+        | UnknownEnumStringValue
+    }
+  }
+  wallet?: "apple_pay" | "google_pay" | "samsung_pay" | UnknownEnumStringValue
+}
+
+export type t_PostTestHelpersIssuingAuthorizationsAuthorizationCaptureRequestBody =
+  {
+    capture_amount?: number
+    close_authorization?: boolean
+    expand?: string[]
+    purchase_details?: {
+      fleet?: {
+        cardholder_prompt_data?: {
+          driver_id?: string
+          odometer?: number
+          unspecified_id?: string
+          user_id?: string
+          vehicle_number?: string
+        }
+        purchase_type?:
+          | "fuel_and_non_fuel_purchase"
+          | "fuel_purchase"
+          | "non_fuel_purchase"
+          | UnknownEnumStringValue
+        reported_breakdown?: {
+          fuel?: {
+            gross_amount_decimal?: string
+          }
+          non_fuel?: {
+            gross_amount_decimal?: string
+          }
+          tax?: {
+            local_amount_decimal?: string
+            national_amount_decimal?: string
+          }
+        }
+        service_type?:
+          | "full_service"
+          | "non_fuel_transaction"
+          | "self_service"
+          | UnknownEnumStringValue
+      }
+      flight?: {
+        departure_at?: number
+        passenger_name?: string
+        refundable?: boolean
+        segments?: {
+          arrival_airport_code?: string
+          carrier?: string
+          departure_airport_code?: string
+          flight_number?: string
+          service_class?: string
+          stopover_allowed?: boolean
+        }[]
+        travel_agency?: string
+      }
+      fuel?: {
+        industry_product_code?: string
+        quantity_decimal?: string
+        type?:
+          | "diesel"
+          | "other"
+          | "unleaded_plus"
+          | "unleaded_regular"
+          | "unleaded_super"
+          | UnknownEnumStringValue
+        unit?:
+          | "charging_minute"
+          | "imperial_gallon"
+          | "kilogram"
+          | "kilowatt_hour"
+          | "liter"
+          | "other"
+          | "pound"
+          | "us_gallon"
+          | UnknownEnumStringValue
+        unit_cost_decimal?: string
+      }
+      lodging?: {
+        check_in_at?: number
+        nights?: number
+      }
+      receipt?: {
+        description?: string
+        quantity?: string
+        total?: number
+        unit_cost?: number
+      }[]
+      reference?: string
+    }
+  }
+
+export type t_PostTestHelpersIssuingAuthorizationsAuthorizationExpireRequestBody =
+  {
+    expand?: string[]
+  }
+
+export type t_PostTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmountRequestBody =
+  {
+    expand?: string[]
+    final_amount: number
+    fleet?: {
+      cardholder_prompt_data?: {
+        driver_id?: string
+        odometer?: number
+        unspecified_id?: string
+        user_id?: string
+        vehicle_number?: string
+      }
+      purchase_type?:
+        | "fuel_and_non_fuel_purchase"
+        | "fuel_purchase"
+        | "non_fuel_purchase"
+        | UnknownEnumStringValue
+      reported_breakdown?: {
+        fuel?: {
+          gross_amount_decimal?: string
+        }
+        non_fuel?: {
+          gross_amount_decimal?: string
+        }
+        tax?: {
+          local_amount_decimal?: string
+          national_amount_decimal?: string
+        }
+      }
+      service_type?:
+        | "full_service"
+        | "non_fuel_transaction"
+        | "self_service"
+        | UnknownEnumStringValue
+    }
+    fuel?: {
+      industry_product_code?: string
+      quantity_decimal?: string
+      type?:
+        | "diesel"
+        | "other"
+        | "unleaded_plus"
+        | "unleaded_regular"
+        | "unleaded_super"
+        | UnknownEnumStringValue
+      unit?:
+        | "charging_minute"
+        | "imperial_gallon"
+        | "kilogram"
+        | "kilowatt_hour"
+        | "liter"
+        | "other"
+        | "pound"
+        | "us_gallon"
+        | UnknownEnumStringValue
+      unit_cost_decimal?: string
+    }
+  }
+
+export type t_PostTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespondRequestBody =
+  {
+    confirmed: boolean
+    expand?: string[]
+  }
+
+export type t_PostTestHelpersIssuingAuthorizationsAuthorizationIncrementRequestBody =
+  {
+    expand?: string[]
+    increment_amount: number
+    is_amount_controllable?: boolean
+  }
+
+export type t_PostTestHelpersIssuingAuthorizationsAuthorizationReverseRequestBody =
+  {
+    expand?: string[]
+    reverse_amount?: number
+  }
+
+export type t_PostTestHelpersIssuingCardsCardShippingDeliverRequestBody = {
+  expand?: string[]
+}
+
+export type t_PostTestHelpersIssuingCardsCardShippingFailRequestBody = {
+  expand?: string[]
+}
+
+export type t_PostTestHelpersIssuingCardsCardShippingReturnRequestBody = {
+  expand?: string[]
+}
+
+export type t_PostTestHelpersIssuingCardsCardShippingShipRequestBody = {
+  expand?: string[]
+}
+
+export type t_PostTestHelpersIssuingCardsCardShippingSubmitRequestBody = {
+  expand?: string[]
+}
+
+export type t_PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivateRequestBody =
+  {
+    expand?: string[]
+  }
+
+export type t_PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivateRequestBody =
+  {
+    expand?: string[]
+  }
+
+export type t_PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignRejectRequestBody =
+  {
+    expand?: string[]
+    rejection_reasons: {
+      card_logo?: (
+        | "geographic_location"
+        | "inappropriate"
+        | "network_name"
+        | "non_binary_image"
+        | "non_fiat_currency"
+        | "other"
+        | "other_entity"
+        | "promotional_material"
+        | UnknownEnumStringValue
+      )[]
+      carrier_text?: (
+        | "geographic_location"
+        | "inappropriate"
+        | "network_name"
+        | "non_fiat_currency"
+        | "other"
+        | "other_entity"
+        | "promotional_material"
+        | UnknownEnumStringValue
+      )[]
+    }
+  }
+
+export type t_PostTestHelpersIssuingSettlementsRequestBody = {
+  bin: string
+  clearing_date: number
+  currency: string
+  expand?: string[]
+  interchange_fees_amount?: number
+  net_total_amount: number
+  network?: "maestro" | "visa" | UnknownEnumStringValue
+  network_settlement_identifier?: string
+  transaction_amount?: number
+  transaction_count?: number
+}
+
+export type t_PostTestHelpersIssuingSettlementsSettlementCompleteRequestBody = {
+  expand?: string[]
+}
+
+export type t_PostTestHelpersIssuingTransactionsCreateForceCaptureRequestBody =
+  {
+    amount: number
+    card: string
+    currency?: string
+    expand?: string[]
+    merchant_data?: {
+      category?:
+        | "ac_refrigeration_repair"
+        | "accounting_bookkeeping_services"
+        | "advertising_services"
+        | "agricultural_cooperative"
+        | "airlines_air_carriers"
+        | "airports_flying_fields"
+        | "ambulance_services"
+        | "amusement_parks_carnivals"
+        | "antique_reproductions"
+        | "antique_shops"
+        | "aquariums"
+        | "architectural_surveying_services"
+        | "art_dealers_and_galleries"
+        | "artists_supply_and_craft_shops"
+        | "auto_and_home_supply_stores"
+        | "auto_body_repair_shops"
+        | "auto_paint_shops"
+        | "auto_service_shops"
+        | "automated_cash_disburse"
+        | "automated_fuel_dispensers"
+        | "automobile_associations"
+        | "automotive_parts_and_accessories_stores"
+        | "automotive_tire_stores"
+        | "bail_and_bond_payments"
+        | "bakeries"
+        | "bands_orchestras"
+        | "barber_and_beauty_shops"
+        | "betting_casino_gambling"
+        | "bicycle_shops"
+        | "billiard_pool_establishments"
+        | "boat_dealers"
+        | "boat_rentals_and_leases"
+        | "book_stores"
+        | "books_periodicals_and_newspapers"
+        | "bowling_alleys"
+        | "bus_lines"
+        | "business_secretarial_schools"
+        | "buying_shopping_services"
+        | "cable_satellite_and_other_pay_television_and_radio"
+        | "camera_and_photographic_supply_stores"
+        | "candy_nut_and_confectionery_stores"
+        | "car_and_truck_dealers_new_used"
+        | "car_and_truck_dealers_used_only"
+        | "car_rental_agencies"
+        | "car_washes"
+        | "carpentry_services"
+        | "carpet_upholstery_cleaning"
+        | "caterers"
+        | "charitable_and_social_service_organizations_fundraising"
+        | "chemicals_and_allied_products"
+        | "child_care_services"
+        | "childrens_and_infants_wear_stores"
+        | "chiropodists_podiatrists"
+        | "chiropractors"
+        | "cigar_stores_and_stands"
+        | "civic_social_fraternal_associations"
+        | "cleaning_and_maintenance"
+        | "clothing_rental"
+        | "colleges_universities"
+        | "commercial_equipment"
+        | "commercial_footwear"
+        | "commercial_photography_art_and_graphics"
+        | "commuter_transport_and_ferries"
+        | "computer_network_services"
+        | "computer_programming"
+        | "computer_repair"
+        | "computer_software_stores"
+        | "computers_peripherals_and_software"
+        | "concrete_work_services"
+        | "construction_materials"
+        | "consulting_public_relations"
+        | "correspondence_schools"
+        | "cosmetic_stores"
+        | "counseling_services"
+        | "country_clubs"
+        | "courier_services"
+        | "court_costs"
+        | "credit_reporting_agencies"
+        | "cruise_lines"
+        | "dairy_products_stores"
+        | "dance_hall_studios_schools"
+        | "dating_escort_services"
+        | "dentists_orthodontists"
+        | "department_stores"
+        | "detective_agencies"
+        | "digital_goods_applications"
+        | "digital_goods_games"
+        | "digital_goods_large_volume"
+        | "digital_goods_media"
+        | "direct_marketing_catalog_merchant"
+        | "direct_marketing_combination_catalog_and_retail_merchant"
+        | "direct_marketing_inbound_telemarketing"
+        | "direct_marketing_insurance_services"
+        | "direct_marketing_other"
+        | "direct_marketing_outbound_telemarketing"
+        | "direct_marketing_subscription"
+        | "direct_marketing_travel"
+        | "discount_stores"
+        | "doctors"
+        | "door_to_door_sales"
+        | "drapery_window_covering_and_upholstery_stores"
+        | "drinking_places"
+        | "drug_stores_and_pharmacies"
+        | "drugs_drug_proprietaries_and_druggist_sundries"
+        | "dry_cleaners"
+        | "durable_goods"
+        | "duty_free_stores"
+        | "eating_places_restaurants"
+        | "educational_services"
+        | "electric_razor_stores"
+        | "electric_vehicle_charging"
+        | "electrical_parts_and_equipment"
+        | "electrical_services"
+        | "electronics_repair_shops"
+        | "electronics_stores"
+        | "elementary_secondary_schools"
+        | "emergency_services_gcas_visa_use_only"
+        | "employment_temp_agencies"
+        | "equipment_rental"
+        | "exterminating_services"
+        | "family_clothing_stores"
+        | "fast_food_restaurants"
+        | "financial_institutions"
+        | "fines_government_administrative_entities"
+        | "fireplace_fireplace_screens_and_accessories_stores"
+        | "floor_covering_stores"
+        | "florists"
+        | "florists_supplies_nursery_stock_and_flowers"
+        | "freezer_and_locker_meat_provisioners"
+        | "fuel_dealers_non_automotive"
+        | "funeral_services_crematories"
+        | "furniture_home_furnishings_and_equipment_stores_except_appliances"
+        | "furniture_repair_refinishing"
+        | "furriers_and_fur_shops"
+        | "general_services"
+        | "gift_card_novelty_and_souvenir_shops"
+        | "glass_paint_and_wallpaper_stores"
+        | "glassware_crystal_stores"
+        | "golf_courses_public"
+        | "government_licensed_horse_dog_racing_us_region_only"
+        | "government_licensed_online_casions_online_gambling_us_region_only"
+        | "government_owned_lotteries_non_us_region"
+        | "government_owned_lotteries_us_region_only"
+        | "government_services"
+        | "grocery_stores_supermarkets"
+        | "hardware_equipment_and_supplies"
+        | "hardware_stores"
+        | "health_and_beauty_spas"
+        | "hearing_aids_sales_and_supplies"
+        | "heating_plumbing_a_c"
+        | "hobby_toy_and_game_shops"
+        | "home_supply_warehouse_stores"
+        | "hospitals"
+        | "hotels_motels_and_resorts"
+        | "household_appliance_stores"
+        | "industrial_supplies"
+        | "information_retrieval_services"
+        | "insurance_default"
+        | "insurance_underwriting_premiums"
+        | "intra_company_purchases"
+        | "jewelry_stores_watches_clocks_and_silverware_stores"
+        | "landscaping_services"
+        | "laundries"
+        | "laundry_cleaning_services"
+        | "legal_services_attorneys"
+        | "luggage_and_leather_goods_stores"
+        | "lumber_building_materials_stores"
+        | "manual_cash_disburse"
+        | "marinas_service_and_supplies"
+        | "marketplaces"
+        | "masonry_stonework_and_plaster"
+        | "massage_parlors"
+        | "medical_and_dental_labs"
+        | "medical_dental_ophthalmic_and_hospital_equipment_and_supplies"
+        | "medical_services"
+        | "membership_organizations"
+        | "mens_and_boys_clothing_and_accessories_stores"
+        | "mens_womens_clothing_stores"
+        | "metal_service_centers"
+        | "miscellaneous_apparel_and_accessory_shops"
+        | "miscellaneous_auto_dealers"
+        | "miscellaneous_business_services"
+        | "miscellaneous_food_stores"
+        | "miscellaneous_general_merchandise"
+        | "miscellaneous_general_services"
+        | "miscellaneous_home_furnishing_specialty_stores"
+        | "miscellaneous_publishing_and_printing"
+        | "miscellaneous_recreation_services"
+        | "miscellaneous_repair_shops"
+        | "miscellaneous_specialty_retail"
+        | "mobile_home_dealers"
+        | "motion_picture_theaters"
+        | "motor_freight_carriers_and_trucking"
+        | "motor_homes_dealers"
+        | "motor_vehicle_supplies_and_new_parts"
+        | "motorcycle_shops_and_dealers"
+        | "motorcycle_shops_dealers"
+        | "music_stores_musical_instruments_pianos_and_sheet_music"
+        | "news_dealers_and_newsstands"
+        | "non_fi_money_orders"
+        | "non_fi_stored_value_card_purchase_load"
+        | "nondurable_goods"
+        | "nurseries_lawn_and_garden_supply_stores"
+        | "nursing_personal_care"
+        | "office_and_commercial_furniture"
+        | "opticians_eyeglasses"
+        | "optometrists_ophthalmologist"
+        | "orthopedic_goods_prosthetic_devices"
+        | "osteopaths"
+        | "package_stores_beer_wine_and_liquor"
+        | "paints_varnishes_and_supplies"
+        | "parking_lots_garages"
+        | "passenger_railways"
+        | "pawn_shops"
+        | "pet_shops_pet_food_and_supplies"
+        | "petroleum_and_petroleum_products"
+        | "photo_developing"
+        | "photographic_photocopy_microfilm_equipment_and_supplies"
+        | "photographic_studios"
+        | "picture_video_production"
+        | "piece_goods_notions_and_other_dry_goods"
+        | "plumbing_heating_equipment_and_supplies"
+        | "political_organizations"
+        | "postal_services_government_only"
+        | "precious_stones_and_metals_watches_and_jewelry"
+        | "professional_services"
+        | "public_warehousing_and_storage"
+        | "quick_copy_repro_and_blueprint"
+        | "railroads"
+        | "real_estate_agents_and_managers_rentals"
+        | "record_stores"
+        | "recreational_vehicle_rentals"
+        | "religious_goods_stores"
+        | "religious_organizations"
+        | "roofing_siding_sheet_metal"
+        | "secretarial_support_services"
+        | "security_brokers_dealers"
+        | "service_stations"
+        | "sewing_needlework_fabric_and_piece_goods_stores"
+        | "shoe_repair_hat_cleaning"
+        | "shoe_stores"
+        | "small_appliance_repair"
+        | "snowmobile_dealers"
+        | "special_trade_services"
+        | "specialty_cleaning"
+        | "sporting_goods_stores"
+        | "sporting_recreation_camps"
+        | "sports_and_riding_apparel_stores"
+        | "sports_clubs_fields"
+        | "stamp_and_coin_stores"
+        | "stationary_office_supplies_printing_and_writing_paper"
+        | "stationery_stores_office_and_school_supply_stores"
+        | "swimming_pools_sales"
+        | "t_ui_travel_germany"
+        | "tailors_alterations"
+        | "tax_payments_government_agencies"
+        | "tax_preparation_services"
+        | "taxicabs_limousines"
+        | "telecommunication_equipment_and_telephone_sales"
+        | "telecommunication_services"
+        | "telegraph_services"
+        | "tent_and_awning_shops"
+        | "testing_laboratories"
+        | "theatrical_ticket_agencies"
+        | "timeshares"
+        | "tire_retreading_and_repair"
+        | "tolls_bridge_fees"
+        | "tourist_attractions_and_exhibits"
+        | "towing_services"
+        | "trailer_parks_campgrounds"
+        | "transportation_services"
+        | "travel_agencies_tour_operators"
+        | "truck_stop_iteration"
+        | "truck_utility_trailer_rentals"
+        | "typesetting_plate_making_and_related_services"
+        | "typewriter_stores"
+        | "u_s_federal_government_agencies_or_departments"
+        | "uniforms_commercial_clothing"
+        | "used_merchandise_and_secondhand_stores"
+        | "utilities"
+        | "variety_stores"
+        | "veterinary_services"
+        | "video_amusement_game_supplies"
+        | "video_game_arcades"
+        | "video_tape_rental_stores"
+        | "vocational_trade_schools"
+        | "watch_jewelry_repair"
+        | "welding_repair"
+        | "wholesale_clubs"
+        | "wig_and_toupee_stores"
+        | "wires_money_orders"
+        | "womens_accessory_and_specialty_shops"
+        | "womens_ready_to_wear_stores"
+        | "wrecking_and_salvage_yards"
+        | UnknownEnumStringValue
+      city?: string
+      country?: string
+      name?: string
+      network_id?: string
+      postal_code?: string
+      state?: string
+      terminal_id?: string
+      url?: string
+    }
+    purchase_details?: {
+      fleet?: {
+        cardholder_prompt_data?: {
+          driver_id?: string
+          odometer?: number
+          unspecified_id?: string
+          user_id?: string
+          vehicle_number?: string
+        }
+        purchase_type?:
+          | "fuel_and_non_fuel_purchase"
+          | "fuel_purchase"
+          | "non_fuel_purchase"
+          | UnknownEnumStringValue
+        reported_breakdown?: {
+          fuel?: {
+            gross_amount_decimal?: string
+          }
+          non_fuel?: {
+            gross_amount_decimal?: string
+          }
+          tax?: {
+            local_amount_decimal?: string
+            national_amount_decimal?: string
+          }
+        }
+        service_type?:
+          | "full_service"
+          | "non_fuel_transaction"
+          | "self_service"
+          | UnknownEnumStringValue
+      }
+      flight?: {
+        departure_at?: number
+        passenger_name?: string
+        refundable?: boolean
+        segments?: {
+          arrival_airport_code?: string
+          carrier?: string
+          departure_airport_code?: string
+          flight_number?: string
+          service_class?: string
+          stopover_allowed?: boolean
+        }[]
+        travel_agency?: string
+      }
+      fuel?: {
+        industry_product_code?: string
+        quantity_decimal?: string
+        type?:
+          | "diesel"
+          | "other"
+          | "unleaded_plus"
+          | "unleaded_regular"
+          | "unleaded_super"
+          | UnknownEnumStringValue
+        unit?:
+          | "charging_minute"
+          | "imperial_gallon"
+          | "kilogram"
+          | "kilowatt_hour"
+          | "liter"
+          | "other"
+          | "pound"
+          | "us_gallon"
+          | UnknownEnumStringValue
+        unit_cost_decimal?: string
+      }
+      lodging?: {
+        check_in_at?: number
+        nights?: number
+      }
+      receipt?: {
+        description?: string
+        quantity?: string
+        total?: number
+        unit_cost?: number
+      }[]
+      reference?: string
+    }
+  }
+
+export type t_PostTestHelpersIssuingTransactionsCreateUnlinkedRefundRequestBody =
+  {
+    amount: number
+    card: string
+    currency?: string
+    expand?: string[]
+    merchant_data?: {
+      category?:
+        | "ac_refrigeration_repair"
+        | "accounting_bookkeeping_services"
+        | "advertising_services"
+        | "agricultural_cooperative"
+        | "airlines_air_carriers"
+        | "airports_flying_fields"
+        | "ambulance_services"
+        | "amusement_parks_carnivals"
+        | "antique_reproductions"
+        | "antique_shops"
+        | "aquariums"
+        | "architectural_surveying_services"
+        | "art_dealers_and_galleries"
+        | "artists_supply_and_craft_shops"
+        | "auto_and_home_supply_stores"
+        | "auto_body_repair_shops"
+        | "auto_paint_shops"
+        | "auto_service_shops"
+        | "automated_cash_disburse"
+        | "automated_fuel_dispensers"
+        | "automobile_associations"
+        | "automotive_parts_and_accessories_stores"
+        | "automotive_tire_stores"
+        | "bail_and_bond_payments"
+        | "bakeries"
+        | "bands_orchestras"
+        | "barber_and_beauty_shops"
+        | "betting_casino_gambling"
+        | "bicycle_shops"
+        | "billiard_pool_establishments"
+        | "boat_dealers"
+        | "boat_rentals_and_leases"
+        | "book_stores"
+        | "books_periodicals_and_newspapers"
+        | "bowling_alleys"
+        | "bus_lines"
+        | "business_secretarial_schools"
+        | "buying_shopping_services"
+        | "cable_satellite_and_other_pay_television_and_radio"
+        | "camera_and_photographic_supply_stores"
+        | "candy_nut_and_confectionery_stores"
+        | "car_and_truck_dealers_new_used"
+        | "car_and_truck_dealers_used_only"
+        | "car_rental_agencies"
+        | "car_washes"
+        | "carpentry_services"
+        | "carpet_upholstery_cleaning"
+        | "caterers"
+        | "charitable_and_social_service_organizations_fundraising"
+        | "chemicals_and_allied_products"
+        | "child_care_services"
+        | "childrens_and_infants_wear_stores"
+        | "chiropodists_podiatrists"
+        | "chiropractors"
+        | "cigar_stores_and_stands"
+        | "civic_social_fraternal_associations"
+        | "cleaning_and_maintenance"
+        | "clothing_rental"
+        | "colleges_universities"
+        | "commercial_equipment"
+        | "commercial_footwear"
+        | "commercial_photography_art_and_graphics"
+        | "commuter_transport_and_ferries"
+        | "computer_network_services"
+        | "computer_programming"
+        | "computer_repair"
+        | "computer_software_stores"
+        | "computers_peripherals_and_software"
+        | "concrete_work_services"
+        | "construction_materials"
+        | "consulting_public_relations"
+        | "correspondence_schools"
+        | "cosmetic_stores"
+        | "counseling_services"
+        | "country_clubs"
+        | "courier_services"
+        | "court_costs"
+        | "credit_reporting_agencies"
+        | "cruise_lines"
+        | "dairy_products_stores"
+        | "dance_hall_studios_schools"
+        | "dating_escort_services"
+        | "dentists_orthodontists"
+        | "department_stores"
+        | "detective_agencies"
+        | "digital_goods_applications"
+        | "digital_goods_games"
+        | "digital_goods_large_volume"
+        | "digital_goods_media"
+        | "direct_marketing_catalog_merchant"
+        | "direct_marketing_combination_catalog_and_retail_merchant"
+        | "direct_marketing_inbound_telemarketing"
+        | "direct_marketing_insurance_services"
+        | "direct_marketing_other"
+        | "direct_marketing_outbound_telemarketing"
+        | "direct_marketing_subscription"
+        | "direct_marketing_travel"
+        | "discount_stores"
+        | "doctors"
+        | "door_to_door_sales"
+        | "drapery_window_covering_and_upholstery_stores"
+        | "drinking_places"
+        | "drug_stores_and_pharmacies"
+        | "drugs_drug_proprietaries_and_druggist_sundries"
+        | "dry_cleaners"
+        | "durable_goods"
+        | "duty_free_stores"
+        | "eating_places_restaurants"
+        | "educational_services"
+        | "electric_razor_stores"
+        | "electric_vehicle_charging"
+        | "electrical_parts_and_equipment"
+        | "electrical_services"
+        | "electronics_repair_shops"
+        | "electronics_stores"
+        | "elementary_secondary_schools"
+        | "emergency_services_gcas_visa_use_only"
+        | "employment_temp_agencies"
+        | "equipment_rental"
+        | "exterminating_services"
+        | "family_clothing_stores"
+        | "fast_food_restaurants"
+        | "financial_institutions"
+        | "fines_government_administrative_entities"
+        | "fireplace_fireplace_screens_and_accessories_stores"
+        | "floor_covering_stores"
+        | "florists"
+        | "florists_supplies_nursery_stock_and_flowers"
+        | "freezer_and_locker_meat_provisioners"
+        | "fuel_dealers_non_automotive"
+        | "funeral_services_crematories"
+        | "furniture_home_furnishings_and_equipment_stores_except_appliances"
+        | "furniture_repair_refinishing"
+        | "furriers_and_fur_shops"
+        | "general_services"
+        | "gift_card_novelty_and_souvenir_shops"
+        | "glass_paint_and_wallpaper_stores"
+        | "glassware_crystal_stores"
+        | "golf_courses_public"
+        | "government_licensed_horse_dog_racing_us_region_only"
+        | "government_licensed_online_casions_online_gambling_us_region_only"
+        | "government_owned_lotteries_non_us_region"
+        | "government_owned_lotteries_us_region_only"
+        | "government_services"
+        | "grocery_stores_supermarkets"
+        | "hardware_equipment_and_supplies"
+        | "hardware_stores"
+        | "health_and_beauty_spas"
+        | "hearing_aids_sales_and_supplies"
+        | "heating_plumbing_a_c"
+        | "hobby_toy_and_game_shops"
+        | "home_supply_warehouse_stores"
+        | "hospitals"
+        | "hotels_motels_and_resorts"
+        | "household_appliance_stores"
+        | "industrial_supplies"
+        | "information_retrieval_services"
+        | "insurance_default"
+        | "insurance_underwriting_premiums"
+        | "intra_company_purchases"
+        | "jewelry_stores_watches_clocks_and_silverware_stores"
+        | "landscaping_services"
+        | "laundries"
+        | "laundry_cleaning_services"
+        | "legal_services_attorneys"
+        | "luggage_and_leather_goods_stores"
+        | "lumber_building_materials_stores"
+        | "manual_cash_disburse"
+        | "marinas_service_and_supplies"
+        | "marketplaces"
+        | "masonry_stonework_and_plaster"
+        | "massage_parlors"
+        | "medical_and_dental_labs"
+        | "medical_dental_ophthalmic_and_hospital_equipment_and_supplies"
+        | "medical_services"
+        | "membership_organizations"
+        | "mens_and_boys_clothing_and_accessories_stores"
+        | "mens_womens_clothing_stores"
+        | "metal_service_centers"
+        | "miscellaneous_apparel_and_accessory_shops"
+        | "miscellaneous_auto_dealers"
+        | "miscellaneous_business_services"
+        | "miscellaneous_food_stores"
+        | "miscellaneous_general_merchandise"
+        | "miscellaneous_general_services"
+        | "miscellaneous_home_furnishing_specialty_stores"
+        | "miscellaneous_publishing_and_printing"
+        | "miscellaneous_recreation_services"
+        | "miscellaneous_repair_shops"
+        | "miscellaneous_specialty_retail"
+        | "mobile_home_dealers"
+        | "motion_picture_theaters"
+        | "motor_freight_carriers_and_trucking"
+        | "motor_homes_dealers"
+        | "motor_vehicle_supplies_and_new_parts"
+        | "motorcycle_shops_and_dealers"
+        | "motorcycle_shops_dealers"
+        | "music_stores_musical_instruments_pianos_and_sheet_music"
+        | "news_dealers_and_newsstands"
+        | "non_fi_money_orders"
+        | "non_fi_stored_value_card_purchase_load"
+        | "nondurable_goods"
+        | "nurseries_lawn_and_garden_supply_stores"
+        | "nursing_personal_care"
+        | "office_and_commercial_furniture"
+        | "opticians_eyeglasses"
+        | "optometrists_ophthalmologist"
+        | "orthopedic_goods_prosthetic_devices"
+        | "osteopaths"
+        | "package_stores_beer_wine_and_liquor"
+        | "paints_varnishes_and_supplies"
+        | "parking_lots_garages"
+        | "passenger_railways"
+        | "pawn_shops"
+        | "pet_shops_pet_food_and_supplies"
+        | "petroleum_and_petroleum_products"
+        | "photo_developing"
+        | "photographic_photocopy_microfilm_equipment_and_supplies"
+        | "photographic_studios"
+        | "picture_video_production"
+        | "piece_goods_notions_and_other_dry_goods"
+        | "plumbing_heating_equipment_and_supplies"
+        | "political_organizations"
+        | "postal_services_government_only"
+        | "precious_stones_and_metals_watches_and_jewelry"
+        | "professional_services"
+        | "public_warehousing_and_storage"
+        | "quick_copy_repro_and_blueprint"
+        | "railroads"
+        | "real_estate_agents_and_managers_rentals"
+        | "record_stores"
+        | "recreational_vehicle_rentals"
+        | "religious_goods_stores"
+        | "religious_organizations"
+        | "roofing_siding_sheet_metal"
+        | "secretarial_support_services"
+        | "security_brokers_dealers"
+        | "service_stations"
+        | "sewing_needlework_fabric_and_piece_goods_stores"
+        | "shoe_repair_hat_cleaning"
+        | "shoe_stores"
+        | "small_appliance_repair"
+        | "snowmobile_dealers"
+        | "special_trade_services"
+        | "specialty_cleaning"
+        | "sporting_goods_stores"
+        | "sporting_recreation_camps"
+        | "sports_and_riding_apparel_stores"
+        | "sports_clubs_fields"
+        | "stamp_and_coin_stores"
+        | "stationary_office_supplies_printing_and_writing_paper"
+        | "stationery_stores_office_and_school_supply_stores"
+        | "swimming_pools_sales"
+        | "t_ui_travel_germany"
+        | "tailors_alterations"
+        | "tax_payments_government_agencies"
+        | "tax_preparation_services"
+        | "taxicabs_limousines"
+        | "telecommunication_equipment_and_telephone_sales"
+        | "telecommunication_services"
+        | "telegraph_services"
+        | "tent_and_awning_shops"
+        | "testing_laboratories"
+        | "theatrical_ticket_agencies"
+        | "timeshares"
+        | "tire_retreading_and_repair"
+        | "tolls_bridge_fees"
+        | "tourist_attractions_and_exhibits"
+        | "towing_services"
+        | "trailer_parks_campgrounds"
+        | "transportation_services"
+        | "travel_agencies_tour_operators"
+        | "truck_stop_iteration"
+        | "truck_utility_trailer_rentals"
+        | "typesetting_plate_making_and_related_services"
+        | "typewriter_stores"
+        | "u_s_federal_government_agencies_or_departments"
+        | "uniforms_commercial_clothing"
+        | "used_merchandise_and_secondhand_stores"
+        | "utilities"
+        | "variety_stores"
+        | "veterinary_services"
+        | "video_amusement_game_supplies"
+        | "video_game_arcades"
+        | "video_tape_rental_stores"
+        | "vocational_trade_schools"
+        | "watch_jewelry_repair"
+        | "welding_repair"
+        | "wholesale_clubs"
+        | "wig_and_toupee_stores"
+        | "wires_money_orders"
+        | "womens_accessory_and_specialty_shops"
+        | "womens_ready_to_wear_stores"
+        | "wrecking_and_salvage_yards"
+        | UnknownEnumStringValue
+      city?: string
+      country?: string
+      name?: string
+      network_id?: string
+      postal_code?: string
+      state?: string
+      terminal_id?: string
+      url?: string
+    }
+    purchase_details?: {
+      fleet?: {
+        cardholder_prompt_data?: {
+          driver_id?: string
+          odometer?: number
+          unspecified_id?: string
+          user_id?: string
+          vehicle_number?: string
+        }
+        purchase_type?:
+          | "fuel_and_non_fuel_purchase"
+          | "fuel_purchase"
+          | "non_fuel_purchase"
+          | UnknownEnumStringValue
+        reported_breakdown?: {
+          fuel?: {
+            gross_amount_decimal?: string
+          }
+          non_fuel?: {
+            gross_amount_decimal?: string
+          }
+          tax?: {
+            local_amount_decimal?: string
+            national_amount_decimal?: string
+          }
+        }
+        service_type?:
+          | "full_service"
+          | "non_fuel_transaction"
+          | "self_service"
+          | UnknownEnumStringValue
+      }
+      flight?: {
+        departure_at?: number
+        passenger_name?: string
+        refundable?: boolean
+        segments?: {
+          arrival_airport_code?: string
+          carrier?: string
+          departure_airport_code?: string
+          flight_number?: string
+          service_class?: string
+          stopover_allowed?: boolean
+        }[]
+        travel_agency?: string
+      }
+      fuel?: {
+        industry_product_code?: string
+        quantity_decimal?: string
+        type?:
+          | "diesel"
+          | "other"
+          | "unleaded_plus"
+          | "unleaded_regular"
+          | "unleaded_super"
+          | UnknownEnumStringValue
+        unit?:
+          | "charging_minute"
+          | "imperial_gallon"
+          | "kilogram"
+          | "kilowatt_hour"
+          | "liter"
+          | "other"
+          | "pound"
+          | "us_gallon"
+          | UnknownEnumStringValue
+        unit_cost_decimal?: string
+      }
+      lodging?: {
+        check_in_at?: number
+        nights?: number
+      }
+      receipt?: {
+        description?: string
+        quantity?: string
+        total?: number
+        unit_cost?: number
+      }[]
+      reference?: string
+    }
+  }
+
+export type t_PostTestHelpersIssuingTransactionsTransactionRefundRequestBody = {
+  expand?: string[]
+  refund_amount?: number
+}
+
+export type t_PostTestHelpersRefundsRefundExpireRequestBody = {
+  expand?: string[]
+}
+
+export type t_PostTestHelpersTerminalReadersReaderPresentPaymentMethodRequestBody =
+  {
+    amount_tip?: number
+    card_present?: {
+      number?: string
+    }
+    expand?: string[]
+    interac_present?: {
+      number?: string
+    }
+    type?: "card_present" | "interac_present" | UnknownEnumStringValue
+  }
+
+export type t_PostTestHelpersTerminalReadersReaderSucceedInputCollectionRequestBody =
+  {
+    expand?: string[]
+    skip_non_required_inputs?: "all" | "none" | UnknownEnumStringValue
+  }
+
+export type t_PostTestHelpersTerminalReadersReaderTimeoutInputCollectionRequestBody =
+  {
+    expand?: string[]
+  }
+
+export type t_PostTestHelpersTestClocksRequestBody = {
+  expand?: string[]
+  frozen_time: number
+  name?: string
+}
+
+export type t_PostTestHelpersTestClocksTestClockAdvanceRequestBody = {
+  expand?: string[]
+  frozen_time: number
+}
+
+export type t_PostTestHelpersTreasuryInboundTransfersIdFailRequestBody = {
+  expand?: string[]
+  failure_details?: {
+    code?:
+      | "account_closed"
+      | "account_frozen"
+      | "bank_account_restricted"
+      | "bank_ownership_changed"
+      | "debit_not_authorized"
+      | "incorrect_account_holder_address"
+      | "incorrect_account_holder_name"
+      | "incorrect_account_holder_tax_id"
+      | "insufficient_funds"
+      | "invalid_account_number"
+      | "invalid_currency"
+      | "no_account"
+      | "other"
+      | UnknownEnumStringValue
+  }
+}
+
+export type t_PostTestHelpersTreasuryInboundTransfersIdReturnRequestBody = {
+  expand?: string[]
+}
+
+export type t_PostTestHelpersTreasuryInboundTransfersIdSucceedRequestBody = {
+  expand?: string[]
+}
+
+export type t_PostTestHelpersTreasuryOutboundPaymentsIdRequestBody = {
+  expand?: string[]
+  tracking_details: {
+    ach?: {
+      trace_id: string
+    }
+    type: "ach" | "us_domestic_wire" | UnknownEnumStringValue
+    us_domestic_wire?: {
+      chips?: string
+      imad?: string
+      omad?: string
+    }
+  }
+}
+
+export type t_PostTestHelpersTreasuryOutboundPaymentsIdFailRequestBody = {
+  expand?: string[]
+}
+
+export type t_PostTestHelpersTreasuryOutboundPaymentsIdPostRequestBody = {
+  expand?: string[]
+}
+
+export type t_PostTestHelpersTreasuryOutboundPaymentsIdReturnRequestBody = {
+  expand?: string[]
+  returned_details?: {
+    code?:
+      | "account_closed"
+      | "account_frozen"
+      | "bank_account_restricted"
+      | "bank_ownership_changed"
+      | "declined"
+      | "incorrect_account_holder_name"
+      | "invalid_account_number"
+      | "invalid_currency"
+      | "no_account"
+      | "other"
+      | UnknownEnumStringValue
+  }
+}
+
+export type t_PostTestHelpersTreasuryOutboundTransfersOutboundTransferRequestBody =
+  {
+    expand?: string[]
+    tracking_details: {
+      ach?: {
+        trace_id: string
+      }
+      type: "ach" | "us_domestic_wire" | UnknownEnumStringValue
+      us_domestic_wire?: {
+        chips?: string
+        imad?: string
+        omad?: string
+      }
+    }
+  }
+
+export type t_PostTestHelpersTreasuryOutboundTransfersOutboundTransferFailRequestBody =
+  {
+    expand?: string[]
+  }
+
+export type t_PostTestHelpersTreasuryOutboundTransfersOutboundTransferPostRequestBody =
+  {
+    expand?: string[]
+  }
+
+export type t_PostTestHelpersTreasuryOutboundTransfersOutboundTransferReturnRequestBody =
+  {
+    expand?: string[]
+    returned_details?: {
+      code?:
+        | "account_closed"
+        | "account_frozen"
+        | "bank_account_restricted"
+        | "bank_ownership_changed"
+        | "declined"
+        | "incorrect_account_holder_name"
+        | "invalid_account_number"
+        | "invalid_currency"
+        | "no_account"
+        | "other"
+        | UnknownEnumStringValue
+    }
+  }
+
+export type t_PostTestHelpersTreasuryReceivedCreditsRequestBody = {
+  amount: number
+  currency: string
+  description?: string
+  expand?: string[]
+  financial_account: string
+  initiating_payment_method_details?: {
+    type: "us_bank_account" | UnknownEnumStringValue
+    us_bank_account?: {
+      account_holder_name?: string
+      account_number?: string
+      routing_number?: string
+    }
+  }
+  network: "ach" | "us_domestic_wire" | UnknownEnumStringValue
+}
+
+export type t_PostTestHelpersTreasuryReceivedDebitsRequestBody = {
+  amount: number
+  currency: string
+  description?: string
+  expand?: string[]
+  financial_account: string
+  initiating_payment_method_details?: {
+    type: "us_bank_account" | UnknownEnumStringValue
+    us_bank_account?: {
+      account_holder_name?: string
+      account_number?: string
+      routing_number?: string
+    }
+  }
+  network: "ach" | UnknownEnumStringValue
+}
+
+export type t_PostTokensRequestBody = {
+  account?: {
+    business_type?:
+      | "company"
+      | "government_entity"
+      | "individual"
+      | "non_profit"
+      | UnknownEnumStringValue
+    company?: {
+      address?: {
+        city?: string
+        country?: string
+        line1?: string
+        line2?: string
+        postal_code?: string
+        state?: string
+      }
+      address_kana?: {
+        city?: string
+        country?: string
+        line1?: string
+        line2?: string
+        postal_code?: string
+        state?: string
+        town?: string
+      }
+      address_kanji?: {
+        city?: string
+        country?: string
+        line1?: string
+        line2?: string
+        postal_code?: string
+        state?: string
+        town?: string
+      }
+      directors_provided?: boolean
+      directorship_declaration?: {
+        date?: number
+        ip?: string
+        user_agent?: string
+      }
+      executives_provided?: boolean
+      export_license_id?: string
+      export_purpose_code?: string
+      name?: string
+      name_kana?: string
+      name_kanji?: string
+      owners_provided?: boolean
+      ownership_declaration?: {
+        date?: number
+        ip?: string
+        user_agent?: string
+      }
+      ownership_declaration_shown_and_signed?: boolean
+      ownership_exemption_reason?:
+        | ""
+        | "qualified_entity_exceeds_ownership_threshold"
+        | "qualifies_as_financial_institution"
+        | UnknownEnumStringValue
+      phone?: string
+      registration_date?:
+        | {
+            day: number
+            month: number
+            year: number
+          }
+        | ""
+        | UnknownEnumStringValue
+      registration_number?: string
+      structure?:
+        | ""
+        | "free_zone_establishment"
+        | "free_zone_llc"
+        | "government_instrumentality"
+        | "governmental_unit"
+        | "incorporated_non_profit"
+        | "incorporated_partnership"
+        | "limited_liability_partnership"
+        | "llc"
+        | "multi_member_llc"
+        | "private_company"
+        | "private_corporation"
+        | "private_partnership"
+        | "public_company"
+        | "public_corporation"
+        | "public_partnership"
+        | "registered_charity"
+        | "single_member_llc"
+        | "sole_establishment"
+        | "sole_proprietorship"
+        | "tax_exempt_government_instrumentality"
+        | "unincorporated_association"
+        | "unincorporated_non_profit"
+        | "unincorporated_partnership"
+        | UnknownEnumStringValue
+      tax_id?: string
+      tax_id_registrar?: string
+      vat_id?: string
+      verification?: {
+        document?: {
+          back?: string
+          front?: string
+        }
+      }
+    }
+    individual?: {
+      address?: {
+        city?: string
+        country?: string
+        line1?: string
+        line2?: string
+        postal_code?: string
+        state?: string
+      }
+      address_kana?: {
+        city?: string
+        country?: string
+        line1?: string
+        line2?: string
+        postal_code?: string
+        state?: string
+        town?: string
+      }
+      address_kanji?: {
+        city?: string
+        country?: string
+        line1?: string
+        line2?: string
+        postal_code?: string
+        state?: string
+        town?: string
+      }
+      dob?:
+        | {
+            day: number
+            month: number
+            year: number
+          }
+        | ""
+        | UnknownEnumStringValue
+      email?: string
+      first_name?: string
+      first_name_kana?: string
+      first_name_kanji?: string
+      full_name_aliases?: string[] | "" | UnknownEnumStringValue
+      gender?: string
+      id_number?: string
+      id_number_secondary?: string
+      last_name?: string
+      last_name_kana?: string
+      last_name_kanji?: string
+      maiden_name?: string
+      metadata?:
+        | {
+            [key: string]: string | undefined
+          }
+        | ""
+        | UnknownEnumStringValue
+      phone?: string
+      political_exposure?: "existing" | "none" | UnknownEnumStringValue
+      registered_address?: {
+        city?: string
+        country?: string
+        line1?: string
+        line2?: string
+        postal_code?: string
+        state?: string
+      }
+      relationship?: {
+        director?: boolean
+        executive?: boolean
+        owner?: boolean
+        percent_ownership?: number | "" | UnknownEnumStringValue
+        title?: string
+      }
+      ssn_last_4?: string
+      verification?: {
+        additional_document?: {
+          back?: string
+          front?: string
+        }
+        document?: {
+          back?: string
+          front?: string
+        }
+      }
+    }
+    tos_shown_and_accepted?: boolean
+  }
+  bank_account?: {
+    account_holder_name?: string
+    account_holder_type?: "company" | "individual" | UnknownEnumStringValue
+    account_number: string
+    account_type?:
+      | "checking"
+      | "futsu"
+      | "savings"
+      | "toza"
+      | UnknownEnumStringValue
+    country: string
+    currency?: string
+    payment_method?: string
+    routing_number?: string
+  }
+  card?:
+    | {
+        address_city?: string
+        address_country?: string
+        address_line1?: string
+        address_line2?: string
+        address_state?: string
+        address_zip?: string
+        currency?: string
+        cvc?: string
+        exp_month: string
+        exp_year: string
+        name?: string
+        networks?: {
+          preferred?:
+            | "cartes_bancaires"
+            | "mastercard"
+            | "visa"
+            | UnknownEnumStringValue
+        }
+        number: string
+      }
+    | string
+  customer?: string
+  cvc_update?: {
+    cvc: string
+  }
+  expand?: string[]
+  person?: {
+    additional_tos_acceptances?: {
+      account?: {
+        date?: number
+        ip?: string
+        user_agent?: string | "" | UnknownEnumStringValue
+      }
+    }
+    address?: {
+      city?: string
+      country?: string
+      line1?: string
+      line2?: string
+      postal_code?: string
+      state?: string
+    }
+    address_kana?: {
+      city?: string
+      country?: string
+      line1?: string
+      line2?: string
+      postal_code?: string
+      state?: string
+      town?: string
+    }
+    address_kanji?: {
+      city?: string
+      country?: string
+      line1?: string
+      line2?: string
+      postal_code?: string
+      state?: string
+      town?: string
+    }
+    dob?:
+      | {
+          day: number
+          month: number
+          year: number
+        }
+      | ""
+      | UnknownEnumStringValue
+    documents?: {
+      company_authorization?: {
+        files?: (string | "" | UnknownEnumStringValue)[]
+      }
+      passport?: {
+        files?: (string | "" | UnknownEnumStringValue)[]
+      }
+      visa?: {
+        files?: (string | "" | UnknownEnumStringValue)[]
+      }
+    }
+    email?: string
+    first_name?: string
+    first_name_kana?: string
+    first_name_kanji?: string
+    full_name_aliases?: string[] | "" | UnknownEnumStringValue
+    gender?: string
+    id_number?: string
+    id_number_secondary?: string
+    last_name?: string
+    last_name_kana?: string
+    last_name_kanji?: string
+    maiden_name?: string
+    metadata?:
+      | {
+          [key: string]: string | undefined
+        }
+      | ""
+      | UnknownEnumStringValue
+    nationality?: string
+    phone?: string
+    political_exposure?: "existing" | "none" | UnknownEnumStringValue
+    registered_address?: {
+      city?: string
+      country?: string
+      line1?: string
+      line2?: string
+      postal_code?: string
+      state?: string
+    }
+    relationship?: {
+      authorizer?: boolean
+      director?: boolean
+      executive?: boolean
+      legal_guardian?: boolean
+      owner?: boolean
+      percent_ownership?: number | "" | UnknownEnumStringValue
+      representative?: boolean
+      title?: string
+    }
+    ssn_last_4?: string
+    us_cfpb_data?: {
+      ethnicity_details?: {
+        ethnicity?: (
+          | "cuban"
+          | "hispanic_or_latino"
+          | "mexican"
+          | "not_hispanic_or_latino"
+          | "other_hispanic_or_latino"
+          | "prefer_not_to_answer"
+          | "puerto_rican"
+          | UnknownEnumStringValue
+        )[]
+        ethnicity_other?: string
+      }
+      race_details?: {
+        race?: (
+          | "african_american"
+          | "american_indian_or_alaska_native"
+          | "asian"
+          | "asian_indian"
+          | "black_or_african_american"
+          | "chinese"
+          | "ethiopian"
+          | "filipino"
+          | "guamanian_or_chamorro"
+          | "haitian"
+          | "jamaican"
+          | "japanese"
+          | "korean"
+          | "native_hawaiian"
+          | "native_hawaiian_or_other_pacific_islander"
+          | "nigerian"
+          | "other_asian"
+          | "other_black_or_african_american"
+          | "other_pacific_islander"
+          | "prefer_not_to_answer"
+          | "samoan"
+          | "somali"
+          | "vietnamese"
+          | "white"
+          | UnknownEnumStringValue
+        )[]
+        race_other?: string
+      }
+      self_identified_gender?: string
+    }
+    verification?: {
+      additional_document?: {
+        back?: string
+        front?: string
+      }
+      document?: {
+        back?: string
+        front?: string
+      }
+    }
+  }
+  pii?: {
+    id_number?: string
+  }
+}
+
+export type t_PostTopupsRequestBody = {
+  amount: number
+  currency: string
+  description?: string
+  expand?: string[]
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | ""
+    | UnknownEnumStringValue
+  source?: string
+  statement_descriptor?: string
+  transfer_group?: string
+}
+
+export type t_PostTopupsTopupRequestBody = {
+  description?: string
+  expand?: string[]
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | ""
+    | UnknownEnumStringValue
+}
+
+export type t_PostTopupsTopupCancelRequestBody = {
+  expand?: string[]
+}
+
+export type t_PostTransfersRequestBody = {
+  amount?: number
+  currency: string
+  description?: string
+  destination: string
+  expand?: string[]
+  metadata?: {
+    [key: string]: string | undefined
+  }
+  source_transaction?: string
+  source_type?: "bank_account" | "card" | "fpx" | UnknownEnumStringValue
+  transfer_group?: string
+}
+
+export type t_PostTransfersIdReversalsRequestBody = {
+  amount?: number
+  description?: string
+  expand?: string[]
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | ""
+    | UnknownEnumStringValue
+  refund_application_fee?: boolean
+}
+
+export type t_PostTransfersTransferRequestBody = {
+  description?: string
+  expand?: string[]
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | ""
+    | UnknownEnumStringValue
+}
+
+export type t_PostTransfersTransferReversalsIdRequestBody = {
+  expand?: string[]
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | ""
+    | UnknownEnumStringValue
+}
+
+export type t_PostTreasuryCreditReversalsRequestBody = {
+  expand?: string[]
+  metadata?: {
+    [key: string]: string | undefined
+  }
+  received_credit: string
+}
+
+export type t_PostTreasuryDebitReversalsRequestBody = {
+  expand?: string[]
+  metadata?: {
+    [key: string]: string | undefined
+  }
+  received_debit: string
+}
+
+export type t_PostTreasuryFinancialAccountsRequestBody = {
+  expand?: string[]
+  features?: {
+    card_issuing?: {
+      requested: boolean
+    }
+    deposit_insurance?: {
+      requested: boolean
+    }
+    financial_addresses?: {
+      aba?: {
+        requested: boolean
+      }
+    }
+    inbound_transfers?: {
+      ach?: {
+        requested: boolean
+      }
+    }
+    intra_stripe_flows?: {
+      requested: boolean
+    }
+    outbound_payments?: {
+      ach?: {
+        requested: boolean
+      }
+      us_domestic_wire?: {
+        requested: boolean
+      }
+    }
+    outbound_transfers?: {
+      ach?: {
+        requested: boolean
+      }
+      us_domestic_wire?: {
+        requested: boolean
+      }
+    }
+  }
+  metadata?: {
+    [key: string]: string | undefined
+  }
+  nickname?: string | "" | UnknownEnumStringValue
+  platform_restrictions?: {
+    inbound_flows?: "restricted" | "unrestricted" | UnknownEnumStringValue
+    outbound_flows?: "restricted" | "unrestricted" | UnknownEnumStringValue
+  }
+  supported_currencies: string[]
+}
+
+export type t_PostTreasuryFinancialAccountsFinancialAccountRequestBody = {
+  expand?: string[]
+  features?: {
+    card_issuing?: {
+      requested: boolean
+    }
+    deposit_insurance?: {
+      requested: boolean
+    }
+    financial_addresses?: {
+      aba?: {
+        requested: boolean
+      }
+    }
+    inbound_transfers?: {
+      ach?: {
+        requested: boolean
+      }
+    }
+    intra_stripe_flows?: {
+      requested: boolean
+    }
+    outbound_payments?: {
+      ach?: {
+        requested: boolean
+      }
+      us_domestic_wire?: {
+        requested: boolean
+      }
+    }
+    outbound_transfers?: {
+      ach?: {
+        requested: boolean
+      }
+      us_domestic_wire?: {
+        requested: boolean
+      }
+    }
+  }
+  forwarding_settings?: {
+    financial_account?: string
+    payment_method?: string
+    type: "financial_account" | "payment_method" | UnknownEnumStringValue
+  }
+  metadata?: {
+    [key: string]: string | undefined
+  }
+  nickname?: string | "" | UnknownEnumStringValue
+  platform_restrictions?: {
+    inbound_flows?: "restricted" | "unrestricted" | UnknownEnumStringValue
+    outbound_flows?: "restricted" | "unrestricted" | UnknownEnumStringValue
+  }
+}
+
+export type t_PostTreasuryFinancialAccountsFinancialAccountCloseRequestBody = {
+  expand?: string[]
+  forwarding_settings?: {
+    financial_account?: string
+    payment_method?: string
+    type: "financial_account" | "payment_method" | UnknownEnumStringValue
+  }
+}
+
+export type t_PostTreasuryFinancialAccountsFinancialAccountFeaturesRequestBody =
+  {
+    card_issuing?: {
+      requested: boolean
+    }
+    deposit_insurance?: {
+      requested: boolean
+    }
+    expand?: string[]
+    financial_addresses?: {
+      aba?: {
+        requested: boolean
+      }
+    }
+    inbound_transfers?: {
+      ach?: {
+        requested: boolean
+      }
+    }
+    intra_stripe_flows?: {
+      requested: boolean
+    }
+    outbound_payments?: {
+      ach?: {
+        requested: boolean
+      }
+      us_domestic_wire?: {
+        requested: boolean
+      }
+    }
+    outbound_transfers?: {
+      ach?: {
+        requested: boolean
+      }
+      us_domestic_wire?: {
+        requested: boolean
+      }
+    }
+  }
+
+export type t_PostTreasuryInboundTransfersRequestBody = {
+  amount: number
+  currency: string
+  description?: string
+  expand?: string[]
+  financial_account: string
+  metadata?: {
+    [key: string]: string | undefined
+  }
+  origin_payment_method: string
+  statement_descriptor?: string
+}
+
+export type t_PostTreasuryInboundTransfersInboundTransferCancelRequestBody = {
+  expand?: string[]
+}
+
+export type t_PostTreasuryOutboundPaymentsRequestBody = {
+  amount: number
+  currency: string
+  customer?: string
+  description?: string
+  destination_payment_method?: string
+  destination_payment_method_data?: {
+    billing_details?: {
+      address?:
+        | {
+            city?: string
+            country?: string
+            line1?: string
+            line2?: string
+            postal_code?: string
+            state?: string
+          }
+        | ""
+        | UnknownEnumStringValue
+      email?: string | "" | UnknownEnumStringValue
+      name?: string | "" | UnknownEnumStringValue
+      phone?: string | "" | UnknownEnumStringValue
+    }
+    financial_account?: string
+    metadata?: {
+      [key: string]: string | undefined
+    }
+    type: "financial_account" | "us_bank_account" | UnknownEnumStringValue
+    us_bank_account?: {
+      account_holder_type?: "company" | "individual" | UnknownEnumStringValue
+      account_number?: string
+      account_type?: "checking" | "savings" | UnknownEnumStringValue
+      financial_connections_account?: string
+      routing_number?: string
+    }
+  }
+  destination_payment_method_options?: {
+    us_bank_account?:
+      | {
+          network?: "ach" | "us_domestic_wire" | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+  }
+  end_user_details?: {
+    ip_address?: string
+    present: boolean
+  }
+  expand?: string[]
+  financial_account: string
+  metadata?: {
+    [key: string]: string | undefined
+  }
+  statement_descriptor?: string
+}
+
+export type t_PostTreasuryOutboundPaymentsIdCancelRequestBody = {
+  expand?: string[]
+}
+
+export type t_PostTreasuryOutboundTransfersRequestBody = {
+  amount: number
+  currency: string
+  description?: string
+  destination_payment_method?: string
+  destination_payment_method_data?: {
+    financial_account?: string
+    type: "financial_account" | UnknownEnumStringValue
+  }
+  destination_payment_method_options?: {
+    us_bank_account?:
+      | {
+          network?: "ach" | "us_domestic_wire" | UnknownEnumStringValue
+        }
+      | ""
+      | UnknownEnumStringValue
+  }
+  expand?: string[]
+  financial_account: string
+  metadata?: {
+    [key: string]: string | undefined
+  }
+  statement_descriptor?: string
+}
+
+export type t_PostTreasuryOutboundTransfersOutboundTransferCancelRequestBody = {
+  expand?: string[]
+}
+
+export type t_PostWebhookEndpointsRequestBody = {
+  api_version?:
+    | "2011-01-01"
+    | "2011-06-21"
+    | "2011-06-28"
+    | "2011-08-01"
+    | "2011-09-15"
+    | "2011-11-17"
+    | "2012-02-23"
+    | "2012-03-25"
+    | "2012-06-18"
+    | "2012-06-28"
+    | "2012-07-09"
+    | "2012-09-24"
+    | "2012-10-26"
+    | "2012-11-07"
+    | "2013-02-11"
+    | "2013-02-13"
+    | "2013-07-05"
+    | "2013-08-12"
+    | "2013-08-13"
+    | "2013-10-29"
+    | "2013-12-03"
+    | "2014-01-31"
+    | "2014-03-13"
+    | "2014-03-28"
+    | "2014-05-19"
+    | "2014-06-13"
+    | "2014-06-17"
+    | "2014-07-22"
+    | "2014-07-26"
+    | "2014-08-04"
+    | "2014-08-20"
+    | "2014-09-08"
+    | "2014-10-07"
+    | "2014-11-05"
+    | "2014-11-20"
+    | "2014-12-08"
+    | "2014-12-17"
+    | "2014-12-22"
+    | "2015-01-11"
+    | "2015-01-26"
+    | "2015-02-10"
+    | "2015-02-16"
+    | "2015-02-18"
+    | "2015-03-24"
+    | "2015-04-07"
+    | "2015-06-15"
+    | "2015-07-07"
+    | "2015-07-13"
+    | "2015-07-28"
+    | "2015-08-07"
+    | "2015-08-19"
+    | "2015-09-03"
+    | "2015-09-08"
+    | "2015-09-23"
+    | "2015-10-01"
+    | "2015-10-12"
+    | "2015-10-16"
+    | "2016-02-03"
+    | "2016-02-19"
+    | "2016-02-22"
+    | "2016-02-23"
+    | "2016-02-29"
+    | "2016-03-07"
+    | "2016-06-15"
+    | "2016-07-06"
+    | "2016-10-19"
+    | "2017-01-27"
+    | "2017-02-14"
+    | "2017-04-06"
+    | "2017-05-25"
+    | "2017-06-05"
+    | "2017-08-15"
+    | "2017-12-14"
+    | "2018-01-23"
+    | "2018-02-05"
+    | "2018-02-06"
+    | "2018-02-28"
+    | "2018-05-21"
+    | "2018-07-27"
+    | "2018-08-23"
+    | "2018-09-06"
+    | "2018-09-24"
+    | "2018-10-31"
+    | "2018-11-08"
+    | "2019-02-11"
+    | "2019-02-19"
+    | "2019-03-14"
+    | "2019-05-16"
+    | "2019-08-14"
+    | "2019-09-09"
+    | "2019-10-08"
+    | "2019-10-17"
+    | "2019-11-05"
+    | "2019-12-03"
+    | "2020-03-02"
+    | "2020-08-27"
+    | "2022-08-01"
+    | "2022-11-15"
+    | "2023-08-16"
+    | "2023-10-16"
+    | "2024-04-10"
+    | "2024-06-20"
+    | "2024-09-30.acacia"
+    | "2024-10-28.acacia"
+    | "2024-11-20.acacia"
+    | "2024-12-18.acacia"
+    | "2025-01-27.acacia"
+    | "2025-02-24.acacia"
+    | "2025-03-01.dashboard"
+    | "2025-03-31.basil"
+    | "2025-04-30.basil"
+    | "2025-05-28.basil"
+    | "2025-06-30.basil"
+    | "2025-07-30.basil"
+    | UnknownEnumStringValue
+  connect?: boolean
+  description?: string | "" | UnknownEnumStringValue
+  enabled_events: (
+    | "*"
+    | "account.application.authorized"
+    | "account.application.deauthorized"
+    | "account.external_account.created"
+    | "account.external_account.deleted"
+    | "account.external_account.updated"
+    | "account.updated"
+    | "application_fee.created"
+    | "application_fee.refund.updated"
+    | "application_fee.refunded"
+    | "balance.available"
+    | "billing.alert.triggered"
+    | "billing_portal.configuration.created"
+    | "billing_portal.configuration.updated"
+    | "billing_portal.session.created"
+    | "capability.updated"
+    | "cash_balance.funds_available"
+    | "charge.captured"
+    | "charge.dispute.closed"
+    | "charge.dispute.created"
+    | "charge.dispute.funds_reinstated"
+    | "charge.dispute.funds_withdrawn"
+    | "charge.dispute.updated"
+    | "charge.expired"
+    | "charge.failed"
+    | "charge.pending"
+    | "charge.refund.updated"
+    | "charge.refunded"
+    | "charge.succeeded"
+    | "charge.updated"
+    | "checkout.session.async_payment_failed"
+    | "checkout.session.async_payment_succeeded"
+    | "checkout.session.completed"
+    | "checkout.session.expired"
+    | "climate.order.canceled"
+    | "climate.order.created"
+    | "climate.order.delayed"
+    | "climate.order.delivered"
+    | "climate.order.product_substituted"
+    | "climate.product.created"
+    | "climate.product.pricing_updated"
+    | "coupon.created"
+    | "coupon.deleted"
+    | "coupon.updated"
+    | "credit_note.created"
+    | "credit_note.updated"
+    | "credit_note.voided"
+    | "customer.created"
+    | "customer.deleted"
+    | "customer.discount.created"
+    | "customer.discount.deleted"
+    | "customer.discount.updated"
+    | "customer.source.created"
+    | "customer.source.deleted"
+    | "customer.source.expiring"
+    | "customer.source.updated"
+    | "customer.subscription.created"
+    | "customer.subscription.deleted"
+    | "customer.subscription.paused"
+    | "customer.subscription.pending_update_applied"
+    | "customer.subscription.pending_update_expired"
+    | "customer.subscription.resumed"
+    | "customer.subscription.trial_will_end"
+    | "customer.subscription.updated"
+    | "customer.tax_id.created"
+    | "customer.tax_id.deleted"
+    | "customer.tax_id.updated"
+    | "customer.updated"
+    | "customer_cash_balance_transaction.created"
+    | "entitlements.active_entitlement_summary.updated"
+    | "file.created"
+    | "financial_connections.account.created"
+    | "financial_connections.account.deactivated"
+    | "financial_connections.account.disconnected"
+    | "financial_connections.account.reactivated"
+    | "financial_connections.account.refreshed_balance"
+    | "financial_connections.account.refreshed_ownership"
+    | "financial_connections.account.refreshed_transactions"
+    | "identity.verification_session.canceled"
+    | "identity.verification_session.created"
+    | "identity.verification_session.processing"
+    | "identity.verification_session.redacted"
+    | "identity.verification_session.requires_input"
+    | "identity.verification_session.verified"
+    | "invoice.created"
+    | "invoice.deleted"
+    | "invoice.finalization_failed"
+    | "invoice.finalized"
+    | "invoice.marked_uncollectible"
+    | "invoice.overdue"
+    | "invoice.overpaid"
+    | "invoice.paid"
+    | "invoice.payment_action_required"
+    | "invoice.payment_failed"
+    | "invoice.payment_succeeded"
+    | "invoice.sent"
+    | "invoice.upcoming"
+    | "invoice.updated"
+    | "invoice.voided"
+    | "invoice.will_be_due"
+    | "invoice_payment.paid"
+    | "invoiceitem.created"
+    | "invoiceitem.deleted"
+    | "issuing_authorization.created"
+    | "issuing_authorization.request"
+    | "issuing_authorization.updated"
+    | "issuing_card.created"
+    | "issuing_card.updated"
+    | "issuing_cardholder.created"
+    | "issuing_cardholder.updated"
+    | "issuing_dispute.closed"
+    | "issuing_dispute.created"
+    | "issuing_dispute.funds_reinstated"
+    | "issuing_dispute.funds_rescinded"
+    | "issuing_dispute.submitted"
+    | "issuing_dispute.updated"
+    | "issuing_personalization_design.activated"
+    | "issuing_personalization_design.deactivated"
+    | "issuing_personalization_design.rejected"
+    | "issuing_personalization_design.updated"
+    | "issuing_token.created"
+    | "issuing_token.updated"
+    | "issuing_transaction.created"
+    | "issuing_transaction.purchase_details_receipt_updated"
+    | "issuing_transaction.updated"
+    | "mandate.updated"
+    | "payment_intent.amount_capturable_updated"
+    | "payment_intent.canceled"
+    | "payment_intent.created"
+    | "payment_intent.partially_funded"
+    | "payment_intent.payment_failed"
+    | "payment_intent.processing"
+    | "payment_intent.requires_action"
+    | "payment_intent.succeeded"
+    | "payment_link.created"
+    | "payment_link.updated"
+    | "payment_method.attached"
+    | "payment_method.automatically_updated"
+    | "payment_method.detached"
+    | "payment_method.updated"
+    | "payout.canceled"
+    | "payout.created"
+    | "payout.failed"
+    | "payout.paid"
+    | "payout.reconciliation_completed"
+    | "payout.updated"
+    | "person.created"
+    | "person.deleted"
+    | "person.updated"
+    | "plan.created"
+    | "plan.deleted"
+    | "plan.updated"
+    | "price.created"
+    | "price.deleted"
+    | "price.updated"
+    | "product.created"
+    | "product.deleted"
+    | "product.updated"
+    | "promotion_code.created"
+    | "promotion_code.updated"
+    | "quote.accepted"
+    | "quote.canceled"
+    | "quote.created"
+    | "quote.finalized"
+    | "radar.early_fraud_warning.created"
+    | "radar.early_fraud_warning.updated"
+    | "refund.created"
+    | "refund.failed"
+    | "refund.updated"
+    | "reporting.report_run.failed"
+    | "reporting.report_run.succeeded"
+    | "reporting.report_type.updated"
+    | "review.closed"
+    | "review.opened"
+    | "setup_intent.canceled"
+    | "setup_intent.created"
+    | "setup_intent.requires_action"
+    | "setup_intent.setup_failed"
+    | "setup_intent.succeeded"
+    | "sigma.scheduled_query_run.created"
+    | "source.canceled"
+    | "source.chargeable"
+    | "source.failed"
+    | "source.mandate_notification"
+    | "source.refund_attributes_required"
+    | "source.transaction.created"
+    | "source.transaction.updated"
+    | "subscription_schedule.aborted"
+    | "subscription_schedule.canceled"
+    | "subscription_schedule.completed"
+    | "subscription_schedule.created"
+    | "subscription_schedule.expiring"
+    | "subscription_schedule.released"
+    | "subscription_schedule.updated"
+    | "tax.settings.updated"
+    | "tax_rate.created"
+    | "tax_rate.updated"
+    | "terminal.reader.action_failed"
+    | "terminal.reader.action_succeeded"
+    | "terminal.reader.action_updated"
+    | "test_helpers.test_clock.advancing"
+    | "test_helpers.test_clock.created"
+    | "test_helpers.test_clock.deleted"
+    | "test_helpers.test_clock.internal_failure"
+    | "test_helpers.test_clock.ready"
+    | "topup.canceled"
+    | "topup.created"
+    | "topup.failed"
+    | "topup.reversed"
+    | "topup.succeeded"
+    | "transfer.created"
+    | "transfer.reversed"
+    | "transfer.updated"
+    | "treasury.credit_reversal.created"
+    | "treasury.credit_reversal.posted"
+    | "treasury.debit_reversal.completed"
+    | "treasury.debit_reversal.created"
+    | "treasury.debit_reversal.initial_credit_granted"
+    | "treasury.financial_account.closed"
+    | "treasury.financial_account.created"
+    | "treasury.financial_account.features_status_updated"
+    | "treasury.inbound_transfer.canceled"
+    | "treasury.inbound_transfer.created"
+    | "treasury.inbound_transfer.failed"
+    | "treasury.inbound_transfer.succeeded"
+    | "treasury.outbound_payment.canceled"
+    | "treasury.outbound_payment.created"
+    | "treasury.outbound_payment.expected_arrival_date_updated"
+    | "treasury.outbound_payment.failed"
+    | "treasury.outbound_payment.posted"
+    | "treasury.outbound_payment.returned"
+    | "treasury.outbound_payment.tracking_details_updated"
+    | "treasury.outbound_transfer.canceled"
+    | "treasury.outbound_transfer.created"
+    | "treasury.outbound_transfer.expected_arrival_date_updated"
+    | "treasury.outbound_transfer.failed"
+    | "treasury.outbound_transfer.posted"
+    | "treasury.outbound_transfer.returned"
+    | "treasury.outbound_transfer.tracking_details_updated"
+    | "treasury.received_credit.created"
+    | "treasury.received_credit.failed"
+    | "treasury.received_credit.succeeded"
+    | "treasury.received_debit.created"
+    | UnknownEnumStringValue
+  )[]
+  expand?: string[]
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | ""
+    | UnknownEnumStringValue
+  url: string
+}
+
+export type t_PostWebhookEndpointsWebhookEndpointRequestBody = {
+  description?: string | "" | UnknownEnumStringValue
+  disabled?: boolean
+  enabled_events?: (
+    | "*"
+    | "account.application.authorized"
+    | "account.application.deauthorized"
+    | "account.external_account.created"
+    | "account.external_account.deleted"
+    | "account.external_account.updated"
+    | "account.updated"
+    | "application_fee.created"
+    | "application_fee.refund.updated"
+    | "application_fee.refunded"
+    | "balance.available"
+    | "billing.alert.triggered"
+    | "billing_portal.configuration.created"
+    | "billing_portal.configuration.updated"
+    | "billing_portal.session.created"
+    | "capability.updated"
+    | "cash_balance.funds_available"
+    | "charge.captured"
+    | "charge.dispute.closed"
+    | "charge.dispute.created"
+    | "charge.dispute.funds_reinstated"
+    | "charge.dispute.funds_withdrawn"
+    | "charge.dispute.updated"
+    | "charge.expired"
+    | "charge.failed"
+    | "charge.pending"
+    | "charge.refund.updated"
+    | "charge.refunded"
+    | "charge.succeeded"
+    | "charge.updated"
+    | "checkout.session.async_payment_failed"
+    | "checkout.session.async_payment_succeeded"
+    | "checkout.session.completed"
+    | "checkout.session.expired"
+    | "climate.order.canceled"
+    | "climate.order.created"
+    | "climate.order.delayed"
+    | "climate.order.delivered"
+    | "climate.order.product_substituted"
+    | "climate.product.created"
+    | "climate.product.pricing_updated"
+    | "coupon.created"
+    | "coupon.deleted"
+    | "coupon.updated"
+    | "credit_note.created"
+    | "credit_note.updated"
+    | "credit_note.voided"
+    | "customer.created"
+    | "customer.deleted"
+    | "customer.discount.created"
+    | "customer.discount.deleted"
+    | "customer.discount.updated"
+    | "customer.source.created"
+    | "customer.source.deleted"
+    | "customer.source.expiring"
+    | "customer.source.updated"
+    | "customer.subscription.created"
+    | "customer.subscription.deleted"
+    | "customer.subscription.paused"
+    | "customer.subscription.pending_update_applied"
+    | "customer.subscription.pending_update_expired"
+    | "customer.subscription.resumed"
+    | "customer.subscription.trial_will_end"
+    | "customer.subscription.updated"
+    | "customer.tax_id.created"
+    | "customer.tax_id.deleted"
+    | "customer.tax_id.updated"
+    | "customer.updated"
+    | "customer_cash_balance_transaction.created"
+    | "entitlements.active_entitlement_summary.updated"
+    | "file.created"
+    | "financial_connections.account.created"
+    | "financial_connections.account.deactivated"
+    | "financial_connections.account.disconnected"
+    | "financial_connections.account.reactivated"
+    | "financial_connections.account.refreshed_balance"
+    | "financial_connections.account.refreshed_ownership"
+    | "financial_connections.account.refreshed_transactions"
+    | "identity.verification_session.canceled"
+    | "identity.verification_session.created"
+    | "identity.verification_session.processing"
+    | "identity.verification_session.redacted"
+    | "identity.verification_session.requires_input"
+    | "identity.verification_session.verified"
+    | "invoice.created"
+    | "invoice.deleted"
+    | "invoice.finalization_failed"
+    | "invoice.finalized"
+    | "invoice.marked_uncollectible"
+    | "invoice.overdue"
+    | "invoice.overpaid"
+    | "invoice.paid"
+    | "invoice.payment_action_required"
+    | "invoice.payment_failed"
+    | "invoice.payment_succeeded"
+    | "invoice.sent"
+    | "invoice.upcoming"
+    | "invoice.updated"
+    | "invoice.voided"
+    | "invoice.will_be_due"
+    | "invoice_payment.paid"
+    | "invoiceitem.created"
+    | "invoiceitem.deleted"
+    | "issuing_authorization.created"
+    | "issuing_authorization.request"
+    | "issuing_authorization.updated"
+    | "issuing_card.created"
+    | "issuing_card.updated"
+    | "issuing_cardholder.created"
+    | "issuing_cardholder.updated"
+    | "issuing_dispute.closed"
+    | "issuing_dispute.created"
+    | "issuing_dispute.funds_reinstated"
+    | "issuing_dispute.funds_rescinded"
+    | "issuing_dispute.submitted"
+    | "issuing_dispute.updated"
+    | "issuing_personalization_design.activated"
+    | "issuing_personalization_design.deactivated"
+    | "issuing_personalization_design.rejected"
+    | "issuing_personalization_design.updated"
+    | "issuing_token.created"
+    | "issuing_token.updated"
+    | "issuing_transaction.created"
+    | "issuing_transaction.purchase_details_receipt_updated"
+    | "issuing_transaction.updated"
+    | "mandate.updated"
+    | "payment_intent.amount_capturable_updated"
+    | "payment_intent.canceled"
+    | "payment_intent.created"
+    | "payment_intent.partially_funded"
+    | "payment_intent.payment_failed"
+    | "payment_intent.processing"
+    | "payment_intent.requires_action"
+    | "payment_intent.succeeded"
+    | "payment_link.created"
+    | "payment_link.updated"
+    | "payment_method.attached"
+    | "payment_method.automatically_updated"
+    | "payment_method.detached"
+    | "payment_method.updated"
+    | "payout.canceled"
+    | "payout.created"
+    | "payout.failed"
+    | "payout.paid"
+    | "payout.reconciliation_completed"
+    | "payout.updated"
+    | "person.created"
+    | "person.deleted"
+    | "person.updated"
+    | "plan.created"
+    | "plan.deleted"
+    | "plan.updated"
+    | "price.created"
+    | "price.deleted"
+    | "price.updated"
+    | "product.created"
+    | "product.deleted"
+    | "product.updated"
+    | "promotion_code.created"
+    | "promotion_code.updated"
+    | "quote.accepted"
+    | "quote.canceled"
+    | "quote.created"
+    | "quote.finalized"
+    | "radar.early_fraud_warning.created"
+    | "radar.early_fraud_warning.updated"
+    | "refund.created"
+    | "refund.failed"
+    | "refund.updated"
+    | "reporting.report_run.failed"
+    | "reporting.report_run.succeeded"
+    | "reporting.report_type.updated"
+    | "review.closed"
+    | "review.opened"
+    | "setup_intent.canceled"
+    | "setup_intent.created"
+    | "setup_intent.requires_action"
+    | "setup_intent.setup_failed"
+    | "setup_intent.succeeded"
+    | "sigma.scheduled_query_run.created"
+    | "source.canceled"
+    | "source.chargeable"
+    | "source.failed"
+    | "source.mandate_notification"
+    | "source.refund_attributes_required"
+    | "source.transaction.created"
+    | "source.transaction.updated"
+    | "subscription_schedule.aborted"
+    | "subscription_schedule.canceled"
+    | "subscription_schedule.completed"
+    | "subscription_schedule.created"
+    | "subscription_schedule.expiring"
+    | "subscription_schedule.released"
+    | "subscription_schedule.updated"
+    | "tax.settings.updated"
+    | "tax_rate.created"
+    | "tax_rate.updated"
+    | "terminal.reader.action_failed"
+    | "terminal.reader.action_succeeded"
+    | "terminal.reader.action_updated"
+    | "test_helpers.test_clock.advancing"
+    | "test_helpers.test_clock.created"
+    | "test_helpers.test_clock.deleted"
+    | "test_helpers.test_clock.internal_failure"
+    | "test_helpers.test_clock.ready"
+    | "topup.canceled"
+    | "topup.created"
+    | "topup.failed"
+    | "topup.reversed"
+    | "topup.succeeded"
+    | "transfer.created"
+    | "transfer.reversed"
+    | "transfer.updated"
+    | "treasury.credit_reversal.created"
+    | "treasury.credit_reversal.posted"
+    | "treasury.debit_reversal.completed"
+    | "treasury.debit_reversal.created"
+    | "treasury.debit_reversal.initial_credit_granted"
+    | "treasury.financial_account.closed"
+    | "treasury.financial_account.created"
+    | "treasury.financial_account.features_status_updated"
+    | "treasury.inbound_transfer.canceled"
+    | "treasury.inbound_transfer.created"
+    | "treasury.inbound_transfer.failed"
+    | "treasury.inbound_transfer.succeeded"
+    | "treasury.outbound_payment.canceled"
+    | "treasury.outbound_payment.created"
+    | "treasury.outbound_payment.expected_arrival_date_updated"
+    | "treasury.outbound_payment.failed"
+    | "treasury.outbound_payment.posted"
+    | "treasury.outbound_payment.returned"
+    | "treasury.outbound_payment.tracking_details_updated"
+    | "treasury.outbound_transfer.canceled"
+    | "treasury.outbound_transfer.created"
+    | "treasury.outbound_transfer.expected_arrival_date_updated"
+    | "treasury.outbound_transfer.failed"
+    | "treasury.outbound_transfer.posted"
+    | "treasury.outbound_transfer.returned"
+    | "treasury.outbound_transfer.tracking_details_updated"
+    | "treasury.received_credit.created"
+    | "treasury.received_credit.failed"
+    | "treasury.received_credit.succeeded"
+    | "treasury.received_debit.created"
+    | UnknownEnumStringValue
+  )[]
+  expand?: string[]
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | ""
+    | UnknownEnumStringValue
+  url?: string
+}

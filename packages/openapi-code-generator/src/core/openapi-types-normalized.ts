@@ -1,4 +1,4 @@
-import type {Style} from "./openapi-types"
+import type {Reference, Style} from "./openapi-types"
 import type {HttpMethod} from "./utils"
 
 export interface IRRef {
@@ -169,10 +169,21 @@ export type IRParameter =
   | IRParameterCookie
   | IRParameterRequestBody
 
+/**
+ * $ref - location of the virtual schema encapsulating params into an object
+ * list - list of the parameters
+ */
+export interface IROperationParameters {
+  all: IRParameter[]
+  path: {list: IRParameterPath[]; $ref: Reference | undefined}
+  query: {list: IRParameterQuery[]; $ref: Reference | undefined}
+  header: {list: IRParameterHeader[]; $ref: Reference | undefined}
+}
+
 export interface IROperation {
   route: string
   method: HttpMethod
-  parameters: IRParameter[]
+  parameters: IROperationParameters
   operationId: string
   tags: string[]
   requestBody: IRRequestBody | undefined

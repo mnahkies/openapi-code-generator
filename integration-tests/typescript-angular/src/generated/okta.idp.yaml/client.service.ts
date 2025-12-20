@@ -6,11 +6,13 @@ import {HttpClient, HttpParams, type HttpResponse} from "@angular/common/http"
 import {Injectable} from "@angular/core"
 import type {Observable} from "rxjs"
 import type {
-  EmptyObject,
   t_AppAuthenticatorEnrollment,
   t_AppAuthenticatorEnrollmentRequest,
   t_Authenticator,
   t_AuthenticatorEnrollment,
+  t_CreateEmailRequestBody,
+  t_CreatePasswordRequestBody,
+  t_CreatePhoneRequestBody,
   t_Email,
   t_Error,
   t_OktaApplication,
@@ -20,9 +22,15 @@ import type {
   t_Profile,
   t_PushNotificationChallenge,
   t_PushNotificationVerification,
+  t_ReplacePasswordRequestBody,
+  t_ReplaceProfileRequestBody,
   t_Schema,
+  t_SendEmailChallengeRequestBody,
+  t_SendPhoneChallengeRequestBody,
   t_UpdateAppAuthenticatorEnrollmentRequest,
   t_UpdateAuthenticatorEnrollmentRequest,
+  t_VerifyEmailOtpRequestBody,
+  t_VerifyPhoneChallengeRequestBody,
   UnknownEnumStringValue,
 } from "./models"
 
@@ -409,14 +417,7 @@ export class MyAccountManagementService {
   }
 
   createEmail(p: {
-    requestBody: {
-      profile: {
-        email: string
-      }
-      role?: "PRIMARY" | "SECONDARY" | UnknownEnumStringValue
-      sendEmail?: boolean
-      state?: string
-    }
+    requestBody: t_CreateEmailRequestBody
   }): Observable<
     | (HttpResponse<t_Email> & {status: 201})
     | (HttpResponse<t_Error> & {status: 400})
@@ -487,9 +488,7 @@ export class MyAccountManagementService {
 
   sendEmailChallenge(p: {
     id: string
-    requestBody: {
-      state: string
-    }
+    requestBody: t_SendEmailChallengeRequestBody
   }): Observable<
     | (HttpResponse<{
         _links: {
@@ -595,9 +594,7 @@ export class MyAccountManagementService {
   verifyEmailOtp(p: {
     id: string
     challengeId: string
-    requestBody: {
-      verificationCode: string
-    }
+    requestBody: t_VerifyEmailOtpRequestBody
   }): Observable<
     | (HttpResponse<void> & {status: 200})
     | (HttpResponse<t_Error> & {status: 401})
@@ -679,11 +676,7 @@ export class MyAccountManagementService {
   }
 
   createPassword(p: {
-    requestBody: {
-      profile: {
-        password: string
-      }
-    }
+    requestBody: t_CreatePasswordRequestBody
   }): Observable<
     | (HttpResponse<t_PasswordResponse> & {status: 201})
     | (HttpResponse<t_Error> & {status: 400})
@@ -710,11 +703,7 @@ export class MyAccountManagementService {
   }
 
   replacePassword(p: {
-    requestBody: {
-      profile: {
-        password: string
-      }
-    }
+    requestBody: t_ReplacePasswordRequestBody
   }): Observable<
     | (HttpResponse<t_PasswordResponse> & {status: 201})
     | (HttpResponse<t_Error> & {status: 400})
@@ -778,13 +767,7 @@ export class MyAccountManagementService {
   }
 
   createPhone(p: {
-    requestBody: {
-      method?: "SMS" | "CALL" | UnknownEnumStringValue
-      profile: {
-        phoneNumber?: string
-      }
-      sendCode?: boolean
-    }
+    requestBody: t_CreatePhoneRequestBody
   }): Observable<
     | (HttpResponse<t_Phone> & {status: 201})
     | (HttpResponse<t_Error> & {status: 400})
@@ -857,10 +840,7 @@ export class MyAccountManagementService {
 
   sendPhoneChallenge(p: {
     id: string
-    requestBody: {
-      method: "SMS" | "CALL" | UnknownEnumStringValue
-      retry?: boolean
-    }
+    requestBody: t_SendPhoneChallengeRequestBody
   }): Observable<
     | (HttpResponse<{
         _links?: {
@@ -899,9 +879,7 @@ export class MyAccountManagementService {
 
   verifyPhoneChallenge(p: {
     id: string
-    requestBody: {
-      verificationCode: string
-    }
+    requestBody: t_VerifyPhoneChallengeRequestBody
   }): Observable<
     | (HttpResponse<void> & {status: 204})
     | (HttpResponse<t_Error> & {status: 400})
@@ -948,9 +926,7 @@ export class MyAccountManagementService {
   }
 
   replaceProfile(p: {
-    requestBody: {
-      profile?: EmptyObject
-    }
+    requestBody: t_ReplaceProfileRequestBody
   }): Observable<
     | (HttpResponse<t_Profile> & {status: 200})
     | (HttpResponse<t_Error> & {status: 400})

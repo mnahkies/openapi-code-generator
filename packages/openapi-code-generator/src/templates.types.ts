@@ -1,5 +1,6 @@
 import type {Input, OperationGroupStrategy} from "./core/input"
 import type {CompilerOptions} from "./core/loaders/tsconfig.loader"
+import type {SyntheticNameGenerator} from "./core/synthetic-name-generator"
 import type {IdentifierConvention} from "./core/utils"
 import type {SchemaBuilderType} from "./typescript/common/schema-builders/schema-builder"
 import type {TypescriptEmitter} from "./typescript/common/typescript-emitter"
@@ -8,6 +9,7 @@ export type OpenapiGenerator = {
   language: "typescript"
   type: "client" | "server"
   run: (config: OpenapiTypescriptGeneratorConfig) => Promise<void>
+  syntheticNameGenerator: SyntheticNameGenerator
 }
 
 export type ServerImplementationMethod = "interface" | "type" | "abstract-class"

@@ -23,6 +23,7 @@ import type {
   IRModelObject,
   IRModelString,
   IROperation,
+  IROperationParameters,
   IRParameter,
   IRParameterBase,
   IRParameterCookie,
@@ -31,6 +32,7 @@ import type {
   IRParameterQuery,
   IRPreprocess,
   IRRef,
+  IRRequestBody,
   IRResponse,
   IRServer,
   IRServerVariable,
@@ -38,12 +40,16 @@ import type {
 } from "./openapi-types-normalized"
 import {extractPlaceholders, isRef} from "./openapi-utils"
 import {
+  defaultSyntheticNameGenerator,
+  type SyntheticNameGenerator,
+} from "./synthetic-name-generator"
+import {
   camelCase,
   coalesce,
   deepEqual,
   isDefined,
   isHttpMethod,
-  mediaTypeToIdentifier,
+  upperFirst,
 } from "./utils"
 
 export type OperationGroup = {name: string; operations: IROperation[]}
@@ -56,11 +62,14 @@ export type InputConfig = {
 
 export class Input {
   constructor(
-    readonly loader: OpenapiLoader,
+    private loader: OpenapiLoader,
     readonly config: InputConfig,
+    private readonly syntheticNameGenerator: SyntheticNameGenerator = defaultSyntheticNameGenerator,
     private readonly schemaNormalizer = new SchemaNormalizer(config),
     private readonly parameterNormalizer = new ParameterNormalizer(
+      loader,
       schemaNormalizer,
+      syntheticNameGenerator,
     ),
   ) {}
 
@@ -120,8 +129,6 @@ export class Input {
     )) {
       paths = this.loader.paths(paths)
 
-      const params = this.normalizeParameters(paths.parameters)
-
       const additionalAttributes = Object.fromEntries(
         Object.entries(paths).filter(
           ([key]) => key !== "parameters" && !isHttpMethod(key),
@@ -151,6 +158,10 @@ export class Input {
           route,
         )
 
+        const parameters = (paths.parameters ?? []).concat(
+          definition.parameters ?? [],
+        )
+
         if (definition.callbacks) {
           throw new Error("callbacks are not supported")
         }
@@ -162,8 +173,9 @@ export class Input {
           servers: this.normalizeServers(
             coalesce(definition.servers, paths.servers, []),
           ),
-          parameters: params.concat(
-            this.normalizeParameters(definition.parameters),
+          parameters: this.parameterNormalizer.normalizeParameters(
+            operationId,
+            parameters,
           ),
           operationId,
           tags: definition.tags ?? [],
@@ -289,7 +301,7 @@ export class Input {
   private normalizeRequestBodyObject(
     operationId: string,
     requestBody?: RequestBody | Reference,
-  ) {
+  ): IRRequestBody | undefined {
     if (!requestBody) {
       return undefined
     }
@@ -304,6 +316,7 @@ export class Input {
         requestBody.content ?? {},
         operationId,
         "RequestBody",
+        undefined,
       ),
     }
   }
@@ -332,20 +345,13 @@ export class Input {
             content: this.normalizeMediaTypes(
               response.content ?? {},
               operationId,
-              `${statusCode}Response`,
+              "ResponseBody",
+              statusCode,
             ),
           },
         ]
       }),
     )
-  }
-
-  private normalizeParameters(
-    parameters: (Parameter | Reference)[] = [],
-  ): IRParameter[] {
-    return parameters
-      .map((it) => this.loader.parameter(it))
-      .map((it) => this.parameterNormalizer.normalizeParameter(it))
   }
 
   private normalizeOperationId(
@@ -365,26 +371,30 @@ export class Input {
       [mediaType: string]: MediaType
     },
     operationId: string,
-    suffix: "RequestBody" | `${string}Response`,
+    context: "RequestBody" | "ResponseBody",
+    statusCode: number | string | undefined,
   ) {
+    const filtered = Object.entries(mediaTypes)
+      // Sometimes people pass `{}` as the MediaType for 204 responses, filter these out
+      .filter(([, mediaType]) => Boolean(mediaType.schema))
+    const hasMultipleMediaTypes = filtered.length > 1
     return Object.fromEntries(
-      Object.entries(mediaTypes)
-        // Sometimes people pass `{}` as the MediaType for 204 responses, filter these out
-        .filter(([, mediaType]) => Boolean(mediaType.schema))
-        .map(([contentType, mediaType]) => {
-          return [
-            contentType,
-            {
-              schema: this.normalizeMediaTypeSchema(
-                operationId,
-                contentType,
-                mediaType.schema,
-                suffix,
-              ),
-              encoding: mediaType.encoding,
-            },
-          ]
-        }),
+      filtered.map(([contentType, mediaType]) => {
+        return [
+          contentType,
+          {
+            schema: this.normalizeMediaTypeSchema(
+              operationId,
+              contentType,
+              mediaType.schema,
+              context,
+              statusCode,
+              hasMultipleMediaTypes,
+            ),
+            encoding: mediaType.encoding,
+          },
+        ]
+      }),
     )
   }
 
@@ -392,17 +402,32 @@ export class Input {
     operationId: string,
     mediaType: string,
     schema: Schema | Reference,
-    suffix: string,
+    context: "RequestBody" | "ResponseBody",
+    statusCode: number | string | undefined,
+    hasMultipleMediaTypes: boolean,
   ): MaybeIRModel {
-    // TODO: omit media type when only one possible?
-    const syntheticName = `${operationId}${mediaTypeToIdentifier(
-      mediaType,
-    )}${suffix}`
+    const syntheticName =
+      context === "RequestBody"
+        ? this.syntheticNameGenerator.forRequestBody({
+            operationId,
+            mediaType,
+            hasMultipleMediaTypes,
+            config: this.config,
+          })
+        : this.syntheticNameGenerator.forResponseBody({
+            operationId,
+            mediaType,
+            statusCode,
+            hasMultipleMediaTypes,
+            config: this.config,
+          })
+
     const result = this.schemaNormalizer.normalize(schema)
 
     const shouldCreateVirtualType =
-      this.config.extractInlineSchemas &&
+      (this.config.extractInlineSchemas || context === "RequestBody") &&
       !isRef(result) &&
+      !isRef(schema) &&
       (result.type === "object" ||
         (result.type === "array" &&
           !isRef(result.items) &&
@@ -415,7 +440,107 @@ export class Input {
 }
 
 export class ParameterNormalizer {
-  constructor(private readonly schemaNormalizer: SchemaNormalizer) {}
+  constructor(
+    private readonly loader: OpenapiLoader,
+    private readonly schemaNormalizer: SchemaNormalizer,
+    private readonly syntheticNameGenerator: SyntheticNameGenerator,
+  ) {}
+
+  public normalizeParameters(
+    operationId: string,
+    parameters: (Parameter | Reference)[] = [],
+  ): IROperationParameters {
+    const allParameters = parameters.map((it) => this.loader.parameter(it))
+
+    const pathParameters = allParameters.filter((it) => it.in === "path")
+    const queryParameters = allParameters.filter((it) => it.in === "query")
+    const headerParameters = allParameters.filter((it) => it.in === "header")
+
+    const normalizedParameters = allParameters.map((it) =>
+      this.normalizeParameter(it),
+    )
+
+    return {
+      all: normalizedParameters,
+      path: {
+        list: normalizedParameters.filter((it) => it.in === "path"),
+        $ref: pathParameters.length
+          ? this.loader.addVirtualType(
+              operationId,
+              this.syntheticNameGenerator.forPathParameters({operationId}),
+              this.reduceParametersToOpenApiSchema(pathParameters),
+            )
+          : undefined,
+      },
+      query: {
+        list: normalizedParameters.filter((it) => it.in === "query"),
+        $ref: queryParameters.length
+          ? this.loader.addVirtualType(
+              operationId,
+              this.syntheticNameGenerator.forQueryParameters({operationId}),
+              this.reduceParametersToOpenApiSchema(queryParameters),
+            )
+          : undefined,
+      },
+      header: {
+        list: normalizedParameters.filter((it) => it.in === "header"),
+        $ref: headerParameters.length
+          ? this.loader.addVirtualType(
+              operationId,
+              this.syntheticNameGenerator.forRequestHeaders({operationId}),
+              this.reduceParametersToOpenApiSchema(
+                headerParameters.map((it) => ({
+                  ...it,
+                  name: it.name.toLowerCase(),
+                })),
+              ),
+            )
+          : undefined,
+      },
+    }
+  }
+
+  private reduceParametersToOpenApiSchema(
+    parameters: Parameter[],
+  ): SchemaObject {
+    const properties: Record<string, Schema | Reference> = {}
+    const required: string[] = []
+
+    for (const parameter of parameters) {
+      const schema = parameter.schema
+
+      const dereferenced = this.loader.schema(schema)
+
+      /**
+       * HACK: With exploded array query parameters, you can't tell between an
+       * array with one element and plain parameter without runtime schema information.
+       * If it's supposed to be an array, and it's a scalar, coerce to an array.
+       *
+       * When better support for explode / style lands, we might be able to remove this.
+       */
+      if (parameter.in === "query" && dereferenced.type === "array") {
+        schema["x-internal-preprocess"] = {
+          deserialize: {
+            fn: "(it: unknown) => Array.isArray(it) || it === undefined ? it : [it]",
+          },
+        }
+      }
+
+      properties[parameter.name] = schema
+
+      if (parameter.required) {
+        required.push(parameter.name)
+      }
+    }
+
+    return {
+      type: "object",
+      properties,
+      required,
+      additionalProperties: false,
+      nullable: false,
+    }
+  }
 
   public normalizeParameter(it: Parameter): IRParameter {
     const base = {
