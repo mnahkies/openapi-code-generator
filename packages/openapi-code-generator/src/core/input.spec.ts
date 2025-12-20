@@ -14,6 +14,7 @@ import type {
 describe("core/input - SchemaNormalizer", () => {
   const base = {
     any: {
+      isIRModel: true,
       type: "any",
       default: undefined,
       nullable: false,
@@ -21,6 +22,7 @@ describe("core/input - SchemaNormalizer", () => {
       "x-internal-preprocess": undefined,
     } satisfies IRModelAny,
     never: {
+      isIRModel: true,
       type: "never",
       default: undefined,
       nullable: false,
@@ -28,6 +30,7 @@ describe("core/input - SchemaNormalizer", () => {
       "x-internal-preprocess": undefined,
     } satisfies IRModelNever,
     object: {
+      isIRModel: true,
       type: "object",
       default: undefined,
       nullable: false,
@@ -41,6 +44,7 @@ describe("core/input - SchemaNormalizer", () => {
       "x-internal-preprocess": undefined,
     } satisfies IRModelObject,
     array: {
+      isIRModel: true,
       type: "array",
       default: undefined,
       nullable: false,
@@ -51,6 +55,7 @@ describe("core/input - SchemaNormalizer", () => {
       "x-internal-preprocess": undefined,
     } satisfies Omit<IRModelArray, "items">,
     string: {
+      isIRModel: true,
       type: "string",
       format: undefined,
       default: undefined,
@@ -64,6 +69,7 @@ describe("core/input - SchemaNormalizer", () => {
       "x-internal-preprocess": undefined,
     } satisfies IRModelString,
     number: {
+      isIRModel: true,
       type: "number",
       format: undefined,
       default: undefined,
@@ -79,6 +85,7 @@ describe("core/input - SchemaNormalizer", () => {
       "x-internal-preprocess": undefined,
     } satisfies IRModelNumeric,
     boolean: {
+      isIRModel: true,
       type: "boolean",
       default: undefined,
       enum: undefined,

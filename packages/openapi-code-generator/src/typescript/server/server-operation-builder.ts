@@ -163,10 +163,9 @@ export class ServerOperationBuilder {
   private pathParameters(): Parameters["path"] {
     const $ref = this.operation.params.path.$ref
 
-    const schema =
-      $ref !== undefined
-        ? this.schemaBuilder.fromModel(this.input.schema($ref), true, true)
-        : undefined
+    const schema = $ref
+      ? this.schemaBuilder.fromModel(this.input.schema($ref), true, true)
+      : undefined
 
     let type = "void"
 
@@ -180,10 +179,9 @@ export class ServerOperationBuilder {
   private queryParameters(): Parameters["query"] {
     const $ref = this.operation.params.query.$ref
 
-    const schema =
-      $ref !== undefined
-        ? this.schemaBuilder.fromModel(this.input.schema($ref), true, true)
-        : undefined
+    const schema = $ref
+      ? this.schemaBuilder.fromModel(this.input.schema($ref), true, true)
+      : undefined
 
     let type = "void"
 
@@ -197,10 +195,9 @@ export class ServerOperationBuilder {
   private headerParameters(): Parameters["header"] {
     const $ref = this.operation.params.header.$ref
 
-    const schema =
-      $ref !== undefined
-        ? this.schemaBuilder.fromModel(this.input.schema($ref), true, true)
-        : undefined
+    const schema = $ref
+      ? this.schemaBuilder.fromModel(this.input.schema($ref), true, true)
+      : undefined
 
     let type = "void"
 

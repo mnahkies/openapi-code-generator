@@ -43,7 +43,14 @@ import {
   defaultSyntheticNameGenerator,
   type SyntheticNameGenerator,
 } from "./synthetic-name-generator"
-import {camelCase, coalesce, deepEqual, isDefined, isHttpMethod} from "./utils"
+import {
+  camelCase,
+  coalesce,
+  deepEqual,
+  isDefined,
+  isHttpMethod,
+  lowerFirst,
+} from "./utils"
 
 export type OperationGroup = {name: string; operations: IROperation[]}
 export type OperationGroupStrategy = "none" | "first-tag" | "first-slug"
@@ -58,7 +65,8 @@ export class Input {
     private loader: OpenapiLoader,
     readonly config: InputConfig,
     private readonly syntheticNameGenerator: SyntheticNameGenerator = defaultSyntheticNameGenerator,
-    private readonly schemaNormalizer = new SchemaNormalizer(config),
+    // todo: make private
+    readonly schemaNormalizer = new SchemaNormalizer(config),
     private readonly parameterNormalizer = new ParameterNormalizer(
       loader,
       schemaNormalizer,
@@ -244,7 +252,9 @@ export class Input {
   schema(maybeRef: MaybeIRModel): IRModel {
     if (isRef(maybeRef)) {
       const schema = this.loader.schema(maybeRef)
-      return this.schemaNormalizer.normalize(schema)
+      return this.schemaNormalizer.isNormalized(schema)
+        ? schema
+        : this.schemaNormalizer.normalize(schema)
     }
 
     return maybeRef
@@ -462,7 +472,9 @@ export class ParameterNormalizer {
     return {
       all: normalizedParameters,
       path: {
-        name: this.syntheticNameGenerator.forPathParameters({operationId}),
+        name: lowerFirst(
+          this.syntheticNameGenerator.forPathParameters({operationId}),
+        ),
         list: normalizedParameters.filter((it) => it.in === "path"),
         $ref: pathParameters.length
           ? this.loader.addVirtualType(
@@ -473,7 +485,9 @@ export class ParameterNormalizer {
           : undefined,
       },
       query: {
-        name: this.syntheticNameGenerator.forQueryParameters({operationId}),
+        name: lowerFirst(
+          this.syntheticNameGenerator.forQueryParameters({operationId}),
+        ),
         list: normalizedParameters.filter((it) => it.in === "query"),
         $ref: queryParameters.length
           ? this.loader.addVirtualType(
@@ -484,7 +498,9 @@ export class ParameterNormalizer {
           : undefined,
       },
       header: {
-        name: this.syntheticNameGenerator.forRequestHeaders({operationId}),
+        name: lowerFirst(
+          this.syntheticNameGenerator.forRequestHeaders({operationId}),
+        ),
         list: normalizedParameters.filter((it) => it.in === "header"),
         $ref: headerParameters.length
           ? this.loader.addVirtualType(
@@ -695,6 +711,10 @@ export class ParameterNormalizer {
 export class SchemaNormalizer {
   constructor(readonly config: InputConfig) {}
 
+  public isNormalized(schema: Schema | IRModel): schema is IRModel {
+    return Reflect.get(schema, "isIRModel")
+  }
+
   public normalize(schemaObject: Schema): IRModel
   public normalize(schemaObject: Reference): IRRef
   public normalize(schemaObject: Schema | Reference): IRModel | IRRef
@@ -705,7 +725,7 @@ export class SchemaNormalizer {
       return schemaObject satisfies IRRef
     }
 
-    if (Reflect.get(schemaObject, "isIRModel")) {
+    if (this.isNormalized(schemaObject)) {
       throw new Error("double normalization!")
     }
 
@@ -715,7 +735,6 @@ export class SchemaNormalizer {
     if (Array.isArray(schemaObject.type)) {
       const nullable = Boolean(schemaObject.type.find((it) => it === "null"))
       return self.normalize({
-        isIRModel: false,
         type: "object",
         oneOf: schemaObject.type
           .filter((it) => it !== "null")
