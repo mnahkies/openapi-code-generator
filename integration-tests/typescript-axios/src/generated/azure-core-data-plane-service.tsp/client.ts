@@ -76,9 +76,7 @@ export class ContosoWidgetManager extends AbstractAxiosClient {
       },
       opts.headers,
     )
-    const query = this._query({
-      "api-version": p["apiVersion"],
-    })
+    const query = this._query({"api-version": p["apiVersion"]})
 
     return this._request({
       url: url + query,
@@ -114,9 +112,7 @@ export class ContosoWidgetManager extends AbstractAxiosClient {
   > {
     const url = `/widgets/${p["widgetName"]}/operations/${p["operationId"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      "api-version": p["apiVersion"],
-    })
+    const query = this._query({"api-version": p["apiVersion"]})
 
     return this._request({
       url: url + query,
@@ -158,9 +154,7 @@ export class ContosoWidgetManager extends AbstractAxiosClient {
       },
       opts.headers,
     )
-    const query = this._query({
-      "api-version": p["apiVersion"],
-    })
+    const query = this._query({"api-version": p["apiVersion"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
@@ -198,9 +192,7 @@ export class ContosoWidgetManager extends AbstractAxiosClient {
       },
       opts.headers,
     )
-    const query = this._query({
-      "api-version": p["apiVersion"],
-    })
+    const query = this._query({"api-version": p["apiVersion"]})
 
     return this._request({
       url: url + query,
@@ -246,9 +238,7 @@ export class ContosoWidgetManager extends AbstractAxiosClient {
       },
       opts.headers,
     )
-    const query = this._query({
-      "api-version": p["apiVersion"],
-    })
+    const query = this._query({"api-version": p["apiVersion"]})
 
     return this._request({
       url: url + query,
@@ -329,9 +319,7 @@ export class ContosoWidgetManager extends AbstractAxiosClient {
       },
       opts.headers,
     )
-    const query = this._query({
-      "api-version": p["apiVersion"],
-    })
+    const query = this._query({"api-version": p["apiVersion"]})
 
     return this._request({
       url: url + query,
@@ -373,9 +361,7 @@ export class ContosoWidgetManager extends AbstractAxiosClient {
       },
       opts.headers,
     )
-    const query = this._query({
-      "api-version": p["apiVersion"],
-    })
+    const query = this._query({"api-version": p["apiVersion"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
@@ -406,9 +392,7 @@ export class ContosoWidgetManager extends AbstractAxiosClient {
   > {
     const url = `/widgets/${p["widgetId"]}/repairs/${p["operationId"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      "api-version": p["apiVersion"],
-    })
+    const query = this._query({"api-version": p["apiVersion"]})
 
     return this._request({
       url: url + query,
@@ -457,9 +441,7 @@ export class ContosoWidgetManager extends AbstractAxiosClient {
       },
       opts.headers,
     )
-    const query = this._query({
-      "api-version": p["apiVersion"],
-    })
+    const query = this._query({"api-version": p["apiVersion"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
@@ -491,9 +473,7 @@ export class ContosoWidgetManager extends AbstractAxiosClient {
   > {
     const url = `/widgets/${p["widgetName"]}/parts/${p["widgetPartName"]}/operations/${p["operationId"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      "api-version": p["apiVersion"],
-    })
+    const query = this._query({"api-version": p["apiVersion"]})
 
     return this._request({
       url: url + query,
@@ -535,9 +515,7 @@ export class ContosoWidgetManager extends AbstractAxiosClient {
       },
       opts.headers,
     )
-    const query = this._query({
-      "api-version": p["apiVersion"],
-    })
+    const query = this._query({"api-version": p["apiVersion"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
@@ -567,9 +545,7 @@ export class ContosoWidgetManager extends AbstractAxiosClient {
       },
       opts.headers,
     )
-    const query = this._query({
-      "api-version": p["apiVersion"],
-    })
+    const query = this._query({"api-version": p["apiVersion"]})
 
     return this._request({
       url: url + query,
@@ -606,9 +582,7 @@ export class ContosoWidgetManager extends AbstractAxiosClient {
       },
       opts.headers,
     )
-    const query = this._query({
-      "api-version": p["apiVersion"],
-    })
+    const query = this._query({"api-version": p["apiVersion"]})
 
     return this._request({
       url: url + query,
@@ -649,9 +623,7 @@ export class ContosoWidgetManager extends AbstractAxiosClient {
       },
       opts.headers,
     )
-    const query = this._query({
-      "api-version": p["apiVersion"],
-    })
+    const query = this._query({"api-version": p["apiVersion"]})
 
     return this._request({
       url: url + query,
@@ -691,9 +663,7 @@ export class ContosoWidgetManager extends AbstractAxiosClient {
       },
       opts.headers,
     )
-    const query = this._query({
-      "api-version": p["apiVersion"],
-    })
+    const query = this._query({"api-version": p["apiVersion"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
@@ -724,9 +694,7 @@ export class ContosoWidgetManager extends AbstractAxiosClient {
   > {
     const url = `/manufacturers/${p["manufacturerId"]}/operations/${p["operationId"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      "api-version": p["apiVersion"],
-    })
+    const query = this._query({"api-version": p["apiVersion"]})
 
     return this._request({
       url: url + query,
@@ -768,9 +736,7 @@ export class ContosoWidgetManager extends AbstractAxiosClient {
       },
       opts.headers,
     )
-    const query = this._query({
-      "api-version": p["apiVersion"],
-    })
+    const query = this._query({"api-version": p["apiVersion"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
@@ -808,9 +774,7 @@ export class ContosoWidgetManager extends AbstractAxiosClient {
       },
       opts.headers,
     )
-    const query = this._query({
-      "api-version": p["apiVersion"],
-    })
+    const query = this._query({"api-version": p["apiVersion"]})
 
     return this._request({
       url: url + query,
@@ -856,9 +820,7 @@ export class ContosoWidgetManager extends AbstractAxiosClient {
       },
       opts.headers,
     )
-    const query = this._query({
-      "api-version": p["apiVersion"],
-    })
+    const query = this._query({"api-version": p["apiVersion"]})
 
     return this._request({
       url: url + query,
@@ -885,9 +847,7 @@ export class ContosoWidgetManager extends AbstractAxiosClient {
       },
       opts.headers,
     )
-    const query = this._query({
-      "api-version": p["apiVersion"],
-    })
+    const query = this._query({"api-version": p["apiVersion"]})
 
     return this._request({
       url: url + query,

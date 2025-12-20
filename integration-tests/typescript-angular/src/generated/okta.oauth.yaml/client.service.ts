@@ -163,9 +163,7 @@ export class OktaOpenIdConnectOAuth20Service {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._query({
-      client_id: p["clientId"],
-    })
+    const params = this._query({client_id: p["clientId"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -536,9 +534,7 @@ export class OktaOpenIdConnectOAuth20Service {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._query({
-      client_id: p["clientId"],
-    })
+    const params = this._query({client_id: p["clientId"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -779,9 +775,7 @@ export class OktaOpenIdConnectOAuth20Service {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._query({
-      client_id: p["clientId"],
-    })
+    const params = this._query({client_id: p["clientId"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -806,9 +800,7 @@ export class OktaOpenIdConnectOAuth20Service {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._query({
-      client_id: p["clientId"],
-    })
+    const params = this._query({client_id: p["clientId"]})
 
     return this.httpClient.request<any>(
       "GET",

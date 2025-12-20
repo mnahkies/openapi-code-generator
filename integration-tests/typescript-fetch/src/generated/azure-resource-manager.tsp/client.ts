@@ -65,9 +65,7 @@ export class ContosoProviderHubClient extends AbstractFetchClient {
     const url =
       this.basePath + `/providers/Microsoft.ContosoProviderHub/operations`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      "api-version": p["apiVersion"],
-    })
+    const query = this._query({"api-version": p["apiVersion"]})
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -89,9 +87,7 @@ export class ContosoProviderHubClient extends AbstractFetchClient {
       this.basePath +
       `/subscriptions/${p["subscriptionId"]}/resourceGroups/${p["resourceGroupName"]}/providers/Microsoft.ContosoProviderHub/employees/${p["employeeName"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      "api-version": p["apiVersion"],
-    })
+    const query = this._query({"api-version": p["apiVersion"]})
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -118,9 +114,7 @@ export class ContosoProviderHubClient extends AbstractFetchClient {
       {Accept: "application/json", "Content-Type": "application/json"},
       opts.headers,
     )
-    const query = this._query({
-      "api-version": p["apiVersion"],
-    })
+    const query = this._query({"api-version": p["apiVersion"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
@@ -151,9 +145,7 @@ export class ContosoProviderHubClient extends AbstractFetchClient {
       {Accept: "application/json", "Content-Type": "application/json"},
       opts.headers,
     )
-    const query = this._query({
-      "api-version": p["apiVersion"],
-    })
+    const query = this._query({"api-version": p["apiVersion"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
@@ -181,9 +173,7 @@ export class ContosoProviderHubClient extends AbstractFetchClient {
       this.basePath +
       `/subscriptions/${p["subscriptionId"]}/resourceGroups/${p["resourceGroupName"]}/providers/Microsoft.ContosoProviderHub/employees/${p["employeeName"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      "api-version": p["apiVersion"],
-    })
+    const query = this._query({"api-version": p["apiVersion"]})
 
     return this._fetch(
       url + query,
@@ -210,9 +200,7 @@ export class ContosoProviderHubClient extends AbstractFetchClient {
       this.basePath +
       `/subscriptions/${p["subscriptionId"]}/resourceGroups/${p["resourceGroupName"]}/providers/Microsoft.ContosoProviderHub/employees/${p["employeeName"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      "api-version": p["apiVersion"],
-    })
+    const query = this._query({"api-version": p["apiVersion"]})
 
     return this._fetch(url + query, {method: "HEAD", ...opts, headers}, timeout)
   }
@@ -233,9 +221,7 @@ export class ContosoProviderHubClient extends AbstractFetchClient {
       this.basePath +
       `/subscriptions/${p["subscriptionId"]}/resourceGroups/${p["resourceGroupName"]}/providers/Microsoft.ContosoProviderHub/employees`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      "api-version": p["apiVersion"],
-    })
+    const query = this._query({"api-version": p["apiVersion"]})
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -255,9 +241,7 @@ export class ContosoProviderHubClient extends AbstractFetchClient {
       this.basePath +
       `/subscriptions/${p["subscriptionId"]}/providers/Microsoft.ContosoProviderHub/employees`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      "api-version": p["apiVersion"],
-    })
+    const query = this._query({"api-version": p["apiVersion"]})
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -283,9 +267,7 @@ export class ContosoProviderHubClient extends AbstractFetchClient {
       {Accept: "application/json", "Content-Type": "application/json"},
       opts.headers,
     )
-    const query = this._query({
-      "api-version": p["apiVersion"],
-    })
+    const query = this._query({"api-version": p["apiVersion"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(

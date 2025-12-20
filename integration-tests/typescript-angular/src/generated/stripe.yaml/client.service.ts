@@ -328,9 +328,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -508,9 +506,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -612,9 +608,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -677,9 +671,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -713,9 +705,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -868,9 +858,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -1056,9 +1044,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -1222,9 +1208,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -1396,9 +1380,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -1494,9 +1476,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -1554,9 +1534,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -1779,11 +1757,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-        name: p["name"],
-        scope: p["scope"],
-      },
+      {expand: p["expand"], name: p["name"], scope: p["scope"]},
       {
         expand: {
           style: "deepObject",
@@ -1818,9 +1792,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -1921,9 +1893,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -2024,9 +1994,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -2131,9 +2099,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -2242,11 +2208,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        customer: p["customer"],
-        expand: p["expand"],
-        filter: p["filter"],
-      },
+      {customer: p["customer"], expand: p["expand"], filter: p["filter"]},
       {
         expand: {
           style: "deepObject",
@@ -2332,9 +2294,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -2438,9 +2398,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -2651,9 +2609,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -2878,9 +2834,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -3092,9 +3046,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -3171,9 +3123,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -3341,9 +3291,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -3500,9 +3448,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -3693,9 +3639,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -3819,9 +3763,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -3901,9 +3843,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -3936,9 +3876,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -4019,9 +3957,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -4157,9 +4093,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -4566,9 +4500,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -4820,9 +4752,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -4948,9 +4878,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -5103,9 +5031,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -5281,9 +5207,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -5339,9 +5263,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -5444,9 +5366,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -5502,9 +5422,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -5664,9 +5582,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -5797,9 +5713,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -5974,9 +5888,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -6059,9 +5971,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -6188,9 +6098,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -6288,9 +6196,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -6414,9 +6320,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -6521,9 +6425,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -6691,9 +6593,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -6773,9 +6673,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -6915,9 +6813,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -7074,9 +6970,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -7167,9 +7061,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -7365,9 +7257,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -7469,9 +7359,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -7584,9 +7472,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -7685,9 +7571,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -7812,9 +7696,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -7977,9 +7859,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -8062,10 +7942,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-        version: p["version"],
-      },
+      {expand: p["expand"], version: p["version"]},
       {
         expand: {
           style: "deepObject",
@@ -8253,9 +8130,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -8511,9 +8386,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -8907,9 +8780,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -9099,9 +8970,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -9251,9 +9120,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -9399,9 +9266,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -9568,9 +9433,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -9678,9 +9541,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -9714,9 +9575,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -9838,9 +9697,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -9961,9 +9818,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -10039,9 +9894,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -10132,9 +9985,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -10259,9 +10110,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -10425,10 +10274,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        client_secret: p["clientSecret"],
-        expand: p["expand"],
-      },
+      {client_secret: p["clientSecret"], expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -10688,9 +10534,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -10865,9 +10709,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -10996,9 +10838,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -11199,9 +11039,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -11398,9 +11236,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -11606,9 +11442,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -11815,9 +11649,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -12034,9 +11866,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -12183,9 +12013,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -12307,9 +12135,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -12443,9 +12269,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -12664,9 +12488,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -12763,9 +12585,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -12904,9 +12724,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -13046,9 +12864,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -13188,9 +13004,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -13348,9 +13162,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -13386,9 +13198,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -13421,9 +13231,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -13516,9 +13324,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -13721,10 +13527,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        client_secret: p["clientSecret"],
-        expand: p["expand"],
-      },
+      {client_secret: p["clientSecret"], expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -13931,9 +13734,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -14057,9 +13858,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -14115,10 +13914,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        client_secret: p["clientSecret"],
-        expand: p["expand"],
-      },
+      {client_secret: p["clientSecret"], expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -14174,9 +13970,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -14257,9 +14051,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -14405,9 +14197,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -14586,9 +14376,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -14897,9 +14685,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -15042,9 +14828,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -15199,9 +14983,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -15254,9 +15036,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -15352,9 +15132,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -15481,9 +15259,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -15621,9 +15397,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -15741,9 +15515,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -15893,9 +15665,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -16067,9 +15837,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -16236,9 +16004,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -17158,9 +16924,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -17532,9 +17296,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -17668,9 +17430,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -17900,9 +17660,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -17958,9 +17716,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -18090,9 +17846,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -18200,9 +17954,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -18319,9 +18071,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -18401,9 +18151,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -18535,9 +18283,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -18684,9 +18430,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -18817,9 +18561,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -18939,9 +18681,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -19023,9 +18763,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -19135,9 +18873,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -19249,9 +18985,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -19374,9 +19108,7 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",

@@ -141,11 +141,14 @@ export class ClientOperationBuilder {
       return null
     }
 
-    const paramsObject = object(
-      parameters.map(
-        (it) => `${quotedStringLiteral(it.name)}: ${this.paramName(it.name)}`,
-      ),
-    )
+    const paramsObject =
+      "{" +
+      parameters
+        .map(
+          (it) => `${quotedStringLiteral(it.name)}: ${this.paramName(it.name)}`,
+        )
+        .join(",\n") +
+      "}"
 
     const encodings = object(
       parameters

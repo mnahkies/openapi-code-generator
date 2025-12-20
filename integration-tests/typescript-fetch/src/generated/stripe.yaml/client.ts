@@ -535,9 +535,7 @@ export class StripeApi extends AbstractFetchClient {
     const url = this.basePath + `/v1/account`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -712,9 +710,7 @@ export class StripeApi extends AbstractFetchClient {
     const url = this.basePath + `/v1/accounts/${p["account"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -823,9 +819,7 @@ export class StripeApi extends AbstractFetchClient {
       this.basePath + `/v1/accounts/${p["account"]}/bank_accounts/${p["id"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -892,9 +886,7 @@ export class StripeApi extends AbstractFetchClient {
     const url = this.basePath + `/v1/accounts/${p["account"]}/capabilities`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -920,9 +912,7 @@ export class StripeApi extends AbstractFetchClient {
       `/v1/accounts/${p["account"]}/capabilities/${p["capability"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -1071,9 +1061,7 @@ export class StripeApi extends AbstractFetchClient {
       `/v1/accounts/${p["account"]}/external_accounts/${p["id"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -1272,9 +1260,7 @@ export class StripeApi extends AbstractFetchClient {
       this.basePath + `/v1/accounts/${p["account"]}/people/${p["person"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -1453,9 +1439,7 @@ export class StripeApi extends AbstractFetchClient {
       this.basePath + `/v1/accounts/${p["account"]}/persons/${p["person"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -1622,9 +1606,7 @@ export class StripeApi extends AbstractFetchClient {
     const url = this.basePath + `/v1/apple_pay/domains/${p["domain"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -1705,9 +1687,7 @@ export class StripeApi extends AbstractFetchClient {
       this.basePath + `/v1/application_fees/${p["fee"]}/refunds/${p["id"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -1762,9 +1742,7 @@ export class StripeApi extends AbstractFetchClient {
     const url = this.basePath + `/v1/application_fees/${p["id"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -1988,11 +1966,7 @@ export class StripeApi extends AbstractFetchClient {
     const url = this.basePath + `/v1/apps/secrets/find`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-        name: p["name"],
-        scope: p["scope"],
-      },
+      {expand: p["expand"], name: p["name"], scope: p["scope"]},
       {
         expand: {
           style: "deepObject",
@@ -2018,9 +1992,7 @@ export class StripeApi extends AbstractFetchClient {
     const url = this.basePath + `/v1/balance`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -2105,9 +2077,7 @@ export class StripeApi extends AbstractFetchClient {
     const url = this.basePath + `/v1/balance/history/${p["id"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -2192,9 +2162,7 @@ export class StripeApi extends AbstractFetchClient {
     const url = this.basePath + `/v1/balance_transactions/${p["id"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -2285,9 +2253,7 @@ export class StripeApi extends AbstractFetchClient {
     const url = this.basePath + `/v1/billing/alerts/${p["id"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -2409,11 +2375,7 @@ export class StripeApi extends AbstractFetchClient {
     const url = this.basePath + `/v1/billing/credit_balance_summary`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        customer: p["customer"],
-        expand: p["expand"],
-        filter: p["filter"],
-      },
+      {customer: p["customer"], expand: p["expand"], filter: p["filter"]},
       {
         expand: {
           style: "deepObject",
@@ -2488,9 +2450,7 @@ export class StripeApi extends AbstractFetchClient {
       this.basePath + `/v1/billing/credit_balance_transactions/${p["id"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -2581,9 +2541,7 @@ export class StripeApi extends AbstractFetchClient {
     const url = this.basePath + `/v1/billing/credit_grants/${p["id"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -2811,9 +2769,7 @@ export class StripeApi extends AbstractFetchClient {
     const url = this.basePath + `/v1/billing/meters/${p["id"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -3050,9 +3006,7 @@ export class StripeApi extends AbstractFetchClient {
       this.basePath + `/v1/billing_portal/configurations/${p["configuration"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -3272,9 +3226,7 @@ export class StripeApi extends AbstractFetchClient {
     const url = this.basePath + `/v1/charges/${p["charge"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -3359,9 +3311,7 @@ export class StripeApi extends AbstractFetchClient {
     const url = this.basePath + `/v1/charges/${p["charge"]}/dispute`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -3548,9 +3498,7 @@ export class StripeApi extends AbstractFetchClient {
       this.basePath + `/v1/charges/${p["charge"]}/refunds/${p["refund"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -3730,9 +3678,7 @@ export class StripeApi extends AbstractFetchClient {
     const url = this.basePath + `/v1/checkout/sessions/${p["session"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -3924,9 +3870,7 @@ export class StripeApi extends AbstractFetchClient {
     const url = this.basePath + `/v1/climate/orders/${p["order"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -4050,9 +3994,7 @@ export class StripeApi extends AbstractFetchClient {
     const url = this.basePath + `/v1/climate/products/${p["product"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -4116,9 +4058,7 @@ export class StripeApi extends AbstractFetchClient {
     const url = this.basePath + `/v1/climate/suppliers/${p["supplier"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -4142,9 +4082,7 @@ export class StripeApi extends AbstractFetchClient {
       this.basePath + `/v1/confirmation_tokens/${p["confirmationToken"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -4208,9 +4146,7 @@ export class StripeApi extends AbstractFetchClient {
     const url = this.basePath + `/v1/country_specs/${p["country"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -4331,9 +4267,7 @@ export class StripeApi extends AbstractFetchClient {
     const url = this.basePath + `/v1/coupons/${p["coupon"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -4720,9 +4654,7 @@ export class StripeApi extends AbstractFetchClient {
     const url = this.basePath + `/v1/credit_notes/${p["id"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -4979,9 +4911,7 @@ export class StripeApi extends AbstractFetchClient {
     const url = this.basePath + `/v1/customers/${p["customer"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -5117,9 +5047,7 @@ export class StripeApi extends AbstractFetchClient {
       `/v1/customers/${p["customer"]}/balance_transactions/${p["transaction"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -5287,9 +5215,7 @@ export class StripeApi extends AbstractFetchClient {
       this.basePath + `/v1/customers/${p["customer"]}/bank_accounts/${p["id"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -5490,9 +5416,7 @@ export class StripeApi extends AbstractFetchClient {
       this.basePath + `/v1/customers/${p["customer"]}/cards/${p["id"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -5550,9 +5474,7 @@ export class StripeApi extends AbstractFetchClient {
     const url = this.basePath + `/v1/customers/${p["customer"]}/cash_balance`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -5653,9 +5575,7 @@ export class StripeApi extends AbstractFetchClient {
       `/v1/customers/${p["customer"]}/cash_balance_transactions/${p["transaction"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -5691,9 +5611,7 @@ export class StripeApi extends AbstractFetchClient {
     const url = this.basePath + `/v1/customers/${p["customer"]}/discount`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -5843,9 +5761,7 @@ export class StripeApi extends AbstractFetchClient {
       `/v1/customers/${p["customer"]}/payment_methods/${p["paymentMethod"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -5980,9 +5896,7 @@ export class StripeApi extends AbstractFetchClient {
       this.basePath + `/v1/customers/${p["customer"]}/sources/${p["id"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -6193,9 +6107,7 @@ export class StripeApi extends AbstractFetchClient {
       `/v1/customers/${p["customer"]}/subscriptions/${p["subscriptionExposedId"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -6287,9 +6199,7 @@ export class StripeApi extends AbstractFetchClient {
       `/v1/customers/${p["customer"]}/subscriptions/${p["subscriptionExposedId"]}/discount`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -6394,9 +6304,7 @@ export class StripeApi extends AbstractFetchClient {
       this.basePath + `/v1/customers/${p["customer"]}/tax_ids/${p["id"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -6477,9 +6385,7 @@ export class StripeApi extends AbstractFetchClient {
     const url = this.basePath + `/v1/disputes/${p["dispute"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -6608,9 +6514,7 @@ export class StripeApi extends AbstractFetchClient {
       this.basePath + `/v1/entitlements/active_entitlements/${p["id"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -6701,9 +6605,7 @@ export class StripeApi extends AbstractFetchClient {
     const url = this.basePath + `/v1/entitlements/features/${p["id"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -6877,9 +6779,7 @@ export class StripeApi extends AbstractFetchClient {
     const url = this.basePath + `/v1/events/${p["id"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -6943,9 +6843,7 @@ export class StripeApi extends AbstractFetchClient {
     const url = this.basePath + `/v1/exchange_rates/${p["rateId"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -7080,9 +6978,7 @@ export class StripeApi extends AbstractFetchClient {
     const url = this.basePath + `/v1/file_links/${p["link"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -7235,9 +7131,7 @@ export class StripeApi extends AbstractFetchClient {
     const url = this.basePath + `/v1/files/${p["file"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -7315,9 +7209,7 @@ export class StripeApi extends AbstractFetchClient {
       this.basePath + `/v1/financial_connections/accounts/${p["account"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -7534,9 +7426,7 @@ export class StripeApi extends AbstractFetchClient {
       this.basePath + `/v1/financial_connections/sessions/${p["session"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -7627,9 +7517,7 @@ export class StripeApi extends AbstractFetchClient {
       `/v1/financial_connections/transactions/${p["transaction"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -7729,9 +7617,7 @@ export class StripeApi extends AbstractFetchClient {
     const url = this.basePath + `/v1/forwarding/requests/${p["id"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -7817,9 +7703,7 @@ export class StripeApi extends AbstractFetchClient {
       this.basePath + `/v1/identity/verification_reports/${p["report"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -7944,9 +7828,7 @@ export class StripeApi extends AbstractFetchClient {
       this.basePath + `/v1/identity/verification_sessions/${p["session"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -8124,9 +8006,7 @@ export class StripeApi extends AbstractFetchClient {
     const url = this.basePath + `/v1/invoice_payments/${p["invoicePayment"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -8196,10 +8076,7 @@ export class StripeApi extends AbstractFetchClient {
       this.basePath + `/v1/invoice_rendering_templates/${p["template"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-        version: p["version"],
-      },
+      {expand: p["expand"], version: p["version"]},
       {
         expand: {
           style: "deepObject",
@@ -8389,9 +8266,7 @@ export class StripeApi extends AbstractFetchClient {
     const url = this.basePath + `/v1/invoiceitems/${p["invoiceitem"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -8667,9 +8542,7 @@ export class StripeApi extends AbstractFetchClient {
     const url = this.basePath + `/v1/invoices/${p["invoice"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -9134,9 +9007,7 @@ export class StripeApi extends AbstractFetchClient {
       this.basePath + `/v1/issuing/authorizations/${p["authorization"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -9342,9 +9213,7 @@ export class StripeApi extends AbstractFetchClient {
     const url = this.basePath + `/v1/issuing/cardholders/${p["cardholder"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -9497,9 +9366,7 @@ export class StripeApi extends AbstractFetchClient {
     const url = this.basePath + `/v1/issuing/cards/${p["card"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -9650,9 +9517,7 @@ export class StripeApi extends AbstractFetchClient {
     const url = this.basePath + `/v1/issuing/disputes/${p["dispute"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -9830,9 +9695,7 @@ export class StripeApi extends AbstractFetchClient {
       `/v1/issuing/personalization_designs/${p["personalizationDesign"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -9940,9 +9803,7 @@ export class StripeApi extends AbstractFetchClient {
       this.basePath + `/v1/issuing/physical_bundles/${p["physicalBundle"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -9965,9 +9826,7 @@ export class StripeApi extends AbstractFetchClient {
     const url = this.basePath + `/v1/issuing/settlements/${p["settlement"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -10083,9 +9942,7 @@ export class StripeApi extends AbstractFetchClient {
     const url = this.basePath + `/v1/issuing/tokens/${p["token"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -10191,9 +10048,7 @@ export class StripeApi extends AbstractFetchClient {
     const url = this.basePath + `/v1/issuing/transactions/${p["transaction"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -10276,9 +10131,7 @@ export class StripeApi extends AbstractFetchClient {
     const url = this.basePath + `/v1/link_account_sessions/${p["session"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -10355,9 +10208,7 @@ export class StripeApi extends AbstractFetchClient {
     const url = this.basePath + `/v1/linked_accounts/${p["account"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -10481,9 +10332,7 @@ export class StripeApi extends AbstractFetchClient {
     const url = this.basePath + `/v1/mandates/${p["mandate"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -10638,10 +10487,7 @@ export class StripeApi extends AbstractFetchClient {
     const url = this.basePath + `/v1/payment_intents/${p["intent"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        client_secret: p["clientSecret"],
-        expand: p["expand"],
-      },
+      {client_secret: p["clientSecret"], expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -10970,9 +10816,7 @@ export class StripeApi extends AbstractFetchClient {
     const url = this.basePath + `/v1/payment_links/${p["paymentLink"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -11214,9 +11058,7 @@ export class StripeApi extends AbstractFetchClient {
       this.basePath + `/v1/payment_method_configurations/${p["configuration"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -11391,9 +11233,7 @@ export class StripeApi extends AbstractFetchClient {
       this.basePath + `/v1/payment_method_domains/${p["paymentMethodDomain"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -11651,9 +11491,7 @@ export class StripeApi extends AbstractFetchClient {
     const url = this.basePath + `/v1/payment_methods/${p["paymentMethod"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -11859,9 +11697,7 @@ export class StripeApi extends AbstractFetchClient {
     const url = this.basePath + `/v1/payouts/${p["payout"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -12070,9 +11906,7 @@ export class StripeApi extends AbstractFetchClient {
     const url = this.basePath + `/v1/plans/${p["plan"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -12275,9 +12109,7 @@ export class StripeApi extends AbstractFetchClient {
     const url = this.basePath + `/v1/prices/${p["price"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -12480,9 +12312,7 @@ export class StripeApi extends AbstractFetchClient {
     const url = this.basePath + `/v1/products/${p["id"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -12624,9 +12454,7 @@ export class StripeApi extends AbstractFetchClient {
       this.basePath + `/v1/products/${p["product"]}/features/${p["id"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -12735,9 +12563,7 @@ export class StripeApi extends AbstractFetchClient {
     const url = this.basePath + `/v1/promotion_codes/${p["promotionCode"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -12886,9 +12712,7 @@ export class StripeApi extends AbstractFetchClient {
     const url = this.basePath + `/v1/quotes/${p["quote"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -13129,9 +12953,7 @@ export class StripeApi extends AbstractFetchClient {
     const url = basePath + `/v1/quotes/${p["quote"]}/pdf`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -13213,9 +13035,7 @@ export class StripeApi extends AbstractFetchClient {
       this.basePath + `/v1/radar/early_fraud_warnings/${p["earlyFraudWarning"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -13333,9 +13153,7 @@ export class StripeApi extends AbstractFetchClient {
     const url = this.basePath + `/v1/radar/value_list_items/${p["item"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -13452,9 +13270,7 @@ export class StripeApi extends AbstractFetchClient {
     const url = this.basePath + `/v1/radar/value_lists/${p["valueList"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -13594,9 +13410,7 @@ export class StripeApi extends AbstractFetchClient {
     const url = this.basePath + `/v1/refunds/${p["refund"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -13755,9 +13569,7 @@ export class StripeApi extends AbstractFetchClient {
     const url = this.basePath + `/v1/reporting/report_runs/${p["reportRun"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -13790,9 +13602,7 @@ export class StripeApi extends AbstractFetchClient {
     const url = this.basePath + `/v1/reporting/report_types`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -13815,9 +13625,7 @@ export class StripeApi extends AbstractFetchClient {
     const url = this.basePath + `/v1/reporting/report_types/${p["reportType"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -13894,9 +13702,7 @@ export class StripeApi extends AbstractFetchClient {
     const url = this.basePath + `/v1/reviews/${p["review"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -14101,10 +13907,7 @@ export class StripeApi extends AbstractFetchClient {
     const url = this.basePath + `/v1/setup_intents/${p["intent"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        client_secret: p["clientSecret"],
-        expand: p["expand"],
-      },
+      {client_secret: p["clientSecret"], expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -14336,9 +14139,7 @@ export class StripeApi extends AbstractFetchClient {
     const url = this.basePath + `/v1/shipping_rates/${p["shippingRateToken"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -14463,9 +14264,7 @@ export class StripeApi extends AbstractFetchClient {
       this.basePath + `/v1/sigma/scheduled_query_runs/${p["scheduledQueryRun"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -14523,10 +14322,7 @@ export class StripeApi extends AbstractFetchClient {
     const url = this.basePath + `/v1/sources/${p["source"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        client_secret: p["clientSecret"],
-        expand: p["expand"],
-      },
+      {client_secret: p["clientSecret"], expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -14587,9 +14383,7 @@ export class StripeApi extends AbstractFetchClient {
       `/v1/sources/${p["source"]}/mandate_notifications/${p["mandateNotification"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -14657,9 +14451,7 @@ export class StripeApi extends AbstractFetchClient {
       `/v1/sources/${p["source"]}/source_transactions/${p["sourceTransaction"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -14803,9 +14595,7 @@ export class StripeApi extends AbstractFetchClient {
     const url = this.basePath + `/v1/subscription_items/${p["item"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -14992,9 +14782,7 @@ export class StripeApi extends AbstractFetchClient {
     const url = this.basePath + `/v1/subscription_schedules/${p["schedule"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -15336,9 +15124,7 @@ export class StripeApi extends AbstractFetchClient {
       this.basePath + `/v1/subscriptions/${p["subscriptionExposedId"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -15504,9 +15290,7 @@ export class StripeApi extends AbstractFetchClient {
     const url = this.basePath + `/v1/tax/calculations/${p["calculation"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -15644,9 +15428,7 @@ export class StripeApi extends AbstractFetchClient {
     const url = this.basePath + `/v1/tax/registrations/${p["id"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -15699,9 +15481,7 @@ export class StripeApi extends AbstractFetchClient {
     const url = this.basePath + `/v1/tax/settings`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -15802,9 +15582,7 @@ export class StripeApi extends AbstractFetchClient {
     const url = this.basePath + `/v1/tax/transactions/${p["transaction"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -15911,9 +15689,7 @@ export class StripeApi extends AbstractFetchClient {
     const url = this.basePath + `/v1/tax_codes/${p["id"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -16028,9 +15804,7 @@ export class StripeApi extends AbstractFetchClient {
     const url = this.basePath + `/v1/tax_ids/${p["id"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -16134,9 +15908,7 @@ export class StripeApi extends AbstractFetchClient {
     const url = this.basePath + `/v1/tax_rates/${p["taxRate"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -16287,9 +16059,7 @@ export class StripeApi extends AbstractFetchClient {
       this.basePath + `/v1/terminal/configurations/${p["configuration"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -16461,9 +16231,7 @@ export class StripeApi extends AbstractFetchClient {
     const url = this.basePath + `/v1/terminal/locations/${p["location"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -16620,9 +16388,7 @@ export class StripeApi extends AbstractFetchClient {
     const url = this.basePath + `/v1/terminal/readers/${p["reader"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -17739,9 +17505,7 @@ export class StripeApi extends AbstractFetchClient {
     const url = this.basePath + `/v1/test_helpers/test_clocks/${p["testClock"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -18209,9 +17973,7 @@ export class StripeApi extends AbstractFetchClient {
     const url = this.basePath + `/v1/tokens/${p["token"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -18331,9 +18093,7 @@ export class StripeApi extends AbstractFetchClient {
     const url = this.basePath + `/v1/topups/${p["topup"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -18568,9 +18328,7 @@ export class StripeApi extends AbstractFetchClient {
     const url = this.basePath + `/v1/transfers/${p["transfer"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -18625,9 +18383,7 @@ export class StripeApi extends AbstractFetchClient {
       this.basePath + `/v1/transfers/${p["transfer"]}/reversals/${p["id"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -18753,9 +18509,7 @@ export class StripeApi extends AbstractFetchClient {
       this.basePath + `/v1/treasury/credit_reversals/${p["creditReversal"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -18851,9 +18605,7 @@ export class StripeApi extends AbstractFetchClient {
       this.basePath + `/v1/treasury/debit_reversals/${p["debitReversal"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -18964,9 +18716,7 @@ export class StripeApi extends AbstractFetchClient {
       this.basePath + `/v1/treasury/financial_accounts/${p["financialAccount"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -19064,9 +18814,7 @@ export class StripeApi extends AbstractFetchClient {
       `/v1/treasury/financial_accounts/${p["financialAccount"]}/features`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -19202,9 +18950,7 @@ export class StripeApi extends AbstractFetchClient {
     const url = this.basePath + `/v1/treasury/inbound_transfers/${p["id"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -19350,9 +19096,7 @@ export class StripeApi extends AbstractFetchClient {
     const url = this.basePath + `/v1/treasury/outbound_payments/${p["id"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -19486,9 +19230,7 @@ export class StripeApi extends AbstractFetchClient {
       this.basePath + `/v1/treasury/outbound_transfers/${p["outboundTransfer"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -19603,9 +19345,7 @@ export class StripeApi extends AbstractFetchClient {
     const url = this.basePath + `/v1/treasury/received_credits/${p["id"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -19673,9 +19413,7 @@ export class StripeApi extends AbstractFetchClient {
     const url = this.basePath + `/v1/treasury/received_debits/${p["id"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -19773,9 +19511,7 @@ export class StripeApi extends AbstractFetchClient {
     const url = this.basePath + `/v1/treasury/transaction_entries/${p["id"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -19873,9 +19609,7 @@ export class StripeApi extends AbstractFetchClient {
     const url = this.basePath + `/v1/treasury/transactions/${p["id"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",
@@ -19977,9 +19711,7 @@ export class StripeApi extends AbstractFetchClient {
     const url = this.basePath + `/v1/webhook_endpoints/${p["webhookEndpoint"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {
-        expand: p["expand"],
-      },
+      {expand: p["expand"]},
       {
         expand: {
           style: "deepObject",

@@ -133,10 +133,7 @@ export class SwaggerPetstoreService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        tags: p["tags"],
-        limit: p["limit"],
-      },
+      {tags: p["tags"], limit: p["limit"]},
       {
         tags: {
           style: "form",

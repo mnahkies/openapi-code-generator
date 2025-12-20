@@ -143,9 +143,7 @@ export class ContosoProviderHubClientService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._query({
-      "api-version": p["apiVersion"],
-    })
+    const params = this._query({"api-version": p["apiVersion"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -173,9 +171,7 @@ export class ContosoProviderHubClientService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._query({
-      "api-version": p["apiVersion"],
-    })
+    const params = this._query({"api-version": p["apiVersion"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -208,9 +204,7 @@ export class ContosoProviderHubClientService {
       Accept: "application/json",
       "Content-Type": "application/json",
     })
-    const params = this._query({
-      "api-version": p["apiVersion"],
-    })
+    const params = this._query({"api-version": p["apiVersion"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -244,9 +238,7 @@ export class ContosoProviderHubClientService {
       Accept: "application/json",
       "Content-Type": "application/json",
     })
-    const params = this._query({
-      "api-version": p["apiVersion"],
-    })
+    const params = this._query({"api-version": p["apiVersion"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -277,9 +269,7 @@ export class ContosoProviderHubClientService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._query({
-      "api-version": p["apiVersion"],
-    })
+    const params = this._query({"api-version": p["apiVersion"]})
 
     return this.httpClient.request<any>(
       "DELETE",
@@ -308,9 +298,7 @@ export class ContosoProviderHubClientService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._query({
-      "api-version": p["apiVersion"],
-    })
+    const params = this._query({"api-version": p["apiVersion"]})
 
     return this.httpClient.request<any>(
       "HEAD",
@@ -337,9 +325,7 @@ export class ContosoProviderHubClientService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._query({
-      "api-version": p["apiVersion"],
-    })
+    const params = this._query({"api-version": p["apiVersion"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -365,9 +351,7 @@ export class ContosoProviderHubClientService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._query({
-      "api-version": p["apiVersion"],
-    })
+    const params = this._query({"api-version": p["apiVersion"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -399,9 +383,7 @@ export class ContosoProviderHubClientService {
       Accept: "application/json",
       "Content-Type": "application/json",
     })
-    const params = this._query({
-      "api-version": p["apiVersion"],
-    })
+    const params = this._query({"api-version": p["apiVersion"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(

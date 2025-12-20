@@ -88,9 +88,7 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
   ): Promise<Res<200, t_OidcMetadata> | Res<400, t_Error>> {
     const url = this.basePath + `/.well-known/openid-configuration`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      client_id: p["clientId"],
-    })
+    const query = this._query({client_id: p["clientId"]})
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -231,11 +229,7 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
   ): Promise<Res<200, t_Client[]> | Res<403, t_Error> | Res<429, t_Error>> {
     const url = this.basePath + `/oauth2/v1/clients`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      after: p["after"],
-      limit: p["limit"],
-      q: p["q"],
-    })
+    const query = this._query({after: p["after"], limit: p["limit"], q: p["q"]})
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -416,9 +410,7 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
   ): Promise<Res<200, t_OAuthKeys> | Res<429, t_Error>> {
     const url = this.basePath + `/oauth2/v1/keys`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      client_id: p["clientId"],
-    })
+    const query = this._query({client_id: p["clientId"]})
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -617,9 +609,7 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
       this.basePath +
       `/oauth2/${p["authorizationServerId"]}/.well-known/oauth-authorization-server`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      client_id: p["clientId"],
-    })
+    const query = this._query({client_id: p["clientId"]})
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -636,9 +626,7 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
       this.basePath +
       `/oauth2/${p["authorizationServerId"]}/.well-known/openid-configuration`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      client_id: p["clientId"],
-    })
+    const query = this._query({client_id: p["clientId"]})
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }

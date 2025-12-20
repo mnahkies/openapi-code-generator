@@ -191,9 +191,7 @@ export class MyAccountManagement extends AbstractFetchClient {
   > {
     const url = this.basePath + `/idp/myaccount/authenticators`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      expand: p["expand"],
-    })
+    const query = this._query({expand: p["expand"]})
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -214,9 +212,7 @@ export class MyAccountManagement extends AbstractFetchClient {
     const url =
       this.basePath + `/idp/myaccount/authenticators/${p["authenticatorId"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      expand: p["expand"],
-    })
+    const query = this._query({expand: p["expand"]})
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }

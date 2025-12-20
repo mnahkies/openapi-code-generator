@@ -82,9 +82,7 @@ export class ContosoWidgetManager extends AbstractFetchClient {
       },
       opts.headers,
     )
-    const query = this._query({
-      "api-version": p["apiVersion"],
-    })
+    const query = this._query({"api-version": p["apiVersion"]})
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -118,9 +116,7 @@ export class ContosoWidgetManager extends AbstractFetchClient {
       this.basePath +
       `/widgets/${p["widgetName"]}/operations/${p["operationId"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      "api-version": p["apiVersion"],
-    })
+    const query = this._query({"api-version": p["apiVersion"]})
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -160,9 +156,7 @@ export class ContosoWidgetManager extends AbstractFetchClient {
       },
       opts.headers,
     )
-    const query = this._query({
-      "api-version": p["apiVersion"],
-    })
+    const query = this._query({"api-version": p["apiVersion"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
@@ -199,9 +193,7 @@ export class ContosoWidgetManager extends AbstractFetchClient {
       },
       opts.headers,
     )
-    const query = this._query({
-      "api-version": p["apiVersion"],
-    })
+    const query = this._query({"api-version": p["apiVersion"]})
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -245,9 +237,7 @@ export class ContosoWidgetManager extends AbstractFetchClient {
       },
       opts.headers,
     )
-    const query = this._query({
-      "api-version": p["apiVersion"],
-    })
+    const query = this._query({"api-version": p["apiVersion"]})
 
     return this._fetch(
       url + query,
@@ -326,9 +316,7 @@ export class ContosoWidgetManager extends AbstractFetchClient {
       },
       opts.headers,
     )
-    const query = this._query({
-      "api-version": p["apiVersion"],
-    })
+    const query = this._query({"api-version": p["apiVersion"]})
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -368,9 +356,7 @@ export class ContosoWidgetManager extends AbstractFetchClient {
       },
       opts.headers,
     )
-    const query = this._query({
-      "api-version": p["apiVersion"],
-    })
+    const query = this._query({"api-version": p["apiVersion"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
@@ -403,9 +389,7 @@ export class ContosoWidgetManager extends AbstractFetchClient {
     const url =
       this.basePath + `/widgets/${p["widgetId"]}/repairs/${p["operationId"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      "api-version": p["apiVersion"],
-    })
+    const query = this._query({"api-version": p["apiVersion"]})
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -450,9 +434,7 @@ export class ContosoWidgetManager extends AbstractFetchClient {
       },
       opts.headers,
     )
-    const query = this._query({
-      "api-version": p["apiVersion"],
-    })
+    const query = this._query({"api-version": p["apiVersion"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
@@ -487,9 +469,7 @@ export class ContosoWidgetManager extends AbstractFetchClient {
       this.basePath +
       `/widgets/${p["widgetName"]}/parts/${p["widgetPartName"]}/operations/${p["operationId"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      "api-version": p["apiVersion"],
-    })
+    const query = this._query({"api-version": p["apiVersion"]})
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -527,9 +507,7 @@ export class ContosoWidgetManager extends AbstractFetchClient {
       },
       opts.headers,
     )
-    const query = this._query({
-      "api-version": p["apiVersion"],
-    })
+    const query = this._query({"api-version": p["apiVersion"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
@@ -559,9 +537,7 @@ export class ContosoWidgetManager extends AbstractFetchClient {
       },
       opts.headers,
     )
-    const query = this._query({
-      "api-version": p["apiVersion"],
-    })
+    const query = this._query({"api-version": p["apiVersion"]})
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -596,9 +572,7 @@ export class ContosoWidgetManager extends AbstractFetchClient {
       },
       opts.headers,
     )
-    const query = this._query({
-      "api-version": p["apiVersion"],
-    })
+    const query = this._query({"api-version": p["apiVersion"]})
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -636,9 +610,7 @@ export class ContosoWidgetManager extends AbstractFetchClient {
       },
       opts.headers,
     )
-    const query = this._query({
-      "api-version": p["apiVersion"],
-    })
+    const query = this._query({"api-version": p["apiVersion"]})
 
     return this._fetch(
       url + query,
@@ -680,9 +652,7 @@ export class ContosoWidgetManager extends AbstractFetchClient {
       },
       opts.headers,
     )
-    const query = this._query({
-      "api-version": p["apiVersion"],
-    })
+    const query = this._query({"api-version": p["apiVersion"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
@@ -716,9 +686,7 @@ export class ContosoWidgetManager extends AbstractFetchClient {
       this.basePath +
       `/manufacturers/${p["manufacturerId"]}/operations/${p["operationId"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      "api-version": p["apiVersion"],
-    })
+    const query = this._query({"api-version": p["apiVersion"]})
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -758,9 +726,7 @@ export class ContosoWidgetManager extends AbstractFetchClient {
       },
       opts.headers,
     )
-    const query = this._query({
-      "api-version": p["apiVersion"],
-    })
+    const query = this._query({"api-version": p["apiVersion"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
@@ -798,9 +764,7 @@ export class ContosoWidgetManager extends AbstractFetchClient {
       },
       opts.headers,
     )
-    const query = this._query({
-      "api-version": p["apiVersion"],
-    })
+    const query = this._query({"api-version": p["apiVersion"]})
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -844,9 +808,7 @@ export class ContosoWidgetManager extends AbstractFetchClient {
       },
       opts.headers,
     )
-    const query = this._query({
-      "api-version": p["apiVersion"],
-    })
+    const query = this._query({"api-version": p["apiVersion"]})
 
     return this._fetch(
       url + query,
@@ -874,9 +836,7 @@ export class ContosoWidgetManager extends AbstractFetchClient {
       },
       opts.headers,
     )
-    const query = this._query({
-      "api-version": p["apiVersion"],
-    })
+    const query = this._query({"api-version": p["apiVersion"]})
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }

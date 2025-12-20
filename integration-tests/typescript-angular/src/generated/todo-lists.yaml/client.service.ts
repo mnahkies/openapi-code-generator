@@ -248,11 +248,7 @@ export class TodoListsExampleApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {
-        created: p["created"],
-        statuses: p["statuses"],
-        tags: p["tags"],
-      },
+      {created: p["created"], statuses: p["statuses"], tags: p["tags"]},
       {
         statuses: {
           style: "form",

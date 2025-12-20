@@ -294,9 +294,7 @@ export class MyAccountManagementService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._query({
-      expand: p["expand"],
-    })
+    const params = this._query({expand: p["expand"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -321,9 +319,7 @@ export class MyAccountManagementService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._query({
-      expand: p["expand"],
-    })
+    const params = this._query({expand: p["expand"]})
 
     return this.httpClient.request<any>(
       "GET",
