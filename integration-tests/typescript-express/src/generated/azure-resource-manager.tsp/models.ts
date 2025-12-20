@@ -91,10 +91,24 @@ export type t_EmployeeListResult = {
   value: t_Employee[]
 }
 
+export type t_EmployeeUpdate = {
+  properties?: t_EmployeeUpdateProperties | undefined
+  tags?:
+    | {
+        [key: string]: string | undefined
+      }
+    | undefined
+}
+
 export type t_EmployeeUpdateProperties = {
   age?: number | undefined
   city?: string | undefined
   profile?: string | undefined
+}
+
+export type t_MoveRequest = {
+  from: string
+  to: string
 }
 
 export type t_MoveResponse = {
@@ -125,9 +139,6 @@ export type t_EmployeesCreateOrUpdateParamSchema = {
 export type t_EmployeesCreateOrUpdateQuerySchema = {
   "api-version": string
 }
-
-export type t_EmployeesCreateOrUpdateRequestBodySchema =
-  t_Azure_ResourceManager_CommonTypes_TrackedResource
 
 export type t_EmployeesDeleteParamSchema = {
   employeeName: string
@@ -176,11 +187,6 @@ export type t_EmployeesMoveQuerySchema = {
   "api-version": string
 }
 
-export type t_EmployeesMoveRequestBodySchema = {
-  from: string
-  to: string
-}
-
 export type t_EmployeesUpdateParamSchema = {
   employeeName: string
   resourceGroupName: string
@@ -189,15 +195,6 @@ export type t_EmployeesUpdateParamSchema = {
 
 export type t_EmployeesUpdateQuerySchema = {
   "api-version": string
-}
-
-export type t_EmployeesUpdateRequestBodySchema = {
-  properties?: t_EmployeeUpdateProperties | undefined
-  tags?:
-    | {
-        [key: string]: string | undefined
-      }
-    | undefined
 }
 
 export type t_OperationsListQuerySchema = {

@@ -9,11 +9,13 @@ import {
   type Server,
 } from "@nahkies/typescript-fetch-runtime/main"
 import type {
-  EmptyObject,
   t_AppAuthenticatorEnrollment,
   t_AppAuthenticatorEnrollmentRequest,
   t_Authenticator,
   t_AuthenticatorEnrollment,
+  t_createEmailJsonRequestBody,
+  t_createPasswordJsonRequestBody,
+  t_createPhoneJsonRequestBody,
   t_Email,
   t_Error,
   t_OktaApplication,
@@ -23,9 +25,15 @@ import type {
   t_Profile,
   t_PushNotificationChallenge,
   t_PushNotificationVerification,
+  t_replacePasswordJsonRequestBody,
+  t_replaceProfileJsonRequestBody,
   t_Schema,
+  t_sendEmailChallengeJsonRequestBody,
+  t_sendPhoneChallengeJsonRequestBody,
   t_UpdateAppAuthenticatorEnrollmentRequest,
   t_UpdateAuthenticatorEnrollmentRequest,
+  t_verifyEmailOtpJsonRequestBody,
+  t_verifyPhoneChallengeJsonRequestBody,
   UnknownEnumStringValue,
 } from "./models.ts"
 
@@ -291,14 +299,7 @@ export class MyAccountManagement extends AbstractFetchClient {
 
   async createEmail(
     p: {
-      requestBody: {
-        profile: {
-          email: string
-        }
-        role?: "PRIMARY" | "SECONDARY" | UnknownEnumStringValue
-        sendEmail?: boolean
-        state?: string
-      }
+      requestBody: t_createEmailJsonRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -350,9 +351,7 @@ export class MyAccountManagement extends AbstractFetchClient {
   async sendEmailChallenge(
     p: {
       id: string
-      requestBody: {
-        state: string
-      }
+      requestBody: t_sendEmailChallengeJsonRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -456,9 +455,7 @@ export class MyAccountManagement extends AbstractFetchClient {
     p: {
       id: string
       challengeId: string
-      requestBody: {
-        verificationCode: string
-      }
+      requestBody: t_verifyEmailOtpJsonRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -509,11 +506,7 @@ export class MyAccountManagement extends AbstractFetchClient {
 
   async createPassword(
     p: {
-      requestBody: {
-        profile: {
-          password: string
-        }
-      }
+      requestBody: t_createPasswordJsonRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -535,11 +528,7 @@ export class MyAccountManagement extends AbstractFetchClient {
 
   async replacePassword(
     p: {
-      requestBody: {
-        profile: {
-          password: string
-        }
-      }
+      requestBody: t_replacePasswordJsonRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -581,13 +570,7 @@ export class MyAccountManagement extends AbstractFetchClient {
 
   async createPhone(
     p: {
-      requestBody: {
-        method?: "SMS" | "CALL" | UnknownEnumStringValue
-        profile: {
-          phoneNumber?: string
-        }
-        sendCode?: boolean
-      }
+      requestBody: t_createPhoneJsonRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -640,10 +623,7 @@ export class MyAccountManagement extends AbstractFetchClient {
   async sendPhoneChallenge(
     p: {
       id: string
-      requestBody: {
-        method: "SMS" | "CALL" | UnknownEnumStringValue
-        retry?: boolean
-      }
+      requestBody: t_sendPhoneChallengeJsonRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -680,9 +660,7 @@ export class MyAccountManagement extends AbstractFetchClient {
   async verifyPhoneChallenge(
     p: {
       id: string
-      requestBody: {
-        verificationCode: string
-      }
+      requestBody: t_verifyPhoneChallengeJsonRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -716,9 +694,7 @@ export class MyAccountManagement extends AbstractFetchClient {
 
   async replaceProfile(
     p: {
-      requestBody: {
-        profile?: EmptyObject
-      }
+      requestBody: t_replaceProfileJsonRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},

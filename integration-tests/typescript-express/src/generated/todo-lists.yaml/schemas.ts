@@ -23,3 +23,9 @@ export const s_TodoList = z.object({
 })
 
 export const s_UnknownObject = z.record(z.string(), z.unknown())
+
+export const s_createTodoListItemJsonRequestBody = z.object({
+  id: z.string(),
+  content: z.string(),
+  completedAt: z.iso.datetime({offset: true}).optional(),
+})

@@ -24,9 +24,7 @@ import {z} from "zod/v4"
 import type {
   EmptyObject,
   t_ActionsAddCustomLabelsToSelfHostedRunnerForOrgParamSchema,
-  t_ActionsAddCustomLabelsToSelfHostedRunnerForOrgRequestBodySchema,
   t_ActionsAddCustomLabelsToSelfHostedRunnerForRepoParamSchema,
-  t_ActionsAddCustomLabelsToSelfHostedRunnerForRepoRequestBodySchema,
   t_ActionsAddRepoAccessToSelfHostedRunnerGroupInOrgParamSchema,
   t_ActionsAddSelectedRepoToOrgSecretParamSchema,
   t_ActionsAddSelectedRepoToOrgVariableParamSchema,
@@ -34,27 +32,18 @@ import type {
   t_ActionsApproveWorkflowRunParamSchema,
   t_ActionsCancelWorkflowRunParamSchema,
   t_ActionsCreateEnvironmentVariableParamSchema,
-  t_ActionsCreateEnvironmentVariableRequestBodySchema,
   t_ActionsCreateHostedRunnerForOrgParamSchema,
-  t_ActionsCreateHostedRunnerForOrgRequestBodySchema,
   t_ActionsCreateOrgVariableParamSchema,
-  t_ActionsCreateOrgVariableRequestBodySchema,
   t_ActionsCreateOrUpdateEnvironmentSecretParamSchema,
-  t_ActionsCreateOrUpdateEnvironmentSecretRequestBodySchema,
   t_ActionsCreateOrUpdateOrgSecretParamSchema,
-  t_ActionsCreateOrUpdateOrgSecretRequestBodySchema,
   t_ActionsCreateOrUpdateRepoSecretParamSchema,
-  t_ActionsCreateOrUpdateRepoSecretRequestBodySchema,
   t_ActionsCreateRegistrationTokenForOrgParamSchema,
   t_ActionsCreateRegistrationTokenForRepoParamSchema,
   t_ActionsCreateRemoveTokenForOrgParamSchema,
   t_ActionsCreateRemoveTokenForRepoParamSchema,
   t_ActionsCreateRepoVariableParamSchema,
-  t_ActionsCreateRepoVariableRequestBodySchema,
   t_ActionsCreateSelfHostedRunnerGroupForOrgParamSchema,
-  t_ActionsCreateSelfHostedRunnerGroupForOrgRequestBodySchema,
   t_ActionsCreateWorkflowDispatchParamSchema,
-  t_ActionsCreateWorkflowDispatchRequestBodySchema,
   t_ActionsDeleteActionsCacheByIdParamSchema,
   t_ActionsDeleteActionsCacheByKeyParamSchema,
   t_ActionsDeleteActionsCacheByKeyQuerySchema,
@@ -81,9 +70,7 @@ import type {
   t_ActionsEnableWorkflowParamSchema,
   t_ActionsForceCancelWorkflowRunParamSchema,
   t_ActionsGenerateRunnerJitconfigForOrgParamSchema,
-  t_ActionsGenerateRunnerJitconfigForOrgRequestBodySchema,
   t_ActionsGenerateRunnerJitconfigForRepoParamSchema,
-  t_ActionsGenerateRunnerJitconfigForRepoRequestBodySchema,
   t_ActionsGetActionsCacheListParamSchema,
   t_ActionsGetActionsCacheListQuerySchema,
   t_ActionsGetActionsCacheUsageByRepoForOrgParamSchema,
@@ -190,55 +177,30 @@ import type {
   t_ActionsRemoveSelectedRepoFromOrgVariableParamSchema,
   t_ActionsRemoveSelfHostedRunnerFromGroupForOrgParamSchema,
   t_ActionsReRunJobForWorkflowRunParamSchema,
-  t_ActionsReRunJobForWorkflowRunRequestBodySchema,
   t_ActionsReRunWorkflowFailedJobsParamSchema,
-  t_ActionsReRunWorkflowFailedJobsRequestBodySchema,
   t_ActionsReRunWorkflowParamSchema,
-  t_ActionsReRunWorkflowRequestBodySchema,
   t_ActionsReviewCustomGatesForRunParamSchema,
-  t_ActionsReviewCustomGatesForRunRequestBodySchema,
   t_ActionsReviewPendingDeploymentsForRunParamSchema,
-  t_ActionsReviewPendingDeploymentsForRunRequestBodySchema,
   t_ActionsSetAllowedActionsOrganizationParamSchema,
-  t_ActionsSetAllowedActionsOrganizationRequestBodySchema,
   t_ActionsSetAllowedActionsRepositoryParamSchema,
-  t_ActionsSetAllowedActionsRepositoryRequestBodySchema,
   t_ActionsSetCustomLabelsForSelfHostedRunnerForOrgParamSchema,
-  t_ActionsSetCustomLabelsForSelfHostedRunnerForOrgRequestBodySchema,
   t_ActionsSetCustomLabelsForSelfHostedRunnerForRepoParamSchema,
-  t_ActionsSetCustomLabelsForSelfHostedRunnerForRepoRequestBodySchema,
   t_ActionsSetCustomOidcSubClaimForRepoParamSchema,
-  t_ActionsSetCustomOidcSubClaimForRepoRequestBodySchema,
   t_ActionsSetGithubActionsDefaultWorkflowPermissionsOrganizationParamSchema,
-  t_ActionsSetGithubActionsDefaultWorkflowPermissionsOrganizationRequestBodySchema,
   t_ActionsSetGithubActionsDefaultWorkflowPermissionsRepositoryParamSchema,
-  t_ActionsSetGithubActionsDefaultWorkflowPermissionsRepositoryRequestBodySchema,
   t_ActionsSetGithubActionsPermissionsOrganizationParamSchema,
-  t_ActionsSetGithubActionsPermissionsOrganizationRequestBodySchema,
   t_ActionsSetGithubActionsPermissionsRepositoryParamSchema,
-  t_ActionsSetGithubActionsPermissionsRepositoryRequestBodySchema,
   t_ActionsSetRepoAccessToSelfHostedRunnerGroupInOrgParamSchema,
-  t_ActionsSetRepoAccessToSelfHostedRunnerGroupInOrgRequestBodySchema,
   t_ActionsSetSelectedReposForOrgSecretParamSchema,
-  t_ActionsSetSelectedReposForOrgSecretRequestBodySchema,
   t_ActionsSetSelectedReposForOrgVariableParamSchema,
-  t_ActionsSetSelectedReposForOrgVariableRequestBodySchema,
   t_ActionsSetSelectedRepositoriesEnabledGithubActionsOrganizationParamSchema,
-  t_ActionsSetSelectedRepositoriesEnabledGithubActionsOrganizationRequestBodySchema,
   t_ActionsSetSelfHostedRunnersInGroupForOrgParamSchema,
-  t_ActionsSetSelfHostedRunnersInGroupForOrgRequestBodySchema,
   t_ActionsSetWorkflowAccessToRepositoryParamSchema,
-  t_ActionsSetWorkflowAccessToRepositoryRequestBodySchema,
   t_ActionsUpdateEnvironmentVariableParamSchema,
-  t_ActionsUpdateEnvironmentVariableRequestBodySchema,
   t_ActionsUpdateHostedRunnerForOrgParamSchema,
-  t_ActionsUpdateHostedRunnerForOrgRequestBodySchema,
   t_ActionsUpdateOrgVariableParamSchema,
-  t_ActionsUpdateOrgVariableRequestBodySchema,
   t_ActionsUpdateRepoVariableParamSchema,
-  t_ActionsUpdateRepoVariableRequestBodySchema,
   t_ActionsUpdateSelfHostedRunnerGroupForOrgParamSchema,
-  t_ActionsUpdateSelfHostedRunnerGroupForOrgRequestBodySchema,
   t_ActivityCheckRepoIsStarredByAuthenticatedUserParamSchema,
   t_ActivityDeleteRepoSubscriptionParamSchema,
   t_ActivityDeleteThreadSubscriptionParamSchema,
@@ -275,15 +237,11 @@ import type {
   t_ActivityListWatchedReposForAuthenticatedUserQuerySchema,
   t_ActivityListWatchersForRepoParamSchema,
   t_ActivityListWatchersForRepoQuerySchema,
-  t_ActivityMarkNotificationsAsReadRequestBodySchema,
   t_ActivityMarkRepoNotificationsAsReadParamSchema,
-  t_ActivityMarkRepoNotificationsAsReadRequestBodySchema,
   t_ActivityMarkThreadAsDoneParamSchema,
   t_ActivityMarkThreadAsReadParamSchema,
   t_ActivitySetRepoSubscriptionParamSchema,
-  t_ActivitySetRepoSubscriptionRequestBodySchema,
   t_ActivitySetThreadSubscriptionParamSchema,
-  t_ActivitySetThreadSubscriptionRequestBodySchema,
   t_ActivityStarRepoForAuthenticatedUserParamSchema,
   t_ActivityUnstarRepoForAuthenticatedUserParamSchema,
   t_ApiInsightsGetRouteStatsByActorParamSchema,
@@ -306,15 +264,11 @@ import type {
   t_ApiInsightsGetUserStatsQuerySchema,
   t_AppsAddRepoToInstallationForAuthenticatedUserParamSchema,
   t_AppsCheckTokenParamSchema,
-  t_AppsCheckTokenRequestBodySchema,
   t_AppsCreateFromManifestParamSchema,
   t_AppsCreateInstallationAccessTokenParamSchema,
-  t_AppsCreateInstallationAccessTokenRequestBodySchema,
   t_AppsDeleteAuthorizationParamSchema,
-  t_AppsDeleteAuthorizationRequestBodySchema,
   t_AppsDeleteInstallationParamSchema,
   t_AppsDeleteTokenParamSchema,
-  t_AppsDeleteTokenRequestBodySchema,
   t_AppsGetBySlugParamSchema,
   t_AppsGetInstallationParamSchema,
   t_AppsGetOrgInstallationParamSchema,
@@ -341,12 +295,9 @@ import type {
   t_AppsRedeliverWebhookDeliveryParamSchema,
   t_AppsRemoveRepoFromInstallationForAuthenticatedUserParamSchema,
   t_AppsResetTokenParamSchema,
-  t_AppsResetTokenRequestBodySchema,
   t_AppsScopeTokenParamSchema,
-  t_AppsScopeTokenRequestBodySchema,
   t_AppsSuspendInstallationParamSchema,
   t_AppsUnsuspendInstallationParamSchema,
-  t_AppsUpdateWebhookConfigForAppRequestBodySchema,
   t_actions_billing_usage,
   t_actions_cache_list,
   t_actions_cache_usage_by_repository,
@@ -360,15 +311,60 @@ import type {
   t_actions_public_key,
   t_actions_repository_permissions,
   t_actions_secret,
+  t_actions_set_default_workflow_permissions,
   t_actions_variable,
   t_actions_workflow_access_to_repository,
+  t_actionsAddCustomLabelsToSelfHostedRunnerForOrgJsonRequestBody,
+  t_actionsAddCustomLabelsToSelfHostedRunnerForRepoJsonRequestBody,
+  t_actionsCreateEnvironmentVariableJsonRequestBody,
+  t_actionsCreateHostedRunnerForOrgJsonRequestBody,
+  t_actionsCreateOrgVariableJsonRequestBody,
+  t_actionsCreateOrUpdateEnvironmentSecretJsonRequestBody,
+  t_actionsCreateOrUpdateOrgSecretJsonRequestBody,
+  t_actionsCreateOrUpdateRepoSecretJsonRequestBody,
+  t_actionsCreateRepoVariableJsonRequestBody,
+  t_actionsCreateSelfHostedRunnerGroupForOrgJsonRequestBody,
+  t_actionsCreateWorkflowDispatchJsonRequestBody,
+  t_actionsGenerateRunnerJitconfigForOrgJsonRequestBody,
+  t_actionsGenerateRunnerJitconfigForRepoJsonRequestBody,
+  t_actionsReRunJobForWorkflowRunJsonRequestBody,
+  t_actionsReRunWorkflowFailedJobsJsonRequestBody,
+  t_actionsReRunWorkflowJsonRequestBody,
+  t_actionsReviewCustomGatesForRunJsonRequestBody,
+  t_actionsReviewPendingDeploymentsForRunJsonRequestBody,
+  t_actionsSetCustomLabelsForSelfHostedRunnerForOrgJsonRequestBody,
+  t_actionsSetCustomLabelsForSelfHostedRunnerForRepoJsonRequestBody,
+  t_actionsSetCustomOidcSubClaimForRepoJsonRequestBody,
+  t_actionsSetGithubActionsPermissionsOrganizationJsonRequestBody,
+  t_actionsSetGithubActionsPermissionsRepositoryJsonRequestBody,
+  t_actionsSetRepoAccessToSelfHostedRunnerGroupInOrgJsonRequestBody,
+  t_actionsSetSelectedReposForOrgSecretJsonRequestBody,
+  t_actionsSetSelectedReposForOrgVariableJsonRequestBody,
+  t_actionsSetSelectedRepositoriesEnabledGithubActionsOrganizationJsonRequestBody,
+  t_actionsSetSelfHostedRunnersInGroupForOrgJsonRequestBody,
+  t_actionsUpdateEnvironmentVariableJsonRequestBody,
+  t_actionsUpdateHostedRunnerForOrgJsonRequestBody,
+  t_actionsUpdateOrgVariableJsonRequestBody,
+  t_actionsUpdateRepoVariableJsonRequestBody,
+  t_actionsUpdateSelfHostedRunnerGroupForOrgJsonRequestBody,
   t_activity,
+  t_activityMarkNotificationsAsReadJsonRequestBody,
+  t_activityMarkRepoNotificationsAsReadJsonRequestBody,
+  t_activitySetRepoSubscriptionJsonRequestBody,
+  t_activitySetThreadSubscriptionJsonRequestBody,
   t_api_insights_route_stats,
   t_api_insights_subject_stats,
   t_api_insights_summary_stats,
   t_api_insights_time_stats,
   t_api_insights_user_stats,
   t_api_overview,
+  t_appsCheckTokenJsonRequestBody,
+  t_appsCreateInstallationAccessTokenJsonRequestBody,
+  t_appsDeleteAuthorizationJsonRequestBody,
+  t_appsDeleteTokenJsonRequestBody,
+  t_appsResetTokenJsonRequestBody,
+  t_appsScopeTokenJsonRequestBody,
+  t_appsUpdateWebhookConfigForAppJsonRequestBody,
   t_artifact,
   t_authentication_token,
   t_authorization,
@@ -393,17 +389,13 @@ import type {
   t_branch_short,
   t_branch_with_protection,
   t_CampaignsCreateCampaignParamSchema,
-  t_CampaignsCreateCampaignRequestBodySchema,
   t_CampaignsDeleteCampaignParamSchema,
   t_CampaignsGetCampaignSummaryParamSchema,
   t_CampaignsListOrgCampaignsParamSchema,
   t_CampaignsListOrgCampaignsQuerySchema,
   t_CampaignsUpdateCampaignParamSchema,
-  t_CampaignsUpdateCampaignRequestBodySchema,
   t_ChecksCreateParamSchema,
-  t_ChecksCreateRequestBodySchema,
   t_ChecksCreateSuiteParamSchema,
-  t_ChecksCreateSuiteRequestBodySchema,
   t_ChecksGetParamSchema,
   t_ChecksGetSuiteParamSchema,
   t_ChecksListAnnotationsParamSchema,
@@ -417,9 +409,7 @@ import type {
   t_ChecksRerequestRunParamSchema,
   t_ChecksRerequestSuiteParamSchema,
   t_ChecksSetSuitesPreferencesParamSchema,
-  t_ChecksSetSuitesPreferencesRequestBodySchema,
   t_ChecksUpdateParamSchema,
-  t_ChecksUpdateRequestBodySchema,
   t_ClassroomGetAClassroomParamSchema,
   t_ClassroomGetAnAssignmentParamSchema,
   t_ClassroomGetAssignmentGradesParamSchema,
@@ -429,10 +419,8 @@ import type {
   t_ClassroomListAssignmentsForAClassroomQuerySchema,
   t_ClassroomListClassroomsQuerySchema,
   t_CodeScanningCommitAutofixParamSchema,
-  t_CodeScanningCommitAutofixRequestBodySchema,
   t_CodeScanningCreateAutofixParamSchema,
   t_CodeScanningCreateVariantAnalysisParamSchema,
-  t_CodeScanningCreateVariantAnalysisRequestBodySchema,
   t_CodeScanningDeleteAnalysisParamSchema,
   t_CodeScanningDeleteAnalysisQuerySchema,
   t_CodeScanningDeleteCodeqlDatabaseParamSchema,
@@ -454,23 +442,15 @@ import type {
   t_CodeScanningListRecentAnalysesParamSchema,
   t_CodeScanningListRecentAnalysesQuerySchema,
   t_CodeScanningUpdateAlertParamSchema,
-  t_CodeScanningUpdateAlertRequestBodySchema,
   t_CodeScanningUpdateDefaultSetupParamSchema,
-  t_CodeScanningUpdateDefaultSetupRequestBodySchema,
   t_CodeScanningUploadSarifParamSchema,
-  t_CodeScanningUploadSarifRequestBodySchema,
   t_CodeSecurityAttachConfigurationParamSchema,
-  t_CodeSecurityAttachConfigurationRequestBodySchema,
   t_CodeSecurityAttachEnterpriseConfigurationParamSchema,
-  t_CodeSecurityAttachEnterpriseConfigurationRequestBodySchema,
   t_CodeSecurityCreateConfigurationForEnterpriseParamSchema,
-  t_CodeSecurityCreateConfigurationForEnterpriseRequestBodySchema,
   t_CodeSecurityCreateConfigurationParamSchema,
-  t_CodeSecurityCreateConfigurationRequestBodySchema,
   t_CodeSecurityDeleteConfigurationForEnterpriseParamSchema,
   t_CodeSecurityDeleteConfigurationParamSchema,
   t_CodeSecurityDetachConfigurationParamSchema,
-  t_CodeSecurityDetachConfigurationRequestBodySchema,
   t_CodeSecurityGetConfigurationForRepositoryParamSchema,
   t_CodeSecurityGetConfigurationParamSchema,
   t_CodeSecurityGetConfigurationsForEnterpriseParamSchema,
@@ -485,32 +465,21 @@ import type {
   t_CodeSecurityGetRepositoriesForEnterpriseConfigurationQuerySchema,
   t_CodeSecurityGetSingleConfigurationForEnterpriseParamSchema,
   t_CodeSecuritySetConfigurationAsDefaultForEnterpriseParamSchema,
-  t_CodeSecuritySetConfigurationAsDefaultForEnterpriseRequestBodySchema,
   t_CodeSecuritySetConfigurationAsDefaultParamSchema,
-  t_CodeSecuritySetConfigurationAsDefaultRequestBodySchema,
   t_CodeSecurityUpdateConfigurationParamSchema,
-  t_CodeSecurityUpdateConfigurationRequestBodySchema,
   t_CodeSecurityUpdateEnterpriseConfigurationParamSchema,
-  t_CodeSecurityUpdateEnterpriseConfigurationRequestBodySchema,
   t_CodesOfConductGetConductCodeParamSchema,
   t_CodespacesAddRepositoryForSecretForAuthenticatedUserParamSchema,
   t_CodespacesAddSelectedRepoToOrgSecretParamSchema,
   t_CodespacesCheckPermissionsForDevcontainerParamSchema,
   t_CodespacesCheckPermissionsForDevcontainerQuerySchema,
   t_CodespacesCodespaceMachinesForAuthenticatedUserParamSchema,
-  t_CodespacesCreateForAuthenticatedUserRequestBodySchema,
   t_CodespacesCreateOrUpdateOrgSecretParamSchema,
-  t_CodespacesCreateOrUpdateOrgSecretRequestBodySchema,
   t_CodespacesCreateOrUpdateRepoSecretParamSchema,
-  t_CodespacesCreateOrUpdateRepoSecretRequestBodySchema,
   t_CodespacesCreateOrUpdateSecretForAuthenticatedUserParamSchema,
-  t_CodespacesCreateOrUpdateSecretForAuthenticatedUserRequestBodySchema,
   t_CodespacesCreateWithPrForAuthenticatedUserParamSchema,
-  t_CodespacesCreateWithPrForAuthenticatedUserRequestBodySchema,
   t_CodespacesCreateWithRepoForAuthenticatedUserParamSchema,
-  t_CodespacesCreateWithRepoForAuthenticatedUserRequestBodySchema,
   t_CodespacesDeleteCodespacesAccessUsersParamSchema,
-  t_CodespacesDeleteCodespacesAccessUsersRequestBodySchema,
   t_CodespacesDeleteForAuthenticatedUserParamSchema,
   t_CodespacesDeleteFromOrganizationParamSchema,
   t_CodespacesDeleteOrgSecretParamSchema,
@@ -544,32 +513,22 @@ import type {
   t_CodespacesPreFlightWithRepoForAuthenticatedUserParamSchema,
   t_CodespacesPreFlightWithRepoForAuthenticatedUserQuerySchema,
   t_CodespacesPublishForAuthenticatedUserParamSchema,
-  t_CodespacesPublishForAuthenticatedUserRequestBodySchema,
   t_CodespacesRemoveRepositoryForSecretForAuthenticatedUserParamSchema,
   t_CodespacesRemoveSelectedRepoFromOrgSecretParamSchema,
   t_CodespacesRepoMachinesForAuthenticatedUserParamSchema,
   t_CodespacesRepoMachinesForAuthenticatedUserQuerySchema,
   t_CodespacesSetCodespacesAccessParamSchema,
-  t_CodespacesSetCodespacesAccessRequestBodySchema,
   t_CodespacesSetCodespacesAccessUsersParamSchema,
-  t_CodespacesSetCodespacesAccessUsersRequestBodySchema,
   t_CodespacesSetRepositoriesForSecretForAuthenticatedUserParamSchema,
-  t_CodespacesSetRepositoriesForSecretForAuthenticatedUserRequestBodySchema,
   t_CodespacesSetSelectedReposForOrgSecretParamSchema,
-  t_CodespacesSetSelectedReposForOrgSecretRequestBodySchema,
   t_CodespacesStartForAuthenticatedUserParamSchema,
   t_CodespacesStopForAuthenticatedUserParamSchema,
   t_CodespacesStopInOrganizationParamSchema,
   t_CodespacesUpdateForAuthenticatedUserParamSchema,
-  t_CodespacesUpdateForAuthenticatedUserRequestBodySchema,
   t_CopilotAddCopilotSeatsForTeamsParamSchema,
-  t_CopilotAddCopilotSeatsForTeamsRequestBodySchema,
   t_CopilotAddCopilotSeatsForUsersParamSchema,
-  t_CopilotAddCopilotSeatsForUsersRequestBodySchema,
   t_CopilotCancelCopilotSeatAssignmentForTeamsParamSchema,
-  t_CopilotCancelCopilotSeatAssignmentForTeamsRequestBodySchema,
   t_CopilotCancelCopilotSeatAssignmentForUsersParamSchema,
-  t_CopilotCancelCopilotSeatAssignmentForUsersRequestBodySchema,
   t_CopilotCopilotMetricsForOrganizationParamSchema,
   t_CopilotCopilotMetricsForOrganizationQuerySchema,
   t_CopilotCopilotMetricsForTeamParamSchema,
@@ -578,13 +537,18 @@ import type {
   t_CopilotGetCopilotSeatDetailsForUserParamSchema,
   t_CopilotListCopilotSeatsParamSchema,
   t_CopilotListCopilotSeatsQuerySchema,
-  t_CredentialsRevokeRequestBodySchema,
   t_campaign_summary,
+  t_campaignsCreateCampaignJsonRequestBody,
+  t_campaignsUpdateCampaignJsonRequestBody,
   t_check_annotation,
   t_check_automated_security_fixes,
   t_check_run,
   t_check_suite,
   t_check_suite_preference,
+  t_checksCreateJsonRequestBody,
+  t_checksCreateSuiteJsonRequestBody,
+  t_checksSetSuitesPreferencesJsonRequestBody,
+  t_checksUpdateJsonRequestBody,
   t_classroom,
   t_classroom_accepted_assignment,
   t_classroom_assignment,
@@ -598,9 +562,11 @@ import type {
   t_code_scanning_analysis,
   t_code_scanning_analysis_deletion,
   t_code_scanning_autofix,
+  t_code_scanning_autofix_commits,
   t_code_scanning_autofix_commits_response,
   t_code_scanning_codeql_database,
   t_code_scanning_default_setup,
+  t_code_scanning_default_setup_update,
   t_code_scanning_default_setup_update_response,
   t_code_scanning_organization_alert_items,
   t_code_scanning_sarifs_receipt,
@@ -613,6 +579,18 @@ import type {
   t_code_security_configuration_repositories,
   t_code_security_default_configurations,
   t_codeowners_errors,
+  t_codeScanningCreateVariantAnalysisJsonRequestBody,
+  t_codeScanningUpdateAlertJsonRequestBody,
+  t_codeScanningUploadSarifJsonRequestBody,
+  t_codeSecurityAttachConfigurationJsonRequestBody,
+  t_codeSecurityAttachEnterpriseConfigurationJsonRequestBody,
+  t_codeSecurityCreateConfigurationForEnterpriseJsonRequestBody,
+  t_codeSecurityCreateConfigurationJsonRequestBody,
+  t_codeSecurityDetachConfigurationJsonRequestBody,
+  t_codeSecuritySetConfigurationAsDefaultForEnterpriseJsonRequestBody,
+  t_codeSecuritySetConfigurationAsDefaultJsonRequestBody,
+  t_codeSecurityUpdateConfigurationJsonRequestBody,
+  t_codeSecurityUpdateEnterpriseConfigurationJsonRequestBody,
   t_codespace,
   t_codespace_export_details,
   t_codespace_machine,
@@ -622,6 +600,19 @@ import type {
   t_codespaces_public_key,
   t_codespaces_secret,
   t_codespaces_user_public_key,
+  t_codespacesCreateForAuthenticatedUserJsonRequestBody,
+  t_codespacesCreateOrUpdateOrgSecretJsonRequestBody,
+  t_codespacesCreateOrUpdateRepoSecretJsonRequestBody,
+  t_codespacesCreateOrUpdateSecretForAuthenticatedUserJsonRequestBody,
+  t_codespacesCreateWithPrForAuthenticatedUserJsonRequestBody,
+  t_codespacesCreateWithRepoForAuthenticatedUserJsonRequestBody,
+  t_codespacesDeleteCodespacesAccessUsersJsonRequestBody,
+  t_codespacesPublishForAuthenticatedUserJsonRequestBody,
+  t_codespacesSetCodespacesAccessJsonRequestBody,
+  t_codespacesSetCodespacesAccessUsersJsonRequestBody,
+  t_codespacesSetRepositoriesForSecretForAuthenticatedUserJsonRequestBody,
+  t_codespacesSetSelectedReposForOrgSecretJsonRequestBody,
+  t_codespacesUpdateForAuthenticatedUserJsonRequestBody,
   t_collaborator,
   t_combined_billing_usage,
   t_combined_commit_status,
@@ -641,14 +632,18 @@ import type {
   t_copilot_organization_details,
   t_copilot_seat_details,
   t_copilot_usage_metrics_day,
+  t_copilotAddCopilotSeatsForTeamsJsonRequestBody,
+  t_copilotAddCopilotSeatsForUsersJsonRequestBody,
+  t_copilotCancelCopilotSeatAssignmentForTeamsJsonRequestBody,
+  t_copilotCancelCopilotSeatAssignmentForUsersJsonRequestBody,
+  t_credentialsRevokeJsonRequestBody,
   t_custom_deployment_rule_app,
   t_custom_property,
+  t_custom_property_set_payload,
   t_custom_property_value,
   t_DependabotAddSelectedRepoToOrgSecretParamSchema,
   t_DependabotCreateOrUpdateOrgSecretParamSchema,
-  t_DependabotCreateOrUpdateOrgSecretRequestBodySchema,
   t_DependabotCreateOrUpdateRepoSecretParamSchema,
-  t_DependabotCreateOrUpdateRepoSecretRequestBodySchema,
   t_DependabotDeleteOrgSecretParamSchema,
   t_DependabotDeleteRepoSecretParamSchema,
   t_DependabotGetAlertParamSchema,
@@ -672,15 +667,10 @@ import type {
   t_DependabotRepositoryAccessForOrgParamSchema,
   t_DependabotRepositoryAccessForOrgQuerySchema,
   t_DependabotSetRepositoryAccessDefaultLevelParamSchema,
-  t_DependabotSetRepositoryAccessDefaultLevelRequestBodySchema,
   t_DependabotSetSelectedReposForOrgSecretParamSchema,
-  t_DependabotSetSelectedReposForOrgSecretRequestBodySchema,
   t_DependabotUpdateAlertParamSchema,
-  t_DependabotUpdateAlertRequestBodySchema,
   t_DependabotUpdateRepositoryAccessForOrgParamSchema,
-  t_DependabotUpdateRepositoryAccessForOrgRequestBodySchema,
   t_DependencyGraphCreateRepositorySnapshotParamSchema,
-  t_DependencyGraphCreateRepositorySnapshotRequestBodySchema,
   t_DependencyGraphDiffRangeParamSchema,
   t_DependencyGraphDiffRangeQuerySchema,
   t_DependencyGraphExportSbomParamSchema,
@@ -689,11 +679,19 @@ import type {
   t_dependabot_public_key,
   t_dependabot_repository_access_details,
   t_dependabot_secret,
+  t_dependabotCreateOrUpdateOrgSecretJsonRequestBody,
+  t_dependabotCreateOrUpdateRepoSecretJsonRequestBody,
+  t_dependabotSetRepositoryAccessDefaultLevelJsonRequestBody,
+  t_dependabotSetSelectedReposForOrgSecretJsonRequestBody,
+  t_dependabotUpdateAlertJsonRequestBody,
+  t_dependabotUpdateRepositoryAccessForOrgJsonRequestBody,
   t_dependency_graph_diff,
   t_dependency_graph_spdx_sbom,
   t_deploy_key,
   t_deployment,
   t_deployment_branch_policy,
+  t_deployment_branch_policy_name_pattern,
+  t_deployment_branch_policy_name_pattern_with_type,
   t_deployment_protection_rule,
   t_deployment_status,
   t_diff_entry,
@@ -707,8 +705,6 @@ import type {
   t_full_repository,
   t_GistsCheckIsStarredParamSchema,
   t_GistsCreateCommentParamSchema,
-  t_GistsCreateCommentRequestBodySchema,
-  t_GistsCreateRequestBodySchema,
   t_GistsDeleteCommentParamSchema,
   t_GistsDeleteParamSchema,
   t_GistsForkParamSchema,
@@ -729,19 +725,12 @@ import type {
   t_GistsStarParamSchema,
   t_GistsUnstarParamSchema,
   t_GistsUpdateCommentParamSchema,
-  t_GistsUpdateCommentRequestBodySchema,
   t_GistsUpdateParamSchema,
-  t_GistsUpdateRequestBodySchema,
   t_GitCreateBlobParamSchema,
-  t_GitCreateBlobRequestBodySchema,
   t_GitCreateCommitParamSchema,
-  t_GitCreateCommitRequestBodySchema,
   t_GitCreateRefParamSchema,
-  t_GitCreateRefRequestBodySchema,
   t_GitCreateTagParamSchema,
-  t_GitCreateTagRequestBodySchema,
   t_GitCreateTreeParamSchema,
-  t_GitCreateTreeRequestBodySchema,
   t_GitDeleteRefParamSchema,
   t_GitGetBlobParamSchema,
   t_GitGetCommitParamSchema,
@@ -752,55 +741,54 @@ import type {
   t_GitignoreGetTemplateParamSchema,
   t_GitListMatchingRefsParamSchema,
   t_GitUpdateRefParamSchema,
-  t_GitUpdateRefRequestBodySchema,
   t_gist_comment,
   t_gist_commit,
   t_gist_simple,
+  t_gistsCreateCommentJsonRequestBody,
+  t_gistsCreateJsonRequestBody,
+  t_gistsUpdateCommentJsonRequestBody,
+  t_gistsUpdateJsonRequestBody,
   t_git_commit,
   t_git_ref,
   t_git_tag,
   t_git_tree,
+  t_gitCreateBlobJsonRequestBody,
+  t_gitCreateCommitJsonRequestBody,
+  t_gitCreateRefJsonRequestBody,
+  t_gitCreateTagJsonRequestBody,
+  t_gitCreateTreeJsonRequestBody,
   t_gitignore_template,
+  t_gitUpdateRefJsonRequestBody,
   t_global_advisory,
   t_gpg_key,
   t_HostedComputeCreateNetworkConfigurationForOrgParamSchema,
-  t_HostedComputeCreateNetworkConfigurationForOrgRequestBodySchema,
   t_HostedComputeDeleteNetworkConfigurationFromOrgParamSchema,
   t_HostedComputeGetNetworkConfigurationForOrgParamSchema,
   t_HostedComputeGetNetworkSettingsForOrgParamSchema,
   t_HostedComputeListNetworkConfigurationsForOrgParamSchema,
   t_HostedComputeListNetworkConfigurationsForOrgQuerySchema,
   t_HostedComputeUpdateNetworkConfigurationForOrgParamSchema,
-  t_HostedComputeUpdateNetworkConfigurationForOrgRequestBodySchema,
   t_hook,
   t_hook_delivery,
   t_hook_delivery_item,
+  t_hostedComputeCreateNetworkConfigurationForOrgJsonRequestBody,
+  t_hostedComputeUpdateNetworkConfigurationForOrgJsonRequestBody,
   t_hovercard,
   t_InteractionsGetRestrictionsForOrgParamSchema,
   t_InteractionsGetRestrictionsForRepoParamSchema,
   t_InteractionsRemoveRestrictionsForOrgParamSchema,
   t_InteractionsRemoveRestrictionsForRepoParamSchema,
-  t_InteractionsSetRestrictionsForAuthenticatedUserRequestBodySchema,
   t_InteractionsSetRestrictionsForOrgParamSchema,
-  t_InteractionsSetRestrictionsForOrgRequestBodySchema,
   t_InteractionsSetRestrictionsForRepoParamSchema,
-  t_InteractionsSetRestrictionsForRepoRequestBodySchema,
   t_IssuesAddAssigneesParamSchema,
-  t_IssuesAddAssigneesRequestBodySchema,
   t_IssuesAddLabelsParamSchema,
-  t_IssuesAddLabelsRequestBodySchema,
   t_IssuesAddSubIssueParamSchema,
-  t_IssuesAddSubIssueRequestBodySchema,
   t_IssuesCheckUserCanBeAssignedParamSchema,
   t_IssuesCheckUserCanBeAssignedToIssueParamSchema,
   t_IssuesCreateCommentParamSchema,
-  t_IssuesCreateCommentRequestBodySchema,
   t_IssuesCreateLabelParamSchema,
-  t_IssuesCreateLabelRequestBodySchema,
   t_IssuesCreateMilestoneParamSchema,
-  t_IssuesCreateMilestoneRequestBodySchema,
   t_IssuesCreateParamSchema,
-  t_IssuesCreateRequestBodySchema,
   t_IssuesDeleteCommentParamSchema,
   t_IssuesDeleteLabelParamSchema,
   t_IssuesDeleteMilestoneParamSchema,
@@ -838,31 +826,23 @@ import type {
   t_IssuesListSubIssuesParamSchema,
   t_IssuesListSubIssuesQuerySchema,
   t_IssuesLockParamSchema,
-  t_IssuesLockRequestBodySchema,
   t_IssuesRemoveAllLabelsParamSchema,
   t_IssuesRemoveAssigneesParamSchema,
-  t_IssuesRemoveAssigneesRequestBodySchema,
   t_IssuesRemoveLabelParamSchema,
   t_IssuesRemoveSubIssueParamSchema,
-  t_IssuesRemoveSubIssueRequestBodySchema,
   t_IssuesReprioritizeSubIssueParamSchema,
-  t_IssuesReprioritizeSubIssueRequestBodySchema,
   t_IssuesSetLabelsParamSchema,
-  t_IssuesSetLabelsRequestBodySchema,
   t_IssuesUnlockParamSchema,
   t_IssuesUpdateCommentParamSchema,
-  t_IssuesUpdateCommentRequestBodySchema,
   t_IssuesUpdateLabelParamSchema,
-  t_IssuesUpdateLabelRequestBodySchema,
   t_IssuesUpdateMilestoneParamSchema,
-  t_IssuesUpdateMilestoneRequestBodySchema,
   t_IssuesUpdateParamSchema,
-  t_IssuesUpdateRequestBodySchema,
   t_import,
   t_installation,
   t_installation_token,
   t_integration,
   t_integration_installation_request,
+  t_interaction_limit,
   t_interaction_limit_response,
   t_issue,
   t_issue_comment,
@@ -870,6 +850,22 @@ import type {
   t_issue_event_for_issue,
   t_issue_search_result_item,
   t_issue_type,
+  t_issuesAddAssigneesJsonRequestBody,
+  t_issuesAddLabelsJsonRequestBody,
+  t_issuesAddSubIssueJsonRequestBody,
+  t_issuesCreateCommentJsonRequestBody,
+  t_issuesCreateJsonRequestBody,
+  t_issuesCreateLabelJsonRequestBody,
+  t_issuesCreateMilestoneJsonRequestBody,
+  t_issuesLockJsonRequestBody,
+  t_issuesRemoveAssigneesJsonRequestBody,
+  t_issuesRemoveSubIssueJsonRequestBody,
+  t_issuesReprioritizeSubIssueJsonRequestBody,
+  t_issuesSetLabelsJsonRequestBody,
+  t_issuesUpdateCommentJsonRequestBody,
+  t_issuesUpdateJsonRequestBody,
+  t_issuesUpdateLabelJsonRequestBody,
+  t_issuesUpdateMilestoneJsonRequestBody,
   t_job,
   t_key,
   t_key_simple,
@@ -883,8 +879,6 @@ import type {
   t_license,
   t_license_content,
   t_license_simple,
-  t_MarkdownRenderRawRequestBodySchema,
-  t_MarkdownRenderRequestBodySchema,
   t_MetaGetOctocatQuerySchema,
   t_MigrationsCancelImportParamSchema,
   t_MigrationsDeleteArchiveForAuthenticatedUserParamSchema,
@@ -907,29 +901,29 @@ import type {
   t_MigrationsListReposForOrgParamSchema,
   t_MigrationsListReposForOrgQuerySchema,
   t_MigrationsMapCommitAuthorParamSchema,
-  t_MigrationsMapCommitAuthorRequestBodySchema,
   t_MigrationsSetLfsPreferenceParamSchema,
-  t_MigrationsSetLfsPreferenceRequestBodySchema,
-  t_MigrationsStartForAuthenticatedUserRequestBodySchema,
   t_MigrationsStartForOrgParamSchema,
-  t_MigrationsStartForOrgRequestBodySchema,
   t_MigrationsStartImportParamSchema,
-  t_MigrationsStartImportRequestBodySchema,
   t_MigrationsUnlockRepoForAuthenticatedUserParamSchema,
   t_MigrationsUnlockRepoForOrgParamSchema,
   t_MigrationsUpdateImportParamSchema,
-  t_MigrationsUpdateImportRequestBodySchema,
+  t_markdownRenderJsonRequestBody,
   t_marketplace_listing_plan,
   t_marketplace_purchase,
   t_merged_upstream,
   t_migration,
+  t_migrationsMapCommitAuthorJsonRequestBody,
+  t_migrationsSetLfsPreferenceJsonRequestBody,
+  t_migrationsStartForAuthenticatedUserJsonRequestBody,
+  t_migrationsStartForOrgJsonRequestBody,
+  t_migrationsStartImportJsonRequestBody,
+  t_migrationsUpdateImportJsonRequestBody,
   t_milestone,
   t_minimal_repository,
   t_network_configuration,
   t_network_settings,
   t_OidcGetOidcCustomSubTemplateForOrgParamSchema,
   t_OidcUpdateOidcCustomSubTemplateForOrgParamSchema,
-  t_OidcUpdateOidcCustomSubTemplateForOrgRequestBodySchema,
   t_OrgsAddSecurityManagerTeamParamSchema,
   t_OrgsAssignTeamToOrgRoleParamSchema,
   t_OrgsAssignUserToOrgRoleParamSchema,
@@ -939,28 +933,19 @@ import type {
   t_OrgsCheckMembershipForUserParamSchema,
   t_OrgsCheckPublicMembershipForUserParamSchema,
   t_OrgsConvertMemberToOutsideCollaboratorParamSchema,
-  t_OrgsConvertMemberToOutsideCollaboratorRequestBodySchema,
   t_OrgsCreateInvitationParamSchema,
-  t_OrgsCreateInvitationRequestBodySchema,
   t_OrgsCreateIssueTypeParamSchema,
-  t_OrgsCreateIssueTypeRequestBodySchema,
   t_OrgsCreateOrUpdateCustomPropertiesParamSchema,
-  t_OrgsCreateOrUpdateCustomPropertiesRequestBodySchema,
   t_OrgsCreateOrUpdateCustomPropertiesValuesForReposParamSchema,
-  t_OrgsCreateOrUpdateCustomPropertiesValuesForReposRequestBodySchema,
   t_OrgsCreateOrUpdateCustomPropertyParamSchema,
-  t_OrgsCreateOrUpdateCustomPropertyRequestBodySchema,
   t_OrgsCreateWebhookParamSchema,
-  t_OrgsCreateWebhookRequestBodySchema,
   t_OrgsDeleteAttestationsBulkParamSchema,
-  t_OrgsDeleteAttestationsBulkRequestBodySchema,
   t_OrgsDeleteAttestationsByIdParamSchema,
   t_OrgsDeleteAttestationsBySubjectDigestParamSchema,
   t_OrgsDeleteIssueTypeParamSchema,
   t_OrgsDeleteParamSchema,
   t_OrgsDeleteWebhookParamSchema,
   t_OrgsEnableOrDisableSecurityProductOnAllOrgReposParamSchema,
-  t_OrgsEnableOrDisableSecurityProductOnAllOrgReposRequestBodySchema,
   t_OrgsGetAllCustomPropertiesParamSchema,
   t_OrgsGetCustomPropertyParamSchema,
   t_OrgsGetMembershipForAuthenticatedUserParamSchema,
@@ -977,7 +962,6 @@ import type {
   t_OrgsListAppInstallationsQuerySchema,
   t_OrgsListAttestationsBulkParamSchema,
   t_OrgsListAttestationsBulkQuerySchema,
-  t_OrgsListAttestationsBulkRequestBodySchema,
   t_OrgsListAttestationsParamSchema,
   t_OrgsListAttestationsQuerySchema,
   t_OrgsListBlockedUsersParamSchema,
@@ -1029,31 +1013,21 @@ import type {
   t_OrgsRemovePublicMembershipForAuthenticatedUserParamSchema,
   t_OrgsRemoveSecurityManagerTeamParamSchema,
   t_OrgsReviewPatGrantRequestParamSchema,
-  t_OrgsReviewPatGrantRequestRequestBodySchema,
   t_OrgsReviewPatGrantRequestsInBulkParamSchema,
-  t_OrgsReviewPatGrantRequestsInBulkRequestBodySchema,
   t_OrgsRevokeAllOrgRolesTeamParamSchema,
   t_OrgsRevokeAllOrgRolesUserParamSchema,
   t_OrgsRevokeOrgRoleTeamParamSchema,
   t_OrgsRevokeOrgRoleUserParamSchema,
   t_OrgsSetMembershipForUserParamSchema,
-  t_OrgsSetMembershipForUserRequestBodySchema,
   t_OrgsSetPublicMembershipForAuthenticatedUserParamSchema,
   t_OrgsUnblockUserParamSchema,
   t_OrgsUpdateIssueTypeParamSchema,
-  t_OrgsUpdateIssueTypeRequestBodySchema,
   t_OrgsUpdateMembershipForAuthenticatedUserParamSchema,
-  t_OrgsUpdateMembershipForAuthenticatedUserRequestBodySchema,
   t_OrgsUpdateParamSchema,
   t_OrgsUpdatePatAccessesParamSchema,
-  t_OrgsUpdatePatAccessesRequestBodySchema,
   t_OrgsUpdatePatAccessParamSchema,
-  t_OrgsUpdatePatAccessRequestBodySchema,
-  t_OrgsUpdateRequestBodySchema,
   t_OrgsUpdateWebhookConfigForOrgParamSchema,
-  t_OrgsUpdateWebhookConfigForOrgRequestBodySchema,
   t_OrgsUpdateWebhookParamSchema,
-  t_OrgsUpdateWebhookRequestBodySchema,
   t_oidc_custom_sub,
   t_oidc_custom_sub_repo,
   t_org_hook,
@@ -1063,6 +1037,7 @@ import type {
   t_org_repo_custom_property_values,
   t_organization_actions_secret,
   t_organization_actions_variable,
+  t_organization_create_issue_type,
   t_organization_dependabot_secret,
   t_organization_full,
   t_organization_invitation,
@@ -1071,6 +1046,24 @@ import type {
   t_organization_role,
   t_organization_secret_scanning_alert,
   t_organization_simple,
+  t_organization_update_issue_type,
+  t_orgsConvertMemberToOutsideCollaboratorJsonRequestBody,
+  t_orgsCreateInvitationJsonRequestBody,
+  t_orgsCreateOrUpdateCustomPropertiesJsonRequestBody,
+  t_orgsCreateOrUpdateCustomPropertiesValuesForReposJsonRequestBody,
+  t_orgsCreateWebhookJsonRequestBody,
+  t_orgsDeleteAttestationsBulkJsonRequestBody,
+  t_orgsEnableOrDisableSecurityProductOnAllOrgReposJsonRequestBody,
+  t_orgsListAttestationsBulkJsonRequestBody,
+  t_orgsReviewPatGrantRequestJsonRequestBody,
+  t_orgsReviewPatGrantRequestsInBulkJsonRequestBody,
+  t_orgsSetMembershipForUserJsonRequestBody,
+  t_orgsUpdateJsonRequestBody,
+  t_orgsUpdateMembershipForAuthenticatedUserJsonRequestBody,
+  t_orgsUpdatePatAccessesJsonRequestBody,
+  t_orgsUpdatePatAccessJsonRequestBody,
+  t_orgsUpdateWebhookConfigForOrgJsonRequestBody,
+  t_orgsUpdateWebhookJsonRequestBody,
   t_PackagesDeletePackageForAuthenticatedUserParamSchema,
   t_PackagesDeletePackageForOrgParamSchema,
   t_PackagesDeletePackageForUserParamSchema,
@@ -1105,25 +1098,17 @@ import type {
   t_PackagesRestorePackageVersionForOrgParamSchema,
   t_PackagesRestorePackageVersionForUserParamSchema,
   t_PrivateRegistriesCreateOrgPrivateRegistryParamSchema,
-  t_PrivateRegistriesCreateOrgPrivateRegistryRequestBodySchema,
   t_PrivateRegistriesDeleteOrgPrivateRegistryParamSchema,
   t_PrivateRegistriesGetOrgPrivateRegistryParamSchema,
   t_PrivateRegistriesGetOrgPublicKeyParamSchema,
   t_PrivateRegistriesListOrgPrivateRegistriesParamSchema,
   t_PrivateRegistriesListOrgPrivateRegistriesQuerySchema,
   t_PrivateRegistriesUpdateOrgPrivateRegistryParamSchema,
-  t_PrivateRegistriesUpdateOrgPrivateRegistryRequestBodySchema,
   t_ProjectsClassicAddCollaboratorParamSchema,
-  t_ProjectsClassicAddCollaboratorRequestBodySchema,
   t_ProjectsClassicCreateCardParamSchema,
-  t_ProjectsClassicCreateCardRequestBodySchema,
   t_ProjectsClassicCreateColumnParamSchema,
-  t_ProjectsClassicCreateColumnRequestBodySchema,
-  t_ProjectsClassicCreateForAuthenticatedUserRequestBodySchema,
   t_ProjectsClassicCreateForOrgParamSchema,
-  t_ProjectsClassicCreateForOrgRequestBodySchema,
   t_ProjectsClassicCreateForRepoParamSchema,
-  t_ProjectsClassicCreateForRepoRequestBodySchema,
   t_ProjectsClassicDeleteCardParamSchema,
   t_ProjectsClassicDeleteColumnParamSchema,
   t_ProjectsClassicDeleteParamSchema,
@@ -1144,29 +1129,19 @@ import type {
   t_ProjectsClassicListForUserParamSchema,
   t_ProjectsClassicListForUserQuerySchema,
   t_ProjectsClassicMoveCardParamSchema,
-  t_ProjectsClassicMoveCardRequestBodySchema,
   t_ProjectsClassicMoveColumnParamSchema,
-  t_ProjectsClassicMoveColumnRequestBodySchema,
   t_ProjectsClassicRemoveCollaboratorParamSchema,
   t_ProjectsClassicUpdateCardParamSchema,
-  t_ProjectsClassicUpdateCardRequestBodySchema,
   t_ProjectsClassicUpdateColumnParamSchema,
-  t_ProjectsClassicUpdateColumnRequestBodySchema,
   t_ProjectsClassicUpdateParamSchema,
-  t_ProjectsClassicUpdateRequestBodySchema,
   t_PullsCheckIfMergedParamSchema,
   t_PullsCreateParamSchema,
   t_PullsCreateReplyForReviewCommentParamSchema,
-  t_PullsCreateReplyForReviewCommentRequestBodySchema,
-  t_PullsCreateRequestBodySchema,
   t_PullsCreateReviewCommentParamSchema,
-  t_PullsCreateReviewCommentRequestBodySchema,
   t_PullsCreateReviewParamSchema,
-  t_PullsCreateReviewRequestBodySchema,
   t_PullsDeletePendingReviewParamSchema,
   t_PullsDeleteReviewCommentParamSchema,
   t_PullsDismissReviewParamSchema,
-  t_PullsDismissReviewRequestBodySchema,
   t_PullsGetParamSchema,
   t_PullsGetReviewCommentParamSchema,
   t_PullsGetReviewParamSchema,
@@ -1186,21 +1161,13 @@ import type {
   t_PullsListReviewsParamSchema,
   t_PullsListReviewsQuerySchema,
   t_PullsMergeParamSchema,
-  t_PullsMergeRequestBodySchema,
   t_PullsRemoveRequestedReviewersParamSchema,
-  t_PullsRemoveRequestedReviewersRequestBodySchema,
   t_PullsRequestReviewersParamSchema,
-  t_PullsRequestReviewersRequestBodySchema,
   t_PullsSubmitReviewParamSchema,
-  t_PullsSubmitReviewRequestBodySchema,
   t_PullsUpdateBranchParamSchema,
-  t_PullsUpdateBranchRequestBodySchema,
   t_PullsUpdateParamSchema,
-  t_PullsUpdateRequestBodySchema,
   t_PullsUpdateReviewCommentParamSchema,
-  t_PullsUpdateReviewCommentRequestBodySchema,
   t_PullsUpdateReviewParamSchema,
-  t_PullsUpdateReviewRequestBodySchema,
   t_package,
   t_package_version,
   t_packages_billing_usage,
@@ -1215,10 +1182,24 @@ import type {
   t_porter_author,
   t_porter_large_file,
   t_private_user,
+  t_private_vulnerability_report_create,
+  t_privateRegistriesCreateOrgPrivateRegistryJsonRequestBody,
+  t_privateRegistriesUpdateOrgPrivateRegistryJsonRequestBody,
   t_project,
   t_project_card,
   t_project_collaborator_permission,
   t_project_column,
+  t_projectsClassicAddCollaboratorJsonRequestBody,
+  t_projectsClassicCreateCardJsonRequestBody,
+  t_projectsClassicCreateColumnJsonRequestBody,
+  t_projectsClassicCreateForAuthenticatedUserJsonRequestBody,
+  t_projectsClassicCreateForOrgJsonRequestBody,
+  t_projectsClassicCreateForRepoJsonRequestBody,
+  t_projectsClassicMoveCardJsonRequestBody,
+  t_projectsClassicMoveColumnJsonRequestBody,
+  t_projectsClassicUpdateCardJsonRequestBody,
+  t_projectsClassicUpdateColumnJsonRequestBody,
+  t_projectsClassicUpdateJsonRequestBody,
   t_protected_branch,
   t_protected_branch_admin_enforced,
   t_protected_branch_pull_request_review,
@@ -1229,24 +1210,28 @@ import type {
   t_pull_request_review_comment,
   t_pull_request_review_request,
   t_pull_request_simple,
+  t_pullsCreateJsonRequestBody,
+  t_pullsCreateReplyForReviewCommentJsonRequestBody,
+  t_pullsCreateReviewCommentJsonRequestBody,
+  t_pullsCreateReviewJsonRequestBody,
+  t_pullsDismissReviewJsonRequestBody,
+  t_pullsMergeJsonRequestBody,
+  t_pullsRemoveRequestedReviewersJsonRequestBody,
+  t_pullsRequestReviewersJsonRequestBody,
+  t_pullsSubmitReviewJsonRequestBody,
+  t_pullsUpdateBranchJsonRequestBody,
+  t_pullsUpdateJsonRequestBody,
+  t_pullsUpdateReviewCommentJsonRequestBody,
+  t_pullsUpdateReviewJsonRequestBody,
   t_ReactionsCreateForCommitCommentParamSchema,
-  t_ReactionsCreateForCommitCommentRequestBodySchema,
   t_ReactionsCreateForIssueCommentParamSchema,
-  t_ReactionsCreateForIssueCommentRequestBodySchema,
   t_ReactionsCreateForIssueParamSchema,
-  t_ReactionsCreateForIssueRequestBodySchema,
   t_ReactionsCreateForPullRequestReviewCommentParamSchema,
-  t_ReactionsCreateForPullRequestReviewCommentRequestBodySchema,
   t_ReactionsCreateForReleaseParamSchema,
-  t_ReactionsCreateForReleaseRequestBodySchema,
   t_ReactionsCreateForTeamDiscussionCommentInOrgParamSchema,
-  t_ReactionsCreateForTeamDiscussionCommentInOrgRequestBodySchema,
   t_ReactionsCreateForTeamDiscussionCommentLegacyParamSchema,
-  t_ReactionsCreateForTeamDiscussionCommentLegacyRequestBodySchema,
   t_ReactionsCreateForTeamDiscussionInOrgParamSchema,
-  t_ReactionsCreateForTeamDiscussionInOrgRequestBodySchema,
   t_ReactionsCreateForTeamDiscussionLegacyParamSchema,
-  t_ReactionsCreateForTeamDiscussionLegacyRequestBodySchema,
   t_ReactionsDeleteForCommitCommentParamSchema,
   t_ReactionsDeleteForIssueCommentParamSchema,
   t_ReactionsDeleteForIssueParamSchema,
@@ -1274,15 +1259,10 @@ import type {
   t_ReactionsListForTeamDiscussionLegacyQuerySchema,
   t_ReposAcceptInvitationForAuthenticatedUserParamSchema,
   t_ReposAddAppAccessRestrictionsParamSchema,
-  t_ReposAddAppAccessRestrictionsRequestBodySchema,
   t_ReposAddCollaboratorParamSchema,
-  t_ReposAddCollaboratorRequestBodySchema,
   t_ReposAddStatusCheckContextsParamSchema,
-  t_ReposAddStatusCheckContextsRequestBodySchema,
   t_ReposAddTeamAccessRestrictionsParamSchema,
-  t_ReposAddTeamAccessRestrictionsRequestBodySchema,
   t_ReposAddUserAccessRestrictionsParamSchema,
-  t_ReposAddUserAccessRestrictionsRequestBodySchema,
   t_ReposCancelPagesDeploymentParamSchema,
   t_ReposCheckAutomatedSecurityFixesParamSchema,
   t_ReposCheckCollaboratorParamSchema,
@@ -1293,53 +1273,29 @@ import type {
   t_ReposCompareCommitsParamSchema,
   t_ReposCompareCommitsQuerySchema,
   t_ReposCreateAttestationParamSchema,
-  t_ReposCreateAttestationRequestBodySchema,
   t_ReposCreateAutolinkParamSchema,
-  t_ReposCreateAutolinkRequestBodySchema,
   t_ReposCreateCommitCommentParamSchema,
-  t_ReposCreateCommitCommentRequestBodySchema,
   t_ReposCreateCommitSignatureProtectionParamSchema,
   t_ReposCreateCommitStatusParamSchema,
-  t_ReposCreateCommitStatusRequestBodySchema,
   t_ReposCreateDeployKeyParamSchema,
-  t_ReposCreateDeployKeyRequestBodySchema,
   t_ReposCreateDeploymentBranchPolicyParamSchema,
-  t_ReposCreateDeploymentBranchPolicyRequestBodySchema,
   t_ReposCreateDeploymentParamSchema,
   t_ReposCreateDeploymentProtectionRuleParamSchema,
-  t_ReposCreateDeploymentProtectionRuleRequestBodySchema,
-  t_ReposCreateDeploymentRequestBodySchema,
   t_ReposCreateDeploymentStatusParamSchema,
-  t_ReposCreateDeploymentStatusRequestBodySchema,
   t_ReposCreateDispatchEventParamSchema,
-  t_ReposCreateDispatchEventRequestBodySchema,
-  t_ReposCreateForAuthenticatedUserRequestBodySchema,
   t_ReposCreateForkParamSchema,
-  t_ReposCreateForkRequestBodySchema,
   t_ReposCreateInOrgParamSchema,
-  t_ReposCreateInOrgRequestBodySchema,
   t_ReposCreateOrgRulesetParamSchema,
-  t_ReposCreateOrgRulesetRequestBodySchema,
   t_ReposCreateOrUpdateCustomPropertiesValuesParamSchema,
-  t_ReposCreateOrUpdateCustomPropertiesValuesRequestBodySchema,
   t_ReposCreateOrUpdateEnvironmentParamSchema,
-  t_ReposCreateOrUpdateEnvironmentRequestBodySchema,
   t_ReposCreateOrUpdateFileContentsParamSchema,
-  t_ReposCreateOrUpdateFileContentsRequestBodySchema,
   t_ReposCreatePagesDeploymentParamSchema,
-  t_ReposCreatePagesDeploymentRequestBodySchema,
   t_ReposCreatePagesSiteParamSchema,
-  t_ReposCreatePagesSiteRequestBodySchema,
   t_ReposCreateReleaseParamSchema,
-  t_ReposCreateReleaseRequestBodySchema,
   t_ReposCreateRepoRulesetParamSchema,
-  t_ReposCreateRepoRulesetRequestBodySchema,
   t_ReposCreateTagProtectionParamSchema,
-  t_ReposCreateTagProtectionRequestBodySchema,
   t_ReposCreateUsingTemplateParamSchema,
-  t_ReposCreateUsingTemplateRequestBodySchema,
   t_ReposCreateWebhookParamSchema,
-  t_ReposCreateWebhookRequestBodySchema,
   t_ReposDeclineInvitationForAuthenticatedUserParamSchema,
   t_ReposDeleteAccessRestrictionsParamSchema,
   t_ReposDeleteAdminBranchProtectionParamSchema,
@@ -1352,7 +1308,6 @@ import type {
   t_ReposDeleteDeploymentBranchPolicyParamSchema,
   t_ReposDeleteDeploymentParamSchema,
   t_ReposDeleteFileParamSchema,
-  t_ReposDeleteFileRequestBodySchema,
   t_ReposDeleteInvitationParamSchema,
   t_ReposDeleteOrgRulesetParamSchema,
   t_ReposDeletePagesSiteParamSchema,
@@ -1373,7 +1328,6 @@ import type {
   t_ReposEnablePrivateVulnerabilityReportingParamSchema,
   t_ReposEnableVulnerabilityAlertsParamSchema,
   t_ReposGenerateReleaseNotesParamSchema,
-  t_ReposGenerateReleaseNotesRequestBodySchema,
   t_ReposGetAccessRestrictionsParamSchema,
   t_ReposGetAdminBranchProtectionParamSchema,
   t_ReposGetAllDeploymentProtectionRulesParamSchema,
@@ -1513,85 +1467,124 @@ import type {
   t_ReposListWebhooksParamSchema,
   t_ReposListWebhooksQuerySchema,
   t_ReposMergeParamSchema,
-  t_ReposMergeRequestBodySchema,
   t_ReposMergeUpstreamParamSchema,
-  t_ReposMergeUpstreamRequestBodySchema,
   t_ReposPingWebhookParamSchema,
   t_ReposRedeliverWebhookDeliveryParamSchema,
   t_ReposRemoveAppAccessRestrictionsParamSchema,
-  t_ReposRemoveAppAccessRestrictionsRequestBodySchema,
   t_ReposRemoveCollaboratorParamSchema,
   t_ReposRemoveStatusCheckContextsParamSchema,
-  t_ReposRemoveStatusCheckContextsRequestBodySchema,
   t_ReposRemoveStatusCheckProtectionParamSchema,
   t_ReposRemoveTeamAccessRestrictionsParamSchema,
-  t_ReposRemoveTeamAccessRestrictionsRequestBodySchema,
   t_ReposRemoveUserAccessRestrictionsParamSchema,
-  t_ReposRemoveUserAccessRestrictionsRequestBodySchema,
   t_ReposRenameBranchParamSchema,
-  t_ReposRenameBranchRequestBodySchema,
   t_ReposReplaceAllTopicsParamSchema,
-  t_ReposReplaceAllTopicsRequestBodySchema,
   t_ReposRequestPagesBuildParamSchema,
   t_ReposSetAdminBranchProtectionParamSchema,
   t_ReposSetAppAccessRestrictionsParamSchema,
-  t_ReposSetAppAccessRestrictionsRequestBodySchema,
   t_ReposSetStatusCheckContextsParamSchema,
-  t_ReposSetStatusCheckContextsRequestBodySchema,
   t_ReposSetTeamAccessRestrictionsParamSchema,
-  t_ReposSetTeamAccessRestrictionsRequestBodySchema,
   t_ReposSetUserAccessRestrictionsParamSchema,
-  t_ReposSetUserAccessRestrictionsRequestBodySchema,
   t_ReposTestPushWebhookParamSchema,
   t_ReposTransferParamSchema,
-  t_ReposTransferRequestBodySchema,
   t_ReposUpdateBranchProtectionParamSchema,
-  t_ReposUpdateBranchProtectionRequestBodySchema,
   t_ReposUpdateCommitCommentParamSchema,
-  t_ReposUpdateCommitCommentRequestBodySchema,
   t_ReposUpdateDeploymentBranchPolicyParamSchema,
-  t_ReposUpdateDeploymentBranchPolicyRequestBodySchema,
   t_ReposUpdateInformationAboutPagesSiteParamSchema,
-  t_ReposUpdateInformationAboutPagesSiteRequestBodySchema,
   t_ReposUpdateInvitationParamSchema,
-  t_ReposUpdateInvitationRequestBodySchema,
   t_ReposUpdateOrgRulesetParamSchema,
-  t_ReposUpdateOrgRulesetRequestBodySchema,
   t_ReposUpdateParamSchema,
   t_ReposUpdatePullRequestReviewProtectionParamSchema,
-  t_ReposUpdatePullRequestReviewProtectionRequestBodySchema,
   t_ReposUpdateReleaseAssetParamSchema,
-  t_ReposUpdateReleaseAssetRequestBodySchema,
   t_ReposUpdateReleaseParamSchema,
-  t_ReposUpdateReleaseRequestBodySchema,
   t_ReposUpdateRepoRulesetParamSchema,
-  t_ReposUpdateRepoRulesetRequestBodySchema,
-  t_ReposUpdateRequestBodySchema,
   t_ReposUpdateStatusCheckProtectionParamSchema,
-  t_ReposUpdateStatusCheckProtectionRequestBodySchema,
   t_ReposUpdateWebhookConfigForRepoParamSchema,
-  t_ReposUpdateWebhookConfigForRepoRequestBodySchema,
   t_ReposUpdateWebhookParamSchema,
-  t_ReposUpdateWebhookRequestBodySchema,
   t_ReposUploadReleaseAssetParamSchema,
   t_ReposUploadReleaseAssetQuerySchema,
-  t_ReposUploadReleaseAssetRequestBodySchema,
   t_rate_limit_overview,
   t_reaction,
+  t_reactionsCreateForCommitCommentJsonRequestBody,
+  t_reactionsCreateForIssueCommentJsonRequestBody,
+  t_reactionsCreateForIssueJsonRequestBody,
+  t_reactionsCreateForPullRequestReviewCommentJsonRequestBody,
+  t_reactionsCreateForReleaseJsonRequestBody,
+  t_reactionsCreateForTeamDiscussionCommentInOrgJsonRequestBody,
+  t_reactionsCreateForTeamDiscussionCommentLegacyJsonRequestBody,
+  t_reactionsCreateForTeamDiscussionInOrgJsonRequestBody,
+  t_reactionsCreateForTeamDiscussionLegacyJsonRequestBody,
   t_referrer_traffic,
   t_release,
   t_release_asset,
   t_release_notes_content,
   t_repo_codespaces_secret,
   t_repo_search_result_item,
+  t_reposAddAppAccessRestrictionsJsonRequestBody,
+  t_reposAddCollaboratorJsonRequestBody,
+  t_reposAddStatusCheckContextsJsonRequestBody,
+  t_reposAddTeamAccessRestrictionsJsonRequestBody,
+  t_reposAddUserAccessRestrictionsJsonRequestBody,
+  t_reposCreateAttestationJsonRequestBody,
+  t_reposCreateAutolinkJsonRequestBody,
+  t_reposCreateCommitCommentJsonRequestBody,
+  t_reposCreateCommitStatusJsonRequestBody,
+  t_reposCreateDeployKeyJsonRequestBody,
+  t_reposCreateDeploymentJsonRequestBody,
+  t_reposCreateDeploymentProtectionRuleJsonRequestBody,
+  t_reposCreateDeploymentStatusJsonRequestBody,
+  t_reposCreateDispatchEventJsonRequestBody,
+  t_reposCreateForAuthenticatedUserJsonRequestBody,
+  t_reposCreateForkJsonRequestBody,
+  t_reposCreateInOrgJsonRequestBody,
+  t_reposCreateOrgRulesetJsonRequestBody,
+  t_reposCreateOrUpdateCustomPropertiesValuesJsonRequestBody,
+  t_reposCreateOrUpdateEnvironmentJsonRequestBody,
+  t_reposCreateOrUpdateFileContentsJsonRequestBody,
+  t_reposCreatePagesDeploymentJsonRequestBody,
+  t_reposCreatePagesSiteJsonRequestBody,
+  t_reposCreateReleaseJsonRequestBody,
+  t_reposCreateRepoRulesetJsonRequestBody,
+  t_reposCreateTagProtectionJsonRequestBody,
+  t_reposCreateUsingTemplateJsonRequestBody,
+  t_reposCreateWebhookJsonRequestBody,
+  t_reposDeleteFileJsonRequestBody,
+  t_reposGenerateReleaseNotesJsonRequestBody,
   t_repository,
   t_repository_advisory,
+  t_repository_advisory_create,
+  t_repository_advisory_update,
   t_repository_collaborator_permission,
   t_repository_invitation,
   t_repository_rule_detailed,
   t_repository_rule_violation_error,
   t_repository_ruleset,
   t_repository_subscription,
+  t_reposMergeJsonRequestBody,
+  t_reposMergeUpstreamJsonRequestBody,
+  t_reposRemoveAppAccessRestrictionsJsonRequestBody,
+  t_reposRemoveStatusCheckContextsJsonRequestBody,
+  t_reposRemoveTeamAccessRestrictionsJsonRequestBody,
+  t_reposRemoveUserAccessRestrictionsJsonRequestBody,
+  t_reposRenameBranchJsonRequestBody,
+  t_reposReplaceAllTopicsJsonRequestBody,
+  t_reposSetAppAccessRestrictionsJsonRequestBody,
+  t_reposSetStatusCheckContextsJsonRequestBody,
+  t_reposSetTeamAccessRestrictionsJsonRequestBody,
+  t_reposSetUserAccessRestrictionsJsonRequestBody,
+  t_reposTransferJsonRequestBody,
+  t_reposUpdateBranchProtectionJsonRequestBody,
+  t_reposUpdateCommitCommentJsonRequestBody,
+  t_reposUpdateInformationAboutPagesSiteJsonRequestBody,
+  t_reposUpdateInvitationJsonRequestBody,
+  t_reposUpdateJsonRequestBody,
+  t_reposUpdateOrgRulesetJsonRequestBody,
+  t_reposUpdatePullRequestReviewProtectionJsonRequestBody,
+  t_reposUpdateReleaseAssetJsonRequestBody,
+  t_reposUpdateReleaseJsonRequestBody,
+  t_reposUpdateRepoRulesetJsonRequestBody,
+  t_reposUpdateStatusCheckProtectionJsonRequestBody,
+  t_reposUpdateWebhookConfigForRepoJsonRequestBody,
+  t_reposUpdateWebhookJsonRequestBody,
   t_review_comment,
   t_root,
   t_rule_suite,
@@ -1610,7 +1603,6 @@ import type {
   t_SearchTopicsQuerySchema,
   t_SearchUsersQuerySchema,
   t_SecretScanningCreatePushProtectionBypassParamSchema,
-  t_SecretScanningCreatePushProtectionBypassRequestBodySchema,
   t_SecretScanningGetAlertParamSchema,
   t_SecretScanningGetAlertQuerySchema,
   t_SecretScanningGetScanHistoryParamSchema,
@@ -1623,13 +1615,10 @@ import type {
   t_SecretScanningListLocationsForAlertParamSchema,
   t_SecretScanningListLocationsForAlertQuerySchema,
   t_SecretScanningUpdateAlertParamSchema,
-  t_SecretScanningUpdateAlertRequestBodySchema,
   t_SecurityAdvisoriesCreateForkParamSchema,
   t_SecurityAdvisoriesCreatePrivateVulnerabilityReportParamSchema,
-  t_SecurityAdvisoriesCreatePrivateVulnerabilityReportRequestBodySchema,
   t_SecurityAdvisoriesCreateRepositoryAdvisoryCveRequestParamSchema,
   t_SecurityAdvisoriesCreateRepositoryAdvisoryParamSchema,
-  t_SecurityAdvisoriesCreateRepositoryAdvisoryRequestBodySchema,
   t_SecurityAdvisoriesGetGlobalAdvisoryParamSchema,
   t_SecurityAdvisoriesGetRepositoryAdvisoryParamSchema,
   t_SecurityAdvisoriesListGlobalAdvisoriesQuerySchema,
@@ -1638,18 +1627,20 @@ import type {
   t_SecurityAdvisoriesListRepositoryAdvisoriesParamSchema,
   t_SecurityAdvisoriesListRepositoryAdvisoriesQuerySchema,
   t_SecurityAdvisoriesUpdateRepositoryAdvisoryParamSchema,
-  t_SecurityAdvisoriesUpdateRepositoryAdvisoryRequestBodySchema,
   t_scim_error,
   t_secret_scanning_alert,
   t_secret_scanning_location,
   t_secret_scanning_push_protection_bypass,
   t_secret_scanning_scan_history,
+  t_secretScanningCreatePushProtectionBypassJsonRequestBody,
+  t_secretScanningUpdateAlertJsonRequestBody,
   t_selected_actions,
   t_short_blob,
   t_short_branch,
   t_simple_classroom,
   t_simple_classroom_assignment,
   t_simple_user,
+  t_snapshot,
   t_social_account,
   t_ssh_signing_key,
   t_stargazer,
@@ -1658,31 +1649,20 @@ import type {
   t_status_check_policy,
   t_TeamsAddMemberLegacyParamSchema,
   t_TeamsAddOrUpdateMembershipForUserInOrgParamSchema,
-  t_TeamsAddOrUpdateMembershipForUserInOrgRequestBodySchema,
   t_TeamsAddOrUpdateMembershipForUserLegacyParamSchema,
-  t_TeamsAddOrUpdateMembershipForUserLegacyRequestBodySchema,
   t_TeamsAddOrUpdateProjectPermissionsInOrgParamSchema,
-  t_TeamsAddOrUpdateProjectPermissionsInOrgRequestBodySchema,
   t_TeamsAddOrUpdateProjectPermissionsLegacyParamSchema,
-  t_TeamsAddOrUpdateProjectPermissionsLegacyRequestBodySchema,
   t_TeamsAddOrUpdateRepoPermissionsInOrgParamSchema,
-  t_TeamsAddOrUpdateRepoPermissionsInOrgRequestBodySchema,
   t_TeamsAddOrUpdateRepoPermissionsLegacyParamSchema,
-  t_TeamsAddOrUpdateRepoPermissionsLegacyRequestBodySchema,
   t_TeamsCheckPermissionsForProjectInOrgParamSchema,
   t_TeamsCheckPermissionsForProjectLegacyParamSchema,
   t_TeamsCheckPermissionsForRepoInOrgParamSchema,
   t_TeamsCheckPermissionsForRepoLegacyParamSchema,
   t_TeamsCreateDiscussionCommentInOrgParamSchema,
-  t_TeamsCreateDiscussionCommentInOrgRequestBodySchema,
   t_TeamsCreateDiscussionCommentLegacyParamSchema,
-  t_TeamsCreateDiscussionCommentLegacyRequestBodySchema,
   t_TeamsCreateDiscussionInOrgParamSchema,
-  t_TeamsCreateDiscussionInOrgRequestBodySchema,
   t_TeamsCreateDiscussionLegacyParamSchema,
-  t_TeamsCreateDiscussionLegacyRequestBodySchema,
   t_TeamsCreateParamSchema,
-  t_TeamsCreateRequestBodySchema,
   t_TeamsDeleteDiscussionCommentInOrgParamSchema,
   t_TeamsDeleteDiscussionCommentLegacyParamSchema,
   t_TeamsDeleteDiscussionInOrgParamSchema,
@@ -1737,17 +1717,11 @@ import type {
   t_TeamsRemoveRepoInOrgParamSchema,
   t_TeamsRemoveRepoLegacyParamSchema,
   t_TeamsUpdateDiscussionCommentInOrgParamSchema,
-  t_TeamsUpdateDiscussionCommentInOrgRequestBodySchema,
   t_TeamsUpdateDiscussionCommentLegacyParamSchema,
-  t_TeamsUpdateDiscussionCommentLegacyRequestBodySchema,
   t_TeamsUpdateDiscussionInOrgParamSchema,
-  t_TeamsUpdateDiscussionInOrgRequestBodySchema,
   t_TeamsUpdateDiscussionLegacyParamSchema,
-  t_TeamsUpdateDiscussionLegacyRequestBodySchema,
   t_TeamsUpdateInOrgParamSchema,
-  t_TeamsUpdateInOrgRequestBodySchema,
   t_TeamsUpdateLegacyParamSchema,
-  t_TeamsUpdateLegacyRequestBodySchema,
   t_tag,
   t_tag_protection,
   t_team,
@@ -1759,28 +1733,37 @@ import type {
   t_team_repository,
   t_team_role_assignment,
   t_team_simple,
+  t_teamsAddOrUpdateMembershipForUserInOrgJsonRequestBody,
+  t_teamsAddOrUpdateMembershipForUserLegacyJsonRequestBody,
+  t_teamsAddOrUpdateProjectPermissionsInOrgJsonRequestBody,
+  t_teamsAddOrUpdateProjectPermissionsLegacyJsonRequestBody,
+  t_teamsAddOrUpdateRepoPermissionsInOrgJsonRequestBody,
+  t_teamsAddOrUpdateRepoPermissionsLegacyJsonRequestBody,
+  t_teamsCreateDiscussionCommentInOrgJsonRequestBody,
+  t_teamsCreateDiscussionCommentLegacyJsonRequestBody,
+  t_teamsCreateDiscussionInOrgJsonRequestBody,
+  t_teamsCreateDiscussionLegacyJsonRequestBody,
+  t_teamsCreateJsonRequestBody,
+  t_teamsUpdateDiscussionCommentInOrgJsonRequestBody,
+  t_teamsUpdateDiscussionCommentLegacyJsonRequestBody,
+  t_teamsUpdateDiscussionInOrgJsonRequestBody,
+  t_teamsUpdateDiscussionLegacyJsonRequestBody,
+  t_teamsUpdateInOrgJsonRequestBody,
+  t_teamsUpdateLegacyJsonRequestBody,
   t_thread,
   t_thread_subscription,
   t_timeline_issue_events,
   t_topic,
   t_topic_search_result_item,
-  t_UsersAddEmailForAuthenticatedUserRequestBodySchema,
-  t_UsersAddSocialAccountForAuthenticatedUserRequestBodySchema,
   t_UsersBlockParamSchema,
   t_UsersCheckBlockedParamSchema,
   t_UsersCheckFollowingForUserParamSchema,
   t_UsersCheckPersonIsFollowedByAuthenticatedParamSchema,
-  t_UsersCreateGpgKeyForAuthenticatedUserRequestBodySchema,
-  t_UsersCreatePublicSshKeyForAuthenticatedUserRequestBodySchema,
-  t_UsersCreateSshSigningKeyForAuthenticatedUserRequestBodySchema,
   t_UsersDeleteAttestationsBulkParamSchema,
-  t_UsersDeleteAttestationsBulkRequestBodySchema,
   t_UsersDeleteAttestationsByIdParamSchema,
   t_UsersDeleteAttestationsBySubjectDigestParamSchema,
-  t_UsersDeleteEmailForAuthenticatedUserRequestBodySchema,
   t_UsersDeleteGpgKeyForAuthenticatedUserParamSchema,
   t_UsersDeletePublicSshKeyForAuthenticatedUserParamSchema,
-  t_UsersDeleteSocialAccountForAuthenticatedUserRequestBodySchema,
   t_UsersDeleteSshSigningKeyForAuthenticatedUserParamSchema,
   t_UsersFollowParamSchema,
   t_UsersGetByIdParamSchema,
@@ -1792,7 +1775,6 @@ import type {
   t_UsersGetSshSigningKeyForAuthenticatedUserParamSchema,
   t_UsersListAttestationsBulkParamSchema,
   t_UsersListAttestationsBulkQuerySchema,
-  t_UsersListAttestationsBulkRequestBodySchema,
   t_UsersListAttestationsParamSchema,
   t_UsersListAttestationsQuerySchema,
   t_UsersListBlockedByAuthenticatedUserQuerySchema,
@@ -1817,13 +1799,22 @@ import type {
   t_UsersListSshSigningKeysForAuthenticatedUserQuerySchema,
   t_UsersListSshSigningKeysForUserParamSchema,
   t_UsersListSshSigningKeysForUserQuerySchema,
-  t_UsersSetPrimaryEmailVisibilityForAuthenticatedUserRequestBodySchema,
   t_UsersUnblockParamSchema,
   t_UsersUnfollowParamSchema,
-  t_UsersUpdateAuthenticatedRequestBodySchema,
   t_user_marketplace_purchase,
   t_user_role_assignment,
   t_user_search_result_item,
+  t_usersAddEmailForAuthenticatedUserJsonRequestBody,
+  t_usersAddSocialAccountForAuthenticatedUserJsonRequestBody,
+  t_usersCreateGpgKeyForAuthenticatedUserJsonRequestBody,
+  t_usersCreatePublicSshKeyForAuthenticatedUserJsonRequestBody,
+  t_usersCreateSshSigningKeyForAuthenticatedUserJsonRequestBody,
+  t_usersDeleteAttestationsBulkJsonRequestBody,
+  t_usersDeleteEmailForAuthenticatedUserJsonRequestBody,
+  t_usersDeleteSocialAccountForAuthenticatedUserJsonRequestBody,
+  t_usersListAttestationsBulkJsonRequestBody,
+  t_usersSetPrimaryEmailVisibilityForAuthenticatedUserJsonRequestBody,
+  t_usersUpdateAuthenticatedJsonRequestBody,
   t_validation_error,
   t_validation_error_simple,
   t_view_traffic,
@@ -1839,7 +1830,6 @@ import {
   s_actions_cache_list,
   s_actions_cache_usage_by_repository,
   s_actions_cache_usage_org_enterprise,
-  s_actions_enabled,
   s_actions_get_default_workflow_permissions,
   s_actions_hosted_runner,
   s_actions_hosted_runner_image,
@@ -1852,16 +1842,58 @@ import {
   s_actions_set_default_workflow_permissions,
   s_actions_variable,
   s_actions_workflow_access_to_repository,
+  s_actionsAddCustomLabelsToSelfHostedRunnerForOrgJsonRequestBody,
+  s_actionsAddCustomLabelsToSelfHostedRunnerForRepoJsonRequestBody,
+  s_actionsCreateEnvironmentVariableJsonRequestBody,
+  s_actionsCreateHostedRunnerForOrgJsonRequestBody,
+  s_actionsCreateOrgVariableJsonRequestBody,
+  s_actionsCreateOrUpdateEnvironmentSecretJsonRequestBody,
+  s_actionsCreateOrUpdateOrgSecretJsonRequestBody,
+  s_actionsCreateOrUpdateRepoSecretJsonRequestBody,
+  s_actionsCreateRepoVariableJsonRequestBody,
+  s_actionsCreateSelfHostedRunnerGroupForOrgJsonRequestBody,
+  s_actionsCreateWorkflowDispatchJsonRequestBody,
+  s_actionsGenerateRunnerJitconfigForOrgJsonRequestBody,
+  s_actionsGenerateRunnerJitconfigForRepoJsonRequestBody,
+  s_actionsReRunJobForWorkflowRunJsonRequestBody,
+  s_actionsReRunWorkflowFailedJobsJsonRequestBody,
+  s_actionsReRunWorkflowJsonRequestBody,
+  s_actionsReviewCustomGatesForRunJsonRequestBody,
+  s_actionsReviewPendingDeploymentsForRunJsonRequestBody,
+  s_actionsSetCustomLabelsForSelfHostedRunnerForOrgJsonRequestBody,
+  s_actionsSetCustomLabelsForSelfHostedRunnerForRepoJsonRequestBody,
+  s_actionsSetCustomOidcSubClaimForRepoJsonRequestBody,
+  s_actionsSetGithubActionsPermissionsOrganizationJsonRequestBody,
+  s_actionsSetGithubActionsPermissionsRepositoryJsonRequestBody,
+  s_actionsSetRepoAccessToSelfHostedRunnerGroupInOrgJsonRequestBody,
+  s_actionsSetSelectedReposForOrgSecretJsonRequestBody,
+  s_actionsSetSelectedReposForOrgVariableJsonRequestBody,
+  s_actionsSetSelectedRepositoriesEnabledGithubActionsOrganizationJsonRequestBody,
+  s_actionsSetSelfHostedRunnersInGroupForOrgJsonRequestBody,
+  s_actionsUpdateEnvironmentVariableJsonRequestBody,
+  s_actionsUpdateHostedRunnerForOrgJsonRequestBody,
+  s_actionsUpdateOrgVariableJsonRequestBody,
+  s_actionsUpdateRepoVariableJsonRequestBody,
+  s_actionsUpdateSelfHostedRunnerGroupForOrgJsonRequestBody,
   s_activity,
+  s_activityMarkNotificationsAsReadJsonRequestBody,
+  s_activityMarkRepoNotificationsAsReadJsonRequestBody,
+  s_activitySetRepoSubscriptionJsonRequestBody,
+  s_activitySetThreadSubscriptionJsonRequestBody,
   s_alert_number,
-  s_allowed_actions,
   s_api_insights_route_stats,
   s_api_insights_subject_stats,
   s_api_insights_summary_stats,
   s_api_insights_time_stats,
   s_api_insights_user_stats,
   s_api_overview,
-  s_app_permissions,
+  s_appsCheckTokenJsonRequestBody,
+  s_appsCreateInstallationAccessTokenJsonRequestBody,
+  s_appsDeleteAuthorizationJsonRequestBody,
+  s_appsDeleteTokenJsonRequestBody,
+  s_appsResetTokenJsonRequestBody,
+  s_appsScopeTokenJsonRequestBody,
+  s_appsUpdateWebhookConfigForAppJsonRequestBody,
   s_artifact,
   s_authentication_token,
   s_authorization,
@@ -1877,11 +1909,17 @@ import {
   s_branch_with_protection,
   s_campaign_state,
   s_campaign_summary,
+  s_campaignsCreateCampaignJsonRequestBody,
+  s_campaignsUpdateCampaignJsonRequestBody,
   s_check_annotation,
   s_check_automated_security_fixes,
   s_check_run,
   s_check_suite,
   s_check_suite_preference,
+  s_checksCreateJsonRequestBody,
+  s_checksCreateSuiteJsonRequestBody,
+  s_checksSetSuitesPreferencesJsonRequestBody,
+  s_checksUpdateJsonRequestBody,
   s_classroom,
   s_classroom_accepted_assignment,
   s_classroom_assignment,
@@ -1890,18 +1928,12 @@ import {
   s_code_frequency_stat,
   s_code_of_conduct,
   s_code_scanning_alert,
-  s_code_scanning_alert_create_request,
-  s_code_scanning_alert_dismissed_comment,
-  s_code_scanning_alert_dismissed_reason,
   s_code_scanning_alert_instance,
   s_code_scanning_alert_items,
-  s_code_scanning_alert_set_state,
   s_code_scanning_alert_severity,
   s_code_scanning_alert_state_query,
   s_code_scanning_analysis,
-  s_code_scanning_analysis_commit_sha,
   s_code_scanning_analysis_deletion,
-  s_code_scanning_analysis_sarif_file,
   s_code_scanning_analysis_sarif_id,
   s_code_scanning_analysis_tool_guid,
   s_code_scanning_analysis_tool_name,
@@ -1910,13 +1942,10 @@ import {
   s_code_scanning_autofix_commits_response,
   s_code_scanning_codeql_database,
   s_code_scanning_default_setup,
-  s_code_scanning_default_setup_options,
   s_code_scanning_default_setup_update,
   s_code_scanning_default_setup_update_response,
-  s_code_scanning_options,
   s_code_scanning_organization_alert_items,
   s_code_scanning_ref,
-  s_code_scanning_ref_full,
   s_code_scanning_sarifs_receipt,
   s_code_scanning_sarifs_status,
   s_code_scanning_variant_analysis,
@@ -1927,6 +1956,18 @@ import {
   s_code_security_configuration_repositories,
   s_code_security_default_configurations,
   s_codeowners_errors,
+  s_codeScanningCreateVariantAnalysisJsonRequestBody,
+  s_codeScanningUpdateAlertJsonRequestBody,
+  s_codeScanningUploadSarifJsonRequestBody,
+  s_codeSecurityAttachConfigurationJsonRequestBody,
+  s_codeSecurityAttachEnterpriseConfigurationJsonRequestBody,
+  s_codeSecurityCreateConfigurationForEnterpriseJsonRequestBody,
+  s_codeSecurityCreateConfigurationJsonRequestBody,
+  s_codeSecurityDetachConfigurationJsonRequestBody,
+  s_codeSecuritySetConfigurationAsDefaultForEnterpriseJsonRequestBody,
+  s_codeSecuritySetConfigurationAsDefaultJsonRequestBody,
+  s_codeSecurityUpdateConfigurationJsonRequestBody,
+  s_codeSecurityUpdateEnterpriseConfigurationJsonRequestBody,
   s_codespace,
   s_codespace_export_details,
   s_codespace_machine,
@@ -1936,6 +1977,19 @@ import {
   s_codespaces_public_key,
   s_codespaces_secret,
   s_codespaces_user_public_key,
+  s_codespacesCreateForAuthenticatedUserJsonRequestBody,
+  s_codespacesCreateOrUpdateOrgSecretJsonRequestBody,
+  s_codespacesCreateOrUpdateRepoSecretJsonRequestBody,
+  s_codespacesCreateOrUpdateSecretForAuthenticatedUserJsonRequestBody,
+  s_codespacesCreateWithPrForAuthenticatedUserJsonRequestBody,
+  s_codespacesCreateWithRepoForAuthenticatedUserJsonRequestBody,
+  s_codespacesDeleteCodespacesAccessUsersJsonRequestBody,
+  s_codespacesPublishForAuthenticatedUserJsonRequestBody,
+  s_codespacesSetCodespacesAccessJsonRequestBody,
+  s_codespacesSetCodespacesAccessUsersJsonRequestBody,
+  s_codespacesSetRepositoriesForSecretForAuthenticatedUserJsonRequestBody,
+  s_codespacesSetSelectedReposForOrgSecretJsonRequestBody,
+  s_codespacesUpdateForAuthenticatedUserJsonRequestBody,
   s_collaborator,
   s_combined_billing_usage,
   s_combined_commit_status,
@@ -1955,6 +2009,11 @@ import {
   s_copilot_organization_details,
   s_copilot_seat_details,
   s_copilot_usage_metrics_day,
+  s_copilotAddCopilotSeatsForTeamsJsonRequestBody,
+  s_copilotAddCopilotSeatsForUsersJsonRequestBody,
+  s_copilotCancelCopilotSeatAssignmentForTeamsJsonRequestBody,
+  s_copilotCancelCopilotSeatAssignmentForUsersJsonRequestBody,
+  s_credentialsRevokeJsonRequestBody,
   s_custom_deployment_rule_app,
   s_custom_property,
   s_custom_property_set_payload,
@@ -1964,6 +2023,12 @@ import {
   s_dependabot_public_key,
   s_dependabot_repository_access_details,
   s_dependabot_secret,
+  s_dependabotCreateOrUpdateOrgSecretJsonRequestBody,
+  s_dependabotCreateOrUpdateRepoSecretJsonRequestBody,
+  s_dependabotSetRepositoryAccessDefaultLevelJsonRequestBody,
+  s_dependabotSetSelectedReposForOrgSecretJsonRequestBody,
+  s_dependabotUpdateAlertJsonRequestBody,
+  s_dependabotUpdateRepositoryAccessForOrgJsonRequestBody,
   s_dependency_graph_diff,
   s_dependency_graph_spdx_sbom,
   s_deploy_key,
@@ -1971,14 +2036,11 @@ import {
   s_deployment_branch_policy,
   s_deployment_branch_policy_name_pattern,
   s_deployment_branch_policy_name_pattern_with_type,
-  s_deployment_branch_policy_settings,
   s_deployment_protection_rule,
-  s_deployment_reviewer_type,
   s_deployment_status,
   s_diff_entry,
   s_email,
   s_empty_object,
-  s_enabled_repositories,
   s_environment,
   s_environment_approvals,
   s_event,
@@ -1988,16 +2050,28 @@ import {
   s_gist_comment,
   s_gist_commit,
   s_gist_simple,
+  s_gistsCreateCommentJsonRequestBody,
+  s_gistsCreateJsonRequestBody,
+  s_gistsUpdateCommentJsonRequestBody,
+  s_gistsUpdateJsonRequestBody,
   s_git_commit,
   s_git_ref,
   s_git_tag,
   s_git_tree,
+  s_gitCreateBlobJsonRequestBody,
+  s_gitCreateCommitJsonRequestBody,
+  s_gitCreateRefJsonRequestBody,
+  s_gitCreateTagJsonRequestBody,
+  s_gitCreateTreeJsonRequestBody,
   s_gitignore_template,
+  s_gitUpdateRefJsonRequestBody,
   s_global_advisory,
   s_gpg_key,
   s_hook,
   s_hook_delivery,
   s_hook_delivery_item,
+  s_hostedComputeCreateNetworkConfigurationForOrgJsonRequestBody,
+  s_hostedComputeUpdateNetworkConfigurationForOrgJsonRequestBody,
   s_hovercard,
   s_import,
   s_installation,
@@ -2012,6 +2086,22 @@ import {
   s_issue_event_for_issue,
   s_issue_search_result_item,
   s_issue_type,
+  s_issuesAddAssigneesJsonRequestBody,
+  s_issuesAddLabelsJsonRequestBody,
+  s_issuesAddSubIssueJsonRequestBody,
+  s_issuesCreateCommentJsonRequestBody,
+  s_issuesCreateJsonRequestBody,
+  s_issuesCreateLabelJsonRequestBody,
+  s_issuesCreateMilestoneJsonRequestBody,
+  s_issuesLockJsonRequestBody,
+  s_issuesRemoveAssigneesJsonRequestBody,
+  s_issuesRemoveSubIssueJsonRequestBody,
+  s_issuesReprioritizeSubIssueJsonRequestBody,
+  s_issuesSetLabelsJsonRequestBody,
+  s_issuesUpdateCommentJsonRequestBody,
+  s_issuesUpdateJsonRequestBody,
+  s_issuesUpdateLabelJsonRequestBody,
+  s_issuesUpdateMilestoneJsonRequestBody,
   s_job,
   s_key,
   s_key_simple,
@@ -2021,10 +2111,17 @@ import {
   s_license,
   s_license_content,
   s_license_simple,
+  s_markdownRenderJsonRequestBody,
   s_marketplace_listing_plan,
   s_marketplace_purchase,
   s_merged_upstream,
   s_migration,
+  s_migrationsMapCommitAuthorJsonRequestBody,
+  s_migrationsSetLfsPreferenceJsonRequestBody,
+  s_migrationsStartForAuthenticatedUserJsonRequestBody,
+  s_migrationsStartForOrgJsonRequestBody,
+  s_migrationsStartImportJsonRequestBody,
+  s_migrationsUpdateImportJsonRequestBody,
   s_milestone,
   s_minimal_repository,
   s_network_configuration,
@@ -2036,8 +2133,6 @@ import {
   s_org_private_registry_configuration,
   s_org_private_registry_configuration_with_selected_repositories,
   s_org_repo_custom_property_values,
-  s_org_rules,
-  s_org_ruleset_conditions,
   s_organization_actions_secret,
   s_organization_actions_variable,
   s_organization_create_issue_type,
@@ -2050,6 +2145,23 @@ import {
   s_organization_secret_scanning_alert,
   s_organization_simple,
   s_organization_update_issue_type,
+  s_orgsConvertMemberToOutsideCollaboratorJsonRequestBody,
+  s_orgsCreateInvitationJsonRequestBody,
+  s_orgsCreateOrUpdateCustomPropertiesJsonRequestBody,
+  s_orgsCreateOrUpdateCustomPropertiesValuesForReposJsonRequestBody,
+  s_orgsCreateWebhookJsonRequestBody,
+  s_orgsDeleteAttestationsBulkJsonRequestBody,
+  s_orgsEnableOrDisableSecurityProductOnAllOrgReposJsonRequestBody,
+  s_orgsListAttestationsBulkJsonRequestBody,
+  s_orgsReviewPatGrantRequestJsonRequestBody,
+  s_orgsReviewPatGrantRequestsInBulkJsonRequestBody,
+  s_orgsSetMembershipForUserJsonRequestBody,
+  s_orgsUpdateJsonRequestBody,
+  s_orgsUpdateMembershipForAuthenticatedUserJsonRequestBody,
+  s_orgsUpdatePatAccessesJsonRequestBody,
+  s_orgsUpdatePatAccessJsonRequestBody,
+  s_orgsUpdateWebhookConfigForOrgJsonRequestBody,
+  s_orgsUpdateWebhookJsonRequestBody,
   s_package,
   s_package_version,
   s_packages_billing_usage,
@@ -2063,13 +2175,25 @@ import {
   s_pending_deployment,
   s_porter_author,
   s_porter_large_file,
-  s_prevent_self_review,
   s_private_user,
   s_private_vulnerability_report_create,
+  s_privateRegistriesCreateOrgPrivateRegistryJsonRequestBody,
+  s_privateRegistriesUpdateOrgPrivateRegistryJsonRequestBody,
   s_project,
   s_project_card,
   s_project_collaborator_permission,
   s_project_column,
+  s_projectsClassicAddCollaboratorJsonRequestBody,
+  s_projectsClassicCreateCardJsonRequestBody,
+  s_projectsClassicCreateColumnJsonRequestBody,
+  s_projectsClassicCreateForAuthenticatedUserJsonRequestBody,
+  s_projectsClassicCreateForOrgJsonRequestBody,
+  s_projectsClassicCreateForRepoJsonRequestBody,
+  s_projectsClassicMoveCardJsonRequestBody,
+  s_projectsClassicMoveColumnJsonRequestBody,
+  s_projectsClassicUpdateCardJsonRequestBody,
+  s_projectsClassicUpdateColumnJsonRequestBody,
+  s_projectsClassicUpdateJsonRequestBody,
   s_protected_branch,
   s_protected_branch_admin_enforced,
   s_protected_branch_pull_request_review,
@@ -2080,31 +2204,103 @@ import {
   s_pull_request_review_comment,
   s_pull_request_review_request,
   s_pull_request_simple,
+  s_pullsCreateJsonRequestBody,
+  s_pullsCreateReplyForReviewCommentJsonRequestBody,
+  s_pullsCreateReviewCommentJsonRequestBody,
+  s_pullsCreateReviewJsonRequestBody,
+  s_pullsDismissReviewJsonRequestBody,
+  s_pullsMergeJsonRequestBody,
+  s_pullsRemoveRequestedReviewersJsonRequestBody,
+  s_pullsRequestReviewersJsonRequestBody,
+  s_pullsSubmitReviewJsonRequestBody,
+  s_pullsUpdateBranchJsonRequestBody,
+  s_pullsUpdateJsonRequestBody,
+  s_pullsUpdateReviewCommentJsonRequestBody,
+  s_pullsUpdateReviewJsonRequestBody,
   s_rate_limit_overview,
   s_reaction,
+  s_reactionsCreateForCommitCommentJsonRequestBody,
+  s_reactionsCreateForIssueCommentJsonRequestBody,
+  s_reactionsCreateForIssueJsonRequestBody,
+  s_reactionsCreateForPullRequestReviewCommentJsonRequestBody,
+  s_reactionsCreateForReleaseJsonRequestBody,
+  s_reactionsCreateForTeamDiscussionCommentInOrgJsonRequestBody,
+  s_reactionsCreateForTeamDiscussionCommentLegacyJsonRequestBody,
+  s_reactionsCreateForTeamDiscussionInOrgJsonRequestBody,
+  s_reactionsCreateForTeamDiscussionLegacyJsonRequestBody,
   s_referrer_traffic,
   s_release,
   s_release_asset,
   s_release_notes_content,
   s_repo_codespaces_secret,
   s_repo_search_result_item,
+  s_reposAddAppAccessRestrictionsJsonRequestBody,
+  s_reposAddCollaboratorJsonRequestBody,
+  s_reposAddStatusCheckContextsJsonRequestBody,
+  s_reposAddTeamAccessRestrictionsJsonRequestBody,
+  s_reposAddUserAccessRestrictionsJsonRequestBody,
+  s_reposCreateAttestationJsonRequestBody,
+  s_reposCreateAutolinkJsonRequestBody,
+  s_reposCreateCommitCommentJsonRequestBody,
+  s_reposCreateCommitStatusJsonRequestBody,
+  s_reposCreateDeployKeyJsonRequestBody,
+  s_reposCreateDeploymentJsonRequestBody,
+  s_reposCreateDeploymentProtectionRuleJsonRequestBody,
+  s_reposCreateDeploymentStatusJsonRequestBody,
+  s_reposCreateDispatchEventJsonRequestBody,
+  s_reposCreateForAuthenticatedUserJsonRequestBody,
+  s_reposCreateForkJsonRequestBody,
+  s_reposCreateInOrgJsonRequestBody,
+  s_reposCreateOrgRulesetJsonRequestBody,
+  s_reposCreateOrUpdateCustomPropertiesValuesJsonRequestBody,
+  s_reposCreateOrUpdateEnvironmentJsonRequestBody,
+  s_reposCreateOrUpdateFileContentsJsonRequestBody,
+  s_reposCreatePagesDeploymentJsonRequestBody,
+  s_reposCreatePagesSiteJsonRequestBody,
+  s_reposCreateReleaseJsonRequestBody,
+  s_reposCreateRepoRulesetJsonRequestBody,
+  s_reposCreateTagProtectionJsonRequestBody,
+  s_reposCreateUsingTemplateJsonRequestBody,
+  s_reposCreateWebhookJsonRequestBody,
+  s_reposDeleteFileJsonRequestBody,
+  s_reposGenerateReleaseNotesJsonRequestBody,
   s_repository,
   s_repository_advisory,
   s_repository_advisory_create,
   s_repository_advisory_update,
   s_repository_collaborator_permission,
   s_repository_invitation,
-  s_repository_rule,
   s_repository_rule_detailed,
-  s_repository_rule_enforcement,
   s_repository_rule_violation_error,
   s_repository_ruleset,
-  s_repository_ruleset_bypass_actor,
-  s_repository_ruleset_conditions,
   s_repository_subscription,
+  s_reposMergeJsonRequestBody,
+  s_reposMergeUpstreamJsonRequestBody,
+  s_reposRemoveAppAccessRestrictionsJsonRequestBody,
+  s_reposRemoveStatusCheckContextsJsonRequestBody,
+  s_reposRemoveTeamAccessRestrictionsJsonRequestBody,
+  s_reposRemoveUserAccessRestrictionsJsonRequestBody,
+  s_reposRenameBranchJsonRequestBody,
+  s_reposReplaceAllTopicsJsonRequestBody,
+  s_reposSetAppAccessRestrictionsJsonRequestBody,
+  s_reposSetStatusCheckContextsJsonRequestBody,
+  s_reposSetTeamAccessRestrictionsJsonRequestBody,
+  s_reposSetUserAccessRestrictionsJsonRequestBody,
+  s_reposTransferJsonRequestBody,
+  s_reposUpdateBranchProtectionJsonRequestBody,
+  s_reposUpdateCommitCommentJsonRequestBody,
+  s_reposUpdateInformationAboutPagesSiteJsonRequestBody,
+  s_reposUpdateInvitationJsonRequestBody,
+  s_reposUpdateJsonRequestBody,
+  s_reposUpdateOrgRulesetJsonRequestBody,
+  s_reposUpdatePullRequestReviewProtectionJsonRequestBody,
+  s_reposUpdateReleaseAssetJsonRequestBody,
+  s_reposUpdateReleaseJsonRequestBody,
+  s_reposUpdateRepoRulesetJsonRequestBody,
+  s_reposUpdateStatusCheckProtectionJsonRequestBody,
+  s_reposUpdateWebhookConfigForRepoJsonRequestBody,
+  s_reposUpdateWebhookJsonRequestBody,
   s_review_comment,
-  s_review_custom_gates_comment_required,
-  s_review_custom_gates_state_required,
   s_root,
   s_rule_suite,
   s_rule_suites,
@@ -2116,14 +2312,11 @@ import {
   s_runner_label,
   s_scim_error,
   s_secret_scanning_alert,
-  s_secret_scanning_alert_resolution,
-  s_secret_scanning_alert_resolution_comment,
-  s_secret_scanning_alert_state,
   s_secret_scanning_location,
   s_secret_scanning_push_protection_bypass,
-  s_secret_scanning_push_protection_bypass_placeholder_id,
-  s_secret_scanning_push_protection_bypass_reason,
   s_secret_scanning_scan_history,
+  s_secretScanningCreatePushProtectionBypassJsonRequestBody,
+  s_secretScanningUpdateAlertJsonRequestBody,
   s_security_advisory_ecosystems,
   s_selected_actions,
   s_short_blob,
@@ -2149,6 +2342,23 @@ import {
   s_team_repository,
   s_team_role_assignment,
   s_team_simple,
+  s_teamsAddOrUpdateMembershipForUserInOrgJsonRequestBody,
+  s_teamsAddOrUpdateMembershipForUserLegacyJsonRequestBody,
+  s_teamsAddOrUpdateProjectPermissionsInOrgJsonRequestBody,
+  s_teamsAddOrUpdateProjectPermissionsLegacyJsonRequestBody,
+  s_teamsAddOrUpdateRepoPermissionsInOrgJsonRequestBody,
+  s_teamsAddOrUpdateRepoPermissionsLegacyJsonRequestBody,
+  s_teamsCreateDiscussionCommentInOrgJsonRequestBody,
+  s_teamsCreateDiscussionCommentLegacyJsonRequestBody,
+  s_teamsCreateDiscussionInOrgJsonRequestBody,
+  s_teamsCreateDiscussionLegacyJsonRequestBody,
+  s_teamsCreateJsonRequestBody,
+  s_teamsUpdateDiscussionCommentInOrgJsonRequestBody,
+  s_teamsUpdateDiscussionCommentLegacyJsonRequestBody,
+  s_teamsUpdateDiscussionInOrgJsonRequestBody,
+  s_teamsUpdateDiscussionLegacyJsonRequestBody,
+  s_teamsUpdateInOrgJsonRequestBody,
+  s_teamsUpdateLegacyJsonRequestBody,
   s_thread,
   s_thread_subscription,
   s_timeline_issue_events,
@@ -2157,15 +2367,21 @@ import {
   s_user_marketplace_purchase,
   s_user_role_assignment,
   s_user_search_result_item,
+  s_usersAddEmailForAuthenticatedUserJsonRequestBody,
+  s_usersAddSocialAccountForAuthenticatedUserJsonRequestBody,
+  s_usersCreateGpgKeyForAuthenticatedUserJsonRequestBody,
+  s_usersCreatePublicSshKeyForAuthenticatedUserJsonRequestBody,
+  s_usersCreateSshSigningKeyForAuthenticatedUserJsonRequestBody,
+  s_usersDeleteAttestationsBulkJsonRequestBody,
+  s_usersDeleteEmailForAuthenticatedUserJsonRequestBody,
+  s_usersDeleteSocialAccountForAuthenticatedUserJsonRequestBody,
+  s_usersListAttestationsBulkJsonRequestBody,
+  s_usersSetPrimaryEmailVisibilityForAuthenticatedUserJsonRequestBody,
+  s_usersUpdateAuthenticatedJsonRequestBody,
   s_validation_error,
   s_validation_error_simple,
   s_view_traffic,
-  s_wait_timer,
   s_webhook_config,
-  s_webhook_config_content_type,
-  s_webhook_config_insecure_ssl,
-  s_webhook_config_secret,
-  s_webhook_config_url,
   s_workflow,
   s_workflow_run,
   s_workflow_run_usage,
@@ -2275,7 +2491,7 @@ export type AppsUpdateWebhookConfigForApp = (
   params: Params<
     void,
     void,
-    t_AppsUpdateWebhookConfigForAppRequestBodySchema,
+    t_appsUpdateWebhookConfigForAppJsonRequestBody,
     void
   >,
   respond: AppsUpdateWebhookConfigForAppResponder,
@@ -2397,7 +2613,7 @@ export type AppsCreateInstallationAccessToken = (
   params: Params<
     t_AppsCreateInstallationAccessTokenParamSchema,
     void,
-    t_AppsCreateInstallationAccessTokenRequestBodySchema | undefined,
+    t_appsCreateInstallationAccessTokenJsonRequestBody | undefined,
     void
   >,
   respond: AppsCreateInstallationAccessTokenResponder,
@@ -2441,7 +2657,7 @@ export type AppsDeleteAuthorization = (
   params: Params<
     t_AppsDeleteAuthorizationParamSchema,
     void,
-    t_AppsDeleteAuthorizationRequestBodySchema,
+    t_appsDeleteAuthorizationJsonRequestBody,
     void
   >,
   respond: AppsDeleteAuthorizationResponder,
@@ -2460,7 +2676,7 @@ export type AppsCheckToken = (
   params: Params<
     t_AppsCheckTokenParamSchema,
     void,
-    t_AppsCheckTokenRequestBodySchema,
+    t_appsCheckTokenJsonRequestBody,
     void
   >,
   respond: AppsCheckTokenResponder,
@@ -2478,7 +2694,7 @@ export type AppsResetToken = (
   params: Params<
     t_AppsResetTokenParamSchema,
     void,
-    t_AppsResetTokenRequestBodySchema,
+    t_appsResetTokenJsonRequestBody,
     void
   >,
   respond: AppsResetTokenResponder,
@@ -2496,7 +2712,7 @@ export type AppsDeleteToken = (
   params: Params<
     t_AppsDeleteTokenParamSchema,
     void,
-    t_AppsDeleteTokenRequestBodySchema,
+    t_appsDeleteTokenJsonRequestBody,
     void
   >,
   respond: AppsDeleteTokenResponder,
@@ -2517,7 +2733,7 @@ export type AppsScopeToken = (
   params: Params<
     t_AppsScopeTokenParamSchema,
     void,
-    t_AppsScopeTokenRequestBodySchema,
+    t_appsScopeTokenJsonRequestBody,
     void
   >,
   respond: AppsScopeTokenResponder,
@@ -2661,7 +2877,7 @@ export type CredentialsRevokeResponder = {
 } & ExpressRuntimeResponder
 
 export type CredentialsRevoke = (
-  params: Params<void, void, t_CredentialsRevokeRequestBodySchema, void>,
+  params: Params<void, void, t_credentialsRevokeJsonRequestBody, void>,
   respond: CredentialsRevokeResponder,
   req: Request,
   res: Response,
@@ -2713,7 +2929,7 @@ export type CodeSecurityCreateConfigurationForEnterprise = (
   params: Params<
     t_CodeSecurityCreateConfigurationForEnterpriseParamSchema,
     void,
-    t_CodeSecurityCreateConfigurationForEnterpriseRequestBodySchema,
+    t_codeSecurityCreateConfigurationForEnterpriseJsonRequestBody,
     void
   >,
   respond: CodeSecurityCreateConfigurationForEnterpriseResponder,
@@ -2771,7 +2987,7 @@ export type CodeSecurityUpdateEnterpriseConfiguration = (
   params: Params<
     t_CodeSecurityUpdateEnterpriseConfigurationParamSchema,
     void,
-    t_CodeSecurityUpdateEnterpriseConfigurationRequestBodySchema,
+    t_codeSecurityUpdateEnterpriseConfigurationJsonRequestBody,
     void
   >,
   respond: CodeSecurityUpdateEnterpriseConfigurationResponder,
@@ -2814,7 +3030,7 @@ export type CodeSecurityAttachEnterpriseConfiguration = (
   params: Params<
     t_CodeSecurityAttachEnterpriseConfigurationParamSchema,
     void,
-    t_CodeSecurityAttachEnterpriseConfigurationRequestBodySchema,
+    t_codeSecurityAttachEnterpriseConfigurationJsonRequestBody,
     void
   >,
   respond: CodeSecurityAttachEnterpriseConfigurationResponder,
@@ -2838,7 +3054,7 @@ export type CodeSecuritySetConfigurationAsDefaultForEnterprise = (
   params: Params<
     t_CodeSecuritySetConfigurationAsDefaultForEnterpriseParamSchema,
     void,
-    t_CodeSecuritySetConfigurationAsDefaultForEnterpriseRequestBodySchema,
+    t_codeSecuritySetConfigurationAsDefaultForEnterpriseJsonRequestBody,
     void
   >,
   respond: CodeSecuritySetConfigurationAsDefaultForEnterpriseResponder,
@@ -2966,7 +3182,7 @@ export type GistsCreateResponder = {
 } & ExpressRuntimeResponder
 
 export type GistsCreate = (
-  params: Params<void, void, t_GistsCreateRequestBodySchema, void>,
+  params: Params<void, void, t_gistsCreateJsonRequestBody, void>,
   respond: GistsCreateResponder,
   req: Request,
   res: Response,
@@ -3038,7 +3254,7 @@ export type GistsUpdate = (
   params: Params<
     t_GistsUpdateParamSchema,
     void,
-    t_GistsUpdateRequestBodySchema,
+    t_gistsUpdateJsonRequestBody,
     void
   >,
   respond: GistsUpdateResponder,
@@ -3093,7 +3309,7 @@ export type GistsCreateComment = (
   params: Params<
     t_GistsCreateCommentParamSchema,
     void,
-    t_GistsCreateCommentRequestBodySchema,
+    t_gistsCreateCommentJsonRequestBody,
     void
   >,
   respond: GistsCreateCommentResponder,
@@ -3136,7 +3352,7 @@ export type GistsUpdateComment = (
   params: Params<
     t_GistsUpdateCommentParamSchema,
     void,
-    t_GistsUpdateCommentRequestBodySchema,
+    t_gistsUpdateCommentJsonRequestBody,
     void
   >,
   respond: GistsUpdateCommentResponder,
@@ -3387,7 +3603,7 @@ export type MarkdownRenderResponder = {
 } & ExpressRuntimeResponder
 
 export type MarkdownRender = (
-  params: Params<void, void, t_MarkdownRenderRequestBodySchema, void>,
+  params: Params<void, void, t_markdownRenderJsonRequestBody, void>,
   respond: MarkdownRenderResponder,
   req: Request,
   res: Response,
@@ -3400,12 +3616,7 @@ export type MarkdownRenderRawResponder = {
 } & ExpressRuntimeResponder
 
 export type MarkdownRenderRaw = (
-  params: Params<
-    void,
-    void,
-    t_MarkdownRenderRawRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, void, string | undefined, void>,
   respond: MarkdownRenderRawResponder,
   req: Request,
   res: Response,
@@ -3584,7 +3795,7 @@ export type ActivityMarkNotificationsAsRead = (
   params: Params<
     void,
     void,
-    t_ActivityMarkNotificationsAsReadRequestBodySchema | undefined,
+    t_activityMarkNotificationsAsReadJsonRequestBody | undefined,
     void
   >,
   respond: ActivityMarkNotificationsAsReadResponder,
@@ -3665,7 +3876,7 @@ export type ActivitySetThreadSubscription = (
   params: Params<
     t_ActivitySetThreadSubscriptionParamSchema,
     void,
-    t_ActivitySetThreadSubscriptionRequestBodySchema | undefined,
+    t_activitySetThreadSubscriptionJsonRequestBody | undefined,
     void
   >,
   respond: ActivitySetThreadSubscriptionResponder,
@@ -3748,7 +3959,7 @@ export type DependabotUpdateRepositoryAccessForOrg = (
   params: Params<
     t_DependabotUpdateRepositoryAccessForOrgParamSchema,
     void,
-    t_DependabotUpdateRepositoryAccessForOrgRequestBodySchema,
+    t_dependabotUpdateRepositoryAccessForOrgJsonRequestBody,
     void
   >,
   respond: DependabotUpdateRepositoryAccessForOrgResponder,
@@ -3767,7 +3978,7 @@ export type DependabotSetRepositoryAccessDefaultLevel = (
   params: Params<
     t_DependabotSetRepositoryAccessDefaultLevelParamSchema,
     void,
-    t_DependabotSetRepositoryAccessDefaultLevelRequestBodySchema,
+    t_dependabotSetRepositoryAccessDefaultLevelJsonRequestBody,
     void
   >,
   respond: DependabotSetRepositoryAccessDefaultLevelResponder,
@@ -3826,7 +4037,7 @@ export type OrgsUpdate = (
   params: Params<
     t_OrgsUpdateParamSchema,
     void,
-    t_OrgsUpdateRequestBodySchema | undefined,
+    t_orgsUpdateJsonRequestBody | undefined,
     void
   >,
   respond: OrgsUpdateResponder,
@@ -3916,7 +4127,7 @@ export type ActionsCreateHostedRunnerForOrg = (
   params: Params<
     t_ActionsCreateHostedRunnerForOrgParamSchema,
     void,
-    t_ActionsCreateHostedRunnerForOrgRequestBodySchema,
+    t_actionsCreateHostedRunnerForOrgJsonRequestBody,
     void
   >,
   respond: ActionsCreateHostedRunnerForOrgResponder,
@@ -4042,7 +4253,7 @@ export type ActionsUpdateHostedRunnerForOrg = (
   params: Params<
     t_ActionsUpdateHostedRunnerForOrgParamSchema,
     void,
-    t_ActionsUpdateHostedRunnerForOrgRequestBodySchema,
+    t_actionsUpdateHostedRunnerForOrgJsonRequestBody,
     void
   >,
   respond: ActionsUpdateHostedRunnerForOrgResponder,
@@ -4095,7 +4306,7 @@ export type OidcUpdateOidcCustomSubTemplateForOrg = (
   params: Params<
     t_OidcUpdateOidcCustomSubTemplateForOrgParamSchema,
     void,
-    t_OidcUpdateOidcCustomSubTemplateForOrgRequestBodySchema,
+    t_oidc_custom_sub,
     void
   >,
   respond: OidcUpdateOidcCustomSubTemplateForOrgResponder,
@@ -4129,7 +4340,7 @@ export type ActionsSetGithubActionsPermissionsOrganization = (
   params: Params<
     t_ActionsSetGithubActionsPermissionsOrganizationParamSchema,
     void,
-    t_ActionsSetGithubActionsPermissionsOrganizationRequestBodySchema,
+    t_actionsSetGithubActionsPermissionsOrganizationJsonRequestBody,
     void
   >,
   respond: ActionsSetGithubActionsPermissionsOrganizationResponder,
@@ -4168,7 +4379,7 @@ export type ActionsSetSelectedRepositoriesEnabledGithubActionsOrganization = (
   params: Params<
     t_ActionsSetSelectedRepositoriesEnabledGithubActionsOrganizationParamSchema,
     void,
-    t_ActionsSetSelectedRepositoriesEnabledGithubActionsOrganizationRequestBodySchema,
+    t_actionsSetSelectedRepositoriesEnabledGithubActionsOrganizationJsonRequestBody,
     void
   >,
   respond: ActionsSetSelectedRepositoriesEnabledGithubActionsOrganizationResponder,
@@ -4238,7 +4449,7 @@ export type ActionsSetAllowedActionsOrganization = (
   params: Params<
     t_ActionsSetAllowedActionsOrganizationParamSchema,
     void,
-    t_ActionsSetAllowedActionsOrganizationRequestBodySchema | undefined,
+    t_selected_actions | undefined,
     void
   >,
   respond: ActionsSetAllowedActionsOrganizationResponder,
@@ -4274,8 +4485,7 @@ export type ActionsSetGithubActionsDefaultWorkflowPermissionsOrganization = (
   params: Params<
     t_ActionsSetGithubActionsDefaultWorkflowPermissionsOrganizationParamSchema,
     void,
-    | t_ActionsSetGithubActionsDefaultWorkflowPermissionsOrganizationRequestBodySchema
-    | undefined,
+    t_actions_set_default_workflow_permissions | undefined,
     void
   >,
   respond: ActionsSetGithubActionsDefaultWorkflowPermissionsOrganizationResponder,
@@ -4312,7 +4522,7 @@ export type ActionsCreateSelfHostedRunnerGroupForOrg = (
   params: Params<
     t_ActionsCreateSelfHostedRunnerGroupForOrgParamSchema,
     void,
-    t_ActionsCreateSelfHostedRunnerGroupForOrgRequestBodySchema,
+    t_actionsCreateSelfHostedRunnerGroupForOrgJsonRequestBody,
     void
   >,
   respond: ActionsCreateSelfHostedRunnerGroupForOrgResponder,
@@ -4346,7 +4556,7 @@ export type ActionsUpdateSelfHostedRunnerGroupForOrg = (
   params: Params<
     t_ActionsUpdateSelfHostedRunnerGroupForOrgParamSchema,
     void,
-    t_ActionsUpdateSelfHostedRunnerGroupForOrgRequestBodySchema,
+    t_actionsUpdateSelfHostedRunnerGroupForOrgJsonRequestBody,
     void
   >,
   respond: ActionsUpdateSelfHostedRunnerGroupForOrgResponder,
@@ -4420,7 +4630,7 @@ export type ActionsSetRepoAccessToSelfHostedRunnerGroupInOrg = (
   params: Params<
     t_ActionsSetRepoAccessToSelfHostedRunnerGroupInOrgParamSchema,
     void,
-    t_ActionsSetRepoAccessToSelfHostedRunnerGroupInOrgRequestBodySchema,
+    t_actionsSetRepoAccessToSelfHostedRunnerGroupInOrgJsonRequestBody,
     void
   >,
   respond: ActionsSetRepoAccessToSelfHostedRunnerGroupInOrgResponder,
@@ -4491,7 +4701,7 @@ export type ActionsSetSelfHostedRunnersInGroupForOrg = (
   params: Params<
     t_ActionsSetSelfHostedRunnersInGroupForOrgParamSchema,
     void,
-    t_ActionsSetSelfHostedRunnersInGroupForOrgRequestBodySchema,
+    t_actionsSetSelfHostedRunnersInGroupForOrgJsonRequestBody,
     void
   >,
   respond: ActionsSetSelfHostedRunnersInGroupForOrgResponder,
@@ -4585,7 +4795,7 @@ export type ActionsGenerateRunnerJitconfigForOrg = (
   params: Params<
     t_ActionsGenerateRunnerJitconfigForOrgParamSchema,
     void,
-    t_ActionsGenerateRunnerJitconfigForOrgRequestBodySchema,
+    t_actionsGenerateRunnerJitconfigForOrgJsonRequestBody,
     void
   >,
   respond: ActionsGenerateRunnerJitconfigForOrgResponder,
@@ -4692,7 +4902,7 @@ export type ActionsAddCustomLabelsToSelfHostedRunnerForOrg = (
   params: Params<
     t_ActionsAddCustomLabelsToSelfHostedRunnerForOrgParamSchema,
     void,
-    t_ActionsAddCustomLabelsToSelfHostedRunnerForOrgRequestBodySchema,
+    t_actionsAddCustomLabelsToSelfHostedRunnerForOrgJsonRequestBody,
     void
   >,
   respond: ActionsAddCustomLabelsToSelfHostedRunnerForOrgResponder,
@@ -4714,7 +4924,7 @@ export type ActionsSetCustomLabelsForSelfHostedRunnerForOrg = (
   params: Params<
     t_ActionsSetCustomLabelsForSelfHostedRunnerForOrgParamSchema,
     void,
-    t_ActionsSetCustomLabelsForSelfHostedRunnerForOrgRequestBodySchema,
+    t_actionsSetCustomLabelsForSelfHostedRunnerForOrgJsonRequestBody,
     void
   >,
   respond: ActionsSetCustomLabelsForSelfHostedRunnerForOrgResponder,
@@ -4819,7 +5029,7 @@ export type ActionsCreateOrUpdateOrgSecret = (
   params: Params<
     t_ActionsCreateOrUpdateOrgSecretParamSchema,
     void,
-    t_ActionsCreateOrUpdateOrgSecretRequestBodySchema,
+    t_actionsCreateOrUpdateOrgSecretJsonRequestBody,
     void
   >,
   respond: ActionsCreateOrUpdateOrgSecretResponder,
@@ -4868,7 +5078,7 @@ export type ActionsSetSelectedReposForOrgSecret = (
   params: Params<
     t_ActionsSetSelectedReposForOrgSecretParamSchema,
     void,
-    t_ActionsSetSelectedReposForOrgSecretRequestBodySchema,
+    t_actionsSetSelectedReposForOrgSecretJsonRequestBody,
     void
   >,
   respond: ActionsSetSelectedReposForOrgSecretResponder,
@@ -4941,7 +5151,7 @@ export type ActionsCreateOrgVariable = (
   params: Params<
     t_ActionsCreateOrgVariableParamSchema,
     void,
-    t_ActionsCreateOrgVariableRequestBodySchema,
+    t_actionsCreateOrgVariableJsonRequestBody,
     void
   >,
   respond: ActionsCreateOrgVariableResponder,
@@ -4970,7 +5180,7 @@ export type ActionsUpdateOrgVariable = (
   params: Params<
     t_ActionsUpdateOrgVariableParamSchema,
     void,
-    t_ActionsUpdateOrgVariableRequestBodySchema,
+    t_actionsUpdateOrgVariableJsonRequestBody,
     void
   >,
   respond: ActionsUpdateOrgVariableResponder,
@@ -5021,7 +5231,7 @@ export type ActionsSetSelectedReposForOrgVariable = (
   params: Params<
     t_ActionsSetSelectedReposForOrgVariableParamSchema,
     void,
-    t_ActionsSetSelectedReposForOrgVariableRequestBodySchema,
+    t_actionsSetSelectedReposForOrgVariableJsonRequestBody,
     void
   >,
   respond: ActionsSetSelectedReposForOrgVariableResponder,
@@ -5111,7 +5321,7 @@ export type OrgsListAttestationsBulk = (
   params: Params<
     t_OrgsListAttestationsBulkParamSchema,
     t_OrgsListAttestationsBulkQuerySchema,
-    t_OrgsListAttestationsBulkRequestBodySchema,
+    t_orgsListAttestationsBulkJsonRequestBody,
     void
   >,
   respond: OrgsListAttestationsBulkResponder,
@@ -5129,7 +5339,7 @@ export type OrgsDeleteAttestationsBulk = (
   params: Params<
     t_OrgsDeleteAttestationsBulkParamSchema,
     void,
-    t_OrgsDeleteAttestationsBulkRequestBodySchema,
+    t_orgsDeleteAttestationsBulkJsonRequestBody,
     void
   >,
   respond: OrgsDeleteAttestationsBulkResponder,
@@ -5306,7 +5516,7 @@ export type CampaignsCreateCampaign = (
   params: Params<
     t_CampaignsCreateCampaignParamSchema,
     void,
-    t_CampaignsCreateCampaignRequestBodySchema,
+    t_campaignsCreateCampaignJsonRequestBody,
     void
   >,
   respond: CampaignsCreateCampaignResponder,
@@ -5350,7 +5560,7 @@ export type CampaignsUpdateCampaign = (
   params: Params<
     t_CampaignsUpdateCampaignParamSchema,
     void,
-    t_CampaignsUpdateCampaignRequestBodySchema,
+    t_campaignsUpdateCampaignJsonRequestBody,
     void
   >,
   respond: CampaignsUpdateCampaignResponder,
@@ -5427,7 +5637,7 @@ export type CodeSecurityCreateConfiguration = (
   params: Params<
     t_CodeSecurityCreateConfigurationParamSchema,
     void,
-    t_CodeSecurityCreateConfigurationRequestBodySchema,
+    t_codeSecurityCreateConfigurationJsonRequestBody,
     void
   >,
   respond: CodeSecurityCreateConfigurationResponder,
@@ -5468,7 +5678,7 @@ export type CodeSecurityDetachConfiguration = (
   params: Params<
     t_CodeSecurityDetachConfigurationParamSchema,
     void,
-    t_CodeSecurityDetachConfigurationRequestBodySchema,
+    t_codeSecurityDetachConfigurationJsonRequestBody,
     void
   >,
   respond: CodeSecurityDetachConfigurationResponder,
@@ -5501,7 +5711,7 @@ export type CodeSecurityUpdateConfiguration = (
   params: Params<
     t_CodeSecurityUpdateConfigurationParamSchema,
     void,
-    t_CodeSecurityUpdateConfigurationRequestBodySchema,
+    t_codeSecurityUpdateConfigurationJsonRequestBody,
     void
   >,
   respond: CodeSecurityUpdateConfigurationResponder,
@@ -5541,7 +5751,7 @@ export type CodeSecurityAttachConfiguration = (
   params: Params<
     t_CodeSecurityAttachConfigurationParamSchema,
     void,
-    t_CodeSecurityAttachConfigurationRequestBodySchema,
+    t_codeSecurityAttachConfigurationJsonRequestBody,
     void
   >,
   respond: CodeSecurityAttachConfigurationResponder,
@@ -5565,7 +5775,7 @@ export type CodeSecuritySetConfigurationAsDefault = (
   params: Params<
     t_CodeSecuritySetConfigurationAsDefaultParamSchema,
     void,
-    t_CodeSecuritySetConfigurationAsDefaultRequestBodySchema,
+    t_codeSecuritySetConfigurationAsDefaultJsonRequestBody,
     void
   >,
   respond: CodeSecuritySetConfigurationAsDefaultResponder,
@@ -5633,7 +5843,7 @@ export type CodespacesSetCodespacesAccess = (
   params: Params<
     t_CodespacesSetCodespacesAccessParamSchema,
     void,
-    t_CodespacesSetCodespacesAccessRequestBodySchema,
+    t_codespacesSetCodespacesAccessJsonRequestBody,
     void
   >,
   respond: CodespacesSetCodespacesAccessResponder,
@@ -5655,7 +5865,7 @@ export type CodespacesSetCodespacesAccessUsers = (
   params: Params<
     t_CodespacesSetCodespacesAccessUsersParamSchema,
     void,
-    t_CodespacesSetCodespacesAccessUsersRequestBodySchema,
+    t_codespacesSetCodespacesAccessUsersJsonRequestBody,
     void
   >,
   respond: CodespacesSetCodespacesAccessUsersResponder,
@@ -5677,7 +5887,7 @@ export type CodespacesDeleteCodespacesAccessUsers = (
   params: Params<
     t_CodespacesDeleteCodespacesAccessUsersParamSchema,
     void,
-    t_CodespacesDeleteCodespacesAccessUsersRequestBodySchema,
+    t_codespacesDeleteCodespacesAccessUsersJsonRequestBody,
     void
   >,
   respond: CodespacesDeleteCodespacesAccessUsersResponder,
@@ -5741,7 +5951,7 @@ export type CodespacesCreateOrUpdateOrgSecret = (
   params: Params<
     t_CodespacesCreateOrUpdateOrgSecretParamSchema,
     void,
-    t_CodespacesCreateOrUpdateOrgSecretRequestBodySchema,
+    t_codespacesCreateOrUpdateOrgSecretJsonRequestBody,
     void
   >,
   respond: CodespacesCreateOrUpdateOrgSecretResponder,
@@ -5794,7 +6004,7 @@ export type CodespacesSetSelectedReposForOrgSecret = (
   params: Params<
     t_CodespacesSetSelectedReposForOrgSecretParamSchema,
     void,
-    t_CodespacesSetSelectedReposForOrgSecretRequestBodySchema,
+    t_codespacesSetSelectedReposForOrgSecretJsonRequestBody,
     void
   >,
   respond: CodespacesSetSelectedReposForOrgSecretResponder,
@@ -5904,7 +6114,7 @@ export type CopilotAddCopilotSeatsForTeams = (
   params: Params<
     t_CopilotAddCopilotSeatsForTeamsParamSchema,
     void,
-    t_CopilotAddCopilotSeatsForTeamsRequestBodySchema,
+    t_copilotAddCopilotSeatsForTeamsJsonRequestBody,
     void
   >,
   respond: CopilotAddCopilotSeatsForTeamsResponder,
@@ -5928,7 +6138,7 @@ export type CopilotCancelCopilotSeatAssignmentForTeams = (
   params: Params<
     t_CopilotCancelCopilotSeatAssignmentForTeamsParamSchema,
     void,
-    t_CopilotCancelCopilotSeatAssignmentForTeamsRequestBodySchema,
+    t_copilotCancelCopilotSeatAssignmentForTeamsJsonRequestBody,
     void
   >,
   respond: CopilotCancelCopilotSeatAssignmentForTeamsResponder,
@@ -5952,7 +6162,7 @@ export type CopilotAddCopilotSeatsForUsers = (
   params: Params<
     t_CopilotAddCopilotSeatsForUsersParamSchema,
     void,
-    t_CopilotAddCopilotSeatsForUsersRequestBodySchema,
+    t_copilotAddCopilotSeatsForUsersJsonRequestBody,
     void
   >,
   respond: CopilotAddCopilotSeatsForUsersResponder,
@@ -5976,7 +6186,7 @@ export type CopilotCancelCopilotSeatAssignmentForUsers = (
   params: Params<
     t_CopilotCancelCopilotSeatAssignmentForUsersParamSchema,
     void,
-    t_CopilotCancelCopilotSeatAssignmentForUsersRequestBodySchema,
+    t_copilotCancelCopilotSeatAssignmentForUsersJsonRequestBody,
     void
   >,
   respond: CopilotCancelCopilotSeatAssignmentForUsersResponder,
@@ -6081,7 +6291,7 @@ export type DependabotCreateOrUpdateOrgSecret = (
   params: Params<
     t_DependabotCreateOrUpdateOrgSecretParamSchema,
     void,
-    t_DependabotCreateOrUpdateOrgSecretRequestBodySchema,
+    t_dependabotCreateOrUpdateOrgSecretJsonRequestBody,
     void
   >,
   respond: DependabotCreateOrUpdateOrgSecretResponder,
@@ -6130,7 +6340,7 @@ export type DependabotSetSelectedReposForOrgSecret = (
   params: Params<
     t_DependabotSetSelectedReposForOrgSecretParamSchema,
     void,
-    t_DependabotSetSelectedReposForOrgSecretRequestBodySchema,
+    t_dependabotSetSelectedReposForOrgSecretJsonRequestBody,
     void
   >,
   respond: DependabotSetSelectedReposForOrgSecretResponder,
@@ -6258,7 +6468,7 @@ export type OrgsCreateWebhook = (
   params: Params<
     t_OrgsCreateWebhookParamSchema,
     void,
-    t_OrgsCreateWebhookRequestBodySchema,
+    t_orgsCreateWebhookJsonRequestBody,
     void
   >,
   respond: OrgsCreateWebhookResponder,
@@ -6290,7 +6500,7 @@ export type OrgsUpdateWebhook = (
   params: Params<
     t_OrgsUpdateWebhookParamSchema,
     void,
-    t_OrgsUpdateWebhookRequestBodySchema | undefined,
+    t_orgsUpdateWebhookJsonRequestBody | undefined,
     void
   >,
   respond: OrgsUpdateWebhookResponder,
@@ -6332,7 +6542,7 @@ export type OrgsUpdateWebhookConfigForOrg = (
   params: Params<
     t_OrgsUpdateWebhookConfigForOrgParamSchema,
     void,
-    t_OrgsUpdateWebhookConfigForOrgRequestBodySchema | undefined,
+    t_orgsUpdateWebhookConfigForOrgJsonRequestBody | undefined,
     void
   >,
   respond: OrgsUpdateWebhookConfigForOrgResponder,
@@ -6614,7 +6824,7 @@ export type InteractionsSetRestrictionsForOrg = (
   params: Params<
     t_InteractionsSetRestrictionsForOrgParamSchema,
     void,
-    t_InteractionsSetRestrictionsForOrgRequestBodySchema,
+    t_interaction_limit,
     void
   >,
   respond: InteractionsSetRestrictionsForOrgResponder,
@@ -6668,7 +6878,7 @@ export type OrgsCreateInvitation = (
   params: Params<
     t_OrgsCreateInvitationParamSchema,
     void,
-    t_OrgsCreateInvitationRequestBodySchema | undefined,
+    t_orgsCreateInvitationJsonRequestBody | undefined,
     void
   >,
   respond: OrgsCreateInvitationResponder,
@@ -6732,7 +6942,7 @@ export type OrgsCreateIssueType = (
   params: Params<
     t_OrgsCreateIssueTypeParamSchema,
     void,
-    t_OrgsCreateIssueTypeRequestBodySchema,
+    t_organization_create_issue_type,
     void
   >,
   respond: OrgsCreateIssueTypeResponder,
@@ -6751,7 +6961,7 @@ export type OrgsUpdateIssueType = (
   params: Params<
     t_OrgsUpdateIssueTypeParamSchema,
     void,
-    t_OrgsUpdateIssueTypeRequestBodySchema,
+    t_organization_update_issue_type,
     void
   >,
   respond: OrgsUpdateIssueTypeResponder,
@@ -6949,7 +7159,7 @@ export type OrgsSetMembershipForUser = (
   params: Params<
     t_OrgsSetMembershipForUserParamSchema,
     void,
-    t_OrgsSetMembershipForUserRequestBodySchema | undefined,
+    t_orgsSetMembershipForUserJsonRequestBody | undefined,
     void
   >,
   respond: OrgsSetMembershipForUserResponder,
@@ -6999,7 +7209,7 @@ export type MigrationsStartForOrg = (
   params: Params<
     t_MigrationsStartForOrgParamSchema,
     void,
-    t_MigrationsStartForOrgRequestBodySchema,
+    t_migrationsStartForOrgJsonRequestBody,
     void
   >,
   respond: MigrationsStartForOrgResponder,
@@ -7261,7 +7471,7 @@ export type OrgsConvertMemberToOutsideCollaborator = (
   params: Params<
     t_OrgsConvertMemberToOutsideCollaboratorParamSchema,
     void,
-    t_OrgsConvertMemberToOutsideCollaboratorRequestBodySchema | undefined,
+    t_orgsConvertMemberToOutsideCollaboratorJsonRequestBody | undefined,
     void
   >,
   respond: OrgsConvertMemberToOutsideCollaboratorResponder,
@@ -7472,7 +7682,7 @@ export type OrgsReviewPatGrantRequestsInBulk = (
   params: Params<
     t_OrgsReviewPatGrantRequestsInBulkParamSchema,
     void,
-    t_OrgsReviewPatGrantRequestsInBulkRequestBodySchema,
+    t_orgsReviewPatGrantRequestsInBulkJsonRequestBody,
     void
   >,
   respond: OrgsReviewPatGrantRequestsInBulkResponder,
@@ -7493,7 +7703,7 @@ export type OrgsReviewPatGrantRequest = (
   params: Params<
     t_OrgsReviewPatGrantRequestParamSchema,
     void,
-    t_OrgsReviewPatGrantRequestRequestBodySchema,
+    t_orgsReviewPatGrantRequestJsonRequestBody,
     void
   >,
   respond: OrgsReviewPatGrantRequestResponder,
@@ -7557,7 +7767,7 @@ export type OrgsUpdatePatAccesses = (
   params: Params<
     t_OrgsUpdatePatAccessesParamSchema,
     void,
-    t_OrgsUpdatePatAccessesRequestBodySchema,
+    t_orgsUpdatePatAccessesJsonRequestBody,
     void
   >,
   respond: OrgsUpdatePatAccessesResponder,
@@ -7578,7 +7788,7 @@ export type OrgsUpdatePatAccess = (
   params: Params<
     t_OrgsUpdatePatAccessParamSchema,
     void,
-    t_OrgsUpdatePatAccessRequestBodySchema,
+    t_orgsUpdatePatAccessJsonRequestBody,
     void
   >,
   respond: OrgsUpdatePatAccessResponder,
@@ -7639,7 +7849,7 @@ export type PrivateRegistriesCreateOrgPrivateRegistry = (
   params: Params<
     t_PrivateRegistriesCreateOrgPrivateRegistryParamSchema,
     void,
-    t_PrivateRegistriesCreateOrgPrivateRegistryRequestBodySchema,
+    t_privateRegistriesCreateOrgPrivateRegistryJsonRequestBody,
     void
   >,
   respond: PrivateRegistriesCreateOrgPrivateRegistryResponder,
@@ -7697,7 +7907,7 @@ export type PrivateRegistriesUpdateOrgPrivateRegistry = (
   params: Params<
     t_PrivateRegistriesUpdateOrgPrivateRegistryParamSchema,
     void,
-    t_PrivateRegistriesUpdateOrgPrivateRegistryRequestBodySchema,
+    t_privateRegistriesUpdateOrgPrivateRegistryJsonRequestBody,
     void
   >,
   respond: PrivateRegistriesUpdateOrgPrivateRegistryResponder,
@@ -7756,7 +7966,7 @@ export type ProjectsClassicCreateForOrg = (
   params: Params<
     t_ProjectsClassicCreateForOrgParamSchema,
     void,
-    t_ProjectsClassicCreateForOrgRequestBodySchema,
+    t_projectsClassicCreateForOrgJsonRequestBody,
     void
   >,
   respond: ProjectsClassicCreateForOrgResponder,
@@ -7789,7 +7999,7 @@ export type OrgsCreateOrUpdateCustomProperties = (
   params: Params<
     t_OrgsCreateOrUpdateCustomPropertiesParamSchema,
     void,
-    t_OrgsCreateOrUpdateCustomPropertiesRequestBodySchema,
+    t_orgsCreateOrUpdateCustomPropertiesJsonRequestBody,
     void
   >,
   respond: OrgsCreateOrUpdateCustomPropertiesResponder,
@@ -7822,7 +8032,7 @@ export type OrgsCreateOrUpdateCustomProperty = (
   params: Params<
     t_OrgsCreateOrUpdateCustomPropertyParamSchema,
     void,
-    t_OrgsCreateOrUpdateCustomPropertyRequestBodySchema,
+    t_custom_property_set_payload,
     void
   >,
   respond: OrgsCreateOrUpdateCustomPropertyResponder,
@@ -7875,7 +8085,7 @@ export type OrgsCreateOrUpdateCustomPropertiesValuesForRepos = (
   params: Params<
     t_OrgsCreateOrUpdateCustomPropertiesValuesForReposParamSchema,
     void,
-    t_OrgsCreateOrUpdateCustomPropertiesValuesForReposRequestBodySchema,
+    t_orgsCreateOrUpdateCustomPropertiesValuesForReposJsonRequestBody,
     void
   >,
   respond: OrgsCreateOrUpdateCustomPropertiesValuesForReposResponder,
@@ -7981,7 +8191,7 @@ export type ReposCreateInOrg = (
   params: Params<
     t_ReposCreateInOrgParamSchema,
     void,
-    t_ReposCreateInOrgRequestBodySchema,
+    t_reposCreateInOrgJsonRequestBody,
     void
   >,
   respond: ReposCreateInOrgResponder,
@@ -8019,7 +8229,7 @@ export type ReposCreateOrgRuleset = (
   params: Params<
     t_ReposCreateOrgRulesetParamSchema,
     void,
-    t_ReposCreateOrgRulesetRequestBodySchema,
+    t_reposCreateOrgRulesetJsonRequestBody,
     void
   >,
   respond: ReposCreateOrgRulesetResponder,
@@ -8085,7 +8295,7 @@ export type ReposUpdateOrgRuleset = (
   params: Params<
     t_ReposUpdateOrgRulesetParamSchema,
     void,
-    t_ReposUpdateOrgRulesetRequestBodySchema | undefined,
+    t_reposUpdateOrgRulesetJsonRequestBody | undefined,
     void
   >,
   respond: ReposUpdateOrgRulesetResponder,
@@ -8298,7 +8508,7 @@ export type HostedComputeCreateNetworkConfigurationForOrg = (
   params: Params<
     t_HostedComputeCreateNetworkConfigurationForOrgParamSchema,
     void,
-    t_HostedComputeCreateNetworkConfigurationForOrgRequestBodySchema,
+    t_hostedComputeCreateNetworkConfigurationForOrgJsonRequestBody,
     void
   >,
   respond: HostedComputeCreateNetworkConfigurationForOrgResponder,
@@ -8332,7 +8542,7 @@ export type HostedComputeUpdateNetworkConfigurationForOrg = (
   params: Params<
     t_HostedComputeUpdateNetworkConfigurationForOrgParamSchema,
     void,
-    t_HostedComputeUpdateNetworkConfigurationForOrgRequestBodySchema,
+    t_hostedComputeUpdateNetworkConfigurationForOrgJsonRequestBody,
     void
   >,
   respond: HostedComputeUpdateNetworkConfigurationForOrgResponder,
@@ -8419,7 +8629,7 @@ export type TeamsCreate = (
   params: Params<
     t_TeamsCreateParamSchema,
     void,
-    t_TeamsCreateRequestBodySchema,
+    t_teamsCreateJsonRequestBody,
     void
   >,
   respond: TeamsCreateResponder,
@@ -8453,7 +8663,7 @@ export type TeamsUpdateInOrg = (
   params: Params<
     t_TeamsUpdateInOrgParamSchema,
     void,
-    t_TeamsUpdateInOrgRequestBodySchema | undefined,
+    t_teamsUpdateInOrgJsonRequestBody | undefined,
     void
   >,
   respond: TeamsUpdateInOrgResponder,
@@ -8499,7 +8709,7 @@ export type TeamsCreateDiscussionInOrg = (
   params: Params<
     t_TeamsCreateDiscussionInOrgParamSchema,
     void,
-    t_TeamsCreateDiscussionInOrgRequestBodySchema,
+    t_teamsCreateDiscussionInOrgJsonRequestBody,
     void
   >,
   respond: TeamsCreateDiscussionInOrgResponder,
@@ -8528,7 +8738,7 @@ export type TeamsUpdateDiscussionInOrg = (
   params: Params<
     t_TeamsUpdateDiscussionInOrgParamSchema,
     void,
-    t_TeamsUpdateDiscussionInOrgRequestBodySchema | undefined,
+    t_teamsUpdateDiscussionInOrgJsonRequestBody | undefined,
     void
   >,
   respond: TeamsUpdateDiscussionInOrgResponder,
@@ -8574,7 +8784,7 @@ export type TeamsCreateDiscussionCommentInOrg = (
   params: Params<
     t_TeamsCreateDiscussionCommentInOrgParamSchema,
     void,
-    t_TeamsCreateDiscussionCommentInOrgRequestBodySchema,
+    t_teamsCreateDiscussionCommentInOrgJsonRequestBody,
     void
   >,
   respond: TeamsCreateDiscussionCommentInOrgResponder,
@@ -8603,7 +8813,7 @@ export type TeamsUpdateDiscussionCommentInOrg = (
   params: Params<
     t_TeamsUpdateDiscussionCommentInOrgParamSchema,
     void,
-    t_TeamsUpdateDiscussionCommentInOrgRequestBodySchema,
+    t_teamsUpdateDiscussionCommentInOrgJsonRequestBody,
     void
   >,
   respond: TeamsUpdateDiscussionCommentInOrgResponder,
@@ -8655,7 +8865,7 @@ export type ReactionsCreateForTeamDiscussionCommentInOrg = (
   params: Params<
     t_ReactionsCreateForTeamDiscussionCommentInOrgParamSchema,
     void,
-    t_ReactionsCreateForTeamDiscussionCommentInOrgRequestBodySchema,
+    t_reactionsCreateForTeamDiscussionCommentInOrgJsonRequestBody,
     void
   >,
   respond: ReactionsCreateForTeamDiscussionCommentInOrgResponder,
@@ -8707,7 +8917,7 @@ export type ReactionsCreateForTeamDiscussionInOrg = (
   params: Params<
     t_ReactionsCreateForTeamDiscussionInOrgParamSchema,
     void,
-    t_ReactionsCreateForTeamDiscussionInOrgRequestBodySchema,
+    t_reactionsCreateForTeamDiscussionInOrgJsonRequestBody,
     void
   >,
   respond: ReactionsCreateForTeamDiscussionInOrgResponder,
@@ -8790,7 +9000,7 @@ export type TeamsAddOrUpdateMembershipForUserInOrg = (
   params: Params<
     t_TeamsAddOrUpdateMembershipForUserInOrgParamSchema,
     void,
-    t_TeamsAddOrUpdateMembershipForUserInOrgRequestBodySchema | undefined,
+    t_teamsAddOrUpdateMembershipForUserInOrgJsonRequestBody | undefined,
     void
   >,
   respond: TeamsAddOrUpdateMembershipForUserInOrgResponder,
@@ -8864,7 +9074,7 @@ export type TeamsAddOrUpdateProjectPermissionsInOrg = (
   params: Params<
     t_TeamsAddOrUpdateProjectPermissionsInOrgParamSchema,
     void,
-    t_TeamsAddOrUpdateProjectPermissionsInOrgRequestBodySchema | undefined,
+    t_teamsAddOrUpdateProjectPermissionsInOrgJsonRequestBody | undefined,
     void
   >,
   respond: TeamsAddOrUpdateProjectPermissionsInOrgResponder,
@@ -8929,7 +9139,7 @@ export type TeamsAddOrUpdateRepoPermissionsInOrg = (
   params: Params<
     t_TeamsAddOrUpdateRepoPermissionsInOrgParamSchema,
     void,
-    t_TeamsAddOrUpdateRepoPermissionsInOrgRequestBodySchema | undefined,
+    t_teamsAddOrUpdateRepoPermissionsInOrgJsonRequestBody | undefined,
     void
   >,
   respond: TeamsAddOrUpdateRepoPermissionsInOrgResponder,
@@ -8976,7 +9186,7 @@ export type OrgsEnableOrDisableSecurityProductOnAllOrgRepos = (
   params: Params<
     t_OrgsEnableOrDisableSecurityProductOnAllOrgReposParamSchema,
     void,
-    | t_OrgsEnableOrDisableSecurityProductOnAllOrgReposRequestBodySchema
+    | t_orgsEnableOrDisableSecurityProductOnAllOrgReposJsonRequestBody
     | undefined,
     void
   >,
@@ -9015,7 +9225,7 @@ export type ProjectsClassicUpdateCard = (
   params: Params<
     t_ProjectsClassicUpdateCardParamSchema,
     void,
-    t_ProjectsClassicUpdateCardRequestBodySchema | undefined,
+    t_projectsClassicUpdateCardJsonRequestBody | undefined,
     void
   >,
   respond: ProjectsClassicUpdateCardResponder,
@@ -9078,7 +9288,7 @@ export type ProjectsClassicMoveCard = (
   params: Params<
     t_ProjectsClassicMoveCardParamSchema,
     void,
-    t_ProjectsClassicMoveCardRequestBodySchema,
+    t_projectsClassicMoveCardJsonRequestBody,
     void
   >,
   respond: ProjectsClassicMoveCardResponder,
@@ -9114,7 +9324,7 @@ export type ProjectsClassicUpdateColumn = (
   params: Params<
     t_ProjectsClassicUpdateColumnParamSchema,
     void,
-    t_ProjectsClassicUpdateColumnRequestBodySchema,
+    t_projectsClassicUpdateColumnJsonRequestBody,
     void
   >,
   respond: ProjectsClassicUpdateColumnResponder,
@@ -9183,7 +9393,7 @@ export type ProjectsClassicCreateCard = (
   params: Params<
     t_ProjectsClassicCreateCardParamSchema,
     void,
-    t_ProjectsClassicCreateCardRequestBodySchema,
+    t_projectsClassicCreateCardJsonRequestBody,
     void
   >,
   respond: ProjectsClassicCreateCardResponder,
@@ -9204,7 +9414,7 @@ export type ProjectsClassicMoveColumn = (
   params: Params<
     t_ProjectsClassicMoveColumnParamSchema,
     void,
-    t_ProjectsClassicMoveColumnRequestBodySchema,
+    t_projectsClassicMoveColumnJsonRequestBody,
     void
   >,
   respond: ProjectsClassicMoveColumnResponder,
@@ -9246,7 +9456,7 @@ export type ProjectsClassicUpdate = (
   params: Params<
     t_ProjectsClassicUpdateParamSchema,
     void,
-    t_ProjectsClassicUpdateRequestBodySchema | undefined,
+    t_projectsClassicUpdateJsonRequestBody | undefined,
     void
   >,
   respond: ProjectsClassicUpdateResponder,
@@ -9311,7 +9521,7 @@ export type ProjectsClassicAddCollaborator = (
   params: Params<
     t_ProjectsClassicAddCollaboratorParamSchema,
     void,
-    t_ProjectsClassicAddCollaboratorRequestBodySchema | undefined,
+    t_projectsClassicAddCollaboratorJsonRequestBody | undefined,
     void
   >,
   respond: ProjectsClassicAddCollaboratorResponder,
@@ -9396,7 +9606,7 @@ export type ProjectsClassicCreateColumn = (
   params: Params<
     t_ProjectsClassicCreateColumnParamSchema,
     void,
-    t_ProjectsClassicCreateColumnRequestBodySchema,
+    t_projectsClassicCreateColumnJsonRequestBody,
     void
   >,
   respond: ProjectsClassicCreateColumnResponder,
@@ -9446,7 +9656,7 @@ export type ReposUpdate = (
   params: Params<
     t_ReposUpdateParamSchema,
     void,
-    t_ReposUpdateRequestBodySchema | undefined,
+    t_reposUpdateJsonRequestBody | undefined,
     void
   >,
   respond: ReposUpdateResponder,
@@ -9627,7 +9837,7 @@ export type ActionsReRunJobForWorkflowRun = (
   params: Params<
     t_ActionsReRunJobForWorkflowRunParamSchema,
     void,
-    t_ActionsReRunJobForWorkflowRunRequestBodySchema | undefined,
+    t_actionsReRunJobForWorkflowRunJsonRequestBody | undefined,
     void
   >,
   respond: ActionsReRunJobForWorkflowRunResponder,
@@ -9666,7 +9876,7 @@ export type ActionsSetCustomOidcSubClaimForRepo = (
   params: Params<
     t_ActionsSetCustomOidcSubClaimForRepoParamSchema,
     void,
-    t_ActionsSetCustomOidcSubClaimForRepoRequestBodySchema,
+    t_actionsSetCustomOidcSubClaimForRepoJsonRequestBody,
     void
   >,
   respond: ActionsSetCustomOidcSubClaimForRepoResponder,
@@ -9740,7 +9950,7 @@ export type ActionsSetGithubActionsPermissionsRepository = (
   params: Params<
     t_ActionsSetGithubActionsPermissionsRepositoryParamSchema,
     void,
-    t_ActionsSetGithubActionsPermissionsRepositoryRequestBodySchema,
+    t_actionsSetGithubActionsPermissionsRepositoryJsonRequestBody,
     void
   >,
   respond: ActionsSetGithubActionsPermissionsRepositoryResponder,
@@ -9774,7 +9984,7 @@ export type ActionsSetWorkflowAccessToRepository = (
   params: Params<
     t_ActionsSetWorkflowAccessToRepositoryParamSchema,
     void,
-    t_ActionsSetWorkflowAccessToRepositoryRequestBodySchema,
+    t_actions_workflow_access_to_repository,
     void
   >,
   respond: ActionsSetWorkflowAccessToRepositoryResponder,
@@ -9808,7 +10018,7 @@ export type ActionsSetAllowedActionsRepository = (
   params: Params<
     t_ActionsSetAllowedActionsRepositoryParamSchema,
     void,
-    t_ActionsSetAllowedActionsRepositoryRequestBodySchema | undefined,
+    t_selected_actions | undefined,
     void
   >,
   respond: ActionsSetAllowedActionsRepositoryResponder,
@@ -9845,7 +10055,7 @@ export type ActionsSetGithubActionsDefaultWorkflowPermissionsRepository = (
   params: Params<
     t_ActionsSetGithubActionsDefaultWorkflowPermissionsRepositoryParamSchema,
     void,
-    t_ActionsSetGithubActionsDefaultWorkflowPermissionsRepositoryRequestBodySchema,
+    t_actions_set_default_workflow_permissions,
     void
   >,
   respond: ActionsSetGithubActionsDefaultWorkflowPermissionsRepositoryResponder,
@@ -9905,7 +10115,7 @@ export type ActionsGenerateRunnerJitconfigForRepo = (
   params: Params<
     t_ActionsGenerateRunnerJitconfigForRepoParamSchema,
     void,
-    t_ActionsGenerateRunnerJitconfigForRepoRequestBodySchema,
+    t_actionsGenerateRunnerJitconfigForRepoJsonRequestBody,
     void
   >,
   respond: ActionsGenerateRunnerJitconfigForRepoResponder,
@@ -10017,7 +10227,7 @@ export type ActionsAddCustomLabelsToSelfHostedRunnerForRepo = (
   params: Params<
     t_ActionsAddCustomLabelsToSelfHostedRunnerForRepoParamSchema,
     void,
-    t_ActionsAddCustomLabelsToSelfHostedRunnerForRepoRequestBodySchema,
+    t_actionsAddCustomLabelsToSelfHostedRunnerForRepoJsonRequestBody,
     void
   >,
   respond: ActionsAddCustomLabelsToSelfHostedRunnerForRepoResponder,
@@ -10039,7 +10249,7 @@ export type ActionsSetCustomLabelsForSelfHostedRunnerForRepo = (
   params: Params<
     t_ActionsSetCustomLabelsForSelfHostedRunnerForRepoParamSchema,
     void,
-    t_ActionsSetCustomLabelsForSelfHostedRunnerForRepoRequestBodySchema,
+    t_actionsSetCustomLabelsForSelfHostedRunnerForRepoJsonRequestBody,
     void
   >,
   respond: ActionsSetCustomLabelsForSelfHostedRunnerForRepoResponder,
@@ -10262,7 +10472,7 @@ export type ActionsReviewCustomGatesForRun = (
   params: Params<
     t_ActionsReviewCustomGatesForRunParamSchema,
     void,
-    t_ActionsReviewCustomGatesForRunRequestBodySchema,
+    t_actionsReviewCustomGatesForRunJsonRequestBody,
     void
   >,
   respond: ActionsReviewCustomGatesForRunResponder,
@@ -10355,7 +10565,7 @@ export type ActionsReviewPendingDeploymentsForRun = (
   params: Params<
     t_ActionsReviewPendingDeploymentsForRunParamSchema,
     void,
-    t_ActionsReviewPendingDeploymentsForRunRequestBodySchema,
+    t_actionsReviewPendingDeploymentsForRunJsonRequestBody,
     void
   >,
   respond: ActionsReviewPendingDeploymentsForRunResponder,
@@ -10372,7 +10582,7 @@ export type ActionsReRunWorkflow = (
   params: Params<
     t_ActionsReRunWorkflowParamSchema,
     void,
-    t_ActionsReRunWorkflowRequestBodySchema | undefined,
+    t_actionsReRunWorkflowJsonRequestBody | undefined,
     void
   >,
   respond: ActionsReRunWorkflowResponder,
@@ -10389,7 +10599,7 @@ export type ActionsReRunWorkflowFailedJobs = (
   params: Params<
     t_ActionsReRunWorkflowFailedJobsParamSchema,
     void,
-    t_ActionsReRunWorkflowFailedJobsRequestBodySchema | undefined,
+    t_actionsReRunWorkflowFailedJobsJsonRequestBody | undefined,
     void
   >,
   respond: ActionsReRunWorkflowFailedJobsResponder,
@@ -10463,7 +10673,7 @@ export type ActionsCreateOrUpdateRepoSecret = (
   params: Params<
     t_ActionsCreateOrUpdateRepoSecretParamSchema,
     void,
-    t_ActionsCreateOrUpdateRepoSecretRequestBodySchema,
+    t_actionsCreateOrUpdateRepoSecretJsonRequestBody,
     void
   >,
   respond: ActionsCreateOrUpdateRepoSecretResponder,
@@ -10512,7 +10722,7 @@ export type ActionsCreateRepoVariable = (
   params: Params<
     t_ActionsCreateRepoVariableParamSchema,
     void,
-    t_ActionsCreateRepoVariableRequestBodySchema,
+    t_actionsCreateRepoVariableJsonRequestBody,
     void
   >,
   respond: ActionsCreateRepoVariableResponder,
@@ -10541,7 +10751,7 @@ export type ActionsUpdateRepoVariable = (
   params: Params<
     t_ActionsUpdateRepoVariableParamSchema,
     void,
-    t_ActionsUpdateRepoVariableRequestBodySchema,
+    t_actionsUpdateRepoVariableJsonRequestBody,
     void
   >,
   respond: ActionsUpdateRepoVariableResponder,
@@ -10614,7 +10824,7 @@ export type ActionsCreateWorkflowDispatch = (
   params: Params<
     t_ActionsCreateWorkflowDispatchParamSchema,
     void,
-    t_ActionsCreateWorkflowDispatchRequestBodySchema,
+    t_actionsCreateWorkflowDispatchJsonRequestBody,
     void
   >,
   respond: ActionsCreateWorkflowDispatchResponder,
@@ -10728,7 +10938,7 @@ export type ReposCreateAttestation = (
   params: Params<
     t_ReposCreateAttestationParamSchema,
     void,
-    t_ReposCreateAttestationRequestBodySchema,
+    t_reposCreateAttestationJsonRequestBody,
     void
   >,
   respond: ReposCreateAttestationResponder,
@@ -10797,7 +11007,7 @@ export type ReposCreateAutolink = (
   params: Params<
     t_ReposCreateAutolinkParamSchema,
     void,
-    t_ReposCreateAutolinkRequestBodySchema,
+    t_reposCreateAutolinkJsonRequestBody,
     void
   >,
   respond: ReposCreateAutolinkResponder,
@@ -10940,7 +11150,7 @@ export type ReposUpdateBranchProtection = (
   params: Params<
     t_ReposUpdateBranchProtectionParamSchema,
     void,
-    t_ReposUpdateBranchProtectionRequestBodySchema,
+    t_reposUpdateBranchProtectionJsonRequestBody,
     void
   >,
   respond: ReposUpdateBranchProtectionResponder,
@@ -11030,7 +11240,7 @@ export type ReposUpdatePullRequestReviewProtection = (
   params: Params<
     t_ReposUpdatePullRequestReviewProtectionParamSchema,
     void,
-    t_ReposUpdatePullRequestReviewProtectionRequestBodySchema | undefined,
+    t_reposUpdatePullRequestReviewProtectionJsonRequestBody | undefined,
     void
   >,
   respond: ReposUpdatePullRequestReviewProtectionResponder,
@@ -11134,7 +11344,7 @@ export type ReposUpdateStatusCheckProtection = (
   params: Params<
     t_ReposUpdateStatusCheckProtectionParamSchema,
     void,
-    t_ReposUpdateStatusCheckProtectionRequestBodySchema | undefined,
+    t_reposUpdateStatusCheckProtectionJsonRequestBody | undefined,
     void
   >,
   respond: ReposUpdateStatusCheckProtectionResponder,
@@ -11184,7 +11394,7 @@ export type ReposAddStatusCheckContexts = (
   params: Params<
     t_ReposAddStatusCheckContextsParamSchema,
     void,
-    t_ReposAddStatusCheckContextsRequestBodySchema | undefined,
+    t_reposAddStatusCheckContextsJsonRequestBody | undefined,
     void
   >,
   respond: ReposAddStatusCheckContextsResponder,
@@ -11203,7 +11413,7 @@ export type ReposSetStatusCheckContexts = (
   params: Params<
     t_ReposSetStatusCheckContextsParamSchema,
     void,
-    t_ReposSetStatusCheckContextsRequestBodySchema | undefined,
+    t_reposSetStatusCheckContextsJsonRequestBody | undefined,
     void
   >,
   respond: ReposSetStatusCheckContextsResponder,
@@ -11222,7 +11432,7 @@ export type ReposRemoveStatusCheckContexts = (
   params: Params<
     t_ReposRemoveStatusCheckContextsParamSchema,
     void,
-    t_ReposRemoveStatusCheckContextsRequestBodySchema,
+    t_reposRemoveStatusCheckContextsJsonRequestBody,
     void
   >,
   respond: ReposRemoveStatusCheckContextsResponder,
@@ -11283,7 +11493,7 @@ export type ReposAddAppAccessRestrictions = (
   params: Params<
     t_ReposAddAppAccessRestrictionsParamSchema,
     void,
-    t_ReposAddAppAccessRestrictionsRequestBodySchema,
+    t_reposAddAppAccessRestrictionsJsonRequestBody,
     void
   >,
   respond: ReposAddAppAccessRestrictionsResponder,
@@ -11301,7 +11511,7 @@ export type ReposSetAppAccessRestrictions = (
   params: Params<
     t_ReposSetAppAccessRestrictionsParamSchema,
     void,
-    t_ReposSetAppAccessRestrictionsRequestBodySchema,
+    t_reposSetAppAccessRestrictionsJsonRequestBody,
     void
   >,
   respond: ReposSetAppAccessRestrictionsResponder,
@@ -11319,7 +11529,7 @@ export type ReposRemoveAppAccessRestrictions = (
   params: Params<
     t_ReposRemoveAppAccessRestrictionsParamSchema,
     void,
-    t_ReposRemoveAppAccessRestrictionsRequestBodySchema,
+    t_reposRemoveAppAccessRestrictionsJsonRequestBody,
     void
   >,
   respond: ReposRemoveAppAccessRestrictionsResponder,
@@ -11355,7 +11565,7 @@ export type ReposAddTeamAccessRestrictions = (
   params: Params<
     t_ReposAddTeamAccessRestrictionsParamSchema,
     void,
-    t_ReposAddTeamAccessRestrictionsRequestBodySchema | undefined,
+    t_reposAddTeamAccessRestrictionsJsonRequestBody | undefined,
     void
   >,
   respond: ReposAddTeamAccessRestrictionsResponder,
@@ -11373,7 +11583,7 @@ export type ReposSetTeamAccessRestrictions = (
   params: Params<
     t_ReposSetTeamAccessRestrictionsParamSchema,
     void,
-    t_ReposSetTeamAccessRestrictionsRequestBodySchema | undefined,
+    t_reposSetTeamAccessRestrictionsJsonRequestBody | undefined,
     void
   >,
   respond: ReposSetTeamAccessRestrictionsResponder,
@@ -11391,7 +11601,7 @@ export type ReposRemoveTeamAccessRestrictions = (
   params: Params<
     t_ReposRemoveTeamAccessRestrictionsParamSchema,
     void,
-    t_ReposRemoveTeamAccessRestrictionsRequestBodySchema,
+    t_reposRemoveTeamAccessRestrictionsJsonRequestBody,
     void
   >,
   respond: ReposRemoveTeamAccessRestrictionsResponder,
@@ -11427,7 +11637,7 @@ export type ReposAddUserAccessRestrictions = (
   params: Params<
     t_ReposAddUserAccessRestrictionsParamSchema,
     void,
-    t_ReposAddUserAccessRestrictionsRequestBodySchema,
+    t_reposAddUserAccessRestrictionsJsonRequestBody,
     void
   >,
   respond: ReposAddUserAccessRestrictionsResponder,
@@ -11445,7 +11655,7 @@ export type ReposSetUserAccessRestrictions = (
   params: Params<
     t_ReposSetUserAccessRestrictionsParamSchema,
     void,
-    t_ReposSetUserAccessRestrictionsRequestBodySchema,
+    t_reposSetUserAccessRestrictionsJsonRequestBody,
     void
   >,
   respond: ReposSetUserAccessRestrictionsResponder,
@@ -11463,7 +11673,7 @@ export type ReposRemoveUserAccessRestrictions = (
   params: Params<
     t_ReposRemoveUserAccessRestrictionsParamSchema,
     void,
-    t_ReposRemoveUserAccessRestrictionsRequestBodySchema,
+    t_reposRemoveUserAccessRestrictionsJsonRequestBody,
     void
   >,
   respond: ReposRemoveUserAccessRestrictionsResponder,
@@ -11483,7 +11693,7 @@ export type ReposRenameBranch = (
   params: Params<
     t_ReposRenameBranchParamSchema,
     void,
-    t_ReposRenameBranchRequestBodySchema,
+    t_reposRenameBranchJsonRequestBody,
     void
   >,
   respond: ReposRenameBranchResponder,
@@ -11500,7 +11710,7 @@ export type ChecksCreate = (
   params: Params<
     t_ChecksCreateParamSchema,
     void,
-    t_ChecksCreateRequestBodySchema,
+    t_checksCreateJsonRequestBody,
     void
   >,
   respond: ChecksCreateResponder,
@@ -11529,7 +11739,7 @@ export type ChecksUpdate = (
   params: Params<
     t_ChecksUpdateParamSchema,
     void,
-    t_ChecksUpdateRequestBodySchema,
+    t_checksUpdateJsonRequestBody,
     void
   >,
   respond: ChecksUpdateResponder,
@@ -11579,7 +11789,7 @@ export type ChecksCreateSuite = (
   params: Params<
     t_ChecksCreateSuiteParamSchema,
     void,
-    t_ChecksCreateSuiteRequestBodySchema,
+    t_checksCreateSuiteJsonRequestBody,
     void
   >,
   respond: ChecksCreateSuiteResponder,
@@ -11596,7 +11806,7 @@ export type ChecksSetSuitesPreferences = (
   params: Params<
     t_ChecksSetSuitesPreferencesParamSchema,
     void,
-    t_ChecksSetSuitesPreferencesRequestBodySchema,
+    t_checksSetSuitesPreferencesJsonRequestBody,
     void
   >,
   respond: ChecksSetSuitesPreferencesResponder,
@@ -11710,7 +11920,7 @@ export type CodeScanningUpdateAlert = (
   params: Params<
     t_CodeScanningUpdateAlertParamSchema,
     void,
-    t_CodeScanningUpdateAlertRequestBodySchema,
+    t_codeScanningUpdateAlertJsonRequestBody,
     void
   >,
   respond: CodeScanningUpdateAlertResponder,
@@ -11778,7 +11988,7 @@ export type CodeScanningCommitAutofix = (
   params: Params<
     t_CodeScanningCommitAutofixParamSchema,
     void,
-    t_CodeScanningCommitAutofixRequestBodySchema | undefined,
+    t_code_scanning_autofix_commits | undefined,
     void
   >,
   respond: CodeScanningCommitAutofixResponder,
@@ -11965,7 +12175,7 @@ export type CodeScanningCreateVariantAnalysis = (
   params: Params<
     t_CodeScanningCreateVariantAnalysisParamSchema,
     void,
-    t_CodeScanningCreateVariantAnalysisRequestBodySchema,
+    t_codeScanningCreateVariantAnalysisJsonRequestBody,
     void
   >,
   respond: CodeScanningCreateVariantAnalysisResponder,
@@ -12052,7 +12262,7 @@ export type CodeScanningUpdateDefaultSetup = (
   params: Params<
     t_CodeScanningUpdateDefaultSetupParamSchema,
     void,
-    t_CodeScanningUpdateDefaultSetupRequestBodySchema,
+    t_code_scanning_default_setup_update,
     void
   >,
   respond: CodeScanningUpdateDefaultSetupResponder,
@@ -12078,7 +12288,7 @@ export type CodeScanningUploadSarif = (
   params: Params<
     t_CodeScanningUploadSarifParamSchema,
     void,
-    t_CodeScanningUploadSarifRequestBodySchema,
+    t_codeScanningUploadSarifJsonRequestBody,
     void
   >,
   respond: CodeScanningUploadSarifResponder,
@@ -12187,7 +12397,7 @@ export type CodespacesCreateWithRepoForAuthenticatedUser = (
   params: Params<
     t_CodespacesCreateWithRepoForAuthenticatedUserParamSchema,
     void,
-    t_CodespacesCreateWithRepoForAuthenticatedUserRequestBodySchema,
+    t_codespacesCreateWithRepoForAuthenticatedUserJsonRequestBody,
     void
   >,
   respond: CodespacesCreateWithRepoForAuthenticatedUserResponder,
@@ -12358,7 +12568,7 @@ export type CodespacesCreateOrUpdateRepoSecret = (
   params: Params<
     t_CodespacesCreateOrUpdateRepoSecretParamSchema,
     void,
-    t_CodespacesCreateOrUpdateRepoSecretRequestBodySchema,
+    t_codespacesCreateOrUpdateRepoSecretJsonRequestBody,
     void
   >,
   respond: CodespacesCreateOrUpdateRepoSecretResponder,
@@ -12421,7 +12631,7 @@ export type ReposAddCollaborator = (
   params: Params<
     t_ReposAddCollaboratorParamSchema,
     void,
-    t_ReposAddCollaboratorRequestBodySchema | undefined,
+    t_reposAddCollaboratorJsonRequestBody | undefined,
     void
   >,
   respond: ReposAddCollaboratorResponder,
@@ -12501,7 +12711,7 @@ export type ReposUpdateCommitComment = (
   params: Params<
     t_ReposUpdateCommitCommentParamSchema,
     void,
-    t_ReposUpdateCommitCommentRequestBodySchema,
+    t_reposUpdateCommitCommentJsonRequestBody,
     void
   >,
   respond: ReposUpdateCommitCommentResponder,
@@ -12551,7 +12761,7 @@ export type ReactionsCreateForCommitComment = (
   params: Params<
     t_ReactionsCreateForCommitCommentParamSchema,
     void,
-    t_ReactionsCreateForCommitCommentRequestBodySchema,
+    t_reactionsCreateForCommitCommentJsonRequestBody,
     void
   >,
   respond: ReactionsCreateForCommitCommentResponder,
@@ -12639,7 +12849,7 @@ export type ReposCreateCommitComment = (
   params: Params<
     t_ReposCreateCommitCommentParamSchema,
     void,
-    t_ReposCreateCommitCommentRequestBodySchema,
+    t_reposCreateCommitCommentJsonRequestBody,
     void
   >,
   respond: ReposCreateCommitCommentResponder,
@@ -12849,7 +13059,7 @@ export type ReposCreateOrUpdateFileContents = (
   params: Params<
     t_ReposCreateOrUpdateFileContentsParamSchema,
     void,
-    t_ReposCreateOrUpdateFileContentsRequestBodySchema,
+    t_reposCreateOrUpdateFileContentsJsonRequestBody,
     void
   >,
   respond: ReposCreateOrUpdateFileContentsResponder,
@@ -12874,7 +13084,7 @@ export type ReposDeleteFile = (
   params: Params<
     t_ReposDeleteFileParamSchema,
     void,
-    t_ReposDeleteFileRequestBodySchema,
+    t_reposDeleteFileJsonRequestBody,
     void
   >,
   respond: ReposDeleteFileResponder,
@@ -12953,7 +13163,7 @@ export type DependabotUpdateAlert = (
   params: Params<
     t_DependabotUpdateAlertParamSchema,
     void,
-    t_DependabotUpdateAlertRequestBodySchema,
+    t_dependabotUpdateAlertJsonRequestBody,
     void
   >,
   respond: DependabotUpdateAlertResponder,
@@ -13015,7 +13225,7 @@ export type DependabotCreateOrUpdateRepoSecret = (
   params: Params<
     t_DependabotCreateOrUpdateRepoSecretParamSchema,
     void,
-    t_DependabotCreateOrUpdateRepoSecretRequestBodySchema,
+    t_dependabotCreateOrUpdateRepoSecretJsonRequestBody,
     void
   >,
   respond: DependabotCreateOrUpdateRepoSecretResponder,
@@ -13082,7 +13292,7 @@ export type DependencyGraphCreateRepositorySnapshot = (
   params: Params<
     t_DependencyGraphCreateRepositorySnapshotParamSchema,
     void,
-    t_DependencyGraphCreateRepositorySnapshotRequestBodySchema,
+    t_snapshot,
     void
   >,
   respond: DependencyGraphCreateRepositorySnapshotResponder,
@@ -13121,7 +13331,7 @@ export type ReposCreateDeployment = (
   params: Params<
     t_ReposCreateDeploymentParamSchema,
     void,
-    t_ReposCreateDeploymentRequestBodySchema,
+    t_reposCreateDeploymentJsonRequestBody,
     void
   >,
   respond: ReposCreateDeploymentResponder,
@@ -13184,7 +13394,7 @@ export type ReposCreateDeploymentStatus = (
   params: Params<
     t_ReposCreateDeploymentStatusParamSchema,
     void,
-    t_ReposCreateDeploymentStatusRequestBodySchema,
+    t_reposCreateDeploymentStatusJsonRequestBody,
     void
   >,
   respond: ReposCreateDeploymentStatusResponder,
@@ -13216,7 +13426,7 @@ export type ReposCreateDispatchEvent = (
   params: Params<
     t_ReposCreateDispatchEventParamSchema,
     void,
-    t_ReposCreateDispatchEventRequestBodySchema,
+    t_reposCreateDispatchEventJsonRequestBody,
     void
   >,
   respond: ReposCreateDispatchEventResponder,
@@ -13266,7 +13476,7 @@ export type ReposCreateOrUpdateEnvironment = (
   params: Params<
     t_ReposCreateOrUpdateEnvironmentParamSchema,
     void,
-    t_ReposCreateOrUpdateEnvironmentRequestBodySchema | undefined,
+    t_reposCreateOrUpdateEnvironmentJsonRequestBody | undefined,
     void
   >,
   respond: ReposCreateOrUpdateEnvironmentResponder,
@@ -13317,7 +13527,7 @@ export type ReposCreateDeploymentBranchPolicy = (
   params: Params<
     t_ReposCreateDeploymentBranchPolicyParamSchema,
     void,
-    t_ReposCreateDeploymentBranchPolicyRequestBodySchema,
+    t_deployment_branch_policy_name_pattern_with_type,
     void
   >,
   respond: ReposCreateDeploymentBranchPolicyResponder,
@@ -13346,7 +13556,7 @@ export type ReposUpdateDeploymentBranchPolicy = (
   params: Params<
     t_ReposUpdateDeploymentBranchPolicyParamSchema,
     void,
-    t_ReposUpdateDeploymentBranchPolicyRequestBodySchema,
+    t_deployment_branch_policy_name_pattern,
     void
   >,
   respond: ReposUpdateDeploymentBranchPolicyResponder,
@@ -13402,7 +13612,7 @@ export type ReposCreateDeploymentProtectionRule = (
   params: Params<
     t_ReposCreateDeploymentProtectionRuleParamSchema,
     void,
-    t_ReposCreateDeploymentProtectionRuleRequestBodySchema,
+    t_reposCreateDeploymentProtectionRuleJsonRequestBody,
     void
   >,
   respond: ReposCreateDeploymentProtectionRuleResponder,
@@ -13520,7 +13730,7 @@ export type ActionsCreateOrUpdateEnvironmentSecret = (
   params: Params<
     t_ActionsCreateOrUpdateEnvironmentSecretParamSchema,
     void,
-    t_ActionsCreateOrUpdateEnvironmentSecretRequestBodySchema,
+    t_actionsCreateOrUpdateEnvironmentSecretJsonRequestBody,
     void
   >,
   respond: ActionsCreateOrUpdateEnvironmentSecretResponder,
@@ -13569,7 +13779,7 @@ export type ActionsCreateEnvironmentVariable = (
   params: Params<
     t_ActionsCreateEnvironmentVariableParamSchema,
     void,
-    t_ActionsCreateEnvironmentVariableRequestBodySchema,
+    t_actionsCreateEnvironmentVariableJsonRequestBody,
     void
   >,
   respond: ActionsCreateEnvironmentVariableResponder,
@@ -13598,7 +13808,7 @@ export type ActionsUpdateEnvironmentVariable = (
   params: Params<
     t_ActionsUpdateEnvironmentVariableParamSchema,
     void,
-    t_ActionsUpdateEnvironmentVariableRequestBodySchema,
+    t_actionsUpdateEnvironmentVariableJsonRequestBody,
     void
   >,
   respond: ActionsUpdateEnvironmentVariableResponder,
@@ -13671,7 +13881,7 @@ export type ReposCreateFork = (
   params: Params<
     t_ReposCreateForkParamSchema,
     void,
-    t_ReposCreateForkRequestBodySchema | undefined,
+    t_reposCreateForkJsonRequestBody | undefined,
     void
   >,
   respond: ReposCreateForkResponder,
@@ -13694,7 +13904,7 @@ export type GitCreateBlob = (
   params: Params<
     t_GitCreateBlobParamSchema,
     void,
-    t_GitCreateBlobRequestBodySchema,
+    t_gitCreateBlobJsonRequestBody,
     void
   >,
   respond: GitCreateBlobResponder,
@@ -13730,7 +13940,7 @@ export type GitCreateCommit = (
   params: Params<
     t_GitCreateCommitParamSchema,
     void,
-    t_GitCreateCommitRequestBodySchema,
+    t_gitCreateCommitJsonRequestBody,
     void
   >,
   respond: GitCreateCommitResponder,
@@ -13790,7 +14000,7 @@ export type GitCreateRef = (
   params: Params<
     t_GitCreateRefParamSchema,
     void,
-    t_GitCreateRefRequestBodySchema,
+    t_gitCreateRefJsonRequestBody,
     void
   >,
   respond: GitCreateRefResponder,
@@ -13809,7 +14019,7 @@ export type GitUpdateRef = (
   params: Params<
     t_GitUpdateRefParamSchema,
     void,
-    t_GitUpdateRefRequestBodySchema,
+    t_gitUpdateRefJsonRequestBody,
     void
   >,
   respond: GitUpdateRefResponder,
@@ -13842,7 +14052,7 @@ export type GitCreateTag = (
   params: Params<
     t_GitCreateTagParamSchema,
     void,
-    t_GitCreateTagRequestBodySchema,
+    t_gitCreateTagJsonRequestBody,
     void
   >,
   respond: GitCreateTagResponder,
@@ -13877,7 +14087,7 @@ export type GitCreateTree = (
   params: Params<
     t_GitCreateTreeParamSchema,
     void,
-    t_GitCreateTreeRequestBodySchema,
+    t_gitCreateTreeJsonRequestBody,
     void
   >,
   respond: GitCreateTreeResponder,
@@ -13930,7 +14140,7 @@ export type ReposCreateWebhook = (
   params: Params<
     t_ReposCreateWebhookParamSchema,
     void,
-    t_ReposCreateWebhookRequestBodySchema | undefined,
+    t_reposCreateWebhookJsonRequestBody | undefined,
     void
   >,
   respond: ReposCreateWebhookResponder,
@@ -13962,7 +14172,7 @@ export type ReposUpdateWebhook = (
   params: Params<
     t_ReposUpdateWebhookParamSchema,
     void,
-    t_ReposUpdateWebhookRequestBodySchema,
+    t_reposUpdateWebhookJsonRequestBody,
     void
   >,
   respond: ReposUpdateWebhookResponder,
@@ -14004,7 +14214,7 @@ export type ReposUpdateWebhookConfigForRepo = (
   params: Params<
     t_ReposUpdateWebhookConfigForRepoParamSchema,
     void,
-    t_ReposUpdateWebhookConfigForRepoRequestBodySchema | undefined,
+    t_reposUpdateWebhookConfigForRepoJsonRequestBody | undefined,
     void
   >,
   respond: ReposUpdateWebhookConfigForRepoResponder,
@@ -14113,7 +14323,7 @@ export type MigrationsStartImport = (
   params: Params<
     t_MigrationsStartImportParamSchema,
     void,
-    t_MigrationsStartImportRequestBodySchema,
+    t_migrationsStartImportJsonRequestBody,
     void
   >,
   respond: MigrationsStartImportResponder,
@@ -14131,7 +14341,7 @@ export type MigrationsUpdateImport = (
   params: Params<
     t_MigrationsUpdateImportParamSchema,
     void,
-    t_MigrationsUpdateImportRequestBodySchema | undefined,
+    t_migrationsUpdateImportJsonRequestBody | undefined,
     void
   >,
   respond: MigrationsUpdateImportResponder,
@@ -14183,7 +14393,7 @@ export type MigrationsMapCommitAuthor = (
   params: Params<
     t_MigrationsMapCommitAuthorParamSchema,
     void,
-    t_MigrationsMapCommitAuthorRequestBodySchema | undefined,
+    t_migrationsMapCommitAuthorJsonRequestBody | undefined,
     void
   >,
   respond: MigrationsMapCommitAuthorResponder,
@@ -14215,7 +14425,7 @@ export type MigrationsSetLfsPreference = (
   params: Params<
     t_MigrationsSetLfsPreferenceParamSchema,
     void,
-    t_MigrationsSetLfsPreferenceRequestBodySchema,
+    t_migrationsSetLfsPreferenceJsonRequestBody,
     void
   >,
   respond: MigrationsSetLfsPreferenceResponder,
@@ -14264,7 +14474,7 @@ export type InteractionsSetRestrictionsForRepo = (
   params: Params<
     t_InteractionsSetRestrictionsForRepoParamSchema,
     void,
-    t_InteractionsSetRestrictionsForRepoRequestBodySchema,
+    t_interaction_limit,
     void
   >,
   respond: InteractionsSetRestrictionsForRepoResponder,
@@ -14316,7 +14526,7 @@ export type ReposUpdateInvitation = (
   params: Params<
     t_ReposUpdateInvitationParamSchema,
     void,
-    t_ReposUpdateInvitationRequestBodySchema | undefined,
+    t_reposUpdateInvitationJsonRequestBody | undefined,
     void
   >,
   respond: ReposUpdateInvitationResponder,
@@ -14375,7 +14585,7 @@ export type IssuesCreate = (
   params: Params<
     t_IssuesCreateParamSchema,
     void,
-    t_IssuesCreateRequestBodySchema,
+    t_issuesCreateJsonRequestBody,
     void
   >,
   respond: IssuesCreateResponder,
@@ -14425,7 +14635,7 @@ export type IssuesUpdateComment = (
   params: Params<
     t_IssuesUpdateCommentParamSchema,
     void,
-    t_IssuesUpdateCommentRequestBodySchema,
+    t_issuesUpdateCommentJsonRequestBody,
     void
   >,
   respond: IssuesUpdateCommentResponder,
@@ -14474,7 +14684,7 @@ export type ReactionsCreateForIssueComment = (
   params: Params<
     t_ReactionsCreateForIssueCommentParamSchema,
     void,
-    t_ReactionsCreateForIssueCommentRequestBodySchema,
+    t_reactionsCreateForIssueCommentJsonRequestBody,
     void
   >,
   respond: ReactionsCreateForIssueCommentResponder,
@@ -14562,7 +14772,7 @@ export type IssuesUpdate = (
   params: Params<
     t_IssuesUpdateParamSchema,
     void,
-    t_IssuesUpdateRequestBodySchema | undefined,
+    t_issuesUpdateJsonRequestBody | undefined,
     void
   >,
   respond: IssuesUpdateResponder,
@@ -14579,7 +14789,7 @@ export type IssuesAddAssignees = (
   params: Params<
     t_IssuesAddAssigneesParamSchema,
     void,
-    t_IssuesAddAssigneesRequestBodySchema | undefined,
+    t_issuesAddAssigneesJsonRequestBody | undefined,
     void
   >,
   respond: IssuesAddAssigneesResponder,
@@ -14596,7 +14806,7 @@ export type IssuesRemoveAssignees = (
   params: Params<
     t_IssuesRemoveAssigneesParamSchema,
     void,
-    t_IssuesRemoveAssigneesRequestBodySchema,
+    t_issuesRemoveAssigneesJsonRequestBody,
     void
   >,
   respond: IssuesRemoveAssigneesResponder,
@@ -14654,7 +14864,7 @@ export type IssuesCreateComment = (
   params: Params<
     t_IssuesCreateCommentParamSchema,
     void,
-    t_IssuesCreateCommentRequestBodySchema,
+    t_issuesCreateCommentJsonRequestBody,
     void
   >,
   respond: IssuesCreateCommentResponder,
@@ -14713,7 +14923,7 @@ export type IssuesAddLabels = (
   params: Params<
     t_IssuesAddLabelsParamSchema,
     void,
-    t_IssuesAddLabelsRequestBodySchema | undefined,
+    t_issuesAddLabelsJsonRequestBody | undefined,
     void
   >,
   respond: IssuesAddLabelsResponder,
@@ -14734,7 +14944,7 @@ export type IssuesSetLabels = (
   params: Params<
     t_IssuesSetLabelsParamSchema,
     void,
-    t_IssuesSetLabelsRequestBodySchema | undefined,
+    t_issuesSetLabelsJsonRequestBody | undefined,
     void
   >,
   respond: IssuesSetLabelsResponder,
@@ -14785,7 +14995,7 @@ export type IssuesLock = (
   params: Params<
     t_IssuesLockParamSchema,
     void,
-    t_IssuesLockRequestBodySchema | undefined,
+    t_issuesLockJsonRequestBody | undefined,
     void
   >,
   respond: IssuesLockResponder,
@@ -14837,7 +15047,7 @@ export type ReactionsCreateForIssue = (
   params: Params<
     t_ReactionsCreateForIssueParamSchema,
     void,
-    t_ReactionsCreateForIssueRequestBodySchema,
+    t_reactionsCreateForIssueJsonRequestBody,
     void
   >,
   respond: ReactionsCreateForIssueResponder,
@@ -14868,7 +15078,7 @@ export type IssuesRemoveSubIssue = (
   params: Params<
     t_IssuesRemoveSubIssueParamSchema,
     void,
-    t_IssuesRemoveSubIssueRequestBodySchema,
+    t_issuesRemoveSubIssueJsonRequestBody,
     void
   >,
   respond: IssuesRemoveSubIssueResponder,
@@ -14908,7 +15118,7 @@ export type IssuesAddSubIssue = (
   params: Params<
     t_IssuesAddSubIssueParamSchema,
     void,
-    t_IssuesAddSubIssueRequestBodySchema,
+    t_issuesAddSubIssueJsonRequestBody,
     void
   >,
   respond: IssuesAddSubIssueResponder,
@@ -14933,7 +15143,7 @@ export type IssuesReprioritizeSubIssue = (
   params: Params<
     t_IssuesReprioritizeSubIssueParamSchema,
     void,
-    t_IssuesReprioritizeSubIssueRequestBodySchema,
+    t_issuesReprioritizeSubIssueJsonRequestBody,
     void
   >,
   respond: IssuesReprioritizeSubIssueResponder,
@@ -14987,7 +15197,7 @@ export type ReposCreateDeployKey = (
   params: Params<
     t_ReposCreateDeployKeyParamSchema,
     void,
-    t_ReposCreateDeployKeyRequestBodySchema,
+    t_reposCreateDeployKeyJsonRequestBody,
     void
   >,
   respond: ReposCreateDeployKeyResponder,
@@ -15049,7 +15259,7 @@ export type IssuesCreateLabel = (
   params: Params<
     t_IssuesCreateLabelParamSchema,
     void,
-    t_IssuesCreateLabelRequestBodySchema,
+    t_issuesCreateLabelJsonRequestBody,
     void
   >,
   respond: IssuesCreateLabelResponder,
@@ -15079,7 +15289,7 @@ export type IssuesUpdateLabel = (
   params: Params<
     t_IssuesUpdateLabelParamSchema,
     void,
-    t_IssuesUpdateLabelRequestBodySchema | undefined,
+    t_issuesUpdateLabelJsonRequestBody | undefined,
     void
   >,
   respond: IssuesUpdateLabelResponder,
@@ -15140,7 +15350,7 @@ export type ReposMergeUpstream = (
   params: Params<
     t_ReposMergeUpstreamParamSchema,
     void,
-    t_ReposMergeUpstreamRequestBodySchema,
+    t_reposMergeUpstreamJsonRequestBody,
     void
   >,
   respond: ReposMergeUpstreamResponder,
@@ -15162,7 +15372,7 @@ export type ReposMerge = (
   params: Params<
     t_ReposMergeParamSchema,
     void,
-    t_ReposMergeRequestBodySchema,
+    t_reposMergeJsonRequestBody,
     void
   >,
   respond: ReposMergeResponder,
@@ -15199,7 +15409,7 @@ export type IssuesCreateMilestone = (
   params: Params<
     t_IssuesCreateMilestoneParamSchema,
     void,
-    t_IssuesCreateMilestoneRequestBodySchema,
+    t_issuesCreateMilestoneJsonRequestBody,
     void
   >,
   respond: IssuesCreateMilestoneResponder,
@@ -15229,7 +15439,7 @@ export type IssuesUpdateMilestone = (
   params: Params<
     t_IssuesUpdateMilestoneParamSchema,
     void,
-    t_IssuesUpdateMilestoneRequestBodySchema | undefined,
+    t_issuesUpdateMilestoneJsonRequestBody | undefined,
     void
   >,
   respond: IssuesUpdateMilestoneResponder,
@@ -15297,7 +15507,7 @@ export type ActivityMarkRepoNotificationsAsRead = (
   params: Params<
     t_ActivityMarkRepoNotificationsAsReadParamSchema,
     void,
-    t_ActivityMarkRepoNotificationsAsReadRequestBodySchema | undefined,
+    t_activityMarkRepoNotificationsAsReadJsonRequestBody | undefined,
     void
   >,
   respond: ActivityMarkRepoNotificationsAsReadResponder,
@@ -15329,7 +15539,7 @@ export type ReposCreatePagesSite = (
   params: Params<
     t_ReposCreatePagesSiteParamSchema,
     void,
-    t_ReposCreatePagesSiteRequestBodySchema,
+    t_reposCreatePagesSiteJsonRequestBody,
     void
   >,
   respond: ReposCreatePagesSiteResponder,
@@ -15349,7 +15559,7 @@ export type ReposUpdateInformationAboutPagesSite = (
   params: Params<
     t_ReposUpdateInformationAboutPagesSiteParamSchema,
     void,
-    t_ReposUpdateInformationAboutPagesSiteRequestBodySchema,
+    t_reposUpdateInformationAboutPagesSiteJsonRequestBody,
     void
   >,
   respond: ReposUpdateInformationAboutPagesSiteResponder,
@@ -15437,7 +15647,7 @@ export type ReposCreatePagesDeployment = (
   params: Params<
     t_ReposCreatePagesDeploymentParamSchema,
     void,
-    t_ReposCreatePagesDeploymentRequestBodySchema,
+    t_reposCreatePagesDeploymentJsonRequestBody,
     void
   >,
   respond: ReposCreatePagesDeploymentResponder,
@@ -15579,7 +15789,7 @@ export type ProjectsClassicCreateForRepo = (
   params: Params<
     t_ProjectsClassicCreateForRepoParamSchema,
     void,
-    t_ProjectsClassicCreateForRepoRequestBodySchema,
+    t_projectsClassicCreateForRepoJsonRequestBody,
     void
   >,
   respond: ProjectsClassicCreateForRepoResponder,
@@ -15613,7 +15823,7 @@ export type ReposCreateOrUpdateCustomPropertiesValues = (
   params: Params<
     t_ReposCreateOrUpdateCustomPropertiesValuesParamSchema,
     void,
-    t_ReposCreateOrUpdateCustomPropertiesValuesRequestBodySchema,
+    t_reposCreateOrUpdateCustomPropertiesValuesJsonRequestBody,
     void
   >,
   respond: ReposCreateOrUpdateCustomPropertiesValuesResponder,
@@ -15646,7 +15856,7 @@ export type PullsCreate = (
   params: Params<
     t_PullsCreateParamSchema,
     void,
-    t_PullsCreateRequestBodySchema,
+    t_pullsCreateJsonRequestBody,
     void
   >,
   respond: PullsCreateResponder,
@@ -15693,7 +15903,7 @@ export type PullsUpdateReviewComment = (
   params: Params<
     t_PullsUpdateReviewCommentParamSchema,
     void,
-    t_PullsUpdateReviewCommentRequestBodySchema,
+    t_pullsUpdateReviewCommentJsonRequestBody,
     void
   >,
   respond: PullsUpdateReviewCommentResponder,
@@ -15743,7 +15953,7 @@ export type ReactionsCreateForPullRequestReviewComment = (
   params: Params<
     t_ReactionsCreateForPullRequestReviewCommentParamSchema,
     void,
-    t_ReactionsCreateForPullRequestReviewCommentRequestBodySchema,
+    t_reactionsCreateForPullRequestReviewCommentJsonRequestBody,
     void
   >,
   respond: ReactionsCreateForPullRequestReviewCommentResponder,
@@ -15800,7 +16010,7 @@ export type PullsUpdate = (
   params: Params<
     t_PullsUpdateParamSchema,
     void,
-    t_PullsUpdateRequestBodySchema | undefined,
+    t_pullsUpdateJsonRequestBody | undefined,
     void
   >,
   respond: PullsUpdateResponder,
@@ -15826,7 +16036,7 @@ export type CodespacesCreateWithPrForAuthenticatedUser = (
   params: Params<
     t_CodespacesCreateWithPrForAuthenticatedUserParamSchema,
     void,
-    t_CodespacesCreateWithPrForAuthenticatedUserRequestBodySchema,
+    t_codespacesCreateWithPrForAuthenticatedUserJsonRequestBody,
     void
   >,
   respond: CodespacesCreateWithPrForAuthenticatedUserResponder,
@@ -15862,7 +16072,7 @@ export type PullsCreateReviewComment = (
   params: Params<
     t_PullsCreateReviewCommentParamSchema,
     void,
-    t_PullsCreateReviewCommentRequestBodySchema,
+    t_pullsCreateReviewCommentJsonRequestBody,
     void
   >,
   respond: PullsCreateReviewCommentResponder,
@@ -15880,7 +16090,7 @@ export type PullsCreateReplyForReviewComment = (
   params: Params<
     t_PullsCreateReplyForReviewCommentParamSchema,
     void,
-    t_PullsCreateReplyForReviewCommentRequestBodySchema,
+    t_pullsCreateReplyForReviewCommentJsonRequestBody,
     void
   >,
   respond: PullsCreateReplyForReviewCommentResponder,
@@ -15962,7 +16172,7 @@ export type PullsMerge = (
   params: Params<
     t_PullsMergeParamSchema,
     void,
-    t_PullsMergeRequestBodySchema | undefined,
+    t_pullsMergeJsonRequestBody | undefined,
     void
   >,
   respond: PullsMergeResponder,
@@ -15993,7 +16203,7 @@ export type PullsRequestReviewers = (
   params: Params<
     t_PullsRequestReviewersParamSchema,
     void,
-    t_PullsRequestReviewersRequestBodySchema | undefined,
+    t_pullsRequestReviewersJsonRequestBody | undefined,
     void
   >,
   respond: PullsRequestReviewersResponder,
@@ -16011,7 +16221,7 @@ export type PullsRemoveRequestedReviewers = (
   params: Params<
     t_PullsRemoveRequestedReviewersParamSchema,
     void,
-    t_PullsRemoveRequestedReviewersRequestBodySchema,
+    t_pullsRemoveRequestedReviewersJsonRequestBody,
     void
   >,
   respond: PullsRemoveRequestedReviewersResponder,
@@ -16047,7 +16257,7 @@ export type PullsCreateReview = (
   params: Params<
     t_PullsCreateReviewParamSchema,
     void,
-    t_PullsCreateReviewRequestBodySchema | undefined,
+    t_pullsCreateReviewJsonRequestBody | undefined,
     void
   >,
   respond: PullsCreateReviewResponder,
@@ -16078,7 +16288,7 @@ export type PullsUpdateReview = (
   params: Params<
     t_PullsUpdateReviewParamSchema,
     void,
-    t_PullsUpdateReviewRequestBodySchema,
+    t_pullsUpdateReviewJsonRequestBody,
     void
   >,
   respond: PullsUpdateReviewResponder,
@@ -16129,7 +16339,7 @@ export type PullsDismissReview = (
   params: Params<
     t_PullsDismissReviewParamSchema,
     void,
-    t_PullsDismissReviewRequestBodySchema,
+    t_pullsDismissReviewJsonRequestBody,
     void
   >,
   respond: PullsDismissReviewResponder,
@@ -16149,7 +16359,7 @@ export type PullsSubmitReview = (
   params: Params<
     t_PullsSubmitReviewParamSchema,
     void,
-    t_PullsSubmitReviewRequestBodySchema,
+    t_pullsSubmitReviewJsonRequestBody,
     void
   >,
   respond: PullsSubmitReviewResponder,
@@ -16171,7 +16381,7 @@ export type PullsUpdateBranch = (
   params: Params<
     t_PullsUpdateBranchParamSchema,
     void,
-    t_PullsUpdateBranchRequestBodySchema | undefined,
+    t_pullsUpdateBranchJsonRequestBody | undefined,
     void
   >,
   respond: PullsUpdateBranchResponder,
@@ -16247,7 +16457,7 @@ export type ReposCreateRelease = (
   params: Params<
     t_ReposCreateReleaseParamSchema,
     void,
-    t_ReposCreateReleaseRequestBodySchema,
+    t_reposCreateReleaseJsonRequestBody,
     void
   >,
   respond: ReposCreateReleaseResponder,
@@ -16278,7 +16488,7 @@ export type ReposUpdateReleaseAsset = (
   params: Params<
     t_ReposUpdateReleaseAssetParamSchema,
     void,
-    t_ReposUpdateReleaseAssetRequestBodySchema | undefined,
+    t_reposUpdateReleaseAssetJsonRequestBody | undefined,
     void
   >,
   respond: ReposUpdateReleaseAssetResponder,
@@ -16308,7 +16518,7 @@ export type ReposGenerateReleaseNotes = (
   params: Params<
     t_ReposGenerateReleaseNotesParamSchema,
     void,
-    t_ReposGenerateReleaseNotesRequestBodySchema,
+    t_reposGenerateReleaseNotesJsonRequestBody,
     void
   >,
   respond: ReposGenerateReleaseNotesResponder,
@@ -16364,7 +16574,7 @@ export type ReposUpdateRelease = (
   params: Params<
     t_ReposUpdateReleaseParamSchema,
     void,
-    t_ReposUpdateReleaseRequestBodySchema | undefined,
+    t_reposUpdateReleaseJsonRequestBody | undefined,
     void
   >,
   respond: ReposUpdateReleaseResponder,
@@ -16411,7 +16621,7 @@ export type ReposUploadReleaseAsset = (
   params: Params<
     t_ReposUploadReleaseAssetParamSchema,
     t_ReposUploadReleaseAssetQuerySchema,
-    t_ReposUploadReleaseAssetRequestBodySchema | undefined,
+    never | undefined,
     void
   >,
   respond: ReposUploadReleaseAssetResponder,
@@ -16448,7 +16658,7 @@ export type ReactionsCreateForRelease = (
   params: Params<
     t_ReactionsCreateForReleaseParamSchema,
     void,
-    t_ReactionsCreateForReleaseRequestBodySchema,
+    t_reactionsCreateForReleaseJsonRequestBody,
     void
   >,
   respond: ReactionsCreateForReleaseResponder,
@@ -16515,7 +16725,7 @@ export type ReposCreateRepoRuleset = (
   params: Params<
     t_ReposCreateRepoRulesetParamSchema,
     void,
-    t_ReposCreateRepoRulesetRequestBodySchema,
+    t_reposCreateRepoRulesetJsonRequestBody,
     void
   >,
   respond: ReposCreateRepoRulesetResponder,
@@ -16586,7 +16796,7 @@ export type ReposUpdateRepoRuleset = (
   params: Params<
     t_ReposUpdateRepoRulesetParamSchema,
     void,
-    t_ReposUpdateRepoRulesetRequestBodySchema | undefined,
+    t_reposUpdateRepoRulesetJsonRequestBody | undefined,
     void
   >,
   respond: ReposUpdateRepoRulesetResponder,
@@ -16705,7 +16915,7 @@ export type SecretScanningUpdateAlert = (
   params: Params<
     t_SecretScanningUpdateAlertParamSchema,
     void,
-    t_SecretScanningUpdateAlertRequestBodySchema,
+    t_secretScanningUpdateAlertJsonRequestBody,
     void
   >,
   respond: SecretScanningUpdateAlertResponder,
@@ -16753,7 +16963,7 @@ export type SecretScanningCreatePushProtectionBypass = (
   params: Params<
     t_SecretScanningCreatePushProtectionBypassParamSchema,
     void,
-    t_SecretScanningCreatePushProtectionBypassRequestBodySchema,
+    t_secretScanningCreatePushProtectionBypassJsonRequestBody,
     void
   >,
   respond: SecretScanningCreatePushProtectionBypassResponder,
@@ -16810,7 +17020,7 @@ export type SecurityAdvisoriesCreateRepositoryAdvisory = (
   params: Params<
     t_SecurityAdvisoriesCreateRepositoryAdvisoryParamSchema,
     void,
-    t_SecurityAdvisoriesCreateRepositoryAdvisoryRequestBodySchema,
+    t_repository_advisory_create,
     void
   >,
   respond: SecurityAdvisoriesCreateRepositoryAdvisoryResponder,
@@ -16830,7 +17040,7 @@ export type SecurityAdvisoriesCreatePrivateVulnerabilityReport = (
   params: Params<
     t_SecurityAdvisoriesCreatePrivateVulnerabilityReportParamSchema,
     void,
-    t_SecurityAdvisoriesCreatePrivateVulnerabilityReportRequestBodySchema,
+    t_private_vulnerability_report_create,
     void
   >,
   respond: SecurityAdvisoriesCreatePrivateVulnerabilityReportResponder,
@@ -16869,7 +17079,7 @@ export type SecurityAdvisoriesUpdateRepositoryAdvisory = (
   params: Params<
     t_SecurityAdvisoriesUpdateRepositoryAdvisoryParamSchema,
     void,
-    t_SecurityAdvisoriesUpdateRepositoryAdvisoryRequestBodySchema,
+    t_repository_advisory_update,
     void
   >,
   respond: SecurityAdvisoriesUpdateRepositoryAdvisoryResponder,
@@ -17018,7 +17228,7 @@ export type ReposCreateCommitStatus = (
   params: Params<
     t_ReposCreateCommitStatusParamSchema,
     void,
-    t_ReposCreateCommitStatusRequestBodySchema,
+    t_reposCreateCommitStatusJsonRequestBody,
     void
   >,
   respond: ReposCreateCommitStatusResponder,
@@ -17066,7 +17276,7 @@ export type ActivitySetRepoSubscription = (
   params: Params<
     t_ActivitySetRepoSubscriptionParamSchema,
     void,
-    t_ActivitySetRepoSubscriptionRequestBodySchema | undefined,
+    t_activitySetRepoSubscriptionJsonRequestBody | undefined,
     void
   >,
   respond: ActivitySetRepoSubscriptionResponder,
@@ -17128,7 +17338,7 @@ export type ReposCreateTagProtection = (
   params: Params<
     t_ReposCreateTagProtectionParamSchema,
     void,
-    t_ReposCreateTagProtectionRequestBodySchema,
+    t_reposCreateTagProtectionJsonRequestBody,
     void
   >,
   respond: ReposCreateTagProtectionResponder,
@@ -17209,7 +17419,7 @@ export type ReposReplaceAllTopics = (
   params: Params<
     t_ReposReplaceAllTopicsParamSchema,
     void,
-    t_ReposReplaceAllTopicsRequestBodySchema,
+    t_reposReplaceAllTopicsJsonRequestBody,
     void
   >,
   respond: ReposReplaceAllTopicsResponder,
@@ -17288,7 +17498,7 @@ export type ReposTransfer = (
   params: Params<
     t_ReposTransferParamSchema,
     void,
-    t_ReposTransferRequestBodySchema,
+    t_reposTransferJsonRequestBody,
     void
   >,
   respond: ReposTransferResponder,
@@ -17359,7 +17569,7 @@ export type ReposCreateUsingTemplate = (
   params: Params<
     t_ReposCreateUsingTemplateParamSchema,
     void,
-    t_ReposCreateUsingTemplateRequestBodySchema,
+    t_reposCreateUsingTemplateJsonRequestBody,
     void
   >,
   respond: ReposCreateUsingTemplateResponder,
@@ -17555,7 +17765,7 @@ export type TeamsUpdateLegacy = (
   params: Params<
     t_TeamsUpdateLegacyParamSchema,
     void,
-    t_TeamsUpdateLegacyRequestBodySchema,
+    t_teamsUpdateLegacyJsonRequestBody,
     void
   >,
   respond: TeamsUpdateLegacyResponder,
@@ -17603,7 +17813,7 @@ export type TeamsCreateDiscussionLegacy = (
   params: Params<
     t_TeamsCreateDiscussionLegacyParamSchema,
     void,
-    t_TeamsCreateDiscussionLegacyRequestBodySchema,
+    t_teamsCreateDiscussionLegacyJsonRequestBody,
     void
   >,
   respond: TeamsCreateDiscussionLegacyResponder,
@@ -17632,7 +17842,7 @@ export type TeamsUpdateDiscussionLegacy = (
   params: Params<
     t_TeamsUpdateDiscussionLegacyParamSchema,
     void,
-    t_TeamsUpdateDiscussionLegacyRequestBodySchema | undefined,
+    t_teamsUpdateDiscussionLegacyJsonRequestBody | undefined,
     void
   >,
   respond: TeamsUpdateDiscussionLegacyResponder,
@@ -17678,7 +17888,7 @@ export type TeamsCreateDiscussionCommentLegacy = (
   params: Params<
     t_TeamsCreateDiscussionCommentLegacyParamSchema,
     void,
-    t_TeamsCreateDiscussionCommentLegacyRequestBodySchema,
+    t_teamsCreateDiscussionCommentLegacyJsonRequestBody,
     void
   >,
   respond: TeamsCreateDiscussionCommentLegacyResponder,
@@ -17712,7 +17922,7 @@ export type TeamsUpdateDiscussionCommentLegacy = (
   params: Params<
     t_TeamsUpdateDiscussionCommentLegacyParamSchema,
     void,
-    t_TeamsUpdateDiscussionCommentLegacyRequestBodySchema,
+    t_teamsUpdateDiscussionCommentLegacyJsonRequestBody,
     void
   >,
   respond: TeamsUpdateDiscussionCommentLegacyResponder,
@@ -17763,7 +17973,7 @@ export type ReactionsCreateForTeamDiscussionCommentLegacy = (
   params: Params<
     t_ReactionsCreateForTeamDiscussionCommentLegacyParamSchema,
     void,
-    t_ReactionsCreateForTeamDiscussionCommentLegacyRequestBodySchema,
+    t_reactionsCreateForTeamDiscussionCommentLegacyJsonRequestBody,
     void
   >,
   respond: ReactionsCreateForTeamDiscussionCommentLegacyResponder,
@@ -17797,7 +18007,7 @@ export type ReactionsCreateForTeamDiscussionLegacy = (
   params: Params<
     t_ReactionsCreateForTeamDiscussionLegacyParamSchema,
     void,
-    t_ReactionsCreateForTeamDiscussionLegacyRequestBodySchema,
+    t_reactionsCreateForTeamDiscussionLegacyJsonRequestBody,
     void
   >,
   respond: ReactionsCreateForTeamDiscussionLegacyResponder,
@@ -17911,7 +18121,7 @@ export type TeamsAddOrUpdateMembershipForUserLegacy = (
   params: Params<
     t_TeamsAddOrUpdateMembershipForUserLegacyParamSchema,
     void,
-    t_TeamsAddOrUpdateMembershipForUserLegacyRequestBodySchema | undefined,
+    t_teamsAddOrUpdateMembershipForUserLegacyJsonRequestBody | undefined,
     void
   >,
   respond: TeamsAddOrUpdateMembershipForUserLegacyResponder,
@@ -17988,7 +18198,7 @@ export type TeamsAddOrUpdateProjectPermissionsLegacy = (
   params: Params<
     t_TeamsAddOrUpdateProjectPermissionsLegacyParamSchema,
     void,
-    t_TeamsAddOrUpdateProjectPermissionsLegacyRequestBodySchema | undefined,
+    t_teamsAddOrUpdateProjectPermissionsLegacyJsonRequestBody | undefined,
     void
   >,
   respond: TeamsAddOrUpdateProjectPermissionsLegacyResponder,
@@ -18058,7 +18268,7 @@ export type TeamsAddOrUpdateRepoPermissionsLegacy = (
   params: Params<
     t_TeamsAddOrUpdateRepoPermissionsLegacyParamSchema,
     void,
-    t_TeamsAddOrUpdateRepoPermissionsLegacyRequestBodySchema | undefined,
+    t_teamsAddOrUpdateRepoPermissionsLegacyJsonRequestBody | undefined,
     void
   >,
   respond: TeamsAddOrUpdateRepoPermissionsLegacyResponder,
@@ -18127,7 +18337,7 @@ export type UsersUpdateAuthenticated = (
   params: Params<
     void,
     void,
-    t_UsersUpdateAuthenticatedRequestBodySchema | undefined,
+    t_usersUpdateAuthenticatedJsonRequestBody | undefined,
     void
   >,
   respond: UsersUpdateAuthenticatedResponder,
@@ -18248,7 +18458,7 @@ export type CodespacesCreateForAuthenticatedUser = (
   params: Params<
     void,
     void,
-    t_CodespacesCreateForAuthenticatedUserRequestBodySchema,
+    t_codespacesCreateForAuthenticatedUserJsonRequestBody,
     void
   >,
   respond: CodespacesCreateForAuthenticatedUserResponder,
@@ -18317,7 +18527,7 @@ export type CodespacesCreateOrUpdateSecretForAuthenticatedUser = (
   params: Params<
     t_CodespacesCreateOrUpdateSecretForAuthenticatedUserParamSchema,
     void,
-    t_CodespacesCreateOrUpdateSecretForAuthenticatedUserRequestBodySchema,
+    t_codespacesCreateOrUpdateSecretForAuthenticatedUserJsonRequestBody,
     void
   >,
   respond: CodespacesCreateOrUpdateSecretForAuthenticatedUserResponder,
@@ -18379,7 +18589,7 @@ export type CodespacesSetRepositoriesForSecretForAuthenticatedUser = (
   params: Params<
     t_CodespacesSetRepositoriesForSecretForAuthenticatedUserParamSchema,
     void,
-    t_CodespacesSetRepositoriesForSecretForAuthenticatedUserRequestBodySchema,
+    t_codespacesSetRepositoriesForSecretForAuthenticatedUserJsonRequestBody,
     void
   >,
   respond: CodespacesSetRepositoriesForSecretForAuthenticatedUserResponder,
@@ -18463,7 +18673,7 @@ export type CodespacesUpdateForAuthenticatedUser = (
   params: Params<
     t_CodespacesUpdateForAuthenticatedUserParamSchema,
     void,
-    t_CodespacesUpdateForAuthenticatedUserRequestBodySchema | undefined,
+    t_codespacesUpdateForAuthenticatedUserJsonRequestBody | undefined,
     void
   >,
   respond: CodespacesUpdateForAuthenticatedUserResponder,
@@ -18573,7 +18783,7 @@ export type CodespacesPublishForAuthenticatedUser = (
   params: Params<
     t_CodespacesPublishForAuthenticatedUserParamSchema,
     void,
-    t_CodespacesPublishForAuthenticatedUserRequestBodySchema,
+    t_codespacesPublishForAuthenticatedUserJsonRequestBody,
     void
   >,
   respond: CodespacesPublishForAuthenticatedUserResponder,
@@ -18655,7 +18865,7 @@ export type UsersSetPrimaryEmailVisibilityForAuthenticatedUser = (
   params: Params<
     void,
     void,
-    t_UsersSetPrimaryEmailVisibilityForAuthenticatedUserRequestBodySchema,
+    t_usersSetPrimaryEmailVisibilityForAuthenticatedUserJsonRequestBody,
     void
   >,
   respond: UsersSetPrimaryEmailVisibilityForAuthenticatedUserResponder,
@@ -18698,7 +18908,7 @@ export type UsersAddEmailForAuthenticatedUser = (
   params: Params<
     void,
     void,
-    t_UsersAddEmailForAuthenticatedUserRequestBodySchema | undefined,
+    t_usersAddEmailForAuthenticatedUserJsonRequestBody | undefined,
     void
   >,
   respond: UsersAddEmailForAuthenticatedUserResponder,
@@ -18720,7 +18930,7 @@ export type UsersDeleteEmailForAuthenticatedUser = (
   params: Params<
     void,
     void,
-    t_UsersDeleteEmailForAuthenticatedUserRequestBodySchema,
+    t_usersDeleteEmailForAuthenticatedUserJsonRequestBody,
     void
   >,
   respond: UsersDeleteEmailForAuthenticatedUserResponder,
@@ -18857,7 +19067,7 @@ export type UsersCreateGpgKeyForAuthenticatedUser = (
   params: Params<
     void,
     void,
-    t_UsersCreateGpgKeyForAuthenticatedUserRequestBodySchema,
+    t_usersCreateGpgKeyForAuthenticatedUserJsonRequestBody,
     void
   >,
   respond: UsersCreateGpgKeyForAuthenticatedUserResponder,
@@ -19016,12 +19226,7 @@ export type InteractionsSetRestrictionsForAuthenticatedUserResponder = {
 } & ExpressRuntimeResponder
 
 export type InteractionsSetRestrictionsForAuthenticatedUser = (
-  params: Params<
-    void,
-    void,
-    t_InteractionsSetRestrictionsForAuthenticatedUserRequestBodySchema,
-    void
-  >,
+  params: Params<void, void, t_interaction_limit, void>,
   respond: InteractionsSetRestrictionsForAuthenticatedUserResponder,
   req: Request,
   res: Response,
@@ -19088,7 +19293,7 @@ export type UsersCreatePublicSshKeyForAuthenticatedUser = (
   params: Params<
     void,
     void,
-    t_UsersCreatePublicSshKeyForAuthenticatedUserRequestBodySchema,
+    t_usersCreatePublicSshKeyForAuthenticatedUserJsonRequestBody,
     void
   >,
   respond: UsersCreatePublicSshKeyForAuthenticatedUserResponder,
@@ -19229,7 +19434,7 @@ export type OrgsUpdateMembershipForAuthenticatedUser = (
   params: Params<
     t_OrgsUpdateMembershipForAuthenticatedUserParamSchema,
     void,
-    t_OrgsUpdateMembershipForAuthenticatedUserRequestBodySchema,
+    t_orgsUpdateMembershipForAuthenticatedUserJsonRequestBody,
     void
   >,
   respond: OrgsUpdateMembershipForAuthenticatedUserResponder,
@@ -19270,7 +19475,7 @@ export type MigrationsStartForAuthenticatedUser = (
   params: Params<
     void,
     void,
-    t_MigrationsStartForAuthenticatedUserRequestBodySchema,
+    t_migrationsStartForAuthenticatedUserJsonRequestBody,
     void
   >,
   respond: MigrationsStartForAuthenticatedUserResponder,
@@ -19560,7 +19765,7 @@ export type ProjectsClassicCreateForAuthenticatedUser = (
   params: Params<
     void,
     void,
-    t_ProjectsClassicCreateForAuthenticatedUserRequestBodySchema,
+    t_projectsClassicCreateForAuthenticatedUserJsonRequestBody,
     void
   >,
   respond: ProjectsClassicCreateForAuthenticatedUserResponder,
@@ -19620,7 +19825,7 @@ export type ReposCreateForAuthenticatedUser = (
   params: Params<
     void,
     void,
-    t_ReposCreateForAuthenticatedUserRequestBodySchema,
+    t_reposCreateForAuthenticatedUserJsonRequestBody,
     void
   >,
   respond: ReposCreateForAuthenticatedUserResponder,
@@ -19726,7 +19931,7 @@ export type UsersAddSocialAccountForAuthenticatedUser = (
   params: Params<
     void,
     void,
-    t_UsersAddSocialAccountForAuthenticatedUserRequestBodySchema,
+    t_usersAddSocialAccountForAuthenticatedUserJsonRequestBody,
     void
   >,
   respond: UsersAddSocialAccountForAuthenticatedUserResponder,
@@ -19748,7 +19953,7 @@ export type UsersDeleteSocialAccountForAuthenticatedUser = (
   params: Params<
     void,
     void,
-    t_UsersDeleteSocialAccountForAuthenticatedUserRequestBodySchema,
+    t_usersDeleteSocialAccountForAuthenticatedUserJsonRequestBody,
     void
   >,
   respond: UsersDeleteSocialAccountForAuthenticatedUserResponder,
@@ -19791,7 +19996,7 @@ export type UsersCreateSshSigningKeyForAuthenticatedUser = (
   params: Params<
     void,
     void,
-    t_UsersCreateSshSigningKeyForAuthenticatedUserRequestBodySchema,
+    t_usersCreateSshSigningKeyForAuthenticatedUserJsonRequestBody,
     void
   >,
   respond: UsersCreateSshSigningKeyForAuthenticatedUserResponder,
@@ -20044,7 +20249,7 @@ export type UsersListAttestationsBulk = (
   params: Params<
     t_UsersListAttestationsBulkParamSchema,
     t_UsersListAttestationsBulkQuerySchema,
-    t_UsersListAttestationsBulkRequestBodySchema,
+    t_usersListAttestationsBulkJsonRequestBody,
     void
   >,
   respond: UsersListAttestationsBulkResponder,
@@ -20062,7 +20267,7 @@ export type UsersDeleteAttestationsBulk = (
   params: Params<
     t_UsersDeleteAttestationsBulkParamSchema,
     void,
-    t_UsersDeleteAttestationsBulkRequestBodySchema,
+    t_usersDeleteAttestationsBulkJsonRequestBody,
     void
   >,
   respond: UsersDeleteAttestationsBulkResponder,
@@ -22231,12 +22436,8 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const appsUpdateWebhookConfigForAppRequestBodySchema = z.object({
-    url: s_webhook_config_url.optional(),
-    content_type: s_webhook_config_content_type.optional(),
-    secret: s_webhook_config_secret.optional(),
-    insecure_ssl: s_webhook_config_insecure_ssl.optional(),
-  })
+  const appsUpdateWebhookConfigForAppRequestBodySchema =
+    s_appsUpdateWebhookConfigForAppJsonRequestBody
 
   const appsUpdateWebhookConfigForAppResponseBodyValidator =
     responseValidationFactory([["200", s_webhook_config]], undefined)
@@ -22819,13 +23020,8 @@ export function createRouter(implementation: Implementation): Router {
     installation_id: z.coerce.number(),
   })
 
-  const appsCreateInstallationAccessTokenRequestBodySchema = z
-    .object({
-      repositories: z.array(z.string()).optional(),
-      repository_ids: z.array(z.coerce.number()).optional(),
-      permissions: s_app_permissions.optional(),
-    })
-    .optional()
+  const appsCreateInstallationAccessTokenRequestBodySchema =
+    s_appsCreateInstallationAccessTokenJsonRequestBody.optional()
 
   const appsCreateInstallationAccessTokenResponseBodyValidator =
     responseValidationFactory(
@@ -23056,9 +23252,8 @@ export function createRouter(implementation: Implementation): Router {
 
   const appsDeleteAuthorizationParamSchema = z.object({client_id: z.string()})
 
-  const appsDeleteAuthorizationRequestBodySchema = z.object({
-    access_token: z.string(),
-  })
+  const appsDeleteAuthorizationRequestBodySchema =
+    s_appsDeleteAuthorizationJsonRequestBody
 
   const appsDeleteAuthorizationResponseBodyValidator =
     responseValidationFactory(
@@ -23132,7 +23327,7 @@ export function createRouter(implementation: Implementation): Router {
 
   const appsCheckTokenParamSchema = z.object({client_id: z.string()})
 
-  const appsCheckTokenRequestBodySchema = z.object({access_token: z.string()})
+  const appsCheckTokenRequestBodySchema = s_appsCheckTokenJsonRequestBody
 
   const appsCheckTokenResponseBodyValidator = responseValidationFactory(
     [
@@ -23209,7 +23404,7 @@ export function createRouter(implementation: Implementation): Router {
 
   const appsResetTokenParamSchema = z.object({client_id: z.string()})
 
-  const appsResetTokenRequestBodySchema = z.object({access_token: z.string()})
+  const appsResetTokenRequestBodySchema = s_appsResetTokenJsonRequestBody
 
   const appsResetTokenResponseBodyValidator = responseValidationFactory(
     [
@@ -23282,7 +23477,7 @@ export function createRouter(implementation: Implementation): Router {
 
   const appsDeleteTokenParamSchema = z.object({client_id: z.string()})
 
-  const appsDeleteTokenRequestBodySchema = z.object({access_token: z.string()})
+  const appsDeleteTokenRequestBodySchema = s_appsDeleteTokenJsonRequestBody
 
   const appsDeleteTokenResponseBodyValidator = responseValidationFactory(
     [
@@ -23355,14 +23550,7 @@ export function createRouter(implementation: Implementation): Router {
 
   const appsScopeTokenParamSchema = z.object({client_id: z.string()})
 
-  const appsScopeTokenRequestBodySchema = z.object({
-    access_token: z.string(),
-    target: z.string().optional(),
-    target_id: z.coerce.number().optional(),
-    repositories: z.array(z.string()).optional(),
-    repository_ids: z.array(z.coerce.number()).optional(),
-    permissions: s_app_permissions.optional(),
-  })
+  const appsScopeTokenRequestBodySchema = s_appsScopeTokenJsonRequestBody
 
   const appsScopeTokenResponseBodyValidator = responseValidationFactory(
     [
@@ -24104,9 +24292,7 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const credentialsRevokeRequestBodySchema = z.object({
-    credentials: z.array(z.string()).min(1).max(1000),
-  })
+  const credentialsRevokeRequestBodySchema = s_credentialsRevokeJsonRequestBody
 
   const credentialsRevokeResponseBodyValidator = responseValidationFactory(
     [
@@ -24344,78 +24530,7 @@ export function createRouter(implementation: Implementation): Router {
   })
 
   const codeSecurityCreateConfigurationForEnterpriseRequestBodySchema =
-    z.object({
-      name: z.string(),
-      description: z.string().max(255),
-      advanced_security: z
-        .enum(["enabled", "disabled", "code_security", "secret_protection"])
-        .optional()
-        .default("disabled"),
-      code_security: z.enum(["enabled", "disabled", "not_set"]).optional(),
-      dependency_graph: z
-        .enum(["enabled", "disabled", "not_set"])
-        .optional()
-        .default("enabled"),
-      dependency_graph_autosubmit_action: z
-        .enum(["enabled", "disabled", "not_set"])
-        .optional()
-        .default("disabled"),
-      dependency_graph_autosubmit_action_options: z
-        .object({labeled_runners: PermissiveBoolean.optional().default(false)})
-        .optional(),
-      dependabot_alerts: z
-        .enum(["enabled", "disabled", "not_set"])
-        .optional()
-        .default("disabled"),
-      dependabot_security_updates: z
-        .enum(["enabled", "disabled", "not_set"])
-        .optional()
-        .default("disabled"),
-      code_scanning_options: s_code_scanning_options.optional(),
-      code_scanning_default_setup: z
-        .enum(["enabled", "disabled", "not_set"])
-        .optional()
-        .default("disabled"),
-      code_scanning_default_setup_options:
-        s_code_scanning_default_setup_options.optional(),
-      code_scanning_delegated_alert_dismissal: z
-        .enum(["enabled", "disabled", "not_set"])
-        .optional()
-        .default("disabled"),
-      secret_protection: z.enum(["enabled", "disabled", "not_set"]).optional(),
-      secret_scanning: z
-        .enum(["enabled", "disabled", "not_set"])
-        .optional()
-        .default("disabled"),
-      secret_scanning_push_protection: z
-        .enum(["enabled", "disabled", "not_set"])
-        .optional()
-        .default("disabled"),
-      secret_scanning_validity_checks: z
-        .enum(["enabled", "disabled", "not_set"])
-        .optional()
-        .default("disabled"),
-      secret_scanning_non_provider_patterns: z
-        .enum(["enabled", "disabled", "not_set"])
-        .optional()
-        .default("disabled"),
-      secret_scanning_generic_secrets: z
-        .enum(["enabled", "disabled", "not_set"])
-        .optional()
-        .default("disabled"),
-      secret_scanning_delegated_alert_dismissal: z
-        .enum(["enabled", "disabled", "not_set"])
-        .optional()
-        .default("disabled"),
-      private_vulnerability_reporting: z
-        .enum(["enabled", "disabled", "not_set"])
-        .optional()
-        .default("disabled"),
-      enforcement: z
-        .enum(["enforced", "unenforced"])
-        .optional()
-        .default("enforced"),
-    })
+    s_codeSecurityCreateConfigurationForEnterpriseJsonRequestBody
 
   const codeSecurityCreateConfigurationForEnterpriseResponseBodyValidator =
     responseValidationFactory(
@@ -24682,57 +24797,8 @@ export function createRouter(implementation: Implementation): Router {
     configuration_id: z.coerce.number(),
   })
 
-  const codeSecurityUpdateEnterpriseConfigurationRequestBodySchema = z.object({
-    name: z.string().optional(),
-    description: z.string().max(255).optional(),
-    advanced_security: z
-      .enum(["enabled", "disabled", "code_security", "secret_protection"])
-      .optional(),
-    code_security: z.enum(["enabled", "disabled", "not_set"]).optional(),
-    dependency_graph: z.enum(["enabled", "disabled", "not_set"]).optional(),
-    dependency_graph_autosubmit_action: z
-      .enum(["enabled", "disabled", "not_set"])
-      .optional(),
-    dependency_graph_autosubmit_action_options: z
-      .object({labeled_runners: PermissiveBoolean.optional()})
-      .optional(),
-    dependabot_alerts: z.enum(["enabled", "disabled", "not_set"]).optional(),
-    dependabot_security_updates: z
-      .enum(["enabled", "disabled", "not_set"])
-      .optional(),
-    code_scanning_default_setup: z
-      .enum(["enabled", "disabled", "not_set"])
-      .optional(),
-    code_scanning_default_setup_options:
-      s_code_scanning_default_setup_options.optional(),
-    code_scanning_delegated_alert_dismissal: z
-      .enum(["enabled", "disabled", "not_set"])
-      .optional()
-      .default("disabled"),
-    secret_protection: z.enum(["enabled", "disabled", "not_set"]).optional(),
-    secret_scanning: z.enum(["enabled", "disabled", "not_set"]).optional(),
-    secret_scanning_push_protection: z
-      .enum(["enabled", "disabled", "not_set"])
-      .optional(),
-    secret_scanning_validity_checks: z
-      .enum(["enabled", "disabled", "not_set"])
-      .optional(),
-    secret_scanning_non_provider_patterns: z
-      .enum(["enabled", "disabled", "not_set"])
-      .optional(),
-    secret_scanning_generic_secrets: z
-      .enum(["enabled", "disabled", "not_set"])
-      .optional()
-      .default("disabled"),
-    secret_scanning_delegated_alert_dismissal: z
-      .enum(["enabled", "disabled", "not_set"])
-      .optional()
-      .default("disabled"),
-    private_vulnerability_reporting: z
-      .enum(["enabled", "disabled", "not_set"])
-      .optional(),
-    enforcement: z.enum(["enforced", "unenforced"]).optional(),
-  })
+  const codeSecurityUpdateEnterpriseConfigurationRequestBodySchema =
+    s_codeSecurityUpdateEnterpriseConfigurationJsonRequestBody
 
   const codeSecurityUpdateEnterpriseConfigurationResponseBodyValidator =
     responseValidationFactory(
@@ -24928,9 +24994,8 @@ export function createRouter(implementation: Implementation): Router {
     configuration_id: z.coerce.number(),
   })
 
-  const codeSecurityAttachEnterpriseConfigurationRequestBodySchema = z.object({
-    scope: z.enum(["all", "all_without_configurations"]),
-  })
+  const codeSecurityAttachEnterpriseConfigurationRequestBodySchema =
+    s_codeSecurityAttachEnterpriseConfigurationJsonRequestBody
 
   const codeSecurityAttachEnterpriseConfigurationResponseBodyValidator =
     responseValidationFactory(
@@ -25027,11 +25092,7 @@ export function createRouter(implementation: Implementation): Router {
     z.object({enterprise: z.string(), configuration_id: z.coerce.number()})
 
   const codeSecuritySetConfigurationAsDefaultForEnterpriseRequestBodySchema =
-    z.object({
-      default_for_new_repos: z
-        .enum(["all", "none", "private_and_internal", "public"])
-        .optional(),
-    })
+    s_codeSecuritySetConfigurationAsDefaultForEnterpriseJsonRequestBody
 
   const codeSecuritySetConfigurationAsDefaultForEnterpriseResponseBodyValidator =
     responseValidationFactory(
@@ -25679,16 +25740,7 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const gistsCreateRequestBodySchema = z.object({
-    description: z.string().optional(),
-    files: z.record(z.string(), z.object({content: z.string()})),
-    public: z
-      .union([
-        PermissiveBoolean.default(false),
-        z.enum(["true", "false"]).default("false"),
-      ])
-      .optional(),
-  })
+  const gistsCreateRequestBodySchema = s_gistsCreateJsonRequestBody
 
   const gistsCreateResponseBodyValidator = responseValidationFactory(
     [
@@ -26025,22 +26077,7 @@ export function createRouter(implementation: Implementation): Router {
 
   const gistsUpdateParamSchema = z.object({gist_id: z.string()})
 
-  const gistsUpdateRequestBodySchema = z
-    .object({
-      description: z.string().optional(),
-      files: z
-        .record(
-          z.string(),
-          z
-            .object({
-              content: z.string().optional(),
-              filename: z.string().nullable().optional(),
-            })
-            .nullable(),
-        )
-        .optional(),
-    })
-    .nullable()
+  const gistsUpdateRequestBodySchema = s_gistsUpdateJsonRequestBody
 
   const gistsUpdateResponseBodyValidator = responseValidationFactory(
     [
@@ -26276,9 +26313,8 @@ export function createRouter(implementation: Implementation): Router {
 
   const gistsCreateCommentParamSchema = z.object({gist_id: z.string()})
 
-  const gistsCreateCommentRequestBodySchema = z.object({
-    body: z.string().max(65535),
-  })
+  const gistsCreateCommentRequestBodySchema =
+    s_gistsCreateCommentJsonRequestBody
 
   const gistsCreateCommentResponseBodyValidator = responseValidationFactory(
     [
@@ -26463,9 +26499,8 @@ export function createRouter(implementation: Implementation): Router {
     comment_id: z.coerce.number(),
   })
 
-  const gistsUpdateCommentRequestBodySchema = z.object({
-    body: z.string().max(65535),
-  })
+  const gistsUpdateCommentRequestBodySchema =
+    s_gistsUpdateCommentJsonRequestBody
 
   const gistsUpdateCommentResponseBodyValidator = responseValidationFactory(
     [
@@ -27695,11 +27730,7 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const markdownRenderRequestBodySchema = z.object({
-    text: z.string(),
-    mode: z.enum(["markdown", "gfm"]).optional().default("markdown"),
-    context: z.string().optional(),
-  })
+  const markdownRenderRequestBodySchema = s_markdownRenderJsonRequestBody
 
   const markdownRenderResponseBodyValidator = responseValidationFactory(
     [
@@ -28575,12 +28606,8 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const activityMarkNotificationsAsReadRequestBodySchema = z
-    .object({
-      last_read_at: z.iso.datetime({offset: true}).optional(),
-      read: PermissiveBoolean.optional(),
-    })
-    .optional()
+  const activityMarkNotificationsAsReadRequestBodySchema =
+    s_activityMarkNotificationsAsReadJsonRequestBody.optional()
 
   const activityMarkNotificationsAsReadResponseBodyValidator =
     responseValidationFactory(
@@ -28967,9 +28994,8 @@ export function createRouter(implementation: Implementation): Router {
     thread_id: z.coerce.number(),
   })
 
-  const activitySetThreadSubscriptionRequestBodySchema = z
-    .object({ignored: PermissiveBoolean.optional().default(false)})
-    .optional()
+  const activitySetThreadSubscriptionRequestBodySchema =
+    s_activitySetThreadSubscriptionJsonRequestBody.optional()
 
   const activitySetThreadSubscriptionResponseBodyValidator =
     responseValidationFactory(
@@ -29353,10 +29379,8 @@ export function createRouter(implementation: Implementation): Router {
     org: z.string(),
   })
 
-  const dependabotUpdateRepositoryAccessForOrgRequestBodySchema = z.object({
-    repository_ids_to_add: z.array(z.coerce.number()).optional(),
-    repository_ids_to_remove: z.array(z.coerce.number()).optional(),
-  })
+  const dependabotUpdateRepositoryAccessForOrgRequestBodySchema =
+    s_dependabotUpdateRepositoryAccessForOrgJsonRequestBody
 
   const dependabotUpdateRepositoryAccessForOrgResponseBodyValidator =
     responseValidationFactory(
@@ -29447,9 +29471,8 @@ export function createRouter(implementation: Implementation): Router {
     org: z.string(),
   })
 
-  const dependabotSetRepositoryAccessDefaultLevelRequestBodySchema = z.object({
-    default_level: z.enum(["public", "internal"]),
-  })
+  const dependabotSetRepositoryAccessDefaultLevelRequestBodySchema =
+    s_dependabotSetRepositoryAccessDefaultLevelJsonRequestBody
 
   const dependabotSetRepositoryAccessDefaultLevelResponseBodyValidator =
     responseValidationFactory(
@@ -29720,56 +29743,7 @@ export function createRouter(implementation: Implementation): Router {
 
   const orgsUpdateParamSchema = z.object({org: z.string()})
 
-  const orgsUpdateRequestBodySchema = z
-    .object({
-      billing_email: z.string().optional(),
-      company: z.string().optional(),
-      email: z.string().optional(),
-      twitter_username: z.string().optional(),
-      location: z.string().optional(),
-      name: z.string().optional(),
-      description: z.string().optional(),
-      has_organization_projects: PermissiveBoolean.optional(),
-      has_repository_projects: PermissiveBoolean.optional(),
-      default_repository_permission: z
-        .enum(["read", "write", "admin", "none"])
-        .optional()
-        .default("read"),
-      members_can_create_repositories:
-        PermissiveBoolean.optional().default(true),
-      members_can_create_internal_repositories: PermissiveBoolean.optional(),
-      members_can_create_private_repositories: PermissiveBoolean.optional(),
-      members_can_create_public_repositories: PermissiveBoolean.optional(),
-      members_allowed_repository_creation_type: z
-        .enum(["all", "private", "none"])
-        .optional(),
-      members_can_create_pages: PermissiveBoolean.optional().default(true),
-      members_can_create_public_pages:
-        PermissiveBoolean.optional().default(true),
-      members_can_create_private_pages:
-        PermissiveBoolean.optional().default(true),
-      members_can_fork_private_repositories:
-        PermissiveBoolean.optional().default(false),
-      web_commit_signoff_required: PermissiveBoolean.optional().default(false),
-      blog: z.string().optional(),
-      advanced_security_enabled_for_new_repositories:
-        PermissiveBoolean.optional(),
-      dependabot_alerts_enabled_for_new_repositories:
-        PermissiveBoolean.optional(),
-      dependabot_security_updates_enabled_for_new_repositories:
-        PermissiveBoolean.optional(),
-      dependency_graph_enabled_for_new_repositories:
-        PermissiveBoolean.optional(),
-      secret_scanning_enabled_for_new_repositories:
-        PermissiveBoolean.optional(),
-      secret_scanning_push_protection_enabled_for_new_repositories:
-        PermissiveBoolean.optional(),
-      secret_scanning_push_protection_custom_link_enabled:
-        PermissiveBoolean.optional(),
-      secret_scanning_push_protection_custom_link: z.string().optional(),
-      deploy_keys_enabled_for_repositories: PermissiveBoolean.optional(),
-    })
-    .optional()
+  const orgsUpdateRequestBodySchema = s_orgsUpdateJsonRequestBody.optional()
 
   const orgsUpdateResponseBodyValidator = responseValidationFactory(
     [
@@ -30173,17 +30147,8 @@ export function createRouter(implementation: Implementation): Router {
 
   const actionsCreateHostedRunnerForOrgParamSchema = z.object({org: z.string()})
 
-  const actionsCreateHostedRunnerForOrgRequestBodySchema = z.object({
-    name: z.string(),
-    image: z.object({
-      id: z.string().optional(),
-      source: z.enum(["github", "partner", "custom"]).optional(),
-    }),
-    size: z.string(),
-    runner_group_id: z.coerce.number(),
-    maximum_runners: z.coerce.number().optional(),
-    enable_static_ip: PermissiveBoolean.optional(),
-  })
+  const actionsCreateHostedRunnerForOrgRequestBodySchema =
+    s_actionsCreateHostedRunnerForOrgJsonRequestBody
 
   const actionsCreateHostedRunnerForOrgResponseBodyValidator =
     responseValidationFactory([["201", s_actions_hosted_runner]], undefined)
@@ -30732,12 +30697,8 @@ export function createRouter(implementation: Implementation): Router {
     hosted_runner_id: z.coerce.number(),
   })
 
-  const actionsUpdateHostedRunnerForOrgRequestBodySchema = z.object({
-    name: z.string().optional(),
-    runner_group_id: z.coerce.number().optional(),
-    maximum_runners: z.coerce.number().optional(),
-    enable_static_ip: PermissiveBoolean.optional(),
-  })
+  const actionsUpdateHostedRunnerForOrgRequestBodySchema =
+    s_actionsUpdateHostedRunnerForOrgJsonRequestBody
 
   const actionsUpdateHostedRunnerForOrgResponseBodyValidator =
     responseValidationFactory([["200", s_actions_hosted_runner]], undefined)
@@ -31106,10 +31067,7 @@ export function createRouter(implementation: Implementation): Router {
   })
 
   const actionsSetGithubActionsPermissionsOrganizationRequestBodySchema =
-    z.object({
-      enabled_repositories: s_enabled_repositories,
-      allowed_actions: s_allowed_actions.optional(),
-    })
+    s_actionsSetGithubActionsPermissionsOrganizationJsonRequestBody
 
   const actionsSetGithubActionsPermissionsOrganizationResponseBodyValidator =
     responseValidationFactory([["204", z.undefined()]], undefined)
@@ -31282,7 +31240,7 @@ export function createRouter(implementation: Implementation): Router {
     z.object({org: z.string()})
 
   const actionsSetSelectedRepositoriesEnabledGithubActionsOrganizationRequestBodySchema =
-    z.object({selected_repository_ids: z.array(z.coerce.number())})
+    s_actionsSetSelectedRepositoriesEnabledGithubActionsOrganizationJsonRequestBody
 
   const actionsSetSelectedRepositoriesEnabledGithubActionsOrganizationResponseBodyValidator =
     responseValidationFactory([["204", z.undefined()]], undefined)
@@ -31903,19 +31861,8 @@ export function createRouter(implementation: Implementation): Router {
     org: z.string(),
   })
 
-  const actionsCreateSelfHostedRunnerGroupForOrgRequestBodySchema = z.object({
-    name: z.string(),
-    visibility: z
-      .enum(["selected", "all", "private"])
-      .optional()
-      .default("all"),
-    selected_repository_ids: z.array(z.coerce.number()).optional(),
-    runners: z.array(z.coerce.number()).optional(),
-    allows_public_repositories: PermissiveBoolean.optional().default(false),
-    restricted_to_workflows: PermissiveBoolean.optional().default(false),
-    selected_workflows: z.array(z.string()).optional(),
-    network_configuration_id: z.string().optional(),
-  })
+  const actionsCreateSelfHostedRunnerGroupForOrgRequestBodySchema =
+    s_actionsCreateSelfHostedRunnerGroupForOrgJsonRequestBody
 
   const actionsCreateSelfHostedRunnerGroupForOrgResponseBodyValidator =
     responseValidationFactory([["201", s_runner_groups_org]], undefined)
@@ -32067,14 +32014,8 @@ export function createRouter(implementation: Implementation): Router {
     runner_group_id: z.coerce.number(),
   })
 
-  const actionsUpdateSelfHostedRunnerGroupForOrgRequestBodySchema = z.object({
-    name: z.string(),
-    visibility: z.enum(["selected", "all", "private"]).optional(),
-    allows_public_repositories: PermissiveBoolean.optional().default(false),
-    restricted_to_workflows: PermissiveBoolean.optional().default(false),
-    selected_workflows: z.array(z.string()).optional(),
-    network_configuration_id: z.string().nullable().optional(),
-  })
+  const actionsUpdateSelfHostedRunnerGroupForOrgRequestBodySchema =
+    s_actionsUpdateSelfHostedRunnerGroupForOrgJsonRequestBody
 
   const actionsUpdateSelfHostedRunnerGroupForOrgResponseBodyValidator =
     responseValidationFactory([["200", s_runner_groups_org]], undefined)
@@ -32420,7 +32361,7 @@ export function createRouter(implementation: Implementation): Router {
   })
 
   const actionsSetRepoAccessToSelfHostedRunnerGroupInOrgRequestBodySchema =
-    z.object({selected_repository_ids: z.array(z.coerce.number())})
+    s_actionsSetRepoAccessToSelfHostedRunnerGroupInOrgJsonRequestBody
 
   const actionsSetRepoAccessToSelfHostedRunnerGroupInOrgResponseBodyValidator =
     responseValidationFactory([["204", z.undefined()]], undefined)
@@ -32744,9 +32685,8 @@ export function createRouter(implementation: Implementation): Router {
     runner_group_id: z.coerce.number(),
   })
 
-  const actionsSetSelfHostedRunnersInGroupForOrgRequestBodySchema = z.object({
-    runners: z.array(z.coerce.number()),
-  })
+  const actionsSetSelfHostedRunnersInGroupForOrgRequestBodySchema =
+    s_actionsSetSelfHostedRunnersInGroupForOrgJsonRequestBody
 
   const actionsSetSelfHostedRunnersInGroupForOrgResponseBodyValidator =
     responseValidationFactory([["204", z.undefined()]], undefined)
@@ -33131,12 +33071,8 @@ export function createRouter(implementation: Implementation): Router {
     org: z.string(),
   })
 
-  const actionsGenerateRunnerJitconfigForOrgRequestBodySchema = z.object({
-    name: z.string(),
-    runner_group_id: z.coerce.number(),
-    labels: z.array(z.string()).min(1).max(100),
-    work_folder: z.string().optional().default("_work"),
-  })
+  const actionsGenerateRunnerJitconfigForOrgRequestBodySchema =
+    s_actionsGenerateRunnerJitconfigForOrgJsonRequestBody
 
   const actionsGenerateRunnerJitconfigForOrgResponseBodyValidator =
     responseValidationFactory(
@@ -33606,7 +33542,7 @@ export function createRouter(implementation: Implementation): Router {
   })
 
   const actionsAddCustomLabelsToSelfHostedRunnerForOrgRequestBodySchema =
-    z.object({labels: z.array(z.string()).min(1).max(100)})
+    s_actionsAddCustomLabelsToSelfHostedRunnerForOrgJsonRequestBody
 
   const actionsAddCustomLabelsToSelfHostedRunnerForOrgResponseBodyValidator =
     responseValidationFactory(
@@ -33708,7 +33644,7 @@ export function createRouter(implementation: Implementation): Router {
   })
 
   const actionsSetCustomLabelsForSelfHostedRunnerForOrgRequestBodySchema =
-    z.object({labels: z.array(z.string()).min(0).max(100)})
+    s_actionsSetCustomLabelsForSelfHostedRunnerForOrgJsonRequestBody
 
   const actionsSetCustomLabelsForSelfHostedRunnerForOrgResponseBodyValidator =
     responseValidationFactory(
@@ -34199,18 +34135,8 @@ export function createRouter(implementation: Implementation): Router {
     secret_name: z.string(),
   })
 
-  const actionsCreateOrUpdateOrgSecretRequestBodySchema = z.object({
-    encrypted_value: z
-      .string()
-      .regex(
-        new RegExp(
-          "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{4})$",
-        ),
-      ),
-    key_id: z.string(),
-    visibility: z.enum(["all", "private", "selected"]),
-    selected_repository_ids: z.array(z.coerce.number()).optional(),
-  })
+  const actionsCreateOrUpdateOrgSecretRequestBodySchema =
+    s_actionsCreateOrUpdateOrgSecretJsonRequestBody
 
   const actionsCreateOrUpdateOrgSecretResponseBodyValidator =
     responseValidationFactory(
@@ -34449,9 +34375,8 @@ export function createRouter(implementation: Implementation): Router {
     secret_name: z.string(),
   })
 
-  const actionsSetSelectedReposForOrgSecretRequestBodySchema = z.object({
-    selected_repository_ids: z.array(z.coerce.number()),
-  })
+  const actionsSetSelectedReposForOrgSecretRequestBodySchema =
+    s_actionsSetSelectedReposForOrgSecretJsonRequestBody
 
   const actionsSetSelectedReposForOrgSecretResponseBodyValidator =
     responseValidationFactory([["204", z.undefined()]], undefined)
@@ -34763,12 +34688,8 @@ export function createRouter(implementation: Implementation): Router {
 
   const actionsCreateOrgVariableParamSchema = z.object({org: z.string()})
 
-  const actionsCreateOrgVariableRequestBodySchema = z.object({
-    name: z.string(),
-    value: z.string(),
-    visibility: z.enum(["all", "private", "selected"]),
-    selected_repository_ids: z.array(z.coerce.number()).optional(),
-  })
+  const actionsCreateOrgVariableRequestBodySchema =
+    s_actionsCreateOrgVariableJsonRequestBody
 
   const actionsCreateOrgVariableResponseBodyValidator =
     responseValidationFactory([["201", s_empty_object]], undefined)
@@ -34902,12 +34823,8 @@ export function createRouter(implementation: Implementation): Router {
     name: z.string(),
   })
 
-  const actionsUpdateOrgVariableRequestBodySchema = z.object({
-    name: z.string().optional(),
-    value: z.string().optional(),
-    visibility: z.enum(["all", "private", "selected"]).optional(),
-    selected_repository_ids: z.array(z.coerce.number()).optional(),
-  })
+  const actionsUpdateOrgVariableRequestBodySchema =
+    s_actionsUpdateOrgVariableJsonRequestBody
 
   const actionsUpdateOrgVariableResponseBodyValidator =
     responseValidationFactory([["204", z.undefined()]], undefined)
@@ -35137,9 +35054,8 @@ export function createRouter(implementation: Implementation): Router {
     name: z.string(),
   })
 
-  const actionsSetSelectedReposForOrgVariableRequestBodySchema = z.object({
-    selected_repository_ids: z.array(z.coerce.number()),
-  })
+  const actionsSetSelectedReposForOrgVariableRequestBodySchema =
+    s_actionsSetSelectedReposForOrgVariableJsonRequestBody
 
   const actionsSetSelectedReposForOrgVariableResponseBodyValidator =
     responseValidationFactory(
@@ -35390,10 +35306,8 @@ export function createRouter(implementation: Implementation): Router {
     after: z.string().optional(),
   })
 
-  const orgsListAttestationsBulkRequestBodySchema = z.object({
-    subject_digests: z.array(z.string()).min(1).max(1024),
-    predicate_type: z.string().optional(),
-  })
+  const orgsListAttestationsBulkRequestBodySchema =
+    s_orgsListAttestationsBulkJsonRequestBody
 
   const orgsListAttestationsBulkResponseBodyValidator =
     responseValidationFactory(
@@ -35540,10 +35454,8 @@ export function createRouter(implementation: Implementation): Router {
 
   const orgsDeleteAttestationsBulkParamSchema = z.object({org: z.string()})
 
-  const orgsDeleteAttestationsBulkRequestBodySchema = z.union([
-    z.object({subject_digests: z.array(z.string()).min(1).max(1024)}),
-    z.object({attestation_ids: z.array(z.coerce.number()).min(1).max(1024)}),
-  ])
+  const orgsDeleteAttestationsBulkRequestBodySchema =
+    s_orgsDeleteAttestationsBulkJsonRequestBody
 
   const orgsDeleteAttestationsBulkResponseBodyValidator =
     responseValidationFactory(
@@ -36278,23 +36190,8 @@ export function createRouter(implementation: Implementation): Router {
 
   const campaignsCreateCampaignParamSchema = z.object({org: z.string()})
 
-  const campaignsCreateCampaignRequestBodySchema = z.object({
-    name: z.string().min(1).max(50),
-    description: z.string().min(1).max(255),
-    managers: z.array(z.string()).max(10).optional(),
-    team_managers: z.array(z.string()).max(10).optional(),
-    ends_at: z.iso.datetime({offset: true}),
-    contact_link: z.string().nullable().optional(),
-    code_scanning_alerts: z
-      .array(
-        z.object({
-          repository_id: z.coerce.number(),
-          alert_numbers: z.array(z.coerce.number()).min(1),
-        }),
-      )
-      .min(1),
-    generate_issues: PermissiveBoolean.optional().default(false),
-  })
+  const campaignsCreateCampaignRequestBodySchema =
+    s_campaignsCreateCampaignJsonRequestBody
 
   const campaignsCreateCampaignResponseBodyValidator =
     responseValidationFactory(
@@ -36490,15 +36387,8 @@ export function createRouter(implementation: Implementation): Router {
     campaign_number: z.coerce.number(),
   })
 
-  const campaignsUpdateCampaignRequestBodySchema = z.object({
-    name: z.string().min(1).max(50).optional(),
-    description: z.string().min(1).max(255).optional(),
-    managers: z.array(z.string()).max(10).optional(),
-    team_managers: z.array(z.string()).max(10).optional(),
-    ends_at: z.iso.datetime({offset: true}).optional(),
-    contact_link: z.string().nullable().optional(),
-    state: s_campaign_state.optional(),
-  })
+  const campaignsUpdateCampaignRequestBodySchema =
+    s_campaignsUpdateCampaignJsonRequestBody
 
   const campaignsUpdateCampaignResponseBodyValidator =
     responseValidationFactory(
@@ -36877,93 +36767,8 @@ export function createRouter(implementation: Implementation): Router {
 
   const codeSecurityCreateConfigurationParamSchema = z.object({org: z.string()})
 
-  const codeSecurityCreateConfigurationRequestBodySchema = z.object({
-    name: z.string(),
-    description: z.string().max(255),
-    advanced_security: z
-      .enum(["enabled", "disabled", "code_security", "secret_protection"])
-      .optional()
-      .default("disabled"),
-    code_security: z.enum(["enabled", "disabled", "not_set"]).optional(),
-    dependency_graph: z
-      .enum(["enabled", "disabled", "not_set"])
-      .optional()
-      .default("enabled"),
-    dependency_graph_autosubmit_action: z
-      .enum(["enabled", "disabled", "not_set"])
-      .optional()
-      .default("disabled"),
-    dependency_graph_autosubmit_action_options: z
-      .object({labeled_runners: PermissiveBoolean.optional().default(false)})
-      .optional(),
-    dependabot_alerts: z
-      .enum(["enabled", "disabled", "not_set"])
-      .optional()
-      .default("disabled"),
-    dependabot_security_updates: z
-      .enum(["enabled", "disabled", "not_set"])
-      .optional()
-      .default("disabled"),
-    code_scanning_options: s_code_scanning_options.optional(),
-    code_scanning_default_setup: z
-      .enum(["enabled", "disabled", "not_set"])
-      .optional()
-      .default("disabled"),
-    code_scanning_default_setup_options:
-      s_code_scanning_default_setup_options.optional(),
-    code_scanning_delegated_alert_dismissal: z
-      .enum(["enabled", "disabled", "not_set"])
-      .optional()
-      .default("not_set"),
-    secret_protection: z.enum(["enabled", "disabled", "not_set"]).optional(),
-    secret_scanning: z
-      .enum(["enabled", "disabled", "not_set"])
-      .optional()
-      .default("disabled"),
-    secret_scanning_push_protection: z
-      .enum(["enabled", "disabled", "not_set"])
-      .optional()
-      .default("disabled"),
-    secret_scanning_delegated_bypass: z
-      .enum(["enabled", "disabled", "not_set"])
-      .optional()
-      .default("disabled"),
-    secret_scanning_delegated_bypass_options: z
-      .object({
-        reviewers: z
-          .array(
-            z.object({
-              reviewer_id: z.coerce.number(),
-              reviewer_type: z.enum(["TEAM", "ROLE"]),
-            }),
-          )
-          .optional(),
-      })
-      .optional(),
-    secret_scanning_validity_checks: z
-      .enum(["enabled", "disabled", "not_set"])
-      .optional()
-      .default("disabled"),
-    secret_scanning_non_provider_patterns: z
-      .enum(["enabled", "disabled", "not_set"])
-      .optional()
-      .default("disabled"),
-    secret_scanning_generic_secrets: z
-      .enum(["enabled", "disabled", "not_set"])
-      .optional()
-      .default("disabled"),
-    secret_scanning_delegated_alert_dismissal: z
-      .enum(["enabled", "disabled", "not_set"])
-      .optional(),
-    private_vulnerability_reporting: z
-      .enum(["enabled", "disabled", "not_set"])
-      .optional()
-      .default("disabled"),
-    enforcement: z
-      .enum(["enforced", "unenforced"])
-      .optional()
-      .default("enforced"),
-  })
+  const codeSecurityCreateConfigurationRequestBodySchema =
+    s_codeSecurityCreateConfigurationJsonRequestBody
 
   const codeSecurityCreateConfigurationResponseBodyValidator =
     responseValidationFactory(
@@ -37126,13 +36931,8 @@ export function createRouter(implementation: Implementation): Router {
 
   const codeSecurityDetachConfigurationParamSchema = z.object({org: z.string()})
 
-  const codeSecurityDetachConfigurationRequestBodySchema = z.object({
-    selected_repository_ids: z
-      .array(z.coerce.number())
-      .min(1)
-      .max(1000)
-      .optional(),
-  })
+  const codeSecurityDetachConfigurationRequestBodySchema =
+    s_codeSecurityDetachConfigurationJsonRequestBody
 
   const codeSecurityDetachConfigurationResponseBodyValidator =
     responseValidationFactory(
@@ -37306,70 +37106,8 @@ export function createRouter(implementation: Implementation): Router {
     configuration_id: z.coerce.number(),
   })
 
-  const codeSecurityUpdateConfigurationRequestBodySchema = z.object({
-    name: z.string().optional(),
-    description: z.string().max(255).optional(),
-    advanced_security: z
-      .enum(["enabled", "disabled", "code_security", "secret_protection"])
-      .optional(),
-    code_security: z.enum(["enabled", "disabled", "not_set"]).optional(),
-    dependency_graph: z.enum(["enabled", "disabled", "not_set"]).optional(),
-    dependency_graph_autosubmit_action: z
-      .enum(["enabled", "disabled", "not_set"])
-      .optional(),
-    dependency_graph_autosubmit_action_options: z
-      .object({labeled_runners: PermissiveBoolean.optional()})
-      .optional(),
-    dependabot_alerts: z.enum(["enabled", "disabled", "not_set"]).optional(),
-    dependabot_security_updates: z
-      .enum(["enabled", "disabled", "not_set"])
-      .optional(),
-    code_scanning_default_setup: z
-      .enum(["enabled", "disabled", "not_set"])
-      .optional(),
-    code_scanning_default_setup_options:
-      s_code_scanning_default_setup_options.optional(),
-    code_scanning_delegated_alert_dismissal: z
-      .enum(["enabled", "disabled", "not_set"])
-      .optional()
-      .default("disabled"),
-    secret_protection: z.enum(["enabled", "disabled", "not_set"]).optional(),
-    secret_scanning: z.enum(["enabled", "disabled", "not_set"]).optional(),
-    secret_scanning_push_protection: z
-      .enum(["enabled", "disabled", "not_set"])
-      .optional(),
-    secret_scanning_delegated_bypass: z
-      .enum(["enabled", "disabled", "not_set"])
-      .optional(),
-    secret_scanning_delegated_bypass_options: z
-      .object({
-        reviewers: z
-          .array(
-            z.object({
-              reviewer_id: z.coerce.number(),
-              reviewer_type: z.enum(["TEAM", "ROLE"]),
-            }),
-          )
-          .optional(),
-      })
-      .optional(),
-    secret_scanning_validity_checks: z
-      .enum(["enabled", "disabled", "not_set"])
-      .optional(),
-    secret_scanning_non_provider_patterns: z
-      .enum(["enabled", "disabled", "not_set"])
-      .optional(),
-    secret_scanning_generic_secrets: z
-      .enum(["enabled", "disabled", "not_set"])
-      .optional(),
-    secret_scanning_delegated_alert_dismissal: z
-      .enum(["enabled", "disabled", "not_set"])
-      .optional(),
-    private_vulnerability_reporting: z
-      .enum(["enabled", "disabled", "not_set"])
-      .optional(),
-    enforcement: z.enum(["enforced", "unenforced"]).optional(),
-  })
+  const codeSecurityUpdateConfigurationRequestBodySchema =
+    s_codeSecurityUpdateConfigurationJsonRequestBody
 
   const codeSecurityUpdateConfigurationResponseBodyValidator =
     responseValidationFactory(
@@ -37535,16 +37273,8 @@ export function createRouter(implementation: Implementation): Router {
     configuration_id: z.coerce.number(),
   })
 
-  const codeSecurityAttachConfigurationRequestBodySchema = z.object({
-    scope: z.enum([
-      "all",
-      "all_without_configurations",
-      "public",
-      "private_or_internal",
-      "selected",
-    ]),
-    selected_repository_ids: z.array(z.coerce.number()).optional(),
-  })
+  const codeSecurityAttachConfigurationRequestBodySchema =
+    s_codeSecurityAttachConfigurationJsonRequestBody
 
   const codeSecurityAttachConfigurationResponseBodyValidator =
     responseValidationFactory(
@@ -37619,11 +37349,8 @@ export function createRouter(implementation: Implementation): Router {
     configuration_id: z.coerce.number(),
   })
 
-  const codeSecuritySetConfigurationAsDefaultRequestBodySchema = z.object({
-    default_for_new_repos: z
-      .enum(["all", "none", "private_and_internal", "public"])
-      .optional(),
-  })
+  const codeSecuritySetConfigurationAsDefaultRequestBodySchema =
+    s_codeSecuritySetConfigurationAsDefaultJsonRequestBody
 
   const codeSecuritySetConfigurationAsDefaultResponseBodyValidator =
     responseValidationFactory(
@@ -37928,15 +37655,8 @@ export function createRouter(implementation: Implementation): Router {
 
   const codespacesSetCodespacesAccessParamSchema = z.object({org: z.string()})
 
-  const codespacesSetCodespacesAccessRequestBodySchema = z.object({
-    visibility: z.enum([
-      "disabled",
-      "selected_members",
-      "all_members",
-      "all_members_and_outside_collaborators",
-    ]),
-    selected_usernames: z.array(z.string()).max(100).optional(),
-  })
+  const codespacesSetCodespacesAccessRequestBodySchema =
+    s_codespacesSetCodespacesAccessJsonRequestBody
 
   const codespacesSetCodespacesAccessResponseBodyValidator =
     responseValidationFactory(
@@ -38030,9 +37750,8 @@ export function createRouter(implementation: Implementation): Router {
     org: z.string(),
   })
 
-  const codespacesSetCodespacesAccessUsersRequestBodySchema = z.object({
-    selected_usernames: z.array(z.string()).max(100),
-  })
+  const codespacesSetCodespacesAccessUsersRequestBodySchema =
+    s_codespacesSetCodespacesAccessUsersJsonRequestBody
 
   const codespacesSetCodespacesAccessUsersResponseBodyValidator =
     responseValidationFactory(
@@ -38129,9 +37848,8 @@ export function createRouter(implementation: Implementation): Router {
     org: z.string(),
   })
 
-  const codespacesDeleteCodespacesAccessUsersRequestBodySchema = z.object({
-    selected_usernames: z.array(z.string()).max(100),
-  })
+  const codespacesDeleteCodespacesAccessUsersRequestBodySchema =
+    s_codespacesDeleteCodespacesAccessUsersJsonRequestBody
 
   const codespacesDeleteCodespacesAccessUsersResponseBodyValidator =
     responseValidationFactory(
@@ -38440,19 +38158,8 @@ export function createRouter(implementation: Implementation): Router {
     secret_name: z.string(),
   })
 
-  const codespacesCreateOrUpdateOrgSecretRequestBodySchema = z.object({
-    encrypted_value: z
-      .string()
-      .regex(
-        new RegExp(
-          "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{4})$",
-        ),
-      )
-      .optional(),
-    key_id: z.string().optional(),
-    visibility: z.enum(["all", "private", "selected"]),
-    selected_repository_ids: z.array(z.coerce.number()).optional(),
-  })
+  const codespacesCreateOrUpdateOrgSecretRequestBodySchema =
+    s_codespacesCreateOrUpdateOrgSecretJsonRequestBody
 
   const codespacesCreateOrUpdateOrgSecretResponseBodyValidator =
     responseValidationFactory(
@@ -38713,9 +38420,8 @@ export function createRouter(implementation: Implementation): Router {
     secret_name: z.string(),
   })
 
-  const codespacesSetSelectedReposForOrgSecretRequestBodySchema = z.object({
-    selected_repository_ids: z.array(z.coerce.number()),
-  })
+  const codespacesSetSelectedReposForOrgSecretRequestBodySchema =
+    s_codespacesSetSelectedReposForOrgSecretJsonRequestBody
 
   const codespacesSetSelectedReposForOrgSecretResponseBodyValidator =
     responseValidationFactory(
@@ -39183,9 +38889,8 @@ export function createRouter(implementation: Implementation): Router {
 
   const copilotAddCopilotSeatsForTeamsParamSchema = z.object({org: z.string()})
 
-  const copilotAddCopilotSeatsForTeamsRequestBodySchema = z.object({
-    selected_teams: z.array(z.string()).min(1),
-  })
+  const copilotAddCopilotSeatsForTeamsRequestBodySchema =
+    s_copilotAddCopilotSeatsForTeamsJsonRequestBody
 
   const copilotAddCopilotSeatsForTeamsResponseBodyValidator =
     responseValidationFactory(
@@ -39281,9 +38986,8 @@ export function createRouter(implementation: Implementation): Router {
     org: z.string(),
   })
 
-  const copilotCancelCopilotSeatAssignmentForTeamsRequestBodySchema = z.object({
-    selected_teams: z.array(z.string()).min(1),
-  })
+  const copilotCancelCopilotSeatAssignmentForTeamsRequestBodySchema =
+    s_copilotCancelCopilotSeatAssignmentForTeamsJsonRequestBody
 
   const copilotCancelCopilotSeatAssignmentForTeamsResponseBodyValidator =
     responseValidationFactory(
@@ -39386,9 +39090,8 @@ export function createRouter(implementation: Implementation): Router {
 
   const copilotAddCopilotSeatsForUsersParamSchema = z.object({org: z.string()})
 
-  const copilotAddCopilotSeatsForUsersRequestBodySchema = z.object({
-    selected_usernames: z.array(z.string()).min(1),
-  })
+  const copilotAddCopilotSeatsForUsersRequestBodySchema =
+    s_copilotAddCopilotSeatsForUsersJsonRequestBody
 
   const copilotAddCopilotSeatsForUsersResponseBodyValidator =
     responseValidationFactory(
@@ -39484,9 +39187,8 @@ export function createRouter(implementation: Implementation): Router {
     org: z.string(),
   })
 
-  const copilotCancelCopilotSeatAssignmentForUsersRequestBodySchema = z.object({
-    selected_usernames: z.array(z.string()).min(1),
-  })
+  const copilotCancelCopilotSeatAssignmentForUsersRequestBodySchema =
+    s_copilotCancelCopilotSeatAssignmentForUsersJsonRequestBody
 
   const copilotCancelCopilotSeatAssignmentForUsersResponseBodyValidator =
     responseValidationFactory(
@@ -40017,19 +39719,8 @@ export function createRouter(implementation: Implementation): Router {
     secret_name: z.string(),
   })
 
-  const dependabotCreateOrUpdateOrgSecretRequestBodySchema = z.object({
-    encrypted_value: z
-      .string()
-      .regex(
-        new RegExp(
-          "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{4})$",
-        ),
-      )
-      .optional(),
-    key_id: z.string().optional(),
-    visibility: z.enum(["all", "private", "selected"]),
-    selected_repository_ids: z.array(z.string()).optional(),
-  })
+  const dependabotCreateOrUpdateOrgSecretRequestBodySchema =
+    s_dependabotCreateOrUpdateOrgSecretJsonRequestBody
 
   const dependabotCreateOrUpdateOrgSecretResponseBodyValidator =
     responseValidationFactory(
@@ -40269,9 +39960,8 @@ export function createRouter(implementation: Implementation): Router {
     secret_name: z.string(),
   })
 
-  const dependabotSetSelectedReposForOrgSecretRequestBodySchema = z.object({
-    selected_repository_ids: z.array(z.coerce.number()),
-  })
+  const dependabotSetSelectedReposForOrgSecretRequestBodySchema =
+    s_dependabotSetSelectedReposForOrgSecretJsonRequestBody
 
   const dependabotSetSelectedReposForOrgSecretResponseBodyValidator =
     responseValidationFactory([["204", z.undefined()]], undefined)
@@ -40820,19 +40510,7 @@ export function createRouter(implementation: Implementation): Router {
 
   const orgsCreateWebhookParamSchema = z.object({org: z.string()})
 
-  const orgsCreateWebhookRequestBodySchema = z.object({
-    name: z.string(),
-    config: z.object({
-      url: s_webhook_config_url,
-      content_type: s_webhook_config_content_type.optional(),
-      secret: s_webhook_config_secret.optional(),
-      insecure_ssl: s_webhook_config_insecure_ssl.optional(),
-      username: z.string().optional(),
-      password: z.string().optional(),
-    }),
-    events: z.array(z.string()).optional().default(["push"]),
-    active: PermissiveBoolean.optional().default(true),
-  })
+  const orgsCreateWebhookRequestBodySchema = s_orgsCreateWebhookJsonRequestBody
 
   const orgsCreateWebhookResponseBodyValidator = responseValidationFactory(
     [
@@ -40982,21 +40660,8 @@ export function createRouter(implementation: Implementation): Router {
     hook_id: z.coerce.number(),
   })
 
-  const orgsUpdateWebhookRequestBodySchema = z
-    .object({
-      config: z
-        .object({
-          url: s_webhook_config_url,
-          content_type: s_webhook_config_content_type.optional(),
-          secret: s_webhook_config_secret.optional(),
-          insecure_ssl: s_webhook_config_insecure_ssl.optional(),
-        })
-        .optional(),
-      events: z.array(z.string()).optional().default(["push"]),
-      active: PermissiveBoolean.optional().default(true),
-      name: z.string().optional(),
-    })
-    .optional()
+  const orgsUpdateWebhookRequestBodySchema =
+    s_orgsUpdateWebhookJsonRequestBody.optional()
 
   const orgsUpdateWebhookResponseBodyValidator = responseValidationFactory(
     [
@@ -41210,14 +40875,8 @@ export function createRouter(implementation: Implementation): Router {
     hook_id: z.coerce.number(),
   })
 
-  const orgsUpdateWebhookConfigForOrgRequestBodySchema = z
-    .object({
-      url: s_webhook_config_url.optional(),
-      content_type: s_webhook_config_content_type.optional(),
-      secret: s_webhook_config_secret.optional(),
-      insecure_ssl: s_webhook_config_insecure_ssl.optional(),
-    })
-    .optional()
+  const orgsUpdateWebhookConfigForOrgRequestBodySchema =
+    s_orgsUpdateWebhookConfigForOrgJsonRequestBody.optional()
 
   const orgsUpdateWebhookConfigForOrgResponseBodyValidator =
     responseValidationFactory([["200", s_webhook_config]], undefined)
@@ -42797,17 +42456,8 @@ export function createRouter(implementation: Implementation): Router {
 
   const orgsCreateInvitationParamSchema = z.object({org: z.string()})
 
-  const orgsCreateInvitationRequestBodySchema = z
-    .object({
-      invitee_id: z.coerce.number().optional(),
-      email: z.string().optional(),
-      role: z
-        .enum(["admin", "direct_member", "billing_manager", "reinstate"])
-        .optional()
-        .default("direct_member"),
-      team_ids: z.array(z.coerce.number()).optional(),
-    })
-    .optional()
+  const orgsCreateInvitationRequestBodySchema =
+    s_orgsCreateInvitationJsonRequestBody.optional()
 
   const orgsCreateInvitationResponseBodyValidator = responseValidationFactory(
     [
@@ -44115,9 +43765,8 @@ export function createRouter(implementation: Implementation): Router {
     username: z.string(),
   })
 
-  const orgsSetMembershipForUserRequestBodySchema = z
-    .object({role: z.enum(["admin", "member"]).optional().default("member")})
-    .optional()
+  const orgsSetMembershipForUserRequestBodySchema =
+    s_orgsSetMembershipForUserJsonRequestBody.optional()
 
   const orgsSetMembershipForUserResponseBodyValidator =
     responseValidationFactory(
@@ -44348,17 +43997,8 @@ export function createRouter(implementation: Implementation): Router {
 
   const migrationsStartForOrgParamSchema = z.object({org: z.string()})
 
-  const migrationsStartForOrgRequestBodySchema = z.object({
-    repositories: z.array(z.string()),
-    lock_repositories: PermissiveBoolean.optional().default(false),
-    exclude_metadata: PermissiveBoolean.optional().default(false),
-    exclude_git_data: PermissiveBoolean.optional().default(false),
-    exclude_attachments: PermissiveBoolean.optional().default(false),
-    exclude_releases: PermissiveBoolean.optional().default(false),
-    exclude_owner_projects: PermissiveBoolean.optional().default(false),
-    org_metadata_only: PermissiveBoolean.optional().default(false),
-    exclude: z.array(z.enum(["repositories"])).optional(),
-  })
+  const migrationsStartForOrgRequestBodySchema =
+    s_migrationsStartForOrgJsonRequestBody
 
   const migrationsStartForOrgResponseBodyValidator = responseValidationFactory(
     [
@@ -45622,9 +45262,8 @@ export function createRouter(implementation: Implementation): Router {
     username: z.string(),
   })
 
-  const orgsConvertMemberToOutsideCollaboratorRequestBodySchema = z
-    .object({async: PermissiveBoolean.optional().default(false)})
-    .optional()
+  const orgsConvertMemberToOutsideCollaboratorRequestBodySchema =
+    s_orgsConvertMemberToOutsideCollaboratorJsonRequestBody.optional()
 
   const orgsConvertMemberToOutsideCollaboratorResponseBodyValidator =
     responseValidationFactory(
@@ -46652,11 +46291,8 @@ export function createRouter(implementation: Implementation): Router {
     org: z.string(),
   })
 
-  const orgsReviewPatGrantRequestsInBulkRequestBodySchema = z.object({
-    pat_request_ids: z.array(z.coerce.number()).min(1).max(100).optional(),
-    action: z.enum(["approve", "deny"]),
-    reason: z.string().max(1024).nullable().optional(),
-  })
+  const orgsReviewPatGrantRequestsInBulkRequestBodySchema =
+    s_orgsReviewPatGrantRequestsInBulkJsonRequestBody
 
   const orgsReviewPatGrantRequestsInBulkResponseBodyValidator =
     responseValidationFactory(
@@ -46749,10 +46385,8 @@ export function createRouter(implementation: Implementation): Router {
     pat_request_id: z.coerce.number(),
   })
 
-  const orgsReviewPatGrantRequestRequestBodySchema = z.object({
-    action: z.enum(["approve", "deny"]),
-    reason: z.string().max(1024).nullable().optional(),
-  })
+  const orgsReviewPatGrantRequestRequestBodySchema =
+    s_orgsReviewPatGrantRequestJsonRequestBody
 
   const orgsReviewPatGrantRequestResponseBodyValidator =
     responseValidationFactory(
@@ -47039,10 +46673,8 @@ export function createRouter(implementation: Implementation): Router {
 
   const orgsUpdatePatAccessesParamSchema = z.object({org: z.string()})
 
-  const orgsUpdatePatAccessesRequestBodySchema = z.object({
-    action: z.enum(["revoke"]),
-    pat_ids: z.array(z.coerce.number()).min(1).max(100),
-  })
+  const orgsUpdatePatAccessesRequestBodySchema =
+    s_orgsUpdatePatAccessesJsonRequestBody
 
   const orgsUpdatePatAccessesResponseBodyValidator = responseValidationFactory(
     [
@@ -47132,9 +46764,8 @@ export function createRouter(implementation: Implementation): Router {
     pat_id: z.coerce.number(),
   })
 
-  const orgsUpdatePatAccessRequestBodySchema = z.object({
-    action: z.enum(["revoke"]),
-  })
+  const orgsUpdatePatAccessRequestBodySchema =
+    s_orgsUpdatePatAccessJsonRequestBody
 
   const orgsUpdatePatAccessResponseBodyValidator = responseValidationFactory(
     [
@@ -47414,37 +47045,8 @@ export function createRouter(implementation: Implementation): Router {
     org: z.string(),
   })
 
-  const privateRegistriesCreateOrgPrivateRegistryRequestBodySchema = z.object({
-    registry_type: z.enum([
-      "maven_repository",
-      "nuget_feed",
-      "goproxy_server",
-      "npm_registry",
-      "rubygems_server",
-      "cargo_registry",
-      "composer_repository",
-      "docker_registry",
-      "git_source",
-      "helm_registry",
-      "hex_organization",
-      "hex_repository",
-      "pub_repository",
-      "python_index",
-      "terraform_registry",
-    ]),
-    url: z.string(),
-    username: z.string().nullable().optional(),
-    encrypted_value: z
-      .string()
-      .regex(
-        new RegExp(
-          "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{4})$",
-        ),
-      ),
-    key_id: z.string(),
-    visibility: z.enum(["all", "private", "selected"]),
-    selected_repository_ids: z.array(z.coerce.number()).optional(),
-  })
+  const privateRegistriesCreateOrgPrivateRegistryRequestBodySchema =
+    s_privateRegistriesCreateOrgPrivateRegistryJsonRequestBody
 
   const privateRegistriesCreateOrgPrivateRegistryResponseBodyValidator =
     responseValidationFactory(
@@ -47700,40 +47302,8 @@ export function createRouter(implementation: Implementation): Router {
     secret_name: z.string(),
   })
 
-  const privateRegistriesUpdateOrgPrivateRegistryRequestBodySchema = z.object({
-    registry_type: z
-      .enum([
-        "maven_repository",
-        "nuget_feed",
-        "goproxy_server",
-        "npm_registry",
-        "rubygems_server",
-        "cargo_registry",
-        "composer_repository",
-        "docker_registry",
-        "git_source",
-        "helm_registry",
-        "hex_organization",
-        "hex_repository",
-        "pub_repository",
-        "python_index",
-        "terraform_registry",
-      ])
-      .optional(),
-    url: z.string().optional(),
-    username: z.string().nullable().optional(),
-    encrypted_value: z
-      .string()
-      .regex(
-        new RegExp(
-          "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{4})$",
-        ),
-      )
-      .optional(),
-    key_id: z.string().optional(),
-    visibility: z.enum(["all", "private", "selected"]).optional(),
-    selected_repository_ids: z.array(z.coerce.number()).optional(),
-  })
+  const privateRegistriesUpdateOrgPrivateRegistryRequestBodySchema =
+    s_privateRegistriesUpdateOrgPrivateRegistryJsonRequestBody
 
   const privateRegistriesUpdateOrgPrivateRegistryResponseBodyValidator =
     responseValidationFactory(
@@ -47986,10 +47556,8 @@ export function createRouter(implementation: Implementation): Router {
 
   const projectsClassicCreateForOrgParamSchema = z.object({org: z.string()})
 
-  const projectsClassicCreateForOrgRequestBodySchema = z.object({
-    name: z.string(),
-    body: z.string().optional(),
-  })
+  const projectsClassicCreateForOrgRequestBodySchema =
+    s_projectsClassicCreateForOrgJsonRequestBody
 
   const projectsClassicCreateForOrgResponseBodyValidator =
     responseValidationFactory(
@@ -48157,9 +47725,8 @@ export function createRouter(implementation: Implementation): Router {
     org: z.string(),
   })
 
-  const orgsCreateOrUpdateCustomPropertiesRequestBodySchema = z.object({
-    properties: z.array(s_custom_property).min(1).max(100),
-  })
+  const orgsCreateOrUpdateCustomPropertiesRequestBodySchema =
+    s_orgsCreateOrUpdateCustomPropertiesJsonRequestBody
 
   const orgsCreateOrUpdateCustomPropertiesResponseBodyValidator =
     responseValidationFactory(
@@ -48575,10 +48142,7 @@ export function createRouter(implementation: Implementation): Router {
   })
 
   const orgsCreateOrUpdateCustomPropertiesValuesForReposRequestBodySchema =
-    z.object({
-      repository_names: z.array(z.string()).min(1).max(30),
-      properties: z.array(s_custom_property_value),
-    })
+    s_orgsCreateOrUpdateCustomPropertiesValuesForReposJsonRequestBody
 
   const orgsCreateOrUpdateCustomPropertiesValuesForReposResponseBodyValidator =
     responseValidationFactory(
@@ -49048,37 +48612,7 @@ export function createRouter(implementation: Implementation): Router {
 
   const reposCreateInOrgParamSchema = z.object({org: z.string()})
 
-  const reposCreateInOrgRequestBodySchema = z.object({
-    name: z.string(),
-    description: z.string().optional(),
-    homepage: z.string().optional(),
-    private: PermissiveBoolean.optional().default(false),
-    visibility: z.enum(["public", "private"]).optional(),
-    has_issues: PermissiveBoolean.optional().default(true),
-    has_projects: PermissiveBoolean.optional().default(true),
-    has_wiki: PermissiveBoolean.optional().default(true),
-    has_downloads: PermissiveBoolean.optional().default(true),
-    is_template: PermissiveBoolean.optional().default(false),
-    team_id: z.coerce.number().optional(),
-    auto_init: PermissiveBoolean.optional().default(false),
-    gitignore_template: z.string().optional(),
-    license_template: z.string().optional(),
-    allow_squash_merge: PermissiveBoolean.optional().default(true),
-    allow_merge_commit: PermissiveBoolean.optional().default(true),
-    allow_rebase_merge: PermissiveBoolean.optional().default(true),
-    allow_auto_merge: PermissiveBoolean.optional().default(false),
-    delete_branch_on_merge: PermissiveBoolean.optional().default(false),
-    use_squash_pr_title_as_default: PermissiveBoolean.optional().default(false),
-    squash_merge_commit_title: z
-      .enum(["PR_TITLE", "COMMIT_OR_PR_TITLE"])
-      .optional(),
-    squash_merge_commit_message: z
-      .enum(["PR_BODY", "COMMIT_MESSAGES", "BLANK"])
-      .optional(),
-    merge_commit_title: z.enum(["PR_TITLE", "MERGE_MESSAGE"]).optional(),
-    merge_commit_message: z.enum(["PR_BODY", "PR_TITLE", "BLANK"]).optional(),
-    custom_properties: z.record(z.string(), z.unknown()).optional(),
-  })
+  const reposCreateInOrgRequestBodySchema = s_reposCreateInOrgJsonRequestBody
 
   const reposCreateInOrgResponseBodyValidator = responseValidationFactory(
     [
@@ -49236,17 +48770,8 @@ export function createRouter(implementation: Implementation): Router {
 
   const reposCreateOrgRulesetParamSchema = z.object({org: z.string()})
 
-  const reposCreateOrgRulesetRequestBodySchema = z.object({
-    name: z.string(),
-    target: z
-      .enum(["branch", "tag", "push", "repository"])
-      .optional()
-      .default("branch"),
-    enforcement: s_repository_rule_enforcement,
-    bypass_actors: z.array(s_repository_ruleset_bypass_actor).optional(),
-    conditions: s_org_ruleset_conditions.optional(),
-    rules: z.array(s_org_rules).optional(),
-  })
+  const reposCreateOrgRulesetRequestBodySchema =
+    s_reposCreateOrgRulesetJsonRequestBody
 
   const reposCreateOrgRulesetResponseBodyValidator = responseValidationFactory(
     [
@@ -49565,16 +49090,8 @@ export function createRouter(implementation: Implementation): Router {
     ruleset_id: z.coerce.number(),
   })
 
-  const reposUpdateOrgRulesetRequestBodySchema = z
-    .object({
-      name: z.string().optional(),
-      target: z.enum(["branch", "tag", "push", "repository"]).optional(),
-      enforcement: s_repository_rule_enforcement.optional(),
-      bypass_actors: z.array(s_repository_ruleset_bypass_actor).optional(),
-      conditions: s_org_ruleset_conditions.optional(),
-      rules: z.array(s_org_rules).optional(),
-    })
-    .optional()
+  const reposUpdateOrgRulesetRequestBodySchema =
+    s_reposUpdateOrgRulesetJsonRequestBody.optional()
 
   const reposUpdateOrgRulesetResponseBodyValidator = responseValidationFactory(
     [
@@ -50578,11 +50095,7 @@ export function createRouter(implementation: Implementation): Router {
   })
 
   const hostedComputeCreateNetworkConfigurationForOrgRequestBodySchema =
-    z.object({
-      name: z.string(),
-      compute_service: z.enum(["none", "actions"]).optional(),
-      network_settings_ids: z.array(z.string()).min(1).max(1),
-    })
+    s_hostedComputeCreateNetworkConfigurationForOrgJsonRequestBody
 
   const hostedComputeCreateNetworkConfigurationForOrgResponseBodyValidator =
     responseValidationFactory([["201", s_network_configuration]], undefined)
@@ -50735,11 +50248,7 @@ export function createRouter(implementation: Implementation): Router {
   })
 
   const hostedComputeUpdateNetworkConfigurationForOrgRequestBodySchema =
-    z.object({
-      name: z.string().optional(),
-      compute_service: z.enum(["none", "actions"]).optional(),
-      network_settings_ids: z.array(z.string()).min(0).max(1).optional(),
-    })
+    s_hostedComputeUpdateNetworkConfigurationForOrgJsonRequestBody
 
   const hostedComputeUpdateNetworkConfigurationForOrgResponseBodyValidator =
     responseValidationFactory([["200", s_network_configuration]], undefined)
@@ -51135,18 +50644,7 @@ export function createRouter(implementation: Implementation): Router {
 
   const teamsCreateParamSchema = z.object({org: z.string()})
 
-  const teamsCreateRequestBodySchema = z.object({
-    name: z.string(),
-    description: z.string().optional(),
-    maintainers: z.array(z.string()).optional(),
-    repo_names: z.array(z.string()).optional(),
-    privacy: z.enum(["secret", "closed"]).optional(),
-    notification_setting: z
-      .enum(["notifications_enabled", "notifications_disabled"])
-      .optional(),
-    permission: z.enum(["pull", "push"]).optional().default("pull"),
-    parent_team_id: z.coerce.number().optional(),
-  })
+  const teamsCreateRequestBodySchema = s_teamsCreateJsonRequestBody
 
   const teamsCreateResponseBodyValidator = responseValidationFactory(
     [
@@ -51296,18 +50794,8 @@ export function createRouter(implementation: Implementation): Router {
     team_slug: z.string(),
   })
 
-  const teamsUpdateInOrgRequestBodySchema = z
-    .object({
-      name: z.string().optional(),
-      description: z.string().optional(),
-      privacy: z.enum(["secret", "closed"]).optional(),
-      notification_setting: z
-        .enum(["notifications_enabled", "notifications_disabled"])
-        .optional(),
-      permission: z.enum(["pull", "push", "admin"]).optional().default("pull"),
-      parent_team_id: z.coerce.number().nullable().optional(),
-    })
-    .optional()
+  const teamsUpdateInOrgRequestBodySchema =
+    s_teamsUpdateInOrgJsonRequestBody.optional()
 
   const teamsUpdateInOrgResponseBodyValidator = responseValidationFactory(
     [
@@ -51532,11 +51020,8 @@ export function createRouter(implementation: Implementation): Router {
     team_slug: z.string(),
   })
 
-  const teamsCreateDiscussionInOrgRequestBodySchema = z.object({
-    title: z.string(),
-    body: z.string(),
-    private: PermissiveBoolean.optional().default(false),
-  })
+  const teamsCreateDiscussionInOrgRequestBodySchema =
+    s_teamsCreateDiscussionInOrgJsonRequestBody
 
   const teamsCreateDiscussionInOrgResponseBodyValidator =
     responseValidationFactory([["201", s_team_discussion]], undefined)
@@ -51670,9 +51155,8 @@ export function createRouter(implementation: Implementation): Router {
     discussion_number: z.coerce.number(),
   })
 
-  const teamsUpdateDiscussionInOrgRequestBodySchema = z
-    .object({title: z.string().optional(), body: z.string().optional()})
-    .optional()
+  const teamsUpdateDiscussionInOrgRequestBodySchema =
+    s_teamsUpdateDiscussionInOrgJsonRequestBody.optional()
 
   const teamsUpdateDiscussionInOrgResponseBodyValidator =
     responseValidationFactory([["200", s_team_discussion]], undefined)
@@ -51886,9 +51370,8 @@ export function createRouter(implementation: Implementation): Router {
     discussion_number: z.coerce.number(),
   })
 
-  const teamsCreateDiscussionCommentInOrgRequestBodySchema = z.object({
-    body: z.string(),
-  })
+  const teamsCreateDiscussionCommentInOrgRequestBodySchema =
+    s_teamsCreateDiscussionCommentInOrgJsonRequestBody
 
   const teamsCreateDiscussionCommentInOrgResponseBodyValidator =
     responseValidationFactory([["201", s_team_discussion_comment]], undefined)
@@ -52029,9 +51512,8 @@ export function createRouter(implementation: Implementation): Router {
     comment_number: z.coerce.number(),
   })
 
-  const teamsUpdateDiscussionCommentInOrgRequestBodySchema = z.object({
-    body: z.string(),
-  })
+  const teamsUpdateDiscussionCommentInOrgRequestBodySchema =
+    s_teamsUpdateDiscussionCommentInOrgJsonRequestBody
 
   const teamsUpdateDiscussionCommentInOrgResponseBodyValidator =
     responseValidationFactory([["200", s_team_discussion_comment]], undefined)
@@ -52272,18 +51754,7 @@ export function createRouter(implementation: Implementation): Router {
   })
 
   const reactionsCreateForTeamDiscussionCommentInOrgRequestBodySchema =
-    z.object({
-      content: z.enum([
-        "+1",
-        "-1",
-        "laugh",
-        "confused",
-        "heart",
-        "hooray",
-        "rocket",
-        "eyes",
-      ]),
-    })
+    s_reactionsCreateForTeamDiscussionCommentInOrgJsonRequestBody
 
   const reactionsCreateForTeamDiscussionCommentInOrgResponseBodyValidator =
     responseValidationFactory(
@@ -52537,18 +52008,8 @@ export function createRouter(implementation: Implementation): Router {
     discussion_number: z.coerce.number(),
   })
 
-  const reactionsCreateForTeamDiscussionInOrgRequestBodySchema = z.object({
-    content: z.enum([
-      "+1",
-      "-1",
-      "laugh",
-      "confused",
-      "heart",
-      "hooray",
-      "rocket",
-      "eyes",
-    ]),
-  })
+  const reactionsCreateForTeamDiscussionInOrgRequestBodySchema =
+    s_reactionsCreateForTeamDiscussionInOrgJsonRequestBody
 
   const reactionsCreateForTeamDiscussionInOrgResponseBodyValidator =
     responseValidationFactory(
@@ -52927,11 +52388,8 @@ export function createRouter(implementation: Implementation): Router {
     username: z.string(),
   })
 
-  const teamsAddOrUpdateMembershipForUserInOrgRequestBodySchema = z
-    .object({
-      role: z.enum(["member", "maintainer"]).optional().default("member"),
-    })
-    .optional()
+  const teamsAddOrUpdateMembershipForUserInOrgRequestBodySchema =
+    s_teamsAddOrUpdateMembershipForUserInOrgJsonRequestBody.optional()
 
   const teamsAddOrUpdateMembershipForUserInOrgResponseBodyValidator =
     responseValidationFactory(
@@ -53257,10 +52715,8 @@ export function createRouter(implementation: Implementation): Router {
     project_id: z.coerce.number(),
   })
 
-  const teamsAddOrUpdateProjectPermissionsInOrgRequestBodySchema = z
-    .object({permission: z.enum(["read", "write", "admin"]).optional()})
-    .nullable()
-    .optional()
+  const teamsAddOrUpdateProjectPermissionsInOrgRequestBodySchema =
+    s_teamsAddOrUpdateProjectPermissionsInOrgJsonRequestBody.optional()
 
   const teamsAddOrUpdateProjectPermissionsInOrgResponseBodyValidator =
     responseValidationFactory(
@@ -53577,9 +53033,8 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const teamsAddOrUpdateRepoPermissionsInOrgRequestBodySchema = z
-    .object({permission: z.string().optional()})
-    .optional()
+  const teamsAddOrUpdateRepoPermissionsInOrgRequestBodySchema =
+    s_teamsAddOrUpdateRepoPermissionsInOrgJsonRequestBody.optional()
 
   const teamsAddOrUpdateRepoPermissionsInOrgResponseBodyValidator =
     responseValidationFactory([["204", z.undefined()]], undefined)
@@ -53806,9 +53261,8 @@ export function createRouter(implementation: Implementation): Router {
     enablement: z.enum(["enable_all", "disable_all"]),
   })
 
-  const orgsEnableOrDisableSecurityProductOnAllOrgReposRequestBodySchema = z
-    .object({query_suite: z.enum(["default", "extended"]).optional()})
-    .optional()
+  const orgsEnableOrDisableSecurityProductOnAllOrgReposRequestBodySchema =
+    s_orgsEnableOrDisableSecurityProductOnAllOrgReposJsonRequestBody.optional()
 
   const orgsEnableOrDisableSecurityProductOnAllOrgReposResponseBodyValidator =
     responseValidationFactory(
@@ -53976,12 +53430,8 @@ export function createRouter(implementation: Implementation): Router {
     card_id: z.coerce.number(),
   })
 
-  const projectsClassicUpdateCardRequestBodySchema = z
-    .object({
-      note: z.string().nullable().optional(),
-      archived: PermissiveBoolean.optional(),
-    })
-    .optional()
+  const projectsClassicUpdateCardRequestBodySchema =
+    s_projectsClassicUpdateCardJsonRequestBody.optional()
 
   const projectsClassicUpdateCardResponseBodyValidator =
     responseValidationFactory(
@@ -54166,10 +53616,8 @@ export function createRouter(implementation: Implementation): Router {
     card_id: z.coerce.number(),
   })
 
-  const projectsClassicMoveCardRequestBodySchema = z.object({
-    position: z.string().regex(new RegExp("^(?:top|bottom|after:\\d+)$")),
-    column_id: z.coerce.number().optional(),
-  })
+  const projectsClassicMoveCardRequestBodySchema =
+    s_projectsClassicMoveCardJsonRequestBody
 
   const projectsClassicMoveCardResponseBodyValidator =
     responseValidationFactory(
@@ -54395,9 +53843,8 @@ export function createRouter(implementation: Implementation): Router {
     column_id: z.coerce.number(),
   })
 
-  const projectsClassicUpdateColumnRequestBodySchema = z.object({
-    name: z.string(),
-  })
+  const projectsClassicUpdateColumnRequestBodySchema =
+    s_projectsClassicUpdateColumnJsonRequestBody
 
   const projectsClassicUpdateColumnResponseBodyValidator =
     responseValidationFactory(
@@ -54654,10 +54101,8 @@ export function createRouter(implementation: Implementation): Router {
     column_id: z.coerce.number(),
   })
 
-  const projectsClassicCreateCardRequestBodySchema = z.union([
-    z.object({note: z.string().nullable()}),
-    z.object({content_id: z.coerce.number(), content_type: z.string()}),
-  ])
+  const projectsClassicCreateCardRequestBodySchema =
+    s_projectsClassicCreateCardJsonRequestBody
 
   const projectsClassicCreateCardResponseBodyValidator =
     responseValidationFactory(
@@ -54776,9 +54221,8 @@ export function createRouter(implementation: Implementation): Router {
     column_id: z.coerce.number(),
   })
 
-  const projectsClassicMoveColumnRequestBodySchema = z.object({
-    position: z.string().regex(new RegExp("^(?:first|last|after:\\d+)$")),
-  })
+  const projectsClassicMoveColumnRequestBodySchema =
+    s_projectsClassicMoveColumnJsonRequestBody
 
   const projectsClassicMoveColumnResponseBodyValidator =
     responseValidationFactory(
@@ -54943,17 +54387,8 @@ export function createRouter(implementation: Implementation): Router {
     project_id: z.coerce.number(),
   })
 
-  const projectsClassicUpdateRequestBodySchema = z
-    .object({
-      name: z.string().optional(),
-      body: z.string().nullable().optional(),
-      state: z.string().optional(),
-      organization_permission: z
-        .enum(["read", "write", "admin", "none"])
-        .optional(),
-      private: PermissiveBoolean.optional(),
-    })
-    .optional()
+  const projectsClassicUpdateRequestBodySchema =
+    s_projectsClassicUpdateJsonRequestBody.optional()
 
   const projectsClassicUpdateResponseBodyValidator = responseValidationFactory(
     [
@@ -55254,15 +54689,8 @@ export function createRouter(implementation: Implementation): Router {
     username: z.string(),
   })
 
-  const projectsClassicAddCollaboratorRequestBodySchema = z
-    .object({
-      permission: z
-        .enum(["read", "write", "admin"])
-        .optional()
-        .default("write"),
-    })
-    .nullable()
-    .optional()
+  const projectsClassicAddCollaboratorRequestBodySchema =
+    s_projectsClassicAddCollaboratorJsonRequestBody.optional()
 
   const projectsClassicAddCollaboratorResponseBodyValidator =
     responseValidationFactory(
@@ -55631,9 +55059,8 @@ export function createRouter(implementation: Implementation): Router {
     project_id: z.coerce.number(),
   })
 
-  const projectsClassicCreateColumnRequestBodySchema = z.object({
-    name: z.string(),
-  })
+  const projectsClassicCreateColumnRequestBodySchema =
+    s_projectsClassicCreateColumnJsonRequestBody
 
   const projectsClassicCreateColumnResponseBodyValidator =
     responseValidationFactory(
@@ -55861,58 +55288,7 @@ export function createRouter(implementation: Implementation): Router {
 
   const reposUpdateParamSchema = z.object({owner: z.string(), repo: z.string()})
 
-  const reposUpdateRequestBodySchema = z
-    .object({
-      name: z.string().optional(),
-      description: z.string().optional(),
-      homepage: z.string().optional(),
-      private: PermissiveBoolean.optional().default(false),
-      visibility: z.enum(["public", "private"]).optional(),
-      security_and_analysis: z
-        .object({
-          advanced_security: z
-            .object({status: z.string().optional()})
-            .optional(),
-          code_security: z.object({status: z.string().optional()}).optional(),
-          secret_scanning: z.object({status: z.string().optional()}).optional(),
-          secret_scanning_push_protection: z
-            .object({status: z.string().optional()})
-            .optional(),
-          secret_scanning_ai_detection: z
-            .object({status: z.string().optional()})
-            .optional(),
-          secret_scanning_non_provider_patterns: z
-            .object({status: z.string().optional()})
-            .optional(),
-        })
-        .nullable()
-        .optional(),
-      has_issues: PermissiveBoolean.optional().default(true),
-      has_projects: PermissiveBoolean.optional().default(true),
-      has_wiki: PermissiveBoolean.optional().default(true),
-      is_template: PermissiveBoolean.optional().default(false),
-      default_branch: z.string().optional(),
-      allow_squash_merge: PermissiveBoolean.optional().default(true),
-      allow_merge_commit: PermissiveBoolean.optional().default(true),
-      allow_rebase_merge: PermissiveBoolean.optional().default(true),
-      allow_auto_merge: PermissiveBoolean.optional().default(false),
-      delete_branch_on_merge: PermissiveBoolean.optional().default(false),
-      allow_update_branch: PermissiveBoolean.optional().default(false),
-      use_squash_pr_title_as_default:
-        PermissiveBoolean.optional().default(false),
-      squash_merge_commit_title: z
-        .enum(["PR_TITLE", "COMMIT_OR_PR_TITLE"])
-        .optional(),
-      squash_merge_commit_message: z
-        .enum(["PR_BODY", "COMMIT_MESSAGES", "BLANK"])
-        .optional(),
-      merge_commit_title: z.enum(["PR_TITLE", "MERGE_MESSAGE"]).optional(),
-      merge_commit_message: z.enum(["PR_BODY", "PR_TITLE", "BLANK"]).optional(),
-      archived: PermissiveBoolean.optional().default(false),
-      allow_forking: PermissiveBoolean.optional().default(false),
-      web_commit_signoff_required: PermissiveBoolean.optional().default(false),
-    })
-    .optional()
+  const reposUpdateRequestBodySchema = s_reposUpdateJsonRequestBody.optional()
 
   const reposUpdateResponseBodyValidator = responseValidationFactory(
     [
@@ -56806,10 +56182,8 @@ export function createRouter(implementation: Implementation): Router {
     job_id: z.coerce.number(),
   })
 
-  const actionsReRunJobForWorkflowRunRequestBodySchema = z
-    .object({enable_debug_logging: PermissiveBoolean.optional().default(false)})
-    .nullable()
-    .optional()
+  const actionsReRunJobForWorkflowRunRequestBodySchema =
+    s_actionsReRunJobForWorkflowRunJsonRequestBody.optional()
 
   const actionsReRunJobForWorkflowRunResponseBodyValidator =
     responseValidationFactory(
@@ -56968,10 +56342,8 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const actionsSetCustomOidcSubClaimForRepoRequestBodySchema = z.object({
-    use_default: PermissiveBoolean,
-    include_claim_keys: z.array(z.string()).optional(),
-  })
+  const actionsSetCustomOidcSubClaimForRepoRequestBodySchema =
+    s_actionsSetCustomOidcSubClaimForRepoJsonRequestBody
 
   const actionsSetCustomOidcSubClaimForRepoResponseBodyValidator =
     responseValidationFactory(
@@ -57326,10 +56698,7 @@ export function createRouter(implementation: Implementation): Router {
   })
 
   const actionsSetGithubActionsPermissionsRepositoryRequestBodySchema =
-    z.object({
-      enabled: s_actions_enabled,
-      allowed_actions: s_allowed_actions.optional(),
-    })
+    s_actionsSetGithubActionsPermissionsRepositoryJsonRequestBody
 
   const actionsSetGithubActionsPermissionsRepositoryResponseBodyValidator =
     responseValidationFactory([["204", z.undefined()]], undefined)
@@ -58037,12 +57406,8 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const actionsGenerateRunnerJitconfigForRepoRequestBodySchema = z.object({
-    name: z.string(),
-    runner_group_id: z.coerce.number(),
-    labels: z.array(z.string()).min(1).max(100),
-    work_folder: z.string().optional().default("_work"),
-  })
+  const actionsGenerateRunnerJitconfigForRepoRequestBodySchema =
+    s_actionsGenerateRunnerJitconfigForRepoJsonRequestBody
 
   const actionsGenerateRunnerJitconfigForRepoResponseBodyValidator =
     responseValidationFactory(
@@ -58523,7 +57888,7 @@ export function createRouter(implementation: Implementation): Router {
   })
 
   const actionsAddCustomLabelsToSelfHostedRunnerForRepoRequestBodySchema =
-    z.object({labels: z.array(z.string()).min(1).max(100)})
+    s_actionsAddCustomLabelsToSelfHostedRunnerForRepoJsonRequestBody
 
   const actionsAddCustomLabelsToSelfHostedRunnerForRepoResponseBodyValidator =
     responseValidationFactory(
@@ -58626,7 +57991,7 @@ export function createRouter(implementation: Implementation): Router {
   })
 
   const actionsSetCustomLabelsForSelfHostedRunnerForRepoRequestBodySchema =
-    z.object({labels: z.array(z.string()).min(0).max(100)})
+    s_actionsSetCustomLabelsForSelfHostedRunnerForRepoJsonRequestBody
 
   const actionsSetCustomLabelsForSelfHostedRunnerForRepoResponseBodyValidator =
     responseValidationFactory(
@@ -59718,10 +59083,8 @@ export function createRouter(implementation: Implementation): Router {
     run_id: z.coerce.number(),
   })
 
-  const actionsReviewCustomGatesForRunRequestBodySchema = z.union([
-    s_review_custom_gates_comment_required,
-    s_review_custom_gates_state_required,
-  ])
+  const actionsReviewCustomGatesForRunRequestBodySchema =
+    s_actionsReviewCustomGatesForRunJsonRequestBody
 
   const actionsReviewCustomGatesForRunResponseBodyValidator =
     responseValidationFactory([["204", z.undefined()]], undefined)
@@ -60166,11 +59529,8 @@ export function createRouter(implementation: Implementation): Router {
     run_id: z.coerce.number(),
   })
 
-  const actionsReviewPendingDeploymentsForRunRequestBodySchema = z.object({
-    environment_ids: z.array(z.coerce.number()),
-    state: z.enum(["approved", "rejected"]),
-    comment: z.string(),
-  })
+  const actionsReviewPendingDeploymentsForRunRequestBodySchema =
+    s_actionsReviewPendingDeploymentsForRunJsonRequestBody
 
   const actionsReviewPendingDeploymentsForRunResponseBodyValidator =
     responseValidationFactory([["200", z.array(s_deployment)]], undefined)
@@ -60250,10 +59610,8 @@ export function createRouter(implementation: Implementation): Router {
     run_id: z.coerce.number(),
   })
 
-  const actionsReRunWorkflowRequestBodySchema = z
-    .object({enable_debug_logging: PermissiveBoolean.optional().default(false)})
-    .nullable()
-    .optional()
+  const actionsReRunWorkflowRequestBodySchema =
+    s_actionsReRunWorkflowJsonRequestBody.optional()
 
   const actionsReRunWorkflowResponseBodyValidator = responseValidationFactory(
     [["201", s_empty_object]],
@@ -60324,10 +59682,8 @@ export function createRouter(implementation: Implementation): Router {
     run_id: z.coerce.number(),
   })
 
-  const actionsReRunWorkflowFailedJobsRequestBodySchema = z
-    .object({enable_debug_logging: PermissiveBoolean.optional().default(false)})
-    .nullable()
-    .optional()
+  const actionsReRunWorkflowFailedJobsRequestBodySchema =
+    s_actionsReRunWorkflowFailedJobsJsonRequestBody.optional()
 
   const actionsReRunWorkflowFailedJobsResponseBodyValidator =
     responseValidationFactory([["201", s_empty_object]], undefined)
@@ -60674,16 +60030,8 @@ export function createRouter(implementation: Implementation): Router {
     secret_name: z.string(),
   })
 
-  const actionsCreateOrUpdateRepoSecretRequestBodySchema = z.object({
-    encrypted_value: z
-      .string()
-      .regex(
-        new RegExp(
-          "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{4})$",
-        ),
-      ),
-    key_id: z.string(),
-  })
+  const actionsCreateOrUpdateRepoSecretRequestBodySchema =
+    s_actionsCreateOrUpdateRepoSecretJsonRequestBody
 
   const actionsCreateOrUpdateRepoSecretResponseBodyValidator =
     responseValidationFactory(
@@ -60910,10 +60258,8 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const actionsCreateRepoVariableRequestBodySchema = z.object({
-    name: z.string(),
-    value: z.string(),
-  })
+  const actionsCreateRepoVariableRequestBodySchema =
+    s_actionsCreateRepoVariableJsonRequestBody
 
   const actionsCreateRepoVariableResponseBodyValidator =
     responseValidationFactory([["201", s_empty_object]], undefined)
@@ -61047,10 +60393,8 @@ export function createRouter(implementation: Implementation): Router {
     name: z.string(),
   })
 
-  const actionsUpdateRepoVariableRequestBodySchema = z.object({
-    name: z.string().optional(),
-    value: z.string().optional(),
-  })
+  const actionsUpdateRepoVariableRequestBodySchema =
+    s_actionsUpdateRepoVariableJsonRequestBody
 
   const actionsUpdateRepoVariableResponseBodyValidator =
     responseValidationFactory([["204", z.undefined()]], undefined)
@@ -61397,10 +60741,8 @@ export function createRouter(implementation: Implementation): Router {
     workflow_id: z.union([z.coerce.number(), z.string()]),
   })
 
-  const actionsCreateWorkflowDispatchRequestBodySchema = z.object({
-    ref: z.string(),
-    inputs: z.record(z.string(), z.unknown()).optional(),
-  })
+  const actionsCreateWorkflowDispatchRequestBodySchema =
+    s_actionsCreateWorkflowDispatchJsonRequestBody
 
   const actionsCreateWorkflowDispatchResponseBodyValidator =
     responseValidationFactory([["204", z.undefined()]], undefined)
@@ -61956,13 +61298,8 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const reposCreateAttestationRequestBodySchema = z.object({
-    bundle: z.object({
-      mediaType: z.string().optional(),
-      verificationMaterial: z.record(z.string(), z.unknown()).optional(),
-      dsseEnvelope: z.record(z.string(), z.unknown()).optional(),
-    }),
-  })
+  const reposCreateAttestationRequestBodySchema =
+    s_reposCreateAttestationJsonRequestBody
 
   const reposCreateAttestationResponseBodyValidator = responseValidationFactory(
     [
@@ -62229,11 +61566,8 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const reposCreateAutolinkRequestBodySchema = z.object({
-    key_prefix: z.string(),
-    url_template: z.string(),
-    is_alphanumeric: PermissiveBoolean.optional().default(true),
-  })
+  const reposCreateAutolinkRequestBodySchema =
+    s_reposCreateAutolinkJsonRequestBody
 
   const reposCreateAutolinkResponseBodyValidator = responseValidationFactory(
     [
@@ -62888,59 +62222,8 @@ export function createRouter(implementation: Implementation): Router {
     branch: z.string(),
   })
 
-  const reposUpdateBranchProtectionRequestBodySchema = z.object({
-    required_status_checks: z
-      .object({
-        strict: PermissiveBoolean,
-        contexts: z.array(z.string()),
-        checks: z
-          .array(
-            z.object({
-              context: z.string(),
-              app_id: z.coerce.number().optional(),
-            }),
-          )
-          .optional(),
-      })
-      .nullable(),
-    enforce_admins: PermissiveBoolean.nullable(),
-    required_pull_request_reviews: z
-      .object({
-        dismissal_restrictions: z
-          .object({
-            users: z.array(z.string()).optional(),
-            teams: z.array(z.string()).optional(),
-            apps: z.array(z.string()).optional(),
-          })
-          .optional(),
-        dismiss_stale_reviews: PermissiveBoolean.optional(),
-        require_code_owner_reviews: PermissiveBoolean.optional(),
-        required_approving_review_count: z.coerce.number().optional(),
-        require_last_push_approval: PermissiveBoolean.optional().default(false),
-        bypass_pull_request_allowances: z
-          .object({
-            users: z.array(z.string()).optional(),
-            teams: z.array(z.string()).optional(),
-            apps: z.array(z.string()).optional(),
-          })
-          .optional(),
-      })
-      .nullable(),
-    restrictions: z
-      .object({
-        users: z.array(z.string()),
-        teams: z.array(z.string()),
-        apps: z.array(z.string()).optional(),
-      })
-      .nullable(),
-    required_linear_history: PermissiveBoolean.optional(),
-    allow_force_pushes: PermissiveBoolean.nullable().optional(),
-    allow_deletions: PermissiveBoolean.optional(),
-    block_creations: PermissiveBoolean.optional(),
-    required_conversation_resolution: PermissiveBoolean.optional(),
-    lock_branch: PermissiveBoolean.optional().default(false),
-    allow_fork_syncing: PermissiveBoolean.optional().default(false),
-  })
+  const reposUpdateBranchProtectionRequestBodySchema =
+    s_reposUpdateBranchProtectionJsonRequestBody
 
   const reposUpdateBranchProtectionResponseBodyValidator =
     responseValidationFactory(
@@ -63389,28 +62672,8 @@ export function createRouter(implementation: Implementation): Router {
     branch: z.string(),
   })
 
-  const reposUpdatePullRequestReviewProtectionRequestBodySchema = z
-    .object({
-      dismissal_restrictions: z
-        .object({
-          users: z.array(z.string()).optional(),
-          teams: z.array(z.string()).optional(),
-          apps: z.array(z.string()).optional(),
-        })
-        .optional(),
-      dismiss_stale_reviews: PermissiveBoolean.optional(),
-      require_code_owner_reviews: PermissiveBoolean.optional(),
-      required_approving_review_count: z.coerce.number().optional(),
-      require_last_push_approval: PermissiveBoolean.optional().default(false),
-      bypass_pull_request_allowances: z
-        .object({
-          users: z.array(z.string()).optional(),
-          teams: z.array(z.string()).optional(),
-          apps: z.array(z.string()).optional(),
-        })
-        .optional(),
-    })
-    .optional()
+  const reposUpdatePullRequestReviewProtectionRequestBodySchema =
+    s_reposUpdatePullRequestReviewProtectionJsonRequestBody.optional()
 
   const reposUpdatePullRequestReviewProtectionResponseBodyValidator =
     responseValidationFactory(
@@ -63905,17 +63168,8 @@ export function createRouter(implementation: Implementation): Router {
     branch: z.string(),
   })
 
-  const reposUpdateStatusCheckProtectionRequestBodySchema = z
-    .object({
-      strict: PermissiveBoolean.optional(),
-      contexts: z.array(z.string()).optional(),
-      checks: z
-        .array(
-          z.object({context: z.string(), app_id: z.coerce.number().optional()}),
-        )
-        .optional(),
-    })
-    .optional()
+  const reposUpdateStatusCheckProtectionRequestBodySchema =
+    s_reposUpdateStatusCheckProtectionJsonRequestBody.optional()
 
   const reposUpdateStatusCheckProtectionResponseBodyValidator =
     responseValidationFactory(
@@ -64138,9 +63392,8 @@ export function createRouter(implementation: Implementation): Router {
     branch: z.string(),
   })
 
-  const reposAddStatusCheckContextsRequestBodySchema = z
-    .union([z.object({contexts: z.array(z.string())}), z.array(z.string())])
-    .optional()
+  const reposAddStatusCheckContextsRequestBodySchema =
+    s_reposAddStatusCheckContextsJsonRequestBody.optional()
 
   const reposAddStatusCheckContextsResponseBodyValidator =
     responseValidationFactory(
@@ -64228,9 +63481,8 @@ export function createRouter(implementation: Implementation): Router {
     branch: z.string(),
   })
 
-  const reposSetStatusCheckContextsRequestBodySchema = z
-    .union([z.object({contexts: z.array(z.string())}), z.array(z.string())])
-    .optional()
+  const reposSetStatusCheckContextsRequestBodySchema =
+    s_reposSetStatusCheckContextsJsonRequestBody.optional()
 
   const reposSetStatusCheckContextsResponseBodyValidator =
     responseValidationFactory(
@@ -64314,10 +63566,8 @@ export function createRouter(implementation: Implementation): Router {
     branch: z.string(),
   })
 
-  const reposRemoveStatusCheckContextsRequestBodySchema = z.union([
-    z.object({contexts: z.array(z.string())}),
-    z.array(z.string()),
-  ])
+  const reposRemoveStatusCheckContextsRequestBodySchema =
+    s_reposRemoveStatusCheckContextsJsonRequestBody
 
   const reposRemoveStatusCheckContextsResponseBodyValidator =
     responseValidationFactory(
@@ -64623,9 +63873,8 @@ export function createRouter(implementation: Implementation): Router {
     branch: z.string(),
   })
 
-  const reposAddAppAccessRestrictionsRequestBodySchema = z.object({
-    apps: z.array(z.string()),
-  })
+  const reposAddAppAccessRestrictionsRequestBodySchema =
+    s_reposAddAppAccessRestrictionsJsonRequestBody
 
   const reposAddAppAccessRestrictionsResponseBodyValidator =
     responseValidationFactory(
@@ -64705,9 +63954,8 @@ export function createRouter(implementation: Implementation): Router {
     branch: z.string(),
   })
 
-  const reposSetAppAccessRestrictionsRequestBodySchema = z.object({
-    apps: z.array(z.string()),
-  })
+  const reposSetAppAccessRestrictionsRequestBodySchema =
+    s_reposSetAppAccessRestrictionsJsonRequestBody
 
   const reposSetAppAccessRestrictionsResponseBodyValidator =
     responseValidationFactory(
@@ -64787,9 +64035,8 @@ export function createRouter(implementation: Implementation): Router {
     branch: z.string(),
   })
 
-  const reposRemoveAppAccessRestrictionsRequestBodySchema = z.object({
-    apps: z.array(z.string()),
-  })
+  const reposRemoveAppAccessRestrictionsRequestBodySchema =
+    s_reposRemoveAppAccessRestrictionsJsonRequestBody
 
   const reposRemoveAppAccessRestrictionsResponseBodyValidator =
     responseValidationFactory(
@@ -64952,9 +64199,8 @@ export function createRouter(implementation: Implementation): Router {
     branch: z.string(),
   })
 
-  const reposAddTeamAccessRestrictionsRequestBodySchema = z
-    .union([z.object({teams: z.array(z.string())}), z.array(z.string())])
-    .optional()
+  const reposAddTeamAccessRestrictionsRequestBodySchema =
+    s_reposAddTeamAccessRestrictionsJsonRequestBody.optional()
 
   const reposAddTeamAccessRestrictionsResponseBodyValidator =
     responseValidationFactory(
@@ -65034,9 +64280,8 @@ export function createRouter(implementation: Implementation): Router {
     branch: z.string(),
   })
 
-  const reposSetTeamAccessRestrictionsRequestBodySchema = z
-    .union([z.object({teams: z.array(z.string())}), z.array(z.string())])
-    .optional()
+  const reposSetTeamAccessRestrictionsRequestBodySchema =
+    s_reposSetTeamAccessRestrictionsJsonRequestBody.optional()
 
   const reposSetTeamAccessRestrictionsResponseBodyValidator =
     responseValidationFactory(
@@ -65116,10 +64361,8 @@ export function createRouter(implementation: Implementation): Router {
     branch: z.string(),
   })
 
-  const reposRemoveTeamAccessRestrictionsRequestBodySchema = z.union([
-    z.object({teams: z.array(z.string())}),
-    z.array(z.string()),
-  ])
+  const reposRemoveTeamAccessRestrictionsRequestBodySchema =
+    s_reposRemoveTeamAccessRestrictionsJsonRequestBody
 
   const reposRemoveTeamAccessRestrictionsResponseBodyValidator =
     responseValidationFactory(
@@ -65285,9 +64528,8 @@ export function createRouter(implementation: Implementation): Router {
     branch: z.string(),
   })
 
-  const reposAddUserAccessRestrictionsRequestBodySchema = z.object({
-    users: z.array(z.string()),
-  })
+  const reposAddUserAccessRestrictionsRequestBodySchema =
+    s_reposAddUserAccessRestrictionsJsonRequestBody
 
   const reposAddUserAccessRestrictionsResponseBodyValidator =
     responseValidationFactory(
@@ -65367,9 +64609,8 @@ export function createRouter(implementation: Implementation): Router {
     branch: z.string(),
   })
 
-  const reposSetUserAccessRestrictionsRequestBodySchema = z.object({
-    users: z.array(z.string()),
-  })
+  const reposSetUserAccessRestrictionsRequestBodySchema =
+    s_reposSetUserAccessRestrictionsJsonRequestBody
 
   const reposSetUserAccessRestrictionsResponseBodyValidator =
     responseValidationFactory(
@@ -65449,9 +64690,8 @@ export function createRouter(implementation: Implementation): Router {
     branch: z.string(),
   })
 
-  const reposRemoveUserAccessRestrictionsRequestBodySchema = z.object({
-    users: z.array(z.string()),
-  })
+  const reposRemoveUserAccessRestrictionsRequestBodySchema =
+    s_reposRemoveUserAccessRestrictionsJsonRequestBody
 
   const reposRemoveUserAccessRestrictionsResponseBodyValidator =
     responseValidationFactory(
@@ -65534,7 +64774,7 @@ export function createRouter(implementation: Implementation): Router {
     branch: z.string(),
   })
 
-  const reposRenameBranchRequestBodySchema = z.object({new_name: z.string()})
+  const reposRenameBranchRequestBodySchema = s_reposRenameBranchJsonRequestBody
 
   const reposRenameBranchResponseBodyValidator = responseValidationFactory(
     [
@@ -65618,16 +64858,7 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const checksCreateRequestBodySchema = z.union([
-    z.intersection(
-      z.object({status: z.object({})}),
-      z.record(z.string(), z.unknown()),
-    ),
-    z.intersection(
-      z.object({status: z.object({}).optional()}),
-      z.record(z.string(), z.unknown()),
-    ),
-  ])
+  const checksCreateRequestBodySchema = s_checksCreateJsonRequestBody
 
   const checksCreateResponseBodyValidator = responseValidationFactory(
     [["201", s_check_run]],
@@ -65763,77 +64994,7 @@ export function createRouter(implementation: Implementation): Router {
     check_run_id: z.coerce.number(),
   })
 
-  const checksUpdateRequestBodySchema = z.object({
-    name: z.string().optional(),
-    details_url: z.string().optional(),
-    external_id: z.string().optional(),
-    started_at: z.iso.datetime({offset: true}).optional(),
-    status: z
-      .enum([
-        "queued",
-        "in_progress",
-        "completed",
-        "waiting",
-        "requested",
-        "pending",
-      ])
-      .optional(),
-    conclusion: z
-      .enum([
-        "action_required",
-        "cancelled",
-        "failure",
-        "neutral",
-        "success",
-        "skipped",
-        "stale",
-        "timed_out",
-      ])
-      .optional(),
-    completed_at: z.iso.datetime({offset: true}).optional(),
-    output: z
-      .object({
-        title: z.string().optional(),
-        summary: z.string().max(65535),
-        text: z.string().max(65535).optional(),
-        annotations: z
-          .array(
-            z.object({
-              path: z.string(),
-              start_line: z.coerce.number(),
-              end_line: z.coerce.number(),
-              start_column: z.coerce.number().optional(),
-              end_column: z.coerce.number().optional(),
-              annotation_level: z.enum(["notice", "warning", "failure"]),
-              message: z.string(),
-              title: z.string().optional(),
-              raw_details: z.string().optional(),
-            }),
-          )
-          .max(50)
-          .optional(),
-        images: z
-          .array(
-            z.object({
-              alt: z.string(),
-              image_url: z.string(),
-              caption: z.string().optional(),
-            }),
-          )
-          .optional(),
-      })
-      .optional(),
-    actions: z
-      .array(
-        z.object({
-          label: z.string().max(20),
-          description: z.string().max(40),
-          identifier: z.string().max(20),
-        }),
-      )
-      .max(3)
-      .optional(),
-  })
+  const checksUpdateRequestBodySchema = s_checksUpdateJsonRequestBody
 
   const checksUpdateResponseBodyValidator = responseValidationFactory(
     [["200", s_check_run]],
@@ -66056,7 +65217,7 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const checksCreateSuiteRequestBodySchema = z.object({head_sha: z.string()})
+  const checksCreateSuiteRequestBodySchema = s_checksCreateSuiteJsonRequestBody
 
   const checksCreateSuiteResponseBodyValidator = responseValidationFactory(
     [
@@ -66132,16 +65293,8 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const checksSetSuitesPreferencesRequestBodySchema = z.object({
-    auto_trigger_checks: z
-      .array(
-        z.object({
-          app_id: z.coerce.number(),
-          setting: PermissiveBoolean.default(true),
-        }),
-      )
-      .optional(),
-  })
+  const checksSetSuitesPreferencesRequestBodySchema =
+    s_checksSetSuitesPreferencesJsonRequestBody
 
   const checksSetSuitesPreferencesResponseBodyValidator =
     responseValidationFactory([["200", s_check_suite_preference]], undefined)
@@ -66641,12 +65794,8 @@ export function createRouter(implementation: Implementation): Router {
     alert_number: s_alert_number,
   })
 
-  const codeScanningUpdateAlertRequestBodySchema = z.object({
-    state: s_code_scanning_alert_set_state,
-    dismissed_reason: s_code_scanning_alert_dismissed_reason.optional(),
-    dismissed_comment: s_code_scanning_alert_dismissed_comment.optional(),
-    create_request: s_code_scanning_alert_create_request.optional(),
-  })
+  const codeScanningUpdateAlertRequestBodySchema =
+    s_codeScanningUpdateAlertJsonRequestBody
 
   const codeScanningUpdateAlertResponseBodyValidator =
     responseValidationFactory(
@@ -67755,11 +66904,8 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const codeScanningCreateVariantAnalysisRequestBodySchema = z.union([
-    z.object({}),
-    z.object({}),
-    z.object({}),
-  ])
+  const codeScanningCreateVariantAnalysisRequestBodySchema =
+    s_codeScanningCreateVariantAnalysisJsonRequestBody
 
   const codeScanningCreateVariantAnalysisResponseBodyValidator =
     responseValidationFactory(
@@ -68262,15 +67408,8 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const codeScanningUploadSarifRequestBodySchema = z.object({
-    commit_sha: s_code_scanning_analysis_commit_sha,
-    ref: s_code_scanning_ref_full,
-    sarif: s_code_scanning_analysis_sarif_file,
-    checkout_uri: z.string().optional(),
-    started_at: z.iso.datetime({offset: true}).optional(),
-    tool_name: z.string().optional(),
-    validate: PermissiveBoolean.optional(),
-  })
+  const codeScanningUploadSarifRequestBodySchema =
+    s_codeScanningUploadSarifJsonRequestBody
 
   const codeScanningUploadSarifResponseBodyValidator =
     responseValidationFactory(
@@ -68754,23 +67893,8 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const codespacesCreateWithRepoForAuthenticatedUserRequestBodySchema = z
-    .object({
-      ref: z.string().optional(),
-      location: z.string().optional(),
-      geo: z
-        .enum(["EuropeWest", "SoutheastAsia", "UsEast", "UsWest"])
-        .optional(),
-      client_ip: z.string().optional(),
-      machine: z.string().optional(),
-      devcontainer_path: z.string().optional(),
-      multi_repo_permissions_opt_out: PermissiveBoolean.optional(),
-      working_directory: z.string().optional(),
-      idle_timeout_minutes: z.coerce.number().optional(),
-      display_name: z.string().optional(),
-      retention_period_minutes: z.coerce.number().optional(),
-    })
-    .nullable()
+  const codespacesCreateWithRepoForAuthenticatedUserRequestBodySchema =
+    s_codespacesCreateWithRepoForAuthenticatedUserJsonRequestBody
 
   const codespacesCreateWithRepoForAuthenticatedUserResponseBodyValidator =
     responseValidationFactory(
@@ -69582,17 +68706,8 @@ export function createRouter(implementation: Implementation): Router {
     secret_name: z.string(),
   })
 
-  const codespacesCreateOrUpdateRepoSecretRequestBodySchema = z.object({
-    encrypted_value: z
-      .string()
-      .regex(
-        new RegExp(
-          "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{4})$",
-        ),
-      )
-      .optional(),
-    key_id: z.string().optional(),
-  })
+  const codespacesCreateOrUpdateRepoSecretRequestBodySchema =
+    s_codespacesCreateOrUpdateRepoSecretJsonRequestBody
 
   const codespacesCreateOrUpdateRepoSecretResponseBodyValidator =
     responseValidationFactory(
@@ -69894,9 +69009,8 @@ export function createRouter(implementation: Implementation): Router {
     username: z.string(),
   })
 
-  const reposAddCollaboratorRequestBodySchema = z
-    .object({permission: z.string().optional().default("push")})
-    .optional()
+  const reposAddCollaboratorRequestBodySchema =
+    s_reposAddCollaboratorJsonRequestBody.optional()
 
   const reposAddCollaboratorResponseBodyValidator = responseValidationFactory(
     [
@@ -70280,7 +69394,8 @@ export function createRouter(implementation: Implementation): Router {
     comment_id: z.coerce.number(),
   })
 
-  const reposUpdateCommitCommentRequestBodySchema = z.object({body: z.string()})
+  const reposUpdateCommitCommentRequestBodySchema =
+    s_reposUpdateCommitCommentJsonRequestBody
 
   const reposUpdateCommitCommentResponseBodyValidator =
     responseValidationFactory(
@@ -70525,18 +69640,8 @@ export function createRouter(implementation: Implementation): Router {
     comment_id: z.coerce.number(),
   })
 
-  const reactionsCreateForCommitCommentRequestBodySchema = z.object({
-    content: z.enum([
-      "+1",
-      "-1",
-      "laugh",
-      "confused",
-      "heart",
-      "hooray",
-      "rocket",
-      "eyes",
-    ]),
-  })
+  const reactionsCreateForCommitCommentRequestBodySchema =
+    s_reactionsCreateForCommitCommentJsonRequestBody
 
   const reactionsCreateForCommitCommentResponseBodyValidator =
     responseValidationFactory(
@@ -70935,12 +70040,8 @@ export function createRouter(implementation: Implementation): Router {
     commit_sha: z.string(),
   })
 
-  const reposCreateCommitCommentRequestBodySchema = z.object({
-    body: z.string(),
-    path: z.string().optional(),
-    position: z.coerce.number().optional(),
-    line: z.coerce.number().optional(),
-  })
+  const reposCreateCommitCommentRequestBodySchema =
+    s_reposCreateCommitCommentJsonRequestBody
 
   const reposCreateCommitCommentResponseBodyValidator =
     responseValidationFactory(
@@ -71828,26 +70929,8 @@ export function createRouter(implementation: Implementation): Router {
     path: z.string(),
   })
 
-  const reposCreateOrUpdateFileContentsRequestBodySchema = z.object({
-    message: z.string(),
-    content: z.string(),
-    sha: z.string().optional(),
-    branch: z.string().optional(),
-    committer: z
-      .object({
-        name: z.string(),
-        email: z.string(),
-        date: z.string().optional(),
-      })
-      .optional(),
-    author: z
-      .object({
-        name: z.string(),
-        email: z.string(),
-        date: z.string().optional(),
-      })
-      .optional(),
-  })
+  const reposCreateOrUpdateFileContentsRequestBodySchema =
+    s_reposCreateOrUpdateFileContentsJsonRequestBody
 
   const reposCreateOrUpdateFileContentsResponseBodyValidator =
     responseValidationFactory(
@@ -71941,17 +71024,7 @@ export function createRouter(implementation: Implementation): Router {
     path: z.string(),
   })
 
-  const reposDeleteFileRequestBodySchema = z.object({
-    message: z.string(),
-    sha: z.string(),
-    branch: z.string().optional(),
-    committer: z
-      .object({name: z.string().optional(), email: z.string().optional()})
-      .optional(),
-    author: z
-      .object({name: z.string().optional(), email: z.string().optional()})
-      .optional(),
-  })
+  const reposDeleteFileRequestBodySchema = s_reposDeleteFileJsonRequestBody
 
   const reposDeleteFileResponseBodyValidator = responseValidationFactory(
     [
@@ -72333,19 +71406,8 @@ export function createRouter(implementation: Implementation): Router {
     alert_number: s_alert_number,
   })
 
-  const dependabotUpdateAlertRequestBodySchema = z.object({
-    state: z.enum(["dismissed", "open"]),
-    dismissed_reason: z
-      .enum([
-        "fix_started",
-        "inaccurate",
-        "no_bandwidth",
-        "not_used",
-        "tolerable_risk",
-      ])
-      .optional(),
-    dismissed_comment: z.string().max(280).optional(),
-  })
+  const dependabotUpdateAlertRequestBodySchema =
+    s_dependabotUpdateAlertJsonRequestBody
 
   const dependabotUpdateAlertResponseBodyValidator = responseValidationFactory(
     [
@@ -72650,17 +71712,8 @@ export function createRouter(implementation: Implementation): Router {
     secret_name: z.string(),
   })
 
-  const dependabotCreateOrUpdateRepoSecretRequestBodySchema = z.object({
-    encrypted_value: z
-      .string()
-      .regex(
-        new RegExp(
-          "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{4})$",
-        ),
-      )
-      .optional(),
-    key_id: z.string().optional(),
-  })
+  const dependabotCreateOrUpdateRepoSecretRequestBodySchema =
+    s_dependabotCreateOrUpdateRepoSecretJsonRequestBody
 
   const dependabotCreateOrUpdateRepoSecretResponseBodyValidator =
     responseValidationFactory(
@@ -73140,19 +72193,8 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const reposCreateDeploymentRequestBodySchema = z.object({
-    ref: z.string(),
-    task: z.string().optional().default("deploy"),
-    auto_merge: PermissiveBoolean.optional().default(true),
-    required_contexts: z.array(z.string()).optional(),
-    payload: z
-      .union([z.record(z.string(), z.unknown()), z.string().default("")])
-      .optional(),
-    environment: z.string().optional().default("production"),
-    description: z.string().nullable().optional().default(""),
-    transient_environment: PermissiveBoolean.optional().default(false),
-    production_environment: PermissiveBoolean.optional(),
-  })
+  const reposCreateDeploymentRequestBodySchema =
+    s_reposCreateDeploymentJsonRequestBody
 
   const reposCreateDeploymentResponseBodyValidator = responseValidationFactory(
     [
@@ -73468,23 +72510,8 @@ export function createRouter(implementation: Implementation): Router {
     deployment_id: z.coerce.number(),
   })
 
-  const reposCreateDeploymentStatusRequestBodySchema = z.object({
-    state: z.enum([
-      "error",
-      "failure",
-      "inactive",
-      "in_progress",
-      "queued",
-      "pending",
-      "success",
-    ]),
-    target_url: z.string().optional().default(""),
-    log_url: z.string().optional().default(""),
-    description: z.string().optional().default(""),
-    environment: z.string().optional(),
-    environment_url: z.string().optional().default(""),
-    auto_inactive: PermissiveBoolean.optional(),
-  })
+  const reposCreateDeploymentStatusRequestBodySchema =
+    s_reposCreateDeploymentStatusJsonRequestBody
 
   const reposCreateDeploymentStatusResponseBodyValidator =
     responseValidationFactory(
@@ -73636,10 +72663,8 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const reposCreateDispatchEventRequestBodySchema = z.object({
-    event_type: z.string().min(1).max(100),
-    client_payload: z.record(z.string(), z.unknown()).optional(),
-  })
+  const reposCreateDispatchEventRequestBodySchema =
+    s_reposCreateDispatchEventJsonRequestBody
 
   const reposCreateDispatchEventResponseBodyValidator =
     responseValidationFactory(
@@ -73871,23 +72896,8 @@ export function createRouter(implementation: Implementation): Router {
     environment_name: z.string(),
   })
 
-  const reposCreateOrUpdateEnvironmentRequestBodySchema = z
-    .object({
-      wait_timer: s_wait_timer.optional(),
-      prevent_self_review: s_prevent_self_review.optional(),
-      reviewers: z
-        .array(
-          z.object({
-            type: s_deployment_reviewer_type.optional(),
-            id: z.coerce.number().optional(),
-          }),
-        )
-        .nullable()
-        .optional(),
-      deployment_branch_policy: s_deployment_branch_policy_settings.optional(),
-    })
-    .nullable()
-    .optional()
+  const reposCreateOrUpdateEnvironmentRequestBodySchema =
+    s_reposCreateOrUpdateEnvironmentJsonRequestBody.optional()
 
   const reposCreateOrUpdateEnvironmentResponseBodyValidator =
     responseValidationFactory(
@@ -74512,9 +73522,8 @@ export function createRouter(implementation: Implementation): Router {
     owner: z.string(),
   })
 
-  const reposCreateDeploymentProtectionRuleRequestBodySchema = z.object({
-    integration_id: z.coerce.number().optional(),
-  })
+  const reposCreateDeploymentProtectionRuleRequestBodySchema =
+    s_reposCreateDeploymentProtectionRuleJsonRequestBody
 
   const reposCreateDeploymentProtectionRuleResponseBodyValidator =
     responseValidationFactory(
@@ -75065,16 +74074,8 @@ export function createRouter(implementation: Implementation): Router {
     secret_name: z.string(),
   })
 
-  const actionsCreateOrUpdateEnvironmentSecretRequestBodySchema = z.object({
-    encrypted_value: z
-      .string()
-      .regex(
-        new RegExp(
-          "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{4})$",
-        ),
-      ),
-    key_id: z.string(),
-  })
+  const actionsCreateOrUpdateEnvironmentSecretRequestBodySchema =
+    s_actionsCreateOrUpdateEnvironmentSecretJsonRequestBody
 
   const actionsCreateOrUpdateEnvironmentSecretResponseBodyValidator =
     responseValidationFactory(
@@ -75317,10 +74318,8 @@ export function createRouter(implementation: Implementation): Router {
     environment_name: z.string(),
   })
 
-  const actionsCreateEnvironmentVariableRequestBodySchema = z.object({
-    name: z.string(),
-    value: z.string(),
-  })
+  const actionsCreateEnvironmentVariableRequestBodySchema =
+    s_actionsCreateEnvironmentVariableJsonRequestBody
 
   const actionsCreateEnvironmentVariableResponseBodyValidator =
     responseValidationFactory([["201", s_empty_object]], undefined)
@@ -75458,10 +74457,8 @@ export function createRouter(implementation: Implementation): Router {
     environment_name: z.string(),
   })
 
-  const actionsUpdateEnvironmentVariableRequestBodySchema = z.object({
-    name: z.string().optional(),
-    value: z.string().optional(),
-  })
+  const actionsUpdateEnvironmentVariableRequestBodySchema =
+    s_actionsUpdateEnvironmentVariableJsonRequestBody
 
   const actionsUpdateEnvironmentVariableResponseBodyValidator =
     responseValidationFactory([["204", z.undefined()]], undefined)
@@ -75753,14 +74750,8 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const reposCreateForkRequestBodySchema = z
-    .object({
-      organization: z.string().optional(),
-      name: z.string().optional(),
-      default_branch_only: PermissiveBoolean.optional(),
-    })
-    .nullable()
-    .optional()
+  const reposCreateForkRequestBodySchema =
+    s_reposCreateForkJsonRequestBody.optional()
 
   const reposCreateForkResponseBodyValidator = responseValidationFactory(
     [
@@ -75848,10 +74839,7 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const gitCreateBlobRequestBodySchema = z.object({
-    content: z.string(),
-    encoding: z.string().optional().default("utf-8"),
-  })
+  const gitCreateBlobRequestBodySchema = s_gitCreateBlobJsonRequestBody
 
   const gitCreateBlobResponseBodyValidator = responseValidationFactory(
     [
@@ -76024,26 +75012,7 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const gitCreateCommitRequestBodySchema = z.object({
-    message: z.string(),
-    tree: z.string(),
-    parents: z.array(z.string()).optional(),
-    author: z
-      .object({
-        name: z.string(),
-        email: z.string(),
-        date: z.iso.datetime({offset: true}).optional(),
-      })
-      .optional(),
-    committer: z
-      .object({
-        name: z.string().optional(),
-        email: z.string().optional(),
-        date: z.iso.datetime({offset: true}).optional(),
-      })
-      .optional(),
-    signature: z.string().optional(),
-  })
+  const gitCreateCommitRequestBodySchema = s_gitCreateCommitJsonRequestBody
 
   const gitCreateCommitResponseBodyValidator = responseValidationFactory(
     [
@@ -76348,10 +75317,7 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const gitCreateRefRequestBodySchema = z.object({
-    ref: z.string(),
-    sha: z.string(),
-  })
+  const gitCreateRefRequestBodySchema = s_gitCreateRefJsonRequestBody
 
   const gitCreateRefResponseBodyValidator = responseValidationFactory(
     [
@@ -76432,10 +75398,7 @@ export function createRouter(implementation: Implementation): Router {
     ref: z.string(),
   })
 
-  const gitUpdateRefRequestBodySchema = z.object({
-    sha: z.string(),
-    force: PermissiveBoolean.optional().default(false),
-  })
+  const gitUpdateRefRequestBodySchema = s_gitUpdateRefJsonRequestBody
 
   const gitUpdateRefResponseBodyValidator = responseValidationFactory(
     [
@@ -76590,19 +75553,7 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const gitCreateTagRequestBodySchema = z.object({
-    tag: z.string(),
-    message: z.string(),
-    object: z.string(),
-    type: z.enum(["commit", "tree", "blob"]),
-    tagger: z
-      .object({
-        name: z.string(),
-        email: z.string(),
-        date: z.iso.datetime({offset: true}).optional(),
-      })
-      .optional(),
-  })
+  const gitCreateTagRequestBodySchema = s_gitCreateTagJsonRequestBody
 
   const gitCreateTagResponseBodyValidator = responseValidationFactory(
     [
@@ -76757,20 +75708,7 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const gitCreateTreeRequestBodySchema = z.object({
-    tree: z.array(
-      z.object({
-        path: z.string().optional(),
-        mode: z
-          .enum(["100644", "100755", "040000", "160000", "120000"])
-          .optional(),
-        type: z.enum(["blob", "tree", "commit"]).optional(),
-        sha: z.string().nullable().optional(),
-        content: z.string().optional(),
-      }),
-    ),
-    base_tree: z.string().optional(),
-  })
+  const gitCreateTreeRequestBodySchema = s_gitCreateTreeJsonRequestBody
 
   const gitCreateTreeResponseBodyValidator = responseValidationFactory(
     [
@@ -77022,22 +75960,8 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const reposCreateWebhookRequestBodySchema = z
-    .object({
-      name: z.string().optional(),
-      config: z
-        .object({
-          url: s_webhook_config_url.optional(),
-          content_type: s_webhook_config_content_type.optional(),
-          secret: s_webhook_config_secret.optional(),
-          insecure_ssl: s_webhook_config_insecure_ssl.optional(),
-        })
-        .optional(),
-      events: z.array(z.string()).optional().default(["push"]),
-      active: PermissiveBoolean.optional().default(true),
-    })
-    .nullable()
-    .optional()
+  const reposCreateWebhookRequestBodySchema =
+    s_reposCreateWebhookJsonRequestBody.optional()
 
   const reposCreateWebhookResponseBodyValidator = responseValidationFactory(
     [
@@ -77193,13 +76117,8 @@ export function createRouter(implementation: Implementation): Router {
     hook_id: z.coerce.number(),
   })
 
-  const reposUpdateWebhookRequestBodySchema = z.object({
-    config: s_webhook_config.optional(),
-    events: z.array(z.string()).optional().default(["push"]),
-    add_events: z.array(z.string()).optional(),
-    remove_events: z.array(z.string()).optional(),
-    active: PermissiveBoolean.optional().default(true),
-  })
+  const reposUpdateWebhookRequestBodySchema =
+    s_reposUpdateWebhookJsonRequestBody
 
   const reposUpdateWebhookResponseBodyValidator = responseValidationFactory(
     [
@@ -77416,14 +76335,8 @@ export function createRouter(implementation: Implementation): Router {
     hook_id: z.coerce.number(),
   })
 
-  const reposUpdateWebhookConfigForRepoRequestBodySchema = z
-    .object({
-      url: s_webhook_config_url.optional(),
-      content_type: s_webhook_config_content_type.optional(),
-      secret: s_webhook_config_secret.optional(),
-      insecure_ssl: s_webhook_config_insecure_ssl.optional(),
-    })
-    .optional()
+  const reposUpdateWebhookConfigForRepoRequestBodySchema =
+    s_reposUpdateWebhookConfigForRepoJsonRequestBody.optional()
 
   const reposUpdateWebhookConfigForRepoResponseBodyValidator =
     responseValidationFactory([["200", s_webhook_config]], undefined)
@@ -77955,13 +76868,8 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const migrationsStartImportRequestBodySchema = z.object({
-    vcs_url: z.string(),
-    vcs: z.enum(["subversion", "git", "mercurial", "tfvc"]).optional(),
-    vcs_username: z.string().optional(),
-    vcs_password: z.string().optional(),
-    tfvc_project: z.string().optional(),
-  })
+  const migrationsStartImportRequestBodySchema =
+    s_migrationsStartImportJsonRequestBody
 
   const migrationsStartImportResponseBodyValidator = responseValidationFactory(
     [
@@ -78045,15 +76953,8 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const migrationsUpdateImportRequestBodySchema = z
-    .object({
-      vcs_username: z.string().optional(),
-      vcs_password: z.string().optional(),
-      vcs: z.enum(["subversion", "tfvc", "git", "mercurial"]).optional(),
-      tfvc_project: z.string().optional(),
-    })
-    .nullable()
-    .optional()
+  const migrationsUpdateImportRequestBodySchema =
+    s_migrationsUpdateImportJsonRequestBody.optional()
 
   const migrationsUpdateImportResponseBodyValidator = responseValidationFactory(
     [
@@ -78285,9 +77186,8 @@ export function createRouter(implementation: Implementation): Router {
     author_id: z.coerce.number(),
   })
 
-  const migrationsMapCommitAuthorRequestBodySchema = z
-    .object({email: z.string().optional(), name: z.string().optional()})
-    .optional()
+  const migrationsMapCommitAuthorRequestBodySchema =
+    s_migrationsMapCommitAuthorJsonRequestBody.optional()
 
   const migrationsMapCommitAuthorResponseBodyValidator =
     responseValidationFactory(
@@ -78443,9 +77343,8 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const migrationsSetLfsPreferenceRequestBodySchema = z.object({
-    use_lfs: z.enum(["opt_in", "opt_out"]),
-  })
+  const migrationsSetLfsPreferenceRequestBodySchema =
+    s_migrationsSetLfsPreferenceJsonRequestBody
 
   const migrationsSetLfsPreferenceResponseBodyValidator =
     responseValidationFactory(
@@ -78914,13 +77813,8 @@ export function createRouter(implementation: Implementation): Router {
     invitation_id: z.coerce.number(),
   })
 
-  const reposUpdateInvitationRequestBodySchema = z
-    .object({
-      permissions: z
-        .enum(["read", "write", "maintain", "triage", "admin"])
-        .optional(),
-    })
-    .optional()
+  const reposUpdateInvitationRequestBodySchema =
+    s_reposUpdateInvitationJsonRequestBody.optional()
 
   const reposUpdateInvitationResponseBodyValidator = responseValidationFactory(
     [["200", s_repository_invitation]],
@@ -79155,27 +78049,7 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const issuesCreateRequestBodySchema = z.object({
-    title: z.union([z.string(), z.coerce.number()]),
-    body: z.string().optional(),
-    assignee: z.string().nullable().optional(),
-    milestone: z.union([z.string(), z.coerce.number()]).nullable().optional(),
-    labels: z
-      .array(
-        z.union([
-          z.string(),
-          z.object({
-            id: z.coerce.number().optional(),
-            name: z.string().optional(),
-            description: z.string().nullable().optional(),
-            color: z.string().nullable().optional(),
-          }),
-        ]),
-      )
-      .optional(),
-    assignees: z.array(z.string()).optional(),
-    type: z.string().nullable().optional(),
-  })
+  const issuesCreateRequestBodySchema = s_issuesCreateJsonRequestBody
 
   const issuesCreateResponseBodyValidator = responseValidationFactory(
     [
@@ -79441,7 +78315,8 @@ export function createRouter(implementation: Implementation): Router {
     comment_id: z.coerce.number(),
   })
 
-  const issuesUpdateCommentRequestBodySchema = z.object({body: z.string()})
+  const issuesUpdateCommentRequestBodySchema =
+    s_issuesUpdateCommentJsonRequestBody
 
   const issuesUpdateCommentResponseBodyValidator = responseValidationFactory(
     [
@@ -79678,18 +78553,8 @@ export function createRouter(implementation: Implementation): Router {
     comment_id: z.coerce.number(),
   })
 
-  const reactionsCreateForIssueCommentRequestBodySchema = z.object({
-    content: z.enum([
-      "+1",
-      "-1",
-      "laugh",
-      "confused",
-      "heart",
-      "hooray",
-      "rocket",
-      "eyes",
-    ]),
-  })
+  const reactionsCreateForIssueCommentRequestBodySchema =
+    s_reactionsCreateForIssueCommentJsonRequestBody
 
   const reactionsCreateForIssueCommentResponseBodyValidator =
     responseValidationFactory(
@@ -80081,34 +78946,7 @@ export function createRouter(implementation: Implementation): Router {
     issue_number: z.coerce.number(),
   })
 
-  const issuesUpdateRequestBodySchema = z
-    .object({
-      title: z.union([z.string(), z.coerce.number()]).nullable().optional(),
-      body: z.string().nullable().optional(),
-      assignee: z.string().nullable().optional(),
-      state: z.enum(["open", "closed"]).optional(),
-      state_reason: z
-        .enum(["completed", "not_planned", "duplicate", "reopened"])
-        .nullable()
-        .optional(),
-      milestone: z.union([z.string(), z.coerce.number()]).nullable().optional(),
-      labels: z
-        .array(
-          z.union([
-            z.string(),
-            z.object({
-              id: z.coerce.number().optional(),
-              name: z.string().optional(),
-              description: z.string().nullable().optional(),
-              color: z.string().nullable().optional(),
-            }),
-          ]),
-        )
-        .optional(),
-      assignees: z.array(z.string()).optional(),
-      type: z.string().nullable().optional(),
-    })
-    .optional()
+  const issuesUpdateRequestBodySchema = s_issuesUpdateJsonRequestBody.optional()
 
   const issuesUpdateResponseBodyValidator = responseValidationFactory(
     [
@@ -80216,9 +79054,8 @@ export function createRouter(implementation: Implementation): Router {
     issue_number: z.coerce.number(),
   })
 
-  const issuesAddAssigneesRequestBodySchema = z
-    .object({assignees: z.array(z.string()).optional()})
-    .optional()
+  const issuesAddAssigneesRequestBodySchema =
+    s_issuesAddAssigneesJsonRequestBody.optional()
 
   const issuesAddAssigneesResponseBodyValidator = responseValidationFactory(
     [["201", s_issue]],
@@ -80289,9 +79126,8 @@ export function createRouter(implementation: Implementation): Router {
     issue_number: z.coerce.number(),
   })
 
-  const issuesRemoveAssigneesRequestBodySchema = z.object({
-    assignees: z.array(z.string()).optional(),
-  })
+  const issuesRemoveAssigneesRequestBodySchema =
+    s_issuesRemoveAssigneesJsonRequestBody
 
   const issuesRemoveAssigneesResponseBodyValidator = responseValidationFactory(
     [["200", s_issue]],
@@ -80525,7 +79361,8 @@ export function createRouter(implementation: Implementation): Router {
     issue_number: z.coerce.number(),
   })
 
-  const issuesCreateCommentRequestBodySchema = z.object({body: z.string()})
+  const issuesCreateCommentRequestBodySchema =
+    s_issuesCreateCommentJsonRequestBody
 
   const issuesCreateCommentResponseBodyValidator = responseValidationFactory(
     [
@@ -80783,20 +79620,8 @@ export function createRouter(implementation: Implementation): Router {
     issue_number: z.coerce.number(),
   })
 
-  const issuesAddLabelsRequestBodySchema = z
-    .union([
-      z.object({labels: z.array(z.string()).min(1).optional()}),
-      z.array(z.string()).min(1),
-      z.object({
-        labels: z
-          .array(z.object({name: z.string()}))
-          .min(1)
-          .optional(),
-      }),
-      z.array(z.object({name: z.string()})).min(1),
-      z.string(),
-    ])
-    .optional()
+  const issuesAddLabelsRequestBodySchema =
+    s_issuesAddLabelsJsonRequestBody.optional()
 
   const issuesAddLabelsResponseBodyValidator = responseValidationFactory(
     [
@@ -80885,20 +79710,8 @@ export function createRouter(implementation: Implementation): Router {
     issue_number: z.coerce.number(),
   })
 
-  const issuesSetLabelsRequestBodySchema = z
-    .union([
-      z.object({labels: z.array(z.string()).min(1).optional()}),
-      z.array(z.string()).min(1),
-      z.object({
-        labels: z
-          .array(z.object({name: z.string()}))
-          .min(1)
-          .optional(),
-      }),
-      z.array(z.object({name: z.string()})).min(1),
-      z.string(),
-    ])
-    .optional()
+  const issuesSetLabelsRequestBodySchema =
+    s_issuesSetLabelsJsonRequestBody.optional()
 
   const issuesSetLabelsResponseBodyValidator = responseValidationFactory(
     [
@@ -81146,14 +79959,7 @@ export function createRouter(implementation: Implementation): Router {
     issue_number: z.coerce.number(),
   })
 
-  const issuesLockRequestBodySchema = z
-    .object({
-      lock_reason: z
-        .enum(["off-topic", "too heated", "resolved", "spam"])
-        .optional(),
-    })
-    .nullable()
-    .optional()
+  const issuesLockRequestBodySchema = s_issuesLockJsonRequestBody.optional()
 
   const issuesLockResponseBodyValidator = responseValidationFactory(
     [
@@ -81413,18 +80219,8 @@ export function createRouter(implementation: Implementation): Router {
     issue_number: z.coerce.number(),
   })
 
-  const reactionsCreateForIssueRequestBodySchema = z.object({
-    content: z.enum([
-      "+1",
-      "-1",
-      "laugh",
-      "confused",
-      "heart",
-      "hooray",
-      "rocket",
-      "eyes",
-    ]),
-  })
+  const reactionsCreateForIssueRequestBodySchema =
+    s_reactionsCreateForIssueJsonRequestBody
 
   const reactionsCreateForIssueResponseBodyValidator =
     responseValidationFactory(
@@ -81570,9 +80366,8 @@ export function createRouter(implementation: Implementation): Router {
     issue_number: z.coerce.number(),
   })
 
-  const issuesRemoveSubIssueRequestBodySchema = z.object({
-    sub_issue_id: z.coerce.number(),
-  })
+  const issuesRemoveSubIssueRequestBodySchema =
+    s_issuesRemoveSubIssueJsonRequestBody
 
   const issuesRemoveSubIssueResponseBodyValidator = responseValidationFactory(
     [
@@ -81737,10 +80532,7 @@ export function createRouter(implementation: Implementation): Router {
     issue_number: z.coerce.number(),
   })
 
-  const issuesAddSubIssueRequestBodySchema = z.object({
-    sub_issue_id: z.coerce.number(),
-    replace_parent: PermissiveBoolean.optional(),
-  })
+  const issuesAddSubIssueRequestBodySchema = s_issuesAddSubIssueJsonRequestBody
 
   const issuesAddSubIssueResponseBodyValidator = responseValidationFactory(
     [
@@ -81829,11 +80621,8 @@ export function createRouter(implementation: Implementation): Router {
     issue_number: z.coerce.number(),
   })
 
-  const issuesReprioritizeSubIssueRequestBodySchema = z.object({
-    sub_issue_id: z.coerce.number(),
-    after_id: z.coerce.number().optional(),
-    before_id: z.coerce.number().optional(),
-  })
+  const issuesReprioritizeSubIssueRequestBodySchema =
+    s_issuesReprioritizeSubIssueJsonRequestBody
 
   const issuesReprioritizeSubIssueResponseBodyValidator =
     responseValidationFactory(
@@ -82095,11 +80884,8 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const reposCreateDeployKeyRequestBodySchema = z.object({
-    title: z.string().optional(),
-    key: z.string(),
-    read_only: PermissiveBoolean.optional(),
-  })
+  const reposCreateDeployKeyRequestBodySchema =
+    s_reposCreateDeployKeyJsonRequestBody
 
   const reposCreateDeployKeyResponseBodyValidator = responseValidationFactory(
     [
@@ -82391,11 +81177,7 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const issuesCreateLabelRequestBodySchema = z.object({
-    name: z.string(),
-    color: z.string().optional(),
-    description: z.string().optional(),
-  })
+  const issuesCreateLabelRequestBodySchema = s_issuesCreateLabelJsonRequestBody
 
   const issuesCreateLabelResponseBodyValidator = responseValidationFactory(
     [
@@ -82547,13 +81329,8 @@ export function createRouter(implementation: Implementation): Router {
     name: z.string(),
   })
 
-  const issuesUpdateLabelRequestBodySchema = z
-    .object({
-      new_name: z.string().optional(),
-      color: z.string().optional(),
-      description: z.string().optional(),
-    })
-    .optional()
+  const issuesUpdateLabelRequestBodySchema =
+    s_issuesUpdateLabelJsonRequestBody.optional()
 
   const issuesUpdateLabelResponseBodyValidator = responseValidationFactory(
     [["200", s_label]],
@@ -82830,7 +81607,8 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const reposMergeUpstreamRequestBodySchema = z.object({branch: z.string()})
+  const reposMergeUpstreamRequestBodySchema =
+    s_reposMergeUpstreamJsonRequestBody
 
   const reposMergeUpstreamResponseBodyValidator = responseValidationFactory(
     [
@@ -82907,11 +81685,7 @@ export function createRouter(implementation: Implementation): Router {
 
   const reposMergeParamSchema = z.object({owner: z.string(), repo: z.string()})
 
-  const reposMergeRequestBodySchema = z.object({
-    base: z.string(),
-    head: z.string(),
-    commit_message: z.string().optional(),
-  })
+  const reposMergeRequestBodySchema = s_reposMergeJsonRequestBody
 
   const reposMergeResponseBodyValidator = responseValidationFactory(
     [
@@ -83085,12 +81859,8 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const issuesCreateMilestoneRequestBodySchema = z.object({
-    title: z.string(),
-    state: z.enum(["open", "closed"]).optional().default("open"),
-    description: z.string().optional(),
-    due_on: z.iso.datetime({offset: true}).optional(),
-  })
+  const issuesCreateMilestoneRequestBodySchema =
+    s_issuesCreateMilestoneJsonRequestBody
 
   const issuesCreateMilestoneResponseBodyValidator = responseValidationFactory(
     [
@@ -83242,14 +82012,8 @@ export function createRouter(implementation: Implementation): Router {
     milestone_number: z.coerce.number(),
   })
 
-  const issuesUpdateMilestoneRequestBodySchema = z
-    .object({
-      title: z.string().optional(),
-      state: z.enum(["open", "closed"]).optional().default("open"),
-      description: z.string().optional(),
-      due_on: z.iso.datetime({offset: true}).optional(),
-    })
-    .optional()
+  const issuesUpdateMilestoneRequestBodySchema =
+    s_issuesUpdateMilestoneJsonRequestBody.optional()
 
   const issuesUpdateMilestoneResponseBodyValidator = responseValidationFactory(
     [["200", s_milestone]],
@@ -83551,9 +82315,8 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const activityMarkRepoNotificationsAsReadRequestBodySchema = z
-    .object({last_read_at: z.iso.datetime({offset: true}).optional()})
-    .optional()
+  const activityMarkRepoNotificationsAsReadRequestBodySchema =
+    s_activityMarkRepoNotificationsAsReadJsonRequestBody.optional()
 
   const activityMarkRepoNotificationsAsReadResponseBodyValidator =
     responseValidationFactory(
@@ -83714,17 +82477,8 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const reposCreatePagesSiteRequestBodySchema = z
-    .object({
-      build_type: z.enum(["legacy", "workflow"]).optional(),
-      source: z
-        .object({
-          branch: z.string(),
-          path: z.enum(["/", "/docs"]).optional().default("/"),
-        })
-        .optional(),
-    })
-    .nullable()
+  const reposCreatePagesSiteRequestBodySchema =
+    s_reposCreatePagesSiteJsonRequestBody
 
   const reposCreatePagesSiteResponseBodyValidator = responseValidationFactory(
     [
@@ -83804,17 +82558,8 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const reposUpdateInformationAboutPagesSiteRequestBodySchema = z.object({
-    cname: z.string().nullable().optional(),
-    https_enforced: PermissiveBoolean.optional(),
-    build_type: z.enum(["legacy", "workflow"]).optional(),
-    source: z
-      .union([
-        z.enum(["gh-pages", "master", "master /docs"]),
-        z.object({branch: z.string(), path: z.enum(["/", "/docs"])}),
-      ])
-      .optional(),
-  })
+  const reposUpdateInformationAboutPagesSiteRequestBodySchema =
+    s_reposUpdateInformationAboutPagesSiteJsonRequestBody
 
   const reposUpdateInformationAboutPagesSiteResponseBodyValidator =
     responseValidationFactory(
@@ -84252,13 +82997,8 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const reposCreatePagesDeploymentRequestBodySchema = z.object({
-    artifact_id: z.coerce.number().optional(),
-    artifact_url: z.string().optional(),
-    environment: z.string().optional().default("github-pages"),
-    pages_build_version: z.string().default("GITHUB_SHA"),
-    oidc_token: z.string(),
-  })
+  const reposCreatePagesDeploymentRequestBodySchema =
+    s_reposCreatePagesDeploymentJsonRequestBody
 
   const reposCreatePagesDeploymentResponseBodyValidator =
     responseValidationFactory(
@@ -84921,10 +83661,8 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const projectsClassicCreateForRepoRequestBodySchema = z.object({
-    name: z.string(),
-    body: z.string().optional(),
-  })
+  const projectsClassicCreateForRepoRequestBodySchema =
+    s_projectsClassicCreateForRepoJsonRequestBody
 
   const projectsClassicCreateForRepoResponseBodyValidator =
     responseValidationFactory(
@@ -85096,9 +83834,8 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const reposCreateOrUpdateCustomPropertiesValuesRequestBodySchema = z.object({
-    properties: z.array(s_custom_property_value),
-  })
+  const reposCreateOrUpdateCustomPropertiesValuesRequestBodySchema =
+    s_reposCreateOrUpdateCustomPropertiesValuesJsonRequestBody
 
   const reposCreateOrUpdateCustomPropertiesValuesResponseBodyValidator =
     responseValidationFactory(
@@ -85279,16 +84016,7 @@ export function createRouter(implementation: Implementation): Router {
 
   const pullsCreateParamSchema = z.object({owner: z.string(), repo: z.string()})
 
-  const pullsCreateRequestBodySchema = z.object({
-    title: z.string().optional(),
-    head: z.string(),
-    head_repo: z.string().optional(),
-    base: z.string(),
-    body: z.string().optional(),
-    maintainer_can_modify: PermissiveBoolean.optional(),
-    draft: PermissiveBoolean.optional(),
-    issue: z.coerce.number().optional(),
-  })
+  const pullsCreateRequestBodySchema = s_pullsCreateJsonRequestBody
 
   const pullsCreateResponseBodyValidator = responseValidationFactory(
     [
@@ -85523,7 +84251,8 @@ export function createRouter(implementation: Implementation): Router {
     comment_id: z.coerce.number(),
   })
 
-  const pullsUpdateReviewCommentRequestBodySchema = z.object({body: z.string()})
+  const pullsUpdateReviewCommentRequestBodySchema =
+    s_pullsUpdateReviewCommentJsonRequestBody
 
   const pullsUpdateReviewCommentResponseBodyValidator =
     responseValidationFactory(
@@ -85773,18 +84502,8 @@ export function createRouter(implementation: Implementation): Router {
     comment_id: z.coerce.number(),
   })
 
-  const reactionsCreateForPullRequestReviewCommentRequestBodySchema = z.object({
-    content: z.enum([
-      "+1",
-      "-1",
-      "laugh",
-      "confused",
-      "heart",
-      "hooray",
-      "rocket",
-      "eyes",
-    ]),
-  })
+  const reactionsCreateForPullRequestReviewCommentRequestBodySchema =
+    s_reactionsCreateForPullRequestReviewCommentJsonRequestBody
 
   const reactionsCreateForPullRequestReviewCommentResponseBodyValidator =
     responseValidationFactory(
@@ -86050,15 +84769,7 @@ export function createRouter(implementation: Implementation): Router {
     pull_number: z.coerce.number(),
   })
 
-  const pullsUpdateRequestBodySchema = z
-    .object({
-      title: z.string().optional(),
-      body: z.string().optional(),
-      state: z.enum(["open", "closed"]).optional(),
-      base: z.string().optional(),
-      maintainer_can_modify: PermissiveBoolean.optional(),
-    })
-    .optional()
+  const pullsUpdateRequestBodySchema = s_pullsUpdateJsonRequestBody.optional()
 
   const pullsUpdateResponseBodyValidator = responseValidationFactory(
     [
@@ -86139,22 +84850,8 @@ export function createRouter(implementation: Implementation): Router {
     pull_number: z.coerce.number(),
   })
 
-  const codespacesCreateWithPrForAuthenticatedUserRequestBodySchema = z
-    .object({
-      location: z.string().optional(),
-      geo: z
-        .enum(["EuropeWest", "SoutheastAsia", "UsEast", "UsWest"])
-        .optional(),
-      client_ip: z.string().optional(),
-      machine: z.string().optional(),
-      devcontainer_path: z.string().optional(),
-      multi_repo_permissions_opt_out: PermissiveBoolean.optional(),
-      working_directory: z.string().optional(),
-      idle_timeout_minutes: z.coerce.number().optional(),
-      display_name: z.string().optional(),
-      retention_period_minutes: z.coerce.number().optional(),
-    })
-    .nullable()
+  const codespacesCreateWithPrForAuthenticatedUserRequestBodySchema =
+    s_codespacesCreateWithPrForAuthenticatedUserJsonRequestBody
 
   const codespacesCreateWithPrForAuthenticatedUserResponseBodyValidator =
     responseValidationFactory(
@@ -86350,18 +85047,8 @@ export function createRouter(implementation: Implementation): Router {
     pull_number: z.coerce.number(),
   })
 
-  const pullsCreateReviewCommentRequestBodySchema = z.object({
-    body: z.string(),
-    commit_id: z.string(),
-    path: z.string(),
-    position: z.coerce.number().optional(),
-    side: z.enum(["LEFT", "RIGHT"]).optional(),
-    line: z.coerce.number().optional(),
-    start_line: z.coerce.number().optional(),
-    start_side: z.enum(["LEFT", "RIGHT", "side"]).optional(),
-    in_reply_to: z.coerce.number().optional(),
-    subject_type: z.enum(["line", "file"]).optional(),
-  })
+  const pullsCreateReviewCommentRequestBodySchema =
+    s_pullsCreateReviewCommentJsonRequestBody
 
   const pullsCreateReviewCommentResponseBodyValidator =
     responseValidationFactory(
@@ -86446,9 +85133,8 @@ export function createRouter(implementation: Implementation): Router {
     comment_id: z.coerce.number(),
   })
 
-  const pullsCreateReplyForReviewCommentRequestBodySchema = z.object({
-    body: z.string(),
-  })
+  const pullsCreateReplyForReviewCommentRequestBodySchema =
+    s_pullsCreateReplyForReviewCommentJsonRequestBody
 
   const pullsCreateReplyForReviewCommentResponseBodyValidator =
     responseValidationFactory(
@@ -86774,15 +85460,7 @@ export function createRouter(implementation: Implementation): Router {
     pull_number: z.coerce.number(),
   })
 
-  const pullsMergeRequestBodySchema = z
-    .object({
-      commit_title: z.string().optional(),
-      commit_message: z.string().optional(),
-      sha: z.string().optional(),
-      merge_method: z.enum(["merge", "squash", "rebase"]).optional(),
-    })
-    .nullable()
-    .optional()
+  const pullsMergeRequestBodySchema = s_pullsMergeJsonRequestBody.optional()
 
   const pullsMergeResponseBodyValidator = responseValidationFactory(
     [
@@ -86963,12 +85641,8 @@ export function createRouter(implementation: Implementation): Router {
     pull_number: z.coerce.number(),
   })
 
-  const pullsRequestReviewersRequestBodySchema = z
-    .object({
-      reviewers: z.array(z.string()).optional(),
-      team_reviewers: z.array(z.string()).optional(),
-    })
-    .optional()
+  const pullsRequestReviewersRequestBodySchema =
+    s_pullsRequestReviewersJsonRequestBody.optional()
 
   const pullsRequestReviewersResponseBodyValidator = responseValidationFactory(
     [
@@ -87049,10 +85723,8 @@ export function createRouter(implementation: Implementation): Router {
     pull_number: z.coerce.number(),
   })
 
-  const pullsRemoveRequestedReviewersRequestBodySchema = z.object({
-    reviewers: z.array(z.string()),
-    team_reviewers: z.array(z.string()).optional(),
-  })
+  const pullsRemoveRequestedReviewersRequestBodySchema =
+    s_pullsRemoveRequestedReviewersJsonRequestBody
 
   const pullsRemoveRequestedReviewersResponseBodyValidator =
     responseValidationFactory(
@@ -87206,26 +85878,8 @@ export function createRouter(implementation: Implementation): Router {
     pull_number: z.coerce.number(),
   })
 
-  const pullsCreateReviewRequestBodySchema = z
-    .object({
-      commit_id: z.string().optional(),
-      body: z.string().optional(),
-      event: z.enum(["APPROVE", "REQUEST_CHANGES", "COMMENT"]).optional(),
-      comments: z
-        .array(
-          z.object({
-            path: z.string(),
-            position: z.coerce.number().optional(),
-            body: z.string(),
-            line: z.coerce.number().optional(),
-            side: z.string().optional(),
-            start_line: z.coerce.number().optional(),
-            start_side: z.string().optional(),
-          }),
-        )
-        .optional(),
-    })
-    .optional()
+  const pullsCreateReviewRequestBodySchema =
+    s_pullsCreateReviewJsonRequestBody.optional()
 
   const pullsCreateReviewResponseBodyValidator = responseValidationFactory(
     [
@@ -87379,7 +86033,7 @@ export function createRouter(implementation: Implementation): Router {
     review_id: z.coerce.number(),
   })
 
-  const pullsUpdateReviewRequestBodySchema = z.object({body: z.string()})
+  const pullsUpdateReviewRequestBodySchema = s_pullsUpdateReviewJsonRequestBody
 
   const pullsUpdateReviewResponseBodyValidator = responseValidationFactory(
     [
@@ -87618,10 +86272,8 @@ export function createRouter(implementation: Implementation): Router {
     review_id: z.coerce.number(),
   })
 
-  const pullsDismissReviewRequestBodySchema = z.object({
-    message: z.string(),
-    event: z.enum(["DISMISS"]).optional(),
-  })
+  const pullsDismissReviewRequestBodySchema =
+    s_pullsDismissReviewJsonRequestBody
 
   const pullsDismissReviewResponseBodyValidator = responseValidationFactory(
     [
@@ -87703,10 +86355,7 @@ export function createRouter(implementation: Implementation): Router {
     review_id: z.coerce.number(),
   })
 
-  const pullsSubmitReviewRequestBodySchema = z.object({
-    body: z.string().optional(),
-    event: z.enum(["APPROVE", "REQUEST_CHANGES", "COMMENT"]),
-  })
+  const pullsSubmitReviewRequestBodySchema = s_pullsSubmitReviewJsonRequestBody
 
   const pullsSubmitReviewResponseBodyValidator = responseValidationFactory(
     [
@@ -87791,10 +86440,8 @@ export function createRouter(implementation: Implementation): Router {
     pull_number: z.coerce.number(),
   })
 
-  const pullsUpdateBranchRequestBodySchema = z
-    .object({expected_head_sha: z.string().optional()})
-    .nullable()
-    .optional()
+  const pullsUpdateBranchRequestBodySchema =
+    s_pullsUpdateBranchJsonRequestBody.optional()
 
   const pullsUpdateBranchResponseBodyValidator = responseValidationFactory(
     [
@@ -88127,17 +86774,8 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const reposCreateReleaseRequestBodySchema = z.object({
-    tag_name: z.string(),
-    target_commitish: z.string().optional(),
-    name: z.string().optional(),
-    body: z.string().optional(),
-    draft: PermissiveBoolean.optional().default(false),
-    prerelease: PermissiveBoolean.optional().default(false),
-    discussion_category_name: z.string().optional(),
-    generate_release_notes: PermissiveBoolean.optional().default(false),
-    make_latest: z.enum(["true", "false", "legacy"]).optional().default("true"),
-  })
+  const reposCreateReleaseRequestBodySchema =
+    s_reposCreateReleaseJsonRequestBody
 
   const reposCreateReleaseResponseBodyValidator = responseValidationFactory(
     [
@@ -88293,13 +86931,8 @@ export function createRouter(implementation: Implementation): Router {
     asset_id: z.coerce.number(),
   })
 
-  const reposUpdateReleaseAssetRequestBodySchema = z
-    .object({
-      name: z.string().optional(),
-      label: z.string().optional(),
-      state: z.string().optional(),
-    })
-    .optional()
+  const reposUpdateReleaseAssetRequestBodySchema =
+    s_reposUpdateReleaseAssetJsonRequestBody.optional()
 
   const reposUpdateReleaseAssetResponseBodyValidator =
     responseValidationFactory([["200", s_release_asset]], undefined)
@@ -88430,12 +87063,8 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const reposGenerateReleaseNotesRequestBodySchema = z.object({
-    tag_name: z.string(),
-    target_commitish: z.string().optional(),
-    previous_tag_name: z.string().optional(),
-    configuration_file_path: z.string().optional(),
-  })
+  const reposGenerateReleaseNotesRequestBodySchema =
+    s_reposGenerateReleaseNotesJsonRequestBody
 
   const reposGenerateReleaseNotesResponseBodyValidator =
     responseValidationFactory(
@@ -88719,21 +87348,8 @@ export function createRouter(implementation: Implementation): Router {
     release_id: z.coerce.number(),
   })
 
-  const reposUpdateReleaseRequestBodySchema = z
-    .object({
-      tag_name: z.string().optional(),
-      target_commitish: z.string().optional(),
-      name: z.string().optional(),
-      body: z.string().optional(),
-      draft: PermissiveBoolean.optional(),
-      prerelease: PermissiveBoolean.optional(),
-      make_latest: z
-        .enum(["true", "false", "legacy"])
-        .optional()
-        .default("true"),
-      discussion_category_name: z.string().optional(),
-    })
-    .optional()
+  const reposUpdateReleaseRequestBodySchema =
+    s_reposUpdateReleaseJsonRequestBody.optional()
 
   const reposUpdateReleaseResponseBodyValidator = responseValidationFactory(
     [
@@ -89122,9 +87738,8 @@ export function createRouter(implementation: Implementation): Router {
     release_id: z.coerce.number(),
   })
 
-  const reactionsCreateForReleaseRequestBodySchema = z.object({
-    content: z.enum(["+1", "laugh", "heart", "hooray", "rocket", "eyes"]),
-  })
+  const reactionsCreateForReleaseRequestBodySchema =
+    s_reactionsCreateForReleaseJsonRequestBody
 
   const reactionsCreateForReleaseResponseBodyValidator =
     responseValidationFactory(
@@ -89428,14 +88043,8 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const reposCreateRepoRulesetRequestBodySchema = z.object({
-    name: z.string(),
-    target: z.enum(["branch", "tag", "push"]).optional().default("branch"),
-    enforcement: s_repository_rule_enforcement,
-    bypass_actors: z.array(s_repository_ruleset_bypass_actor).optional(),
-    conditions: s_repository_ruleset_conditions.optional(),
-    rules: z.array(s_repository_rule).optional(),
-  })
+  const reposCreateRepoRulesetRequestBodySchema =
+    s_reposCreateRepoRulesetJsonRequestBody
 
   const reposCreateRepoRulesetResponseBodyValidator = responseValidationFactory(
     [
@@ -89767,16 +88376,8 @@ export function createRouter(implementation: Implementation): Router {
     ruleset_id: z.coerce.number(),
   })
 
-  const reposUpdateRepoRulesetRequestBodySchema = z
-    .object({
-      name: z.string().optional(),
-      target: z.enum(["branch", "tag", "push"]).optional(),
-      enforcement: s_repository_rule_enforcement.optional(),
-      bypass_actors: z.array(s_repository_ruleset_bypass_actor).optional(),
-      conditions: s_repository_ruleset_conditions.optional(),
-      rules: z.array(s_repository_rule).optional(),
-    })
-    .optional()
+  const reposUpdateRepoRulesetRequestBodySchema =
+    s_reposUpdateRepoRulesetJsonRequestBody.optional()
 
   const reposUpdateRepoRulesetResponseBodyValidator = responseValidationFactory(
     [
@@ -90304,11 +88905,8 @@ export function createRouter(implementation: Implementation): Router {
     alert_number: s_alert_number,
   })
 
-  const secretScanningUpdateAlertRequestBodySchema = z.object({
-    state: s_secret_scanning_alert_state,
-    resolution: s_secret_scanning_alert_resolution.optional(),
-    resolution_comment: s_secret_scanning_alert_resolution_comment.optional(),
-  })
+  const secretScanningUpdateAlertRequestBodySchema =
+    s_secretScanningUpdateAlertJsonRequestBody
 
   const secretScanningUpdateAlertResponseBodyValidator =
     responseValidationFactory(
@@ -90509,10 +89107,8 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const secretScanningCreatePushProtectionBypassRequestBodySchema = z.object({
-    reason: s_secret_scanning_push_protection_bypass_reason,
-    placeholder_id: s_secret_scanning_push_protection_bypass_placeholder_id,
-  })
+  const secretScanningCreatePushProtectionBypassRequestBodySchema =
+    s_secretScanningCreatePushProtectionBypassJsonRequestBody
 
   const secretScanningCreatePushProtectionBypassResponseBodyValidator =
     responseValidationFactory(
@@ -91841,12 +90437,8 @@ export function createRouter(implementation: Implementation): Router {
     sha: z.string(),
   })
 
-  const reposCreateCommitStatusRequestBodySchema = z.object({
-    state: z.enum(["error", "failure", "pending", "success"]),
-    target_url: z.string().nullable().optional(),
-    description: z.string().nullable().optional(),
-    context: z.string().optional().default("default"),
-  })
+  const reposCreateCommitStatusRequestBodySchema =
+    s_reposCreateCommitStatusJsonRequestBody
 
   const reposCreateCommitStatusResponseBodyValidator =
     responseValidationFactory([["201", s_status]], undefined)
@@ -92064,12 +90656,8 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const activitySetRepoSubscriptionRequestBodySchema = z
-    .object({
-      subscribed: PermissiveBoolean.optional(),
-      ignored: PermissiveBoolean.optional(),
-    })
-    .optional()
+  const activitySetRepoSubscriptionRequestBodySchema =
+    s_activitySetRepoSubscriptionJsonRequestBody.optional()
 
   const activitySetRepoSubscriptionResponseBodyValidator =
     responseValidationFactory([["200", s_repository_subscription]], undefined)
@@ -92350,9 +90938,8 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const reposCreateTagProtectionRequestBodySchema = z.object({
-    pattern: z.string(),
-  })
+  const reposCreateTagProtectionRequestBodySchema =
+    s_reposCreateTagProtectionJsonRequestBody
 
   const reposCreateTagProtectionResponseBodyValidator =
     responseValidationFactory(
@@ -92732,9 +91319,8 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const reposReplaceAllTopicsRequestBodySchema = z.object({
-    names: z.array(z.string()),
-  })
+  const reposReplaceAllTopicsRequestBodySchema =
+    s_reposReplaceAllTopicsJsonRequestBody
 
   const reposReplaceAllTopicsResponseBodyValidator = responseValidationFactory(
     [
@@ -93110,11 +91696,7 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const reposTransferRequestBodySchema = z.object({
-    new_owner: z.string(),
-    new_name: z.string().optional(),
-    team_ids: z.array(z.coerce.number()).optional(),
-  })
+  const reposTransferRequestBodySchema = s_reposTransferJsonRequestBody
 
   const reposTransferResponseBodyValidator = responseValidationFactory(
     [["202", s_minimal_repository]],
@@ -93450,13 +92032,8 @@ export function createRouter(implementation: Implementation): Router {
     template_repo: z.string(),
   })
 
-  const reposCreateUsingTemplateRequestBodySchema = z.object({
-    owner: z.string().optional(),
-    name: z.string(),
-    description: z.string().optional(),
-    include_all_branches: PermissiveBoolean.optional().default(false),
-    private: PermissiveBoolean.optional().default(false),
-  })
+  const reposCreateUsingTemplateRequestBodySchema =
+    s_reposCreateUsingTemplateJsonRequestBody
 
   const reposCreateUsingTemplateResponseBodyValidator =
     responseValidationFactory([["201", s_full_repository]], undefined)
@@ -94364,16 +92941,7 @@ export function createRouter(implementation: Implementation): Router {
 
   const teamsUpdateLegacyParamSchema = z.object({team_id: z.coerce.number()})
 
-  const teamsUpdateLegacyRequestBodySchema = z.object({
-    name: z.string(),
-    description: z.string().optional(),
-    privacy: z.enum(["secret", "closed"]).optional(),
-    notification_setting: z
-      .enum(["notifications_enabled", "notifications_disabled"])
-      .optional(),
-    permission: z.enum(["pull", "push", "admin"]).optional().default("pull"),
-    parent_team_id: z.coerce.number().nullable().optional(),
-  })
+  const teamsUpdateLegacyRequestBodySchema = s_teamsUpdateLegacyJsonRequestBody
 
   const teamsUpdateLegacyResponseBodyValidator = responseValidationFactory(
     [
@@ -94604,11 +93172,8 @@ export function createRouter(implementation: Implementation): Router {
     team_id: z.coerce.number(),
   })
 
-  const teamsCreateDiscussionLegacyRequestBodySchema = z.object({
-    title: z.string(),
-    body: z.string(),
-    private: PermissiveBoolean.optional().default(false),
-  })
+  const teamsCreateDiscussionLegacyRequestBodySchema =
+    s_teamsCreateDiscussionLegacyJsonRequestBody
 
   const teamsCreateDiscussionLegacyResponseBodyValidator =
     responseValidationFactory([["201", s_team_discussion]], undefined)
@@ -94740,9 +93305,8 @@ export function createRouter(implementation: Implementation): Router {
     discussion_number: z.coerce.number(),
   })
 
-  const teamsUpdateDiscussionLegacyRequestBodySchema = z
-    .object({title: z.string().optional(), body: z.string().optional()})
-    .optional()
+  const teamsUpdateDiscussionLegacyRequestBodySchema =
+    s_teamsUpdateDiscussionLegacyJsonRequestBody.optional()
 
   const teamsUpdateDiscussionLegacyResponseBodyValidator =
     responseValidationFactory([["200", s_team_discussion]], undefined)
@@ -94956,9 +93520,8 @@ export function createRouter(implementation: Implementation): Router {
     discussion_number: z.coerce.number(),
   })
 
-  const teamsCreateDiscussionCommentLegacyRequestBodySchema = z.object({
-    body: z.string(),
-  })
+  const teamsCreateDiscussionCommentLegacyRequestBodySchema =
+    s_teamsCreateDiscussionCommentLegacyJsonRequestBody
 
   const teamsCreateDiscussionCommentLegacyResponseBodyValidator =
     responseValidationFactory([["201", s_team_discussion_comment]], undefined)
@@ -95097,9 +93660,8 @@ export function createRouter(implementation: Implementation): Router {
     comment_number: z.coerce.number(),
   })
 
-  const teamsUpdateDiscussionCommentLegacyRequestBodySchema = z.object({
-    body: z.string(),
-  })
+  const teamsUpdateDiscussionCommentLegacyRequestBodySchema =
+    s_teamsUpdateDiscussionCommentLegacyJsonRequestBody
 
   const teamsUpdateDiscussionCommentLegacyResponseBodyValidator =
     responseValidationFactory([["200", s_team_discussion_comment]], undefined)
@@ -95337,18 +93899,7 @@ export function createRouter(implementation: Implementation): Router {
   })
 
   const reactionsCreateForTeamDiscussionCommentLegacyRequestBodySchema =
-    z.object({
-      content: z.enum([
-        "+1",
-        "-1",
-        "laugh",
-        "confused",
-        "heart",
-        "hooray",
-        "rocket",
-        "eyes",
-      ]),
-    })
+    s_reactionsCreateForTeamDiscussionCommentLegacyJsonRequestBody
 
   const reactionsCreateForTeamDiscussionCommentLegacyResponseBodyValidator =
     responseValidationFactory([["201", s_reaction]], undefined)
@@ -95521,18 +94072,8 @@ export function createRouter(implementation: Implementation): Router {
     discussion_number: z.coerce.number(),
   })
 
-  const reactionsCreateForTeamDiscussionLegacyRequestBodySchema = z.object({
-    content: z.enum([
-      "+1",
-      "-1",
-      "laugh",
-      "confused",
-      "heart",
-      "hooray",
-      "rocket",
-      "eyes",
-    ]),
-  })
+  const reactionsCreateForTeamDiscussionLegacyRequestBodySchema =
+    s_reactionsCreateForTeamDiscussionLegacyJsonRequestBody
 
   const reactionsCreateForTeamDiscussionLegacyResponseBodyValidator =
     responseValidationFactory([["201", s_reaction]], undefined)
@@ -96060,11 +94601,8 @@ export function createRouter(implementation: Implementation): Router {
     username: z.string(),
   })
 
-  const teamsAddOrUpdateMembershipForUserLegacyRequestBodySchema = z
-    .object({
-      role: z.enum(["member", "maintainer"]).optional().default("member"),
-    })
-    .optional()
+  const teamsAddOrUpdateMembershipForUserLegacyRequestBodySchema =
+    s_teamsAddOrUpdateMembershipForUserLegacyJsonRequestBody.optional()
 
   const teamsAddOrUpdateMembershipForUserLegacyResponseBodyValidator =
     responseValidationFactory(
@@ -96397,9 +94935,8 @@ export function createRouter(implementation: Implementation): Router {
     project_id: z.coerce.number(),
   })
 
-  const teamsAddOrUpdateProjectPermissionsLegacyRequestBodySchema = z
-    .object({permission: z.enum(["read", "write", "admin"]).optional()})
-    .optional()
+  const teamsAddOrUpdateProjectPermissionsLegacyRequestBodySchema =
+    s_teamsAddOrUpdateProjectPermissionsLegacyJsonRequestBody.optional()
 
   const teamsAddOrUpdateProjectPermissionsLegacyResponseBodyValidator =
     responseValidationFactory(
@@ -96737,9 +95274,8 @@ export function createRouter(implementation: Implementation): Router {
     repo: z.string(),
   })
 
-  const teamsAddOrUpdateRepoPermissionsLegacyRequestBodySchema = z
-    .object({permission: z.enum(["pull", "push", "admin"]).optional()})
-    .optional()
+  const teamsAddOrUpdateRepoPermissionsLegacyRequestBodySchema =
+    s_teamsAddOrUpdateRepoPermissionsLegacyJsonRequestBody.optional()
 
   const teamsAddOrUpdateRepoPermissionsLegacyResponseBodyValidator =
     responseValidationFactory(
@@ -97046,18 +95582,8 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const usersUpdateAuthenticatedRequestBodySchema = z
-    .object({
-      name: z.string().optional(),
-      email: z.string().optional(),
-      blog: z.string().optional(),
-      twitter_username: z.string().nullable().optional(),
-      company: z.string().optional(),
-      location: z.string().optional(),
-      hireable: PermissiveBoolean.optional(),
-      bio: z.string().optional(),
-    })
-    .optional()
+  const usersUpdateAuthenticatedRequestBodySchema =
+    s_usersUpdateAuthenticatedJsonRequestBody.optional()
 
   const usersUpdateAuthenticatedResponseBodyValidator =
     responseValidationFactory(
@@ -97572,38 +96098,8 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const codespacesCreateForAuthenticatedUserRequestBodySchema = z.union([
-    z.object({
-      repository_id: z.coerce.number(),
-      ref: z.string().optional(),
-      location: z.string().optional(),
-      geo: z
-        .enum(["EuropeWest", "SoutheastAsia", "UsEast", "UsWest"])
-        .optional(),
-      client_ip: z.string().optional(),
-      machine: z.string().optional(),
-      devcontainer_path: z.string().optional(),
-      multi_repo_permissions_opt_out: PermissiveBoolean.optional(),
-      working_directory: z.string().optional(),
-      idle_timeout_minutes: z.coerce.number().optional(),
-      display_name: z.string().optional(),
-      retention_period_minutes: z.coerce.number().optional(),
-    }),
-    z.object({
-      pull_request: z.object({
-        pull_request_number: z.coerce.number(),
-        repository_id: z.coerce.number(),
-      }),
-      location: z.string().optional(),
-      geo: z
-        .enum(["EuropeWest", "SoutheastAsia", "UsEast", "UsWest"])
-        .optional(),
-      machine: z.string().optional(),
-      devcontainer_path: z.string().optional(),
-      working_directory: z.string().optional(),
-      idle_timeout_minutes: z.coerce.number().optional(),
-    }),
-  ])
+  const codespacesCreateForAuthenticatedUserRequestBodySchema =
+    s_codespacesCreateForAuthenticatedUserJsonRequestBody
 
   const codespacesCreateForAuthenticatedUserResponseBodyValidator =
     responseValidationFactory(
@@ -97939,20 +96435,7 @@ export function createRouter(implementation: Implementation): Router {
     z.object({secret_name: z.string()})
 
   const codespacesCreateOrUpdateSecretForAuthenticatedUserRequestBodySchema =
-    z.object({
-      encrypted_value: z
-        .string()
-        .regex(
-          new RegExp(
-            "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{4})$",
-          ),
-        )
-        .optional(),
-      key_id: z.string(),
-      selected_repository_ids: z
-        .array(z.union([z.coerce.number(), z.string()]))
-        .optional(),
-    })
+    s_codespacesCreateOrUpdateSecretForAuthenticatedUserJsonRequestBody
 
   const codespacesCreateOrUpdateSecretForAuthenticatedUserResponseBodyValidator =
     responseValidationFactory(
@@ -98220,7 +96703,7 @@ export function createRouter(implementation: Implementation): Router {
     z.object({secret_name: z.string()})
 
   const codespacesSetRepositoriesForSecretForAuthenticatedUserRequestBodySchema =
-    z.object({selected_repository_ids: z.array(z.coerce.number())})
+    s_codespacesSetRepositoriesForSecretForAuthenticatedUserJsonRequestBody
 
   const codespacesSetRepositoriesForSecretForAuthenticatedUserResponseBodyValidator =
     responseValidationFactory(
@@ -98594,13 +97077,8 @@ export function createRouter(implementation: Implementation): Router {
     codespace_name: z.string(),
   })
 
-  const codespacesUpdateForAuthenticatedUserRequestBodySchema = z
-    .object({
-      machine: z.string().optional(),
-      display_name: z.string().optional(),
-      recent_folders: z.array(z.string()).optional(),
-    })
-    .optional()
+  const codespacesUpdateForAuthenticatedUserRequestBodySchema =
+    s_codespacesUpdateForAuthenticatedUserJsonRequestBody.optional()
 
   const codespacesUpdateForAuthenticatedUserResponseBodyValidator =
     responseValidationFactory(
@@ -99079,10 +97557,8 @@ export function createRouter(implementation: Implementation): Router {
     codespace_name: z.string(),
   })
 
-  const codespacesPublishForAuthenticatedUserRequestBodySchema = z.object({
-    name: z.string().optional(),
-    private: PermissiveBoolean.optional().default(false),
-  })
+  const codespacesPublishForAuthenticatedUserRequestBodySchema =
+    s_codespacesPublishForAuthenticatedUserJsonRequestBody
 
   const codespacesPublishForAuthenticatedUserResponseBodyValidator =
     responseValidationFactory(
@@ -99434,7 +97910,7 @@ export function createRouter(implementation: Implementation): Router {
   )
 
   const usersSetPrimaryEmailVisibilityForAuthenticatedUserRequestBodySchema =
-    z.object({visibility: z.enum(["public", "private"])})
+    s_usersSetPrimaryEmailVisibilityForAuthenticatedUserJsonRequestBody
 
   const usersSetPrimaryEmailVisibilityForAuthenticatedUserResponseBodyValidator =
     responseValidationFactory(
@@ -99617,13 +98093,8 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const usersAddEmailForAuthenticatedUserRequestBodySchema = z
-    .union([
-      z.object({emails: z.array(z.string()).min(1)}),
-      z.array(z.string()).min(1),
-      z.string(),
-    ])
-    .optional()
+  const usersAddEmailForAuthenticatedUserRequestBodySchema =
+    s_usersAddEmailForAuthenticatedUserJsonRequestBody.optional()
 
   const usersAddEmailForAuthenticatedUserResponseBodyValidator =
     responseValidationFactory(
@@ -99712,11 +98183,8 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const usersDeleteEmailForAuthenticatedUserRequestBodySchema = z.union([
-    z.object({emails: z.array(z.string()).min(1)}),
-    z.array(z.string()).min(1),
-    z.string(),
-  ])
+  const usersDeleteEmailForAuthenticatedUserRequestBodySchema =
+    s_usersDeleteEmailForAuthenticatedUserJsonRequestBody
 
   const usersDeleteEmailForAuthenticatedUserResponseBodyValidator =
     responseValidationFactory(
@@ -100340,10 +98808,8 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const usersCreateGpgKeyForAuthenticatedUserRequestBodySchema = z.object({
-    name: z.string().optional(),
-    armored_public_key: z.string(),
-  })
+  const usersCreateGpgKeyForAuthenticatedUserRequestBodySchema =
+    s_usersCreateGpgKeyForAuthenticatedUserJsonRequestBody
 
   const usersCreateGpgKeyForAuthenticatedUserResponseBodyValidator =
     responseValidationFactory(
@@ -101417,16 +99883,8 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const usersCreatePublicSshKeyForAuthenticatedUserRequestBodySchema = z.object(
-    {
-      title: z.string().optional(),
-      key: z
-        .string()
-        .regex(
-          new RegExp("^ssh-(rsa|dss|ed25519) |^ecdsa-sha2-nistp(256|384|521) "),
-        ),
-    },
-  )
+  const usersCreatePublicSshKeyForAuthenticatedUserRequestBodySchema =
+    s_usersCreatePublicSshKeyForAuthenticatedUserJsonRequestBody
 
   const usersCreatePublicSshKeyForAuthenticatedUserResponseBodyValidator =
     responseValidationFactory(
@@ -102071,9 +100529,8 @@ export function createRouter(implementation: Implementation): Router {
     org: z.string(),
   })
 
-  const orgsUpdateMembershipForAuthenticatedUserRequestBodySchema = z.object({
-    state: z.enum(["active"]),
-  })
+  const orgsUpdateMembershipForAuthenticatedUserRequestBodySchema =
+    s_orgsUpdateMembershipForAuthenticatedUserJsonRequestBody
 
   const orgsUpdateMembershipForAuthenticatedUserResponseBodyValidator =
     responseValidationFactory(
@@ -102248,17 +100705,8 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const migrationsStartForAuthenticatedUserRequestBodySchema = z.object({
-    lock_repositories: PermissiveBoolean.optional(),
-    exclude_metadata: PermissiveBoolean.optional(),
-    exclude_git_data: PermissiveBoolean.optional(),
-    exclude_attachments: PermissiveBoolean.optional(),
-    exclude_releases: PermissiveBoolean.optional(),
-    exclude_owner_projects: PermissiveBoolean.optional(),
-    org_metadata_only: PermissiveBoolean.optional().default(false),
-    exclude: z.array(z.enum(["repositories"])).optional(),
-    repositories: z.array(z.string()),
-  })
+  const migrationsStartForAuthenticatedUserRequestBodySchema =
+    s_migrationsStartForAuthenticatedUserJsonRequestBody
 
   const migrationsStartForAuthenticatedUserResponseBodyValidator =
     responseValidationFactory(
@@ -103657,10 +102105,8 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const projectsClassicCreateForAuthenticatedUserRequestBodySchema = z.object({
-    name: z.string(),
-    body: z.string().nullable().optional(),
-  })
+  const projectsClassicCreateForAuthenticatedUserRequestBodySchema =
+    s_projectsClassicCreateForAuthenticatedUserJsonRequestBody
 
   const projectsClassicCreateForAuthenticatedUserResponseBodyValidator =
     responseValidationFactory(
@@ -103946,35 +102392,8 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const reposCreateForAuthenticatedUserRequestBodySchema = z.object({
-    name: z.string(),
-    description: z.string().optional(),
-    homepage: z.string().optional(),
-    private: PermissiveBoolean.optional().default(false),
-    has_issues: PermissiveBoolean.optional().default(true),
-    has_projects: PermissiveBoolean.optional().default(true),
-    has_wiki: PermissiveBoolean.optional().default(true),
-    has_discussions: PermissiveBoolean.optional().default(false),
-    team_id: z.coerce.number().optional(),
-    auto_init: PermissiveBoolean.optional().default(false),
-    gitignore_template: z.string().optional(),
-    license_template: z.string().optional(),
-    allow_squash_merge: PermissiveBoolean.optional().default(true),
-    allow_merge_commit: PermissiveBoolean.optional().default(true),
-    allow_rebase_merge: PermissiveBoolean.optional().default(true),
-    allow_auto_merge: PermissiveBoolean.optional().default(false),
-    delete_branch_on_merge: PermissiveBoolean.optional().default(false),
-    squash_merge_commit_title: z
-      .enum(["PR_TITLE", "COMMIT_OR_PR_TITLE"])
-      .optional(),
-    squash_merge_commit_message: z
-      .enum(["PR_BODY", "COMMIT_MESSAGES", "BLANK"])
-      .optional(),
-    merge_commit_title: z.enum(["PR_TITLE", "MERGE_MESSAGE"]).optional(),
-    merge_commit_message: z.enum(["PR_BODY", "PR_TITLE", "BLANK"]).optional(),
-    has_downloads: PermissiveBoolean.optional().default(true),
-    is_template: PermissiveBoolean.optional().default(false),
-  })
+  const reposCreateForAuthenticatedUserRequestBodySchema =
+    s_reposCreateForAuthenticatedUserJsonRequestBody
 
   const reposCreateForAuthenticatedUserResponseBodyValidator =
     responseValidationFactory(
@@ -104438,9 +102857,8 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const usersAddSocialAccountForAuthenticatedUserRequestBodySchema = z.object({
-    account_urls: z.array(z.string()),
-  })
+  const usersAddSocialAccountForAuthenticatedUserRequestBodySchema =
+    s_usersAddSocialAccountForAuthenticatedUserJsonRequestBody
 
   const usersAddSocialAccountForAuthenticatedUserResponseBodyValidator =
     responseValidationFactory(
@@ -104536,7 +102954,7 @@ export function createRouter(implementation: Implementation): Router {
   )
 
   const usersDeleteSocialAccountForAuthenticatedUserRequestBodySchema =
-    z.object({account_urls: z.array(z.string())})
+    s_usersDeleteSocialAccountForAuthenticatedUserJsonRequestBody
 
   const usersDeleteSocialAccountForAuthenticatedUserResponseBodyValidator =
     responseValidationFactory(
@@ -104726,16 +103144,7 @@ export function createRouter(implementation: Implementation): Router {
   )
 
   const usersCreateSshSigningKeyForAuthenticatedUserRequestBodySchema =
-    z.object({
-      title: z.string().optional(),
-      key: z
-        .string()
-        .regex(
-          new RegExp(
-            "^ssh-(rsa|dss|ed25519) |^ecdsa-sha2-nistp(256|384|521) |^(sk-ssh-ed25519|sk-ecdsa-sha2-nistp256)@openssh.com ",
-          ),
-        ),
-    })
+    s_usersCreateSshSigningKeyForAuthenticatedUserJsonRequestBody
 
   const usersCreateSshSigningKeyForAuthenticatedUserResponseBodyValidator =
     responseValidationFactory(
@@ -105777,10 +104186,8 @@ export function createRouter(implementation: Implementation): Router {
     after: z.string().optional(),
   })
 
-  const usersListAttestationsBulkRequestBodySchema = z.object({
-    subject_digests: z.array(z.string()).min(1).max(1024),
-    predicate_type: z.string().optional(),
-  })
+  const usersListAttestationsBulkRequestBodySchema =
+    s_usersListAttestationsBulkJsonRequestBody
 
   const usersListAttestationsBulkResponseBodyValidator =
     responseValidationFactory(
@@ -105929,10 +104336,8 @@ export function createRouter(implementation: Implementation): Router {
     username: z.string(),
   })
 
-  const usersDeleteAttestationsBulkRequestBodySchema = z.union([
-    z.object({subject_digests: z.array(z.string()).min(1).max(1024)}),
-    z.object({attestation_ids: z.array(z.coerce.number()).min(1).max(1024)}),
-  ])
+  const usersDeleteAttestationsBulkRequestBodySchema =
+    s_usersDeleteAttestationsBulkJsonRequestBody
 
   const usersDeleteAttestationsBulkResponseBodyValidator =
     responseValidationFactory(

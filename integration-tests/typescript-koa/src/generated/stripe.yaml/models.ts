@@ -14266,30 +14266,28 @@ export type t_DeleteCustomersCustomerParamSchema = {
   customer: string
 }
 
-export type t_DeleteCustomersCustomerBankAccountsIdBodySchema = {
-  expand?: string[]
-}
-
 export type t_DeleteCustomersCustomerBankAccountsIdParamSchema = {
   customer: string
   id: string
 }
 
-export type t_DeleteCustomersCustomerCardsIdBodySchema = {
-  expand?: string[]
-}
+export type t_deleteCustomersCustomerBankAccountsIdApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
+  }
 
 export type t_DeleteCustomersCustomerCardsIdParamSchema = {
   customer: string
   id: string
 }
 
+export type t_deleteCustomersCustomerCardsIdApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
+  }
+
 export type t_DeleteCustomersCustomerDiscountParamSchema = {
   customer: string
-}
-
-export type t_DeleteCustomersCustomerSourcesIdBodySchema = {
-  expand?: string[]
 }
 
 export type t_DeleteCustomersCustomerSourcesIdParamSchema = {
@@ -14297,17 +14295,22 @@ export type t_DeleteCustomersCustomerSourcesIdParamSchema = {
   id: string
 }
 
-export type t_DeleteCustomersCustomerSubscriptionsSubscriptionExposedIdBodySchema =
+export type t_deleteCustomersCustomerSourcesIdApplicationXWwwFormUrlencodedRequestBody =
   {
     expand?: string[]
-    invoice_now?: boolean
-    prorate?: boolean
   }
 
 export type t_DeleteCustomersCustomerSubscriptionsSubscriptionExposedIdParamSchema =
   {
     customer: string
     subscription_exposed_id: string
+  }
+
+export type t_deleteCustomersCustomerSubscriptionsSubscriptionExposedIdApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
+    invoice_now?: boolean
+    prorate?: boolean
   }
 
 export type t_DeleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountParamSchema =
@@ -14321,12 +14324,12 @@ export type t_DeleteCustomersCustomerTaxIdsIdParamSchema = {
   id: string
 }
 
-export type t_DeleteEphemeralKeysKeyBodySchema = {
-  expand?: string[]
-}
-
 export type t_DeleteEphemeralKeysKeyParamSchema = {
   key: string
+}
+
+export type t_deleteEphemeralKeysKeyApplicationXWwwFormUrlencodedRequestBody = {
+  expand?: string[]
 }
 
 export type t_DeleteInvoiceitemsInvoiceitemParamSchema = {
@@ -14358,38 +14361,40 @@ export type t_DeleteRadarValueListsValueListParamSchema = {
   value_list: string
 }
 
-export type t_DeleteSubscriptionItemsItemBodySchema = {
-  clear_usage?: boolean
-  proration_behavior?: "always_invoice" | "create_prorations" | "none"
-  proration_date?: number
-}
-
 export type t_DeleteSubscriptionItemsItemParamSchema = {
   item: string
 }
 
-export type t_DeleteSubscriptionsSubscriptionExposedIdBodySchema = {
-  cancellation_details?: {
-    comment?: string | ""
-    feedback?:
-      | ""
-      | "customer_service"
-      | "low_quality"
-      | "missing_features"
-      | "other"
-      | "switched_service"
-      | "too_complex"
-      | "too_expensive"
-      | "unused"
+export type t_deleteSubscriptionItemsItemApplicationXWwwFormUrlencodedRequestBody =
+  {
+    clear_usage?: boolean
+    proration_behavior?: "always_invoice" | "create_prorations" | "none"
+    proration_date?: number
   }
-  expand?: string[]
-  invoice_now?: boolean
-  prorate?: boolean
-}
 
 export type t_DeleteSubscriptionsSubscriptionExposedIdParamSchema = {
   subscription_exposed_id: string
 }
+
+export type t_deleteSubscriptionsSubscriptionExposedIdApplicationXWwwFormUrlencodedRequestBody =
+  {
+    cancellation_details?: {
+      comment?: string | ""
+      feedback?:
+        | ""
+        | "customer_service"
+        | "low_quality"
+        | "missing_features"
+        | "other"
+        | "switched_service"
+        | "too_complex"
+        | "too_expensive"
+        | "unused"
+    }
+    expand?: string[]
+    invoice_now?: boolean
+    prorate?: boolean
+  }
 
 export type t_DeleteSubscriptionsSubscriptionExposedIdDiscountParamSchema = {
   subscription_exposed_id: string
@@ -17401,7 +17406,7 @@ export type t_GetWebhookEndpointsWebhookEndpointQuerySchema = {
   expand?: string[]
 }
 
-export type t_PostAccountLinksBodySchema = {
+export type t_postAccountLinksApplicationXWwwFormUrlencodedRequestBody = {
   account: string
   collect?: "currently_due" | "eventually_due"
   collection_options?: {
@@ -17414,7 +17419,7 @@ export type t_PostAccountLinksBodySchema = {
   type: "account_onboarding" | "account_update"
 }
 
-export type t_PostAccountSessionsBodySchema = {
+export type t_postAccountSessionsApplicationXWwwFormUrlencodedRequestBody = {
   account: string
   components: {
     account_management?: {
@@ -17555,7 +17560,7 @@ export type t_PostAccountSessionsBodySchema = {
   expand?: string[]
 }
 
-export type t_PostAccountsBodySchema = {
+export type t_postAccountsApplicationXWwwFormUrlencodedRequestBody = {
   account_token?: string
   bank_account?:
     | {
@@ -18093,7 +18098,11 @@ export type t_PostAccountsBodySchema = {
   type?: "custom" | "express" | "standard"
 }
 
-export type t_PostAccountsAccountBodySchema = {
+export type t_PostAccountsAccountParamSchema = {
+  account: string
+}
+
+export type t_postAccountsAccountApplicationXWwwFormUrlencodedRequestBody = {
   account_token?: string
   business_profile?: {
     annual_revenue?: {
@@ -18601,787 +18610,785 @@ export type t_PostAccountsAccountBodySchema = {
   }
 }
 
-export type t_PostAccountsAccountParamSchema = {
-  account: string
-}
-
-export type t_PostAccountsAccountBankAccountsBodySchema = {
-  bank_account?:
-    | {
-        account_holder_name?: string
-        account_holder_type?: "company" | "individual"
-        account_number: string
-        account_type?: "checking" | "futsu" | "savings" | "toza"
-        country: string
-        currency?: string
-        documents?: {
-          bank_account_ownership_verification?: {
-            files?: string[]
-          }
-        }
-        object?: "bank_account"
-        routing_number?: string
-      }
-    | string
-  default_for_currency?: boolean
-  expand?: string[]
-  external_account?: string
-  metadata?: {
-    [key: string]: string | undefined
-  }
-}
-
 export type t_PostAccountsAccountBankAccountsParamSchema = {
   account: string
 }
 
-export type t_PostAccountsAccountBankAccountsIdBodySchema = {
-  account_holder_name?: string
-  account_holder_type?: "" | "company" | "individual"
-  account_type?: "checking" | "futsu" | "savings" | "toza"
-  address_city?: string
-  address_country?: string
-  address_line1?: string
-  address_line2?: string
-  address_state?: string
-  address_zip?: string
-  default_for_currency?: boolean
-  documents?: {
-    bank_account_ownership_verification?: {
-      files?: string[]
+export type t_postAccountsAccountBankAccountsApplicationXWwwFormUrlencodedRequestBody =
+  {
+    bank_account?:
+      | {
+          account_holder_name?: string
+          account_holder_type?: "company" | "individual"
+          account_number: string
+          account_type?: "checking" | "futsu" | "savings" | "toza"
+          country: string
+          currency?: string
+          documents?: {
+            bank_account_ownership_verification?: {
+              files?: string[]
+            }
+          }
+          object?: "bank_account"
+          routing_number?: string
+        }
+      | string
+    default_for_currency?: boolean
+    expand?: string[]
+    external_account?: string
+    metadata?: {
+      [key: string]: string | undefined
     }
   }
-  exp_month?: string
-  exp_year?: string
-  expand?: string[]
-  metadata?:
-    | {
-        [key: string]: string | undefined
-      }
-    | ""
-  name?: string
-}
 
 export type t_PostAccountsAccountBankAccountsIdParamSchema = {
   account: string
   id: string
 }
 
-export type t_PostAccountsAccountCapabilitiesCapabilityBodySchema = {
-  expand?: string[]
-  requested?: boolean
-}
+export type t_postAccountsAccountBankAccountsIdApplicationXWwwFormUrlencodedRequestBody =
+  {
+    account_holder_name?: string
+    account_holder_type?: "" | "company" | "individual"
+    account_type?: "checking" | "futsu" | "savings" | "toza"
+    address_city?: string
+    address_country?: string
+    address_line1?: string
+    address_line2?: string
+    address_state?: string
+    address_zip?: string
+    default_for_currency?: boolean
+    documents?: {
+      bank_account_ownership_verification?: {
+        files?: string[]
+      }
+    }
+    exp_month?: string
+    exp_year?: string
+    expand?: string[]
+    metadata?:
+      | {
+          [key: string]: string | undefined
+        }
+      | ""
+    name?: string
+  }
 
 export type t_PostAccountsAccountCapabilitiesCapabilityParamSchema = {
   account: string
   capability: string
 }
 
-export type t_PostAccountsAccountExternalAccountsBodySchema = {
-  bank_account?:
-    | {
-        account_holder_name?: string
-        account_holder_type?: "company" | "individual"
-        account_number: string
-        account_type?: "checking" | "futsu" | "savings" | "toza"
-        country: string
-        currency?: string
-        documents?: {
-          bank_account_ownership_verification?: {
-            files?: string[]
-          }
-        }
-        object?: "bank_account"
-        routing_number?: string
-      }
-    | string
-  default_for_currency?: boolean
-  expand?: string[]
-  external_account?: string
-  metadata?: {
-    [key: string]: string | undefined
+export type t_postAccountsAccountCapabilitiesCapabilityApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
+    requested?: boolean
   }
-}
 
 export type t_PostAccountsAccountExternalAccountsParamSchema = {
   account: string
 }
 
-export type t_PostAccountsAccountExternalAccountsIdBodySchema = {
-  account_holder_name?: string
-  account_holder_type?: "" | "company" | "individual"
-  account_type?: "checking" | "futsu" | "savings" | "toza"
-  address_city?: string
-  address_country?: string
-  address_line1?: string
-  address_line2?: string
-  address_state?: string
-  address_zip?: string
-  default_for_currency?: boolean
-  documents?: {
-    bank_account_ownership_verification?: {
-      files?: string[]
+export type t_postAccountsAccountExternalAccountsApplicationXWwwFormUrlencodedRequestBody =
+  {
+    bank_account?:
+      | {
+          account_holder_name?: string
+          account_holder_type?: "company" | "individual"
+          account_number: string
+          account_type?: "checking" | "futsu" | "savings" | "toza"
+          country: string
+          currency?: string
+          documents?: {
+            bank_account_ownership_verification?: {
+              files?: string[]
+            }
+          }
+          object?: "bank_account"
+          routing_number?: string
+        }
+      | string
+    default_for_currency?: boolean
+    expand?: string[]
+    external_account?: string
+    metadata?: {
+      [key: string]: string | undefined
     }
   }
-  exp_month?: string
-  exp_year?: string
-  expand?: string[]
-  metadata?:
-    | {
-        [key: string]: string | undefined
-      }
-    | ""
-  name?: string
-}
 
 export type t_PostAccountsAccountExternalAccountsIdParamSchema = {
   account: string
   id: string
 }
 
-export type t_PostAccountsAccountLoginLinksBodySchema = {
-  expand?: string[]
-}
+export type t_postAccountsAccountExternalAccountsIdApplicationXWwwFormUrlencodedRequestBody =
+  {
+    account_holder_name?: string
+    account_holder_type?: "" | "company" | "individual"
+    account_type?: "checking" | "futsu" | "savings" | "toza"
+    address_city?: string
+    address_country?: string
+    address_line1?: string
+    address_line2?: string
+    address_state?: string
+    address_zip?: string
+    default_for_currency?: boolean
+    documents?: {
+      bank_account_ownership_verification?: {
+        files?: string[]
+      }
+    }
+    exp_month?: string
+    exp_year?: string
+    expand?: string[]
+    metadata?:
+      | {
+          [key: string]: string | undefined
+        }
+      | ""
+    name?: string
+  }
 
 export type t_PostAccountsAccountLoginLinksParamSchema = {
   account: string
 }
 
-export type t_PostAccountsAccountPeopleBodySchema = {
-  additional_tos_acceptances?: {
-    account?: {
-      date?: number
-      ip?: string
-      user_agent?: string | ""
-    }
+export type t_postAccountsAccountLoginLinksApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
   }
-  address?: {
-    city?: string
-    country?: string
-    line1?: string
-    line2?: string
-    postal_code?: string
-    state?: string
-  }
-  address_kana?: {
-    city?: string
-    country?: string
-    line1?: string
-    line2?: string
-    postal_code?: string
-    state?: string
-    town?: string
-  }
-  address_kanji?: {
-    city?: string
-    country?: string
-    line1?: string
-    line2?: string
-    postal_code?: string
-    state?: string
-    town?: string
-  }
-  dob?:
-    | {
-        day: number
-        month: number
-        year: number
-      }
-    | ""
-  documents?: {
-    company_authorization?: {
-      files?: (string | "")[]
-    }
-    passport?: {
-      files?: (string | "")[]
-    }
-    visa?: {
-      files?: (string | "")[]
-    }
-  }
-  email?: string
-  expand?: string[]
-  first_name?: string
-  first_name_kana?: string
-  first_name_kanji?: string
-  full_name_aliases?: string[] | ""
-  gender?: string
-  id_number?: string
-  id_number_secondary?: string
-  last_name?: string
-  last_name_kana?: string
-  last_name_kanji?: string
-  maiden_name?: string
-  metadata?:
-    | {
-        [key: string]: string | undefined
-      }
-    | ""
-  nationality?: string
-  person_token?: string
-  phone?: string
-  political_exposure?: "existing" | "none"
-  registered_address?: {
-    city?: string
-    country?: string
-    line1?: string
-    line2?: string
-    postal_code?: string
-    state?: string
-  }
-  relationship?: {
-    authorizer?: boolean
-    director?: boolean
-    executive?: boolean
-    legal_guardian?: boolean
-    owner?: boolean
-    percent_ownership?: number | ""
-    representative?: boolean
-    title?: string
-  }
-  ssn_last_4?: string
-  us_cfpb_data?: {
-    ethnicity_details?: {
-      ethnicity?: (
-        | "cuban"
-        | "hispanic_or_latino"
-        | "mexican"
-        | "not_hispanic_or_latino"
-        | "other_hispanic_or_latino"
-        | "prefer_not_to_answer"
-        | "puerto_rican"
-      )[]
-      ethnicity_other?: string
-    }
-    race_details?: {
-      race?: (
-        | "african_american"
-        | "american_indian_or_alaska_native"
-        | "asian"
-        | "asian_indian"
-        | "black_or_african_american"
-        | "chinese"
-        | "ethiopian"
-        | "filipino"
-        | "guamanian_or_chamorro"
-        | "haitian"
-        | "jamaican"
-        | "japanese"
-        | "korean"
-        | "native_hawaiian"
-        | "native_hawaiian_or_other_pacific_islander"
-        | "nigerian"
-        | "other_asian"
-        | "other_black_or_african_american"
-        | "other_pacific_islander"
-        | "prefer_not_to_answer"
-        | "samoan"
-        | "somali"
-        | "vietnamese"
-        | "white"
-      )[]
-      race_other?: string
-    }
-    self_identified_gender?: string
-  }
-  verification?: {
-    additional_document?: {
-      back?: string
-      front?: string
-    }
-    document?: {
-      back?: string
-      front?: string
-    }
-  }
-}
 
 export type t_PostAccountsAccountPeopleParamSchema = {
   account: string
 }
 
-export type t_PostAccountsAccountPeoplePersonBodySchema = {
-  additional_tos_acceptances?: {
-    account?: {
-      date?: number
-      ip?: string
-      user_agent?: string | ""
-    }
-  }
-  address?: {
-    city?: string
-    country?: string
-    line1?: string
-    line2?: string
-    postal_code?: string
-    state?: string
-  }
-  address_kana?: {
-    city?: string
-    country?: string
-    line1?: string
-    line2?: string
-    postal_code?: string
-    state?: string
-    town?: string
-  }
-  address_kanji?: {
-    city?: string
-    country?: string
-    line1?: string
-    line2?: string
-    postal_code?: string
-    state?: string
-    town?: string
-  }
-  dob?:
-    | {
-        day: number
-        month: number
-        year: number
+export type t_postAccountsAccountPeopleApplicationXWwwFormUrlencodedRequestBody =
+  {
+    additional_tos_acceptances?: {
+      account?: {
+        date?: number
+        ip?: string
+        user_agent?: string | ""
       }
-    | ""
-  documents?: {
-    company_authorization?: {
-      files?: (string | "")[]
     }
-    passport?: {
-      files?: (string | "")[]
+    address?: {
+      city?: string
+      country?: string
+      line1?: string
+      line2?: string
+      postal_code?: string
+      state?: string
     }
-    visa?: {
-      files?: (string | "")[]
+    address_kana?: {
+      city?: string
+      country?: string
+      line1?: string
+      line2?: string
+      postal_code?: string
+      state?: string
+      town?: string
     }
-  }
-  email?: string
-  expand?: string[]
-  first_name?: string
-  first_name_kana?: string
-  first_name_kanji?: string
-  full_name_aliases?: string[] | ""
-  gender?: string
-  id_number?: string
-  id_number_secondary?: string
-  last_name?: string
-  last_name_kana?: string
-  last_name_kanji?: string
-  maiden_name?: string
-  metadata?:
-    | {
-        [key: string]: string | undefined
+    address_kanji?: {
+      city?: string
+      country?: string
+      line1?: string
+      line2?: string
+      postal_code?: string
+      state?: string
+      town?: string
+    }
+    dob?:
+      | {
+          day: number
+          month: number
+          year: number
+        }
+      | ""
+    documents?: {
+      company_authorization?: {
+        files?: (string | "")[]
       }
-    | ""
-  nationality?: string
-  person_token?: string
-  phone?: string
-  political_exposure?: "existing" | "none"
-  registered_address?: {
-    city?: string
-    country?: string
-    line1?: string
-    line2?: string
-    postal_code?: string
-    state?: string
-  }
-  relationship?: {
-    authorizer?: boolean
-    director?: boolean
-    executive?: boolean
-    legal_guardian?: boolean
-    owner?: boolean
-    percent_ownership?: number | ""
-    representative?: boolean
-    title?: string
-  }
-  ssn_last_4?: string
-  us_cfpb_data?: {
-    ethnicity_details?: {
-      ethnicity?: (
-        | "cuban"
-        | "hispanic_or_latino"
-        | "mexican"
-        | "not_hispanic_or_latino"
-        | "other_hispanic_or_latino"
-        | "prefer_not_to_answer"
-        | "puerto_rican"
-      )[]
-      ethnicity_other?: string
+      passport?: {
+        files?: (string | "")[]
+      }
+      visa?: {
+        files?: (string | "")[]
+      }
     }
-    race_details?: {
-      race?: (
-        | "african_american"
-        | "american_indian_or_alaska_native"
-        | "asian"
-        | "asian_indian"
-        | "black_or_african_american"
-        | "chinese"
-        | "ethiopian"
-        | "filipino"
-        | "guamanian_or_chamorro"
-        | "haitian"
-        | "jamaican"
-        | "japanese"
-        | "korean"
-        | "native_hawaiian"
-        | "native_hawaiian_or_other_pacific_islander"
-        | "nigerian"
-        | "other_asian"
-        | "other_black_or_african_american"
-        | "other_pacific_islander"
-        | "prefer_not_to_answer"
-        | "samoan"
-        | "somali"
-        | "vietnamese"
-        | "white"
-      )[]
-      race_other?: string
+    email?: string
+    expand?: string[]
+    first_name?: string
+    first_name_kana?: string
+    first_name_kanji?: string
+    full_name_aliases?: string[] | ""
+    gender?: string
+    id_number?: string
+    id_number_secondary?: string
+    last_name?: string
+    last_name_kana?: string
+    last_name_kanji?: string
+    maiden_name?: string
+    metadata?:
+      | {
+          [key: string]: string | undefined
+        }
+      | ""
+    nationality?: string
+    person_token?: string
+    phone?: string
+    political_exposure?: "existing" | "none"
+    registered_address?: {
+      city?: string
+      country?: string
+      line1?: string
+      line2?: string
+      postal_code?: string
+      state?: string
     }
-    self_identified_gender?: string
+    relationship?: {
+      authorizer?: boolean
+      director?: boolean
+      executive?: boolean
+      legal_guardian?: boolean
+      owner?: boolean
+      percent_ownership?: number | ""
+      representative?: boolean
+      title?: string
+    }
+    ssn_last_4?: string
+    us_cfpb_data?: {
+      ethnicity_details?: {
+        ethnicity?: (
+          | "cuban"
+          | "hispanic_or_latino"
+          | "mexican"
+          | "not_hispanic_or_latino"
+          | "other_hispanic_or_latino"
+          | "prefer_not_to_answer"
+          | "puerto_rican"
+        )[]
+        ethnicity_other?: string
+      }
+      race_details?: {
+        race?: (
+          | "african_american"
+          | "american_indian_or_alaska_native"
+          | "asian"
+          | "asian_indian"
+          | "black_or_african_american"
+          | "chinese"
+          | "ethiopian"
+          | "filipino"
+          | "guamanian_or_chamorro"
+          | "haitian"
+          | "jamaican"
+          | "japanese"
+          | "korean"
+          | "native_hawaiian"
+          | "native_hawaiian_or_other_pacific_islander"
+          | "nigerian"
+          | "other_asian"
+          | "other_black_or_african_american"
+          | "other_pacific_islander"
+          | "prefer_not_to_answer"
+          | "samoan"
+          | "somali"
+          | "vietnamese"
+          | "white"
+        )[]
+        race_other?: string
+      }
+      self_identified_gender?: string
+    }
+    verification?: {
+      additional_document?: {
+        back?: string
+        front?: string
+      }
+      document?: {
+        back?: string
+        front?: string
+      }
+    }
   }
-  verification?: {
-    additional_document?: {
-      back?: string
-      front?: string
-    }
-    document?: {
-      back?: string
-      front?: string
-    }
-  }
-}
 
 export type t_PostAccountsAccountPeoplePersonParamSchema = {
   account: string
   person: string
 }
 
-export type t_PostAccountsAccountPersonsBodySchema = {
-  additional_tos_acceptances?: {
-    account?: {
-      date?: number
-      ip?: string
-      user_agent?: string | ""
-    }
-  }
-  address?: {
-    city?: string
-    country?: string
-    line1?: string
-    line2?: string
-    postal_code?: string
-    state?: string
-  }
-  address_kana?: {
-    city?: string
-    country?: string
-    line1?: string
-    line2?: string
-    postal_code?: string
-    state?: string
-    town?: string
-  }
-  address_kanji?: {
-    city?: string
-    country?: string
-    line1?: string
-    line2?: string
-    postal_code?: string
-    state?: string
-    town?: string
-  }
-  dob?:
-    | {
-        day: number
-        month: number
-        year: number
+export type t_postAccountsAccountPeoplePersonApplicationXWwwFormUrlencodedRequestBody =
+  {
+    additional_tos_acceptances?: {
+      account?: {
+        date?: number
+        ip?: string
+        user_agent?: string | ""
       }
-    | ""
-  documents?: {
-    company_authorization?: {
-      files?: (string | "")[]
     }
-    passport?: {
-      files?: (string | "")[]
+    address?: {
+      city?: string
+      country?: string
+      line1?: string
+      line2?: string
+      postal_code?: string
+      state?: string
     }
-    visa?: {
-      files?: (string | "")[]
+    address_kana?: {
+      city?: string
+      country?: string
+      line1?: string
+      line2?: string
+      postal_code?: string
+      state?: string
+      town?: string
     }
-  }
-  email?: string
-  expand?: string[]
-  first_name?: string
-  first_name_kana?: string
-  first_name_kanji?: string
-  full_name_aliases?: string[] | ""
-  gender?: string
-  id_number?: string
-  id_number_secondary?: string
-  last_name?: string
-  last_name_kana?: string
-  last_name_kanji?: string
-  maiden_name?: string
-  metadata?:
-    | {
-        [key: string]: string | undefined
+    address_kanji?: {
+      city?: string
+      country?: string
+      line1?: string
+      line2?: string
+      postal_code?: string
+      state?: string
+      town?: string
+    }
+    dob?:
+      | {
+          day: number
+          month: number
+          year: number
+        }
+      | ""
+    documents?: {
+      company_authorization?: {
+        files?: (string | "")[]
       }
-    | ""
-  nationality?: string
-  person_token?: string
-  phone?: string
-  political_exposure?: "existing" | "none"
-  registered_address?: {
-    city?: string
-    country?: string
-    line1?: string
-    line2?: string
-    postal_code?: string
-    state?: string
-  }
-  relationship?: {
-    authorizer?: boolean
-    director?: boolean
-    executive?: boolean
-    legal_guardian?: boolean
-    owner?: boolean
-    percent_ownership?: number | ""
-    representative?: boolean
-    title?: string
-  }
-  ssn_last_4?: string
-  us_cfpb_data?: {
-    ethnicity_details?: {
-      ethnicity?: (
-        | "cuban"
-        | "hispanic_or_latino"
-        | "mexican"
-        | "not_hispanic_or_latino"
-        | "other_hispanic_or_latino"
-        | "prefer_not_to_answer"
-        | "puerto_rican"
-      )[]
-      ethnicity_other?: string
+      passport?: {
+        files?: (string | "")[]
+      }
+      visa?: {
+        files?: (string | "")[]
+      }
     }
-    race_details?: {
-      race?: (
-        | "african_american"
-        | "american_indian_or_alaska_native"
-        | "asian"
-        | "asian_indian"
-        | "black_or_african_american"
-        | "chinese"
-        | "ethiopian"
-        | "filipino"
-        | "guamanian_or_chamorro"
-        | "haitian"
-        | "jamaican"
-        | "japanese"
-        | "korean"
-        | "native_hawaiian"
-        | "native_hawaiian_or_other_pacific_islander"
-        | "nigerian"
-        | "other_asian"
-        | "other_black_or_african_american"
-        | "other_pacific_islander"
-        | "prefer_not_to_answer"
-        | "samoan"
-        | "somali"
-        | "vietnamese"
-        | "white"
-      )[]
-      race_other?: string
+    email?: string
+    expand?: string[]
+    first_name?: string
+    first_name_kana?: string
+    first_name_kanji?: string
+    full_name_aliases?: string[] | ""
+    gender?: string
+    id_number?: string
+    id_number_secondary?: string
+    last_name?: string
+    last_name_kana?: string
+    last_name_kanji?: string
+    maiden_name?: string
+    metadata?:
+      | {
+          [key: string]: string | undefined
+        }
+      | ""
+    nationality?: string
+    person_token?: string
+    phone?: string
+    political_exposure?: "existing" | "none"
+    registered_address?: {
+      city?: string
+      country?: string
+      line1?: string
+      line2?: string
+      postal_code?: string
+      state?: string
     }
-    self_identified_gender?: string
+    relationship?: {
+      authorizer?: boolean
+      director?: boolean
+      executive?: boolean
+      legal_guardian?: boolean
+      owner?: boolean
+      percent_ownership?: number | ""
+      representative?: boolean
+      title?: string
+    }
+    ssn_last_4?: string
+    us_cfpb_data?: {
+      ethnicity_details?: {
+        ethnicity?: (
+          | "cuban"
+          | "hispanic_or_latino"
+          | "mexican"
+          | "not_hispanic_or_latino"
+          | "other_hispanic_or_latino"
+          | "prefer_not_to_answer"
+          | "puerto_rican"
+        )[]
+        ethnicity_other?: string
+      }
+      race_details?: {
+        race?: (
+          | "african_american"
+          | "american_indian_or_alaska_native"
+          | "asian"
+          | "asian_indian"
+          | "black_or_african_american"
+          | "chinese"
+          | "ethiopian"
+          | "filipino"
+          | "guamanian_or_chamorro"
+          | "haitian"
+          | "jamaican"
+          | "japanese"
+          | "korean"
+          | "native_hawaiian"
+          | "native_hawaiian_or_other_pacific_islander"
+          | "nigerian"
+          | "other_asian"
+          | "other_black_or_african_american"
+          | "other_pacific_islander"
+          | "prefer_not_to_answer"
+          | "samoan"
+          | "somali"
+          | "vietnamese"
+          | "white"
+        )[]
+        race_other?: string
+      }
+      self_identified_gender?: string
+    }
+    verification?: {
+      additional_document?: {
+        back?: string
+        front?: string
+      }
+      document?: {
+        back?: string
+        front?: string
+      }
+    }
   }
-  verification?: {
-    additional_document?: {
-      back?: string
-      front?: string
-    }
-    document?: {
-      back?: string
-      front?: string
-    }
-  }
-}
 
 export type t_PostAccountsAccountPersonsParamSchema = {
   account: string
 }
 
-export type t_PostAccountsAccountPersonsPersonBodySchema = {
-  additional_tos_acceptances?: {
-    account?: {
-      date?: number
-      ip?: string
-      user_agent?: string | ""
-    }
-  }
-  address?: {
-    city?: string
-    country?: string
-    line1?: string
-    line2?: string
-    postal_code?: string
-    state?: string
-  }
-  address_kana?: {
-    city?: string
-    country?: string
-    line1?: string
-    line2?: string
-    postal_code?: string
-    state?: string
-    town?: string
-  }
-  address_kanji?: {
-    city?: string
-    country?: string
-    line1?: string
-    line2?: string
-    postal_code?: string
-    state?: string
-    town?: string
-  }
-  dob?:
-    | {
-        day: number
-        month: number
-        year: number
+export type t_postAccountsAccountPersonsApplicationXWwwFormUrlencodedRequestBody =
+  {
+    additional_tos_acceptances?: {
+      account?: {
+        date?: number
+        ip?: string
+        user_agent?: string | ""
       }
-    | ""
-  documents?: {
-    company_authorization?: {
-      files?: (string | "")[]
     }
-    passport?: {
-      files?: (string | "")[]
+    address?: {
+      city?: string
+      country?: string
+      line1?: string
+      line2?: string
+      postal_code?: string
+      state?: string
     }
-    visa?: {
-      files?: (string | "")[]
+    address_kana?: {
+      city?: string
+      country?: string
+      line1?: string
+      line2?: string
+      postal_code?: string
+      state?: string
+      town?: string
     }
-  }
-  email?: string
-  expand?: string[]
-  first_name?: string
-  first_name_kana?: string
-  first_name_kanji?: string
-  full_name_aliases?: string[] | ""
-  gender?: string
-  id_number?: string
-  id_number_secondary?: string
-  last_name?: string
-  last_name_kana?: string
-  last_name_kanji?: string
-  maiden_name?: string
-  metadata?:
-    | {
-        [key: string]: string | undefined
+    address_kanji?: {
+      city?: string
+      country?: string
+      line1?: string
+      line2?: string
+      postal_code?: string
+      state?: string
+      town?: string
+    }
+    dob?:
+      | {
+          day: number
+          month: number
+          year: number
+        }
+      | ""
+    documents?: {
+      company_authorization?: {
+        files?: (string | "")[]
       }
-    | ""
-  nationality?: string
-  person_token?: string
-  phone?: string
-  political_exposure?: "existing" | "none"
-  registered_address?: {
-    city?: string
-    country?: string
-    line1?: string
-    line2?: string
-    postal_code?: string
-    state?: string
-  }
-  relationship?: {
-    authorizer?: boolean
-    director?: boolean
-    executive?: boolean
-    legal_guardian?: boolean
-    owner?: boolean
-    percent_ownership?: number | ""
-    representative?: boolean
-    title?: string
-  }
-  ssn_last_4?: string
-  us_cfpb_data?: {
-    ethnicity_details?: {
-      ethnicity?: (
-        | "cuban"
-        | "hispanic_or_latino"
-        | "mexican"
-        | "not_hispanic_or_latino"
-        | "other_hispanic_or_latino"
-        | "prefer_not_to_answer"
-        | "puerto_rican"
-      )[]
-      ethnicity_other?: string
+      passport?: {
+        files?: (string | "")[]
+      }
+      visa?: {
+        files?: (string | "")[]
+      }
     }
-    race_details?: {
-      race?: (
-        | "african_american"
-        | "american_indian_or_alaska_native"
-        | "asian"
-        | "asian_indian"
-        | "black_or_african_american"
-        | "chinese"
-        | "ethiopian"
-        | "filipino"
-        | "guamanian_or_chamorro"
-        | "haitian"
-        | "jamaican"
-        | "japanese"
-        | "korean"
-        | "native_hawaiian"
-        | "native_hawaiian_or_other_pacific_islander"
-        | "nigerian"
-        | "other_asian"
-        | "other_black_or_african_american"
-        | "other_pacific_islander"
-        | "prefer_not_to_answer"
-        | "samoan"
-        | "somali"
-        | "vietnamese"
-        | "white"
-      )[]
-      race_other?: string
+    email?: string
+    expand?: string[]
+    first_name?: string
+    first_name_kana?: string
+    first_name_kanji?: string
+    full_name_aliases?: string[] | ""
+    gender?: string
+    id_number?: string
+    id_number_secondary?: string
+    last_name?: string
+    last_name_kana?: string
+    last_name_kanji?: string
+    maiden_name?: string
+    metadata?:
+      | {
+          [key: string]: string | undefined
+        }
+      | ""
+    nationality?: string
+    person_token?: string
+    phone?: string
+    political_exposure?: "existing" | "none"
+    registered_address?: {
+      city?: string
+      country?: string
+      line1?: string
+      line2?: string
+      postal_code?: string
+      state?: string
     }
-    self_identified_gender?: string
+    relationship?: {
+      authorizer?: boolean
+      director?: boolean
+      executive?: boolean
+      legal_guardian?: boolean
+      owner?: boolean
+      percent_ownership?: number | ""
+      representative?: boolean
+      title?: string
+    }
+    ssn_last_4?: string
+    us_cfpb_data?: {
+      ethnicity_details?: {
+        ethnicity?: (
+          | "cuban"
+          | "hispanic_or_latino"
+          | "mexican"
+          | "not_hispanic_or_latino"
+          | "other_hispanic_or_latino"
+          | "prefer_not_to_answer"
+          | "puerto_rican"
+        )[]
+        ethnicity_other?: string
+      }
+      race_details?: {
+        race?: (
+          | "african_american"
+          | "american_indian_or_alaska_native"
+          | "asian"
+          | "asian_indian"
+          | "black_or_african_american"
+          | "chinese"
+          | "ethiopian"
+          | "filipino"
+          | "guamanian_or_chamorro"
+          | "haitian"
+          | "jamaican"
+          | "japanese"
+          | "korean"
+          | "native_hawaiian"
+          | "native_hawaiian_or_other_pacific_islander"
+          | "nigerian"
+          | "other_asian"
+          | "other_black_or_african_american"
+          | "other_pacific_islander"
+          | "prefer_not_to_answer"
+          | "samoan"
+          | "somali"
+          | "vietnamese"
+          | "white"
+        )[]
+        race_other?: string
+      }
+      self_identified_gender?: string
+    }
+    verification?: {
+      additional_document?: {
+        back?: string
+        front?: string
+      }
+      document?: {
+        back?: string
+        front?: string
+      }
+    }
   }
-  verification?: {
-    additional_document?: {
-      back?: string
-      front?: string
-    }
-    document?: {
-      back?: string
-      front?: string
-    }
-  }
-}
 
 export type t_PostAccountsAccountPersonsPersonParamSchema = {
   account: string
   person: string
 }
 
-export type t_PostAccountsAccountRejectBodySchema = {
-  expand?: string[]
-  reason: string
-}
+export type t_postAccountsAccountPersonsPersonApplicationXWwwFormUrlencodedRequestBody =
+  {
+    additional_tos_acceptances?: {
+      account?: {
+        date?: number
+        ip?: string
+        user_agent?: string | ""
+      }
+    }
+    address?: {
+      city?: string
+      country?: string
+      line1?: string
+      line2?: string
+      postal_code?: string
+      state?: string
+    }
+    address_kana?: {
+      city?: string
+      country?: string
+      line1?: string
+      line2?: string
+      postal_code?: string
+      state?: string
+      town?: string
+    }
+    address_kanji?: {
+      city?: string
+      country?: string
+      line1?: string
+      line2?: string
+      postal_code?: string
+      state?: string
+      town?: string
+    }
+    dob?:
+      | {
+          day: number
+          month: number
+          year: number
+        }
+      | ""
+    documents?: {
+      company_authorization?: {
+        files?: (string | "")[]
+      }
+      passport?: {
+        files?: (string | "")[]
+      }
+      visa?: {
+        files?: (string | "")[]
+      }
+    }
+    email?: string
+    expand?: string[]
+    first_name?: string
+    first_name_kana?: string
+    first_name_kanji?: string
+    full_name_aliases?: string[] | ""
+    gender?: string
+    id_number?: string
+    id_number_secondary?: string
+    last_name?: string
+    last_name_kana?: string
+    last_name_kanji?: string
+    maiden_name?: string
+    metadata?:
+      | {
+          [key: string]: string | undefined
+        }
+      | ""
+    nationality?: string
+    person_token?: string
+    phone?: string
+    political_exposure?: "existing" | "none"
+    registered_address?: {
+      city?: string
+      country?: string
+      line1?: string
+      line2?: string
+      postal_code?: string
+      state?: string
+    }
+    relationship?: {
+      authorizer?: boolean
+      director?: boolean
+      executive?: boolean
+      legal_guardian?: boolean
+      owner?: boolean
+      percent_ownership?: number | ""
+      representative?: boolean
+      title?: string
+    }
+    ssn_last_4?: string
+    us_cfpb_data?: {
+      ethnicity_details?: {
+        ethnicity?: (
+          | "cuban"
+          | "hispanic_or_latino"
+          | "mexican"
+          | "not_hispanic_or_latino"
+          | "other_hispanic_or_latino"
+          | "prefer_not_to_answer"
+          | "puerto_rican"
+        )[]
+        ethnicity_other?: string
+      }
+      race_details?: {
+        race?: (
+          | "african_american"
+          | "american_indian_or_alaska_native"
+          | "asian"
+          | "asian_indian"
+          | "black_or_african_american"
+          | "chinese"
+          | "ethiopian"
+          | "filipino"
+          | "guamanian_or_chamorro"
+          | "haitian"
+          | "jamaican"
+          | "japanese"
+          | "korean"
+          | "native_hawaiian"
+          | "native_hawaiian_or_other_pacific_islander"
+          | "nigerian"
+          | "other_asian"
+          | "other_black_or_african_american"
+          | "other_pacific_islander"
+          | "prefer_not_to_answer"
+          | "samoan"
+          | "somali"
+          | "vietnamese"
+          | "white"
+        )[]
+        race_other?: string
+      }
+      self_identified_gender?: string
+    }
+    verification?: {
+      additional_document?: {
+        back?: string
+        front?: string
+      }
+      document?: {
+        back?: string
+        front?: string
+      }
+    }
+  }
 
 export type t_PostAccountsAccountRejectParamSchema = {
   account: string
 }
 
-export type t_PostApplePayDomainsBodySchema = {
+export type t_postAccountsAccountRejectApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
+    reason: string
+  }
+
+export type t_postApplePayDomainsApplicationXWwwFormUrlencodedRequestBody = {
   domain_name: string
   expand?: string[]
-}
-
-export type t_PostApplicationFeesFeeRefundsIdBodySchema = {
-  expand?: string[]
-  metadata?:
-    | {
-        [key: string]: string | undefined
-      }
-    | ""
 }
 
 export type t_PostApplicationFeesFeeRefundsIdParamSchema = {
@@ -19389,29 +19396,41 @@ export type t_PostApplicationFeesFeeRefundsIdParamSchema = {
   id: string
 }
 
-export type t_PostApplicationFeesIdRefundBodySchema = {
-  amount?: number
-  directive?: string
-  expand?: string[]
-}
+export type t_postApplicationFeesFeeRefundsIdApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
+    metadata?:
+      | {
+          [key: string]: string | undefined
+        }
+      | ""
+  }
 
 export type t_PostApplicationFeesIdRefundParamSchema = {
   id: string
 }
 
-export type t_PostApplicationFeesIdRefundsBodySchema = {
-  amount?: number
-  expand?: string[]
-  metadata?: {
-    [key: string]: string | undefined
+export type t_postApplicationFeesIdRefundApplicationXWwwFormUrlencodedRequestBody =
+  {
+    amount?: number
+    directive?: string
+    expand?: string[]
   }
-}
 
 export type t_PostApplicationFeesIdRefundsParamSchema = {
   id: string
 }
 
-export type t_PostAppsSecretsBodySchema = {
+export type t_postApplicationFeesIdRefundsApplicationXWwwFormUrlencodedRequestBody =
+  {
+    amount?: number
+    expand?: string[]
+    metadata?: {
+      [key: string]: string | undefined
+    }
+  }
+
+export type t_postAppsSecretsApplicationXWwwFormUrlencodedRequestBody = {
   expand?: string[]
   expires_at?: number
   name: string
@@ -19422,7 +19441,7 @@ export type t_PostAppsSecretsBodySchema = {
   }
 }
 
-export type t_PostAppsSecretsDeleteBodySchema = {
+export type t_postAppsSecretsDeleteApplicationXWwwFormUrlencodedRequestBody = {
   expand?: string[]
   name: string
   scope: {
@@ -19431,7 +19450,7 @@ export type t_PostAppsSecretsDeleteBodySchema = {
   }
 }
 
-export type t_PostBillingAlertsBodySchema = {
+export type t_postBillingAlertsApplicationXWwwFormUrlencodedRequestBody = {
   alert_type: "usage_threshold"
   expand?: string[]
   title: string
@@ -19446,96 +19465,104 @@ export type t_PostBillingAlertsBodySchema = {
   }
 }
 
-export type t_PostBillingAlertsIdActivateBodySchema = {
-  expand?: string[]
-}
-
 export type t_PostBillingAlertsIdActivateParamSchema = {
   id: string
 }
 
-export type t_PostBillingAlertsIdArchiveBodySchema = {
-  expand?: string[]
-}
+export type t_postBillingAlertsIdActivateApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
+  }
 
 export type t_PostBillingAlertsIdArchiveParamSchema = {
   id: string
 }
 
-export type t_PostBillingAlertsIdDeactivateBodySchema = {
-  expand?: string[]
-}
+export type t_postBillingAlertsIdArchiveApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
+  }
 
 export type t_PostBillingAlertsIdDeactivateParamSchema = {
   id: string
 }
 
-export type t_PostBillingCreditGrantsBodySchema = {
-  amount: {
-    monetary?: {
-      currency: string
-      value: number
-    }
-    type: "monetary"
+export type t_postBillingAlertsIdDeactivateApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
   }
-  applicability_config: {
-    scope: {
-      price_type?: "metered"
-      prices?: {
-        id: string
-      }[]
-    }
-  }
-  category: "paid" | "promotional"
-  customer: string
-  effective_at?: number
-  expand?: string[]
-  expires_at?: number
-  metadata?: {
-    [key: string]: string | undefined
-  }
-  name?: string
-  priority?: number
-}
 
-export type t_PostBillingCreditGrantsIdBodySchema = {
-  expand?: string[]
-  expires_at?: number | ""
-  metadata?: {
-    [key: string]: string | undefined
+export type t_postBillingCreditGrantsApplicationXWwwFormUrlencodedRequestBody =
+  {
+    amount: {
+      monetary?: {
+        currency: string
+        value: number
+      }
+      type: "monetary"
+    }
+    applicability_config: {
+      scope: {
+        price_type?: "metered"
+        prices?: {
+          id: string
+        }[]
+      }
+    }
+    category: "paid" | "promotional"
+    customer: string
+    effective_at?: number
+    expand?: string[]
+    expires_at?: number
+    metadata?: {
+      [key: string]: string | undefined
+    }
+    name?: string
+    priority?: number
   }
-}
 
 export type t_PostBillingCreditGrantsIdParamSchema = {
   id: string
 }
 
-export type t_PostBillingCreditGrantsIdExpireBodySchema = {
-  expand?: string[]
-}
+export type t_postBillingCreditGrantsIdApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
+    expires_at?: number | ""
+    metadata?: {
+      [key: string]: string | undefined
+    }
+  }
 
 export type t_PostBillingCreditGrantsIdExpireParamSchema = {
   id: string
 }
 
-export type t_PostBillingCreditGrantsIdVoidBodySchema = {
-  expand?: string[]
-}
+export type t_postBillingCreditGrantsIdExpireApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
+  }
 
 export type t_PostBillingCreditGrantsIdVoidParamSchema = {
   id: string
 }
 
-export type t_PostBillingMeterEventAdjustmentsBodySchema = {
-  cancel?: {
-    identifier?: string
+export type t_postBillingCreditGrantsIdVoidApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
   }
-  event_name: string
-  expand?: string[]
-  type: "cancel"
-}
 
-export type t_PostBillingMeterEventsBodySchema = {
+export type t_postBillingMeterEventAdjustmentsApplicationXWwwFormUrlencodedRequestBody =
+  {
+    cancel?: {
+      identifier?: string
+    }
+    event_name: string
+    expand?: string[]
+    type: "cancel"
+  }
+
+export type t_postBillingMeterEventsApplicationXWwwFormUrlencodedRequestBody = {
   event_name: string
   expand?: string[]
   identifier?: string
@@ -19545,7 +19572,7 @@ export type t_PostBillingMeterEventsBodySchema = {
   timestamp?: number
 }
 
-export type t_PostBillingMetersBodySchema = {
+export type t_postBillingMetersApplicationXWwwFormUrlencodedRequestBody = {
   customer_mapping?: {
     event_payload_key: string
     type: "by_id"
@@ -19562,16 +19589,12 @@ export type t_PostBillingMetersBodySchema = {
   }
 }
 
-export type t_PostBillingMetersIdBodySchema = {
-  display_name?: string
-  expand?: string[]
-}
-
 export type t_PostBillingMetersIdParamSchema = {
   id: string
 }
 
-export type t_PostBillingMetersIdDeactivateBodySchema = {
+export type t_postBillingMetersIdApplicationXWwwFormUrlencodedRequestBody = {
+  display_name?: string
   expand?: string[]
 }
 
@@ -19579,262 +19602,275 @@ export type t_PostBillingMetersIdDeactivateParamSchema = {
   id: string
 }
 
-export type t_PostBillingMetersIdReactivateBodySchema = {
-  expand?: string[]
-}
+export type t_postBillingMetersIdDeactivateApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
+  }
 
 export type t_PostBillingMetersIdReactivateParamSchema = {
   id: string
 }
 
-export type t_PostBillingPortalConfigurationsBodySchema = {
-  business_profile?: {
-    headline?: string | ""
-    privacy_policy_url?: string
-    terms_of_service_url?: string
+export type t_postBillingMetersIdReactivateApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
   }
-  default_return_url?: string | ""
-  expand?: string[]
-  features: {
-    customer_update?: {
-      allowed_updates?:
-        | ("address" | "email" | "name" | "phone" | "shipping" | "tax_id")[]
-        | ""
-      enabled: boolean
-    }
-    invoice_history?: {
-      enabled: boolean
-    }
-    payment_method_update?: {
-      enabled: boolean
-    }
-    subscription_cancel?: {
-      cancellation_reason?: {
-        enabled: boolean
-        options:
-          | (
-              | "customer_service"
-              | "low_quality"
-              | "missing_features"
-              | "other"
-              | "switched_service"
-              | "too_complex"
-              | "too_expensive"
-              | "unused"
-            )[]
-          | ""
-      }
-      enabled: boolean
-      mode?: "at_period_end" | "immediately"
-      proration_behavior?: "always_invoice" | "create_prorations" | "none"
-    }
-    subscription_update?: {
-      default_allowed_updates?: ("price" | "promotion_code" | "quantity")[] | ""
-      enabled: boolean
-      products?:
-        | {
-            adjustable_quantity?: {
-              enabled: boolean
-              maximum?: number
-              minimum?: number
-            }
-            prices: string[]
-            product: string
-          }[]
-        | ""
-      proration_behavior?: "always_invoice" | "create_prorations" | "none"
-      schedule_at_period_end?: {
-        conditions?: {
-          type: "decreasing_item_amount" | "shortening_interval"
-        }[]
-      }
-    }
-  }
-  login_page?: {
-    enabled: boolean
-  }
-  metadata?: {
-    [key: string]: string | undefined
-  }
-}
 
-export type t_PostBillingPortalConfigurationsConfigurationBodySchema = {
-  active?: boolean
-  business_profile?: {
-    headline?: string | ""
-    privacy_policy_url?: string | ""
-    terms_of_service_url?: string | ""
-  }
-  default_return_url?: string | ""
-  expand?: string[]
-  features?: {
-    customer_update?: {
-      allowed_updates?:
-        | ("address" | "email" | "name" | "phone" | "shipping" | "tax_id")[]
-        | ""
-      enabled?: boolean
+export type t_postBillingPortalConfigurationsApplicationXWwwFormUrlencodedRequestBody =
+  {
+    business_profile?: {
+      headline?: string | ""
+      privacy_policy_url?: string
+      terms_of_service_url?: string
     }
-    invoice_history?: {
-      enabled: boolean
-    }
-    payment_method_update?: {
-      enabled: boolean
-    }
-    subscription_cancel?: {
-      cancellation_reason?: {
-        enabled: boolean
-        options?:
-          | (
-              | "customer_service"
-              | "low_quality"
-              | "missing_features"
-              | "other"
-              | "switched_service"
-              | "too_complex"
-              | "too_expensive"
-              | "unused"
-            )[]
+    default_return_url?: string | ""
+    expand?: string[]
+    features: {
+      customer_update?: {
+        allowed_updates?:
+          | ("address" | "email" | "name" | "phone" | "shipping" | "tax_id")[]
           | ""
+        enabled: boolean
       }
-      enabled?: boolean
-      mode?: "at_period_end" | "immediately"
-      proration_behavior?: "always_invoice" | "create_prorations" | "none"
-    }
-    subscription_update?: {
-      default_allowed_updates?: ("price" | "promotion_code" | "quantity")[] | ""
-      enabled?: boolean
-      products?:
-        | {
-            adjustable_quantity?: {
-              enabled: boolean
-              maximum?: number
-              minimum?: number
-            }
-            prices: string[]
-            product: string
-          }[]
-        | ""
-      proration_behavior?: "always_invoice" | "create_prorations" | "none"
-      schedule_at_period_end?: {
-        conditions?:
+      invoice_history?: {
+        enabled: boolean
+      }
+      payment_method_update?: {
+        enabled: boolean
+      }
+      subscription_cancel?: {
+        cancellation_reason?: {
+          enabled: boolean
+          options:
+            | (
+                | "customer_service"
+                | "low_quality"
+                | "missing_features"
+                | "other"
+                | "switched_service"
+                | "too_complex"
+                | "too_expensive"
+                | "unused"
+              )[]
+            | ""
+        }
+        enabled: boolean
+        mode?: "at_period_end" | "immediately"
+        proration_behavior?: "always_invoice" | "create_prorations" | "none"
+      }
+      subscription_update?: {
+        default_allowed_updates?:
+          | ("price" | "promotion_code" | "quantity")[]
+          | ""
+        enabled: boolean
+        products?:
           | {
-              type: "decreasing_item_amount" | "shortening_interval"
+              adjustable_quantity?: {
+                enabled: boolean
+                maximum?: number
+                minimum?: number
+              }
+              prices: string[]
+              product: string
             }[]
           | ""
+        proration_behavior?: "always_invoice" | "create_prorations" | "none"
+        schedule_at_period_end?: {
+          conditions?: {
+            type: "decreasing_item_amount" | "shortening_interval"
+          }[]
+        }
       }
     }
+    login_page?: {
+      enabled: boolean
+    }
+    metadata?: {
+      [key: string]: string | undefined
+    }
   }
-  login_page?: {
-    enabled: boolean
-  }
-  metadata?:
-    | {
-        [key: string]: string | undefined
-      }
-    | ""
-}
 
 export type t_PostBillingPortalConfigurationsConfigurationParamSchema = {
   configuration: string
 }
 
-export type t_PostBillingPortalSessionsBodySchema = {
-  configuration?: string
-  customer: string
-  expand?: string[]
-  flow_data?: {
-    after_completion?: {
-      hosted_confirmation?: {
-        custom_message?: string
-      }
-      redirect?: {
-        return_url: string
-      }
-      type: "hosted_confirmation" | "portal_homepage" | "redirect"
+export type t_postBillingPortalConfigurationsConfigurationApplicationXWwwFormUrlencodedRequestBody =
+  {
+    active?: boolean
+    business_profile?: {
+      headline?: string | ""
+      privacy_policy_url?: string | ""
+      terms_of_service_url?: string | ""
     }
-    subscription_cancel?: {
-      retention?: {
-        coupon_offer: {
-          coupon: string
+    default_return_url?: string | ""
+    expand?: string[]
+    features?: {
+      customer_update?: {
+        allowed_updates?:
+          | ("address" | "email" | "name" | "phone" | "shipping" | "tax_id")[]
+          | ""
+        enabled?: boolean
+      }
+      invoice_history?: {
+        enabled: boolean
+      }
+      payment_method_update?: {
+        enabled: boolean
+      }
+      subscription_cancel?: {
+        cancellation_reason?: {
+          enabled: boolean
+          options?:
+            | (
+                | "customer_service"
+                | "low_quality"
+                | "missing_features"
+                | "other"
+                | "switched_service"
+                | "too_complex"
+                | "too_expensive"
+                | "unused"
+              )[]
+            | ""
         }
-        type: "coupon_offer"
+        enabled?: boolean
+        mode?: "at_period_end" | "immediately"
+        proration_behavior?: "always_invoice" | "create_prorations" | "none"
       }
-      subscription: string
+      subscription_update?: {
+        default_allowed_updates?:
+          | ("price" | "promotion_code" | "quantity")[]
+          | ""
+        enabled?: boolean
+        products?:
+          | {
+              adjustable_quantity?: {
+                enabled: boolean
+                maximum?: number
+                minimum?: number
+              }
+              prices: string[]
+              product: string
+            }[]
+          | ""
+        proration_behavior?: "always_invoice" | "create_prorations" | "none"
+        schedule_at_period_end?: {
+          conditions?:
+            | {
+                type: "decreasing_item_amount" | "shortening_interval"
+              }[]
+            | ""
+        }
+      }
     }
-    subscription_update?: {
-      subscription: string
+    login_page?: {
+      enabled: boolean
     }
-    subscription_update_confirm?: {
-      discounts?: {
-        coupon?: string
-        promotion_code?: string
-      }[]
-      items: {
-        id: string
-        price?: string
-        quantity?: number
-      }[]
-      subscription: string
-    }
-    type:
-      | "payment_method_update"
-      | "subscription_cancel"
-      | "subscription_update"
-      | "subscription_update_confirm"
+    metadata?:
+      | {
+          [key: string]: string | undefined
+        }
+      | ""
   }
-  locale?:
-    | "auto"
-    | "bg"
-    | "cs"
-    | "da"
-    | "de"
-    | "el"
-    | "en"
-    | "en-AU"
-    | "en-CA"
-    | "en-GB"
-    | "en-IE"
-    | "en-IN"
-    | "en-NZ"
-    | "en-SG"
-    | "es"
-    | "es-419"
-    | "et"
-    | "fi"
-    | "fil"
-    | "fr"
-    | "fr-CA"
-    | "hr"
-    | "hu"
-    | "id"
-    | "it"
-    | "ja"
-    | "ko"
-    | "lt"
-    | "lv"
-    | "ms"
-    | "mt"
-    | "nb"
-    | "nl"
-    | "pl"
-    | "pt"
-    | "pt-BR"
-    | "ro"
-    | "ru"
-    | "sk"
-    | "sl"
-    | "sv"
-    | "th"
-    | "tr"
-    | "vi"
-    | "zh"
-    | "zh-HK"
-    | "zh-TW"
-  on_behalf_of?: string
-  return_url?: string
-}
 
-export type t_PostChargesBodySchema = {
+export type t_postBillingPortalSessionsApplicationXWwwFormUrlencodedRequestBody =
+  {
+    configuration?: string
+    customer: string
+    expand?: string[]
+    flow_data?: {
+      after_completion?: {
+        hosted_confirmation?: {
+          custom_message?: string
+        }
+        redirect?: {
+          return_url: string
+        }
+        type: "hosted_confirmation" | "portal_homepage" | "redirect"
+      }
+      subscription_cancel?: {
+        retention?: {
+          coupon_offer: {
+            coupon: string
+          }
+          type: "coupon_offer"
+        }
+        subscription: string
+      }
+      subscription_update?: {
+        subscription: string
+      }
+      subscription_update_confirm?: {
+        discounts?: {
+          coupon?: string
+          promotion_code?: string
+        }[]
+        items: {
+          id: string
+          price?: string
+          quantity?: number
+        }[]
+        subscription: string
+      }
+      type:
+        | "payment_method_update"
+        | "subscription_cancel"
+        | "subscription_update"
+        | "subscription_update_confirm"
+    }
+    locale?:
+      | "auto"
+      | "bg"
+      | "cs"
+      | "da"
+      | "de"
+      | "el"
+      | "en"
+      | "en-AU"
+      | "en-CA"
+      | "en-GB"
+      | "en-IE"
+      | "en-IN"
+      | "en-NZ"
+      | "en-SG"
+      | "es"
+      | "es-419"
+      | "et"
+      | "fi"
+      | "fil"
+      | "fr"
+      | "fr-CA"
+      | "hr"
+      | "hu"
+      | "id"
+      | "it"
+      | "ja"
+      | "ko"
+      | "lt"
+      | "lv"
+      | "ms"
+      | "mt"
+      | "nb"
+      | "nl"
+      | "pl"
+      | "pt"
+      | "pt-BR"
+      | "ro"
+      | "ru"
+      | "sk"
+      | "sl"
+      | "sv"
+      | "th"
+      | "tr"
+      | "vi"
+      | "zh"
+      | "zh-HK"
+      | "zh-TW"
+    on_behalf_of?: string
+    return_url?: string
+  }
+
+export type t_postChargesApplicationXWwwFormUrlencodedRequestBody = {
   amount?: number
   application_fee?: number
   application_fee_amount?: number
@@ -19902,7 +19938,11 @@ export type t_PostChargesBodySchema = {
   transfer_group?: string
 }
 
-export type t_PostChargesChargeBodySchema = {
+export type t_PostChargesChargeParamSchema = {
+  charge: string
+}
+
+export type t_postChargesChargeApplicationXWwwFormUrlencodedRequestBody = {
   customer?: string
   description?: string
   expand?: string[]
@@ -19932,178 +19972,180 @@ export type t_PostChargesChargeBodySchema = {
   transfer_group?: string
 }
 
-export type t_PostChargesChargeParamSchema = {
-  charge: string
-}
-
-export type t_PostChargesChargeCaptureBodySchema = {
-  amount?: number
-  application_fee?: number
-  application_fee_amount?: number
-  expand?: string[]
-  receipt_email?: string
-  statement_descriptor?: string
-  statement_descriptor_suffix?: string
-  transfer_data?: {
-    amount?: number
-  }
-  transfer_group?: string
-}
-
 export type t_PostChargesChargeCaptureParamSchema = {
   charge: string
 }
 
-export type t_PostChargesChargeDisputeBodySchema = {
-  evidence?: {
-    access_activity_log?: string
-    billing_address?: string
-    cancellation_policy?: string
-    cancellation_policy_disclosure?: string
-    cancellation_rebuttal?: string
-    customer_communication?: string
-    customer_email_address?: string
-    customer_name?: string
-    customer_purchase_ip?: string
-    customer_signature?: string
-    duplicate_charge_documentation?: string
-    duplicate_charge_explanation?: string
-    duplicate_charge_id?: string
-    enhanced_evidence?:
-      | {
-          visa_compelling_evidence_3?: {
-            disputed_transaction?: {
-              customer_account_id?: string | ""
-              customer_device_fingerprint?: string | ""
-              customer_device_id?: string | ""
-              customer_email_address?: string | ""
-              customer_purchase_ip?: string | ""
-              merchandise_or_services?: "merchandise" | "services"
-              product_description?: string | ""
-              shipping_address?: {
-                city?: string | ""
-                country?: string | ""
-                line1?: string | ""
-                line2?: string | ""
-                postal_code?: string | ""
-                state?: string | ""
-              }
-            }
-            prior_undisputed_transactions?: {
-              charge: string
-              customer_account_id?: string | ""
-              customer_device_fingerprint?: string | ""
-              customer_device_id?: string | ""
-              customer_email_address?: string | ""
-              customer_purchase_ip?: string | ""
-              product_description?: string | ""
-              shipping_address?: {
-                city?: string | ""
-                country?: string | ""
-                line1?: string | ""
-                line2?: string | ""
-                postal_code?: string | ""
-                state?: string | ""
-              }
-            }[]
-          }
-          visa_compliance?: {
-            fee_acknowledged?: boolean
-          }
-        }
-      | ""
-    product_description?: string
-    receipt?: string
-    refund_policy?: string
-    refund_policy_disclosure?: string
-    refund_refusal_explanation?: string
-    service_date?: string
-    service_documentation?: string
-    shipping_address?: string
-    shipping_carrier?: string
-    shipping_date?: string
-    shipping_documentation?: string
-    shipping_tracking_number?: string
-    uncategorized_file?: string
-    uncategorized_text?: string
+export type t_postChargesChargeCaptureApplicationXWwwFormUrlencodedRequestBody =
+  {
+    amount?: number
+    application_fee?: number
+    application_fee_amount?: number
+    expand?: string[]
+    receipt_email?: string
+    statement_descriptor?: string
+    statement_descriptor_suffix?: string
+    transfer_data?: {
+      amount?: number
+    }
+    transfer_group?: string
   }
-  expand?: string[]
-  metadata?:
-    | {
-        [key: string]: string | undefined
-      }
-    | ""
-  submit?: boolean
-}
 
 export type t_PostChargesChargeDisputeParamSchema = {
   charge: string
 }
 
-export type t_PostChargesChargeDisputeCloseBodySchema = {
-  expand?: string[]
-}
+export type t_postChargesChargeDisputeApplicationXWwwFormUrlencodedRequestBody =
+  {
+    evidence?: {
+      access_activity_log?: string
+      billing_address?: string
+      cancellation_policy?: string
+      cancellation_policy_disclosure?: string
+      cancellation_rebuttal?: string
+      customer_communication?: string
+      customer_email_address?: string
+      customer_name?: string
+      customer_purchase_ip?: string
+      customer_signature?: string
+      duplicate_charge_documentation?: string
+      duplicate_charge_explanation?: string
+      duplicate_charge_id?: string
+      enhanced_evidence?:
+        | {
+            visa_compelling_evidence_3?: {
+              disputed_transaction?: {
+                customer_account_id?: string | ""
+                customer_device_fingerprint?: string | ""
+                customer_device_id?: string | ""
+                customer_email_address?: string | ""
+                customer_purchase_ip?: string | ""
+                merchandise_or_services?: "merchandise" | "services"
+                product_description?: string | ""
+                shipping_address?: {
+                  city?: string | ""
+                  country?: string | ""
+                  line1?: string | ""
+                  line2?: string | ""
+                  postal_code?: string | ""
+                  state?: string | ""
+                }
+              }
+              prior_undisputed_transactions?: {
+                charge: string
+                customer_account_id?: string | ""
+                customer_device_fingerprint?: string | ""
+                customer_device_id?: string | ""
+                customer_email_address?: string | ""
+                customer_purchase_ip?: string | ""
+                product_description?: string | ""
+                shipping_address?: {
+                  city?: string | ""
+                  country?: string | ""
+                  line1?: string | ""
+                  line2?: string | ""
+                  postal_code?: string | ""
+                  state?: string | ""
+                }
+              }[]
+            }
+            visa_compliance?: {
+              fee_acknowledged?: boolean
+            }
+          }
+        | ""
+      product_description?: string
+      receipt?: string
+      refund_policy?: string
+      refund_policy_disclosure?: string
+      refund_refusal_explanation?: string
+      service_date?: string
+      service_documentation?: string
+      shipping_address?: string
+      shipping_carrier?: string
+      shipping_date?: string
+      shipping_documentation?: string
+      shipping_tracking_number?: string
+      uncategorized_file?: string
+      uncategorized_text?: string
+    }
+    expand?: string[]
+    metadata?:
+      | {
+          [key: string]: string | undefined
+        }
+      | ""
+    submit?: boolean
+  }
 
 export type t_PostChargesChargeDisputeCloseParamSchema = {
   charge: string
 }
 
-export type t_PostChargesChargeRefundBodySchema = {
-  amount?: number
-  expand?: string[]
-  instructions_email?: string
-  metadata?:
-    | {
-        [key: string]: string | undefined
-      }
-    | ""
-  payment_intent?: string
-  reason?: "duplicate" | "fraudulent" | "requested_by_customer"
-  refund_application_fee?: boolean
-  reverse_transfer?: boolean
-}
+export type t_postChargesChargeDisputeCloseApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
+  }
 
 export type t_PostChargesChargeRefundParamSchema = {
   charge: string
 }
 
-export type t_PostChargesChargeRefundsBodySchema = {
-  amount?: number
-  currency?: string
-  customer?: string
-  expand?: string[]
-  instructions_email?: string
-  metadata?:
-    | {
-        [key: string]: string | undefined
-      }
-    | ""
-  origin?: "customer_balance"
-  payment_intent?: string
-  reason?: "duplicate" | "fraudulent" | "requested_by_customer"
-  refund_application_fee?: boolean
-  reverse_transfer?: boolean
-}
+export type t_postChargesChargeRefundApplicationXWwwFormUrlencodedRequestBody =
+  {
+    amount?: number
+    expand?: string[]
+    instructions_email?: string
+    metadata?:
+      | {
+          [key: string]: string | undefined
+        }
+      | ""
+    payment_intent?: string
+    reason?: "duplicate" | "fraudulent" | "requested_by_customer"
+    refund_application_fee?: boolean
+    reverse_transfer?: boolean
+  }
 
 export type t_PostChargesChargeRefundsParamSchema = {
   charge: string
 }
 
-export type t_PostChargesChargeRefundsRefundBodySchema = {
-  expand?: string[]
-  metadata?:
-    | {
-        [key: string]: string | undefined
-      }
-    | ""
-}
+export type t_postChargesChargeRefundsApplicationXWwwFormUrlencodedRequestBody =
+  {
+    amount?: number
+    currency?: string
+    customer?: string
+    expand?: string[]
+    instructions_email?: string
+    metadata?:
+      | {
+          [key: string]: string | undefined
+        }
+      | ""
+    origin?: "customer_balance"
+    payment_intent?: string
+    reason?: "duplicate" | "fraudulent" | "requested_by_customer"
+    refund_application_fee?: boolean
+    reverse_transfer?: boolean
+  }
 
 export type t_PostChargesChargeRefundsRefundParamSchema = {
   charge: string
   refund: string
 }
 
-export type t_PostCheckoutSessionsBodySchema = {
+export type t_postChargesChargeRefundsRefundApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
+    metadata?:
+      | {
+          [key: string]: string | undefined
+        }
+      | ""
+  }
+
+export type t_postCheckoutSessionsApplicationXWwwFormUrlencodedRequestBody = {
   adaptive_pricing?: {
     enabled?: boolean
   }
@@ -20969,77 +21011,79 @@ export type t_PostCheckoutSessionsBodySchema = {
   }
 }
 
-export type t_PostCheckoutSessionsSessionBodySchema = {
-  collected_information?: {
-    shipping_details?: {
-      address: {
-        city?: string
-        country: string
-        line1: string
-        line2?: string
-        postal_code?: string
-        state?: string
-      }
-      name: string
-    }
-  }
-  expand?: string[]
-  metadata?:
-    | {
-        [key: string]: string | undefined
-      }
-    | ""
-  shipping_options?:
-    | {
-        shipping_rate?: string
-        shipping_rate_data?: {
-          delivery_estimate?: {
-            maximum?: {
-              unit: "business_day" | "day" | "hour" | "month" | "week"
-              value: number
-            }
-            minimum?: {
-              unit: "business_day" | "day" | "hour" | "month" | "week"
-              value: number
-            }
-          }
-          display_name: string
-          fixed_amount?: {
-            amount: number
-            currency: string
-            currency_options?: {
-              [key: string]:
-                | {
-                    amount: number
-                    tax_behavior?: "exclusive" | "inclusive" | "unspecified"
-                  }
-                | undefined
-            }
-          }
-          metadata?: {
-            [key: string]: string | undefined
-          }
-          tax_behavior?: "exclusive" | "inclusive" | "unspecified"
-          tax_code?: string
-          type?: "fixed_amount"
-        }
-      }[]
-    | ""
-}
-
 export type t_PostCheckoutSessionsSessionParamSchema = {
   session: string
 }
 
-export type t_PostCheckoutSessionsSessionExpireBodySchema = {
-  expand?: string[]
-}
+export type t_postCheckoutSessionsSessionApplicationXWwwFormUrlencodedRequestBody =
+  {
+    collected_information?: {
+      shipping_details?: {
+        address: {
+          city?: string
+          country: string
+          line1: string
+          line2?: string
+          postal_code?: string
+          state?: string
+        }
+        name: string
+      }
+    }
+    expand?: string[]
+    metadata?:
+      | {
+          [key: string]: string | undefined
+        }
+      | ""
+    shipping_options?:
+      | {
+          shipping_rate?: string
+          shipping_rate_data?: {
+            delivery_estimate?: {
+              maximum?: {
+                unit: "business_day" | "day" | "hour" | "month" | "week"
+                value: number
+              }
+              minimum?: {
+                unit: "business_day" | "day" | "hour" | "month" | "week"
+                value: number
+              }
+            }
+            display_name: string
+            fixed_amount?: {
+              amount: number
+              currency: string
+              currency_options?: {
+                [key: string]:
+                  | {
+                      amount: number
+                      tax_behavior?: "exclusive" | "inclusive" | "unspecified"
+                    }
+                  | undefined
+              }
+            }
+            metadata?: {
+              [key: string]: string | undefined
+            }
+            tax_behavior?: "exclusive" | "inclusive" | "unspecified"
+            tax_code?: string
+            type?: "fixed_amount"
+          }
+        }[]
+      | ""
+  }
 
 export type t_PostCheckoutSessionsSessionExpireParamSchema = {
   session: string
 }
 
-export type t_PostClimateOrdersBodySchema = {
+export type t_postCheckoutSessionsSessionExpireApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
+  }
+
+export type t_postClimateOrdersApplicationXWwwFormUrlencodedRequestBody = {
   amount?: number
   beneficiary?: {
     public_name: string
@@ -21053,7 +21097,11 @@ export type t_PostClimateOrdersBodySchema = {
   product: string
 }
 
-export type t_PostClimateOrdersOrderBodySchema = {
+export type t_PostClimateOrdersOrderParamSchema = {
+  order: string
+}
+
+export type t_postClimateOrdersOrderApplicationXWwwFormUrlencodedRequestBody = {
   beneficiary?:
     | {
         public_name: string | ""
@@ -21065,19 +21113,16 @@ export type t_PostClimateOrdersOrderBodySchema = {
   }
 }
 
-export type t_PostClimateOrdersOrderParamSchema = {
-  order: string
-}
-
-export type t_PostClimateOrdersOrderCancelBodySchema = {
-  expand?: string[]
-}
-
 export type t_PostClimateOrdersOrderCancelParamSchema = {
   order: string
 }
 
-export type t_PostCouponsBodySchema = {
+export type t_postClimateOrdersOrderCancelApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
+  }
+
+export type t_postCouponsApplicationXWwwFormUrlencodedRequestBody = {
   amount_off?: number
   applies_to?: {
     products?: string[]
@@ -21105,7 +21150,11 @@ export type t_PostCouponsBodySchema = {
   redeem_by?: number
 }
 
-export type t_PostCouponsCouponBodySchema = {
+export type t_PostCouponsCouponParamSchema = {
+  coupon: string
+}
+
+export type t_postCouponsCouponApplicationXWwwFormUrlencodedRequestBody = {
   currency_options?: {
     [key: string]:
       | {
@@ -21122,11 +21171,7 @@ export type t_PostCouponsCouponBodySchema = {
   name?: string
 }
 
-export type t_PostCouponsCouponParamSchema = {
-  coupon: string
-}
-
-export type t_PostCreditNotesBodySchema = {
+export type t_postCreditNotesApplicationXWwwFormUrlencodedRequestBody = {
   amount?: number
   credit_amount?: number
   effective_at?: number
@@ -21170,7 +21215,11 @@ export type t_PostCreditNotesBodySchema = {
   }
 }
 
-export type t_PostCreditNotesIdBodySchema = {
+export type t_PostCreditNotesIdParamSchema = {
+  id: string
+}
+
+export type t_postCreditNotesIdApplicationXWwwFormUrlencodedRequestBody = {
   expand?: string[]
   memo?: string
   metadata?: {
@@ -21178,19 +21227,15 @@ export type t_PostCreditNotesIdBodySchema = {
   }
 }
 
-export type t_PostCreditNotesIdParamSchema = {
-  id: string
-}
-
-export type t_PostCreditNotesIdVoidBodySchema = {
-  expand?: string[]
-}
-
 export type t_PostCreditNotesIdVoidParamSchema = {
   id: string
 }
 
-export type t_PostCustomerSessionsBodySchema = {
+export type t_postCreditNotesIdVoidApplicationXWwwFormUrlencodedRequestBody = {
+  expand?: string[]
+}
+
+export type t_postCustomerSessionsApplicationXWwwFormUrlencodedRequestBody = {
   components: {
     buy_button?: {
       enabled: boolean
@@ -21218,7 +21263,7 @@ export type t_PostCustomerSessionsBodySchema = {
   expand?: string[]
 }
 
-export type t_PostCustomersBodySchema = {
+export type t_postCustomersApplicationXWwwFormUrlencodedRequestBody = {
   address?:
     | {
         city?: string
@@ -21402,7 +21447,11 @@ export type t_PostCustomersBodySchema = {
   test_clock?: string
 }
 
-export type t_PostCustomersCustomerBodySchema = {
+export type t_PostCustomersCustomerParamSchema = {
+  customer: string
+}
+
+export type t_postCustomersCustomerApplicationXWwwFormUrlencodedRequestBody = {
   address?:
     | {
         city?: string
@@ -21504,400 +21553,392 @@ export type t_PostCustomersCustomerBodySchema = {
   tax_exempt?: "" | "exempt" | "none" | "reverse"
 }
 
-export type t_PostCustomersCustomerParamSchema = {
-  customer: string
-}
-
-export type t_PostCustomersCustomerBalanceTransactionsBodySchema = {
-  amount: number
-  currency: string
-  description?: string
-  expand?: string[]
-  metadata?:
-    | {
-        [key: string]: string | undefined
-      }
-    | ""
-}
-
 export type t_PostCustomersCustomerBalanceTransactionsParamSchema = {
   customer: string
 }
 
-export type t_PostCustomersCustomerBalanceTransactionsTransactionBodySchema = {
-  description?: string
-  expand?: string[]
-  metadata?:
-    | {
-        [key: string]: string | undefined
-      }
-    | ""
-}
+export type t_postCustomersCustomerBalanceTransactionsApplicationXWwwFormUrlencodedRequestBody =
+  {
+    amount: number
+    currency: string
+    description?: string
+    expand?: string[]
+    metadata?:
+      | {
+          [key: string]: string | undefined
+        }
+      | ""
+  }
 
 export type t_PostCustomersCustomerBalanceTransactionsTransactionParamSchema = {
   customer: string
   transaction: string
 }
 
-export type t_PostCustomersCustomerBankAccountsBodySchema = {
-  alipay_account?: string
-  bank_account?:
-    | {
-        account_holder_name?: string
-        account_holder_type?: "company" | "individual"
-        account_number: string
-        country: string
-        currency?: string
-        object?: "bank_account"
-        routing_number?: string
-      }
-    | string
-  card?:
-    | {
-        address_city?: string
-        address_country?: string
-        address_line1?: string
-        address_line2?: string
-        address_state?: string
-        address_zip?: string
-        cvc?: string
-        exp_month: number
-        exp_year: number
-        metadata?: {
+export type t_postCustomersCustomerBalanceTransactionsTransactionApplicationXWwwFormUrlencodedRequestBody =
+  {
+    description?: string
+    expand?: string[]
+    metadata?:
+      | {
           [key: string]: string | undefined
         }
-        name?: string
-        number: string
-        object?: "card"
-      }
-    | string
-  expand?: string[]
-  metadata?: {
-    [key: string]: string | undefined
+      | ""
   }
-  source?: string
-}
 
 export type t_PostCustomersCustomerBankAccountsParamSchema = {
   customer: string
 }
 
-export type t_PostCustomersCustomerBankAccountsIdBodySchema = {
-  account_holder_name?: string
-  account_holder_type?: "company" | "individual"
-  address_city?: string
-  address_country?: string
-  address_line1?: string
-  address_line2?: string
-  address_state?: string
-  address_zip?: string
-  exp_month?: string
-  exp_year?: string
-  expand?: string[]
-  metadata?:
-    | {
-        [key: string]: string | undefined
-      }
-    | ""
-  name?: string
-  owner?: {
-    address?: {
-      city?: string
-      country?: string
-      line1?: string
-      line2?: string
-      postal_code?: string
-      state?: string
+export type t_postCustomersCustomerBankAccountsApplicationXWwwFormUrlencodedRequestBody =
+  {
+    alipay_account?: string
+    bank_account?:
+      | {
+          account_holder_name?: string
+          account_holder_type?: "company" | "individual"
+          account_number: string
+          country: string
+          currency?: string
+          object?: "bank_account"
+          routing_number?: string
+        }
+      | string
+    card?:
+      | {
+          address_city?: string
+          address_country?: string
+          address_line1?: string
+          address_line2?: string
+          address_state?: string
+          address_zip?: string
+          cvc?: string
+          exp_month: number
+          exp_year: number
+          metadata?: {
+            [key: string]: string | undefined
+          }
+          name?: string
+          number: string
+          object?: "card"
+        }
+      | string
+    expand?: string[]
+    metadata?: {
+      [key: string]: string | undefined
     }
-    email?: string
-    name?: string
-    phone?: string
+    source?: string
   }
-}
 
 export type t_PostCustomersCustomerBankAccountsIdParamSchema = {
   customer: string
   id: string
 }
 
-export type t_PostCustomersCustomerBankAccountsIdVerifyBodySchema = {
-  amounts?: number[]
-  expand?: string[]
-}
+export type t_postCustomersCustomerBankAccountsIdApplicationXWwwFormUrlencodedRequestBody =
+  {
+    account_holder_name?: string
+    account_holder_type?: "company" | "individual"
+    address_city?: string
+    address_country?: string
+    address_line1?: string
+    address_line2?: string
+    address_state?: string
+    address_zip?: string
+    exp_month?: string
+    exp_year?: string
+    expand?: string[]
+    metadata?:
+      | {
+          [key: string]: string | undefined
+        }
+      | ""
+    name?: string
+    owner?: {
+      address?: {
+        city?: string
+        country?: string
+        line1?: string
+        line2?: string
+        postal_code?: string
+        state?: string
+      }
+      email?: string
+      name?: string
+      phone?: string
+    }
+  }
 
 export type t_PostCustomersCustomerBankAccountsIdVerifyParamSchema = {
   customer: string
   id: string
 }
 
-export type t_PostCustomersCustomerCardsBodySchema = {
-  alipay_account?: string
-  bank_account?:
-    | {
-        account_holder_name?: string
-        account_holder_type?: "company" | "individual"
-        account_number: string
-        country: string
-        currency?: string
-        object?: "bank_account"
-        routing_number?: string
-      }
-    | string
-  card?:
-    | {
-        address_city?: string
-        address_country?: string
-        address_line1?: string
-        address_line2?: string
-        address_state?: string
-        address_zip?: string
-        cvc?: string
-        exp_month: number
-        exp_year: number
-        metadata?: {
-          [key: string]: string | undefined
-        }
-        name?: string
-        number: string
-        object?: "card"
-      }
-    | string
-  expand?: string[]
-  metadata?: {
-    [key: string]: string | undefined
+export type t_postCustomersCustomerBankAccountsIdVerifyApplicationXWwwFormUrlencodedRequestBody =
+  {
+    amounts?: number[]
+    expand?: string[]
   }
-  source?: string
-}
 
 export type t_PostCustomersCustomerCardsParamSchema = {
   customer: string
 }
 
-export type t_PostCustomersCustomerCardsIdBodySchema = {
-  account_holder_name?: string
-  account_holder_type?: "company" | "individual"
-  address_city?: string
-  address_country?: string
-  address_line1?: string
-  address_line2?: string
-  address_state?: string
-  address_zip?: string
-  exp_month?: string
-  exp_year?: string
-  expand?: string[]
-  metadata?:
-    | {
-        [key: string]: string | undefined
-      }
-    | ""
-  name?: string
-  owner?: {
-    address?: {
-      city?: string
-      country?: string
-      line1?: string
-      line2?: string
-      postal_code?: string
-      state?: string
+export type t_postCustomersCustomerCardsApplicationXWwwFormUrlencodedRequestBody =
+  {
+    alipay_account?: string
+    bank_account?:
+      | {
+          account_holder_name?: string
+          account_holder_type?: "company" | "individual"
+          account_number: string
+          country: string
+          currency?: string
+          object?: "bank_account"
+          routing_number?: string
+        }
+      | string
+    card?:
+      | {
+          address_city?: string
+          address_country?: string
+          address_line1?: string
+          address_line2?: string
+          address_state?: string
+          address_zip?: string
+          cvc?: string
+          exp_month: number
+          exp_year: number
+          metadata?: {
+            [key: string]: string | undefined
+          }
+          name?: string
+          number: string
+          object?: "card"
+        }
+      | string
+    expand?: string[]
+    metadata?: {
+      [key: string]: string | undefined
     }
-    email?: string
-    name?: string
-    phone?: string
+    source?: string
   }
-}
 
 export type t_PostCustomersCustomerCardsIdParamSchema = {
   customer: string
   id: string
 }
 
-export type t_PostCustomersCustomerCashBalanceBodySchema = {
-  expand?: string[]
-  settings?: {
-    reconciliation_mode?: "automatic" | "manual" | "merchant_default"
+export type t_postCustomersCustomerCardsIdApplicationXWwwFormUrlencodedRequestBody =
+  {
+    account_holder_name?: string
+    account_holder_type?: "company" | "individual"
+    address_city?: string
+    address_country?: string
+    address_line1?: string
+    address_line2?: string
+    address_state?: string
+    address_zip?: string
+    exp_month?: string
+    exp_year?: string
+    expand?: string[]
+    metadata?:
+      | {
+          [key: string]: string | undefined
+        }
+      | ""
+    name?: string
+    owner?: {
+      address?: {
+        city?: string
+        country?: string
+        line1?: string
+        line2?: string
+        postal_code?: string
+        state?: string
+      }
+      email?: string
+      name?: string
+      phone?: string
+    }
   }
-}
 
 export type t_PostCustomersCustomerCashBalanceParamSchema = {
   customer: string
 }
 
-export type t_PostCustomersCustomerFundingInstructionsBodySchema = {
-  bank_transfer: {
-    eu_bank_transfer?: {
-      country: string
+export type t_postCustomersCustomerCashBalanceApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
+    settings?: {
+      reconciliation_mode?: "automatic" | "manual" | "merchant_default"
     }
-    requested_address_types?: ("iban" | "sort_code" | "spei" | "zengin")[]
-    type:
-      | "eu_bank_transfer"
-      | "gb_bank_transfer"
-      | "jp_bank_transfer"
-      | "mx_bank_transfer"
-      | "us_bank_transfer"
   }
-  currency: string
-  expand?: string[]
-  funding_type: "bank_transfer"
-}
 
 export type t_PostCustomersCustomerFundingInstructionsParamSchema = {
   customer: string
 }
 
-export type t_PostCustomersCustomerSourcesBodySchema = {
-  alipay_account?: string
-  bank_account?:
-    | {
-        account_holder_name?: string
-        account_holder_type?: "company" | "individual"
-        account_number: string
+export type t_postCustomersCustomerFundingInstructionsApplicationXWwwFormUrlencodedRequestBody =
+  {
+    bank_transfer: {
+      eu_bank_transfer?: {
         country: string
-        currency?: string
-        object?: "bank_account"
-        routing_number?: string
       }
-    | string
-  card?:
-    | {
-        address_city?: string
-        address_country?: string
-        address_line1?: string
-        address_line2?: string
-        address_state?: string
-        address_zip?: string
-        cvc?: string
-        exp_month: number
-        exp_year: number
-        metadata?: {
-          [key: string]: string | undefined
-        }
-        name?: string
-        number: string
-        object?: "card"
-      }
-    | string
-  expand?: string[]
-  metadata?: {
-    [key: string]: string | undefined
+      requested_address_types?: ("iban" | "sort_code" | "spei" | "zengin")[]
+      type:
+        | "eu_bank_transfer"
+        | "gb_bank_transfer"
+        | "jp_bank_transfer"
+        | "mx_bank_transfer"
+        | "us_bank_transfer"
+    }
+    currency: string
+    expand?: string[]
+    funding_type: "bank_transfer"
   }
-  source?: string
-}
 
 export type t_PostCustomersCustomerSourcesParamSchema = {
   customer: string
 }
 
-export type t_PostCustomersCustomerSourcesIdBodySchema = {
-  account_holder_name?: string
-  account_holder_type?: "company" | "individual"
-  address_city?: string
-  address_country?: string
-  address_line1?: string
-  address_line2?: string
-  address_state?: string
-  address_zip?: string
-  exp_month?: string
-  exp_year?: string
-  expand?: string[]
-  metadata?:
-    | {
-        [key: string]: string | undefined
-      }
-    | ""
-  name?: string
-  owner?: {
-    address?: {
-      city?: string
-      country?: string
-      line1?: string
-      line2?: string
-      postal_code?: string
-      state?: string
+export type t_postCustomersCustomerSourcesApplicationXWwwFormUrlencodedRequestBody =
+  {
+    alipay_account?: string
+    bank_account?:
+      | {
+          account_holder_name?: string
+          account_holder_type?: "company" | "individual"
+          account_number: string
+          country: string
+          currency?: string
+          object?: "bank_account"
+          routing_number?: string
+        }
+      | string
+    card?:
+      | {
+          address_city?: string
+          address_country?: string
+          address_line1?: string
+          address_line2?: string
+          address_state?: string
+          address_zip?: string
+          cvc?: string
+          exp_month: number
+          exp_year: number
+          metadata?: {
+            [key: string]: string | undefined
+          }
+          name?: string
+          number: string
+          object?: "card"
+        }
+      | string
+    expand?: string[]
+    metadata?: {
+      [key: string]: string | undefined
     }
-    email?: string
-    name?: string
-    phone?: string
+    source?: string
   }
-}
 
 export type t_PostCustomersCustomerSourcesIdParamSchema = {
   customer: string
   id: string
 }
 
-export type t_PostCustomersCustomerSourcesIdVerifyBodySchema = {
-  amounts?: number[]
-  expand?: string[]
-}
+export type t_postCustomersCustomerSourcesIdApplicationXWwwFormUrlencodedRequestBody =
+  {
+    account_holder_name?: string
+    account_holder_type?: "company" | "individual"
+    address_city?: string
+    address_country?: string
+    address_line1?: string
+    address_line2?: string
+    address_state?: string
+    address_zip?: string
+    exp_month?: string
+    exp_year?: string
+    expand?: string[]
+    metadata?:
+      | {
+          [key: string]: string | undefined
+        }
+      | ""
+    name?: string
+    owner?: {
+      address?: {
+        city?: string
+        country?: string
+        line1?: string
+        line2?: string
+        postal_code?: string
+        state?: string
+      }
+      email?: string
+      name?: string
+      phone?: string
+    }
+  }
 
 export type t_PostCustomersCustomerSourcesIdVerifyParamSchema = {
   customer: string
   id: string
 }
 
-export type t_PostCustomersCustomerSubscriptionsBodySchema = {
-  add_invoice_items?: {
-    discounts?: {
-      coupon?: string
-      discount?: string
-      promotion_code?: string
-    }[]
-    price?: string
-    price_data?: {
-      currency: string
-      product: string
-      tax_behavior?: "exclusive" | "inclusive" | "unspecified"
-      unit_amount?: number
-      unit_amount_decimal?: string
-    }
-    quantity?: number
-    tax_rates?: string[] | ""
-  }[]
-  application_fee_percent?: number | ""
-  automatic_tax?: {
-    enabled: boolean
-    liability?: {
-      account?: string
-      type: "account" | "self"
-    }
+export type t_postCustomersCustomerSourcesIdVerifyApplicationXWwwFormUrlencodedRequestBody =
+  {
+    amounts?: number[]
+    expand?: string[]
   }
-  backdate_start_date?: number
-  billing_cycle_anchor?: number
-  billing_thresholds?:
-    | {
-        amount_gte?: number
-        reset_billing_cycle_anchor?: boolean
-      }
-    | ""
-  cancel_at?: number | "max_period_end" | "min_period_end"
-  cancel_at_period_end?: boolean
-  collection_method?: "charge_automatically" | "send_invoice"
-  currency?: string
-  days_until_due?: number
-  default_payment_method?: string
-  default_source?: string
-  default_tax_rates?: string[] | ""
-  discounts?:
-    | {
+
+export type t_PostCustomersCustomerSubscriptionsParamSchema = {
+  customer: string
+}
+
+export type t_postCustomersCustomerSubscriptionsApplicationXWwwFormUrlencodedRequestBody =
+  {
+    add_invoice_items?: {
+      discounts?: {
         coupon?: string
         discount?: string
         promotion_code?: string
       }[]
-    | ""
-  expand?: string[]
-  invoice_settings?: {
-    account_tax_ids?: string[] | ""
-    issuer?: {
-      account?: string
-      type: "account" | "self"
+      price?: string
+      price_data?: {
+        currency: string
+        product: string
+        tax_behavior?: "exclusive" | "inclusive" | "unspecified"
+        unit_amount?: number
+        unit_amount_decimal?: string
+      }
+      quantity?: number
+      tax_rates?: string[] | ""
+    }[]
+    application_fee_percent?: number | ""
+    automatic_tax?: {
+      enabled: boolean
+      liability?: {
+        account?: string
+        type: "account" | "self"
+      }
     }
-  }
-  items?: {
+    backdate_start_date?: number
+    billing_cycle_anchor?: number
     billing_thresholds?:
       | {
-          usage_gte: number
+          amount_gte?: number
+          reset_billing_cycle_anchor?: boolean
         }
       | ""
+    cancel_at?: number | "max_period_end" | "min_period_end"
+    cancel_at_period_end?: boolean
+    collection_method?: "charge_automatically" | "send_invoice"
+    currency?: string
+    days_until_due?: number
+    default_payment_method?: string
+    default_source?: string
+    default_tax_rates?: string[] | ""
     discounts?:
       | {
           coupon?: string
@@ -21905,176 +21946,199 @@ export type t_PostCustomersCustomerSubscriptionsBodySchema = {
           promotion_code?: string
         }[]
       | ""
-    metadata?: {
-      [key: string]: string | undefined
-    }
-    price?: string
-    price_data?: {
-      currency: string
-      product: string
-      recurring: {
-        interval: "day" | "month" | "week" | "year"
-        interval_count?: number
+    expand?: string[]
+    invoice_settings?: {
+      account_tax_ids?: string[] | ""
+      issuer?: {
+        account?: string
+        type: "account" | "self"
       }
-      tax_behavior?: "exclusive" | "inclusive" | "unspecified"
-      unit_amount?: number
-      unit_amount_decimal?: string
     }
-    quantity?: number
-    tax_rates?: string[] | ""
-  }[]
-  metadata?:
-    | {
+    items?: {
+      billing_thresholds?:
+        | {
+            usage_gte: number
+          }
+        | ""
+      discounts?:
+        | {
+            coupon?: string
+            discount?: string
+            promotion_code?: string
+          }[]
+        | ""
+      metadata?: {
         [key: string]: string | undefined
       }
-    | ""
-  off_session?: boolean
-  payment_behavior?:
-    | "allow_incomplete"
-    | "default_incomplete"
-    | "error_if_incomplete"
-    | "pending_if_incomplete"
-  payment_settings?: {
-    payment_method_options?: {
-      acss_debit?:
-        | {
-            mandate_options?: {
-              transaction_type?: "business" | "personal"
-            }
-            verification_method?: "automatic" | "instant" | "microdeposits"
-          }
-        | ""
-      bancontact?:
-        | {
-            preferred_language?: "de" | "en" | "fr" | "nl"
-          }
-        | ""
-      card?:
-        | {
-            mandate_options?: {
-              amount?: number
-              amount_type?: "fixed" | "maximum"
-              description?: string
-            }
-            network?:
-              | "amex"
-              | "cartes_bancaires"
-              | "diners"
-              | "discover"
-              | "eftpos_au"
-              | "girocard"
-              | "interac"
-              | "jcb"
-              | "link"
-              | "mastercard"
-              | "unionpay"
-              | "unknown"
-              | "visa"
-            request_three_d_secure?: "any" | "automatic" | "challenge"
-          }
-        | ""
-      customer_balance?:
-        | {
-            bank_transfer?: {
-              eu_bank_transfer?: {
-                country: string
-              }
-              type?: string
-            }
-            funding_type?: string
-          }
-        | ""
-      konbini?: EmptyObject | ""
-      sepa_debit?: EmptyObject | ""
-      us_bank_account?:
-        | {
-            financial_connections?: {
-              filters?: {
-                account_subcategories?: ("checking" | "savings")[]
-              }
-              permissions?: (
-                | "balances"
-                | "ownership"
-                | "payment_method"
-                | "transactions"
-              )[]
-              prefetch?: ("balances" | "ownership" | "transactions")[]
-            }
-            verification_method?: "automatic" | "instant" | "microdeposits"
-          }
-        | ""
-    }
-    payment_method_types?:
-      | (
-          | "ach_credit_transfer"
-          | "ach_debit"
-          | "acss_debit"
-          | "affirm"
-          | "amazon_pay"
-          | "au_becs_debit"
-          | "bacs_debit"
-          | "bancontact"
-          | "boleto"
-          | "card"
-          | "cashapp"
-          | "crypto"
-          | "customer_balance"
-          | "eps"
-          | "fpx"
-          | "giropay"
-          | "grabpay"
-          | "ideal"
-          | "jp_credit_transfer"
-          | "kakao_pay"
-          | "klarna"
-          | "konbini"
-          | "kr_card"
-          | "link"
-          | "multibanco"
-          | "naver_pay"
-          | "nz_bank_account"
-          | "p24"
-          | "payco"
-          | "paynow"
-          | "paypal"
-          | "promptpay"
-          | "revolut_pay"
-          | "sepa_credit_transfer"
-          | "sepa_debit"
-          | "sofort"
-          | "swish"
-          | "us_bank_account"
-          | "wechat_pay"
-        )[]
-      | ""
-    save_default_payment_method?: "off" | "on_subscription"
-  }
-  pending_invoice_item_interval?:
-    | {
-        interval: "day" | "month" | "week" | "year"
-        interval_count?: number
+      price?: string
+      price_data?: {
+        currency: string
+        product: string
+        recurring: {
+          interval: "day" | "month" | "week" | "year"
+          interval_count?: number
+        }
+        tax_behavior?: "exclusive" | "inclusive" | "unspecified"
+        unit_amount?: number
+        unit_amount_decimal?: string
       }
-    | ""
-  proration_behavior?: "always_invoice" | "create_prorations" | "none"
-  transfer_data?: {
-    amount_percent?: number
-    destination: string
-  }
-  trial_end?: "now" | number
-  trial_from_plan?: boolean
-  trial_period_days?: number
-  trial_settings?: {
-    end_behavior: {
-      missing_payment_method: "cancel" | "create_invoice" | "pause"
+      quantity?: number
+      tax_rates?: string[] | ""
+    }[]
+    metadata?:
+      | {
+          [key: string]: string | undefined
+        }
+      | ""
+    off_session?: boolean
+    payment_behavior?:
+      | "allow_incomplete"
+      | "default_incomplete"
+      | "error_if_incomplete"
+      | "pending_if_incomplete"
+    payment_settings?: {
+      payment_method_options?: {
+        acss_debit?:
+          | {
+              mandate_options?: {
+                transaction_type?: "business" | "personal"
+              }
+              verification_method?: "automatic" | "instant" | "microdeposits"
+            }
+          | ""
+        bancontact?:
+          | {
+              preferred_language?: "de" | "en" | "fr" | "nl"
+            }
+          | ""
+        card?:
+          | {
+              mandate_options?: {
+                amount?: number
+                amount_type?: "fixed" | "maximum"
+                description?: string
+              }
+              network?:
+                | "amex"
+                | "cartes_bancaires"
+                | "diners"
+                | "discover"
+                | "eftpos_au"
+                | "girocard"
+                | "interac"
+                | "jcb"
+                | "link"
+                | "mastercard"
+                | "unionpay"
+                | "unknown"
+                | "visa"
+              request_three_d_secure?: "any" | "automatic" | "challenge"
+            }
+          | ""
+        customer_balance?:
+          | {
+              bank_transfer?: {
+                eu_bank_transfer?: {
+                  country: string
+                }
+                type?: string
+              }
+              funding_type?: string
+            }
+          | ""
+        konbini?: EmptyObject | ""
+        sepa_debit?: EmptyObject | ""
+        us_bank_account?:
+          | {
+              financial_connections?: {
+                filters?: {
+                  account_subcategories?: ("checking" | "savings")[]
+                }
+                permissions?: (
+                  | "balances"
+                  | "ownership"
+                  | "payment_method"
+                  | "transactions"
+                )[]
+                prefetch?: ("balances" | "ownership" | "transactions")[]
+              }
+              verification_method?: "automatic" | "instant" | "microdeposits"
+            }
+          | ""
+      }
+      payment_method_types?:
+        | (
+            | "ach_credit_transfer"
+            | "ach_debit"
+            | "acss_debit"
+            | "affirm"
+            | "amazon_pay"
+            | "au_becs_debit"
+            | "bacs_debit"
+            | "bancontact"
+            | "boleto"
+            | "card"
+            | "cashapp"
+            | "crypto"
+            | "customer_balance"
+            | "eps"
+            | "fpx"
+            | "giropay"
+            | "grabpay"
+            | "ideal"
+            | "jp_credit_transfer"
+            | "kakao_pay"
+            | "klarna"
+            | "konbini"
+            | "kr_card"
+            | "link"
+            | "multibanco"
+            | "naver_pay"
+            | "nz_bank_account"
+            | "p24"
+            | "payco"
+            | "paynow"
+            | "paypal"
+            | "promptpay"
+            | "revolut_pay"
+            | "sepa_credit_transfer"
+            | "sepa_debit"
+            | "sofort"
+            | "swish"
+            | "us_bank_account"
+            | "wechat_pay"
+          )[]
+        | ""
+      save_default_payment_method?: "off" | "on_subscription"
+    }
+    pending_invoice_item_interval?:
+      | {
+          interval: "day" | "month" | "week" | "year"
+          interval_count?: number
+        }
+      | ""
+    proration_behavior?: "always_invoice" | "create_prorations" | "none"
+    transfer_data?: {
+      amount_percent?: number
+      destination: string
+    }
+    trial_end?: "now" | number
+    trial_from_plan?: boolean
+    trial_period_days?: number
+    trial_settings?: {
+      end_behavior: {
+        missing_payment_method: "cancel" | "create_invoice" | "pause"
+      }
     }
   }
-}
 
-export type t_PostCustomersCustomerSubscriptionsParamSchema = {
-  customer: string
-}
+export type t_PostCustomersCustomerSubscriptionsSubscriptionExposedIdParamSchema =
+  {
+    customer: string
+    subscription_exposed_id: string
+  }
 
-export type t_PostCustomersCustomerSubscriptionsSubscriptionExposedIdBodySchema =
+export type t_postCustomersCustomerSubscriptionsSubscriptionExposedIdApplicationXWwwFormUrlencodedRequestBody =
   {
     add_invoice_items?: {
       discounts?: {
@@ -22334,133 +22398,132 @@ export type t_PostCustomersCustomerSubscriptionsSubscriptionExposedIdBodySchema 
     }
   }
 
-export type t_PostCustomersCustomerSubscriptionsSubscriptionExposedIdParamSchema =
-  {
-    customer: string
-    subscription_exposed_id: string
-  }
-
-export type t_PostCustomersCustomerTaxIdsBodySchema = {
-  expand?: string[]
-  type:
-    | "ad_nrt"
-    | "ae_trn"
-    | "al_tin"
-    | "am_tin"
-    | "ao_tin"
-    | "ar_cuit"
-    | "au_abn"
-    | "au_arn"
-    | "aw_tin"
-    | "az_tin"
-    | "ba_tin"
-    | "bb_tin"
-    | "bd_bin"
-    | "bf_ifu"
-    | "bg_uic"
-    | "bh_vat"
-    | "bj_ifu"
-    | "bo_tin"
-    | "br_cnpj"
-    | "br_cpf"
-    | "bs_tin"
-    | "by_tin"
-    | "ca_bn"
-    | "ca_gst_hst"
-    | "ca_pst_bc"
-    | "ca_pst_mb"
-    | "ca_pst_sk"
-    | "ca_qst"
-    | "cd_nif"
-    | "ch_uid"
-    | "ch_vat"
-    | "cl_tin"
-    | "cm_niu"
-    | "cn_tin"
-    | "co_nit"
-    | "cr_tin"
-    | "cv_nif"
-    | "de_stn"
-    | "do_rcn"
-    | "ec_ruc"
-    | "eg_tin"
-    | "es_cif"
-    | "et_tin"
-    | "eu_oss_vat"
-    | "eu_vat"
-    | "gb_vat"
-    | "ge_vat"
-    | "gn_nif"
-    | "hk_br"
-    | "hr_oib"
-    | "hu_tin"
-    | "id_npwp"
-    | "il_vat"
-    | "in_gst"
-    | "is_vat"
-    | "jp_cn"
-    | "jp_rn"
-    | "jp_trn"
-    | "ke_pin"
-    | "kg_tin"
-    | "kh_tin"
-    | "kr_brn"
-    | "kz_bin"
-    | "la_tin"
-    | "li_uid"
-    | "li_vat"
-    | "ma_vat"
-    | "md_vat"
-    | "me_pib"
-    | "mk_vat"
-    | "mr_nif"
-    | "mx_rfc"
-    | "my_frp"
-    | "my_itn"
-    | "my_sst"
-    | "ng_tin"
-    | "no_vat"
-    | "no_voec"
-    | "np_pan"
-    | "nz_gst"
-    | "om_vat"
-    | "pe_ruc"
-    | "ph_tin"
-    | "ro_tin"
-    | "rs_pib"
-    | "ru_inn"
-    | "ru_kpp"
-    | "sa_vat"
-    | "sg_gst"
-    | "sg_uen"
-    | "si_tin"
-    | "sn_ninea"
-    | "sr_fin"
-    | "sv_nit"
-    | "th_vat"
-    | "tj_tin"
-    | "tr_tin"
-    | "tw_vat"
-    | "tz_vat"
-    | "ua_vat"
-    | "ug_tin"
-    | "us_ein"
-    | "uy_ruc"
-    | "uz_tin"
-    | "uz_vat"
-    | "ve_rif"
-    | "vn_tin"
-    | "za_vat"
-    | "zm_tin"
-    | "zw_tin"
-  value: string
-}
-
 export type t_PostCustomersCustomerTaxIdsParamSchema = {
   customer: string
 }
 
-export type t_PostDisputesDisputeBodySchema = {
+export type t_postCustomersCustomerTaxIdsApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
+    type:
+      | "ad_nrt"
+      | "ae_trn"
+      | "al_tin"
+      | "am_tin"
+      | "ao_tin"
+      | "ar_cuit"
+      | "au_abn"
+      | "au_arn"
+      | "aw_tin"
+      | "az_tin"
+      | "ba_tin"
+      | "bb_tin"
+      | "bd_bin"
+      | "bf_ifu"
+      | "bg_uic"
+      | "bh_vat"
+      | "bj_ifu"
+      | "bo_tin"
+      | "br_cnpj"
+      | "br_cpf"
+      | "bs_tin"
+      | "by_tin"
+      | "ca_bn"
+      | "ca_gst_hst"
+      | "ca_pst_bc"
+      | "ca_pst_mb"
+      | "ca_pst_sk"
+      | "ca_qst"
+      | "cd_nif"
+      | "ch_uid"
+      | "ch_vat"
+      | "cl_tin"
+      | "cm_niu"
+      | "cn_tin"
+      | "co_nit"
+      | "cr_tin"
+      | "cv_nif"
+      | "de_stn"
+      | "do_rcn"
+      | "ec_ruc"
+      | "eg_tin"
+      | "es_cif"
+      | "et_tin"
+      | "eu_oss_vat"
+      | "eu_vat"
+      | "gb_vat"
+      | "ge_vat"
+      | "gn_nif"
+      | "hk_br"
+      | "hr_oib"
+      | "hu_tin"
+      | "id_npwp"
+      | "il_vat"
+      | "in_gst"
+      | "is_vat"
+      | "jp_cn"
+      | "jp_rn"
+      | "jp_trn"
+      | "ke_pin"
+      | "kg_tin"
+      | "kh_tin"
+      | "kr_brn"
+      | "kz_bin"
+      | "la_tin"
+      | "li_uid"
+      | "li_vat"
+      | "ma_vat"
+      | "md_vat"
+      | "me_pib"
+      | "mk_vat"
+      | "mr_nif"
+      | "mx_rfc"
+      | "my_frp"
+      | "my_itn"
+      | "my_sst"
+      | "ng_tin"
+      | "no_vat"
+      | "no_voec"
+      | "np_pan"
+      | "nz_gst"
+      | "om_vat"
+      | "pe_ruc"
+      | "ph_tin"
+      | "ro_tin"
+      | "rs_pib"
+      | "ru_inn"
+      | "ru_kpp"
+      | "sa_vat"
+      | "sg_gst"
+      | "sg_uen"
+      | "si_tin"
+      | "sn_ninea"
+      | "sr_fin"
+      | "sv_nit"
+      | "th_vat"
+      | "tj_tin"
+      | "tr_tin"
+      | "tw_vat"
+      | "tz_vat"
+      | "ua_vat"
+      | "ug_tin"
+      | "us_ein"
+      | "uy_ruc"
+      | "uz_tin"
+      | "uz_vat"
+      | "ve_rif"
+      | "vn_tin"
+      | "za_vat"
+      | "zm_tin"
+      | "zw_tin"
+    value: string
+  }
+
+export type t_PostDisputesDisputeParamSchema = {
+  dispute: string
+}
+
+export type t_postDisputesDisputeApplicationXWwwFormUrlencodedRequestBody = {
   evidence?: {
     access_activity_log?: string
     billing_address?: string
@@ -22542,43 +22605,42 @@ export type t_PostDisputesDisputeBodySchema = {
   submit?: boolean
 }
 
-export type t_PostDisputesDisputeParamSchema = {
-  dispute: string
-}
-
-export type t_PostDisputesDisputeCloseBodySchema = {
-  expand?: string[]
-}
-
 export type t_PostDisputesDisputeCloseParamSchema = {
   dispute: string
 }
 
-export type t_PostEntitlementsFeaturesBodySchema = {
-  expand?: string[]
-  lookup_key: string
-  metadata?: {
-    [key: string]: string | undefined
+export type t_postDisputesDisputeCloseApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
   }
-  name: string
-}
 
-export type t_PostEntitlementsFeaturesIdBodySchema = {
-  active?: boolean
-  expand?: string[]
-  metadata?:
-    | {
-        [key: string]: string | undefined
-      }
-    | ""
-  name?: string
-}
+export type t_postEntitlementsFeaturesApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
+    lookup_key: string
+    metadata?: {
+      [key: string]: string | undefined
+    }
+    name: string
+  }
 
 export type t_PostEntitlementsFeaturesIdParamSchema = {
   id: string
 }
 
-export type t_PostEphemeralKeysBodySchema = {
+export type t_postEntitlementsFeaturesIdApplicationXWwwFormUrlencodedRequestBody =
+  {
+    active?: boolean
+    expand?: string[]
+    metadata?:
+      | {
+          [key: string]: string | undefined
+        }
+      | ""
+    name?: string
+  }
+
+export type t_postEphemeralKeysApplicationXWwwFormUrlencodedRequestBody = {
   customer?: string
   expand?: string[]
   issuing_card?: string
@@ -22586,7 +22648,11 @@ export type t_PostEphemeralKeysBodySchema = {
   verification_session?: string
 }
 
-export type t_PostExternalAccountsIdBodySchema = {
+export type t_PostExternalAccountsIdParamSchema = {
+  id: string
+}
+
+export type t_postExternalAccountsIdApplicationXWwwFormUrlencodedRequestBody = {
   account_holder_name?: string
   account_holder_type?: "" | "company" | "individual"
   account_type?: "checking" | "futsu" | "savings" | "toza"
@@ -22613,24 +22679,10 @@ export type t_PostExternalAccountsIdBodySchema = {
   name?: string
 }
 
-export type t_PostExternalAccountsIdParamSchema = {
-  id: string
-}
-
-export type t_PostFileLinksBodySchema = {
+export type t_postFileLinksApplicationXWwwFormUrlencodedRequestBody = {
   expand?: string[]
   expires_at?: number
   file: string
-  metadata?:
-    | {
-        [key: string]: string | undefined
-      }
-    | ""
-}
-
-export type t_PostFileLinksLinkBodySchema = {
-  expand?: string[]
-  expires_at?: "now" | number | ""
   metadata?:
     | {
         [key: string]: string | undefined
@@ -22642,66 +22694,84 @@ export type t_PostFileLinksLinkParamSchema = {
   link: string
 }
 
-export type t_PostFilesBodySchema = never
-
-export type t_PostFinancialConnectionsAccountsAccountDisconnectBodySchema = {
+export type t_postFileLinksLinkApplicationXWwwFormUrlencodedRequestBody = {
   expand?: string[]
+  expires_at?: "now" | number | ""
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | ""
 }
 
 export type t_PostFinancialConnectionsAccountsAccountDisconnectParamSchema = {
   account: string
 }
 
-export type t_PostFinancialConnectionsAccountsAccountRefreshBodySchema = {
-  expand?: string[]
-  features: ("balance" | "ownership" | "transactions")[]
-}
+export type t_postFinancialConnectionsAccountsAccountDisconnectApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
+  }
 
 export type t_PostFinancialConnectionsAccountsAccountRefreshParamSchema = {
   account: string
 }
 
-export type t_PostFinancialConnectionsAccountsAccountSubscribeBodySchema = {
-  expand?: string[]
-  features: "transactions"[]
-}
+export type t_postFinancialConnectionsAccountsAccountRefreshApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
+    features: ("balance" | "ownership" | "transactions")[]
+  }
 
 export type t_PostFinancialConnectionsAccountsAccountSubscribeParamSchema = {
   account: string
 }
 
-export type t_PostFinancialConnectionsAccountsAccountUnsubscribeBodySchema = {
-  expand?: string[]
-  features: "transactions"[]
-}
+export type t_postFinancialConnectionsAccountsAccountSubscribeApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
+    features: "transactions"[]
+  }
 
 export type t_PostFinancialConnectionsAccountsAccountUnsubscribeParamSchema = {
   account: string
 }
 
-export type t_PostFinancialConnectionsSessionsBodySchema = {
-  account_holder: {
-    account?: string
-    customer?: string
-    type: "account" | "customer"
+export type t_postFinancialConnectionsAccountsAccountUnsubscribeApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
+    features: "transactions"[]
   }
-  expand?: string[]
-  filters?: {
-    account_subcategories?: (
-      | "checking"
-      | "credit_card"
-      | "line_of_credit"
-      | "mortgage"
-      | "savings"
-    )[]
-    countries?: string[]
-  }
-  permissions: ("balances" | "ownership" | "payment_method" | "transactions")[]
-  prefetch?: ("balances" | "ownership" | "transactions")[]
-  return_url?: string
-}
 
-export type t_PostForwardingRequestsBodySchema = {
+export type t_postFinancialConnectionsSessionsApplicationXWwwFormUrlencodedRequestBody =
+  {
+    account_holder: {
+      account?: string
+      customer?: string
+      type: "account" | "customer"
+    }
+    expand?: string[]
+    filters?: {
+      account_subcategories?: (
+        | "checking"
+        | "credit_card"
+        | "line_of_credit"
+        | "mortgage"
+        | "savings"
+      )[]
+      countries?: string[]
+    }
+    permissions: (
+      | "balances"
+      | "ownership"
+      | "payment_method"
+      | "transactions"
+    )[]
+    prefetch?: ("balances" | "ownership" | "transactions")[]
+    return_url?: string
+  }
+
+export type t_postForwardingRequestsApplicationXWwwFormUrlencodedRequestBody = {
   expand?: string[]
   metadata?: {
     [key: string]: string | undefined
@@ -22724,95 +22794,101 @@ export type t_PostForwardingRequestsBodySchema = {
   url: string
 }
 
-export type t_PostIdentityVerificationSessionsBodySchema = {
-  client_reference_id?: string
-  expand?: string[]
-  metadata?: {
-    [key: string]: string | undefined
+export type t_postIdentityVerificationSessionsApplicationXWwwFormUrlencodedRequestBody =
+  {
+    client_reference_id?: string
+    expand?: string[]
+    metadata?: {
+      [key: string]: string | undefined
+    }
+    options?: {
+      document?:
+        | {
+            allowed_types?: ("driving_license" | "id_card" | "passport")[]
+            require_id_number?: boolean
+            require_live_capture?: boolean
+            require_matching_selfie?: boolean
+          }
+        | ""
+    }
+    provided_details?: {
+      email?: string
+      phone?: string
+    }
+    related_customer?: string
+    related_person?: {
+      account: string
+      person: string
+    }
+    return_url?: string
+    type?: "document" | "id_number"
+    verification_flow?: string
   }
-  options?: {
-    document?:
-      | {
-          allowed_types?: ("driving_license" | "id_card" | "passport")[]
-          require_id_number?: boolean
-          require_live_capture?: boolean
-          require_matching_selfie?: boolean
-        }
-      | ""
-  }
-  provided_details?: {
-    email?: string
-    phone?: string
-  }
-  related_customer?: string
-  related_person?: {
-    account: string
-    person: string
-  }
-  return_url?: string
-  type?: "document" | "id_number"
-  verification_flow?: string
-}
-
-export type t_PostIdentityVerificationSessionsSessionBodySchema = {
-  expand?: string[]
-  metadata?: {
-    [key: string]: string | undefined
-  }
-  options?: {
-    document?:
-      | {
-          allowed_types?: ("driving_license" | "id_card" | "passport")[]
-          require_id_number?: boolean
-          require_live_capture?: boolean
-          require_matching_selfie?: boolean
-        }
-      | ""
-  }
-  provided_details?: {
-    email?: string
-    phone?: string
-  }
-  type?: "document" | "id_number"
-}
 
 export type t_PostIdentityVerificationSessionsSessionParamSchema = {
   session: string
 }
 
-export type t_PostIdentityVerificationSessionsSessionCancelBodySchema = {
-  expand?: string[]
-}
+export type t_postIdentityVerificationSessionsSessionApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
+    metadata?: {
+      [key: string]: string | undefined
+    }
+    options?: {
+      document?:
+        | {
+            allowed_types?: ("driving_license" | "id_card" | "passport")[]
+            require_id_number?: boolean
+            require_live_capture?: boolean
+            require_matching_selfie?: boolean
+          }
+        | ""
+    }
+    provided_details?: {
+      email?: string
+      phone?: string
+    }
+    type?: "document" | "id_number"
+  }
 
 export type t_PostIdentityVerificationSessionsSessionCancelParamSchema = {
   session: string
 }
 
-export type t_PostIdentityVerificationSessionsSessionRedactBodySchema = {
-  expand?: string[]
-}
+export type t_postIdentityVerificationSessionsSessionCancelApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
+  }
 
 export type t_PostIdentityVerificationSessionsSessionRedactParamSchema = {
   session: string
 }
 
-export type t_PostInvoiceRenderingTemplatesTemplateArchiveBodySchema = {
-  expand?: string[]
-}
+export type t_postIdentityVerificationSessionsSessionRedactApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
+  }
 
 export type t_PostInvoiceRenderingTemplatesTemplateArchiveParamSchema = {
   template: string
 }
 
-export type t_PostInvoiceRenderingTemplatesTemplateUnarchiveBodySchema = {
-  expand?: string[]
-}
+export type t_postInvoiceRenderingTemplatesTemplateArchiveApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
+  }
 
 export type t_PostInvoiceRenderingTemplatesTemplateUnarchiveParamSchema = {
   template: string
 }
 
-export type t_PostInvoiceitemsBodySchema = {
+export type t_postInvoiceRenderingTemplatesTemplateUnarchiveApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
+  }
+
+export type t_postInvoiceitemsApplicationXWwwFormUrlencodedRequestBody = {
   amount?: number
   currency?: string
   customer: string
@@ -22854,49 +22930,50 @@ export type t_PostInvoiceitemsBodySchema = {
   unit_amount_decimal?: string
 }
 
-export type t_PostInvoiceitemsInvoiceitemBodySchema = {
-  amount?: number
-  description?: string
-  discountable?: boolean
-  discounts?:
-    | {
-        coupon?: string
-        discount?: string
-        promotion_code?: string
-      }[]
-    | ""
-  expand?: string[]
-  metadata?:
-    | {
-        [key: string]: string | undefined
-      }
-    | ""
-  period?: {
-    end: number
-    start: number
-  }
-  price_data?: {
-    currency: string
-    product: string
-    tax_behavior?: "exclusive" | "inclusive" | "unspecified"
-    unit_amount?: number
-    unit_amount_decimal?: string
-  }
-  pricing?: {
-    price?: string
-  }
-  quantity?: number
-  tax_behavior?: "exclusive" | "inclusive" | "unspecified"
-  tax_code?: string | ""
-  tax_rates?: string[] | ""
-  unit_amount_decimal?: string
-}
-
 export type t_PostInvoiceitemsInvoiceitemParamSchema = {
   invoiceitem: string
 }
 
-export type t_PostInvoicesBodySchema = {
+export type t_postInvoiceitemsInvoiceitemApplicationXWwwFormUrlencodedRequestBody =
+  {
+    amount?: number
+    description?: string
+    discountable?: boolean
+    discounts?:
+      | {
+          coupon?: string
+          discount?: string
+          promotion_code?: string
+        }[]
+      | ""
+    expand?: string[]
+    metadata?:
+      | {
+          [key: string]: string | undefined
+        }
+      | ""
+    period?: {
+      end: number
+      start: number
+    }
+    price_data?: {
+      currency: string
+      product: string
+      tax_behavior?: "exclusive" | "inclusive" | "unspecified"
+      unit_amount?: number
+      unit_amount_decimal?: string
+    }
+    pricing?: {
+      price?: string
+    }
+    quantity?: number
+    tax_behavior?: "exclusive" | "inclusive" | "unspecified"
+    tax_code?: string | ""
+    tax_rates?: string[] | ""
+    unit_amount_decimal?: string
+  }
+
+export type t_postInvoicesApplicationXWwwFormUrlencodedRequestBody = {
   account_tax_ids?: string[] | ""
   application_fee_amount?: number
   auto_advance?: boolean
@@ -23117,30 +23194,20 @@ export type t_PostInvoicesBodySchema = {
   }
 }
 
-export type t_PostInvoicesCreatePreviewBodySchema = {
-  automatic_tax?: {
-    enabled: boolean
-    liability?: {
-      account?: string
-      type: "account" | "self"
+export type t_postInvoicesCreatePreviewApplicationXWwwFormUrlencodedRequestBody =
+  {
+    automatic_tax?: {
+      enabled: boolean
+      liability?: {
+        account?: string
+        type: "account" | "self"
+      }
     }
-  }
-  currency?: string
-  customer?: string
-  customer_details?: {
-    address?:
-      | {
-          city?: string
-          country?: string
-          line1?: string
-          line2?: string
-          postal_code?: string
-          state?: string
-        }
-      | ""
-    shipping?:
-      | {
-          address: {
+    currency?: string
+    customer?: string
+    customer_details?: {
+      address?:
+        | {
             city?: string
             country?: string
             line1?: string
@@ -23148,142 +23215,140 @@ export type t_PostInvoicesCreatePreviewBodySchema = {
             postal_code?: string
             state?: string
           }
-          name: string
-          phone?: string
-        }
-      | ""
-    tax?: {
-      ip_address?: string | ""
-    }
-    tax_exempt?: "" | "exempt" | "none" | "reverse"
-    tax_ids?: {
-      type:
-        | "ad_nrt"
-        | "ae_trn"
-        | "al_tin"
-        | "am_tin"
-        | "ao_tin"
-        | "ar_cuit"
-        | "au_abn"
-        | "au_arn"
-        | "aw_tin"
-        | "az_tin"
-        | "ba_tin"
-        | "bb_tin"
-        | "bd_bin"
-        | "bf_ifu"
-        | "bg_uic"
-        | "bh_vat"
-        | "bj_ifu"
-        | "bo_tin"
-        | "br_cnpj"
-        | "br_cpf"
-        | "bs_tin"
-        | "by_tin"
-        | "ca_bn"
-        | "ca_gst_hst"
-        | "ca_pst_bc"
-        | "ca_pst_mb"
-        | "ca_pst_sk"
-        | "ca_qst"
-        | "cd_nif"
-        | "ch_uid"
-        | "ch_vat"
-        | "cl_tin"
-        | "cm_niu"
-        | "cn_tin"
-        | "co_nit"
-        | "cr_tin"
-        | "cv_nif"
-        | "de_stn"
-        | "do_rcn"
-        | "ec_ruc"
-        | "eg_tin"
-        | "es_cif"
-        | "et_tin"
-        | "eu_oss_vat"
-        | "eu_vat"
-        | "gb_vat"
-        | "ge_vat"
-        | "gn_nif"
-        | "hk_br"
-        | "hr_oib"
-        | "hu_tin"
-        | "id_npwp"
-        | "il_vat"
-        | "in_gst"
-        | "is_vat"
-        | "jp_cn"
-        | "jp_rn"
-        | "jp_trn"
-        | "ke_pin"
-        | "kg_tin"
-        | "kh_tin"
-        | "kr_brn"
-        | "kz_bin"
-        | "la_tin"
-        | "li_uid"
-        | "li_vat"
-        | "ma_vat"
-        | "md_vat"
-        | "me_pib"
-        | "mk_vat"
-        | "mr_nif"
-        | "mx_rfc"
-        | "my_frp"
-        | "my_itn"
-        | "my_sst"
-        | "ng_tin"
-        | "no_vat"
-        | "no_voec"
-        | "np_pan"
-        | "nz_gst"
-        | "om_vat"
-        | "pe_ruc"
-        | "ph_tin"
-        | "ro_tin"
-        | "rs_pib"
-        | "ru_inn"
-        | "ru_kpp"
-        | "sa_vat"
-        | "sg_gst"
-        | "sg_uen"
-        | "si_tin"
-        | "sn_ninea"
-        | "sr_fin"
-        | "sv_nit"
-        | "th_vat"
-        | "tj_tin"
-        | "tr_tin"
-        | "tw_vat"
-        | "tz_vat"
-        | "ua_vat"
-        | "ug_tin"
-        | "us_ein"
-        | "uy_ruc"
-        | "uz_tin"
-        | "uz_vat"
-        | "ve_rif"
-        | "vn_tin"
-        | "za_vat"
-        | "zm_tin"
-        | "zw_tin"
-      value: string
-    }[]
-  }
-  discounts?:
-    | {
-        coupon?: string
-        discount?: string
-        promotion_code?: string
+        | ""
+      shipping?:
+        | {
+            address: {
+              city?: string
+              country?: string
+              line1?: string
+              line2?: string
+              postal_code?: string
+              state?: string
+            }
+            name: string
+            phone?: string
+          }
+        | ""
+      tax?: {
+        ip_address?: string | ""
+      }
+      tax_exempt?: "" | "exempt" | "none" | "reverse"
+      tax_ids?: {
+        type:
+          | "ad_nrt"
+          | "ae_trn"
+          | "al_tin"
+          | "am_tin"
+          | "ao_tin"
+          | "ar_cuit"
+          | "au_abn"
+          | "au_arn"
+          | "aw_tin"
+          | "az_tin"
+          | "ba_tin"
+          | "bb_tin"
+          | "bd_bin"
+          | "bf_ifu"
+          | "bg_uic"
+          | "bh_vat"
+          | "bj_ifu"
+          | "bo_tin"
+          | "br_cnpj"
+          | "br_cpf"
+          | "bs_tin"
+          | "by_tin"
+          | "ca_bn"
+          | "ca_gst_hst"
+          | "ca_pst_bc"
+          | "ca_pst_mb"
+          | "ca_pst_sk"
+          | "ca_qst"
+          | "cd_nif"
+          | "ch_uid"
+          | "ch_vat"
+          | "cl_tin"
+          | "cm_niu"
+          | "cn_tin"
+          | "co_nit"
+          | "cr_tin"
+          | "cv_nif"
+          | "de_stn"
+          | "do_rcn"
+          | "ec_ruc"
+          | "eg_tin"
+          | "es_cif"
+          | "et_tin"
+          | "eu_oss_vat"
+          | "eu_vat"
+          | "gb_vat"
+          | "ge_vat"
+          | "gn_nif"
+          | "hk_br"
+          | "hr_oib"
+          | "hu_tin"
+          | "id_npwp"
+          | "il_vat"
+          | "in_gst"
+          | "is_vat"
+          | "jp_cn"
+          | "jp_rn"
+          | "jp_trn"
+          | "ke_pin"
+          | "kg_tin"
+          | "kh_tin"
+          | "kr_brn"
+          | "kz_bin"
+          | "la_tin"
+          | "li_uid"
+          | "li_vat"
+          | "ma_vat"
+          | "md_vat"
+          | "me_pib"
+          | "mk_vat"
+          | "mr_nif"
+          | "mx_rfc"
+          | "my_frp"
+          | "my_itn"
+          | "my_sst"
+          | "ng_tin"
+          | "no_vat"
+          | "no_voec"
+          | "np_pan"
+          | "nz_gst"
+          | "om_vat"
+          | "pe_ruc"
+          | "ph_tin"
+          | "ro_tin"
+          | "rs_pib"
+          | "ru_inn"
+          | "ru_kpp"
+          | "sa_vat"
+          | "sg_gst"
+          | "sg_uen"
+          | "si_tin"
+          | "sn_ninea"
+          | "sr_fin"
+          | "sv_nit"
+          | "th_vat"
+          | "tj_tin"
+          | "tr_tin"
+          | "tw_vat"
+          | "tz_vat"
+          | "ua_vat"
+          | "ug_tin"
+          | "us_ein"
+          | "uy_ruc"
+          | "uz_tin"
+          | "uz_vat"
+          | "ve_rif"
+          | "vn_tin"
+          | "za_vat"
+          | "zm_tin"
+          | "zw_tin"
+        value: string
       }[]
-    | ""
-  expand?: string[]
-  invoice_items?: {
-    amount?: number
-    currency?: string
-    description?: string
-    discountable?: boolean
+    }
     discounts?:
       | {
           coupon?: string
@@ -23291,80 +23356,12 @@ export type t_PostInvoicesCreatePreviewBodySchema = {
           promotion_code?: string
         }[]
       | ""
-    invoiceitem?: string
-    metadata?:
-      | {
-          [key: string]: string | undefined
-        }
-      | ""
-    period?: {
-      end: number
-      start: number
-    }
-    price?: string
-    price_data?: {
-      currency: string
-      product: string
-      tax_behavior?: "exclusive" | "inclusive" | "unspecified"
-      unit_amount?: number
-      unit_amount_decimal?: string
-    }
-    quantity?: number
-    tax_behavior?: "exclusive" | "inclusive" | "unspecified"
-    tax_code?: string | ""
-    tax_rates?: string[] | ""
-    unit_amount?: number
-    unit_amount_decimal?: string
-  }[]
-  issuer?: {
-    account?: string
-    type: "account" | "self"
-  }
-  on_behalf_of?: string | ""
-  preview_mode?: "next" | "recurring"
-  schedule?: string
-  schedule_details?: {
-    billing_mode?: {
-      type: "classic" | "flexible"
-    }
-    end_behavior?: "cancel" | "release"
-    phases?: {
-      add_invoice_items?: {
-        discounts?: {
-          coupon?: string
-          discount?: string
-          promotion_code?: string
-        }[]
-        price?: string
-        price_data?: {
-          currency: string
-          product: string
-          tax_behavior?: "exclusive" | "inclusive" | "unspecified"
-          unit_amount?: number
-          unit_amount_decimal?: string
-        }
-        quantity?: number
-        tax_rates?: string[] | ""
-      }[]
-      application_fee_percent?: number
-      automatic_tax?: {
-        enabled: boolean
-        liability?: {
-          account?: string
-          type: "account" | "self"
-        }
-      }
-      billing_cycle_anchor?: "automatic" | "phase_start"
-      billing_thresholds?:
-        | {
-            amount_gte?: number
-            reset_billing_cycle_anchor?: boolean
-          }
-        | ""
-      collection_method?: "charge_automatically" | "send_invoice"
-      default_payment_method?: string
-      default_tax_rates?: string[] | ""
-      description?: string | ""
+    expand?: string[]
+    invoice_items?: {
+      amount?: number
+      currency?: string
+      description?: string
+      discountable?: boolean
       discounts?:
         | {
             coupon?: string
@@ -23372,25 +23369,80 @@ export type t_PostInvoicesCreatePreviewBodySchema = {
             promotion_code?: string
           }[]
         | ""
-      duration?: {
-        interval: "day" | "month" | "week" | "year"
-        interval_count?: number
+      invoiceitem?: string
+      metadata?:
+        | {
+            [key: string]: string | undefined
+          }
+        | ""
+      period?: {
+        end: number
+        start: number
       }
-      end_date?: number | "now"
-      invoice_settings?: {
-        account_tax_ids?: string[] | ""
-        days_until_due?: number
-        issuer?: {
-          account?: string
-          type: "account" | "self"
+      price?: string
+      price_data?: {
+        currency: string
+        product: string
+        tax_behavior?: "exclusive" | "inclusive" | "unspecified"
+        unit_amount?: number
+        unit_amount_decimal?: string
+      }
+      quantity?: number
+      tax_behavior?: "exclusive" | "inclusive" | "unspecified"
+      tax_code?: string | ""
+      tax_rates?: string[] | ""
+      unit_amount?: number
+      unit_amount_decimal?: string
+    }[]
+    issuer?: {
+      account?: string
+      type: "account" | "self"
+    }
+    on_behalf_of?: string | ""
+    preview_mode?: "next" | "recurring"
+    schedule?: string
+    schedule_details?: {
+      billing_mode?: {
+        type: "classic" | "flexible"
+      }
+      end_behavior?: "cancel" | "release"
+      phases?: {
+        add_invoice_items?: {
+          discounts?: {
+            coupon?: string
+            discount?: string
+            promotion_code?: string
+          }[]
+          price?: string
+          price_data?: {
+            currency: string
+            product: string
+            tax_behavior?: "exclusive" | "inclusive" | "unspecified"
+            unit_amount?: number
+            unit_amount_decimal?: string
+          }
+          quantity?: number
+          tax_rates?: string[] | ""
+        }[]
+        application_fee_percent?: number
+        automatic_tax?: {
+          enabled: boolean
+          liability?: {
+            account?: string
+            type: "account" | "self"
+          }
         }
-      }
-      items: {
+        billing_cycle_anchor?: "automatic" | "phase_start"
         billing_thresholds?:
           | {
-              usage_gte: number
+              amount_gte?: number
+              reset_billing_cycle_anchor?: boolean
             }
           | ""
+        collection_method?: "charge_automatically" | "send_invoice"
+        default_payment_method?: string
+        default_tax_rates?: string[] | ""
+        description?: string | ""
         discounts?:
           | {
               coupon?: string
@@ -23398,9 +23450,97 @@ export type t_PostInvoicesCreatePreviewBodySchema = {
               promotion_code?: string
             }[]
           | ""
+        duration?: {
+          interval: "day" | "month" | "week" | "year"
+          interval_count?: number
+        }
+        end_date?: number | "now"
+        invoice_settings?: {
+          account_tax_ids?: string[] | ""
+          days_until_due?: number
+          issuer?: {
+            account?: string
+            type: "account" | "self"
+          }
+        }
+        items: {
+          billing_thresholds?:
+            | {
+                usage_gte: number
+              }
+            | ""
+          discounts?:
+            | {
+                coupon?: string
+                discount?: string
+                promotion_code?: string
+              }[]
+            | ""
+          metadata?: {
+            [key: string]: string | undefined
+          }
+          price?: string
+          price_data?: {
+            currency: string
+            product: string
+            recurring: {
+              interval: "day" | "month" | "week" | "year"
+              interval_count?: number
+            }
+            tax_behavior?: "exclusive" | "inclusive" | "unspecified"
+            unit_amount?: number
+            unit_amount_decimal?: string
+          }
+          quantity?: number
+          tax_rates?: string[] | ""
+        }[]
+        iterations?: number
         metadata?: {
           [key: string]: string | undefined
         }
+        on_behalf_of?: string
+        proration_behavior?: "always_invoice" | "create_prorations" | "none"
+        start_date?: number | "now"
+        transfer_data?: {
+          amount_percent?: number
+          destination: string
+        }
+        trial?: boolean
+        trial_end?: number | "now"
+      }[]
+      proration_behavior?: "always_invoice" | "create_prorations" | "none"
+    }
+    subscription?: string
+    subscription_details?: {
+      billing_cycle_anchor?: "now" | "unchanged" | number
+      billing_mode?: {
+        type: "classic" | "flexible"
+      }
+      cancel_at?: number | "" | "max_period_end" | "min_period_end"
+      cancel_at_period_end?: boolean
+      cancel_now?: boolean
+      default_tax_rates?: string[] | ""
+      items?: {
+        billing_thresholds?:
+          | {
+              usage_gte: number
+            }
+          | ""
+        clear_usage?: boolean
+        deleted?: boolean
+        discounts?:
+          | {
+              coupon?: string
+              discount?: string
+              promotion_code?: string
+            }[]
+          | ""
+        id?: string
+        metadata?:
+          | {
+              [key: string]: string | undefined
+            }
+          | ""
         price?: string
         price_data?: {
           currency: string
@@ -23416,77 +23556,19 @@ export type t_PostInvoicesCreatePreviewBodySchema = {
         quantity?: number
         tax_rates?: string[] | ""
       }[]
-      iterations?: number
-      metadata?: {
-        [key: string]: string | undefined
-      }
-      on_behalf_of?: string
       proration_behavior?: "always_invoice" | "create_prorations" | "none"
-      start_date?: number | "now"
-      transfer_data?: {
-        amount_percent?: number
-        destination: string
-      }
-      trial?: boolean
-      trial_end?: number | "now"
-    }[]
-    proration_behavior?: "always_invoice" | "create_prorations" | "none"
-  }
-  subscription?: string
-  subscription_details?: {
-    billing_cycle_anchor?: "now" | "unchanged" | number
-    billing_mode?: {
-      type: "classic" | "flexible"
+      proration_date?: number
+      resume_at?: "now"
+      start_date?: number
+      trial_end?: "now" | number
     }
-    cancel_at?: number | "" | "max_period_end" | "min_period_end"
-    cancel_at_period_end?: boolean
-    cancel_now?: boolean
-    default_tax_rates?: string[] | ""
-    items?: {
-      billing_thresholds?:
-        | {
-            usage_gte: number
-          }
-        | ""
-      clear_usage?: boolean
-      deleted?: boolean
-      discounts?:
-        | {
-            coupon?: string
-            discount?: string
-            promotion_code?: string
-          }[]
-        | ""
-      id?: string
-      metadata?:
-        | {
-            [key: string]: string | undefined
-          }
-        | ""
-      price?: string
-      price_data?: {
-        currency: string
-        product: string
-        recurring: {
-          interval: "day" | "month" | "week" | "year"
-          interval_count?: number
-        }
-        tax_behavior?: "exclusive" | "inclusive" | "unspecified"
-        unit_amount?: number
-        unit_amount_decimal?: string
-      }
-      quantity?: number
-      tax_rates?: string[] | ""
-    }[]
-    proration_behavior?: "always_invoice" | "create_prorations" | "none"
-    proration_date?: number
-    resume_at?: "now"
-    start_date?: number
-    trial_end?: "now" | number
   }
+
+export type t_PostInvoicesInvoiceParamSchema = {
+  invoice: string
 }
 
-export type t_PostInvoicesInvoiceBodySchema = {
+export type t_postInvoicesInvoiceApplicationXWwwFormUrlencodedRequestBody = {
   account_tax_ids?: string[] | ""
   application_fee_amount?: number
   auto_advance?: boolean
@@ -23705,18 +23787,143 @@ export type t_PostInvoicesInvoiceBodySchema = {
     | ""
 }
 
-export type t_PostInvoicesInvoiceParamSchema = {
+export type t_PostInvoicesInvoiceAddLinesParamSchema = {
   invoice: string
 }
 
-export type t_PostInvoicesInvoiceAddLinesBodySchema = {
-  expand?: string[]
-  invoice_metadata?:
-    | {
-        [key: string]: string | undefined
+export type t_postInvoicesInvoiceAddLinesApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
+    invoice_metadata?:
+      | {
+          [key: string]: string | undefined
+        }
+      | ""
+    lines: {
+      amount?: number
+      description?: string
+      discountable?: boolean
+      discounts?:
+        | {
+            coupon?: string
+            discount?: string
+            promotion_code?: string
+          }[]
+        | ""
+      invoice_item?: string
+      metadata?:
+        | {
+            [key: string]: string | undefined
+          }
+        | ""
+      period?: {
+        end: number
+        start: number
       }
-    | ""
-  lines: {
+      price_data?: {
+        currency: string
+        product?: string
+        product_data?: {
+          description?: string
+          images?: string[]
+          metadata?: {
+            [key: string]: string | undefined
+          }
+          name: string
+          tax_code?: string
+        }
+        tax_behavior?: "exclusive" | "inclusive" | "unspecified"
+        unit_amount?: number
+        unit_amount_decimal?: string
+      }
+      pricing?: {
+        price?: string
+      }
+      quantity?: number
+      tax_amounts?:
+        | {
+            amount: number
+            tax_rate_data: {
+              country?: string
+              description?: string
+              display_name: string
+              inclusive: boolean
+              jurisdiction?: string
+              jurisdiction_level?:
+                | "city"
+                | "country"
+                | "county"
+                | "district"
+                | "multiple"
+                | "state"
+              percentage: number
+              state?: string
+              tax_type?:
+                | "amusement_tax"
+                | "communications_tax"
+                | "gst"
+                | "hst"
+                | "igst"
+                | "jct"
+                | "lease_tax"
+                | "pst"
+                | "qst"
+                | "retail_delivery_fee"
+                | "rst"
+                | "sales_tax"
+                | "service_tax"
+                | "vat"
+            }
+            taxability_reason?:
+              | "customer_exempt"
+              | "not_collecting"
+              | "not_subject_to_tax"
+              | "not_supported"
+              | "portion_product_exempt"
+              | "portion_reduced_rated"
+              | "portion_standard_rated"
+              | "product_exempt"
+              | "product_exempt_holiday"
+              | "proportionally_rated"
+              | "reduced_rated"
+              | "reverse_charge"
+              | "standard_rated"
+              | "taxable_basis_reduced"
+              | "zero_rated"
+            taxable_amount: number
+          }[]
+        | ""
+      tax_rates?: string[] | ""
+    }[]
+  }
+
+export type t_PostInvoicesInvoiceAttachPaymentParamSchema = {
+  invoice: string
+}
+
+export type t_postInvoicesInvoiceAttachPaymentApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
+    payment_intent?: string
+  }
+
+export type t_PostInvoicesInvoiceFinalizeParamSchema = {
+  invoice: string
+}
+
+export type t_postInvoicesInvoiceFinalizeApplicationXWwwFormUrlencodedRequestBody =
+  {
+    auto_advance?: boolean
+    expand?: string[]
+  }
+
+export type t_PostInvoicesInvoiceLinesLineItemIdParamSchema = {
+  invoice: string
+  line_item_id: string
+}
+
+export type t_postInvoicesInvoiceLinesLineItemIdApplicationXWwwFormUrlencodedRequestBody =
+  {
     amount?: number
     description?: string
     discountable?: boolean
@@ -23727,7 +23934,7 @@ export type t_PostInvoicesInvoiceAddLinesBodySchema = {
           promotion_code?: string
         }[]
       | ""
-    invoice_item?: string
+    expand?: string[]
     metadata?:
       | {
           [key: string]: string | undefined
@@ -23811,142 +24018,22 @@ export type t_PostInvoicesInvoiceAddLinesBodySchema = {
         }[]
       | ""
     tax_rates?: string[] | ""
-  }[]
-}
-
-export type t_PostInvoicesInvoiceAddLinesParamSchema = {
-  invoice: string
-}
-
-export type t_PostInvoicesInvoiceAttachPaymentBodySchema = {
-  expand?: string[]
-  payment_intent?: string
-}
-
-export type t_PostInvoicesInvoiceAttachPaymentParamSchema = {
-  invoice: string
-}
-
-export type t_PostInvoicesInvoiceFinalizeBodySchema = {
-  auto_advance?: boolean
-  expand?: string[]
-}
-
-export type t_PostInvoicesInvoiceFinalizeParamSchema = {
-  invoice: string
-}
-
-export type t_PostInvoicesInvoiceLinesLineItemIdBodySchema = {
-  amount?: number
-  description?: string
-  discountable?: boolean
-  discounts?:
-    | {
-        coupon?: string
-        discount?: string
-        promotion_code?: string
-      }[]
-    | ""
-  expand?: string[]
-  metadata?:
-    | {
-        [key: string]: string | undefined
-      }
-    | ""
-  period?: {
-    end: number
-    start: number
   }
-  price_data?: {
-    currency: string
-    product?: string
-    product_data?: {
-      description?: string
-      images?: string[]
-      metadata?: {
-        [key: string]: string | undefined
-      }
-      name: string
-      tax_code?: string
-    }
-    tax_behavior?: "exclusive" | "inclusive" | "unspecified"
-    unit_amount?: number
-    unit_amount_decimal?: string
-  }
-  pricing?: {
-    price?: string
-  }
-  quantity?: number
-  tax_amounts?:
-    | {
-        amount: number
-        tax_rate_data: {
-          country?: string
-          description?: string
-          display_name: string
-          inclusive: boolean
-          jurisdiction?: string
-          jurisdiction_level?:
-            | "city"
-            | "country"
-            | "county"
-            | "district"
-            | "multiple"
-            | "state"
-          percentage: number
-          state?: string
-          tax_type?:
-            | "amusement_tax"
-            | "communications_tax"
-            | "gst"
-            | "hst"
-            | "igst"
-            | "jct"
-            | "lease_tax"
-            | "pst"
-            | "qst"
-            | "retail_delivery_fee"
-            | "rst"
-            | "sales_tax"
-            | "service_tax"
-            | "vat"
-        }
-        taxability_reason?:
-          | "customer_exempt"
-          | "not_collecting"
-          | "not_subject_to_tax"
-          | "not_supported"
-          | "portion_product_exempt"
-          | "portion_reduced_rated"
-          | "portion_standard_rated"
-          | "product_exempt"
-          | "product_exempt_holiday"
-          | "proportionally_rated"
-          | "reduced_rated"
-          | "reverse_charge"
-          | "standard_rated"
-          | "taxable_basis_reduced"
-          | "zero_rated"
-        taxable_amount: number
-      }[]
-    | ""
-  tax_rates?: string[] | ""
-}
-
-export type t_PostInvoicesInvoiceLinesLineItemIdParamSchema = {
-  invoice: string
-  line_item_id: string
-}
-
-export type t_PostInvoicesInvoiceMarkUncollectibleBodySchema = {
-  expand?: string[]
-}
 
 export type t_PostInvoicesInvoiceMarkUncollectibleParamSchema = {
   invoice: string
 }
 
-export type t_PostInvoicesInvoicePayBodySchema = {
+export type t_postInvoicesInvoiceMarkUncollectibleApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
+  }
+
+export type t_PostInvoicesInvoicePayParamSchema = {
+  invoice: string
+}
+
+export type t_postInvoicesInvoicePayApplicationXWwwFormUrlencodedRequestBody = {
   expand?: string[]
   forgive?: boolean
   mandate?: string | ""
@@ -23956,193 +24043,196 @@ export type t_PostInvoicesInvoicePayBodySchema = {
   source?: string
 }
 
-export type t_PostInvoicesInvoicePayParamSchema = {
-  invoice: string
-}
-
-export type t_PostInvoicesInvoiceRemoveLinesBodySchema = {
-  expand?: string[]
-  invoice_metadata?:
-    | {
-        [key: string]: string | undefined
-      }
-    | ""
-  lines: {
-    behavior: "delete" | "unassign"
-    id: string
-  }[]
-}
-
 export type t_PostInvoicesInvoiceRemoveLinesParamSchema = {
   invoice: string
 }
 
-export type t_PostInvoicesInvoiceSendBodySchema = {
-  expand?: string[]
-}
+export type t_postInvoicesInvoiceRemoveLinesApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
+    invoice_metadata?:
+      | {
+          [key: string]: string | undefined
+        }
+      | ""
+    lines: {
+      behavior: "delete" | "unassign"
+      id: string
+    }[]
+  }
 
 export type t_PostInvoicesInvoiceSendParamSchema = {
   invoice: string
 }
 
-export type t_PostInvoicesInvoiceUpdateLinesBodySchema = {
-  expand?: string[]
-  invoice_metadata?:
-    | {
-        [key: string]: string | undefined
-      }
-    | ""
-  lines: {
-    amount?: number
-    description?: string
-    discountable?: boolean
-    discounts?:
-      | {
-          coupon?: string
-          discount?: string
-          promotion_code?: string
-        }[]
-      | ""
-    id: string
-    metadata?:
-      | {
-          [key: string]: string | undefined
-        }
-      | ""
-    period?: {
-      end: number
-      start: number
-    }
-    price_data?: {
-      currency: string
-      product?: string
-      product_data?: {
-        description?: string
-        images?: string[]
-        metadata?: {
-          [key: string]: string | undefined
-        }
-        name: string
-        tax_code?: string
-      }
-      tax_behavior?: "exclusive" | "inclusive" | "unspecified"
-      unit_amount?: number
-      unit_amount_decimal?: string
-    }
-    pricing?: {
-      price?: string
-    }
-    quantity?: number
-    tax_amounts?:
-      | {
-          amount: number
-          tax_rate_data: {
-            country?: string
-            description?: string
-            display_name: string
-            inclusive: boolean
-            jurisdiction?: string
-            jurisdiction_level?:
-              | "city"
-              | "country"
-              | "county"
-              | "district"
-              | "multiple"
-              | "state"
-            percentage: number
-            state?: string
-            tax_type?:
-              | "amusement_tax"
-              | "communications_tax"
-              | "gst"
-              | "hst"
-              | "igst"
-              | "jct"
-              | "lease_tax"
-              | "pst"
-              | "qst"
-              | "retail_delivery_fee"
-              | "rst"
-              | "sales_tax"
-              | "service_tax"
-              | "vat"
-          }
-          taxability_reason?:
-            | "customer_exempt"
-            | "not_collecting"
-            | "not_subject_to_tax"
-            | "not_supported"
-            | "portion_product_exempt"
-            | "portion_reduced_rated"
-            | "portion_standard_rated"
-            | "product_exempt"
-            | "product_exempt_holiday"
-            | "proportionally_rated"
-            | "reduced_rated"
-            | "reverse_charge"
-            | "standard_rated"
-            | "taxable_basis_reduced"
-            | "zero_rated"
-          taxable_amount: number
-        }[]
-      | ""
-    tax_rates?: string[] | ""
-  }[]
-}
+export type t_postInvoicesInvoiceSendApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
+  }
 
 export type t_PostInvoicesInvoiceUpdateLinesParamSchema = {
   invoice: string
 }
 
-export type t_PostInvoicesInvoiceVoidBodySchema = {
-  expand?: string[]
-}
+export type t_postInvoicesInvoiceUpdateLinesApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
+    invoice_metadata?:
+      | {
+          [key: string]: string | undefined
+        }
+      | ""
+    lines: {
+      amount?: number
+      description?: string
+      discountable?: boolean
+      discounts?:
+        | {
+            coupon?: string
+            discount?: string
+            promotion_code?: string
+          }[]
+        | ""
+      id: string
+      metadata?:
+        | {
+            [key: string]: string | undefined
+          }
+        | ""
+      period?: {
+        end: number
+        start: number
+      }
+      price_data?: {
+        currency: string
+        product?: string
+        product_data?: {
+          description?: string
+          images?: string[]
+          metadata?: {
+            [key: string]: string | undefined
+          }
+          name: string
+          tax_code?: string
+        }
+        tax_behavior?: "exclusive" | "inclusive" | "unspecified"
+        unit_amount?: number
+        unit_amount_decimal?: string
+      }
+      pricing?: {
+        price?: string
+      }
+      quantity?: number
+      tax_amounts?:
+        | {
+            amount: number
+            tax_rate_data: {
+              country?: string
+              description?: string
+              display_name: string
+              inclusive: boolean
+              jurisdiction?: string
+              jurisdiction_level?:
+                | "city"
+                | "country"
+                | "county"
+                | "district"
+                | "multiple"
+                | "state"
+              percentage: number
+              state?: string
+              tax_type?:
+                | "amusement_tax"
+                | "communications_tax"
+                | "gst"
+                | "hst"
+                | "igst"
+                | "jct"
+                | "lease_tax"
+                | "pst"
+                | "qst"
+                | "retail_delivery_fee"
+                | "rst"
+                | "sales_tax"
+                | "service_tax"
+                | "vat"
+            }
+            taxability_reason?:
+              | "customer_exempt"
+              | "not_collecting"
+              | "not_subject_to_tax"
+              | "not_supported"
+              | "portion_product_exempt"
+              | "portion_reduced_rated"
+              | "portion_standard_rated"
+              | "product_exempt"
+              | "product_exempt_holiday"
+              | "proportionally_rated"
+              | "reduced_rated"
+              | "reverse_charge"
+              | "standard_rated"
+              | "taxable_basis_reduced"
+              | "zero_rated"
+            taxable_amount: number
+          }[]
+        | ""
+      tax_rates?: string[] | ""
+    }[]
+  }
 
 export type t_PostInvoicesInvoiceVoidParamSchema = {
   invoice: string
 }
 
-export type t_PostIssuingAuthorizationsAuthorizationBodySchema = {
-  expand?: string[]
-  metadata?:
-    | {
-        [key: string]: string | undefined
-      }
-    | ""
-}
+export type t_postInvoicesInvoiceVoidApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
+  }
 
 export type t_PostIssuingAuthorizationsAuthorizationParamSchema = {
   authorization: string
 }
 
-export type t_PostIssuingAuthorizationsAuthorizationApproveBodySchema = {
-  amount?: number
-  expand?: string[]
-  metadata?:
-    | {
-        [key: string]: string | undefined
-      }
-    | ""
-}
+export type t_postIssuingAuthorizationsAuthorizationApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
+    metadata?:
+      | {
+          [key: string]: string | undefined
+        }
+      | ""
+  }
 
 export type t_PostIssuingAuthorizationsAuthorizationApproveParamSchema = {
   authorization: string
 }
 
-export type t_PostIssuingAuthorizationsAuthorizationDeclineBodySchema = {
-  expand?: string[]
-  metadata?:
-    | {
-        [key: string]: string | undefined
-      }
-    | ""
-}
+export type t_postIssuingAuthorizationsAuthorizationApproveApplicationXWwwFormUrlencodedRequestBody =
+  {
+    amount?: number
+    expand?: string[]
+    metadata?:
+      | {
+          [key: string]: string | undefined
+        }
+      | ""
+  }
 
 export type t_PostIssuingAuthorizationsAuthorizationDeclineParamSchema = {
   authorization: string
 }
 
-export type t_PostIssuingCardholdersBodySchema = {
+export type t_postIssuingAuthorizationsAuthorizationDeclineApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
+    metadata?:
+      | {
+          [key: string]: string | undefined
+        }
+      | ""
+  }
+
+export type t_postIssuingCardholdersApplicationXWwwFormUrlencodedRequestBody = {
   billing: {
     address: {
       city: string
@@ -25096,649 +25186,56 @@ export type t_PostIssuingCardholdersBodySchema = {
   type?: "company" | "individual"
 }
 
-export type t_PostIssuingCardholdersCardholderBodySchema = {
-  billing?: {
-    address: {
-      city: string
-      country: string
-      line1: string
-      line2?: string
-      postal_code: string
-      state?: string
-    }
-  }
-  company?: {
-    tax_id?: string
-  }
-  email?: string
-  expand?: string[]
-  individual?: {
-    card_issuing?: {
-      user_terms_acceptance?: {
-        date?: number
-        ip?: string
-        user_agent?: string | ""
+export type t_PostIssuingCardholdersCardholderParamSchema = {
+  cardholder: string
+}
+
+export type t_postIssuingCardholdersCardholderApplicationXWwwFormUrlencodedRequestBody =
+  {
+    billing?: {
+      address: {
+        city: string
+        country: string
+        line1: string
+        line2?: string
+        postal_code: string
+        state?: string
       }
     }
-    dob?: {
-      day: number
-      month: number
-      year: number
+    company?: {
+      tax_id?: string
     }
-    first_name?: string
-    last_name?: string
-    verification?: {
-      document?: {
-        back?: string
-        front?: string
+    email?: string
+    expand?: string[]
+    individual?: {
+      card_issuing?: {
+        user_terms_acceptance?: {
+          date?: number
+          ip?: string
+          user_agent?: string | ""
+        }
+      }
+      dob?: {
+        day: number
+        month: number
+        year: number
+      }
+      first_name?: string
+      last_name?: string
+      verification?: {
+        document?: {
+          back?: string
+          front?: string
+        }
       }
     }
-  }
-  metadata?: {
-    [key: string]: string | undefined
-  }
-  phone_number?: string
-  preferred_locales?: ("de" | "en" | "es" | "fr" | "it")[]
-  spending_controls?: {
-    allowed_categories?: (
-      | "ac_refrigeration_repair"
-      | "accounting_bookkeeping_services"
-      | "advertising_services"
-      | "agricultural_cooperative"
-      | "airlines_air_carriers"
-      | "airports_flying_fields"
-      | "ambulance_services"
-      | "amusement_parks_carnivals"
-      | "antique_reproductions"
-      | "antique_shops"
-      | "aquariums"
-      | "architectural_surveying_services"
-      | "art_dealers_and_galleries"
-      | "artists_supply_and_craft_shops"
-      | "auto_and_home_supply_stores"
-      | "auto_body_repair_shops"
-      | "auto_paint_shops"
-      | "auto_service_shops"
-      | "automated_cash_disburse"
-      | "automated_fuel_dispensers"
-      | "automobile_associations"
-      | "automotive_parts_and_accessories_stores"
-      | "automotive_tire_stores"
-      | "bail_and_bond_payments"
-      | "bakeries"
-      | "bands_orchestras"
-      | "barber_and_beauty_shops"
-      | "betting_casino_gambling"
-      | "bicycle_shops"
-      | "billiard_pool_establishments"
-      | "boat_dealers"
-      | "boat_rentals_and_leases"
-      | "book_stores"
-      | "books_periodicals_and_newspapers"
-      | "bowling_alleys"
-      | "bus_lines"
-      | "business_secretarial_schools"
-      | "buying_shopping_services"
-      | "cable_satellite_and_other_pay_television_and_radio"
-      | "camera_and_photographic_supply_stores"
-      | "candy_nut_and_confectionery_stores"
-      | "car_and_truck_dealers_new_used"
-      | "car_and_truck_dealers_used_only"
-      | "car_rental_agencies"
-      | "car_washes"
-      | "carpentry_services"
-      | "carpet_upholstery_cleaning"
-      | "caterers"
-      | "charitable_and_social_service_organizations_fundraising"
-      | "chemicals_and_allied_products"
-      | "child_care_services"
-      | "childrens_and_infants_wear_stores"
-      | "chiropodists_podiatrists"
-      | "chiropractors"
-      | "cigar_stores_and_stands"
-      | "civic_social_fraternal_associations"
-      | "cleaning_and_maintenance"
-      | "clothing_rental"
-      | "colleges_universities"
-      | "commercial_equipment"
-      | "commercial_footwear"
-      | "commercial_photography_art_and_graphics"
-      | "commuter_transport_and_ferries"
-      | "computer_network_services"
-      | "computer_programming"
-      | "computer_repair"
-      | "computer_software_stores"
-      | "computers_peripherals_and_software"
-      | "concrete_work_services"
-      | "construction_materials"
-      | "consulting_public_relations"
-      | "correspondence_schools"
-      | "cosmetic_stores"
-      | "counseling_services"
-      | "country_clubs"
-      | "courier_services"
-      | "court_costs"
-      | "credit_reporting_agencies"
-      | "cruise_lines"
-      | "dairy_products_stores"
-      | "dance_hall_studios_schools"
-      | "dating_escort_services"
-      | "dentists_orthodontists"
-      | "department_stores"
-      | "detective_agencies"
-      | "digital_goods_applications"
-      | "digital_goods_games"
-      | "digital_goods_large_volume"
-      | "digital_goods_media"
-      | "direct_marketing_catalog_merchant"
-      | "direct_marketing_combination_catalog_and_retail_merchant"
-      | "direct_marketing_inbound_telemarketing"
-      | "direct_marketing_insurance_services"
-      | "direct_marketing_other"
-      | "direct_marketing_outbound_telemarketing"
-      | "direct_marketing_subscription"
-      | "direct_marketing_travel"
-      | "discount_stores"
-      | "doctors"
-      | "door_to_door_sales"
-      | "drapery_window_covering_and_upholstery_stores"
-      | "drinking_places"
-      | "drug_stores_and_pharmacies"
-      | "drugs_drug_proprietaries_and_druggist_sundries"
-      | "dry_cleaners"
-      | "durable_goods"
-      | "duty_free_stores"
-      | "eating_places_restaurants"
-      | "educational_services"
-      | "electric_razor_stores"
-      | "electric_vehicle_charging"
-      | "electrical_parts_and_equipment"
-      | "electrical_services"
-      | "electronics_repair_shops"
-      | "electronics_stores"
-      | "elementary_secondary_schools"
-      | "emergency_services_gcas_visa_use_only"
-      | "employment_temp_agencies"
-      | "equipment_rental"
-      | "exterminating_services"
-      | "family_clothing_stores"
-      | "fast_food_restaurants"
-      | "financial_institutions"
-      | "fines_government_administrative_entities"
-      | "fireplace_fireplace_screens_and_accessories_stores"
-      | "floor_covering_stores"
-      | "florists"
-      | "florists_supplies_nursery_stock_and_flowers"
-      | "freezer_and_locker_meat_provisioners"
-      | "fuel_dealers_non_automotive"
-      | "funeral_services_crematories"
-      | "furniture_home_furnishings_and_equipment_stores_except_appliances"
-      | "furniture_repair_refinishing"
-      | "furriers_and_fur_shops"
-      | "general_services"
-      | "gift_card_novelty_and_souvenir_shops"
-      | "glass_paint_and_wallpaper_stores"
-      | "glassware_crystal_stores"
-      | "golf_courses_public"
-      | "government_licensed_horse_dog_racing_us_region_only"
-      | "government_licensed_online_casions_online_gambling_us_region_only"
-      | "government_owned_lotteries_non_us_region"
-      | "government_owned_lotteries_us_region_only"
-      | "government_services"
-      | "grocery_stores_supermarkets"
-      | "hardware_equipment_and_supplies"
-      | "hardware_stores"
-      | "health_and_beauty_spas"
-      | "hearing_aids_sales_and_supplies"
-      | "heating_plumbing_a_c"
-      | "hobby_toy_and_game_shops"
-      | "home_supply_warehouse_stores"
-      | "hospitals"
-      | "hotels_motels_and_resorts"
-      | "household_appliance_stores"
-      | "industrial_supplies"
-      | "information_retrieval_services"
-      | "insurance_default"
-      | "insurance_underwriting_premiums"
-      | "intra_company_purchases"
-      | "jewelry_stores_watches_clocks_and_silverware_stores"
-      | "landscaping_services"
-      | "laundries"
-      | "laundry_cleaning_services"
-      | "legal_services_attorneys"
-      | "luggage_and_leather_goods_stores"
-      | "lumber_building_materials_stores"
-      | "manual_cash_disburse"
-      | "marinas_service_and_supplies"
-      | "marketplaces"
-      | "masonry_stonework_and_plaster"
-      | "massage_parlors"
-      | "medical_and_dental_labs"
-      | "medical_dental_ophthalmic_and_hospital_equipment_and_supplies"
-      | "medical_services"
-      | "membership_organizations"
-      | "mens_and_boys_clothing_and_accessories_stores"
-      | "mens_womens_clothing_stores"
-      | "metal_service_centers"
-      | "miscellaneous"
-      | "miscellaneous_apparel_and_accessory_shops"
-      | "miscellaneous_auto_dealers"
-      | "miscellaneous_business_services"
-      | "miscellaneous_food_stores"
-      | "miscellaneous_general_merchandise"
-      | "miscellaneous_general_services"
-      | "miscellaneous_home_furnishing_specialty_stores"
-      | "miscellaneous_publishing_and_printing"
-      | "miscellaneous_recreation_services"
-      | "miscellaneous_repair_shops"
-      | "miscellaneous_specialty_retail"
-      | "mobile_home_dealers"
-      | "motion_picture_theaters"
-      | "motor_freight_carriers_and_trucking"
-      | "motor_homes_dealers"
-      | "motor_vehicle_supplies_and_new_parts"
-      | "motorcycle_shops_and_dealers"
-      | "motorcycle_shops_dealers"
-      | "music_stores_musical_instruments_pianos_and_sheet_music"
-      | "news_dealers_and_newsstands"
-      | "non_fi_money_orders"
-      | "non_fi_stored_value_card_purchase_load"
-      | "nondurable_goods"
-      | "nurseries_lawn_and_garden_supply_stores"
-      | "nursing_personal_care"
-      | "office_and_commercial_furniture"
-      | "opticians_eyeglasses"
-      | "optometrists_ophthalmologist"
-      | "orthopedic_goods_prosthetic_devices"
-      | "osteopaths"
-      | "package_stores_beer_wine_and_liquor"
-      | "paints_varnishes_and_supplies"
-      | "parking_lots_garages"
-      | "passenger_railways"
-      | "pawn_shops"
-      | "pet_shops_pet_food_and_supplies"
-      | "petroleum_and_petroleum_products"
-      | "photo_developing"
-      | "photographic_photocopy_microfilm_equipment_and_supplies"
-      | "photographic_studios"
-      | "picture_video_production"
-      | "piece_goods_notions_and_other_dry_goods"
-      | "plumbing_heating_equipment_and_supplies"
-      | "political_organizations"
-      | "postal_services_government_only"
-      | "precious_stones_and_metals_watches_and_jewelry"
-      | "professional_services"
-      | "public_warehousing_and_storage"
-      | "quick_copy_repro_and_blueprint"
-      | "railroads"
-      | "real_estate_agents_and_managers_rentals"
-      | "record_stores"
-      | "recreational_vehicle_rentals"
-      | "religious_goods_stores"
-      | "religious_organizations"
-      | "roofing_siding_sheet_metal"
-      | "secretarial_support_services"
-      | "security_brokers_dealers"
-      | "service_stations"
-      | "sewing_needlework_fabric_and_piece_goods_stores"
-      | "shoe_repair_hat_cleaning"
-      | "shoe_stores"
-      | "small_appliance_repair"
-      | "snowmobile_dealers"
-      | "special_trade_services"
-      | "specialty_cleaning"
-      | "sporting_goods_stores"
-      | "sporting_recreation_camps"
-      | "sports_and_riding_apparel_stores"
-      | "sports_clubs_fields"
-      | "stamp_and_coin_stores"
-      | "stationary_office_supplies_printing_and_writing_paper"
-      | "stationery_stores_office_and_school_supply_stores"
-      | "swimming_pools_sales"
-      | "t_ui_travel_germany"
-      | "tailors_alterations"
-      | "tax_payments_government_agencies"
-      | "tax_preparation_services"
-      | "taxicabs_limousines"
-      | "telecommunication_equipment_and_telephone_sales"
-      | "telecommunication_services"
-      | "telegraph_services"
-      | "tent_and_awning_shops"
-      | "testing_laboratories"
-      | "theatrical_ticket_agencies"
-      | "timeshares"
-      | "tire_retreading_and_repair"
-      | "tolls_bridge_fees"
-      | "tourist_attractions_and_exhibits"
-      | "towing_services"
-      | "trailer_parks_campgrounds"
-      | "transportation_services"
-      | "travel_agencies_tour_operators"
-      | "truck_stop_iteration"
-      | "truck_utility_trailer_rentals"
-      | "typesetting_plate_making_and_related_services"
-      | "typewriter_stores"
-      | "u_s_federal_government_agencies_or_departments"
-      | "uniforms_commercial_clothing"
-      | "used_merchandise_and_secondhand_stores"
-      | "utilities"
-      | "variety_stores"
-      | "veterinary_services"
-      | "video_amusement_game_supplies"
-      | "video_game_arcades"
-      | "video_tape_rental_stores"
-      | "vocational_trade_schools"
-      | "watch_jewelry_repair"
-      | "welding_repair"
-      | "wholesale_clubs"
-      | "wig_and_toupee_stores"
-      | "wires_money_orders"
-      | "womens_accessory_and_specialty_shops"
-      | "womens_ready_to_wear_stores"
-      | "wrecking_and_salvage_yards"
-    )[]
-    allowed_merchant_countries?: string[]
-    blocked_categories?: (
-      | "ac_refrigeration_repair"
-      | "accounting_bookkeeping_services"
-      | "advertising_services"
-      | "agricultural_cooperative"
-      | "airlines_air_carriers"
-      | "airports_flying_fields"
-      | "ambulance_services"
-      | "amusement_parks_carnivals"
-      | "antique_reproductions"
-      | "antique_shops"
-      | "aquariums"
-      | "architectural_surveying_services"
-      | "art_dealers_and_galleries"
-      | "artists_supply_and_craft_shops"
-      | "auto_and_home_supply_stores"
-      | "auto_body_repair_shops"
-      | "auto_paint_shops"
-      | "auto_service_shops"
-      | "automated_cash_disburse"
-      | "automated_fuel_dispensers"
-      | "automobile_associations"
-      | "automotive_parts_and_accessories_stores"
-      | "automotive_tire_stores"
-      | "bail_and_bond_payments"
-      | "bakeries"
-      | "bands_orchestras"
-      | "barber_and_beauty_shops"
-      | "betting_casino_gambling"
-      | "bicycle_shops"
-      | "billiard_pool_establishments"
-      | "boat_dealers"
-      | "boat_rentals_and_leases"
-      | "book_stores"
-      | "books_periodicals_and_newspapers"
-      | "bowling_alleys"
-      | "bus_lines"
-      | "business_secretarial_schools"
-      | "buying_shopping_services"
-      | "cable_satellite_and_other_pay_television_and_radio"
-      | "camera_and_photographic_supply_stores"
-      | "candy_nut_and_confectionery_stores"
-      | "car_and_truck_dealers_new_used"
-      | "car_and_truck_dealers_used_only"
-      | "car_rental_agencies"
-      | "car_washes"
-      | "carpentry_services"
-      | "carpet_upholstery_cleaning"
-      | "caterers"
-      | "charitable_and_social_service_organizations_fundraising"
-      | "chemicals_and_allied_products"
-      | "child_care_services"
-      | "childrens_and_infants_wear_stores"
-      | "chiropodists_podiatrists"
-      | "chiropractors"
-      | "cigar_stores_and_stands"
-      | "civic_social_fraternal_associations"
-      | "cleaning_and_maintenance"
-      | "clothing_rental"
-      | "colleges_universities"
-      | "commercial_equipment"
-      | "commercial_footwear"
-      | "commercial_photography_art_and_graphics"
-      | "commuter_transport_and_ferries"
-      | "computer_network_services"
-      | "computer_programming"
-      | "computer_repair"
-      | "computer_software_stores"
-      | "computers_peripherals_and_software"
-      | "concrete_work_services"
-      | "construction_materials"
-      | "consulting_public_relations"
-      | "correspondence_schools"
-      | "cosmetic_stores"
-      | "counseling_services"
-      | "country_clubs"
-      | "courier_services"
-      | "court_costs"
-      | "credit_reporting_agencies"
-      | "cruise_lines"
-      | "dairy_products_stores"
-      | "dance_hall_studios_schools"
-      | "dating_escort_services"
-      | "dentists_orthodontists"
-      | "department_stores"
-      | "detective_agencies"
-      | "digital_goods_applications"
-      | "digital_goods_games"
-      | "digital_goods_large_volume"
-      | "digital_goods_media"
-      | "direct_marketing_catalog_merchant"
-      | "direct_marketing_combination_catalog_and_retail_merchant"
-      | "direct_marketing_inbound_telemarketing"
-      | "direct_marketing_insurance_services"
-      | "direct_marketing_other"
-      | "direct_marketing_outbound_telemarketing"
-      | "direct_marketing_subscription"
-      | "direct_marketing_travel"
-      | "discount_stores"
-      | "doctors"
-      | "door_to_door_sales"
-      | "drapery_window_covering_and_upholstery_stores"
-      | "drinking_places"
-      | "drug_stores_and_pharmacies"
-      | "drugs_drug_proprietaries_and_druggist_sundries"
-      | "dry_cleaners"
-      | "durable_goods"
-      | "duty_free_stores"
-      | "eating_places_restaurants"
-      | "educational_services"
-      | "electric_razor_stores"
-      | "electric_vehicle_charging"
-      | "electrical_parts_and_equipment"
-      | "electrical_services"
-      | "electronics_repair_shops"
-      | "electronics_stores"
-      | "elementary_secondary_schools"
-      | "emergency_services_gcas_visa_use_only"
-      | "employment_temp_agencies"
-      | "equipment_rental"
-      | "exterminating_services"
-      | "family_clothing_stores"
-      | "fast_food_restaurants"
-      | "financial_institutions"
-      | "fines_government_administrative_entities"
-      | "fireplace_fireplace_screens_and_accessories_stores"
-      | "floor_covering_stores"
-      | "florists"
-      | "florists_supplies_nursery_stock_and_flowers"
-      | "freezer_and_locker_meat_provisioners"
-      | "fuel_dealers_non_automotive"
-      | "funeral_services_crematories"
-      | "furniture_home_furnishings_and_equipment_stores_except_appliances"
-      | "furniture_repair_refinishing"
-      | "furriers_and_fur_shops"
-      | "general_services"
-      | "gift_card_novelty_and_souvenir_shops"
-      | "glass_paint_and_wallpaper_stores"
-      | "glassware_crystal_stores"
-      | "golf_courses_public"
-      | "government_licensed_horse_dog_racing_us_region_only"
-      | "government_licensed_online_casions_online_gambling_us_region_only"
-      | "government_owned_lotteries_non_us_region"
-      | "government_owned_lotteries_us_region_only"
-      | "government_services"
-      | "grocery_stores_supermarkets"
-      | "hardware_equipment_and_supplies"
-      | "hardware_stores"
-      | "health_and_beauty_spas"
-      | "hearing_aids_sales_and_supplies"
-      | "heating_plumbing_a_c"
-      | "hobby_toy_and_game_shops"
-      | "home_supply_warehouse_stores"
-      | "hospitals"
-      | "hotels_motels_and_resorts"
-      | "household_appliance_stores"
-      | "industrial_supplies"
-      | "information_retrieval_services"
-      | "insurance_default"
-      | "insurance_underwriting_premiums"
-      | "intra_company_purchases"
-      | "jewelry_stores_watches_clocks_and_silverware_stores"
-      | "landscaping_services"
-      | "laundries"
-      | "laundry_cleaning_services"
-      | "legal_services_attorneys"
-      | "luggage_and_leather_goods_stores"
-      | "lumber_building_materials_stores"
-      | "manual_cash_disburse"
-      | "marinas_service_and_supplies"
-      | "marketplaces"
-      | "masonry_stonework_and_plaster"
-      | "massage_parlors"
-      | "medical_and_dental_labs"
-      | "medical_dental_ophthalmic_and_hospital_equipment_and_supplies"
-      | "medical_services"
-      | "membership_organizations"
-      | "mens_and_boys_clothing_and_accessories_stores"
-      | "mens_womens_clothing_stores"
-      | "metal_service_centers"
-      | "miscellaneous"
-      | "miscellaneous_apparel_and_accessory_shops"
-      | "miscellaneous_auto_dealers"
-      | "miscellaneous_business_services"
-      | "miscellaneous_food_stores"
-      | "miscellaneous_general_merchandise"
-      | "miscellaneous_general_services"
-      | "miscellaneous_home_furnishing_specialty_stores"
-      | "miscellaneous_publishing_and_printing"
-      | "miscellaneous_recreation_services"
-      | "miscellaneous_repair_shops"
-      | "miscellaneous_specialty_retail"
-      | "mobile_home_dealers"
-      | "motion_picture_theaters"
-      | "motor_freight_carriers_and_trucking"
-      | "motor_homes_dealers"
-      | "motor_vehicle_supplies_and_new_parts"
-      | "motorcycle_shops_and_dealers"
-      | "motorcycle_shops_dealers"
-      | "music_stores_musical_instruments_pianos_and_sheet_music"
-      | "news_dealers_and_newsstands"
-      | "non_fi_money_orders"
-      | "non_fi_stored_value_card_purchase_load"
-      | "nondurable_goods"
-      | "nurseries_lawn_and_garden_supply_stores"
-      | "nursing_personal_care"
-      | "office_and_commercial_furniture"
-      | "opticians_eyeglasses"
-      | "optometrists_ophthalmologist"
-      | "orthopedic_goods_prosthetic_devices"
-      | "osteopaths"
-      | "package_stores_beer_wine_and_liquor"
-      | "paints_varnishes_and_supplies"
-      | "parking_lots_garages"
-      | "passenger_railways"
-      | "pawn_shops"
-      | "pet_shops_pet_food_and_supplies"
-      | "petroleum_and_petroleum_products"
-      | "photo_developing"
-      | "photographic_photocopy_microfilm_equipment_and_supplies"
-      | "photographic_studios"
-      | "picture_video_production"
-      | "piece_goods_notions_and_other_dry_goods"
-      | "plumbing_heating_equipment_and_supplies"
-      | "political_organizations"
-      | "postal_services_government_only"
-      | "precious_stones_and_metals_watches_and_jewelry"
-      | "professional_services"
-      | "public_warehousing_and_storage"
-      | "quick_copy_repro_and_blueprint"
-      | "railroads"
-      | "real_estate_agents_and_managers_rentals"
-      | "record_stores"
-      | "recreational_vehicle_rentals"
-      | "religious_goods_stores"
-      | "religious_organizations"
-      | "roofing_siding_sheet_metal"
-      | "secretarial_support_services"
-      | "security_brokers_dealers"
-      | "service_stations"
-      | "sewing_needlework_fabric_and_piece_goods_stores"
-      | "shoe_repair_hat_cleaning"
-      | "shoe_stores"
-      | "small_appliance_repair"
-      | "snowmobile_dealers"
-      | "special_trade_services"
-      | "specialty_cleaning"
-      | "sporting_goods_stores"
-      | "sporting_recreation_camps"
-      | "sports_and_riding_apparel_stores"
-      | "sports_clubs_fields"
-      | "stamp_and_coin_stores"
-      | "stationary_office_supplies_printing_and_writing_paper"
-      | "stationery_stores_office_and_school_supply_stores"
-      | "swimming_pools_sales"
-      | "t_ui_travel_germany"
-      | "tailors_alterations"
-      | "tax_payments_government_agencies"
-      | "tax_preparation_services"
-      | "taxicabs_limousines"
-      | "telecommunication_equipment_and_telephone_sales"
-      | "telecommunication_services"
-      | "telegraph_services"
-      | "tent_and_awning_shops"
-      | "testing_laboratories"
-      | "theatrical_ticket_agencies"
-      | "timeshares"
-      | "tire_retreading_and_repair"
-      | "tolls_bridge_fees"
-      | "tourist_attractions_and_exhibits"
-      | "towing_services"
-      | "trailer_parks_campgrounds"
-      | "transportation_services"
-      | "travel_agencies_tour_operators"
-      | "truck_stop_iteration"
-      | "truck_utility_trailer_rentals"
-      | "typesetting_plate_making_and_related_services"
-      | "typewriter_stores"
-      | "u_s_federal_government_agencies_or_departments"
-      | "uniforms_commercial_clothing"
-      | "used_merchandise_and_secondhand_stores"
-      | "utilities"
-      | "variety_stores"
-      | "veterinary_services"
-      | "video_amusement_game_supplies"
-      | "video_game_arcades"
-      | "video_tape_rental_stores"
-      | "vocational_trade_schools"
-      | "watch_jewelry_repair"
-      | "welding_repair"
-      | "wholesale_clubs"
-      | "wig_and_toupee_stores"
-      | "wires_money_orders"
-      | "womens_accessory_and_specialty_shops"
-      | "womens_ready_to_wear_stores"
-      | "wrecking_and_salvage_yards"
-    )[]
-    blocked_merchant_countries?: string[]
-    spending_limits?: {
-      amount: number
-      categories?: (
+    metadata?: {
+      [key: string]: string | undefined
+    }
+    phone_number?: string
+    preferred_locales?: ("de" | "en" | "es" | "fr" | "it")[]
+    spending_controls?: {
+      allowed_categories?: (
         | "ac_refrigeration_repair"
         | "accounting_bookkeeping_services"
         | "advertising_services"
@@ -26035,24 +25532,618 @@ export type t_PostIssuingCardholdersCardholderBodySchema = {
         | "womens_ready_to_wear_stores"
         | "wrecking_and_salvage_yards"
       )[]
-      interval:
-        | "all_time"
-        | "daily"
-        | "monthly"
-        | "per_authorization"
-        | "weekly"
-        | "yearly"
-    }[]
-    spending_limits_currency?: string
+      allowed_merchant_countries?: string[]
+      blocked_categories?: (
+        | "ac_refrigeration_repair"
+        | "accounting_bookkeeping_services"
+        | "advertising_services"
+        | "agricultural_cooperative"
+        | "airlines_air_carriers"
+        | "airports_flying_fields"
+        | "ambulance_services"
+        | "amusement_parks_carnivals"
+        | "antique_reproductions"
+        | "antique_shops"
+        | "aquariums"
+        | "architectural_surveying_services"
+        | "art_dealers_and_galleries"
+        | "artists_supply_and_craft_shops"
+        | "auto_and_home_supply_stores"
+        | "auto_body_repair_shops"
+        | "auto_paint_shops"
+        | "auto_service_shops"
+        | "automated_cash_disburse"
+        | "automated_fuel_dispensers"
+        | "automobile_associations"
+        | "automotive_parts_and_accessories_stores"
+        | "automotive_tire_stores"
+        | "bail_and_bond_payments"
+        | "bakeries"
+        | "bands_orchestras"
+        | "barber_and_beauty_shops"
+        | "betting_casino_gambling"
+        | "bicycle_shops"
+        | "billiard_pool_establishments"
+        | "boat_dealers"
+        | "boat_rentals_and_leases"
+        | "book_stores"
+        | "books_periodicals_and_newspapers"
+        | "bowling_alleys"
+        | "bus_lines"
+        | "business_secretarial_schools"
+        | "buying_shopping_services"
+        | "cable_satellite_and_other_pay_television_and_radio"
+        | "camera_and_photographic_supply_stores"
+        | "candy_nut_and_confectionery_stores"
+        | "car_and_truck_dealers_new_used"
+        | "car_and_truck_dealers_used_only"
+        | "car_rental_agencies"
+        | "car_washes"
+        | "carpentry_services"
+        | "carpet_upholstery_cleaning"
+        | "caterers"
+        | "charitable_and_social_service_organizations_fundraising"
+        | "chemicals_and_allied_products"
+        | "child_care_services"
+        | "childrens_and_infants_wear_stores"
+        | "chiropodists_podiatrists"
+        | "chiropractors"
+        | "cigar_stores_and_stands"
+        | "civic_social_fraternal_associations"
+        | "cleaning_and_maintenance"
+        | "clothing_rental"
+        | "colleges_universities"
+        | "commercial_equipment"
+        | "commercial_footwear"
+        | "commercial_photography_art_and_graphics"
+        | "commuter_transport_and_ferries"
+        | "computer_network_services"
+        | "computer_programming"
+        | "computer_repair"
+        | "computer_software_stores"
+        | "computers_peripherals_and_software"
+        | "concrete_work_services"
+        | "construction_materials"
+        | "consulting_public_relations"
+        | "correspondence_schools"
+        | "cosmetic_stores"
+        | "counseling_services"
+        | "country_clubs"
+        | "courier_services"
+        | "court_costs"
+        | "credit_reporting_agencies"
+        | "cruise_lines"
+        | "dairy_products_stores"
+        | "dance_hall_studios_schools"
+        | "dating_escort_services"
+        | "dentists_orthodontists"
+        | "department_stores"
+        | "detective_agencies"
+        | "digital_goods_applications"
+        | "digital_goods_games"
+        | "digital_goods_large_volume"
+        | "digital_goods_media"
+        | "direct_marketing_catalog_merchant"
+        | "direct_marketing_combination_catalog_and_retail_merchant"
+        | "direct_marketing_inbound_telemarketing"
+        | "direct_marketing_insurance_services"
+        | "direct_marketing_other"
+        | "direct_marketing_outbound_telemarketing"
+        | "direct_marketing_subscription"
+        | "direct_marketing_travel"
+        | "discount_stores"
+        | "doctors"
+        | "door_to_door_sales"
+        | "drapery_window_covering_and_upholstery_stores"
+        | "drinking_places"
+        | "drug_stores_and_pharmacies"
+        | "drugs_drug_proprietaries_and_druggist_sundries"
+        | "dry_cleaners"
+        | "durable_goods"
+        | "duty_free_stores"
+        | "eating_places_restaurants"
+        | "educational_services"
+        | "electric_razor_stores"
+        | "electric_vehicle_charging"
+        | "electrical_parts_and_equipment"
+        | "electrical_services"
+        | "electronics_repair_shops"
+        | "electronics_stores"
+        | "elementary_secondary_schools"
+        | "emergency_services_gcas_visa_use_only"
+        | "employment_temp_agencies"
+        | "equipment_rental"
+        | "exterminating_services"
+        | "family_clothing_stores"
+        | "fast_food_restaurants"
+        | "financial_institutions"
+        | "fines_government_administrative_entities"
+        | "fireplace_fireplace_screens_and_accessories_stores"
+        | "floor_covering_stores"
+        | "florists"
+        | "florists_supplies_nursery_stock_and_flowers"
+        | "freezer_and_locker_meat_provisioners"
+        | "fuel_dealers_non_automotive"
+        | "funeral_services_crematories"
+        | "furniture_home_furnishings_and_equipment_stores_except_appliances"
+        | "furniture_repair_refinishing"
+        | "furriers_and_fur_shops"
+        | "general_services"
+        | "gift_card_novelty_and_souvenir_shops"
+        | "glass_paint_and_wallpaper_stores"
+        | "glassware_crystal_stores"
+        | "golf_courses_public"
+        | "government_licensed_horse_dog_racing_us_region_only"
+        | "government_licensed_online_casions_online_gambling_us_region_only"
+        | "government_owned_lotteries_non_us_region"
+        | "government_owned_lotteries_us_region_only"
+        | "government_services"
+        | "grocery_stores_supermarkets"
+        | "hardware_equipment_and_supplies"
+        | "hardware_stores"
+        | "health_and_beauty_spas"
+        | "hearing_aids_sales_and_supplies"
+        | "heating_plumbing_a_c"
+        | "hobby_toy_and_game_shops"
+        | "home_supply_warehouse_stores"
+        | "hospitals"
+        | "hotels_motels_and_resorts"
+        | "household_appliance_stores"
+        | "industrial_supplies"
+        | "information_retrieval_services"
+        | "insurance_default"
+        | "insurance_underwriting_premiums"
+        | "intra_company_purchases"
+        | "jewelry_stores_watches_clocks_and_silverware_stores"
+        | "landscaping_services"
+        | "laundries"
+        | "laundry_cleaning_services"
+        | "legal_services_attorneys"
+        | "luggage_and_leather_goods_stores"
+        | "lumber_building_materials_stores"
+        | "manual_cash_disburse"
+        | "marinas_service_and_supplies"
+        | "marketplaces"
+        | "masonry_stonework_and_plaster"
+        | "massage_parlors"
+        | "medical_and_dental_labs"
+        | "medical_dental_ophthalmic_and_hospital_equipment_and_supplies"
+        | "medical_services"
+        | "membership_organizations"
+        | "mens_and_boys_clothing_and_accessories_stores"
+        | "mens_womens_clothing_stores"
+        | "metal_service_centers"
+        | "miscellaneous"
+        | "miscellaneous_apparel_and_accessory_shops"
+        | "miscellaneous_auto_dealers"
+        | "miscellaneous_business_services"
+        | "miscellaneous_food_stores"
+        | "miscellaneous_general_merchandise"
+        | "miscellaneous_general_services"
+        | "miscellaneous_home_furnishing_specialty_stores"
+        | "miscellaneous_publishing_and_printing"
+        | "miscellaneous_recreation_services"
+        | "miscellaneous_repair_shops"
+        | "miscellaneous_specialty_retail"
+        | "mobile_home_dealers"
+        | "motion_picture_theaters"
+        | "motor_freight_carriers_and_trucking"
+        | "motor_homes_dealers"
+        | "motor_vehicle_supplies_and_new_parts"
+        | "motorcycle_shops_and_dealers"
+        | "motorcycle_shops_dealers"
+        | "music_stores_musical_instruments_pianos_and_sheet_music"
+        | "news_dealers_and_newsstands"
+        | "non_fi_money_orders"
+        | "non_fi_stored_value_card_purchase_load"
+        | "nondurable_goods"
+        | "nurseries_lawn_and_garden_supply_stores"
+        | "nursing_personal_care"
+        | "office_and_commercial_furniture"
+        | "opticians_eyeglasses"
+        | "optometrists_ophthalmologist"
+        | "orthopedic_goods_prosthetic_devices"
+        | "osteopaths"
+        | "package_stores_beer_wine_and_liquor"
+        | "paints_varnishes_and_supplies"
+        | "parking_lots_garages"
+        | "passenger_railways"
+        | "pawn_shops"
+        | "pet_shops_pet_food_and_supplies"
+        | "petroleum_and_petroleum_products"
+        | "photo_developing"
+        | "photographic_photocopy_microfilm_equipment_and_supplies"
+        | "photographic_studios"
+        | "picture_video_production"
+        | "piece_goods_notions_and_other_dry_goods"
+        | "plumbing_heating_equipment_and_supplies"
+        | "political_organizations"
+        | "postal_services_government_only"
+        | "precious_stones_and_metals_watches_and_jewelry"
+        | "professional_services"
+        | "public_warehousing_and_storage"
+        | "quick_copy_repro_and_blueprint"
+        | "railroads"
+        | "real_estate_agents_and_managers_rentals"
+        | "record_stores"
+        | "recreational_vehicle_rentals"
+        | "religious_goods_stores"
+        | "religious_organizations"
+        | "roofing_siding_sheet_metal"
+        | "secretarial_support_services"
+        | "security_brokers_dealers"
+        | "service_stations"
+        | "sewing_needlework_fabric_and_piece_goods_stores"
+        | "shoe_repair_hat_cleaning"
+        | "shoe_stores"
+        | "small_appliance_repair"
+        | "snowmobile_dealers"
+        | "special_trade_services"
+        | "specialty_cleaning"
+        | "sporting_goods_stores"
+        | "sporting_recreation_camps"
+        | "sports_and_riding_apparel_stores"
+        | "sports_clubs_fields"
+        | "stamp_and_coin_stores"
+        | "stationary_office_supplies_printing_and_writing_paper"
+        | "stationery_stores_office_and_school_supply_stores"
+        | "swimming_pools_sales"
+        | "t_ui_travel_germany"
+        | "tailors_alterations"
+        | "tax_payments_government_agencies"
+        | "tax_preparation_services"
+        | "taxicabs_limousines"
+        | "telecommunication_equipment_and_telephone_sales"
+        | "telecommunication_services"
+        | "telegraph_services"
+        | "tent_and_awning_shops"
+        | "testing_laboratories"
+        | "theatrical_ticket_agencies"
+        | "timeshares"
+        | "tire_retreading_and_repair"
+        | "tolls_bridge_fees"
+        | "tourist_attractions_and_exhibits"
+        | "towing_services"
+        | "trailer_parks_campgrounds"
+        | "transportation_services"
+        | "travel_agencies_tour_operators"
+        | "truck_stop_iteration"
+        | "truck_utility_trailer_rentals"
+        | "typesetting_plate_making_and_related_services"
+        | "typewriter_stores"
+        | "u_s_federal_government_agencies_or_departments"
+        | "uniforms_commercial_clothing"
+        | "used_merchandise_and_secondhand_stores"
+        | "utilities"
+        | "variety_stores"
+        | "veterinary_services"
+        | "video_amusement_game_supplies"
+        | "video_game_arcades"
+        | "video_tape_rental_stores"
+        | "vocational_trade_schools"
+        | "watch_jewelry_repair"
+        | "welding_repair"
+        | "wholesale_clubs"
+        | "wig_and_toupee_stores"
+        | "wires_money_orders"
+        | "womens_accessory_and_specialty_shops"
+        | "womens_ready_to_wear_stores"
+        | "wrecking_and_salvage_yards"
+      )[]
+      blocked_merchant_countries?: string[]
+      spending_limits?: {
+        amount: number
+        categories?: (
+          | "ac_refrigeration_repair"
+          | "accounting_bookkeeping_services"
+          | "advertising_services"
+          | "agricultural_cooperative"
+          | "airlines_air_carriers"
+          | "airports_flying_fields"
+          | "ambulance_services"
+          | "amusement_parks_carnivals"
+          | "antique_reproductions"
+          | "antique_shops"
+          | "aquariums"
+          | "architectural_surveying_services"
+          | "art_dealers_and_galleries"
+          | "artists_supply_and_craft_shops"
+          | "auto_and_home_supply_stores"
+          | "auto_body_repair_shops"
+          | "auto_paint_shops"
+          | "auto_service_shops"
+          | "automated_cash_disburse"
+          | "automated_fuel_dispensers"
+          | "automobile_associations"
+          | "automotive_parts_and_accessories_stores"
+          | "automotive_tire_stores"
+          | "bail_and_bond_payments"
+          | "bakeries"
+          | "bands_orchestras"
+          | "barber_and_beauty_shops"
+          | "betting_casino_gambling"
+          | "bicycle_shops"
+          | "billiard_pool_establishments"
+          | "boat_dealers"
+          | "boat_rentals_and_leases"
+          | "book_stores"
+          | "books_periodicals_and_newspapers"
+          | "bowling_alleys"
+          | "bus_lines"
+          | "business_secretarial_schools"
+          | "buying_shopping_services"
+          | "cable_satellite_and_other_pay_television_and_radio"
+          | "camera_and_photographic_supply_stores"
+          | "candy_nut_and_confectionery_stores"
+          | "car_and_truck_dealers_new_used"
+          | "car_and_truck_dealers_used_only"
+          | "car_rental_agencies"
+          | "car_washes"
+          | "carpentry_services"
+          | "carpet_upholstery_cleaning"
+          | "caterers"
+          | "charitable_and_social_service_organizations_fundraising"
+          | "chemicals_and_allied_products"
+          | "child_care_services"
+          | "childrens_and_infants_wear_stores"
+          | "chiropodists_podiatrists"
+          | "chiropractors"
+          | "cigar_stores_and_stands"
+          | "civic_social_fraternal_associations"
+          | "cleaning_and_maintenance"
+          | "clothing_rental"
+          | "colleges_universities"
+          | "commercial_equipment"
+          | "commercial_footwear"
+          | "commercial_photography_art_and_graphics"
+          | "commuter_transport_and_ferries"
+          | "computer_network_services"
+          | "computer_programming"
+          | "computer_repair"
+          | "computer_software_stores"
+          | "computers_peripherals_and_software"
+          | "concrete_work_services"
+          | "construction_materials"
+          | "consulting_public_relations"
+          | "correspondence_schools"
+          | "cosmetic_stores"
+          | "counseling_services"
+          | "country_clubs"
+          | "courier_services"
+          | "court_costs"
+          | "credit_reporting_agencies"
+          | "cruise_lines"
+          | "dairy_products_stores"
+          | "dance_hall_studios_schools"
+          | "dating_escort_services"
+          | "dentists_orthodontists"
+          | "department_stores"
+          | "detective_agencies"
+          | "digital_goods_applications"
+          | "digital_goods_games"
+          | "digital_goods_large_volume"
+          | "digital_goods_media"
+          | "direct_marketing_catalog_merchant"
+          | "direct_marketing_combination_catalog_and_retail_merchant"
+          | "direct_marketing_inbound_telemarketing"
+          | "direct_marketing_insurance_services"
+          | "direct_marketing_other"
+          | "direct_marketing_outbound_telemarketing"
+          | "direct_marketing_subscription"
+          | "direct_marketing_travel"
+          | "discount_stores"
+          | "doctors"
+          | "door_to_door_sales"
+          | "drapery_window_covering_and_upholstery_stores"
+          | "drinking_places"
+          | "drug_stores_and_pharmacies"
+          | "drugs_drug_proprietaries_and_druggist_sundries"
+          | "dry_cleaners"
+          | "durable_goods"
+          | "duty_free_stores"
+          | "eating_places_restaurants"
+          | "educational_services"
+          | "electric_razor_stores"
+          | "electric_vehicle_charging"
+          | "electrical_parts_and_equipment"
+          | "electrical_services"
+          | "electronics_repair_shops"
+          | "electronics_stores"
+          | "elementary_secondary_schools"
+          | "emergency_services_gcas_visa_use_only"
+          | "employment_temp_agencies"
+          | "equipment_rental"
+          | "exterminating_services"
+          | "family_clothing_stores"
+          | "fast_food_restaurants"
+          | "financial_institutions"
+          | "fines_government_administrative_entities"
+          | "fireplace_fireplace_screens_and_accessories_stores"
+          | "floor_covering_stores"
+          | "florists"
+          | "florists_supplies_nursery_stock_and_flowers"
+          | "freezer_and_locker_meat_provisioners"
+          | "fuel_dealers_non_automotive"
+          | "funeral_services_crematories"
+          | "furniture_home_furnishings_and_equipment_stores_except_appliances"
+          | "furniture_repair_refinishing"
+          | "furriers_and_fur_shops"
+          | "general_services"
+          | "gift_card_novelty_and_souvenir_shops"
+          | "glass_paint_and_wallpaper_stores"
+          | "glassware_crystal_stores"
+          | "golf_courses_public"
+          | "government_licensed_horse_dog_racing_us_region_only"
+          | "government_licensed_online_casions_online_gambling_us_region_only"
+          | "government_owned_lotteries_non_us_region"
+          | "government_owned_lotteries_us_region_only"
+          | "government_services"
+          | "grocery_stores_supermarkets"
+          | "hardware_equipment_and_supplies"
+          | "hardware_stores"
+          | "health_and_beauty_spas"
+          | "hearing_aids_sales_and_supplies"
+          | "heating_plumbing_a_c"
+          | "hobby_toy_and_game_shops"
+          | "home_supply_warehouse_stores"
+          | "hospitals"
+          | "hotels_motels_and_resorts"
+          | "household_appliance_stores"
+          | "industrial_supplies"
+          | "information_retrieval_services"
+          | "insurance_default"
+          | "insurance_underwriting_premiums"
+          | "intra_company_purchases"
+          | "jewelry_stores_watches_clocks_and_silverware_stores"
+          | "landscaping_services"
+          | "laundries"
+          | "laundry_cleaning_services"
+          | "legal_services_attorneys"
+          | "luggage_and_leather_goods_stores"
+          | "lumber_building_materials_stores"
+          | "manual_cash_disburse"
+          | "marinas_service_and_supplies"
+          | "marketplaces"
+          | "masonry_stonework_and_plaster"
+          | "massage_parlors"
+          | "medical_and_dental_labs"
+          | "medical_dental_ophthalmic_and_hospital_equipment_and_supplies"
+          | "medical_services"
+          | "membership_organizations"
+          | "mens_and_boys_clothing_and_accessories_stores"
+          | "mens_womens_clothing_stores"
+          | "metal_service_centers"
+          | "miscellaneous"
+          | "miscellaneous_apparel_and_accessory_shops"
+          | "miscellaneous_auto_dealers"
+          | "miscellaneous_business_services"
+          | "miscellaneous_food_stores"
+          | "miscellaneous_general_merchandise"
+          | "miscellaneous_general_services"
+          | "miscellaneous_home_furnishing_specialty_stores"
+          | "miscellaneous_publishing_and_printing"
+          | "miscellaneous_recreation_services"
+          | "miscellaneous_repair_shops"
+          | "miscellaneous_specialty_retail"
+          | "mobile_home_dealers"
+          | "motion_picture_theaters"
+          | "motor_freight_carriers_and_trucking"
+          | "motor_homes_dealers"
+          | "motor_vehicle_supplies_and_new_parts"
+          | "motorcycle_shops_and_dealers"
+          | "motorcycle_shops_dealers"
+          | "music_stores_musical_instruments_pianos_and_sheet_music"
+          | "news_dealers_and_newsstands"
+          | "non_fi_money_orders"
+          | "non_fi_stored_value_card_purchase_load"
+          | "nondurable_goods"
+          | "nurseries_lawn_and_garden_supply_stores"
+          | "nursing_personal_care"
+          | "office_and_commercial_furniture"
+          | "opticians_eyeglasses"
+          | "optometrists_ophthalmologist"
+          | "orthopedic_goods_prosthetic_devices"
+          | "osteopaths"
+          | "package_stores_beer_wine_and_liquor"
+          | "paints_varnishes_and_supplies"
+          | "parking_lots_garages"
+          | "passenger_railways"
+          | "pawn_shops"
+          | "pet_shops_pet_food_and_supplies"
+          | "petroleum_and_petroleum_products"
+          | "photo_developing"
+          | "photographic_photocopy_microfilm_equipment_and_supplies"
+          | "photographic_studios"
+          | "picture_video_production"
+          | "piece_goods_notions_and_other_dry_goods"
+          | "plumbing_heating_equipment_and_supplies"
+          | "political_organizations"
+          | "postal_services_government_only"
+          | "precious_stones_and_metals_watches_and_jewelry"
+          | "professional_services"
+          | "public_warehousing_and_storage"
+          | "quick_copy_repro_and_blueprint"
+          | "railroads"
+          | "real_estate_agents_and_managers_rentals"
+          | "record_stores"
+          | "recreational_vehicle_rentals"
+          | "religious_goods_stores"
+          | "religious_organizations"
+          | "roofing_siding_sheet_metal"
+          | "secretarial_support_services"
+          | "security_brokers_dealers"
+          | "service_stations"
+          | "sewing_needlework_fabric_and_piece_goods_stores"
+          | "shoe_repair_hat_cleaning"
+          | "shoe_stores"
+          | "small_appliance_repair"
+          | "snowmobile_dealers"
+          | "special_trade_services"
+          | "specialty_cleaning"
+          | "sporting_goods_stores"
+          | "sporting_recreation_camps"
+          | "sports_and_riding_apparel_stores"
+          | "sports_clubs_fields"
+          | "stamp_and_coin_stores"
+          | "stationary_office_supplies_printing_and_writing_paper"
+          | "stationery_stores_office_and_school_supply_stores"
+          | "swimming_pools_sales"
+          | "t_ui_travel_germany"
+          | "tailors_alterations"
+          | "tax_payments_government_agencies"
+          | "tax_preparation_services"
+          | "taxicabs_limousines"
+          | "telecommunication_equipment_and_telephone_sales"
+          | "telecommunication_services"
+          | "telegraph_services"
+          | "tent_and_awning_shops"
+          | "testing_laboratories"
+          | "theatrical_ticket_agencies"
+          | "timeshares"
+          | "tire_retreading_and_repair"
+          | "tolls_bridge_fees"
+          | "tourist_attractions_and_exhibits"
+          | "towing_services"
+          | "trailer_parks_campgrounds"
+          | "transportation_services"
+          | "travel_agencies_tour_operators"
+          | "truck_stop_iteration"
+          | "truck_utility_trailer_rentals"
+          | "typesetting_plate_making_and_related_services"
+          | "typewriter_stores"
+          | "u_s_federal_government_agencies_or_departments"
+          | "uniforms_commercial_clothing"
+          | "used_merchandise_and_secondhand_stores"
+          | "utilities"
+          | "variety_stores"
+          | "veterinary_services"
+          | "video_amusement_game_supplies"
+          | "video_game_arcades"
+          | "video_tape_rental_stores"
+          | "vocational_trade_schools"
+          | "watch_jewelry_repair"
+          | "welding_repair"
+          | "wholesale_clubs"
+          | "wig_and_toupee_stores"
+          | "wires_money_orders"
+          | "womens_accessory_and_specialty_shops"
+          | "womens_ready_to_wear_stores"
+          | "wrecking_and_salvage_yards"
+        )[]
+        interval:
+          | "all_time"
+          | "daily"
+          | "monthly"
+          | "per_authorization"
+          | "weekly"
+          | "yearly"
+      }[]
+      spending_limits_currency?: string
+    }
+    status?: "active" | "inactive"
   }
-  status?: "active" | "inactive"
-}
 
-export type t_PostIssuingCardholdersCardholderParamSchema = {
-  cardholder: string
-}
-
-export type t_PostIssuingCardsBodySchema = {
+export type t_postIssuingCardsApplicationXWwwFormUrlencodedRequestBody = {
   cardholder?: string
   currency: string
   expand?: string[]
@@ -26997,7 +27088,11 @@ export type t_PostIssuingCardsBodySchema = {
   type: "physical" | "virtual"
 }
 
-export type t_PostIssuingCardsCardBodySchema = {
+export type t_PostIssuingCardsCardParamSchema = {
+  card: string
+}
+
+export type t_postIssuingCardsCardApplicationXWwwFormUrlencodedRequestBody = {
   cancellation_reason?: "lost" | "stolen"
   expand?: string[]
   metadata?:
@@ -27938,11 +28033,7 @@ export type t_PostIssuingCardsCardBodySchema = {
   status?: "active" | "canceled" | "inactive"
 }
 
-export type t_PostIssuingCardsCardParamSchema = {
-  card: string
-}
-
-export type t_PostIssuingDisputesBodySchema = {
+export type t_postIssuingDisputesApplicationXWwwFormUrlencodedRequestBody = {
   amount?: number
   evidence?: {
     canceled?:
@@ -28037,138 +28128,146 @@ export type t_PostIssuingDisputesBodySchema = {
   }
 }
 
-export type t_PostIssuingDisputesDisputeBodySchema = {
-  amount?: number
-  evidence?: {
-    canceled?:
-      | {
-          additional_documentation?: string | ""
-          canceled_at?: number | ""
-          cancellation_policy_provided?: boolean | ""
-          cancellation_reason?: string | ""
-          expected_at?: number | ""
-          explanation?: string | ""
-          product_description?: string | ""
-          product_type?: "" | "merchandise" | "service"
-          return_status?: "" | "merchant_rejected" | "successful"
-          returned_at?: number | ""
-        }
-      | ""
-    duplicate?:
-      | {
-          additional_documentation?: string | ""
-          card_statement?: string | ""
-          cash_receipt?: string | ""
-          check_image?: string | ""
-          explanation?: string | ""
-          original_transaction?: string
-        }
-      | ""
-    fraudulent?:
-      | {
-          additional_documentation?: string | ""
-          explanation?: string | ""
-        }
-      | ""
-    merchandise_not_as_described?:
-      | {
-          additional_documentation?: string | ""
-          explanation?: string | ""
-          received_at?: number | ""
-          return_description?: string | ""
-          return_status?: "" | "merchant_rejected" | "successful"
-          returned_at?: number | ""
-        }
-      | ""
-    no_valid_authorization?:
-      | {
-          additional_documentation?: string | ""
-          explanation?: string | ""
-        }
-      | ""
-    not_received?:
-      | {
-          additional_documentation?: string | ""
-          expected_at?: number | ""
-          explanation?: string | ""
-          product_description?: string | ""
-          product_type?: "" | "merchandise" | "service"
-        }
-      | ""
-    other?:
-      | {
-          additional_documentation?: string | ""
-          explanation?: string | ""
-          product_description?: string | ""
-          product_type?: "" | "merchandise" | "service"
-        }
-      | ""
-    reason?:
-      | "canceled"
-      | "duplicate"
-      | "fraudulent"
-      | "merchandise_not_as_described"
-      | "no_valid_authorization"
-      | "not_received"
-      | "other"
-      | "service_not_as_described"
-    service_not_as_described?:
-      | {
-          additional_documentation?: string | ""
-          canceled_at?: number | ""
-          cancellation_reason?: string | ""
-          explanation?: string | ""
-          received_at?: number | ""
-        }
-      | ""
-  }
-  expand?: string[]
-  metadata?:
-    | {
-        [key: string]: string | undefined
-      }
-    | ""
-}
-
 export type t_PostIssuingDisputesDisputeParamSchema = {
   dispute: string
 }
 
-export type t_PostIssuingDisputesDisputeSubmitBodySchema = {
-  expand?: string[]
-  metadata?:
-    | {
-        [key: string]: string | undefined
-      }
-    | ""
-}
+export type t_postIssuingDisputesDisputeApplicationXWwwFormUrlencodedRequestBody =
+  {
+    amount?: number
+    evidence?: {
+      canceled?:
+        | {
+            additional_documentation?: string | ""
+            canceled_at?: number | ""
+            cancellation_policy_provided?: boolean | ""
+            cancellation_reason?: string | ""
+            expected_at?: number | ""
+            explanation?: string | ""
+            product_description?: string | ""
+            product_type?: "" | "merchandise" | "service"
+            return_status?: "" | "merchant_rejected" | "successful"
+            returned_at?: number | ""
+          }
+        | ""
+      duplicate?:
+        | {
+            additional_documentation?: string | ""
+            card_statement?: string | ""
+            cash_receipt?: string | ""
+            check_image?: string | ""
+            explanation?: string | ""
+            original_transaction?: string
+          }
+        | ""
+      fraudulent?:
+        | {
+            additional_documentation?: string | ""
+            explanation?: string | ""
+          }
+        | ""
+      merchandise_not_as_described?:
+        | {
+            additional_documentation?: string | ""
+            explanation?: string | ""
+            received_at?: number | ""
+            return_description?: string | ""
+            return_status?: "" | "merchant_rejected" | "successful"
+            returned_at?: number | ""
+          }
+        | ""
+      no_valid_authorization?:
+        | {
+            additional_documentation?: string | ""
+            explanation?: string | ""
+          }
+        | ""
+      not_received?:
+        | {
+            additional_documentation?: string | ""
+            expected_at?: number | ""
+            explanation?: string | ""
+            product_description?: string | ""
+            product_type?: "" | "merchandise" | "service"
+          }
+        | ""
+      other?:
+        | {
+            additional_documentation?: string | ""
+            explanation?: string | ""
+            product_description?: string | ""
+            product_type?: "" | "merchandise" | "service"
+          }
+        | ""
+      reason?:
+        | "canceled"
+        | "duplicate"
+        | "fraudulent"
+        | "merchandise_not_as_described"
+        | "no_valid_authorization"
+        | "not_received"
+        | "other"
+        | "service_not_as_described"
+      service_not_as_described?:
+        | {
+            additional_documentation?: string | ""
+            canceled_at?: number | ""
+            cancellation_reason?: string | ""
+            explanation?: string | ""
+            received_at?: number | ""
+          }
+        | ""
+    }
+    expand?: string[]
+    metadata?:
+      | {
+          [key: string]: string | undefined
+        }
+      | ""
+  }
 
 export type t_PostIssuingDisputesDisputeSubmitParamSchema = {
   dispute: string
 }
 
-export type t_PostIssuingPersonalizationDesignsBodySchema = {
-  card_logo?: string
-  carrier_text?: {
-    footer_body?: string | ""
-    footer_title?: string | ""
-    header_body?: string | ""
-    header_title?: string | ""
+export type t_postIssuingDisputesDisputeSubmitApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
+    metadata?:
+      | {
+          [key: string]: string | undefined
+        }
+      | ""
   }
-  expand?: string[]
-  lookup_key?: string
-  metadata?: {
-    [key: string]: string | undefined
-  }
-  name?: string
-  physical_bundle: string
-  preferences?: {
-    is_default: boolean
-  }
-  transfer_lookup_key?: boolean
-}
 
-export type t_PostIssuingPersonalizationDesignsPersonalizationDesignBodySchema =
+export type t_postIssuingPersonalizationDesignsApplicationXWwwFormUrlencodedRequestBody =
+  {
+    card_logo?: string
+    carrier_text?: {
+      footer_body?: string | ""
+      footer_title?: string | ""
+      header_body?: string | ""
+      header_title?: string | ""
+    }
+    expand?: string[]
+    lookup_key?: string
+    metadata?: {
+      [key: string]: string | undefined
+    }
+    name?: string
+    physical_bundle: string
+    preferences?: {
+      is_default: boolean
+    }
+    transfer_lookup_key?: boolean
+  }
+
+export type t_PostIssuingPersonalizationDesignsPersonalizationDesignParamSchema =
+  {
+    personalization_design: string
+  }
+
+export type t_postIssuingPersonalizationDesignsPersonalizationDesignApplicationXWwwFormUrlencodedRequestBody =
   {
     card_logo?: string | ""
     carrier_text?:
@@ -28192,84 +28291,89 @@ export type t_PostIssuingPersonalizationDesignsPersonalizationDesignBodySchema =
     transfer_lookup_key?: boolean
   }
 
-export type t_PostIssuingPersonalizationDesignsPersonalizationDesignParamSchema =
-  {
-    personalization_design: string
-  }
-
-export type t_PostIssuingSettlementsSettlementBodySchema = {
-  expand?: string[]
-  metadata?: {
-    [key: string]: string | undefined
-  }
-}
-
 export type t_PostIssuingSettlementsSettlementParamSchema = {
   settlement: string
 }
 
-export type t_PostIssuingTokensTokenBodySchema = {
-  expand?: string[]
-  status: "active" | "deleted" | "suspended"
-}
+export type t_postIssuingSettlementsSettlementApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
+    metadata?: {
+      [key: string]: string | undefined
+    }
+  }
 
 export type t_PostIssuingTokensTokenParamSchema = {
   token: string
 }
 
-export type t_PostIssuingTransactionsTransactionBodySchema = {
+export type t_postIssuingTokensTokenApplicationXWwwFormUrlencodedRequestBody = {
   expand?: string[]
-  metadata?:
-    | {
-        [key: string]: string | undefined
-      }
-    | ""
+  status: "active" | "deleted" | "suspended"
 }
 
 export type t_PostIssuingTransactionsTransactionParamSchema = {
   transaction: string
 }
 
-export type t_PostLinkAccountSessionsBodySchema = {
-  account_holder: {
-    account?: string
-    customer?: string
-    type: "account" | "customer"
+export type t_postIssuingTransactionsTransactionApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
+    metadata?:
+      | {
+          [key: string]: string | undefined
+        }
+      | ""
   }
-  expand?: string[]
-  filters?: {
-    account_subcategories?: (
-      | "checking"
-      | "credit_card"
-      | "line_of_credit"
-      | "mortgage"
-      | "savings"
-    )[]
-    countries?: string[]
-  }
-  permissions: ("balances" | "ownership" | "payment_method" | "transactions")[]
-  prefetch?: ("balances" | "ownership" | "transactions")[]
-  return_url?: string
-}
 
-export type t_PostLinkedAccountsAccountDisconnectBodySchema = {
-  expand?: string[]
-}
+export type t_postLinkAccountSessionsApplicationXWwwFormUrlencodedRequestBody =
+  {
+    account_holder: {
+      account?: string
+      customer?: string
+      type: "account" | "customer"
+    }
+    expand?: string[]
+    filters?: {
+      account_subcategories?: (
+        | "checking"
+        | "credit_card"
+        | "line_of_credit"
+        | "mortgage"
+        | "savings"
+      )[]
+      countries?: string[]
+    }
+    permissions: (
+      | "balances"
+      | "ownership"
+      | "payment_method"
+      | "transactions"
+    )[]
+    prefetch?: ("balances" | "ownership" | "transactions")[]
+    return_url?: string
+  }
 
 export type t_PostLinkedAccountsAccountDisconnectParamSchema = {
   account: string
 }
 
-export type t_PostLinkedAccountsAccountRefreshBodySchema = {
-  expand?: string[]
-  features: ("balance" | "ownership" | "transactions")[]
-}
+export type t_postLinkedAccountsAccountDisconnectApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
+  }
 
 export type t_PostLinkedAccountsAccountRefreshParamSchema = {
   account: string
 }
 
-export type t_PostPaymentIntentsBodySchema = {
+export type t_postLinkedAccountsAccountRefreshApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
+    features: ("balance" | "ownership" | "transactions")[]
+  }
+
+export type t_postPaymentIntentsApplicationXWwwFormUrlencodedRequestBody = {
   amount: number
   application_fee_amount?: number
   automatic_payment_methods?: {
@@ -29093,46 +29197,788 @@ export type t_PostPaymentIntentsBodySchema = {
   use_stripe_sdk?: boolean
 }
 
-export type t_PostPaymentIntentsIntentBodySchema = {
-  amount?: number
-  application_fee_amount?: number | ""
-  capture_method?: "automatic" | "automatic_async" | "manual"
-  currency?: string
-  customer?: string
-  description?: string
-  expand?: string[]
-  metadata?:
-    | {
+export type t_PostPaymentIntentsIntentParamSchema = {
+  intent: string
+}
+
+export type t_postPaymentIntentsIntentApplicationXWwwFormUrlencodedRequestBody =
+  {
+    amount?: number
+    application_fee_amount?: number | ""
+    capture_method?: "automatic" | "automatic_async" | "manual"
+    currency?: string
+    customer?: string
+    description?: string
+    expand?: string[]
+    metadata?:
+      | {
+          [key: string]: string | undefined
+        }
+      | ""
+    payment_method?: string
+    payment_method_configuration?: string
+    payment_method_data?: {
+      acss_debit?: {
+        account_number: string
+        institution_number: string
+        transit_number: string
+      }
+      affirm?: EmptyObject
+      afterpay_clearpay?: EmptyObject
+      alipay?: EmptyObject
+      allow_redisplay?: "always" | "limited" | "unspecified"
+      alma?: EmptyObject
+      amazon_pay?: EmptyObject
+      au_becs_debit?: {
+        account_number: string
+        bsb_number: string
+      }
+      bacs_debit?: {
+        account_number?: string
+        sort_code?: string
+      }
+      bancontact?: EmptyObject
+      billie?: EmptyObject
+      billing_details?: {
+        address?:
+          | {
+              city?: string
+              country?: string
+              line1?: string
+              line2?: string
+              postal_code?: string
+              state?: string
+            }
+          | ""
+        email?: string | ""
+        name?: string | ""
+        phone?: string | ""
+        tax_id?: string
+      }
+      blik?: EmptyObject
+      boleto?: {
+        tax_id: string
+      }
+      cashapp?: EmptyObject
+      crypto?: EmptyObject
+      customer_balance?: EmptyObject
+      eps?: {
+        bank?:
+          | "arzte_und_apotheker_bank"
+          | "austrian_anadi_bank_ag"
+          | "bank_austria"
+          | "bankhaus_carl_spangler"
+          | "bankhaus_schelhammer_und_schattera_ag"
+          | "bawag_psk_ag"
+          | "bks_bank_ag"
+          | "brull_kallmus_bank_ag"
+          | "btv_vier_lander_bank"
+          | "capital_bank_grawe_gruppe_ag"
+          | "deutsche_bank_ag"
+          | "dolomitenbank"
+          | "easybank_ag"
+          | "erste_bank_und_sparkassen"
+          | "hypo_alpeadriabank_international_ag"
+          | "hypo_bank_burgenland_aktiengesellschaft"
+          | "hypo_noe_lb_fur_niederosterreich_u_wien"
+          | "hypo_oberosterreich_salzburg_steiermark"
+          | "hypo_tirol_bank_ag"
+          | "hypo_vorarlberg_bank_ag"
+          | "marchfelder_bank"
+          | "oberbank_ag"
+          | "raiffeisen_bankengruppe_osterreich"
+          | "schoellerbank_ag"
+          | "sparda_bank_wien"
+          | "volksbank_gruppe"
+          | "volkskreditbank_ag"
+          | "vr_bank_braunau"
+      }
+      fpx?: {
+        bank:
+          | "affin_bank"
+          | "agrobank"
+          | "alliance_bank"
+          | "ambank"
+          | "bank_islam"
+          | "bank_muamalat"
+          | "bank_of_china"
+          | "bank_rakyat"
+          | "bsn"
+          | "cimb"
+          | "deutsche_bank"
+          | "hong_leong_bank"
+          | "hsbc"
+          | "kfh"
+          | "maybank2e"
+          | "maybank2u"
+          | "ocbc"
+          | "pb_enterprise"
+          | "public_bank"
+          | "rhb"
+          | "standard_chartered"
+          | "uob"
+      }
+      giropay?: EmptyObject
+      grabpay?: EmptyObject
+      ideal?: {
+        bank?:
+          | "abn_amro"
+          | "asn_bank"
+          | "bunq"
+          | "buut"
+          | "handelsbanken"
+          | "ing"
+          | "knab"
+          | "moneyou"
+          | "n26"
+          | "nn"
+          | "rabobank"
+          | "regiobank"
+          | "revolut"
+          | "sns_bank"
+          | "triodos_bank"
+          | "van_lanschot"
+          | "yoursafe"
+      }
+      interac_present?: EmptyObject
+      kakao_pay?: EmptyObject
+      klarna?: {
+        dob?: {
+          day: number
+          month: number
+          year: number
+        }
+      }
+      konbini?: EmptyObject
+      kr_card?: EmptyObject
+      link?: EmptyObject
+      metadata?: {
         [key: string]: string | undefined
       }
-    | ""
-  payment_method?: string
-  payment_method_configuration?: string
-  payment_method_data?: {
-    acss_debit?: {
-      account_number: string
-      institution_number: string
-      transit_number: string
+      mobilepay?: EmptyObject
+      multibanco?: EmptyObject
+      naver_pay?: {
+        funding?: "card" | "points"
+      }
+      nz_bank_account?: {
+        account_holder_name?: string
+        account_number: string
+        bank_code: string
+        branch_code: string
+        reference?: string
+        suffix: string
+      }
+      oxxo?: EmptyObject
+      p24?: {
+        bank?:
+          | "alior_bank"
+          | "bank_millennium"
+          | "bank_nowy_bfg_sa"
+          | "bank_pekao_sa"
+          | "banki_spbdzielcze"
+          | "blik"
+          | "bnp_paribas"
+          | "boz"
+          | "citi_handlowy"
+          | "credit_agricole"
+          | "envelobank"
+          | "etransfer_pocztowy24"
+          | "getin_bank"
+          | "ideabank"
+          | "ing"
+          | "inteligo"
+          | "mbank_mtransfer"
+          | "nest_przelew"
+          | "noble_pay"
+          | "pbac_z_ipko"
+          | "plus_bank"
+          | "santander_przelew24"
+          | "tmobile_usbugi_bankowe"
+          | "toyota_bank"
+          | "velobank"
+          | "volkswagen_bank"
+      }
+      pay_by_bank?: EmptyObject
+      payco?: EmptyObject
+      paynow?: EmptyObject
+      paypal?: EmptyObject
+      pix?: EmptyObject
+      promptpay?: EmptyObject
+      radar_options?: {
+        session?: string
+      }
+      revolut_pay?: EmptyObject
+      samsung_pay?: EmptyObject
+      satispay?: EmptyObject
+      sepa_debit?: {
+        iban: string
+      }
+      sofort?: {
+        country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL"
+      }
+      swish?: EmptyObject
+      twint?: EmptyObject
+      type:
+        | "acss_debit"
+        | "affirm"
+        | "afterpay_clearpay"
+        | "alipay"
+        | "alma"
+        | "amazon_pay"
+        | "au_becs_debit"
+        | "bacs_debit"
+        | "bancontact"
+        | "billie"
+        | "blik"
+        | "boleto"
+        | "cashapp"
+        | "crypto"
+        | "customer_balance"
+        | "eps"
+        | "fpx"
+        | "giropay"
+        | "grabpay"
+        | "ideal"
+        | "kakao_pay"
+        | "klarna"
+        | "konbini"
+        | "kr_card"
+        | "link"
+        | "mobilepay"
+        | "multibanco"
+        | "naver_pay"
+        | "nz_bank_account"
+        | "oxxo"
+        | "p24"
+        | "pay_by_bank"
+        | "payco"
+        | "paynow"
+        | "paypal"
+        | "pix"
+        | "promptpay"
+        | "revolut_pay"
+        | "samsung_pay"
+        | "satispay"
+        | "sepa_debit"
+        | "sofort"
+        | "swish"
+        | "twint"
+        | "us_bank_account"
+        | "wechat_pay"
+        | "zip"
+      us_bank_account?: {
+        account_holder_type?: "company" | "individual"
+        account_number?: string
+        account_type?: "checking" | "savings"
+        financial_connections_account?: string
+        routing_number?: string
+      }
+      wechat_pay?: EmptyObject
+      zip?: EmptyObject
     }
-    affirm?: EmptyObject
-    afterpay_clearpay?: EmptyObject
-    alipay?: EmptyObject
-    allow_redisplay?: "always" | "limited" | "unspecified"
-    alma?: EmptyObject
-    amazon_pay?: EmptyObject
-    au_becs_debit?: {
-      account_number: string
-      bsb_number: string
-    }
-    bacs_debit?: {
-      account_number?: string
-      sort_code?: string
-    }
-    bancontact?: EmptyObject
-    billie?: EmptyObject
-    billing_details?: {
-      address?:
+    payment_method_options?: {
+      acss_debit?:
         | {
+            mandate_options?: {
+              custom_mandate_url?: string | ""
+              interval_description?: string
+              payment_schedule?: "combined" | "interval" | "sporadic"
+              transaction_type?: "business" | "personal"
+            }
+            setup_future_usage?: "" | "none" | "off_session" | "on_session"
+            target_date?: string
+            verification_method?: "automatic" | "instant" | "microdeposits"
+          }
+        | ""
+      affirm?:
+        | {
+            capture_method?: "" | "manual"
+            preferred_locale?: string
+            setup_future_usage?: "none"
+          }
+        | ""
+      afterpay_clearpay?:
+        | {
+            capture_method?: "" | "manual"
+            reference?: string
+            setup_future_usage?: "none"
+          }
+        | ""
+      alipay?:
+        | {
+            setup_future_usage?: "" | "none" | "off_session"
+          }
+        | ""
+      alma?:
+        | {
+            capture_method?: "" | "manual"
+          }
+        | ""
+      amazon_pay?:
+        | {
+            capture_method?: "" | "manual"
+            setup_future_usage?: "" | "none" | "off_session"
+          }
+        | ""
+      au_becs_debit?:
+        | {
+            setup_future_usage?: "" | "none" | "off_session" | "on_session"
+            target_date?: string
+          }
+        | ""
+      bacs_debit?:
+        | {
+            mandate_options?: {
+              reference_prefix?: string | ""
+            }
+            setup_future_usage?: "" | "none" | "off_session" | "on_session"
+            target_date?: string
+          }
+        | ""
+      bancontact?:
+        | {
+            preferred_language?: "de" | "en" | "fr" | "nl"
+            setup_future_usage?: "" | "none" | "off_session"
+          }
+        | ""
+      billie?:
+        | {
+            capture_method?: "" | "manual"
+          }
+        | ""
+      blik?:
+        | {
+            code?: string
+            setup_future_usage?: "" | "none"
+          }
+        | ""
+      boleto?:
+        | {
+            expires_after_days?: number
+            setup_future_usage?: "" | "none" | "off_session" | "on_session"
+          }
+        | ""
+      card?:
+        | {
+            capture_method?: "" | "manual"
+            cvc_token?: string
+            installments?: {
+              enabled?: boolean
+              plan?:
+                | {
+                    count?: number
+                    interval?: "month"
+                    type: "bonus" | "fixed_count" | "revolving"
+                  }
+                | ""
+            }
+            mandate_options?: {
+              amount: number
+              amount_type: "fixed" | "maximum"
+              description?: string
+              end_date?: number
+              interval: "day" | "month" | "sporadic" | "week" | "year"
+              interval_count?: number
+              reference: string
+              start_date: number
+              supported_types?: "india"[]
+            }
+            network?:
+              | "amex"
+              | "cartes_bancaires"
+              | "diners"
+              | "discover"
+              | "eftpos_au"
+              | "girocard"
+              | "interac"
+              | "jcb"
+              | "link"
+              | "mastercard"
+              | "unionpay"
+              | "unknown"
+              | "visa"
+            request_extended_authorization?: "if_available" | "never"
+            request_incremental_authorization?: "if_available" | "never"
+            request_multicapture?: "if_available" | "never"
+            request_overcapture?: "if_available" | "never"
+            request_three_d_secure?: "any" | "automatic" | "challenge"
+            require_cvc_recollection?: boolean
+            setup_future_usage?: "" | "none" | "off_session" | "on_session"
+            statement_descriptor_suffix_kana?: string | ""
+            statement_descriptor_suffix_kanji?: string | ""
+            three_d_secure?: {
+              ares_trans_status?: "A" | "C" | "I" | "N" | "R" | "U" | "Y"
+              cryptogram: string
+              electronic_commerce_indicator?: "01" | "02" | "05" | "06" | "07"
+              exemption_indicator?: "low_risk" | "none"
+              network_options?: {
+                cartes_bancaires?: {
+                  cb_avalgo: "0" | "1" | "2" | "3" | "4" | "A"
+                  cb_exemption?: string
+                  cb_score?: number
+                }
+              }
+              requestor_challenge_indicator?: string
+              transaction_id: string
+              version: "1.0.2" | "2.1.0" | "2.2.0"
+            }
+          }
+        | ""
+      card_present?:
+        | {
+            request_extended_authorization?: boolean
+            request_incremental_authorization_support?: boolean
+            routing?: {
+              requested_priority?: "domestic" | "international"
+            }
+          }
+        | ""
+      cashapp?:
+        | {
+            capture_method?: "" | "manual"
+            setup_future_usage?: "" | "none" | "off_session" | "on_session"
+          }
+        | ""
+      crypto?:
+        | {
+            setup_future_usage?: "none"
+          }
+        | ""
+      customer_balance?:
+        | {
+            bank_transfer?: {
+              eu_bank_transfer?: {
+                country: string
+              }
+              requested_address_types?: (
+                | "aba"
+                | "iban"
+                | "sepa"
+                | "sort_code"
+                | "spei"
+                | "swift"
+                | "zengin"
+              )[]
+              type:
+                | "eu_bank_transfer"
+                | "gb_bank_transfer"
+                | "jp_bank_transfer"
+                | "mx_bank_transfer"
+                | "us_bank_transfer"
+            }
+            funding_type?: "bank_transfer"
+            setup_future_usage?: "none"
+          }
+        | ""
+      eps?:
+        | {
+            setup_future_usage?: "none"
+          }
+        | ""
+      fpx?:
+        | {
+            setup_future_usage?: "none"
+          }
+        | ""
+      giropay?:
+        | {
+            setup_future_usage?: "none"
+          }
+        | ""
+      grabpay?:
+        | {
+            setup_future_usage?: "none"
+          }
+        | ""
+      ideal?:
+        | {
+            setup_future_usage?: "" | "none" | "off_session"
+          }
+        | ""
+      interac_present?: EmptyObject | ""
+      kakao_pay?:
+        | {
+            capture_method?: "" | "manual"
+            setup_future_usage?: "" | "none" | "off_session"
+          }
+        | ""
+      klarna?:
+        | {
+            capture_method?: "" | "manual"
+            on_demand?: {
+              average_amount?: number
+              maximum_amount?: number
+              minimum_amount?: number
+              purchase_interval?: "day" | "month" | "week" | "year"
+              purchase_interval_count?: number
+            }
+            preferred_locale?:
+              | "cs-CZ"
+              | "da-DK"
+              | "de-AT"
+              | "de-CH"
+              | "de-DE"
+              | "el-GR"
+              | "en-AT"
+              | "en-AU"
+              | "en-BE"
+              | "en-CA"
+              | "en-CH"
+              | "en-CZ"
+              | "en-DE"
+              | "en-DK"
+              | "en-ES"
+              | "en-FI"
+              | "en-FR"
+              | "en-GB"
+              | "en-GR"
+              | "en-IE"
+              | "en-IT"
+              | "en-NL"
+              | "en-NO"
+              | "en-NZ"
+              | "en-PL"
+              | "en-PT"
+              | "en-RO"
+              | "en-SE"
+              | "en-US"
+              | "es-ES"
+              | "es-US"
+              | "fi-FI"
+              | "fr-BE"
+              | "fr-CA"
+              | "fr-CH"
+              | "fr-FR"
+              | "it-CH"
+              | "it-IT"
+              | "nb-NO"
+              | "nl-BE"
+              | "nl-NL"
+              | "pl-PL"
+              | "pt-PT"
+              | "ro-RO"
+              | "sv-FI"
+              | "sv-SE"
+            setup_future_usage?: "none" | "off_session" | "on_session"
+            subscriptions?:
+              | {
+                  interval: "day" | "month" | "week" | "year"
+                  interval_count?: number
+                  name?: string
+                  next_billing?: {
+                    amount: number
+                    date: string
+                  }
+                  reference: string
+                }[]
+              | ""
+          }
+        | ""
+      konbini?:
+        | {
+            confirmation_number?: string | ""
+            expires_after_days?: number | ""
+            expires_at?: number | ""
+            product_description?: string | ""
+            setup_future_usage?: "none"
+          }
+        | ""
+      kr_card?:
+        | {
+            capture_method?: "" | "manual"
+            setup_future_usage?: "" | "none" | "off_session"
+          }
+        | ""
+      link?:
+        | {
+            capture_method?: "" | "manual"
+            setup_future_usage?: "" | "none" | "off_session"
+          }
+        | ""
+      mobilepay?:
+        | {
+            capture_method?: "" | "manual"
+            setup_future_usage?: "none"
+          }
+        | ""
+      multibanco?:
+        | {
+            setup_future_usage?: "none"
+          }
+        | ""
+      naver_pay?:
+        | {
+            capture_method?: "" | "manual"
+            setup_future_usage?: "" | "none" | "off_session"
+          }
+        | ""
+      nz_bank_account?:
+        | {
+            setup_future_usage?: "" | "none" | "off_session" | "on_session"
+            target_date?: string
+          }
+        | ""
+      oxxo?:
+        | {
+            expires_after_days?: number
+            setup_future_usage?: "none"
+          }
+        | ""
+      p24?:
+        | {
+            setup_future_usage?: "none"
+            tos_shown_and_accepted?: boolean
+          }
+        | ""
+      pay_by_bank?: EmptyObject | ""
+      payco?:
+        | {
+            capture_method?: "" | "manual"
+          }
+        | ""
+      paynow?:
+        | {
+            setup_future_usage?: "none"
+          }
+        | ""
+      paypal?:
+        | {
+            capture_method?: "" | "manual"
+            preferred_locale?:
+              | "cs-CZ"
+              | "da-DK"
+              | "de-AT"
+              | "de-DE"
+              | "de-LU"
+              | "el-GR"
+              | "en-GB"
+              | "en-US"
+              | "es-ES"
+              | "fi-FI"
+              | "fr-BE"
+              | "fr-FR"
+              | "fr-LU"
+              | "hu-HU"
+              | "it-IT"
+              | "nl-BE"
+              | "nl-NL"
+              | "pl-PL"
+              | "pt-PT"
+              | "sk-SK"
+              | "sv-SE"
+            reference?: string
+            risk_correlation_id?: string
+            setup_future_usage?: "" | "none" | "off_session"
+          }
+        | ""
+      pix?:
+        | {
+            expires_after_seconds?: number
+            expires_at?: number
+            setup_future_usage?: "none"
+          }
+        | ""
+      promptpay?:
+        | {
+            setup_future_usage?: "none"
+          }
+        | ""
+      revolut_pay?:
+        | {
+            capture_method?: "" | "manual"
+            setup_future_usage?: "" | "none" | "off_session"
+          }
+        | ""
+      samsung_pay?:
+        | {
+            capture_method?: "" | "manual"
+          }
+        | ""
+      satispay?:
+        | {
+            capture_method?: "" | "manual"
+          }
+        | ""
+      sepa_debit?:
+        | {
+            mandate_options?: {
+              reference_prefix?: string | ""
+            }
+            setup_future_usage?: "" | "none" | "off_session" | "on_session"
+            target_date?: string
+          }
+        | ""
+      sofort?:
+        | {
+            preferred_language?:
+              | ""
+              | "de"
+              | "en"
+              | "es"
+              | "fr"
+              | "it"
+              | "nl"
+              | "pl"
+            setup_future_usage?: "" | "none" | "off_session"
+          }
+        | ""
+      swish?:
+        | {
+            reference?: string | ""
+            setup_future_usage?: "none"
+          }
+        | ""
+      twint?:
+        | {
+            setup_future_usage?: "none"
+          }
+        | ""
+      us_bank_account?:
+        | {
+            financial_connections?: {
+              filters?: {
+                account_subcategories?: ("checking" | "savings")[]
+              }
+              permissions?: (
+                | "balances"
+                | "ownership"
+                | "payment_method"
+                | "transactions"
+              )[]
+              prefetch?: ("balances" | "ownership" | "transactions")[]
+              return_url?: string
+            }
+            mandate_options?: {
+              collection_method?: "" | "paper"
+            }
+            networks?: {
+              requested?: ("ach" | "us_domestic_wire")[]
+            }
+            preferred_settlement_speed?: "" | "fastest" | "standard"
+            setup_future_usage?: "" | "none" | "off_session" | "on_session"
+            target_date?: string
+            verification_method?: "automatic" | "instant" | "microdeposits"
+          }
+        | ""
+      wechat_pay?:
+        | {
+            app_id?: string
+            client?: "android" | "ios" | "web"
+            setup_future_usage?: "none"
+          }
+        | ""
+      zip?:
+        | {
+            setup_future_usage?: "none"
+          }
+        | ""
+    }
+    payment_method_types?: string[]
+    receipt_email?: string | ""
+    setup_future_usage?: "" | "off_session" | "on_session"
+    shipping?:
+      | {
+          address: {
             city?: string
             country?: string
             line1?: string
@@ -29140,861 +29986,869 @@ export type t_PostPaymentIntentsIntentBodySchema = {
             postal_code?: string
             state?: string
           }
-        | ""
-      email?: string | ""
-      name?: string | ""
-      phone?: string | ""
-      tax_id?: string
+          carrier?: string
+          name: string
+          phone?: string
+          tracking_number?: string
+        }
+      | ""
+    statement_descriptor?: string
+    statement_descriptor_suffix?: string
+    transfer_data?: {
+      amount?: number
     }
-    blik?: EmptyObject
-    boleto?: {
-      tax_id: string
-    }
-    cashapp?: EmptyObject
-    crypto?: EmptyObject
-    customer_balance?: EmptyObject
-    eps?: {
-      bank?:
-        | "arzte_und_apotheker_bank"
-        | "austrian_anadi_bank_ag"
-        | "bank_austria"
-        | "bankhaus_carl_spangler"
-        | "bankhaus_schelhammer_und_schattera_ag"
-        | "bawag_psk_ag"
-        | "bks_bank_ag"
-        | "brull_kallmus_bank_ag"
-        | "btv_vier_lander_bank"
-        | "capital_bank_grawe_gruppe_ag"
-        | "deutsche_bank_ag"
-        | "dolomitenbank"
-        | "easybank_ag"
-        | "erste_bank_und_sparkassen"
-        | "hypo_alpeadriabank_international_ag"
-        | "hypo_bank_burgenland_aktiengesellschaft"
-        | "hypo_noe_lb_fur_niederosterreich_u_wien"
-        | "hypo_oberosterreich_salzburg_steiermark"
-        | "hypo_tirol_bank_ag"
-        | "hypo_vorarlberg_bank_ag"
-        | "marchfelder_bank"
-        | "oberbank_ag"
-        | "raiffeisen_bankengruppe_osterreich"
-        | "schoellerbank_ag"
-        | "sparda_bank_wien"
-        | "volksbank_gruppe"
-        | "volkskreditbank_ag"
-        | "vr_bank_braunau"
-    }
-    fpx?: {
-      bank:
-        | "affin_bank"
-        | "agrobank"
-        | "alliance_bank"
-        | "ambank"
-        | "bank_islam"
-        | "bank_muamalat"
-        | "bank_of_china"
-        | "bank_rakyat"
-        | "bsn"
-        | "cimb"
-        | "deutsche_bank"
-        | "hong_leong_bank"
-        | "hsbc"
-        | "kfh"
-        | "maybank2e"
-        | "maybank2u"
-        | "ocbc"
-        | "pb_enterprise"
-        | "public_bank"
-        | "rhb"
-        | "standard_chartered"
-        | "uob"
-    }
-    giropay?: EmptyObject
-    grabpay?: EmptyObject
-    ideal?: {
-      bank?:
-        | "abn_amro"
-        | "asn_bank"
-        | "bunq"
-        | "buut"
-        | "handelsbanken"
-        | "ing"
-        | "knab"
-        | "moneyou"
-        | "n26"
-        | "nn"
-        | "rabobank"
-        | "regiobank"
-        | "revolut"
-        | "sns_bank"
-        | "triodos_bank"
-        | "van_lanschot"
-        | "yoursafe"
-    }
-    interac_present?: EmptyObject
-    kakao_pay?: EmptyObject
-    klarna?: {
-      dob?: {
-        day: number
-        month: number
-        year: number
-      }
-    }
-    konbini?: EmptyObject
-    kr_card?: EmptyObject
-    link?: EmptyObject
-    metadata?: {
-      [key: string]: string | undefined
-    }
-    mobilepay?: EmptyObject
-    multibanco?: EmptyObject
-    naver_pay?: {
-      funding?: "card" | "points"
-    }
-    nz_bank_account?: {
-      account_holder_name?: string
-      account_number: string
-      bank_code: string
-      branch_code: string
-      reference?: string
-      suffix: string
-    }
-    oxxo?: EmptyObject
-    p24?: {
-      bank?:
-        | "alior_bank"
-        | "bank_millennium"
-        | "bank_nowy_bfg_sa"
-        | "bank_pekao_sa"
-        | "banki_spbdzielcze"
-        | "blik"
-        | "bnp_paribas"
-        | "boz"
-        | "citi_handlowy"
-        | "credit_agricole"
-        | "envelobank"
-        | "etransfer_pocztowy24"
-        | "getin_bank"
-        | "ideabank"
-        | "ing"
-        | "inteligo"
-        | "mbank_mtransfer"
-        | "nest_przelew"
-        | "noble_pay"
-        | "pbac_z_ipko"
-        | "plus_bank"
-        | "santander_przelew24"
-        | "tmobile_usbugi_bankowe"
-        | "toyota_bank"
-        | "velobank"
-        | "volkswagen_bank"
-    }
-    pay_by_bank?: EmptyObject
-    payco?: EmptyObject
-    paynow?: EmptyObject
-    paypal?: EmptyObject
-    pix?: EmptyObject
-    promptpay?: EmptyObject
-    radar_options?: {
-      session?: string
-    }
-    revolut_pay?: EmptyObject
-    samsung_pay?: EmptyObject
-    satispay?: EmptyObject
-    sepa_debit?: {
-      iban: string
-    }
-    sofort?: {
-      country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL"
-    }
-    swish?: EmptyObject
-    twint?: EmptyObject
-    type:
-      | "acss_debit"
-      | "affirm"
-      | "afterpay_clearpay"
-      | "alipay"
-      | "alma"
-      | "amazon_pay"
-      | "au_becs_debit"
-      | "bacs_debit"
-      | "bancontact"
-      | "billie"
-      | "blik"
-      | "boleto"
-      | "cashapp"
-      | "crypto"
-      | "customer_balance"
-      | "eps"
-      | "fpx"
-      | "giropay"
-      | "grabpay"
-      | "ideal"
-      | "kakao_pay"
-      | "klarna"
-      | "konbini"
-      | "kr_card"
-      | "link"
-      | "mobilepay"
-      | "multibanco"
-      | "naver_pay"
-      | "nz_bank_account"
-      | "oxxo"
-      | "p24"
-      | "pay_by_bank"
-      | "payco"
-      | "paynow"
-      | "paypal"
-      | "pix"
-      | "promptpay"
-      | "revolut_pay"
-      | "samsung_pay"
-      | "satispay"
-      | "sepa_debit"
-      | "sofort"
-      | "swish"
-      | "twint"
-      | "us_bank_account"
-      | "wechat_pay"
-      | "zip"
-    us_bank_account?: {
-      account_holder_type?: "company" | "individual"
-      account_number?: string
-      account_type?: "checking" | "savings"
-      financial_connections_account?: string
-      routing_number?: string
-    }
-    wechat_pay?: EmptyObject
-    zip?: EmptyObject
+    transfer_group?: string
   }
-  payment_method_options?: {
-    acss_debit?:
-      | {
-          mandate_options?: {
-            custom_mandate_url?: string | ""
-            interval_description?: string
-            payment_schedule?: "combined" | "interval" | "sporadic"
-            transaction_type?: "business" | "personal"
-          }
-          setup_future_usage?: "" | "none" | "off_session" | "on_session"
-          target_date?: string
-          verification_method?: "automatic" | "instant" | "microdeposits"
-        }
-      | ""
-    affirm?:
-      | {
-          capture_method?: "" | "manual"
-          preferred_locale?: string
-          setup_future_usage?: "none"
-        }
-      | ""
-    afterpay_clearpay?:
-      | {
-          capture_method?: "" | "manual"
-          reference?: string
-          setup_future_usage?: "none"
-        }
-      | ""
-    alipay?:
-      | {
-          setup_future_usage?: "" | "none" | "off_session"
-        }
-      | ""
-    alma?:
-      | {
-          capture_method?: "" | "manual"
-        }
-      | ""
-    amazon_pay?:
-      | {
-          capture_method?: "" | "manual"
-          setup_future_usage?: "" | "none" | "off_session"
-        }
-      | ""
-    au_becs_debit?:
-      | {
-          setup_future_usage?: "" | "none" | "off_session" | "on_session"
-          target_date?: string
-        }
-      | ""
-    bacs_debit?:
-      | {
-          mandate_options?: {
-            reference_prefix?: string | ""
-          }
-          setup_future_usage?: "" | "none" | "off_session" | "on_session"
-          target_date?: string
-        }
-      | ""
-    bancontact?:
-      | {
-          preferred_language?: "de" | "en" | "fr" | "nl"
-          setup_future_usage?: "" | "none" | "off_session"
-        }
-      | ""
-    billie?:
-      | {
-          capture_method?: "" | "manual"
-        }
-      | ""
-    blik?:
-      | {
-          code?: string
-          setup_future_usage?: "" | "none"
-        }
-      | ""
-    boleto?:
-      | {
-          expires_after_days?: number
-          setup_future_usage?: "" | "none" | "off_session" | "on_session"
-        }
-      | ""
-    card?:
-      | {
-          capture_method?: "" | "manual"
-          cvc_token?: string
-          installments?: {
-            enabled?: boolean
-            plan?:
-              | {
-                  count?: number
-                  interval?: "month"
-                  type: "bonus" | "fixed_count" | "revolving"
-                }
-              | ""
-          }
-          mandate_options?: {
-            amount: number
-            amount_type: "fixed" | "maximum"
-            description?: string
-            end_date?: number
-            interval: "day" | "month" | "sporadic" | "week" | "year"
-            interval_count?: number
-            reference: string
-            start_date: number
-            supported_types?: "india"[]
-          }
-          network?:
-            | "amex"
-            | "cartes_bancaires"
-            | "diners"
-            | "discover"
-            | "eftpos_au"
-            | "girocard"
-            | "interac"
-            | "jcb"
-            | "link"
-            | "mastercard"
-            | "unionpay"
-            | "unknown"
-            | "visa"
-          request_extended_authorization?: "if_available" | "never"
-          request_incremental_authorization?: "if_available" | "never"
-          request_multicapture?: "if_available" | "never"
-          request_overcapture?: "if_available" | "never"
-          request_three_d_secure?: "any" | "automatic" | "challenge"
-          require_cvc_recollection?: boolean
-          setup_future_usage?: "" | "none" | "off_session" | "on_session"
-          statement_descriptor_suffix_kana?: string | ""
-          statement_descriptor_suffix_kanji?: string | ""
-          three_d_secure?: {
-            ares_trans_status?: "A" | "C" | "I" | "N" | "R" | "U" | "Y"
-            cryptogram: string
-            electronic_commerce_indicator?: "01" | "02" | "05" | "06" | "07"
-            exemption_indicator?: "low_risk" | "none"
-            network_options?: {
-              cartes_bancaires?: {
-                cb_avalgo: "0" | "1" | "2" | "3" | "4" | "A"
-                cb_exemption?: string
-                cb_score?: number
-              }
-            }
-            requestor_challenge_indicator?: string
-            transaction_id: string
-            version: "1.0.2" | "2.1.0" | "2.2.0"
-          }
-        }
-      | ""
-    card_present?:
-      | {
-          request_extended_authorization?: boolean
-          request_incremental_authorization_support?: boolean
-          routing?: {
-            requested_priority?: "domestic" | "international"
-          }
-        }
-      | ""
-    cashapp?:
-      | {
-          capture_method?: "" | "manual"
-          setup_future_usage?: "" | "none" | "off_session" | "on_session"
-        }
-      | ""
-    crypto?:
-      | {
-          setup_future_usage?: "none"
-        }
-      | ""
-    customer_balance?:
-      | {
-          bank_transfer?: {
-            eu_bank_transfer?: {
-              country: string
-            }
-            requested_address_types?: (
-              | "aba"
-              | "iban"
-              | "sepa"
-              | "sort_code"
-              | "spei"
-              | "swift"
-              | "zengin"
-            )[]
-            type:
-              | "eu_bank_transfer"
-              | "gb_bank_transfer"
-              | "jp_bank_transfer"
-              | "mx_bank_transfer"
-              | "us_bank_transfer"
-          }
-          funding_type?: "bank_transfer"
-          setup_future_usage?: "none"
-        }
-      | ""
-    eps?:
-      | {
-          setup_future_usage?: "none"
-        }
-      | ""
-    fpx?:
-      | {
-          setup_future_usage?: "none"
-        }
-      | ""
-    giropay?:
-      | {
-          setup_future_usage?: "none"
-        }
-      | ""
-    grabpay?:
-      | {
-          setup_future_usage?: "none"
-        }
-      | ""
-    ideal?:
-      | {
-          setup_future_usage?: "" | "none" | "off_session"
-        }
-      | ""
-    interac_present?: EmptyObject | ""
-    kakao_pay?:
-      | {
-          capture_method?: "" | "manual"
-          setup_future_usage?: "" | "none" | "off_session"
-        }
-      | ""
-    klarna?:
-      | {
-          capture_method?: "" | "manual"
-          on_demand?: {
-            average_amount?: number
-            maximum_amount?: number
-            minimum_amount?: number
-            purchase_interval?: "day" | "month" | "week" | "year"
-            purchase_interval_count?: number
-          }
-          preferred_locale?:
-            | "cs-CZ"
-            | "da-DK"
-            | "de-AT"
-            | "de-CH"
-            | "de-DE"
-            | "el-GR"
-            | "en-AT"
-            | "en-AU"
-            | "en-BE"
-            | "en-CA"
-            | "en-CH"
-            | "en-CZ"
-            | "en-DE"
-            | "en-DK"
-            | "en-ES"
-            | "en-FI"
-            | "en-FR"
-            | "en-GB"
-            | "en-GR"
-            | "en-IE"
-            | "en-IT"
-            | "en-NL"
-            | "en-NO"
-            | "en-NZ"
-            | "en-PL"
-            | "en-PT"
-            | "en-RO"
-            | "en-SE"
-            | "en-US"
-            | "es-ES"
-            | "es-US"
-            | "fi-FI"
-            | "fr-BE"
-            | "fr-CA"
-            | "fr-CH"
-            | "fr-FR"
-            | "it-CH"
-            | "it-IT"
-            | "nb-NO"
-            | "nl-BE"
-            | "nl-NL"
-            | "pl-PL"
-            | "pt-PT"
-            | "ro-RO"
-            | "sv-FI"
-            | "sv-SE"
-          setup_future_usage?: "none" | "off_session" | "on_session"
-          subscriptions?:
-            | {
-                interval: "day" | "month" | "week" | "year"
-                interval_count?: number
-                name?: string
-                next_billing?: {
-                  amount: number
-                  date: string
-                }
-                reference: string
-              }[]
-            | ""
-        }
-      | ""
-    konbini?:
-      | {
-          confirmation_number?: string | ""
-          expires_after_days?: number | ""
-          expires_at?: number | ""
-          product_description?: string | ""
-          setup_future_usage?: "none"
-        }
-      | ""
-    kr_card?:
-      | {
-          capture_method?: "" | "manual"
-          setup_future_usage?: "" | "none" | "off_session"
-        }
-      | ""
-    link?:
-      | {
-          capture_method?: "" | "manual"
-          setup_future_usage?: "" | "none" | "off_session"
-        }
-      | ""
-    mobilepay?:
-      | {
-          capture_method?: "" | "manual"
-          setup_future_usage?: "none"
-        }
-      | ""
-    multibanco?:
-      | {
-          setup_future_usage?: "none"
-        }
-      | ""
-    naver_pay?:
-      | {
-          capture_method?: "" | "manual"
-          setup_future_usage?: "" | "none" | "off_session"
-        }
-      | ""
-    nz_bank_account?:
-      | {
-          setup_future_usage?: "" | "none" | "off_session" | "on_session"
-          target_date?: string
-        }
-      | ""
-    oxxo?:
-      | {
-          expires_after_days?: number
-          setup_future_usage?: "none"
-        }
-      | ""
-    p24?:
-      | {
-          setup_future_usage?: "none"
-          tos_shown_and_accepted?: boolean
-        }
-      | ""
-    pay_by_bank?: EmptyObject | ""
-    payco?:
-      | {
-          capture_method?: "" | "manual"
-        }
-      | ""
-    paynow?:
-      | {
-          setup_future_usage?: "none"
-        }
-      | ""
-    paypal?:
-      | {
-          capture_method?: "" | "manual"
-          preferred_locale?:
-            | "cs-CZ"
-            | "da-DK"
-            | "de-AT"
-            | "de-DE"
-            | "de-LU"
-            | "el-GR"
-            | "en-GB"
-            | "en-US"
-            | "es-ES"
-            | "fi-FI"
-            | "fr-BE"
-            | "fr-FR"
-            | "fr-LU"
-            | "hu-HU"
-            | "it-IT"
-            | "nl-BE"
-            | "nl-NL"
-            | "pl-PL"
-            | "pt-PT"
-            | "sk-SK"
-            | "sv-SE"
-          reference?: string
-          risk_correlation_id?: string
-          setup_future_usage?: "" | "none" | "off_session"
-        }
-      | ""
-    pix?:
-      | {
-          expires_after_seconds?: number
-          expires_at?: number
-          setup_future_usage?: "none"
-        }
-      | ""
-    promptpay?:
-      | {
-          setup_future_usage?: "none"
-        }
-      | ""
-    revolut_pay?:
-      | {
-          capture_method?: "" | "manual"
-          setup_future_usage?: "" | "none" | "off_session"
-        }
-      | ""
-    samsung_pay?:
-      | {
-          capture_method?: "" | "manual"
-        }
-      | ""
-    satispay?:
-      | {
-          capture_method?: "" | "manual"
-        }
-      | ""
-    sepa_debit?:
-      | {
-          mandate_options?: {
-            reference_prefix?: string | ""
-          }
-          setup_future_usage?: "" | "none" | "off_session" | "on_session"
-          target_date?: string
-        }
-      | ""
-    sofort?:
-      | {
-          preferred_language?:
-            | ""
-            | "de"
-            | "en"
-            | "es"
-            | "fr"
-            | "it"
-            | "nl"
-            | "pl"
-          setup_future_usage?: "" | "none" | "off_session"
-        }
-      | ""
-    swish?:
-      | {
-          reference?: string | ""
-          setup_future_usage?: "none"
-        }
-      | ""
-    twint?:
-      | {
-          setup_future_usage?: "none"
-        }
-      | ""
-    us_bank_account?:
-      | {
-          financial_connections?: {
-            filters?: {
-              account_subcategories?: ("checking" | "savings")[]
-            }
-            permissions?: (
-              | "balances"
-              | "ownership"
-              | "payment_method"
-              | "transactions"
-            )[]
-            prefetch?: ("balances" | "ownership" | "transactions")[]
-            return_url?: string
-          }
-          mandate_options?: {
-            collection_method?: "" | "paper"
-          }
-          networks?: {
-            requested?: ("ach" | "us_domestic_wire")[]
-          }
-          preferred_settlement_speed?: "" | "fastest" | "standard"
-          setup_future_usage?: "" | "none" | "off_session" | "on_session"
-          target_date?: string
-          verification_method?: "automatic" | "instant" | "microdeposits"
-        }
-      | ""
-    wechat_pay?:
-      | {
-          app_id?: string
-          client?: "android" | "ios" | "web"
-          setup_future_usage?: "none"
-        }
-      | ""
-    zip?:
-      | {
-          setup_future_usage?: "none"
-        }
-      | ""
-  }
-  payment_method_types?: string[]
-  receipt_email?: string | ""
-  setup_future_usage?: "" | "off_session" | "on_session"
-  shipping?:
-    | {
-        address: {
-          city?: string
-          country?: string
-          line1?: string
-          line2?: string
-          postal_code?: string
-          state?: string
-        }
-        carrier?: string
-        name: string
-        phone?: string
-        tracking_number?: string
-      }
-    | ""
-  statement_descriptor?: string
-  statement_descriptor_suffix?: string
-  transfer_data?: {
-    amount?: number
-  }
-  transfer_group?: string
-}
-
-export type t_PostPaymentIntentsIntentParamSchema = {
-  intent: string
-}
-
-export type t_PostPaymentIntentsIntentApplyCustomerBalanceBodySchema = {
-  amount?: number
-  currency?: string
-  expand?: string[]
-}
 
 export type t_PostPaymentIntentsIntentApplyCustomerBalanceParamSchema = {
   intent: string
 }
 
-export type t_PostPaymentIntentsIntentCancelBodySchema = {
-  cancellation_reason?:
-    | "abandoned"
-    | "duplicate"
-    | "fraudulent"
-    | "requested_by_customer"
-  expand?: string[]
-}
+export type t_postPaymentIntentsIntentApplyCustomerBalanceApplicationXWwwFormUrlencodedRequestBody =
+  {
+    amount?: number
+    currency?: string
+    expand?: string[]
+  }
 
 export type t_PostPaymentIntentsIntentCancelParamSchema = {
   intent: string
 }
 
-export type t_PostPaymentIntentsIntentCaptureBodySchema = {
-  amount_to_capture?: number
-  application_fee_amount?: number
-  expand?: string[]
-  final_capture?: boolean
-  metadata?:
-    | {
-        [key: string]: string | undefined
-      }
-    | ""
-  statement_descriptor?: string
-  statement_descriptor_suffix?: string
-  transfer_data?: {
-    amount?: number
+export type t_postPaymentIntentsIntentCancelApplicationXWwwFormUrlencodedRequestBody =
+  {
+    cancellation_reason?:
+      | "abandoned"
+      | "duplicate"
+      | "fraudulent"
+      | "requested_by_customer"
+    expand?: string[]
   }
-}
 
 export type t_PostPaymentIntentsIntentCaptureParamSchema = {
   intent: string
 }
 
-export type t_PostPaymentIntentsIntentConfirmBodySchema = {
-  capture_method?: "automatic" | "automatic_async" | "manual"
-  client_secret?: string
-  confirmation_token?: string
-  error_on_requires_action?: boolean
-  expand?: string[]
-  mandate?: string
-  mandate_data?:
-    | {
-        customer_acceptance: {
-          accepted_at?: number
-          offline?: EmptyObject
-          online?: {
-            ip_address: string
-            user_agent: string
+export type t_postPaymentIntentsIntentCaptureApplicationXWwwFormUrlencodedRequestBody =
+  {
+    amount_to_capture?: number
+    application_fee_amount?: number
+    expand?: string[]
+    final_capture?: boolean
+    metadata?:
+      | {
+          [key: string]: string | undefined
+        }
+      | ""
+    statement_descriptor?: string
+    statement_descriptor_suffix?: string
+    transfer_data?: {
+      amount?: number
+    }
+  }
+
+export type t_PostPaymentIntentsIntentConfirmParamSchema = {
+  intent: string
+}
+
+export type t_postPaymentIntentsIntentConfirmApplicationXWwwFormUrlencodedRequestBody =
+  {
+    capture_method?: "automatic" | "automatic_async" | "manual"
+    client_secret?: string
+    confirmation_token?: string
+    error_on_requires_action?: boolean
+    expand?: string[]
+    mandate?: string
+    mandate_data?:
+      | {
+          customer_acceptance: {
+            accepted_at?: number
+            offline?: EmptyObject
+            online?: {
+              ip_address: string
+              user_agent: string
+            }
+            type: "offline" | "online"
           }
-          type: "offline" | "online"
+        }
+      | ""
+      | {
+          customer_acceptance: {
+            online: {
+              ip_address?: string
+              user_agent?: string
+            }
+            type: "online"
+          }
+        }
+    off_session?: boolean | "one_off" | "recurring"
+    payment_method?: string
+    payment_method_data?: {
+      acss_debit?: {
+        account_number: string
+        institution_number: string
+        transit_number: string
+      }
+      affirm?: EmptyObject
+      afterpay_clearpay?: EmptyObject
+      alipay?: EmptyObject
+      allow_redisplay?: "always" | "limited" | "unspecified"
+      alma?: EmptyObject
+      amazon_pay?: EmptyObject
+      au_becs_debit?: {
+        account_number: string
+        bsb_number: string
+      }
+      bacs_debit?: {
+        account_number?: string
+        sort_code?: string
+      }
+      bancontact?: EmptyObject
+      billie?: EmptyObject
+      billing_details?: {
+        address?:
+          | {
+              city?: string
+              country?: string
+              line1?: string
+              line2?: string
+              postal_code?: string
+              state?: string
+            }
+          | ""
+        email?: string | ""
+        name?: string | ""
+        phone?: string | ""
+        tax_id?: string
+      }
+      blik?: EmptyObject
+      boleto?: {
+        tax_id: string
+      }
+      cashapp?: EmptyObject
+      crypto?: EmptyObject
+      customer_balance?: EmptyObject
+      eps?: {
+        bank?:
+          | "arzte_und_apotheker_bank"
+          | "austrian_anadi_bank_ag"
+          | "bank_austria"
+          | "bankhaus_carl_spangler"
+          | "bankhaus_schelhammer_und_schattera_ag"
+          | "bawag_psk_ag"
+          | "bks_bank_ag"
+          | "brull_kallmus_bank_ag"
+          | "btv_vier_lander_bank"
+          | "capital_bank_grawe_gruppe_ag"
+          | "deutsche_bank_ag"
+          | "dolomitenbank"
+          | "easybank_ag"
+          | "erste_bank_und_sparkassen"
+          | "hypo_alpeadriabank_international_ag"
+          | "hypo_bank_burgenland_aktiengesellschaft"
+          | "hypo_noe_lb_fur_niederosterreich_u_wien"
+          | "hypo_oberosterreich_salzburg_steiermark"
+          | "hypo_tirol_bank_ag"
+          | "hypo_vorarlberg_bank_ag"
+          | "marchfelder_bank"
+          | "oberbank_ag"
+          | "raiffeisen_bankengruppe_osterreich"
+          | "schoellerbank_ag"
+          | "sparda_bank_wien"
+          | "volksbank_gruppe"
+          | "volkskreditbank_ag"
+          | "vr_bank_braunau"
+      }
+      fpx?: {
+        bank:
+          | "affin_bank"
+          | "agrobank"
+          | "alliance_bank"
+          | "ambank"
+          | "bank_islam"
+          | "bank_muamalat"
+          | "bank_of_china"
+          | "bank_rakyat"
+          | "bsn"
+          | "cimb"
+          | "deutsche_bank"
+          | "hong_leong_bank"
+          | "hsbc"
+          | "kfh"
+          | "maybank2e"
+          | "maybank2u"
+          | "ocbc"
+          | "pb_enterprise"
+          | "public_bank"
+          | "rhb"
+          | "standard_chartered"
+          | "uob"
+      }
+      giropay?: EmptyObject
+      grabpay?: EmptyObject
+      ideal?: {
+        bank?:
+          | "abn_amro"
+          | "asn_bank"
+          | "bunq"
+          | "buut"
+          | "handelsbanken"
+          | "ing"
+          | "knab"
+          | "moneyou"
+          | "n26"
+          | "nn"
+          | "rabobank"
+          | "regiobank"
+          | "revolut"
+          | "sns_bank"
+          | "triodos_bank"
+          | "van_lanschot"
+          | "yoursafe"
+      }
+      interac_present?: EmptyObject
+      kakao_pay?: EmptyObject
+      klarna?: {
+        dob?: {
+          day: number
+          month: number
+          year: number
         }
       }
-    | ""
-    | {
-        customer_acceptance: {
-          online: {
-            ip_address?: string
-            user_agent?: string
-          }
-          type: "online"
-        }
+      konbini?: EmptyObject
+      kr_card?: EmptyObject
+      link?: EmptyObject
+      metadata?: {
+        [key: string]: string | undefined
       }
-  off_session?: boolean | "one_off" | "recurring"
-  payment_method?: string
-  payment_method_data?: {
-    acss_debit?: {
-      account_number: string
-      institution_number: string
-      transit_number: string
+      mobilepay?: EmptyObject
+      multibanco?: EmptyObject
+      naver_pay?: {
+        funding?: "card" | "points"
+      }
+      nz_bank_account?: {
+        account_holder_name?: string
+        account_number: string
+        bank_code: string
+        branch_code: string
+        reference?: string
+        suffix: string
+      }
+      oxxo?: EmptyObject
+      p24?: {
+        bank?:
+          | "alior_bank"
+          | "bank_millennium"
+          | "bank_nowy_bfg_sa"
+          | "bank_pekao_sa"
+          | "banki_spbdzielcze"
+          | "blik"
+          | "bnp_paribas"
+          | "boz"
+          | "citi_handlowy"
+          | "credit_agricole"
+          | "envelobank"
+          | "etransfer_pocztowy24"
+          | "getin_bank"
+          | "ideabank"
+          | "ing"
+          | "inteligo"
+          | "mbank_mtransfer"
+          | "nest_przelew"
+          | "noble_pay"
+          | "pbac_z_ipko"
+          | "plus_bank"
+          | "santander_przelew24"
+          | "tmobile_usbugi_bankowe"
+          | "toyota_bank"
+          | "velobank"
+          | "volkswagen_bank"
+      }
+      pay_by_bank?: EmptyObject
+      payco?: EmptyObject
+      paynow?: EmptyObject
+      paypal?: EmptyObject
+      pix?: EmptyObject
+      promptpay?: EmptyObject
+      radar_options?: {
+        session?: string
+      }
+      revolut_pay?: EmptyObject
+      samsung_pay?: EmptyObject
+      satispay?: EmptyObject
+      sepa_debit?: {
+        iban: string
+      }
+      sofort?: {
+        country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL"
+      }
+      swish?: EmptyObject
+      twint?: EmptyObject
+      type:
+        | "acss_debit"
+        | "affirm"
+        | "afterpay_clearpay"
+        | "alipay"
+        | "alma"
+        | "amazon_pay"
+        | "au_becs_debit"
+        | "bacs_debit"
+        | "bancontact"
+        | "billie"
+        | "blik"
+        | "boleto"
+        | "cashapp"
+        | "crypto"
+        | "customer_balance"
+        | "eps"
+        | "fpx"
+        | "giropay"
+        | "grabpay"
+        | "ideal"
+        | "kakao_pay"
+        | "klarna"
+        | "konbini"
+        | "kr_card"
+        | "link"
+        | "mobilepay"
+        | "multibanco"
+        | "naver_pay"
+        | "nz_bank_account"
+        | "oxxo"
+        | "p24"
+        | "pay_by_bank"
+        | "payco"
+        | "paynow"
+        | "paypal"
+        | "pix"
+        | "promptpay"
+        | "revolut_pay"
+        | "samsung_pay"
+        | "satispay"
+        | "sepa_debit"
+        | "sofort"
+        | "swish"
+        | "twint"
+        | "us_bank_account"
+        | "wechat_pay"
+        | "zip"
+      us_bank_account?: {
+        account_holder_type?: "company" | "individual"
+        account_number?: string
+        account_type?: "checking" | "savings"
+        financial_connections_account?: string
+        routing_number?: string
+      }
+      wechat_pay?: EmptyObject
+      zip?: EmptyObject
     }
-    affirm?: EmptyObject
-    afterpay_clearpay?: EmptyObject
-    alipay?: EmptyObject
-    allow_redisplay?: "always" | "limited" | "unspecified"
-    alma?: EmptyObject
-    amazon_pay?: EmptyObject
-    au_becs_debit?: {
-      account_number: string
-      bsb_number: string
-    }
-    bacs_debit?: {
-      account_number?: string
-      sort_code?: string
-    }
-    bancontact?: EmptyObject
-    billie?: EmptyObject
-    billing_details?: {
-      address?:
+    payment_method_options?: {
+      acss_debit?:
         | {
+            mandate_options?: {
+              custom_mandate_url?: string | ""
+              interval_description?: string
+              payment_schedule?: "combined" | "interval" | "sporadic"
+              transaction_type?: "business" | "personal"
+            }
+            setup_future_usage?: "" | "none" | "off_session" | "on_session"
+            target_date?: string
+            verification_method?: "automatic" | "instant" | "microdeposits"
+          }
+        | ""
+      affirm?:
+        | {
+            capture_method?: "" | "manual"
+            preferred_locale?: string
+            setup_future_usage?: "none"
+          }
+        | ""
+      afterpay_clearpay?:
+        | {
+            capture_method?: "" | "manual"
+            reference?: string
+            setup_future_usage?: "none"
+          }
+        | ""
+      alipay?:
+        | {
+            setup_future_usage?: "" | "none" | "off_session"
+          }
+        | ""
+      alma?:
+        | {
+            capture_method?: "" | "manual"
+          }
+        | ""
+      amazon_pay?:
+        | {
+            capture_method?: "" | "manual"
+            setup_future_usage?: "" | "none" | "off_session"
+          }
+        | ""
+      au_becs_debit?:
+        | {
+            setup_future_usage?: "" | "none" | "off_session" | "on_session"
+            target_date?: string
+          }
+        | ""
+      bacs_debit?:
+        | {
+            mandate_options?: {
+              reference_prefix?: string | ""
+            }
+            setup_future_usage?: "" | "none" | "off_session" | "on_session"
+            target_date?: string
+          }
+        | ""
+      bancontact?:
+        | {
+            preferred_language?: "de" | "en" | "fr" | "nl"
+            setup_future_usage?: "" | "none" | "off_session"
+          }
+        | ""
+      billie?:
+        | {
+            capture_method?: "" | "manual"
+          }
+        | ""
+      blik?:
+        | {
+            code?: string
+            setup_future_usage?: "" | "none"
+          }
+        | ""
+      boleto?:
+        | {
+            expires_after_days?: number
+            setup_future_usage?: "" | "none" | "off_session" | "on_session"
+          }
+        | ""
+      card?:
+        | {
+            capture_method?: "" | "manual"
+            cvc_token?: string
+            installments?: {
+              enabled?: boolean
+              plan?:
+                | {
+                    count?: number
+                    interval?: "month"
+                    type: "bonus" | "fixed_count" | "revolving"
+                  }
+                | ""
+            }
+            mandate_options?: {
+              amount: number
+              amount_type: "fixed" | "maximum"
+              description?: string
+              end_date?: number
+              interval: "day" | "month" | "sporadic" | "week" | "year"
+              interval_count?: number
+              reference: string
+              start_date: number
+              supported_types?: "india"[]
+            }
+            network?:
+              | "amex"
+              | "cartes_bancaires"
+              | "diners"
+              | "discover"
+              | "eftpos_au"
+              | "girocard"
+              | "interac"
+              | "jcb"
+              | "link"
+              | "mastercard"
+              | "unionpay"
+              | "unknown"
+              | "visa"
+            request_extended_authorization?: "if_available" | "never"
+            request_incremental_authorization?: "if_available" | "never"
+            request_multicapture?: "if_available" | "never"
+            request_overcapture?: "if_available" | "never"
+            request_three_d_secure?: "any" | "automatic" | "challenge"
+            require_cvc_recollection?: boolean
+            setup_future_usage?: "" | "none" | "off_session" | "on_session"
+            statement_descriptor_suffix_kana?: string | ""
+            statement_descriptor_suffix_kanji?: string | ""
+            three_d_secure?: {
+              ares_trans_status?: "A" | "C" | "I" | "N" | "R" | "U" | "Y"
+              cryptogram: string
+              electronic_commerce_indicator?: "01" | "02" | "05" | "06" | "07"
+              exemption_indicator?: "low_risk" | "none"
+              network_options?: {
+                cartes_bancaires?: {
+                  cb_avalgo: "0" | "1" | "2" | "3" | "4" | "A"
+                  cb_exemption?: string
+                  cb_score?: number
+                }
+              }
+              requestor_challenge_indicator?: string
+              transaction_id: string
+              version: "1.0.2" | "2.1.0" | "2.2.0"
+            }
+          }
+        | ""
+      card_present?:
+        | {
+            request_extended_authorization?: boolean
+            request_incremental_authorization_support?: boolean
+            routing?: {
+              requested_priority?: "domestic" | "international"
+            }
+          }
+        | ""
+      cashapp?:
+        | {
+            capture_method?: "" | "manual"
+            setup_future_usage?: "" | "none" | "off_session" | "on_session"
+          }
+        | ""
+      crypto?:
+        | {
+            setup_future_usage?: "none"
+          }
+        | ""
+      customer_balance?:
+        | {
+            bank_transfer?: {
+              eu_bank_transfer?: {
+                country: string
+              }
+              requested_address_types?: (
+                | "aba"
+                | "iban"
+                | "sepa"
+                | "sort_code"
+                | "spei"
+                | "swift"
+                | "zengin"
+              )[]
+              type:
+                | "eu_bank_transfer"
+                | "gb_bank_transfer"
+                | "jp_bank_transfer"
+                | "mx_bank_transfer"
+                | "us_bank_transfer"
+            }
+            funding_type?: "bank_transfer"
+            setup_future_usage?: "none"
+          }
+        | ""
+      eps?:
+        | {
+            setup_future_usage?: "none"
+          }
+        | ""
+      fpx?:
+        | {
+            setup_future_usage?: "none"
+          }
+        | ""
+      giropay?:
+        | {
+            setup_future_usage?: "none"
+          }
+        | ""
+      grabpay?:
+        | {
+            setup_future_usage?: "none"
+          }
+        | ""
+      ideal?:
+        | {
+            setup_future_usage?: "" | "none" | "off_session"
+          }
+        | ""
+      interac_present?: EmptyObject | ""
+      kakao_pay?:
+        | {
+            capture_method?: "" | "manual"
+            setup_future_usage?: "" | "none" | "off_session"
+          }
+        | ""
+      klarna?:
+        | {
+            capture_method?: "" | "manual"
+            on_demand?: {
+              average_amount?: number
+              maximum_amount?: number
+              minimum_amount?: number
+              purchase_interval?: "day" | "month" | "week" | "year"
+              purchase_interval_count?: number
+            }
+            preferred_locale?:
+              | "cs-CZ"
+              | "da-DK"
+              | "de-AT"
+              | "de-CH"
+              | "de-DE"
+              | "el-GR"
+              | "en-AT"
+              | "en-AU"
+              | "en-BE"
+              | "en-CA"
+              | "en-CH"
+              | "en-CZ"
+              | "en-DE"
+              | "en-DK"
+              | "en-ES"
+              | "en-FI"
+              | "en-FR"
+              | "en-GB"
+              | "en-GR"
+              | "en-IE"
+              | "en-IT"
+              | "en-NL"
+              | "en-NO"
+              | "en-NZ"
+              | "en-PL"
+              | "en-PT"
+              | "en-RO"
+              | "en-SE"
+              | "en-US"
+              | "es-ES"
+              | "es-US"
+              | "fi-FI"
+              | "fr-BE"
+              | "fr-CA"
+              | "fr-CH"
+              | "fr-FR"
+              | "it-CH"
+              | "it-IT"
+              | "nb-NO"
+              | "nl-BE"
+              | "nl-NL"
+              | "pl-PL"
+              | "pt-PT"
+              | "ro-RO"
+              | "sv-FI"
+              | "sv-SE"
+            setup_future_usage?: "none" | "off_session" | "on_session"
+            subscriptions?:
+              | {
+                  interval: "day" | "month" | "week" | "year"
+                  interval_count?: number
+                  name?: string
+                  next_billing?: {
+                    amount: number
+                    date: string
+                  }
+                  reference: string
+                }[]
+              | ""
+          }
+        | ""
+      konbini?:
+        | {
+            confirmation_number?: string | ""
+            expires_after_days?: number | ""
+            expires_at?: number | ""
+            product_description?: string | ""
+            setup_future_usage?: "none"
+          }
+        | ""
+      kr_card?:
+        | {
+            capture_method?: "" | "manual"
+            setup_future_usage?: "" | "none" | "off_session"
+          }
+        | ""
+      link?:
+        | {
+            capture_method?: "" | "manual"
+            setup_future_usage?: "" | "none" | "off_session"
+          }
+        | ""
+      mobilepay?:
+        | {
+            capture_method?: "" | "manual"
+            setup_future_usage?: "none"
+          }
+        | ""
+      multibanco?:
+        | {
+            setup_future_usage?: "none"
+          }
+        | ""
+      naver_pay?:
+        | {
+            capture_method?: "" | "manual"
+            setup_future_usage?: "" | "none" | "off_session"
+          }
+        | ""
+      nz_bank_account?:
+        | {
+            setup_future_usage?: "" | "none" | "off_session" | "on_session"
+            target_date?: string
+          }
+        | ""
+      oxxo?:
+        | {
+            expires_after_days?: number
+            setup_future_usage?: "none"
+          }
+        | ""
+      p24?:
+        | {
+            setup_future_usage?: "none"
+            tos_shown_and_accepted?: boolean
+          }
+        | ""
+      pay_by_bank?: EmptyObject | ""
+      payco?:
+        | {
+            capture_method?: "" | "manual"
+          }
+        | ""
+      paynow?:
+        | {
+            setup_future_usage?: "none"
+          }
+        | ""
+      paypal?:
+        | {
+            capture_method?: "" | "manual"
+            preferred_locale?:
+              | "cs-CZ"
+              | "da-DK"
+              | "de-AT"
+              | "de-DE"
+              | "de-LU"
+              | "el-GR"
+              | "en-GB"
+              | "en-US"
+              | "es-ES"
+              | "fi-FI"
+              | "fr-BE"
+              | "fr-FR"
+              | "fr-LU"
+              | "hu-HU"
+              | "it-IT"
+              | "nl-BE"
+              | "nl-NL"
+              | "pl-PL"
+              | "pt-PT"
+              | "sk-SK"
+              | "sv-SE"
+            reference?: string
+            risk_correlation_id?: string
+            setup_future_usage?: "" | "none" | "off_session"
+          }
+        | ""
+      pix?:
+        | {
+            expires_after_seconds?: number
+            expires_at?: number
+            setup_future_usage?: "none"
+          }
+        | ""
+      promptpay?:
+        | {
+            setup_future_usage?: "none"
+          }
+        | ""
+      revolut_pay?:
+        | {
+            capture_method?: "" | "manual"
+            setup_future_usage?: "" | "none" | "off_session"
+          }
+        | ""
+      samsung_pay?:
+        | {
+            capture_method?: "" | "manual"
+          }
+        | ""
+      satispay?:
+        | {
+            capture_method?: "" | "manual"
+          }
+        | ""
+      sepa_debit?:
+        | {
+            mandate_options?: {
+              reference_prefix?: string | ""
+            }
+            setup_future_usage?: "" | "none" | "off_session" | "on_session"
+            target_date?: string
+          }
+        | ""
+      sofort?:
+        | {
+            preferred_language?:
+              | ""
+              | "de"
+              | "en"
+              | "es"
+              | "fr"
+              | "it"
+              | "nl"
+              | "pl"
+            setup_future_usage?: "" | "none" | "off_session"
+          }
+        | ""
+      swish?:
+        | {
+            reference?: string | ""
+            setup_future_usage?: "none"
+          }
+        | ""
+      twint?:
+        | {
+            setup_future_usage?: "none"
+          }
+        | ""
+      us_bank_account?:
+        | {
+            financial_connections?: {
+              filters?: {
+                account_subcategories?: ("checking" | "savings")[]
+              }
+              permissions?: (
+                | "balances"
+                | "ownership"
+                | "payment_method"
+                | "transactions"
+              )[]
+              prefetch?: ("balances" | "ownership" | "transactions")[]
+              return_url?: string
+            }
+            mandate_options?: {
+              collection_method?: "" | "paper"
+            }
+            networks?: {
+              requested?: ("ach" | "us_domestic_wire")[]
+            }
+            preferred_settlement_speed?: "" | "fastest" | "standard"
+            setup_future_usage?: "" | "none" | "off_session" | "on_session"
+            target_date?: string
+            verification_method?: "automatic" | "instant" | "microdeposits"
+          }
+        | ""
+      wechat_pay?:
+        | {
+            app_id?: string
+            client?: "android" | "ios" | "web"
+            setup_future_usage?: "none"
+          }
+        | ""
+      zip?:
+        | {
+            setup_future_usage?: "none"
+          }
+        | ""
+    }
+    payment_method_types?: string[]
+    radar_options?: {
+      session?: string
+    }
+    receipt_email?: string | ""
+    return_url?: string
+    setup_future_usage?: "" | "off_session" | "on_session"
+    shipping?:
+      | {
+          address: {
             city?: string
             country?: string
             line1?: string
@@ -30002,790 +30856,47 @@ export type t_PostPaymentIntentsIntentConfirmBodySchema = {
             postal_code?: string
             state?: string
           }
-        | ""
-      email?: string | ""
-      name?: string | ""
-      phone?: string | ""
-      tax_id?: string
-    }
-    blik?: EmptyObject
-    boleto?: {
-      tax_id: string
-    }
-    cashapp?: EmptyObject
-    crypto?: EmptyObject
-    customer_balance?: EmptyObject
-    eps?: {
-      bank?:
-        | "arzte_und_apotheker_bank"
-        | "austrian_anadi_bank_ag"
-        | "bank_austria"
-        | "bankhaus_carl_spangler"
-        | "bankhaus_schelhammer_und_schattera_ag"
-        | "bawag_psk_ag"
-        | "bks_bank_ag"
-        | "brull_kallmus_bank_ag"
-        | "btv_vier_lander_bank"
-        | "capital_bank_grawe_gruppe_ag"
-        | "deutsche_bank_ag"
-        | "dolomitenbank"
-        | "easybank_ag"
-        | "erste_bank_und_sparkassen"
-        | "hypo_alpeadriabank_international_ag"
-        | "hypo_bank_burgenland_aktiengesellschaft"
-        | "hypo_noe_lb_fur_niederosterreich_u_wien"
-        | "hypo_oberosterreich_salzburg_steiermark"
-        | "hypo_tirol_bank_ag"
-        | "hypo_vorarlberg_bank_ag"
-        | "marchfelder_bank"
-        | "oberbank_ag"
-        | "raiffeisen_bankengruppe_osterreich"
-        | "schoellerbank_ag"
-        | "sparda_bank_wien"
-        | "volksbank_gruppe"
-        | "volkskreditbank_ag"
-        | "vr_bank_braunau"
-    }
-    fpx?: {
-      bank:
-        | "affin_bank"
-        | "agrobank"
-        | "alliance_bank"
-        | "ambank"
-        | "bank_islam"
-        | "bank_muamalat"
-        | "bank_of_china"
-        | "bank_rakyat"
-        | "bsn"
-        | "cimb"
-        | "deutsche_bank"
-        | "hong_leong_bank"
-        | "hsbc"
-        | "kfh"
-        | "maybank2e"
-        | "maybank2u"
-        | "ocbc"
-        | "pb_enterprise"
-        | "public_bank"
-        | "rhb"
-        | "standard_chartered"
-        | "uob"
-    }
-    giropay?: EmptyObject
-    grabpay?: EmptyObject
-    ideal?: {
-      bank?:
-        | "abn_amro"
-        | "asn_bank"
-        | "bunq"
-        | "buut"
-        | "handelsbanken"
-        | "ing"
-        | "knab"
-        | "moneyou"
-        | "n26"
-        | "nn"
-        | "rabobank"
-        | "regiobank"
-        | "revolut"
-        | "sns_bank"
-        | "triodos_bank"
-        | "van_lanschot"
-        | "yoursafe"
-    }
-    interac_present?: EmptyObject
-    kakao_pay?: EmptyObject
-    klarna?: {
-      dob?: {
-        day: number
-        month: number
-        year: number
-      }
-    }
-    konbini?: EmptyObject
-    kr_card?: EmptyObject
-    link?: EmptyObject
-    metadata?: {
-      [key: string]: string | undefined
-    }
-    mobilepay?: EmptyObject
-    multibanco?: EmptyObject
-    naver_pay?: {
-      funding?: "card" | "points"
-    }
-    nz_bank_account?: {
-      account_holder_name?: string
-      account_number: string
-      bank_code: string
-      branch_code: string
-      reference?: string
-      suffix: string
-    }
-    oxxo?: EmptyObject
-    p24?: {
-      bank?:
-        | "alior_bank"
-        | "bank_millennium"
-        | "bank_nowy_bfg_sa"
-        | "bank_pekao_sa"
-        | "banki_spbdzielcze"
-        | "blik"
-        | "bnp_paribas"
-        | "boz"
-        | "citi_handlowy"
-        | "credit_agricole"
-        | "envelobank"
-        | "etransfer_pocztowy24"
-        | "getin_bank"
-        | "ideabank"
-        | "ing"
-        | "inteligo"
-        | "mbank_mtransfer"
-        | "nest_przelew"
-        | "noble_pay"
-        | "pbac_z_ipko"
-        | "plus_bank"
-        | "santander_przelew24"
-        | "tmobile_usbugi_bankowe"
-        | "toyota_bank"
-        | "velobank"
-        | "volkswagen_bank"
-    }
-    pay_by_bank?: EmptyObject
-    payco?: EmptyObject
-    paynow?: EmptyObject
-    paypal?: EmptyObject
-    pix?: EmptyObject
-    promptpay?: EmptyObject
-    radar_options?: {
-      session?: string
-    }
-    revolut_pay?: EmptyObject
-    samsung_pay?: EmptyObject
-    satispay?: EmptyObject
-    sepa_debit?: {
-      iban: string
-    }
-    sofort?: {
-      country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL"
-    }
-    swish?: EmptyObject
-    twint?: EmptyObject
-    type:
-      | "acss_debit"
-      | "affirm"
-      | "afterpay_clearpay"
-      | "alipay"
-      | "alma"
-      | "amazon_pay"
-      | "au_becs_debit"
-      | "bacs_debit"
-      | "bancontact"
-      | "billie"
-      | "blik"
-      | "boleto"
-      | "cashapp"
-      | "crypto"
-      | "customer_balance"
-      | "eps"
-      | "fpx"
-      | "giropay"
-      | "grabpay"
-      | "ideal"
-      | "kakao_pay"
-      | "klarna"
-      | "konbini"
-      | "kr_card"
-      | "link"
-      | "mobilepay"
-      | "multibanco"
-      | "naver_pay"
-      | "nz_bank_account"
-      | "oxxo"
-      | "p24"
-      | "pay_by_bank"
-      | "payco"
-      | "paynow"
-      | "paypal"
-      | "pix"
-      | "promptpay"
-      | "revolut_pay"
-      | "samsung_pay"
-      | "satispay"
-      | "sepa_debit"
-      | "sofort"
-      | "swish"
-      | "twint"
-      | "us_bank_account"
-      | "wechat_pay"
-      | "zip"
-    us_bank_account?: {
-      account_holder_type?: "company" | "individual"
-      account_number?: string
-      account_type?: "checking" | "savings"
-      financial_connections_account?: string
-      routing_number?: string
-    }
-    wechat_pay?: EmptyObject
-    zip?: EmptyObject
+          carrier?: string
+          name: string
+          phone?: string
+          tracking_number?: string
+        }
+      | ""
+    use_stripe_sdk?: boolean
   }
-  payment_method_options?: {
-    acss_debit?:
-      | {
-          mandate_options?: {
-            custom_mandate_url?: string | ""
-            interval_description?: string
-            payment_schedule?: "combined" | "interval" | "sporadic"
-            transaction_type?: "business" | "personal"
-          }
-          setup_future_usage?: "" | "none" | "off_session" | "on_session"
-          target_date?: string
-          verification_method?: "automatic" | "instant" | "microdeposits"
-        }
-      | ""
-    affirm?:
-      | {
-          capture_method?: "" | "manual"
-          preferred_locale?: string
-          setup_future_usage?: "none"
-        }
-      | ""
-    afterpay_clearpay?:
-      | {
-          capture_method?: "" | "manual"
-          reference?: string
-          setup_future_usage?: "none"
-        }
-      | ""
-    alipay?:
-      | {
-          setup_future_usage?: "" | "none" | "off_session"
-        }
-      | ""
-    alma?:
-      | {
-          capture_method?: "" | "manual"
-        }
-      | ""
-    amazon_pay?:
-      | {
-          capture_method?: "" | "manual"
-          setup_future_usage?: "" | "none" | "off_session"
-        }
-      | ""
-    au_becs_debit?:
-      | {
-          setup_future_usage?: "" | "none" | "off_session" | "on_session"
-          target_date?: string
-        }
-      | ""
-    bacs_debit?:
-      | {
-          mandate_options?: {
-            reference_prefix?: string | ""
-          }
-          setup_future_usage?: "" | "none" | "off_session" | "on_session"
-          target_date?: string
-        }
-      | ""
-    bancontact?:
-      | {
-          preferred_language?: "de" | "en" | "fr" | "nl"
-          setup_future_usage?: "" | "none" | "off_session"
-        }
-      | ""
-    billie?:
-      | {
-          capture_method?: "" | "manual"
-        }
-      | ""
-    blik?:
-      | {
-          code?: string
-          setup_future_usage?: "" | "none"
-        }
-      | ""
-    boleto?:
-      | {
-          expires_after_days?: number
-          setup_future_usage?: "" | "none" | "off_session" | "on_session"
-        }
-      | ""
-    card?:
-      | {
-          capture_method?: "" | "manual"
-          cvc_token?: string
-          installments?: {
-            enabled?: boolean
-            plan?:
-              | {
-                  count?: number
-                  interval?: "month"
-                  type: "bonus" | "fixed_count" | "revolving"
-                }
-              | ""
-          }
-          mandate_options?: {
-            amount: number
-            amount_type: "fixed" | "maximum"
-            description?: string
-            end_date?: number
-            interval: "day" | "month" | "sporadic" | "week" | "year"
-            interval_count?: number
-            reference: string
-            start_date: number
-            supported_types?: "india"[]
-          }
-          network?:
-            | "amex"
-            | "cartes_bancaires"
-            | "diners"
-            | "discover"
-            | "eftpos_au"
-            | "girocard"
-            | "interac"
-            | "jcb"
-            | "link"
-            | "mastercard"
-            | "unionpay"
-            | "unknown"
-            | "visa"
-          request_extended_authorization?: "if_available" | "never"
-          request_incremental_authorization?: "if_available" | "never"
-          request_multicapture?: "if_available" | "never"
-          request_overcapture?: "if_available" | "never"
-          request_three_d_secure?: "any" | "automatic" | "challenge"
-          require_cvc_recollection?: boolean
-          setup_future_usage?: "" | "none" | "off_session" | "on_session"
-          statement_descriptor_suffix_kana?: string | ""
-          statement_descriptor_suffix_kanji?: string | ""
-          three_d_secure?: {
-            ares_trans_status?: "A" | "C" | "I" | "N" | "R" | "U" | "Y"
-            cryptogram: string
-            electronic_commerce_indicator?: "01" | "02" | "05" | "06" | "07"
-            exemption_indicator?: "low_risk" | "none"
-            network_options?: {
-              cartes_bancaires?: {
-                cb_avalgo: "0" | "1" | "2" | "3" | "4" | "A"
-                cb_exemption?: string
-                cb_score?: number
-              }
-            }
-            requestor_challenge_indicator?: string
-            transaction_id: string
-            version: "1.0.2" | "2.1.0" | "2.2.0"
-          }
-        }
-      | ""
-    card_present?:
-      | {
-          request_extended_authorization?: boolean
-          request_incremental_authorization_support?: boolean
-          routing?: {
-            requested_priority?: "domestic" | "international"
-          }
-        }
-      | ""
-    cashapp?:
-      | {
-          capture_method?: "" | "manual"
-          setup_future_usage?: "" | "none" | "off_session" | "on_session"
-        }
-      | ""
-    crypto?:
-      | {
-          setup_future_usage?: "none"
-        }
-      | ""
-    customer_balance?:
-      | {
-          bank_transfer?: {
-            eu_bank_transfer?: {
-              country: string
-            }
-            requested_address_types?: (
-              | "aba"
-              | "iban"
-              | "sepa"
-              | "sort_code"
-              | "spei"
-              | "swift"
-              | "zengin"
-            )[]
-            type:
-              | "eu_bank_transfer"
-              | "gb_bank_transfer"
-              | "jp_bank_transfer"
-              | "mx_bank_transfer"
-              | "us_bank_transfer"
-          }
-          funding_type?: "bank_transfer"
-          setup_future_usage?: "none"
-        }
-      | ""
-    eps?:
-      | {
-          setup_future_usage?: "none"
-        }
-      | ""
-    fpx?:
-      | {
-          setup_future_usage?: "none"
-        }
-      | ""
-    giropay?:
-      | {
-          setup_future_usage?: "none"
-        }
-      | ""
-    grabpay?:
-      | {
-          setup_future_usage?: "none"
-        }
-      | ""
-    ideal?:
-      | {
-          setup_future_usage?: "" | "none" | "off_session"
-        }
-      | ""
-    interac_present?: EmptyObject | ""
-    kakao_pay?:
-      | {
-          capture_method?: "" | "manual"
-          setup_future_usage?: "" | "none" | "off_session"
-        }
-      | ""
-    klarna?:
-      | {
-          capture_method?: "" | "manual"
-          on_demand?: {
-            average_amount?: number
-            maximum_amount?: number
-            minimum_amount?: number
-            purchase_interval?: "day" | "month" | "week" | "year"
-            purchase_interval_count?: number
-          }
-          preferred_locale?:
-            | "cs-CZ"
-            | "da-DK"
-            | "de-AT"
-            | "de-CH"
-            | "de-DE"
-            | "el-GR"
-            | "en-AT"
-            | "en-AU"
-            | "en-BE"
-            | "en-CA"
-            | "en-CH"
-            | "en-CZ"
-            | "en-DE"
-            | "en-DK"
-            | "en-ES"
-            | "en-FI"
-            | "en-FR"
-            | "en-GB"
-            | "en-GR"
-            | "en-IE"
-            | "en-IT"
-            | "en-NL"
-            | "en-NO"
-            | "en-NZ"
-            | "en-PL"
-            | "en-PT"
-            | "en-RO"
-            | "en-SE"
-            | "en-US"
-            | "es-ES"
-            | "es-US"
-            | "fi-FI"
-            | "fr-BE"
-            | "fr-CA"
-            | "fr-CH"
-            | "fr-FR"
-            | "it-CH"
-            | "it-IT"
-            | "nb-NO"
-            | "nl-BE"
-            | "nl-NL"
-            | "pl-PL"
-            | "pt-PT"
-            | "ro-RO"
-            | "sv-FI"
-            | "sv-SE"
-          setup_future_usage?: "none" | "off_session" | "on_session"
-          subscriptions?:
-            | {
-                interval: "day" | "month" | "week" | "year"
-                interval_count?: number
-                name?: string
-                next_billing?: {
-                  amount: number
-                  date: string
-                }
-                reference: string
-              }[]
-            | ""
-        }
-      | ""
-    konbini?:
-      | {
-          confirmation_number?: string | ""
-          expires_after_days?: number | ""
-          expires_at?: number | ""
-          product_description?: string | ""
-          setup_future_usage?: "none"
-        }
-      | ""
-    kr_card?:
-      | {
-          capture_method?: "" | "manual"
-          setup_future_usage?: "" | "none" | "off_session"
-        }
-      | ""
-    link?:
-      | {
-          capture_method?: "" | "manual"
-          setup_future_usage?: "" | "none" | "off_session"
-        }
-      | ""
-    mobilepay?:
-      | {
-          capture_method?: "" | "manual"
-          setup_future_usage?: "none"
-        }
-      | ""
-    multibanco?:
-      | {
-          setup_future_usage?: "none"
-        }
-      | ""
-    naver_pay?:
-      | {
-          capture_method?: "" | "manual"
-          setup_future_usage?: "" | "none" | "off_session"
-        }
-      | ""
-    nz_bank_account?:
-      | {
-          setup_future_usage?: "" | "none" | "off_session" | "on_session"
-          target_date?: string
-        }
-      | ""
-    oxxo?:
-      | {
-          expires_after_days?: number
-          setup_future_usage?: "none"
-        }
-      | ""
-    p24?:
-      | {
-          setup_future_usage?: "none"
-          tos_shown_and_accepted?: boolean
-        }
-      | ""
-    pay_by_bank?: EmptyObject | ""
-    payco?:
-      | {
-          capture_method?: "" | "manual"
-        }
-      | ""
-    paynow?:
-      | {
-          setup_future_usage?: "none"
-        }
-      | ""
-    paypal?:
-      | {
-          capture_method?: "" | "manual"
-          preferred_locale?:
-            | "cs-CZ"
-            | "da-DK"
-            | "de-AT"
-            | "de-DE"
-            | "de-LU"
-            | "el-GR"
-            | "en-GB"
-            | "en-US"
-            | "es-ES"
-            | "fi-FI"
-            | "fr-BE"
-            | "fr-FR"
-            | "fr-LU"
-            | "hu-HU"
-            | "it-IT"
-            | "nl-BE"
-            | "nl-NL"
-            | "pl-PL"
-            | "pt-PT"
-            | "sk-SK"
-            | "sv-SE"
-          reference?: string
-          risk_correlation_id?: string
-          setup_future_usage?: "" | "none" | "off_session"
-        }
-      | ""
-    pix?:
-      | {
-          expires_after_seconds?: number
-          expires_at?: number
-          setup_future_usage?: "none"
-        }
-      | ""
-    promptpay?:
-      | {
-          setup_future_usage?: "none"
-        }
-      | ""
-    revolut_pay?:
-      | {
-          capture_method?: "" | "manual"
-          setup_future_usage?: "" | "none" | "off_session"
-        }
-      | ""
-    samsung_pay?:
-      | {
-          capture_method?: "" | "manual"
-        }
-      | ""
-    satispay?:
-      | {
-          capture_method?: "" | "manual"
-        }
-      | ""
-    sepa_debit?:
-      | {
-          mandate_options?: {
-            reference_prefix?: string | ""
-          }
-          setup_future_usage?: "" | "none" | "off_session" | "on_session"
-          target_date?: string
-        }
-      | ""
-    sofort?:
-      | {
-          preferred_language?:
-            | ""
-            | "de"
-            | "en"
-            | "es"
-            | "fr"
-            | "it"
-            | "nl"
-            | "pl"
-          setup_future_usage?: "" | "none" | "off_session"
-        }
-      | ""
-    swish?:
-      | {
-          reference?: string | ""
-          setup_future_usage?: "none"
-        }
-      | ""
-    twint?:
-      | {
-          setup_future_usage?: "none"
-        }
-      | ""
-    us_bank_account?:
-      | {
-          financial_connections?: {
-            filters?: {
-              account_subcategories?: ("checking" | "savings")[]
-            }
-            permissions?: (
-              | "balances"
-              | "ownership"
-              | "payment_method"
-              | "transactions"
-            )[]
-            prefetch?: ("balances" | "ownership" | "transactions")[]
-            return_url?: string
-          }
-          mandate_options?: {
-            collection_method?: "" | "paper"
-          }
-          networks?: {
-            requested?: ("ach" | "us_domestic_wire")[]
-          }
-          preferred_settlement_speed?: "" | "fastest" | "standard"
-          setup_future_usage?: "" | "none" | "off_session" | "on_session"
-          target_date?: string
-          verification_method?: "automatic" | "instant" | "microdeposits"
-        }
-      | ""
-    wechat_pay?:
-      | {
-          app_id?: string
-          client?: "android" | "ios" | "web"
-          setup_future_usage?: "none"
-        }
-      | ""
-    zip?:
-      | {
-          setup_future_usage?: "none"
-        }
-      | ""
-  }
-  payment_method_types?: string[]
-  radar_options?: {
-    session?: string
-  }
-  receipt_email?: string | ""
-  return_url?: string
-  setup_future_usage?: "" | "off_session" | "on_session"
-  shipping?:
-    | {
-        address: {
-          city?: string
-          country?: string
-          line1?: string
-          line2?: string
-          postal_code?: string
-          state?: string
-        }
-        carrier?: string
-        name: string
-        phone?: string
-        tracking_number?: string
-      }
-    | ""
-  use_stripe_sdk?: boolean
-}
-
-export type t_PostPaymentIntentsIntentConfirmParamSchema = {
-  intent: string
-}
-
-export type t_PostPaymentIntentsIntentIncrementAuthorizationBodySchema = {
-  amount: number
-  application_fee_amount?: number
-  description?: string
-  expand?: string[]
-  metadata?: {
-    [key: string]: string | undefined
-  }
-  statement_descriptor?: string
-  transfer_data?: {
-    amount?: number
-  }
-}
 
 export type t_PostPaymentIntentsIntentIncrementAuthorizationParamSchema = {
   intent: string
 }
 
-export type t_PostPaymentIntentsIntentVerifyMicrodepositsBodySchema = {
-  amounts?: number[]
-  client_secret?: string
-  descriptor_code?: string
-  expand?: string[]
-}
+export type t_postPaymentIntentsIntentIncrementAuthorizationApplicationXWwwFormUrlencodedRequestBody =
+  {
+    amount: number
+    application_fee_amount?: number
+    description?: string
+    expand?: string[]
+    metadata?: {
+      [key: string]: string | undefined
+    }
+    statement_descriptor?: string
+    transfer_data?: {
+      amount?: number
+    }
+  }
 
 export type t_PostPaymentIntentsIntentVerifyMicrodepositsParamSchema = {
   intent: string
 }
 
-export type t_PostPaymentLinksBodySchema = {
+export type t_postPaymentIntentsIntentVerifyMicrodepositsApplicationXWwwFormUrlencodedRequestBody =
+  {
+    amounts?: number[]
+    client_secret?: string
+    descriptor_code?: string
+    expand?: string[]
+  }
+
+export type t_postPaymentLinksApplicationXWwwFormUrlencodedRequestBody = {
   after_completion?: {
     hosted_confirmation?: {
       custom_message?: string
@@ -31269,1019 +31380,1025 @@ export type t_PostPaymentLinksBodySchema = {
   }
 }
 
-export type t_PostPaymentLinksPaymentLinkBodySchema = {
-  active?: boolean
-  after_completion?: {
-    hosted_confirmation?: {
-      custom_message?: string
+export type t_PostPaymentLinksPaymentLinkParamSchema = {
+  payment_link: string
+}
+
+export type t_postPaymentLinksPaymentLinkApplicationXWwwFormUrlencodedRequestBody =
+  {
+    active?: boolean
+    after_completion?: {
+      hosted_confirmation?: {
+        custom_message?: string
+      }
+      redirect?: {
+        url: string
+      }
+      type: "hosted_confirmation" | "redirect"
     }
-    redirect?: {
-      url: string
-    }
-    type: "hosted_confirmation" | "redirect"
-  }
-  allow_promotion_codes?: boolean
-  automatic_tax?: {
-    enabled: boolean
-    liability?: {
-      account?: string
-      type: "account" | "self"
-    }
-  }
-  billing_address_collection?: "auto" | "required"
-  custom_fields?:
-    | {
-        dropdown?: {
-          default_value?: string
-          options: {
-            label: string
-            value: string
-          }[]
-        }
-        key: string
-        label: {
-          custom: string
-          type: "custom"
-        }
-        numeric?: {
-          default_value?: string
-          maximum_length?: number
-          minimum_length?: number
-        }
-        optional?: boolean
-        text?: {
-          default_value?: string
-          maximum_length?: number
-          minimum_length?: number
-        }
-        type: "dropdown" | "numeric" | "text"
-      }[]
-    | ""
-  custom_text?: {
-    after_submit?:
-      | {
-          message: string
-        }
-      | ""
-    shipping_address?:
-      | {
-          message: string
-        }
-      | ""
-    submit?:
-      | {
-          message: string
-        }
-      | ""
-    terms_of_service_acceptance?:
-      | {
-          message: string
-        }
-      | ""
-  }
-  customer_creation?: "always" | "if_required"
-  expand?: string[]
-  inactive_message?: string | ""
-  invoice_creation?: {
-    enabled: boolean
-    invoice_data?: {
-      account_tax_ids?: string[] | ""
-      custom_fields?:
-        | {
-            name: string
-            value: string
-          }[]
-        | ""
-      description?: string
-      footer?: string
-      issuer?: {
+    allow_promotion_codes?: boolean
+    automatic_tax?: {
+      enabled: boolean
+      liability?: {
         account?: string
         type: "account" | "self"
+      }
+    }
+    billing_address_collection?: "auto" | "required"
+    custom_fields?:
+      | {
+          dropdown?: {
+            default_value?: string
+            options: {
+              label: string
+              value: string
+            }[]
+          }
+          key: string
+          label: {
+            custom: string
+            type: "custom"
+          }
+          numeric?: {
+            default_value?: string
+            maximum_length?: number
+            minimum_length?: number
+          }
+          optional?: boolean
+          text?: {
+            default_value?: string
+            maximum_length?: number
+            minimum_length?: number
+          }
+          type: "dropdown" | "numeric" | "text"
+        }[]
+      | ""
+    custom_text?: {
+      after_submit?:
+        | {
+            message: string
+          }
+        | ""
+      shipping_address?:
+        | {
+            message: string
+          }
+        | ""
+      submit?:
+        | {
+            message: string
+          }
+        | ""
+      terms_of_service_acceptance?:
+        | {
+            message: string
+          }
+        | ""
+    }
+    customer_creation?: "always" | "if_required"
+    expand?: string[]
+    inactive_message?: string | ""
+    invoice_creation?: {
+      enabled: boolean
+      invoice_data?: {
+        account_tax_ids?: string[] | ""
+        custom_fields?:
+          | {
+              name: string
+              value: string
+            }[]
+          | ""
+        description?: string
+        footer?: string
+        issuer?: {
+          account?: string
+          type: "account" | "self"
+        }
+        metadata?:
+          | {
+              [key: string]: string | undefined
+            }
+          | ""
+        rendering_options?:
+          | {
+              amount_tax_display?: "" | "exclude_tax" | "include_inclusive_tax"
+              template?: string
+            }
+          | ""
+      }
+    }
+    line_items?: {
+      adjustable_quantity?: {
+        enabled: boolean
+        maximum?: number
+        minimum?: number
+      }
+      id: string
+      quantity?: number
+    }[]
+    metadata?: {
+      [key: string]: string | undefined
+    }
+    payment_intent_data?: {
+      description?: string | ""
+      metadata?:
+        | {
+            [key: string]: string | undefined
+          }
+        | ""
+      statement_descriptor?: string | ""
+      statement_descriptor_suffix?: string | ""
+      transfer_group?: string | ""
+    }
+    payment_method_collection?: "always" | "if_required"
+    payment_method_types?:
+      | (
+          | "affirm"
+          | "afterpay_clearpay"
+          | "alipay"
+          | "alma"
+          | "au_becs_debit"
+          | "bacs_debit"
+          | "bancontact"
+          | "billie"
+          | "blik"
+          | "boleto"
+          | "card"
+          | "cashapp"
+          | "eps"
+          | "fpx"
+          | "giropay"
+          | "grabpay"
+          | "ideal"
+          | "klarna"
+          | "konbini"
+          | "link"
+          | "mobilepay"
+          | "multibanco"
+          | "oxxo"
+          | "p24"
+          | "pay_by_bank"
+          | "paynow"
+          | "paypal"
+          | "pix"
+          | "promptpay"
+          | "satispay"
+          | "sepa_debit"
+          | "sofort"
+          | "swish"
+          | "twint"
+          | "us_bank_account"
+          | "wechat_pay"
+          | "zip"
+        )[]
+      | ""
+    phone_number_collection?: {
+      enabled: boolean
+    }
+    restrictions?:
+      | {
+          completed_sessions: {
+            limit: number
+          }
+        }
+      | ""
+    shipping_address_collection?:
+      | {
+          allowed_countries: (
+            | "AC"
+            | "AD"
+            | "AE"
+            | "AF"
+            | "AG"
+            | "AI"
+            | "AL"
+            | "AM"
+            | "AO"
+            | "AQ"
+            | "AR"
+            | "AT"
+            | "AU"
+            | "AW"
+            | "AX"
+            | "AZ"
+            | "BA"
+            | "BB"
+            | "BD"
+            | "BE"
+            | "BF"
+            | "BG"
+            | "BH"
+            | "BI"
+            | "BJ"
+            | "BL"
+            | "BM"
+            | "BN"
+            | "BO"
+            | "BQ"
+            | "BR"
+            | "BS"
+            | "BT"
+            | "BV"
+            | "BW"
+            | "BY"
+            | "BZ"
+            | "CA"
+            | "CD"
+            | "CF"
+            | "CG"
+            | "CH"
+            | "CI"
+            | "CK"
+            | "CL"
+            | "CM"
+            | "CN"
+            | "CO"
+            | "CR"
+            | "CV"
+            | "CW"
+            | "CY"
+            | "CZ"
+            | "DE"
+            | "DJ"
+            | "DK"
+            | "DM"
+            | "DO"
+            | "DZ"
+            | "EC"
+            | "EE"
+            | "EG"
+            | "EH"
+            | "ER"
+            | "ES"
+            | "ET"
+            | "FI"
+            | "FJ"
+            | "FK"
+            | "FO"
+            | "FR"
+            | "GA"
+            | "GB"
+            | "GD"
+            | "GE"
+            | "GF"
+            | "GG"
+            | "GH"
+            | "GI"
+            | "GL"
+            | "GM"
+            | "GN"
+            | "GP"
+            | "GQ"
+            | "GR"
+            | "GS"
+            | "GT"
+            | "GU"
+            | "GW"
+            | "GY"
+            | "HK"
+            | "HN"
+            | "HR"
+            | "HT"
+            | "HU"
+            | "ID"
+            | "IE"
+            | "IL"
+            | "IM"
+            | "IN"
+            | "IO"
+            | "IQ"
+            | "IS"
+            | "IT"
+            | "JE"
+            | "JM"
+            | "JO"
+            | "JP"
+            | "KE"
+            | "KG"
+            | "KH"
+            | "KI"
+            | "KM"
+            | "KN"
+            | "KR"
+            | "KW"
+            | "KY"
+            | "KZ"
+            | "LA"
+            | "LB"
+            | "LC"
+            | "LI"
+            | "LK"
+            | "LR"
+            | "LS"
+            | "LT"
+            | "LU"
+            | "LV"
+            | "LY"
+            | "MA"
+            | "MC"
+            | "MD"
+            | "ME"
+            | "MF"
+            | "MG"
+            | "MK"
+            | "ML"
+            | "MM"
+            | "MN"
+            | "MO"
+            | "MQ"
+            | "MR"
+            | "MS"
+            | "MT"
+            | "MU"
+            | "MV"
+            | "MW"
+            | "MX"
+            | "MY"
+            | "MZ"
+            | "NA"
+            | "NC"
+            | "NE"
+            | "NG"
+            | "NI"
+            | "NL"
+            | "NO"
+            | "NP"
+            | "NR"
+            | "NU"
+            | "NZ"
+            | "OM"
+            | "PA"
+            | "PE"
+            | "PF"
+            | "PG"
+            | "PH"
+            | "PK"
+            | "PL"
+            | "PM"
+            | "PN"
+            | "PR"
+            | "PS"
+            | "PT"
+            | "PY"
+            | "QA"
+            | "RE"
+            | "RO"
+            | "RS"
+            | "RU"
+            | "RW"
+            | "SA"
+            | "SB"
+            | "SC"
+            | "SD"
+            | "SE"
+            | "SG"
+            | "SH"
+            | "SI"
+            | "SJ"
+            | "SK"
+            | "SL"
+            | "SM"
+            | "SN"
+            | "SO"
+            | "SR"
+            | "SS"
+            | "ST"
+            | "SV"
+            | "SX"
+            | "SZ"
+            | "TA"
+            | "TC"
+            | "TD"
+            | "TF"
+            | "TG"
+            | "TH"
+            | "TJ"
+            | "TK"
+            | "TL"
+            | "TM"
+            | "TN"
+            | "TO"
+            | "TR"
+            | "TT"
+            | "TV"
+            | "TW"
+            | "TZ"
+            | "UA"
+            | "UG"
+            | "US"
+            | "UY"
+            | "UZ"
+            | "VA"
+            | "VC"
+            | "VE"
+            | "VG"
+            | "VN"
+            | "VU"
+            | "WF"
+            | "WS"
+            | "XK"
+            | "YE"
+            | "YT"
+            | "ZA"
+            | "ZM"
+            | "ZW"
+            | "ZZ"
+          )[]
+        }
+      | ""
+    submit_type?: "auto" | "book" | "donate" | "pay" | "subscribe"
+    subscription_data?: {
+      invoice_settings?: {
+        issuer?: {
+          account?: string
+          type: "account" | "self"
+        }
       }
       metadata?:
         | {
             [key: string]: string | undefined
           }
         | ""
-      rendering_options?:
+      trial_period_days?: number | ""
+      trial_settings?:
         | {
-            amount_tax_display?: "" | "exclude_tax" | "include_inclusive_tax"
-            template?: string
+            end_behavior: {
+              missing_payment_method: "cancel" | "create_invoice" | "pause"
+            }
           }
         | ""
     }
-  }
-  line_items?: {
-    adjustable_quantity?: {
+    tax_id_collection?: {
       enabled: boolean
-      maximum?: number
-      minimum?: number
+      required?: "if_supported" | "never"
     }
-    id: string
-    quantity?: number
-  }[]
-  metadata?: {
-    [key: string]: string | undefined
   }
-  payment_intent_data?: {
-    description?: string | ""
-    metadata?:
-      | {
-          [key: string]: string | undefined
-        }
-      | ""
-    statement_descriptor?: string | ""
-    statement_descriptor_suffix?: string | ""
-    transfer_group?: string | ""
-  }
-  payment_method_collection?: "always" | "if_required"
-  payment_method_types?:
-    | (
-        | "affirm"
-        | "afterpay_clearpay"
-        | "alipay"
-        | "alma"
-        | "au_becs_debit"
-        | "bacs_debit"
-        | "bancontact"
-        | "billie"
-        | "blik"
-        | "boleto"
-        | "card"
-        | "cashapp"
-        | "eps"
-        | "fpx"
-        | "giropay"
-        | "grabpay"
-        | "ideal"
-        | "klarna"
-        | "konbini"
-        | "link"
-        | "mobilepay"
-        | "multibanco"
-        | "oxxo"
-        | "p24"
-        | "pay_by_bank"
-        | "paynow"
-        | "paypal"
-        | "pix"
-        | "promptpay"
-        | "satispay"
-        | "sepa_debit"
-        | "sofort"
-        | "swish"
-        | "twint"
-        | "us_bank_account"
-        | "wechat_pay"
-        | "zip"
-      )[]
-    | ""
-  phone_number_collection?: {
-    enabled: boolean
-  }
-  restrictions?:
-    | {
-        completed_sessions: {
-          limit: number
-        }
-      }
-    | ""
-  shipping_address_collection?:
-    | {
-        allowed_countries: (
-          | "AC"
-          | "AD"
-          | "AE"
-          | "AF"
-          | "AG"
-          | "AI"
-          | "AL"
-          | "AM"
-          | "AO"
-          | "AQ"
-          | "AR"
-          | "AT"
-          | "AU"
-          | "AW"
-          | "AX"
-          | "AZ"
-          | "BA"
-          | "BB"
-          | "BD"
-          | "BE"
-          | "BF"
-          | "BG"
-          | "BH"
-          | "BI"
-          | "BJ"
-          | "BL"
-          | "BM"
-          | "BN"
-          | "BO"
-          | "BQ"
-          | "BR"
-          | "BS"
-          | "BT"
-          | "BV"
-          | "BW"
-          | "BY"
-          | "BZ"
-          | "CA"
-          | "CD"
-          | "CF"
-          | "CG"
-          | "CH"
-          | "CI"
-          | "CK"
-          | "CL"
-          | "CM"
-          | "CN"
-          | "CO"
-          | "CR"
-          | "CV"
-          | "CW"
-          | "CY"
-          | "CZ"
-          | "DE"
-          | "DJ"
-          | "DK"
-          | "DM"
-          | "DO"
-          | "DZ"
-          | "EC"
-          | "EE"
-          | "EG"
-          | "EH"
-          | "ER"
-          | "ES"
-          | "ET"
-          | "FI"
-          | "FJ"
-          | "FK"
-          | "FO"
-          | "FR"
-          | "GA"
-          | "GB"
-          | "GD"
-          | "GE"
-          | "GF"
-          | "GG"
-          | "GH"
-          | "GI"
-          | "GL"
-          | "GM"
-          | "GN"
-          | "GP"
-          | "GQ"
-          | "GR"
-          | "GS"
-          | "GT"
-          | "GU"
-          | "GW"
-          | "GY"
-          | "HK"
-          | "HN"
-          | "HR"
-          | "HT"
-          | "HU"
-          | "ID"
-          | "IE"
-          | "IL"
-          | "IM"
-          | "IN"
-          | "IO"
-          | "IQ"
-          | "IS"
-          | "IT"
-          | "JE"
-          | "JM"
-          | "JO"
-          | "JP"
-          | "KE"
-          | "KG"
-          | "KH"
-          | "KI"
-          | "KM"
-          | "KN"
-          | "KR"
-          | "KW"
-          | "KY"
-          | "KZ"
-          | "LA"
-          | "LB"
-          | "LC"
-          | "LI"
-          | "LK"
-          | "LR"
-          | "LS"
-          | "LT"
-          | "LU"
-          | "LV"
-          | "LY"
-          | "MA"
-          | "MC"
-          | "MD"
-          | "ME"
-          | "MF"
-          | "MG"
-          | "MK"
-          | "ML"
-          | "MM"
-          | "MN"
-          | "MO"
-          | "MQ"
-          | "MR"
-          | "MS"
-          | "MT"
-          | "MU"
-          | "MV"
-          | "MW"
-          | "MX"
-          | "MY"
-          | "MZ"
-          | "NA"
-          | "NC"
-          | "NE"
-          | "NG"
-          | "NI"
-          | "NL"
-          | "NO"
-          | "NP"
-          | "NR"
-          | "NU"
-          | "NZ"
-          | "OM"
-          | "PA"
-          | "PE"
-          | "PF"
-          | "PG"
-          | "PH"
-          | "PK"
-          | "PL"
-          | "PM"
-          | "PN"
-          | "PR"
-          | "PS"
-          | "PT"
-          | "PY"
-          | "QA"
-          | "RE"
-          | "RO"
-          | "RS"
-          | "RU"
-          | "RW"
-          | "SA"
-          | "SB"
-          | "SC"
-          | "SD"
-          | "SE"
-          | "SG"
-          | "SH"
-          | "SI"
-          | "SJ"
-          | "SK"
-          | "SL"
-          | "SM"
-          | "SN"
-          | "SO"
-          | "SR"
-          | "SS"
-          | "ST"
-          | "SV"
-          | "SX"
-          | "SZ"
-          | "TA"
-          | "TC"
-          | "TD"
-          | "TF"
-          | "TG"
-          | "TH"
-          | "TJ"
-          | "TK"
-          | "TL"
-          | "TM"
-          | "TN"
-          | "TO"
-          | "TR"
-          | "TT"
-          | "TV"
-          | "TW"
-          | "TZ"
-          | "UA"
-          | "UG"
-          | "US"
-          | "UY"
-          | "UZ"
-          | "VA"
-          | "VC"
-          | "VE"
-          | "VG"
-          | "VN"
-          | "VU"
-          | "WF"
-          | "WS"
-          | "XK"
-          | "YE"
-          | "YT"
-          | "ZA"
-          | "ZM"
-          | "ZW"
-          | "ZZ"
-        )[]
-      }
-    | ""
-  submit_type?: "auto" | "book" | "donate" | "pay" | "subscribe"
-  subscription_data?: {
-    invoice_settings?: {
-      issuer?: {
-        account?: string
-        type: "account" | "self"
+
+export type t_postPaymentMethodConfigurationsApplicationXWwwFormUrlencodedRequestBody =
+  {
+    acss_debit?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
       }
     }
-    metadata?:
-      | {
-          [key: string]: string | undefined
-        }
-      | ""
-    trial_period_days?: number | ""
-    trial_settings?:
-      | {
-          end_behavior: {
-            missing_payment_method: "cancel" | "create_invoice" | "pause"
-          }
-        }
-      | ""
-  }
-  tax_id_collection?: {
-    enabled: boolean
-    required?: "if_supported" | "never"
-  }
-}
-
-export type t_PostPaymentLinksPaymentLinkParamSchema = {
-  payment_link: string
-}
-
-export type t_PostPaymentMethodConfigurationsBodySchema = {
-  acss_debit?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  affirm?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  afterpay_clearpay?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  alipay?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  alma?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  amazon_pay?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  apple_pay?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  apple_pay_later?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  au_becs_debit?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  bacs_debit?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  bancontact?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  billie?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  blik?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  boleto?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  card?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  cartes_bancaires?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  cashapp?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  customer_balance?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  eps?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  expand?: string[]
-  fpx?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  giropay?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  google_pay?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  grabpay?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  ideal?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  jcb?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  kakao_pay?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  klarna?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  konbini?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  kr_card?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  link?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  mobilepay?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  multibanco?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  name?: string
-  naver_pay?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  nz_bank_account?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  oxxo?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  p24?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  parent?: string
-  pay_by_bank?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  payco?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  paynow?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  paypal?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  pix?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  promptpay?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  revolut_pay?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  samsung_pay?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  satispay?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  sepa_debit?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  sofort?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  swish?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  twint?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  us_bank_account?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  wechat_pay?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  zip?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-}
-
-export type t_PostPaymentMethodConfigurationsConfigurationBodySchema = {
-  acss_debit?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  active?: boolean
-  affirm?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  afterpay_clearpay?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  alipay?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  alma?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  amazon_pay?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  apple_pay?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  apple_pay_later?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  au_becs_debit?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  bacs_debit?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  bancontact?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  billie?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  blik?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  boleto?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  card?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  cartes_bancaires?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  cashapp?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  customer_balance?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  eps?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  expand?: string[]
-  fpx?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  giropay?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  google_pay?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  grabpay?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  ideal?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  jcb?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  kakao_pay?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  klarna?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  konbini?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  kr_card?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  link?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  mobilepay?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  multibanco?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  name?: string
-  naver_pay?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  nz_bank_account?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  oxxo?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  p24?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  pay_by_bank?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  payco?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  paynow?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  paypal?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  pix?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  promptpay?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  revolut_pay?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  samsung_pay?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  satispay?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  sepa_debit?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  sofort?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  swish?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  twint?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  us_bank_account?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  wechat_pay?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
-    }
-  }
-  zip?: {
-    display_preference?: {
-      preference?: "none" | "off" | "on"
+    affirm?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    afterpay_clearpay?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    alipay?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    alma?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    amazon_pay?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    apple_pay?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    apple_pay_later?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    au_becs_debit?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    bacs_debit?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    bancontact?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    billie?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    blik?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    boleto?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    card?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    cartes_bancaires?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    cashapp?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    customer_balance?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    eps?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    expand?: string[]
+    fpx?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    giropay?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    google_pay?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    grabpay?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    ideal?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    jcb?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    kakao_pay?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    klarna?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    konbini?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    kr_card?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    link?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    mobilepay?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    multibanco?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    name?: string
+    naver_pay?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    nz_bank_account?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    oxxo?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    p24?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    parent?: string
+    pay_by_bank?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    payco?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    paynow?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    paypal?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    pix?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    promptpay?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    revolut_pay?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    samsung_pay?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    satispay?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    sepa_debit?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    sofort?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    swish?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    twint?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    us_bank_account?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    wechat_pay?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    zip?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
     }
   }
-}
 
 export type t_PostPaymentMethodConfigurationsConfigurationParamSchema = {
   configuration: string
 }
 
-export type t_PostPaymentMethodDomainsBodySchema = {
-  domain_name: string
-  enabled?: boolean
-  expand?: string[]
-}
+export type t_postPaymentMethodConfigurationsConfigurationApplicationXWwwFormUrlencodedRequestBody =
+  {
+    acss_debit?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    active?: boolean
+    affirm?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    afterpay_clearpay?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    alipay?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    alma?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    amazon_pay?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    apple_pay?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    apple_pay_later?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    au_becs_debit?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    bacs_debit?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    bancontact?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    billie?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    blik?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    boleto?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    card?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    cartes_bancaires?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    cashapp?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    customer_balance?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    eps?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    expand?: string[]
+    fpx?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    giropay?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    google_pay?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    grabpay?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    ideal?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    jcb?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    kakao_pay?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    klarna?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    konbini?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    kr_card?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    link?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    mobilepay?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    multibanco?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    name?: string
+    naver_pay?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    nz_bank_account?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    oxxo?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    p24?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    pay_by_bank?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    payco?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    paynow?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    paypal?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    pix?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    promptpay?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    revolut_pay?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    samsung_pay?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    satispay?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    sepa_debit?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    sofort?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    swish?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    twint?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    us_bank_account?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    wechat_pay?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+    zip?: {
+      display_preference?: {
+        preference?: "none" | "off" | "on"
+      }
+    }
+  }
 
-export type t_PostPaymentMethodDomainsPaymentMethodDomainBodySchema = {
-  enabled?: boolean
-  expand?: string[]
-}
+export type t_postPaymentMethodDomainsApplicationXWwwFormUrlencodedRequestBody =
+  {
+    domain_name: string
+    enabled?: boolean
+    expand?: string[]
+  }
 
 export type t_PostPaymentMethodDomainsPaymentMethodDomainParamSchema = {
   payment_method_domain: string
 }
 
-export type t_PostPaymentMethodDomainsPaymentMethodDomainValidateBodySchema = {
-  expand?: string[]
-}
+export type t_postPaymentMethodDomainsPaymentMethodDomainApplicationXWwwFormUrlencodedRequestBody =
+  {
+    enabled?: boolean
+    expand?: string[]
+  }
 
 export type t_PostPaymentMethodDomainsPaymentMethodDomainValidateParamSchema = {
   payment_method_domain: string
 }
 
-export type t_PostPaymentMethodsBodySchema = {
+export type t_postPaymentMethodDomainsPaymentMethodDomainValidateApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
+  }
+
+export type t_postPaymentMethodsApplicationXWwwFormUrlencodedRequestBody = {
   acss_debit?: {
     account_number: string
     institution_number: string
@@ -32558,67 +32675,70 @@ export type t_PostPaymentMethodsBodySchema = {
   zip?: EmptyObject
 }
 
-export type t_PostPaymentMethodsPaymentMethodBodySchema = {
-  allow_redisplay?: "always" | "limited" | "unspecified"
-  billing_details?: {
-    address?:
-      | {
-          city?: string
-          country?: string
-          line1?: string
-          line2?: string
-          postal_code?: string
-          state?: string
-        }
-      | ""
-    email?: string | ""
-    name?: string | ""
-    phone?: string | ""
-    tax_id?: string
-  }
-  card?: {
-    exp_month?: number
-    exp_year?: number
-    networks?: {
-      preferred?: "" | "cartes_bancaires" | "mastercard" | "visa"
-    }
-  }
-  expand?: string[]
-  link?: EmptyObject
-  metadata?:
-    | {
-        [key: string]: string | undefined
-      }
-    | ""
-  pay_by_bank?: EmptyObject
-  us_bank_account?: {
-    account_holder_type?: "company" | "individual"
-    account_type?: "checking" | "savings"
-  }
-}
-
 export type t_PostPaymentMethodsPaymentMethodParamSchema = {
   payment_method: string
 }
 
-export type t_PostPaymentMethodsPaymentMethodAttachBodySchema = {
-  customer: string
-  expand?: string[]
-}
+export type t_postPaymentMethodsPaymentMethodApplicationXWwwFormUrlencodedRequestBody =
+  {
+    allow_redisplay?: "always" | "limited" | "unspecified"
+    billing_details?: {
+      address?:
+        | {
+            city?: string
+            country?: string
+            line1?: string
+            line2?: string
+            postal_code?: string
+            state?: string
+          }
+        | ""
+      email?: string | ""
+      name?: string | ""
+      phone?: string | ""
+      tax_id?: string
+    }
+    card?: {
+      exp_month?: number
+      exp_year?: number
+      networks?: {
+        preferred?: "" | "cartes_bancaires" | "mastercard" | "visa"
+      }
+    }
+    expand?: string[]
+    link?: EmptyObject
+    metadata?:
+      | {
+          [key: string]: string | undefined
+        }
+      | ""
+    pay_by_bank?: EmptyObject
+    us_bank_account?: {
+      account_holder_type?: "company" | "individual"
+      account_type?: "checking" | "savings"
+    }
+  }
 
 export type t_PostPaymentMethodsPaymentMethodAttachParamSchema = {
   payment_method: string
 }
 
-export type t_PostPaymentMethodsPaymentMethodDetachBodySchema = {
-  expand?: string[]
-}
+export type t_postPaymentMethodsPaymentMethodAttachApplicationXWwwFormUrlencodedRequestBody =
+  {
+    customer: string
+    expand?: string[]
+  }
 
 export type t_PostPaymentMethodsPaymentMethodDetachParamSchema = {
   payment_method: string
 }
 
-export type t_PostPayoutsBodySchema = {
+export type t_postPaymentMethodsPaymentMethodDetachApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
+  }
+
+export type t_postPayoutsApplicationXWwwFormUrlencodedRequestBody = {
   amount: number
   currency: string
   description?: string
@@ -32632,7 +32752,11 @@ export type t_PostPayoutsBodySchema = {
   statement_descriptor?: string
 }
 
-export type t_PostPayoutsPayoutBodySchema = {
+export type t_PostPayoutsPayoutParamSchema = {
+  payout: string
+}
+
+export type t_postPayoutsPayoutApplicationXWwwFormUrlencodedRequestBody = {
   expand?: string[]
   metadata?:
     | {
@@ -32641,30 +32765,28 @@ export type t_PostPayoutsPayoutBodySchema = {
     | ""
 }
 
-export type t_PostPayoutsPayoutParamSchema = {
-  payout: string
-}
-
-export type t_PostPayoutsPayoutCancelBodySchema = {
-  expand?: string[]
-}
-
 export type t_PostPayoutsPayoutCancelParamSchema = {
   payout: string
 }
 
-export type t_PostPayoutsPayoutReverseBodySchema = {
-  expand?: string[]
-  metadata?: {
-    [key: string]: string | undefined
+export type t_postPayoutsPayoutCancelApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
   }
-}
 
 export type t_PostPayoutsPayoutReverseParamSchema = {
   payout: string
 }
 
-export type t_PostPlansBodySchema = {
+export type t_postPayoutsPayoutReverseApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
+    metadata?: {
+      [key: string]: string | undefined
+    }
+  }
+
+export type t_postPlansApplicationXWwwFormUrlencodedRequestBody = {
   active?: boolean
   amount?: number
   amount_decimal?: string
@@ -32710,7 +32832,11 @@ export type t_PostPlansBodySchema = {
   usage_type?: "licensed" | "metered"
 }
 
-export type t_PostPlansPlanBodySchema = {
+export type t_PostPlansPlanParamSchema = {
+  plan: string
+}
+
+export type t_postPlansPlanApplicationXWwwFormUrlencodedRequestBody = {
   active?: boolean
   expand?: string[]
   metadata?:
@@ -32723,11 +32849,7 @@ export type t_PostPlansPlanBodySchema = {
   trial_period_days?: number
 }
 
-export type t_PostPlansPlanParamSchema = {
-  plan: string
-}
-
-export type t_PostPricesBodySchema = {
+export type t_postPricesApplicationXWwwFormUrlencodedRequestBody = {
   active?: boolean
   billing_scheme?: "per_unit" | "tiered"
   currency: string
@@ -32801,7 +32923,11 @@ export type t_PostPricesBodySchema = {
   unit_amount_decimal?: string
 }
 
-export type t_PostPricesPriceBodySchema = {
+export type t_PostPricesPriceParamSchema = {
+  price: string
+}
+
+export type t_postPricesPriceApplicationXWwwFormUrlencodedRequestBody = {
   active?: boolean
   currency_options?:
     | {
@@ -32839,11 +32965,7 @@ export type t_PostPricesPriceBodySchema = {
   transfer_lookup_key?: boolean
 }
 
-export type t_PostPricesPriceParamSchema = {
-  price: string
-}
-
-export type t_PostProductsBodySchema = {
+export type t_postProductsApplicationXWwwFormUrlencodedRequestBody = {
   active?: boolean
   default_price_data?: {
     currency: string
@@ -32910,7 +33032,11 @@ export type t_PostProductsBodySchema = {
   url?: string
 }
 
-export type t_PostProductsIdBodySchema = {
+export type t_PostProductsIdParamSchema = {
+  id: string
+}
+
+export type t_postProductsIdApplicationXWwwFormUrlencodedRequestBody = {
   active?: boolean
   default_price?: string
   description?: string | ""
@@ -32942,20 +33068,17 @@ export type t_PostProductsIdBodySchema = {
   url?: string | ""
 }
 
-export type t_PostProductsIdParamSchema = {
-  id: string
-}
-
-export type t_PostProductsProductFeaturesBodySchema = {
-  entitlement_feature: string
-  expand?: string[]
-}
-
 export type t_PostProductsProductFeaturesParamSchema = {
   product: string
 }
 
-export type t_PostPromotionCodesBodySchema = {
+export type t_postProductsProductFeaturesApplicationXWwwFormUrlencodedRequestBody =
+  {
+    entitlement_feature: string
+    expand?: string[]
+  }
+
+export type t_postPromotionCodesApplicationXWwwFormUrlencodedRequestBody = {
   active?: boolean
   code?: string
   coupon: string
@@ -32980,30 +33103,31 @@ export type t_PostPromotionCodesBodySchema = {
   }
 }
 
-export type t_PostPromotionCodesPromotionCodeBodySchema = {
-  active?: boolean
-  expand?: string[]
-  metadata?:
-    | {
-        [key: string]: string | undefined
-      }
-    | ""
-  restrictions?: {
-    currency_options?: {
-      [key: string]:
-        | {
-            minimum_amount?: number
-          }
-        | undefined
-    }
-  }
-}
-
 export type t_PostPromotionCodesPromotionCodeParamSchema = {
   promotion_code: string
 }
 
-export type t_PostQuotesBodySchema = {
+export type t_postPromotionCodesPromotionCodeApplicationXWwwFormUrlencodedRequestBody =
+  {
+    active?: boolean
+    expand?: string[]
+    metadata?:
+      | {
+          [key: string]: string | undefined
+        }
+      | ""
+    restrictions?: {
+      currency_options?: {
+        [key: string]:
+          | {
+              minimum_amount?: number
+            }
+          | undefined
+      }
+    }
+  }
+
+export type t_postQuotesApplicationXWwwFormUrlencodedRequestBody = {
   application_fee_amount?: number | ""
   application_fee_percent?: number | ""
   automatic_tax?: {
@@ -33087,7 +33211,11 @@ export type t_PostQuotesBodySchema = {
     | ""
 }
 
-export type t_PostQuotesQuoteBodySchema = {
+export type t_PostQuotesQuoteParamSchema = {
+  quote: string
+}
+
+export type t_postQuotesQuoteApplicationXWwwFormUrlencodedRequestBody = {
   application_fee_amount?: number | ""
   application_fee_percent?: number | ""
   automatic_tax?: {
@@ -33164,19 +33292,11 @@ export type t_PostQuotesQuoteBodySchema = {
     | ""
 }
 
-export type t_PostQuotesQuoteParamSchema = {
-  quote: string
-}
-
-export type t_PostQuotesQuoteAcceptBodySchema = {
-  expand?: string[]
-}
-
 export type t_PostQuotesQuoteAcceptParamSchema = {
   quote: string
 }
 
-export type t_PostQuotesQuoteCancelBodySchema = {
+export type t_postQuotesQuoteAcceptApplicationXWwwFormUrlencodedRequestBody = {
   expand?: string[]
 }
 
@@ -33184,22 +33304,28 @@ export type t_PostQuotesQuoteCancelParamSchema = {
   quote: string
 }
 
-export type t_PostQuotesQuoteFinalizeBodySchema = {
+export type t_postQuotesQuoteCancelApplicationXWwwFormUrlencodedRequestBody = {
   expand?: string[]
-  expires_at?: number
 }
 
 export type t_PostQuotesQuoteFinalizeParamSchema = {
   quote: string
 }
 
-export type t_PostRadarValueListItemsBodySchema = {
-  expand?: string[]
-  value: string
-  value_list: string
-}
+export type t_postQuotesQuoteFinalizeApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
+    expires_at?: number
+  }
 
-export type t_PostRadarValueListsBodySchema = {
+export type t_postRadarValueListItemsApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
+    value: string
+    value_list: string
+  }
+
+export type t_postRadarValueListsApplicationXWwwFormUrlencodedRequestBody = {
   alias: string
   expand?: string[]
   item_type?:
@@ -33219,20 +33345,21 @@ export type t_PostRadarValueListsBodySchema = {
   name: string
 }
 
-export type t_PostRadarValueListsValueListBodySchema = {
-  alias?: string
-  expand?: string[]
-  metadata?: {
-    [key: string]: string | undefined
-  }
-  name?: string
-}
-
 export type t_PostRadarValueListsValueListParamSchema = {
   value_list: string
 }
 
-export type t_PostRefundsBodySchema = {
+export type t_postRadarValueListsValueListApplicationXWwwFormUrlencodedRequestBody =
+  {
+    alias?: string
+    expand?: string[]
+    metadata?: {
+      [key: string]: string | undefined
+    }
+    name?: string
+  }
+
+export type t_postRefundsApplicationXWwwFormUrlencodedRequestBody = {
   amount?: number
   charge?: string
   currency?: string
@@ -33251,7 +33378,11 @@ export type t_PostRefundsBodySchema = {
   reverse_transfer?: boolean
 }
 
-export type t_PostRefundsRefundBodySchema = {
+export type t_PostRefundsRefundParamSchema = {
+  refund: string
+}
+
+export type t_postRefundsRefundApplicationXWwwFormUrlencodedRequestBody = {
   expand?: string[]
   metadata?:
     | {
@@ -33260,678 +33391,677 @@ export type t_PostRefundsRefundBodySchema = {
     | ""
 }
 
-export type t_PostRefundsRefundParamSchema = {
-  refund: string
-}
-
-export type t_PostRefundsRefundCancelBodySchema = {
-  expand?: string[]
-}
-
 export type t_PostRefundsRefundCancelParamSchema = {
   refund: string
 }
 
-export type t_PostReportingReportRunsBodySchema = {
-  expand?: string[]
-  parameters?: {
-    columns?: string[]
-    connected_account?: string
-    currency?: string
-    interval_end?: number
-    interval_start?: number
-    payout?: string
-    reporting_category?:
-      | "advance"
-      | "advance_funding"
-      | "anticipation_repayment"
-      | "charge"
-      | "charge_failure"
-      | "climate_order_purchase"
-      | "climate_order_refund"
-      | "connect_collection_transfer"
-      | "connect_reserved_funds"
-      | "contribution"
-      | "dispute"
-      | "dispute_reversal"
-      | "fee"
-      | "financing_paydown"
-      | "financing_paydown_reversal"
-      | "financing_payout"
-      | "financing_payout_reversal"
-      | "issuing_authorization_hold"
-      | "issuing_authorization_release"
-      | "issuing_dispute"
-      | "issuing_transaction"
-      | "network_cost"
-      | "other_adjustment"
-      | "partial_capture_reversal"
-      | "payout"
-      | "payout_reversal"
-      | "platform_earning"
-      | "platform_earning_refund"
-      | "refund"
-      | "refund_failure"
-      | "risk_reserved_funds"
-      | "tax"
-      | "topup"
-      | "topup_reversal"
-      | "transfer"
-      | "transfer_reversal"
-      | "unreconciled_customer_funds"
-    timezone?:
-      | "Africa/Abidjan"
-      | "Africa/Accra"
-      | "Africa/Addis_Ababa"
-      | "Africa/Algiers"
-      | "Africa/Asmara"
-      | "Africa/Asmera"
-      | "Africa/Bamako"
-      | "Africa/Bangui"
-      | "Africa/Banjul"
-      | "Africa/Bissau"
-      | "Africa/Blantyre"
-      | "Africa/Brazzaville"
-      | "Africa/Bujumbura"
-      | "Africa/Cairo"
-      | "Africa/Casablanca"
-      | "Africa/Ceuta"
-      | "Africa/Conakry"
-      | "Africa/Dakar"
-      | "Africa/Dar_es_Salaam"
-      | "Africa/Djibouti"
-      | "Africa/Douala"
-      | "Africa/El_Aaiun"
-      | "Africa/Freetown"
-      | "Africa/Gaborone"
-      | "Africa/Harare"
-      | "Africa/Johannesburg"
-      | "Africa/Juba"
-      | "Africa/Kampala"
-      | "Africa/Khartoum"
-      | "Africa/Kigali"
-      | "Africa/Kinshasa"
-      | "Africa/Lagos"
-      | "Africa/Libreville"
-      | "Africa/Lome"
-      | "Africa/Luanda"
-      | "Africa/Lubumbashi"
-      | "Africa/Lusaka"
-      | "Africa/Malabo"
-      | "Africa/Maputo"
-      | "Africa/Maseru"
-      | "Africa/Mbabane"
-      | "Africa/Mogadishu"
-      | "Africa/Monrovia"
-      | "Africa/Nairobi"
-      | "Africa/Ndjamena"
-      | "Africa/Niamey"
-      | "Africa/Nouakchott"
-      | "Africa/Ouagadougou"
-      | "Africa/Porto-Novo"
-      | "Africa/Sao_Tome"
-      | "Africa/Timbuktu"
-      | "Africa/Tripoli"
-      | "Africa/Tunis"
-      | "Africa/Windhoek"
-      | "America/Adak"
-      | "America/Anchorage"
-      | "America/Anguilla"
-      | "America/Antigua"
-      | "America/Araguaina"
-      | "America/Argentina/Buenos_Aires"
-      | "America/Argentina/Catamarca"
-      | "America/Argentina/ComodRivadavia"
-      | "America/Argentina/Cordoba"
-      | "America/Argentina/Jujuy"
-      | "America/Argentina/La_Rioja"
-      | "America/Argentina/Mendoza"
-      | "America/Argentina/Rio_Gallegos"
-      | "America/Argentina/Salta"
-      | "America/Argentina/San_Juan"
-      | "America/Argentina/San_Luis"
-      | "America/Argentina/Tucuman"
-      | "America/Argentina/Ushuaia"
-      | "America/Aruba"
-      | "America/Asuncion"
-      | "America/Atikokan"
-      | "America/Atka"
-      | "America/Bahia"
-      | "America/Bahia_Banderas"
-      | "America/Barbados"
-      | "America/Belem"
-      | "America/Belize"
-      | "America/Blanc-Sablon"
-      | "America/Boa_Vista"
-      | "America/Bogota"
-      | "America/Boise"
-      | "America/Buenos_Aires"
-      | "America/Cambridge_Bay"
-      | "America/Campo_Grande"
-      | "America/Cancun"
-      | "America/Caracas"
-      | "America/Catamarca"
-      | "America/Cayenne"
-      | "America/Cayman"
-      | "America/Chicago"
-      | "America/Chihuahua"
-      | "America/Ciudad_Juarez"
-      | "America/Coral_Harbour"
-      | "America/Cordoba"
-      | "America/Costa_Rica"
-      | "America/Coyhaique"
-      | "America/Creston"
-      | "America/Cuiaba"
-      | "America/Curacao"
-      | "America/Danmarkshavn"
-      | "America/Dawson"
-      | "America/Dawson_Creek"
-      | "America/Denver"
-      | "America/Detroit"
-      | "America/Dominica"
-      | "America/Edmonton"
-      | "America/Eirunepe"
-      | "America/El_Salvador"
-      | "America/Ensenada"
-      | "America/Fort_Nelson"
-      | "America/Fort_Wayne"
-      | "America/Fortaleza"
-      | "America/Glace_Bay"
-      | "America/Godthab"
-      | "America/Goose_Bay"
-      | "America/Grand_Turk"
-      | "America/Grenada"
-      | "America/Guadeloupe"
-      | "America/Guatemala"
-      | "America/Guayaquil"
-      | "America/Guyana"
-      | "America/Halifax"
-      | "America/Havana"
-      | "America/Hermosillo"
-      | "America/Indiana/Indianapolis"
-      | "America/Indiana/Knox"
-      | "America/Indiana/Marengo"
-      | "America/Indiana/Petersburg"
-      | "America/Indiana/Tell_City"
-      | "America/Indiana/Vevay"
-      | "America/Indiana/Vincennes"
-      | "America/Indiana/Winamac"
-      | "America/Indianapolis"
-      | "America/Inuvik"
-      | "America/Iqaluit"
-      | "America/Jamaica"
-      | "America/Jujuy"
-      | "America/Juneau"
-      | "America/Kentucky/Louisville"
-      | "America/Kentucky/Monticello"
-      | "America/Knox_IN"
-      | "America/Kralendijk"
-      | "America/La_Paz"
-      | "America/Lima"
-      | "America/Los_Angeles"
-      | "America/Louisville"
-      | "America/Lower_Princes"
-      | "America/Maceio"
-      | "America/Managua"
-      | "America/Manaus"
-      | "America/Marigot"
-      | "America/Martinique"
-      | "America/Matamoros"
-      | "America/Mazatlan"
-      | "America/Mendoza"
-      | "America/Menominee"
-      | "America/Merida"
-      | "America/Metlakatla"
-      | "America/Mexico_City"
-      | "America/Miquelon"
-      | "America/Moncton"
-      | "America/Monterrey"
-      | "America/Montevideo"
-      | "America/Montreal"
-      | "America/Montserrat"
-      | "America/Nassau"
-      | "America/New_York"
-      | "America/Nipigon"
-      | "America/Nome"
-      | "America/Noronha"
-      | "America/North_Dakota/Beulah"
-      | "America/North_Dakota/Center"
-      | "America/North_Dakota/New_Salem"
-      | "America/Nuuk"
-      | "America/Ojinaga"
-      | "America/Panama"
-      | "America/Pangnirtung"
-      | "America/Paramaribo"
-      | "America/Phoenix"
-      | "America/Port-au-Prince"
-      | "America/Port_of_Spain"
-      | "America/Porto_Acre"
-      | "America/Porto_Velho"
-      | "America/Puerto_Rico"
-      | "America/Punta_Arenas"
-      | "America/Rainy_River"
-      | "America/Rankin_Inlet"
-      | "America/Recife"
-      | "America/Regina"
-      | "America/Resolute"
-      | "America/Rio_Branco"
-      | "America/Rosario"
-      | "America/Santa_Isabel"
-      | "America/Santarem"
-      | "America/Santiago"
-      | "America/Santo_Domingo"
-      | "America/Sao_Paulo"
-      | "America/Scoresbysund"
-      | "America/Shiprock"
-      | "America/Sitka"
-      | "America/St_Barthelemy"
-      | "America/St_Johns"
-      | "America/St_Kitts"
-      | "America/St_Lucia"
-      | "America/St_Thomas"
-      | "America/St_Vincent"
-      | "America/Swift_Current"
-      | "America/Tegucigalpa"
-      | "America/Thule"
-      | "America/Thunder_Bay"
-      | "America/Tijuana"
-      | "America/Toronto"
-      | "America/Tortola"
-      | "America/Vancouver"
-      | "America/Virgin"
-      | "America/Whitehorse"
-      | "America/Winnipeg"
-      | "America/Yakutat"
-      | "America/Yellowknife"
-      | "Antarctica/Casey"
-      | "Antarctica/Davis"
-      | "Antarctica/DumontDUrville"
-      | "Antarctica/Macquarie"
-      | "Antarctica/Mawson"
-      | "Antarctica/McMurdo"
-      | "Antarctica/Palmer"
-      | "Antarctica/Rothera"
-      | "Antarctica/South_Pole"
-      | "Antarctica/Syowa"
-      | "Antarctica/Troll"
-      | "Antarctica/Vostok"
-      | "Arctic/Longyearbyen"
-      | "Asia/Aden"
-      | "Asia/Almaty"
-      | "Asia/Amman"
-      | "Asia/Anadyr"
-      | "Asia/Aqtau"
-      | "Asia/Aqtobe"
-      | "Asia/Ashgabat"
-      | "Asia/Ashkhabad"
-      | "Asia/Atyrau"
-      | "Asia/Baghdad"
-      | "Asia/Bahrain"
-      | "Asia/Baku"
-      | "Asia/Bangkok"
-      | "Asia/Barnaul"
-      | "Asia/Beirut"
-      | "Asia/Bishkek"
-      | "Asia/Brunei"
-      | "Asia/Calcutta"
-      | "Asia/Chita"
-      | "Asia/Choibalsan"
-      | "Asia/Chongqing"
-      | "Asia/Chungking"
-      | "Asia/Colombo"
-      | "Asia/Dacca"
-      | "Asia/Damascus"
-      | "Asia/Dhaka"
-      | "Asia/Dili"
-      | "Asia/Dubai"
-      | "Asia/Dushanbe"
-      | "Asia/Famagusta"
-      | "Asia/Gaza"
-      | "Asia/Harbin"
-      | "Asia/Hebron"
-      | "Asia/Ho_Chi_Minh"
-      | "Asia/Hong_Kong"
-      | "Asia/Hovd"
-      | "Asia/Irkutsk"
-      | "Asia/Istanbul"
-      | "Asia/Jakarta"
-      | "Asia/Jayapura"
-      | "Asia/Jerusalem"
-      | "Asia/Kabul"
-      | "Asia/Kamchatka"
-      | "Asia/Karachi"
-      | "Asia/Kashgar"
-      | "Asia/Kathmandu"
-      | "Asia/Katmandu"
-      | "Asia/Khandyga"
-      | "Asia/Kolkata"
-      | "Asia/Krasnoyarsk"
-      | "Asia/Kuala_Lumpur"
-      | "Asia/Kuching"
-      | "Asia/Kuwait"
-      | "Asia/Macao"
-      | "Asia/Macau"
-      | "Asia/Magadan"
-      | "Asia/Makassar"
-      | "Asia/Manila"
-      | "Asia/Muscat"
-      | "Asia/Nicosia"
-      | "Asia/Novokuznetsk"
-      | "Asia/Novosibirsk"
-      | "Asia/Omsk"
-      | "Asia/Oral"
-      | "Asia/Phnom_Penh"
-      | "Asia/Pontianak"
-      | "Asia/Pyongyang"
-      | "Asia/Qatar"
-      | "Asia/Qostanay"
-      | "Asia/Qyzylorda"
-      | "Asia/Rangoon"
-      | "Asia/Riyadh"
-      | "Asia/Saigon"
-      | "Asia/Sakhalin"
-      | "Asia/Samarkand"
-      | "Asia/Seoul"
-      | "Asia/Shanghai"
-      | "Asia/Singapore"
-      | "Asia/Srednekolymsk"
-      | "Asia/Taipei"
-      | "Asia/Tashkent"
-      | "Asia/Tbilisi"
-      | "Asia/Tehran"
-      | "Asia/Tel_Aviv"
-      | "Asia/Thimbu"
-      | "Asia/Thimphu"
-      | "Asia/Tokyo"
-      | "Asia/Tomsk"
-      | "Asia/Ujung_Pandang"
-      | "Asia/Ulaanbaatar"
-      | "Asia/Ulan_Bator"
-      | "Asia/Urumqi"
-      | "Asia/Ust-Nera"
-      | "Asia/Vientiane"
-      | "Asia/Vladivostok"
-      | "Asia/Yakutsk"
-      | "Asia/Yangon"
-      | "Asia/Yekaterinburg"
-      | "Asia/Yerevan"
-      | "Atlantic/Azores"
-      | "Atlantic/Bermuda"
-      | "Atlantic/Canary"
-      | "Atlantic/Cape_Verde"
-      | "Atlantic/Faeroe"
-      | "Atlantic/Faroe"
-      | "Atlantic/Jan_Mayen"
-      | "Atlantic/Madeira"
-      | "Atlantic/Reykjavik"
-      | "Atlantic/South_Georgia"
-      | "Atlantic/St_Helena"
-      | "Atlantic/Stanley"
-      | "Australia/ACT"
-      | "Australia/Adelaide"
-      | "Australia/Brisbane"
-      | "Australia/Broken_Hill"
-      | "Australia/Canberra"
-      | "Australia/Currie"
-      | "Australia/Darwin"
-      | "Australia/Eucla"
-      | "Australia/Hobart"
-      | "Australia/LHI"
-      | "Australia/Lindeman"
-      | "Australia/Lord_Howe"
-      | "Australia/Melbourne"
-      | "Australia/NSW"
-      | "Australia/North"
-      | "Australia/Perth"
-      | "Australia/Queensland"
-      | "Australia/South"
-      | "Australia/Sydney"
-      | "Australia/Tasmania"
-      | "Australia/Victoria"
-      | "Australia/West"
-      | "Australia/Yancowinna"
-      | "Brazil/Acre"
-      | "Brazil/DeNoronha"
-      | "Brazil/East"
-      | "Brazil/West"
-      | "CET"
-      | "CST6CDT"
-      | "Canada/Atlantic"
-      | "Canada/Central"
-      | "Canada/Eastern"
-      | "Canada/Mountain"
-      | "Canada/Newfoundland"
-      | "Canada/Pacific"
-      | "Canada/Saskatchewan"
-      | "Canada/Yukon"
-      | "Chile/Continental"
-      | "Chile/EasterIsland"
-      | "Cuba"
-      | "EET"
-      | "EST"
-      | "EST5EDT"
-      | "Egypt"
-      | "Eire"
-      | "Etc/GMT"
-      | "Etc/GMT+0"
-      | "Etc/GMT+1"
-      | "Etc/GMT+10"
-      | "Etc/GMT+11"
-      | "Etc/GMT+12"
-      | "Etc/GMT+2"
-      | "Etc/GMT+3"
-      | "Etc/GMT+4"
-      | "Etc/GMT+5"
-      | "Etc/GMT+6"
-      | "Etc/GMT+7"
-      | "Etc/GMT+8"
-      | "Etc/GMT+9"
-      | "Etc/GMT-0"
-      | "Etc/GMT-1"
-      | "Etc/GMT-10"
-      | "Etc/GMT-11"
-      | "Etc/GMT-12"
-      | "Etc/GMT-13"
-      | "Etc/GMT-14"
-      | "Etc/GMT-2"
-      | "Etc/GMT-3"
-      | "Etc/GMT-4"
-      | "Etc/GMT-5"
-      | "Etc/GMT-6"
-      | "Etc/GMT-7"
-      | "Etc/GMT-8"
-      | "Etc/GMT-9"
-      | "Etc/GMT0"
-      | "Etc/Greenwich"
-      | "Etc/UCT"
-      | "Etc/UTC"
-      | "Etc/Universal"
-      | "Etc/Zulu"
-      | "Europe/Amsterdam"
-      | "Europe/Andorra"
-      | "Europe/Astrakhan"
-      | "Europe/Athens"
-      | "Europe/Belfast"
-      | "Europe/Belgrade"
-      | "Europe/Berlin"
-      | "Europe/Bratislava"
-      | "Europe/Brussels"
-      | "Europe/Bucharest"
-      | "Europe/Budapest"
-      | "Europe/Busingen"
-      | "Europe/Chisinau"
-      | "Europe/Copenhagen"
-      | "Europe/Dublin"
-      | "Europe/Gibraltar"
-      | "Europe/Guernsey"
-      | "Europe/Helsinki"
-      | "Europe/Isle_of_Man"
-      | "Europe/Istanbul"
-      | "Europe/Jersey"
-      | "Europe/Kaliningrad"
-      | "Europe/Kiev"
-      | "Europe/Kirov"
-      | "Europe/Kyiv"
-      | "Europe/Lisbon"
-      | "Europe/Ljubljana"
-      | "Europe/London"
-      | "Europe/Luxembourg"
-      | "Europe/Madrid"
-      | "Europe/Malta"
-      | "Europe/Mariehamn"
-      | "Europe/Minsk"
-      | "Europe/Monaco"
-      | "Europe/Moscow"
-      | "Europe/Nicosia"
-      | "Europe/Oslo"
-      | "Europe/Paris"
-      | "Europe/Podgorica"
-      | "Europe/Prague"
-      | "Europe/Riga"
-      | "Europe/Rome"
-      | "Europe/Samara"
-      | "Europe/San_Marino"
-      | "Europe/Sarajevo"
-      | "Europe/Saratov"
-      | "Europe/Simferopol"
-      | "Europe/Skopje"
-      | "Europe/Sofia"
-      | "Europe/Stockholm"
-      | "Europe/Tallinn"
-      | "Europe/Tirane"
-      | "Europe/Tiraspol"
-      | "Europe/Ulyanovsk"
-      | "Europe/Uzhgorod"
-      | "Europe/Vaduz"
-      | "Europe/Vatican"
-      | "Europe/Vienna"
-      | "Europe/Vilnius"
-      | "Europe/Volgograd"
-      | "Europe/Warsaw"
-      | "Europe/Zagreb"
-      | "Europe/Zaporozhye"
-      | "Europe/Zurich"
-      | "Factory"
-      | "GB"
-      | "GB-Eire"
-      | "GMT"
-      | "GMT+0"
-      | "GMT-0"
-      | "GMT0"
-      | "Greenwich"
-      | "HST"
-      | "Hongkong"
-      | "Iceland"
-      | "Indian/Antananarivo"
-      | "Indian/Chagos"
-      | "Indian/Christmas"
-      | "Indian/Cocos"
-      | "Indian/Comoro"
-      | "Indian/Kerguelen"
-      | "Indian/Mahe"
-      | "Indian/Maldives"
-      | "Indian/Mauritius"
-      | "Indian/Mayotte"
-      | "Indian/Reunion"
-      | "Iran"
-      | "Israel"
-      | "Jamaica"
-      | "Japan"
-      | "Kwajalein"
-      | "Libya"
-      | "MET"
-      | "MST"
-      | "MST7MDT"
-      | "Mexico/BajaNorte"
-      | "Mexico/BajaSur"
-      | "Mexico/General"
-      | "NZ"
-      | "NZ-CHAT"
-      | "Navajo"
-      | "PRC"
-      | "PST8PDT"
-      | "Pacific/Apia"
-      | "Pacific/Auckland"
-      | "Pacific/Bougainville"
-      | "Pacific/Chatham"
-      | "Pacific/Chuuk"
-      | "Pacific/Easter"
-      | "Pacific/Efate"
-      | "Pacific/Enderbury"
-      | "Pacific/Fakaofo"
-      | "Pacific/Fiji"
-      | "Pacific/Funafuti"
-      | "Pacific/Galapagos"
-      | "Pacific/Gambier"
-      | "Pacific/Guadalcanal"
-      | "Pacific/Guam"
-      | "Pacific/Honolulu"
-      | "Pacific/Johnston"
-      | "Pacific/Kanton"
-      | "Pacific/Kiritimati"
-      | "Pacific/Kosrae"
-      | "Pacific/Kwajalein"
-      | "Pacific/Majuro"
-      | "Pacific/Marquesas"
-      | "Pacific/Midway"
-      | "Pacific/Nauru"
-      | "Pacific/Niue"
-      | "Pacific/Norfolk"
-      | "Pacific/Noumea"
-      | "Pacific/Pago_Pago"
-      | "Pacific/Palau"
-      | "Pacific/Pitcairn"
-      | "Pacific/Pohnpei"
-      | "Pacific/Ponape"
-      | "Pacific/Port_Moresby"
-      | "Pacific/Rarotonga"
-      | "Pacific/Saipan"
-      | "Pacific/Samoa"
-      | "Pacific/Tahiti"
-      | "Pacific/Tarawa"
-      | "Pacific/Tongatapu"
-      | "Pacific/Truk"
-      | "Pacific/Wake"
-      | "Pacific/Wallis"
-      | "Pacific/Yap"
-      | "Poland"
-      | "Portugal"
-      | "ROC"
-      | "ROK"
-      | "Singapore"
-      | "Turkey"
-      | "UCT"
-      | "US/Alaska"
-      | "US/Aleutian"
-      | "US/Arizona"
-      | "US/Central"
-      | "US/East-Indiana"
-      | "US/Eastern"
-      | "US/Hawaii"
-      | "US/Indiana-Starke"
-      | "US/Michigan"
-      | "US/Mountain"
-      | "US/Pacific"
-      | "US/Pacific-New"
-      | "US/Samoa"
-      | "UTC"
-      | "Universal"
-      | "W-SU"
-      | "WET"
-      | "Zulu"
+export type t_postRefundsRefundCancelApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
   }
-  report_type: string
-}
 
-export type t_PostReviewsReviewApproveBodySchema = {
-  expand?: string[]
-}
+export type t_postReportingReportRunsApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
+    parameters?: {
+      columns?: string[]
+      connected_account?: string
+      currency?: string
+      interval_end?: number
+      interval_start?: number
+      payout?: string
+      reporting_category?:
+        | "advance"
+        | "advance_funding"
+        | "anticipation_repayment"
+        | "charge"
+        | "charge_failure"
+        | "climate_order_purchase"
+        | "climate_order_refund"
+        | "connect_collection_transfer"
+        | "connect_reserved_funds"
+        | "contribution"
+        | "dispute"
+        | "dispute_reversal"
+        | "fee"
+        | "financing_paydown"
+        | "financing_paydown_reversal"
+        | "financing_payout"
+        | "financing_payout_reversal"
+        | "issuing_authorization_hold"
+        | "issuing_authorization_release"
+        | "issuing_dispute"
+        | "issuing_transaction"
+        | "network_cost"
+        | "other_adjustment"
+        | "partial_capture_reversal"
+        | "payout"
+        | "payout_reversal"
+        | "platform_earning"
+        | "platform_earning_refund"
+        | "refund"
+        | "refund_failure"
+        | "risk_reserved_funds"
+        | "tax"
+        | "topup"
+        | "topup_reversal"
+        | "transfer"
+        | "transfer_reversal"
+        | "unreconciled_customer_funds"
+      timezone?:
+        | "Africa/Abidjan"
+        | "Africa/Accra"
+        | "Africa/Addis_Ababa"
+        | "Africa/Algiers"
+        | "Africa/Asmara"
+        | "Africa/Asmera"
+        | "Africa/Bamako"
+        | "Africa/Bangui"
+        | "Africa/Banjul"
+        | "Africa/Bissau"
+        | "Africa/Blantyre"
+        | "Africa/Brazzaville"
+        | "Africa/Bujumbura"
+        | "Africa/Cairo"
+        | "Africa/Casablanca"
+        | "Africa/Ceuta"
+        | "Africa/Conakry"
+        | "Africa/Dakar"
+        | "Africa/Dar_es_Salaam"
+        | "Africa/Djibouti"
+        | "Africa/Douala"
+        | "Africa/El_Aaiun"
+        | "Africa/Freetown"
+        | "Africa/Gaborone"
+        | "Africa/Harare"
+        | "Africa/Johannesburg"
+        | "Africa/Juba"
+        | "Africa/Kampala"
+        | "Africa/Khartoum"
+        | "Africa/Kigali"
+        | "Africa/Kinshasa"
+        | "Africa/Lagos"
+        | "Africa/Libreville"
+        | "Africa/Lome"
+        | "Africa/Luanda"
+        | "Africa/Lubumbashi"
+        | "Africa/Lusaka"
+        | "Africa/Malabo"
+        | "Africa/Maputo"
+        | "Africa/Maseru"
+        | "Africa/Mbabane"
+        | "Africa/Mogadishu"
+        | "Africa/Monrovia"
+        | "Africa/Nairobi"
+        | "Africa/Ndjamena"
+        | "Africa/Niamey"
+        | "Africa/Nouakchott"
+        | "Africa/Ouagadougou"
+        | "Africa/Porto-Novo"
+        | "Africa/Sao_Tome"
+        | "Africa/Timbuktu"
+        | "Africa/Tripoli"
+        | "Africa/Tunis"
+        | "Africa/Windhoek"
+        | "America/Adak"
+        | "America/Anchorage"
+        | "America/Anguilla"
+        | "America/Antigua"
+        | "America/Araguaina"
+        | "America/Argentina/Buenos_Aires"
+        | "America/Argentina/Catamarca"
+        | "America/Argentina/ComodRivadavia"
+        | "America/Argentina/Cordoba"
+        | "America/Argentina/Jujuy"
+        | "America/Argentina/La_Rioja"
+        | "America/Argentina/Mendoza"
+        | "America/Argentina/Rio_Gallegos"
+        | "America/Argentina/Salta"
+        | "America/Argentina/San_Juan"
+        | "America/Argentina/San_Luis"
+        | "America/Argentina/Tucuman"
+        | "America/Argentina/Ushuaia"
+        | "America/Aruba"
+        | "America/Asuncion"
+        | "America/Atikokan"
+        | "America/Atka"
+        | "America/Bahia"
+        | "America/Bahia_Banderas"
+        | "America/Barbados"
+        | "America/Belem"
+        | "America/Belize"
+        | "America/Blanc-Sablon"
+        | "America/Boa_Vista"
+        | "America/Bogota"
+        | "America/Boise"
+        | "America/Buenos_Aires"
+        | "America/Cambridge_Bay"
+        | "America/Campo_Grande"
+        | "America/Cancun"
+        | "America/Caracas"
+        | "America/Catamarca"
+        | "America/Cayenne"
+        | "America/Cayman"
+        | "America/Chicago"
+        | "America/Chihuahua"
+        | "America/Ciudad_Juarez"
+        | "America/Coral_Harbour"
+        | "America/Cordoba"
+        | "America/Costa_Rica"
+        | "America/Coyhaique"
+        | "America/Creston"
+        | "America/Cuiaba"
+        | "America/Curacao"
+        | "America/Danmarkshavn"
+        | "America/Dawson"
+        | "America/Dawson_Creek"
+        | "America/Denver"
+        | "America/Detroit"
+        | "America/Dominica"
+        | "America/Edmonton"
+        | "America/Eirunepe"
+        | "America/El_Salvador"
+        | "America/Ensenada"
+        | "America/Fort_Nelson"
+        | "America/Fort_Wayne"
+        | "America/Fortaleza"
+        | "America/Glace_Bay"
+        | "America/Godthab"
+        | "America/Goose_Bay"
+        | "America/Grand_Turk"
+        | "America/Grenada"
+        | "America/Guadeloupe"
+        | "America/Guatemala"
+        | "America/Guayaquil"
+        | "America/Guyana"
+        | "America/Halifax"
+        | "America/Havana"
+        | "America/Hermosillo"
+        | "America/Indiana/Indianapolis"
+        | "America/Indiana/Knox"
+        | "America/Indiana/Marengo"
+        | "America/Indiana/Petersburg"
+        | "America/Indiana/Tell_City"
+        | "America/Indiana/Vevay"
+        | "America/Indiana/Vincennes"
+        | "America/Indiana/Winamac"
+        | "America/Indianapolis"
+        | "America/Inuvik"
+        | "America/Iqaluit"
+        | "America/Jamaica"
+        | "America/Jujuy"
+        | "America/Juneau"
+        | "America/Kentucky/Louisville"
+        | "America/Kentucky/Monticello"
+        | "America/Knox_IN"
+        | "America/Kralendijk"
+        | "America/La_Paz"
+        | "America/Lima"
+        | "America/Los_Angeles"
+        | "America/Louisville"
+        | "America/Lower_Princes"
+        | "America/Maceio"
+        | "America/Managua"
+        | "America/Manaus"
+        | "America/Marigot"
+        | "America/Martinique"
+        | "America/Matamoros"
+        | "America/Mazatlan"
+        | "America/Mendoza"
+        | "America/Menominee"
+        | "America/Merida"
+        | "America/Metlakatla"
+        | "America/Mexico_City"
+        | "America/Miquelon"
+        | "America/Moncton"
+        | "America/Monterrey"
+        | "America/Montevideo"
+        | "America/Montreal"
+        | "America/Montserrat"
+        | "America/Nassau"
+        | "America/New_York"
+        | "America/Nipigon"
+        | "America/Nome"
+        | "America/Noronha"
+        | "America/North_Dakota/Beulah"
+        | "America/North_Dakota/Center"
+        | "America/North_Dakota/New_Salem"
+        | "America/Nuuk"
+        | "America/Ojinaga"
+        | "America/Panama"
+        | "America/Pangnirtung"
+        | "America/Paramaribo"
+        | "America/Phoenix"
+        | "America/Port-au-Prince"
+        | "America/Port_of_Spain"
+        | "America/Porto_Acre"
+        | "America/Porto_Velho"
+        | "America/Puerto_Rico"
+        | "America/Punta_Arenas"
+        | "America/Rainy_River"
+        | "America/Rankin_Inlet"
+        | "America/Recife"
+        | "America/Regina"
+        | "America/Resolute"
+        | "America/Rio_Branco"
+        | "America/Rosario"
+        | "America/Santa_Isabel"
+        | "America/Santarem"
+        | "America/Santiago"
+        | "America/Santo_Domingo"
+        | "America/Sao_Paulo"
+        | "America/Scoresbysund"
+        | "America/Shiprock"
+        | "America/Sitka"
+        | "America/St_Barthelemy"
+        | "America/St_Johns"
+        | "America/St_Kitts"
+        | "America/St_Lucia"
+        | "America/St_Thomas"
+        | "America/St_Vincent"
+        | "America/Swift_Current"
+        | "America/Tegucigalpa"
+        | "America/Thule"
+        | "America/Thunder_Bay"
+        | "America/Tijuana"
+        | "America/Toronto"
+        | "America/Tortola"
+        | "America/Vancouver"
+        | "America/Virgin"
+        | "America/Whitehorse"
+        | "America/Winnipeg"
+        | "America/Yakutat"
+        | "America/Yellowknife"
+        | "Antarctica/Casey"
+        | "Antarctica/Davis"
+        | "Antarctica/DumontDUrville"
+        | "Antarctica/Macquarie"
+        | "Antarctica/Mawson"
+        | "Antarctica/McMurdo"
+        | "Antarctica/Palmer"
+        | "Antarctica/Rothera"
+        | "Antarctica/South_Pole"
+        | "Antarctica/Syowa"
+        | "Antarctica/Troll"
+        | "Antarctica/Vostok"
+        | "Arctic/Longyearbyen"
+        | "Asia/Aden"
+        | "Asia/Almaty"
+        | "Asia/Amman"
+        | "Asia/Anadyr"
+        | "Asia/Aqtau"
+        | "Asia/Aqtobe"
+        | "Asia/Ashgabat"
+        | "Asia/Ashkhabad"
+        | "Asia/Atyrau"
+        | "Asia/Baghdad"
+        | "Asia/Bahrain"
+        | "Asia/Baku"
+        | "Asia/Bangkok"
+        | "Asia/Barnaul"
+        | "Asia/Beirut"
+        | "Asia/Bishkek"
+        | "Asia/Brunei"
+        | "Asia/Calcutta"
+        | "Asia/Chita"
+        | "Asia/Choibalsan"
+        | "Asia/Chongqing"
+        | "Asia/Chungking"
+        | "Asia/Colombo"
+        | "Asia/Dacca"
+        | "Asia/Damascus"
+        | "Asia/Dhaka"
+        | "Asia/Dili"
+        | "Asia/Dubai"
+        | "Asia/Dushanbe"
+        | "Asia/Famagusta"
+        | "Asia/Gaza"
+        | "Asia/Harbin"
+        | "Asia/Hebron"
+        | "Asia/Ho_Chi_Minh"
+        | "Asia/Hong_Kong"
+        | "Asia/Hovd"
+        | "Asia/Irkutsk"
+        | "Asia/Istanbul"
+        | "Asia/Jakarta"
+        | "Asia/Jayapura"
+        | "Asia/Jerusalem"
+        | "Asia/Kabul"
+        | "Asia/Kamchatka"
+        | "Asia/Karachi"
+        | "Asia/Kashgar"
+        | "Asia/Kathmandu"
+        | "Asia/Katmandu"
+        | "Asia/Khandyga"
+        | "Asia/Kolkata"
+        | "Asia/Krasnoyarsk"
+        | "Asia/Kuala_Lumpur"
+        | "Asia/Kuching"
+        | "Asia/Kuwait"
+        | "Asia/Macao"
+        | "Asia/Macau"
+        | "Asia/Magadan"
+        | "Asia/Makassar"
+        | "Asia/Manila"
+        | "Asia/Muscat"
+        | "Asia/Nicosia"
+        | "Asia/Novokuznetsk"
+        | "Asia/Novosibirsk"
+        | "Asia/Omsk"
+        | "Asia/Oral"
+        | "Asia/Phnom_Penh"
+        | "Asia/Pontianak"
+        | "Asia/Pyongyang"
+        | "Asia/Qatar"
+        | "Asia/Qostanay"
+        | "Asia/Qyzylorda"
+        | "Asia/Rangoon"
+        | "Asia/Riyadh"
+        | "Asia/Saigon"
+        | "Asia/Sakhalin"
+        | "Asia/Samarkand"
+        | "Asia/Seoul"
+        | "Asia/Shanghai"
+        | "Asia/Singapore"
+        | "Asia/Srednekolymsk"
+        | "Asia/Taipei"
+        | "Asia/Tashkent"
+        | "Asia/Tbilisi"
+        | "Asia/Tehran"
+        | "Asia/Tel_Aviv"
+        | "Asia/Thimbu"
+        | "Asia/Thimphu"
+        | "Asia/Tokyo"
+        | "Asia/Tomsk"
+        | "Asia/Ujung_Pandang"
+        | "Asia/Ulaanbaatar"
+        | "Asia/Ulan_Bator"
+        | "Asia/Urumqi"
+        | "Asia/Ust-Nera"
+        | "Asia/Vientiane"
+        | "Asia/Vladivostok"
+        | "Asia/Yakutsk"
+        | "Asia/Yangon"
+        | "Asia/Yekaterinburg"
+        | "Asia/Yerevan"
+        | "Atlantic/Azores"
+        | "Atlantic/Bermuda"
+        | "Atlantic/Canary"
+        | "Atlantic/Cape_Verde"
+        | "Atlantic/Faeroe"
+        | "Atlantic/Faroe"
+        | "Atlantic/Jan_Mayen"
+        | "Atlantic/Madeira"
+        | "Atlantic/Reykjavik"
+        | "Atlantic/South_Georgia"
+        | "Atlantic/St_Helena"
+        | "Atlantic/Stanley"
+        | "Australia/ACT"
+        | "Australia/Adelaide"
+        | "Australia/Brisbane"
+        | "Australia/Broken_Hill"
+        | "Australia/Canberra"
+        | "Australia/Currie"
+        | "Australia/Darwin"
+        | "Australia/Eucla"
+        | "Australia/Hobart"
+        | "Australia/LHI"
+        | "Australia/Lindeman"
+        | "Australia/Lord_Howe"
+        | "Australia/Melbourne"
+        | "Australia/NSW"
+        | "Australia/North"
+        | "Australia/Perth"
+        | "Australia/Queensland"
+        | "Australia/South"
+        | "Australia/Sydney"
+        | "Australia/Tasmania"
+        | "Australia/Victoria"
+        | "Australia/West"
+        | "Australia/Yancowinna"
+        | "Brazil/Acre"
+        | "Brazil/DeNoronha"
+        | "Brazil/East"
+        | "Brazil/West"
+        | "CET"
+        | "CST6CDT"
+        | "Canada/Atlantic"
+        | "Canada/Central"
+        | "Canada/Eastern"
+        | "Canada/Mountain"
+        | "Canada/Newfoundland"
+        | "Canada/Pacific"
+        | "Canada/Saskatchewan"
+        | "Canada/Yukon"
+        | "Chile/Continental"
+        | "Chile/EasterIsland"
+        | "Cuba"
+        | "EET"
+        | "EST"
+        | "EST5EDT"
+        | "Egypt"
+        | "Eire"
+        | "Etc/GMT"
+        | "Etc/GMT+0"
+        | "Etc/GMT+1"
+        | "Etc/GMT+10"
+        | "Etc/GMT+11"
+        | "Etc/GMT+12"
+        | "Etc/GMT+2"
+        | "Etc/GMT+3"
+        | "Etc/GMT+4"
+        | "Etc/GMT+5"
+        | "Etc/GMT+6"
+        | "Etc/GMT+7"
+        | "Etc/GMT+8"
+        | "Etc/GMT+9"
+        | "Etc/GMT-0"
+        | "Etc/GMT-1"
+        | "Etc/GMT-10"
+        | "Etc/GMT-11"
+        | "Etc/GMT-12"
+        | "Etc/GMT-13"
+        | "Etc/GMT-14"
+        | "Etc/GMT-2"
+        | "Etc/GMT-3"
+        | "Etc/GMT-4"
+        | "Etc/GMT-5"
+        | "Etc/GMT-6"
+        | "Etc/GMT-7"
+        | "Etc/GMT-8"
+        | "Etc/GMT-9"
+        | "Etc/GMT0"
+        | "Etc/Greenwich"
+        | "Etc/UCT"
+        | "Etc/UTC"
+        | "Etc/Universal"
+        | "Etc/Zulu"
+        | "Europe/Amsterdam"
+        | "Europe/Andorra"
+        | "Europe/Astrakhan"
+        | "Europe/Athens"
+        | "Europe/Belfast"
+        | "Europe/Belgrade"
+        | "Europe/Berlin"
+        | "Europe/Bratislava"
+        | "Europe/Brussels"
+        | "Europe/Bucharest"
+        | "Europe/Budapest"
+        | "Europe/Busingen"
+        | "Europe/Chisinau"
+        | "Europe/Copenhagen"
+        | "Europe/Dublin"
+        | "Europe/Gibraltar"
+        | "Europe/Guernsey"
+        | "Europe/Helsinki"
+        | "Europe/Isle_of_Man"
+        | "Europe/Istanbul"
+        | "Europe/Jersey"
+        | "Europe/Kaliningrad"
+        | "Europe/Kiev"
+        | "Europe/Kirov"
+        | "Europe/Kyiv"
+        | "Europe/Lisbon"
+        | "Europe/Ljubljana"
+        | "Europe/London"
+        | "Europe/Luxembourg"
+        | "Europe/Madrid"
+        | "Europe/Malta"
+        | "Europe/Mariehamn"
+        | "Europe/Minsk"
+        | "Europe/Monaco"
+        | "Europe/Moscow"
+        | "Europe/Nicosia"
+        | "Europe/Oslo"
+        | "Europe/Paris"
+        | "Europe/Podgorica"
+        | "Europe/Prague"
+        | "Europe/Riga"
+        | "Europe/Rome"
+        | "Europe/Samara"
+        | "Europe/San_Marino"
+        | "Europe/Sarajevo"
+        | "Europe/Saratov"
+        | "Europe/Simferopol"
+        | "Europe/Skopje"
+        | "Europe/Sofia"
+        | "Europe/Stockholm"
+        | "Europe/Tallinn"
+        | "Europe/Tirane"
+        | "Europe/Tiraspol"
+        | "Europe/Ulyanovsk"
+        | "Europe/Uzhgorod"
+        | "Europe/Vaduz"
+        | "Europe/Vatican"
+        | "Europe/Vienna"
+        | "Europe/Vilnius"
+        | "Europe/Volgograd"
+        | "Europe/Warsaw"
+        | "Europe/Zagreb"
+        | "Europe/Zaporozhye"
+        | "Europe/Zurich"
+        | "Factory"
+        | "GB"
+        | "GB-Eire"
+        | "GMT"
+        | "GMT+0"
+        | "GMT-0"
+        | "GMT0"
+        | "Greenwich"
+        | "HST"
+        | "Hongkong"
+        | "Iceland"
+        | "Indian/Antananarivo"
+        | "Indian/Chagos"
+        | "Indian/Christmas"
+        | "Indian/Cocos"
+        | "Indian/Comoro"
+        | "Indian/Kerguelen"
+        | "Indian/Mahe"
+        | "Indian/Maldives"
+        | "Indian/Mauritius"
+        | "Indian/Mayotte"
+        | "Indian/Reunion"
+        | "Iran"
+        | "Israel"
+        | "Jamaica"
+        | "Japan"
+        | "Kwajalein"
+        | "Libya"
+        | "MET"
+        | "MST"
+        | "MST7MDT"
+        | "Mexico/BajaNorte"
+        | "Mexico/BajaSur"
+        | "Mexico/General"
+        | "NZ"
+        | "NZ-CHAT"
+        | "Navajo"
+        | "PRC"
+        | "PST8PDT"
+        | "Pacific/Apia"
+        | "Pacific/Auckland"
+        | "Pacific/Bougainville"
+        | "Pacific/Chatham"
+        | "Pacific/Chuuk"
+        | "Pacific/Easter"
+        | "Pacific/Efate"
+        | "Pacific/Enderbury"
+        | "Pacific/Fakaofo"
+        | "Pacific/Fiji"
+        | "Pacific/Funafuti"
+        | "Pacific/Galapagos"
+        | "Pacific/Gambier"
+        | "Pacific/Guadalcanal"
+        | "Pacific/Guam"
+        | "Pacific/Honolulu"
+        | "Pacific/Johnston"
+        | "Pacific/Kanton"
+        | "Pacific/Kiritimati"
+        | "Pacific/Kosrae"
+        | "Pacific/Kwajalein"
+        | "Pacific/Majuro"
+        | "Pacific/Marquesas"
+        | "Pacific/Midway"
+        | "Pacific/Nauru"
+        | "Pacific/Niue"
+        | "Pacific/Norfolk"
+        | "Pacific/Noumea"
+        | "Pacific/Pago_Pago"
+        | "Pacific/Palau"
+        | "Pacific/Pitcairn"
+        | "Pacific/Pohnpei"
+        | "Pacific/Ponape"
+        | "Pacific/Port_Moresby"
+        | "Pacific/Rarotonga"
+        | "Pacific/Saipan"
+        | "Pacific/Samoa"
+        | "Pacific/Tahiti"
+        | "Pacific/Tarawa"
+        | "Pacific/Tongatapu"
+        | "Pacific/Truk"
+        | "Pacific/Wake"
+        | "Pacific/Wallis"
+        | "Pacific/Yap"
+        | "Poland"
+        | "Portugal"
+        | "ROC"
+        | "ROK"
+        | "Singapore"
+        | "Turkey"
+        | "UCT"
+        | "US/Alaska"
+        | "US/Aleutian"
+        | "US/Arizona"
+        | "US/Central"
+        | "US/East-Indiana"
+        | "US/Eastern"
+        | "US/Hawaii"
+        | "US/Indiana-Starke"
+        | "US/Michigan"
+        | "US/Mountain"
+        | "US/Pacific"
+        | "US/Pacific-New"
+        | "US/Samoa"
+        | "UTC"
+        | "Universal"
+        | "W-SU"
+        | "WET"
+        | "Zulu"
+    }
+    report_type: string
+  }
 
 export type t_PostReviewsReviewApproveParamSchema = {
   review: string
 }
 
-export type t_PostSetupIntentsBodySchema = {
+export type t_postReviewsReviewApproveApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
+  }
+
+export type t_postSetupIntentsApplicationXWwwFormUrlencodedRequestBody = {
   attach_to_self?: boolean
   automatic_payment_methods?: {
     allow_redirects?: "always" | "never"
@@ -34395,7 +34525,11 @@ export type t_PostSetupIntentsBodySchema = {
   use_stripe_sdk?: boolean
 }
 
-export type t_PostSetupIntentsIntentBodySchema = {
+export type t_PostSetupIntentsIntentParamSchema = {
+  intent: string
+}
+
+export type t_postSetupIntentsIntentApplicationXWwwFormUrlencodedRequestBody = {
   attach_to_self?: boolean
   customer?: string
   description?: string
@@ -34834,489 +34968,488 @@ export type t_PostSetupIntentsIntentBodySchema = {
   payment_method_types?: string[]
 }
 
-export type t_PostSetupIntentsIntentParamSchema = {
-  intent: string
-}
-
-export type t_PostSetupIntentsIntentCancelBodySchema = {
-  cancellation_reason?: "abandoned" | "duplicate" | "requested_by_customer"
-  expand?: string[]
-}
-
 export type t_PostSetupIntentsIntentCancelParamSchema = {
   intent: string
 }
 
-export type t_PostSetupIntentsIntentConfirmBodySchema = {
-  client_secret?: string
-  confirmation_token?: string
-  expand?: string[]
-  mandate_data?:
-    | {
-        customer_acceptance: {
-          accepted_at?: number
-          offline?: EmptyObject
-          online?: {
-            ip_address: string
-            user_agent: string
-          }
-          type: "offline" | "online"
-        }
-      }
-    | ""
-    | {
-        customer_acceptance: {
-          online: {
-            ip_address?: string
-            user_agent?: string
-          }
-          type: "online"
-        }
-      }
-  payment_method?: string
-  payment_method_data?: {
-    acss_debit?: {
-      account_number: string
-      institution_number: string
-      transit_number: string
-    }
-    affirm?: EmptyObject
-    afterpay_clearpay?: EmptyObject
-    alipay?: EmptyObject
-    allow_redisplay?: "always" | "limited" | "unspecified"
-    alma?: EmptyObject
-    amazon_pay?: EmptyObject
-    au_becs_debit?: {
-      account_number: string
-      bsb_number: string
-    }
-    bacs_debit?: {
-      account_number?: string
-      sort_code?: string
-    }
-    bancontact?: EmptyObject
-    billie?: EmptyObject
-    billing_details?: {
-      address?:
-        | {
-            city?: string
-            country?: string
-            line1?: string
-            line2?: string
-            postal_code?: string
-            state?: string
-          }
-        | ""
-      email?: string | ""
-      name?: string | ""
-      phone?: string | ""
-      tax_id?: string
-    }
-    blik?: EmptyObject
-    boleto?: {
-      tax_id: string
-    }
-    cashapp?: EmptyObject
-    crypto?: EmptyObject
-    customer_balance?: EmptyObject
-    eps?: {
-      bank?:
-        | "arzte_und_apotheker_bank"
-        | "austrian_anadi_bank_ag"
-        | "bank_austria"
-        | "bankhaus_carl_spangler"
-        | "bankhaus_schelhammer_und_schattera_ag"
-        | "bawag_psk_ag"
-        | "bks_bank_ag"
-        | "brull_kallmus_bank_ag"
-        | "btv_vier_lander_bank"
-        | "capital_bank_grawe_gruppe_ag"
-        | "deutsche_bank_ag"
-        | "dolomitenbank"
-        | "easybank_ag"
-        | "erste_bank_und_sparkassen"
-        | "hypo_alpeadriabank_international_ag"
-        | "hypo_bank_burgenland_aktiengesellschaft"
-        | "hypo_noe_lb_fur_niederosterreich_u_wien"
-        | "hypo_oberosterreich_salzburg_steiermark"
-        | "hypo_tirol_bank_ag"
-        | "hypo_vorarlberg_bank_ag"
-        | "marchfelder_bank"
-        | "oberbank_ag"
-        | "raiffeisen_bankengruppe_osterreich"
-        | "schoellerbank_ag"
-        | "sparda_bank_wien"
-        | "volksbank_gruppe"
-        | "volkskreditbank_ag"
-        | "vr_bank_braunau"
-    }
-    fpx?: {
-      bank:
-        | "affin_bank"
-        | "agrobank"
-        | "alliance_bank"
-        | "ambank"
-        | "bank_islam"
-        | "bank_muamalat"
-        | "bank_of_china"
-        | "bank_rakyat"
-        | "bsn"
-        | "cimb"
-        | "deutsche_bank"
-        | "hong_leong_bank"
-        | "hsbc"
-        | "kfh"
-        | "maybank2e"
-        | "maybank2u"
-        | "ocbc"
-        | "pb_enterprise"
-        | "public_bank"
-        | "rhb"
-        | "standard_chartered"
-        | "uob"
-    }
-    giropay?: EmptyObject
-    grabpay?: EmptyObject
-    ideal?: {
-      bank?:
-        | "abn_amro"
-        | "asn_bank"
-        | "bunq"
-        | "buut"
-        | "handelsbanken"
-        | "ing"
-        | "knab"
-        | "moneyou"
-        | "n26"
-        | "nn"
-        | "rabobank"
-        | "regiobank"
-        | "revolut"
-        | "sns_bank"
-        | "triodos_bank"
-        | "van_lanschot"
-        | "yoursafe"
-    }
-    interac_present?: EmptyObject
-    kakao_pay?: EmptyObject
-    klarna?: {
-      dob?: {
-        day: number
-        month: number
-        year: number
-      }
-    }
-    konbini?: EmptyObject
-    kr_card?: EmptyObject
-    link?: EmptyObject
-    metadata?: {
-      [key: string]: string | undefined
-    }
-    mobilepay?: EmptyObject
-    multibanco?: EmptyObject
-    naver_pay?: {
-      funding?: "card" | "points"
-    }
-    nz_bank_account?: {
-      account_holder_name?: string
-      account_number: string
-      bank_code: string
-      branch_code: string
-      reference?: string
-      suffix: string
-    }
-    oxxo?: EmptyObject
-    p24?: {
-      bank?:
-        | "alior_bank"
-        | "bank_millennium"
-        | "bank_nowy_bfg_sa"
-        | "bank_pekao_sa"
-        | "banki_spbdzielcze"
-        | "blik"
-        | "bnp_paribas"
-        | "boz"
-        | "citi_handlowy"
-        | "credit_agricole"
-        | "envelobank"
-        | "etransfer_pocztowy24"
-        | "getin_bank"
-        | "ideabank"
-        | "ing"
-        | "inteligo"
-        | "mbank_mtransfer"
-        | "nest_przelew"
-        | "noble_pay"
-        | "pbac_z_ipko"
-        | "plus_bank"
-        | "santander_przelew24"
-        | "tmobile_usbugi_bankowe"
-        | "toyota_bank"
-        | "velobank"
-        | "volkswagen_bank"
-    }
-    pay_by_bank?: EmptyObject
-    payco?: EmptyObject
-    paynow?: EmptyObject
-    paypal?: EmptyObject
-    pix?: EmptyObject
-    promptpay?: EmptyObject
-    radar_options?: {
-      session?: string
-    }
-    revolut_pay?: EmptyObject
-    samsung_pay?: EmptyObject
-    satispay?: EmptyObject
-    sepa_debit?: {
-      iban: string
-    }
-    sofort?: {
-      country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL"
-    }
-    swish?: EmptyObject
-    twint?: EmptyObject
-    type:
-      | "acss_debit"
-      | "affirm"
-      | "afterpay_clearpay"
-      | "alipay"
-      | "alma"
-      | "amazon_pay"
-      | "au_becs_debit"
-      | "bacs_debit"
-      | "bancontact"
-      | "billie"
-      | "blik"
-      | "boleto"
-      | "cashapp"
-      | "crypto"
-      | "customer_balance"
-      | "eps"
-      | "fpx"
-      | "giropay"
-      | "grabpay"
-      | "ideal"
-      | "kakao_pay"
-      | "klarna"
-      | "konbini"
-      | "kr_card"
-      | "link"
-      | "mobilepay"
-      | "multibanco"
-      | "naver_pay"
-      | "nz_bank_account"
-      | "oxxo"
-      | "p24"
-      | "pay_by_bank"
-      | "payco"
-      | "paynow"
-      | "paypal"
-      | "pix"
-      | "promptpay"
-      | "revolut_pay"
-      | "samsung_pay"
-      | "satispay"
-      | "sepa_debit"
-      | "sofort"
-      | "swish"
-      | "twint"
-      | "us_bank_account"
-      | "wechat_pay"
-      | "zip"
-    us_bank_account?: {
-      account_holder_type?: "company" | "individual"
-      account_number?: string
-      account_type?: "checking" | "savings"
-      financial_connections_account?: string
-      routing_number?: string
-    }
-    wechat_pay?: EmptyObject
-    zip?: EmptyObject
+export type t_postSetupIntentsIntentCancelApplicationXWwwFormUrlencodedRequestBody =
+  {
+    cancellation_reason?: "abandoned" | "duplicate" | "requested_by_customer"
+    expand?: string[]
   }
-  payment_method_options?: {
-    acss_debit?: {
-      currency?: "cad" | "usd"
-      mandate_options?: {
-        custom_mandate_url?: string | ""
-        default_for?: ("invoice" | "subscription")[]
-        interval_description?: string
-        payment_schedule?: "combined" | "interval" | "sporadic"
-        transaction_type?: "business" | "personal"
-      }
-      verification_method?: "automatic" | "instant" | "microdeposits"
-    }
-    amazon_pay?: EmptyObject
-    bacs_debit?: {
-      mandate_options?: {
-        reference_prefix?: string | ""
-      }
-    }
-    card?: {
-      mandate_options?: {
-        amount: number
-        amount_type: "fixed" | "maximum"
-        currency: string
-        description?: string
-        end_date?: number
-        interval: "day" | "month" | "sporadic" | "week" | "year"
-        interval_count?: number
-        reference: string
-        start_date: number
-        supported_types?: "india"[]
-      }
-      network?:
-        | "amex"
-        | "cartes_bancaires"
-        | "diners"
-        | "discover"
-        | "eftpos_au"
-        | "girocard"
-        | "interac"
-        | "jcb"
-        | "link"
-        | "mastercard"
-        | "unionpay"
-        | "unknown"
-        | "visa"
-      request_three_d_secure?: "any" | "automatic" | "challenge"
-      three_d_secure?: {
-        ares_trans_status?: "A" | "C" | "I" | "N" | "R" | "U" | "Y"
-        cryptogram?: string
-        electronic_commerce_indicator?: "01" | "02" | "05" | "06" | "07"
-        network_options?: {
-          cartes_bancaires?: {
-            cb_avalgo: "0" | "1" | "2" | "3" | "4" | "A"
-            cb_exemption?: string
-            cb_score?: number
-          }
-        }
-        requestor_challenge_indicator?: string
-        transaction_id?: string
-        version?: "1.0.2" | "2.1.0" | "2.2.0"
-      }
-    }
-    card_present?: EmptyObject
-    klarna?: {
-      currency?: string
-      on_demand?: {
-        average_amount?: number
-        maximum_amount?: number
-        minimum_amount?: number
-        purchase_interval?: "day" | "month" | "week" | "year"
-        purchase_interval_count?: number
-      }
-      preferred_locale?:
-        | "cs-CZ"
-        | "da-DK"
-        | "de-AT"
-        | "de-CH"
-        | "de-DE"
-        | "el-GR"
-        | "en-AT"
-        | "en-AU"
-        | "en-BE"
-        | "en-CA"
-        | "en-CH"
-        | "en-CZ"
-        | "en-DE"
-        | "en-DK"
-        | "en-ES"
-        | "en-FI"
-        | "en-FR"
-        | "en-GB"
-        | "en-GR"
-        | "en-IE"
-        | "en-IT"
-        | "en-NL"
-        | "en-NO"
-        | "en-NZ"
-        | "en-PL"
-        | "en-PT"
-        | "en-RO"
-        | "en-SE"
-        | "en-US"
-        | "es-ES"
-        | "es-US"
-        | "fi-FI"
-        | "fr-BE"
-        | "fr-CA"
-        | "fr-CH"
-        | "fr-FR"
-        | "it-CH"
-        | "it-IT"
-        | "nb-NO"
-        | "nl-BE"
-        | "nl-NL"
-        | "pl-PL"
-        | "pt-PT"
-        | "ro-RO"
-        | "sv-FI"
-        | "sv-SE"
-      subscriptions?:
-        | {
-            interval: "day" | "month" | "week" | "year"
-            interval_count?: number
-            name?: string
-            next_billing: {
-              amount: number
-              date: string
-            }
-            reference: string
-          }[]
-        | ""
-    }
-    link?: EmptyObject
-    paypal?: {
-      billing_agreement_id?: string
-    }
-    sepa_debit?: {
-      mandate_options?: {
-        reference_prefix?: string | ""
-      }
-    }
-    us_bank_account?: {
-      financial_connections?: {
-        filters?: {
-          account_subcategories?: ("checking" | "savings")[]
-        }
-        permissions?: (
-          | "balances"
-          | "ownership"
-          | "payment_method"
-          | "transactions"
-        )[]
-        prefetch?: ("balances" | "ownership" | "transactions")[]
-        return_url?: string
-      }
-      mandate_options?: {
-        collection_method?: "" | "paper"
-      }
-      networks?: {
-        requested?: ("ach" | "us_domestic_wire")[]
-      }
-      verification_method?: "automatic" | "instant" | "microdeposits"
-    }
-  }
-  return_url?: string
-  use_stripe_sdk?: boolean
-}
 
 export type t_PostSetupIntentsIntentConfirmParamSchema = {
   intent: string
 }
 
-export type t_PostSetupIntentsIntentVerifyMicrodepositsBodySchema = {
-  amounts?: number[]
-  client_secret?: string
-  descriptor_code?: string
-  expand?: string[]
-}
+export type t_postSetupIntentsIntentConfirmApplicationXWwwFormUrlencodedRequestBody =
+  {
+    client_secret?: string
+    confirmation_token?: string
+    expand?: string[]
+    mandate_data?:
+      | {
+          customer_acceptance: {
+            accepted_at?: number
+            offline?: EmptyObject
+            online?: {
+              ip_address: string
+              user_agent: string
+            }
+            type: "offline" | "online"
+          }
+        }
+      | ""
+      | {
+          customer_acceptance: {
+            online: {
+              ip_address?: string
+              user_agent?: string
+            }
+            type: "online"
+          }
+        }
+    payment_method?: string
+    payment_method_data?: {
+      acss_debit?: {
+        account_number: string
+        institution_number: string
+        transit_number: string
+      }
+      affirm?: EmptyObject
+      afterpay_clearpay?: EmptyObject
+      alipay?: EmptyObject
+      allow_redisplay?: "always" | "limited" | "unspecified"
+      alma?: EmptyObject
+      amazon_pay?: EmptyObject
+      au_becs_debit?: {
+        account_number: string
+        bsb_number: string
+      }
+      bacs_debit?: {
+        account_number?: string
+        sort_code?: string
+      }
+      bancontact?: EmptyObject
+      billie?: EmptyObject
+      billing_details?: {
+        address?:
+          | {
+              city?: string
+              country?: string
+              line1?: string
+              line2?: string
+              postal_code?: string
+              state?: string
+            }
+          | ""
+        email?: string | ""
+        name?: string | ""
+        phone?: string | ""
+        tax_id?: string
+      }
+      blik?: EmptyObject
+      boleto?: {
+        tax_id: string
+      }
+      cashapp?: EmptyObject
+      crypto?: EmptyObject
+      customer_balance?: EmptyObject
+      eps?: {
+        bank?:
+          | "arzte_und_apotheker_bank"
+          | "austrian_anadi_bank_ag"
+          | "bank_austria"
+          | "bankhaus_carl_spangler"
+          | "bankhaus_schelhammer_und_schattera_ag"
+          | "bawag_psk_ag"
+          | "bks_bank_ag"
+          | "brull_kallmus_bank_ag"
+          | "btv_vier_lander_bank"
+          | "capital_bank_grawe_gruppe_ag"
+          | "deutsche_bank_ag"
+          | "dolomitenbank"
+          | "easybank_ag"
+          | "erste_bank_und_sparkassen"
+          | "hypo_alpeadriabank_international_ag"
+          | "hypo_bank_burgenland_aktiengesellschaft"
+          | "hypo_noe_lb_fur_niederosterreich_u_wien"
+          | "hypo_oberosterreich_salzburg_steiermark"
+          | "hypo_tirol_bank_ag"
+          | "hypo_vorarlberg_bank_ag"
+          | "marchfelder_bank"
+          | "oberbank_ag"
+          | "raiffeisen_bankengruppe_osterreich"
+          | "schoellerbank_ag"
+          | "sparda_bank_wien"
+          | "volksbank_gruppe"
+          | "volkskreditbank_ag"
+          | "vr_bank_braunau"
+      }
+      fpx?: {
+        bank:
+          | "affin_bank"
+          | "agrobank"
+          | "alliance_bank"
+          | "ambank"
+          | "bank_islam"
+          | "bank_muamalat"
+          | "bank_of_china"
+          | "bank_rakyat"
+          | "bsn"
+          | "cimb"
+          | "deutsche_bank"
+          | "hong_leong_bank"
+          | "hsbc"
+          | "kfh"
+          | "maybank2e"
+          | "maybank2u"
+          | "ocbc"
+          | "pb_enterprise"
+          | "public_bank"
+          | "rhb"
+          | "standard_chartered"
+          | "uob"
+      }
+      giropay?: EmptyObject
+      grabpay?: EmptyObject
+      ideal?: {
+        bank?:
+          | "abn_amro"
+          | "asn_bank"
+          | "bunq"
+          | "buut"
+          | "handelsbanken"
+          | "ing"
+          | "knab"
+          | "moneyou"
+          | "n26"
+          | "nn"
+          | "rabobank"
+          | "regiobank"
+          | "revolut"
+          | "sns_bank"
+          | "triodos_bank"
+          | "van_lanschot"
+          | "yoursafe"
+      }
+      interac_present?: EmptyObject
+      kakao_pay?: EmptyObject
+      klarna?: {
+        dob?: {
+          day: number
+          month: number
+          year: number
+        }
+      }
+      konbini?: EmptyObject
+      kr_card?: EmptyObject
+      link?: EmptyObject
+      metadata?: {
+        [key: string]: string | undefined
+      }
+      mobilepay?: EmptyObject
+      multibanco?: EmptyObject
+      naver_pay?: {
+        funding?: "card" | "points"
+      }
+      nz_bank_account?: {
+        account_holder_name?: string
+        account_number: string
+        bank_code: string
+        branch_code: string
+        reference?: string
+        suffix: string
+      }
+      oxxo?: EmptyObject
+      p24?: {
+        bank?:
+          | "alior_bank"
+          | "bank_millennium"
+          | "bank_nowy_bfg_sa"
+          | "bank_pekao_sa"
+          | "banki_spbdzielcze"
+          | "blik"
+          | "bnp_paribas"
+          | "boz"
+          | "citi_handlowy"
+          | "credit_agricole"
+          | "envelobank"
+          | "etransfer_pocztowy24"
+          | "getin_bank"
+          | "ideabank"
+          | "ing"
+          | "inteligo"
+          | "mbank_mtransfer"
+          | "nest_przelew"
+          | "noble_pay"
+          | "pbac_z_ipko"
+          | "plus_bank"
+          | "santander_przelew24"
+          | "tmobile_usbugi_bankowe"
+          | "toyota_bank"
+          | "velobank"
+          | "volkswagen_bank"
+      }
+      pay_by_bank?: EmptyObject
+      payco?: EmptyObject
+      paynow?: EmptyObject
+      paypal?: EmptyObject
+      pix?: EmptyObject
+      promptpay?: EmptyObject
+      radar_options?: {
+        session?: string
+      }
+      revolut_pay?: EmptyObject
+      samsung_pay?: EmptyObject
+      satispay?: EmptyObject
+      sepa_debit?: {
+        iban: string
+      }
+      sofort?: {
+        country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL"
+      }
+      swish?: EmptyObject
+      twint?: EmptyObject
+      type:
+        | "acss_debit"
+        | "affirm"
+        | "afterpay_clearpay"
+        | "alipay"
+        | "alma"
+        | "amazon_pay"
+        | "au_becs_debit"
+        | "bacs_debit"
+        | "bancontact"
+        | "billie"
+        | "blik"
+        | "boleto"
+        | "cashapp"
+        | "crypto"
+        | "customer_balance"
+        | "eps"
+        | "fpx"
+        | "giropay"
+        | "grabpay"
+        | "ideal"
+        | "kakao_pay"
+        | "klarna"
+        | "konbini"
+        | "kr_card"
+        | "link"
+        | "mobilepay"
+        | "multibanco"
+        | "naver_pay"
+        | "nz_bank_account"
+        | "oxxo"
+        | "p24"
+        | "pay_by_bank"
+        | "payco"
+        | "paynow"
+        | "paypal"
+        | "pix"
+        | "promptpay"
+        | "revolut_pay"
+        | "samsung_pay"
+        | "satispay"
+        | "sepa_debit"
+        | "sofort"
+        | "swish"
+        | "twint"
+        | "us_bank_account"
+        | "wechat_pay"
+        | "zip"
+      us_bank_account?: {
+        account_holder_type?: "company" | "individual"
+        account_number?: string
+        account_type?: "checking" | "savings"
+        financial_connections_account?: string
+        routing_number?: string
+      }
+      wechat_pay?: EmptyObject
+      zip?: EmptyObject
+    }
+    payment_method_options?: {
+      acss_debit?: {
+        currency?: "cad" | "usd"
+        mandate_options?: {
+          custom_mandate_url?: string | ""
+          default_for?: ("invoice" | "subscription")[]
+          interval_description?: string
+          payment_schedule?: "combined" | "interval" | "sporadic"
+          transaction_type?: "business" | "personal"
+        }
+        verification_method?: "automatic" | "instant" | "microdeposits"
+      }
+      amazon_pay?: EmptyObject
+      bacs_debit?: {
+        mandate_options?: {
+          reference_prefix?: string | ""
+        }
+      }
+      card?: {
+        mandate_options?: {
+          amount: number
+          amount_type: "fixed" | "maximum"
+          currency: string
+          description?: string
+          end_date?: number
+          interval: "day" | "month" | "sporadic" | "week" | "year"
+          interval_count?: number
+          reference: string
+          start_date: number
+          supported_types?: "india"[]
+        }
+        network?:
+          | "amex"
+          | "cartes_bancaires"
+          | "diners"
+          | "discover"
+          | "eftpos_au"
+          | "girocard"
+          | "interac"
+          | "jcb"
+          | "link"
+          | "mastercard"
+          | "unionpay"
+          | "unknown"
+          | "visa"
+        request_three_d_secure?: "any" | "automatic" | "challenge"
+        three_d_secure?: {
+          ares_trans_status?: "A" | "C" | "I" | "N" | "R" | "U" | "Y"
+          cryptogram?: string
+          electronic_commerce_indicator?: "01" | "02" | "05" | "06" | "07"
+          network_options?: {
+            cartes_bancaires?: {
+              cb_avalgo: "0" | "1" | "2" | "3" | "4" | "A"
+              cb_exemption?: string
+              cb_score?: number
+            }
+          }
+          requestor_challenge_indicator?: string
+          transaction_id?: string
+          version?: "1.0.2" | "2.1.0" | "2.2.0"
+        }
+      }
+      card_present?: EmptyObject
+      klarna?: {
+        currency?: string
+        on_demand?: {
+          average_amount?: number
+          maximum_amount?: number
+          minimum_amount?: number
+          purchase_interval?: "day" | "month" | "week" | "year"
+          purchase_interval_count?: number
+        }
+        preferred_locale?:
+          | "cs-CZ"
+          | "da-DK"
+          | "de-AT"
+          | "de-CH"
+          | "de-DE"
+          | "el-GR"
+          | "en-AT"
+          | "en-AU"
+          | "en-BE"
+          | "en-CA"
+          | "en-CH"
+          | "en-CZ"
+          | "en-DE"
+          | "en-DK"
+          | "en-ES"
+          | "en-FI"
+          | "en-FR"
+          | "en-GB"
+          | "en-GR"
+          | "en-IE"
+          | "en-IT"
+          | "en-NL"
+          | "en-NO"
+          | "en-NZ"
+          | "en-PL"
+          | "en-PT"
+          | "en-RO"
+          | "en-SE"
+          | "en-US"
+          | "es-ES"
+          | "es-US"
+          | "fi-FI"
+          | "fr-BE"
+          | "fr-CA"
+          | "fr-CH"
+          | "fr-FR"
+          | "it-CH"
+          | "it-IT"
+          | "nb-NO"
+          | "nl-BE"
+          | "nl-NL"
+          | "pl-PL"
+          | "pt-PT"
+          | "ro-RO"
+          | "sv-FI"
+          | "sv-SE"
+        subscriptions?:
+          | {
+              interval: "day" | "month" | "week" | "year"
+              interval_count?: number
+              name?: string
+              next_billing: {
+                amount: number
+                date: string
+              }
+              reference: string
+            }[]
+          | ""
+      }
+      link?: EmptyObject
+      paypal?: {
+        billing_agreement_id?: string
+      }
+      sepa_debit?: {
+        mandate_options?: {
+          reference_prefix?: string | ""
+        }
+      }
+      us_bank_account?: {
+        financial_connections?: {
+          filters?: {
+            account_subcategories?: ("checking" | "savings")[]
+          }
+          permissions?: (
+            | "balances"
+            | "ownership"
+            | "payment_method"
+            | "transactions"
+          )[]
+          prefetch?: ("balances" | "ownership" | "transactions")[]
+          return_url?: string
+        }
+        mandate_options?: {
+          collection_method?: "" | "paper"
+        }
+        networks?: {
+          requested?: ("ach" | "us_domestic_wire")[]
+        }
+        verification_method?: "automatic" | "instant" | "microdeposits"
+      }
+    }
+    return_url?: string
+    use_stripe_sdk?: boolean
+  }
 
 export type t_PostSetupIntentsIntentVerifyMicrodepositsParamSchema = {
   intent: string
 }
 
-export type t_PostShippingRatesBodySchema = {
+export type t_postSetupIntentsIntentVerifyMicrodepositsApplicationXWwwFormUrlencodedRequestBody =
+  {
+    amounts?: number[]
+    client_secret?: string
+    descriptor_code?: string
+    expand?: string[]
+  }
+
+export type t_postShippingRatesApplicationXWwwFormUrlencodedRequestBody = {
   delivery_estimate?: {
     maximum?: {
       unit: "business_day" | "day" | "hour" | "month" | "week"
@@ -35349,42 +35482,44 @@ export type t_PostShippingRatesBodySchema = {
   type?: "fixed_amount"
 }
 
-export type t_PostShippingRatesShippingRateTokenBodySchema = {
-  active?: boolean
-  expand?: string[]
-  fixed_amount?: {
-    currency_options?: {
-      [key: string]:
-        | {
-            amount?: number
-            tax_behavior?: "exclusive" | "inclusive" | "unspecified"
-          }
-        | undefined
-    }
-  }
-  metadata?:
-    | {
-        [key: string]: string | undefined
-      }
-    | ""
-  tax_behavior?: "exclusive" | "inclusive" | "unspecified"
-}
-
 export type t_PostShippingRatesShippingRateTokenParamSchema = {
   shipping_rate_token: string
 }
 
-export type t_PostSigmaSavedQueriesIdBodySchema = {
-  expand?: string[]
-  name?: string
-  sql?: string
-}
+export type t_postShippingRatesShippingRateTokenApplicationXWwwFormUrlencodedRequestBody =
+  {
+    active?: boolean
+    expand?: string[]
+    fixed_amount?: {
+      currency_options?: {
+        [key: string]:
+          | {
+              amount?: number
+              tax_behavior?: "exclusive" | "inclusive" | "unspecified"
+            }
+          | undefined
+      }
+    }
+    metadata?:
+      | {
+          [key: string]: string | undefined
+        }
+      | ""
+    tax_behavior?: "exclusive" | "inclusive" | "unspecified"
+  }
 
 export type t_PostSigmaSavedQueriesIdParamSchema = {
   id: string
 }
 
-export type t_PostSourcesBodySchema = {
+export type t_postSigmaSavedQueriesIdApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
+    name?: string
+    sql?: string
+  }
+
+export type t_postSourcesApplicationXWwwFormUrlencodedRequestBody = {
   amount?: number
   currency?: string
   customer?: string
@@ -35469,7 +35604,11 @@ export type t_PostSourcesBodySchema = {
   usage?: "reusable" | "single_use"
 }
 
-export type t_PostSourcesSourceBodySchema = {
+export type t_PostSourcesSourceParamSchema = {
+  source: string
+}
+
+export type t_postSourcesSourceApplicationXWwwFormUrlencodedRequestBody = {
   amount?: number
   expand?: string[]
   mandate?: {
@@ -35542,20 +35681,17 @@ export type t_PostSourcesSourceBodySchema = {
   }
 }
 
-export type t_PostSourcesSourceParamSchema = {
-  source: string
-}
-
-export type t_PostSourcesSourceVerifyBodySchema = {
-  expand?: string[]
-  values: string[]
-}
-
 export type t_PostSourcesSourceVerifyParamSchema = {
   source: string
 }
 
-export type t_PostSubscriptionItemsBodySchema = {
+export type t_postSourcesSourceVerifyApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
+    values: string[]
+  }
+
+export type t_postSubscriptionItemsApplicationXWwwFormUrlencodedRequestBody = {
   billing_thresholds?:
     | {
         usage_gte: number
@@ -35596,139 +35732,17 @@ export type t_PostSubscriptionItemsBodySchema = {
   tax_rates?: string[] | ""
 }
 
-export type t_PostSubscriptionItemsItemBodySchema = {
-  billing_thresholds?:
-    | {
-        usage_gte: number
-      }
-    | ""
-  discounts?:
-    | {
-        coupon?: string
-        discount?: string
-        promotion_code?: string
-      }[]
-    | ""
-  expand?: string[]
-  metadata?:
-    | {
-        [key: string]: string | undefined
-      }
-    | ""
-  off_session?: boolean
-  payment_behavior?:
-    | "allow_incomplete"
-    | "default_incomplete"
-    | "error_if_incomplete"
-    | "pending_if_incomplete"
-  price?: string
-  price_data?: {
-    currency: string
-    product: string
-    recurring: {
-      interval: "day" | "month" | "week" | "year"
-      interval_count?: number
-    }
-    tax_behavior?: "exclusive" | "inclusive" | "unspecified"
-    unit_amount?: number
-    unit_amount_decimal?: string
-  }
-  proration_behavior?: "always_invoice" | "create_prorations" | "none"
-  proration_date?: number
-  quantity?: number
-  tax_rates?: string[] | ""
-}
-
 export type t_PostSubscriptionItemsItemParamSchema = {
   item: string
 }
 
-export type t_PostSubscriptionSchedulesBodySchema = {
-  billing_mode?: {
-    type: "classic" | "flexible"
-  }
-  customer?: string
-  default_settings?: {
-    application_fee_percent?: number
-    automatic_tax?: {
-      enabled: boolean
-      liability?: {
-        account?: string
-        type: "account" | "self"
-      }
-    }
-    billing_cycle_anchor?: "automatic" | "phase_start"
+export type t_postSubscriptionItemsItemApplicationXWwwFormUrlencodedRequestBody =
+  {
     billing_thresholds?:
       | {
-          amount_gte?: number
-          reset_billing_cycle_anchor?: boolean
+          usage_gte: number
         }
       | ""
-    collection_method?: "charge_automatically" | "send_invoice"
-    default_payment_method?: string
-    description?: string | ""
-    invoice_settings?: {
-      account_tax_ids?: string[] | ""
-      days_until_due?: number
-      issuer?: {
-        account?: string
-        type: "account" | "self"
-      }
-    }
-    on_behalf_of?: string | ""
-    transfer_data?:
-      | {
-          amount_percent?: number
-          destination: string
-        }
-      | ""
-  }
-  end_behavior?: "cancel" | "none" | "release" | "renew"
-  expand?: string[]
-  from_subscription?: string
-  metadata?:
-    | {
-        [key: string]: string | undefined
-      }
-    | ""
-  phases?: {
-    add_invoice_items?: {
-      discounts?: {
-        coupon?: string
-        discount?: string
-        promotion_code?: string
-      }[]
-      price?: string
-      price_data?: {
-        currency: string
-        product: string
-        tax_behavior?: "exclusive" | "inclusive" | "unspecified"
-        unit_amount?: number
-        unit_amount_decimal?: string
-      }
-      quantity?: number
-      tax_rates?: string[] | ""
-    }[]
-    application_fee_percent?: number
-    automatic_tax?: {
-      enabled: boolean
-      liability?: {
-        account?: string
-        type: "account" | "self"
-      }
-    }
-    billing_cycle_anchor?: "automatic" | "phase_start"
-    billing_thresholds?:
-      | {
-          amount_gte?: number
-          reset_billing_cycle_anchor?: boolean
-        }
-      | ""
-    collection_method?: "charge_automatically" | "send_invoice"
-    currency?: string
-    default_payment_method?: string
-    default_tax_rates?: string[] | ""
-    description?: string | ""
     discounts?:
       | {
           coupon?: string
@@ -35736,172 +35750,123 @@ export type t_PostSubscriptionSchedulesBodySchema = {
           promotion_code?: string
         }[]
       | ""
-    duration?: {
-      interval: "day" | "month" | "week" | "year"
-      interval_count?: number
-    }
-    end_date?: number
-    invoice_settings?: {
-      account_tax_ids?: string[] | ""
-      days_until_due?: number
-      issuer?: {
-        account?: string
-        type: "account" | "self"
-      }
-    }
-    items: {
-      billing_thresholds?:
-        | {
-            usage_gte: number
-          }
-        | ""
-      discounts?:
-        | {
-            coupon?: string
-            discount?: string
-            promotion_code?: string
-          }[]
-        | ""
-      metadata?: {
-        [key: string]: string | undefined
-      }
-      price?: string
-      price_data?: {
-        currency: string
-        product: string
-        recurring: {
-          interval: "day" | "month" | "week" | "year"
-          interval_count?: number
+    expand?: string[]
+    metadata?:
+      | {
+          [key: string]: string | undefined
         }
-        tax_behavior?: "exclusive" | "inclusive" | "unspecified"
-        unit_amount?: number
-        unit_amount_decimal?: string
+      | ""
+    off_session?: boolean
+    payment_behavior?:
+      | "allow_incomplete"
+      | "default_incomplete"
+      | "error_if_incomplete"
+      | "pending_if_incomplete"
+    price?: string
+    price_data?: {
+      currency: string
+      product: string
+      recurring: {
+        interval: "day" | "month" | "week" | "year"
+        interval_count?: number
       }
-      quantity?: number
-      tax_rates?: string[] | ""
-    }[]
-    iterations?: number
-    metadata?: {
-      [key: string]: string | undefined
+      tax_behavior?: "exclusive" | "inclusive" | "unspecified"
+      unit_amount?: number
+      unit_amount_decimal?: string
     }
-    on_behalf_of?: string
     proration_behavior?: "always_invoice" | "create_prorations" | "none"
-    transfer_data?: {
-      amount_percent?: number
-      destination: string
-    }
-    trial?: boolean
-    trial_end?: number
-  }[]
-  start_date?: number | "now"
-}
+    proration_date?: number
+    quantity?: number
+    tax_rates?: string[] | ""
+  }
 
-export type t_PostSubscriptionSchedulesScheduleBodySchema = {
-  default_settings?: {
-    application_fee_percent?: number
-    automatic_tax?: {
-      enabled: boolean
-      liability?: {
-        account?: string
-        type: "account" | "self"
-      }
+export type t_postSubscriptionSchedulesApplicationXWwwFormUrlencodedRequestBody =
+  {
+    billing_mode?: {
+      type: "classic" | "flexible"
     }
-    billing_cycle_anchor?: "automatic" | "phase_start"
-    billing_thresholds?:
+    customer?: string
+    default_settings?: {
+      application_fee_percent?: number
+      automatic_tax?: {
+        enabled: boolean
+        liability?: {
+          account?: string
+          type: "account" | "self"
+        }
+      }
+      billing_cycle_anchor?: "automatic" | "phase_start"
+      billing_thresholds?:
+        | {
+            amount_gte?: number
+            reset_billing_cycle_anchor?: boolean
+          }
+        | ""
+      collection_method?: "charge_automatically" | "send_invoice"
+      default_payment_method?: string
+      description?: string | ""
+      invoice_settings?: {
+        account_tax_ids?: string[] | ""
+        days_until_due?: number
+        issuer?: {
+          account?: string
+          type: "account" | "self"
+        }
+      }
+      on_behalf_of?: string | ""
+      transfer_data?:
+        | {
+            amount_percent?: number
+            destination: string
+          }
+        | ""
+    }
+    end_behavior?: "cancel" | "none" | "release" | "renew"
+    expand?: string[]
+    from_subscription?: string
+    metadata?:
       | {
-          amount_gte?: number
-          reset_billing_cycle_anchor?: boolean
+          [key: string]: string | undefined
         }
       | ""
-    collection_method?: "charge_automatically" | "send_invoice"
-    default_payment_method?: string
-    description?: string | ""
-    invoice_settings?: {
-      account_tax_ids?: string[] | ""
-      days_until_due?: number
-      issuer?: {
-        account?: string
-        type: "account" | "self"
-      }
-    }
-    on_behalf_of?: string | ""
-    transfer_data?:
-      | {
-          amount_percent?: number
-          destination: string
-        }
-      | ""
-  }
-  end_behavior?: "cancel" | "none" | "release" | "renew"
-  expand?: string[]
-  metadata?:
-    | {
-        [key: string]: string | undefined
-      }
-    | ""
-  phases?: {
-    add_invoice_items?: {
-      discounts?: {
-        coupon?: string
-        discount?: string
-        promotion_code?: string
-      }[]
-      price?: string
-      price_data?: {
-        currency: string
-        product: string
-        tax_behavior?: "exclusive" | "inclusive" | "unspecified"
-        unit_amount?: number
-        unit_amount_decimal?: string
-      }
-      quantity?: number
-      tax_rates?: string[] | ""
-    }[]
-    application_fee_percent?: number
-    automatic_tax?: {
-      enabled: boolean
-      liability?: {
-        account?: string
-        type: "account" | "self"
-      }
-    }
-    billing_cycle_anchor?: "automatic" | "phase_start"
-    billing_thresholds?:
-      | {
-          amount_gte?: number
-          reset_billing_cycle_anchor?: boolean
-        }
-      | ""
-    collection_method?: "charge_automatically" | "send_invoice"
-    default_payment_method?: string
-    default_tax_rates?: string[] | ""
-    description?: string | ""
-    discounts?:
-      | {
+    phases?: {
+      add_invoice_items?: {
+        discounts?: {
           coupon?: string
           discount?: string
           promotion_code?: string
         }[]
-      | ""
-    duration?: {
-      interval: "day" | "month" | "week" | "year"
-      interval_count?: number
-    }
-    end_date?: number | "now"
-    invoice_settings?: {
-      account_tax_ids?: string[] | ""
-      days_until_due?: number
-      issuer?: {
-        account?: string
-        type: "account" | "self"
+        price?: string
+        price_data?: {
+          currency: string
+          product: string
+          tax_behavior?: "exclusive" | "inclusive" | "unspecified"
+          unit_amount?: number
+          unit_amount_decimal?: string
+        }
+        quantity?: number
+        tax_rates?: string[] | ""
+      }[]
+      application_fee_percent?: number
+      automatic_tax?: {
+        enabled: boolean
+        liability?: {
+          account?: string
+          type: "account" | "self"
+        }
       }
-    }
-    items: {
+      billing_cycle_anchor?: "automatic" | "phase_start"
       billing_thresholds?:
         | {
-            usage_gte: number
+            amount_gte?: number
+            reset_billing_cycle_anchor?: boolean
           }
         | ""
+      collection_method?: "charge_automatically" | "send_invoice"
+      currency?: string
+      default_payment_method?: string
+      default_tax_rates?: string[] | ""
+      description?: string | ""
       discounts?:
         | {
             coupon?: string
@@ -35909,65 +35874,241 @@ export type t_PostSubscriptionSchedulesScheduleBodySchema = {
             promotion_code?: string
           }[]
         | ""
+      duration?: {
+        interval: "day" | "month" | "week" | "year"
+        interval_count?: number
+      }
+      end_date?: number
+      invoice_settings?: {
+        account_tax_ids?: string[] | ""
+        days_until_due?: number
+        issuer?: {
+          account?: string
+          type: "account" | "self"
+        }
+      }
+      items: {
+        billing_thresholds?:
+          | {
+              usage_gte: number
+            }
+          | ""
+        discounts?:
+          | {
+              coupon?: string
+              discount?: string
+              promotion_code?: string
+            }[]
+          | ""
+        metadata?: {
+          [key: string]: string | undefined
+        }
+        price?: string
+        price_data?: {
+          currency: string
+          product: string
+          recurring: {
+            interval: "day" | "month" | "week" | "year"
+            interval_count?: number
+          }
+          tax_behavior?: "exclusive" | "inclusive" | "unspecified"
+          unit_amount?: number
+          unit_amount_decimal?: string
+        }
+        quantity?: number
+        tax_rates?: string[] | ""
+      }[]
+      iterations?: number
       metadata?: {
         [key: string]: string | undefined
       }
-      price?: string
-      price_data?: {
-        currency: string
-        product: string
-        recurring: {
-          interval: "day" | "month" | "week" | "year"
-          interval_count?: number
-        }
-        tax_behavior?: "exclusive" | "inclusive" | "unspecified"
-        unit_amount?: number
-        unit_amount_decimal?: string
+      on_behalf_of?: string
+      proration_behavior?: "always_invoice" | "create_prorations" | "none"
+      transfer_data?: {
+        amount_percent?: number
+        destination: string
       }
-      quantity?: number
-      tax_rates?: string[] | ""
+      trial?: boolean
+      trial_end?: number
     }[]
-    iterations?: number
-    metadata?: {
-      [key: string]: string | undefined
-    }
-    on_behalf_of?: string
-    proration_behavior?: "always_invoice" | "create_prorations" | "none"
     start_date?: number | "now"
-    transfer_data?: {
-      amount_percent?: number
-      destination: string
-    }
-    trial?: boolean
-    trial_end?: number | "now"
-  }[]
-  proration_behavior?: "always_invoice" | "create_prorations" | "none"
-}
+  }
 
 export type t_PostSubscriptionSchedulesScheduleParamSchema = {
   schedule: string
 }
 
-export type t_PostSubscriptionSchedulesScheduleCancelBodySchema = {
-  expand?: string[]
-  invoice_now?: boolean
-  prorate?: boolean
-}
+export type t_postSubscriptionSchedulesScheduleApplicationXWwwFormUrlencodedRequestBody =
+  {
+    default_settings?: {
+      application_fee_percent?: number
+      automatic_tax?: {
+        enabled: boolean
+        liability?: {
+          account?: string
+          type: "account" | "self"
+        }
+      }
+      billing_cycle_anchor?: "automatic" | "phase_start"
+      billing_thresholds?:
+        | {
+            amount_gte?: number
+            reset_billing_cycle_anchor?: boolean
+          }
+        | ""
+      collection_method?: "charge_automatically" | "send_invoice"
+      default_payment_method?: string
+      description?: string | ""
+      invoice_settings?: {
+        account_tax_ids?: string[] | ""
+        days_until_due?: number
+        issuer?: {
+          account?: string
+          type: "account" | "self"
+        }
+      }
+      on_behalf_of?: string | ""
+      transfer_data?:
+        | {
+            amount_percent?: number
+            destination: string
+          }
+        | ""
+    }
+    end_behavior?: "cancel" | "none" | "release" | "renew"
+    expand?: string[]
+    metadata?:
+      | {
+          [key: string]: string | undefined
+        }
+      | ""
+    phases?: {
+      add_invoice_items?: {
+        discounts?: {
+          coupon?: string
+          discount?: string
+          promotion_code?: string
+        }[]
+        price?: string
+        price_data?: {
+          currency: string
+          product: string
+          tax_behavior?: "exclusive" | "inclusive" | "unspecified"
+          unit_amount?: number
+          unit_amount_decimal?: string
+        }
+        quantity?: number
+        tax_rates?: string[] | ""
+      }[]
+      application_fee_percent?: number
+      automatic_tax?: {
+        enabled: boolean
+        liability?: {
+          account?: string
+          type: "account" | "self"
+        }
+      }
+      billing_cycle_anchor?: "automatic" | "phase_start"
+      billing_thresholds?:
+        | {
+            amount_gte?: number
+            reset_billing_cycle_anchor?: boolean
+          }
+        | ""
+      collection_method?: "charge_automatically" | "send_invoice"
+      default_payment_method?: string
+      default_tax_rates?: string[] | ""
+      description?: string | ""
+      discounts?:
+        | {
+            coupon?: string
+            discount?: string
+            promotion_code?: string
+          }[]
+        | ""
+      duration?: {
+        interval: "day" | "month" | "week" | "year"
+        interval_count?: number
+      }
+      end_date?: number | "now"
+      invoice_settings?: {
+        account_tax_ids?: string[] | ""
+        days_until_due?: number
+        issuer?: {
+          account?: string
+          type: "account" | "self"
+        }
+      }
+      items: {
+        billing_thresholds?:
+          | {
+              usage_gte: number
+            }
+          | ""
+        discounts?:
+          | {
+              coupon?: string
+              discount?: string
+              promotion_code?: string
+            }[]
+          | ""
+        metadata?: {
+          [key: string]: string | undefined
+        }
+        price?: string
+        price_data?: {
+          currency: string
+          product: string
+          recurring: {
+            interval: "day" | "month" | "week" | "year"
+            interval_count?: number
+          }
+          tax_behavior?: "exclusive" | "inclusive" | "unspecified"
+          unit_amount?: number
+          unit_amount_decimal?: string
+        }
+        quantity?: number
+        tax_rates?: string[] | ""
+      }[]
+      iterations?: number
+      metadata?: {
+        [key: string]: string | undefined
+      }
+      on_behalf_of?: string
+      proration_behavior?: "always_invoice" | "create_prorations" | "none"
+      start_date?: number | "now"
+      transfer_data?: {
+        amount_percent?: number
+        destination: string
+      }
+      trial?: boolean
+      trial_end?: number | "now"
+    }[]
+    proration_behavior?: "always_invoice" | "create_prorations" | "none"
+  }
 
 export type t_PostSubscriptionSchedulesScheduleCancelParamSchema = {
   schedule: string
 }
 
-export type t_PostSubscriptionSchedulesScheduleReleaseBodySchema = {
-  expand?: string[]
-  preserve_cancel_date?: boolean
-}
+export type t_postSubscriptionSchedulesScheduleCancelApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
+    invoice_now?: boolean
+    prorate?: boolean
+  }
 
 export type t_PostSubscriptionSchedulesScheduleReleaseParamSchema = {
   schedule: string
 }
 
-export type t_PostSubscriptionsBodySchema = {
+export type t_postSubscriptionSchedulesScheduleReleaseApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
+    preserve_cancel_date?: boolean
+  }
+
+export type t_postSubscriptionsApplicationXWwwFormUrlencodedRequestBody = {
   add_invoice_items?: {
     discounts?: {
       coupon?: string
@@ -36215,83 +36356,65 @@ export type t_PostSubscriptionsBodySchema = {
   }
 }
 
-export type t_PostSubscriptionsSubscriptionExposedIdBodySchema = {
-  add_invoice_items?: {
-    discounts?: {
-      coupon?: string
-      discount?: string
-      promotion_code?: string
-    }[]
-    price?: string
-    price_data?: {
-      currency: string
-      product: string
-      tax_behavior?: "exclusive" | "inclusive" | "unspecified"
-      unit_amount?: number
-      unit_amount_decimal?: string
-    }
-    quantity?: number
-    tax_rates?: string[] | ""
-  }[]
-  application_fee_percent?: number | ""
-  automatic_tax?: {
-    enabled: boolean
-    liability?: {
-      account?: string
-      type: "account" | "self"
-    }
-  }
-  billing_cycle_anchor?: "now" | "unchanged"
-  billing_thresholds?:
-    | {
-        amount_gte?: number
-        reset_billing_cycle_anchor?: boolean
-      }
-    | ""
-  cancel_at?: number | "" | "max_period_end" | "min_period_end"
-  cancel_at_period_end?: boolean
-  cancellation_details?: {
-    comment?: string | ""
-    feedback?:
-      | ""
-      | "customer_service"
-      | "low_quality"
-      | "missing_features"
-      | "other"
-      | "switched_service"
-      | "too_complex"
-      | "too_expensive"
-      | "unused"
-  }
-  collection_method?: "charge_automatically" | "send_invoice"
-  days_until_due?: number
-  default_payment_method?: string
-  default_source?: string | ""
-  default_tax_rates?: string[] | ""
-  description?: string | ""
-  discounts?:
-    | {
+export type t_PostSubscriptionsSubscriptionExposedIdParamSchema = {
+  subscription_exposed_id: string
+}
+
+export type t_postSubscriptionsSubscriptionExposedIdApplicationXWwwFormUrlencodedRequestBody =
+  {
+    add_invoice_items?: {
+      discounts?: {
         coupon?: string
         discount?: string
         promotion_code?: string
       }[]
-    | ""
-  expand?: string[]
-  invoice_settings?: {
-    account_tax_ids?: string[] | ""
-    issuer?: {
-      account?: string
-      type: "account" | "self"
+      price?: string
+      price_data?: {
+        currency: string
+        product: string
+        tax_behavior?: "exclusive" | "inclusive" | "unspecified"
+        unit_amount?: number
+        unit_amount_decimal?: string
+      }
+      quantity?: number
+      tax_rates?: string[] | ""
+    }[]
+    application_fee_percent?: number | ""
+    automatic_tax?: {
+      enabled: boolean
+      liability?: {
+        account?: string
+        type: "account" | "self"
+      }
     }
-  }
-  items?: {
+    billing_cycle_anchor?: "now" | "unchanged"
     billing_thresholds?:
       | {
-          usage_gte: number
+          amount_gte?: number
+          reset_billing_cycle_anchor?: boolean
         }
       | ""
-    clear_usage?: boolean
-    deleted?: boolean
+    cancel_at?: number | "" | "max_period_end" | "min_period_end"
+    cancel_at_period_end?: boolean
+    cancellation_details?: {
+      comment?: string | ""
+      feedback?:
+        | ""
+        | "customer_service"
+        | "low_quality"
+        | "missing_features"
+        | "other"
+        | "switched_service"
+        | "too_complex"
+        | "too_expensive"
+        | "unused"
+    }
+    collection_method?: "charge_automatically" | "send_invoice"
+    days_until_due?: number
+    default_payment_method?: string
+    default_source?: string | ""
+    default_tax_rates?: string[] | ""
+    description?: string | ""
     discounts?:
       | {
           coupon?: string
@@ -36299,210 +36422,231 @@ export type t_PostSubscriptionsSubscriptionExposedIdBodySchema = {
           promotion_code?: string
         }[]
       | ""
-    id?: string
+    expand?: string[]
+    invoice_settings?: {
+      account_tax_ids?: string[] | ""
+      issuer?: {
+        account?: string
+        type: "account" | "self"
+      }
+    }
+    items?: {
+      billing_thresholds?:
+        | {
+            usage_gte: number
+          }
+        | ""
+      clear_usage?: boolean
+      deleted?: boolean
+      discounts?:
+        | {
+            coupon?: string
+            discount?: string
+            promotion_code?: string
+          }[]
+        | ""
+      id?: string
+      metadata?:
+        | {
+            [key: string]: string | undefined
+          }
+        | ""
+      price?: string
+      price_data?: {
+        currency: string
+        product: string
+        recurring: {
+          interval: "day" | "month" | "week" | "year"
+          interval_count?: number
+        }
+        tax_behavior?: "exclusive" | "inclusive" | "unspecified"
+        unit_amount?: number
+        unit_amount_decimal?: string
+      }
+      quantity?: number
+      tax_rates?: string[] | ""
+    }[]
     metadata?:
       | {
           [key: string]: string | undefined
         }
       | ""
-    price?: string
-    price_data?: {
-      currency: string
-      product: string
-      recurring: {
-        interval: "day" | "month" | "week" | "year"
-        interval_count?: number
-      }
-      tax_behavior?: "exclusive" | "inclusive" | "unspecified"
-      unit_amount?: number
-      unit_amount_decimal?: string
-    }
-    quantity?: number
-    tax_rates?: string[] | ""
-  }[]
-  metadata?:
-    | {
-        [key: string]: string | undefined
-      }
-    | ""
-  off_session?: boolean
-  on_behalf_of?: string | ""
-  pause_collection?:
-    | {
-        behavior: "keep_as_draft" | "mark_uncollectible" | "void"
-        resumes_at?: number
-      }
-    | ""
-  payment_behavior?:
-    | "allow_incomplete"
-    | "default_incomplete"
-    | "error_if_incomplete"
-    | "pending_if_incomplete"
-  payment_settings?: {
-    payment_method_options?: {
-      acss_debit?:
-        | {
-            mandate_options?: {
-              transaction_type?: "business" | "personal"
-            }
-            verification_method?: "automatic" | "instant" | "microdeposits"
-          }
-        | ""
-      bancontact?:
-        | {
-            preferred_language?: "de" | "en" | "fr" | "nl"
-          }
-        | ""
-      card?:
-        | {
-            mandate_options?: {
-              amount?: number
-              amount_type?: "fixed" | "maximum"
-              description?: string
-            }
-            network?:
-              | "amex"
-              | "cartes_bancaires"
-              | "diners"
-              | "discover"
-              | "eftpos_au"
-              | "girocard"
-              | "interac"
-              | "jcb"
-              | "link"
-              | "mastercard"
-              | "unionpay"
-              | "unknown"
-              | "visa"
-            request_three_d_secure?: "any" | "automatic" | "challenge"
-          }
-        | ""
-      customer_balance?:
-        | {
-            bank_transfer?: {
-              eu_bank_transfer?: {
-                country: string
-              }
-              type?: string
-            }
-            funding_type?: string
-          }
-        | ""
-      konbini?: EmptyObject | ""
-      sepa_debit?: EmptyObject | ""
-      us_bank_account?:
-        | {
-            financial_connections?: {
-              filters?: {
-                account_subcategories?: ("checking" | "savings")[]
-              }
-              permissions?: (
-                | "balances"
-                | "ownership"
-                | "payment_method"
-                | "transactions"
-              )[]
-              prefetch?: ("balances" | "ownership" | "transactions")[]
-            }
-            verification_method?: "automatic" | "instant" | "microdeposits"
-          }
-        | ""
-    }
-    payment_method_types?:
-      | (
-          | "ach_credit_transfer"
-          | "ach_debit"
-          | "acss_debit"
-          | "affirm"
-          | "amazon_pay"
-          | "au_becs_debit"
-          | "bacs_debit"
-          | "bancontact"
-          | "boleto"
-          | "card"
-          | "cashapp"
-          | "crypto"
-          | "customer_balance"
-          | "eps"
-          | "fpx"
-          | "giropay"
-          | "grabpay"
-          | "ideal"
-          | "jp_credit_transfer"
-          | "kakao_pay"
-          | "klarna"
-          | "konbini"
-          | "kr_card"
-          | "link"
-          | "multibanco"
-          | "naver_pay"
-          | "nz_bank_account"
-          | "p24"
-          | "payco"
-          | "paynow"
-          | "paypal"
-          | "promptpay"
-          | "revolut_pay"
-          | "sepa_credit_transfer"
-          | "sepa_debit"
-          | "sofort"
-          | "swish"
-          | "us_bank_account"
-          | "wechat_pay"
-        )[]
+    off_session?: boolean
+    on_behalf_of?: string | ""
+    pause_collection?:
+      | {
+          behavior: "keep_as_draft" | "mark_uncollectible" | "void"
+          resumes_at?: number
+        }
       | ""
-    save_default_payment_method?: "off" | "on_subscription"
-  }
-  pending_invoice_item_interval?:
-    | {
-        interval: "day" | "month" | "week" | "year"
-        interval_count?: number
+    payment_behavior?:
+      | "allow_incomplete"
+      | "default_incomplete"
+      | "error_if_incomplete"
+      | "pending_if_incomplete"
+    payment_settings?: {
+      payment_method_options?: {
+        acss_debit?:
+          | {
+              mandate_options?: {
+                transaction_type?: "business" | "personal"
+              }
+              verification_method?: "automatic" | "instant" | "microdeposits"
+            }
+          | ""
+        bancontact?:
+          | {
+              preferred_language?: "de" | "en" | "fr" | "nl"
+            }
+          | ""
+        card?:
+          | {
+              mandate_options?: {
+                amount?: number
+                amount_type?: "fixed" | "maximum"
+                description?: string
+              }
+              network?:
+                | "amex"
+                | "cartes_bancaires"
+                | "diners"
+                | "discover"
+                | "eftpos_au"
+                | "girocard"
+                | "interac"
+                | "jcb"
+                | "link"
+                | "mastercard"
+                | "unionpay"
+                | "unknown"
+                | "visa"
+              request_three_d_secure?: "any" | "automatic" | "challenge"
+            }
+          | ""
+        customer_balance?:
+          | {
+              bank_transfer?: {
+                eu_bank_transfer?: {
+                  country: string
+                }
+                type?: string
+              }
+              funding_type?: string
+            }
+          | ""
+        konbini?: EmptyObject | ""
+        sepa_debit?: EmptyObject | ""
+        us_bank_account?:
+          | {
+              financial_connections?: {
+                filters?: {
+                  account_subcategories?: ("checking" | "savings")[]
+                }
+                permissions?: (
+                  | "balances"
+                  | "ownership"
+                  | "payment_method"
+                  | "transactions"
+                )[]
+                prefetch?: ("balances" | "ownership" | "transactions")[]
+              }
+              verification_method?: "automatic" | "instant" | "microdeposits"
+            }
+          | ""
       }
-    | ""
-  proration_behavior?: "always_invoice" | "create_prorations" | "none"
-  proration_date?: number
-  transfer_data?:
-    | {
-        amount_percent?: number
-        destination: string
+      payment_method_types?:
+        | (
+            | "ach_credit_transfer"
+            | "ach_debit"
+            | "acss_debit"
+            | "affirm"
+            | "amazon_pay"
+            | "au_becs_debit"
+            | "bacs_debit"
+            | "bancontact"
+            | "boleto"
+            | "card"
+            | "cashapp"
+            | "crypto"
+            | "customer_balance"
+            | "eps"
+            | "fpx"
+            | "giropay"
+            | "grabpay"
+            | "ideal"
+            | "jp_credit_transfer"
+            | "kakao_pay"
+            | "klarna"
+            | "konbini"
+            | "kr_card"
+            | "link"
+            | "multibanco"
+            | "naver_pay"
+            | "nz_bank_account"
+            | "p24"
+            | "payco"
+            | "paynow"
+            | "paypal"
+            | "promptpay"
+            | "revolut_pay"
+            | "sepa_credit_transfer"
+            | "sepa_debit"
+            | "sofort"
+            | "swish"
+            | "us_bank_account"
+            | "wechat_pay"
+          )[]
+        | ""
+      save_default_payment_method?: "off" | "on_subscription"
+    }
+    pending_invoice_item_interval?:
+      | {
+          interval: "day" | "month" | "week" | "year"
+          interval_count?: number
+        }
+      | ""
+    proration_behavior?: "always_invoice" | "create_prorations" | "none"
+    proration_date?: number
+    transfer_data?:
+      | {
+          amount_percent?: number
+          destination: string
+        }
+      | ""
+    trial_end?: "now" | number
+    trial_from_plan?: boolean
+    trial_settings?: {
+      end_behavior: {
+        missing_payment_method: "cancel" | "create_invoice" | "pause"
       }
-    | ""
-  trial_end?: "now" | number
-  trial_from_plan?: boolean
-  trial_settings?: {
-    end_behavior: {
-      missing_payment_method: "cancel" | "create_invoice" | "pause"
     }
   }
-}
-
-export type t_PostSubscriptionsSubscriptionExposedIdParamSchema = {
-  subscription_exposed_id: string
-}
-
-export type t_PostSubscriptionsSubscriptionMigrateBodySchema = {
-  billing_mode: {
-    type: "flexible"
-  }
-  expand?: string[]
-}
 
 export type t_PostSubscriptionsSubscriptionMigrateParamSchema = {
   subscription: string
 }
 
-export type t_PostSubscriptionsSubscriptionResumeBodySchema = {
-  billing_cycle_anchor?: "now" | "unchanged"
-  expand?: string[]
-  proration_behavior?: "always_invoice" | "create_prorations" | "none"
-  proration_date?: number
-}
+export type t_postSubscriptionsSubscriptionMigrateApplicationXWwwFormUrlencodedRequestBody =
+  {
+    billing_mode: {
+      type: "flexible"
+    }
+    expand?: string[]
+  }
 
 export type t_PostSubscriptionsSubscriptionResumeParamSchema = {
   subscription: string
 }
 
-export type t_PostTaxCalculationsBodySchema = {
+export type t_postSubscriptionsSubscriptionResumeApplicationXWwwFormUrlencodedRequestBody =
+  {
+    billing_cycle_anchor?: "now" | "unchanged"
+    expand?: string[]
+    proration_behavior?: "always_invoice" | "create_prorations" | "none"
+    proration_date?: number
+  }
+
+export type t_postTaxCalculationsApplicationXWwwFormUrlencodedRequestBody = {
   currency: string
   customer?: string
   customer_details?: {
@@ -36663,7 +36807,7 @@ export type t_PostTaxCalculationsBodySchema = {
   tax_date?: number
 }
 
-export type t_PostTaxIdsBodySchema = {
+export type t_postTaxIdsApplicationXWwwFormUrlencodedRequestBody = {
   expand?: string[]
   owner?: {
     account?: string
@@ -36784,7 +36928,7 @@ export type t_PostTaxIdsBodySchema = {
   value: string
 }
 
-export type t_PostTaxRatesBodySchema = {
+export type t_postTaxRatesApplicationXWwwFormUrlencodedRequestBody = {
   active?: boolean
   country?: string
   description?: string
@@ -36814,7 +36958,11 @@ export type t_PostTaxRatesBodySchema = {
     | "vat"
 }
 
-export type t_PostTaxRatesTaxRateBodySchema = {
+export type t_PostTaxRatesTaxRateParamSchema = {
+  tax_rate: string
+}
+
+export type t_postTaxRatesTaxRateApplicationXWwwFormUrlencodedRequestBody = {
   active?: boolean
   country?: string
   description?: string
@@ -36844,11 +36992,7 @@ export type t_PostTaxRatesTaxRateBodySchema = {
     | "vat"
 }
 
-export type t_PostTaxRatesTaxRateParamSchema = {
-  tax_rate: string
-}
-
-export type t_PostTaxRegistrationsBodySchema = {
+export type t_postTaxRegistrationsApplicationXWwwFormUrlencodedRequestBody = {
   active_from: "now" | number
   country: string
   country_options: {
@@ -37349,17 +37493,17 @@ export type t_PostTaxRegistrationsBodySchema = {
   expires_at?: number
 }
 
-export type t_PostTaxRegistrationsIdBodySchema = {
+export type t_PostTaxRegistrationsIdParamSchema = {
+  id: string
+}
+
+export type t_postTaxRegistrationsIdApplicationXWwwFormUrlencodedRequestBody = {
   active_from?: "now" | number
   expand?: string[]
   expires_at?: "now" | number | ""
 }
 
-export type t_PostTaxRegistrationsIdParamSchema = {
-  id: string
-}
-
-export type t_PostTaxSettingsBodySchema = {
+export type t_postTaxSettingsApplicationXWwwFormUrlencodedRequestBody = {
   defaults?: {
     tax_behavior?: "exclusive" | "inclusive" | "inferred_by_currency"
     tax_code?: string
@@ -37377,357 +37521,362 @@ export type t_PostTaxSettingsBodySchema = {
   }
 }
 
-export type t_PostTaxTransactionsCreateFromCalculationBodySchema = {
-  calculation: string
-  expand?: string[]
-  metadata?: {
-    [key: string]: string | undefined
-  }
-  posted_at?: number
-  reference: string
-}
-
-export type t_PostTaxTransactionsCreateReversalBodySchema = {
-  expand?: string[]
-  flat_amount?: number
-  line_items?: {
-    amount: number
-    amount_tax: number
+export type t_postTaxTransactionsCreateFromCalculationApplicationXWwwFormUrlencodedRequestBody =
+  {
+    calculation: string
+    expand?: string[]
     metadata?: {
       [key: string]: string | undefined
     }
-    original_line_item: string
-    quantity?: number
+    posted_at?: number
     reference: string
-  }[]
-  metadata?: {
-    [key: string]: string | undefined
   }
-  mode: "full" | "partial"
-  original_transaction: string
-  reference: string
-  shipping_cost?: {
-    amount: number
-    amount_tax: number
-  }
-}
 
-export type t_PostTerminalConfigurationsBodySchema = {
-  bbpos_wisepos_e?: {
-    splashscreen?: string | ""
-  }
-  expand?: string[]
-  name?: string
-  offline?:
-    | {
-        enabled: boolean
+export type t_postTaxTransactionsCreateReversalApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
+    flat_amount?: number
+    line_items?: {
+      amount: number
+      amount_tax: number
+      metadata?: {
+        [key: string]: string | undefined
       }
-    | ""
-  reboot_window?: {
-    end_hour: number
-    start_hour: number
+      original_line_item: string
+      quantity?: number
+      reference: string
+    }[]
+    metadata?: {
+      [key: string]: string | undefined
+    }
+    mode: "full" | "partial"
+    original_transaction: string
+    reference: string
+    shipping_cost?: {
+      amount: number
+      amount_tax: number
+    }
   }
-  stripe_s700?: {
-    splashscreen?: string | ""
-  }
-  tipping?:
-    | {
-        aed?: {
-          fixed_amounts?: number[]
-          percentages?: number[]
-          smart_tip_threshold?: number
-        }
-        aud?: {
-          fixed_amounts?: number[]
-          percentages?: number[]
-          smart_tip_threshold?: number
-        }
-        bgn?: {
-          fixed_amounts?: number[]
-          percentages?: number[]
-          smart_tip_threshold?: number
-        }
-        cad?: {
-          fixed_amounts?: number[]
-          percentages?: number[]
-          smart_tip_threshold?: number
-        }
-        chf?: {
-          fixed_amounts?: number[]
-          percentages?: number[]
-          smart_tip_threshold?: number
-        }
-        czk?: {
-          fixed_amounts?: number[]
-          percentages?: number[]
-          smart_tip_threshold?: number
-        }
-        dkk?: {
-          fixed_amounts?: number[]
-          percentages?: number[]
-          smart_tip_threshold?: number
-        }
-        eur?: {
-          fixed_amounts?: number[]
-          percentages?: number[]
-          smart_tip_threshold?: number
-        }
-        gbp?: {
-          fixed_amounts?: number[]
-          percentages?: number[]
-          smart_tip_threshold?: number
-        }
-        hkd?: {
-          fixed_amounts?: number[]
-          percentages?: number[]
-          smart_tip_threshold?: number
-        }
-        huf?: {
-          fixed_amounts?: number[]
-          percentages?: number[]
-          smart_tip_threshold?: number
-        }
-        jpy?: {
-          fixed_amounts?: number[]
-          percentages?: number[]
-          smart_tip_threshold?: number
-        }
-        myr?: {
-          fixed_amounts?: number[]
-          percentages?: number[]
-          smart_tip_threshold?: number
-        }
-        nok?: {
-          fixed_amounts?: number[]
-          percentages?: number[]
-          smart_tip_threshold?: number
-        }
-        nzd?: {
-          fixed_amounts?: number[]
-          percentages?: number[]
-          smart_tip_threshold?: number
-        }
-        pln?: {
-          fixed_amounts?: number[]
-          percentages?: number[]
-          smart_tip_threshold?: number
-        }
-        ron?: {
-          fixed_amounts?: number[]
-          percentages?: number[]
-          smart_tip_threshold?: number
-        }
-        sek?: {
-          fixed_amounts?: number[]
-          percentages?: number[]
-          smart_tip_threshold?: number
-        }
-        sgd?: {
-          fixed_amounts?: number[]
-          percentages?: number[]
-          smart_tip_threshold?: number
-        }
-        usd?: {
-          fixed_amounts?: number[]
-          percentages?: number[]
-          smart_tip_threshold?: number
-        }
-      }
-    | ""
-  verifone_p400?: {
-    splashscreen?: string | ""
-  }
-  wifi?:
-    | {
-        enterprise_eap_peap?: {
-          ca_certificate_file?: string
-          password: string
-          ssid: string
-          username: string
-        }
-        enterprise_eap_tls?: {
-          ca_certificate_file?: string
-          client_certificate_file: string
-          private_key_file: string
-          private_key_file_password?: string
-          ssid: string
-        }
-        personal_psk?: {
-          password: string
-          ssid: string
-        }
-        type: "enterprise_eap_peap" | "enterprise_eap_tls" | "personal_psk"
-      }
-    | ""
-}
 
-export type t_PostTerminalConfigurationsConfigurationBodySchema = {
-  bbpos_wisepos_e?:
-    | {
-        splashscreen?: string | ""
-      }
-    | ""
-  expand?: string[]
-  name?: string
-  offline?:
-    | {
-        enabled: boolean
-      }
-    | ""
-  reboot_window?:
-    | {
-        end_hour: number
-        start_hour: number
-      }
-    | ""
-  stripe_s700?:
-    | {
-        splashscreen?: string | ""
-      }
-    | ""
-  tipping?:
-    | {
-        aed?: {
-          fixed_amounts?: number[]
-          percentages?: number[]
-          smart_tip_threshold?: number
+export type t_postTerminalConfigurationsApplicationXWwwFormUrlencodedRequestBody =
+  {
+    bbpos_wisepos_e?: {
+      splashscreen?: string | ""
+    }
+    expand?: string[]
+    name?: string
+    offline?:
+      | {
+          enabled: boolean
         }
-        aud?: {
-          fixed_amounts?: number[]
-          percentages?: number[]
-          smart_tip_threshold?: number
+      | ""
+    reboot_window?: {
+      end_hour: number
+      start_hour: number
+    }
+    stripe_s700?: {
+      splashscreen?: string | ""
+    }
+    tipping?:
+      | {
+          aed?: {
+            fixed_amounts?: number[]
+            percentages?: number[]
+            smart_tip_threshold?: number
+          }
+          aud?: {
+            fixed_amounts?: number[]
+            percentages?: number[]
+            smart_tip_threshold?: number
+          }
+          bgn?: {
+            fixed_amounts?: number[]
+            percentages?: number[]
+            smart_tip_threshold?: number
+          }
+          cad?: {
+            fixed_amounts?: number[]
+            percentages?: number[]
+            smart_tip_threshold?: number
+          }
+          chf?: {
+            fixed_amounts?: number[]
+            percentages?: number[]
+            smart_tip_threshold?: number
+          }
+          czk?: {
+            fixed_amounts?: number[]
+            percentages?: number[]
+            smart_tip_threshold?: number
+          }
+          dkk?: {
+            fixed_amounts?: number[]
+            percentages?: number[]
+            smart_tip_threshold?: number
+          }
+          eur?: {
+            fixed_amounts?: number[]
+            percentages?: number[]
+            smart_tip_threshold?: number
+          }
+          gbp?: {
+            fixed_amounts?: number[]
+            percentages?: number[]
+            smart_tip_threshold?: number
+          }
+          hkd?: {
+            fixed_amounts?: number[]
+            percentages?: number[]
+            smart_tip_threshold?: number
+          }
+          huf?: {
+            fixed_amounts?: number[]
+            percentages?: number[]
+            smart_tip_threshold?: number
+          }
+          jpy?: {
+            fixed_amounts?: number[]
+            percentages?: number[]
+            smart_tip_threshold?: number
+          }
+          myr?: {
+            fixed_amounts?: number[]
+            percentages?: number[]
+            smart_tip_threshold?: number
+          }
+          nok?: {
+            fixed_amounts?: number[]
+            percentages?: number[]
+            smart_tip_threshold?: number
+          }
+          nzd?: {
+            fixed_amounts?: number[]
+            percentages?: number[]
+            smart_tip_threshold?: number
+          }
+          pln?: {
+            fixed_amounts?: number[]
+            percentages?: number[]
+            smart_tip_threshold?: number
+          }
+          ron?: {
+            fixed_amounts?: number[]
+            percentages?: number[]
+            smart_tip_threshold?: number
+          }
+          sek?: {
+            fixed_amounts?: number[]
+            percentages?: number[]
+            smart_tip_threshold?: number
+          }
+          sgd?: {
+            fixed_amounts?: number[]
+            percentages?: number[]
+            smart_tip_threshold?: number
+          }
+          usd?: {
+            fixed_amounts?: number[]
+            percentages?: number[]
+            smart_tip_threshold?: number
+          }
         }
-        bgn?: {
-          fixed_amounts?: number[]
-          percentages?: number[]
-          smart_tip_threshold?: number
+      | ""
+    verifone_p400?: {
+      splashscreen?: string | ""
+    }
+    wifi?:
+      | {
+          enterprise_eap_peap?: {
+            ca_certificate_file?: string
+            password: string
+            ssid: string
+            username: string
+          }
+          enterprise_eap_tls?: {
+            ca_certificate_file?: string
+            client_certificate_file: string
+            private_key_file: string
+            private_key_file_password?: string
+            ssid: string
+          }
+          personal_psk?: {
+            password: string
+            ssid: string
+          }
+          type: "enterprise_eap_peap" | "enterprise_eap_tls" | "personal_psk"
         }
-        cad?: {
-          fixed_amounts?: number[]
-          percentages?: number[]
-          smart_tip_threshold?: number
-        }
-        chf?: {
-          fixed_amounts?: number[]
-          percentages?: number[]
-          smart_tip_threshold?: number
-        }
-        czk?: {
-          fixed_amounts?: number[]
-          percentages?: number[]
-          smart_tip_threshold?: number
-        }
-        dkk?: {
-          fixed_amounts?: number[]
-          percentages?: number[]
-          smart_tip_threshold?: number
-        }
-        eur?: {
-          fixed_amounts?: number[]
-          percentages?: number[]
-          smart_tip_threshold?: number
-        }
-        gbp?: {
-          fixed_amounts?: number[]
-          percentages?: number[]
-          smart_tip_threshold?: number
-        }
-        hkd?: {
-          fixed_amounts?: number[]
-          percentages?: number[]
-          smart_tip_threshold?: number
-        }
-        huf?: {
-          fixed_amounts?: number[]
-          percentages?: number[]
-          smart_tip_threshold?: number
-        }
-        jpy?: {
-          fixed_amounts?: number[]
-          percentages?: number[]
-          smart_tip_threshold?: number
-        }
-        myr?: {
-          fixed_amounts?: number[]
-          percentages?: number[]
-          smart_tip_threshold?: number
-        }
-        nok?: {
-          fixed_amounts?: number[]
-          percentages?: number[]
-          smart_tip_threshold?: number
-        }
-        nzd?: {
-          fixed_amounts?: number[]
-          percentages?: number[]
-          smart_tip_threshold?: number
-        }
-        pln?: {
-          fixed_amounts?: number[]
-          percentages?: number[]
-          smart_tip_threshold?: number
-        }
-        ron?: {
-          fixed_amounts?: number[]
-          percentages?: number[]
-          smart_tip_threshold?: number
-        }
-        sek?: {
-          fixed_amounts?: number[]
-          percentages?: number[]
-          smart_tip_threshold?: number
-        }
-        sgd?: {
-          fixed_amounts?: number[]
-          percentages?: number[]
-          smart_tip_threshold?: number
-        }
-        usd?: {
-          fixed_amounts?: number[]
-          percentages?: number[]
-          smart_tip_threshold?: number
-        }
-      }
-    | ""
-  verifone_p400?:
-    | {
-        splashscreen?: string | ""
-      }
-    | ""
-  wifi?:
-    | {
-        enterprise_eap_peap?: {
-          ca_certificate_file?: string
-          password: string
-          ssid: string
-          username: string
-        }
-        enterprise_eap_tls?: {
-          ca_certificate_file?: string
-          client_certificate_file: string
-          private_key_file: string
-          private_key_file_password?: string
-          ssid: string
-        }
-        personal_psk?: {
-          password: string
-          ssid: string
-        }
-        type: "enterprise_eap_peap" | "enterprise_eap_tls" | "personal_psk"
-      }
-    | ""
-}
+      | ""
+  }
 
 export type t_PostTerminalConfigurationsConfigurationParamSchema = {
   configuration: string
 }
 
-export type t_PostTerminalConnectionTokensBodySchema = {
-  expand?: string[]
-  location?: string
-}
+export type t_postTerminalConfigurationsConfigurationApplicationXWwwFormUrlencodedRequestBody =
+  {
+    bbpos_wisepos_e?:
+      | {
+          splashscreen?: string | ""
+        }
+      | ""
+    expand?: string[]
+    name?: string
+    offline?:
+      | {
+          enabled: boolean
+        }
+      | ""
+    reboot_window?:
+      | {
+          end_hour: number
+          start_hour: number
+        }
+      | ""
+    stripe_s700?:
+      | {
+          splashscreen?: string | ""
+        }
+      | ""
+    tipping?:
+      | {
+          aed?: {
+            fixed_amounts?: number[]
+            percentages?: number[]
+            smart_tip_threshold?: number
+          }
+          aud?: {
+            fixed_amounts?: number[]
+            percentages?: number[]
+            smart_tip_threshold?: number
+          }
+          bgn?: {
+            fixed_amounts?: number[]
+            percentages?: number[]
+            smart_tip_threshold?: number
+          }
+          cad?: {
+            fixed_amounts?: number[]
+            percentages?: number[]
+            smart_tip_threshold?: number
+          }
+          chf?: {
+            fixed_amounts?: number[]
+            percentages?: number[]
+            smart_tip_threshold?: number
+          }
+          czk?: {
+            fixed_amounts?: number[]
+            percentages?: number[]
+            smart_tip_threshold?: number
+          }
+          dkk?: {
+            fixed_amounts?: number[]
+            percentages?: number[]
+            smart_tip_threshold?: number
+          }
+          eur?: {
+            fixed_amounts?: number[]
+            percentages?: number[]
+            smart_tip_threshold?: number
+          }
+          gbp?: {
+            fixed_amounts?: number[]
+            percentages?: number[]
+            smart_tip_threshold?: number
+          }
+          hkd?: {
+            fixed_amounts?: number[]
+            percentages?: number[]
+            smart_tip_threshold?: number
+          }
+          huf?: {
+            fixed_amounts?: number[]
+            percentages?: number[]
+            smart_tip_threshold?: number
+          }
+          jpy?: {
+            fixed_amounts?: number[]
+            percentages?: number[]
+            smart_tip_threshold?: number
+          }
+          myr?: {
+            fixed_amounts?: number[]
+            percentages?: number[]
+            smart_tip_threshold?: number
+          }
+          nok?: {
+            fixed_amounts?: number[]
+            percentages?: number[]
+            smart_tip_threshold?: number
+          }
+          nzd?: {
+            fixed_amounts?: number[]
+            percentages?: number[]
+            smart_tip_threshold?: number
+          }
+          pln?: {
+            fixed_amounts?: number[]
+            percentages?: number[]
+            smart_tip_threshold?: number
+          }
+          ron?: {
+            fixed_amounts?: number[]
+            percentages?: number[]
+            smart_tip_threshold?: number
+          }
+          sek?: {
+            fixed_amounts?: number[]
+            percentages?: number[]
+            smart_tip_threshold?: number
+          }
+          sgd?: {
+            fixed_amounts?: number[]
+            percentages?: number[]
+            smart_tip_threshold?: number
+          }
+          usd?: {
+            fixed_amounts?: number[]
+            percentages?: number[]
+            smart_tip_threshold?: number
+          }
+        }
+      | ""
+    verifone_p400?:
+      | {
+          splashscreen?: string | ""
+        }
+      | ""
+    wifi?:
+      | {
+          enterprise_eap_peap?: {
+            ca_certificate_file?: string
+            password: string
+            ssid: string
+            username: string
+          }
+          enterprise_eap_tls?: {
+            ca_certificate_file?: string
+            client_certificate_file: string
+            private_key_file: string
+            private_key_file_password?: string
+            ssid: string
+          }
+          personal_psk?: {
+            password: string
+            ssid: string
+          }
+          type: "enterprise_eap_peap" | "enterprise_eap_tls" | "personal_psk"
+        }
+      | ""
+  }
 
-export type t_PostTerminalLocationsBodySchema = {
+export type t_postTerminalConnectionTokensApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
+    location?: string
+  }
+
+export type t_postTerminalLocationsApplicationXWwwFormUrlencodedRequestBody = {
   address: {
     city?: string
     country: string
@@ -37746,30 +37895,31 @@ export type t_PostTerminalLocationsBodySchema = {
     | ""
 }
 
-export type t_PostTerminalLocationsLocationBodySchema = {
-  address?: {
-    city?: string
-    country?: string
-    line1?: string
-    line2?: string
-    postal_code?: string
-    state?: string
-  }
-  configuration_overrides?: string | ""
-  display_name?: string | ""
-  expand?: string[]
-  metadata?:
-    | {
-        [key: string]: string | undefined
-      }
-    | ""
-}
-
 export type t_PostTerminalLocationsLocationParamSchema = {
   location: string
 }
 
-export type t_PostTerminalReadersBodySchema = {
+export type t_postTerminalLocationsLocationApplicationXWwwFormUrlencodedRequestBody =
+  {
+    address?: {
+      city?: string
+      country?: string
+      line1?: string
+      line2?: string
+      postal_code?: string
+      state?: string
+    }
+    configuration_overrides?: string | ""
+    display_name?: string | ""
+    expand?: string[]
+    metadata?:
+      | {
+          [key: string]: string | undefined
+        }
+      | ""
+  }
+
+export type t_postTerminalReadersApplicationXWwwFormUrlencodedRequestBody = {
   expand?: string[]
   label?: string
   location?: string
@@ -37781,848 +37931,865 @@ export type t_PostTerminalReadersBodySchema = {
   registration_code: string
 }
 
-export type t_PostTerminalReadersReaderBodySchema = {
-  expand?: string[]
-  label?: string | ""
-  metadata?:
-    | {
-        [key: string]: string | undefined
-      }
-    | ""
-}
-
 export type t_PostTerminalReadersReaderParamSchema = {
   reader: string
 }
 
-export type t_PostTerminalReadersReaderCancelActionBodySchema = {
-  expand?: string[]
-}
+export type t_postTerminalReadersReaderApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
+    label?: string | ""
+    metadata?:
+      | {
+          [key: string]: string | undefined
+        }
+      | ""
+  }
 
 export type t_PostTerminalReadersReaderCancelActionParamSchema = {
   reader: string
 }
 
-export type t_PostTerminalReadersReaderCollectInputsBodySchema = {
-  expand?: string[]
-  inputs: {
-    custom_text: {
-      description?: string
-      skip_button?: string
-      submit_button?: string
-      title: string
-    }
-    required?: boolean
-    selection?: {
-      choices: {
-        id: string
-        style?: "primary" | "secondary"
-        text: string
-      }[]
-    }
-    toggles?: {
-      default_value?: "disabled" | "enabled"
-      description?: string
-      title?: string
-    }[]
-    type: "email" | "numeric" | "phone" | "selection" | "signature" | "text"
-  }[]
-  metadata?: {
-    [key: string]: string | undefined
+export type t_postTerminalReadersReaderCancelActionApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
   }
-}
 
 export type t_PostTerminalReadersReaderCollectInputsParamSchema = {
   reader: string
 }
 
-export type t_PostTerminalReadersReaderCollectPaymentMethodBodySchema = {
-  collect_config?: {
-    allow_redisplay?: "always" | "limited" | "unspecified"
-    enable_customer_cancellation?: boolean
-    skip_tipping?: boolean
-    tipping?: {
-      amount_eligible?: number
+export type t_postTerminalReadersReaderCollectInputsApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
+    inputs: {
+      custom_text: {
+        description?: string
+        skip_button?: string
+        submit_button?: string
+        title: string
+      }
+      required?: boolean
+      selection?: {
+        choices: {
+          id: string
+          style?: "primary" | "secondary"
+          text: string
+        }[]
+      }
+      toggles?: {
+        default_value?: "disabled" | "enabled"
+        description?: string
+        title?: string
+      }[]
+      type: "email" | "numeric" | "phone" | "selection" | "signature" | "text"
+    }[]
+    metadata?: {
+      [key: string]: string | undefined
     }
   }
-  expand?: string[]
-  payment_intent: string
-}
 
 export type t_PostTerminalReadersReaderCollectPaymentMethodParamSchema = {
   reader: string
 }
 
-export type t_PostTerminalReadersReaderConfirmPaymentIntentBodySchema = {
-  confirm_config?: {
-    return_url?: string
+export type t_postTerminalReadersReaderCollectPaymentMethodApplicationXWwwFormUrlencodedRequestBody =
+  {
+    collect_config?: {
+      allow_redisplay?: "always" | "limited" | "unspecified"
+      enable_customer_cancellation?: boolean
+      skip_tipping?: boolean
+      tipping?: {
+        amount_eligible?: number
+      }
+    }
+    expand?: string[]
+    payment_intent: string
   }
-  expand?: string[]
-  payment_intent: string
-}
 
 export type t_PostTerminalReadersReaderConfirmPaymentIntentParamSchema = {
   reader: string
 }
 
-export type t_PostTerminalReadersReaderProcessPaymentIntentBodySchema = {
-  expand?: string[]
-  payment_intent: string
-  process_config?: {
-    allow_redisplay?: "always" | "limited" | "unspecified"
-    enable_customer_cancellation?: boolean
-    return_url?: string
-    skip_tipping?: boolean
-    tipping?: {
-      amount_eligible?: number
+export type t_postTerminalReadersReaderConfirmPaymentIntentApplicationXWwwFormUrlencodedRequestBody =
+  {
+    confirm_config?: {
+      return_url?: string
     }
+    expand?: string[]
+    payment_intent: string
   }
-}
 
 export type t_PostTerminalReadersReaderProcessPaymentIntentParamSchema = {
   reader: string
 }
 
-export type t_PostTerminalReadersReaderProcessSetupIntentBodySchema = {
-  allow_redisplay: "always" | "limited" | "unspecified"
-  expand?: string[]
-  process_config?: {
-    enable_customer_cancellation?: boolean
+export type t_postTerminalReadersReaderProcessPaymentIntentApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
+    payment_intent: string
+    process_config?: {
+      allow_redisplay?: "always" | "limited" | "unspecified"
+      enable_customer_cancellation?: boolean
+      return_url?: string
+      skip_tipping?: boolean
+      tipping?: {
+        amount_eligible?: number
+      }
+    }
   }
-  setup_intent: string
-}
 
 export type t_PostTerminalReadersReaderProcessSetupIntentParamSchema = {
   reader: string
 }
 
-export type t_PostTerminalReadersReaderRefundPaymentBodySchema = {
-  amount?: number
-  charge?: string
-  expand?: string[]
-  metadata?: {
-    [key: string]: string | undefined
+export type t_postTerminalReadersReaderProcessSetupIntentApplicationXWwwFormUrlencodedRequestBody =
+  {
+    allow_redisplay: "always" | "limited" | "unspecified"
+    expand?: string[]
+    process_config?: {
+      enable_customer_cancellation?: boolean
+    }
+    setup_intent: string
   }
-  payment_intent?: string
-  refund_application_fee?: boolean
-  refund_payment_config?: {
-    enable_customer_cancellation?: boolean
-  }
-  reverse_transfer?: boolean
-}
 
 export type t_PostTerminalReadersReaderRefundPaymentParamSchema = {
   reader: string
 }
 
-export type t_PostTerminalReadersReaderSetReaderDisplayBodySchema = {
-  cart?: {
-    currency: string
-    line_items: {
-      amount: number
-      description: string
-      quantity: number
-    }[]
-    tax?: number
-    total: number
+export type t_postTerminalReadersReaderRefundPaymentApplicationXWwwFormUrlencodedRequestBody =
+  {
+    amount?: number
+    charge?: string
+    expand?: string[]
+    metadata?: {
+      [key: string]: string | undefined
+    }
+    payment_intent?: string
+    refund_application_fee?: boolean
+    refund_payment_config?: {
+      enable_customer_cancellation?: boolean
+    }
+    reverse_transfer?: boolean
   }
-  expand?: string[]
-  type: "cart"
-}
 
 export type t_PostTerminalReadersReaderSetReaderDisplayParamSchema = {
   reader: string
 }
 
-export type t_PostTestHelpersConfirmationTokensBodySchema = {
-  expand?: string[]
-  payment_method?: string
-  payment_method_data?: {
-    acss_debit?: {
-      account_number: string
-      institution_number: string
-      transit_number: string
+export type t_postTerminalReadersReaderSetReaderDisplayApplicationXWwwFormUrlencodedRequestBody =
+  {
+    cart?: {
+      currency: string
+      line_items: {
+        amount: number
+        description: string
+        quantity: number
+      }[]
+      tax?: number
+      total: number
     }
-    affirm?: EmptyObject
-    afterpay_clearpay?: EmptyObject
-    alipay?: EmptyObject
-    allow_redisplay?: "always" | "limited" | "unspecified"
-    alma?: EmptyObject
-    amazon_pay?: EmptyObject
-    au_becs_debit?: {
-      account_number: string
-      bsb_number: string
-    }
-    bacs_debit?: {
-      account_number?: string
-      sort_code?: string
-    }
-    bancontact?: EmptyObject
-    billie?: EmptyObject
-    billing_details?: {
-      address?:
-        | {
-            city?: string
-            country?: string
-            line1?: string
-            line2?: string
-            postal_code?: string
-            state?: string
-          }
-        | ""
-      email?: string | ""
-      name?: string | ""
-      phone?: string | ""
-      tax_id?: string
-    }
-    blik?: EmptyObject
-    boleto?: {
-      tax_id: string
-    }
-    cashapp?: EmptyObject
-    crypto?: EmptyObject
-    customer_balance?: EmptyObject
-    eps?: {
-      bank?:
-        | "arzte_und_apotheker_bank"
-        | "austrian_anadi_bank_ag"
-        | "bank_austria"
-        | "bankhaus_carl_spangler"
-        | "bankhaus_schelhammer_und_schattera_ag"
-        | "bawag_psk_ag"
-        | "bks_bank_ag"
-        | "brull_kallmus_bank_ag"
-        | "btv_vier_lander_bank"
-        | "capital_bank_grawe_gruppe_ag"
-        | "deutsche_bank_ag"
-        | "dolomitenbank"
-        | "easybank_ag"
-        | "erste_bank_und_sparkassen"
-        | "hypo_alpeadriabank_international_ag"
-        | "hypo_bank_burgenland_aktiengesellschaft"
-        | "hypo_noe_lb_fur_niederosterreich_u_wien"
-        | "hypo_oberosterreich_salzburg_steiermark"
-        | "hypo_tirol_bank_ag"
-        | "hypo_vorarlberg_bank_ag"
-        | "marchfelder_bank"
-        | "oberbank_ag"
-        | "raiffeisen_bankengruppe_osterreich"
-        | "schoellerbank_ag"
-        | "sparda_bank_wien"
-        | "volksbank_gruppe"
-        | "volkskreditbank_ag"
-        | "vr_bank_braunau"
-    }
-    fpx?: {
-      bank:
-        | "affin_bank"
-        | "agrobank"
-        | "alliance_bank"
-        | "ambank"
-        | "bank_islam"
-        | "bank_muamalat"
-        | "bank_of_china"
-        | "bank_rakyat"
-        | "bsn"
-        | "cimb"
-        | "deutsche_bank"
-        | "hong_leong_bank"
-        | "hsbc"
-        | "kfh"
-        | "maybank2e"
-        | "maybank2u"
-        | "ocbc"
-        | "pb_enterprise"
-        | "public_bank"
-        | "rhb"
-        | "standard_chartered"
-        | "uob"
-    }
-    giropay?: EmptyObject
-    grabpay?: EmptyObject
-    ideal?: {
-      bank?:
-        | "abn_amro"
-        | "asn_bank"
-        | "bunq"
-        | "buut"
-        | "handelsbanken"
-        | "ing"
-        | "knab"
-        | "moneyou"
-        | "n26"
-        | "nn"
-        | "rabobank"
-        | "regiobank"
-        | "revolut"
-        | "sns_bank"
-        | "triodos_bank"
-        | "van_lanschot"
-        | "yoursafe"
-    }
-    interac_present?: EmptyObject
-    kakao_pay?: EmptyObject
-    klarna?: {
-      dob?: {
-        day: number
-        month: number
-        year: number
-      }
-    }
-    konbini?: EmptyObject
-    kr_card?: EmptyObject
-    link?: EmptyObject
-    metadata?: {
-      [key: string]: string | undefined
-    }
-    mobilepay?: EmptyObject
-    multibanco?: EmptyObject
-    naver_pay?: {
-      funding?: "card" | "points"
-    }
-    nz_bank_account?: {
-      account_holder_name?: string
-      account_number: string
-      bank_code: string
-      branch_code: string
-      reference?: string
-      suffix: string
-    }
-    oxxo?: EmptyObject
-    p24?: {
-      bank?:
-        | "alior_bank"
-        | "bank_millennium"
-        | "bank_nowy_bfg_sa"
-        | "bank_pekao_sa"
-        | "banki_spbdzielcze"
-        | "blik"
-        | "bnp_paribas"
-        | "boz"
-        | "citi_handlowy"
-        | "credit_agricole"
-        | "envelobank"
-        | "etransfer_pocztowy24"
-        | "getin_bank"
-        | "ideabank"
-        | "ing"
-        | "inteligo"
-        | "mbank_mtransfer"
-        | "nest_przelew"
-        | "noble_pay"
-        | "pbac_z_ipko"
-        | "plus_bank"
-        | "santander_przelew24"
-        | "tmobile_usbugi_bankowe"
-        | "toyota_bank"
-        | "velobank"
-        | "volkswagen_bank"
-    }
-    pay_by_bank?: EmptyObject
-    payco?: EmptyObject
-    paynow?: EmptyObject
-    paypal?: EmptyObject
-    pix?: EmptyObject
-    promptpay?: EmptyObject
-    radar_options?: {
-      session?: string
-    }
-    revolut_pay?: EmptyObject
-    samsung_pay?: EmptyObject
-    satispay?: EmptyObject
-    sepa_debit?: {
-      iban: string
-    }
-    sofort?: {
-      country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL"
-    }
-    swish?: EmptyObject
-    twint?: EmptyObject
-    type:
-      | "acss_debit"
-      | "affirm"
-      | "afterpay_clearpay"
-      | "alipay"
-      | "alma"
-      | "amazon_pay"
-      | "au_becs_debit"
-      | "bacs_debit"
-      | "bancontact"
-      | "billie"
-      | "blik"
-      | "boleto"
-      | "cashapp"
-      | "crypto"
-      | "customer_balance"
-      | "eps"
-      | "fpx"
-      | "giropay"
-      | "grabpay"
-      | "ideal"
-      | "kakao_pay"
-      | "klarna"
-      | "konbini"
-      | "kr_card"
-      | "link"
-      | "mobilepay"
-      | "multibanco"
-      | "naver_pay"
-      | "nz_bank_account"
-      | "oxxo"
-      | "p24"
-      | "pay_by_bank"
-      | "payco"
-      | "paynow"
-      | "paypal"
-      | "pix"
-      | "promptpay"
-      | "revolut_pay"
-      | "samsung_pay"
-      | "satispay"
-      | "sepa_debit"
-      | "sofort"
-      | "swish"
-      | "twint"
-      | "us_bank_account"
-      | "wechat_pay"
-      | "zip"
-    us_bank_account?: {
-      account_holder_type?: "company" | "individual"
-      account_number?: string
-      account_type?: "checking" | "savings"
-      financial_connections_account?: string
-      routing_number?: string
-    }
-    wechat_pay?: EmptyObject
-    zip?: EmptyObject
+    expand?: string[]
+    type: "cart"
   }
-  payment_method_options?: {
-    card?: {
-      installments?: {
-        plan: {
-          count?: number
-          interval?: "month"
-          type: "bonus" | "fixed_count" | "revolving"
+
+export type t_postTestHelpersConfirmationTokensApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
+    payment_method?: string
+    payment_method_data?: {
+      acss_debit?: {
+        account_number: string
+        institution_number: string
+        transit_number: string
+      }
+      affirm?: EmptyObject
+      afterpay_clearpay?: EmptyObject
+      alipay?: EmptyObject
+      allow_redisplay?: "always" | "limited" | "unspecified"
+      alma?: EmptyObject
+      amazon_pay?: EmptyObject
+      au_becs_debit?: {
+        account_number: string
+        bsb_number: string
+      }
+      bacs_debit?: {
+        account_number?: string
+        sort_code?: string
+      }
+      bancontact?: EmptyObject
+      billie?: EmptyObject
+      billing_details?: {
+        address?:
+          | {
+              city?: string
+              country?: string
+              line1?: string
+              line2?: string
+              postal_code?: string
+              state?: string
+            }
+          | ""
+        email?: string | ""
+        name?: string | ""
+        phone?: string | ""
+        tax_id?: string
+      }
+      blik?: EmptyObject
+      boleto?: {
+        tax_id: string
+      }
+      cashapp?: EmptyObject
+      crypto?: EmptyObject
+      customer_balance?: EmptyObject
+      eps?: {
+        bank?:
+          | "arzte_und_apotheker_bank"
+          | "austrian_anadi_bank_ag"
+          | "bank_austria"
+          | "bankhaus_carl_spangler"
+          | "bankhaus_schelhammer_und_schattera_ag"
+          | "bawag_psk_ag"
+          | "bks_bank_ag"
+          | "brull_kallmus_bank_ag"
+          | "btv_vier_lander_bank"
+          | "capital_bank_grawe_gruppe_ag"
+          | "deutsche_bank_ag"
+          | "dolomitenbank"
+          | "easybank_ag"
+          | "erste_bank_und_sparkassen"
+          | "hypo_alpeadriabank_international_ag"
+          | "hypo_bank_burgenland_aktiengesellschaft"
+          | "hypo_noe_lb_fur_niederosterreich_u_wien"
+          | "hypo_oberosterreich_salzburg_steiermark"
+          | "hypo_tirol_bank_ag"
+          | "hypo_vorarlberg_bank_ag"
+          | "marchfelder_bank"
+          | "oberbank_ag"
+          | "raiffeisen_bankengruppe_osterreich"
+          | "schoellerbank_ag"
+          | "sparda_bank_wien"
+          | "volksbank_gruppe"
+          | "volkskreditbank_ag"
+          | "vr_bank_braunau"
+      }
+      fpx?: {
+        bank:
+          | "affin_bank"
+          | "agrobank"
+          | "alliance_bank"
+          | "ambank"
+          | "bank_islam"
+          | "bank_muamalat"
+          | "bank_of_china"
+          | "bank_rakyat"
+          | "bsn"
+          | "cimb"
+          | "deutsche_bank"
+          | "hong_leong_bank"
+          | "hsbc"
+          | "kfh"
+          | "maybank2e"
+          | "maybank2u"
+          | "ocbc"
+          | "pb_enterprise"
+          | "public_bank"
+          | "rhb"
+          | "standard_chartered"
+          | "uob"
+      }
+      giropay?: EmptyObject
+      grabpay?: EmptyObject
+      ideal?: {
+        bank?:
+          | "abn_amro"
+          | "asn_bank"
+          | "bunq"
+          | "buut"
+          | "handelsbanken"
+          | "ing"
+          | "knab"
+          | "moneyou"
+          | "n26"
+          | "nn"
+          | "rabobank"
+          | "regiobank"
+          | "revolut"
+          | "sns_bank"
+          | "triodos_bank"
+          | "van_lanschot"
+          | "yoursafe"
+      }
+      interac_present?: EmptyObject
+      kakao_pay?: EmptyObject
+      klarna?: {
+        dob?: {
+          day: number
+          month: number
+          year: number
+        }
+      }
+      konbini?: EmptyObject
+      kr_card?: EmptyObject
+      link?: EmptyObject
+      metadata?: {
+        [key: string]: string | undefined
+      }
+      mobilepay?: EmptyObject
+      multibanco?: EmptyObject
+      naver_pay?: {
+        funding?: "card" | "points"
+      }
+      nz_bank_account?: {
+        account_holder_name?: string
+        account_number: string
+        bank_code: string
+        branch_code: string
+        reference?: string
+        suffix: string
+      }
+      oxxo?: EmptyObject
+      p24?: {
+        bank?:
+          | "alior_bank"
+          | "bank_millennium"
+          | "bank_nowy_bfg_sa"
+          | "bank_pekao_sa"
+          | "banki_spbdzielcze"
+          | "blik"
+          | "bnp_paribas"
+          | "boz"
+          | "citi_handlowy"
+          | "credit_agricole"
+          | "envelobank"
+          | "etransfer_pocztowy24"
+          | "getin_bank"
+          | "ideabank"
+          | "ing"
+          | "inteligo"
+          | "mbank_mtransfer"
+          | "nest_przelew"
+          | "noble_pay"
+          | "pbac_z_ipko"
+          | "plus_bank"
+          | "santander_przelew24"
+          | "tmobile_usbugi_bankowe"
+          | "toyota_bank"
+          | "velobank"
+          | "volkswagen_bank"
+      }
+      pay_by_bank?: EmptyObject
+      payco?: EmptyObject
+      paynow?: EmptyObject
+      paypal?: EmptyObject
+      pix?: EmptyObject
+      promptpay?: EmptyObject
+      radar_options?: {
+        session?: string
+      }
+      revolut_pay?: EmptyObject
+      samsung_pay?: EmptyObject
+      satispay?: EmptyObject
+      sepa_debit?: {
+        iban: string
+      }
+      sofort?: {
+        country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL"
+      }
+      swish?: EmptyObject
+      twint?: EmptyObject
+      type:
+        | "acss_debit"
+        | "affirm"
+        | "afterpay_clearpay"
+        | "alipay"
+        | "alma"
+        | "amazon_pay"
+        | "au_becs_debit"
+        | "bacs_debit"
+        | "bancontact"
+        | "billie"
+        | "blik"
+        | "boleto"
+        | "cashapp"
+        | "crypto"
+        | "customer_balance"
+        | "eps"
+        | "fpx"
+        | "giropay"
+        | "grabpay"
+        | "ideal"
+        | "kakao_pay"
+        | "klarna"
+        | "konbini"
+        | "kr_card"
+        | "link"
+        | "mobilepay"
+        | "multibanco"
+        | "naver_pay"
+        | "nz_bank_account"
+        | "oxxo"
+        | "p24"
+        | "pay_by_bank"
+        | "payco"
+        | "paynow"
+        | "paypal"
+        | "pix"
+        | "promptpay"
+        | "revolut_pay"
+        | "samsung_pay"
+        | "satispay"
+        | "sepa_debit"
+        | "sofort"
+        | "swish"
+        | "twint"
+        | "us_bank_account"
+        | "wechat_pay"
+        | "zip"
+      us_bank_account?: {
+        account_holder_type?: "company" | "individual"
+        account_number?: string
+        account_type?: "checking" | "savings"
+        financial_connections_account?: string
+        routing_number?: string
+      }
+      wechat_pay?: EmptyObject
+      zip?: EmptyObject
+    }
+    payment_method_options?: {
+      card?: {
+        installments?: {
+          plan: {
+            count?: number
+            interval?: "month"
+            type: "bonus" | "fixed_count" | "revolving"
+          }
         }
       }
     }
-  }
-  return_url?: string
-  setup_future_usage?: "off_session" | "on_session"
-  shipping?: {
-    address: {
-      city?: string
-      country?: string
-      line1?: string
-      line2?: string
-      postal_code?: string
-      state?: string
+    return_url?: string
+    setup_future_usage?: "off_session" | "on_session"
+    shipping?: {
+      address: {
+        city?: string
+        country?: string
+        line1?: string
+        line2?: string
+        postal_code?: string
+        state?: string
+      }
+      name: string
+      phone?: string | ""
     }
-    name: string
-    phone?: string | ""
   }
-}
-
-export type t_PostTestHelpersCustomersCustomerFundCashBalanceBodySchema = {
-  amount: number
-  currency: string
-  expand?: string[]
-  reference?: string
-}
 
 export type t_PostTestHelpersCustomersCustomerFundCashBalanceParamSchema = {
   customer: string
 }
 
-export type t_PostTestHelpersIssuingAuthorizationsBodySchema = {
-  amount?: number
-  amount_details?: {
-    atm_fee?: number
-    cashback_amount?: number
+export type t_postTestHelpersCustomersCustomerFundCashBalanceApplicationXWwwFormUrlencodedRequestBody =
+  {
+    amount: number
+    currency: string
+    expand?: string[]
+    reference?: string
   }
-  authorization_method?:
-    | "chip"
-    | "contactless"
-    | "keyed_in"
-    | "online"
-    | "swipe"
-  card: string
-  currency?: string
-  expand?: string[]
-  fleet?: {
-    cardholder_prompt_data?: {
-      driver_id?: string
-      odometer?: number
-      unspecified_id?: string
-      user_id?: string
-      vehicle_number?: string
-    }
-    purchase_type?:
-      | "fuel_and_non_fuel_purchase"
-      | "fuel_purchase"
-      | "non_fuel_purchase"
-    reported_breakdown?: {
-      fuel?: {
-        gross_amount_decimal?: string
-      }
-      non_fuel?: {
-        gross_amount_decimal?: string
-      }
-      tax?: {
-        local_amount_decimal?: string
-        national_amount_decimal?: string
-      }
-    }
-    service_type?: "full_service" | "non_fuel_transaction" | "self_service"
-  }
-  fuel?: {
-    industry_product_code?: string
-    quantity_decimal?: string
-    type?:
-      | "diesel"
-      | "other"
-      | "unleaded_plus"
-      | "unleaded_regular"
-      | "unleaded_super"
-    unit?:
-      | "charging_minute"
-      | "imperial_gallon"
-      | "kilogram"
-      | "kilowatt_hour"
-      | "liter"
-      | "other"
-      | "pound"
-      | "us_gallon"
-    unit_cost_decimal?: string
-  }
-  is_amount_controllable?: boolean
-  merchant_amount?: number
-  merchant_currency?: string
-  merchant_data?: {
-    category?:
-      | "ac_refrigeration_repair"
-      | "accounting_bookkeeping_services"
-      | "advertising_services"
-      | "agricultural_cooperative"
-      | "airlines_air_carriers"
-      | "airports_flying_fields"
-      | "ambulance_services"
-      | "amusement_parks_carnivals"
-      | "antique_reproductions"
-      | "antique_shops"
-      | "aquariums"
-      | "architectural_surveying_services"
-      | "art_dealers_and_galleries"
-      | "artists_supply_and_craft_shops"
-      | "auto_and_home_supply_stores"
-      | "auto_body_repair_shops"
-      | "auto_paint_shops"
-      | "auto_service_shops"
-      | "automated_cash_disburse"
-      | "automated_fuel_dispensers"
-      | "automobile_associations"
-      | "automotive_parts_and_accessories_stores"
-      | "automotive_tire_stores"
-      | "bail_and_bond_payments"
-      | "bakeries"
-      | "bands_orchestras"
-      | "barber_and_beauty_shops"
-      | "betting_casino_gambling"
-      | "bicycle_shops"
-      | "billiard_pool_establishments"
-      | "boat_dealers"
-      | "boat_rentals_and_leases"
-      | "book_stores"
-      | "books_periodicals_and_newspapers"
-      | "bowling_alleys"
-      | "bus_lines"
-      | "business_secretarial_schools"
-      | "buying_shopping_services"
-      | "cable_satellite_and_other_pay_television_and_radio"
-      | "camera_and_photographic_supply_stores"
-      | "candy_nut_and_confectionery_stores"
-      | "car_and_truck_dealers_new_used"
-      | "car_and_truck_dealers_used_only"
-      | "car_rental_agencies"
-      | "car_washes"
-      | "carpentry_services"
-      | "carpet_upholstery_cleaning"
-      | "caterers"
-      | "charitable_and_social_service_organizations_fundraising"
-      | "chemicals_and_allied_products"
-      | "child_care_services"
-      | "childrens_and_infants_wear_stores"
-      | "chiropodists_podiatrists"
-      | "chiropractors"
-      | "cigar_stores_and_stands"
-      | "civic_social_fraternal_associations"
-      | "cleaning_and_maintenance"
-      | "clothing_rental"
-      | "colleges_universities"
-      | "commercial_equipment"
-      | "commercial_footwear"
-      | "commercial_photography_art_and_graphics"
-      | "commuter_transport_and_ferries"
-      | "computer_network_services"
-      | "computer_programming"
-      | "computer_repair"
-      | "computer_software_stores"
-      | "computers_peripherals_and_software"
-      | "concrete_work_services"
-      | "construction_materials"
-      | "consulting_public_relations"
-      | "correspondence_schools"
-      | "cosmetic_stores"
-      | "counseling_services"
-      | "country_clubs"
-      | "courier_services"
-      | "court_costs"
-      | "credit_reporting_agencies"
-      | "cruise_lines"
-      | "dairy_products_stores"
-      | "dance_hall_studios_schools"
-      | "dating_escort_services"
-      | "dentists_orthodontists"
-      | "department_stores"
-      | "detective_agencies"
-      | "digital_goods_applications"
-      | "digital_goods_games"
-      | "digital_goods_large_volume"
-      | "digital_goods_media"
-      | "direct_marketing_catalog_merchant"
-      | "direct_marketing_combination_catalog_and_retail_merchant"
-      | "direct_marketing_inbound_telemarketing"
-      | "direct_marketing_insurance_services"
-      | "direct_marketing_other"
-      | "direct_marketing_outbound_telemarketing"
-      | "direct_marketing_subscription"
-      | "direct_marketing_travel"
-      | "discount_stores"
-      | "doctors"
-      | "door_to_door_sales"
-      | "drapery_window_covering_and_upholstery_stores"
-      | "drinking_places"
-      | "drug_stores_and_pharmacies"
-      | "drugs_drug_proprietaries_and_druggist_sundries"
-      | "dry_cleaners"
-      | "durable_goods"
-      | "duty_free_stores"
-      | "eating_places_restaurants"
-      | "educational_services"
-      | "electric_razor_stores"
-      | "electric_vehicle_charging"
-      | "electrical_parts_and_equipment"
-      | "electrical_services"
-      | "electronics_repair_shops"
-      | "electronics_stores"
-      | "elementary_secondary_schools"
-      | "emergency_services_gcas_visa_use_only"
-      | "employment_temp_agencies"
-      | "equipment_rental"
-      | "exterminating_services"
-      | "family_clothing_stores"
-      | "fast_food_restaurants"
-      | "financial_institutions"
-      | "fines_government_administrative_entities"
-      | "fireplace_fireplace_screens_and_accessories_stores"
-      | "floor_covering_stores"
-      | "florists"
-      | "florists_supplies_nursery_stock_and_flowers"
-      | "freezer_and_locker_meat_provisioners"
-      | "fuel_dealers_non_automotive"
-      | "funeral_services_crematories"
-      | "furniture_home_furnishings_and_equipment_stores_except_appliances"
-      | "furniture_repair_refinishing"
-      | "furriers_and_fur_shops"
-      | "general_services"
-      | "gift_card_novelty_and_souvenir_shops"
-      | "glass_paint_and_wallpaper_stores"
-      | "glassware_crystal_stores"
-      | "golf_courses_public"
-      | "government_licensed_horse_dog_racing_us_region_only"
-      | "government_licensed_online_casions_online_gambling_us_region_only"
-      | "government_owned_lotteries_non_us_region"
-      | "government_owned_lotteries_us_region_only"
-      | "government_services"
-      | "grocery_stores_supermarkets"
-      | "hardware_equipment_and_supplies"
-      | "hardware_stores"
-      | "health_and_beauty_spas"
-      | "hearing_aids_sales_and_supplies"
-      | "heating_plumbing_a_c"
-      | "hobby_toy_and_game_shops"
-      | "home_supply_warehouse_stores"
-      | "hospitals"
-      | "hotels_motels_and_resorts"
-      | "household_appliance_stores"
-      | "industrial_supplies"
-      | "information_retrieval_services"
-      | "insurance_default"
-      | "insurance_underwriting_premiums"
-      | "intra_company_purchases"
-      | "jewelry_stores_watches_clocks_and_silverware_stores"
-      | "landscaping_services"
-      | "laundries"
-      | "laundry_cleaning_services"
-      | "legal_services_attorneys"
-      | "luggage_and_leather_goods_stores"
-      | "lumber_building_materials_stores"
-      | "manual_cash_disburse"
-      | "marinas_service_and_supplies"
-      | "marketplaces"
-      | "masonry_stonework_and_plaster"
-      | "massage_parlors"
-      | "medical_and_dental_labs"
-      | "medical_dental_ophthalmic_and_hospital_equipment_and_supplies"
-      | "medical_services"
-      | "membership_organizations"
-      | "mens_and_boys_clothing_and_accessories_stores"
-      | "mens_womens_clothing_stores"
-      | "metal_service_centers"
-      | "miscellaneous_apparel_and_accessory_shops"
-      | "miscellaneous_auto_dealers"
-      | "miscellaneous_business_services"
-      | "miscellaneous_food_stores"
-      | "miscellaneous_general_merchandise"
-      | "miscellaneous_general_services"
-      | "miscellaneous_home_furnishing_specialty_stores"
-      | "miscellaneous_publishing_and_printing"
-      | "miscellaneous_recreation_services"
-      | "miscellaneous_repair_shops"
-      | "miscellaneous_specialty_retail"
-      | "mobile_home_dealers"
-      | "motion_picture_theaters"
-      | "motor_freight_carriers_and_trucking"
-      | "motor_homes_dealers"
-      | "motor_vehicle_supplies_and_new_parts"
-      | "motorcycle_shops_and_dealers"
-      | "motorcycle_shops_dealers"
-      | "music_stores_musical_instruments_pianos_and_sheet_music"
-      | "news_dealers_and_newsstands"
-      | "non_fi_money_orders"
-      | "non_fi_stored_value_card_purchase_load"
-      | "nondurable_goods"
-      | "nurseries_lawn_and_garden_supply_stores"
-      | "nursing_personal_care"
-      | "office_and_commercial_furniture"
-      | "opticians_eyeglasses"
-      | "optometrists_ophthalmologist"
-      | "orthopedic_goods_prosthetic_devices"
-      | "osteopaths"
-      | "package_stores_beer_wine_and_liquor"
-      | "paints_varnishes_and_supplies"
-      | "parking_lots_garages"
-      | "passenger_railways"
-      | "pawn_shops"
-      | "pet_shops_pet_food_and_supplies"
-      | "petroleum_and_petroleum_products"
-      | "photo_developing"
-      | "photographic_photocopy_microfilm_equipment_and_supplies"
-      | "photographic_studios"
-      | "picture_video_production"
-      | "piece_goods_notions_and_other_dry_goods"
-      | "plumbing_heating_equipment_and_supplies"
-      | "political_organizations"
-      | "postal_services_government_only"
-      | "precious_stones_and_metals_watches_and_jewelry"
-      | "professional_services"
-      | "public_warehousing_and_storage"
-      | "quick_copy_repro_and_blueprint"
-      | "railroads"
-      | "real_estate_agents_and_managers_rentals"
-      | "record_stores"
-      | "recreational_vehicle_rentals"
-      | "religious_goods_stores"
-      | "religious_organizations"
-      | "roofing_siding_sheet_metal"
-      | "secretarial_support_services"
-      | "security_brokers_dealers"
-      | "service_stations"
-      | "sewing_needlework_fabric_and_piece_goods_stores"
-      | "shoe_repair_hat_cleaning"
-      | "shoe_stores"
-      | "small_appliance_repair"
-      | "snowmobile_dealers"
-      | "special_trade_services"
-      | "specialty_cleaning"
-      | "sporting_goods_stores"
-      | "sporting_recreation_camps"
-      | "sports_and_riding_apparel_stores"
-      | "sports_clubs_fields"
-      | "stamp_and_coin_stores"
-      | "stationary_office_supplies_printing_and_writing_paper"
-      | "stationery_stores_office_and_school_supply_stores"
-      | "swimming_pools_sales"
-      | "t_ui_travel_germany"
-      | "tailors_alterations"
-      | "tax_payments_government_agencies"
-      | "tax_preparation_services"
-      | "taxicabs_limousines"
-      | "telecommunication_equipment_and_telephone_sales"
-      | "telecommunication_services"
-      | "telegraph_services"
-      | "tent_and_awning_shops"
-      | "testing_laboratories"
-      | "theatrical_ticket_agencies"
-      | "timeshares"
-      | "tire_retreading_and_repair"
-      | "tolls_bridge_fees"
-      | "tourist_attractions_and_exhibits"
-      | "towing_services"
-      | "trailer_parks_campgrounds"
-      | "transportation_services"
-      | "travel_agencies_tour_operators"
-      | "truck_stop_iteration"
-      | "truck_utility_trailer_rentals"
-      | "typesetting_plate_making_and_related_services"
-      | "typewriter_stores"
-      | "u_s_federal_government_agencies_or_departments"
-      | "uniforms_commercial_clothing"
-      | "used_merchandise_and_secondhand_stores"
-      | "utilities"
-      | "variety_stores"
-      | "veterinary_services"
-      | "video_amusement_game_supplies"
-      | "video_game_arcades"
-      | "video_tape_rental_stores"
-      | "vocational_trade_schools"
-      | "watch_jewelry_repair"
-      | "welding_repair"
-      | "wholesale_clubs"
-      | "wig_and_toupee_stores"
-      | "wires_money_orders"
-      | "womens_accessory_and_specialty_shops"
-      | "womens_ready_to_wear_stores"
-      | "wrecking_and_salvage_yards"
-    city?: string
-    country?: string
-    name?: string
-    network_id?: string
-    postal_code?: string
-    state?: string
-    terminal_id?: string
-    url?: string
-  }
-  network_data?: {
-    acquiring_institution_id?: string
-  }
-  verification_data?: {
-    address_line1_check?: "match" | "mismatch" | "not_provided"
-    address_postal_code_check?: "match" | "mismatch" | "not_provided"
-    authentication_exemption?: {
-      claimed_by: "acquirer" | "issuer"
-      type: "low_value_transaction" | "transaction_risk_analysis" | "unknown"
-    }
-    cvc_check?: "match" | "mismatch" | "not_provided"
-    expiry_check?: "match" | "mismatch" | "not_provided"
-    three_d_secure?: {
-      result: "attempt_acknowledged" | "authenticated" | "failed" | "required"
-    }
-  }
-  wallet?: "apple_pay" | "google_pay" | "samsung_pay"
-}
 
-export type t_PostTestHelpersIssuingAuthorizationsAuthorizationCaptureBodySchema =
+export type t_postTestHelpersIssuingAuthorizationsApplicationXWwwFormUrlencodedRequestBody =
+  {
+    amount?: number
+    amount_details?: {
+      atm_fee?: number
+      cashback_amount?: number
+    }
+    authorization_method?:
+      | "chip"
+      | "contactless"
+      | "keyed_in"
+      | "online"
+      | "swipe"
+    card: string
+    currency?: string
+    expand?: string[]
+    fleet?: {
+      cardholder_prompt_data?: {
+        driver_id?: string
+        odometer?: number
+        unspecified_id?: string
+        user_id?: string
+        vehicle_number?: string
+      }
+      purchase_type?:
+        | "fuel_and_non_fuel_purchase"
+        | "fuel_purchase"
+        | "non_fuel_purchase"
+      reported_breakdown?: {
+        fuel?: {
+          gross_amount_decimal?: string
+        }
+        non_fuel?: {
+          gross_amount_decimal?: string
+        }
+        tax?: {
+          local_amount_decimal?: string
+          national_amount_decimal?: string
+        }
+      }
+      service_type?: "full_service" | "non_fuel_transaction" | "self_service"
+    }
+    fuel?: {
+      industry_product_code?: string
+      quantity_decimal?: string
+      type?:
+        | "diesel"
+        | "other"
+        | "unleaded_plus"
+        | "unleaded_regular"
+        | "unleaded_super"
+      unit?:
+        | "charging_minute"
+        | "imperial_gallon"
+        | "kilogram"
+        | "kilowatt_hour"
+        | "liter"
+        | "other"
+        | "pound"
+        | "us_gallon"
+      unit_cost_decimal?: string
+    }
+    is_amount_controllable?: boolean
+    merchant_amount?: number
+    merchant_currency?: string
+    merchant_data?: {
+      category?:
+        | "ac_refrigeration_repair"
+        | "accounting_bookkeeping_services"
+        | "advertising_services"
+        | "agricultural_cooperative"
+        | "airlines_air_carriers"
+        | "airports_flying_fields"
+        | "ambulance_services"
+        | "amusement_parks_carnivals"
+        | "antique_reproductions"
+        | "antique_shops"
+        | "aquariums"
+        | "architectural_surveying_services"
+        | "art_dealers_and_galleries"
+        | "artists_supply_and_craft_shops"
+        | "auto_and_home_supply_stores"
+        | "auto_body_repair_shops"
+        | "auto_paint_shops"
+        | "auto_service_shops"
+        | "automated_cash_disburse"
+        | "automated_fuel_dispensers"
+        | "automobile_associations"
+        | "automotive_parts_and_accessories_stores"
+        | "automotive_tire_stores"
+        | "bail_and_bond_payments"
+        | "bakeries"
+        | "bands_orchestras"
+        | "barber_and_beauty_shops"
+        | "betting_casino_gambling"
+        | "bicycle_shops"
+        | "billiard_pool_establishments"
+        | "boat_dealers"
+        | "boat_rentals_and_leases"
+        | "book_stores"
+        | "books_periodicals_and_newspapers"
+        | "bowling_alleys"
+        | "bus_lines"
+        | "business_secretarial_schools"
+        | "buying_shopping_services"
+        | "cable_satellite_and_other_pay_television_and_radio"
+        | "camera_and_photographic_supply_stores"
+        | "candy_nut_and_confectionery_stores"
+        | "car_and_truck_dealers_new_used"
+        | "car_and_truck_dealers_used_only"
+        | "car_rental_agencies"
+        | "car_washes"
+        | "carpentry_services"
+        | "carpet_upholstery_cleaning"
+        | "caterers"
+        | "charitable_and_social_service_organizations_fundraising"
+        | "chemicals_and_allied_products"
+        | "child_care_services"
+        | "childrens_and_infants_wear_stores"
+        | "chiropodists_podiatrists"
+        | "chiropractors"
+        | "cigar_stores_and_stands"
+        | "civic_social_fraternal_associations"
+        | "cleaning_and_maintenance"
+        | "clothing_rental"
+        | "colleges_universities"
+        | "commercial_equipment"
+        | "commercial_footwear"
+        | "commercial_photography_art_and_graphics"
+        | "commuter_transport_and_ferries"
+        | "computer_network_services"
+        | "computer_programming"
+        | "computer_repair"
+        | "computer_software_stores"
+        | "computers_peripherals_and_software"
+        | "concrete_work_services"
+        | "construction_materials"
+        | "consulting_public_relations"
+        | "correspondence_schools"
+        | "cosmetic_stores"
+        | "counseling_services"
+        | "country_clubs"
+        | "courier_services"
+        | "court_costs"
+        | "credit_reporting_agencies"
+        | "cruise_lines"
+        | "dairy_products_stores"
+        | "dance_hall_studios_schools"
+        | "dating_escort_services"
+        | "dentists_orthodontists"
+        | "department_stores"
+        | "detective_agencies"
+        | "digital_goods_applications"
+        | "digital_goods_games"
+        | "digital_goods_large_volume"
+        | "digital_goods_media"
+        | "direct_marketing_catalog_merchant"
+        | "direct_marketing_combination_catalog_and_retail_merchant"
+        | "direct_marketing_inbound_telemarketing"
+        | "direct_marketing_insurance_services"
+        | "direct_marketing_other"
+        | "direct_marketing_outbound_telemarketing"
+        | "direct_marketing_subscription"
+        | "direct_marketing_travel"
+        | "discount_stores"
+        | "doctors"
+        | "door_to_door_sales"
+        | "drapery_window_covering_and_upholstery_stores"
+        | "drinking_places"
+        | "drug_stores_and_pharmacies"
+        | "drugs_drug_proprietaries_and_druggist_sundries"
+        | "dry_cleaners"
+        | "durable_goods"
+        | "duty_free_stores"
+        | "eating_places_restaurants"
+        | "educational_services"
+        | "electric_razor_stores"
+        | "electric_vehicle_charging"
+        | "electrical_parts_and_equipment"
+        | "electrical_services"
+        | "electronics_repair_shops"
+        | "electronics_stores"
+        | "elementary_secondary_schools"
+        | "emergency_services_gcas_visa_use_only"
+        | "employment_temp_agencies"
+        | "equipment_rental"
+        | "exterminating_services"
+        | "family_clothing_stores"
+        | "fast_food_restaurants"
+        | "financial_institutions"
+        | "fines_government_administrative_entities"
+        | "fireplace_fireplace_screens_and_accessories_stores"
+        | "floor_covering_stores"
+        | "florists"
+        | "florists_supplies_nursery_stock_and_flowers"
+        | "freezer_and_locker_meat_provisioners"
+        | "fuel_dealers_non_automotive"
+        | "funeral_services_crematories"
+        | "furniture_home_furnishings_and_equipment_stores_except_appliances"
+        | "furniture_repair_refinishing"
+        | "furriers_and_fur_shops"
+        | "general_services"
+        | "gift_card_novelty_and_souvenir_shops"
+        | "glass_paint_and_wallpaper_stores"
+        | "glassware_crystal_stores"
+        | "golf_courses_public"
+        | "government_licensed_horse_dog_racing_us_region_only"
+        | "government_licensed_online_casions_online_gambling_us_region_only"
+        | "government_owned_lotteries_non_us_region"
+        | "government_owned_lotteries_us_region_only"
+        | "government_services"
+        | "grocery_stores_supermarkets"
+        | "hardware_equipment_and_supplies"
+        | "hardware_stores"
+        | "health_and_beauty_spas"
+        | "hearing_aids_sales_and_supplies"
+        | "heating_plumbing_a_c"
+        | "hobby_toy_and_game_shops"
+        | "home_supply_warehouse_stores"
+        | "hospitals"
+        | "hotels_motels_and_resorts"
+        | "household_appliance_stores"
+        | "industrial_supplies"
+        | "information_retrieval_services"
+        | "insurance_default"
+        | "insurance_underwriting_premiums"
+        | "intra_company_purchases"
+        | "jewelry_stores_watches_clocks_and_silverware_stores"
+        | "landscaping_services"
+        | "laundries"
+        | "laundry_cleaning_services"
+        | "legal_services_attorneys"
+        | "luggage_and_leather_goods_stores"
+        | "lumber_building_materials_stores"
+        | "manual_cash_disburse"
+        | "marinas_service_and_supplies"
+        | "marketplaces"
+        | "masonry_stonework_and_plaster"
+        | "massage_parlors"
+        | "medical_and_dental_labs"
+        | "medical_dental_ophthalmic_and_hospital_equipment_and_supplies"
+        | "medical_services"
+        | "membership_organizations"
+        | "mens_and_boys_clothing_and_accessories_stores"
+        | "mens_womens_clothing_stores"
+        | "metal_service_centers"
+        | "miscellaneous_apparel_and_accessory_shops"
+        | "miscellaneous_auto_dealers"
+        | "miscellaneous_business_services"
+        | "miscellaneous_food_stores"
+        | "miscellaneous_general_merchandise"
+        | "miscellaneous_general_services"
+        | "miscellaneous_home_furnishing_specialty_stores"
+        | "miscellaneous_publishing_and_printing"
+        | "miscellaneous_recreation_services"
+        | "miscellaneous_repair_shops"
+        | "miscellaneous_specialty_retail"
+        | "mobile_home_dealers"
+        | "motion_picture_theaters"
+        | "motor_freight_carriers_and_trucking"
+        | "motor_homes_dealers"
+        | "motor_vehicle_supplies_and_new_parts"
+        | "motorcycle_shops_and_dealers"
+        | "motorcycle_shops_dealers"
+        | "music_stores_musical_instruments_pianos_and_sheet_music"
+        | "news_dealers_and_newsstands"
+        | "non_fi_money_orders"
+        | "non_fi_stored_value_card_purchase_load"
+        | "nondurable_goods"
+        | "nurseries_lawn_and_garden_supply_stores"
+        | "nursing_personal_care"
+        | "office_and_commercial_furniture"
+        | "opticians_eyeglasses"
+        | "optometrists_ophthalmologist"
+        | "orthopedic_goods_prosthetic_devices"
+        | "osteopaths"
+        | "package_stores_beer_wine_and_liquor"
+        | "paints_varnishes_and_supplies"
+        | "parking_lots_garages"
+        | "passenger_railways"
+        | "pawn_shops"
+        | "pet_shops_pet_food_and_supplies"
+        | "petroleum_and_petroleum_products"
+        | "photo_developing"
+        | "photographic_photocopy_microfilm_equipment_and_supplies"
+        | "photographic_studios"
+        | "picture_video_production"
+        | "piece_goods_notions_and_other_dry_goods"
+        | "plumbing_heating_equipment_and_supplies"
+        | "political_organizations"
+        | "postal_services_government_only"
+        | "precious_stones_and_metals_watches_and_jewelry"
+        | "professional_services"
+        | "public_warehousing_and_storage"
+        | "quick_copy_repro_and_blueprint"
+        | "railroads"
+        | "real_estate_agents_and_managers_rentals"
+        | "record_stores"
+        | "recreational_vehicle_rentals"
+        | "religious_goods_stores"
+        | "religious_organizations"
+        | "roofing_siding_sheet_metal"
+        | "secretarial_support_services"
+        | "security_brokers_dealers"
+        | "service_stations"
+        | "sewing_needlework_fabric_and_piece_goods_stores"
+        | "shoe_repair_hat_cleaning"
+        | "shoe_stores"
+        | "small_appliance_repair"
+        | "snowmobile_dealers"
+        | "special_trade_services"
+        | "specialty_cleaning"
+        | "sporting_goods_stores"
+        | "sporting_recreation_camps"
+        | "sports_and_riding_apparel_stores"
+        | "sports_clubs_fields"
+        | "stamp_and_coin_stores"
+        | "stationary_office_supplies_printing_and_writing_paper"
+        | "stationery_stores_office_and_school_supply_stores"
+        | "swimming_pools_sales"
+        | "t_ui_travel_germany"
+        | "tailors_alterations"
+        | "tax_payments_government_agencies"
+        | "tax_preparation_services"
+        | "taxicabs_limousines"
+        | "telecommunication_equipment_and_telephone_sales"
+        | "telecommunication_services"
+        | "telegraph_services"
+        | "tent_and_awning_shops"
+        | "testing_laboratories"
+        | "theatrical_ticket_agencies"
+        | "timeshares"
+        | "tire_retreading_and_repair"
+        | "tolls_bridge_fees"
+        | "tourist_attractions_and_exhibits"
+        | "towing_services"
+        | "trailer_parks_campgrounds"
+        | "transportation_services"
+        | "travel_agencies_tour_operators"
+        | "truck_stop_iteration"
+        | "truck_utility_trailer_rentals"
+        | "typesetting_plate_making_and_related_services"
+        | "typewriter_stores"
+        | "u_s_federal_government_agencies_or_departments"
+        | "uniforms_commercial_clothing"
+        | "used_merchandise_and_secondhand_stores"
+        | "utilities"
+        | "variety_stores"
+        | "veterinary_services"
+        | "video_amusement_game_supplies"
+        | "video_game_arcades"
+        | "video_tape_rental_stores"
+        | "vocational_trade_schools"
+        | "watch_jewelry_repair"
+        | "welding_repair"
+        | "wholesale_clubs"
+        | "wig_and_toupee_stores"
+        | "wires_money_orders"
+        | "womens_accessory_and_specialty_shops"
+        | "womens_ready_to_wear_stores"
+        | "wrecking_and_salvage_yards"
+      city?: string
+      country?: string
+      name?: string
+      network_id?: string
+      postal_code?: string
+      state?: string
+      terminal_id?: string
+      url?: string
+    }
+    network_data?: {
+      acquiring_institution_id?: string
+    }
+    verification_data?: {
+      address_line1_check?: "match" | "mismatch" | "not_provided"
+      address_postal_code_check?: "match" | "mismatch" | "not_provided"
+      authentication_exemption?: {
+        claimed_by: "acquirer" | "issuer"
+        type: "low_value_transaction" | "transaction_risk_analysis" | "unknown"
+      }
+      cvc_check?: "match" | "mismatch" | "not_provided"
+      expiry_check?: "match" | "mismatch" | "not_provided"
+      three_d_secure?: {
+        result: "attempt_acknowledged" | "authenticated" | "failed" | "required"
+      }
+    }
+    wallet?: "apple_pay" | "google_pay" | "samsung_pay"
+  }
+
+export type t_PostTestHelpersIssuingAuthorizationsAuthorizationCaptureParamSchema =
+  {
+    authorization: string
+  }
+
+export type t_postTestHelpersIssuingAuthorizationsAuthorizationCaptureApplicationXWwwFormUrlencodedRequestBody =
   {
     capture_amount?: number
     close_authorization?: boolean
@@ -38702,22 +38869,22 @@ export type t_PostTestHelpersIssuingAuthorizationsAuthorizationCaptureBodySchema
     }
   }
 
-export type t_PostTestHelpersIssuingAuthorizationsAuthorizationCaptureParamSchema =
-  {
-    authorization: string
-  }
-
-export type t_PostTestHelpersIssuingAuthorizationsAuthorizationExpireBodySchema =
-  {
-    expand?: string[]
-  }
-
 export type t_PostTestHelpersIssuingAuthorizationsAuthorizationExpireParamSchema =
   {
     authorization: string
   }
 
-export type t_PostTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmountBodySchema =
+export type t_postTestHelpersIssuingAuthorizationsAuthorizationExpireApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
+  }
+
+export type t_PostTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmountParamSchema =
+  {
+    authorization: string
+  }
+
+export type t_postTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmountApplicationXWwwFormUrlencodedRequestBody =
   {
     expand?: string[]
     final_amount: number
@@ -38769,27 +38936,15 @@ export type t_PostTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmountBod
     }
   }
 
-export type t_PostTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmountParamSchema =
-  {
-    authorization: string
-  }
-
-export type t_PostTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespondBodySchema =
-  {
-    confirmed: boolean
-    expand?: string[]
-  }
-
 export type t_PostTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespondParamSchema =
   {
     authorization: string
   }
 
-export type t_PostTestHelpersIssuingAuthorizationsAuthorizationIncrementBodySchema =
+export type t_postTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespondApplicationXWwwFormUrlencodedRequestBody =
   {
+    confirmed: boolean
     expand?: string[]
-    increment_amount: number
-    is_amount_controllable?: boolean
   }
 
 export type t_PostTestHelpersIssuingAuthorizationsAuthorizationIncrementParamSchema =
@@ -38797,10 +38952,11 @@ export type t_PostTestHelpersIssuingAuthorizationsAuthorizationIncrementParamSch
     authorization: string
   }
 
-export type t_PostTestHelpersIssuingAuthorizationsAuthorizationReverseBodySchema =
+export type t_postTestHelpersIssuingAuthorizationsAuthorizationIncrementApplicationXWwwFormUrlencodedRequestBody =
   {
     expand?: string[]
-    reverse_amount?: number
+    increment_amount: number
+    is_amount_controllable?: boolean
   }
 
 export type t_PostTestHelpersIssuingAuthorizationsAuthorizationReverseParamSchema =
@@ -38808,47 +38964,53 @@ export type t_PostTestHelpersIssuingAuthorizationsAuthorizationReverseParamSchem
     authorization: string
   }
 
-export type t_PostTestHelpersIssuingCardsCardShippingDeliverBodySchema = {
-  expand?: string[]
-}
+export type t_postTestHelpersIssuingAuthorizationsAuthorizationReverseApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
+    reverse_amount?: number
+  }
 
 export type t_PostTestHelpersIssuingCardsCardShippingDeliverParamSchema = {
   card: string
 }
 
-export type t_PostTestHelpersIssuingCardsCardShippingFailBodySchema = {
-  expand?: string[]
-}
+export type t_postTestHelpersIssuingCardsCardShippingDeliverApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
+  }
 
 export type t_PostTestHelpersIssuingCardsCardShippingFailParamSchema = {
   card: string
 }
 
-export type t_PostTestHelpersIssuingCardsCardShippingReturnBodySchema = {
-  expand?: string[]
-}
+export type t_postTestHelpersIssuingCardsCardShippingFailApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
+  }
 
 export type t_PostTestHelpersIssuingCardsCardShippingReturnParamSchema = {
   card: string
 }
 
-export type t_PostTestHelpersIssuingCardsCardShippingShipBodySchema = {
-  expand?: string[]
-}
+export type t_postTestHelpersIssuingCardsCardShippingReturnApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
+  }
 
 export type t_PostTestHelpersIssuingCardsCardShippingShipParamSchema = {
   card: string
 }
 
-export type t_PostTestHelpersIssuingCardsCardShippingSubmitBodySchema = {
-  expand?: string[]
-}
+export type t_postTestHelpersIssuingCardsCardShippingShipApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
+  }
 
 export type t_PostTestHelpersIssuingCardsCardShippingSubmitParamSchema = {
   card: string
 }
 
-export type t_PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivateBodySchema =
+export type t_postTestHelpersIssuingCardsCardShippingSubmitApplicationXWwwFormUrlencodedRequestBody =
   {
     expand?: string[]
   }
@@ -38858,7 +39020,7 @@ export type t_PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignA
     personalization_design: string
   }
 
-export type t_PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivateBodySchema =
+export type t_postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivateApplicationXWwwFormUrlencodedRequestBody =
   {
     expand?: string[]
   }
@@ -38868,7 +39030,17 @@ export type t_PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignD
     personalization_design: string
   }
 
-export type t_PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignRejectBodySchema =
+export type t_postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivateApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
+  }
+
+export type t_PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignRejectParamSchema =
+  {
+    personalization_design: string
+  }
+
+export type t_postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignRejectApplicationXWwwFormUrlencodedRequestBody =
   {
     expand?: string[]
     rejection_reasons: {
@@ -38894,418 +39066,30 @@ export type t_PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignR
     }
   }
 
-export type t_PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignRejectParamSchema =
+export type t_postTestHelpersIssuingSettlementsApplicationXWwwFormUrlencodedRequestBody =
   {
-    personalization_design: string
+    bin: string
+    clearing_date: number
+    currency: string
+    expand?: string[]
+    interchange_fees_amount?: number
+    net_total_amount: number
+    network?: "maestro" | "visa"
+    network_settlement_identifier?: string
+    transaction_amount?: number
+    transaction_count?: number
   }
-
-export type t_PostTestHelpersIssuingSettlementsBodySchema = {
-  bin: string
-  clearing_date: number
-  currency: string
-  expand?: string[]
-  interchange_fees_amount?: number
-  net_total_amount: number
-  network?: "maestro" | "visa"
-  network_settlement_identifier?: string
-  transaction_amount?: number
-  transaction_count?: number
-}
-
-export type t_PostTestHelpersIssuingSettlementsSettlementCompleteBodySchema = {
-  expand?: string[]
-}
 
 export type t_PostTestHelpersIssuingSettlementsSettlementCompleteParamSchema = {
   settlement: string
 }
 
-export type t_PostTestHelpersIssuingTransactionsCreateForceCaptureBodySchema = {
-  amount: number
-  card: string
-  currency?: string
-  expand?: string[]
-  merchant_data?: {
-    category?:
-      | "ac_refrigeration_repair"
-      | "accounting_bookkeeping_services"
-      | "advertising_services"
-      | "agricultural_cooperative"
-      | "airlines_air_carriers"
-      | "airports_flying_fields"
-      | "ambulance_services"
-      | "amusement_parks_carnivals"
-      | "antique_reproductions"
-      | "antique_shops"
-      | "aquariums"
-      | "architectural_surveying_services"
-      | "art_dealers_and_galleries"
-      | "artists_supply_and_craft_shops"
-      | "auto_and_home_supply_stores"
-      | "auto_body_repair_shops"
-      | "auto_paint_shops"
-      | "auto_service_shops"
-      | "automated_cash_disburse"
-      | "automated_fuel_dispensers"
-      | "automobile_associations"
-      | "automotive_parts_and_accessories_stores"
-      | "automotive_tire_stores"
-      | "bail_and_bond_payments"
-      | "bakeries"
-      | "bands_orchestras"
-      | "barber_and_beauty_shops"
-      | "betting_casino_gambling"
-      | "bicycle_shops"
-      | "billiard_pool_establishments"
-      | "boat_dealers"
-      | "boat_rentals_and_leases"
-      | "book_stores"
-      | "books_periodicals_and_newspapers"
-      | "bowling_alleys"
-      | "bus_lines"
-      | "business_secretarial_schools"
-      | "buying_shopping_services"
-      | "cable_satellite_and_other_pay_television_and_radio"
-      | "camera_and_photographic_supply_stores"
-      | "candy_nut_and_confectionery_stores"
-      | "car_and_truck_dealers_new_used"
-      | "car_and_truck_dealers_used_only"
-      | "car_rental_agencies"
-      | "car_washes"
-      | "carpentry_services"
-      | "carpet_upholstery_cleaning"
-      | "caterers"
-      | "charitable_and_social_service_organizations_fundraising"
-      | "chemicals_and_allied_products"
-      | "child_care_services"
-      | "childrens_and_infants_wear_stores"
-      | "chiropodists_podiatrists"
-      | "chiropractors"
-      | "cigar_stores_and_stands"
-      | "civic_social_fraternal_associations"
-      | "cleaning_and_maintenance"
-      | "clothing_rental"
-      | "colleges_universities"
-      | "commercial_equipment"
-      | "commercial_footwear"
-      | "commercial_photography_art_and_graphics"
-      | "commuter_transport_and_ferries"
-      | "computer_network_services"
-      | "computer_programming"
-      | "computer_repair"
-      | "computer_software_stores"
-      | "computers_peripherals_and_software"
-      | "concrete_work_services"
-      | "construction_materials"
-      | "consulting_public_relations"
-      | "correspondence_schools"
-      | "cosmetic_stores"
-      | "counseling_services"
-      | "country_clubs"
-      | "courier_services"
-      | "court_costs"
-      | "credit_reporting_agencies"
-      | "cruise_lines"
-      | "dairy_products_stores"
-      | "dance_hall_studios_schools"
-      | "dating_escort_services"
-      | "dentists_orthodontists"
-      | "department_stores"
-      | "detective_agencies"
-      | "digital_goods_applications"
-      | "digital_goods_games"
-      | "digital_goods_large_volume"
-      | "digital_goods_media"
-      | "direct_marketing_catalog_merchant"
-      | "direct_marketing_combination_catalog_and_retail_merchant"
-      | "direct_marketing_inbound_telemarketing"
-      | "direct_marketing_insurance_services"
-      | "direct_marketing_other"
-      | "direct_marketing_outbound_telemarketing"
-      | "direct_marketing_subscription"
-      | "direct_marketing_travel"
-      | "discount_stores"
-      | "doctors"
-      | "door_to_door_sales"
-      | "drapery_window_covering_and_upholstery_stores"
-      | "drinking_places"
-      | "drug_stores_and_pharmacies"
-      | "drugs_drug_proprietaries_and_druggist_sundries"
-      | "dry_cleaners"
-      | "durable_goods"
-      | "duty_free_stores"
-      | "eating_places_restaurants"
-      | "educational_services"
-      | "electric_razor_stores"
-      | "electric_vehicle_charging"
-      | "electrical_parts_and_equipment"
-      | "electrical_services"
-      | "electronics_repair_shops"
-      | "electronics_stores"
-      | "elementary_secondary_schools"
-      | "emergency_services_gcas_visa_use_only"
-      | "employment_temp_agencies"
-      | "equipment_rental"
-      | "exterminating_services"
-      | "family_clothing_stores"
-      | "fast_food_restaurants"
-      | "financial_institutions"
-      | "fines_government_administrative_entities"
-      | "fireplace_fireplace_screens_and_accessories_stores"
-      | "floor_covering_stores"
-      | "florists"
-      | "florists_supplies_nursery_stock_and_flowers"
-      | "freezer_and_locker_meat_provisioners"
-      | "fuel_dealers_non_automotive"
-      | "funeral_services_crematories"
-      | "furniture_home_furnishings_and_equipment_stores_except_appliances"
-      | "furniture_repair_refinishing"
-      | "furriers_and_fur_shops"
-      | "general_services"
-      | "gift_card_novelty_and_souvenir_shops"
-      | "glass_paint_and_wallpaper_stores"
-      | "glassware_crystal_stores"
-      | "golf_courses_public"
-      | "government_licensed_horse_dog_racing_us_region_only"
-      | "government_licensed_online_casions_online_gambling_us_region_only"
-      | "government_owned_lotteries_non_us_region"
-      | "government_owned_lotteries_us_region_only"
-      | "government_services"
-      | "grocery_stores_supermarkets"
-      | "hardware_equipment_and_supplies"
-      | "hardware_stores"
-      | "health_and_beauty_spas"
-      | "hearing_aids_sales_and_supplies"
-      | "heating_plumbing_a_c"
-      | "hobby_toy_and_game_shops"
-      | "home_supply_warehouse_stores"
-      | "hospitals"
-      | "hotels_motels_and_resorts"
-      | "household_appliance_stores"
-      | "industrial_supplies"
-      | "information_retrieval_services"
-      | "insurance_default"
-      | "insurance_underwriting_premiums"
-      | "intra_company_purchases"
-      | "jewelry_stores_watches_clocks_and_silverware_stores"
-      | "landscaping_services"
-      | "laundries"
-      | "laundry_cleaning_services"
-      | "legal_services_attorneys"
-      | "luggage_and_leather_goods_stores"
-      | "lumber_building_materials_stores"
-      | "manual_cash_disburse"
-      | "marinas_service_and_supplies"
-      | "marketplaces"
-      | "masonry_stonework_and_plaster"
-      | "massage_parlors"
-      | "medical_and_dental_labs"
-      | "medical_dental_ophthalmic_and_hospital_equipment_and_supplies"
-      | "medical_services"
-      | "membership_organizations"
-      | "mens_and_boys_clothing_and_accessories_stores"
-      | "mens_womens_clothing_stores"
-      | "metal_service_centers"
-      | "miscellaneous_apparel_and_accessory_shops"
-      | "miscellaneous_auto_dealers"
-      | "miscellaneous_business_services"
-      | "miscellaneous_food_stores"
-      | "miscellaneous_general_merchandise"
-      | "miscellaneous_general_services"
-      | "miscellaneous_home_furnishing_specialty_stores"
-      | "miscellaneous_publishing_and_printing"
-      | "miscellaneous_recreation_services"
-      | "miscellaneous_repair_shops"
-      | "miscellaneous_specialty_retail"
-      | "mobile_home_dealers"
-      | "motion_picture_theaters"
-      | "motor_freight_carriers_and_trucking"
-      | "motor_homes_dealers"
-      | "motor_vehicle_supplies_and_new_parts"
-      | "motorcycle_shops_and_dealers"
-      | "motorcycle_shops_dealers"
-      | "music_stores_musical_instruments_pianos_and_sheet_music"
-      | "news_dealers_and_newsstands"
-      | "non_fi_money_orders"
-      | "non_fi_stored_value_card_purchase_load"
-      | "nondurable_goods"
-      | "nurseries_lawn_and_garden_supply_stores"
-      | "nursing_personal_care"
-      | "office_and_commercial_furniture"
-      | "opticians_eyeglasses"
-      | "optometrists_ophthalmologist"
-      | "orthopedic_goods_prosthetic_devices"
-      | "osteopaths"
-      | "package_stores_beer_wine_and_liquor"
-      | "paints_varnishes_and_supplies"
-      | "parking_lots_garages"
-      | "passenger_railways"
-      | "pawn_shops"
-      | "pet_shops_pet_food_and_supplies"
-      | "petroleum_and_petroleum_products"
-      | "photo_developing"
-      | "photographic_photocopy_microfilm_equipment_and_supplies"
-      | "photographic_studios"
-      | "picture_video_production"
-      | "piece_goods_notions_and_other_dry_goods"
-      | "plumbing_heating_equipment_and_supplies"
-      | "political_organizations"
-      | "postal_services_government_only"
-      | "precious_stones_and_metals_watches_and_jewelry"
-      | "professional_services"
-      | "public_warehousing_and_storage"
-      | "quick_copy_repro_and_blueprint"
-      | "railroads"
-      | "real_estate_agents_and_managers_rentals"
-      | "record_stores"
-      | "recreational_vehicle_rentals"
-      | "religious_goods_stores"
-      | "religious_organizations"
-      | "roofing_siding_sheet_metal"
-      | "secretarial_support_services"
-      | "security_brokers_dealers"
-      | "service_stations"
-      | "sewing_needlework_fabric_and_piece_goods_stores"
-      | "shoe_repair_hat_cleaning"
-      | "shoe_stores"
-      | "small_appliance_repair"
-      | "snowmobile_dealers"
-      | "special_trade_services"
-      | "specialty_cleaning"
-      | "sporting_goods_stores"
-      | "sporting_recreation_camps"
-      | "sports_and_riding_apparel_stores"
-      | "sports_clubs_fields"
-      | "stamp_and_coin_stores"
-      | "stationary_office_supplies_printing_and_writing_paper"
-      | "stationery_stores_office_and_school_supply_stores"
-      | "swimming_pools_sales"
-      | "t_ui_travel_germany"
-      | "tailors_alterations"
-      | "tax_payments_government_agencies"
-      | "tax_preparation_services"
-      | "taxicabs_limousines"
-      | "telecommunication_equipment_and_telephone_sales"
-      | "telecommunication_services"
-      | "telegraph_services"
-      | "tent_and_awning_shops"
-      | "testing_laboratories"
-      | "theatrical_ticket_agencies"
-      | "timeshares"
-      | "tire_retreading_and_repair"
-      | "tolls_bridge_fees"
-      | "tourist_attractions_and_exhibits"
-      | "towing_services"
-      | "trailer_parks_campgrounds"
-      | "transportation_services"
-      | "travel_agencies_tour_operators"
-      | "truck_stop_iteration"
-      | "truck_utility_trailer_rentals"
-      | "typesetting_plate_making_and_related_services"
-      | "typewriter_stores"
-      | "u_s_federal_government_agencies_or_departments"
-      | "uniforms_commercial_clothing"
-      | "used_merchandise_and_secondhand_stores"
-      | "utilities"
-      | "variety_stores"
-      | "veterinary_services"
-      | "video_amusement_game_supplies"
-      | "video_game_arcades"
-      | "video_tape_rental_stores"
-      | "vocational_trade_schools"
-      | "watch_jewelry_repair"
-      | "welding_repair"
-      | "wholesale_clubs"
-      | "wig_and_toupee_stores"
-      | "wires_money_orders"
-      | "womens_accessory_and_specialty_shops"
-      | "womens_ready_to_wear_stores"
-      | "wrecking_and_salvage_yards"
-    city?: string
-    country?: string
-    name?: string
-    network_id?: string
-    postal_code?: string
-    state?: string
-    terminal_id?: string
-    url?: string
+export type t_postTestHelpersIssuingSettlementsSettlementCompleteApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
   }
-  purchase_details?: {
-    fleet?: {
-      cardholder_prompt_data?: {
-        driver_id?: string
-        odometer?: number
-        unspecified_id?: string
-        user_id?: string
-        vehicle_number?: string
-      }
-      purchase_type?:
-        | "fuel_and_non_fuel_purchase"
-        | "fuel_purchase"
-        | "non_fuel_purchase"
-      reported_breakdown?: {
-        fuel?: {
-          gross_amount_decimal?: string
-        }
-        non_fuel?: {
-          gross_amount_decimal?: string
-        }
-        tax?: {
-          local_amount_decimal?: string
-          national_amount_decimal?: string
-        }
-      }
-      service_type?: "full_service" | "non_fuel_transaction" | "self_service"
-    }
-    flight?: {
-      departure_at?: number
-      passenger_name?: string
-      refundable?: boolean
-      segments?: {
-        arrival_airport_code?: string
-        carrier?: string
-        departure_airport_code?: string
-        flight_number?: string
-        service_class?: string
-        stopover_allowed?: boolean
-      }[]
-      travel_agency?: string
-    }
-    fuel?: {
-      industry_product_code?: string
-      quantity_decimal?: string
-      type?:
-        | "diesel"
-        | "other"
-        | "unleaded_plus"
-        | "unleaded_regular"
-        | "unleaded_super"
-      unit?:
-        | "charging_minute"
-        | "imperial_gallon"
-        | "kilogram"
-        | "kilowatt_hour"
-        | "liter"
-        | "other"
-        | "pound"
-        | "us_gallon"
-      unit_cost_decimal?: string
-    }
-    lodging?: {
-      check_in_at?: number
-      nights?: number
-    }
-    receipt?: {
-      description?: string
-      quantity?: string
-      total?: number
-      unit_cost?: number
-    }[]
-    reference?: string
-  }
-}
 
-export type t_PostTestHelpersIssuingTransactionsCreateUnlinkedRefundBodySchema =
+export type t_postTestHelpersIssuingTransactionsCreateForceCaptureApplicationXWwwFormUrlencodedRequestBody =
   {
     amount: number
     card: string
@@ -39691,24 +39475,417 @@ export type t_PostTestHelpersIssuingTransactionsCreateUnlinkedRefundBodySchema =
     }
   }
 
-export type t_PostTestHelpersIssuingTransactionsTransactionRefundBodySchema = {
-  expand?: string[]
-  refund_amount?: number
-}
+export type t_postTestHelpersIssuingTransactionsCreateUnlinkedRefundApplicationXWwwFormUrlencodedRequestBody =
+  {
+    amount: number
+    card: string
+    currency?: string
+    expand?: string[]
+    merchant_data?: {
+      category?:
+        | "ac_refrigeration_repair"
+        | "accounting_bookkeeping_services"
+        | "advertising_services"
+        | "agricultural_cooperative"
+        | "airlines_air_carriers"
+        | "airports_flying_fields"
+        | "ambulance_services"
+        | "amusement_parks_carnivals"
+        | "antique_reproductions"
+        | "antique_shops"
+        | "aquariums"
+        | "architectural_surveying_services"
+        | "art_dealers_and_galleries"
+        | "artists_supply_and_craft_shops"
+        | "auto_and_home_supply_stores"
+        | "auto_body_repair_shops"
+        | "auto_paint_shops"
+        | "auto_service_shops"
+        | "automated_cash_disburse"
+        | "automated_fuel_dispensers"
+        | "automobile_associations"
+        | "automotive_parts_and_accessories_stores"
+        | "automotive_tire_stores"
+        | "bail_and_bond_payments"
+        | "bakeries"
+        | "bands_orchestras"
+        | "barber_and_beauty_shops"
+        | "betting_casino_gambling"
+        | "bicycle_shops"
+        | "billiard_pool_establishments"
+        | "boat_dealers"
+        | "boat_rentals_and_leases"
+        | "book_stores"
+        | "books_periodicals_and_newspapers"
+        | "bowling_alleys"
+        | "bus_lines"
+        | "business_secretarial_schools"
+        | "buying_shopping_services"
+        | "cable_satellite_and_other_pay_television_and_radio"
+        | "camera_and_photographic_supply_stores"
+        | "candy_nut_and_confectionery_stores"
+        | "car_and_truck_dealers_new_used"
+        | "car_and_truck_dealers_used_only"
+        | "car_rental_agencies"
+        | "car_washes"
+        | "carpentry_services"
+        | "carpet_upholstery_cleaning"
+        | "caterers"
+        | "charitable_and_social_service_organizations_fundraising"
+        | "chemicals_and_allied_products"
+        | "child_care_services"
+        | "childrens_and_infants_wear_stores"
+        | "chiropodists_podiatrists"
+        | "chiropractors"
+        | "cigar_stores_and_stands"
+        | "civic_social_fraternal_associations"
+        | "cleaning_and_maintenance"
+        | "clothing_rental"
+        | "colleges_universities"
+        | "commercial_equipment"
+        | "commercial_footwear"
+        | "commercial_photography_art_and_graphics"
+        | "commuter_transport_and_ferries"
+        | "computer_network_services"
+        | "computer_programming"
+        | "computer_repair"
+        | "computer_software_stores"
+        | "computers_peripherals_and_software"
+        | "concrete_work_services"
+        | "construction_materials"
+        | "consulting_public_relations"
+        | "correspondence_schools"
+        | "cosmetic_stores"
+        | "counseling_services"
+        | "country_clubs"
+        | "courier_services"
+        | "court_costs"
+        | "credit_reporting_agencies"
+        | "cruise_lines"
+        | "dairy_products_stores"
+        | "dance_hall_studios_schools"
+        | "dating_escort_services"
+        | "dentists_orthodontists"
+        | "department_stores"
+        | "detective_agencies"
+        | "digital_goods_applications"
+        | "digital_goods_games"
+        | "digital_goods_large_volume"
+        | "digital_goods_media"
+        | "direct_marketing_catalog_merchant"
+        | "direct_marketing_combination_catalog_and_retail_merchant"
+        | "direct_marketing_inbound_telemarketing"
+        | "direct_marketing_insurance_services"
+        | "direct_marketing_other"
+        | "direct_marketing_outbound_telemarketing"
+        | "direct_marketing_subscription"
+        | "direct_marketing_travel"
+        | "discount_stores"
+        | "doctors"
+        | "door_to_door_sales"
+        | "drapery_window_covering_and_upholstery_stores"
+        | "drinking_places"
+        | "drug_stores_and_pharmacies"
+        | "drugs_drug_proprietaries_and_druggist_sundries"
+        | "dry_cleaners"
+        | "durable_goods"
+        | "duty_free_stores"
+        | "eating_places_restaurants"
+        | "educational_services"
+        | "electric_razor_stores"
+        | "electric_vehicle_charging"
+        | "electrical_parts_and_equipment"
+        | "electrical_services"
+        | "electronics_repair_shops"
+        | "electronics_stores"
+        | "elementary_secondary_schools"
+        | "emergency_services_gcas_visa_use_only"
+        | "employment_temp_agencies"
+        | "equipment_rental"
+        | "exterminating_services"
+        | "family_clothing_stores"
+        | "fast_food_restaurants"
+        | "financial_institutions"
+        | "fines_government_administrative_entities"
+        | "fireplace_fireplace_screens_and_accessories_stores"
+        | "floor_covering_stores"
+        | "florists"
+        | "florists_supplies_nursery_stock_and_flowers"
+        | "freezer_and_locker_meat_provisioners"
+        | "fuel_dealers_non_automotive"
+        | "funeral_services_crematories"
+        | "furniture_home_furnishings_and_equipment_stores_except_appliances"
+        | "furniture_repair_refinishing"
+        | "furriers_and_fur_shops"
+        | "general_services"
+        | "gift_card_novelty_and_souvenir_shops"
+        | "glass_paint_and_wallpaper_stores"
+        | "glassware_crystal_stores"
+        | "golf_courses_public"
+        | "government_licensed_horse_dog_racing_us_region_only"
+        | "government_licensed_online_casions_online_gambling_us_region_only"
+        | "government_owned_lotteries_non_us_region"
+        | "government_owned_lotteries_us_region_only"
+        | "government_services"
+        | "grocery_stores_supermarkets"
+        | "hardware_equipment_and_supplies"
+        | "hardware_stores"
+        | "health_and_beauty_spas"
+        | "hearing_aids_sales_and_supplies"
+        | "heating_plumbing_a_c"
+        | "hobby_toy_and_game_shops"
+        | "home_supply_warehouse_stores"
+        | "hospitals"
+        | "hotels_motels_and_resorts"
+        | "household_appliance_stores"
+        | "industrial_supplies"
+        | "information_retrieval_services"
+        | "insurance_default"
+        | "insurance_underwriting_premiums"
+        | "intra_company_purchases"
+        | "jewelry_stores_watches_clocks_and_silverware_stores"
+        | "landscaping_services"
+        | "laundries"
+        | "laundry_cleaning_services"
+        | "legal_services_attorneys"
+        | "luggage_and_leather_goods_stores"
+        | "lumber_building_materials_stores"
+        | "manual_cash_disburse"
+        | "marinas_service_and_supplies"
+        | "marketplaces"
+        | "masonry_stonework_and_plaster"
+        | "massage_parlors"
+        | "medical_and_dental_labs"
+        | "medical_dental_ophthalmic_and_hospital_equipment_and_supplies"
+        | "medical_services"
+        | "membership_organizations"
+        | "mens_and_boys_clothing_and_accessories_stores"
+        | "mens_womens_clothing_stores"
+        | "metal_service_centers"
+        | "miscellaneous_apparel_and_accessory_shops"
+        | "miscellaneous_auto_dealers"
+        | "miscellaneous_business_services"
+        | "miscellaneous_food_stores"
+        | "miscellaneous_general_merchandise"
+        | "miscellaneous_general_services"
+        | "miscellaneous_home_furnishing_specialty_stores"
+        | "miscellaneous_publishing_and_printing"
+        | "miscellaneous_recreation_services"
+        | "miscellaneous_repair_shops"
+        | "miscellaneous_specialty_retail"
+        | "mobile_home_dealers"
+        | "motion_picture_theaters"
+        | "motor_freight_carriers_and_trucking"
+        | "motor_homes_dealers"
+        | "motor_vehicle_supplies_and_new_parts"
+        | "motorcycle_shops_and_dealers"
+        | "motorcycle_shops_dealers"
+        | "music_stores_musical_instruments_pianos_and_sheet_music"
+        | "news_dealers_and_newsstands"
+        | "non_fi_money_orders"
+        | "non_fi_stored_value_card_purchase_load"
+        | "nondurable_goods"
+        | "nurseries_lawn_and_garden_supply_stores"
+        | "nursing_personal_care"
+        | "office_and_commercial_furniture"
+        | "opticians_eyeglasses"
+        | "optometrists_ophthalmologist"
+        | "orthopedic_goods_prosthetic_devices"
+        | "osteopaths"
+        | "package_stores_beer_wine_and_liquor"
+        | "paints_varnishes_and_supplies"
+        | "parking_lots_garages"
+        | "passenger_railways"
+        | "pawn_shops"
+        | "pet_shops_pet_food_and_supplies"
+        | "petroleum_and_petroleum_products"
+        | "photo_developing"
+        | "photographic_photocopy_microfilm_equipment_and_supplies"
+        | "photographic_studios"
+        | "picture_video_production"
+        | "piece_goods_notions_and_other_dry_goods"
+        | "plumbing_heating_equipment_and_supplies"
+        | "political_organizations"
+        | "postal_services_government_only"
+        | "precious_stones_and_metals_watches_and_jewelry"
+        | "professional_services"
+        | "public_warehousing_and_storage"
+        | "quick_copy_repro_and_blueprint"
+        | "railroads"
+        | "real_estate_agents_and_managers_rentals"
+        | "record_stores"
+        | "recreational_vehicle_rentals"
+        | "religious_goods_stores"
+        | "religious_organizations"
+        | "roofing_siding_sheet_metal"
+        | "secretarial_support_services"
+        | "security_brokers_dealers"
+        | "service_stations"
+        | "sewing_needlework_fabric_and_piece_goods_stores"
+        | "shoe_repair_hat_cleaning"
+        | "shoe_stores"
+        | "small_appliance_repair"
+        | "snowmobile_dealers"
+        | "special_trade_services"
+        | "specialty_cleaning"
+        | "sporting_goods_stores"
+        | "sporting_recreation_camps"
+        | "sports_and_riding_apparel_stores"
+        | "sports_clubs_fields"
+        | "stamp_and_coin_stores"
+        | "stationary_office_supplies_printing_and_writing_paper"
+        | "stationery_stores_office_and_school_supply_stores"
+        | "swimming_pools_sales"
+        | "t_ui_travel_germany"
+        | "tailors_alterations"
+        | "tax_payments_government_agencies"
+        | "tax_preparation_services"
+        | "taxicabs_limousines"
+        | "telecommunication_equipment_and_telephone_sales"
+        | "telecommunication_services"
+        | "telegraph_services"
+        | "tent_and_awning_shops"
+        | "testing_laboratories"
+        | "theatrical_ticket_agencies"
+        | "timeshares"
+        | "tire_retreading_and_repair"
+        | "tolls_bridge_fees"
+        | "tourist_attractions_and_exhibits"
+        | "towing_services"
+        | "trailer_parks_campgrounds"
+        | "transportation_services"
+        | "travel_agencies_tour_operators"
+        | "truck_stop_iteration"
+        | "truck_utility_trailer_rentals"
+        | "typesetting_plate_making_and_related_services"
+        | "typewriter_stores"
+        | "u_s_federal_government_agencies_or_departments"
+        | "uniforms_commercial_clothing"
+        | "used_merchandise_and_secondhand_stores"
+        | "utilities"
+        | "variety_stores"
+        | "veterinary_services"
+        | "video_amusement_game_supplies"
+        | "video_game_arcades"
+        | "video_tape_rental_stores"
+        | "vocational_trade_schools"
+        | "watch_jewelry_repair"
+        | "welding_repair"
+        | "wholesale_clubs"
+        | "wig_and_toupee_stores"
+        | "wires_money_orders"
+        | "womens_accessory_and_specialty_shops"
+        | "womens_ready_to_wear_stores"
+        | "wrecking_and_salvage_yards"
+      city?: string
+      country?: string
+      name?: string
+      network_id?: string
+      postal_code?: string
+      state?: string
+      terminal_id?: string
+      url?: string
+    }
+    purchase_details?: {
+      fleet?: {
+        cardholder_prompt_data?: {
+          driver_id?: string
+          odometer?: number
+          unspecified_id?: string
+          user_id?: string
+          vehicle_number?: string
+        }
+        purchase_type?:
+          | "fuel_and_non_fuel_purchase"
+          | "fuel_purchase"
+          | "non_fuel_purchase"
+        reported_breakdown?: {
+          fuel?: {
+            gross_amount_decimal?: string
+          }
+          non_fuel?: {
+            gross_amount_decimal?: string
+          }
+          tax?: {
+            local_amount_decimal?: string
+            national_amount_decimal?: string
+          }
+        }
+        service_type?: "full_service" | "non_fuel_transaction" | "self_service"
+      }
+      flight?: {
+        departure_at?: number
+        passenger_name?: string
+        refundable?: boolean
+        segments?: {
+          arrival_airport_code?: string
+          carrier?: string
+          departure_airport_code?: string
+          flight_number?: string
+          service_class?: string
+          stopover_allowed?: boolean
+        }[]
+        travel_agency?: string
+      }
+      fuel?: {
+        industry_product_code?: string
+        quantity_decimal?: string
+        type?:
+          | "diesel"
+          | "other"
+          | "unleaded_plus"
+          | "unleaded_regular"
+          | "unleaded_super"
+        unit?:
+          | "charging_minute"
+          | "imperial_gallon"
+          | "kilogram"
+          | "kilowatt_hour"
+          | "liter"
+          | "other"
+          | "pound"
+          | "us_gallon"
+        unit_cost_decimal?: string
+      }
+      lodging?: {
+        check_in_at?: number
+        nights?: number
+      }
+      receipt?: {
+        description?: string
+        quantity?: string
+        total?: number
+        unit_cost?: number
+      }[]
+      reference?: string
+    }
+  }
 
 export type t_PostTestHelpersIssuingTransactionsTransactionRefundParamSchema = {
   transaction: string
 }
 
-export type t_PostTestHelpersRefundsRefundExpireBodySchema = {
-  expand?: string[]
-}
+export type t_postTestHelpersIssuingTransactionsTransactionRefundApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
+    refund_amount?: number
+  }
 
 export type t_PostTestHelpersRefundsRefundExpireParamSchema = {
   refund: string
 }
 
-export type t_PostTestHelpersTerminalReadersReaderPresentPaymentMethodBodySchema =
+export type t_postTestHelpersRefundsRefundExpireApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
+  }
+
+export type t_PostTestHelpersTerminalReadersReaderPresentPaymentMethodParamSchema =
+  {
+    reader: string
+  }
+
+export type t_postTestHelpersTerminalReadersReaderPresentPaymentMethodApplicationXWwwFormUrlencodedRequestBody =
   {
     amount_tip?: number
     card_present?: {
@@ -39721,25 +39898,15 @@ export type t_PostTestHelpersTerminalReadersReaderPresentPaymentMethodBodySchema
     type?: "card_present" | "interac_present"
   }
 
-export type t_PostTestHelpersTerminalReadersReaderPresentPaymentMethodParamSchema =
-  {
-    reader: string
-  }
-
-export type t_PostTestHelpersTerminalReadersReaderSucceedInputCollectionBodySchema =
-  {
-    expand?: string[]
-    skip_non_required_inputs?: "all" | "none"
-  }
-
 export type t_PostTestHelpersTerminalReadersReaderSucceedInputCollectionParamSchema =
   {
     reader: string
   }
 
-export type t_PostTestHelpersTerminalReadersReaderTimeoutInputCollectionBodySchema =
+export type t_postTestHelpersTerminalReadersReaderSucceedInputCollectionApplicationXWwwFormUrlencodedRequestBody =
   {
     expand?: string[]
+    skip_non_required_inputs?: "all" | "none"
   }
 
 export type t_PostTestHelpersTerminalReadersReaderTimeoutInputCollectionParamSchema =
@@ -39747,118 +39914,76 @@ export type t_PostTestHelpersTerminalReadersReaderTimeoutInputCollectionParamSch
     reader: string
   }
 
-export type t_PostTestHelpersTestClocksBodySchema = {
-  expand?: string[]
-  frozen_time: number
-  name?: string
-}
+export type t_postTestHelpersTerminalReadersReaderTimeoutInputCollectionApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
+  }
 
-export type t_PostTestHelpersTestClocksTestClockAdvanceBodySchema = {
-  expand?: string[]
-  frozen_time: number
-}
+export type t_postTestHelpersTestClocksApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
+    frozen_time: number
+    name?: string
+  }
 
 export type t_PostTestHelpersTestClocksTestClockAdvanceParamSchema = {
   test_clock: string
 }
 
-export type t_PostTestHelpersTreasuryInboundTransfersIdFailBodySchema = {
-  expand?: string[]
-  failure_details?: {
-    code?:
-      | "account_closed"
-      | "account_frozen"
-      | "bank_account_restricted"
-      | "bank_ownership_changed"
-      | "debit_not_authorized"
-      | "incorrect_account_holder_address"
-      | "incorrect_account_holder_name"
-      | "incorrect_account_holder_tax_id"
-      | "insufficient_funds"
-      | "invalid_account_number"
-      | "invalid_currency"
-      | "no_account"
-      | "other"
+export type t_postTestHelpersTestClocksTestClockAdvanceApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
+    frozen_time: number
   }
-}
 
 export type t_PostTestHelpersTreasuryInboundTransfersIdFailParamSchema = {
   id: string
 }
 
-export type t_PostTestHelpersTreasuryInboundTransfersIdReturnBodySchema = {
-  expand?: string[]
-}
+export type t_postTestHelpersTreasuryInboundTransfersIdFailApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
+    failure_details?: {
+      code?:
+        | "account_closed"
+        | "account_frozen"
+        | "bank_account_restricted"
+        | "bank_ownership_changed"
+        | "debit_not_authorized"
+        | "incorrect_account_holder_address"
+        | "incorrect_account_holder_name"
+        | "incorrect_account_holder_tax_id"
+        | "insufficient_funds"
+        | "invalid_account_number"
+        | "invalid_currency"
+        | "no_account"
+        | "other"
+    }
+  }
 
 export type t_PostTestHelpersTreasuryInboundTransfersIdReturnParamSchema = {
   id: string
 }
 
-export type t_PostTestHelpersTreasuryInboundTransfersIdSucceedBodySchema = {
-  expand?: string[]
-}
+export type t_postTestHelpersTreasuryInboundTransfersIdReturnApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
+  }
 
 export type t_PostTestHelpersTreasuryInboundTransfersIdSucceedParamSchema = {
   id: string
 }
 
-export type t_PostTestHelpersTreasuryOutboundPaymentsIdBodySchema = {
-  expand?: string[]
-  tracking_details: {
-    ach?: {
-      trace_id: string
-    }
-    type: "ach" | "us_domestic_wire"
-    us_domestic_wire?: {
-      chips?: string
-      imad?: string
-      omad?: string
-    }
+export type t_postTestHelpersTreasuryInboundTransfersIdSucceedApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
   }
-}
 
 export type t_PostTestHelpersTreasuryOutboundPaymentsIdParamSchema = {
   id: string
 }
 
-export type t_PostTestHelpersTreasuryOutboundPaymentsIdFailBodySchema = {
-  expand?: string[]
-}
-
-export type t_PostTestHelpersTreasuryOutboundPaymentsIdFailParamSchema = {
-  id: string
-}
-
-export type t_PostTestHelpersTreasuryOutboundPaymentsIdPostBodySchema = {
-  expand?: string[]
-}
-
-export type t_PostTestHelpersTreasuryOutboundPaymentsIdPostParamSchema = {
-  id: string
-}
-
-export type t_PostTestHelpersTreasuryOutboundPaymentsIdReturnBodySchema = {
-  expand?: string[]
-  returned_details?: {
-    code?:
-      | "account_closed"
-      | "account_frozen"
-      | "bank_account_restricted"
-      | "bank_ownership_changed"
-      | "declined"
-      | "incorrect_account_holder_name"
-      | "invalid_account_number"
-      | "invalid_currency"
-      | "no_account"
-      | "other"
-  }
-}
-
-export type t_PostTestHelpersTreasuryOutboundPaymentsIdReturnParamSchema = {
-  id: string
-}
-
-export type t_PostTestHelpersTreasuryOutboundTransfersOutboundTransferBodySchema =
+export type t_postTestHelpersTreasuryOutboundPaymentsIdApplicationXWwwFormUrlencodedRequestBody =
   {
     expand?: string[]
     tracking_details: {
@@ -39874,32 +39999,29 @@ export type t_PostTestHelpersTreasuryOutboundTransfersOutboundTransferBodySchema
     }
   }
 
-export type t_PostTestHelpersTreasuryOutboundTransfersOutboundTransferParamSchema =
-  {
-    outbound_transfer: string
-  }
+export type t_PostTestHelpersTreasuryOutboundPaymentsIdFailParamSchema = {
+  id: string
+}
 
-export type t_PostTestHelpersTreasuryOutboundTransfersOutboundTransferFailBodySchema =
-  {
-    expand?: string[]
-  }
-
-export type t_PostTestHelpersTreasuryOutboundTransfersOutboundTransferFailParamSchema =
-  {
-    outbound_transfer: string
-  }
-
-export type t_PostTestHelpersTreasuryOutboundTransfersOutboundTransferPostBodySchema =
+export type t_postTestHelpersTreasuryOutboundPaymentsIdFailApplicationXWwwFormUrlencodedRequestBody =
   {
     expand?: string[]
   }
 
-export type t_PostTestHelpersTreasuryOutboundTransfersOutboundTransferPostParamSchema =
+export type t_PostTestHelpersTreasuryOutboundPaymentsIdPostParamSchema = {
+  id: string
+}
+
+export type t_postTestHelpersTreasuryOutboundPaymentsIdPostApplicationXWwwFormUrlencodedRequestBody =
   {
-    outbound_transfer: string
+    expand?: string[]
   }
 
-export type t_PostTestHelpersTreasuryOutboundTransfersOutboundTransferReturnBodySchema =
+export type t_PostTestHelpersTreasuryOutboundPaymentsIdReturnParamSchema = {
+  id: string
+}
+
+export type t_postTestHelpersTreasuryOutboundPaymentsIdReturnApplicationXWwwFormUrlencodedRequestBody =
   {
     expand?: string[]
     returned_details?: {
@@ -39917,46 +40039,107 @@ export type t_PostTestHelpersTreasuryOutboundTransfersOutboundTransferReturnBody
     }
   }
 
+export type t_PostTestHelpersTreasuryOutboundTransfersOutboundTransferParamSchema =
+  {
+    outbound_transfer: string
+  }
+
+export type t_postTestHelpersTreasuryOutboundTransfersOutboundTransferApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
+    tracking_details: {
+      ach?: {
+        trace_id: string
+      }
+      type: "ach" | "us_domestic_wire"
+      us_domestic_wire?: {
+        chips?: string
+        imad?: string
+        omad?: string
+      }
+    }
+  }
+
+export type t_PostTestHelpersTreasuryOutboundTransfersOutboundTransferFailParamSchema =
+  {
+    outbound_transfer: string
+  }
+
+export type t_postTestHelpersTreasuryOutboundTransfersOutboundTransferFailApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
+  }
+
+export type t_PostTestHelpersTreasuryOutboundTransfersOutboundTransferPostParamSchema =
+  {
+    outbound_transfer: string
+  }
+
+export type t_postTestHelpersTreasuryOutboundTransfersOutboundTransferPostApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
+  }
+
 export type t_PostTestHelpersTreasuryOutboundTransfersOutboundTransferReturnParamSchema =
   {
     outbound_transfer: string
   }
 
-export type t_PostTestHelpersTreasuryReceivedCreditsBodySchema = {
-  amount: number
-  currency: string
-  description?: string
-  expand?: string[]
-  financial_account: string
-  initiating_payment_method_details?: {
-    type: "us_bank_account"
-    us_bank_account?: {
-      account_holder_name?: string
-      account_number?: string
-      routing_number?: string
+export type t_postTestHelpersTreasuryOutboundTransfersOutboundTransferReturnApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
+    returned_details?: {
+      code?:
+        | "account_closed"
+        | "account_frozen"
+        | "bank_account_restricted"
+        | "bank_ownership_changed"
+        | "declined"
+        | "incorrect_account_holder_name"
+        | "invalid_account_number"
+        | "invalid_currency"
+        | "no_account"
+        | "other"
     }
   }
-  network: "ach" | "us_domestic_wire"
-}
 
-export type t_PostTestHelpersTreasuryReceivedDebitsBodySchema = {
-  amount: number
-  currency: string
-  description?: string
-  expand?: string[]
-  financial_account: string
-  initiating_payment_method_details?: {
-    type: "us_bank_account"
-    us_bank_account?: {
-      account_holder_name?: string
-      account_number?: string
-      routing_number?: string
+export type t_postTestHelpersTreasuryReceivedCreditsApplicationXWwwFormUrlencodedRequestBody =
+  {
+    amount: number
+    currency: string
+    description?: string
+    expand?: string[]
+    financial_account: string
+    initiating_payment_method_details?: {
+      type: "us_bank_account"
+      us_bank_account?: {
+        account_holder_name?: string
+        account_number?: string
+        routing_number?: string
+      }
     }
+    network: "ach" | "us_domestic_wire"
   }
-  network: "ach"
-}
 
-export type t_PostTokensBodySchema = {
+export type t_postTestHelpersTreasuryReceivedDebitsApplicationXWwwFormUrlencodedRequestBody =
+  {
+    amount: number
+    currency: string
+    description?: string
+    expand?: string[]
+    financial_account: string
+    initiating_payment_method_details?: {
+      type: "us_bank_account"
+      us_bank_account?: {
+        account_holder_name?: string
+        account_number?: string
+        routing_number?: string
+      }
+    }
+    network: "ach"
+  }
+
+export type t_postTokensApplicationXWwwFormUrlencodedRequestBody = {
   account?: {
     business_type?:
       | "company"
@@ -40324,7 +40507,7 @@ export type t_PostTokensBodySchema = {
   }
 }
 
-export type t_PostTopupsBodySchema = {
+export type t_postTopupsApplicationXWwwFormUrlencodedRequestBody = {
   amount: number
   currency: string
   description?: string
@@ -40339,7 +40522,11 @@ export type t_PostTopupsBodySchema = {
   transfer_group?: string
 }
 
-export type t_PostTopupsTopupBodySchema = {
+export type t_PostTopupsTopupParamSchema = {
+  topup: string
+}
+
+export type t_postTopupsTopupApplicationXWwwFormUrlencodedRequestBody = {
   description?: string
   expand?: string[]
   metadata?:
@@ -40349,19 +40536,15 @@ export type t_PostTopupsTopupBodySchema = {
     | ""
 }
 
-export type t_PostTopupsTopupParamSchema = {
-  topup: string
-}
-
-export type t_PostTopupsTopupCancelBodySchema = {
-  expand?: string[]
-}
-
 export type t_PostTopupsTopupCancelParamSchema = {
   topup: string
 }
 
-export type t_PostTransfersBodySchema = {
+export type t_postTopupsTopupCancelApplicationXWwwFormUrlencodedRequestBody = {
+  expand?: string[]
+}
+
+export type t_postTransfersApplicationXWwwFormUrlencodedRequestBody = {
   amount?: number
   currency: string
   description?: string
@@ -40375,37 +40558,29 @@ export type t_PostTransfersBodySchema = {
   transfer_group?: string
 }
 
-export type t_PostTransfersIdReversalsBodySchema = {
-  amount?: number
-  description?: string
-  expand?: string[]
-  metadata?:
-    | {
-        [key: string]: string | undefined
-      }
-    | ""
-  refund_application_fee?: boolean
-}
-
 export type t_PostTransfersIdReversalsParamSchema = {
   id: string
 }
 
-export type t_PostTransfersTransferBodySchema = {
-  description?: string
-  expand?: string[]
-  metadata?:
-    | {
-        [key: string]: string | undefined
-      }
-    | ""
-}
+export type t_postTransfersIdReversalsApplicationXWwwFormUrlencodedRequestBody =
+  {
+    amount?: number
+    description?: string
+    expand?: string[]
+    metadata?:
+      | {
+          [key: string]: string | undefined
+        }
+      | ""
+    refund_application_fee?: boolean
+  }
 
 export type t_PostTransfersTransferParamSchema = {
   transfer: string
 }
 
-export type t_PostTransfersTransferReversalsIdBodySchema = {
+export type t_postTransfersTransferApplicationXWwwFormUrlencodedRequestBody = {
+  description?: string
   expand?: string[]
   metadata?:
     | {
@@ -40419,144 +40594,164 @@ export type t_PostTransfersTransferReversalsIdParamSchema = {
   transfer: string
 }
 
-export type t_PostTreasuryCreditReversalsBodySchema = {
-  expand?: string[]
-  metadata?: {
-    [key: string]: string | undefined
+export type t_postTransfersTransferReversalsIdApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
+    metadata?:
+      | {
+          [key: string]: string | undefined
+        }
+      | ""
   }
-  received_credit: string
-}
 
-export type t_PostTreasuryDebitReversalsBodySchema = {
-  expand?: string[]
-  metadata?: {
-    [key: string]: string | undefined
+export type t_postTreasuryCreditReversalsApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
+    metadata?: {
+      [key: string]: string | undefined
+    }
+    received_credit: string
   }
-  received_debit: string
-}
 
-export type t_PostTreasuryFinancialAccountsBodySchema = {
-  expand?: string[]
-  features?: {
-    card_issuing?: {
-      requested: boolean
+export type t_postTreasuryDebitReversalsApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
+    metadata?: {
+      [key: string]: string | undefined
     }
-    deposit_insurance?: {
-      requested: boolean
-    }
-    financial_addresses?: {
-      aba?: {
-        requested: boolean
-      }
-    }
-    inbound_transfers?: {
-      ach?: {
-        requested: boolean
-      }
-    }
-    intra_stripe_flows?: {
-      requested: boolean
-    }
-    outbound_payments?: {
-      ach?: {
-        requested: boolean
-      }
-      us_domestic_wire?: {
-        requested: boolean
-      }
-    }
-    outbound_transfers?: {
-      ach?: {
-        requested: boolean
-      }
-      us_domestic_wire?: {
-        requested: boolean
-      }
-    }
+    received_debit: string
   }
-  metadata?: {
-    [key: string]: string | undefined
-  }
-  nickname?: string | ""
-  platform_restrictions?: {
-    inbound_flows?: "restricted" | "unrestricted"
-    outbound_flows?: "restricted" | "unrestricted"
-  }
-  supported_currencies: string[]
-}
 
-export type t_PostTreasuryFinancialAccountsFinancialAccountBodySchema = {
-  expand?: string[]
-  features?: {
-    card_issuing?: {
-      requested: boolean
-    }
-    deposit_insurance?: {
-      requested: boolean
-    }
-    financial_addresses?: {
-      aba?: {
+export type t_postTreasuryFinancialAccountsApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
+    features?: {
+      card_issuing?: {
         requested: boolean
       }
-    }
-    inbound_transfers?: {
-      ach?: {
+      deposit_insurance?: {
         requested: boolean
       }
-    }
-    intra_stripe_flows?: {
-      requested: boolean
-    }
-    outbound_payments?: {
-      ach?: {
+      financial_addresses?: {
+        aba?: {
+          requested: boolean
+        }
+      }
+      inbound_transfers?: {
+        ach?: {
+          requested: boolean
+        }
+      }
+      intra_stripe_flows?: {
         requested: boolean
       }
-      us_domestic_wire?: {
-        requested: boolean
+      outbound_payments?: {
+        ach?: {
+          requested: boolean
+        }
+        us_domestic_wire?: {
+          requested: boolean
+        }
+      }
+      outbound_transfers?: {
+        ach?: {
+          requested: boolean
+        }
+        us_domestic_wire?: {
+          requested: boolean
+        }
       }
     }
-    outbound_transfers?: {
-      ach?: {
-        requested: boolean
-      }
-      us_domestic_wire?: {
-        requested: boolean
-      }
+    metadata?: {
+      [key: string]: string | undefined
     }
+    nickname?: string | ""
+    platform_restrictions?: {
+      inbound_flows?: "restricted" | "unrestricted"
+      outbound_flows?: "restricted" | "unrestricted"
+    }
+    supported_currencies: string[]
   }
-  forwarding_settings?: {
-    financial_account?: string
-    payment_method?: string
-    type: "financial_account" | "payment_method"
-  }
-  metadata?: {
-    [key: string]: string | undefined
-  }
-  nickname?: string | ""
-  platform_restrictions?: {
-    inbound_flows?: "restricted" | "unrestricted"
-    outbound_flows?: "restricted" | "unrestricted"
-  }
-}
 
 export type t_PostTreasuryFinancialAccountsFinancialAccountParamSchema = {
   financial_account: string
 }
 
-export type t_PostTreasuryFinancialAccountsFinancialAccountCloseBodySchema = {
-  expand?: string[]
-  forwarding_settings?: {
-    financial_account?: string
-    payment_method?: string
-    type: "financial_account" | "payment_method"
+export type t_postTreasuryFinancialAccountsFinancialAccountApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
+    features?: {
+      card_issuing?: {
+        requested: boolean
+      }
+      deposit_insurance?: {
+        requested: boolean
+      }
+      financial_addresses?: {
+        aba?: {
+          requested: boolean
+        }
+      }
+      inbound_transfers?: {
+        ach?: {
+          requested: boolean
+        }
+      }
+      intra_stripe_flows?: {
+        requested: boolean
+      }
+      outbound_payments?: {
+        ach?: {
+          requested: boolean
+        }
+        us_domestic_wire?: {
+          requested: boolean
+        }
+      }
+      outbound_transfers?: {
+        ach?: {
+          requested: boolean
+        }
+        us_domestic_wire?: {
+          requested: boolean
+        }
+      }
+    }
+    forwarding_settings?: {
+      financial_account?: string
+      payment_method?: string
+      type: "financial_account" | "payment_method"
+    }
+    metadata?: {
+      [key: string]: string | undefined
+    }
+    nickname?: string | ""
+    platform_restrictions?: {
+      inbound_flows?: "restricted" | "unrestricted"
+      outbound_flows?: "restricted" | "unrestricted"
+    }
   }
-}
 
 export type t_PostTreasuryFinancialAccountsFinancialAccountCloseParamSchema = {
   financial_account: string
 }
 
-export type t_PostTreasuryFinancialAccountsFinancialAccountFeaturesBodySchema =
+export type t_postTreasuryFinancialAccountsFinancialAccountCloseApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
+    forwarding_settings?: {
+      financial_account?: string
+      payment_method?: string
+      type: "financial_account" | "payment_method"
+    }
+  }
+
+export type t_PostTreasuryFinancialAccountsFinancialAccountFeaturesParamSchema =
+  {
+    financial_account: string
+  }
+
+export type t_postTreasuryFinancialAccountsFinancialAccountFeaturesApplicationXWwwFormUrlencodedRequestBody =
   {
     card_issuing?: {
       requested: boolean
@@ -40596,127 +40791,128 @@ export type t_PostTreasuryFinancialAccountsFinancialAccountFeaturesBodySchema =
     }
   }
 
-export type t_PostTreasuryFinancialAccountsFinancialAccountFeaturesParamSchema =
+export type t_postTreasuryInboundTransfersApplicationXWwwFormUrlencodedRequestBody =
   {
+    amount: number
+    currency: string
+    description?: string
+    expand?: string[]
     financial_account: string
+    metadata?: {
+      [key: string]: string | undefined
+    }
+    origin_payment_method: string
+    statement_descriptor?: string
   }
-
-export type t_PostTreasuryInboundTransfersBodySchema = {
-  amount: number
-  currency: string
-  description?: string
-  expand?: string[]
-  financial_account: string
-  metadata?: {
-    [key: string]: string | undefined
-  }
-  origin_payment_method: string
-  statement_descriptor?: string
-}
-
-export type t_PostTreasuryInboundTransfersInboundTransferCancelBodySchema = {
-  expand?: string[]
-}
 
 export type t_PostTreasuryInboundTransfersInboundTransferCancelParamSchema = {
   inbound_transfer: string
 }
 
-export type t_PostTreasuryOutboundPaymentsBodySchema = {
-  amount: number
-  currency: string
-  customer?: string
-  description?: string
-  destination_payment_method?: string
-  destination_payment_method_data?: {
-    billing_details?: {
-      address?:
+export type t_postTreasuryInboundTransfersInboundTransferCancelApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
+  }
+
+export type t_postTreasuryOutboundPaymentsApplicationXWwwFormUrlencodedRequestBody =
+  {
+    amount: number
+    currency: string
+    customer?: string
+    description?: string
+    destination_payment_method?: string
+    destination_payment_method_data?: {
+      billing_details?: {
+        address?:
+          | {
+              city?: string
+              country?: string
+              line1?: string
+              line2?: string
+              postal_code?: string
+              state?: string
+            }
+          | ""
+        email?: string | ""
+        name?: string | ""
+        phone?: string | ""
+      }
+      financial_account?: string
+      metadata?: {
+        [key: string]: string | undefined
+      }
+      type: "financial_account" | "us_bank_account"
+      us_bank_account?: {
+        account_holder_type?: "company" | "individual"
+        account_number?: string
+        account_type?: "checking" | "savings"
+        financial_connections_account?: string
+        routing_number?: string
+      }
+    }
+    destination_payment_method_options?: {
+      us_bank_account?:
         | {
-            city?: string
-            country?: string
-            line1?: string
-            line2?: string
-            postal_code?: string
-            state?: string
+            network?: "ach" | "us_domestic_wire"
           }
         | ""
-      email?: string | ""
-      name?: string | ""
-      phone?: string | ""
     }
-    financial_account?: string
+    end_user_details?: {
+      ip_address?: string
+      present: boolean
+    }
+    expand?: string[]
+    financial_account: string
     metadata?: {
       [key: string]: string | undefined
     }
-    type: "financial_account" | "us_bank_account"
-    us_bank_account?: {
-      account_holder_type?: "company" | "individual"
-      account_number?: string
-      account_type?: "checking" | "savings"
-      financial_connections_account?: string
-      routing_number?: string
-    }
+    statement_descriptor?: string
   }
-  destination_payment_method_options?: {
-    us_bank_account?:
-      | {
-          network?: "ach" | "us_domestic_wire"
-        }
-      | ""
-  }
-  end_user_details?: {
-    ip_address?: string
-    present: boolean
-  }
-  expand?: string[]
-  financial_account: string
-  metadata?: {
-    [key: string]: string | undefined
-  }
-  statement_descriptor?: string
-}
-
-export type t_PostTreasuryOutboundPaymentsIdCancelBodySchema = {
-  expand?: string[]
-}
 
 export type t_PostTreasuryOutboundPaymentsIdCancelParamSchema = {
   id: string
 }
 
-export type t_PostTreasuryOutboundTransfersBodySchema = {
-  amount: number
-  currency: string
-  description?: string
-  destination_payment_method?: string
-  destination_payment_method_data?: {
-    financial_account?: string
-    type: "financial_account"
+export type t_postTreasuryOutboundPaymentsIdCancelApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
   }
-  destination_payment_method_options?: {
-    us_bank_account?:
-      | {
-          network?: "ach" | "us_domestic_wire"
-        }
-      | ""
-  }
-  expand?: string[]
-  financial_account: string
-  metadata?: {
-    [key: string]: string | undefined
-  }
-  statement_descriptor?: string
-}
 
-export type t_PostTreasuryOutboundTransfersOutboundTransferCancelBodySchema = {
-  expand?: string[]
-}
+export type t_postTreasuryOutboundTransfersApplicationXWwwFormUrlencodedRequestBody =
+  {
+    amount: number
+    currency: string
+    description?: string
+    destination_payment_method?: string
+    destination_payment_method_data?: {
+      financial_account?: string
+      type: "financial_account"
+    }
+    destination_payment_method_options?: {
+      us_bank_account?:
+        | {
+            network?: "ach" | "us_domestic_wire"
+          }
+        | ""
+    }
+    expand?: string[]
+    financial_account: string
+    metadata?: {
+      [key: string]: string | undefined
+    }
+    statement_descriptor?: string
+  }
 
 export type t_PostTreasuryOutboundTransfersOutboundTransferCancelParamSchema = {
   outbound_transfer: string
 }
 
-export type t_PostWebhookEndpointsBodySchema = {
+export type t_postTreasuryOutboundTransfersOutboundTransferCancelApplicationXWwwFormUrlencodedRequestBody =
+  {
+    expand?: string[]
+  }
+
+export type t_postWebhookEndpointsApplicationXWwwFormUrlencodedRequestBody = {
   api_version?:
     | "2011-01-01"
     | "2011-06-21"
@@ -41088,263 +41284,264 @@ export type t_PostWebhookEndpointsBodySchema = {
   url: string
 }
 
-export type t_PostWebhookEndpointsWebhookEndpointBodySchema = {
-  description?: string | ""
-  disabled?: boolean
-  enabled_events?: (
-    | "*"
-    | "account.application.authorized"
-    | "account.application.deauthorized"
-    | "account.external_account.created"
-    | "account.external_account.deleted"
-    | "account.external_account.updated"
-    | "account.updated"
-    | "application_fee.created"
-    | "application_fee.refund.updated"
-    | "application_fee.refunded"
-    | "balance.available"
-    | "billing.alert.triggered"
-    | "billing_portal.configuration.created"
-    | "billing_portal.configuration.updated"
-    | "billing_portal.session.created"
-    | "capability.updated"
-    | "cash_balance.funds_available"
-    | "charge.captured"
-    | "charge.dispute.closed"
-    | "charge.dispute.created"
-    | "charge.dispute.funds_reinstated"
-    | "charge.dispute.funds_withdrawn"
-    | "charge.dispute.updated"
-    | "charge.expired"
-    | "charge.failed"
-    | "charge.pending"
-    | "charge.refund.updated"
-    | "charge.refunded"
-    | "charge.succeeded"
-    | "charge.updated"
-    | "checkout.session.async_payment_failed"
-    | "checkout.session.async_payment_succeeded"
-    | "checkout.session.completed"
-    | "checkout.session.expired"
-    | "climate.order.canceled"
-    | "climate.order.created"
-    | "climate.order.delayed"
-    | "climate.order.delivered"
-    | "climate.order.product_substituted"
-    | "climate.product.created"
-    | "climate.product.pricing_updated"
-    | "coupon.created"
-    | "coupon.deleted"
-    | "coupon.updated"
-    | "credit_note.created"
-    | "credit_note.updated"
-    | "credit_note.voided"
-    | "customer.created"
-    | "customer.deleted"
-    | "customer.discount.created"
-    | "customer.discount.deleted"
-    | "customer.discount.updated"
-    | "customer.source.created"
-    | "customer.source.deleted"
-    | "customer.source.expiring"
-    | "customer.source.updated"
-    | "customer.subscription.created"
-    | "customer.subscription.deleted"
-    | "customer.subscription.paused"
-    | "customer.subscription.pending_update_applied"
-    | "customer.subscription.pending_update_expired"
-    | "customer.subscription.resumed"
-    | "customer.subscription.trial_will_end"
-    | "customer.subscription.updated"
-    | "customer.tax_id.created"
-    | "customer.tax_id.deleted"
-    | "customer.tax_id.updated"
-    | "customer.updated"
-    | "customer_cash_balance_transaction.created"
-    | "entitlements.active_entitlement_summary.updated"
-    | "file.created"
-    | "financial_connections.account.created"
-    | "financial_connections.account.deactivated"
-    | "financial_connections.account.disconnected"
-    | "financial_connections.account.reactivated"
-    | "financial_connections.account.refreshed_balance"
-    | "financial_connections.account.refreshed_ownership"
-    | "financial_connections.account.refreshed_transactions"
-    | "identity.verification_session.canceled"
-    | "identity.verification_session.created"
-    | "identity.verification_session.processing"
-    | "identity.verification_session.redacted"
-    | "identity.verification_session.requires_input"
-    | "identity.verification_session.verified"
-    | "invoice.created"
-    | "invoice.deleted"
-    | "invoice.finalization_failed"
-    | "invoice.finalized"
-    | "invoice.marked_uncollectible"
-    | "invoice.overdue"
-    | "invoice.overpaid"
-    | "invoice.paid"
-    | "invoice.payment_action_required"
-    | "invoice.payment_failed"
-    | "invoice.payment_succeeded"
-    | "invoice.sent"
-    | "invoice.upcoming"
-    | "invoice.updated"
-    | "invoice.voided"
-    | "invoice.will_be_due"
-    | "invoice_payment.paid"
-    | "invoiceitem.created"
-    | "invoiceitem.deleted"
-    | "issuing_authorization.created"
-    | "issuing_authorization.request"
-    | "issuing_authorization.updated"
-    | "issuing_card.created"
-    | "issuing_card.updated"
-    | "issuing_cardholder.created"
-    | "issuing_cardholder.updated"
-    | "issuing_dispute.closed"
-    | "issuing_dispute.created"
-    | "issuing_dispute.funds_reinstated"
-    | "issuing_dispute.funds_rescinded"
-    | "issuing_dispute.submitted"
-    | "issuing_dispute.updated"
-    | "issuing_personalization_design.activated"
-    | "issuing_personalization_design.deactivated"
-    | "issuing_personalization_design.rejected"
-    | "issuing_personalization_design.updated"
-    | "issuing_token.created"
-    | "issuing_token.updated"
-    | "issuing_transaction.created"
-    | "issuing_transaction.purchase_details_receipt_updated"
-    | "issuing_transaction.updated"
-    | "mandate.updated"
-    | "payment_intent.amount_capturable_updated"
-    | "payment_intent.canceled"
-    | "payment_intent.created"
-    | "payment_intent.partially_funded"
-    | "payment_intent.payment_failed"
-    | "payment_intent.processing"
-    | "payment_intent.requires_action"
-    | "payment_intent.succeeded"
-    | "payment_link.created"
-    | "payment_link.updated"
-    | "payment_method.attached"
-    | "payment_method.automatically_updated"
-    | "payment_method.detached"
-    | "payment_method.updated"
-    | "payout.canceled"
-    | "payout.created"
-    | "payout.failed"
-    | "payout.paid"
-    | "payout.reconciliation_completed"
-    | "payout.updated"
-    | "person.created"
-    | "person.deleted"
-    | "person.updated"
-    | "plan.created"
-    | "plan.deleted"
-    | "plan.updated"
-    | "price.created"
-    | "price.deleted"
-    | "price.updated"
-    | "product.created"
-    | "product.deleted"
-    | "product.updated"
-    | "promotion_code.created"
-    | "promotion_code.updated"
-    | "quote.accepted"
-    | "quote.canceled"
-    | "quote.created"
-    | "quote.finalized"
-    | "radar.early_fraud_warning.created"
-    | "radar.early_fraud_warning.updated"
-    | "refund.created"
-    | "refund.failed"
-    | "refund.updated"
-    | "reporting.report_run.failed"
-    | "reporting.report_run.succeeded"
-    | "reporting.report_type.updated"
-    | "review.closed"
-    | "review.opened"
-    | "setup_intent.canceled"
-    | "setup_intent.created"
-    | "setup_intent.requires_action"
-    | "setup_intent.setup_failed"
-    | "setup_intent.succeeded"
-    | "sigma.scheduled_query_run.created"
-    | "source.canceled"
-    | "source.chargeable"
-    | "source.failed"
-    | "source.mandate_notification"
-    | "source.refund_attributes_required"
-    | "source.transaction.created"
-    | "source.transaction.updated"
-    | "subscription_schedule.aborted"
-    | "subscription_schedule.canceled"
-    | "subscription_schedule.completed"
-    | "subscription_schedule.created"
-    | "subscription_schedule.expiring"
-    | "subscription_schedule.released"
-    | "subscription_schedule.updated"
-    | "tax.settings.updated"
-    | "tax_rate.created"
-    | "tax_rate.updated"
-    | "terminal.reader.action_failed"
-    | "terminal.reader.action_succeeded"
-    | "terminal.reader.action_updated"
-    | "test_helpers.test_clock.advancing"
-    | "test_helpers.test_clock.created"
-    | "test_helpers.test_clock.deleted"
-    | "test_helpers.test_clock.internal_failure"
-    | "test_helpers.test_clock.ready"
-    | "topup.canceled"
-    | "topup.created"
-    | "topup.failed"
-    | "topup.reversed"
-    | "topup.succeeded"
-    | "transfer.created"
-    | "transfer.reversed"
-    | "transfer.updated"
-    | "treasury.credit_reversal.created"
-    | "treasury.credit_reversal.posted"
-    | "treasury.debit_reversal.completed"
-    | "treasury.debit_reversal.created"
-    | "treasury.debit_reversal.initial_credit_granted"
-    | "treasury.financial_account.closed"
-    | "treasury.financial_account.created"
-    | "treasury.financial_account.features_status_updated"
-    | "treasury.inbound_transfer.canceled"
-    | "treasury.inbound_transfer.created"
-    | "treasury.inbound_transfer.failed"
-    | "treasury.inbound_transfer.succeeded"
-    | "treasury.outbound_payment.canceled"
-    | "treasury.outbound_payment.created"
-    | "treasury.outbound_payment.expected_arrival_date_updated"
-    | "treasury.outbound_payment.failed"
-    | "treasury.outbound_payment.posted"
-    | "treasury.outbound_payment.returned"
-    | "treasury.outbound_payment.tracking_details_updated"
-    | "treasury.outbound_transfer.canceled"
-    | "treasury.outbound_transfer.created"
-    | "treasury.outbound_transfer.expected_arrival_date_updated"
-    | "treasury.outbound_transfer.failed"
-    | "treasury.outbound_transfer.posted"
-    | "treasury.outbound_transfer.returned"
-    | "treasury.outbound_transfer.tracking_details_updated"
-    | "treasury.received_credit.created"
-    | "treasury.received_credit.failed"
-    | "treasury.received_credit.succeeded"
-    | "treasury.received_debit.created"
-  )[]
-  expand?: string[]
-  metadata?:
-    | {
-        [key: string]: string | undefined
-      }
-    | ""
-  url?: string
-}
-
 export type t_PostWebhookEndpointsWebhookEndpointParamSchema = {
   webhook_endpoint: string
 }
+
+export type t_postWebhookEndpointsWebhookEndpointApplicationXWwwFormUrlencodedRequestBody =
+  {
+    description?: string | ""
+    disabled?: boolean
+    enabled_events?: (
+      | "*"
+      | "account.application.authorized"
+      | "account.application.deauthorized"
+      | "account.external_account.created"
+      | "account.external_account.deleted"
+      | "account.external_account.updated"
+      | "account.updated"
+      | "application_fee.created"
+      | "application_fee.refund.updated"
+      | "application_fee.refunded"
+      | "balance.available"
+      | "billing.alert.triggered"
+      | "billing_portal.configuration.created"
+      | "billing_portal.configuration.updated"
+      | "billing_portal.session.created"
+      | "capability.updated"
+      | "cash_balance.funds_available"
+      | "charge.captured"
+      | "charge.dispute.closed"
+      | "charge.dispute.created"
+      | "charge.dispute.funds_reinstated"
+      | "charge.dispute.funds_withdrawn"
+      | "charge.dispute.updated"
+      | "charge.expired"
+      | "charge.failed"
+      | "charge.pending"
+      | "charge.refund.updated"
+      | "charge.refunded"
+      | "charge.succeeded"
+      | "charge.updated"
+      | "checkout.session.async_payment_failed"
+      | "checkout.session.async_payment_succeeded"
+      | "checkout.session.completed"
+      | "checkout.session.expired"
+      | "climate.order.canceled"
+      | "climate.order.created"
+      | "climate.order.delayed"
+      | "climate.order.delivered"
+      | "climate.order.product_substituted"
+      | "climate.product.created"
+      | "climate.product.pricing_updated"
+      | "coupon.created"
+      | "coupon.deleted"
+      | "coupon.updated"
+      | "credit_note.created"
+      | "credit_note.updated"
+      | "credit_note.voided"
+      | "customer.created"
+      | "customer.deleted"
+      | "customer.discount.created"
+      | "customer.discount.deleted"
+      | "customer.discount.updated"
+      | "customer.source.created"
+      | "customer.source.deleted"
+      | "customer.source.expiring"
+      | "customer.source.updated"
+      | "customer.subscription.created"
+      | "customer.subscription.deleted"
+      | "customer.subscription.paused"
+      | "customer.subscription.pending_update_applied"
+      | "customer.subscription.pending_update_expired"
+      | "customer.subscription.resumed"
+      | "customer.subscription.trial_will_end"
+      | "customer.subscription.updated"
+      | "customer.tax_id.created"
+      | "customer.tax_id.deleted"
+      | "customer.tax_id.updated"
+      | "customer.updated"
+      | "customer_cash_balance_transaction.created"
+      | "entitlements.active_entitlement_summary.updated"
+      | "file.created"
+      | "financial_connections.account.created"
+      | "financial_connections.account.deactivated"
+      | "financial_connections.account.disconnected"
+      | "financial_connections.account.reactivated"
+      | "financial_connections.account.refreshed_balance"
+      | "financial_connections.account.refreshed_ownership"
+      | "financial_connections.account.refreshed_transactions"
+      | "identity.verification_session.canceled"
+      | "identity.verification_session.created"
+      | "identity.verification_session.processing"
+      | "identity.verification_session.redacted"
+      | "identity.verification_session.requires_input"
+      | "identity.verification_session.verified"
+      | "invoice.created"
+      | "invoice.deleted"
+      | "invoice.finalization_failed"
+      | "invoice.finalized"
+      | "invoice.marked_uncollectible"
+      | "invoice.overdue"
+      | "invoice.overpaid"
+      | "invoice.paid"
+      | "invoice.payment_action_required"
+      | "invoice.payment_failed"
+      | "invoice.payment_succeeded"
+      | "invoice.sent"
+      | "invoice.upcoming"
+      | "invoice.updated"
+      | "invoice.voided"
+      | "invoice.will_be_due"
+      | "invoice_payment.paid"
+      | "invoiceitem.created"
+      | "invoiceitem.deleted"
+      | "issuing_authorization.created"
+      | "issuing_authorization.request"
+      | "issuing_authorization.updated"
+      | "issuing_card.created"
+      | "issuing_card.updated"
+      | "issuing_cardholder.created"
+      | "issuing_cardholder.updated"
+      | "issuing_dispute.closed"
+      | "issuing_dispute.created"
+      | "issuing_dispute.funds_reinstated"
+      | "issuing_dispute.funds_rescinded"
+      | "issuing_dispute.submitted"
+      | "issuing_dispute.updated"
+      | "issuing_personalization_design.activated"
+      | "issuing_personalization_design.deactivated"
+      | "issuing_personalization_design.rejected"
+      | "issuing_personalization_design.updated"
+      | "issuing_token.created"
+      | "issuing_token.updated"
+      | "issuing_transaction.created"
+      | "issuing_transaction.purchase_details_receipt_updated"
+      | "issuing_transaction.updated"
+      | "mandate.updated"
+      | "payment_intent.amount_capturable_updated"
+      | "payment_intent.canceled"
+      | "payment_intent.created"
+      | "payment_intent.partially_funded"
+      | "payment_intent.payment_failed"
+      | "payment_intent.processing"
+      | "payment_intent.requires_action"
+      | "payment_intent.succeeded"
+      | "payment_link.created"
+      | "payment_link.updated"
+      | "payment_method.attached"
+      | "payment_method.automatically_updated"
+      | "payment_method.detached"
+      | "payment_method.updated"
+      | "payout.canceled"
+      | "payout.created"
+      | "payout.failed"
+      | "payout.paid"
+      | "payout.reconciliation_completed"
+      | "payout.updated"
+      | "person.created"
+      | "person.deleted"
+      | "person.updated"
+      | "plan.created"
+      | "plan.deleted"
+      | "plan.updated"
+      | "price.created"
+      | "price.deleted"
+      | "price.updated"
+      | "product.created"
+      | "product.deleted"
+      | "product.updated"
+      | "promotion_code.created"
+      | "promotion_code.updated"
+      | "quote.accepted"
+      | "quote.canceled"
+      | "quote.created"
+      | "quote.finalized"
+      | "radar.early_fraud_warning.created"
+      | "radar.early_fraud_warning.updated"
+      | "refund.created"
+      | "refund.failed"
+      | "refund.updated"
+      | "reporting.report_run.failed"
+      | "reporting.report_run.succeeded"
+      | "reporting.report_type.updated"
+      | "review.closed"
+      | "review.opened"
+      | "setup_intent.canceled"
+      | "setup_intent.created"
+      | "setup_intent.requires_action"
+      | "setup_intent.setup_failed"
+      | "setup_intent.succeeded"
+      | "sigma.scheduled_query_run.created"
+      | "source.canceled"
+      | "source.chargeable"
+      | "source.failed"
+      | "source.mandate_notification"
+      | "source.refund_attributes_required"
+      | "source.transaction.created"
+      | "source.transaction.updated"
+      | "subscription_schedule.aborted"
+      | "subscription_schedule.canceled"
+      | "subscription_schedule.completed"
+      | "subscription_schedule.created"
+      | "subscription_schedule.expiring"
+      | "subscription_schedule.released"
+      | "subscription_schedule.updated"
+      | "tax.settings.updated"
+      | "tax_rate.created"
+      | "tax_rate.updated"
+      | "terminal.reader.action_failed"
+      | "terminal.reader.action_succeeded"
+      | "terminal.reader.action_updated"
+      | "test_helpers.test_clock.advancing"
+      | "test_helpers.test_clock.created"
+      | "test_helpers.test_clock.deleted"
+      | "test_helpers.test_clock.internal_failure"
+      | "test_helpers.test_clock.ready"
+      | "topup.canceled"
+      | "topup.created"
+      | "topup.failed"
+      | "topup.reversed"
+      | "topup.succeeded"
+      | "transfer.created"
+      | "transfer.reversed"
+      | "transfer.updated"
+      | "treasury.credit_reversal.created"
+      | "treasury.credit_reversal.posted"
+      | "treasury.debit_reversal.completed"
+      | "treasury.debit_reversal.created"
+      | "treasury.debit_reversal.initial_credit_granted"
+      | "treasury.financial_account.closed"
+      | "treasury.financial_account.created"
+      | "treasury.financial_account.features_status_updated"
+      | "treasury.inbound_transfer.canceled"
+      | "treasury.inbound_transfer.created"
+      | "treasury.inbound_transfer.failed"
+      | "treasury.inbound_transfer.succeeded"
+      | "treasury.outbound_payment.canceled"
+      | "treasury.outbound_payment.created"
+      | "treasury.outbound_payment.expected_arrival_date_updated"
+      | "treasury.outbound_payment.failed"
+      | "treasury.outbound_payment.posted"
+      | "treasury.outbound_payment.returned"
+      | "treasury.outbound_payment.tracking_details_updated"
+      | "treasury.outbound_transfer.canceled"
+      | "treasury.outbound_transfer.created"
+      | "treasury.outbound_transfer.expected_arrival_date_updated"
+      | "treasury.outbound_transfer.failed"
+      | "treasury.outbound_transfer.posted"
+      | "treasury.outbound_transfer.returned"
+      | "treasury.outbound_transfer.tracking_details_updated"
+      | "treasury.received_credit.created"
+      | "treasury.received_credit.failed"
+      | "treasury.received_credit.succeeded"
+      | "treasury.received_debit.created"
+    )[]
+    expand?: string[]
+    metadata?:
+      | {
+          [key: string]: string | undefined
+        }
+      | ""
+    url?: string
+  }

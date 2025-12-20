@@ -26,6 +26,12 @@ export type t_TodoList = {
   updated: string
 }
 
+export type t_createTodoListItemJsonRequestBody = {
+  completedAt?: string | undefined
+  content: string
+  id: string
+}
+
 export type t_UnknownObject = {
   [key: string]: unknown | undefined
 }

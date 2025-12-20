@@ -10,6 +10,7 @@ import {
 import type {AxiosRequestConfig, AxiosResponse} from "axios"
 import type {
   t_CreateUpdateTodoList,
+  t_createTodoListItemJsonRequestBody,
   t_Statuses,
   t_TodoList,
   t_UnknownObject,
@@ -271,11 +272,7 @@ export class TodoListsExampleApi extends AbstractAxiosClient {
   async createTodoListItem(
     p: {
       listId: string
-      requestBody: {
-        completedAt?: string | undefined
-        content: string
-        id: string
-      }
+      requestBody: t_createTodoListItemJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},

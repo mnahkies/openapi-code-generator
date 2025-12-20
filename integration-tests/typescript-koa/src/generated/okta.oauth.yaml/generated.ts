@@ -26,24 +26,19 @@ import {z} from "zod/v4"
 import type {
   t_AuthorizeCustomAsParamSchema,
   t_AuthorizeCustomAsQuerySchema,
-  t_AuthorizeCustomAsWithPostBodySchema,
   t_AuthorizeCustomAsWithPostParamSchema,
   t_AuthorizeQuerySchema,
-  t_AuthorizeWithPostBodySchema,
+  t_AuthorizeWithPost,
+  t_BackchannelAuthorizeRequest,
   t_BackchannelAuthorizeResponse,
-  t_BcAuthorizeBodySchema,
-  t_BcAuthorizeCustomAsBodySchema,
   t_BcAuthorizeCustomAsParamSchema,
-  t_ChallengeBodySchema,
-  t_ChallengeCustomAsBodySchema,
   t_ChallengeCustomAsParamSchema,
+  t_ChallengeRequest,
   t_ChallengeResponse,
   t_Client,
-  t_CreateClientBodySchema,
   t_DeleteClientParamSchema,
-  t_DeviceAuthorizeBodySchema,
-  t_DeviceAuthorizeCustomAsBodySchema,
   t_DeviceAuthorizeCustomAsParamSchema,
+  t_DeviceAuthorizeRequest,
   t_DeviceAuthorizeResponse,
   t_Error,
   t_GenerateNewClientSecretParamSchema,
@@ -53,46 +48,39 @@ import type {
   t_GetWellKnownOpenIdConfigurationCustomAsParamSchema,
   t_GetWellKnownOpenIdConfigurationCustomAsQuerySchema,
   t_GetWellKnownOpenIdConfigurationQuerySchema,
-  t_GlobalTokenRevocationBodySchema,
-  t_IntrospectBodySchema,
-  t_IntrospectCustomAsBodySchema,
+  t_GlobalTokenRevocationRequest,
   t_IntrospectCustomAsParamSchema,
+  t_IntrospectionRequest,
   t_IntrospectionResponse,
   t_ListClientsQuerySchema,
   t_LogoutCustomAsParamSchema,
   t_LogoutCustomAsQuerySchema,
-  t_LogoutCustomAsWithPostBodySchema,
   t_LogoutCustomAsWithPostParamSchema,
   t_LogoutQuerySchema,
-  t_LogoutWithPostBodySchema,
+  t_LogoutWithPost,
   t_OAuthError,
   t_OAuthKeys,
   t_OAuthMetadata,
   t_OauthKeysCustomAsParamSchema,
   t_OauthKeysQuerySchema,
   t_OidcMetadata,
-  t_OobAuthenticateBodySchema,
-  t_OobAuthenticateCustomAsBodySchema,
   t_OobAuthenticateCustomAsParamSchema,
+  t_OobAuthenticateRequest,
   t_OobAuthenticateResponse,
-  t_ParBodySchema,
-  t_ParCustomAsBodySchema,
   t_ParCustomAsParamSchema,
-  t_ParOptionsCustomAsHeaderSchema,
   t_ParOptionsCustomAsParamSchema,
-  t_ParOptionsHeaderSchema,
+  t_ParOptionsCustomAsRequestHeaderSchema,
+  t_ParOptionsRequestHeaderSchema,
+  t_ParRequest,
   t_ParResponse,
-  t_ReplaceClientBodySchema,
   t_ReplaceClientParamSchema,
-  t_RevokeBodySchema,
-  t_RevokeCustomAsBodySchema,
   t_RevokeCustomAsParamSchema,
-  t_TokenBodySchema,
-  t_TokenCustomAsBodySchema,
+  t_RevokeRequest,
   t_TokenCustomAsParamSchema,
-  t_TokenOptionsCustomAsHeaderSchema,
   t_TokenOptionsCustomAsParamSchema,
-  t_TokenOptionsHeaderSchema,
+  t_TokenOptionsCustomAsRequestHeaderSchema,
+  t_TokenOptionsRequestHeaderSchema,
+  t_TokenRequest,
   t_TokenResponse,
   t_UserInfo,
   t_UserinfoCustomAsParamSchema,
@@ -171,7 +159,7 @@ export type AuthorizeWithPostResponder = {
 } & KoaRuntimeResponder
 
 export type AuthorizeWithPost = (
-  params: Params<void, void, t_AuthorizeWithPostBodySchema, void>,
+  params: Params<void, void, t_AuthorizeWithPost, void>,
   respond: AuthorizeWithPostResponder,
   ctx: RouterContext,
   next: Next,
@@ -187,7 +175,7 @@ export type BcAuthorizeResponder = {
 } & KoaRuntimeResponder
 
 export type BcAuthorize = (
-  params: Params<void, void, t_BcAuthorizeBodySchema, void>,
+  params: Params<void, void, t_BackchannelAuthorizeRequest, void>,
   respond: BcAuthorizeResponder,
   ctx: RouterContext,
   next: Next,
@@ -209,7 +197,7 @@ export type ChallengeResponder = {
 } & KoaRuntimeResponder
 
 export type Challenge = (
-  params: Params<void, void, t_ChallengeBodySchema, void>,
+  params: Params<void, void, t_ChallengeRequest, void>,
   respond: ChallengeResponder,
   ctx: RouterContext,
   next: Next,
@@ -250,7 +238,7 @@ export type CreateClientResponder = {
 } & KoaRuntimeResponder
 
 export type CreateClient = (
-  params: Params<void, void, t_CreateClientBodySchema, void>,
+  params: Params<void, void, t_Client, void>,
   respond: CreateClientResponder,
   ctx: RouterContext,
   next: Next,
@@ -293,12 +281,7 @@ export type ReplaceClientResponder = {
 } & KoaRuntimeResponder
 
 export type ReplaceClient = (
-  params: Params<
-    t_ReplaceClientParamSchema,
-    void,
-    t_ReplaceClientBodySchema,
-    void
-  >,
+  params: Params<t_ReplaceClientParamSchema, void, t_Client, void>,
   respond: ReplaceClientResponder,
   ctx: RouterContext,
   next: Next,
@@ -362,7 +345,7 @@ export type DeviceAuthorizeResponder = {
 } & KoaRuntimeResponder
 
 export type DeviceAuthorize = (
-  params: Params<void, void, t_DeviceAuthorizeBodySchema, void>,
+  params: Params<void, void, t_DeviceAuthorizeRequest, void>,
   respond: DeviceAuthorizeResponder,
   ctx: RouterContext,
   next: Next,
@@ -383,7 +366,7 @@ export type GlobalTokenRevocationResponder = {
 } & KoaRuntimeResponder
 
 export type GlobalTokenRevocation = (
-  params: Params<void, void, t_GlobalTokenRevocationBodySchema, void>,
+  params: Params<void, void, t_GlobalTokenRevocationRequest, void>,
   respond: GlobalTokenRevocationResponder,
   ctx: RouterContext,
   next: Next,
@@ -404,7 +387,7 @@ export type IntrospectResponder = {
 } & KoaRuntimeResponder
 
 export type Introspect = (
-  params: Params<void, void, t_IntrospectBodySchema, void>,
+  params: Params<void, void, t_IntrospectionRequest, void>,
   respond: IntrospectResponder,
   ctx: RouterContext,
   next: Next,
@@ -457,7 +440,7 @@ export type LogoutWithPostResponder = {
 } & KoaRuntimeResponder
 
 export type LogoutWithPost = (
-  params: Params<void, void, t_LogoutWithPostBodySchema, void>,
+  params: Params<void, void, t_LogoutWithPost, void>,
   respond: LogoutWithPostResponder,
   ctx: RouterContext,
   next: Next,
@@ -477,7 +460,7 @@ export type OobAuthenticateResponder = {
 } & KoaRuntimeResponder
 
 export type OobAuthenticate = (
-  params: Params<void, void, t_OobAuthenticateBodySchema, void>,
+  params: Params<void, void, t_OobAuthenticateRequest, void>,
   respond: OobAuthenticateResponder,
   ctx: RouterContext,
   next: Next,
@@ -497,7 +480,7 @@ export type ParOptionsResponder = {
 } & KoaRuntimeResponder
 
 export type ParOptions = (
-  params: Params<void, void, void, t_ParOptionsHeaderSchema>,
+  params: Params<void, void, void, t_ParOptionsRequestHeaderSchema>,
   respond: ParOptionsResponder,
   ctx: RouterContext,
   next: Next,
@@ -517,7 +500,7 @@ export type ParResponder = {
 } & KoaRuntimeResponder
 
 export type Par = (
-  params: Params<void, void, t_ParBodySchema, void>,
+  params: Params<void, void, t_ParRequest, void>,
   respond: ParResponder,
   ctx: RouterContext,
   next: Next,
@@ -539,7 +522,7 @@ export type RevokeResponder = {
 } & KoaRuntimeResponder
 
 export type Revoke = (
-  params: Params<void, void, t_RevokeBodySchema, void>,
+  params: Params<void, void, t_RevokeRequest, void>,
   respond: RevokeResponder,
   ctx: RouterContext,
   next: Next,
@@ -558,7 +541,7 @@ export type TokenOptionsResponder = {
 } & KoaRuntimeResponder
 
 export type TokenOptions = (
-  params: Params<void, void, void, t_TokenOptionsHeaderSchema>,
+  params: Params<void, void, void, t_TokenOptionsRequestHeaderSchema>,
   respond: TokenOptionsResponder,
   ctx: RouterContext,
   next: Next,
@@ -577,7 +560,7 @@ export type TokenResponder = {
 } & KoaRuntimeResponder
 
 export type Token = (
-  params: Params<void, void, t_TokenBodySchema, void>,
+  params: Params<void, void, t_TokenRequest, void>,
   respond: TokenResponder,
   ctx: RouterContext,
   next: Next,
@@ -685,7 +668,7 @@ export type AuthorizeCustomAsWithPost = (
   params: Params<
     t_AuthorizeCustomAsWithPostParamSchema,
     void,
-    t_AuthorizeCustomAsWithPostBodySchema,
+    t_AuthorizeWithPost,
     void
   >,
   respond: AuthorizeCustomAsWithPostResponder,
@@ -706,7 +689,7 @@ export type BcAuthorizeCustomAs = (
   params: Params<
     t_BcAuthorizeCustomAsParamSchema,
     void,
-    t_BcAuthorizeCustomAsBodySchema,
+    t_BackchannelAuthorizeRequest,
     void
   >,
   respond: BcAuthorizeCustomAsResponder,
@@ -733,7 +716,7 @@ export type ChallengeCustomAs = (
   params: Params<
     t_ChallengeCustomAsParamSchema,
     void,
-    t_ChallengeCustomAsBodySchema,
+    t_ChallengeRequest,
     void
   >,
   respond: ChallengeCustomAsResponder,
@@ -760,7 +743,7 @@ export type DeviceAuthorizeCustomAs = (
   params: Params<
     t_DeviceAuthorizeCustomAsParamSchema,
     void,
-    t_DeviceAuthorizeCustomAsBodySchema,
+    t_DeviceAuthorizeRequest,
     void
   >,
   respond: DeviceAuthorizeCustomAsResponder,
@@ -786,7 +769,7 @@ export type IntrospectCustomAs = (
   params: Params<
     t_IntrospectCustomAsParamSchema,
     void,
-    t_IntrospectCustomAsBodySchema,
+    t_IntrospectionRequest,
     void
   >,
   respond: IntrospectCustomAsResponder,
@@ -849,7 +832,7 @@ export type LogoutCustomAsWithPost = (
   params: Params<
     t_LogoutCustomAsWithPostParamSchema,
     void,
-    t_LogoutCustomAsWithPostBodySchema,
+    t_LogoutWithPost,
     void
   >,
   respond: LogoutCustomAsWithPostResponder,
@@ -874,7 +857,7 @@ export type OobAuthenticateCustomAs = (
   params: Params<
     t_OobAuthenticateCustomAsParamSchema,
     void,
-    t_OobAuthenticateCustomAsBodySchema,
+    t_OobAuthenticateRequest,
     void
   >,
   respond: OobAuthenticateCustomAsResponder,
@@ -900,7 +883,7 @@ export type ParOptionsCustomAs = (
     t_ParOptionsCustomAsParamSchema,
     void,
     void,
-    t_ParOptionsCustomAsHeaderSchema
+    t_ParOptionsCustomAsRequestHeaderSchema
   >,
   respond: ParOptionsCustomAsResponder,
   ctx: RouterContext,
@@ -921,7 +904,7 @@ export type ParCustomAsResponder = {
 } & KoaRuntimeResponder
 
 export type ParCustomAs = (
-  params: Params<t_ParCustomAsParamSchema, void, t_ParCustomAsBodySchema, void>,
+  params: Params<t_ParCustomAsParamSchema, void, t_ParRequest, void>,
   respond: ParCustomAsResponder,
   ctx: RouterContext,
   next: Next,
@@ -943,12 +926,7 @@ export type RevokeCustomAsResponder = {
 } & KoaRuntimeResponder
 
 export type RevokeCustomAs = (
-  params: Params<
-    t_RevokeCustomAsParamSchema,
-    void,
-    t_RevokeCustomAsBodySchema,
-    void
-  >,
+  params: Params<t_RevokeCustomAsParamSchema, void, t_RevokeRequest, void>,
   respond: RevokeCustomAsResponder,
   ctx: RouterContext,
   next: Next,
@@ -971,7 +949,7 @@ export type TokenOptionsCustomAs = (
     t_TokenOptionsCustomAsParamSchema,
     void,
     void,
-    t_TokenOptionsCustomAsHeaderSchema
+    t_TokenOptionsCustomAsRequestHeaderSchema
   >,
   respond: TokenOptionsCustomAsResponder,
   ctx: RouterContext,
@@ -991,12 +969,7 @@ export type TokenCustomAsResponder = {
 } & KoaRuntimeResponder
 
 export type TokenCustomAs = (
-  params: Params<
-    t_TokenCustomAsParamSchema,
-    void,
-    t_TokenCustomAsBodySchema,
-    void
-  >,
+  params: Params<t_TokenCustomAsParamSchema, void, t_TokenRequest, void>,
   respond: TokenCustomAsResponder,
   ctx: RouterContext,
   next: Next,

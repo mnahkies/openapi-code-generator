@@ -7,6 +7,10 @@ export type t_Error = {
   message?: string | undefined
 }
 
+export type t_CreateUpdateTodoList = {
+  name: string
+}
+
 export type t_Statuses = ("incomplete" | "complete")[]
 
 export type t_TodoList = {
@@ -22,7 +26,7 @@ export type t_CreateTodoListItemParamSchema = {
   listId: string
 }
 
-export type t_CreateTodoListItemRequestBodySchema = {
+export type t_createTodoListItemJsonRequestBody = {
   completedAt?: string | undefined
   content: string
   id: string
@@ -53,9 +57,3 @@ export type t_GetTodoListsQuerySchema = {
 export type t_UpdateTodoListByIdParamSchema = {
   listId: string
 }
-
-export type t_UpdateTodoListByIdRequestBodySchema = {
-  name: string
-}
-
-export type t_UploadAttachmentRequestBodySchema = never

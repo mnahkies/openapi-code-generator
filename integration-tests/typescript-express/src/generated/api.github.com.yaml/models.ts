@@ -126,6 +126,15 @@ export type t_actions_secret = {
   updated_at: string
 }
 
+export type t_actions_set_default_workflow_permissions = {
+  can_approve_pull_request_reviews?:
+    | t_actions_can_approve_pull_request_reviews
+    | undefined
+  default_workflow_permissions?:
+    | t_actions_default_workflow_permissions
+    | undefined
+}
+
 export type t_actions_variable = {
   created_at: string
   name: string
@@ -1092,6 +1101,11 @@ export type t_code_scanning_autofix = {
   status: t_code_scanning_autofix_status
 }
 
+export type t_code_scanning_autofix_commits = {
+  message?: string | undefined
+  target_ref?: string | undefined
+} | null
+
 export type t_code_scanning_autofix_commits_response = {
   sha?: string | undefined
   target_ref?: string | undefined
@@ -1149,6 +1163,27 @@ export type t_code_scanning_default_setup_options = {
   runner_label?: (string | null) | undefined
   runner_type?: ("standard" | "labeled" | "not_set") | undefined
 } | null
+
+export type t_code_scanning_default_setup_update = {
+  languages?:
+    | (
+        | "actions"
+        | "c-cpp"
+        | "csharp"
+        | "go"
+        | "java-kotlin"
+        | "javascript-typescript"
+        | "python"
+        | "ruby"
+        | "swift"
+      )[]
+    | undefined
+  query_suite?: ("default" | "extended") | undefined
+  runner_label?: (string | null) | undefined
+  runner_type?: ("standard" | "labeled") | undefined
+  state?: ("configured" | "not-configured") | undefined
+  threat_model?: ("remote" | "remote_and_local") | undefined
+}
 
 export type t_code_scanning_default_setup_update_response = {
   run_id?: number | undefined
@@ -2062,6 +2097,15 @@ export type t_custom_property = {
   values_editable_by?: ("org_actors" | "org_and_repo_actors" | null) | undefined
 }
 
+export type t_custom_property_set_payload = {
+  allowed_values?: (string[] | null) | undefined
+  default_value?: (string | string[] | null) | undefined
+  description?: (string | null) | undefined
+  required?: boolean | undefined
+  value_type: "string" | "single_select" | "multi_select" | "true_false"
+  values_editable_by?: ("org_actors" | "org_and_repo_actors" | null) | undefined
+}
+
 export type t_custom_property_value = {
   property_name: string
   value: string | string[] | null
@@ -2327,6 +2371,15 @@ export type t_deployment_branch_policy = {
   id?: number | undefined
   name?: string | undefined
   node_id?: string | undefined
+  type?: ("branch" | "tag") | undefined
+}
+
+export type t_deployment_branch_policy_name_pattern = {
+  name: string
+}
+
+export type t_deployment_branch_policy_name_pattern_with_type = {
+  name: string
   type?: ("branch" | "tag") | undefined
 }
 
@@ -3228,6 +3281,11 @@ export type t_interaction_group =
   | "existing_users"
   | "contributors_only"
   | "collaborators_only"
+
+export type t_interaction_limit = {
+  expiry?: t_interaction_expiry | undefined
+  limit: t_interaction_group
+}
 
 export type t_interaction_limit_response = {
   expires_at: string
@@ -4623,6 +4681,25 @@ export type t_organization_actions_variable = {
   visibility: "all" | "private" | "selected"
 }
 
+export type t_organization_create_issue_type = {
+  color?:
+    | (
+        | "gray"
+        | "blue"
+        | "green"
+        | "yellow"
+        | "orange"
+        | "red"
+        | "pink"
+        | "purple"
+        | null
+      )
+    | undefined
+  description?: (string | null) | undefined
+  is_enabled: boolean
+  name: string
+}
+
 export type t_organization_dependabot_secret = {
   created_at: string
   name: string
@@ -4847,6 +4924,25 @@ export type t_organization_simple = {
   public_members_url: string
   repos_url: string
   url: string
+}
+
+export type t_organization_update_issue_type = {
+  color?:
+    | (
+        | "gray"
+        | "blue"
+        | "green"
+        | "yellow"
+        | "orange"
+        | "red"
+        | "pink"
+        | "purple"
+        | null
+      )
+    | undefined
+  description?: (string | null) | undefined
+  is_enabled: boolean
+  name: string
 }
 
 export type t_package = {
@@ -5146,6 +5242,29 @@ export type t_private_user = {
   updated_at: string
   url: string
   user_view_type?: string | undefined
+}
+
+export type t_private_vulnerability_report_create = {
+  cvss_vector_string?: (string | null) | undefined
+  cwe_ids?: (string[] | null) | undefined
+  description: string
+  severity?: ("critical" | "high" | "medium" | "low" | null) | undefined
+  start_private_fork?: boolean | undefined
+  summary: string
+  vulnerabilities?:
+    | (
+        | {
+            package: {
+              ecosystem: t_security_advisory_ecosystems
+              name?: (string | null) | undefined
+            }
+            patched_versions?: (string | null) | undefined
+            vulnerable_functions?: (string[] | null) | undefined
+            vulnerable_version_range?: (string | null) | undefined
+          }[]
+        | null
+      )
+    | undefined
 }
 
 export type t_project = {
@@ -6044,10 +6163,70 @@ export type t_repository_advisory = {
   readonly withdrawn_at: string | null
 }
 
+export type t_repository_advisory_create = {
+  credits?:
+    | (
+        | {
+            login: string
+            type: t_security_advisory_credit_types
+          }[]
+        | null
+      )
+    | undefined
+  cve_id?: (string | null) | undefined
+  cvss_vector_string?: (string | null) | undefined
+  cwe_ids?: (string[] | null) | undefined
+  description: string
+  severity?: ("critical" | "high" | "medium" | "low" | null) | undefined
+  start_private_fork?: boolean | undefined
+  summary: string
+  vulnerabilities: {
+    package: {
+      ecosystem: t_security_advisory_ecosystems
+      name?: (string | null) | undefined
+    }
+    patched_versions?: (string | null) | undefined
+    vulnerable_functions?: (string[] | null) | undefined
+    vulnerable_version_range?: (string | null) | undefined
+  }[]
+}
+
 export type t_repository_advisory_credit = {
   state: "accepted" | "declined" | "pending"
   type: t_security_advisory_credit_types
   user: t_simple_user
+}
+
+export type t_repository_advisory_update = {
+  collaborating_teams?: (string[] | null) | undefined
+  collaborating_users?: (string[] | null) | undefined
+  credits?:
+    | (
+        | {
+            login: string
+            type: t_security_advisory_credit_types
+          }[]
+        | null
+      )
+    | undefined
+  cve_id?: (string | null) | undefined
+  cvss_vector_string?: (string | null) | undefined
+  cwe_ids?: (string[] | null) | undefined
+  description?: string | undefined
+  severity?: ("critical" | "high" | "medium" | "low" | null) | undefined
+  state?: ("published" | "closed" | "draft") | undefined
+  summary?: string | undefined
+  vulnerabilities?:
+    | {
+        package: {
+          ecosystem: t_security_advisory_ecosystems
+          name?: (string | null) | undefined
+        }
+        patched_versions?: (string | null) | undefined
+        vulnerable_functions?: (string[] | null) | undefined
+        vulnerable_version_range?: (string | null) | undefined
+      }[]
+    | undefined
 }
 
 export type t_repository_advisory_vulnerability = {
@@ -7150,6 +7329,29 @@ export type t_simple_user = {
   user_view_type?: string | undefined
 }
 
+export type t_snapshot = {
+  detector: {
+    name: string
+    url: string
+    version: string
+  }
+  job: {
+    correlator: string
+    html_url?: string | undefined
+    id: string
+  }
+  manifests?:
+    | {
+        [key: string]: t_manifest | undefined
+      }
+    | undefined
+  metadata?: t_metadata | undefined
+  ref: string
+  scanned: string
+  sha: string
+  version: number
+}
+
 export type t_social_account = {
   provider: string
   url: string
@@ -8081,10 +8283,9 @@ export type t_ActionsAddCustomLabelsToSelfHostedRunnerForOrgParamSchema = {
   runner_id: number
 }
 
-export type t_ActionsAddCustomLabelsToSelfHostedRunnerForOrgRequestBodySchema =
-  {
-    labels: string[]
-  }
+export type t_actionsAddCustomLabelsToSelfHostedRunnerForOrgJsonRequestBody = {
+  labels: string[]
+}
 
 export type t_ActionsAddCustomLabelsToSelfHostedRunnerForRepoParamSchema = {
   owner: string
@@ -8092,10 +8293,9 @@ export type t_ActionsAddCustomLabelsToSelfHostedRunnerForRepoParamSchema = {
   runner_id: number
 }
 
-export type t_ActionsAddCustomLabelsToSelfHostedRunnerForRepoRequestBodySchema =
-  {
-    labels: string[]
-  }
+export type t_actionsAddCustomLabelsToSelfHostedRunnerForRepoJsonRequestBody = {
+  labels: string[]
+}
 
 export type t_ActionsAddRepoAccessToSelfHostedRunnerGroupInOrgParamSchema = {
   org: string
@@ -8139,7 +8339,7 @@ export type t_ActionsCreateEnvironmentVariableParamSchema = {
   repo: string
 }
 
-export type t_ActionsCreateEnvironmentVariableRequestBodySchema = {
+export type t_actionsCreateEnvironmentVariableJsonRequestBody = {
   name: string
   value: string
 }
@@ -8148,7 +8348,7 @@ export type t_ActionsCreateHostedRunnerForOrgParamSchema = {
   org: string
 }
 
-export type t_ActionsCreateHostedRunnerForOrgRequestBodySchema = {
+export type t_actionsCreateHostedRunnerForOrgJsonRequestBody = {
   enable_static_ip?: boolean | undefined
   image: {
     id?: string | undefined
@@ -8167,7 +8367,7 @@ export type t_ActionsCreateOrUpdateEnvironmentSecretParamSchema = {
   secret_name: string
 }
 
-export type t_ActionsCreateOrUpdateEnvironmentSecretRequestBodySchema = {
+export type t_actionsCreateOrUpdateEnvironmentSecretJsonRequestBody = {
   encrypted_value: string
   key_id: string
 }
@@ -8177,7 +8377,7 @@ export type t_ActionsCreateOrUpdateOrgSecretParamSchema = {
   secret_name: string
 }
 
-export type t_ActionsCreateOrUpdateOrgSecretRequestBodySchema = {
+export type t_actionsCreateOrUpdateOrgSecretJsonRequestBody = {
   encrypted_value: string
   key_id: string
   selected_repository_ids?: number[] | undefined
@@ -8190,7 +8390,7 @@ export type t_ActionsCreateOrUpdateRepoSecretParamSchema = {
   secret_name: string
 }
 
-export type t_ActionsCreateOrUpdateRepoSecretRequestBodySchema = {
+export type t_actionsCreateOrUpdateRepoSecretJsonRequestBody = {
   encrypted_value: string
   key_id: string
 }
@@ -8199,7 +8399,7 @@ export type t_ActionsCreateOrgVariableParamSchema = {
   org: string
 }
 
-export type t_ActionsCreateOrgVariableRequestBodySchema = {
+export type t_actionsCreateOrgVariableJsonRequestBody = {
   name: string
   selected_repository_ids?: number[] | undefined
   value: string
@@ -8229,7 +8429,7 @@ export type t_ActionsCreateRepoVariableParamSchema = {
   repo: string
 }
 
-export type t_ActionsCreateRepoVariableRequestBodySchema = {
+export type t_actionsCreateRepoVariableJsonRequestBody = {
   name: string
   value: string
 }
@@ -8238,7 +8438,7 @@ export type t_ActionsCreateSelfHostedRunnerGroupForOrgParamSchema = {
   org: string
 }
 
-export type t_ActionsCreateSelfHostedRunnerGroupForOrgRequestBodySchema = {
+export type t_actionsCreateSelfHostedRunnerGroupForOrgJsonRequestBody = {
   allows_public_repositories?: boolean | undefined
   name: string
   network_configuration_id?: string | undefined
@@ -8255,7 +8455,7 @@ export type t_ActionsCreateWorkflowDispatchParamSchema = {
   workflow_id: number | string
 }
 
-export type t_ActionsCreateWorkflowDispatchRequestBodySchema = {
+export type t_actionsCreateWorkflowDispatchJsonRequestBody = {
   inputs?:
     | {
         [key: string]: unknown | undefined
@@ -8415,7 +8615,7 @@ export type t_ActionsGenerateRunnerJitconfigForOrgParamSchema = {
   org: string
 }
 
-export type t_ActionsGenerateRunnerJitconfigForOrgRequestBodySchema = {
+export type t_actionsGenerateRunnerJitconfigForOrgJsonRequestBody = {
   labels: string[]
   name: string
   runner_group_id: number
@@ -8427,7 +8627,7 @@ export type t_ActionsGenerateRunnerJitconfigForRepoParamSchema = {
   repo: string
 }
 
-export type t_ActionsGenerateRunnerJitconfigForRepoRequestBodySchema = {
+export type t_actionsGenerateRunnerJitconfigForRepoJsonRequestBody = {
   labels: string[]
   name: string
   runner_group_id: number
@@ -8995,7 +9195,7 @@ export type t_ActionsReRunJobForWorkflowRunParamSchema = {
   repo: string
 }
 
-export type t_ActionsReRunJobForWorkflowRunRequestBodySchema = {
+export type t_actionsReRunJobForWorkflowRunJsonRequestBody = {
   enable_debug_logging?: boolean | undefined
 } | null
 
@@ -9005,7 +9205,7 @@ export type t_ActionsReRunWorkflowParamSchema = {
   run_id: number
 }
 
-export type t_ActionsReRunWorkflowRequestBodySchema = {
+export type t_actionsReRunWorkflowJsonRequestBody = {
   enable_debug_logging?: boolean | undefined
 } | null
 
@@ -9015,7 +9215,7 @@ export type t_ActionsReRunWorkflowFailedJobsParamSchema = {
   run_id: number
 }
 
-export type t_ActionsReRunWorkflowFailedJobsRequestBodySchema = {
+export type t_actionsReRunWorkflowFailedJobsJsonRequestBody = {
   enable_debug_logging?: boolean | undefined
 } | null
 
@@ -9075,7 +9275,7 @@ export type t_ActionsReviewCustomGatesForRunParamSchema = {
   run_id: number
 }
 
-export type t_ActionsReviewCustomGatesForRunRequestBodySchema =
+export type t_actionsReviewCustomGatesForRunJsonRequestBody =
   | t_review_custom_gates_comment_required
   | t_review_custom_gates_state_required
 
@@ -9085,7 +9285,7 @@ export type t_ActionsReviewPendingDeploymentsForRunParamSchema = {
   run_id: number
 }
 
-export type t_ActionsReviewPendingDeploymentsForRunRequestBodySchema = {
+export type t_actionsReviewPendingDeploymentsForRunJsonRequestBody = {
   comment: string
   environment_ids: number[]
   state: "approved" | "rejected"
@@ -9095,21 +9295,9 @@ export type t_ActionsSetAllowedActionsOrganizationParamSchema = {
   org: string
 }
 
-export type t_ActionsSetAllowedActionsOrganizationRequestBodySchema = {
-  github_owned_allowed?: boolean | undefined
-  patterns_allowed?: string[] | undefined
-  verified_allowed?: boolean | undefined
-}
-
 export type t_ActionsSetAllowedActionsRepositoryParamSchema = {
   owner: string
   repo: string
-}
-
-export type t_ActionsSetAllowedActionsRepositoryRequestBodySchema = {
-  github_owned_allowed?: boolean | undefined
-  patterns_allowed?: string[] | undefined
-  verified_allowed?: boolean | undefined
 }
 
 export type t_ActionsSetCustomLabelsForSelfHostedRunnerForOrgParamSchema = {
@@ -9117,10 +9305,9 @@ export type t_ActionsSetCustomLabelsForSelfHostedRunnerForOrgParamSchema = {
   runner_id: number
 }
 
-export type t_ActionsSetCustomLabelsForSelfHostedRunnerForOrgRequestBodySchema =
-  {
-    labels: string[]
-  }
+export type t_actionsSetCustomLabelsForSelfHostedRunnerForOrgJsonRequestBody = {
+  labels: string[]
+}
 
 export type t_ActionsSetCustomLabelsForSelfHostedRunnerForRepoParamSchema = {
   owner: string
@@ -9128,7 +9315,7 @@ export type t_ActionsSetCustomLabelsForSelfHostedRunnerForRepoParamSchema = {
   runner_id: number
 }
 
-export type t_ActionsSetCustomLabelsForSelfHostedRunnerForRepoRequestBodySchema =
+export type t_actionsSetCustomLabelsForSelfHostedRunnerForRepoJsonRequestBody =
   {
     labels: string[]
   }
@@ -9138,7 +9325,7 @@ export type t_ActionsSetCustomOidcSubClaimForRepoParamSchema = {
   repo: string
 }
 
-export type t_ActionsSetCustomOidcSubClaimForRepoRequestBodySchema = {
+export type t_actionsSetCustomOidcSubClaimForRepoJsonRequestBody = {
   include_claim_keys?: string[] | undefined
   use_default: boolean
 }
@@ -9148,48 +9335,27 @@ export type t_ActionsSetGithubActionsDefaultWorkflowPermissionsOrganizationParam
     org: string
   }
 
-export type t_ActionsSetGithubActionsDefaultWorkflowPermissionsOrganizationRequestBodySchema =
-  {
-    can_approve_pull_request_reviews?:
-      | t_actions_can_approve_pull_request_reviews
-      | undefined
-    default_workflow_permissions?:
-      | t_actions_default_workflow_permissions
-      | undefined
-  }
-
 export type t_ActionsSetGithubActionsDefaultWorkflowPermissionsRepositoryParamSchema =
   {
     owner: string
     repo: string
   }
 
-export type t_ActionsSetGithubActionsDefaultWorkflowPermissionsRepositoryRequestBodySchema =
-  {
-    can_approve_pull_request_reviews?:
-      | t_actions_can_approve_pull_request_reviews
-      | undefined
-    default_workflow_permissions?:
-      | t_actions_default_workflow_permissions
-      | undefined
-  }
-
 export type t_ActionsSetGithubActionsPermissionsOrganizationParamSchema = {
   org: string
 }
 
-export type t_ActionsSetGithubActionsPermissionsOrganizationRequestBodySchema =
-  {
-    allowed_actions?: t_allowed_actions | undefined
-    enabled_repositories: t_enabled_repositories
-  }
+export type t_actionsSetGithubActionsPermissionsOrganizationJsonRequestBody = {
+  allowed_actions?: t_allowed_actions | undefined
+  enabled_repositories: t_enabled_repositories
+}
 
 export type t_ActionsSetGithubActionsPermissionsRepositoryParamSchema = {
   owner: string
   repo: string
 }
 
-export type t_ActionsSetGithubActionsPermissionsRepositoryRequestBodySchema = {
+export type t_actionsSetGithubActionsPermissionsRepositoryJsonRequestBody = {
   allowed_actions?: t_allowed_actions | undefined
   enabled: t_actions_enabled
 }
@@ -9199,7 +9365,7 @@ export type t_ActionsSetRepoAccessToSelfHostedRunnerGroupInOrgParamSchema = {
   runner_group_id: number
 }
 
-export type t_ActionsSetRepoAccessToSelfHostedRunnerGroupInOrgRequestBodySchema =
+export type t_actionsSetRepoAccessToSelfHostedRunnerGroupInOrgJsonRequestBody =
   {
     selected_repository_ids: number[]
   }
@@ -9209,7 +9375,7 @@ export type t_ActionsSetSelectedReposForOrgSecretParamSchema = {
   secret_name: string
 }
 
-export type t_ActionsSetSelectedReposForOrgSecretRequestBodySchema = {
+export type t_actionsSetSelectedReposForOrgSecretJsonRequestBody = {
   selected_repository_ids: number[]
 }
 
@@ -9218,7 +9384,7 @@ export type t_ActionsSetSelectedReposForOrgVariableParamSchema = {
   org: string
 }
 
-export type t_ActionsSetSelectedReposForOrgVariableRequestBodySchema = {
+export type t_actionsSetSelectedReposForOrgVariableJsonRequestBody = {
   selected_repository_ids: number[]
 }
 
@@ -9227,7 +9393,7 @@ export type t_ActionsSetSelectedRepositoriesEnabledGithubActionsOrganizationPara
     org: string
   }
 
-export type t_ActionsSetSelectedRepositoriesEnabledGithubActionsOrganizationRequestBodySchema =
+export type t_actionsSetSelectedRepositoriesEnabledGithubActionsOrganizationJsonRequestBody =
   {
     selected_repository_ids: number[]
   }
@@ -9237,17 +9403,13 @@ export type t_ActionsSetSelfHostedRunnersInGroupForOrgParamSchema = {
   runner_group_id: number
 }
 
-export type t_ActionsSetSelfHostedRunnersInGroupForOrgRequestBodySchema = {
+export type t_actionsSetSelfHostedRunnersInGroupForOrgJsonRequestBody = {
   runners: number[]
 }
 
 export type t_ActionsSetWorkflowAccessToRepositoryParamSchema = {
   owner: string
   repo: string
-}
-
-export type t_ActionsSetWorkflowAccessToRepositoryRequestBodySchema = {
-  access_level: "none" | "user" | "organization"
 }
 
 export type t_ActionsUpdateEnvironmentVariableParamSchema = {
@@ -9257,7 +9419,7 @@ export type t_ActionsUpdateEnvironmentVariableParamSchema = {
   repo: string
 }
 
-export type t_ActionsUpdateEnvironmentVariableRequestBodySchema = {
+export type t_actionsUpdateEnvironmentVariableJsonRequestBody = {
   name?: string | undefined
   value?: string | undefined
 }
@@ -9267,7 +9429,7 @@ export type t_ActionsUpdateHostedRunnerForOrgParamSchema = {
   org: string
 }
 
-export type t_ActionsUpdateHostedRunnerForOrgRequestBodySchema = {
+export type t_actionsUpdateHostedRunnerForOrgJsonRequestBody = {
   enable_static_ip?: boolean | undefined
   maximum_runners?: number | undefined
   name?: string | undefined
@@ -9279,7 +9441,7 @@ export type t_ActionsUpdateOrgVariableParamSchema = {
   org: string
 }
 
-export type t_ActionsUpdateOrgVariableRequestBodySchema = {
+export type t_actionsUpdateOrgVariableJsonRequestBody = {
   name?: string | undefined
   selected_repository_ids?: number[] | undefined
   value?: string | undefined
@@ -9292,7 +9454,7 @@ export type t_ActionsUpdateRepoVariableParamSchema = {
   repo: string
 }
 
-export type t_ActionsUpdateRepoVariableRequestBodySchema = {
+export type t_actionsUpdateRepoVariableJsonRequestBody = {
   name?: string | undefined
   value?: string | undefined
 }
@@ -9302,7 +9464,7 @@ export type t_ActionsUpdateSelfHostedRunnerGroupForOrgParamSchema = {
   runner_group_id: number
 }
 
-export type t_ActionsUpdateSelfHostedRunnerGroupForOrgRequestBodySchema = {
+export type t_actionsUpdateSelfHostedRunnerGroupForOrgJsonRequestBody = {
   allows_public_repositories?: boolean | undefined
   name: string
   network_configuration_id?: (string | null) | undefined
@@ -9493,7 +9655,7 @@ export type t_ActivityListWatchersForRepoQuerySchema = {
   per_page?: number | undefined
 }
 
-export type t_ActivityMarkNotificationsAsReadRequestBodySchema = {
+export type t_activityMarkNotificationsAsReadJsonRequestBody = {
   last_read_at?: string | undefined
   read?: boolean | undefined
 }
@@ -9503,7 +9665,7 @@ export type t_ActivityMarkRepoNotificationsAsReadParamSchema = {
   repo: string
 }
 
-export type t_ActivityMarkRepoNotificationsAsReadRequestBodySchema = {
+export type t_activityMarkRepoNotificationsAsReadJsonRequestBody = {
   last_read_at?: string | undefined
 }
 
@@ -9520,7 +9682,7 @@ export type t_ActivitySetRepoSubscriptionParamSchema = {
   repo: string
 }
 
-export type t_ActivitySetRepoSubscriptionRequestBodySchema = {
+export type t_activitySetRepoSubscriptionJsonRequestBody = {
   ignored?: boolean | undefined
   subscribed?: boolean | undefined
 }
@@ -9529,7 +9691,7 @@ export type t_ActivitySetThreadSubscriptionParamSchema = {
   thread_id: number
 }
 
-export type t_ActivitySetThreadSubscriptionRequestBodySchema = {
+export type t_activitySetThreadSubscriptionJsonRequestBody = {
   ignored?: boolean | undefined
 }
 
@@ -9700,7 +9862,7 @@ export type t_AppsCheckTokenParamSchema = {
   client_id: string
 }
 
-export type t_AppsCheckTokenRequestBodySchema = {
+export type t_appsCheckTokenJsonRequestBody = {
   access_token: string
 }
 
@@ -9712,7 +9874,7 @@ export type t_AppsCreateInstallationAccessTokenParamSchema = {
   installation_id: number
 }
 
-export type t_AppsCreateInstallationAccessTokenRequestBodySchema = {
+export type t_appsCreateInstallationAccessTokenJsonRequestBody = {
   permissions?: t_app_permissions | undefined
   repositories?: string[] | undefined
   repository_ids?: number[] | undefined
@@ -9722,7 +9884,7 @@ export type t_AppsDeleteAuthorizationParamSchema = {
   client_id: string
 }
 
-export type t_AppsDeleteAuthorizationRequestBodySchema = {
+export type t_appsDeleteAuthorizationJsonRequestBody = {
   access_token: string
 }
 
@@ -9734,7 +9896,7 @@ export type t_AppsDeleteTokenParamSchema = {
   client_id: string
 }
 
-export type t_AppsDeleteTokenRequestBodySchema = {
+export type t_appsDeleteTokenJsonRequestBody = {
   access_token: string
 }
 
@@ -9862,7 +10024,7 @@ export type t_AppsResetTokenParamSchema = {
   client_id: string
 }
 
-export type t_AppsResetTokenRequestBodySchema = {
+export type t_appsResetTokenJsonRequestBody = {
   access_token: string
 }
 
@@ -9870,7 +10032,7 @@ export type t_AppsScopeTokenParamSchema = {
   client_id: string
 }
 
-export type t_AppsScopeTokenRequestBodySchema = {
+export type t_appsScopeTokenJsonRequestBody = {
   access_token: string
   permissions?: t_app_permissions | undefined
   repositories?: string[] | undefined
@@ -9887,7 +10049,7 @@ export type t_AppsUnsuspendInstallationParamSchema = {
   installation_id: number
 }
 
-export type t_AppsUpdateWebhookConfigForAppRequestBodySchema = {
+export type t_appsUpdateWebhookConfigForAppJsonRequestBody = {
   content_type?: t_webhook_config_content_type | undefined
   insecure_ssl?: t_webhook_config_insecure_ssl | undefined
   secret?: t_webhook_config_secret | undefined
@@ -9944,7 +10106,7 @@ export type t_CampaignsCreateCampaignParamSchema = {
   org: string
 }
 
-export type t_CampaignsCreateCampaignRequestBodySchema = {
+export type t_campaignsCreateCampaignJsonRequestBody = {
   code_scanning_alerts: {
     alert_numbers: number[]
     repository_id: number
@@ -9985,7 +10147,7 @@ export type t_CampaignsUpdateCampaignParamSchema = {
   org: string
 }
 
-export type t_CampaignsUpdateCampaignRequestBodySchema = {
+export type t_campaignsUpdateCampaignJsonRequestBody = {
   contact_link?: (string | null) | undefined
   description?: string | undefined
   ends_at?: string | undefined
@@ -10000,7 +10162,7 @@ export type t_ChecksCreateParamSchema = {
   repo: string
 }
 
-export type t_ChecksCreateRequestBodySchema =
+export type t_checksCreateJsonRequestBody =
   | {
       status: EmptyObject
       [key: string]: unknown | undefined
@@ -10015,7 +10177,7 @@ export type t_ChecksCreateSuiteParamSchema = {
   repo: string
 }
 
-export type t_ChecksCreateSuiteRequestBodySchema = {
+export type t_checksCreateSuiteJsonRequestBody = {
   head_sha: string
 }
 
@@ -10101,7 +10263,7 @@ export type t_ChecksSetSuitesPreferencesParamSchema = {
   repo: string
 }
 
-export type t_ChecksSetSuitesPreferencesRequestBodySchema = {
+export type t_checksSetSuitesPreferencesJsonRequestBody = {
   auto_trigger_checks?:
     | {
         app_id: number
@@ -10116,7 +10278,7 @@ export type t_ChecksUpdateParamSchema = {
   repo: string
 }
 
-export type t_ChecksUpdateRequestBodySchema = {
+export type t_checksUpdateJsonRequestBody = {
   actions?:
     | {
         description: string
@@ -10221,11 +10383,6 @@ export type t_CodeScanningCommitAutofixParamSchema = {
   repo: string
 }
 
-export type t_CodeScanningCommitAutofixRequestBodySchema = {
-  message?: string | undefined
-  target_ref?: string | undefined
-} | null
-
 export type t_CodeScanningCreateAutofixParamSchema = {
   alert_number: t_alert_number
   owner: string
@@ -10237,7 +10394,7 @@ export type t_CodeScanningCreateVariantAnalysisParamSchema = {
   repo: string
 }
 
-export type t_CodeScanningCreateVariantAnalysisRequestBodySchema = EmptyObject
+export type t_codeScanningCreateVariantAnalysisJsonRequestBody = EmptyObject
 
 export type t_CodeScanningDeleteAnalysisParamSchema = {
   analysis_id: number
@@ -10382,7 +10539,7 @@ export type t_CodeScanningUpdateAlertParamSchema = {
   repo: string
 }
 
-export type t_CodeScanningUpdateAlertRequestBodySchema = {
+export type t_codeScanningUpdateAlertJsonRequestBody = {
   create_request?: t_code_scanning_alert_create_request | undefined
   dismissed_comment?: t_code_scanning_alert_dismissed_comment | undefined
   dismissed_reason?: t_code_scanning_alert_dismissed_reason | undefined
@@ -10394,33 +10551,12 @@ export type t_CodeScanningUpdateDefaultSetupParamSchema = {
   repo: string
 }
 
-export type t_CodeScanningUpdateDefaultSetupRequestBodySchema = {
-  languages?:
-    | (
-        | "actions"
-        | "c-cpp"
-        | "csharp"
-        | "go"
-        | "java-kotlin"
-        | "javascript-typescript"
-        | "python"
-        | "ruby"
-        | "swift"
-      )[]
-    | undefined
-  query_suite?: ("default" | "extended") | undefined
-  runner_label?: (string | null) | undefined
-  runner_type?: ("standard" | "labeled") | undefined
-  state?: ("configured" | "not-configured") | undefined
-  threat_model?: ("remote" | "remote_and_local") | undefined
-}
-
 export type t_CodeScanningUploadSarifParamSchema = {
   owner: string
   repo: string
 }
 
-export type t_CodeScanningUploadSarifRequestBodySchema = {
+export type t_codeScanningUploadSarifJsonRequestBody = {
   checkout_uri?: string | undefined
   commit_sha: t_code_scanning_analysis_commit_sha
   ref: t_code_scanning_ref_full
@@ -10435,7 +10571,7 @@ export type t_CodeSecurityAttachConfigurationParamSchema = {
   org: string
 }
 
-export type t_CodeSecurityAttachConfigurationRequestBodySchema = {
+export type t_codeSecurityAttachConfigurationJsonRequestBody = {
   scope:
     | "all"
     | "all_without_configurations"
@@ -10450,7 +10586,7 @@ export type t_CodeSecurityAttachEnterpriseConfigurationParamSchema = {
   enterprise: string
 }
 
-export type t_CodeSecurityAttachEnterpriseConfigurationRequestBodySchema = {
+export type t_codeSecurityAttachEnterpriseConfigurationJsonRequestBody = {
   scope: "all" | "all_without_configurations"
 }
 
@@ -10458,7 +10594,7 @@ export type t_CodeSecurityCreateConfigurationParamSchema = {
   org: string
 }
 
-export type t_CodeSecurityCreateConfigurationRequestBodySchema = {
+export type t_codeSecurityCreateConfigurationJsonRequestBody = {
   advanced_security?:
     | ("enabled" | "disabled" | "code_security" | "secret_protection")
     | undefined
@@ -10524,7 +10660,7 @@ export type t_CodeSecurityCreateConfigurationForEnterpriseParamSchema = {
   enterprise: string
 }
 
-export type t_CodeSecurityCreateConfigurationForEnterpriseRequestBodySchema = {
+export type t_codeSecurityCreateConfigurationForEnterpriseJsonRequestBody = {
   advanced_security?:
     | ("enabled" | "disabled" | "code_security" | "secret_protection")
     | undefined
@@ -10587,7 +10723,7 @@ export type t_CodeSecurityDetachConfigurationParamSchema = {
   org: string
 }
 
-export type t_CodeSecurityDetachConfigurationRequestBodySchema = {
+export type t_codeSecurityDetachConfigurationJsonRequestBody = {
   selected_repository_ids?: number[] | undefined
 }
 
@@ -10666,7 +10802,7 @@ export type t_CodeSecuritySetConfigurationAsDefaultParamSchema = {
   org: string
 }
 
-export type t_CodeSecuritySetConfigurationAsDefaultRequestBodySchema = {
+export type t_codeSecuritySetConfigurationAsDefaultJsonRequestBody = {
   default_for_new_repos?:
     | ("all" | "none" | "private_and_internal" | "public")
     | undefined
@@ -10677,7 +10813,7 @@ export type t_CodeSecuritySetConfigurationAsDefaultForEnterpriseParamSchema = {
   enterprise: string
 }
 
-export type t_CodeSecuritySetConfigurationAsDefaultForEnterpriseRequestBodySchema =
+export type t_codeSecuritySetConfigurationAsDefaultForEnterpriseJsonRequestBody =
   {
     default_for_new_repos?:
       | ("all" | "none" | "private_and_internal" | "public")
@@ -10689,7 +10825,7 @@ export type t_CodeSecurityUpdateConfigurationParamSchema = {
   org: string
 }
 
-export type t_CodeSecurityUpdateConfigurationRequestBodySchema = {
+export type t_codeSecurityUpdateConfigurationJsonRequestBody = {
   advanced_security?:
     | ("enabled" | "disabled" | "code_security" | "secret_protection")
     | undefined
@@ -10755,7 +10891,7 @@ export type t_CodeSecurityUpdateEnterpriseConfigurationParamSchema = {
   enterprise: string
 }
 
-export type t_CodeSecurityUpdateEnterpriseConfigurationRequestBodySchema = {
+export type t_codeSecurityUpdateEnterpriseConfigurationJsonRequestBody = {
   advanced_security?:
     | ("enabled" | "disabled" | "code_security" | "secret_protection")
     | undefined
@@ -10833,7 +10969,7 @@ export type t_CodespacesCodespaceMachinesForAuthenticatedUserParamSchema = {
   codespace_name: string
 }
 
-export type t_CodespacesCreateForAuthenticatedUserRequestBodySchema =
+export type t_codespacesCreateForAuthenticatedUserJsonRequestBody =
   | {
       client_ip?: string | undefined
       devcontainer_path?: string | undefined
@@ -10866,7 +11002,7 @@ export type t_CodespacesCreateOrUpdateOrgSecretParamSchema = {
   secret_name: string
 }
 
-export type t_CodespacesCreateOrUpdateOrgSecretRequestBodySchema = {
+export type t_codespacesCreateOrUpdateOrgSecretJsonRequestBody = {
   encrypted_value?: string | undefined
   key_id?: string | undefined
   selected_repository_ids?: number[] | undefined
@@ -10879,7 +11015,7 @@ export type t_CodespacesCreateOrUpdateRepoSecretParamSchema = {
   secret_name: string
 }
 
-export type t_CodespacesCreateOrUpdateRepoSecretRequestBodySchema = {
+export type t_codespacesCreateOrUpdateRepoSecretJsonRequestBody = {
   encrypted_value?: string | undefined
   key_id?: string | undefined
 }
@@ -10888,7 +11024,7 @@ export type t_CodespacesCreateOrUpdateSecretForAuthenticatedUserParamSchema = {
   secret_name: string
 }
 
-export type t_CodespacesCreateOrUpdateSecretForAuthenticatedUserRequestBodySchema =
+export type t_codespacesCreateOrUpdateSecretForAuthenticatedUserJsonRequestBody =
   {
     encrypted_value?: string | undefined
     key_id: string
@@ -10901,7 +11037,7 @@ export type t_CodespacesCreateWithPrForAuthenticatedUserParamSchema = {
   repo: string
 }
 
-export type t_CodespacesCreateWithPrForAuthenticatedUserRequestBodySchema = {
+export type t_codespacesCreateWithPrForAuthenticatedUserJsonRequestBody = {
   client_ip?: string | undefined
   devcontainer_path?: string | undefined
   display_name?: string | undefined
@@ -10919,7 +11055,7 @@ export type t_CodespacesCreateWithRepoForAuthenticatedUserParamSchema = {
   repo: string
 }
 
-export type t_CodespacesCreateWithRepoForAuthenticatedUserRequestBodySchema = {
+export type t_codespacesCreateWithRepoForAuthenticatedUserJsonRequestBody = {
   client_ip?: string | undefined
   devcontainer_path?: string | undefined
   display_name?: string | undefined
@@ -10937,7 +11073,7 @@ export type t_CodespacesDeleteCodespacesAccessUsersParamSchema = {
   org: string
 }
 
-export type t_CodespacesDeleteCodespacesAccessUsersRequestBodySchema = {
+export type t_codespacesDeleteCodespacesAccessUsersJsonRequestBody = {
   selected_usernames: string[]
 }
 
@@ -11103,7 +11239,7 @@ export type t_CodespacesPublishForAuthenticatedUserParamSchema = {
   codespace_name: string
 }
 
-export type t_CodespacesPublishForAuthenticatedUserRequestBodySchema = {
+export type t_codespacesPublishForAuthenticatedUserJsonRequestBody = {
   name?: string | undefined
   private?: boolean | undefined
 }
@@ -11135,7 +11271,7 @@ export type t_CodespacesSetCodespacesAccessParamSchema = {
   org: string
 }
 
-export type t_CodespacesSetCodespacesAccessRequestBodySchema = {
+export type t_codespacesSetCodespacesAccessJsonRequestBody = {
   selected_usernames?: string[] | undefined
   visibility:
     | "disabled"
@@ -11148,7 +11284,7 @@ export type t_CodespacesSetCodespacesAccessUsersParamSchema = {
   org: string
 }
 
-export type t_CodespacesSetCodespacesAccessUsersRequestBodySchema = {
+export type t_codespacesSetCodespacesAccessUsersJsonRequestBody = {
   selected_usernames: string[]
 }
 
@@ -11157,7 +11293,7 @@ export type t_CodespacesSetRepositoriesForSecretForAuthenticatedUserParamSchema 
     secret_name: string
   }
 
-export type t_CodespacesSetRepositoriesForSecretForAuthenticatedUserRequestBodySchema =
+export type t_codespacesSetRepositoriesForSecretForAuthenticatedUserJsonRequestBody =
   {
     selected_repository_ids: number[]
   }
@@ -11167,7 +11303,7 @@ export type t_CodespacesSetSelectedReposForOrgSecretParamSchema = {
   secret_name: string
 }
 
-export type t_CodespacesSetSelectedReposForOrgSecretRequestBodySchema = {
+export type t_codespacesSetSelectedReposForOrgSecretJsonRequestBody = {
   selected_repository_ids: number[]
 }
 
@@ -11189,7 +11325,7 @@ export type t_CodespacesUpdateForAuthenticatedUserParamSchema = {
   codespace_name: string
 }
 
-export type t_CodespacesUpdateForAuthenticatedUserRequestBodySchema = {
+export type t_codespacesUpdateForAuthenticatedUserJsonRequestBody = {
   display_name?: string | undefined
   machine?: string | undefined
   recent_folders?: string[] | undefined
@@ -11199,7 +11335,7 @@ export type t_CopilotAddCopilotSeatsForTeamsParamSchema = {
   org: string
 }
 
-export type t_CopilotAddCopilotSeatsForTeamsRequestBodySchema = {
+export type t_copilotAddCopilotSeatsForTeamsJsonRequestBody = {
   selected_teams: string[]
 }
 
@@ -11207,7 +11343,7 @@ export type t_CopilotAddCopilotSeatsForUsersParamSchema = {
   org: string
 }
 
-export type t_CopilotAddCopilotSeatsForUsersRequestBodySchema = {
+export type t_copilotAddCopilotSeatsForUsersJsonRequestBody = {
   selected_usernames: string[]
 }
 
@@ -11215,7 +11351,7 @@ export type t_CopilotCancelCopilotSeatAssignmentForTeamsParamSchema = {
   org: string
 }
 
-export type t_CopilotCancelCopilotSeatAssignmentForTeamsRequestBodySchema = {
+export type t_copilotCancelCopilotSeatAssignmentForTeamsJsonRequestBody = {
   selected_teams: string[]
 }
 
@@ -11223,7 +11359,7 @@ export type t_CopilotCancelCopilotSeatAssignmentForUsersParamSchema = {
   org: string
 }
 
-export type t_CopilotCancelCopilotSeatAssignmentForUsersRequestBodySchema = {
+export type t_copilotCancelCopilotSeatAssignmentForUsersJsonRequestBody = {
   selected_usernames: string[]
 }
 
@@ -11268,7 +11404,7 @@ export type t_CopilotListCopilotSeatsQuerySchema = {
   per_page?: number | undefined
 }
 
-export type t_CredentialsRevokeRequestBodySchema = {
+export type t_credentialsRevokeJsonRequestBody = {
   credentials: string[]
 }
 
@@ -11283,7 +11419,7 @@ export type t_DependabotCreateOrUpdateOrgSecretParamSchema = {
   secret_name: string
 }
 
-export type t_DependabotCreateOrUpdateOrgSecretRequestBodySchema = {
+export type t_dependabotCreateOrUpdateOrgSecretJsonRequestBody = {
   encrypted_value?: string | undefined
   key_id?: string | undefined
   selected_repository_ids?: string[] | undefined
@@ -11296,7 +11432,7 @@ export type t_DependabotCreateOrUpdateRepoSecretParamSchema = {
   secret_name: string
 }
 
-export type t_DependabotCreateOrUpdateRepoSecretRequestBodySchema = {
+export type t_dependabotCreateOrUpdateRepoSecretJsonRequestBody = {
   encrypted_value?: string | undefined
   key_id?: string | undefined
 }
@@ -11452,7 +11588,7 @@ export type t_DependabotSetRepositoryAccessDefaultLevelParamSchema = {
   org: string
 }
 
-export type t_DependabotSetRepositoryAccessDefaultLevelRequestBodySchema = {
+export type t_dependabotSetRepositoryAccessDefaultLevelJsonRequestBody = {
   default_level: "public" | "internal"
 }
 
@@ -11461,7 +11597,7 @@ export type t_DependabotSetSelectedReposForOrgSecretParamSchema = {
   secret_name: string
 }
 
-export type t_DependabotSetSelectedReposForOrgSecretRequestBodySchema = {
+export type t_dependabotSetSelectedReposForOrgSecretJsonRequestBody = {
   selected_repository_ids: number[]
 }
 
@@ -11471,7 +11607,7 @@ export type t_DependabotUpdateAlertParamSchema = {
   repo: string
 }
 
-export type t_DependabotUpdateAlertRequestBodySchema = {
+export type t_dependabotUpdateAlertJsonRequestBody = {
   dismissed_comment?: string | undefined
   dismissed_reason?:
     | (
@@ -11489,7 +11625,7 @@ export type t_DependabotUpdateRepositoryAccessForOrgParamSchema = {
   org: string
 }
 
-export type t_DependabotUpdateRepositoryAccessForOrgRequestBodySchema = {
+export type t_dependabotUpdateRepositoryAccessForOrgJsonRequestBody = {
   repository_ids_to_add?: number[] | undefined
   repository_ids_to_remove?: number[] | undefined
 }
@@ -11497,29 +11633,6 @@ export type t_DependabotUpdateRepositoryAccessForOrgRequestBodySchema = {
 export type t_DependencyGraphCreateRepositorySnapshotParamSchema = {
   owner: string
   repo: string
-}
-
-export type t_DependencyGraphCreateRepositorySnapshotRequestBodySchema = {
-  detector: {
-    name: string
-    url: string
-    version: string
-  }
-  job: {
-    correlator: string
-    html_url?: string | undefined
-    id: string
-  }
-  manifests?:
-    | {
-        [key: string]: t_manifest | undefined
-      }
-    | undefined
-  metadata?: t_metadata | undefined
-  ref: string
-  scanned: string
-  sha: string
-  version: number
 }
 
 export type t_DependencyGraphDiffRangeParamSchema = {
@@ -11541,7 +11654,7 @@ export type t_GistsCheckIsStarredParamSchema = {
   gist_id: string
 }
 
-export type t_GistsCreateRequestBodySchema = {
+export type t_gistsCreateJsonRequestBody = {
   description?: string | undefined
   files: {
     [key: string]:
@@ -11557,7 +11670,7 @@ export type t_GistsCreateCommentParamSchema = {
   gist_id: string
 }
 
-export type t_GistsCreateCommentRequestBodySchema = {
+export type t_gistsCreateCommentJsonRequestBody = {
   body: string
 }
 
@@ -11655,7 +11768,7 @@ export type t_GistsUpdateParamSchema = {
   gist_id: string
 }
 
-export type t_GistsUpdateRequestBodySchema = {
+export type t_gistsUpdateJsonRequestBody = {
   description?: string | undefined
   files?:
     | {
@@ -11674,7 +11787,7 @@ export type t_GistsUpdateCommentParamSchema = {
   gist_id: string
 }
 
-export type t_GistsUpdateCommentRequestBodySchema = {
+export type t_gistsUpdateCommentJsonRequestBody = {
   body: string
 }
 
@@ -11683,7 +11796,7 @@ export type t_GitCreateBlobParamSchema = {
   repo: string
 }
 
-export type t_GitCreateBlobRequestBodySchema = {
+export type t_gitCreateBlobJsonRequestBody = {
   content: string
   encoding?: string | undefined
 }
@@ -11693,7 +11806,7 @@ export type t_GitCreateCommitParamSchema = {
   repo: string
 }
 
-export type t_GitCreateCommitRequestBodySchema = {
+export type t_gitCreateCommitJsonRequestBody = {
   author?:
     | {
         date?: string | undefined
@@ -11719,7 +11832,7 @@ export type t_GitCreateRefParamSchema = {
   repo: string
 }
 
-export type t_GitCreateRefRequestBodySchema = {
+export type t_gitCreateRefJsonRequestBody = {
   ref: string
   sha: string
 }
@@ -11729,7 +11842,7 @@ export type t_GitCreateTagParamSchema = {
   repo: string
 }
 
-export type t_GitCreateTagRequestBodySchema = {
+export type t_gitCreateTagJsonRequestBody = {
   message: string
   object: string
   tag: string
@@ -11748,7 +11861,7 @@ export type t_GitCreateTreeParamSchema = {
   repo: string
 }
 
-export type t_GitCreateTreeRequestBodySchema = {
+export type t_gitCreateTreeJsonRequestBody = {
   base_tree?: string | undefined
   tree: {
     content?: string | undefined
@@ -11811,7 +11924,7 @@ export type t_GitUpdateRefParamSchema = {
   repo: string
 }
 
-export type t_GitUpdateRefRequestBodySchema = {
+export type t_gitUpdateRefJsonRequestBody = {
   force?: boolean | undefined
   sha: string
 }
@@ -11824,7 +11937,7 @@ export type t_HostedComputeCreateNetworkConfigurationForOrgParamSchema = {
   org: string
 }
 
-export type t_HostedComputeCreateNetworkConfigurationForOrgRequestBodySchema = {
+export type t_hostedComputeCreateNetworkConfigurationForOrgJsonRequestBody = {
   compute_service?: ("none" | "actions") | undefined
   name: string
   network_settings_ids: string[]
@@ -11859,7 +11972,7 @@ export type t_HostedComputeUpdateNetworkConfigurationForOrgParamSchema = {
   org: string
 }
 
-export type t_HostedComputeUpdateNetworkConfigurationForOrgRequestBodySchema = {
+export type t_hostedComputeUpdateNetworkConfigurationForOrgJsonRequestBody = {
   compute_service?: ("none" | "actions") | undefined
   name?: string | undefined
   network_settings_ids?: string[] | undefined
@@ -11883,29 +11996,13 @@ export type t_InteractionsRemoveRestrictionsForRepoParamSchema = {
   repo: string
 }
 
-export type t_InteractionsSetRestrictionsForAuthenticatedUserRequestBodySchema =
-  {
-    expiry?: t_interaction_expiry | undefined
-    limit: t_interaction_group
-  }
-
 export type t_InteractionsSetRestrictionsForOrgParamSchema = {
   org: string
-}
-
-export type t_InteractionsSetRestrictionsForOrgRequestBodySchema = {
-  expiry?: t_interaction_expiry | undefined
-  limit: t_interaction_group
 }
 
 export type t_InteractionsSetRestrictionsForRepoParamSchema = {
   owner: string
   repo: string
-}
-
-export type t_InteractionsSetRestrictionsForRepoRequestBodySchema = {
-  expiry?: t_interaction_expiry | undefined
-  limit: t_interaction_group
 }
 
 export type t_IssuesAddAssigneesParamSchema = {
@@ -11914,7 +12011,7 @@ export type t_IssuesAddAssigneesParamSchema = {
   repo: string
 }
 
-export type t_IssuesAddAssigneesRequestBodySchema = {
+export type t_issuesAddAssigneesJsonRequestBody = {
   assignees?: string[] | undefined
 }
 
@@ -11924,7 +12021,7 @@ export type t_IssuesAddLabelsParamSchema = {
   repo: string
 }
 
-export type t_IssuesAddLabelsRequestBodySchema =
+export type t_issuesAddLabelsJsonRequestBody =
   | {
       labels?: string[] | undefined
     }
@@ -11947,7 +12044,7 @@ export type t_IssuesAddSubIssueParamSchema = {
   repo: string
 }
 
-export type t_IssuesAddSubIssueRequestBodySchema = {
+export type t_issuesAddSubIssueJsonRequestBody = {
   replace_parent?: boolean | undefined
   sub_issue_id: number
 }
@@ -11970,7 +12067,7 @@ export type t_IssuesCreateParamSchema = {
   repo: string
 }
 
-export type t_IssuesCreateRequestBodySchema = {
+export type t_issuesCreateJsonRequestBody = {
   assignee?: (string | null) | undefined
   assignees?: string[] | undefined
   body?: string | undefined
@@ -11996,7 +12093,7 @@ export type t_IssuesCreateCommentParamSchema = {
   repo: string
 }
 
-export type t_IssuesCreateCommentRequestBodySchema = {
+export type t_issuesCreateCommentJsonRequestBody = {
   body: string
 }
 
@@ -12005,7 +12102,7 @@ export type t_IssuesCreateLabelParamSchema = {
   repo: string
 }
 
-export type t_IssuesCreateLabelRequestBodySchema = {
+export type t_issuesCreateLabelJsonRequestBody = {
   color?: string | undefined
   description?: string | undefined
   name: string
@@ -12016,7 +12113,7 @@ export type t_IssuesCreateMilestoneParamSchema = {
   repo: string
 }
 
-export type t_IssuesCreateMilestoneRequestBodySchema = {
+export type t_issuesCreateMilestoneJsonRequestBody = {
   description?: string | undefined
   due_on?: string | undefined
   state?: ("open" | "closed") | undefined
@@ -12268,7 +12365,7 @@ export type t_IssuesLockParamSchema = {
   repo: string
 }
 
-export type t_IssuesLockRequestBodySchema = {
+export type t_issuesLockJsonRequestBody = {
   lock_reason?: ("off-topic" | "too heated" | "resolved" | "spam") | undefined
 } | null
 
@@ -12284,7 +12381,7 @@ export type t_IssuesRemoveAssigneesParamSchema = {
   repo: string
 }
 
-export type t_IssuesRemoveAssigneesRequestBodySchema = {
+export type t_issuesRemoveAssigneesJsonRequestBody = {
   assignees?: string[] | undefined
 }
 
@@ -12301,7 +12398,7 @@ export type t_IssuesRemoveSubIssueParamSchema = {
   repo: string
 }
 
-export type t_IssuesRemoveSubIssueRequestBodySchema = {
+export type t_issuesRemoveSubIssueJsonRequestBody = {
   sub_issue_id: number
 }
 
@@ -12311,7 +12408,7 @@ export type t_IssuesReprioritizeSubIssueParamSchema = {
   repo: string
 }
 
-export type t_IssuesReprioritizeSubIssueRequestBodySchema = {
+export type t_issuesReprioritizeSubIssueJsonRequestBody = {
   after_id?: number | undefined
   before_id?: number | undefined
   sub_issue_id: number
@@ -12323,7 +12420,7 @@ export type t_IssuesSetLabelsParamSchema = {
   repo: string
 }
 
-export type t_IssuesSetLabelsRequestBodySchema =
+export type t_issuesSetLabelsJsonRequestBody =
   | {
       labels?: string[] | undefined
     }
@@ -12352,7 +12449,7 @@ export type t_IssuesUpdateParamSchema = {
   repo: string
 }
 
-export type t_IssuesUpdateRequestBodySchema = {
+export type t_issuesUpdateJsonRequestBody = {
   assignee?: (string | null) | undefined
   assignees?: string[] | undefined
   body?: (string | null) | undefined
@@ -12382,7 +12479,7 @@ export type t_IssuesUpdateCommentParamSchema = {
   repo: string
 }
 
-export type t_IssuesUpdateCommentRequestBodySchema = {
+export type t_issuesUpdateCommentJsonRequestBody = {
   body: string
 }
 
@@ -12392,7 +12489,7 @@ export type t_IssuesUpdateLabelParamSchema = {
   repo: string
 }
 
-export type t_IssuesUpdateLabelRequestBodySchema = {
+export type t_issuesUpdateLabelJsonRequestBody = {
   color?: string | undefined
   description?: string | undefined
   new_name?: string | undefined
@@ -12404,7 +12501,7 @@ export type t_IssuesUpdateMilestoneParamSchema = {
   repo: string
 }
 
-export type t_IssuesUpdateMilestoneRequestBodySchema = {
+export type t_issuesUpdateMilestoneJsonRequestBody = {
   description?: string | undefined
   due_on?: string | undefined
   state?: ("open" | "closed") | undefined
@@ -12430,13 +12527,11 @@ export type t_LicensesGetForRepoQuerySchema = {
   ref?: t_code_scanning_ref | undefined
 }
 
-export type t_MarkdownRenderRequestBodySchema = {
+export type t_markdownRenderJsonRequestBody = {
   context?: string | undefined
   mode?: ("markdown" | "gfm") | undefined
   text: string
 }
-
-export type t_MarkdownRenderRawRequestBodySchema = string
 
 export type t_MetaGetOctocatQuerySchema = {
   s?: string | undefined
@@ -12541,7 +12636,7 @@ export type t_MigrationsMapCommitAuthorParamSchema = {
   repo: string
 }
 
-export type t_MigrationsMapCommitAuthorRequestBodySchema = {
+export type t_migrationsMapCommitAuthorJsonRequestBody = {
   email?: string | undefined
   name?: string | undefined
 }
@@ -12551,11 +12646,11 @@ export type t_MigrationsSetLfsPreferenceParamSchema = {
   repo: string
 }
 
-export type t_MigrationsSetLfsPreferenceRequestBodySchema = {
+export type t_migrationsSetLfsPreferenceJsonRequestBody = {
   use_lfs: "opt_in" | "opt_out"
 }
 
-export type t_MigrationsStartForAuthenticatedUserRequestBodySchema = {
+export type t_migrationsStartForAuthenticatedUserJsonRequestBody = {
   exclude?: "repositories"[] | undefined
   exclude_attachments?: boolean | undefined
   exclude_git_data?: boolean | undefined
@@ -12571,7 +12666,7 @@ export type t_MigrationsStartForOrgParamSchema = {
   org: string
 }
 
-export type t_MigrationsStartForOrgRequestBodySchema = {
+export type t_migrationsStartForOrgJsonRequestBody = {
   exclude?: "repositories"[] | undefined
   exclude_attachments?: boolean | undefined
   exclude_git_data?: boolean | undefined
@@ -12588,7 +12683,7 @@ export type t_MigrationsStartImportParamSchema = {
   repo: string
 }
 
-export type t_MigrationsStartImportRequestBodySchema = {
+export type t_migrationsStartImportJsonRequestBody = {
   tfvc_project?: string | undefined
   vcs?: ("subversion" | "git" | "mercurial" | "tfvc") | undefined
   vcs_password?: string | undefined
@@ -12612,7 +12707,7 @@ export type t_MigrationsUpdateImportParamSchema = {
   repo: string
 }
 
-export type t_MigrationsUpdateImportRequestBodySchema = {
+export type t_migrationsUpdateImportJsonRequestBody = {
   tfvc_project?: string | undefined
   vcs?: ("subversion" | "tfvc" | "git" | "mercurial") | undefined
   vcs_password?: string | undefined
@@ -12625,10 +12720,6 @@ export type t_OidcGetOidcCustomSubTemplateForOrgParamSchema = {
 
 export type t_OidcUpdateOidcCustomSubTemplateForOrgParamSchema = {
   org: string
-}
-
-export type t_OidcUpdateOidcCustomSubTemplateForOrgRequestBodySchema = {
-  include_claim_keys: string[]
 }
 
 export type t_OrgsAddSecurityManagerTeamParamSchema = {
@@ -12678,7 +12769,7 @@ export type t_OrgsConvertMemberToOutsideCollaboratorParamSchema = {
   username: string
 }
 
-export type t_OrgsConvertMemberToOutsideCollaboratorRequestBodySchema = {
+export type t_orgsConvertMemberToOutsideCollaboratorJsonRequestBody = {
   async?: boolean | undefined
 }
 
@@ -12686,7 +12777,7 @@ export type t_OrgsCreateInvitationParamSchema = {
   org: string
 }
 
-export type t_OrgsCreateInvitationRequestBodySchema = {
+export type t_orgsCreateInvitationJsonRequestBody = {
   email?: string | undefined
   invitee_id?: number | undefined
   role?:
@@ -12699,30 +12790,11 @@ export type t_OrgsCreateIssueTypeParamSchema = {
   org: string
 }
 
-export type t_OrgsCreateIssueTypeRequestBodySchema = {
-  color?:
-    | (
-        | "gray"
-        | "blue"
-        | "green"
-        | "yellow"
-        | "orange"
-        | "red"
-        | "pink"
-        | "purple"
-        | null
-      )
-    | undefined
-  description?: (string | null) | undefined
-  is_enabled: boolean
-  name: string
-}
-
 export type t_OrgsCreateOrUpdateCustomPropertiesParamSchema = {
   org: string
 }
 
-export type t_OrgsCreateOrUpdateCustomPropertiesRequestBodySchema = {
+export type t_orgsCreateOrUpdateCustomPropertiesJsonRequestBody = {
   properties: t_custom_property[]
 }
 
@@ -12730,7 +12802,7 @@ export type t_OrgsCreateOrUpdateCustomPropertiesValuesForReposParamSchema = {
   org: string
 }
 
-export type t_OrgsCreateOrUpdateCustomPropertiesValuesForReposRequestBodySchema =
+export type t_orgsCreateOrUpdateCustomPropertiesValuesForReposJsonRequestBody =
   {
     properties: t_custom_property_value[]
     repository_names: string[]
@@ -12741,20 +12813,11 @@ export type t_OrgsCreateOrUpdateCustomPropertyParamSchema = {
   org: string
 }
 
-export type t_OrgsCreateOrUpdateCustomPropertyRequestBodySchema = {
-  allowed_values?: (string[] | null) | undefined
-  default_value?: (string | string[] | null) | undefined
-  description?: (string | null) | undefined
-  required?: boolean | undefined
-  value_type: "string" | "single_select" | "multi_select" | "true_false"
-  values_editable_by?: ("org_actors" | "org_and_repo_actors" | null) | undefined
-}
-
 export type t_OrgsCreateWebhookParamSchema = {
   org: string
 }
 
-export type t_OrgsCreateWebhookRequestBodySchema = {
+export type t_orgsCreateWebhookJsonRequestBody = {
   active?: boolean | undefined
   config: {
     content_type?: t_webhook_config_content_type | undefined
@@ -12776,7 +12839,7 @@ export type t_OrgsDeleteAttestationsBulkParamSchema = {
   org: string
 }
 
-export type t_OrgsDeleteAttestationsBulkRequestBodySchema =
+export type t_orgsDeleteAttestationsBulkJsonRequestBody =
   | {
       subject_digests: string[]
     }
@@ -12817,10 +12880,9 @@ export type t_OrgsEnableOrDisableSecurityProductOnAllOrgReposParamSchema = {
     | "secret_scanning_push_protection"
 }
 
-export type t_OrgsEnableOrDisableSecurityProductOnAllOrgReposRequestBodySchema =
-  {
-    query_suite?: ("default" | "extended") | undefined
-  }
+export type t_orgsEnableOrDisableSecurityProductOnAllOrgReposJsonRequestBody = {
+  query_suite?: ("default" | "extended") | undefined
+}
 
 export type t_OrgsGetParamSchema = {
   org: string
@@ -12917,7 +12979,7 @@ export type t_OrgsListAttestationsBulkQuerySchema = {
   per_page?: number | undefined
 }
 
-export type t_OrgsListAttestationsBulkRequestBodySchema = {
+export type t_orgsListAttestationsBulkJsonRequestBody = {
   predicate_type?: string | undefined
   subject_digests: string[]
 }
@@ -13174,7 +13236,7 @@ export type t_OrgsReviewPatGrantRequestParamSchema = {
   pat_request_id: number
 }
 
-export type t_OrgsReviewPatGrantRequestRequestBodySchema = {
+export type t_orgsReviewPatGrantRequestJsonRequestBody = {
   action: "approve" | "deny"
   reason?: (string | null) | undefined
 }
@@ -13183,7 +13245,7 @@ export type t_OrgsReviewPatGrantRequestsInBulkParamSchema = {
   org: string
 }
 
-export type t_OrgsReviewPatGrantRequestsInBulkRequestBodySchema = {
+export type t_orgsReviewPatGrantRequestsInBulkJsonRequestBody = {
   action: "approve" | "deny"
   pat_request_ids?: number[] | undefined
   reason?: (string | null) | undefined
@@ -13216,7 +13278,7 @@ export type t_OrgsSetMembershipForUserParamSchema = {
   username: string
 }
 
-export type t_OrgsSetMembershipForUserRequestBodySchema = {
+export type t_orgsSetMembershipForUserJsonRequestBody = {
   role?: ("admin" | "member") | undefined
 }
 
@@ -13234,7 +13296,7 @@ export type t_OrgsUpdateParamSchema = {
   org: string
 }
 
-export type t_OrgsUpdateRequestBodySchema = {
+export type t_orgsUpdateJsonRequestBody = {
   advanced_security_enabled_for_new_repositories?: boolean | undefined
   billing_email?: string | undefined
   blog?: string | undefined
@@ -13278,30 +13340,11 @@ export type t_OrgsUpdateIssueTypeParamSchema = {
   org: string
 }
 
-export type t_OrgsUpdateIssueTypeRequestBodySchema = {
-  color?:
-    | (
-        | "gray"
-        | "blue"
-        | "green"
-        | "yellow"
-        | "orange"
-        | "red"
-        | "pink"
-        | "purple"
-        | null
-      )
-    | undefined
-  description?: (string | null) | undefined
-  is_enabled: boolean
-  name: string
-}
-
 export type t_OrgsUpdateMembershipForAuthenticatedUserParamSchema = {
   org: string
 }
 
-export type t_OrgsUpdateMembershipForAuthenticatedUserRequestBodySchema = {
+export type t_orgsUpdateMembershipForAuthenticatedUserJsonRequestBody = {
   state: "active"
 }
 
@@ -13310,7 +13353,7 @@ export type t_OrgsUpdatePatAccessParamSchema = {
   pat_id: number
 }
 
-export type t_OrgsUpdatePatAccessRequestBodySchema = {
+export type t_orgsUpdatePatAccessJsonRequestBody = {
   action: "revoke"
 }
 
@@ -13318,7 +13361,7 @@ export type t_OrgsUpdatePatAccessesParamSchema = {
   org: string
 }
 
-export type t_OrgsUpdatePatAccessesRequestBodySchema = {
+export type t_orgsUpdatePatAccessesJsonRequestBody = {
   action: "revoke"
   pat_ids: number[]
 }
@@ -13328,7 +13371,7 @@ export type t_OrgsUpdateWebhookParamSchema = {
   org: string
 }
 
-export type t_OrgsUpdateWebhookRequestBodySchema = {
+export type t_orgsUpdateWebhookJsonRequestBody = {
   active?: boolean | undefined
   config?:
     | {
@@ -13347,7 +13390,7 @@ export type t_OrgsUpdateWebhookConfigForOrgParamSchema = {
   org: string
 }
 
-export type t_OrgsUpdateWebhookConfigForOrgRequestBodySchema = {
+export type t_orgsUpdateWebhookConfigForOrgJsonRequestBody = {
   content_type?: t_webhook_config_content_type | undefined
   insecure_ssl?: t_webhook_config_insecure_ssl | undefined
   secret?: t_webhook_config_secret | undefined
@@ -13557,7 +13600,7 @@ export type t_PrivateRegistriesCreateOrgPrivateRegistryParamSchema = {
   org: string
 }
 
-export type t_PrivateRegistriesCreateOrgPrivateRegistryRequestBodySchema = {
+export type t_privateRegistriesCreateOrgPrivateRegistryJsonRequestBody = {
   encrypted_value: string
   key_id: string
   registry_type:
@@ -13610,7 +13653,7 @@ export type t_PrivateRegistriesUpdateOrgPrivateRegistryParamSchema = {
   secret_name: string
 }
 
-export type t_PrivateRegistriesUpdateOrgPrivateRegistryRequestBodySchema = {
+export type t_privateRegistriesUpdateOrgPrivateRegistryJsonRequestBody = {
   encrypted_value?: string | undefined
   key_id?: string | undefined
   registry_type?:
@@ -13643,7 +13686,7 @@ export type t_ProjectsClassicAddCollaboratorParamSchema = {
   username: string
 }
 
-export type t_ProjectsClassicAddCollaboratorRequestBodySchema = {
+export type t_projectsClassicAddCollaboratorJsonRequestBody = {
   permission?: ("read" | "write" | "admin") | undefined
 } | null
 
@@ -13651,7 +13694,7 @@ export type t_ProjectsClassicCreateCardParamSchema = {
   column_id: number
 }
 
-export type t_ProjectsClassicCreateCardRequestBodySchema =
+export type t_projectsClassicCreateCardJsonRequestBody =
   | {
       note: string | null
     }
@@ -13664,11 +13707,11 @@ export type t_ProjectsClassicCreateColumnParamSchema = {
   project_id: number
 }
 
-export type t_ProjectsClassicCreateColumnRequestBodySchema = {
+export type t_projectsClassicCreateColumnJsonRequestBody = {
   name: string
 }
 
-export type t_ProjectsClassicCreateForAuthenticatedUserRequestBodySchema = {
+export type t_projectsClassicCreateForAuthenticatedUserJsonRequestBody = {
   body?: (string | null) | undefined
   name: string
 }
@@ -13677,7 +13720,7 @@ export type t_ProjectsClassicCreateForOrgParamSchema = {
   org: string
 }
 
-export type t_ProjectsClassicCreateForOrgRequestBodySchema = {
+export type t_projectsClassicCreateForOrgJsonRequestBody = {
   body?: string | undefined
   name: string
 }
@@ -13687,7 +13730,7 @@ export type t_ProjectsClassicCreateForRepoParamSchema = {
   repo: string
 }
 
-export type t_ProjectsClassicCreateForRepoRequestBodySchema = {
+export type t_projectsClassicCreateForRepoJsonRequestBody = {
   body?: string | undefined
   name: string
 }
@@ -13785,7 +13828,7 @@ export type t_ProjectsClassicMoveCardParamSchema = {
   card_id: number
 }
 
-export type t_ProjectsClassicMoveCardRequestBodySchema = {
+export type t_projectsClassicMoveCardJsonRequestBody = {
   column_id?: number | undefined
   position: string
 }
@@ -13794,7 +13837,7 @@ export type t_ProjectsClassicMoveColumnParamSchema = {
   column_id: number
 }
 
-export type t_ProjectsClassicMoveColumnRequestBodySchema = {
+export type t_projectsClassicMoveColumnJsonRequestBody = {
   position: string
 }
 
@@ -13807,7 +13850,7 @@ export type t_ProjectsClassicUpdateParamSchema = {
   project_id: number
 }
 
-export type t_ProjectsClassicUpdateRequestBodySchema = {
+export type t_projectsClassicUpdateJsonRequestBody = {
   body?: (string | null) | undefined
   name?: string | undefined
   organization_permission?: ("read" | "write" | "admin" | "none") | undefined
@@ -13819,7 +13862,7 @@ export type t_ProjectsClassicUpdateCardParamSchema = {
   card_id: number
 }
 
-export type t_ProjectsClassicUpdateCardRequestBodySchema = {
+export type t_projectsClassicUpdateCardJsonRequestBody = {
   archived?: boolean | undefined
   note?: (string | null) | undefined
 }
@@ -13828,7 +13871,7 @@ export type t_ProjectsClassicUpdateColumnParamSchema = {
   column_id: number
 }
 
-export type t_ProjectsClassicUpdateColumnRequestBodySchema = {
+export type t_projectsClassicUpdateColumnJsonRequestBody = {
   name: string
 }
 
@@ -13843,7 +13886,7 @@ export type t_PullsCreateParamSchema = {
   repo: string
 }
 
-export type t_PullsCreateRequestBodySchema = {
+export type t_pullsCreateJsonRequestBody = {
   base: string
   body?: string | undefined
   draft?: boolean | undefined
@@ -13861,7 +13904,7 @@ export type t_PullsCreateReplyForReviewCommentParamSchema = {
   repo: string
 }
 
-export type t_PullsCreateReplyForReviewCommentRequestBodySchema = {
+export type t_pullsCreateReplyForReviewCommentJsonRequestBody = {
   body: string
 }
 
@@ -13871,7 +13914,7 @@ export type t_PullsCreateReviewParamSchema = {
   repo: string
 }
 
-export type t_PullsCreateReviewRequestBodySchema = {
+export type t_pullsCreateReviewJsonRequestBody = {
   body?: string | undefined
   comments?:
     | {
@@ -13894,7 +13937,7 @@ export type t_PullsCreateReviewCommentParamSchema = {
   repo: string
 }
 
-export type t_PullsCreateReviewCommentRequestBodySchema = {
+export type t_pullsCreateReviewCommentJsonRequestBody = {
   body: string
   commit_id: string
   in_reply_to?: number | undefined
@@ -13927,7 +13970,7 @@ export type t_PullsDismissReviewParamSchema = {
   review_id: number
 }
 
-export type t_PullsDismissReviewRequestBodySchema = {
+export type t_pullsDismissReviewJsonRequestBody = {
   event?: "DISMISS" | undefined
   message: string
 }
@@ -14050,7 +14093,7 @@ export type t_PullsMergeParamSchema = {
   repo: string
 }
 
-export type t_PullsMergeRequestBodySchema = {
+export type t_pullsMergeJsonRequestBody = {
   commit_message?: string | undefined
   commit_title?: string | undefined
   merge_method?: ("merge" | "squash" | "rebase") | undefined
@@ -14063,7 +14106,7 @@ export type t_PullsRemoveRequestedReviewersParamSchema = {
   repo: string
 }
 
-export type t_PullsRemoveRequestedReviewersRequestBodySchema = {
+export type t_pullsRemoveRequestedReviewersJsonRequestBody = {
   reviewers: string[]
   team_reviewers?: string[] | undefined
 }
@@ -14074,7 +14117,7 @@ export type t_PullsRequestReviewersParamSchema = {
   repo: string
 }
 
-export type t_PullsRequestReviewersRequestBodySchema = {
+export type t_pullsRequestReviewersJsonRequestBody = {
   reviewers?: string[] | undefined
   team_reviewers?: string[] | undefined
 }
@@ -14086,7 +14129,7 @@ export type t_PullsSubmitReviewParamSchema = {
   review_id: number
 }
 
-export type t_PullsSubmitReviewRequestBodySchema = {
+export type t_pullsSubmitReviewJsonRequestBody = {
   body?: string | undefined
   event: "APPROVE" | "REQUEST_CHANGES" | "COMMENT"
 }
@@ -14097,7 +14140,7 @@ export type t_PullsUpdateParamSchema = {
   repo: string
 }
 
-export type t_PullsUpdateRequestBodySchema = {
+export type t_pullsUpdateJsonRequestBody = {
   base?: string | undefined
   body?: string | undefined
   maintainer_can_modify?: boolean | undefined
@@ -14111,7 +14154,7 @@ export type t_PullsUpdateBranchParamSchema = {
   repo: string
 }
 
-export type t_PullsUpdateBranchRequestBodySchema = {
+export type t_pullsUpdateBranchJsonRequestBody = {
   expected_head_sha?: string | undefined
 } | null
 
@@ -14122,7 +14165,7 @@ export type t_PullsUpdateReviewParamSchema = {
   review_id: number
 }
 
-export type t_PullsUpdateReviewRequestBodySchema = {
+export type t_pullsUpdateReviewJsonRequestBody = {
   body: string
 }
 
@@ -14132,7 +14175,7 @@ export type t_PullsUpdateReviewCommentParamSchema = {
   repo: string
 }
 
-export type t_PullsUpdateReviewCommentRequestBodySchema = {
+export type t_pullsUpdateReviewCommentJsonRequestBody = {
   body: string
 }
 
@@ -14142,7 +14185,7 @@ export type t_ReactionsCreateForCommitCommentParamSchema = {
   repo: string
 }
 
-export type t_ReactionsCreateForCommitCommentRequestBodySchema = {
+export type t_reactionsCreateForCommitCommentJsonRequestBody = {
   content:
     | "+1"
     | "-1"
@@ -14160,7 +14203,7 @@ export type t_ReactionsCreateForIssueParamSchema = {
   repo: string
 }
 
-export type t_ReactionsCreateForIssueRequestBodySchema = {
+export type t_reactionsCreateForIssueJsonRequestBody = {
   content:
     | "+1"
     | "-1"
@@ -14178,7 +14221,7 @@ export type t_ReactionsCreateForIssueCommentParamSchema = {
   repo: string
 }
 
-export type t_ReactionsCreateForIssueCommentRequestBodySchema = {
+export type t_reactionsCreateForIssueCommentJsonRequestBody = {
   content:
     | "+1"
     | "-1"
@@ -14196,7 +14239,7 @@ export type t_ReactionsCreateForPullRequestReviewCommentParamSchema = {
   repo: string
 }
 
-export type t_ReactionsCreateForPullRequestReviewCommentRequestBodySchema = {
+export type t_reactionsCreateForPullRequestReviewCommentJsonRequestBody = {
   content:
     | "+1"
     | "-1"
@@ -14214,7 +14257,7 @@ export type t_ReactionsCreateForReleaseParamSchema = {
   repo: string
 }
 
-export type t_ReactionsCreateForReleaseRequestBodySchema = {
+export type t_reactionsCreateForReleaseJsonRequestBody = {
   content: "+1" | "laugh" | "heart" | "hooray" | "rocket" | "eyes"
 }
 
@@ -14225,7 +14268,7 @@ export type t_ReactionsCreateForTeamDiscussionCommentInOrgParamSchema = {
   team_slug: string
 }
 
-export type t_ReactionsCreateForTeamDiscussionCommentInOrgRequestBodySchema = {
+export type t_reactionsCreateForTeamDiscussionCommentInOrgJsonRequestBody = {
   content:
     | "+1"
     | "-1"
@@ -14243,7 +14286,7 @@ export type t_ReactionsCreateForTeamDiscussionCommentLegacyParamSchema = {
   team_id: number
 }
 
-export type t_ReactionsCreateForTeamDiscussionCommentLegacyRequestBodySchema = {
+export type t_reactionsCreateForTeamDiscussionCommentLegacyJsonRequestBody = {
   content:
     | "+1"
     | "-1"
@@ -14261,7 +14304,7 @@ export type t_ReactionsCreateForTeamDiscussionInOrgParamSchema = {
   team_slug: string
 }
 
-export type t_ReactionsCreateForTeamDiscussionInOrgRequestBodySchema = {
+export type t_reactionsCreateForTeamDiscussionInOrgJsonRequestBody = {
   content:
     | "+1"
     | "-1"
@@ -14278,7 +14321,7 @@ export type t_ReactionsCreateForTeamDiscussionLegacyParamSchema = {
   team_id: number
 }
 
-export type t_ReactionsCreateForTeamDiscussionLegacyRequestBodySchema = {
+export type t_reactionsCreateForTeamDiscussionLegacyJsonRequestBody = {
   content:
     | "+1"
     | "-1"
@@ -14548,7 +14591,7 @@ export type t_ReposAddAppAccessRestrictionsParamSchema = {
   repo: string
 }
 
-export type t_ReposAddAppAccessRestrictionsRequestBodySchema = {
+export type t_reposAddAppAccessRestrictionsJsonRequestBody = {
   apps: string[]
 }
 
@@ -14558,7 +14601,7 @@ export type t_ReposAddCollaboratorParamSchema = {
   username: string
 }
 
-export type t_ReposAddCollaboratorRequestBodySchema = {
+export type t_reposAddCollaboratorJsonRequestBody = {
   permission?: string | undefined
 }
 
@@ -14568,7 +14611,7 @@ export type t_ReposAddStatusCheckContextsParamSchema = {
   repo: string
 }
 
-export type t_ReposAddStatusCheckContextsRequestBodySchema =
+export type t_reposAddStatusCheckContextsJsonRequestBody =
   | {
       contexts: string[]
     }
@@ -14580,7 +14623,7 @@ export type t_ReposAddTeamAccessRestrictionsParamSchema = {
   repo: string
 }
 
-export type t_ReposAddTeamAccessRestrictionsRequestBodySchema =
+export type t_reposAddTeamAccessRestrictionsJsonRequestBody =
   | {
       teams: string[]
     }
@@ -14592,7 +14635,7 @@ export type t_ReposAddUserAccessRestrictionsParamSchema = {
   repo: string
 }
 
-export type t_ReposAddUserAccessRestrictionsRequestBodySchema = {
+export type t_reposAddUserAccessRestrictionsJsonRequestBody = {
   users: string[]
 }
 
@@ -14648,7 +14691,7 @@ export type t_ReposCreateAttestationParamSchema = {
   repo: string
 }
 
-export type t_ReposCreateAttestationRequestBodySchema = {
+export type t_reposCreateAttestationJsonRequestBody = {
   bundle: {
     dsseEnvelope?:
       | {
@@ -14669,7 +14712,7 @@ export type t_ReposCreateAutolinkParamSchema = {
   repo: string
 }
 
-export type t_ReposCreateAutolinkRequestBodySchema = {
+export type t_reposCreateAutolinkJsonRequestBody = {
   is_alphanumeric?: boolean | undefined
   key_prefix: string
   url_template: string
@@ -14681,7 +14724,7 @@ export type t_ReposCreateCommitCommentParamSchema = {
   repo: string
 }
 
-export type t_ReposCreateCommitCommentRequestBodySchema = {
+export type t_reposCreateCommitCommentJsonRequestBody = {
   body: string
   line?: number | undefined
   path?: string | undefined
@@ -14700,7 +14743,7 @@ export type t_ReposCreateCommitStatusParamSchema = {
   sha: string
 }
 
-export type t_ReposCreateCommitStatusRequestBodySchema = {
+export type t_reposCreateCommitStatusJsonRequestBody = {
   context?: string | undefined
   description?: (string | null) | undefined
   state: "error" | "failure" | "pending" | "success"
@@ -14712,7 +14755,7 @@ export type t_ReposCreateDeployKeyParamSchema = {
   repo: string
 }
 
-export type t_ReposCreateDeployKeyRequestBodySchema = {
+export type t_reposCreateDeployKeyJsonRequestBody = {
   key: string
   read_only?: boolean | undefined
   title?: string | undefined
@@ -14723,7 +14766,7 @@ export type t_ReposCreateDeploymentParamSchema = {
   repo: string
 }
 
-export type t_ReposCreateDeploymentRequestBodySchema = {
+export type t_reposCreateDeploymentJsonRequestBody = {
   auto_merge?: boolean | undefined
   description?: (string | null) | undefined
   environment?: string | undefined
@@ -14748,18 +14791,13 @@ export type t_ReposCreateDeploymentBranchPolicyParamSchema = {
   repo: string
 }
 
-export type t_ReposCreateDeploymentBranchPolicyRequestBodySchema = {
-  name: string
-  type?: ("branch" | "tag") | undefined
-}
-
 export type t_ReposCreateDeploymentProtectionRuleParamSchema = {
   environment_name: string
   owner: string
   repo: string
 }
 
-export type t_ReposCreateDeploymentProtectionRuleRequestBodySchema = {
+export type t_reposCreateDeploymentProtectionRuleJsonRequestBody = {
   integration_id?: number | undefined
 }
 
@@ -14769,7 +14807,7 @@ export type t_ReposCreateDeploymentStatusParamSchema = {
   repo: string
 }
 
-export type t_ReposCreateDeploymentStatusRequestBodySchema = {
+export type t_reposCreateDeploymentStatusJsonRequestBody = {
   auto_inactive?: boolean | undefined
   description?: string | undefined
   environment?: string | undefined
@@ -14791,7 +14829,7 @@ export type t_ReposCreateDispatchEventParamSchema = {
   repo: string
 }
 
-export type t_ReposCreateDispatchEventRequestBodySchema = {
+export type t_reposCreateDispatchEventJsonRequestBody = {
   client_payload?:
     | {
         [key: string]: unknown | undefined
@@ -14800,7 +14838,7 @@ export type t_ReposCreateDispatchEventRequestBodySchema = {
   event_type: string
 }
 
-export type t_ReposCreateForAuthenticatedUserRequestBodySchema = {
+export type t_reposCreateForAuthenticatedUserJsonRequestBody = {
   allow_auto_merge?: boolean | undefined
   allow_merge_commit?: boolean | undefined
   allow_rebase_merge?: boolean | undefined
@@ -14833,7 +14871,7 @@ export type t_ReposCreateForkParamSchema = {
   repo: string
 }
 
-export type t_ReposCreateForkRequestBodySchema = {
+export type t_reposCreateForkJsonRequestBody = {
   default_branch_only?: boolean | undefined
   name?: string | undefined
   organization?: string | undefined
@@ -14843,7 +14881,7 @@ export type t_ReposCreateInOrgParamSchema = {
   org: string
 }
 
-export type t_ReposCreateInOrgRequestBodySchema = {
+export type t_reposCreateInOrgJsonRequestBody = {
   allow_auto_merge?: boolean | undefined
   allow_merge_commit?: boolean | undefined
   allow_rebase_merge?: boolean | undefined
@@ -14882,7 +14920,7 @@ export type t_ReposCreateOrUpdateCustomPropertiesValuesParamSchema = {
   repo: string
 }
 
-export type t_ReposCreateOrUpdateCustomPropertiesValuesRequestBodySchema = {
+export type t_reposCreateOrUpdateCustomPropertiesValuesJsonRequestBody = {
   properties: t_custom_property_value[]
 }
 
@@ -14892,7 +14930,7 @@ export type t_ReposCreateOrUpdateEnvironmentParamSchema = {
   repo: string
 }
 
-export type t_ReposCreateOrUpdateEnvironmentRequestBodySchema = {
+export type t_reposCreateOrUpdateEnvironmentJsonRequestBody = {
   deployment_branch_policy?: t_deployment_branch_policy_settings | undefined
   prevent_self_review?: t_prevent_self_review | undefined
   reviewers?:
@@ -14913,7 +14951,7 @@ export type t_ReposCreateOrUpdateFileContentsParamSchema = {
   repo: string
 }
 
-export type t_ReposCreateOrUpdateFileContentsRequestBodySchema = {
+export type t_reposCreateOrUpdateFileContentsJsonRequestBody = {
   author?:
     | {
         date?: string | undefined
@@ -14938,7 +14976,7 @@ export type t_ReposCreateOrgRulesetParamSchema = {
   org: string
 }
 
-export type t_ReposCreateOrgRulesetRequestBodySchema = {
+export type t_reposCreateOrgRulesetJsonRequestBody = {
   bypass_actors?: t_repository_ruleset_bypass_actor[] | undefined
   conditions?: t_org_ruleset_conditions | undefined
   enforcement: t_repository_rule_enforcement
@@ -14952,7 +14990,7 @@ export type t_ReposCreatePagesDeploymentParamSchema = {
   repo: string
 }
 
-export type t_ReposCreatePagesDeploymentRequestBodySchema = {
+export type t_reposCreatePagesDeploymentJsonRequestBody = {
   artifact_id?: number | undefined
   artifact_url?: string | undefined
   environment?: string | undefined
@@ -14965,7 +15003,7 @@ export type t_ReposCreatePagesSiteParamSchema = {
   repo: string
 }
 
-export type t_ReposCreatePagesSiteRequestBodySchema = {
+export type t_reposCreatePagesSiteJsonRequestBody = {
   build_type?: ("legacy" | "workflow") | undefined
   source?:
     | {
@@ -14980,7 +15018,7 @@ export type t_ReposCreateReleaseParamSchema = {
   repo: string
 }
 
-export type t_ReposCreateReleaseRequestBodySchema = {
+export type t_reposCreateReleaseJsonRequestBody = {
   body?: string | undefined
   discussion_category_name?: string | undefined
   draft?: boolean | undefined
@@ -14997,7 +15035,7 @@ export type t_ReposCreateRepoRulesetParamSchema = {
   repo: string
 }
 
-export type t_ReposCreateRepoRulesetRequestBodySchema = {
+export type t_reposCreateRepoRulesetJsonRequestBody = {
   bypass_actors?: t_repository_ruleset_bypass_actor[] | undefined
   conditions?: t_repository_ruleset_conditions | undefined
   enforcement: t_repository_rule_enforcement
@@ -15011,7 +15049,7 @@ export type t_ReposCreateTagProtectionParamSchema = {
   repo: string
 }
 
-export type t_ReposCreateTagProtectionRequestBodySchema = {
+export type t_reposCreateTagProtectionJsonRequestBody = {
   pattern: string
 }
 
@@ -15020,7 +15058,7 @@ export type t_ReposCreateUsingTemplateParamSchema = {
   template_repo: string
 }
 
-export type t_ReposCreateUsingTemplateRequestBodySchema = {
+export type t_reposCreateUsingTemplateJsonRequestBody = {
   description?: string | undefined
   include_all_branches?: boolean | undefined
   name: string
@@ -15033,7 +15071,7 @@ export type t_ReposCreateWebhookParamSchema = {
   repo: string
 }
 
-export type t_ReposCreateWebhookRequestBodySchema = {
+export type t_reposCreateWebhookJsonRequestBody = {
   active?: boolean | undefined
   config?:
     | {
@@ -15123,7 +15161,7 @@ export type t_ReposDeleteFileParamSchema = {
   repo: string
 }
 
-export type t_ReposDeleteFileRequestBodySchema = {
+export type t_reposDeleteFileJsonRequestBody = {
   author?:
     | {
         email?: string | undefined
@@ -15247,7 +15285,7 @@ export type t_ReposGenerateReleaseNotesParamSchema = {
   repo: string
 }
 
-export type t_ReposGenerateReleaseNotesRequestBodySchema = {
+export type t_reposGenerateReleaseNotesJsonRequestBody = {
   configuration_file_path?: string | undefined
   previous_tag_name?: string | undefined
   tag_name: string
@@ -16050,7 +16088,7 @@ export type t_ReposMergeParamSchema = {
   repo: string
 }
 
-export type t_ReposMergeRequestBodySchema = {
+export type t_reposMergeJsonRequestBody = {
   base: string
   commit_message?: string | undefined
   head: string
@@ -16061,7 +16099,7 @@ export type t_ReposMergeUpstreamParamSchema = {
   repo: string
 }
 
-export type t_ReposMergeUpstreamRequestBodySchema = {
+export type t_reposMergeUpstreamJsonRequestBody = {
   branch: string
 }
 
@@ -16084,7 +16122,7 @@ export type t_ReposRemoveAppAccessRestrictionsParamSchema = {
   repo: string
 }
 
-export type t_ReposRemoveAppAccessRestrictionsRequestBodySchema = {
+export type t_reposRemoveAppAccessRestrictionsJsonRequestBody = {
   apps: string[]
 }
 
@@ -16100,7 +16138,7 @@ export type t_ReposRemoveStatusCheckContextsParamSchema = {
   repo: string
 }
 
-export type t_ReposRemoveStatusCheckContextsRequestBodySchema =
+export type t_reposRemoveStatusCheckContextsJsonRequestBody =
   | {
       contexts: string[]
     }
@@ -16118,7 +16156,7 @@ export type t_ReposRemoveTeamAccessRestrictionsParamSchema = {
   repo: string
 }
 
-export type t_ReposRemoveTeamAccessRestrictionsRequestBodySchema =
+export type t_reposRemoveTeamAccessRestrictionsJsonRequestBody =
   | {
       teams: string[]
     }
@@ -16130,7 +16168,7 @@ export type t_ReposRemoveUserAccessRestrictionsParamSchema = {
   repo: string
 }
 
-export type t_ReposRemoveUserAccessRestrictionsRequestBodySchema = {
+export type t_reposRemoveUserAccessRestrictionsJsonRequestBody = {
   users: string[]
 }
 
@@ -16140,7 +16178,7 @@ export type t_ReposRenameBranchParamSchema = {
   repo: string
 }
 
-export type t_ReposRenameBranchRequestBodySchema = {
+export type t_reposRenameBranchJsonRequestBody = {
   new_name: string
 }
 
@@ -16149,7 +16187,7 @@ export type t_ReposReplaceAllTopicsParamSchema = {
   repo: string
 }
 
-export type t_ReposReplaceAllTopicsRequestBodySchema = {
+export type t_reposReplaceAllTopicsJsonRequestBody = {
   names: string[]
 }
 
@@ -16170,7 +16208,7 @@ export type t_ReposSetAppAccessRestrictionsParamSchema = {
   repo: string
 }
 
-export type t_ReposSetAppAccessRestrictionsRequestBodySchema = {
+export type t_reposSetAppAccessRestrictionsJsonRequestBody = {
   apps: string[]
 }
 
@@ -16180,7 +16218,7 @@ export type t_ReposSetStatusCheckContextsParamSchema = {
   repo: string
 }
 
-export type t_ReposSetStatusCheckContextsRequestBodySchema =
+export type t_reposSetStatusCheckContextsJsonRequestBody =
   | {
       contexts: string[]
     }
@@ -16192,7 +16230,7 @@ export type t_ReposSetTeamAccessRestrictionsParamSchema = {
   repo: string
 }
 
-export type t_ReposSetTeamAccessRestrictionsRequestBodySchema =
+export type t_reposSetTeamAccessRestrictionsJsonRequestBody =
   | {
       teams: string[]
     }
@@ -16204,7 +16242,7 @@ export type t_ReposSetUserAccessRestrictionsParamSchema = {
   repo: string
 }
 
-export type t_ReposSetUserAccessRestrictionsRequestBodySchema = {
+export type t_reposSetUserAccessRestrictionsJsonRequestBody = {
   users: string[]
 }
 
@@ -16219,7 +16257,7 @@ export type t_ReposTransferParamSchema = {
   repo: string
 }
 
-export type t_ReposTransferRequestBodySchema = {
+export type t_reposTransferJsonRequestBody = {
   new_name?: string | undefined
   new_owner: string
   team_ids?: number[] | undefined
@@ -16230,7 +16268,7 @@ export type t_ReposUpdateParamSchema = {
   repo: string
 }
 
-export type t_ReposUpdateRequestBodySchema = {
+export type t_reposUpdateJsonRequestBody = {
   allow_auto_merge?: boolean | undefined
   allow_forking?: boolean | undefined
   allow_merge_commit?: boolean | undefined
@@ -16299,7 +16337,7 @@ export type t_ReposUpdateBranchProtectionParamSchema = {
   repo: string
 }
 
-export type t_ReposUpdateBranchProtectionRequestBodySchema = {
+export type t_reposUpdateBranchProtectionJsonRequestBody = {
   allow_deletions?: boolean | undefined
   allow_force_pushes?: (boolean | null) | undefined
   allow_fork_syncing?: boolean | undefined
@@ -16351,7 +16389,7 @@ export type t_ReposUpdateCommitCommentParamSchema = {
   repo: string
 }
 
-export type t_ReposUpdateCommitCommentRequestBodySchema = {
+export type t_reposUpdateCommitCommentJsonRequestBody = {
   body: string
 }
 
@@ -16362,16 +16400,12 @@ export type t_ReposUpdateDeploymentBranchPolicyParamSchema = {
   repo: string
 }
 
-export type t_ReposUpdateDeploymentBranchPolicyRequestBodySchema = {
-  name: string
-}
-
 export type t_ReposUpdateInformationAboutPagesSiteParamSchema = {
   owner: string
   repo: string
 }
 
-export type t_ReposUpdateInformationAboutPagesSiteRequestBodySchema = {
+export type t_reposUpdateInformationAboutPagesSiteJsonRequestBody = {
   build_type?: ("legacy" | "workflow") | undefined
   cname?: (string | null) | undefined
   https_enforced?: boolean | undefined
@@ -16394,7 +16428,7 @@ export type t_ReposUpdateInvitationParamSchema = {
   repo: string
 }
 
-export type t_ReposUpdateInvitationRequestBodySchema = {
+export type t_reposUpdateInvitationJsonRequestBody = {
   permissions?: ("read" | "write" | "maintain" | "triage" | "admin") | undefined
 }
 
@@ -16403,7 +16437,7 @@ export type t_ReposUpdateOrgRulesetParamSchema = {
   ruleset_id: number
 }
 
-export type t_ReposUpdateOrgRulesetRequestBodySchema = {
+export type t_reposUpdateOrgRulesetJsonRequestBody = {
   bypass_actors?: t_repository_ruleset_bypass_actor[] | undefined
   conditions?: t_org_ruleset_conditions | undefined
   enforcement?: t_repository_rule_enforcement | undefined
@@ -16418,7 +16452,7 @@ export type t_ReposUpdatePullRequestReviewProtectionParamSchema = {
   repo: string
 }
 
-export type t_ReposUpdatePullRequestReviewProtectionRequestBodySchema = {
+export type t_reposUpdatePullRequestReviewProtectionJsonRequestBody = {
   bypass_pull_request_allowances?:
     | {
         apps?: string[] | undefined
@@ -16445,7 +16479,7 @@ export type t_ReposUpdateReleaseParamSchema = {
   repo: string
 }
 
-export type t_ReposUpdateReleaseRequestBodySchema = {
+export type t_reposUpdateReleaseJsonRequestBody = {
   body?: string | undefined
   discussion_category_name?: string | undefined
   draft?: boolean | undefined
@@ -16462,7 +16496,7 @@ export type t_ReposUpdateReleaseAssetParamSchema = {
   repo: string
 }
 
-export type t_ReposUpdateReleaseAssetRequestBodySchema = {
+export type t_reposUpdateReleaseAssetJsonRequestBody = {
   label?: string | undefined
   name?: string | undefined
   state?: string | undefined
@@ -16474,7 +16508,7 @@ export type t_ReposUpdateRepoRulesetParamSchema = {
   ruleset_id: number
 }
 
-export type t_ReposUpdateRepoRulesetRequestBodySchema = {
+export type t_reposUpdateRepoRulesetJsonRequestBody = {
   bypass_actors?: t_repository_ruleset_bypass_actor[] | undefined
   conditions?: t_repository_ruleset_conditions | undefined
   enforcement?: t_repository_rule_enforcement | undefined
@@ -16489,7 +16523,7 @@ export type t_ReposUpdateStatusCheckProtectionParamSchema = {
   repo: string
 }
 
-export type t_ReposUpdateStatusCheckProtectionRequestBodySchema = {
+export type t_reposUpdateStatusCheckProtectionJsonRequestBody = {
   checks?:
     | {
         app_id?: number | undefined
@@ -16506,7 +16540,7 @@ export type t_ReposUpdateWebhookParamSchema = {
   repo: string
 }
 
-export type t_ReposUpdateWebhookRequestBodySchema = {
+export type t_reposUpdateWebhookJsonRequestBody = {
   active?: boolean | undefined
   add_events?: string[] | undefined
   config?: t_webhook_config | undefined
@@ -16520,7 +16554,7 @@ export type t_ReposUpdateWebhookConfigForRepoParamSchema = {
   repo: string
 }
 
-export type t_ReposUpdateWebhookConfigForRepoRequestBodySchema = {
+export type t_reposUpdateWebhookConfigForRepoJsonRequestBody = {
   content_type?: t_webhook_config_content_type | undefined
   insecure_ssl?: t_webhook_config_insecure_ssl | undefined
   secret?: t_webhook_config_secret | undefined
@@ -16537,8 +16571,6 @@ export type t_ReposUploadReleaseAssetQuerySchema = {
   label?: string | undefined
   name: string
 }
-
-export type t_ReposUploadReleaseAssetRequestBodySchema = never
 
 export type t_SearchCodeQuerySchema = {
   order?: ("desc" | "asc") | undefined
@@ -16615,7 +16647,7 @@ export type t_SecretScanningCreatePushProtectionBypassParamSchema = {
   repo: string
 }
 
-export type t_SecretScanningCreatePushProtectionBypassRequestBodySchema = {
+export type t_secretScanningCreatePushProtectionBypassJsonRequestBody = {
   placeholder_id: t_secret_scanning_push_protection_bypass_placeholder_id
   reason: t_secret_scanning_push_protection_bypass_reason
 }
@@ -16712,7 +16744,7 @@ export type t_SecretScanningUpdateAlertParamSchema = {
   repo: string
 }
 
-export type t_SecretScanningUpdateAlertRequestBodySchema = {
+export type t_secretScanningUpdateAlertJsonRequestBody = {
   resolution?: t_secret_scanning_alert_resolution | undefined
   resolution_comment?: t_secret_scanning_alert_resolution_comment | undefined
   state: t_secret_scanning_alert_state
@@ -16729,61 +16761,9 @@ export type t_SecurityAdvisoriesCreatePrivateVulnerabilityReportParamSchema = {
   repo: string
 }
 
-export type t_SecurityAdvisoriesCreatePrivateVulnerabilityReportRequestBodySchema =
-  {
-    cvss_vector_string?: (string | null) | undefined
-    cwe_ids?: (string[] | null) | undefined
-    description: string
-    severity?: ("critical" | "high" | "medium" | "low" | null) | undefined
-    start_private_fork?: boolean | undefined
-    summary: string
-    vulnerabilities?:
-      | (
-          | {
-              package: {
-                ecosystem: t_security_advisory_ecosystems
-                name?: (string | null) | undefined
-              }
-              patched_versions?: (string | null) | undefined
-              vulnerable_functions?: (string[] | null) | undefined
-              vulnerable_version_range?: (string | null) | undefined
-            }[]
-          | null
-        )
-      | undefined
-  }
-
 export type t_SecurityAdvisoriesCreateRepositoryAdvisoryParamSchema = {
   owner: string
   repo: string
-}
-
-export type t_SecurityAdvisoriesCreateRepositoryAdvisoryRequestBodySchema = {
-  credits?:
-    | (
-        | {
-            login: string
-            type: t_security_advisory_credit_types
-          }[]
-        | null
-      )
-    | undefined
-  cve_id?: (string | null) | undefined
-  cvss_vector_string?: (string | null) | undefined
-  cwe_ids?: (string[] | null) | undefined
-  description: string
-  severity?: ("critical" | "high" | "medium" | "low" | null) | undefined
-  start_private_fork?: boolean | undefined
-  summary: string
-  vulnerabilities: {
-    package: {
-      ecosystem: t_security_advisory_ecosystems
-      name?: (string | null) | undefined
-    }
-    patched_versions?: (string | null) | undefined
-    vulnerable_functions?: (string[] | null) | undefined
-    vulnerable_version_range?: (string | null) | undefined
-  }[]
 }
 
 export type t_SecurityAdvisoriesCreateRepositoryAdvisoryCveRequestParamSchema =
@@ -16859,38 +16839,6 @@ export type t_SecurityAdvisoriesUpdateRepositoryAdvisoryParamSchema = {
   repo: string
 }
 
-export type t_SecurityAdvisoriesUpdateRepositoryAdvisoryRequestBodySchema = {
-  collaborating_teams?: (string[] | null) | undefined
-  collaborating_users?: (string[] | null) | undefined
-  credits?:
-    | (
-        | {
-            login: string
-            type: t_security_advisory_credit_types
-          }[]
-        | null
-      )
-    | undefined
-  cve_id?: (string | null) | undefined
-  cvss_vector_string?: (string | null) | undefined
-  cwe_ids?: (string[] | null) | undefined
-  description?: string | undefined
-  severity?: ("critical" | "high" | "medium" | "low" | null) | undefined
-  state?: ("published" | "closed" | "draft") | undefined
-  summary?: string | undefined
-  vulnerabilities?:
-    | {
-        package: {
-          ecosystem: t_security_advisory_ecosystems
-          name?: (string | null) | undefined
-        }
-        patched_versions?: (string | null) | undefined
-        vulnerable_functions?: (string[] | null) | undefined
-        vulnerable_version_range?: (string | null) | undefined
-      }[]
-    | undefined
-}
-
 export type t_TeamsAddMemberLegacyParamSchema = {
   team_id: number
   username: string
@@ -16902,7 +16850,7 @@ export type t_TeamsAddOrUpdateMembershipForUserInOrgParamSchema = {
   username: string
 }
 
-export type t_TeamsAddOrUpdateMembershipForUserInOrgRequestBodySchema = {
+export type t_teamsAddOrUpdateMembershipForUserInOrgJsonRequestBody = {
   role?: ("member" | "maintainer") | undefined
 }
 
@@ -16911,7 +16859,7 @@ export type t_TeamsAddOrUpdateMembershipForUserLegacyParamSchema = {
   username: string
 }
 
-export type t_TeamsAddOrUpdateMembershipForUserLegacyRequestBodySchema = {
+export type t_teamsAddOrUpdateMembershipForUserLegacyJsonRequestBody = {
   role?: ("member" | "maintainer") | undefined
 }
 
@@ -16921,7 +16869,7 @@ export type t_TeamsAddOrUpdateProjectPermissionsInOrgParamSchema = {
   team_slug: string
 }
 
-export type t_TeamsAddOrUpdateProjectPermissionsInOrgRequestBodySchema = {
+export type t_teamsAddOrUpdateProjectPermissionsInOrgJsonRequestBody = {
   permission?: ("read" | "write" | "admin") | undefined
 } | null
 
@@ -16930,7 +16878,7 @@ export type t_TeamsAddOrUpdateProjectPermissionsLegacyParamSchema = {
   team_id: number
 }
 
-export type t_TeamsAddOrUpdateProjectPermissionsLegacyRequestBodySchema = {
+export type t_teamsAddOrUpdateProjectPermissionsLegacyJsonRequestBody = {
   permission?: ("read" | "write" | "admin") | undefined
 }
 
@@ -16941,7 +16889,7 @@ export type t_TeamsAddOrUpdateRepoPermissionsInOrgParamSchema = {
   team_slug: string
 }
 
-export type t_TeamsAddOrUpdateRepoPermissionsInOrgRequestBodySchema = {
+export type t_teamsAddOrUpdateRepoPermissionsInOrgJsonRequestBody = {
   permission?: string | undefined
 }
 
@@ -16951,7 +16899,7 @@ export type t_TeamsAddOrUpdateRepoPermissionsLegacyParamSchema = {
   team_id: number
 }
 
-export type t_TeamsAddOrUpdateRepoPermissionsLegacyRequestBodySchema = {
+export type t_teamsAddOrUpdateRepoPermissionsLegacyJsonRequestBody = {
   permission?: ("pull" | "push" | "admin") | undefined
 }
 
@@ -16983,7 +16931,7 @@ export type t_TeamsCreateParamSchema = {
   org: string
 }
 
-export type t_TeamsCreateRequestBodySchema = {
+export type t_teamsCreateJsonRequestBody = {
   description?: string | undefined
   maintainers?: string[] | undefined
   name: string
@@ -17002,7 +16950,7 @@ export type t_TeamsCreateDiscussionCommentInOrgParamSchema = {
   team_slug: string
 }
 
-export type t_TeamsCreateDiscussionCommentInOrgRequestBodySchema = {
+export type t_teamsCreateDiscussionCommentInOrgJsonRequestBody = {
   body: string
 }
 
@@ -17011,7 +16959,7 @@ export type t_TeamsCreateDiscussionCommentLegacyParamSchema = {
   team_id: number
 }
 
-export type t_TeamsCreateDiscussionCommentLegacyRequestBodySchema = {
+export type t_teamsCreateDiscussionCommentLegacyJsonRequestBody = {
   body: string
 }
 
@@ -17020,7 +16968,7 @@ export type t_TeamsCreateDiscussionInOrgParamSchema = {
   team_slug: string
 }
 
-export type t_TeamsCreateDiscussionInOrgRequestBodySchema = {
+export type t_teamsCreateDiscussionInOrgJsonRequestBody = {
   body: string
   private?: boolean | undefined
   title: string
@@ -17030,7 +16978,7 @@ export type t_TeamsCreateDiscussionLegacyParamSchema = {
   team_id: number
 }
 
-export type t_TeamsCreateDiscussionLegacyRequestBodySchema = {
+export type t_teamsCreateDiscussionLegacyJsonRequestBody = {
   body: string
   private?: boolean | undefined
   title: string
@@ -17321,7 +17269,7 @@ export type t_TeamsUpdateDiscussionCommentInOrgParamSchema = {
   team_slug: string
 }
 
-export type t_TeamsUpdateDiscussionCommentInOrgRequestBodySchema = {
+export type t_teamsUpdateDiscussionCommentInOrgJsonRequestBody = {
   body: string
 }
 
@@ -17331,7 +17279,7 @@ export type t_TeamsUpdateDiscussionCommentLegacyParamSchema = {
   team_id: number
 }
 
-export type t_TeamsUpdateDiscussionCommentLegacyRequestBodySchema = {
+export type t_teamsUpdateDiscussionCommentLegacyJsonRequestBody = {
   body: string
 }
 
@@ -17341,7 +17289,7 @@ export type t_TeamsUpdateDiscussionInOrgParamSchema = {
   team_slug: string
 }
 
-export type t_TeamsUpdateDiscussionInOrgRequestBodySchema = {
+export type t_teamsUpdateDiscussionInOrgJsonRequestBody = {
   body?: string | undefined
   title?: string | undefined
 }
@@ -17351,7 +17299,7 @@ export type t_TeamsUpdateDiscussionLegacyParamSchema = {
   team_id: number
 }
 
-export type t_TeamsUpdateDiscussionLegacyRequestBodySchema = {
+export type t_teamsUpdateDiscussionLegacyJsonRequestBody = {
   body?: string | undefined
   title?: string | undefined
 }
@@ -17361,7 +17309,7 @@ export type t_TeamsUpdateInOrgParamSchema = {
   team_slug: string
 }
 
-export type t_TeamsUpdateInOrgRequestBodySchema = {
+export type t_teamsUpdateInOrgJsonRequestBody = {
   description?: string | undefined
   name?: string | undefined
   notification_setting?:
@@ -17376,7 +17324,7 @@ export type t_TeamsUpdateLegacyParamSchema = {
   team_id: number
 }
 
-export type t_TeamsUpdateLegacyRequestBodySchema = {
+export type t_teamsUpdateLegacyJsonRequestBody = {
   description?: string | undefined
   name: string
   notification_setting?:
@@ -17387,14 +17335,14 @@ export type t_TeamsUpdateLegacyRequestBodySchema = {
   privacy?: ("secret" | "closed") | undefined
 }
 
-export type t_UsersAddEmailForAuthenticatedUserRequestBodySchema =
+export type t_usersAddEmailForAuthenticatedUserJsonRequestBody =
   | {
       emails: string[]
     }
   | string[]
   | string
 
-export type t_UsersAddSocialAccountForAuthenticatedUserRequestBodySchema = {
+export type t_usersAddSocialAccountForAuthenticatedUserJsonRequestBody = {
   account_urls: string[]
 }
 
@@ -17415,17 +17363,17 @@ export type t_UsersCheckPersonIsFollowedByAuthenticatedParamSchema = {
   username: string
 }
 
-export type t_UsersCreateGpgKeyForAuthenticatedUserRequestBodySchema = {
+export type t_usersCreateGpgKeyForAuthenticatedUserJsonRequestBody = {
   armored_public_key: string
   name?: string | undefined
 }
 
-export type t_UsersCreatePublicSshKeyForAuthenticatedUserRequestBodySchema = {
+export type t_usersCreatePublicSshKeyForAuthenticatedUserJsonRequestBody = {
   key: string
   title?: string | undefined
 }
 
-export type t_UsersCreateSshSigningKeyForAuthenticatedUserRequestBodySchema = {
+export type t_usersCreateSshSigningKeyForAuthenticatedUserJsonRequestBody = {
   key: string
   title?: string | undefined
 }
@@ -17434,7 +17382,7 @@ export type t_UsersDeleteAttestationsBulkParamSchema = {
   username: string
 }
 
-export type t_UsersDeleteAttestationsBulkRequestBodySchema =
+export type t_usersDeleteAttestationsBulkJsonRequestBody =
   | {
       subject_digests: string[]
     }
@@ -17452,7 +17400,7 @@ export type t_UsersDeleteAttestationsBySubjectDigestParamSchema = {
   username: string
 }
 
-export type t_UsersDeleteEmailForAuthenticatedUserRequestBodySchema =
+export type t_usersDeleteEmailForAuthenticatedUserJsonRequestBody =
   | {
       emails: string[]
     }
@@ -17467,7 +17415,7 @@ export type t_UsersDeletePublicSshKeyForAuthenticatedUserParamSchema = {
   key_id: number
 }
 
-export type t_UsersDeleteSocialAccountForAuthenticatedUserRequestBodySchema = {
+export type t_usersDeleteSocialAccountForAuthenticatedUserJsonRequestBody = {
   account_urls: string[]
 }
 
@@ -17537,7 +17485,7 @@ export type t_UsersListAttestationsBulkQuerySchema = {
   per_page?: number | undefined
 }
 
-export type t_UsersListAttestationsBulkRequestBodySchema = {
+export type t_usersListAttestationsBulkJsonRequestBody = {
   predicate_type?: string | undefined
   subject_digests: string[]
 }
@@ -17641,7 +17589,7 @@ export type t_UsersListSshSigningKeysForUserQuerySchema = {
   per_page?: number | undefined
 }
 
-export type t_UsersSetPrimaryEmailVisibilityForAuthenticatedUserRequestBodySchema =
+export type t_usersSetPrimaryEmailVisibilityForAuthenticatedUserJsonRequestBody =
   {
     visibility: "public" | "private"
   }
@@ -17654,7 +17602,7 @@ export type t_UsersUnfollowParamSchema = {
   username: string
 }
 
-export type t_UsersUpdateAuthenticatedRequestBodySchema = {
+export type t_usersUpdateAuthenticatedJsonRequestBody = {
   bio?: string | undefined
   blog?: string | undefined
   company?: string | undefined

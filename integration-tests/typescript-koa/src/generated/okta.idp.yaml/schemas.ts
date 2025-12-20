@@ -388,3 +388,43 @@ export const s_Authenticator = z.object({
     })
     .optional(),
 })
+
+export const s_createEmailJsonRequestBody = z.object({
+  profile: z.object({email: z.email()}),
+  sendEmail: PermissiveBoolean.optional().default(true),
+  state: z.string().optional(),
+  role: z.enum(["PRIMARY", "SECONDARY"]).optional(),
+})
+
+export const s_sendEmailChallengeJsonRequestBody = z.object({state: z.string()})
+
+export const s_verifyEmailOtpJsonRequestBody = z.object({
+  verificationCode: z.string(),
+})
+
+export const s_createPasswordJsonRequestBody = z.object({
+  profile: z.object({password: z.string()}),
+})
+
+export const s_replacePasswordJsonRequestBody = z.object({
+  profile: z.object({password: z.string()}),
+})
+
+export const s_createPhoneJsonRequestBody = z.object({
+  profile: z.object({phoneNumber: z.string().optional()}),
+  sendCode: PermissiveBoolean.optional().default(true),
+  method: z.enum(["SMS", "CALL"]).optional(),
+})
+
+export const s_sendPhoneChallengeJsonRequestBody = z.object({
+  method: z.enum(["SMS", "CALL"]),
+  retry: PermissiveBoolean.optional().default(false),
+})
+
+export const s_verifyPhoneChallengeJsonRequestBody = z.object({
+  verificationCode: z.string(),
+})
+
+export const s_replaceProfileJsonRequestBody = z.object({
+  profile: z.object({}).optional(),
+})

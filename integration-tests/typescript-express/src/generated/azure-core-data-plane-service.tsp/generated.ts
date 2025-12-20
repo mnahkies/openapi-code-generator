@@ -30,7 +30,6 @@ import type {
   t_Manufacturer,
   t_ManufacturersCreateOrReplaceManufacturerParamSchema,
   t_ManufacturersCreateOrReplaceManufacturerQuerySchema,
-  t_ManufacturersCreateOrReplaceManufacturerRequestBodySchema,
   t_ManufacturersCreateOrReplaceManufacturerRequestHeaderSchema,
   t_ManufacturersDeleteManufacturerParamSchema,
   t_ManufacturersDeleteManufacturerQuerySchema,
@@ -47,10 +46,12 @@ import type {
   t_PagedWidgetPart,
   t_Widget,
   t_WidgetAnalytics,
+  t_WidgetAnalyticsCreateOrUpdate,
+  t_WidgetCreateOrUpdate,
   t_WidgetPart,
+  t_WidgetPartReorderRequest,
   t_WidgetPartsCreateWidgetPartParamSchema,
   t_WidgetPartsCreateWidgetPartQuerySchema,
-  t_WidgetPartsCreateWidgetPartRequestBodySchema,
   t_WidgetPartsCreateWidgetPartRequestHeaderSchema,
   t_WidgetPartsDeleteWidgetPartParamSchema,
   t_WidgetPartsDeleteWidgetPartQuerySchema,
@@ -65,13 +66,11 @@ import type {
   t_WidgetPartsListWidgetPartsRequestHeaderSchema,
   t_WidgetPartsReorderPartsParamSchema,
   t_WidgetPartsReorderPartsQuerySchema,
-  t_WidgetPartsReorderPartsRequestBodySchema,
   t_WidgetPartsReorderPartsRequestHeaderSchema,
   t_WidgetRepairRequest,
   t_WidgetRepairState,
   t_WidgetsCreateOrUpdateWidgetParamSchema,
   t_WidgetsCreateOrUpdateWidgetQuerySchema,
-  t_WidgetsCreateOrUpdateWidgetRequestBodySchema,
   t_WidgetsCreateOrUpdateWidgetRequestHeaderSchema,
   t_WidgetsDeleteWidgetParamSchema,
   t_WidgetsDeleteWidgetQuerySchema,
@@ -90,11 +89,9 @@ import type {
   t_WidgetsListWidgetsRequestHeaderSchema,
   t_WidgetsScheduleRepairsParamSchema,
   t_WidgetsScheduleRepairsQuerySchema,
-  t_WidgetsScheduleRepairsRequestBodySchema,
   t_WidgetsScheduleRepairsRequestHeaderSchema,
   t_WidgetsUpdateAnalyticsParamSchema,
   t_WidgetsUpdateAnalyticsQuerySchema,
-  t_WidgetsUpdateAnalyticsRequestBodySchema,
   t_WidgetsUpdateAnalyticsRequestHeaderSchema,
 } from "./models.ts"
 import {
@@ -184,7 +181,7 @@ export type WidgetsCreateOrUpdateWidget = (
   params: Params<
     t_WidgetsCreateOrUpdateWidgetParamSchema,
     t_WidgetsCreateOrUpdateWidgetQuerySchema,
-    t_WidgetsCreateOrUpdateWidgetRequestBodySchema,
+    t_WidgetCreateOrUpdate,
     t_WidgetsCreateOrUpdateWidgetRequestHeaderSchema
   >,
   respond: WidgetsCreateOrUpdateWidgetResponder,
@@ -289,7 +286,7 @@ export type WidgetsUpdateAnalytics = (
   params: Params<
     t_WidgetsUpdateAnalyticsParamSchema,
     t_WidgetsUpdateAnalyticsQuerySchema,
-    t_WidgetsUpdateAnalyticsRequestBodySchema,
+    t_WidgetAnalyticsCreateOrUpdate,
     t_WidgetsUpdateAnalyticsRequestHeaderSchema
   >,
   respond: WidgetsUpdateAnalyticsResponder,
@@ -347,7 +344,7 @@ export type WidgetsScheduleRepairs = (
   params: Params<
     t_WidgetsScheduleRepairsParamSchema,
     t_WidgetsScheduleRepairsQuerySchema,
-    t_WidgetsScheduleRepairsRequestBodySchema,
+    t_WidgetRepairRequest,
     t_WidgetsScheduleRepairsRequestHeaderSchema
   >,
   respond: WidgetsScheduleRepairsResponder,
@@ -392,7 +389,7 @@ export type WidgetPartsCreateWidgetPart = (
   params: Params<
     t_WidgetPartsCreateWidgetPartParamSchema,
     t_WidgetPartsCreateWidgetPartQuerySchema,
-    t_WidgetPartsCreateWidgetPartRequestBodySchema,
+    t_WidgetPart,
     t_WidgetPartsCreateWidgetPartRequestHeaderSchema
   >,
   respond: WidgetPartsCreateWidgetPartResponder,
@@ -476,7 +473,7 @@ export type WidgetPartsReorderParts = (
   params: Params<
     t_WidgetPartsReorderPartsParamSchema,
     t_WidgetPartsReorderPartsQuerySchema,
-    t_WidgetPartsReorderPartsRequestBodySchema,
+    t_WidgetPartReorderRequest,
     t_WidgetPartsReorderPartsRequestHeaderSchema
   >,
   respond: WidgetPartsReorderPartsResponder,
@@ -522,7 +519,7 @@ export type ManufacturersCreateOrReplaceManufacturer = (
   params: Params<
     t_ManufacturersCreateOrReplaceManufacturerParamSchema,
     t_ManufacturersCreateOrReplaceManufacturerQuerySchema,
-    t_ManufacturersCreateOrReplaceManufacturerRequestBodySchema,
+    t_Manufacturer,
     t_ManufacturersCreateOrReplaceManufacturerRequestHeaderSchema
   >,
   respond: ManufacturersCreateOrReplaceManufacturerResponder,

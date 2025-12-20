@@ -9,11 +9,13 @@ import {
 } from "@nahkies/typescript-axios-runtime/main"
 import type {AxiosRequestConfig, AxiosResponse} from "axios"
 import type {
-  EmptyObject,
   t_AppAuthenticatorEnrollment,
   t_AppAuthenticatorEnrollmentRequest,
   t_Authenticator,
   t_AuthenticatorEnrollment,
+  t_createEmailJsonRequestBody,
+  t_createPasswordJsonRequestBody,
+  t_createPhoneJsonRequestBody,
   t_Email,
   t_OktaApplication,
   t_Organization,
@@ -22,9 +24,15 @@ import type {
   t_Profile,
   t_PushNotificationChallenge,
   t_PushNotificationVerification,
+  t_replacePasswordJsonRequestBody,
+  t_replaceProfileJsonRequestBody,
   t_Schema,
+  t_sendEmailChallengeJsonRequestBody,
+  t_sendPhoneChallengeJsonRequestBody,
   t_UpdateAppAuthenticatorEnrollmentRequest,
   t_UpdateAuthenticatorEnrollmentRequest,
+  t_verifyEmailOtpJsonRequestBody,
+  t_verifyPhoneChallengeJsonRequestBody,
   UnknownEnumStringValue,
 } from "./models"
 
@@ -312,14 +320,7 @@ export class MyAccountManagement extends AbstractAxiosClient {
 
   async createEmail(
     p: {
-      requestBody: {
-        profile: {
-          email: string
-        }
-        role?: ("PRIMARY" | "SECONDARY" | UnknownEnumStringValue) | undefined
-        sendEmail?: boolean | undefined
-        state?: string | undefined
-      }
+      requestBody: t_createEmailJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -382,9 +383,7 @@ export class MyAccountManagement extends AbstractAxiosClient {
   async sendEmailChallenge(
     p: {
       id: string
-      requestBody: {
-        state: string
-      }
+      requestBody: t_sendEmailChallengeJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -488,9 +487,7 @@ export class MyAccountManagement extends AbstractAxiosClient {
     p: {
       id: string
       challengeId: string
-      requestBody: {
-        verificationCode: string
-      }
+      requestBody: t_verifyEmailOtpJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -562,11 +559,7 @@ export class MyAccountManagement extends AbstractAxiosClient {
 
   async createPassword(
     p: {
-      requestBody: {
-        profile: {
-          password: string
-        }
-      }
+      requestBody: t_createPasswordJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -590,11 +583,7 @@ export class MyAccountManagement extends AbstractAxiosClient {
 
   async replacePassword(
     p: {
-      requestBody: {
-        profile: {
-          password: string
-        }
-      }
+      requestBody: t_replacePasswordJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -650,13 +639,7 @@ export class MyAccountManagement extends AbstractAxiosClient {
 
   async createPhone(
     p: {
-      requestBody: {
-        method?: ("SMS" | "CALL" | UnknownEnumStringValue) | undefined
-        profile: {
-          phoneNumber?: string | undefined
-        }
-        sendCode?: boolean | undefined
-      }
+      requestBody: t_createPhoneJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -719,10 +702,7 @@ export class MyAccountManagement extends AbstractAxiosClient {
   async sendPhoneChallenge(
     p: {
       id: string
-      requestBody: {
-        method: "SMS" | "CALL" | UnknownEnumStringValue
-        retry?: boolean | undefined
-      }
+      requestBody: t_sendPhoneChallengeJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -762,9 +742,7 @@ export class MyAccountManagement extends AbstractAxiosClient {
   async verifyPhoneChallenge(
     p: {
       id: string
-      requestBody: {
-        verificationCode: string
-      }
+      requestBody: t_verifyPhoneChallengeJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -804,9 +782,7 @@ export class MyAccountManagement extends AbstractAxiosClient {
 
   async replaceProfile(
     p: {
-      requestBody: {
-        profile?: EmptyObject | undefined
-      }
+      requestBody: t_replaceProfileJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},

@@ -25,23 +25,18 @@ import type {
   t_AuthorizeCustomAsParamSchema,
   t_AuthorizeCustomAsQuerySchema,
   t_AuthorizeCustomAsWithPostParamSchema,
-  t_AuthorizeCustomAsWithPostRequestBodySchema,
   t_AuthorizeQuerySchema,
-  t_AuthorizeWithPostRequestBodySchema,
+  t_AuthorizeWithPost,
+  t_BackchannelAuthorizeRequest,
   t_BackchannelAuthorizeResponse,
   t_BcAuthorizeCustomAsParamSchema,
-  t_BcAuthorizeCustomAsRequestBodySchema,
-  t_BcAuthorizeRequestBodySchema,
   t_ChallengeCustomAsParamSchema,
-  t_ChallengeCustomAsRequestBodySchema,
-  t_ChallengeRequestBodySchema,
+  t_ChallengeRequest,
   t_ChallengeResponse,
   t_Client,
-  t_CreateClientRequestBodySchema,
   t_DeleteClientParamSchema,
   t_DeviceAuthorizeCustomAsParamSchema,
-  t_DeviceAuthorizeCustomAsRequestBodySchema,
-  t_DeviceAuthorizeRequestBodySchema,
+  t_DeviceAuthorizeRequest,
   t_DeviceAuthorizeResponse,
   t_Error,
   t_GenerateNewClientSecretParamSchema,
@@ -51,18 +46,16 @@ import type {
   t_GetWellKnownOpenIdConfigurationCustomAsParamSchema,
   t_GetWellKnownOpenIdConfigurationCustomAsQuerySchema,
   t_GetWellKnownOpenIdConfigurationQuerySchema,
-  t_GlobalTokenRevocationRequestBodySchema,
+  t_GlobalTokenRevocationRequest,
   t_IntrospectCustomAsParamSchema,
-  t_IntrospectCustomAsRequestBodySchema,
+  t_IntrospectionRequest,
   t_IntrospectionResponse,
-  t_IntrospectRequestBodySchema,
   t_ListClientsQuerySchema,
   t_LogoutCustomAsParamSchema,
   t_LogoutCustomAsQuerySchema,
   t_LogoutCustomAsWithPostParamSchema,
-  t_LogoutCustomAsWithPostRequestBodySchema,
   t_LogoutQuerySchema,
-  t_LogoutWithPostRequestBodySchema,
+  t_LogoutWithPost,
   t_OAuthError,
   t_OAuthKeys,
   t_OAuthMetadata,
@@ -70,27 +63,22 @@ import type {
   t_OauthKeysQuerySchema,
   t_OidcMetadata,
   t_OobAuthenticateCustomAsParamSchema,
-  t_OobAuthenticateCustomAsRequestBodySchema,
-  t_OobAuthenticateRequestBodySchema,
+  t_OobAuthenticateRequest,
   t_OobAuthenticateResponse,
   t_ParCustomAsParamSchema,
-  t_ParCustomAsRequestBodySchema,
   t_ParOptionsCustomAsParamSchema,
   t_ParOptionsCustomAsRequestHeaderSchema,
   t_ParOptionsRequestHeaderSchema,
-  t_ParRequestBodySchema,
+  t_ParRequest,
   t_ParResponse,
   t_ReplaceClientParamSchema,
-  t_ReplaceClientRequestBodySchema,
   t_RevokeCustomAsParamSchema,
-  t_RevokeCustomAsRequestBodySchema,
-  t_RevokeRequestBodySchema,
+  t_RevokeRequest,
   t_TokenCustomAsParamSchema,
-  t_TokenCustomAsRequestBodySchema,
   t_TokenOptionsCustomAsParamSchema,
   t_TokenOptionsCustomAsRequestHeaderSchema,
   t_TokenOptionsRequestHeaderSchema,
-  t_TokenRequestBodySchema,
+  t_TokenRequest,
   t_TokenResponse,
   t_UserInfo,
   t_UserinfoCustomAsParamSchema,
@@ -164,7 +152,7 @@ export type AuthorizeWithPostResponder = {
 } & ExpressRuntimeResponder
 
 export type AuthorizeWithPost = (
-  params: Params<void, void, t_AuthorizeWithPostRequestBodySchema, void>,
+  params: Params<void, void, t_AuthorizeWithPost, void>,
   respond: AuthorizeWithPostResponder,
   req: Request,
   res: Response,
@@ -179,7 +167,7 @@ export type BcAuthorizeResponder = {
 } & ExpressRuntimeResponder
 
 export type BcAuthorize = (
-  params: Params<void, void, t_BcAuthorizeRequestBodySchema, void>,
+  params: Params<void, void, t_BackchannelAuthorizeRequest, void>,
   respond: BcAuthorizeResponder,
   req: Request,
   res: Response,
@@ -195,7 +183,7 @@ export type ChallengeResponder = {
 } & ExpressRuntimeResponder
 
 export type Challenge = (
-  params: Params<void, void, t_ChallengeRequestBodySchema, void>,
+  params: Params<void, void, t_ChallengeRequest, void>,
   respond: ChallengeResponder,
   req: Request,
   res: Response,
@@ -224,7 +212,7 @@ export type CreateClientResponder = {
 } & ExpressRuntimeResponder
 
 export type CreateClient = (
-  params: Params<void, void, t_CreateClientRequestBodySchema, void>,
+  params: Params<void, void, t_Client, void>,
   respond: CreateClientResponder,
   req: Request,
   res: Response,
@@ -255,12 +243,7 @@ export type ReplaceClientResponder = {
 } & ExpressRuntimeResponder
 
 export type ReplaceClient = (
-  params: Params<
-    t_ReplaceClientParamSchema,
-    void,
-    t_ReplaceClientRequestBodySchema,
-    void
-  >,
+  params: Params<t_ReplaceClientParamSchema, void, t_Client, void>,
   respond: ReplaceClientResponder,
   req: Request,
   res: Response,
@@ -305,7 +288,7 @@ export type DeviceAuthorizeResponder = {
 } & ExpressRuntimeResponder
 
 export type DeviceAuthorize = (
-  params: Params<void, void, t_DeviceAuthorizeRequestBodySchema, void>,
+  params: Params<void, void, t_DeviceAuthorizeRequest, void>,
   respond: DeviceAuthorizeResponder,
   req: Request,
   res: Response,
@@ -320,7 +303,7 @@ export type GlobalTokenRevocationResponder = {
 } & ExpressRuntimeResponder
 
 export type GlobalTokenRevocation = (
-  params: Params<void, void, t_GlobalTokenRevocationRequestBodySchema, void>,
+  params: Params<void, void, t_GlobalTokenRevocationRequest, void>,
   respond: GlobalTokenRevocationResponder,
   req: Request,
   res: Response,
@@ -335,7 +318,7 @@ export type IntrospectResponder = {
 } & ExpressRuntimeResponder
 
 export type Introspect = (
-  params: Params<void, void, t_IntrospectRequestBodySchema, void>,
+  params: Params<void, void, t_IntrospectionRequest, void>,
   respond: IntrospectResponder,
   req: Request,
   res: Response,
@@ -374,7 +357,7 @@ export type LogoutWithPostResponder = {
 } & ExpressRuntimeResponder
 
 export type LogoutWithPost = (
-  params: Params<void, void, t_LogoutWithPostRequestBodySchema, void>,
+  params: Params<void, void, t_LogoutWithPost, void>,
   respond: LogoutWithPostResponder,
   req: Request,
   res: Response,
@@ -390,7 +373,7 @@ export type OobAuthenticateResponder = {
 } & ExpressRuntimeResponder
 
 export type OobAuthenticate = (
-  params: Params<void, void, t_OobAuthenticateRequestBodySchema, void>,
+  params: Params<void, void, t_OobAuthenticateRequest, void>,
   respond: OobAuthenticateResponder,
   req: Request,
   res: Response,
@@ -419,7 +402,7 @@ export type ParResponder = {
 } & ExpressRuntimeResponder
 
 export type Par = (
-  params: Params<void, void, t_ParRequestBodySchema, void>,
+  params: Params<void, void, t_ParRequest, void>,
   respond: ParResponder,
   req: Request,
   res: Response,
@@ -434,7 +417,7 @@ export type RevokeResponder = {
 } & ExpressRuntimeResponder
 
 export type Revoke = (
-  params: Params<void, void, t_RevokeRequestBodySchema, void>,
+  params: Params<void, void, t_RevokeRequest, void>,
   respond: RevokeResponder,
   req: Request,
   res: Response,
@@ -462,7 +445,7 @@ export type TokenResponder = {
 } & ExpressRuntimeResponder
 
 export type Token = (
-  params: Params<void, void, t_TokenRequestBodySchema, void>,
+  params: Params<void, void, t_TokenRequest, void>,
   respond: TokenResponder,
   req: Request,
   res: Response,
@@ -547,7 +530,7 @@ export type AuthorizeCustomAsWithPost = (
   params: Params<
     t_AuthorizeCustomAsWithPostParamSchema,
     void,
-    t_AuthorizeCustomAsWithPostRequestBodySchema,
+    t_AuthorizeWithPost,
     void
   >,
   respond: AuthorizeCustomAsWithPostResponder,
@@ -567,7 +550,7 @@ export type BcAuthorizeCustomAs = (
   params: Params<
     t_BcAuthorizeCustomAsParamSchema,
     void,
-    t_BcAuthorizeCustomAsRequestBodySchema,
+    t_BackchannelAuthorizeRequest,
     void
   >,
   respond: BcAuthorizeCustomAsResponder,
@@ -588,7 +571,7 @@ export type ChallengeCustomAs = (
   params: Params<
     t_ChallengeCustomAsParamSchema,
     void,
-    t_ChallengeCustomAsRequestBodySchema,
+    t_ChallengeRequest,
     void
   >,
   respond: ChallengeCustomAsResponder,
@@ -608,7 +591,7 @@ export type DeviceAuthorizeCustomAs = (
   params: Params<
     t_DeviceAuthorizeCustomAsParamSchema,
     void,
-    t_DeviceAuthorizeCustomAsRequestBodySchema,
+    t_DeviceAuthorizeRequest,
     void
   >,
   respond: DeviceAuthorizeCustomAsResponder,
@@ -628,7 +611,7 @@ export type IntrospectCustomAs = (
   params: Params<
     t_IntrospectCustomAsParamSchema,
     void,
-    t_IntrospectCustomAsRequestBodySchema,
+    t_IntrospectionRequest,
     void
   >,
   respond: IntrospectCustomAsResponder,
@@ -677,7 +660,7 @@ export type LogoutCustomAsWithPost = (
   params: Params<
     t_LogoutCustomAsWithPostParamSchema,
     void,
-    t_LogoutCustomAsWithPostRequestBodySchema,
+    t_LogoutWithPost,
     void
   >,
   respond: LogoutCustomAsWithPostResponder,
@@ -698,7 +681,7 @@ export type OobAuthenticateCustomAs = (
   params: Params<
     t_OobAuthenticateCustomAsParamSchema,
     void,
-    t_OobAuthenticateCustomAsRequestBodySchema,
+    t_OobAuthenticateRequest,
     void
   >,
   respond: OobAuthenticateCustomAsResponder,
@@ -734,12 +717,7 @@ export type ParCustomAsResponder = {
 } & ExpressRuntimeResponder
 
 export type ParCustomAs = (
-  params: Params<
-    t_ParCustomAsParamSchema,
-    void,
-    t_ParCustomAsRequestBodySchema,
-    void
-  >,
+  params: Params<t_ParCustomAsParamSchema, void, t_ParRequest, void>,
   respond: ParCustomAsResponder,
   req: Request,
   res: Response,
@@ -754,12 +732,7 @@ export type RevokeCustomAsResponder = {
 } & ExpressRuntimeResponder
 
 export type RevokeCustomAs = (
-  params: Params<
-    t_RevokeCustomAsParamSchema,
-    void,
-    t_RevokeCustomAsRequestBodySchema,
-    void
-  >,
+  params: Params<t_RevokeCustomAsParamSchema, void, t_RevokeRequest, void>,
   respond: RevokeCustomAsResponder,
   req: Request,
   res: Response,
@@ -792,12 +765,7 @@ export type TokenCustomAsResponder = {
 } & ExpressRuntimeResponder
 
 export type TokenCustomAs = (
-  params: Params<
-    t_TokenCustomAsParamSchema,
-    void,
-    t_TokenCustomAsRequestBodySchema,
-    void
-  >,
+  params: Params<t_TokenCustomAsParamSchema, void, t_TokenRequest, void>,
   respond: TokenCustomAsResponder,
   req: Request,
   res: Response,

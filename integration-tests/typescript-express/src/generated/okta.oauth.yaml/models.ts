@@ -29,6 +29,39 @@ export type t_AmrValue =
 
 export type t_ApplicationType = "browser" | "native" | "service" | "web"
 
+export type t_AuthorizeWithPost = {
+  acr_values?: (t_AcrValue & string) | undefined
+  client_id: string
+  code_challenge?: string | undefined
+  code_challenge_method?: (t_CodeChallengeMethod & string) | undefined
+  display?: string | undefined
+  enroll_amr_values?: (t_AmrValue & string) | undefined
+  idp?: string | undefined
+  idp_scope?: string | undefined
+  login_hint?: string | undefined
+  max_age?: number | undefined
+  nonce?: string | undefined
+  prompt?: (t_Prompt & string) | undefined
+  redirect_uri: string
+  request?: string | undefined
+  request_uri?: string | undefined
+  response_mode?: (t_ResponseMode & string) | undefined
+  response_type: t_ResponseTypesSupported & string
+  scope: string
+  sessionToken?: string | undefined
+  state: string
+}
+
+export type t_BackchannelAuthorizeRequest = {
+  binding_message?: string | undefined
+  id_token_hint: string
+  login_hint: string
+  request?: string | undefined
+  request_expiry?: number | undefined
+  scope: string
+  [key: string]: unknown | undefined
+}
+
 export type t_BackchannelAuthorizeResponse = {
   auth_req_id?: string | undefined
   expires_in?: number | undefined
@@ -36,6 +69,12 @@ export type t_BackchannelAuthorizeResponse = {
 }
 
 export type t_BindingMethod = "none" | "prompt" | "transfer"
+
+export type t_ChallengeRequest = {
+  challenge_types_supported?: t_ChallengeType[] | undefined
+  channel_hint?: t_Channel | undefined
+  mfa_token: string
+}
 
 export type t_ChallengeResponse = {
   binding_code?: string | undefined
@@ -84,6 +123,11 @@ export type t_Client = {
 
 export type t_CodeChallengeMethod = "S256"
 
+export type t_DeviceAuthorizeRequest = {
+  client_id?: string | undefined
+  scope?: string | undefined
+}
+
 export type t_DeviceAuthorizeResponse = {
   device_code?: string | undefined
   expires_in?: number | undefined
@@ -112,6 +156,10 @@ export type t_Error = {
   errorSummary?: string | undefined
 }
 
+export type t_GlobalTokenRevocationRequest = {
+  sub_id?: t_sub_id | undefined
+}
+
 export type t_GrantType =
   | "authorization_code"
   | "client_credentials"
@@ -128,6 +176,11 @@ export type t_GrantType =
   | "urn:okta:params:oauth:grant-type:oob"
   | "http://auth0.com/oauth/grant-type/mfa-otp"
   | "http://auth0.com/oauth/grant-type/mfa-oob"
+
+export type t_IntrospectionRequest = {
+  token?: string | undefined
+  token_type_hint?: t_TokenTypeHintIntrospect | undefined
+}
 
 export type t_IntrospectionResponse = {
   active?: boolean | undefined
@@ -160,6 +213,12 @@ export type t_JsonWebKeyStatus = "ACTIVE" | "INACTIVE"
 export type t_JsonWebKeyType = "EC" | "RSA"
 
 export type t_JsonWebKeyUse = "enc" | "sig"
+
+export type t_LogoutWithPost = {
+  id_token_hint: string
+  post_logout_redirect_uri?: string | undefined
+  state?: string | undefined
+}
 
 export type t_OAuthError = {
   error?: string | undefined
@@ -211,6 +270,11 @@ export type t_OidcMetadata = t_OAuthMetadata & {
   userinfo_endpoint?: string | undefined
 }
 
+export type t_OobAuthenticateRequest = {
+  channel_hint: t_Channel
+  login_hint: string
+}
+
 export type t_OobAuthenticateResponse = {
   binding_code?: string | undefined
   binding_method?: t_BindingMethod | undefined
@@ -218,6 +282,26 @@ export type t_OobAuthenticateResponse = {
   expires_in?: number | undefined
   interval?: number | undefined
   oob_code?: string | undefined
+}
+
+export type t_ParRequest = {
+  client_id?: string | undefined
+  code_challenge?: string | undefined
+  code_challenge_method?: string | undefined
+  display?: string | undefined
+  idp?: string | undefined
+  idp_scope?: string | undefined
+  login_hint?: string | undefined
+  max_age?: number | undefined
+  nonce?: string | undefined
+  prompt?: string | undefined
+  redirect_uri?: string | undefined
+  request?: string | undefined
+  response_mode?: string | undefined
+  response_type?: string | undefined
+  scope?: string | undefined
+  sessionToken?: string | undefined
+  state?: string | undefined
 }
 
 export type t_ParResponse = {
@@ -249,6 +333,11 @@ export type t_ResponseTypesSupported =
   | "id_token token"
   | "token"
 
+export type t_RevokeRequest = {
+  token: string
+  token_type_hint?: t_TokenTypeHintRevoke | undefined
+}
+
 export type t_Scope = string
 
 export type t_SigningAlgorithm =
@@ -265,6 +354,10 @@ export type t_SigningAlgorithm =
 export type t_SubjectType = "pairwise" | "public"
 
 export type t_TokenDeliveryMode = "poll"
+
+export type t_TokenRequest = {
+  grant_type?: t_GrantType | undefined
+}
 
 export type t_TokenResponse = {
   access_token?: string | undefined
@@ -364,135 +457,20 @@ export type t_AuthorizeCustomAsWithPostParamSchema = {
   authorizationServerId: string
 }
 
-export type t_AuthorizeCustomAsWithPostRequestBodySchema = {
-  acr_values?: (t_AcrValue & string) | undefined
-  client_id: string
-  code_challenge?: string | undefined
-  code_challenge_method?: (t_CodeChallengeMethod & string) | undefined
-  display?: string | undefined
-  enroll_amr_values?: (t_AmrValue & string) | undefined
-  idp?: string | undefined
-  idp_scope?: string | undefined
-  login_hint?: string | undefined
-  max_age?: number | undefined
-  nonce?: string | undefined
-  prompt?: (t_Prompt & string) | undefined
-  redirect_uri: string
-  request?: string | undefined
-  request_uri?: string | undefined
-  response_mode?: (t_ResponseMode & string) | undefined
-  response_type: t_ResponseTypesSupported & string
-  scope: string
-  sessionToken?: string | undefined
-  state: string
-}
-
-export type t_AuthorizeWithPostRequestBodySchema = {
-  acr_values?: (t_AcrValue & string) | undefined
-  client_id: string
-  code_challenge?: string | undefined
-  code_challenge_method?: (t_CodeChallengeMethod & string) | undefined
-  display?: string | undefined
-  enroll_amr_values?: (t_AmrValue & string) | undefined
-  idp?: string | undefined
-  idp_scope?: string | undefined
-  login_hint?: string | undefined
-  max_age?: number | undefined
-  nonce?: string | undefined
-  prompt?: (t_Prompt & string) | undefined
-  redirect_uri: string
-  request?: string | undefined
-  request_uri?: string | undefined
-  response_mode?: (t_ResponseMode & string) | undefined
-  response_type: t_ResponseTypesSupported & string
-  scope: string
-  sessionToken?: string | undefined
-  state: string
-}
-
-export type t_BcAuthorizeRequestBodySchema = {
-  binding_message?: string | undefined
-  id_token_hint: string
-  login_hint: string
-  request?: string | undefined
-  request_expiry?: number | undefined
-  scope: string
-  [key: string]: unknown | undefined
-}
-
 export type t_BcAuthorizeCustomAsParamSchema = {
   authorizationServerId: string
-}
-
-export type t_BcAuthorizeCustomAsRequestBodySchema = {
-  binding_message?: string | undefined
-  id_token_hint: string
-  login_hint: string
-  request?: string | undefined
-  request_expiry?: number | undefined
-  scope: string
-  [key: string]: unknown | undefined
-}
-
-export type t_ChallengeRequestBodySchema = {
-  challenge_types_supported?: t_ChallengeType[] | undefined
-  channel_hint?: t_Channel | undefined
-  mfa_token: string
 }
 
 export type t_ChallengeCustomAsParamSchema = {
   authorizationServerId: string
 }
 
-export type t_ChallengeCustomAsRequestBodySchema = {
-  challenge_types_supported?: t_ChallengeType[] | undefined
-  channel_hint?: t_Channel | undefined
-  mfa_token: string
-}
-
-export type t_CreateClientRequestBodySchema = {
-  application_type?: t_ApplicationType | undefined
-  readonly client_id?: string | undefined
-  readonly client_id_issued_at?: number | undefined
-  client_name: string
-  readonly client_secret?: (string | null) | undefined
-  readonly client_secret_expires_at?: (number | null) | undefined
-  frontchannel_logout_session_required?: boolean | undefined
-  frontchannel_logout_uri?: (string | null) | undefined
-  grant_types?: t_GrantType[] | undefined
-  initiate_login_uri?: string | undefined
-  jwks?:
-    | {
-        keys?: t_JsonWebKey[] | undefined
-      }
-    | undefined
-  jwks_uri?: string | undefined
-  logo_uri?: (string | null) | undefined
-  policy_uri?: (string | null) | undefined
-  post_logout_redirect_uris?: string | undefined
-  redirect_uris?: string[] | undefined
-  request_object_signing_alg?: t_SigningAlgorithm[] | undefined
-  response_types?: t_ResponseType[] | undefined
-  token_endpoint_auth_method?: t_EndpointAuthMethod | undefined
-  tos_uri?: (string | null) | undefined
-}
-
 export type t_DeleteClientParamSchema = {
   clientId: string
 }
 
-export type t_DeviceAuthorizeRequestBodySchema = {
-  client_id?: string | undefined
-  scope?: string | undefined
-}
-
 export type t_DeviceAuthorizeCustomAsParamSchema = {
   authorizationServerId: string
-}
-
-export type t_DeviceAuthorizeCustomAsRequestBodySchema = {
-  client_id?: string | undefined
-  scope?: string | undefined
 }
 
 export type t_GenerateNewClientSecretParamSchema = {
@@ -523,22 +501,8 @@ export type t_GetWellKnownOpenIdConfigurationCustomAsQuerySchema = {
   client_id?: string | undefined
 }
 
-export type t_GlobalTokenRevocationRequestBodySchema = {
-  sub_id?: t_sub_id | undefined
-}
-
-export type t_IntrospectRequestBodySchema = {
-  token?: string | undefined
-  token_type_hint?: t_TokenTypeHintIntrospect | undefined
-}
-
 export type t_IntrospectCustomAsParamSchema = {
   authorizationServerId: string
-}
-
-export type t_IntrospectCustomAsRequestBodySchema = {
-  token?: string | undefined
-  token_type_hint?: t_TokenTypeHintIntrospect | undefined
 }
 
 export type t_ListClientsQuerySchema = {
@@ -567,18 +531,6 @@ export type t_LogoutCustomAsWithPostParamSchema = {
   authorizationServerId: string
 }
 
-export type t_LogoutCustomAsWithPostRequestBodySchema = {
-  id_token_hint: string
-  post_logout_redirect_uri?: string | undefined
-  state?: string | undefined
-}
-
-export type t_LogoutWithPostRequestBodySchema = {
-  id_token_hint: string
-  post_logout_redirect_uri?: string | undefined
-  state?: string | undefined
-}
-
 export type t_OauthKeysQuerySchema = {
   client_id?: string | undefined
 }
@@ -587,62 +539,12 @@ export type t_OauthKeysCustomAsParamSchema = {
   authorizationServerId: string
 }
 
-export type t_OobAuthenticateRequestBodySchema = {
-  channel_hint: t_Channel
-  login_hint: string
-}
-
 export type t_OobAuthenticateCustomAsParamSchema = {
   authorizationServerId: string
 }
 
-export type t_OobAuthenticateCustomAsRequestBodySchema = {
-  channel_hint: t_Channel
-  login_hint: string
-}
-
-export type t_ParRequestBodySchema = {
-  client_id?: string | undefined
-  code_challenge?: string | undefined
-  code_challenge_method?: string | undefined
-  display?: string | undefined
-  idp?: string | undefined
-  idp_scope?: string | undefined
-  login_hint?: string | undefined
-  max_age?: number | undefined
-  nonce?: string | undefined
-  prompt?: string | undefined
-  redirect_uri?: string | undefined
-  request?: string | undefined
-  response_mode?: string | undefined
-  response_type?: string | undefined
-  scope?: string | undefined
-  sessionToken?: string | undefined
-  state?: string | undefined
-}
-
 export type t_ParCustomAsParamSchema = {
   authorizationServerId: string
-}
-
-export type t_ParCustomAsRequestBodySchema = {
-  client_id?: string | undefined
-  code_challenge?: string | undefined
-  code_challenge_method?: string | undefined
-  display?: string | undefined
-  idp?: string | undefined
-  idp_scope?: string | undefined
-  login_hint?: string | undefined
-  max_age?: number | undefined
-  nonce?: string | undefined
-  prompt?: string | undefined
-  redirect_uri?: string | undefined
-  request?: string | undefined
-  response_mode?: string | undefined
-  response_type?: string | undefined
-  scope?: string | undefined
-  sessionToken?: string | undefined
-  state?: string | undefined
 }
 
 export type t_ParOptionsRequestHeaderSchema = {
@@ -661,57 +563,12 @@ export type t_ReplaceClientParamSchema = {
   clientId: string
 }
 
-export type t_ReplaceClientRequestBodySchema = {
-  application_type?: t_ApplicationType | undefined
-  readonly client_id?: string | undefined
-  readonly client_id_issued_at?: number | undefined
-  client_name: string
-  readonly client_secret?: (string | null) | undefined
-  readonly client_secret_expires_at?: (number | null) | undefined
-  frontchannel_logout_session_required?: boolean | undefined
-  frontchannel_logout_uri?: (string | null) | undefined
-  grant_types?: t_GrantType[] | undefined
-  initiate_login_uri?: string | undefined
-  jwks?:
-    | {
-        keys?: t_JsonWebKey[] | undefined
-      }
-    | undefined
-  jwks_uri?: string | undefined
-  logo_uri?: (string | null) | undefined
-  policy_uri?: (string | null) | undefined
-  post_logout_redirect_uris?: string | undefined
-  redirect_uris?: string[] | undefined
-  request_object_signing_alg?: t_SigningAlgorithm[] | undefined
-  response_types?: t_ResponseType[] | undefined
-  token_endpoint_auth_method?: t_EndpointAuthMethod | undefined
-  tos_uri?: (string | null) | undefined
-}
-
-export type t_RevokeRequestBodySchema = {
-  token: string
-  token_type_hint?: t_TokenTypeHintRevoke | undefined
-}
-
 export type t_RevokeCustomAsParamSchema = {
   authorizationServerId: string
 }
 
-export type t_RevokeCustomAsRequestBodySchema = {
-  token: string
-  token_type_hint?: t_TokenTypeHintRevoke | undefined
-}
-
-export type t_TokenRequestBodySchema = {
-  grant_type?: t_GrantType | undefined
-}
-
 export type t_TokenCustomAsParamSchema = {
   authorizationServerId: string
-}
-
-export type t_TokenCustomAsRequestBodySchema = {
-  grant_type?: t_GrantType | undefined
 }
 
 export type t_TokenOptionsRequestHeaderSchema = {

@@ -14,7 +14,6 @@ import type {
   t_actions_cache_list,
   t_actions_cache_usage_by_repository,
   t_actions_cache_usage_org_enterprise,
-  t_actions_enabled,
   t_actions_get_default_workflow_permissions,
   t_actions_hosted_runner,
   t_actions_hosted_runner_image,
@@ -27,16 +26,58 @@ import type {
   t_actions_set_default_workflow_permissions,
   t_actions_variable,
   t_actions_workflow_access_to_repository,
+  t_actionsAddCustomLabelsToSelfHostedRunnerForOrgJsonRequestBody,
+  t_actionsAddCustomLabelsToSelfHostedRunnerForRepoJsonRequestBody,
+  t_actionsCreateEnvironmentVariableJsonRequestBody,
+  t_actionsCreateHostedRunnerForOrgJsonRequestBody,
+  t_actionsCreateOrgVariableJsonRequestBody,
+  t_actionsCreateOrUpdateEnvironmentSecretJsonRequestBody,
+  t_actionsCreateOrUpdateOrgSecretJsonRequestBody,
+  t_actionsCreateOrUpdateRepoSecretJsonRequestBody,
+  t_actionsCreateRepoVariableJsonRequestBody,
+  t_actionsCreateSelfHostedRunnerGroupForOrgJsonRequestBody,
+  t_actionsCreateWorkflowDispatchJsonRequestBody,
+  t_actionsGenerateRunnerJitconfigForOrgJsonRequestBody,
+  t_actionsGenerateRunnerJitconfigForRepoJsonRequestBody,
+  t_actionsReRunJobForWorkflowRunJsonRequestBody,
+  t_actionsReRunWorkflowFailedJobsJsonRequestBody,
+  t_actionsReRunWorkflowJsonRequestBody,
+  t_actionsReviewCustomGatesForRunJsonRequestBody,
+  t_actionsReviewPendingDeploymentsForRunJsonRequestBody,
+  t_actionsSetCustomLabelsForSelfHostedRunnerForOrgJsonRequestBody,
+  t_actionsSetCustomLabelsForSelfHostedRunnerForRepoJsonRequestBody,
+  t_actionsSetCustomOidcSubClaimForRepoJsonRequestBody,
+  t_actionsSetGithubActionsPermissionsOrganizationJsonRequestBody,
+  t_actionsSetGithubActionsPermissionsRepositoryJsonRequestBody,
+  t_actionsSetRepoAccessToSelfHostedRunnerGroupInOrgJsonRequestBody,
+  t_actionsSetSelectedReposForOrgSecretJsonRequestBody,
+  t_actionsSetSelectedReposForOrgVariableJsonRequestBody,
+  t_actionsSetSelectedRepositoriesEnabledGithubActionsOrganizationJsonRequestBody,
+  t_actionsSetSelfHostedRunnersInGroupForOrgJsonRequestBody,
+  t_actionsUpdateEnvironmentVariableJsonRequestBody,
+  t_actionsUpdateHostedRunnerForOrgJsonRequestBody,
+  t_actionsUpdateOrgVariableJsonRequestBody,
+  t_actionsUpdateRepoVariableJsonRequestBody,
+  t_actionsUpdateSelfHostedRunnerGroupForOrgJsonRequestBody,
   t_activity,
+  t_activityMarkNotificationsAsReadJsonRequestBody,
+  t_activityMarkRepoNotificationsAsReadJsonRequestBody,
+  t_activitySetRepoSubscriptionJsonRequestBody,
+  t_activitySetThreadSubscriptionJsonRequestBody,
   t_alert_number,
-  t_allowed_actions,
   t_api_insights_route_stats,
   t_api_insights_subject_stats,
   t_api_insights_summary_stats,
   t_api_insights_time_stats,
   t_api_insights_user_stats,
   t_api_overview,
-  t_app_permissions,
+  t_appsCheckTokenJsonRequestBody,
+  t_appsCreateInstallationAccessTokenJsonRequestBody,
+  t_appsDeleteAuthorizationJsonRequestBody,
+  t_appsDeleteTokenJsonRequestBody,
+  t_appsResetTokenJsonRequestBody,
+  t_appsScopeTokenJsonRequestBody,
+  t_appsUpdateWebhookConfigForAppJsonRequestBody,
   t_artifact,
   t_authentication_token,
   t_authorization,
@@ -51,11 +92,17 @@ import type {
   t_branch_with_protection,
   t_campaign_state,
   t_campaign_summary,
+  t_campaignsCreateCampaignJsonRequestBody,
+  t_campaignsUpdateCampaignJsonRequestBody,
   t_check_annotation,
   t_check_automated_security_fixes,
   t_check_run,
   t_check_suite,
   t_check_suite_preference,
+  t_checksCreateJsonRequestBody,
+  t_checksCreateSuiteJsonRequestBody,
+  t_checksSetSuitesPreferencesJsonRequestBody,
+  t_checksUpdateJsonRequestBody,
   t_classroom,
   t_classroom_accepted_assignment,
   t_classroom_assignment,
@@ -64,18 +111,12 @@ import type {
   t_code_frequency_stat,
   t_code_of_conduct,
   t_code_scanning_alert,
-  t_code_scanning_alert_create_request,
-  t_code_scanning_alert_dismissed_comment,
-  t_code_scanning_alert_dismissed_reason,
   t_code_scanning_alert_instance,
   t_code_scanning_alert_items,
-  t_code_scanning_alert_set_state,
   t_code_scanning_alert_severity,
   t_code_scanning_alert_state_query,
   t_code_scanning_analysis,
-  t_code_scanning_analysis_commit_sha,
   t_code_scanning_analysis_deletion,
-  t_code_scanning_analysis_sarif_file,
   t_code_scanning_analysis_sarif_id,
   t_code_scanning_analysis_tool_guid,
   t_code_scanning_analysis_tool_name,
@@ -84,13 +125,10 @@ import type {
   t_code_scanning_autofix_commits_response,
   t_code_scanning_codeql_database,
   t_code_scanning_default_setup,
-  t_code_scanning_default_setup_options,
   t_code_scanning_default_setup_update,
   t_code_scanning_default_setup_update_response,
-  t_code_scanning_options,
   t_code_scanning_organization_alert_items,
   t_code_scanning_ref,
-  t_code_scanning_ref_full,
   t_code_scanning_sarifs_receipt,
   t_code_scanning_sarifs_status,
   t_code_scanning_variant_analysis,
@@ -101,6 +139,18 @@ import type {
   t_code_security_configuration_repositories,
   t_code_security_default_configurations,
   t_codeowners_errors,
+  t_codeScanningCreateVariantAnalysisJsonRequestBody,
+  t_codeScanningUpdateAlertJsonRequestBody,
+  t_codeScanningUploadSarifJsonRequestBody,
+  t_codeSecurityAttachConfigurationJsonRequestBody,
+  t_codeSecurityAttachEnterpriseConfigurationJsonRequestBody,
+  t_codeSecurityCreateConfigurationForEnterpriseJsonRequestBody,
+  t_codeSecurityCreateConfigurationJsonRequestBody,
+  t_codeSecurityDetachConfigurationJsonRequestBody,
+  t_codeSecuritySetConfigurationAsDefaultForEnterpriseJsonRequestBody,
+  t_codeSecuritySetConfigurationAsDefaultJsonRequestBody,
+  t_codeSecurityUpdateConfigurationJsonRequestBody,
+  t_codeSecurityUpdateEnterpriseConfigurationJsonRequestBody,
   t_codespace,
   t_codespace_export_details,
   t_codespace_machine,
@@ -110,6 +160,19 @@ import type {
   t_codespaces_public_key,
   t_codespaces_secret,
   t_codespaces_user_public_key,
+  t_codespacesCreateForAuthenticatedUserJsonRequestBody,
+  t_codespacesCreateOrUpdateOrgSecretJsonRequestBody,
+  t_codespacesCreateOrUpdateRepoSecretJsonRequestBody,
+  t_codespacesCreateOrUpdateSecretForAuthenticatedUserJsonRequestBody,
+  t_codespacesCreateWithPrForAuthenticatedUserJsonRequestBody,
+  t_codespacesCreateWithRepoForAuthenticatedUserJsonRequestBody,
+  t_codespacesDeleteCodespacesAccessUsersJsonRequestBody,
+  t_codespacesPublishForAuthenticatedUserJsonRequestBody,
+  t_codespacesSetCodespacesAccessJsonRequestBody,
+  t_codespacesSetCodespacesAccessUsersJsonRequestBody,
+  t_codespacesSetRepositoriesForSecretForAuthenticatedUserJsonRequestBody,
+  t_codespacesSetSelectedReposForOrgSecretJsonRequestBody,
+  t_codespacesUpdateForAuthenticatedUserJsonRequestBody,
   t_collaborator,
   t_combined_billing_usage,
   t_combined_commit_status,
@@ -129,6 +192,11 @@ import type {
   t_copilot_organization_details,
   t_copilot_seat_details,
   t_copilot_usage_metrics_day,
+  t_copilotAddCopilotSeatsForTeamsJsonRequestBody,
+  t_copilotAddCopilotSeatsForUsersJsonRequestBody,
+  t_copilotCancelCopilotSeatAssignmentForTeamsJsonRequestBody,
+  t_copilotCancelCopilotSeatAssignmentForUsersJsonRequestBody,
+  t_credentialsRevokeJsonRequestBody,
   t_custom_deployment_rule_app,
   t_custom_property,
   t_custom_property_set_payload,
@@ -138,6 +206,12 @@ import type {
   t_dependabot_public_key,
   t_dependabot_repository_access_details,
   t_dependabot_secret,
+  t_dependabotCreateOrUpdateOrgSecretJsonRequestBody,
+  t_dependabotCreateOrUpdateRepoSecretJsonRequestBody,
+  t_dependabotSetRepositoryAccessDefaultLevelJsonRequestBody,
+  t_dependabotSetSelectedReposForOrgSecretJsonRequestBody,
+  t_dependabotUpdateAlertJsonRequestBody,
+  t_dependabotUpdateRepositoryAccessForOrgJsonRequestBody,
   t_dependency_graph_diff,
   t_dependency_graph_spdx_sbom,
   t_deploy_key,
@@ -145,14 +219,11 @@ import type {
   t_deployment_branch_policy,
   t_deployment_branch_policy_name_pattern,
   t_deployment_branch_policy_name_pattern_with_type,
-  t_deployment_branch_policy_settings,
   t_deployment_protection_rule,
-  t_deployment_reviewer_type,
   t_deployment_status,
   t_diff_entry,
   t_email,
   t_empty_object,
-  t_enabled_repositories,
   t_environment,
   t_environment_approvals,
   t_event,
@@ -162,16 +233,28 @@ import type {
   t_gist_comment,
   t_gist_commit,
   t_gist_simple,
+  t_gistsCreateCommentJsonRequestBody,
+  t_gistsCreateJsonRequestBody,
+  t_gistsUpdateCommentJsonRequestBody,
+  t_gistsUpdateJsonRequestBody,
   t_git_commit,
   t_git_ref,
   t_git_tag,
   t_git_tree,
+  t_gitCreateBlobJsonRequestBody,
+  t_gitCreateCommitJsonRequestBody,
+  t_gitCreateRefJsonRequestBody,
+  t_gitCreateTagJsonRequestBody,
+  t_gitCreateTreeJsonRequestBody,
   t_gitignore_template,
+  t_gitUpdateRefJsonRequestBody,
   t_global_advisory,
   t_gpg_key,
   t_hook,
   t_hook_delivery,
   t_hook_delivery_item,
+  t_hostedComputeCreateNetworkConfigurationForOrgJsonRequestBody,
+  t_hostedComputeUpdateNetworkConfigurationForOrgJsonRequestBody,
   t_hovercard,
   t_import,
   t_installation,
@@ -186,6 +269,22 @@ import type {
   t_issue_event_for_issue,
   t_issue_search_result_item,
   t_issue_type,
+  t_issuesAddAssigneesJsonRequestBody,
+  t_issuesAddLabelsJsonRequestBody,
+  t_issuesAddSubIssueJsonRequestBody,
+  t_issuesCreateCommentJsonRequestBody,
+  t_issuesCreateJsonRequestBody,
+  t_issuesCreateLabelJsonRequestBody,
+  t_issuesCreateMilestoneJsonRequestBody,
+  t_issuesLockJsonRequestBody,
+  t_issuesRemoveAssigneesJsonRequestBody,
+  t_issuesRemoveSubIssueJsonRequestBody,
+  t_issuesReprioritizeSubIssueJsonRequestBody,
+  t_issuesSetLabelsJsonRequestBody,
+  t_issuesUpdateCommentJsonRequestBody,
+  t_issuesUpdateJsonRequestBody,
+  t_issuesUpdateLabelJsonRequestBody,
+  t_issuesUpdateMilestoneJsonRequestBody,
   t_job,
   t_key,
   t_key_simple,
@@ -195,10 +294,17 @@ import type {
   t_license,
   t_license_content,
   t_license_simple,
+  t_markdownRenderJsonRequestBody,
   t_marketplace_listing_plan,
   t_marketplace_purchase,
   t_merged_upstream,
   t_migration,
+  t_migrationsMapCommitAuthorJsonRequestBody,
+  t_migrationsSetLfsPreferenceJsonRequestBody,
+  t_migrationsStartForAuthenticatedUserJsonRequestBody,
+  t_migrationsStartForOrgJsonRequestBody,
+  t_migrationsStartImportJsonRequestBody,
+  t_migrationsUpdateImportJsonRequestBody,
   t_milestone,
   t_minimal_repository,
   t_network_configuration,
@@ -210,8 +316,6 @@ import type {
   t_org_private_registry_configuration,
   t_org_private_registry_configuration_with_selected_repositories,
   t_org_repo_custom_property_values,
-  t_org_rules,
-  t_org_ruleset_conditions,
   t_organization_actions_secret,
   t_organization_actions_variable,
   t_organization_create_issue_type,
@@ -224,6 +328,23 @@ import type {
   t_organization_secret_scanning_alert,
   t_organization_simple,
   t_organization_update_issue_type,
+  t_orgsConvertMemberToOutsideCollaboratorJsonRequestBody,
+  t_orgsCreateInvitationJsonRequestBody,
+  t_orgsCreateOrUpdateCustomPropertiesJsonRequestBody,
+  t_orgsCreateOrUpdateCustomPropertiesValuesForReposJsonRequestBody,
+  t_orgsCreateWebhookJsonRequestBody,
+  t_orgsDeleteAttestationsBulkJsonRequestBody,
+  t_orgsEnableOrDisableSecurityProductOnAllOrgReposJsonRequestBody,
+  t_orgsListAttestationsBulkJsonRequestBody,
+  t_orgsReviewPatGrantRequestJsonRequestBody,
+  t_orgsReviewPatGrantRequestsInBulkJsonRequestBody,
+  t_orgsSetMembershipForUserJsonRequestBody,
+  t_orgsUpdateJsonRequestBody,
+  t_orgsUpdateMembershipForAuthenticatedUserJsonRequestBody,
+  t_orgsUpdatePatAccessesJsonRequestBody,
+  t_orgsUpdatePatAccessJsonRequestBody,
+  t_orgsUpdateWebhookConfigForOrgJsonRequestBody,
+  t_orgsUpdateWebhookJsonRequestBody,
   t_package,
   t_package_version,
   t_packages_billing_usage,
@@ -237,13 +358,25 @@ import type {
   t_pending_deployment,
   t_porter_author,
   t_porter_large_file,
-  t_prevent_self_review,
   t_private_user,
   t_private_vulnerability_report_create,
+  t_privateRegistriesCreateOrgPrivateRegistryJsonRequestBody,
+  t_privateRegistriesUpdateOrgPrivateRegistryJsonRequestBody,
   t_project,
   t_project_card,
   t_project_collaborator_permission,
   t_project_column,
+  t_projectsClassicAddCollaboratorJsonRequestBody,
+  t_projectsClassicCreateCardJsonRequestBody,
+  t_projectsClassicCreateColumnJsonRequestBody,
+  t_projectsClassicCreateForAuthenticatedUserJsonRequestBody,
+  t_projectsClassicCreateForOrgJsonRequestBody,
+  t_projectsClassicCreateForRepoJsonRequestBody,
+  t_projectsClassicMoveCardJsonRequestBody,
+  t_projectsClassicMoveColumnJsonRequestBody,
+  t_projectsClassicUpdateCardJsonRequestBody,
+  t_projectsClassicUpdateColumnJsonRequestBody,
+  t_projectsClassicUpdateJsonRequestBody,
   t_protected_branch,
   t_protected_branch_admin_enforced,
   t_protected_branch_pull_request_review,
@@ -254,30 +387,102 @@ import type {
   t_pull_request_review_comment,
   t_pull_request_review_request,
   t_pull_request_simple,
+  t_pullsCreateJsonRequestBody,
+  t_pullsCreateReplyForReviewCommentJsonRequestBody,
+  t_pullsCreateReviewCommentJsonRequestBody,
+  t_pullsCreateReviewJsonRequestBody,
+  t_pullsDismissReviewJsonRequestBody,
+  t_pullsMergeJsonRequestBody,
+  t_pullsRemoveRequestedReviewersJsonRequestBody,
+  t_pullsRequestReviewersJsonRequestBody,
+  t_pullsSubmitReviewJsonRequestBody,
+  t_pullsUpdateBranchJsonRequestBody,
+  t_pullsUpdateJsonRequestBody,
+  t_pullsUpdateReviewCommentJsonRequestBody,
+  t_pullsUpdateReviewJsonRequestBody,
   t_rate_limit_overview,
   t_reaction,
+  t_reactionsCreateForCommitCommentJsonRequestBody,
+  t_reactionsCreateForIssueCommentJsonRequestBody,
+  t_reactionsCreateForIssueJsonRequestBody,
+  t_reactionsCreateForPullRequestReviewCommentJsonRequestBody,
+  t_reactionsCreateForReleaseJsonRequestBody,
+  t_reactionsCreateForTeamDiscussionCommentInOrgJsonRequestBody,
+  t_reactionsCreateForTeamDiscussionCommentLegacyJsonRequestBody,
+  t_reactionsCreateForTeamDiscussionInOrgJsonRequestBody,
+  t_reactionsCreateForTeamDiscussionLegacyJsonRequestBody,
   t_referrer_traffic,
   t_release,
   t_release_asset,
   t_release_notes_content,
   t_repo_codespaces_secret,
   t_repo_search_result_item,
+  t_reposAddAppAccessRestrictionsJsonRequestBody,
+  t_reposAddCollaboratorJsonRequestBody,
+  t_reposAddStatusCheckContextsJsonRequestBody,
+  t_reposAddTeamAccessRestrictionsJsonRequestBody,
+  t_reposAddUserAccessRestrictionsJsonRequestBody,
+  t_reposCreateAttestationJsonRequestBody,
+  t_reposCreateAutolinkJsonRequestBody,
+  t_reposCreateCommitCommentJsonRequestBody,
+  t_reposCreateCommitStatusJsonRequestBody,
+  t_reposCreateDeployKeyJsonRequestBody,
+  t_reposCreateDeploymentJsonRequestBody,
+  t_reposCreateDeploymentProtectionRuleJsonRequestBody,
+  t_reposCreateDeploymentStatusJsonRequestBody,
+  t_reposCreateDispatchEventJsonRequestBody,
+  t_reposCreateForAuthenticatedUserJsonRequestBody,
+  t_reposCreateForkJsonRequestBody,
+  t_reposCreateInOrgJsonRequestBody,
+  t_reposCreateOrgRulesetJsonRequestBody,
+  t_reposCreateOrUpdateCustomPropertiesValuesJsonRequestBody,
+  t_reposCreateOrUpdateEnvironmentJsonRequestBody,
+  t_reposCreateOrUpdateFileContentsJsonRequestBody,
+  t_reposCreatePagesDeploymentJsonRequestBody,
+  t_reposCreatePagesSiteJsonRequestBody,
+  t_reposCreateReleaseJsonRequestBody,
+  t_reposCreateRepoRulesetJsonRequestBody,
+  t_reposCreateTagProtectionJsonRequestBody,
+  t_reposCreateUsingTemplateJsonRequestBody,
+  t_reposCreateWebhookJsonRequestBody,
+  t_reposDeleteFileJsonRequestBody,
+  t_reposGenerateReleaseNotesJsonRequestBody,
   t_repository,
   t_repository_advisory,
   t_repository_advisory_create,
   t_repository_advisory_update,
   t_repository_collaborator_permission,
   t_repository_invitation,
-  t_repository_rule,
   t_repository_rule_detailed,
-  t_repository_rule_enforcement,
   t_repository_ruleset,
-  t_repository_ruleset_bypass_actor,
-  t_repository_ruleset_conditions,
   t_repository_subscription,
+  t_reposMergeJsonRequestBody,
+  t_reposMergeUpstreamJsonRequestBody,
+  t_reposRemoveAppAccessRestrictionsJsonRequestBody,
+  t_reposRemoveStatusCheckContextsJsonRequestBody,
+  t_reposRemoveTeamAccessRestrictionsJsonRequestBody,
+  t_reposRemoveUserAccessRestrictionsJsonRequestBody,
+  t_reposRenameBranchJsonRequestBody,
+  t_reposReplaceAllTopicsJsonRequestBody,
+  t_reposSetAppAccessRestrictionsJsonRequestBody,
+  t_reposSetStatusCheckContextsJsonRequestBody,
+  t_reposSetTeamAccessRestrictionsJsonRequestBody,
+  t_reposSetUserAccessRestrictionsJsonRequestBody,
+  t_reposTransferJsonRequestBody,
+  t_reposUpdateBranchProtectionJsonRequestBody,
+  t_reposUpdateCommitCommentJsonRequestBody,
+  t_reposUpdateInformationAboutPagesSiteJsonRequestBody,
+  t_reposUpdateInvitationJsonRequestBody,
+  t_reposUpdateJsonRequestBody,
+  t_reposUpdateOrgRulesetJsonRequestBody,
+  t_reposUpdatePullRequestReviewProtectionJsonRequestBody,
+  t_reposUpdateReleaseAssetJsonRequestBody,
+  t_reposUpdateReleaseJsonRequestBody,
+  t_reposUpdateRepoRulesetJsonRequestBody,
+  t_reposUpdateStatusCheckProtectionJsonRequestBody,
+  t_reposUpdateWebhookConfigForRepoJsonRequestBody,
+  t_reposUpdateWebhookJsonRequestBody,
   t_review_comment,
-  t_review_custom_gates_comment_required,
-  t_review_custom_gates_state_required,
   t_root,
   t_rule_suite,
   t_rule_suites,
@@ -288,14 +493,11 @@ import type {
   t_runner_groups_org,
   t_runner_label,
   t_secret_scanning_alert,
-  t_secret_scanning_alert_resolution,
-  t_secret_scanning_alert_resolution_comment,
-  t_secret_scanning_alert_state,
   t_secret_scanning_location,
   t_secret_scanning_push_protection_bypass,
-  t_secret_scanning_push_protection_bypass_placeholder_id,
-  t_secret_scanning_push_protection_bypass_reason,
   t_secret_scanning_scan_history,
+  t_secretScanningCreatePushProtectionBypassJsonRequestBody,
+  t_secretScanningUpdateAlertJsonRequestBody,
   t_security_advisory_ecosystems,
   t_selected_actions,
   t_short_blob,
@@ -321,6 +523,23 @@ import type {
   t_team_repository,
   t_team_role_assignment,
   t_team_simple,
+  t_teamsAddOrUpdateMembershipForUserInOrgJsonRequestBody,
+  t_teamsAddOrUpdateMembershipForUserLegacyJsonRequestBody,
+  t_teamsAddOrUpdateProjectPermissionsInOrgJsonRequestBody,
+  t_teamsAddOrUpdateProjectPermissionsLegacyJsonRequestBody,
+  t_teamsAddOrUpdateRepoPermissionsInOrgJsonRequestBody,
+  t_teamsAddOrUpdateRepoPermissionsLegacyJsonRequestBody,
+  t_teamsCreateDiscussionCommentInOrgJsonRequestBody,
+  t_teamsCreateDiscussionCommentLegacyJsonRequestBody,
+  t_teamsCreateDiscussionInOrgJsonRequestBody,
+  t_teamsCreateDiscussionLegacyJsonRequestBody,
+  t_teamsCreateJsonRequestBody,
+  t_teamsUpdateDiscussionCommentInOrgJsonRequestBody,
+  t_teamsUpdateDiscussionCommentLegacyJsonRequestBody,
+  t_teamsUpdateDiscussionInOrgJsonRequestBody,
+  t_teamsUpdateDiscussionLegacyJsonRequestBody,
+  t_teamsUpdateInOrgJsonRequestBody,
+  t_teamsUpdateLegacyJsonRequestBody,
   t_thread,
   t_thread_subscription,
   t_timeline_issue_events,
@@ -329,13 +548,19 @@ import type {
   t_user_marketplace_purchase,
   t_user_role_assignment,
   t_user_search_result_item,
+  t_usersAddEmailForAuthenticatedUserJsonRequestBody,
+  t_usersAddSocialAccountForAuthenticatedUserJsonRequestBody,
+  t_usersCreateGpgKeyForAuthenticatedUserJsonRequestBody,
+  t_usersCreatePublicSshKeyForAuthenticatedUserJsonRequestBody,
+  t_usersCreateSshSigningKeyForAuthenticatedUserJsonRequestBody,
+  t_usersDeleteAttestationsBulkJsonRequestBody,
+  t_usersDeleteEmailForAuthenticatedUserJsonRequestBody,
+  t_usersDeleteSocialAccountForAuthenticatedUserJsonRequestBody,
+  t_usersListAttestationsBulkJsonRequestBody,
+  t_usersSetPrimaryEmailVisibilityForAuthenticatedUserJsonRequestBody,
+  t_usersUpdateAuthenticatedJsonRequestBody,
   t_view_traffic,
-  t_wait_timer,
   t_webhook_config,
-  t_webhook_config_content_type,
-  t_webhook_config_insecure_ssl,
-  t_webhook_config_secret,
-  t_webhook_config_url,
   t_workflow,
   t_workflow_run,
   t_workflow_run_usage,
@@ -559,12 +784,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
 
   async appsUpdateWebhookConfigForApp(
     p: {
-      requestBody: {
-        content_type?: t_webhook_config_content_type | undefined
-        insecure_ssl?: t_webhook_config_insecure_ssl | undefined
-        secret?: t_webhook_config_secret | undefined
-        url?: t_webhook_config_url | undefined
-      }
+      requestBody: t_appsUpdateWebhookConfigForAppJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -739,11 +959,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async appsCreateInstallationAccessToken(
     p: {
       installationId: number
-      requestBody?: {
-        permissions?: t_app_permissions | undefined
-        repositories?: string[] | undefined
-        repository_ids?: number[] | undefined
-      }
+      requestBody?: t_appsCreateInstallationAccessTokenJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -811,9 +1027,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async appsDeleteAuthorization(
     p: {
       clientId: string
-      requestBody: {
-        access_token: string
-      }
+      requestBody: t_appsDeleteAuthorizationJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -838,9 +1052,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async appsCheckToken(
     p: {
       clientId: string
-      requestBody: {
-        access_token: string
-      }
+      requestBody: t_appsCheckTokenJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -865,9 +1077,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async appsResetToken(
     p: {
       clientId: string
-      requestBody: {
-        access_token: string
-      }
+      requestBody: t_appsResetTokenJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -892,9 +1102,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async appsDeleteToken(
     p: {
       clientId: string
-      requestBody: {
-        access_token: string
-      }
+      requestBody: t_appsDeleteTokenJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -919,14 +1127,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async appsScopeToken(
     p: {
       clientId: string
-      requestBody: {
-        access_token: string
-        permissions?: t_app_permissions | undefined
-        repositories?: string[] | undefined
-        repository_ids?: number[] | undefined
-        target?: string | undefined
-        target_id?: number | undefined
-      }
+      requestBody: t_appsScopeTokenJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -1126,9 +1327,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
 
   async credentialsRevoke(
     p: {
-      requestBody: {
-        credentials: string[]
-      }
+      requestBody: t_credentialsRevokeJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -1204,76 +1403,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async codeSecurityCreateConfigurationForEnterprise(
     p: {
       enterprise: string
-      requestBody: {
-        advanced_security?:
-          | (
-              | "enabled"
-              | "disabled"
-              | "code_security"
-              | "secret_protection"
-              | UnknownEnumStringValue
-            )
-          | undefined
-        code_scanning_default_setup?:
-          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
-          | undefined
-        code_scanning_default_setup_options?:
-          | t_code_scanning_default_setup_options
-          | undefined
-        code_scanning_delegated_alert_dismissal?:
-          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
-          | undefined
-        code_scanning_options?: t_code_scanning_options | undefined
-        code_security?:
-          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
-          | undefined
-        dependabot_alerts?:
-          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
-          | undefined
-        dependabot_security_updates?:
-          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
-          | undefined
-        dependency_graph?:
-          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
-          | undefined
-        dependency_graph_autosubmit_action?:
-          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
-          | undefined
-        dependency_graph_autosubmit_action_options?:
-          | {
-              labeled_runners?: boolean | undefined
-            }
-          | undefined
-        description: string
-        enforcement?:
-          | ("enforced" | "unenforced" | UnknownEnumStringValue)
-          | undefined
-        name: string
-        private_vulnerability_reporting?:
-          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
-          | undefined
-        secret_protection?:
-          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
-          | undefined
-        secret_scanning?:
-          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
-          | undefined
-        secret_scanning_delegated_alert_dismissal?:
-          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
-          | undefined
-        secret_scanning_generic_secrets?:
-          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
-          | undefined
-        secret_scanning_non_provider_patterns?:
-          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
-          | undefined
-        secret_scanning_push_protection?:
-          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
-          | undefined
-        secret_scanning_validity_checks?:
-          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
-          | undefined
-      }
+      requestBody: t_codeSecurityCreateConfigurationForEnterpriseJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -1338,75 +1468,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       enterprise: string
       configurationId: number
-      requestBody: {
-        advanced_security?:
-          | (
-              | "enabled"
-              | "disabled"
-              | "code_security"
-              | "secret_protection"
-              | UnknownEnumStringValue
-            )
-          | undefined
-        code_scanning_default_setup?:
-          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
-          | undefined
-        code_scanning_default_setup_options?:
-          | t_code_scanning_default_setup_options
-          | undefined
-        code_scanning_delegated_alert_dismissal?:
-          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
-          | undefined
-        code_security?:
-          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
-          | undefined
-        dependabot_alerts?:
-          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
-          | undefined
-        dependabot_security_updates?:
-          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
-          | undefined
-        dependency_graph?:
-          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
-          | undefined
-        dependency_graph_autosubmit_action?:
-          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
-          | undefined
-        dependency_graph_autosubmit_action_options?:
-          | {
-              labeled_runners?: boolean | undefined
-            }
-          | undefined
-        description?: string | undefined
-        enforcement?:
-          | ("enforced" | "unenforced" | UnknownEnumStringValue)
-          | undefined
-        name?: string | undefined
-        private_vulnerability_reporting?:
-          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
-          | undefined
-        secret_protection?:
-          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
-          | undefined
-        secret_scanning?:
-          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
-          | undefined
-        secret_scanning_delegated_alert_dismissal?:
-          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
-          | undefined
-        secret_scanning_generic_secrets?:
-          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
-          | undefined
-        secret_scanning_non_provider_patterns?:
-          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
-          | undefined
-        secret_scanning_push_protection?:
-          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
-          | undefined
-        secret_scanning_validity_checks?:
-          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
-          | undefined
-      }
+      requestBody: t_codeSecurityUpdateEnterpriseConfigurationJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -1452,9 +1514,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       enterprise: string
       configurationId: number
-      requestBody: {
-        scope: "all" | "all_without_configurations" | UnknownEnumStringValue
-      }
+      requestBody: t_codeSecurityAttachEnterpriseConfigurationJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -1484,17 +1544,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       enterprise: string
       configurationId: number
-      requestBody: {
-        default_for_new_repos?:
-          | (
-              | "all"
-              | "none"
-              | "private_and_internal"
-              | "public"
-              | UnknownEnumStringValue
-            )
-          | undefined
-      }
+      requestBody: t_codeSecuritySetConfigurationAsDefaultForEnterpriseJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -1718,19 +1768,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
 
   async gistsCreate(
     p: {
-      requestBody: {
-        description?: string | undefined
-        files: {
-          [key: string]:
-            | {
-                content: string
-              }
-            | undefined
-        }
-        public?:
-          | (boolean | "true" | "false" | UnknownEnumStringValue)
-          | undefined
-      }
+      requestBody: t_gistsCreateJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -1826,19 +1864,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async gistsUpdate(
     p: {
       gistId: string
-      requestBody: {
-        description?: string | undefined
-        files?:
-          | {
-              [key: string]:
-                | ({
-                    content?: string | undefined
-                    filename?: (string | null) | undefined
-                  } | null)
-                | undefined
-            }
-          | undefined
-      } | null
+      requestBody: t_gistsUpdateJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -1904,9 +1930,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async gistsCreateComment(
     p: {
       gistId: string
-      requestBody: {
-        body: string
-      }
+      requestBody: t_gistsCreateCommentJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -1952,9 +1976,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       gistId: string
       commentId: number
-      requestBody: {
-        body: string
-      }
+      requestBody: t_gistsUpdateCommentJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -2312,11 +2334,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
 
   async markdownRender(
     p: {
-      requestBody: {
-        context?: string | undefined
-        mode?: ("markdown" | "gfm" | UnknownEnumStringValue) | undefined
-        text: string
-      }
+      requestBody: t_markdownRenderJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -2576,10 +2594,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
 
   async activityMarkNotificationsAsRead(
     p: {
-      requestBody?: {
-        last_read_at?: string | undefined
-        read?: boolean | undefined
-      }
+      requestBody?: t_activityMarkNotificationsAsReadJsonRequestBody
     } = {},
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -2690,9 +2705,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async activitySetThreadSubscription(
     p: {
       threadId: number
-      requestBody?: {
-        ignored?: boolean | undefined
-      }
+      requestBody?: t_activitySetThreadSubscriptionJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -2804,10 +2817,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async dependabotUpdateRepositoryAccessForOrg(
     p: {
       org: string
-      requestBody: {
-        repository_ids_to_add?: number[] | undefined
-        repository_ids_to_remove?: number[] | undefined
-      }
+      requestBody: t_dependabotUpdateRepositoryAccessForOrgJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -2832,9 +2842,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async dependabotSetRepositoryAccessDefaultLevel(
     p: {
       org: string
-      requestBody: {
-        default_level: "public" | "internal" | UnknownEnumStringValue
-      }
+      requestBody: t_dependabotSetRepositoryAccessDefaultLevelJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -2907,48 +2915,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async orgsUpdate(
     p: {
       org: string
-      requestBody?: {
-        advanced_security_enabled_for_new_repositories?: boolean | undefined
-        billing_email?: string | undefined
-        blog?: string | undefined
-        company?: string | undefined
-        default_repository_permission?:
-          | ("read" | "write" | "admin" | "none" | UnknownEnumStringValue)
-          | undefined
-        dependabot_alerts_enabled_for_new_repositories?: boolean | undefined
-        dependabot_security_updates_enabled_for_new_repositories?:
-          | boolean
-          | undefined
-        dependency_graph_enabled_for_new_repositories?: boolean | undefined
-        deploy_keys_enabled_for_repositories?: boolean | undefined
-        description?: string | undefined
-        email?: string | undefined
-        has_organization_projects?: boolean | undefined
-        has_repository_projects?: boolean | undefined
-        location?: string | undefined
-        members_allowed_repository_creation_type?:
-          | ("all" | "private" | "none" | UnknownEnumStringValue)
-          | undefined
-        members_can_create_internal_repositories?: boolean | undefined
-        members_can_create_pages?: boolean | undefined
-        members_can_create_private_pages?: boolean | undefined
-        members_can_create_private_repositories?: boolean | undefined
-        members_can_create_public_pages?: boolean | undefined
-        members_can_create_public_repositories?: boolean | undefined
-        members_can_create_repositories?: boolean | undefined
-        members_can_fork_private_repositories?: boolean | undefined
-        name?: string | undefined
-        secret_scanning_enabled_for_new_repositories?: boolean | undefined
-        secret_scanning_push_protection_custom_link?: string | undefined
-        secret_scanning_push_protection_custom_link_enabled?:
-          | boolean
-          | undefined
-        secret_scanning_push_protection_enabled_for_new_repositories?:
-          | boolean
-          | undefined
-        twitter_username?: string | undefined
-        web_commit_signoff_required?: boolean | undefined
-      }
+      requestBody?: t_orgsUpdateJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -3074,19 +3041,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async actionsCreateHostedRunnerForOrg(
     p: {
       org: string
-      requestBody: {
-        enable_static_ip?: boolean | undefined
-        image: {
-          id?: string | undefined
-          source?:
-            | ("github" | "partner" | "custom" | UnknownEnumStringValue)
-            | undefined
-        }
-        maximum_runners?: number | undefined
-        name: string
-        runner_group_id: number
-        size: string
-      }
+      requestBody: t_actionsCreateHostedRunnerForOrgJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -3247,12 +3202,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       org: string
       hostedRunnerId: number
-      requestBody: {
-        enable_static_ip?: boolean | undefined
-        maximum_runners?: number | undefined
-        name?: string | undefined
-        runner_group_id?: number | undefined
-      }
+      requestBody: t_actionsUpdateHostedRunnerForOrgJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -3360,10 +3310,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async actionsSetGithubActionsPermissionsOrganization(
     p: {
       org: string
-      requestBody: {
-        allowed_actions?: t_allowed_actions | undefined
-        enabled_repositories: t_enabled_repositories
-      }
+      requestBody: t_actionsSetGithubActionsPermissionsOrganizationJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -3415,9 +3362,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async actionsSetSelectedRepositoriesEnabledGithubActionsOrganization(
     p: {
       org: string
-      requestBody: {
-        selected_repository_ids: number[]
-      }
+      requestBody: t_actionsSetSelectedRepositoriesEnabledGithubActionsOrganizationJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -3612,18 +3557,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async actionsCreateSelfHostedRunnerGroupForOrg(
     p: {
       org: string
-      requestBody: {
-        allows_public_repositories?: boolean | undefined
-        name: string
-        network_configuration_id?: string | undefined
-        restricted_to_workflows?: boolean | undefined
-        runners?: number[] | undefined
-        selected_repository_ids?: number[] | undefined
-        selected_workflows?: string[] | undefined
-        visibility?:
-          | ("selected" | "all" | "private" | UnknownEnumStringValue)
-          | undefined
-      }
+      requestBody: t_actionsCreateSelfHostedRunnerGroupForOrgJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -3669,16 +3603,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       org: string
       runnerGroupId: number
-      requestBody: {
-        allows_public_repositories?: boolean | undefined
-        name: string
-        network_configuration_id?: (string | null) | undefined
-        restricted_to_workflows?: boolean | undefined
-        selected_workflows?: string[] | undefined
-        visibility?:
-          | ("selected" | "all" | "private" | UnknownEnumStringValue)
-          | undefined
-      }
+      requestBody: t_actionsUpdateSelfHostedRunnerGroupForOrgJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -3780,9 +3705,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       org: string
       runnerGroupId: number
-      requestBody: {
-        selected_repository_ids: number[]
-      }
+      requestBody: t_actionsSetRepoAccessToSelfHostedRunnerGroupInOrgJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -3878,9 +3801,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       org: string
       runnerGroupId: number
-      requestBody: {
-        runners: number[]
-      }
+      requestBody: t_actionsSetSelfHostedRunnersInGroupForOrgJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -3998,12 +3919,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async actionsGenerateRunnerJitconfigForOrg(
     p: {
       org: string
-      requestBody: {
-        labels: string[]
-        name: string
-        runner_group_id: number
-        work_folder?: string | undefined
-      }
+      requestBody: t_actionsGenerateRunnerJitconfigForOrgJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -4137,9 +4053,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       org: string
       runnerId: number
-      requestBody: {
-        labels: string[]
-      }
+      requestBody: t_actionsAddCustomLabelsToSelfHostedRunnerForOrgJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -4170,9 +4084,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       org: string
       runnerId: number
-      requestBody: {
-        labels: string[]
-      }
+      requestBody: t_actionsSetCustomLabelsForSelfHostedRunnerForOrgJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -4320,12 +4232,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       org: string
       secretName: string
-      requestBody: {
-        encrypted_value: string
-        key_id: string
-        selected_repository_ids?: number[] | undefined
-        visibility: "all" | "private" | "selected" | UnknownEnumStringValue
-      }
+      requestBody: t_actionsCreateOrUpdateOrgSecretJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -4399,9 +4306,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       org: string
       secretName: string
-      requestBody: {
-        selected_repository_ids: number[]
-      }
+      requestBody: t_actionsSetSelectedReposForOrgSecretJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -4495,12 +4400,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async actionsCreateOrgVariable(
     p: {
       org: string
-      requestBody: {
-        name: string
-        selected_repository_ids?: number[] | undefined
-        value: string
-        visibility: "all" | "private" | "selected" | UnknownEnumStringValue
-      }
+      requestBody: t_actionsCreateOrgVariableJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -4546,14 +4446,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       org: string
       name: string
-      requestBody: {
-        name?: string | undefined
-        selected_repository_ids?: number[] | undefined
-        value?: string | undefined
-        visibility?:
-          | ("all" | "private" | "selected" | UnknownEnumStringValue)
-          | undefined
-      }
+      requestBody: t_actionsUpdateOrgVariableJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -4627,9 +4520,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       org: string
       name: string
-      requestBody: {
-        selected_repository_ids: number[]
-      }
+      requestBody: t_actionsSetSelectedReposForOrgVariableJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -4699,10 +4590,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       before?: string
       after?: string
       org: string
-      requestBody: {
-        predicate_type?: string | undefined
-        subject_digests: string[]
-      }
+      requestBody: t_orgsListAttestationsBulkJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -4771,13 +4659,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async orgsDeleteAttestationsBulk(
     p: {
       org: string
-      requestBody:
-        | {
-            subject_digests: string[]
-          }
-        | {
-            attestation_ids: number[]
-          }
+      requestBody: t_orgsDeleteAttestationsBulkJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -5014,19 +4896,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async campaignsCreateCampaign(
     p: {
       org: string
-      requestBody: {
-        code_scanning_alerts: {
-          alert_numbers: number[]
-          repository_id: number
-        }[]
-        contact_link?: (string | null) | undefined
-        description: string
-        ends_at: string
-        generate_issues?: boolean | undefined
-        managers?: string[] | undefined
-        name: string
-        team_managers?: string[] | undefined
-      }
+      requestBody: t_campaignsCreateCampaignJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -5072,15 +4942,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       org: string
       campaignNumber: number
-      requestBody: {
-        contact_link?: (string | null) | undefined
-        description?: string | undefined
-        ends_at?: string | undefined
-        managers?: string[] | undefined
-        name?: string | undefined
-        state?: t_campaign_state | undefined
-        team_managers?: string[] | undefined
-      }
+      requestBody: t_campaignsUpdateCampaignJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -5195,89 +5057,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async codeSecurityCreateConfiguration(
     p: {
       org: string
-      requestBody: {
-        advanced_security?:
-          | (
-              | "enabled"
-              | "disabled"
-              | "code_security"
-              | "secret_protection"
-              | UnknownEnumStringValue
-            )
-          | undefined
-        code_scanning_default_setup?:
-          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
-          | undefined
-        code_scanning_default_setup_options?:
-          | t_code_scanning_default_setup_options
-          | undefined
-        code_scanning_delegated_alert_dismissal?:
-          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
-          | undefined
-        code_scanning_options?: t_code_scanning_options | undefined
-        code_security?:
-          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
-          | undefined
-        dependabot_alerts?:
-          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
-          | undefined
-        dependabot_security_updates?:
-          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
-          | undefined
-        dependency_graph?:
-          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
-          | undefined
-        dependency_graph_autosubmit_action?:
-          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
-          | undefined
-        dependency_graph_autosubmit_action_options?:
-          | {
-              labeled_runners?: boolean | undefined
-            }
-          | undefined
-        description: string
-        enforcement?:
-          | ("enforced" | "unenforced" | UnknownEnumStringValue)
-          | undefined
-        name: string
-        private_vulnerability_reporting?:
-          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
-          | undefined
-        secret_protection?:
-          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
-          | undefined
-        secret_scanning?:
-          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
-          | undefined
-        secret_scanning_delegated_alert_dismissal?:
-          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
-          | undefined
-        secret_scanning_delegated_bypass?:
-          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
-          | undefined
-        secret_scanning_delegated_bypass_options?:
-          | {
-              reviewers?:
-                | {
-                    reviewer_id: number
-                    reviewer_type: "TEAM" | "ROLE" | UnknownEnumStringValue
-                  }[]
-                | undefined
-            }
-          | undefined
-        secret_scanning_generic_secrets?:
-          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
-          | undefined
-        secret_scanning_non_provider_patterns?:
-          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
-          | undefined
-        secret_scanning_push_protection?:
-          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
-          | undefined
-        secret_scanning_validity_checks?:
-          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
-          | undefined
-      }
+      requestBody: t_codeSecurityCreateConfigurationJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -5321,9 +5101,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async codeSecurityDetachConfiguration(
     p: {
       org: string
-      requestBody: {
-        selected_repository_ids?: number[] | undefined
-      }
+      requestBody: t_codeSecurityDetachConfigurationJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -5369,88 +5147,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       org: string
       configurationId: number
-      requestBody: {
-        advanced_security?:
-          | (
-              | "enabled"
-              | "disabled"
-              | "code_security"
-              | "secret_protection"
-              | UnknownEnumStringValue
-            )
-          | undefined
-        code_scanning_default_setup?:
-          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
-          | undefined
-        code_scanning_default_setup_options?:
-          | t_code_scanning_default_setup_options
-          | undefined
-        code_scanning_delegated_alert_dismissal?:
-          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
-          | undefined
-        code_security?:
-          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
-          | undefined
-        dependabot_alerts?:
-          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
-          | undefined
-        dependabot_security_updates?:
-          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
-          | undefined
-        dependency_graph?:
-          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
-          | undefined
-        dependency_graph_autosubmit_action?:
-          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
-          | undefined
-        dependency_graph_autosubmit_action_options?:
-          | {
-              labeled_runners?: boolean | undefined
-            }
-          | undefined
-        description?: string | undefined
-        enforcement?:
-          | ("enforced" | "unenforced" | UnknownEnumStringValue)
-          | undefined
-        name?: string | undefined
-        private_vulnerability_reporting?:
-          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
-          | undefined
-        secret_protection?:
-          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
-          | undefined
-        secret_scanning?:
-          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
-          | undefined
-        secret_scanning_delegated_alert_dismissal?:
-          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
-          | undefined
-        secret_scanning_delegated_bypass?:
-          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
-          | undefined
-        secret_scanning_delegated_bypass_options?:
-          | {
-              reviewers?:
-                | {
-                    reviewer_id: number
-                    reviewer_type: "TEAM" | "ROLE" | UnknownEnumStringValue
-                  }[]
-                | undefined
-            }
-          | undefined
-        secret_scanning_generic_secrets?:
-          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
-          | undefined
-        secret_scanning_non_provider_patterns?:
-          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
-          | undefined
-        secret_scanning_push_protection?:
-          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
-          | undefined
-        secret_scanning_validity_checks?:
-          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
-          | undefined
-      }
+      requestBody: t_codeSecurityUpdateConfigurationJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -5498,16 +5195,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       org: string
       configurationId: number
-      requestBody: {
-        scope:
-          | "all"
-          | "all_without_configurations"
-          | "public"
-          | "private_or_internal"
-          | "selected"
-          | UnknownEnumStringValue
-        selected_repository_ids?: number[] | undefined
-      }
+      requestBody: t_codeSecurityAttachConfigurationJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -5537,17 +5225,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       org: string
       configurationId: number
-      requestBody: {
-        default_for_new_repos?:
-          | (
-              | "all"
-              | "none"
-              | "private_and_internal"
-              | "public"
-              | UnknownEnumStringValue
-            )
-          | undefined
-      }
+      requestBody: t_codeSecuritySetConfigurationAsDefaultJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -5642,15 +5320,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async codespacesSetCodespacesAccess(
     p: {
       org: string
-      requestBody: {
-        selected_usernames?: string[] | undefined
-        visibility:
-          | "disabled"
-          | "selected_members"
-          | "all_members"
-          | "all_members_and_outside_collaborators"
-          | UnknownEnumStringValue
-      }
+      requestBody: t_codespacesSetCodespacesAccessJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -5675,9 +5345,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async codespacesSetCodespacesAccessUsers(
     p: {
       org: string
-      requestBody: {
-        selected_usernames: string[]
-      }
+      requestBody: t_codespacesSetCodespacesAccessUsersJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -5702,9 +5370,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async codespacesDeleteCodespacesAccessUsers(
     p: {
       org: string
-      requestBody: {
-        selected_usernames: string[]
-      }
+      requestBody: t_codespacesDeleteCodespacesAccessUsersJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -5796,12 +5462,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       org: string
       secretName: string
-      requestBody: {
-        encrypted_value?: string | undefined
-        key_id?: string | undefined
-        selected_repository_ids?: number[] | undefined
-        visibility: "all" | "private" | "selected" | UnknownEnumStringValue
-      }
+      requestBody: t_codespacesCreateOrUpdateOrgSecretJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -5875,9 +5536,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       org: string
       secretName: string
-      requestBody: {
-        selected_repository_ids: number[]
-      }
+      requestBody: t_codespacesSetSelectedReposForOrgSecretJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -5990,9 +5649,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async copilotAddCopilotSeatsForTeams(
     p: {
       org: string
-      requestBody: {
-        selected_teams: string[]
-      }
+      requestBody: t_copilotAddCopilotSeatsForTeamsJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -6021,9 +5678,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async copilotCancelCopilotSeatAssignmentForTeams(
     p: {
       org: string
-      requestBody: {
-        selected_teams: string[]
-      }
+      requestBody: t_copilotCancelCopilotSeatAssignmentForTeamsJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -6052,9 +5707,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async copilotAddCopilotSeatsForUsers(
     p: {
       org: string
-      requestBody: {
-        selected_usernames: string[]
-      }
+      requestBody: t_copilotAddCopilotSeatsForUsersJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -6083,9 +5736,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async copilotCancelCopilotSeatAssignmentForUsers(
     p: {
       org: string
-      requestBody: {
-        selected_usernames: string[]
-      }
+      requestBody: t_copilotCancelCopilotSeatAssignmentForUsersJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -6259,12 +5910,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       org: string
       secretName: string
-      requestBody: {
-        encrypted_value?: string | undefined
-        key_id?: string | undefined
-        selected_repository_ids?: string[] | undefined
-        visibility: "all" | "private" | "selected" | UnknownEnumStringValue
-      }
+      requestBody: t_dependabotCreateOrUpdateOrgSecretJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -6338,9 +5984,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       org: string
       secretName: string
-      requestBody: {
-        selected_repository_ids: number[]
-      }
+      requestBody: t_dependabotSetSelectedReposForOrgSecretJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -6492,19 +6136,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async orgsCreateWebhook(
     p: {
       org: string
-      requestBody: {
-        active?: boolean | undefined
-        config: {
-          content_type?: t_webhook_config_content_type | undefined
-          insecure_ssl?: t_webhook_config_insecure_ssl | undefined
-          password?: string | undefined
-          secret?: t_webhook_config_secret | undefined
-          url: t_webhook_config_url
-          username?: string | undefined
-        }
-        events?: string[] | undefined
-        name: string
-      }
+      requestBody: t_orgsCreateWebhookJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -6550,19 +6182,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       org: string
       hookId: number
-      requestBody?: {
-        active?: boolean | undefined
-        config?:
-          | {
-              content_type?: t_webhook_config_content_type | undefined
-              insecure_ssl?: t_webhook_config_insecure_ssl | undefined
-              secret?: t_webhook_config_secret | undefined
-              url: t_webhook_config_url
-            }
-          | undefined
-        events?: string[] | undefined
-        name?: string | undefined
-      }
+      requestBody?: t_orgsUpdateWebhookJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -6633,12 +6253,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       org: string
       hookId: number
-      requestBody?: {
-        content_type?: t_webhook_config_content_type | undefined
-        insecure_ssl?: t_webhook_config_insecure_ssl | undefined
-        secret?: t_webhook_config_secret | undefined
-        url?: t_webhook_config_url | undefined
-      }
+      requestBody?: t_orgsUpdateWebhookConfigForOrgJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -7211,20 +6826,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async orgsCreateInvitation(
     p: {
       org: string
-      requestBody?: {
-        email?: string | undefined
-        invitee_id?: number | undefined
-        role?:
-          | (
-              | "admin"
-              | "direct_member"
-              | "billing_manager"
-              | "reinstate"
-              | UnknownEnumStringValue
-            )
-          | undefined
-        team_ids?: number[] | undefined
-      }
+      requestBody?: t_orgsCreateInvitationJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -7617,9 +7219,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       org: string
       username: string
-      requestBody?: {
-        role?: ("admin" | "member" | UnknownEnumStringValue) | undefined
-      }
+      requestBody?: t_orgsSetMembershipForUserJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -7696,17 +7296,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async migrationsStartForOrg(
     p: {
       org: string
-      requestBody: {
-        exclude?: ("repositories" | UnknownEnumStringValue)[] | undefined
-        exclude_attachments?: boolean | undefined
-        exclude_git_data?: boolean | undefined
-        exclude_metadata?: boolean | undefined
-        exclude_owner_projects?: boolean | undefined
-        exclude_releases?: boolean | undefined
-        lock_repositories?: boolean | undefined
-        org_metadata_only?: boolean | undefined
-        repositories: string[]
-      }
+      requestBody: t_migrationsStartForOrgJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -8079,9 +7669,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       org: string
       username: string
-      requestBody?: {
-        async?: boolean | undefined
-      }
+      requestBody?: t_orgsConvertMemberToOutsideCollaboratorJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -8419,11 +8007,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async orgsReviewPatGrantRequestsInBulk(
     p: {
       org: string
-      requestBody: {
-        action: "approve" | "deny" | UnknownEnumStringValue
-        pat_request_ids?: number[] | undefined
-        reason?: (string | null) | undefined
-      }
+      requestBody: t_orgsReviewPatGrantRequestsInBulkJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -8453,10 +8037,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       org: string
       patRequestId: number
-      requestBody: {
-        action: "approve" | "deny" | UnknownEnumStringValue
-        reason?: (string | null) | undefined
-      }
+      requestBody: t_orgsReviewPatGrantRequestJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -8545,10 +8126,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async orgsUpdatePatAccesses(
     p: {
       org: string
-      requestBody: {
-        action: "revoke" | UnknownEnumStringValue
-        pat_ids: number[]
-      }
+      requestBody: t_orgsUpdatePatAccessesJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -8578,9 +8156,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       org: string
       patId: number
-      requestBody: {
-        action: "revoke" | UnknownEnumStringValue
-      }
+      requestBody: t_orgsUpdatePatAccessJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -8655,31 +8231,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async privateRegistriesCreateOrgPrivateRegistry(
     p: {
       org: string
-      requestBody: {
-        encrypted_value: string
-        key_id: string
-        registry_type:
-          | "maven_repository"
-          | "nuget_feed"
-          | "goproxy_server"
-          | "npm_registry"
-          | "rubygems_server"
-          | "cargo_registry"
-          | "composer_repository"
-          | "docker_registry"
-          | "git_source"
-          | "helm_registry"
-          | "hex_organization"
-          | "hex_repository"
-          | "pub_repository"
-          | "python_index"
-          | "terraform_registry"
-          | UnknownEnumStringValue
-        selected_repository_ids?: number[] | undefined
-        url: string
-        username?: (string | null) | undefined
-        visibility: "all" | "private" | "selected" | UnknownEnumStringValue
-      }
+      requestBody: t_privateRegistriesCreateOrgPrivateRegistryJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -8751,36 +8303,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       org: string
       secretName: string
-      requestBody: {
-        encrypted_value?: string | undefined
-        key_id?: string | undefined
-        registry_type?:
-          | (
-              | "maven_repository"
-              | "nuget_feed"
-              | "goproxy_server"
-              | "npm_registry"
-              | "rubygems_server"
-              | "cargo_registry"
-              | "composer_repository"
-              | "docker_registry"
-              | "git_source"
-              | "helm_registry"
-              | "hex_organization"
-              | "hex_repository"
-              | "pub_repository"
-              | "python_index"
-              | "terraform_registry"
-              | UnknownEnumStringValue
-            )
-          | undefined
-        selected_repository_ids?: number[] | undefined
-        url?: string | undefined
-        username?: (string | null) | undefined
-        visibility?:
-          | ("all" | "private" | "selected" | UnknownEnumStringValue)
-          | undefined
-      }
+      requestBody: t_privateRegistriesUpdateOrgPrivateRegistryJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -8852,10 +8375,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async projectsClassicCreateForOrg(
     p: {
       org: string
-      requestBody: {
-        body?: string | undefined
-        name: string
-      }
+      requestBody: t_projectsClassicCreateForOrgJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -8899,9 +8419,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async orgsCreateOrUpdateCustomProperties(
     p: {
       org: string
-      requestBody: {
-        properties: t_custom_property[]
-      }
+      requestBody: t_orgsCreateOrUpdateCustomPropertiesJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -9019,10 +8537,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async orgsCreateOrUpdateCustomPropertiesValuesForRepos(
     p: {
       org: string
-      requestBody: {
-        properties: t_custom_property_value[]
-        repository_names: string[]
-      }
+      requestBody: t_orgsCreateOrUpdateCustomPropertiesValuesForReposJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -9172,45 +8687,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async reposCreateInOrg(
     p: {
       org: string
-      requestBody: {
-        allow_auto_merge?: boolean | undefined
-        allow_merge_commit?: boolean | undefined
-        allow_rebase_merge?: boolean | undefined
-        allow_squash_merge?: boolean | undefined
-        auto_init?: boolean | undefined
-        custom_properties?:
-          | {
-              [key: string]: unknown | undefined
-            }
-          | undefined
-        delete_branch_on_merge?: boolean | undefined
-        description?: string | undefined
-        gitignore_template?: string | undefined
-        has_downloads?: boolean | undefined
-        has_issues?: boolean | undefined
-        has_projects?: boolean | undefined
-        has_wiki?: boolean | undefined
-        homepage?: string | undefined
-        is_template?: boolean | undefined
-        license_template?: string | undefined
-        merge_commit_message?:
-          | ("PR_BODY" | "PR_TITLE" | "BLANK" | UnknownEnumStringValue)
-          | undefined
-        merge_commit_title?:
-          | ("PR_TITLE" | "MERGE_MESSAGE" | UnknownEnumStringValue)
-          | undefined
-        name: string
-        private?: boolean | undefined
-        squash_merge_commit_message?:
-          | ("PR_BODY" | "COMMIT_MESSAGES" | "BLANK" | UnknownEnumStringValue)
-          | undefined
-        squash_merge_commit_title?:
-          | ("PR_TITLE" | "COMMIT_OR_PR_TITLE" | UnknownEnumStringValue)
-          | undefined
-        team_id?: number | undefined
-        use_squash_pr_title_as_default?: boolean | undefined
-        visibility?: ("public" | "private" | UnknownEnumStringValue) | undefined
-      }
+      requestBody: t_reposCreateInOrgJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -9262,16 +8739,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async reposCreateOrgRuleset(
     p: {
       org: string
-      requestBody: {
-        bypass_actors?: t_repository_ruleset_bypass_actor[] | undefined
-        conditions?: t_org_ruleset_conditions | undefined
-        enforcement: t_repository_rule_enforcement
-        name: string
-        rules?: t_org_rules[] | undefined
-        target?:
-          | ("branch" | "tag" | "push" | "repository" | UnknownEnumStringValue)
-          | undefined
-      }
+      requestBody: t_reposCreateOrgRulesetJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -9377,16 +8845,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       org: string
       rulesetId: number
-      requestBody?: {
-        bypass_actors?: t_repository_ruleset_bypass_actor[] | undefined
-        conditions?: t_org_ruleset_conditions | undefined
-        enforcement?: t_repository_rule_enforcement | undefined
-        name?: string | undefined
-        rules?: t_org_rules[] | undefined
-        target?:
-          | ("branch" | "tag" | "push" | "repository" | UnknownEnumStringValue)
-          | undefined
-      }
+      requestBody?: t_reposUpdateOrgRulesetJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -9708,13 +9167,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async hostedComputeCreateNetworkConfigurationForOrg(
     p: {
       org: string
-      requestBody: {
-        compute_service?:
-          | ("none" | "actions" | UnknownEnumStringValue)
-          | undefined
-        name: string
-        network_settings_ids: string[]
-      }
+      requestBody: t_hostedComputeCreateNetworkConfigurationForOrgJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -9760,13 +9213,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       org: string
       networkConfigurationId: string
-      requestBody: {
-        compute_service?:
-          | ("none" | "actions" | UnknownEnumStringValue)
-          | undefined
-        name?: string | undefined
-        network_settings_ids?: string[] | undefined
-      }
+      requestBody: t_hostedComputeUpdateNetworkConfigurationForOrgJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -9883,22 +9330,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async teamsCreate(
     p: {
       org: string
-      requestBody: {
-        description?: string | undefined
-        maintainers?: string[] | undefined
-        name: string
-        notification_setting?:
-          | (
-              | "notifications_enabled"
-              | "notifications_disabled"
-              | UnknownEnumStringValue
-            )
-          | undefined
-        parent_team_id?: number | undefined
-        permission?: ("pull" | "push" | UnknownEnumStringValue) | undefined
-        privacy?: ("secret" | "closed" | UnknownEnumStringValue) | undefined
-        repo_names?: string[] | undefined
-      }
+      requestBody: t_teamsCreateJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -9944,22 +9376,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       org: string
       teamSlug: string
-      requestBody?: {
-        description?: string | undefined
-        name?: string | undefined
-        notification_setting?:
-          | (
-              | "notifications_enabled"
-              | "notifications_disabled"
-              | UnknownEnumStringValue
-            )
-          | undefined
-        parent_team_id?: (number | null) | undefined
-        permission?:
-          | ("pull" | "push" | "admin" | UnknownEnumStringValue)
-          | undefined
-        privacy?: ("secret" | "closed" | UnknownEnumStringValue) | undefined
-      }
+      requestBody?: t_teamsUpdateInOrgJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -10040,11 +9457,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       org: string
       teamSlug: string
-      requestBody: {
-        body: string
-        private?: boolean | undefined
-        title: string
-      }
+      requestBody: t_teamsCreateDiscussionInOrgJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -10092,10 +9505,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       org: string
       teamSlug: string
       discussionNumber: number
-      requestBody?: {
-        body?: string | undefined
-        title?: string | undefined
-      }
+      requestBody?: t_teamsUpdateDiscussionInOrgJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -10177,9 +9587,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       org: string
       teamSlug: string
       discussionNumber: number
-      requestBody: {
-        body: string
-      }
+      requestBody: t_teamsCreateDiscussionCommentInOrgJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -10229,9 +9637,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       teamSlug: string
       discussionNumber: number
       commentNumber: number
-      requestBody: {
-        body: string
-      }
+      requestBody: t_teamsUpdateDiscussionCommentInOrgJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -10320,18 +9726,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       teamSlug: string
       discussionNumber: number
       commentNumber: number
-      requestBody: {
-        content:
-          | "+1"
-          | "-1"
-          | "laugh"
-          | "confused"
-          | "heart"
-          | "hooray"
-          | "rocket"
-          | "eyes"
-          | UnknownEnumStringValue
-      }
+      requestBody: t_reactionsCreateForTeamDiscussionCommentInOrgJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -10419,18 +9814,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       org: string
       teamSlug: string
       discussionNumber: number
-      requestBody: {
-        content:
-          | "+1"
-          | "-1"
-          | "laugh"
-          | "confused"
-          | "heart"
-          | "hooray"
-          | "rocket"
-          | "eyes"
-          | UnknownEnumStringValue
-      }
+      requestBody: t_reactionsCreateForTeamDiscussionInOrgJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -10551,9 +9935,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       org: string
       teamSlug: string
       username: string
-      requestBody?: {
-        role?: ("member" | "maintainer" | UnknownEnumStringValue) | undefined
-      }
+      requestBody?: t_teamsAddOrUpdateMembershipForUserInOrgJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -10650,11 +10032,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       org: string
       teamSlug: string
       projectId: number
-      requestBody?: {
-        permission?:
-          | ("read" | "write" | "admin" | UnknownEnumStringValue)
-          | undefined
-      } | null
+      requestBody?: t_teamsAddOrUpdateProjectPermissionsInOrgJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -10753,9 +10131,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       teamSlug: string
       owner: string
       repo: string
-      requestBody?: {
-        permission?: string | undefined
-      }
+      requestBody?: t_teamsAddOrUpdateRepoPermissionsInOrgJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -10840,11 +10216,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         | "secret_scanning_push_protection"
         | UnknownEnumStringValue
       enablement: "enable_all" | "disable_all" | UnknownEnumStringValue
-      requestBody?: {
-        query_suite?:
-          | ("default" | "extended" | UnknownEnumStringValue)
-          | undefined
-      }
+      requestBody?: t_orgsEnableOrDisableSecurityProductOnAllOrgReposJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -10893,10 +10265,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async projectsClassicUpdateCard(
     p: {
       cardId: number
-      requestBody?: {
-        archived?: boolean | undefined
-        note?: (string | null) | undefined
-      }
+      requestBody?: t_projectsClassicUpdateCardJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -10945,10 +10314,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async projectsClassicMoveCard(
     p: {
       cardId: number
-      requestBody: {
-        column_id?: number | undefined
-        position: string
-      }
+      requestBody: t_projectsClassicMoveCardJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -10992,9 +10358,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async projectsClassicUpdateColumn(
     p: {
       columnId: number
-      requestBody: {
-        name: string
-      }
+      requestBody: t_projectsClassicUpdateColumnJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -11069,14 +10433,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async projectsClassicCreateCard(
     p: {
       columnId: number
-      requestBody:
-        | {
-            note: string | null
-          }
-        | {
-            content_id: number
-            content_type: string
-          }
+      requestBody: t_projectsClassicCreateCardJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -11101,9 +10458,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async projectsClassicMoveColumn(
     p: {
       columnId: number
-      requestBody: {
-        position: string
-      }
+      requestBody: t_projectsClassicMoveColumnJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -11147,15 +10502,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async projectsClassicUpdate(
     p: {
       projectId: number
-      requestBody?: {
-        body?: (string | null) | undefined
-        name?: string | undefined
-        organization_permission?:
-          | ("read" | "write" | "admin" | "none" | UnknownEnumStringValue)
-          | undefined
-        private?: boolean | undefined
-        state?: string | undefined
-      }
+      requestBody?: t_projectsClassicUpdateJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -11232,11 +10579,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       projectId: number
       username: string
-      requestBody?: {
-        permission?:
-          | ("read" | "write" | "admin" | UnknownEnumStringValue)
-          | undefined
-      } | null
+      requestBody?: t_projectsClassicAddCollaboratorJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -11328,9 +10671,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async projectsClassicCreateColumn(
     p: {
       projectId: number
-      requestBody: {
-        name: string
-      }
+      requestBody: t_projectsClassicCreateColumnJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -11392,74 +10733,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      requestBody?: {
-        allow_auto_merge?: boolean | undefined
-        allow_forking?: boolean | undefined
-        allow_merge_commit?: boolean | undefined
-        allow_rebase_merge?: boolean | undefined
-        allow_squash_merge?: boolean | undefined
-        allow_update_branch?: boolean | undefined
-        archived?: boolean | undefined
-        default_branch?: string | undefined
-        delete_branch_on_merge?: boolean | undefined
-        description?: string | undefined
-        has_issues?: boolean | undefined
-        has_projects?: boolean | undefined
-        has_wiki?: boolean | undefined
-        homepage?: string | undefined
-        is_template?: boolean | undefined
-        merge_commit_message?:
-          | ("PR_BODY" | "PR_TITLE" | "BLANK" | UnknownEnumStringValue)
-          | undefined
-        merge_commit_title?:
-          | ("PR_TITLE" | "MERGE_MESSAGE" | UnknownEnumStringValue)
-          | undefined
-        name?: string | undefined
-        private?: boolean | undefined
-        security_and_analysis?:
-          | ({
-              advanced_security?:
-                | {
-                    status?: string | undefined
-                  }
-                | undefined
-              code_security?:
-                | {
-                    status?: string | undefined
-                  }
-                | undefined
-              secret_scanning?:
-                | {
-                    status?: string | undefined
-                  }
-                | undefined
-              secret_scanning_ai_detection?:
-                | {
-                    status?: string | undefined
-                  }
-                | undefined
-              secret_scanning_non_provider_patterns?:
-                | {
-                    status?: string | undefined
-                  }
-                | undefined
-              secret_scanning_push_protection?:
-                | {
-                    status?: string | undefined
-                  }
-                | undefined
-            } | null)
-          | undefined
-        squash_merge_commit_message?:
-          | ("PR_BODY" | "COMMIT_MESSAGES" | "BLANK" | UnknownEnumStringValue)
-          | undefined
-        squash_merge_commit_title?:
-          | ("PR_TITLE" | "COMMIT_OR_PR_TITLE" | UnknownEnumStringValue)
-          | undefined
-        use_squash_pr_title_as_default?: boolean | undefined
-        visibility?: ("public" | "private" | UnknownEnumStringValue) | undefined
-        web_commit_signoff_required?: boolean | undefined
-      }
+      requestBody?: t_reposUpdateJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -11752,9 +11026,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       jobId: number
-      requestBody?: {
-        enable_debug_logging?: boolean | undefined
-      } | null
+      requestBody?: t_actionsReRunJobForWorkflowRunJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -11805,10 +11077,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      requestBody: {
-        include_claim_keys?: string[] | undefined
-        use_default: boolean
-      }
+      requestBody: t_actionsSetCustomOidcSubClaimForRepoJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -11910,10 +11179,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      requestBody: {
-        allowed_actions?: t_allowed_actions | undefined
-        enabled: t_actions_enabled
-      }
+      requestBody: t_actionsSetGithubActionsPermissionsRepositoryJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -12135,12 +11401,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      requestBody: {
-        labels: string[]
-        name: string
-        runner_group_id: number
-        work_folder?: string | undefined
-      }
+      requestBody: t_actionsGenerateRunnerJitconfigForRepoJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -12280,9 +11541,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       runnerId: number
-      requestBody: {
-        labels: string[]
-      }
+      requestBody: t_actionsAddCustomLabelsToSelfHostedRunnerForRepoJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -12314,9 +11573,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       runnerId: number
-      requestBody: {
-        labels: string[]
-      }
+      requestBody: t_actionsSetCustomLabelsForSelfHostedRunnerForRepoJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -12680,9 +11937,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       runId: number
-      requestBody:
-        | t_review_custom_gates_comment_required
-        | t_review_custom_gates_state_required
+      requestBody: t_actionsReviewCustomGatesForRunJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -12827,11 +12082,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       runId: number
-      requestBody: {
-        comment: string
-        environment_ids: number[]
-        state: "approved" | "rejected" | UnknownEnumStringValue
-      }
+      requestBody: t_actionsReviewPendingDeploymentsForRunJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -12858,9 +12109,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       runId: number
-      requestBody?: {
-        enable_debug_logging?: boolean | undefined
-      } | null
+      requestBody?: t_actionsReRunWorkflowJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -12892,9 +12141,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       runId: number
-      requestBody?: {
-        enable_debug_logging?: boolean | undefined
-      } | null
+      requestBody?: t_actionsReRunWorkflowFailedJobsJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -13016,10 +12263,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       secretName: string
-      requestBody: {
-        encrypted_value: string
-        key_id: string
-      }
+      requestBody: t_actionsCreateOrUpdateRepoSecretJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -13094,10 +12338,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      requestBody: {
-        name: string
-        value: string
-      }
+      requestBody: t_actionsCreateRepoVariableJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -13145,10 +12386,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       name: string
-      requestBody: {
-        name?: string | undefined
-        value?: string | undefined
-      }
+      requestBody: t_actionsUpdateRepoVariableJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -13266,14 +12504,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       workflowId: number | string
-      requestBody: {
-        inputs?:
-          | {
-              [key: string]: unknown | undefined
-            }
-          | undefined
-        ref: string
-      }
+      requestBody: t_actionsCreateWorkflowDispatchJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -13499,21 +12730,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      requestBody: {
-        bundle: {
-          dsseEnvelope?:
-            | {
-                [key: string]: unknown | undefined
-              }
-            | undefined
-          mediaType?: string | undefined
-          verificationMaterial?:
-            | {
-                [key: string]: unknown | undefined
-              }
-            | undefined
-        }
-      }
+      requestBody: t_reposCreateAttestationJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -13618,11 +12835,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      requestBody: {
-        is_alphanumeric?: boolean | undefined
-        key_prefix: string
-        url_template: string
-      }
+      requestBody: t_reposCreateAutolinkJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -13821,51 +13034,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       branch: string
-      requestBody: {
-        allow_deletions?: boolean | undefined
-        allow_force_pushes?: (boolean | null) | undefined
-        allow_fork_syncing?: boolean | undefined
-        block_creations?: boolean | undefined
-        enforce_admins: boolean | null
-        lock_branch?: boolean | undefined
-        required_conversation_resolution?: boolean | undefined
-        required_linear_history?: boolean | undefined
-        required_pull_request_reviews: {
-          bypass_pull_request_allowances?:
-            | {
-                apps?: string[] | undefined
-                teams?: string[] | undefined
-                users?: string[] | undefined
-              }
-            | undefined
-          dismiss_stale_reviews?: boolean | undefined
-          dismissal_restrictions?:
-            | {
-                apps?: string[] | undefined
-                teams?: string[] | undefined
-                users?: string[] | undefined
-              }
-            | undefined
-          require_code_owner_reviews?: boolean | undefined
-          require_last_push_approval?: boolean | undefined
-          required_approving_review_count?: number | undefined
-        } | null
-        required_status_checks: {
-          checks?:
-            | {
-                app_id?: number | undefined
-                context: string
-              }[]
-            | undefined
-          contexts: string[]
-          strict: boolean
-        } | null
-        restrictions: {
-          apps?: string[] | undefined
-          teams: string[]
-          users: string[]
-        } | null
-      }
+      requestBody: t_reposUpdateBranchProtectionJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -13997,26 +13166,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       branch: string
-      requestBody?: {
-        bypass_pull_request_allowances?:
-          | {
-              apps?: string[] | undefined
-              teams?: string[] | undefined
-              users?: string[] | undefined
-            }
-          | undefined
-        dismiss_stale_reviews?: boolean | undefined
-        dismissal_restrictions?:
-          | {
-              apps?: string[] | undefined
-              teams?: string[] | undefined
-              users?: string[] | undefined
-            }
-          | undefined
-        require_code_owner_reviews?: boolean | undefined
-        require_last_push_approval?: boolean | undefined
-        required_approving_review_count?: number | undefined
-      }
+      requestBody?: t_reposUpdatePullRequestReviewProtectionJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -14153,16 +13303,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       branch: string
-      requestBody?: {
-        checks?:
-          | {
-              app_id?: number | undefined
-              context: string
-            }[]
-          | undefined
-        contexts?: string[] | undefined
-        strict?: boolean | undefined
-      }
+      requestBody?: t_reposUpdateStatusCheckProtectionJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -14236,11 +13377,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       branch: string
-      requestBody?:
-        | {
-            contexts: string[]
-          }
-        | string[]
+      requestBody?: t_reposAddStatusCheckContextsJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -14272,11 +13409,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       branch: string
-      requestBody?:
-        | {
-            contexts: string[]
-          }
-        | string[]
+      requestBody?: t_reposSetStatusCheckContextsJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -14308,11 +13441,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       branch: string
-      requestBody:
-        | {
-            contexts: string[]
-          }
-        | string[]
+      requestBody: t_reposRemoveStatusCheckContextsJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -14402,9 +13531,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       branch: string
-      requestBody: {
-        apps: string[]
-      }
+      requestBody: t_reposAddAppAccessRestrictionsJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -14431,9 +13558,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       branch: string
-      requestBody: {
-        apps: string[]
-      }
+      requestBody: t_reposSetAppAccessRestrictionsJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -14460,9 +13585,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       branch: string
-      requestBody: {
-        apps: string[]
-      }
+      requestBody: t_reposRemoveAppAccessRestrictionsJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -14510,11 +13633,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       branch: string
-      requestBody?:
-        | {
-            teams: string[]
-          }
-        | string[]
+      requestBody?: t_reposAddTeamAccessRestrictionsJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -14546,11 +13665,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       branch: string
-      requestBody?:
-        | {
-            teams: string[]
-          }
-        | string[]
+      requestBody?: t_reposSetTeamAccessRestrictionsJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -14582,11 +13697,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       branch: string
-      requestBody:
-        | {
-            teams: string[]
-          }
-        | string[]
+      requestBody: t_reposRemoveTeamAccessRestrictionsJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -14634,9 +13745,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       branch: string
-      requestBody: {
-        users: string[]
-      }
+      requestBody: t_reposAddUserAccessRestrictionsJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -14663,9 +13772,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       branch: string
-      requestBody: {
-        users: string[]
-      }
+      requestBody: t_reposSetUserAccessRestrictionsJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -14692,9 +13799,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       branch: string
-      requestBody: {
-        users: string[]
-      }
+      requestBody: t_reposRemoveUserAccessRestrictionsJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -14721,9 +13826,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       branch: string
-      requestBody: {
-        new_name: string
-      }
+      requestBody: t_reposRenameBranchJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -14749,15 +13852,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      requestBody:
-        | {
-            status: EmptyObject
-            [key: string]: unknown | undefined
-          }
-        | {
-            status?: EmptyObject | undefined
-            [key: string]: unknown | undefined
-          }
+      requestBody: t_checksCreateJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -14805,75 +13900,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       checkRunId: number
-      requestBody: {
-        actions?:
-          | {
-              description: string
-              identifier: string
-              label: string
-            }[]
-          | undefined
-        completed_at?: string | undefined
-        conclusion?:
-          | (
-              | "action_required"
-              | "cancelled"
-              | "failure"
-              | "neutral"
-              | "success"
-              | "skipped"
-              | "stale"
-              | "timed_out"
-              | UnknownEnumStringValue
-            )
-          | undefined
-        details_url?: string | undefined
-        external_id?: string | undefined
-        name?: string | undefined
-        output?:
-          | {
-              annotations?:
-                | {
-                    annotation_level:
-                      | "notice"
-                      | "warning"
-                      | "failure"
-                      | UnknownEnumStringValue
-                    end_column?: number | undefined
-                    end_line: number
-                    message: string
-                    path: string
-                    raw_details?: string | undefined
-                    start_column?: number | undefined
-                    start_line: number
-                    title?: string | undefined
-                  }[]
-                | undefined
-              images?:
-                | {
-                    alt: string
-                    caption?: string | undefined
-                    image_url: string
-                  }[]
-                | undefined
-              summary: string
-              text?: string | undefined
-              title?: string | undefined
-            }
-          | undefined
-        started_at?: string | undefined
-        status?:
-          | (
-              | "queued"
-              | "in_progress"
-              | "completed"
-              | "waiting"
-              | "requested"
-              | "pending"
-              | UnknownEnumStringValue
-            )
-          | undefined
-      }
+      requestBody: t_checksUpdateJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -14944,9 +13971,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      requestBody: {
-        head_sha: string
-      }
+      requestBody: t_checksCreateSuiteJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -14972,14 +13997,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      requestBody: {
-        auto_trigger_checks?:
-          | {
-              app_id: number
-              setting: boolean
-            }[]
-          | undefined
-      }
+      requestBody: t_checksSetSuitesPreferencesJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -15153,12 +14171,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       alertNumber: t_alert_number
-      requestBody: {
-        create_request?: t_code_scanning_alert_create_request | undefined
-        dismissed_comment?: t_code_scanning_alert_dismissed_comment | undefined
-        dismissed_reason?: t_code_scanning_alert_dismissed_reason | undefined
-        state: t_code_scanning_alert_set_state
-      }
+      requestBody: t_codeScanningUpdateAlertJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -15439,7 +14452,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      requestBody: EmptyObject
+      requestBody: t_codeScanningCreateVariantAnalysisJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -15558,15 +14571,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      requestBody: {
-        checkout_uri?: string | undefined
-        commit_sha: t_code_scanning_analysis_commit_sha
-        ref: t_code_scanning_ref_full
-        sarif: t_code_scanning_analysis_sarif_file
-        started_at?: string | undefined
-        tool_name?: string | undefined
-        validate?: boolean | undefined
-      }
+      requestBody: t_codeScanningUploadSarifJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -15686,27 +14691,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      requestBody: {
-        client_ip?: string | undefined
-        devcontainer_path?: string | undefined
-        display_name?: string | undefined
-        geo?:
-          | (
-              | "EuropeWest"
-              | "SoutheastAsia"
-              | "UsEast"
-              | "UsWest"
-              | UnknownEnumStringValue
-            )
-          | undefined
-        idle_timeout_minutes?: number | undefined
-        location?: string | undefined
-        machine?: string | undefined
-        multi_repo_permissions_opt_out?: boolean | undefined
-        ref?: string | undefined
-        retention_period_minutes?: number | undefined
-        working_directory?: string | undefined
-      } | null
+      requestBody: t_codespacesCreateWithRepoForAuthenticatedUserJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -15926,10 +14911,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       secretName: string
-      requestBody: {
-        encrypted_value?: string | undefined
-        key_id?: string | undefined
-      }
+      requestBody: t_codespacesCreateOrUpdateRepoSecretJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -16034,9 +15016,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       username: string
-      requestBody?: {
-        permission?: string | undefined
-      }
+      requestBody?: t_reposAddCollaboratorJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -16154,9 +15134,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       commentId: number
-      requestBody: {
-        body: string
-      }
+      requestBody: t_reposUpdateCommitCommentJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -16242,18 +15220,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       commentId: number
-      requestBody: {
-        content:
-          | "+1"
-          | "-1"
-          | "laugh"
-          | "confused"
-          | "heart"
-          | "hooray"
-          | "rocket"
-          | "eyes"
-          | UnknownEnumStringValue
-      }
+      requestBody: t_reactionsCreateForCommitCommentJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -16385,12 +15352,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       commitSha: string
-      requestBody: {
-        body: string
-        line?: number | undefined
-        path?: string | undefined
-        position?: number | undefined
-      }
+      requestBody: t_reposCreateCommitCommentJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -16663,26 +15625,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       path: string
-      requestBody: {
-        author?:
-          | {
-              date?: string | undefined
-              email: string
-              name: string
-            }
-          | undefined
-        branch?: string | undefined
-        committer?:
-          | {
-              date?: string | undefined
-              email: string
-              name: string
-            }
-          | undefined
-        content: string
-        message: string
-        sha?: string | undefined
-      }
+      requestBody: t_reposCreateOrUpdateFileContentsJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -16709,23 +15652,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       path: string
-      requestBody: {
-        author?:
-          | {
-              email?: string | undefined
-              name?: string | undefined
-            }
-          | undefined
-        branch?: string | undefined
-        committer?:
-          | {
-              email?: string | undefined
-              name?: string | undefined
-            }
-          | undefined
-        message: string
-        sha: string
-      }
+      requestBody: t_reposDeleteFileJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -16855,20 +15782,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       alertNumber: t_alert_number
-      requestBody: {
-        dismissed_comment?: string | undefined
-        dismissed_reason?:
-          | (
-              | "fix_started"
-              | "inaccurate"
-              | "no_bandwidth"
-              | "not_used"
-              | "tolerable_risk"
-              | UnknownEnumStringValue
-            )
-          | undefined
-        state: "dismissed" | "open" | UnknownEnumStringValue
-      }
+      requestBody: t_dependabotUpdateAlertJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -16964,10 +15878,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       secretName: string
-      requestBody: {
-        encrypted_value?: string | undefined
-        key_id?: string | undefined
-      }
+      requestBody: t_dependabotCreateOrUpdateRepoSecretJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -17124,24 +16035,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      requestBody: {
-        auto_merge?: boolean | undefined
-        description?: (string | null) | undefined
-        environment?: string | undefined
-        payload?:
-          | (
-              | {
-                  [key: string]: unknown | undefined
-                }
-              | string
-            )
-          | undefined
-        production_environment?: boolean | undefined
-        ref: string
-        required_contexts?: string[] | undefined
-        task?: string | undefined
-        transient_environment?: boolean | undefined
-      }
+      requestBody: t_reposCreateDeploymentJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -17239,23 +16133,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       deploymentId: number
-      requestBody: {
-        auto_inactive?: boolean | undefined
-        description?: string | undefined
-        environment?: string | undefined
-        environment_url?: string | undefined
-        log_url?: string | undefined
-        state:
-          | "error"
-          | "failure"
-          | "inactive"
-          | "in_progress"
-          | "queued"
-          | "pending"
-          | "success"
-          | UnknownEnumStringValue
-        target_url?: string | undefined
-      }
+      requestBody: t_reposCreateDeploymentStatusJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -17303,14 +16181,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      requestBody: {
-        client_payload?:
-          | {
-              [key: string]: unknown | undefined
-            }
-          | undefined
-        event_type: string
-      }
+      requestBody: t_reposCreateDispatchEventJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -17386,22 +16257,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       environmentName: string
-      requestBody?: {
-        deployment_branch_policy?:
-          | t_deployment_branch_policy_settings
-          | undefined
-        prevent_self_review?: t_prevent_self_review | undefined
-        reviewers?:
-          | (
-              | {
-                  id?: number | undefined
-                  type?: t_deployment_reviewer_type | undefined
-                }[]
-              | null
-            )
-          | undefined
-        wait_timer?: t_wait_timer | undefined
-      } | null
+      requestBody?: t_reposCreateOrUpdateEnvironmentJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -17610,9 +16466,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       environmentName: string
       repo: string
       owner: string
-      requestBody: {
-        integration_id?: number | undefined
-      }
+      requestBody: t_reposCreateDeploymentProtectionRuleJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -17787,10 +16641,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       repo: string
       environmentName: string
       secretName: string
-      requestBody: {
-        encrypted_value: string
-        key_id: string
-      }
+      requestBody: t_actionsCreateOrUpdateEnvironmentSecretJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -17868,10 +16719,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       environmentName: string
-      requestBody: {
-        name: string
-        value: string
-      }
+      requestBody: t_actionsCreateEnvironmentVariableJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -17921,10 +16769,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       repo: string
       name: string
       environmentName: string
-      requestBody: {
-        name?: string | undefined
-        value?: string | undefined
-      }
+      requestBody: t_actionsUpdateEnvironmentVariableJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -18028,11 +16873,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      requestBody?: {
-        default_branch_only?: boolean | undefined
-        name?: string | undefined
-        organization?: string | undefined
-      } | null
+      requestBody?: t_reposCreateForkJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -18063,10 +16904,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      requestBody: {
-        content: string
-        encoding?: string | undefined
-      }
+      requestBody: t_gitCreateBlobJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -18113,26 +16951,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      requestBody: {
-        author?:
-          | {
-              date?: string | undefined
-              email: string
-              name: string
-            }
-          | undefined
-        committer?:
-          | {
-              date?: string | undefined
-              email?: string | undefined
-              name?: string | undefined
-            }
-          | undefined
-        message: string
-        parents?: string[] | undefined
-        signature?: string | undefined
-        tree: string
-      }
+      requestBody: t_gitCreateCommitJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -18221,10 +17040,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      requestBody: {
-        ref: string
-        sha: string
-      }
+      requestBody: t_gitCreateRefJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -18251,10 +17067,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       ref: string
-      requestBody: {
-        force?: boolean | undefined
-        sha: string
-      }
+      requestBody: t_gitUpdateRefJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -18301,19 +17114,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      requestBody: {
-        message: string
-        object: string
-        tag: string
-        tagger?:
-          | {
-              date?: string | undefined
-              email: string
-              name: string
-            }
-          | undefined
-        type: "commit" | "tree" | "blob" | UnknownEnumStringValue
-      }
+      requestBody: t_gitCreateTagJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -18360,27 +17161,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      requestBody: {
-        base_tree?: string | undefined
-        tree: {
-          content?: string | undefined
-          mode?:
-            | (
-                | "100644"
-                | "100755"
-                | "040000"
-                | "160000"
-                | "120000"
-                | UnknownEnumStringValue
-              )
-            | undefined
-          path?: string | undefined
-          sha?: (string | null) | undefined
-          type?:
-            | ("blob" | "tree" | "commit" | UnknownEnumStringValue)
-            | undefined
-        }[]
-      }
+      requestBody: t_gitCreateTreeJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -18452,19 +17233,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      requestBody?: {
-        active?: boolean | undefined
-        config?:
-          | {
-              content_type?: t_webhook_config_content_type | undefined
-              insecure_ssl?: t_webhook_config_insecure_ssl | undefined
-              secret?: t_webhook_config_secret | undefined
-              url?: t_webhook_config_url | undefined
-            }
-          | undefined
-        events?: string[] | undefined
-        name?: string | undefined
-      } | null
+      requestBody?: t_reposCreateWebhookJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -18517,13 +17286,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       hookId: number
-      requestBody: {
-        active?: boolean | undefined
-        add_events?: string[] | undefined
-        config?: t_webhook_config | undefined
-        events?: string[] | undefined
-        remove_events?: string[] | undefined
-      }
+      requestBody: t_reposUpdateWebhookJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -18592,12 +17355,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       hookId: number
-      requestBody?: {
-        content_type?: t_webhook_config_content_type | undefined
-        insecure_ssl?: t_webhook_config_insecure_ssl | undefined
-        secret?: t_webhook_config_secret | undefined
-        url?: t_webhook_config_url | undefined
-      }
+      requestBody?: t_reposUpdateWebhookConfigForRepoJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -18762,21 +17520,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      requestBody: {
-        tfvc_project?: string | undefined
-        vcs?:
-          | (
-              | "subversion"
-              | "git"
-              | "mercurial"
-              | "tfvc"
-              | UnknownEnumStringValue
-            )
-          | undefined
-        vcs_password?: string | undefined
-        vcs_url: string
-        vcs_username?: string | undefined
-      }
+      requestBody: t_migrationsStartImportJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -18802,20 +17546,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      requestBody?: {
-        tfvc_project?: string | undefined
-        vcs?:
-          | (
-              | "subversion"
-              | "tfvc"
-              | "git"
-              | "mercurial"
-              | UnknownEnumStringValue
-            )
-          | undefined
-        vcs_password?: string | undefined
-        vcs_username?: string | undefined
-      } | null
+      requestBody?: t_migrationsUpdateImportJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -18889,10 +17620,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       authorId: number
-      requestBody?: {
-        email?: string | undefined
-        name?: string | undefined
-      }
+      requestBody?: t_migrationsMapCommitAuthorJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -18943,9 +17671,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      requestBody: {
-        use_lfs: "opt_in" | "opt_out" | UnknownEnumStringValue
-      }
+      requestBody: t_migrationsSetLfsPreferenceJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -19081,18 +17807,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       invitationId: number
-      requestBody?: {
-        permissions?:
-          | (
-              | "read"
-              | "write"
-              | "maintain"
-              | "triage"
-              | "admin"
-              | UnknownEnumStringValue
-            )
-          | undefined
-      }
+      requestBody?: t_reposUpdateInvitationJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -19190,25 +17905,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      requestBody: {
-        assignee?: (string | null) | undefined
-        assignees?: string[] | undefined
-        body?: string | undefined
-        labels?:
-          | (
-              | string
-              | {
-                  color?: (string | null) | undefined
-                  description?: (string | null) | undefined
-                  id?: number | undefined
-                  name?: string | undefined
-                }
-            )[]
-          | undefined
-        milestone?: (string | number | null) | undefined
-        title: string | number
-        type?: (string | null) | undefined
-      }
+      requestBody: t_issuesCreateJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -19288,9 +17985,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       commentId: number
-      requestBody: {
-        body: string
-      }
+      requestBody: t_issuesUpdateCommentJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -19376,18 +18071,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       commentId: number
-      requestBody: {
-        content:
-          | "+1"
-          | "-1"
-          | "laugh"
-          | "confused"
-          | "heart"
-          | "hooray"
-          | "rocket"
-          | "eyes"
-          | UnknownEnumStringValue
-      }
+      requestBody: t_reactionsCreateForIssueCommentJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -19501,36 +18185,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       issueNumber: number
-      requestBody?: {
-        assignee?: (string | null) | undefined
-        assignees?: string[] | undefined
-        body?: (string | null) | undefined
-        labels?:
-          | (
-              | string
-              | {
-                  color?: (string | null) | undefined
-                  description?: (string | null) | undefined
-                  id?: number | undefined
-                  name?: string | undefined
-                }
-            )[]
-          | undefined
-        milestone?: (string | number | null) | undefined
-        state?: ("open" | "closed" | UnknownEnumStringValue) | undefined
-        state_reason?:
-          | (
-              | "completed"
-              | "not_planned"
-              | "duplicate"
-              | "reopened"
-              | UnknownEnumStringValue
-              | null
-            )
-          | undefined
-        title?: (string | number | null) | undefined
-        type?: (string | null) | undefined
-      }
+      requestBody?: t_issuesUpdateJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -19562,9 +18217,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       issueNumber: number
-      requestBody?: {
-        assignees?: string[] | undefined
-      }
+      requestBody?: t_issuesAddAssigneesJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -19596,9 +18249,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       issueNumber: number
-      requestBody: {
-        assignees?: string[] | undefined
-      }
+      requestBody: t_issuesRemoveAssigneesJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -19676,9 +18327,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       issueNumber: number
-      requestBody: {
-        body: string
-      }
+      requestBody: t_issuesCreateCommentJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -19753,22 +18402,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       issueNumber: number
-      requestBody?:
-        | {
-            labels?: string[] | undefined
-          }
-        | string[]
-        | {
-            labels?:
-              | {
-                  name: string
-                }[]
-              | undefined
-          }
-        | {
-            name: string
-          }[]
-        | string
+      requestBody?: t_issuesAddLabelsJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -19800,22 +18434,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       issueNumber: number
-      requestBody?:
-        | {
-            labels?: string[] | undefined
-          }
-        | string[]
-        | {
-            labels?:
-              | {
-                  name: string
-                }[]
-              | undefined
-          }
-        | {
-            name: string
-          }[]
-        | string
+      requestBody?: t_issuesSetLabelsJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -19890,17 +18509,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       issueNumber: number
-      requestBody?: {
-        lock_reason?:
-          | (
-              | "off-topic"
-              | "too heated"
-              | "resolved"
-              | "spam"
-              | UnknownEnumStringValue
-            )
-          | undefined
-      } | null
+      requestBody?: t_issuesLockJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -19991,18 +18600,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       issueNumber: number
-      requestBody: {
-        content:
-          | "+1"
-          | "-1"
-          | "laugh"
-          | "confused"
-          | "heart"
-          | "hooray"
-          | "rocket"
-          | "eyes"
-          | UnknownEnumStringValue
-      }
+      requestBody: t_reactionsCreateForIssueJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -20051,9 +18649,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       issueNumber: number
-      requestBody: {
-        sub_issue_id: number
-      }
+      requestBody: t_issuesRemoveSubIssueJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -20104,10 +18700,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       issueNumber: number
-      requestBody: {
-        replace_parent?: boolean | undefined
-        sub_issue_id: number
-      }
+      requestBody: t_issuesAddSubIssueJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -20134,11 +18727,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       issueNumber: number
-      requestBody: {
-        after_id?: number | undefined
-        before_id?: number | undefined
-        sub_issue_id: number
-      }
+      requestBody: t_issuesReprioritizeSubIssueJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -20211,11 +18800,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      requestBody: {
-        key: string
-        read_only?: boolean | undefined
-        title?: string | undefined
-      }
+      requestBody: t_reposCreateDeployKeyJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -20306,11 +18891,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      requestBody: {
-        color?: string | undefined
-        description?: string | undefined
-        name: string
-      }
+      requestBody: t_issuesCreateLabelJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -20358,11 +18939,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       name: string
-      requestBody?: {
-        color?: string | undefined
-        description?: string | undefined
-        new_name?: string | undefined
-      }
+      requestBody?: t_issuesUpdateLabelJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -20456,9 +19033,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      requestBody: {
-        branch: string
-      }
+      requestBody: t_reposMergeUpstreamJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -20484,11 +19059,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      requestBody: {
-        base: string
-        commit_message?: string | undefined
-        head: string
-      }
+      requestBody: t_reposMergeJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -20546,12 +19117,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      requestBody: {
-        description?: string | undefined
-        due_on?: string | undefined
-        state?: ("open" | "closed" | UnknownEnumStringValue) | undefined
-        title: string
-      }
+      requestBody: t_issuesCreateMilestoneJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -20599,12 +19165,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       milestoneNumber: number
-      requestBody?: {
-        description?: string | undefined
-        due_on?: string | undefined
-        state?: ("open" | "closed" | UnknownEnumStringValue) | undefined
-        title?: string | undefined
-      }
+      requestBody?: t_issuesUpdateMilestoneJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -20714,9 +19275,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      requestBody?: {
-        last_read_at?: string | undefined
-      }
+      requestBody?: t_activityMarkRepoNotificationsAsReadJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -20773,17 +19332,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      requestBody: {
-        build_type?:
-          | ("legacy" | "workflow" | UnknownEnumStringValue)
-          | undefined
-        source?:
-          | {
-              branch: string
-              path?: ("/" | "/docs" | UnknownEnumStringValue) | undefined
-            }
-          | undefined
-      } | null
+      requestBody: t_reposCreatePagesSiteJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -20809,25 +19358,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      requestBody: {
-        build_type?:
-          | ("legacy" | "workflow" | UnknownEnumStringValue)
-          | undefined
-        cname?: (string | null) | undefined
-        https_enforced?: boolean | undefined
-        source?:
-          | (
-              | "gh-pages"
-              | "master"
-              | "master /docs"
-              | UnknownEnumStringValue
-              | {
-                  branch: string
-                  path: "/" | "/docs" | UnknownEnumStringValue
-                }
-            )
-          | undefined
-      }
+      requestBody: t_reposUpdateInformationAboutPagesSiteJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -20957,13 +19488,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      requestBody: {
-        artifact_id?: number | undefined
-        artifact_url?: string | undefined
-        environment?: string | undefined
-        oidc_token: string
-        pages_build_version: string
-      }
+      requestBody: t_reposCreatePagesDeploymentJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -21145,10 +19670,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      requestBody: {
-        body?: string | undefined
-        name: string
-      }
+      requestBody: t_projectsClassicCreateForRepoJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -21194,9 +19716,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      requestBody: {
-        properties: t_custom_property_value[]
-      }
+      requestBody: t_reposCreateOrUpdateCustomPropertiesValuesJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -21263,16 +19783,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      requestBody: {
-        base: string
-        body?: string | undefined
-        draft?: boolean | undefined
-        head: string
-        head_repo?: string | undefined
-        issue?: number | undefined
-        maintainer_can_modify?: boolean | undefined
-        title?: string | undefined
-      }
+      requestBody: t_pullsCreateJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -21352,9 +19863,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       commentId: number
-      requestBody: {
-        body: string
-      }
+      requestBody: t_pullsUpdateReviewCommentJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -21440,18 +19949,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       commentId: number
-      requestBody: {
-        content:
-          | "+1"
-          | "-1"
-          | "laugh"
-          | "confused"
-          | "heart"
-          | "hooray"
-          | "rocket"
-          | "eyes"
-          | UnknownEnumStringValue
-      }
+      requestBody: t_reactionsCreateForPullRequestReviewCommentJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -21521,13 +20019,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       pullNumber: number
-      requestBody?: {
-        base?: string | undefined
-        body?: string | undefined
-        maintainer_can_modify?: boolean | undefined
-        state?: ("open" | "closed" | UnknownEnumStringValue) | undefined
-        title?: string | undefined
-      }
+      requestBody?: t_pullsUpdateJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -21559,26 +20051,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       pullNumber: number
-      requestBody: {
-        client_ip?: string | undefined
-        devcontainer_path?: string | undefined
-        display_name?: string | undefined
-        geo?:
-          | (
-              | "EuropeWest"
-              | "SoutheastAsia"
-              | "UsEast"
-              | "UsWest"
-              | UnknownEnumStringValue
-            )
-          | undefined
-        idle_timeout_minutes?: number | undefined
-        location?: string | undefined
-        machine?: string | undefined
-        multi_repo_permissions_opt_out?: boolean | undefined
-        retention_period_minutes?: number | undefined
-        working_directory?: string | undefined
-      } | null
+      requestBody: t_codespacesCreateWithPrForAuthenticatedUserJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -21638,20 +20111,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       pullNumber: number
-      requestBody: {
-        body: string
-        commit_id: string
-        in_reply_to?: number | undefined
-        line?: number | undefined
-        path: string
-        position?: number | undefined
-        side?: ("LEFT" | "RIGHT" | UnknownEnumStringValue) | undefined
-        start_line?: number | undefined
-        start_side?:
-          | ("LEFT" | "RIGHT" | "side" | UnknownEnumStringValue)
-          | undefined
-        subject_type?: ("line" | "file" | UnknownEnumStringValue) | undefined
-      }
+      requestBody: t_pullsCreateReviewCommentJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -21679,9 +20139,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       repo: string
       pullNumber: number
       commentId: number
-      requestBody: {
-        body: string
-      }
+      requestBody: t_pullsCreateReplyForReviewCommentJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -21777,14 +20235,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       pullNumber: number
-      requestBody?: {
-        commit_message?: string | undefined
-        commit_title?: string | undefined
-        merge_method?:
-          | ("merge" | "squash" | "rebase" | UnknownEnumStringValue)
-          | undefined
-        sha?: string | undefined
-      } | null
+      requestBody?: t_pullsMergeJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -21837,10 +20288,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       pullNumber: number
-      requestBody?: {
-        reviewers?: string[] | undefined
-        team_reviewers?: string[] | undefined
-      }
+      requestBody?: t_pullsRequestReviewersJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -21872,10 +20320,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       pullNumber: number
-      requestBody: {
-        reviewers: string[]
-        team_reviewers?: string[] | undefined
-      }
+      requestBody: t_pullsRemoveRequestedReviewersJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -21926,24 +20371,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       pullNumber: number
-      requestBody?: {
-        body?: string | undefined
-        comments?:
-          | {
-              body: string
-              line?: number | undefined
-              path: string
-              position?: number | undefined
-              side?: string | undefined
-              start_line?: number | undefined
-              start_side?: string | undefined
-            }[]
-          | undefined
-        commit_id?: string | undefined
-        event?:
-          | ("APPROVE" | "REQUEST_CHANGES" | "COMMENT" | UnknownEnumStringValue)
-          | undefined
-      }
+      requestBody?: t_pullsCreateReviewJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -21998,9 +20426,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       repo: string
       pullNumber: number
       reviewId: number
-      requestBody: {
-        body: string
-      }
+      requestBody: t_pullsUpdateReviewJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -22075,10 +20501,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       repo: string
       pullNumber: number
       reviewId: number
-      requestBody: {
-        event?: ("DISMISS" | UnknownEnumStringValue) | undefined
-        message: string
-      }
+      requestBody: t_pullsDismissReviewJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -22106,14 +20529,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       repo: string
       pullNumber: number
       reviewId: number
-      requestBody: {
-        body?: string | undefined
-        event:
-          | "APPROVE"
-          | "REQUEST_CHANGES"
-          | "COMMENT"
-          | UnknownEnumStringValue
-      }
+      requestBody: t_pullsSubmitReviewJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -22140,9 +20556,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       pullNumber: number
-      requestBody?: {
-        expected_head_sha?: string | undefined
-      } | null
+      requestBody?: t_pullsUpdateBranchJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -22246,19 +20660,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      requestBody: {
-        body?: string | undefined
-        discussion_category_name?: string | undefined
-        draft?: boolean | undefined
-        generate_release_notes?: boolean | undefined
-        make_latest?:
-          | ("true" | "false" | "legacy" | UnknownEnumStringValue)
-          | undefined
-        name?: string | undefined
-        prerelease?: boolean | undefined
-        tag_name: string
-        target_commitish?: string | undefined
-      }
+      requestBody: t_reposCreateReleaseJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -22306,11 +20708,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       assetId: number
-      requestBody?: {
-        label?: string | undefined
-        name?: string | undefined
-        state?: string | undefined
-      }
+      requestBody?: t_reposUpdateReleaseAssetJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -22362,12 +20760,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      requestBody: {
-        configuration_file_path?: string | undefined
-        previous_tag_name?: string | undefined
-        tag_name: string
-        target_commitish?: string | undefined
-      }
+      requestBody: t_reposGenerateReleaseNotesJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -22456,18 +20849,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       releaseId: number
-      requestBody?: {
-        body?: string | undefined
-        discussion_category_name?: string | undefined
-        draft?: boolean | undefined
-        make_latest?:
-          | ("true" | "false" | "legacy" | UnknownEnumStringValue)
-          | undefined
-        name?: string | undefined
-        prerelease?: boolean | undefined
-        tag_name?: string | undefined
-        target_commitish?: string | undefined
-      }
+      requestBody?: t_reposUpdateReleaseJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -22612,16 +20994,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       releaseId: number
-      requestBody: {
-        content:
-          | "+1"
-          | "laugh"
-          | "heart"
-          | "hooray"
-          | "rocket"
-          | "eyes"
-          | UnknownEnumStringValue
-      }
+      requestBody: t_reactionsCreateForReleaseJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -22723,16 +21096,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      requestBody: {
-        bypass_actors?: t_repository_ruleset_bypass_actor[] | undefined
-        conditions?: t_repository_ruleset_conditions | undefined
-        enforcement: t_repository_rule_enforcement
-        name: string
-        rules?: t_repository_rule[] | undefined
-        target?:
-          | ("branch" | "tag" | "push" | UnknownEnumStringValue)
-          | undefined
-      }
+      requestBody: t_reposCreateRepoRulesetJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -22842,16 +21206,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       rulesetId: number
-      requestBody?: {
-        bypass_actors?: t_repository_ruleset_bypass_actor[] | undefined
-        conditions?: t_repository_ruleset_conditions | undefined
-        enforcement?: t_repository_rule_enforcement | undefined
-        name?: string | undefined
-        rules?: t_repository_rule[] | undefined
-        target?:
-          | ("branch" | "tag" | "push" | UnknownEnumStringValue)
-          | undefined
-      }
+      requestBody?: t_reposUpdateRepoRulesetJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -23021,13 +21376,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       alertNumber: t_alert_number
-      requestBody: {
-        resolution?: t_secret_scanning_alert_resolution | undefined
-        resolution_comment?:
-          | t_secret_scanning_alert_resolution_comment
-          | undefined
-        state: t_secret_scanning_alert_state
-      }
+      requestBody: t_secretScanningUpdateAlertJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -23077,10 +21426,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      requestBody: {
-        placeholder_id: t_secret_scanning_push_protection_bypass_placeholder_id
-        reason: t_secret_scanning_push_protection_bypass_reason
-      }
+      requestBody: t_secretScanningCreatePushProtectionBypassJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -23453,17 +21799,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       sha: string
-      requestBody: {
-        context?: string | undefined
-        description?: (string | null) | undefined
-        state:
-          | "error"
-          | "failure"
-          | "pending"
-          | "success"
-          | UnknownEnumStringValue
-        target_url?: (string | null) | undefined
-      }
+      requestBody: t_reposCreateCommitStatusJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -23532,10 +21868,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      requestBody?: {
-        ignored?: boolean | undefined
-        subscribed?: boolean | undefined
-      }
+      requestBody?: t_activitySetRepoSubscriptionJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -23629,9 +21962,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      requestBody: {
-        pattern: string
-      }
+      requestBody: t_reposCreateTagProtectionJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -23745,9 +22076,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      requestBody: {
-        names: string[]
-      }
+      requestBody: t_reposReplaceAllTopicsJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -23857,11 +22186,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      requestBody: {
-        new_name?: string | undefined
-        new_owner: string
-        team_ids?: number[] | undefined
-      }
+      requestBody: t_reposTransferJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -23968,13 +22293,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       templateOwner: string
       templateRepo: string
-      requestBody: {
-        description?: string | undefined
-        include_all_branches?: boolean | undefined
-        name: string
-        owner?: string | undefined
-        private?: boolean | undefined
-      }
+      requestBody: t_reposCreateUsingTemplateJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -24307,22 +22626,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async teamsUpdateLegacy(
     p: {
       teamId: number
-      requestBody: {
-        description?: string | undefined
-        name: string
-        notification_setting?:
-          | (
-              | "notifications_enabled"
-              | "notifications_disabled"
-              | UnknownEnumStringValue
-            )
-          | undefined
-        parent_team_id?: (number | null) | undefined
-        permission?:
-          | ("pull" | "push" | "admin" | UnknownEnumStringValue)
-          | undefined
-        privacy?: ("secret" | "closed" | UnknownEnumStringValue) | undefined
-      }
+      requestBody: t_teamsUpdateLegacyJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -24393,11 +22697,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async teamsCreateDiscussionLegacy(
     p: {
       teamId: number
-      requestBody: {
-        body: string
-        private?: boolean | undefined
-        title: string
-      }
+      requestBody: t_teamsCreateDiscussionLegacyJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -24443,10 +22743,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       teamId: number
       discussionNumber: number
-      requestBody?: {
-        body?: string | undefined
-        title?: string | undefined
-      }
+      requestBody?: t_teamsUpdateDiscussionLegacyJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -24525,9 +22822,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       teamId: number
       discussionNumber: number
-      requestBody: {
-        body: string
-      }
+      requestBody: t_teamsCreateDiscussionCommentLegacyJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -24575,9 +22870,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       teamId: number
       discussionNumber: number
       commentNumber: number
-      requestBody: {
-        body: string
-      }
+      requestBody: t_teamsUpdateDiscussionCommentLegacyJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -24663,18 +22956,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       teamId: number
       discussionNumber: number
       commentNumber: number
-      requestBody: {
-        content:
-          | "+1"
-          | "-1"
-          | "laugh"
-          | "confused"
-          | "heart"
-          | "hooray"
-          | "rocket"
-          | "eyes"
-          | UnknownEnumStringValue
-      }
+      requestBody: t_reactionsCreateForTeamDiscussionCommentLegacyJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -24737,18 +23019,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       teamId: number
       discussionNumber: number
-      requestBody: {
-        content:
-          | "+1"
-          | "-1"
-          | "laugh"
-          | "confused"
-          | "heart"
-          | "hooray"
-          | "rocket"
-          | "eyes"
-          | UnknownEnumStringValue
-      }
+      requestBody: t_reactionsCreateForTeamDiscussionLegacyJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -24903,9 +23174,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       teamId: number
       username: string
-      requestBody?: {
-        role?: ("member" | "maintainer" | UnknownEnumStringValue) | undefined
-      }
+      requestBody?: t_teamsAddOrUpdateMembershipForUserLegacyJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -24998,11 +23267,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       teamId: number
       projectId: number
-      requestBody?: {
-        permission?:
-          | ("read" | "write" | "admin" | UnknownEnumStringValue)
-          | undefined
-      }
+      requestBody?: t_teamsAddOrUpdateProjectPermissionsLegacyJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -25097,11 +23362,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       teamId: number
       owner: string
       repo: string
-      requestBody?: {
-        permission?:
-          | ("pull" | "push" | "admin" | UnknownEnumStringValue)
-          | undefined
-      }
+      requestBody?: t_teamsAddOrUpdateRepoPermissionsLegacyJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -25189,16 +23450,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
 
   async usersUpdateAuthenticated(
     p: {
-      requestBody?: {
-        bio?: string | undefined
-        blog?: string | undefined
-        company?: string | undefined
-        email?: string | undefined
-        hireable?: boolean | undefined
-        location?: string | undefined
-        name?: string | undefined
-        twitter_username?: (string | null) | undefined
-      }
+      requestBody?: t_usersUpdateAuthenticatedJsonRequestBody
     } = {},
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -25336,49 +23588,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
 
   async codespacesCreateForAuthenticatedUser(
     p: {
-      requestBody:
-        | {
-            client_ip?: string | undefined
-            devcontainer_path?: string | undefined
-            display_name?: string | undefined
-            geo?:
-              | (
-                  | "EuropeWest"
-                  | "SoutheastAsia"
-                  | "UsEast"
-                  | "UsWest"
-                  | UnknownEnumStringValue
-                )
-              | undefined
-            idle_timeout_minutes?: number | undefined
-            location?: string | undefined
-            machine?: string | undefined
-            multi_repo_permissions_opt_out?: boolean | undefined
-            ref?: string | undefined
-            repository_id: number
-            retention_period_minutes?: number | undefined
-            working_directory?: string | undefined
-          }
-        | {
-            devcontainer_path?: string | undefined
-            geo?:
-              | (
-                  | "EuropeWest"
-                  | "SoutheastAsia"
-                  | "UsEast"
-                  | "UsWest"
-                  | UnknownEnumStringValue
-                )
-              | undefined
-            idle_timeout_minutes?: number | undefined
-            location?: string | undefined
-            machine?: string | undefined
-            pull_request: {
-              pull_request_number: number
-              repository_id: number
-            }
-            working_directory?: string | undefined
-          }
+      requestBody: t_codespacesCreateForAuthenticatedUserJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -25464,11 +23674,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async codespacesCreateOrUpdateSecretForAuthenticatedUser(
     p: {
       secretName: string
-      requestBody: {
-        encrypted_value?: string | undefined
-        key_id: string
-        selected_repository_ids?: (number | string)[] | undefined
-      }
+      requestBody: t_codespacesCreateOrUpdateSecretForAuthenticatedUserJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -25536,9 +23742,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async codespacesSetRepositoriesForSecretForAuthenticatedUser(
     p: {
       secretName: string
-      requestBody: {
-        selected_repository_ids: number[]
-      }
+      requestBody: t_codespacesSetRepositoriesForSecretForAuthenticatedUserJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -25622,11 +23826,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async codespacesUpdateForAuthenticatedUser(
     p: {
       codespaceName: string
-      requestBody?: {
-        display_name?: string | undefined
-        machine?: string | undefined
-        recent_folders?: string[] | undefined
-      }
+      requestBody?: t_codespacesUpdateForAuthenticatedUserJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -25742,10 +23942,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async codespacesPublishForAuthenticatedUser(
     p: {
       codespaceName: string
-      requestBody: {
-        name?: string | undefined
-        private?: boolean | undefined
-      }
+      requestBody: t_codespacesPublishForAuthenticatedUserJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -25823,9 +24020,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
 
   async usersSetPrimaryEmailVisibilityForAuthenticatedUser(
     p: {
-      requestBody: {
-        visibility: "public" | "private" | UnknownEnumStringValue
-      }
+      requestBody: t_usersSetPrimaryEmailVisibilityForAuthenticatedUserJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -25870,12 +24065,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
 
   async usersAddEmailForAuthenticatedUser(
     p: {
-      requestBody?:
-        | {
-            emails: string[]
-          }
-        | string[]
-        | string
+      requestBody?: t_usersAddEmailForAuthenticatedUserJsonRequestBody
     } = {},
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -25904,12 +24094,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
 
   async usersDeleteEmailForAuthenticatedUser(
     p: {
-      requestBody:
-        | {
-            emails: string[]
-          }
-        | string[]
-        | string
+      requestBody: t_usersDeleteEmailForAuthenticatedUserJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -26053,10 +24238,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
 
   async usersCreateGpgKeyForAuthenticatedUser(
     p: {
-      requestBody: {
-        armored_public_key: string
-        name?: string | undefined
-      }
+      requestBody: t_usersCreateGpgKeyForAuthenticatedUserJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -26335,10 +24517,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
 
   async usersCreatePublicSshKeyForAuthenticatedUser(
     p: {
-      requestBody: {
-        key: string
-        title?: string | undefined
-      }
+      requestBody: t_usersCreatePublicSshKeyForAuthenticatedUserJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -26488,9 +24667,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async orgsUpdateMembershipForAuthenticatedUser(
     p: {
       org: string
-      requestBody: {
-        state: "active" | UnknownEnumStringValue
-      }
+      requestBody: t_orgsUpdateMembershipForAuthenticatedUserJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -26535,17 +24712,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
 
   async migrationsStartForAuthenticatedUser(
     p: {
-      requestBody: {
-        exclude?: ("repositories" | UnknownEnumStringValue)[] | undefined
-        exclude_attachments?: boolean | undefined
-        exclude_git_data?: boolean | undefined
-        exclude_metadata?: boolean | undefined
-        exclude_owner_projects?: boolean | undefined
-        exclude_releases?: boolean | undefined
-        lock_repositories?: boolean | undefined
-        org_metadata_only?: boolean | undefined
-        repositories: string[]
-      }
+      requestBody: t_migrationsStartForAuthenticatedUserJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -26928,10 +25095,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
 
   async projectsClassicCreateForAuthenticatedUser(
     p: {
-      requestBody: {
-        body?: (string | null) | undefined
-        name: string
-      }
+      requestBody: t_projectsClassicCreateForAuthenticatedUserJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -27025,39 +25189,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
 
   async reposCreateForAuthenticatedUser(
     p: {
-      requestBody: {
-        allow_auto_merge?: boolean | undefined
-        allow_merge_commit?: boolean | undefined
-        allow_rebase_merge?: boolean | undefined
-        allow_squash_merge?: boolean | undefined
-        auto_init?: boolean | undefined
-        delete_branch_on_merge?: boolean | undefined
-        description?: string | undefined
-        gitignore_template?: string | undefined
-        has_discussions?: boolean | undefined
-        has_downloads?: boolean | undefined
-        has_issues?: boolean | undefined
-        has_projects?: boolean | undefined
-        has_wiki?: boolean | undefined
-        homepage?: string | undefined
-        is_template?: boolean | undefined
-        license_template?: string | undefined
-        merge_commit_message?:
-          | ("PR_BODY" | "PR_TITLE" | "BLANK" | UnknownEnumStringValue)
-          | undefined
-        merge_commit_title?:
-          | ("PR_TITLE" | "MERGE_MESSAGE" | UnknownEnumStringValue)
-          | undefined
-        name: string
-        private?: boolean | undefined
-        squash_merge_commit_message?:
-          | ("PR_BODY" | "COMMIT_MESSAGES" | "BLANK" | UnknownEnumStringValue)
-          | undefined
-        squash_merge_commit_title?:
-          | ("PR_TITLE" | "COMMIT_OR_PR_TITLE" | UnknownEnumStringValue)
-          | undefined
-        team_id?: number | undefined
-      }
+      requestBody: t_reposCreateForAuthenticatedUserJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -27161,9 +25293,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
 
   async usersAddSocialAccountForAuthenticatedUser(
     p: {
-      requestBody: {
-        account_urls: string[]
-      }
+      requestBody: t_usersAddSocialAccountForAuthenticatedUserJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -27187,9 +25317,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
 
   async usersDeleteSocialAccountForAuthenticatedUser(
     p: {
-      requestBody: {
-        account_urls: string[]
-      }
+      requestBody: t_usersDeleteSocialAccountForAuthenticatedUserJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -27234,10 +25362,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
 
   async usersCreateSshSigningKeyForAuthenticatedUser(
     p: {
-      requestBody: {
-        key: string
-        title?: string | undefined
-      }
+      requestBody: t_usersCreateSshSigningKeyForAuthenticatedUserJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -27492,10 +25617,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       before?: string
       after?: string
       username: string
-      requestBody: {
-        predicate_type?: string | undefined
-        subject_digests: string[]
-      }
+      requestBody: t_usersListAttestationsBulkJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -27564,13 +25686,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async usersDeleteAttestationsBulk(
     p: {
       username: string
-      requestBody:
-        | {
-            subject_digests: string[]
-          }
-        | {
-            attestation_ids: number[]
-          }
+      requestBody: t_usersDeleteAttestationsBulkJsonRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},

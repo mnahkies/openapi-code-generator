@@ -65,6 +65,39 @@ export type t_AppAuthenticatorEnrollment = {
     | undefined
 }
 
+export type t_AppAuthenticatorEnrollmentRequest = {
+  authenticatorId: string
+  device: {
+    clientInstanceBundleId: string
+    clientInstanceDeviceSdkVersion: string
+    clientInstanceKey: t_KeyObject
+    clientInstanceVersion: string
+    deviceAttestation?:
+      | {
+          [key: string]: unknown | undefined
+        }
+      | undefined
+    displayName: string
+    manufacturer?: string | undefined
+    model?: string | undefined
+    osVersion: string
+    platform: "ANDROID" | "IOS"
+    secureHardwarePresent?: boolean | undefined
+    udid?: string | undefined
+  }
+  methods: {
+    push: {
+      apsEnvironment?: ("PRODUCTION" | "DEVELOPMENT") | undefined
+      keys: {
+        capabilities?: t_AppAuthenticatorMethodCapabilities | undefined
+        proofOfPossession: t_KeyObject
+        userVerification?: t_KeyObject | undefined
+      }
+      pushToken: string
+    }
+  }
+}
+
 export type t_AppAuthenticatorMethodCapabilities = {
   transactionTypes?: ("LOGIN" | "CIBA")[] | undefined
 }
@@ -336,6 +369,11 @@ export type t_PushNotificationChallenge = {
   payloadVersion?: "IDXv1" | undefined
 }
 
+export type t_PushNotificationVerification = {
+  challengeResponse?: string | undefined
+  method?: "push" | undefined
+}
+
 export type t_Schema = {
   _links?:
     | {
@@ -354,40 +392,29 @@ export type t_Schema = {
   readonly properties?: EmptyObject | undefined
 }
 
-export type t_CreateAppAuthenticatorEnrollmentRequestBodySchema = {
-  authenticatorId: string
-  device: {
-    clientInstanceBundleId: string
-    clientInstanceDeviceSdkVersion: string
-    clientInstanceKey: t_KeyObject
-    clientInstanceVersion: string
-    deviceAttestation?:
-      | {
-          [key: string]: unknown | undefined
-        }
-      | undefined
-    displayName: string
-    manufacturer?: string | undefined
-    model?: string | undefined
-    osVersion: string
-    platform: "ANDROID" | "IOS"
-    secureHardwarePresent?: boolean | undefined
-    udid?: string | undefined
-  }
-  methods: {
-    push: {
-      apsEnvironment?: ("PRODUCTION" | "DEVELOPMENT") | undefined
-      keys: {
-        capabilities?: t_AppAuthenticatorMethodCapabilities | undefined
-        proofOfPossession: t_KeyObject
-        userVerification?: t_KeyObject | undefined
+export type t_UpdateAppAuthenticatorEnrollmentRequest = {
+  methods?:
+    | {
+        push?:
+          | {
+              capabilities?: t_AppAuthenticatorMethodCapabilities | undefined
+              keys?:
+                | {
+                    userVerification?: t_KeyObject | undefined
+                  }
+                | undefined
+              pushToken?: string | undefined
+            }
+          | undefined
       }
-      pushToken: string
-    }
-  }
+    | undefined
 }
 
-export type t_CreateEmailRequestBodySchema = {
+export type t_UpdateAuthenticatorEnrollmentRequest = {
+  nickname?: string | undefined
+}
+
+export type t_createEmailJsonRequestBody = {
   profile: {
     email: string
   }
@@ -396,13 +423,13 @@ export type t_CreateEmailRequestBodySchema = {
   state?: string | undefined
 }
 
-export type t_CreatePasswordRequestBodySchema = {
+export type t_createPasswordJsonRequestBody = {
   profile: {
     password: string
   }
 }
 
-export type t_CreatePhoneRequestBodySchema = {
+export type t_createPhoneJsonRequestBody = {
   method?: ("SMS" | "CALL") | undefined
   profile: {
     phoneNumber?: string | undefined
@@ -461,13 +488,13 @@ export type t_PollChallengeForEmailMagicLinkParamSchema = {
   id: string
 }
 
-export type t_ReplacePasswordRequestBodySchema = {
+export type t_replacePasswordJsonRequestBody = {
   profile: {
     password: string
   }
 }
 
-export type t_ReplaceProfileRequestBodySchema = {
+export type t_replaceProfileJsonRequestBody = {
   profile?: EmptyObject | undefined
 }
 
@@ -475,7 +502,7 @@ export type t_SendEmailChallengeParamSchema = {
   id: string
 }
 
-export type t_SendEmailChallengeRequestBodySchema = {
+export type t_sendEmailChallengeJsonRequestBody = {
   state: string
 }
 
@@ -483,7 +510,7 @@ export type t_SendPhoneChallengeParamSchema = {
   id: string
 }
 
-export type t_SendPhoneChallengeRequestBodySchema = {
+export type t_sendPhoneChallengeJsonRequestBody = {
   method: "SMS" | "CALL"
   retry?: boolean | undefined
 }
@@ -492,49 +519,21 @@ export type t_UpdateAppAuthenticatorEnrollmentParamSchema = {
   enrollmentId: string
 }
 
-export type t_UpdateAppAuthenticatorEnrollmentRequestBodySchema = {
-  methods?:
-    | {
-        push?:
-          | {
-              capabilities?: t_AppAuthenticatorMethodCapabilities | undefined
-              keys?:
-                | {
-                    userVerification?: t_KeyObject | undefined
-                  }
-                | undefined
-              pushToken?: string | undefined
-            }
-          | undefined
-      }
-    | undefined
-}
-
 export type t_UpdateEnrollmentParamSchema = {
   authenticatorId: string
   enrollmentId: string
-}
-
-export type t_UpdateEnrollmentRequestBodySchema = {
-  nickname?: string | undefined
 }
 
 export type t_VerifyAppAuthenticatorPushNotificationChallengeParamSchema = {
   challengeId: string
 }
 
-export type t_VerifyAppAuthenticatorPushNotificationChallengeRequestBodySchema =
-  {
-    challengeResponse?: string | undefined
-    method?: "push" | undefined
-  }
-
 export type t_VerifyEmailOtpParamSchema = {
   challengeId: string
   id: string
 }
 
-export type t_VerifyEmailOtpRequestBodySchema = {
+export type t_verifyEmailOtpJsonRequestBody = {
   verificationCode: string
 }
 
@@ -542,6 +541,6 @@ export type t_VerifyPhoneChallengeParamSchema = {
   id: string
 }
 
-export type t_VerifyPhoneChallengeRequestBodySchema = {
+export type t_verifyPhoneChallengeJsonRequestBody = {
   verificationCode: string
 }

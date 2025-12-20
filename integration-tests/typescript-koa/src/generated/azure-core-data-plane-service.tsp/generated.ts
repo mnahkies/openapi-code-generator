@@ -27,77 +27,74 @@ import type {
   t_Azure_Core_Foundations_Error,
   t_Azure_Core_Foundations_ErrorResponse,
   t_Azure_Core_Foundations_OperationState,
-  t_GetServiceStatusHeaderSchema,
   t_GetServiceStatusQuerySchema,
+  t_GetServiceStatusRequestHeaderSchema,
   t_Manufacturer,
-  t_ManufacturersCreateOrReplaceManufacturerBodySchema,
-  t_ManufacturersCreateOrReplaceManufacturerHeaderSchema,
   t_ManufacturersCreateOrReplaceManufacturerParamSchema,
   t_ManufacturersCreateOrReplaceManufacturerQuerySchema,
-  t_ManufacturersDeleteManufacturerHeaderSchema,
+  t_ManufacturersCreateOrReplaceManufacturerRequestHeaderSchema,
   t_ManufacturersDeleteManufacturerParamSchema,
   t_ManufacturersDeleteManufacturerQuerySchema,
-  t_ManufacturersGetManufacturerHeaderSchema,
+  t_ManufacturersDeleteManufacturerRequestHeaderSchema,
   t_ManufacturersGetManufacturerOperationStatusParamSchema,
   t_ManufacturersGetManufacturerOperationStatusQuerySchema,
   t_ManufacturersGetManufacturerParamSchema,
   t_ManufacturersGetManufacturerQuerySchema,
-  t_ManufacturersListManufacturersHeaderSchema,
+  t_ManufacturersGetManufacturerRequestHeaderSchema,
   t_ManufacturersListManufacturersQuerySchema,
+  t_ManufacturersListManufacturersRequestHeaderSchema,
   t_PagedManufacturer,
   t_PagedWidget,
   t_PagedWidgetPart,
   t_Widget,
   t_WidgetAnalytics,
+  t_WidgetAnalyticsCreateOrUpdate,
+  t_WidgetCreateOrUpdate,
   t_WidgetPart,
-  t_WidgetPartsCreateWidgetPartBodySchema,
-  t_WidgetPartsCreateWidgetPartHeaderSchema,
+  t_WidgetPartReorderRequest,
   t_WidgetPartsCreateWidgetPartParamSchema,
   t_WidgetPartsCreateWidgetPartQuerySchema,
-  t_WidgetPartsDeleteWidgetPartHeaderSchema,
+  t_WidgetPartsCreateWidgetPartRequestHeaderSchema,
   t_WidgetPartsDeleteWidgetPartParamSchema,
   t_WidgetPartsDeleteWidgetPartQuerySchema,
-  t_WidgetPartsGetWidgetPartHeaderSchema,
+  t_WidgetPartsDeleteWidgetPartRequestHeaderSchema,
   t_WidgetPartsGetWidgetPartOperationStatusParamSchema,
   t_WidgetPartsGetWidgetPartOperationStatusQuerySchema,
   t_WidgetPartsGetWidgetPartParamSchema,
   t_WidgetPartsGetWidgetPartQuerySchema,
-  t_WidgetPartsListWidgetPartsHeaderSchema,
+  t_WidgetPartsGetWidgetPartRequestHeaderSchema,
   t_WidgetPartsListWidgetPartsParamSchema,
   t_WidgetPartsListWidgetPartsQuerySchema,
-  t_WidgetPartsReorderPartsBodySchema,
-  t_WidgetPartsReorderPartsHeaderSchema,
+  t_WidgetPartsListWidgetPartsRequestHeaderSchema,
   t_WidgetPartsReorderPartsParamSchema,
   t_WidgetPartsReorderPartsQuerySchema,
+  t_WidgetPartsReorderPartsRequestHeaderSchema,
   t_WidgetRepairRequest,
   t_WidgetRepairState,
-  t_WidgetsCreateOrUpdateWidgetBodySchema,
-  t_WidgetsCreateOrUpdateWidgetHeaderSchema,
   t_WidgetsCreateOrUpdateWidgetParamSchema,
   t_WidgetsCreateOrUpdateWidgetQuerySchema,
-  t_WidgetsDeleteWidgetHeaderSchema,
+  t_WidgetsCreateOrUpdateWidgetRequestHeaderSchema,
   t_WidgetsDeleteWidgetParamSchema,
   t_WidgetsDeleteWidgetQuerySchema,
-  t_WidgetsGetAnalyticsHeaderSchema,
+  t_WidgetsDeleteWidgetRequestHeaderSchema,
   t_WidgetsGetAnalyticsParamSchema,
   t_WidgetsGetAnalyticsQuerySchema,
+  t_WidgetsGetAnalyticsRequestHeaderSchema,
   t_WidgetsGetRepairStatusParamSchema,
   t_WidgetsGetRepairStatusQuerySchema,
-  t_WidgetsGetWidgetHeaderSchema,
   t_WidgetsGetWidgetOperationStatusWidgetsGetWidgetDeleteOperationStatusParamSchema,
   t_WidgetsGetWidgetOperationStatusWidgetsGetWidgetDeleteOperationStatusQuerySchema,
   t_WidgetsGetWidgetParamSchema,
   t_WidgetsGetWidgetQuerySchema,
-  t_WidgetsListWidgetsHeaderSchema,
+  t_WidgetsGetWidgetRequestHeaderSchema,
   t_WidgetsListWidgetsQuerySchema,
-  t_WidgetsScheduleRepairsBodySchema,
-  t_WidgetsScheduleRepairsHeaderSchema,
+  t_WidgetsListWidgetsRequestHeaderSchema,
   t_WidgetsScheduleRepairsParamSchema,
   t_WidgetsScheduleRepairsQuerySchema,
-  t_WidgetsUpdateAnalyticsBodySchema,
-  t_WidgetsUpdateAnalyticsHeaderSchema,
+  t_WidgetsScheduleRepairsRequestHeaderSchema,
   t_WidgetsUpdateAnalyticsParamSchema,
   t_WidgetsUpdateAnalyticsQuerySchema,
+  t_WidgetsUpdateAnalyticsRequestHeaderSchema,
 } from "./models"
 import {
   s_Azure_Core_Foundations_Error,
@@ -132,7 +129,7 @@ export type GetServiceStatus = (
     void,
     t_GetServiceStatusQuerySchema,
     void,
-    t_GetServiceStatusHeaderSchema
+    t_GetServiceStatusRequestHeaderSchema
   >,
   respond: GetServiceStatusResponder,
   ctx: RouterContext,
@@ -212,8 +209,8 @@ export type WidgetsCreateOrUpdateWidget = (
   params: Params<
     t_WidgetsCreateOrUpdateWidgetParamSchema,
     t_WidgetsCreateOrUpdateWidgetQuerySchema,
-    t_WidgetsCreateOrUpdateWidgetBodySchema,
-    t_WidgetsCreateOrUpdateWidgetHeaderSchema
+    t_WidgetCreateOrUpdate,
+    t_WidgetsCreateOrUpdateWidgetRequestHeaderSchema
   >,
   respond: WidgetsCreateOrUpdateWidgetResponder,
   ctx: RouterContext,
@@ -238,7 +235,7 @@ export type WidgetsGetWidget = (
     t_WidgetsGetWidgetParamSchema,
     t_WidgetsGetWidgetQuerySchema,
     void,
-    t_WidgetsGetWidgetHeaderSchema
+    t_WidgetsGetWidgetRequestHeaderSchema
   >,
   respond: WidgetsGetWidgetResponder,
   ctx: RouterContext,
@@ -266,7 +263,7 @@ export type WidgetsDeleteWidget = (
     t_WidgetsDeleteWidgetParamSchema,
     t_WidgetsDeleteWidgetQuerySchema,
     void,
-    t_WidgetsDeleteWidgetHeaderSchema
+    t_WidgetsDeleteWidgetRequestHeaderSchema
   >,
   respond: WidgetsDeleteWidgetResponder,
   ctx: RouterContext,
@@ -297,7 +294,7 @@ export type WidgetsListWidgets = (
     void,
     t_WidgetsListWidgetsQuerySchema,
     void,
-    t_WidgetsListWidgetsHeaderSchema
+    t_WidgetsListWidgetsRequestHeaderSchema
   >,
   respond: WidgetsListWidgetsResponder,
   ctx: RouterContext,
@@ -321,7 +318,7 @@ export type WidgetsGetAnalytics = (
     t_WidgetsGetAnalyticsParamSchema,
     t_WidgetsGetAnalyticsQuerySchema,
     void,
-    t_WidgetsGetAnalyticsHeaderSchema
+    t_WidgetsGetAnalyticsRequestHeaderSchema
   >,
   respond: WidgetsGetAnalyticsResponder,
   ctx: RouterContext,
@@ -345,8 +342,8 @@ export type WidgetsUpdateAnalytics = (
   params: Params<
     t_WidgetsUpdateAnalyticsParamSchema,
     t_WidgetsUpdateAnalyticsQuerySchema,
-    t_WidgetsUpdateAnalyticsBodySchema,
-    t_WidgetsUpdateAnalyticsHeaderSchema
+    t_WidgetAnalyticsCreateOrUpdate,
+    t_WidgetsUpdateAnalyticsRequestHeaderSchema
   >,
   respond: WidgetsUpdateAnalyticsResponder,
   ctx: RouterContext,
@@ -418,8 +415,8 @@ export type WidgetsScheduleRepairs = (
   params: Params<
     t_WidgetsScheduleRepairsParamSchema,
     t_WidgetsScheduleRepairsQuerySchema,
-    t_WidgetsScheduleRepairsBodySchema,
-    t_WidgetsScheduleRepairsHeaderSchema
+    t_WidgetRepairRequest,
+    t_WidgetsScheduleRepairsRequestHeaderSchema
   >,
   respond: WidgetsScheduleRepairsResponder,
   ctx: RouterContext,
@@ -493,8 +490,8 @@ export type WidgetPartsCreateWidgetPart = (
   params: Params<
     t_WidgetPartsCreateWidgetPartParamSchema,
     t_WidgetPartsCreateWidgetPartQuerySchema,
-    t_WidgetPartsCreateWidgetPartBodySchema,
-    t_WidgetPartsCreateWidgetPartHeaderSchema
+    t_WidgetPart,
+    t_WidgetPartsCreateWidgetPartRequestHeaderSchema
   >,
   respond: WidgetPartsCreateWidgetPartResponder,
   ctx: RouterContext,
@@ -518,7 +515,7 @@ export type WidgetPartsListWidgetParts = (
     t_WidgetPartsListWidgetPartsParamSchema,
     t_WidgetPartsListWidgetPartsQuerySchema,
     void,
-    t_WidgetPartsListWidgetPartsHeaderSchema
+    t_WidgetPartsListWidgetPartsRequestHeaderSchema
   >,
   respond: WidgetPartsListWidgetPartsResponder,
   ctx: RouterContext,
@@ -542,7 +539,7 @@ export type WidgetPartsGetWidgetPart = (
     t_WidgetPartsGetWidgetPartParamSchema,
     t_WidgetPartsGetWidgetPartQuerySchema,
     void,
-    t_WidgetPartsGetWidgetPartHeaderSchema
+    t_WidgetPartsGetWidgetPartRequestHeaderSchema
   >,
   respond: WidgetPartsGetWidgetPartResponder,
   ctx: RouterContext,
@@ -566,7 +563,7 @@ export type WidgetPartsDeleteWidgetPart = (
     t_WidgetPartsDeleteWidgetPartParamSchema,
     t_WidgetPartsDeleteWidgetPartQuerySchema,
     void,
-    t_WidgetPartsDeleteWidgetPartHeaderSchema
+    t_WidgetPartsDeleteWidgetPartRequestHeaderSchema
   >,
   respond: WidgetPartsDeleteWidgetPartResponder,
   ctx: RouterContext,
@@ -593,8 +590,8 @@ export type WidgetPartsReorderParts = (
   params: Params<
     t_WidgetPartsReorderPartsParamSchema,
     t_WidgetPartsReorderPartsQuerySchema,
-    t_WidgetPartsReorderPartsBodySchema,
-    t_WidgetPartsReorderPartsHeaderSchema
+    t_WidgetPartReorderRequest,
+    t_WidgetPartsReorderPartsRequestHeaderSchema
   >,
   respond: WidgetPartsReorderPartsResponder,
   ctx: RouterContext,
@@ -662,8 +659,8 @@ export type ManufacturersCreateOrReplaceManufacturer = (
   params: Params<
     t_ManufacturersCreateOrReplaceManufacturerParamSchema,
     t_ManufacturersCreateOrReplaceManufacturerQuerySchema,
-    t_ManufacturersCreateOrReplaceManufacturerBodySchema,
-    t_ManufacturersCreateOrReplaceManufacturerHeaderSchema
+    t_Manufacturer,
+    t_ManufacturersCreateOrReplaceManufacturerRequestHeaderSchema
   >,
   respond: ManufacturersCreateOrReplaceManufacturerResponder,
   ctx: RouterContext,
@@ -688,7 +685,7 @@ export type ManufacturersGetManufacturer = (
     t_ManufacturersGetManufacturerParamSchema,
     t_ManufacturersGetManufacturerQuerySchema,
     void,
-    t_ManufacturersGetManufacturerHeaderSchema
+    t_ManufacturersGetManufacturerRequestHeaderSchema
   >,
   respond: ManufacturersGetManufacturerResponder,
   ctx: RouterContext,
@@ -716,7 +713,7 @@ export type ManufacturersDeleteManufacturer = (
     t_ManufacturersDeleteManufacturerParamSchema,
     t_ManufacturersDeleteManufacturerQuerySchema,
     void,
-    t_ManufacturersDeleteManufacturerHeaderSchema
+    t_ManufacturersDeleteManufacturerRequestHeaderSchema
   >,
   respond: ManufacturersDeleteManufacturerResponder,
   ctx: RouterContext,
@@ -747,7 +744,7 @@ export type ManufacturersListManufacturers = (
     void,
     t_ManufacturersListManufacturersQuerySchema,
     void,
-    t_ManufacturersListManufacturersHeaderSchema
+    t_ManufacturersListManufacturersRequestHeaderSchema
   >,
   respond: ManufacturersListManufacturersResponder,
   ctx: RouterContext,
