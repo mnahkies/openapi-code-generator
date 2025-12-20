@@ -1,6 +1,6 @@
 import type {Input} from "../../core/input"
 import {logger} from "../../core/logger"
-import type { IRModel, IROperation } from "../../core/openapi-types-normalized"
+import type {IRModel, IROperation} from "../../core/openapi-types-normalized"
 import {extractPlaceholders} from "../../core/openapi-utils"
 import type {SchemaBuilder} from "../common/schema-builders/schema-builder"
 import type {TypeBuilder} from "../common/type-builder"
@@ -211,7 +211,6 @@ export class ServerOperationBuilder {
       type = this.types.schemaObjectToType($ref)
     }
 
-
     const reflectionParameters = parameters.map((it) => ({
       name: it.name,
       explode: it.explode,
@@ -288,7 +287,14 @@ export class ServerOperationBuilder {
 
         for (const key in schema.properties) {
           properties[key] = this.queryParameterRuntimeSchema(
-            this.input.schema(schema.properties[key] ?? {isIRModel: true, nullable: false, readOnly: false, type: "any"}),
+            this.input.schema(
+              schema.properties[key] ?? {
+                isIRModel: true,
+                nullable: false,
+                readOnly: false,
+                type: "any",
+              },
+            ),
           )
         }
 
