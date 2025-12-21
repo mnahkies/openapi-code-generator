@@ -3,6 +3,7 @@
   "include": [],
   "references": [
     { "path": "./packages/openapi-code-generator" },
+    { "path": "./packages/typescript-common-runtime" },
     { "path": "./packages/typescript-axios-runtime" },
     { "path": "./packages/typescript-express-runtime" },
     { "path": "./packages/typescript-fetch-runtime" },

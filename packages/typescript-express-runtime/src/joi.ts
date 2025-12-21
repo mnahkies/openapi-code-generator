@@ -1,3 +1,5 @@
+import {findMatchingSchema} from "@nahkies/typescript-common-runtime/validation"
+
 import type {Schema as JoiSchema} from "joi"
 import {ExpressRuntimeError, type RequestInputType} from "./errors"
 
@@ -45,12 +47,10 @@ export function responseValidationFactory(
   possibleResponses.sort((x, y) => (x[0] < y[0] ? -1 : 1))
 
   return (status: number, value: unknown) => {
-    for (const [match, schema] of possibleResponses) {
-      const isMatch =
-        (/^\d+$/.test(match) && String(status) === match) ||
-        (/^\d[xX]{2}$/.test(match) && String(status)[0] === match[0])
+    try {
+      const schema = findMatchingSchema(status, possibleResponses)
 
-      if (isMatch) {
+      if (schema) {
         const result = schema.validate(value)
 
         if (result.error) {
@@ -59,19 +59,20 @@ export function responseValidationFactory(
 
         return result.value
       }
-    }
 
-    // TODO: wrap thrown error.
-    if (defaultResponse) {
-      const result = defaultResponse.validate(value)
+      if (defaultResponse) {
+        const result = defaultResponse.validate(value)
 
-      if (result.error) {
-        throw result.error
+        if (result.error) {
+          throw result.error
+        }
+
+        return result.value
       }
 
-      return result.value
+      return value
+    } catch (err) {
+      throw ExpressRuntimeError.ResponseError(err)
     }
-
-    return value
   }
 }

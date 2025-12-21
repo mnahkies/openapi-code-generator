@@ -1,3 +1,11 @@
+import {
+  type Encoding,
+  requestBodyToUrlSearchParams,
+} from "@nahkies/typescript-common-runtime/request-bodies/url-search-params"
+import type {
+  HeaderParams,
+  QueryParams,
+} from "@nahkies/typescript-common-runtime/types"
 import axios, {
   AxiosHeaders,
   type AxiosInstance,
@@ -6,30 +14,12 @@ import axios, {
   type RawAxiosRequestHeaders,
 } from "axios"
 import qs from "qs"
-import {
-  type Encoding,
-  requestBodyToUrlSearchParams,
-} from "./request-bodies/url-search-params"
 
-export type QueryParams = {
-  [name: string]:
-    | string
-    | number
-    | number[]
-    | boolean
-    | string[]
-    | undefined
-    | null
-    | QueryParams
-    | QueryParams[]
-}
-
-export type HeaderParams =
-  | Record<string, string | number | boolean | undefined | null>
-  | [string, string | number | boolean | undefined | null][]
-  | Headers
-
-export type Server<T> = string & {__server__: T}
+export type {
+  HeaderParams,
+  QueryParams,
+  Server,
+} from "@nahkies/typescript-common-runtime/types"
 
 export interface AbstractAxiosConfig {
   axios?: AxiosInstance
