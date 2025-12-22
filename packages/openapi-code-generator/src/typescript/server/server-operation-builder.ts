@@ -208,7 +208,13 @@ export class ServerOperationBuilder {
     // When all the query parameters are primitives, we don't need to do custom parsing, as server frameworks
     // will already parse them naively.
     const isSimpleQuery = reflectionParameters.every(
-      (it) => it.schema.type !== "object" && it.schema.type !== "array",
+      (it) =>
+        it.schema.type !== "object" &&
+        (it.schema.type !== "array" ||
+          (it.schema.items.type !== "object" &&
+            it.schema.items.type !== "array" &&
+            it.style === "form" &&
+            it.explode)),
     )
 
     return {
