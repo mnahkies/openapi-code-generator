@@ -2,6 +2,7 @@ import util from "node:util"
 
 export type LoggerMeta = Record<string, unknown>
 
+// todo: respect NO_COLOR env var, tty, TERM, etc.
 enum Color {
   FgRed = "\x1b[31m",
   FgYellow = "\x1b[33m",
@@ -86,7 +87,7 @@ function defaultFormat(
   color = Color.Reset,
 ) {
   return `${color}[${level}]${Color.Reset} ${message} ${
-    meta ? util.inspect(meta) : ""
+    meta ? util.inspect(meta, false, 3, false) : ""
   }`
 }
 

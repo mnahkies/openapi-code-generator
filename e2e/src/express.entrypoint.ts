@@ -2,6 +2,7 @@ import {type NextFunction, type Request, type Response, Router} from "express"
 import {bootstrap} from "./generated/server/express/index.ts"
 import {createEscapeHatchesRouter} from "./routes/express/escape-hatches.ts"
 import {createMediaTypesRouter} from "./routes/express/media-types.ts"
+import {createQueryParametersRouter} from "./routes/express/query-parameters.ts"
 import {createRequestHeadersRouter} from "./routes/express/request-headers.ts"
 import {createValidationRouter} from "./routes/express/validation.ts"
 import {createErrorResponse} from "./shared.ts"
@@ -13,11 +14,13 @@ function createRouter() {
   const validationRouter = createValidationRouter()
   const escapeHatchesRouter = createEscapeHatchesRouter()
   const mediaTypesRouter = createMediaTypesRouter()
+  const queryParametersRouter = createQueryParametersRouter()
 
   router.use(requestHeadersRouter)
   router.use(validationRouter)
   router.use(escapeHatchesRouter)
   router.use(mediaTypesRouter)
+  router.use(queryParametersRouter)
 
   return router
 }

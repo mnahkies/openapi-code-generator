@@ -13,7 +13,6 @@ import axios, {
   type AxiosResponse,
   type RawAxiosRequestHeaders,
 } from "axios"
-import qs from "qs"
 
 export type {
   HeaderParams,
@@ -53,18 +52,18 @@ export abstract class AbstractAxiosClient {
     })
   }
 
-  protected _query(params: QueryParams): string {
-    const definedParams = Object.entries(params).filter(
-      ([, v]) => v !== undefined,
-    )
+  protected _query(
+    params: QueryParams,
+    encodings?: Record<string, Encoding>,
+  ): string {
+    const urlSearchParams = requestBodyToUrlSearchParams(params, encodings)
+    const asString = urlSearchParams.toString()
 
-    if (!definedParams.length) {
+    if (!asString.length) {
       return ""
     }
 
-    return `?${qs.stringify(Object.fromEntries(definedParams), {
-      indices: false,
-    })}`
+    return `?${asString}`
   }
 
   /**

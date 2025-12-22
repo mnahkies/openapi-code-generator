@@ -269,13 +269,21 @@ export class ContosoWidgetManager extends AbstractAxiosClient {
       },
       opts.headers,
     )
-    const query = this._query({
-      "api-version": p["apiVersion"],
-      top: p["top"],
-      skip: p["skip"],
-      maxpagesize: p["maxpagesize"],
-      select: p["select"],
-    })
+    const query = this._query(
+      {
+        "api-version": p["apiVersion"],
+        top: p["top"],
+        skip: p["skip"],
+        maxpagesize: p["maxpagesize"],
+        select: p["select"],
+      },
+      {
+        select: {
+          style: "form",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,

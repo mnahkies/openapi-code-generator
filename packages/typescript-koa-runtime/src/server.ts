@@ -11,6 +11,7 @@ import Koa, {type Middleware} from "koa"
 import KoaBody from "koa-body"
 import type {KoaBodyMiddlewareOptions} from "koa-body/lib/types"
 
+export {parseQueryParameters} from "@nahkies/typescript-common-runtime/query-parser"
 export type {
   Response,
   StatusCode,

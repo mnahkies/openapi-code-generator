@@ -10,6 +10,7 @@ import {
   type ExpressRuntimeResponder,
   ExpressRuntimeResponse,
   type Params,
+  parseQueryParameters,
   type ServerConfig,
   SkipResponse,
   type StatusCode,
@@ -12241,7 +12242,17 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getAccountQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -12460,7 +12471,49 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getAccountsQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "created",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {
+                    type: "object",
+                    properties: {
+                      gt: {type: "number"},
+                      gte: {type: "number"},
+                      lt: {type: "number"},
+                      lte: {type: "number"},
+                    },
+                  },
+                },
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -12672,7 +12725,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getAccountsAccountQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -12960,7 +13023,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getAccountsAccountBankAccountsIdQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -13126,7 +13199,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getAccountsAccountCapabilitiesQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -13211,7 +13294,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getAccountsAccountCapabilitiesCapabilityQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -13398,7 +13491,41 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getAccountsAccountExternalAccountsQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "object",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -13635,7 +13762,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getAccountsAccountExternalAccountsIdQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -13899,7 +14036,51 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getAccountsAccountPeopleQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "relationship",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {
+                    type: "object",
+                    properties: {
+                      authorizer: {type: "boolean"},
+                      director: {type: "boolean"},
+                      executive: {type: "boolean"},
+                      legal_guardian: {type: "boolean"},
+                      owner: {type: "boolean"},
+                      representative: {type: "boolean"},
+                    },
+                  },
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -14120,7 +14301,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getAccountsAccountPeoplePersonQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -14296,7 +14487,51 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getAccountsAccountPersonsQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "relationship",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {
+                    type: "object",
+                    properties: {
+                      authorizer: {type: "boolean"},
+                      director: {type: "boolean"},
+                      executive: {type: "boolean"},
+                      legal_guardian: {type: "boolean"},
+                      owner: {type: "boolean"},
+                      representative: {type: "boolean"},
+                    },
+                  },
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -14519,7 +14754,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getAccountsAccountPersonsPersonQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -14745,7 +14990,41 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getApplePayDomainsQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "domain_name",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -14955,7 +15234,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getApplePayDomainsDomainQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -15051,7 +15340,55 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getApplicationFeesQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "charge",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "created",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {
+                    type: "object",
+                    properties: {
+                      gt: {type: "number"},
+                      gte: {type: "number"},
+                      lt: {type: "number"},
+                      lte: {type: "number"},
+                    },
+                  },
+                },
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -15134,7 +15471,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getApplicationFeesFeeRefundsIdQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -15284,7 +15631,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getApplicationFeesIdQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -15447,7 +15804,35 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getApplicationFeesIdRefundsQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -15612,7 +15997,47 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getAppsSecretsQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "scope",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {
+                    type: "object",
+                    properties: {
+                      type: {type: "string"},
+                      user: {type: "string"},
+                    },
+                  },
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -15817,7 +16242,35 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getAppsSecretsFindQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "name",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "scope",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {
+                    type: "object",
+                    properties: {
+                      type: {type: "string"},
+                      user: {type: "string"},
+                    },
+                  },
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -15888,7 +16341,17 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getBalanceQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -15990,7 +16453,73 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getBalanceHistoryQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "created",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {
+                    type: "object",
+                    properties: {
+                      gt: {type: "number"},
+                      gte: {type: "number"},
+                      lt: {type: "number"},
+                      lte: {type: "number"},
+                    },
+                  },
+                },
+                {
+                  name: "currency",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "payout",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "source",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "type",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -16072,7 +16601,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getBalanceHistoryIdQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -16174,7 +16713,73 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getBalanceTransactionsQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "created",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {
+                    type: "object",
+                    properties: {
+                      gt: {type: "number"},
+                      gte: {type: "number"},
+                      lt: {type: "number"},
+                      lte: {type: "number"},
+                    },
+                  },
+                },
+                {
+                  name: "currency",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "payout",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "source",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "type",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -16256,7 +16861,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getBalanceTransactionsIdQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -16342,7 +16957,47 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getBillingAlertsQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "alert_type",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "meter",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -16486,7 +17141,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getBillingAlertsIdQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -16779,7 +17444,48 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getBillingCreditBalanceSummaryQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "customer",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "filter",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {
+                    type: "object",
+                    properties: {
+                      applicability_scope: {
+                        type: "object",
+                        properties: {
+                          price_type: {type: "string"},
+                          prices: {
+                            type: "array",
+                            items: {
+                              type: "object",
+                              properties: {id: {type: "string"}},
+                            },
+                          },
+                        },
+                      },
+                      credit_grant: {type: "string"},
+                      type: {type: "string"},
+                    },
+                  },
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -16873,7 +17579,47 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getBillingCreditBalanceTransactionsQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "credit_grant",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "customer",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -16963,7 +17709,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getBillingCreditBalanceTransactionsIdQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -17064,7 +17820,41 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getBillingCreditGrantsQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "customer",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -17206,7 +17996,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getBillingCreditGrantsIdQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -17628,7 +18428,41 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getBillingMetersQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "status",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -17772,7 +18606,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getBillingMetersIdQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -18010,7 +18854,59 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getBillingMetersIdEventSummariesQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "customer",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "end_time",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "start_time",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "value_grouping_window",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -18177,7 +19073,47 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getBillingPortalConfigurationsQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "active",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "boolean"},
+                },
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "is_default",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "boolean"},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -18331,7 +19267,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getBillingPortalConfigurationsConfigurationQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -18586,7 +19532,67 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getChargesQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "created",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {
+                    type: "object",
+                    properties: {
+                      gt: {type: "number"},
+                      gte: {type: "number"},
+                      lt: {type: "number"},
+                      lte: {type: "number"},
+                    },
+                  },
+                },
+                {
+                  name: "customer",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "payment_intent",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "transfer_group",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -18739,7 +19745,35 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getChargesSearchQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "page",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "query",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -18823,7 +19857,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getChargesChargeQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -19036,7 +20080,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getChargesChargeDisputeQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -19333,7 +20387,35 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getChargesChargeRefundsQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -19484,7 +20566,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getChargesChargeRefundsRefundQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -19658,7 +20750,88 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getCheckoutSessionsQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "created",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {
+                    type: "object",
+                    properties: {
+                      gt: {type: "number"},
+                      gte: {type: "number"},
+                      lt: {type: "number"},
+                      lte: {type: "number"},
+                    },
+                  },
+                },
+                {
+                  name: "customer",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "customer_details",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {
+                    type: "object",
+                    properties: {email: {type: "string"}},
+                  },
+                },
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "payment_intent",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "payment_link",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "status",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "subscription",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -19802,7 +20975,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getCheckoutSessionsSessionQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -20040,7 +21223,35 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getCheckoutSessionsSessionLineItemsQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -20134,7 +21345,35 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getClimateOrdersQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -20280,7 +21519,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getClimateOrdersOrderQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -20504,7 +21753,35 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getClimateProductsQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -20586,7 +21863,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getClimateProductsProductQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -20670,7 +21957,35 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getClimateSuppliersQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -20752,7 +22067,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getClimateSuppliersSupplierQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -20831,7 +22156,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getConfirmationTokensConfirmationTokenQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -20926,7 +22261,35 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getCountrySpecsQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -21010,7 +22373,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getCountrySpecsCountryQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -21105,7 +22478,49 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getCouponsQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "created",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {
+                    type: "object",
+                    properties: {
+                      gt: {type: "number"},
+                      gte: {type: "number"},
+                      lt: {type: "number"},
+                      lte: {type: "number"},
+                    },
+                  },
+                },
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -21315,7 +22730,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getCouponsCouponQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -21480,7 +22905,61 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getCreditNotesQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "created",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {
+                    type: "object",
+                    properties: {
+                      gt: {type: "number"},
+                      gte: {type: "number"},
+                      lt: {type: "number"},
+                      lte: {type: "number"},
+                    },
+                  },
+                },
+                {
+                  name: "customer",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "invoice",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -21680,7 +23159,133 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getCreditNotesPreviewQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "amount",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "credit_amount",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "effective_at",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "email_type",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "invoice",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "lines",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {
+                    type: "array",
+                    items: {
+                      type: "object",
+                      properties: {
+                        amount: {type: "number"},
+                        description: {type: "string"},
+                        invoice_line_item: {type: "string"},
+                        quantity: {type: "number"},
+                        tax_amounts: {
+                          type: "array",
+                          items: {
+                            type: "object",
+                            properties: {
+                              amount: {type: "number"},
+                              tax_rate: {type: "string"},
+                              taxable_amount: {type: "number"},
+                            },
+                          },
+                        },
+                        tax_rates: {type: "array", items: {type: "string"}},
+                        type: {type: "string"},
+                        unit_amount: {type: "number"},
+                        unit_amount_decimal: {type: "string"},
+                      },
+                    },
+                  },
+                },
+                {
+                  name: "memo",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "metadata",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "object", properties: {}},
+                },
+                {
+                  name: "out_of_band_amount",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "reason",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "refund_amount",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "refunds",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {
+                    type: "array",
+                    items: {
+                      type: "object",
+                      properties: {
+                        amount_refunded: {type: "number"},
+                        refund: {type: "string"},
+                      },
+                    },
+                  },
+                },
+                {
+                  name: "shipping_cost",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {
+                    type: "object",
+                    properties: {shipping_rate: {type: "string"}},
+                  },
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -21827,7 +23432,151 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getCreditNotesPreviewLinesQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "amount",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "credit_amount",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "effective_at",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "email_type",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "invoice",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "lines",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {
+                    type: "array",
+                    items: {
+                      type: "object",
+                      properties: {
+                        amount: {type: "number"},
+                        description: {type: "string"},
+                        invoice_line_item: {type: "string"},
+                        quantity: {type: "number"},
+                        tax_amounts: {
+                          type: "array",
+                          items: {
+                            type: "object",
+                            properties: {
+                              amount: {type: "number"},
+                              tax_rate: {type: "string"},
+                              taxable_amount: {type: "number"},
+                            },
+                          },
+                        },
+                        tax_rates: {type: "array", items: {type: "string"}},
+                        type: {type: "string"},
+                        unit_amount: {type: "number"},
+                        unit_amount_decimal: {type: "string"},
+                      },
+                    },
+                  },
+                },
+                {
+                  name: "memo",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "metadata",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "object", properties: {}},
+                },
+                {
+                  name: "out_of_band_amount",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "reason",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "refund_amount",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "refunds",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {
+                    type: "array",
+                    items: {
+                      type: "object",
+                      properties: {
+                        amount_refunded: {type: "number"},
+                        refund: {type: "string"},
+                      },
+                    },
+                  },
+                },
+                {
+                  name: "shipping_cost",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {
+                    type: "object",
+                    properties: {shipping_rate: {type: "string"}},
+                  },
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -21927,7 +23676,35 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getCreditNotesCreditNoteLinesQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -22011,7 +23788,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getCreditNotesIdQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -22306,7 +24093,61 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getCustomersQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "created",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {
+                    type: "object",
+                    properties: {
+                      gt: {type: "number"},
+                      gte: {type: "number"},
+                      lt: {type: "number"},
+                      lte: {type: "number"},
+                    },
+                  },
+                },
+                {
+                  name: "email",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "test_clock",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -22459,7 +24300,35 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getCustomersSearchQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "page",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "query",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -22609,7 +24478,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getCustomersCustomerQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -22774,7 +24653,35 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getCustomersCustomerBalanceTransactionsQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -22954,7 +24861,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getCustomersCustomerBalanceTransactionsTransactionQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -23146,7 +25063,35 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getCustomersCustomerBankAccountsQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -23394,7 +25339,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getCustomersCustomerBankAccountsIdQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -23660,7 +25615,35 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getCustomersCustomerCardsQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -23894,7 +25877,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getCustomersCustomerCardsIdQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -24058,7 +26051,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getCustomersCustomerCashBalanceQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -24223,7 +26226,35 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getCustomersCustomerCashBalanceTransactionsQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -24319,7 +26350,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getCustomersCustomerCashBalanceTransactionsTransactionQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -24475,7 +26516,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getCustomersCustomerDiscountQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -24702,7 +26753,47 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getCustomersCustomerPaymentMethodsQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "allow_redisplay",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "type",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -24790,7 +26881,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getCustomersCustomerPaymentMethodsPaymentMethodQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -24901,7 +27002,41 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getCustomersCustomerSourcesQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "object",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -25137,7 +27272,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getCustomersCustomerSourcesIdQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -25397,7 +27542,35 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getCustomersCustomerSubscriptionsQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -25641,7 +27814,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getCustomersCustomerSubscriptionsSubscriptionExposedIdQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -25890,7 +28073,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -25994,7 +28187,35 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getCustomersCustomerTaxIdsQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -26216,7 +28437,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getCustomersCustomerTaxIdsIdQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -26315,7 +28546,61 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getDisputesQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "charge",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "created",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {
+                    type: "object",
+                    properties: {
+                      gt: {type: "number"},
+                      gte: {type: "number"},
+                      lt: {type: "number"},
+                      lte: {type: "number"},
+                    },
+                  },
+                },
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "payment_intent",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -26399,7 +28684,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getDisputesDisputeQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -26623,7 +28918,41 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getEntitlementsActiveEntitlementsQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "customer",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -26713,7 +29042,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getEntitlementsActiveEntitlementsIdQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -26810,7 +29149,47 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getEntitlementsFeaturesQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "archived",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "boolean"},
+                },
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "lookup_key",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -26952,7 +29331,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getEntitlementsFeaturesIdQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -27257,7 +29646,67 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getEventsQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "created",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {
+                    type: "object",
+                    properties: {
+                      gt: {type: "number"},
+                      gte: {type: "number"},
+                      lt: {type: "number"},
+                      lte: {type: "number"},
+                    },
+                  },
+                },
+                {
+                  name: "delivery_success",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "boolean"},
+                },
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "type",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "types",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -27339,7 +29788,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getEventsIdQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -27423,7 +29882,35 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getExchangeRatesQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -27507,7 +29994,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getExchangeRatesRateIdQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -27672,7 +30169,61 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getFileLinksQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "created",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {
+                    type: "object",
+                    properties: {
+                      gt: {type: "number"},
+                      gte: {type: "number"},
+                      lt: {type: "number"},
+                      lte: {type: "number"},
+                    },
+                  },
+                },
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "expired",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "boolean"},
+                },
+                {
+                  name: "file",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -27816,7 +30367,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getFileLinksLinkQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -28000,7 +30561,55 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getFilesQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "created",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {
+                    type: "object",
+                    properties: {
+                      gt: {type: "number"},
+                      gte: {type: "number"},
+                      lt: {type: "number"},
+                      lte: {type: "number"},
+                    },
+                  },
+                },
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "purpose",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -28145,7 +30754,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getFilesFileQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -28240,7 +30859,53 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getFinancialConnectionsAccountsQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "account_holder",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {
+                    type: "object",
+                    properties: {
+                      account: {type: "string"},
+                      customer: {type: "string"},
+                    },
+                  },
+                },
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "session",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -28327,7 +30992,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getFinancialConnectionsAccountsAccountQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -28518,7 +31193,41 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getFinancialConnectionsAccountsAccountOwnersQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "ownership",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -28932,7 +31641,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getFinancialConnectionsSessionsSessionQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -29046,7 +31765,64 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getFinancialConnectionsTransactionsQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "account",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "transacted_at",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {
+                    type: "object",
+                    properties: {
+                      gt: {type: "number"},
+                      gte: {type: "number"},
+                      lt: {type: "number"},
+                      lte: {type: "number"},
+                    },
+                  },
+                },
+                {
+                  name: "transaction_refresh",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {
+                    type: "object",
+                    properties: {after: {type: "string"}},
+                  },
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -29136,7 +31912,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getFinancialConnectionsTransactionsTransactionQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -29241,7 +32027,49 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getForwardingRequestsQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "created",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {
+                    type: "object",
+                    properties: {
+                      gt: {type: "number"},
+                      gte: {type: "number"},
+                      lt: {type: "number"},
+                      lte: {type: "number"},
+                    },
+                  },
+                },
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -29385,7 +32213,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getForwardingRequestsIdQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -29487,7 +32325,67 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getIdentityVerificationReportsQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "client_reference_id",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "created",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {
+                    type: "object",
+                    properties: {
+                      gt: {type: "number"},
+                      gte: {type: "number"},
+                      lt: {type: "number"},
+                      lte: {type: "number"},
+                    },
+                  },
+                },
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "type",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "verification_session",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -29574,7 +32472,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getIdentityVerificationReportsReportQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -29691,7 +32599,67 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getIdentityVerificationSessionsQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "client_reference_id",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "created",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {
+                    type: "object",
+                    properties: {
+                      gt: {type: "number"},
+                      gte: {type: "number"},
+                      lt: {type: "number"},
+                      lte: {type: "number"},
+                    },
+                  },
+                },
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "related_customer",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "status",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -29845,7 +32813,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getIdentityVerificationSessionsSessionQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -30202,7 +33180,59 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getInvoicePaymentsQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "invoice",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "payment",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {
+                    type: "object",
+                    properties: {
+                      payment_intent: {type: "string"},
+                      type: {type: "string"},
+                    },
+                  },
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "status",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -30284,7 +33314,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getInvoicePaymentsInvoicePaymentQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -30372,7 +33412,41 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getInvoiceRenderingTemplatesQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "status",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -30457,7 +33531,23 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getInvoiceRenderingTemplatesTemplateQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "version",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -30724,7 +33814,67 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getInvoiceitemsQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "created",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {
+                    type: "object",
+                    properties: {
+                      gt: {type: "number"},
+                      gte: {type: "number"},
+                      lt: {type: "number"},
+                      lte: {type: "number"},
+                    },
+                  },
+                },
+                {
+                  name: "customer",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "invoice",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "pending",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "boolean"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -30934,7 +34084,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getInvoiceitemsInvoiceitemQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -31120,7 +34280,87 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getInvoicesQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "collection_method",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "created",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {
+                    type: "object",
+                    properties: {
+                      gt: {type: "number"},
+                      gte: {type: "number"},
+                      lt: {type: "number"},
+                      lte: {type: "number"},
+                    },
+                  },
+                },
+                {
+                  name: "customer",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "due_date",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {
+                    type: "object",
+                    properties: {
+                      gt: {type: "number"},
+                      gte: {type: "number"},
+                      lt: {type: "number"},
+                      lte: {type: "number"},
+                    },
+                  },
+                },
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "status",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "subscription",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -31333,7 +34573,35 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getInvoicesSearchQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "page",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "query",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -31485,7 +34753,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getInvoicesInvoiceQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -31858,7 +35136,35 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getInvoicesInvoiceLinesQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -32464,7 +35770,67 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getIssuingAuthorizationsQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "card",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "cardholder",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "created",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {
+                    type: "object",
+                    properties: {
+                      gt: {type: "number"},
+                      gte: {type: "number"},
+                      lt: {type: "number"},
+                      lte: {type: "number"},
+                    },
+                  },
+                },
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "status",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -32546,7 +35912,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getIssuingAuthorizationsAuthorizationQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -32896,7 +36272,73 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getIssuingCardholdersQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "created",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {
+                    type: "object",
+                    properties: {
+                      gt: {type: "number"},
+                      gte: {type: "number"},
+                      lt: {type: "number"},
+                      lte: {type: "number"},
+                    },
+                  },
+                },
+                {
+                  name: "email",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "phone_number",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "status",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "type",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -33040,7 +36482,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getIssuingCardholdersCardholderQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -33214,7 +36666,91 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getIssuingCardsQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "cardholder",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "created",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {
+                    type: "object",
+                    properties: {
+                      gt: {type: "number"},
+                      gte: {type: "number"},
+                      lt: {type: "number"},
+                      lte: {type: "number"},
+                    },
+                  },
+                },
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "exp_month",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "exp_year",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "last4",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "personalization_design",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "status",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "type",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -33358,7 +36894,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getIssuingCardsCardQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -33525,7 +37071,61 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getIssuingDisputesQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "created",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {
+                    type: "object",
+                    properties: {
+                      gt: {type: "number"},
+                      gte: {type: "number"},
+                      lt: {type: "number"},
+                      lte: {type: "number"},
+                    },
+                  },
+                },
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "status",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "transaction",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -33669,7 +37269,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getIssuingDisputesDisputeQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -33910,7 +37520,59 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getIssuingPersonalizationDesignsQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "lookup_keys",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "preferences",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {
+                    type: "object",
+                    properties: {
+                      is_default: {type: "boolean"},
+                      is_platform_default: {type: "boolean"},
+                    },
+                  },
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "status",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -34067,7 +37729,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getIssuingPersonalizationDesignsPersonalizationDesignQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -34253,7 +37925,47 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getIssuingPhysicalBundlesQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "status",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "type",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -34335,7 +38047,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getIssuingPhysicalBundlesPhysicalBundleQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -34423,7 +38145,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getIssuingSettlementsSettlementQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -34592,7 +38324,61 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getIssuingTokensQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "card",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "created",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {
+                    type: "object",
+                    properties: {
+                      gt: {type: "number"},
+                      gte: {type: "number"},
+                      lt: {type: "number"},
+                      lte: {type: "number"},
+                    },
+                  },
+                },
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "status",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -34676,7 +38462,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getIssuingTokensTokenQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -34847,7 +38643,67 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getIssuingTransactionsQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "card",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "cardholder",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "created",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {
+                    type: "object",
+                    properties: {
+                      gt: {type: "number"},
+                      gte: {type: "number"},
+                      lt: {type: "number"},
+                      lte: {type: "number"},
+                    },
+                  },
+                },
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "type",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -34929,7 +38785,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getIssuingTransactionsTransactionQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -35152,7 +39018,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getLinkAccountSessionsSessionQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -35250,7 +39126,53 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getLinkedAccountsQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "account_holder",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {
+                    type: "object",
+                    properties: {
+                      account: {type: "string"},
+                      customer: {type: "string"},
+                    },
+                  },
+                },
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "session",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -35335,7 +39257,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getLinkedAccountsAccountQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -35509,7 +39441,41 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getLinkedAccountsAccountOwnersQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "ownership",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -35668,7 +39634,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getMandatesMandateQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -35764,7 +39740,55 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getPaymentIntentsQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "created",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {
+                    type: "object",
+                    properties: {
+                      gt: {type: "number"},
+                      gte: {type: "number"},
+                      lt: {type: "number"},
+                      lte: {type: "number"},
+                    },
+                  },
+                },
+                {
+                  name: "customer",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -35918,7 +39942,35 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getPaymentIntentsSearchQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "page",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "query",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -36003,7 +40055,23 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getPaymentIntentsIntentQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "client_secret",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -36603,7 +40671,41 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getPaymentLinksQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "active",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "boolean"},
+                },
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -36747,7 +40849,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getPaymentLinksPaymentLinkQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -36912,7 +41024,35 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getPaymentLinksPaymentLinkLineItemsQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -37011,7 +41151,41 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getPaymentMethodConfigurationsQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "application",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -37165,7 +41339,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getPaymentMethodConfigurationsConfigurationQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -37352,7 +41536,47 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getPaymentMethodDomainsQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "domain_name",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "enabled",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "boolean"},
+                },
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -37494,7 +41718,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getPaymentMethodDomainsPaymentMethodDomainQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -37799,7 +42033,47 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getPaymentMethodsQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "customer",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "type",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -37943,7 +42217,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getPaymentMethodsPaymentMethodQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -38281,7 +42565,75 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getPayoutsQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "arrival_date",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {
+                    type: "object",
+                    properties: {
+                      gt: {type: "number"},
+                      gte: {type: "number"},
+                      lt: {type: "number"},
+                      lte: {type: "number"},
+                    },
+                  },
+                },
+                {
+                  name: "created",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {
+                    type: "object",
+                    properties: {
+                      gt: {type: "number"},
+                      gte: {type: "number"},
+                      lt: {type: "number"},
+                      lte: {type: "number"},
+                    },
+                  },
+                },
+                {
+                  name: "destination",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "status",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -38425,7 +42777,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getPayoutsPayoutQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -38726,7 +43088,61 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getPlansQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "active",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "boolean"},
+                },
+                {
+                  name: "created",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {
+                    type: "object",
+                    properties: {
+                      gt: {type: "number"},
+                      gte: {type: "number"},
+                      lt: {type: "number"},
+                      lte: {type: "number"},
+                    },
+                  },
+                },
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "product",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -38934,7 +43350,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getPlansPlanQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -39114,7 +43540,92 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getPricesQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "active",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "boolean"},
+                },
+                {
+                  name: "created",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {
+                    type: "object",
+                    properties: {
+                      gt: {type: "number"},
+                      gte: {type: "number"},
+                      lt: {type: "number"},
+                      lte: {type: "number"},
+                    },
+                  },
+                },
+                {
+                  name: "currency",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "lookup_keys",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "product",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "recurring",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {
+                    type: "object",
+                    properties: {
+                      interval: {type: "string"},
+                      meter: {type: "string"},
+                      usage_type: {type: "string"},
+                    },
+                  },
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "type",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -39267,7 +43778,35 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getPricesSearchQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "page",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "query",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -39351,7 +43890,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getPricesPriceQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -39523,7 +44072,73 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getProductsQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "active",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "boolean"},
+                },
+                {
+                  name: "created",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {
+                    type: "object",
+                    properties: {
+                      gt: {type: "number"},
+                      gte: {type: "number"},
+                      lt: {type: "number"},
+                      lte: {type: "number"},
+                    },
+                  },
+                },
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "ids",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "shippable",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "boolean"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "url",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -39676,7 +44291,35 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getProductsSearchQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "page",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "query",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -39824,7 +44467,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getProductsIdQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -39985,7 +44638,35 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getProductsProductFeaturesQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -40207,7 +44888,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getProductsProductFeaturesIdQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -40308,7 +44999,73 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getPromotionCodesQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "active",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "boolean"},
+                },
+                {
+                  name: "code",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "coupon",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "created",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {
+                    type: "object",
+                    properties: {
+                      gt: {type: "number"},
+                      gte: {type: "number"},
+                      lt: {type: "number"},
+                      lte: {type: "number"},
+                    },
+                  },
+                },
+                {
+                  name: "customer",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -40452,7 +45209,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getPromotionCodesPromotionCodeQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -40611,7 +45378,53 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getQuotesQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "customer",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "status",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "test_clock",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -40755,7 +45568,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getQuotesQuoteQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -41056,7 +45879,35 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getQuotesQuoteComputedUpfrontLineItemsQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -41233,7 +46084,35 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getQuotesQuoteLineItemsQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -41315,7 +46194,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getQuotesQuotePdfQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -41416,7 +46305,61 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getRadarEarlyFraudWarningsQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "charge",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "created",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {
+                    type: "object",
+                    properties: {
+                      gt: {type: "number"},
+                      gte: {type: "number"},
+                      lt: {type: "number"},
+                      lte: {type: "number"},
+                    },
+                  },
+                },
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "payment_intent",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -41500,7 +46443,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getRadarEarlyFraudWarningsEarlyFraudWarningQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -41611,7 +46564,61 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getRadarValueListItemsQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "created",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {
+                    type: "object",
+                    properties: {
+                      gt: {type: "number"},
+                      gte: {type: "number"},
+                      lt: {type: "number"},
+                      lte: {type: "number"},
+                    },
+                  },
+                },
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "value",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "value_list",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -41824,7 +46831,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getRadarValueListItemsItemQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -41923,7 +46940,61 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getRadarValueListsQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "alias",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "contains",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "created",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {
+                    type: "object",
+                    properties: {
+                      gt: {type: "number"},
+                      gte: {type: "number"},
+                      lt: {type: "number"},
+                      lte: {type: "number"},
+                    },
+                  },
+                },
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -42133,7 +47204,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getRadarValueListsValueListQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -42302,7 +47383,61 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getRefundsQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "charge",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "created",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {
+                    type: "object",
+                    properties: {
+                      gt: {type: "number"},
+                      gte: {type: "number"},
+                      lt: {type: "number"},
+                      lte: {type: "number"},
+                    },
+                  },
+                },
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "payment_intent",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -42446,7 +47581,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getRefundsRefundQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -42678,7 +47823,49 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getReportingReportRunsQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "created",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {
+                    type: "object",
+                    properties: {
+                      gt: {type: "number"},
+                      gte: {type: "number"},
+                      lt: {type: "number"},
+                      lte: {type: "number"},
+                    },
+                  },
+                },
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -42820,7 +48007,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getReportingReportRunsReportRunQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -42904,7 +48101,17 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getReportingReportTypesQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -42986,7 +48193,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getReportingReportTypesReportTypeQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -43086,7 +48303,49 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getReviewsQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "created",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {
+                    type: "object",
+                    properties: {
+                      gt: {type: "number"},
+                      gte: {type: "number"},
+                      lt: {type: "number"},
+                      lte: {type: "number"},
+                    },
+                  },
+                },
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -43168,7 +48427,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getReviewsReviewQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -43332,7 +48601,55 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getSetupAttemptsQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "created",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {
+                    type: "object",
+                    properties: {
+                      gt: {type: "number"},
+                      gte: {type: "number"},
+                      lt: {type: "number"},
+                      lte: {type: "number"},
+                    },
+                  },
+                },
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "setup_intent",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -43435,7 +48752,67 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getSetupIntentsQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "attach_to_self",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "boolean"},
+                },
+                {
+                  name: "created",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {
+                    type: "object",
+                    properties: {
+                      gt: {type: "number"},
+                      gte: {type: "number"},
+                      lt: {type: "number"},
+                      lte: {type: "number"},
+                    },
+                  },
+                },
+                {
+                  name: "customer",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "payment_method",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -43582,7 +48959,23 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getSetupIntentsIntentQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "client_secret",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -43968,7 +49361,61 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getShippingRatesQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "active",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "boolean"},
+                },
+                {
+                  name: "created",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {
+                    type: "object",
+                    properties: {
+                      gt: {type: "number"},
+                      gte: {type: "number"},
+                      lt: {type: "number"},
+                      lte: {type: "number"},
+                    },
+                  },
+                },
+                {
+                  name: "currency",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -44112,7 +49559,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getShippingRatesShippingRateTokenQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -44346,7 +49803,35 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getSigmaScheduledQueryRunsQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -44430,7 +49915,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getSigmaScheduledQueryRunsScheduledQueryRunQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -44581,7 +50076,23 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getSourcesSourceQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "client_secret",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -44729,7 +50240,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getSourcesSourceMandateNotificationsMandateNotificationQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -44835,7 +50356,35 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getSourcesSourceSourceTransactionsQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -44925,7 +50474,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getSourcesSourceSourceTransactionsSourceTransactionQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -45092,7 +50651,41 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getSubscriptionItemsQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "subscription",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -45306,7 +50899,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getSubscriptionItemsItemQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -45508,7 +51111,103 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getSubscriptionSchedulesQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "canceled_at",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {
+                    type: "object",
+                    properties: {
+                      gt: {type: "number"},
+                      gte: {type: "number"},
+                      lt: {type: "number"},
+                      lte: {type: "number"},
+                    },
+                  },
+                },
+                {
+                  name: "completed_at",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {
+                    type: "object",
+                    properties: {
+                      gt: {type: "number"},
+                      gte: {type: "number"},
+                      lt: {type: "number"},
+                      lte: {type: "number"},
+                    },
+                  },
+                },
+                {
+                  name: "created",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {
+                    type: "object",
+                    properties: {
+                      gt: {type: "number"},
+                      gte: {type: "number"},
+                      lt: {type: "number"},
+                      lte: {type: "number"},
+                    },
+                  },
+                },
+                {
+                  name: "customer",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "released_at",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {
+                    type: "object",
+                    properties: {
+                      gt: {type: "number"},
+                      gte: {type: "number"},
+                      lt: {type: "number"},
+                      lte: {type: "number"},
+                    },
+                  },
+                },
+                {
+                  name: "scheduled",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "boolean"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -45650,7 +51349,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getSubscriptionSchedulesScheduleQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -46021,7 +51730,116 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getSubscriptionsQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "automatic_tax",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {
+                    type: "object",
+                    properties: {enabled: {type: "boolean"}},
+                  },
+                },
+                {
+                  name: "collection_method",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "created",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {
+                    type: "object",
+                    properties: {
+                      gt: {type: "number"},
+                      gte: {type: "number"},
+                      lt: {type: "number"},
+                      lte: {type: "number"},
+                    },
+                  },
+                },
+                {
+                  name: "current_period_end",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {
+                    type: "object",
+                    properties: {
+                      gt: {type: "number"},
+                      gte: {type: "number"},
+                      lt: {type: "number"},
+                      lte: {type: "number"},
+                    },
+                  },
+                },
+                {
+                  name: "current_period_start",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {
+                    type: "object",
+                    properties: {
+                      gt: {type: "number"},
+                      gte: {type: "number"},
+                      lt: {type: "number"},
+                      lte: {type: "number"},
+                    },
+                  },
+                },
+                {
+                  name: "customer",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "price",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "status",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "test_clock",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -46174,7 +51992,35 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getSubscriptionsSearchQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "page",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "query",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -46337,7 +52183,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getSubscriptionsSubscriptionExposedIdQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -46793,7 +52649,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getTaxCalculationsCalculationQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -46891,7 +52757,35 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getTaxCalculationsCalculationLineItemsQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -46992,7 +52886,41 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getTaxRegistrationsQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "status",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -47136,7 +53064,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getTaxRegistrationsIdQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -47275,7 +53213,17 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getTaxSettingsQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -47550,7 +53498,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getTaxTransactionsTransactionQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -47648,7 +53606,35 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getTaxTransactionsTransactionLineItemsQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -47748,7 +53734,35 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getTaxCodesQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -47830,7 +53844,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getTaxCodesIdQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -47921,7 +53945,48 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getTaxIdsQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "owner",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {
+                    type: "object",
+                    properties: {
+                      account: {type: "string"},
+                      customer: {type: "string"},
+                      type: {type: "string"},
+                    },
+                  },
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -48129,7 +54194,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getTaxIdsIdQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -48226,7 +54301,61 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getTaxRatesQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "active",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "boolean"},
+                },
+                {
+                  name: "created",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {
+                    type: "object",
+                    properties: {
+                      gt: {type: "number"},
+                      gte: {type: "number"},
+                      lt: {type: "number"},
+                      lte: {type: "number"},
+                    },
+                  },
+                },
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "inclusive",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "boolean"},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -48372,7 +54501,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getTaxRatesTaxRateQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -48531,7 +54670,41 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getTerminalConfigurationsQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "is_account_default",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "boolean"},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -48766,7 +54939,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getTerminalConfigurationsConfigurationQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -49020,7 +55203,35 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getTerminalLocationsQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -49233,7 +55444,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getTerminalLocationsLocationQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -49412,7 +55633,59 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getTerminalReadersQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "device_type",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "location",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "serial_number",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "status",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -49630,7 +55903,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getTerminalReadersReaderQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -52432,7 +58715,35 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getTestHelpersTestClocksQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -52654,7 +58965,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getTestHelpersTestClocksTestClockQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -53884,7 +60205,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getTokensTokenQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -53991,7 +60322,69 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getTopupsQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "amount",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {
+                    type: "object",
+                    properties: {
+                      gt: {type: "number"},
+                      gte: {type: "number"},
+                      lt: {type: "number"},
+                      lte: {type: "number"},
+                    },
+                  },
+                },
+                {
+                  name: "created",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {
+                    type: "object",
+                    properties: {
+                      gt: {type: "number"},
+                      gte: {type: "number"},
+                      lt: {type: "number"},
+                      lte: {type: "number"},
+                    },
+                  },
+                },
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "status",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -54135,7 +60528,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getTopupsTopupQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -54370,7 +60773,61 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getTransfersQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "created",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {
+                    type: "object",
+                    properties: {
+                      gt: {type: "number"},
+                      gte: {type: "number"},
+                      lt: {type: "number"},
+                      lte: {type: "number"},
+                    },
+                  },
+                },
+                {
+                  name: "destination",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "transfer_group",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -54530,7 +60987,35 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getTransfersIdReversalsQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -54682,7 +61167,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getTransfersTransferQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -54830,7 +61325,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getTransfersTransferReversalsIdQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -54991,7 +61496,53 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getTreasuryCreditReversalsQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "financial_account",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "received_credit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "status",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -55137,7 +61688,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getTreasuryCreditReversalsCreditReversalQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -55237,7 +61798,59 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getTreasuryDebitReversalsQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "financial_account",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "received_debit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "resolution",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "status",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -55381,7 +61994,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getTreasuryDebitReversalsDebitReversalQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -55492,7 +62115,55 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getTreasuryFinancialAccountsQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "created",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {
+                    type: "object",
+                    properties: {
+                      gt: {type: "number"},
+                      gte: {type: "number"},
+                      lt: {type: "number"},
+                      lte: {type: "number"},
+                    },
+                  },
+                },
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "status",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -55638,7 +62309,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getTreasuryFinancialAccountsFinancialAccountQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -55886,7 +62567,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getTreasuryFinancialAccountsFinancialAccountFeaturesQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -56071,7 +62762,47 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getTreasuryInboundTransfersQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "financial_account",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "status",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -56217,7 +62948,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getTreasuryInboundTransfersIdQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -56402,7 +63143,67 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getTreasuryOutboundPaymentsQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "created",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {
+                    type: "object",
+                    properties: {
+                      gt: {type: "number"},
+                      gte: {type: "number"},
+                      lt: {type: "number"},
+                      lte: {type: "number"},
+                    },
+                  },
+                },
+                {
+                  name: "customer",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "financial_account",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "status",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -56548,7 +63349,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getTreasuryOutboundPaymentsIdQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -56718,7 +63529,47 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getTreasuryOutboundTransfersQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "financial_account",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "status",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -56864,7 +63715,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getTreasuryOutboundTransfersOutboundTransferQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -57051,7 +63912,56 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getTreasuryReceivedCreditsQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "financial_account",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "linked_flows",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {
+                    type: "object",
+                    properties: {source_flow_type: {type: "string"}},
+                  },
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "status",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -57135,7 +64045,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getTreasuryReceivedCreditsIdQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -57224,7 +64144,47 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getTreasuryReceivedDebitsQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "financial_account",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "status",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -57306,7 +64266,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getTreasuryReceivedDebitsIdQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -57421,7 +64391,81 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getTreasuryTransactionEntriesQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "created",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {
+                    type: "object",
+                    properties: {
+                      gt: {type: "number"},
+                      gte: {type: "number"},
+                      lt: {type: "number"},
+                      lte: {type: "number"},
+                    },
+                  },
+                },
+                {
+                  name: "effective_at",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {
+                    type: "object",
+                    properties: {
+                      gt: {type: "number"},
+                      gte: {type: "number"},
+                      lt: {type: "number"},
+                      lte: {type: "number"},
+                    },
+                  },
+                },
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "financial_account",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "order_by",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "transaction",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -57505,7 +64549,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getTreasuryTransactionEntriesIdQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -57621,7 +64675,86 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getTreasuryTransactionsQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "created",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {
+                    type: "object",
+                    properties: {
+                      gt: {type: "number"},
+                      gte: {type: "number"},
+                      lt: {type: "number"},
+                      lte: {type: "number"},
+                    },
+                  },
+                },
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "financial_account",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "order_by",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "status",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "status_transitions",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {
+                    type: "object",
+                    properties: {
+                      posted_at: {
+                        type: "object",
+                        properties: {
+                          gt: {type: "number"},
+                          gte: {type: "number"},
+                          lt: {type: "number"},
+                          lte: {type: "number"},
+                        },
+                      },
+                    },
+                  },
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -57703,7 +64836,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getTreasuryTransactionsIdQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -57787,7 +64930,35 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getWebhookEndpointsQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -58006,7 +65177,17 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             getWebhookEndpointsWebhookEndpointQuerySchema,
-            req.query,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
             RequestInputType.QueryString,
           ),
           body: undefined,

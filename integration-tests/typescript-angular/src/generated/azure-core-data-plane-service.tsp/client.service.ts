@@ -88,6 +88,15 @@ export type QueryParams = {
     | QueryParams[]
 }
 
+export type Style = "deepObject" | "form" | "pipeDelimited" | "spaceDelimited"
+
+export type Encoding = {
+  // allowReserved?: boolean;
+  // contentType?: string;
+  explode?: boolean
+  style?: Style
+}
+
 export type Server<T> = string & {__server__: T}
 
 @Injectable({
@@ -109,7 +118,11 @@ export class ContosoWidgetManagerService {
     )
   }
 
-  private _queryParams(queryParams: QueryParams): HttpParams {
+  private _query(
+    queryParams: QueryParams,
+    // todo: use encodings
+    _encodings?: Record<string, Encoding>,
+  ): HttpParams {
     return Object.entries(queryParams).reduce((result, [name, value]) => {
       if (
         typeof value === "string" ||
@@ -142,7 +155,7 @@ export class ContosoWidgetManagerService {
       Accept: "application/json",
       "x-ms-client-request-id": p["xMsClientRequestId"],
     })
-    const params = this._queryParams({"api-version": p["apiVersion"]})
+    const params = this._query({"api-version": p["apiVersion"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -180,7 +193,7 @@ export class ContosoWidgetManagerService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({"api-version": p["apiVersion"]})
+    const params = this._query({"api-version": p["apiVersion"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -225,7 +238,7 @@ export class ContosoWidgetManagerService {
       "If-Modified-Since": p["ifModifiedSince"],
       "x-ms-client-request-id": p["xMsClientRequestId"],
     })
-    const params = this._queryParams({"api-version": p["apiVersion"]})
+    const params = this._query({"api-version": p["apiVersion"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -264,7 +277,7 @@ export class ContosoWidgetManagerService {
       "If-Modified-Since": p["ifModifiedSince"],
       "x-ms-client-request-id": p["xMsClientRequestId"],
     })
-    const params = this._queryParams({"api-version": p["apiVersion"]})
+    const params = this._query({"api-version": p["apiVersion"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -309,7 +322,7 @@ export class ContosoWidgetManagerService {
       "If-Modified-Since": p["ifModifiedSince"],
       "x-ms-client-request-id": p["xMsClientRequestId"],
     })
-    const params = this._queryParams({"api-version": p["apiVersion"]})
+    const params = this._query({"api-version": p["apiVersion"]})
 
     return this.httpClient.request<any>(
       "DELETE",
@@ -341,13 +354,21 @@ export class ContosoWidgetManagerService {
       Accept: "application/json",
       "x-ms-client-request-id": p["xMsClientRequestId"],
     })
-    const params = this._queryParams({
-      "api-version": p["apiVersion"],
-      top: p["top"],
-      skip: p["skip"],
-      maxpagesize: p["maxpagesize"],
-      select: p["select"],
-    })
+    const params = this._query(
+      {
+        "api-version": p["apiVersion"],
+        top: p["top"],
+        skip: p["skip"],
+        maxpagesize: p["maxpagesize"],
+        select: p["select"],
+      },
+      {
+        select: {
+          style: "form",
+          explode: true,
+        },
+      },
+    )
 
     return this.httpClient.request<any>(
       "GET",
@@ -384,7 +405,7 @@ export class ContosoWidgetManagerService {
       "If-Modified-Since": p["ifModifiedSince"],
       "x-ms-client-request-id": p["xMsClientRequestId"],
     })
-    const params = this._queryParams({"api-version": p["apiVersion"]})
+    const params = this._query({"api-version": p["apiVersion"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -428,7 +449,7 @@ export class ContosoWidgetManagerService {
       "If-Modified-Since": p["ifModifiedSince"],
       "x-ms-client-request-id": p["xMsClientRequestId"],
     })
-    const params = this._queryParams({"api-version": p["apiVersion"]})
+    const params = this._query({"api-version": p["apiVersion"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -461,7 +482,7 @@ export class ContosoWidgetManagerService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({"api-version": p["apiVersion"]})
+    const params = this._query({"api-version": p["apiVersion"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -508,7 +529,7 @@ export class ContosoWidgetManagerService {
       "Repeatability-First-Sent": p["repeatabilityFirstSent"],
       "x-ms-client-request-id": p["xMsClientRequestId"],
     })
-    const params = this._queryParams({"api-version": p["apiVersion"]})
+    const params = this._query({"api-version": p["apiVersion"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -542,7 +563,7 @@ export class ContosoWidgetManagerService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({"api-version": p["apiVersion"]})
+    const params = this._query({"api-version": p["apiVersion"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -586,7 +607,7 @@ export class ContosoWidgetManagerService {
       "If-Modified-Since": p["ifModifiedSince"],
       "x-ms-client-request-id": p["xMsClientRequestId"],
     })
-    const params = this._queryParams({"api-version": p["apiVersion"]})
+    const params = this._query({"api-version": p["apiVersion"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -617,7 +638,7 @@ export class ContosoWidgetManagerService {
       Accept: "application/json",
       "x-ms-client-request-id": p["xMsClientRequestId"],
     })
-    const params = this._queryParams({"api-version": p["apiVersion"]})
+    const params = this._query({"api-version": p["apiVersion"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -655,7 +676,7 @@ export class ContosoWidgetManagerService {
       "If-Modified-Since": p["ifModifiedSince"],
       "x-ms-client-request-id": p["xMsClientRequestId"],
     })
-    const params = this._queryParams({"api-version": p["apiVersion"]})
+    const params = this._query({"api-version": p["apiVersion"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -698,7 +719,7 @@ export class ContosoWidgetManagerService {
       "If-Modified-Since": p["ifModifiedSince"],
       "x-ms-client-request-id": p["xMsClientRequestId"],
     })
-    const params = this._queryParams({"api-version": p["apiVersion"]})
+    const params = this._query({"api-version": p["apiVersion"]})
 
     return this.httpClient.request<any>(
       "DELETE",
@@ -738,7 +759,7 @@ export class ContosoWidgetManagerService {
       "Repeatability-First-Sent": p["repeatabilityFirstSent"],
       "x-ms-client-request-id": p["xMsClientRequestId"],
     })
-    const params = this._queryParams({"api-version": p["apiVersion"]})
+    const params = this._query({"api-version": p["apiVersion"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -771,7 +792,7 @@ export class ContosoWidgetManagerService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({"api-version": p["apiVersion"]})
+    const params = this._query({"api-version": p["apiVersion"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -816,7 +837,7 @@ export class ContosoWidgetManagerService {
       "If-Modified-Since": p["ifModifiedSince"],
       "x-ms-client-request-id": p["xMsClientRequestId"],
     })
-    const params = this._queryParams({"api-version": p["apiVersion"]})
+    const params = this._query({"api-version": p["apiVersion"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -855,7 +876,7 @@ export class ContosoWidgetManagerService {
       "If-Modified-Since": p["ifModifiedSince"],
       "x-ms-client-request-id": p["xMsClientRequestId"],
     })
-    const params = this._queryParams({"api-version": p["apiVersion"]})
+    const params = this._query({"api-version": p["apiVersion"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -900,7 +921,7 @@ export class ContosoWidgetManagerService {
       "If-Modified-Since": p["ifModifiedSince"],
       "x-ms-client-request-id": p["xMsClientRequestId"],
     })
-    const params = this._queryParams({"api-version": p["apiVersion"]})
+    const params = this._query({"api-version": p["apiVersion"]})
 
     return this.httpClient.request<any>(
       "DELETE",
@@ -928,7 +949,7 @@ export class ContosoWidgetManagerService {
       Accept: "application/json",
       "x-ms-client-request-id": p["xMsClientRequestId"],
     })
-    const params = this._queryParams({"api-version": p["apiVersion"]})
+    const params = this._query({"api-version": p["apiVersion"]})
 
     return this.httpClient.request<any>(
       "GET",

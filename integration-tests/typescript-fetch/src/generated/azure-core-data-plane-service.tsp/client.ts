@@ -269,13 +269,21 @@ export class ContosoWidgetManager extends AbstractFetchClient {
       },
       opts.headers,
     )
-    const query = this._query({
-      "api-version": p["apiVersion"],
-      top: p["top"],
-      skip: p["skip"],
-      maxpagesize: p["maxpagesize"],
-      select: p["select"],
-    })
+    const query = this._query(
+      {
+        "api-version": p["apiVersion"],
+        top: p["top"],
+        skip: p["skip"],
+        maxpagesize: p["maxpagesize"],
+        select: p["select"],
+      },
+      {
+        select: {
+          style: "form",
+          explode: true,
+        },
+      },
+    )
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }

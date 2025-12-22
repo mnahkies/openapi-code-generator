@@ -165,11 +165,19 @@ export class TodoListsExampleApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_TodoList[]>> {
     const url = `/list`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      created: p["created"],
-      statuses: p["statuses"],
-      tags: p["tags"],
-    })
+    const query = this._query(
+      {created: p["created"], statuses: p["statuses"], tags: p["tags"]},
+      {
+        statuses: {
+          style: "form",
+          explode: true,
+        },
+        tags: {
+          style: "form",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,

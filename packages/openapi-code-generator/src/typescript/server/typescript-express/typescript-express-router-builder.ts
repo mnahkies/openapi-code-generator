@@ -40,7 +40,7 @@ export class ExpressRouterBuilder extends AbstractRouterBuilder {
 
     this.imports
       .from("@nahkies/typescript-express-runtime/server")
-      .add("ExpressRuntimeResponse", "SkipResponse")
+      .add("ExpressRuntimeResponse", "SkipResponse", "parseQueryParameters")
       .addType(
         "ExpressRuntimeResponder",
         "Params",
@@ -138,7 +138,7 @@ router.${builder.method.toLowerCase()}(\`${builder.route}\`, async (req: Request
   try {
    const input = {
     params: ${params.path.schema ? `parseRequestInput(${params.path.name}, req.params, RequestInputType.RouteParam)` : "undefined"},
-    query: ${params.query.schema ? `parseRequestInput(${params.query.name}, req.query, RequestInputType.QueryString)` : "undefined"},
+    query: ${params.query.schema ? `parseRequestInput(${params.query.name}, ${params.query.isSimpleQuery ? `req.query` : `parseQueryParameters(new URL(\`http://localhost\${req.originalUrl}\`).search, ${JSON.stringify(params.query.parameters)})`}, RequestInputType.QueryString)` : "undefined"},
     ${params.body.schema && !params.body.isSupported ? `// todo: request bodies with content-type '${params.body.contentType}' not yet supported\n` : ""}body: ${params.body.schema ? `parseRequestInput(${params.body.schema}, req.body, RequestInputType.RequestBody)${!params.body.isSupported ? " as never" : ""}` : "undefined"},
     headers: ${params.header.schema ? `parseRequestInput(${params.header.name}, req.headers, RequestInputType.RequestHeader)` : "undefined"}
    }

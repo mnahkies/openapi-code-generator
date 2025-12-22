@@ -190,6 +190,15 @@ export type QueryParams = {
     | QueryParams[]
 }
 
+export type Style = "deepObject" | "form" | "pipeDelimited" | "spaceDelimited"
+
+export type Encoding = {
+  // allowReserved?: boolean;
+  // contentType?: string;
+  explode?: boolean
+  style?: Style
+}
+
 export type Server<T> = string & {__server__: T}
 
 @Injectable({
@@ -211,7 +220,11 @@ export class TodoListsExampleApiService {
     )
   }
 
-  private _queryParams(queryParams: QueryParams): HttpParams {
+  private _query(
+    queryParams: QueryParams,
+    // todo: use encodings
+    _encodings?: Record<string, Encoding>,
+  ): HttpParams {
     return Object.entries(queryParams).reduce((result, [name, value]) => {
       if (
         typeof value === "string" ||
@@ -234,11 +247,19 @@ export class TodoListsExampleApiService {
     (HttpResponse<t_TodoList[]> & {status: 200}) | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({
-      created: p["created"],
-      statuses: p["statuses"],
-      tags: p["tags"],
-    })
+    const params = this._query(
+      {created: p["created"], statuses: p["statuses"], tags: p["tags"]},
+      {
+        statuses: {
+          style: "form",
+          explode: true,
+        },
+        tags: {
+          style: "form",
+          explode: true,
+        },
+      },
+    )
 
     return this.httpClient.request<any>("GET", this.config.basePath + `/list`, {
       params,

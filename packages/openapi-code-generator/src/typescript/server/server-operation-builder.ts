@@ -1,6 +1,10 @@
+import type {
+  QueryParameter,
+  SchemaStructure,
+} from "@nahkies/typescript-common-runtime/query-parser"
 import type {Input} from "../../core/input"
 import {logger} from "../../core/logger"
-import type {IROperation} from "../../core/openapi-types-normalized"
+import type {IRModel, IROperation} from "../../core/openapi-types-normalized"
 import {extractPlaceholders} from "../../core/openapi-utils"
 import type {SchemaBuilder} from "../common/schema-builders/schema-builder"
 import type {TypeBuilder} from "../common/type-builder"
@@ -44,6 +48,8 @@ export type Parameters = {
     name: string
     schema: string | undefined
     type: string
+    parameters: QueryParameter[]
+    isSimpleQuery: boolean
   }
   header: {
     name: string
@@ -180,6 +186,7 @@ export class ServerOperationBuilder {
 
   private queryParameters(): Parameters["query"] {
     const $ref = this.operation.parameters.query.$ref
+    const parameters = this.operation.parameters.query.list
 
     const schema = $ref
       ? this.schemaBuilder.fromModel(this.input.schema($ref), true, true)
@@ -191,7 +198,110 @@ export class ServerOperationBuilder {
       type = this.types.schemaObjectToType($ref)
     }
 
-    return {name: this.operation.parameters.query.name, schema: schema, type}
+    const reflectionParameters = parameters.map((it) => ({
+      name: it.name,
+      explode: it.explode,
+      style: it.style,
+      schema: this.queryParameterRuntimeSchema(this.input.schema(it.schema)),
+    }))
+
+    // When all the query parameters are primitives, we don't need to do custom parsing, as server frameworks
+    // will already parse them naively.
+    const isSimpleQuery = reflectionParameters.every(
+      (it) =>
+        it.schema.type !== "object" &&
+        (it.schema.type !== "array" ||
+          (it.schema.items.type !== "object" &&
+            it.schema.items.type !== "array" &&
+            it.style === "form" &&
+            it.explode)),
+    )
+
+    return {
+      name: this.operation.parameters.query.name,
+      schema: schema,
+      type,
+      parameters: reflectionParameters,
+      isSimpleQuery,
+    }
+  }
+
+  private queryParameterRuntimeSchema(schema: IRModel): SchemaStructure {
+    const type = schema.type
+
+    switch (type) {
+      case "string":
+      case "number":
+      case "boolean":
+      case "null": {
+        return {type}
+      }
+      case "array": {
+        return {
+          type: "array",
+          items: this.queryParameterRuntimeSchema(
+            this.input.schema(schema.items),
+          ),
+        }
+      }
+
+      case "object": {
+        const firstAnyOf = schema.anyOf[0]
+
+        if (firstAnyOf) {
+          logger.error(
+            `server templates only support parsing the **first** 'anyOf' in query parameters.`,
+            {anyOf: schema.anyOf},
+          )
+          return this.queryParameterRuntimeSchema(this.input.schema(firstAnyOf))
+        }
+
+        const firstOneOf = schema.oneOf[0]
+
+        if (firstOneOf) {
+          logger.error(
+            `server templates only support parsing the **first** 'oneOf' in query parameters.`,
+            {oneOf: schema.oneOf},
+          )
+          return this.queryParameterRuntimeSchema(this.input.schema(firstOneOf))
+        }
+
+        if (schema.allOf.length) {
+          logger.warn(
+            `server templates do not support allOf in query parameters. Consider keeping it simple.`,
+            {schema},
+          )
+          throw new Error(
+            "server templates do not support allOf in query parameters.",
+          )
+        }
+
+        const properties: Record<string, SchemaStructure> = {}
+
+        for (const key in schema.properties) {
+          properties[key] = this.queryParameterRuntimeSchema(
+            this.input.schema(
+              schema.properties[key] ?? {
+                isIRModel: true,
+                nullable: false,
+                readOnly: false,
+                type: "any",
+              },
+            ),
+          )
+        }
+
+        return {
+          type: "object",
+          properties,
+        }
+      }
+      default: {
+        throw new Error(
+          `unsupported query parameter schema type '${type satisfies "any" | "never"}'`,
+        )
+      }
+    }
   }
 
   private headerParameters(): Parameters["header"] {

@@ -73,6 +73,15 @@ export type QueryParams = {
     | QueryParams[]
 }
 
+export type Style = "deepObject" | "form" | "pipeDelimited" | "spaceDelimited"
+
+export type Encoding = {
+  // allowReserved?: boolean;
+  // contentType?: string;
+  explode?: boolean
+  style?: Style
+}
+
 export type Server<T> = string & {__server__: T}
 
 @Injectable({
@@ -94,7 +103,11 @@ export class SwaggerPetstoreService {
     )
   }
 
-  private _queryParams(queryParams: QueryParams): HttpParams {
+  private _query(
+    queryParams: QueryParams,
+    // todo: use encodings
+    _encodings?: Record<string, Encoding>,
+  ): HttpParams {
     return Object.entries(queryParams).reduce((result, [name, value]) => {
       if (
         typeof value === "string" ||
@@ -119,7 +132,15 @@ export class SwaggerPetstoreService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._queryParams({tags: p["tags"], limit: p["limit"]})
+    const params = this._query(
+      {tags: p["tags"], limit: p["limit"]},
+      {
+        tags: {
+          style: "form",
+          explode: true,
+        },
+      },
+    )
 
     return this.httpClient.request<any>("GET", this.config.basePath + `/pets`, {
       params,

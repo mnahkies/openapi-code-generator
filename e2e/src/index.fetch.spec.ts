@@ -428,5 +428,55 @@ describe.each(startServerFunctions)(
         await expect(res.json()).resolves.toStrictEqual(productOrder)
       })
     })
+
+    describe("query parameters", () => {
+      it("GET /params/simple-query", async () => {
+        const res = await client.getParamsSimpleQuery({
+          orderBy: "asc",
+          limit: 10,
+        })
+
+        expect(res.status).toBe(200)
+        await expect(res.json()).resolves.toEqual({
+          orderBy: "asc",
+          limit: 10,
+        })
+      })
+
+      it("GET /params/default-object-query", async () => {
+        const res = await client.getParamsDefaultObjectQuery({
+          filter: {name: "John", age: 30},
+        })
+
+        expect(res.status).toBe(200)
+        await expect(res.json()).resolves.toEqual({
+          filter: {name: "John", age: 30},
+        })
+      })
+
+      it("GET /params/unexploded-object-query", async () => {
+        const res = await client.getParamsUnexplodedObjectQuery({
+          filter: {name: "John", age: 30},
+        })
+
+        expect(res.status).toBe(200)
+        await expect(res.json()).resolves.toEqual({
+          filter: {name: "John", age: 30},
+        })
+      })
+
+      it("GET /params/mixed-query", async () => {
+        const res = await client.getParamsMixedQuery({
+          limit: 10,
+          statuses: ["open", "closed"],
+        })
+
+        expect(res.status).toBe(200)
+        await expect(res.json()).resolves.toEqual({
+          limit: 10,
+          statuses: ["open", "closed"],
+        })
+      })
+    })
   },
 )

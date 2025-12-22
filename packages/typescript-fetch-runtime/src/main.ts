@@ -2,7 +2,6 @@ import {
   type Encoding,
   requestBodyToUrlSearchParams,
 } from "@nahkies/typescript-common-runtime/request-bodies/url-search-params"
-import qs from "qs"
 import type {
   AbstractFetchClientConfig,
   HeaderParams,
@@ -67,18 +66,18 @@ export abstract class AbstractFetchClient {
     }) as unknown as R
   }
 
-  protected _query(params: QueryParams): string {
-    const definedParams = Object.entries(params).filter(
-      ([, v]) => v !== undefined,
-    )
+  protected _query(
+    params: QueryParams,
+    encodings?: Record<string, Encoding>,
+  ): string {
+    const urlSearchParams = requestBodyToUrlSearchParams(params, encodings)
+    const asString = urlSearchParams.toString()
 
-    if (!definedParams.length) {
+    if (!asString.length) {
       return ""
     }
 
-    return `?${qs.stringify(Object.fromEntries(definedParams), {
-      indices: false,
-    })}`
+    return `?${asString}`
   }
 
   /**

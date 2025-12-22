@@ -52,7 +52,15 @@ export class SwaggerPetstore extends AbstractFetchClient {
   ): Promise<Res<200, t_Pet[]> | Res<StatusCode, t_Error>> {
     const url = this.basePath + `/pets`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({tags: p["tags"], limit: p["limit"]})
+    const query = this._query(
+      {tags: p["tags"], limit: p["limit"]},
+      {
+        tags: {
+          style: "form",
+          explode: true,
+        },
+      },
+    )
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }

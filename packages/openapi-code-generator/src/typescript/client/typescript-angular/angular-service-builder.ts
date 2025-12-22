@@ -35,7 +35,7 @@ export class AngularServiceBuilder extends AbstractClientBuilder {
 
     const operationParameter = builder.methodParameter()
 
-    const queryString = builder.queryString()
+    const query = builder.query()
     const headers = builder.headers({nullContentTypeValue: "undefined"})
 
     const returnType = builder
@@ -51,7 +51,9 @@ export class AngularServiceBuilder extends AbstractClientBuilder {
     const body = `
     ${[
       headers ? `const headers = this._headers(${headers})` : "",
-      queryString ? `const params = this._queryParams({${queryString}})` : "",
+      query
+        ? `const params = this._query(${[query.paramsObject, query.encodings].filter(Boolean).join(",")})`
+        : "",
       requestBody?.parameter && requestBody.isSupported
         ? `const body = ${builder.paramName(requestBody.parameter.name)}`
         : "",
@@ -63,7 +65,7 @@ return this.httpClient.request<any>(
   "${method}",
   ${hasServers ? "basePath" : "this.config.basePath"} + \`${url}\`, {
     ${[
-      queryString ? "params" : "",
+      query ? "params" : "",
       headers ? "headers" : "",
       requestBody?.parameter
         ? requestBody.isSupported
@@ -146,6 +148,15 @@ export type QueryParams = {
     | QueryParams[]
 }
 
+export type Style = "deepObject" | "form" | "pipeDelimited" | "spaceDelimited"
+
+export type Encoding = {
+  // allowReserved?: boolean;
+  // contentType?: string;
+  explode?: boolean
+  style?: Style
+}
+
 export type Server<T> = string & {__server__: T}
 
 @Injectable({
@@ -164,8 +175,10 @@ export class ${clientName} {
     )
   }
 
-  private _queryParams(
-    queryParams: QueryParams
+  private _query(
+    queryParams: QueryParams,
+    // todo: use encodings
+    _encodings?: Record<string, Encoding>,
   ): HttpParams {
     return Object.entries(queryParams).reduce((result, [name, value]) => {
       if (typeof value === "string" || typeof value === "boolean" || typeof value === "number") {
