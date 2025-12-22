@@ -15,6 +15,7 @@ import type {
   t_GetHeadersRequest200Response,
   t_GetHeadersUndeclared200Response,
   t_GetParamsDefaultObjectQuery200Response,
+  t_GetParamsMixedQuery200Response,
   t_GetParamsSimpleQuery200Response,
   t_GetParamsUnexplodedObjectQuery200Response,
   t_PostValidationOptionalBody200Response,
@@ -28,6 +29,7 @@ import {
   s_GetHeadersRequest200Response,
   s_GetHeadersUndeclared200Response,
   s_GetParamsDefaultObjectQuery200Response,
+  s_GetParamsMixedQuery200Response,
   s_GetParamsSimpleQuery200Response,
   s_GetParamsUnexplodedObjectQuery200Response,
   s_PostValidationOptionalBody200Response,
@@ -214,6 +216,38 @@ export class E2ETestClient extends AbstractFetchClient {
 
     return responseValidationFactory(
       [["200", s_GetParamsUnexplodedObjectQuery200Response]],
+      undefined,
+    )(res)
+  }
+
+  async getParamsMixedQuery(
+    p: {
+      limit: number
+      statuses: ("open" | "closed" | UnknownEnumStringValue)[]
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_GetParamsMixedQuery200Response>> {
+    const url = this.basePath + `/params/mixed-query`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query(
+      {limit: p["limit"], statuses: p["statuses"]},
+      {
+        statuses: {
+          style: "form",
+          explode: true,
+        },
+      },
+    )
+
+    const res = this._fetch(
+      url + query,
+      {method: "GET", ...opts, headers},
+      timeout,
+    )
+
+    return responseValidationFactory(
+      [["200", s_GetParamsMixedQuery200Response]],
       undefined,
     )(res)
   }

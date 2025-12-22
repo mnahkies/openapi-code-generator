@@ -10,7 +10,6 @@ import {
   type ExpressRuntimeResponder,
   ExpressRuntimeResponse,
   type Params,
-  parseQueryParameters,
   SkipResponse,
   type StatusCode,
 } from "@nahkies/typescript-express-runtime/server"
@@ -141,29 +140,7 @@ export function createValidationRouter(
           params: undefined,
           query: parseRequestInput(
             getValidationNumbersRandomNumberQuerySchema,
-            parseQueryParameters(
-              new URL(`http://localhost${req.originalUrl}`).search,
-              [
-                {
-                  name: "max",
-                  explode: true,
-                  style: "form",
-                  schema: {type: "number"},
-                },
-                {
-                  name: "min",
-                  explode: true,
-                  style: "form",
-                  schema: {type: "number"},
-                },
-                {
-                  name: "forbidden",
-                  explode: true,
-                  style: "form",
-                  schema: {type: "array", items: {type: "number"}},
-                },
-              ],
-            ),
+            req.query,
             RequestInputType.QueryString,
           ),
           body: undefined,

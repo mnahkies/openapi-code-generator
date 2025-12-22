@@ -11,7 +11,6 @@ import {
   type KoaRuntimeResponder,
   KoaRuntimeResponse,
   type Params,
-  parseQueryParameters,
   type Response,
   SkipResponse,
   type StatusCode,
@@ -154,26 +153,7 @@ export function createValidationRouter(
         params: undefined,
         query: parseRequestInput(
           getValidationNumbersRandomNumberQuerySchema,
-          parseQueryParameters(ctx.querystring, [
-            {
-              name: "max",
-              explode: true,
-              style: "form",
-              schema: {type: "number"},
-            },
-            {
-              name: "min",
-              explode: true,
-              style: "form",
-              schema: {type: "number"},
-            },
-            {
-              name: "forbidden",
-              explode: true,
-              style: "form",
-              schema: {type: "array", items: {type: "number"}},
-            },
-          ]),
+          ctx.query,
           RequestInputType.QueryString,
         ),
         body: undefined,

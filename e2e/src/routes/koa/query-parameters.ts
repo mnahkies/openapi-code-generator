@@ -1,6 +1,7 @@
 import {
   createRouter,
   type GetParamsDefaultObjectQuery,
+  type GetParamsMixedQuery,
   type GetParamsSimpleQuery,
   type GetParamsUnexplodedObjectQuery,
 } from "../../generated/server/koa/routes/query-parameters.ts"
@@ -30,10 +31,15 @@ const getParamsUnexplodedObjectQuery: GetParamsUnexplodedObjectQuery = async (
   })
 }
 
+const getParamsMixedQuery: GetParamsMixedQuery = async ({query}, respond) => {
+  return respond.with200().body(query)
+}
+
 export function createQueryParametersRouter() {
   return createRouter({
     getParamsSimpleQuery,
     getParamsDefaultObjectQuery,
     getParamsUnexplodedObjectQuery,
+    getParamsMixedQuery,
   })
 }

@@ -61,6 +61,16 @@ export type t_GetParamsDefaultObjectQueryQuerySchema = {
   }
 }
 
+export type t_GetParamsMixedQuery200Response = {
+  limit?: number | undefined
+  statuses?: string[] | undefined
+}
+
+export type t_GetParamsMixedQueryQuerySchema = {
+  limit: number
+  statuses: ("open" | "closed")[]
+}
+
 export type t_GetParamsSimpleQuery200Response = {
   limit: number
   orderBy: string

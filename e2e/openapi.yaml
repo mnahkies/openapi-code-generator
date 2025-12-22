@@ -162,7 +162,40 @@ paths:
                         type: string
                       age:
                         type: number
-
+  /params/mixed-query:
+    get:
+      tags:
+        - query-parameters
+      parameters:
+        - name: limit
+          in: query
+          required: true
+          schema:
+            type: number
+        - name: statuses
+          in: query
+          required: true
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - open
+                - closed
+      responses:
+        200:
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  limit:
+                    type: number
+                  statuses:
+                    type: array
+                    items:
+                      type: string
   /validation/numbers/random-number:
     get:
       tags:

@@ -54,6 +54,11 @@ export type t_GetParamsDefaultObjectQuery200Response = {
   }
 }
 
+export type t_GetParamsMixedQuery200Response = {
+  limit?: number | undefined
+  statuses?: string[] | undefined
+}
+
 export type t_GetParamsSimpleQuery200Response = {
   limit: number
   orderBy: string

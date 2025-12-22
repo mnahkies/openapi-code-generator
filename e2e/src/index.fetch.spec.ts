@@ -464,6 +464,19 @@ describe.each(startServerFunctions)(
           filter: {name: "John", age: 30},
         })
       })
+
+      it("GET /params/mixed-query", async () => {
+        const res = await client.getParamsMixedQuery({
+          limit: 10,
+          statuses: ["open", "closed"],
+        })
+
+        expect(res.status).toBe(200)
+        await expect(res.json()).resolves.toEqual({
+          limit: 10,
+          statuses: ["open", "closed"],
+        })
+      })
     })
   },
 )

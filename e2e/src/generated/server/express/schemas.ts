@@ -60,6 +60,11 @@ export const s_GetParamsUnexplodedObjectQuery200Response = z.object({
   filter: z.object({name: z.string(), age: z.coerce.number()}),
 })
 
+export const s_GetParamsMixedQuery200Response = z.object({
+  limit: z.coerce.number().optional(),
+  statuses: z.array(z.string()).optional(),
+})
+
 export const s_PostValidationOptionalBodyRequestBody = z.object({
   id: z.string().optional(),
 })

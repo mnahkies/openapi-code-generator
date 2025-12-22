@@ -23,6 +23,8 @@ import {z} from "zod/v4"
 import type {
   t_GetParamsDefaultObjectQuery200Response,
   t_GetParamsDefaultObjectQueryQuerySchema,
+  t_GetParamsMixedQuery200Response,
+  t_GetParamsMixedQueryQuerySchema,
   t_GetParamsSimpleQuery200Response,
   t_GetParamsSimpleQueryQuerySchema,
   t_GetParamsUnexplodedObjectQuery200Response,
@@ -30,6 +32,7 @@ import type {
 } from "../models.ts"
 import {
   s_GetParamsDefaultObjectQuery200Response,
+  s_GetParamsMixedQuery200Response,
   s_GetParamsSimpleQuery200Response,
   s_GetParamsUnexplodedObjectQuery200Response,
 } from "../schemas.ts"
@@ -70,10 +73,23 @@ export type GetParamsUnexplodedObjectQuery = (
   next: NextFunction,
 ) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
+export type GetParamsMixedQueryResponder = {
+  with200(): ExpressRuntimeResponse<t_GetParamsMixedQuery200Response>
+} & ExpressRuntimeResponder
+
+export type GetParamsMixedQuery = (
+  params: Params<void, t_GetParamsMixedQueryQuerySchema, void, void>,
+  respond: GetParamsMixedQueryResponder,
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
+
 export type QueryParametersImplementation = {
   getParamsSimpleQuery: GetParamsSimpleQuery
   getParamsDefaultObjectQuery: GetParamsDefaultObjectQuery
   getParamsUnexplodedObjectQuery: GetParamsUnexplodedObjectQuery
+  getParamsMixedQuery: GetParamsMixedQuery
 }
 
 export function createQueryParametersRouter(
@@ -300,6 +316,75 @@ export function createQueryParametersRouter(
           res.json(
             getParamsUnexplodedObjectQueryResponseBodyValidator(status, body),
           )
+        } else {
+          res.end()
+        }
+      } catch (error) {
+        next(error)
+      }
+    },
+  )
+
+  const getParamsMixedQueryQuerySchema = z.object({
+    limit: z.coerce.number(),
+    statuses: z.preprocess(
+      (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+      z.array(z.enum(["open", "closed"])),
+    ),
+  })
+
+  const getParamsMixedQueryResponseBodyValidator = responseValidationFactory(
+    [["200", s_GetParamsMixedQuery200Response]],
+    undefined,
+  )
+
+  // getParamsMixedQuery
+  router.get(
+    `/params/mixed-query`,
+    async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        const input = {
+          params: undefined,
+          query: parseRequestInput(
+            getParamsMixedQueryQuerySchema,
+            req.query,
+            RequestInputType.QueryString,
+          ),
+          body: undefined,
+          headers: undefined,
+        }
+
+        const responder = {
+          with200() {
+            return new ExpressRuntimeResponse<t_GetParamsMixedQuery200Response>(
+              200,
+            )
+          },
+          withStatus(status: StatusCode) {
+            return new ExpressRuntimeResponse(status)
+          },
+        }
+
+        const response = await implementation
+          .getParamsMixedQuery(input, responder, req, res, next)
+          .catch((err) => {
+            throw ExpressRuntimeError.HandlerError(err)
+          })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
+
+        const {status, body} =
+          response instanceof ExpressRuntimeResponse
+            ? response.unpack()
+            : response
+
+        res.status(status)
+
+        if (body !== undefined) {
+          res.json(getParamsMixedQueryResponseBodyValidator(status, body))
         } else {
           res.end()
         }

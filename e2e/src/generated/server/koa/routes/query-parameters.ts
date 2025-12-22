@@ -25,6 +25,8 @@ import {z} from "zod/v4"
 import type {
   t_GetParamsDefaultObjectQuery200Response,
   t_GetParamsDefaultObjectQueryQuerySchema,
+  t_GetParamsMixedQuery200Response,
+  t_GetParamsMixedQueryQuerySchema,
   t_GetParamsSimpleQuery200Response,
   t_GetParamsSimpleQueryQuerySchema,
   t_GetParamsUnexplodedObjectQuery200Response,
@@ -32,6 +34,7 @@ import type {
 } from "../models.ts"
 import {
   s_GetParamsDefaultObjectQuery200Response,
+  s_GetParamsMixedQuery200Response,
   s_GetParamsSimpleQuery200Response,
   s_GetParamsUnexplodedObjectQuery200Response,
 } from "../schemas.ts"
@@ -81,10 +84,26 @@ export type GetParamsUnexplodedObjectQuery = (
   | typeof SkipResponse
 >
 
+export type GetParamsMixedQueryResponder = {
+  with200(): KoaRuntimeResponse<t_GetParamsMixedQuery200Response>
+} & KoaRuntimeResponder
+
+export type GetParamsMixedQuery = (
+  params: Params<void, t_GetParamsMixedQueryQuerySchema, void, void>,
+  respond: GetParamsMixedQueryResponder,
+  ctx: RouterContext,
+  next: Next,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<200, t_GetParamsMixedQuery200Response>
+  | typeof SkipResponse
+>
+
 export type QueryParametersImplementation = {
   getParamsSimpleQuery: GetParamsSimpleQuery
   getParamsDefaultObjectQuery: GetParamsDefaultObjectQuery
   getParamsUnexplodedObjectQuery: GetParamsUnexplodedObjectQuery
+  getParamsMixedQuery: GetParamsMixedQuery
 }
 
 export function createQueryParametersRouter(
@@ -273,6 +292,63 @@ export function createQueryParametersRouter(
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getParamsUnexplodedObjectQueryResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const getParamsMixedQueryQuerySchema = z.object({
+    limit: z.coerce.number(),
+    statuses: z.preprocess(
+      (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+      z.array(z.enum(["open", "closed"])),
+    ),
+  })
+
+  const getParamsMixedQueryResponseValidator = responseValidationFactory(
+    [["200", s_GetParamsMixedQuery200Response]],
+    undefined,
+  )
+
+  router.get(
+    "getParamsMixedQuery",
+    "/params/mixed-query",
+    async (ctx, next) => {
+      const input = {
+        params: undefined,
+        query: parseRequestInput(
+          getParamsMixedQueryQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_GetParamsMixedQuery200Response>(200)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .getParamsMixedQuery(input, responder, ctx, next)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
+
+      const {status, body} =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = getParamsMixedQueryResponseValidator(status, body)
       ctx.status = status
       return next()
     },

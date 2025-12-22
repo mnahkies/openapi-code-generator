@@ -14,6 +14,7 @@ import type {
   t_GetHeadersRequest200Response,
   t_GetHeadersUndeclared200Response,
   t_GetParamsDefaultObjectQuery200Response,
+  t_GetParamsMixedQuery200Response,
   t_GetParamsSimpleQuery200Response,
   t_GetParamsUnexplodedObjectQuery200Response,
   t_PostValidationOptionalBody200Response,
@@ -27,6 +28,7 @@ import {
   s_GetHeadersRequest200Response,
   s_GetHeadersUndeclared200Response,
   s_GetParamsDefaultObjectQuery200Response,
+  s_GetParamsMixedQuery200Response,
   s_GetParamsSimpleQuery200Response,
   s_GetParamsUnexplodedObjectQuery200Response,
   s_PostValidationOptionalBody200Response,
@@ -224,6 +226,37 @@ export class E2ETestClient extends AbstractAxiosClient {
       ...res,
       data: s_GetParamsUnexplodedObjectQuery200Response.parse(res.data),
     }
+  }
+
+  async getParamsMixedQuery(
+    p: {
+      limit: number
+      statuses: ("open" | "closed" | UnknownEnumStringValue)[]
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_GetParamsMixedQuery200Response>> {
+    const url = `/params/mixed-query`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query(
+      {limit: p["limit"], statuses: p["statuses"]},
+      {
+        statuses: {
+          style: "form",
+          explode: true,
+        },
+      },
+    )
+
+    const res = await this._request({
+      url: url + query,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+
+    return {...res, data: s_GetParamsMixedQuery200Response.parse(res.data)}
   }
 
   async getValidationNumbersRandomNumber(
