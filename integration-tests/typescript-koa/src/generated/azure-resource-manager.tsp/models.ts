@@ -2,8 +2,6 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type EmptyObject = {[key: string]: never}
-
 export type t_Azure_Core_armResourceType = string
 
 export type t_Azure_Core_uuid = string
@@ -11,7 +9,9 @@ export type t_Azure_Core_uuid = string
 export type t_Azure_ResourceManager_CommonTypes_ActionType = "Internal" | string
 
 export type t_Azure_ResourceManager_CommonTypes_ErrorAdditionalInfo = {
-  readonly info?: EmptyObject
+  readonly info?: {
+    [key: string]: unknown | undefined
+  }
   readonly type?: string
 }
 

@@ -2,8 +2,6 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type EmptyObject = {[key: string]: never}
-
 export type t_AppAuthenticatorEnrollment = {
   readonly authenticatorId?: string
   readonly createdDate?: string
@@ -109,7 +107,9 @@ export type t_AuthenticatorEnrollment = {
   readonly lastChallenged?: string
   name?: string
   nickname?: string
-  readonly profile?: EmptyObject
+  readonly profile?: {
+    [key: string]: unknown | undefined
+  }
 }
 
 export type t_AuthenticatorKey =
@@ -279,7 +279,9 @@ export type t_Profile = {
   }
   readonly createdAt?: string
   readonly modifiedAt?: string
-  profile?: EmptyObject
+  profile?: {
+    [key: string]: unknown | undefined
+  }
 }
 
 export type t_PushNotificationChallenge = {
@@ -301,7 +303,9 @@ export type t_Schema = {
       readonly href?: string
     }
   }
-  readonly properties?: EmptyObject
+  readonly properties?: {
+    [key: string]: unknown | undefined
+  }
 }
 
 export type t_UpdateAppAuthenticatorEnrollmentRequest = {
@@ -401,7 +405,9 @@ export type t_ReplacePasswordRequestBody = {
 }
 
 export type t_ReplaceProfileRequestBody = {
-  profile?: EmptyObject
+  profile?: {
+    [key: string]: unknown | undefined
+  }
 }
 
 export type t_SendEmailChallengeParamSchema = {

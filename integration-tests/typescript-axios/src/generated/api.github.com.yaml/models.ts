@@ -441,7 +441,11 @@ export type t_assigned_issue_event = {
 
 export type t_authentication_token = {
   expires_at: string
-  permissions?: EmptyObject | undefined
+  permissions?:
+    | {
+        [key: string]: unknown | undefined
+      }
+    | undefined
   repositories?: t_repository[] | undefined
   repository_selection?:
     | ("all" | "selected" | UnknownEnumStringValue)
@@ -1550,7 +1554,11 @@ export type t_code_security_configuration_repositories = {
 
 export type t_code_security_default_configurations = {
   configuration?: t_code_security_configuration | undefined
-  default_for_new_repos?: EmptyObject | undefined
+  default_for_new_repos?:
+    | {
+        [key: string]: unknown | undefined
+      }
+    | undefined
 }[]
 
 export type t_codeowners_errors = {
@@ -7200,7 +7208,9 @@ export type t_ruleset_version = {
 }
 
 export type t_ruleset_version_with_state = t_ruleset_version & {
-  state: EmptyObject
+  state: {
+    [key: string]: unknown | undefined
+  }
 }
 
 export type t_runner = {
@@ -8943,11 +8953,17 @@ export type t_CampaignsUpdateCampaignRequestBody = {
 
 export type t_ChecksCreateRequestBody =
   | {
-      status: EmptyObject
+      status: {
+        [key: string]: unknown | undefined
+      }
       [key: string]: unknown | undefined
     }
   | {
-      status?: EmptyObject | undefined
+      status?:
+        | {
+            [key: string]: unknown | undefined
+          }
+        | undefined
       [key: string]: unknown | undefined
     }
 
@@ -9034,7 +9050,9 @@ export type t_ChecksUpdateRequestBody = {
     | undefined
 }
 
-export type t_CodeScanningCreateVariantAnalysisRequestBody = EmptyObject
+export type t_CodeScanningCreateVariantAnalysisRequestBody = {
+  [key: string]: unknown | undefined
+}
 
 export type t_CodeScanningUpdateAlertRequestBody = {
   create_request?: t_code_scanning_alert_create_request | undefined

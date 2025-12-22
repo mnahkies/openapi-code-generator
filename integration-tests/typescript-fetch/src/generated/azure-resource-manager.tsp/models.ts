@@ -2,8 +2,6 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type EmptyObject = {[key: string]: never}
-
 export type UnknownEnumStringValue = string & {
   _brand: "unknown enum string value"
 }
@@ -18,7 +16,9 @@ export type t_Azure_ResourceManager_CommonTypes_ActionType =
   | string
 
 export type t_Azure_ResourceManager_CommonTypes_ErrorAdditionalInfo = {
-  readonly info?: EmptyObject
+  readonly info?: {
+    [key: string]: unknown | undefined
+  }
   readonly type?: string
 }
 

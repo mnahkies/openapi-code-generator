@@ -756,7 +756,13 @@ export class SchemaNormalizer {
       }
       case "null": // TODO: HACK to support OA 3.1
       case "object": {
-        if (deepEqual(schemaObject, {type: "object"})) {
+        if (
+          !schemaObject.allOf?.length &&
+          !schemaObject.oneOf?.length &&
+          !schemaObject.anyOf?.length &&
+          Object.keys(schemaObject.properties ?? {}).length === 0 &&
+          schemaObject.additionalProperties === undefined
+        ) {
           return {
             ...base,
             type: "object",

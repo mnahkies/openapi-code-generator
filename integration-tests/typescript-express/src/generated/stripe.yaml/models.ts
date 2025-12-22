@@ -2,8 +2,6 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type EmptyObject = {[key: string]: never}
-
 export type t_account = {
   business_profile?: (t_account_business_profile | null) | undefined
   business_type?:
@@ -1313,7 +1311,9 @@ export type t_card_issuing_account_terms_of_service = {
   user_agent?: string | undefined
 }
 
-export type t_card_mandate_payment_method_details = EmptyObject
+export type t_card_mandate_payment_method_details = {
+  [key: string]: unknown | undefined
+}
 
 export type t_cash_balance = {
   available?:
@@ -2159,7 +2159,9 @@ export type t_connect_embedded_base_config_claim = {
   features: t_connect_embedded_base_features
 }
 
-export type t_connect_embedded_base_features = EmptyObject
+export type t_connect_embedded_base_features = {
+  [key: string]: unknown | undefined
+}
 
 export type t_connect_embedded_disputes_list_config = {
   enabled: boolean
@@ -2887,7 +2889,9 @@ export type t_deleted_webhook_endpoint = {
   object: "webhook_endpoint"
 }
 
-export type t_destination_details_unimplemented = EmptyObject
+export type t_destination_details_unimplemented = {
+  [key: string]: unknown | undefined
+}
 
 export type t_discount = {
   checkout_session?: (string | null) | undefined
@@ -3604,7 +3608,9 @@ export type t_gelato_report_document_options = {
   require_matching_selfie?: boolean | undefined
 }
 
-export type t_gelato_report_id_number_options = EmptyObject
+export type t_gelato_report_id_number_options = {
+  [key: string]: unknown | undefined
+}
 
 export type t_gelato_selfie_report = {
   document?: (string | null) | undefined
@@ -3637,7 +3643,9 @@ export type t_gelato_session_email_options = {
   require_verification?: boolean | undefined
 }
 
-export type t_gelato_session_id_number_options = EmptyObject
+export type t_gelato_session_id_number_options = {
+  [key: string]: unknown | undefined
+}
 
 export type t_gelato_session_last_error = {
   code?:
@@ -3975,9 +3983,13 @@ export type t_invoice_payment_method_options_customer_balance_bank_transfer_eu_b
     country: "BE" | "DE" | "ES" | "FR" | "IE" | "NL"
   }
 
-export type t_invoice_payment_method_options_konbini = EmptyObject
+export type t_invoice_payment_method_options_konbini = {
+  [key: string]: unknown | undefined
+}
 
-export type t_invoice_payment_method_options_sepa_debit = EmptyObject
+export type t_invoice_payment_method_options_sepa_debit = {
+  [key: string]: unknown | undefined
+}
 
 export type t_invoice_payment_method_options_us_bank_account = {
   financial_connections?:
@@ -7308,7 +7320,9 @@ export type t_mandate_acss_debit = {
   transaction_type: "business" | "personal"
 }
 
-export type t_mandate_amazon_pay = EmptyObject
+export type t_mandate_amazon_pay = {
+  [key: string]: unknown | undefined
+}
 
 export type t_mandate_au_becs_debit = {
   url: string
@@ -7330,21 +7344,37 @@ export type t_mandate_bacs_debit = {
   url: string
 }
 
-export type t_mandate_cashapp = EmptyObject
+export type t_mandate_cashapp = {
+  [key: string]: unknown | undefined
+}
 
-export type t_mandate_kakao_pay = EmptyObject
+export type t_mandate_kakao_pay = {
+  [key: string]: unknown | undefined
+}
 
-export type t_mandate_klarna = EmptyObject
+export type t_mandate_klarna = {
+  [key: string]: unknown | undefined
+}
 
-export type t_mandate_kr_card = EmptyObject
+export type t_mandate_kr_card = {
+  [key: string]: unknown | undefined
+}
 
-export type t_mandate_link = EmptyObject
+export type t_mandate_link = {
+  [key: string]: unknown | undefined
+}
 
-export type t_mandate_multi_use = EmptyObject
+export type t_mandate_multi_use = {
+  [key: string]: unknown | undefined
+}
 
-export type t_mandate_naver_pay = EmptyObject
+export type t_mandate_naver_pay = {
+  [key: string]: unknown | undefined
+}
 
-export type t_mandate_nz_bank_account = EmptyObject
+export type t_mandate_nz_bank_account = {
+  [key: string]: unknown | undefined
+}
 
 export type t_mandate_payment_method_details = {
   acss_debit?: t_mandate_acss_debit | undefined
@@ -7371,7 +7401,9 @@ export type t_mandate_paypal = {
   payer_id?: (string | null) | undefined
 }
 
-export type t_mandate_revolut_pay = EmptyObject
+export type t_mandate_revolut_pay = {
+  [key: string]: unknown | undefined
+}
 
 export type t_mandate_sepa_debit = {
   reference: string
@@ -7393,8 +7425,14 @@ export type t_networks = {
 }
 
 export type t_notification_event_data = {
-  object: EmptyObject
-  previous_attributes?: EmptyObject | undefined
+  object: {
+    [key: string]: unknown | undefined
+  }
+  previous_attributes?:
+    | {
+        [key: string]: unknown | undefined
+      }
+    | undefined
 }
 
 export type t_notification_event_request = {
@@ -7402,7 +7440,9 @@ export type t_notification_event_request = {
   idempotency_key?: (string | null) | undefined
 }
 
-export type t_offline_acceptance = EmptyObject
+export type t_offline_acceptance = {
+  [key: string]: unknown | undefined
+}
 
 export type t_online_acceptance = {
   ip_address?: (string | null) | undefined
@@ -7502,7 +7542,9 @@ export type t_payment_flows_payment_intent_presentment_details = {
   presentment_currency: string
 }
 
-export type t_payment_flows_private_payment_methods_alipay = EmptyObject
+export type t_payment_flows_private_payment_methods_alipay = {
+  [key: string]: unknown | undefined
+}
 
 export type t_payment_flows_private_payment_methods_alipay_details = {
   buyer_id?: string | undefined
@@ -7685,7 +7727,11 @@ export type t_payment_intent_next_action = {
     | t_payment_intent_next_action_swish_handle_redirect_or_display_qr_code
     | undefined
   type: string
-  use_stripe_sdk?: EmptyObject | undefined
+  use_stripe_sdk?:
+    | {
+        [key: string]: unknown | undefined
+      }
+    | undefined
   verify_with_microdeposits?:
     | t_payment_intent_next_action_verify_with_microdeposits
     | undefined
@@ -8963,13 +9009,21 @@ export type t_payment_method_acss_debit = {
   transit_number?: (string | null) | undefined
 }
 
-export type t_payment_method_affirm = EmptyObject
+export type t_payment_method_affirm = {
+  [key: string]: unknown | undefined
+}
 
-export type t_payment_method_afterpay_clearpay = EmptyObject
+export type t_payment_method_afterpay_clearpay = {
+  [key: string]: unknown | undefined
+}
 
-export type t_payment_method_alma = EmptyObject
+export type t_payment_method_alma = {
+  [key: string]: unknown | undefined
+}
 
-export type t_payment_method_amazon_pay = EmptyObject
+export type t_payment_method_amazon_pay = {
+  [key: string]: unknown | undefined
+}
 
 export type t_payment_method_au_becs_debit = {
   bsb_number?: (string | null) | undefined
@@ -8983,11 +9037,17 @@ export type t_payment_method_bacs_debit = {
   sort_code?: (string | null) | undefined
 }
 
-export type t_payment_method_bancontact = EmptyObject
+export type t_payment_method_bancontact = {
+  [key: string]: unknown | undefined
+}
 
-export type t_payment_method_billie = EmptyObject
+export type t_payment_method_billie = {
+  [key: string]: unknown | undefined
+}
 
-export type t_payment_method_blik = EmptyObject
+export type t_payment_method_blik = {
+  [key: string]: unknown | undefined
+}
 
 export type t_payment_method_boleto = {
   tax_id: string
@@ -9080,13 +9140,21 @@ export type t_payment_method_card_wallet = {
   visa_checkout?: t_payment_method_card_wallet_visa_checkout | undefined
 }
 
-export type t_payment_method_card_wallet_amex_express_checkout = EmptyObject
+export type t_payment_method_card_wallet_amex_express_checkout = {
+  [key: string]: unknown | undefined
+}
 
-export type t_payment_method_card_wallet_apple_pay = EmptyObject
+export type t_payment_method_card_wallet_apple_pay = {
+  [key: string]: unknown | undefined
+}
 
-export type t_payment_method_card_wallet_google_pay = EmptyObject
+export type t_payment_method_card_wallet_google_pay = {
+  [key: string]: unknown | undefined
+}
 
-export type t_payment_method_card_wallet_link = EmptyObject
+export type t_payment_method_card_wallet_link = {
+  [key: string]: unknown | undefined
+}
 
 export type t_payment_method_card_wallet_masterpass = {
   billing_address?: (t_address | null) | undefined
@@ -9095,7 +9163,9 @@ export type t_payment_method_card_wallet_masterpass = {
   shipping_address?: (t_address | null) | undefined
 }
 
-export type t_payment_method_card_wallet_samsung_pay = EmptyObject
+export type t_payment_method_card_wallet_samsung_pay = {
+  [key: string]: unknown | undefined
+}
 
 export type t_payment_method_card_wallet_visa_checkout = {
   billing_address?: (t_address | null) | undefined
@@ -9259,9 +9329,13 @@ export type t_payment_method_configuration = {
   zip?: t_payment_method_config_resource_payment_method_properties | undefined
 }
 
-export type t_payment_method_crypto = EmptyObject
+export type t_payment_method_crypto = {
+  [key: string]: unknown | undefined
+}
 
-export type t_payment_method_customer_balance = EmptyObject
+export type t_payment_method_customer_balance = {
+  [key: string]: unknown | undefined
+}
 
 export type t_payment_method_details = {
   ach_credit_transfer?: t_payment_method_details_ach_credit_transfer | undefined
@@ -9357,7 +9431,9 @@ export type t_payment_method_details_afterpay_clearpay = {
   reference?: (string | null) | undefined
 }
 
-export type t_payment_method_details_alma = EmptyObject
+export type t_payment_method_details_alma = {
+  [key: string]: unknown | undefined
+}
 
 export type t_payment_method_details_amazon_pay = {
   funding?: t_amazon_pay_underlying_payment_method_funding_details | undefined
@@ -9388,7 +9464,9 @@ export type t_payment_method_details_bancontact = {
   verified_name?: (string | null) | undefined
 }
 
-export type t_payment_method_details_billie = EmptyObject
+export type t_payment_method_details_billie = {
+  [key: string]: unknown | undefined
+}
 
 export type t_payment_method_details_blik = {
   buyer_id?: (string | null) | undefined
@@ -9530,14 +9608,21 @@ export type t_payment_method_details_card_wallet = {
   visa_checkout?: t_payment_method_details_card_wallet_visa_checkout | undefined
 }
 
-export type t_payment_method_details_card_wallet_amex_express_checkout =
-  EmptyObject
+export type t_payment_method_details_card_wallet_amex_express_checkout = {
+  [key: string]: unknown | undefined
+}
 
-export type t_payment_method_details_card_wallet_apple_pay = EmptyObject
+export type t_payment_method_details_card_wallet_apple_pay = {
+  [key: string]: unknown | undefined
+}
 
-export type t_payment_method_details_card_wallet_google_pay = EmptyObject
+export type t_payment_method_details_card_wallet_google_pay = {
+  [key: string]: unknown | undefined
+}
 
-export type t_payment_method_details_card_wallet_link = EmptyObject
+export type t_payment_method_details_card_wallet_link = {
+  [key: string]: unknown | undefined
+}
 
 export type t_payment_method_details_card_wallet_masterpass = {
   billing_address?: (t_address | null) | undefined
@@ -9546,7 +9631,9 @@ export type t_payment_method_details_card_wallet_masterpass = {
   shipping_address?: (t_address | null) | undefined
 }
 
-export type t_payment_method_details_card_wallet_samsung_pay = EmptyObject
+export type t_payment_method_details_card_wallet_samsung_pay = {
+  [key: string]: unknown | undefined
+}
 
 export type t_payment_method_details_card_wallet_visa_checkout = {
   billing_address?: (t_address | null) | undefined
@@ -9568,7 +9655,9 @@ export type t_payment_method_details_crypto = {
   transaction_hash?: string | undefined
 }
 
-export type t_payment_method_details_customer_balance = EmptyObject
+export type t_payment_method_details_customer_balance = {
+  [key: string]: unknown | undefined
+}
 
 export type t_payment_method_details_eps = {
   bank?:
@@ -9867,7 +9956,9 @@ export type t_payment_method_details_passthrough_card = {
   last4?: (string | null) | undefined
 }
 
-export type t_payment_method_details_pay_by_bank = EmptyObject
+export type t_payment_method_details_pay_by_bank = {
+  [key: string]: unknown | undefined
+}
 
 export type t_payment_method_details_payco = {
   buyer_id?: (string | null) | undefined
@@ -9902,7 +9993,9 @@ export type t_payment_method_details_samsung_pay = {
   buyer_id?: (string | null) | undefined
 }
 
-export type t_payment_method_details_satispay = EmptyObject
+export type t_payment_method_details_satispay = {
+  [key: string]: unknown | undefined
+}
 
 export type t_payment_method_details_sepa_debit = {
   bank_code?: (string | null) | undefined
@@ -9927,7 +10020,9 @@ export type t_payment_method_details_sofort = {
   verified_name?: (string | null) | undefined
 }
 
-export type t_payment_method_details_stripe_account = EmptyObject
+export type t_payment_method_details_stripe_account = {
+  [key: string]: unknown | undefined
+}
 
 export type t_payment_method_details_swish = {
   fingerprint?: (string | null) | undefined
@@ -9935,7 +10030,9 @@ export type t_payment_method_details_swish = {
   verified_phone_last4?: (string | null) | undefined
 }
 
-export type t_payment_method_details_twint = EmptyObject
+export type t_payment_method_details_twint = {
+  [key: string]: unknown | undefined
+}
 
 export type t_payment_method_details_us_bank_account = {
   account_holder_type?: ("company" | "individual" | null) | undefined
@@ -9948,7 +10045,9 @@ export type t_payment_method_details_us_bank_account = {
   routing_number?: (string | null) | undefined
 }
 
-export type t_payment_method_details_wechat = EmptyObject
+export type t_payment_method_details_wechat = {
+  [key: string]: unknown | undefined
+}
 
 export type t_payment_method_details_wechat_pay = {
   fingerprint?: (string | null) | undefined
@@ -9957,7 +10056,9 @@ export type t_payment_method_details_wechat_pay = {
   transaction_id?: (string | null) | undefined
 }
 
-export type t_payment_method_details_zip = EmptyObject
+export type t_payment_method_details_zip = {
+  [key: string]: unknown | undefined
+}
 
 export type t_payment_method_domain = {
   amazon_pay: t_payment_method_domain_resource_payment_method_status
@@ -10047,9 +10148,13 @@ export type t_payment_method_fpx = {
     | "uob"
 }
 
-export type t_payment_method_giropay = EmptyObject
+export type t_payment_method_giropay = {
+  [key: string]: unknown | undefined
+}
 
-export type t_payment_method_grabpay = EmptyObject
+export type t_payment_method_grabpay = {
+  [key: string]: unknown | undefined
+}
 
 export type t_payment_method_ideal = {
   bank?:
@@ -10124,13 +10229,17 @@ export type t_payment_method_interac_present = {
     | undefined
 }
 
-export type t_payment_method_kakao_pay = EmptyObject
+export type t_payment_method_kakao_pay = {
+  [key: string]: unknown | undefined
+}
 
 export type t_payment_method_klarna = {
   dob?: (t_payment_flows_private_payment_methods_klarna_dob | null) | undefined
 }
 
-export type t_payment_method_konbini = EmptyObject
+export type t_payment_method_konbini = {
+  [key: string]: unknown | undefined
+}
 
 export type t_payment_method_kr_card = {
   brand?:
@@ -10167,9 +10276,13 @@ export type t_payment_method_link = {
   email?: (string | null) | undefined
 }
 
-export type t_payment_method_mobilepay = EmptyObject
+export type t_payment_method_mobilepay = {
+  [key: string]: unknown | undefined
+}
 
-export type t_payment_method_multibanco = EmptyObject
+export type t_payment_method_multibanco = {
+  [key: string]: unknown | undefined
+}
 
 export type t_payment_method_naver_pay = {
   buyer_id?: (string | null) | undefined
@@ -10310,7 +10423,9 @@ export type t_payment_method_options_ideal = {
   setup_future_usage?: ("none" | "off_session") | undefined
 }
 
-export type t_payment_method_options_interac_present = EmptyObject
+export type t_payment_method_options_interac_present = {
+  [key: string]: unknown | undefined
+}
 
 export type t_payment_method_options_klarna = {
   capture_method?: "manual" | undefined
@@ -10344,7 +10459,9 @@ export type t_payment_method_options_p24 = {
   setup_future_usage?: "none" | undefined
 }
 
-export type t_payment_method_options_pay_by_bank = EmptyObject
+export type t_payment_method_options_pay_by_bank = {
+  [key: string]: unknown | undefined
+}
 
 export type t_payment_method_options_paynow = {
   setup_future_usage?: "none" | undefined
@@ -10401,7 +10518,9 @@ export type t_payment_method_options_zip = {
   setup_future_usage?: "none" | undefined
 }
 
-export type t_payment_method_oxxo = EmptyObject
+export type t_payment_method_oxxo = {
+  [key: string]: unknown | undefined
+}
 
 export type t_payment_method_p24 = {
   bank?:
@@ -10437,11 +10556,17 @@ export type t_payment_method_p24 = {
     | undefined
 }
 
-export type t_payment_method_pay_by_bank = EmptyObject
+export type t_payment_method_pay_by_bank = {
+  [key: string]: unknown | undefined
+}
 
-export type t_payment_method_payco = EmptyObject
+export type t_payment_method_payco = {
+  [key: string]: unknown | undefined
+}
 
-export type t_payment_method_paynow = EmptyObject
+export type t_payment_method_paynow = {
+  [key: string]: unknown | undefined
+}
 
 export type t_payment_method_paypal = {
   country?: (string | null) | undefined
@@ -10449,15 +10574,25 @@ export type t_payment_method_paypal = {
   payer_id?: (string | null) | undefined
 }
 
-export type t_payment_method_pix = EmptyObject
+export type t_payment_method_pix = {
+  [key: string]: unknown | undefined
+}
 
-export type t_payment_method_promptpay = EmptyObject
+export type t_payment_method_promptpay = {
+  [key: string]: unknown | undefined
+}
 
-export type t_payment_method_revolut_pay = EmptyObject
+export type t_payment_method_revolut_pay = {
+  [key: string]: unknown | undefined
+}
 
-export type t_payment_method_samsung_pay = EmptyObject
+export type t_payment_method_samsung_pay = {
+  [key: string]: unknown | undefined
+}
 
-export type t_payment_method_satispay = EmptyObject
+export type t_payment_method_satispay = {
+  [key: string]: unknown | undefined
+}
 
 export type t_payment_method_sepa_debit = {
   bank_code?: (string | null) | undefined
@@ -10472,9 +10607,13 @@ export type t_payment_method_sofort = {
   country?: (string | null) | undefined
 }
 
-export type t_payment_method_swish = EmptyObject
+export type t_payment_method_swish = {
+  [key: string]: unknown | undefined
+}
 
-export type t_payment_method_twint = EmptyObject
+export type t_payment_method_twint = {
+  [key: string]: unknown | undefined
+}
 
 export type t_payment_method_us_bank_account = {
   account_holder_type?: ("company" | "individual" | null) | undefined
@@ -10525,9 +10664,13 @@ export type t_payment_method_us_bank_account_status_details = {
   blocked?: t_payment_method_us_bank_account_blocked | undefined
 }
 
-export type t_payment_method_wechat_pay = EmptyObject
+export type t_payment_method_wechat_pay = {
+  [key: string]: unknown | undefined
+}
 
-export type t_payment_method_zip = EmptyObject
+export type t_payment_method_zip = {
+  [key: string]: unknown | undefined
+}
 
 export type t_payment_pages_checkout_session_adaptive_pricing = {
   enabled: boolean
@@ -12140,13 +12283,21 @@ export type t_setup_attempt_payment_method_details = {
     | undefined
 }
 
-export type t_setup_attempt_payment_method_details_acss_debit = EmptyObject
+export type t_setup_attempt_payment_method_details_acss_debit = {
+  [key: string]: unknown | undefined
+}
 
-export type t_setup_attempt_payment_method_details_amazon_pay = EmptyObject
+export type t_setup_attempt_payment_method_details_amazon_pay = {
+  [key: string]: unknown | undefined
+}
 
-export type t_setup_attempt_payment_method_details_au_becs_debit = EmptyObject
+export type t_setup_attempt_payment_method_details_au_becs_debit = {
+  [key: string]: unknown | undefined
+}
 
-export type t_setup_attempt_payment_method_details_bacs_debit = EmptyObject
+export type t_setup_attempt_payment_method_details_bacs_debit = {
+  [key: string]: unknown | undefined
+}
 
 export type t_setup_attempt_payment_method_details_bancontact = {
   bank_code?: (string | null) | undefined
@@ -12159,7 +12310,9 @@ export type t_setup_attempt_payment_method_details_bancontact = {
   verified_name?: (string | null) | undefined
 }
 
-export type t_setup_attempt_payment_method_details_boleto = EmptyObject
+export type t_setup_attempt_payment_method_details_boleto = {
+  [key: string]: unknown | undefined
+}
 
 export type t_setup_attempt_payment_method_details_card = {
   brand?: (string | null) | undefined
@@ -12196,7 +12349,9 @@ export type t_setup_attempt_payment_method_details_card_wallet = {
   type: "apple_pay" | "google_pay" | "link"
 }
 
-export type t_setup_attempt_payment_method_details_cashapp = EmptyObject
+export type t_setup_attempt_payment_method_details_cashapp = {
+  [key: string]: unknown | undefined
+}
 
 export type t_setup_attempt_payment_method_details_ideal = {
   bank?:
@@ -12250,25 +12405,41 @@ export type t_setup_attempt_payment_method_details_ideal = {
   verified_name?: (string | null) | undefined
 }
 
-export type t_setup_attempt_payment_method_details_kakao_pay = EmptyObject
+export type t_setup_attempt_payment_method_details_kakao_pay = {
+  [key: string]: unknown | undefined
+}
 
-export type t_setup_attempt_payment_method_details_klarna = EmptyObject
+export type t_setup_attempt_payment_method_details_klarna = {
+  [key: string]: unknown | undefined
+}
 
-export type t_setup_attempt_payment_method_details_kr_card = EmptyObject
+export type t_setup_attempt_payment_method_details_kr_card = {
+  [key: string]: unknown | undefined
+}
 
-export type t_setup_attempt_payment_method_details_link = EmptyObject
+export type t_setup_attempt_payment_method_details_link = {
+  [key: string]: unknown | undefined
+}
 
 export type t_setup_attempt_payment_method_details_naver_pay = {
   buyer_id?: string | undefined
 }
 
-export type t_setup_attempt_payment_method_details_nz_bank_account = EmptyObject
+export type t_setup_attempt_payment_method_details_nz_bank_account = {
+  [key: string]: unknown | undefined
+}
 
-export type t_setup_attempt_payment_method_details_paypal = EmptyObject
+export type t_setup_attempt_payment_method_details_paypal = {
+  [key: string]: unknown | undefined
+}
 
-export type t_setup_attempt_payment_method_details_revolut_pay = EmptyObject
+export type t_setup_attempt_payment_method_details_revolut_pay = {
+  [key: string]: unknown | undefined
+}
 
-export type t_setup_attempt_payment_method_details_sepa_debit = EmptyObject
+export type t_setup_attempt_payment_method_details_sepa_debit = {
+  [key: string]: unknown | undefined
+}
 
 export type t_setup_attempt_payment_method_details_sofort = {
   bank_code?: (string | null) | undefined
@@ -12281,7 +12452,9 @@ export type t_setup_attempt_payment_method_details_sofort = {
   verified_name?: (string | null) | undefined
 }
 
-export type t_setup_attempt_payment_method_details_us_bank_account = EmptyObject
+export type t_setup_attempt_payment_method_details_us_bank_account = {
+  [key: string]: unknown | undefined
+}
 
 export type t_setup_intent = {
   application?: (string | t_application | null) | undefined
@@ -12335,7 +12508,11 @@ export type t_setup_intent_next_action = {
     | undefined
   redirect_to_url?: t_setup_intent_next_action_redirect_to_url | undefined
   type: string
-  use_stripe_sdk?: EmptyObject | undefined
+  use_stripe_sdk?:
+    | {
+        [key: string]: unknown | undefined
+      }
+    | undefined
   verify_with_microdeposits?:
     | t_setup_intent_next_action_verify_with_microdeposits
     | undefined
@@ -12423,7 +12600,9 @@ export type t_setup_intent_payment_method_options_acss_debit = {
   verification_method?: ("automatic" | "instant" | "microdeposits") | undefined
 }
 
-export type t_setup_intent_payment_method_options_amazon_pay = EmptyObject
+export type t_setup_intent_payment_method_options_amazon_pay = {
+  [key: string]: unknown | undefined
+}
 
 export type t_setup_intent_payment_method_options_bacs_debit = {
   mandate_options?:
@@ -12471,14 +12650,18 @@ export type t_setup_intent_payment_method_options_card_mandate_options = {
   supported_types?: ("india"[] | null) | undefined
 }
 
-export type t_setup_intent_payment_method_options_card_present = EmptyObject
+export type t_setup_intent_payment_method_options_card_present = {
+  [key: string]: unknown | undefined
+}
 
 export type t_setup_intent_payment_method_options_klarna = {
   currency?: (string | null) | undefined
   preferred_locale?: (string | null) | undefined
 }
 
-export type t_setup_intent_payment_method_options_link = EmptyObject
+export type t_setup_intent_payment_method_options_link = {
+  [key: string]: unknown | undefined
+}
 
 export type t_setup_intent_payment_method_options_mandate_options_acss_debit = {
   custom_mandate_url?: string | undefined
@@ -14212,7 +14395,9 @@ export type t_tax_product_resource_tax_settings_status_details = {
 }
 
 export type t_tax_product_resource_tax_settings_status_details_resource_active =
-  EmptyObject
+  {
+    [key: string]: unknown | undefined
+  }
 
 export type t_tax_product_resource_tax_settings_status_details_resource_pending =
   {
@@ -19143,7 +19328,11 @@ export type t_PostAccountSessionsRequestBody = {
     documents?:
       | {
           enabled: boolean
-          features?: EmptyObject | undefined
+          features?:
+            | {
+                [key: string]: unknown | undefined
+              }
+            | undefined
         }
       | undefined
     financial_account?:
@@ -19274,19 +19463,31 @@ export type t_PostAccountSessionsRequestBody = {
     payouts_list?:
       | {
           enabled: boolean
-          features?: EmptyObject | undefined
+          features?:
+            | {
+                [key: string]: unknown | undefined
+              }
+            | undefined
         }
       | undefined
     tax_registrations?:
       | {
           enabled: boolean
-          features?: EmptyObject | undefined
+          features?:
+            | {
+                [key: string]: unknown | undefined
+              }
+            | undefined
         }
       | undefined
     tax_settings?:
       | {
           enabled: boolean
-          features?: EmptyObject | undefined
+          features?:
+            | {
+                [key: string]: unknown | undefined
+              }
+            | undefined
         }
       | undefined
   }
@@ -23336,7 +23537,11 @@ export type t_PostCheckoutSessionsRequestBody = {
               tos_shown_and_accepted?: boolean | undefined
             }
           | undefined
-        pay_by_bank?: EmptyObject | undefined
+        pay_by_bank?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         payco?:
           | {
               capture_method?: "manual" | undefined
@@ -25214,8 +25419,22 @@ export type t_PostCustomersCustomerSubscriptionsRequestBody = {
                     | ""
                   )
                 | undefined
-              konbini?: (EmptyObject | "") | undefined
-              sepa_debit?: (EmptyObject | "") | undefined
+              konbini?:
+                | (
+                    | {
+                        [key: string]: unknown | undefined
+                      }
+                    | ""
+                  )
+                | undefined
+              sepa_debit?:
+                | (
+                    | {
+                        [key: string]: unknown | undefined
+                      }
+                    | ""
+                  )
+                | undefined
               us_bank_account?:
                 | (
                     | {
@@ -25591,8 +25810,22 @@ export type t_PostCustomersCustomerSubscriptionsSubscriptionExposedIdRequestBody
                       | ""
                     )
                   | undefined
-                konbini?: (EmptyObject | "") | undefined
-                sepa_debit?: (EmptyObject | "") | undefined
+                konbini?:
+                  | (
+                      | {
+                          [key: string]: unknown | undefined
+                        }
+                      | ""
+                    )
+                  | undefined
+                sepa_debit?:
+                  | (
+                      | {
+                          [key: string]: unknown | undefined
+                        }
+                      | ""
+                    )
+                  | undefined
                 us_bank_account?:
                   | (
                       | {
@@ -26516,8 +26749,22 @@ export type t_PostInvoicesRequestBody = {
                     | ""
                   )
                 | undefined
-              konbini?: (EmptyObject | "") | undefined
-              sepa_debit?: (EmptyObject | "") | undefined
+              konbini?:
+                | (
+                    | {
+                        [key: string]: unknown | undefined
+                      }
+                    | ""
+                  )
+                | undefined
+              sepa_debit?:
+                | (
+                    | {
+                        [key: string]: unknown | undefined
+                      }
+                    | ""
+                  )
+                | undefined
               us_bank_account?:
                 | (
                     | {
@@ -27325,8 +27572,22 @@ export type t_PostInvoicesInvoiceRequestBody = {
                     | ""
                   )
                 | undefined
-              konbini?: (EmptyObject | "") | undefined
-              sepa_debit?: (EmptyObject | "") | undefined
+              konbini?:
+                | (
+                    | {
+                        [key: string]: unknown | undefined
+                      }
+                    | ""
+                  )
+                | undefined
+              sepa_debit?:
+                | (
+                    | {
+                        [key: string]: unknown | undefined
+                      }
+                    | ""
+                  )
+                | undefined
               us_bank_account?:
                 | (
                     | {
@@ -32408,7 +32669,11 @@ export type t_PostPaymentIntentsRequestBody = {
         | {
             customer_acceptance: {
               accepted_at?: number | undefined
-              offline?: EmptyObject | undefined
+              offline?:
+                | {
+                    [key: string]: unknown | undefined
+                  }
+                | undefined
               online?:
                 | {
                     ip_address: string
@@ -32439,12 +32704,32 @@ export type t_PostPaymentIntentsRequestBody = {
               transit_number: string
             }
           | undefined
-        affirm?: EmptyObject | undefined
-        afterpay_clearpay?: EmptyObject | undefined
-        alipay?: EmptyObject | undefined
+        affirm?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        afterpay_clearpay?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        alipay?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         allow_redisplay?: ("always" | "limited" | "unspecified") | undefined
-        alma?: EmptyObject | undefined
-        amazon_pay?: EmptyObject | undefined
+        alma?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        amazon_pay?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         au_becs_debit?:
           | {
               account_number: string
@@ -32457,8 +32742,16 @@ export type t_PostPaymentIntentsRequestBody = {
               sort_code?: string | undefined
             }
           | undefined
-        bancontact?: EmptyObject | undefined
-        billie?: EmptyObject | undefined
+        bancontact?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        billie?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         billing_details?:
           | {
               address?:
@@ -32480,15 +32773,31 @@ export type t_PostPaymentIntentsRequestBody = {
               tax_id?: string | undefined
             }
           | undefined
-        blik?: EmptyObject | undefined
+        blik?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         boleto?:
           | {
               tax_id: string
             }
           | undefined
-        cashapp?: EmptyObject | undefined
-        crypto?: EmptyObject | undefined
-        customer_balance?: EmptyObject | undefined
+        cashapp?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        crypto?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        customer_balance?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         eps?:
           | {
               bank?:
@@ -32552,8 +32861,16 @@ export type t_PostPaymentIntentsRequestBody = {
                 | "uob"
             }
           | undefined
-        giropay?: EmptyObject | undefined
-        grabpay?: EmptyObject | undefined
+        giropay?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        grabpay?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         ideal?:
           | {
               bank?:
@@ -32579,8 +32896,16 @@ export type t_PostPaymentIntentsRequestBody = {
                 | undefined
             }
           | undefined
-        interac_present?: EmptyObject | undefined
-        kakao_pay?: EmptyObject | undefined
+        interac_present?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        kakao_pay?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         klarna?:
           | {
               dob?:
@@ -32592,16 +32917,36 @@ export type t_PostPaymentIntentsRequestBody = {
                 | undefined
             }
           | undefined
-        konbini?: EmptyObject | undefined
-        kr_card?: EmptyObject | undefined
-        link?: EmptyObject | undefined
+        konbini?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        kr_card?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        link?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         metadata?:
           | {
               [key: string]: string | undefined
             }
           | undefined
-        mobilepay?: EmptyObject | undefined
-        multibanco?: EmptyObject | undefined
+        mobilepay?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        multibanco?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         naver_pay?:
           | {
               funding?: ("card" | "points") | undefined
@@ -32617,7 +32962,11 @@ export type t_PostPaymentIntentsRequestBody = {
               suffix: string
             }
           | undefined
-        oxxo?: EmptyObject | undefined
+        oxxo?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         p24?:
           | {
               bank?:
@@ -32652,20 +33001,56 @@ export type t_PostPaymentIntentsRequestBody = {
                 | undefined
             }
           | undefined
-        pay_by_bank?: EmptyObject | undefined
-        payco?: EmptyObject | undefined
-        paynow?: EmptyObject | undefined
-        paypal?: EmptyObject | undefined
-        pix?: EmptyObject | undefined
-        promptpay?: EmptyObject | undefined
+        pay_by_bank?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        payco?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        paynow?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        paypal?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        pix?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        promptpay?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         radar_options?:
           | {
               session?: string | undefined
             }
           | undefined
-        revolut_pay?: EmptyObject | undefined
-        samsung_pay?: EmptyObject | undefined
-        satispay?: EmptyObject | undefined
+        revolut_pay?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        samsung_pay?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        satispay?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         sepa_debit?:
           | {
               iban: string
@@ -32676,8 +33061,16 @@ export type t_PostPaymentIntentsRequestBody = {
               country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL"
             }
           | undefined
-        swish?: EmptyObject | undefined
-        twint?: EmptyObject | undefined
+        swish?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        twint?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         type:
           | "acss_debit"
           | "affirm"
@@ -32735,8 +33128,16 @@ export type t_PostPaymentIntentsRequestBody = {
               routing_number?: string | undefined
             }
           | undefined
-        wechat_pay?: EmptyObject | undefined
-        zip?: EmptyObject | undefined
+        wechat_pay?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        zip?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
       }
     | undefined
   payment_method_options?:
@@ -33083,7 +33484,14 @@ export type t_PostPaymentIntentsRequestBody = {
               | ""
             )
           | undefined
-        interac_present?: (EmptyObject | "") | undefined
+        interac_present?:
+          | (
+              | {
+                  [key: string]: unknown | undefined
+                }
+              | ""
+            )
+          | undefined
         kakao_pay?:
           | (
               | {
@@ -33267,7 +33675,14 @@ export type t_PostPaymentIntentsRequestBody = {
               | ""
             )
           | undefined
-        pay_by_bank?: (EmptyObject | "") | undefined
+        pay_by_bank?:
+          | (
+              | {
+                  [key: string]: unknown | undefined
+                }
+              | ""
+            )
+          | undefined
         payco?:
           | (
               | {
@@ -33545,12 +33960,32 @@ export type t_PostPaymentIntentsIntentRequestBody = {
               transit_number: string
             }
           | undefined
-        affirm?: EmptyObject | undefined
-        afterpay_clearpay?: EmptyObject | undefined
-        alipay?: EmptyObject | undefined
+        affirm?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        afterpay_clearpay?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        alipay?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         allow_redisplay?: ("always" | "limited" | "unspecified") | undefined
-        alma?: EmptyObject | undefined
-        amazon_pay?: EmptyObject | undefined
+        alma?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        amazon_pay?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         au_becs_debit?:
           | {
               account_number: string
@@ -33563,8 +33998,16 @@ export type t_PostPaymentIntentsIntentRequestBody = {
               sort_code?: string | undefined
             }
           | undefined
-        bancontact?: EmptyObject | undefined
-        billie?: EmptyObject | undefined
+        bancontact?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        billie?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         billing_details?:
           | {
               address?:
@@ -33586,15 +34029,31 @@ export type t_PostPaymentIntentsIntentRequestBody = {
               tax_id?: string | undefined
             }
           | undefined
-        blik?: EmptyObject | undefined
+        blik?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         boleto?:
           | {
               tax_id: string
             }
           | undefined
-        cashapp?: EmptyObject | undefined
-        crypto?: EmptyObject | undefined
-        customer_balance?: EmptyObject | undefined
+        cashapp?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        crypto?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        customer_balance?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         eps?:
           | {
               bank?:
@@ -33658,8 +34117,16 @@ export type t_PostPaymentIntentsIntentRequestBody = {
                 | "uob"
             }
           | undefined
-        giropay?: EmptyObject | undefined
-        grabpay?: EmptyObject | undefined
+        giropay?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        grabpay?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         ideal?:
           | {
               bank?:
@@ -33685,8 +34152,16 @@ export type t_PostPaymentIntentsIntentRequestBody = {
                 | undefined
             }
           | undefined
-        interac_present?: EmptyObject | undefined
-        kakao_pay?: EmptyObject | undefined
+        interac_present?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        kakao_pay?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         klarna?:
           | {
               dob?:
@@ -33698,16 +34173,36 @@ export type t_PostPaymentIntentsIntentRequestBody = {
                 | undefined
             }
           | undefined
-        konbini?: EmptyObject | undefined
-        kr_card?: EmptyObject | undefined
-        link?: EmptyObject | undefined
+        konbini?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        kr_card?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        link?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         metadata?:
           | {
               [key: string]: string | undefined
             }
           | undefined
-        mobilepay?: EmptyObject | undefined
-        multibanco?: EmptyObject | undefined
+        mobilepay?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        multibanco?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         naver_pay?:
           | {
               funding?: ("card" | "points") | undefined
@@ -33723,7 +34218,11 @@ export type t_PostPaymentIntentsIntentRequestBody = {
               suffix: string
             }
           | undefined
-        oxxo?: EmptyObject | undefined
+        oxxo?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         p24?:
           | {
               bank?:
@@ -33758,20 +34257,56 @@ export type t_PostPaymentIntentsIntentRequestBody = {
                 | undefined
             }
           | undefined
-        pay_by_bank?: EmptyObject | undefined
-        payco?: EmptyObject | undefined
-        paynow?: EmptyObject | undefined
-        paypal?: EmptyObject | undefined
-        pix?: EmptyObject | undefined
-        promptpay?: EmptyObject | undefined
+        pay_by_bank?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        payco?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        paynow?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        paypal?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        pix?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        promptpay?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         radar_options?:
           | {
               session?: string | undefined
             }
           | undefined
-        revolut_pay?: EmptyObject | undefined
-        samsung_pay?: EmptyObject | undefined
-        satispay?: EmptyObject | undefined
+        revolut_pay?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        samsung_pay?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        satispay?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         sepa_debit?:
           | {
               iban: string
@@ -33782,8 +34317,16 @@ export type t_PostPaymentIntentsIntentRequestBody = {
               country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL"
             }
           | undefined
-        swish?: EmptyObject | undefined
-        twint?: EmptyObject | undefined
+        swish?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        twint?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         type:
           | "acss_debit"
           | "affirm"
@@ -33841,8 +34384,16 @@ export type t_PostPaymentIntentsIntentRequestBody = {
               routing_number?: string | undefined
             }
           | undefined
-        wechat_pay?: EmptyObject | undefined
-        zip?: EmptyObject | undefined
+        wechat_pay?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        zip?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
       }
     | undefined
   payment_method_options?:
@@ -34189,7 +34740,14 @@ export type t_PostPaymentIntentsIntentRequestBody = {
               | ""
             )
           | undefined
-        interac_present?: (EmptyObject | "") | undefined
+        interac_present?:
+          | (
+              | {
+                  [key: string]: unknown | undefined
+                }
+              | ""
+            )
+          | undefined
         kakao_pay?:
           | (
               | {
@@ -34373,7 +34931,14 @@ export type t_PostPaymentIntentsIntentRequestBody = {
               | ""
             )
           | undefined
-        pay_by_bank?: (EmptyObject | "") | undefined
+        pay_by_bank?:
+          | (
+              | {
+                  [key: string]: unknown | undefined
+                }
+              | ""
+            )
+          | undefined
         payco?:
           | (
               | {
@@ -34678,7 +35243,11 @@ export type t_PostPaymentIntentsIntentConfirmRequestBody = {
         | {
             customer_acceptance: {
               accepted_at?: number | undefined
-              offline?: EmptyObject | undefined
+              offline?:
+                | {
+                    [key: string]: unknown | undefined
+                  }
+                | undefined
               online?:
                 | {
                     ip_address: string
@@ -34711,12 +35280,32 @@ export type t_PostPaymentIntentsIntentConfirmRequestBody = {
               transit_number: string
             }
           | undefined
-        affirm?: EmptyObject | undefined
-        afterpay_clearpay?: EmptyObject | undefined
-        alipay?: EmptyObject | undefined
+        affirm?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        afterpay_clearpay?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        alipay?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         allow_redisplay?: ("always" | "limited" | "unspecified") | undefined
-        alma?: EmptyObject | undefined
-        amazon_pay?: EmptyObject | undefined
+        alma?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        amazon_pay?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         au_becs_debit?:
           | {
               account_number: string
@@ -34729,8 +35318,16 @@ export type t_PostPaymentIntentsIntentConfirmRequestBody = {
               sort_code?: string | undefined
             }
           | undefined
-        bancontact?: EmptyObject | undefined
-        billie?: EmptyObject | undefined
+        bancontact?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        billie?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         billing_details?:
           | {
               address?:
@@ -34752,15 +35349,31 @@ export type t_PostPaymentIntentsIntentConfirmRequestBody = {
               tax_id?: string | undefined
             }
           | undefined
-        blik?: EmptyObject | undefined
+        blik?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         boleto?:
           | {
               tax_id: string
             }
           | undefined
-        cashapp?: EmptyObject | undefined
-        crypto?: EmptyObject | undefined
-        customer_balance?: EmptyObject | undefined
+        cashapp?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        crypto?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        customer_balance?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         eps?:
           | {
               bank?:
@@ -34824,8 +35437,16 @@ export type t_PostPaymentIntentsIntentConfirmRequestBody = {
                 | "uob"
             }
           | undefined
-        giropay?: EmptyObject | undefined
-        grabpay?: EmptyObject | undefined
+        giropay?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        grabpay?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         ideal?:
           | {
               bank?:
@@ -34851,8 +35472,16 @@ export type t_PostPaymentIntentsIntentConfirmRequestBody = {
                 | undefined
             }
           | undefined
-        interac_present?: EmptyObject | undefined
-        kakao_pay?: EmptyObject | undefined
+        interac_present?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        kakao_pay?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         klarna?:
           | {
               dob?:
@@ -34864,16 +35493,36 @@ export type t_PostPaymentIntentsIntentConfirmRequestBody = {
                 | undefined
             }
           | undefined
-        konbini?: EmptyObject | undefined
-        kr_card?: EmptyObject | undefined
-        link?: EmptyObject | undefined
+        konbini?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        kr_card?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        link?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         metadata?:
           | {
               [key: string]: string | undefined
             }
           | undefined
-        mobilepay?: EmptyObject | undefined
-        multibanco?: EmptyObject | undefined
+        mobilepay?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        multibanco?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         naver_pay?:
           | {
               funding?: ("card" | "points") | undefined
@@ -34889,7 +35538,11 @@ export type t_PostPaymentIntentsIntentConfirmRequestBody = {
               suffix: string
             }
           | undefined
-        oxxo?: EmptyObject | undefined
+        oxxo?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         p24?:
           | {
               bank?:
@@ -34924,20 +35577,56 @@ export type t_PostPaymentIntentsIntentConfirmRequestBody = {
                 | undefined
             }
           | undefined
-        pay_by_bank?: EmptyObject | undefined
-        payco?: EmptyObject | undefined
-        paynow?: EmptyObject | undefined
-        paypal?: EmptyObject | undefined
-        pix?: EmptyObject | undefined
-        promptpay?: EmptyObject | undefined
+        pay_by_bank?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        payco?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        paynow?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        paypal?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        pix?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        promptpay?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         radar_options?:
           | {
               session?: string | undefined
             }
           | undefined
-        revolut_pay?: EmptyObject | undefined
-        samsung_pay?: EmptyObject | undefined
-        satispay?: EmptyObject | undefined
+        revolut_pay?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        samsung_pay?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        satispay?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         sepa_debit?:
           | {
               iban: string
@@ -34948,8 +35637,16 @@ export type t_PostPaymentIntentsIntentConfirmRequestBody = {
               country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL"
             }
           | undefined
-        swish?: EmptyObject | undefined
-        twint?: EmptyObject | undefined
+        swish?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        twint?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         type:
           | "acss_debit"
           | "affirm"
@@ -35007,8 +35704,16 @@ export type t_PostPaymentIntentsIntentConfirmRequestBody = {
               routing_number?: string | undefined
             }
           | undefined
-        wechat_pay?: EmptyObject | undefined
-        zip?: EmptyObject | undefined
+        wechat_pay?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        zip?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
       }
     | undefined
   payment_method_options?:
@@ -35355,7 +36060,14 @@ export type t_PostPaymentIntentsIntentConfirmRequestBody = {
               | ""
             )
           | undefined
-        interac_present?: (EmptyObject | "") | undefined
+        interac_present?:
+          | (
+              | {
+                  [key: string]: unknown | undefined
+                }
+              | ""
+            )
+          | undefined
         kakao_pay?:
           | (
               | {
@@ -35539,7 +36251,14 @@ export type t_PostPaymentIntentsIntentConfirmRequestBody = {
               | ""
             )
           | undefined
-        pay_by_bank?: (EmptyObject | "") | undefined
+        pay_by_bank?:
+          | (
+              | {
+                  [key: string]: unknown | undefined
+                }
+              | ""
+            )
+          | undefined
         payco?:
           | (
               | {
@@ -37921,12 +38640,32 @@ export type t_PostPaymentMethodsRequestBody = {
         transit_number: string
       }
     | undefined
-  affirm?: EmptyObject | undefined
-  afterpay_clearpay?: EmptyObject | undefined
-  alipay?: EmptyObject | undefined
+  affirm?:
+    | {
+        [key: string]: unknown | undefined
+      }
+    | undefined
+  afterpay_clearpay?:
+    | {
+        [key: string]: unknown | undefined
+      }
+    | undefined
+  alipay?:
+    | {
+        [key: string]: unknown | undefined
+      }
+    | undefined
   allow_redisplay?: ("always" | "limited" | "unspecified") | undefined
-  alma?: EmptyObject | undefined
-  amazon_pay?: EmptyObject | undefined
+  alma?:
+    | {
+        [key: string]: unknown | undefined
+      }
+    | undefined
+  amazon_pay?:
+    | {
+        [key: string]: unknown | undefined
+      }
+    | undefined
   au_becs_debit?:
     | {
         account_number: string
@@ -37939,8 +38678,16 @@ export type t_PostPaymentMethodsRequestBody = {
         sort_code?: string | undefined
       }
     | undefined
-  bancontact?: EmptyObject | undefined
-  billie?: EmptyObject | undefined
+  bancontact?:
+    | {
+        [key: string]: unknown | undefined
+      }
+    | undefined
+  billie?:
+    | {
+        [key: string]: unknown | undefined
+      }
+    | undefined
   billing_details?:
     | {
         address?:
@@ -37962,7 +38709,11 @@ export type t_PostPaymentMethodsRequestBody = {
         tax_id?: string | undefined
       }
     | undefined
-  blik?: EmptyObject | undefined
+  blik?:
+    | {
+        [key: string]: unknown | undefined
+      }
+    | undefined
   boleto?:
     | {
         tax_id: string
@@ -37988,10 +38739,22 @@ export type t_PostPaymentMethodsRequestBody = {
           }
       )
     | undefined
-  cashapp?: EmptyObject | undefined
-  crypto?: EmptyObject | undefined
+  cashapp?:
+    | {
+        [key: string]: unknown | undefined
+      }
+    | undefined
+  crypto?:
+    | {
+        [key: string]: unknown | undefined
+      }
+    | undefined
   customer?: string | undefined
-  customer_balance?: EmptyObject | undefined
+  customer_balance?:
+    | {
+        [key: string]: unknown | undefined
+      }
+    | undefined
   eps?:
     | {
         bank?:
@@ -38056,8 +38819,16 @@ export type t_PostPaymentMethodsRequestBody = {
           | "uob"
       }
     | undefined
-  giropay?: EmptyObject | undefined
-  grabpay?: EmptyObject | undefined
+  giropay?:
+    | {
+        [key: string]: unknown | undefined
+      }
+    | undefined
+  grabpay?:
+    | {
+        [key: string]: unknown | undefined
+      }
+    | undefined
   ideal?:
     | {
         bank?:
@@ -38083,8 +38854,16 @@ export type t_PostPaymentMethodsRequestBody = {
           | undefined
       }
     | undefined
-  interac_present?: EmptyObject | undefined
-  kakao_pay?: EmptyObject | undefined
+  interac_present?:
+    | {
+        [key: string]: unknown | undefined
+      }
+    | undefined
+  kakao_pay?:
+    | {
+        [key: string]: unknown | undefined
+      }
+    | undefined
   klarna?:
     | {
         dob?:
@@ -38096,16 +38875,36 @@ export type t_PostPaymentMethodsRequestBody = {
           | undefined
       }
     | undefined
-  konbini?: EmptyObject | undefined
-  kr_card?: EmptyObject | undefined
-  link?: EmptyObject | undefined
+  konbini?:
+    | {
+        [key: string]: unknown | undefined
+      }
+    | undefined
+  kr_card?:
+    | {
+        [key: string]: unknown | undefined
+      }
+    | undefined
+  link?:
+    | {
+        [key: string]: unknown | undefined
+      }
+    | undefined
   metadata?:
     | {
         [key: string]: string | undefined
       }
     | undefined
-  mobilepay?: EmptyObject | undefined
-  multibanco?: EmptyObject | undefined
+  mobilepay?:
+    | {
+        [key: string]: unknown | undefined
+      }
+    | undefined
+  multibanco?:
+    | {
+        [key: string]: unknown | undefined
+      }
+    | undefined
   naver_pay?:
     | {
         funding?: ("card" | "points") | undefined
@@ -38121,7 +38920,11 @@ export type t_PostPaymentMethodsRequestBody = {
         suffix: string
       }
     | undefined
-  oxxo?: EmptyObject | undefined
+  oxxo?:
+    | {
+        [key: string]: unknown | undefined
+      }
+    | undefined
   p24?:
     | {
         bank?:
@@ -38156,21 +38959,57 @@ export type t_PostPaymentMethodsRequestBody = {
           | undefined
       }
     | undefined
-  pay_by_bank?: EmptyObject | undefined
-  payco?: EmptyObject | undefined
+  pay_by_bank?:
+    | {
+        [key: string]: unknown | undefined
+      }
+    | undefined
+  payco?:
+    | {
+        [key: string]: unknown | undefined
+      }
+    | undefined
   payment_method?: string | undefined
-  paynow?: EmptyObject | undefined
-  paypal?: EmptyObject | undefined
-  pix?: EmptyObject | undefined
-  promptpay?: EmptyObject | undefined
+  paynow?:
+    | {
+        [key: string]: unknown | undefined
+      }
+    | undefined
+  paypal?:
+    | {
+        [key: string]: unknown | undefined
+      }
+    | undefined
+  pix?:
+    | {
+        [key: string]: unknown | undefined
+      }
+    | undefined
+  promptpay?:
+    | {
+        [key: string]: unknown | undefined
+      }
+    | undefined
   radar_options?:
     | {
         session?: string | undefined
       }
     | undefined
-  revolut_pay?: EmptyObject | undefined
-  samsung_pay?: EmptyObject | undefined
-  satispay?: EmptyObject | undefined
+  revolut_pay?:
+    | {
+        [key: string]: unknown | undefined
+      }
+    | undefined
+  samsung_pay?:
+    | {
+        [key: string]: unknown | undefined
+      }
+    | undefined
+  satispay?:
+    | {
+        [key: string]: unknown | undefined
+      }
+    | undefined
   sepa_debit?:
     | {
         iban: string
@@ -38181,8 +39020,16 @@ export type t_PostPaymentMethodsRequestBody = {
         country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL"
       }
     | undefined
-  swish?: EmptyObject | undefined
-  twint?: EmptyObject | undefined
+  swish?:
+    | {
+        [key: string]: unknown | undefined
+      }
+    | undefined
+  twint?:
+    | {
+        [key: string]: unknown | undefined
+      }
+    | undefined
   type?:
     | (
         | "acss_debit"
@@ -38244,8 +39091,16 @@ export type t_PostPaymentMethodsRequestBody = {
         routing_number?: string | undefined
       }
     | undefined
-  wechat_pay?: EmptyObject | undefined
-  zip?: EmptyObject | undefined
+  wechat_pay?:
+    | {
+        [key: string]: unknown | undefined
+      }
+    | undefined
+  zip?:
+    | {
+        [key: string]: unknown | undefined
+      }
+    | undefined
 }
 
 export type t_PostPaymentMethodsPaymentMethodParamSchema = {
@@ -38289,7 +39144,11 @@ export type t_PostPaymentMethodsPaymentMethodRequestBody = {
       }
     | undefined
   expand?: string[] | undefined
-  link?: EmptyObject | undefined
+  link?:
+    | {
+        [key: string]: unknown | undefined
+      }
+    | undefined
   metadata?:
     | (
         | {
@@ -38298,7 +39157,11 @@ export type t_PostPaymentMethodsPaymentMethodRequestBody = {
         | ""
       )
     | undefined
-  pay_by_bank?: EmptyObject | undefined
+  pay_by_bank?:
+    | {
+        [key: string]: unknown | undefined
+      }
+    | undefined
   us_bank_account?:
     | {
         account_holder_type?: ("company" | "individual") | undefined
@@ -39843,7 +40706,11 @@ export type t_PostSetupIntentsRequestBody = {
         | {
             customer_acceptance: {
               accepted_at?: number | undefined
-              offline?: EmptyObject | undefined
+              offline?:
+                | {
+                    [key: string]: unknown | undefined
+                  }
+                | undefined
               online?:
                 | {
                     ip_address: string
@@ -39873,12 +40740,32 @@ export type t_PostSetupIntentsRequestBody = {
               transit_number: string
             }
           | undefined
-        affirm?: EmptyObject | undefined
-        afterpay_clearpay?: EmptyObject | undefined
-        alipay?: EmptyObject | undefined
+        affirm?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        afterpay_clearpay?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        alipay?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         allow_redisplay?: ("always" | "limited" | "unspecified") | undefined
-        alma?: EmptyObject | undefined
-        amazon_pay?: EmptyObject | undefined
+        alma?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        amazon_pay?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         au_becs_debit?:
           | {
               account_number: string
@@ -39891,8 +40778,16 @@ export type t_PostSetupIntentsRequestBody = {
               sort_code?: string | undefined
             }
           | undefined
-        bancontact?: EmptyObject | undefined
-        billie?: EmptyObject | undefined
+        bancontact?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        billie?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         billing_details?:
           | {
               address?:
@@ -39914,15 +40809,31 @@ export type t_PostSetupIntentsRequestBody = {
               tax_id?: string | undefined
             }
           | undefined
-        blik?: EmptyObject | undefined
+        blik?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         boleto?:
           | {
               tax_id: string
             }
           | undefined
-        cashapp?: EmptyObject | undefined
-        crypto?: EmptyObject | undefined
-        customer_balance?: EmptyObject | undefined
+        cashapp?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        crypto?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        customer_balance?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         eps?:
           | {
               bank?:
@@ -39986,8 +40897,16 @@ export type t_PostSetupIntentsRequestBody = {
                 | "uob"
             }
           | undefined
-        giropay?: EmptyObject | undefined
-        grabpay?: EmptyObject | undefined
+        giropay?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        grabpay?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         ideal?:
           | {
               bank?:
@@ -40013,8 +40932,16 @@ export type t_PostSetupIntentsRequestBody = {
                 | undefined
             }
           | undefined
-        interac_present?: EmptyObject | undefined
-        kakao_pay?: EmptyObject | undefined
+        interac_present?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        kakao_pay?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         klarna?:
           | {
               dob?:
@@ -40026,16 +40953,36 @@ export type t_PostSetupIntentsRequestBody = {
                 | undefined
             }
           | undefined
-        konbini?: EmptyObject | undefined
-        kr_card?: EmptyObject | undefined
-        link?: EmptyObject | undefined
+        konbini?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        kr_card?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        link?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         metadata?:
           | {
               [key: string]: string | undefined
             }
           | undefined
-        mobilepay?: EmptyObject | undefined
-        multibanco?: EmptyObject | undefined
+        mobilepay?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        multibanco?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         naver_pay?:
           | {
               funding?: ("card" | "points") | undefined
@@ -40051,7 +40998,11 @@ export type t_PostSetupIntentsRequestBody = {
               suffix: string
             }
           | undefined
-        oxxo?: EmptyObject | undefined
+        oxxo?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         p24?:
           | {
               bank?:
@@ -40086,20 +41037,56 @@ export type t_PostSetupIntentsRequestBody = {
                 | undefined
             }
           | undefined
-        pay_by_bank?: EmptyObject | undefined
-        payco?: EmptyObject | undefined
-        paynow?: EmptyObject | undefined
-        paypal?: EmptyObject | undefined
-        pix?: EmptyObject | undefined
-        promptpay?: EmptyObject | undefined
+        pay_by_bank?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        payco?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        paynow?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        paypal?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        pix?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        promptpay?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         radar_options?:
           | {
               session?: string | undefined
             }
           | undefined
-        revolut_pay?: EmptyObject | undefined
-        samsung_pay?: EmptyObject | undefined
-        satispay?: EmptyObject | undefined
+        revolut_pay?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        samsung_pay?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        satispay?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         sepa_debit?:
           | {
               iban: string
@@ -40110,8 +41097,16 @@ export type t_PostSetupIntentsRequestBody = {
               country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL"
             }
           | undefined
-        swish?: EmptyObject | undefined
-        twint?: EmptyObject | undefined
+        swish?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        twint?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         type:
           | "acss_debit"
           | "affirm"
@@ -40169,8 +41164,16 @@ export type t_PostSetupIntentsRequestBody = {
               routing_number?: string | undefined
             }
           | undefined
-        wechat_pay?: EmptyObject | undefined
-        zip?: EmptyObject | undefined
+        wechat_pay?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        zip?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
       }
     | undefined
   payment_method_options?:
@@ -40194,7 +41197,11 @@ export type t_PostSetupIntentsRequestBody = {
                 | undefined
             }
           | undefined
-        amazon_pay?: EmptyObject | undefined
+        amazon_pay?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         bacs_debit?:
           | {
               mandate_options?:
@@ -40267,7 +41274,11 @@ export type t_PostSetupIntentsRequestBody = {
                 | undefined
             }
           | undefined
-        card_present?: EmptyObject | undefined
+        card_present?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         klarna?:
           | {
               currency?: string | undefined
@@ -40349,7 +41360,11 @@ export type t_PostSetupIntentsRequestBody = {
                 | undefined
             }
           | undefined
-        link?: EmptyObject | undefined
+        link?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         paypal?:
           | {
               billing_agreement_id?: string | undefined
@@ -40447,12 +41462,32 @@ export type t_PostSetupIntentsIntentRequestBody = {
               transit_number: string
             }
           | undefined
-        affirm?: EmptyObject | undefined
-        afterpay_clearpay?: EmptyObject | undefined
-        alipay?: EmptyObject | undefined
+        affirm?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        afterpay_clearpay?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        alipay?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         allow_redisplay?: ("always" | "limited" | "unspecified") | undefined
-        alma?: EmptyObject | undefined
-        amazon_pay?: EmptyObject | undefined
+        alma?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        amazon_pay?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         au_becs_debit?:
           | {
               account_number: string
@@ -40465,8 +41500,16 @@ export type t_PostSetupIntentsIntentRequestBody = {
               sort_code?: string | undefined
             }
           | undefined
-        bancontact?: EmptyObject | undefined
-        billie?: EmptyObject | undefined
+        bancontact?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        billie?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         billing_details?:
           | {
               address?:
@@ -40488,15 +41531,31 @@ export type t_PostSetupIntentsIntentRequestBody = {
               tax_id?: string | undefined
             }
           | undefined
-        blik?: EmptyObject | undefined
+        blik?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         boleto?:
           | {
               tax_id: string
             }
           | undefined
-        cashapp?: EmptyObject | undefined
-        crypto?: EmptyObject | undefined
-        customer_balance?: EmptyObject | undefined
+        cashapp?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        crypto?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        customer_balance?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         eps?:
           | {
               bank?:
@@ -40560,8 +41619,16 @@ export type t_PostSetupIntentsIntentRequestBody = {
                 | "uob"
             }
           | undefined
-        giropay?: EmptyObject | undefined
-        grabpay?: EmptyObject | undefined
+        giropay?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        grabpay?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         ideal?:
           | {
               bank?:
@@ -40587,8 +41654,16 @@ export type t_PostSetupIntentsIntentRequestBody = {
                 | undefined
             }
           | undefined
-        interac_present?: EmptyObject | undefined
-        kakao_pay?: EmptyObject | undefined
+        interac_present?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        kakao_pay?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         klarna?:
           | {
               dob?:
@@ -40600,16 +41675,36 @@ export type t_PostSetupIntentsIntentRequestBody = {
                 | undefined
             }
           | undefined
-        konbini?: EmptyObject | undefined
-        kr_card?: EmptyObject | undefined
-        link?: EmptyObject | undefined
+        konbini?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        kr_card?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        link?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         metadata?:
           | {
               [key: string]: string | undefined
             }
           | undefined
-        mobilepay?: EmptyObject | undefined
-        multibanco?: EmptyObject | undefined
+        mobilepay?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        multibanco?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         naver_pay?:
           | {
               funding?: ("card" | "points") | undefined
@@ -40625,7 +41720,11 @@ export type t_PostSetupIntentsIntentRequestBody = {
               suffix: string
             }
           | undefined
-        oxxo?: EmptyObject | undefined
+        oxxo?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         p24?:
           | {
               bank?:
@@ -40660,20 +41759,56 @@ export type t_PostSetupIntentsIntentRequestBody = {
                 | undefined
             }
           | undefined
-        pay_by_bank?: EmptyObject | undefined
-        payco?: EmptyObject | undefined
-        paynow?: EmptyObject | undefined
-        paypal?: EmptyObject | undefined
-        pix?: EmptyObject | undefined
-        promptpay?: EmptyObject | undefined
+        pay_by_bank?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        payco?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        paynow?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        paypal?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        pix?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        promptpay?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         radar_options?:
           | {
               session?: string | undefined
             }
           | undefined
-        revolut_pay?: EmptyObject | undefined
-        samsung_pay?: EmptyObject | undefined
-        satispay?: EmptyObject | undefined
+        revolut_pay?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        samsung_pay?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        satispay?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         sepa_debit?:
           | {
               iban: string
@@ -40684,8 +41819,16 @@ export type t_PostSetupIntentsIntentRequestBody = {
               country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL"
             }
           | undefined
-        swish?: EmptyObject | undefined
-        twint?: EmptyObject | undefined
+        swish?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        twint?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         type:
           | "acss_debit"
           | "affirm"
@@ -40743,8 +41886,16 @@ export type t_PostSetupIntentsIntentRequestBody = {
               routing_number?: string | undefined
             }
           | undefined
-        wechat_pay?: EmptyObject | undefined
-        zip?: EmptyObject | undefined
+        wechat_pay?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        zip?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
       }
     | undefined
   payment_method_options?:
@@ -40768,7 +41919,11 @@ export type t_PostSetupIntentsIntentRequestBody = {
                 | undefined
             }
           | undefined
-        amazon_pay?: EmptyObject | undefined
+        amazon_pay?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         bacs_debit?:
           | {
               mandate_options?:
@@ -40841,7 +41996,11 @@ export type t_PostSetupIntentsIntentRequestBody = {
                 | undefined
             }
           | undefined
-        card_present?: EmptyObject | undefined
+        card_present?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         klarna?:
           | {
               currency?: string | undefined
@@ -40923,7 +42082,11 @@ export type t_PostSetupIntentsIntentRequestBody = {
                 | undefined
             }
           | undefined
-        link?: EmptyObject | undefined
+        link?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         paypal?:
           | {
               billing_agreement_id?: string | undefined
@@ -41007,7 +42170,11 @@ export type t_PostSetupIntentsIntentConfirmRequestBody = {
         | {
             customer_acceptance: {
               accepted_at?: number | undefined
-              offline?: EmptyObject | undefined
+              offline?:
+                | {
+                    [key: string]: unknown | undefined
+                  }
+                | undefined
               online?:
                 | {
                     ip_address: string
@@ -41039,12 +42206,32 @@ export type t_PostSetupIntentsIntentConfirmRequestBody = {
               transit_number: string
             }
           | undefined
-        affirm?: EmptyObject | undefined
-        afterpay_clearpay?: EmptyObject | undefined
-        alipay?: EmptyObject | undefined
+        affirm?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        afterpay_clearpay?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        alipay?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         allow_redisplay?: ("always" | "limited" | "unspecified") | undefined
-        alma?: EmptyObject | undefined
-        amazon_pay?: EmptyObject | undefined
+        alma?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        amazon_pay?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         au_becs_debit?:
           | {
               account_number: string
@@ -41057,8 +42244,16 @@ export type t_PostSetupIntentsIntentConfirmRequestBody = {
               sort_code?: string | undefined
             }
           | undefined
-        bancontact?: EmptyObject | undefined
-        billie?: EmptyObject | undefined
+        bancontact?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        billie?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         billing_details?:
           | {
               address?:
@@ -41080,15 +42275,31 @@ export type t_PostSetupIntentsIntentConfirmRequestBody = {
               tax_id?: string | undefined
             }
           | undefined
-        blik?: EmptyObject | undefined
+        blik?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         boleto?:
           | {
               tax_id: string
             }
           | undefined
-        cashapp?: EmptyObject | undefined
-        crypto?: EmptyObject | undefined
-        customer_balance?: EmptyObject | undefined
+        cashapp?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        crypto?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        customer_balance?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         eps?:
           | {
               bank?:
@@ -41152,8 +42363,16 @@ export type t_PostSetupIntentsIntentConfirmRequestBody = {
                 | "uob"
             }
           | undefined
-        giropay?: EmptyObject | undefined
-        grabpay?: EmptyObject | undefined
+        giropay?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        grabpay?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         ideal?:
           | {
               bank?:
@@ -41179,8 +42398,16 @@ export type t_PostSetupIntentsIntentConfirmRequestBody = {
                 | undefined
             }
           | undefined
-        interac_present?: EmptyObject | undefined
-        kakao_pay?: EmptyObject | undefined
+        interac_present?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        kakao_pay?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         klarna?:
           | {
               dob?:
@@ -41192,16 +42419,36 @@ export type t_PostSetupIntentsIntentConfirmRequestBody = {
                 | undefined
             }
           | undefined
-        konbini?: EmptyObject | undefined
-        kr_card?: EmptyObject | undefined
-        link?: EmptyObject | undefined
+        konbini?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        kr_card?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        link?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         metadata?:
           | {
               [key: string]: string | undefined
             }
           | undefined
-        mobilepay?: EmptyObject | undefined
-        multibanco?: EmptyObject | undefined
+        mobilepay?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        multibanco?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         naver_pay?:
           | {
               funding?: ("card" | "points") | undefined
@@ -41217,7 +42464,11 @@ export type t_PostSetupIntentsIntentConfirmRequestBody = {
               suffix: string
             }
           | undefined
-        oxxo?: EmptyObject | undefined
+        oxxo?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         p24?:
           | {
               bank?:
@@ -41252,20 +42503,56 @@ export type t_PostSetupIntentsIntentConfirmRequestBody = {
                 | undefined
             }
           | undefined
-        pay_by_bank?: EmptyObject | undefined
-        payco?: EmptyObject | undefined
-        paynow?: EmptyObject | undefined
-        paypal?: EmptyObject | undefined
-        pix?: EmptyObject | undefined
-        promptpay?: EmptyObject | undefined
+        pay_by_bank?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        payco?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        paynow?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        paypal?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        pix?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        promptpay?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         radar_options?:
           | {
               session?: string | undefined
             }
           | undefined
-        revolut_pay?: EmptyObject | undefined
-        samsung_pay?: EmptyObject | undefined
-        satispay?: EmptyObject | undefined
+        revolut_pay?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        samsung_pay?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        satispay?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         sepa_debit?:
           | {
               iban: string
@@ -41276,8 +42563,16 @@ export type t_PostSetupIntentsIntentConfirmRequestBody = {
               country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL"
             }
           | undefined
-        swish?: EmptyObject | undefined
-        twint?: EmptyObject | undefined
+        swish?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        twint?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         type:
           | "acss_debit"
           | "affirm"
@@ -41335,8 +42630,16 @@ export type t_PostSetupIntentsIntentConfirmRequestBody = {
               routing_number?: string | undefined
             }
           | undefined
-        wechat_pay?: EmptyObject | undefined
-        zip?: EmptyObject | undefined
+        wechat_pay?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        zip?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
       }
     | undefined
   payment_method_options?:
@@ -41360,7 +42663,11 @@ export type t_PostSetupIntentsIntentConfirmRequestBody = {
                 | undefined
             }
           | undefined
-        amazon_pay?: EmptyObject | undefined
+        amazon_pay?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         bacs_debit?:
           | {
               mandate_options?:
@@ -41433,7 +42740,11 @@ export type t_PostSetupIntentsIntentConfirmRequestBody = {
                 | undefined
             }
           | undefined
-        card_present?: EmptyObject | undefined
+        card_present?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         klarna?:
           | {
               currency?: string | undefined
@@ -41515,7 +42826,11 @@ export type t_PostSetupIntentsIntentConfirmRequestBody = {
                 | undefined
             }
           | undefined
-        link?: EmptyObject | undefined
+        link?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         paypal?:
           | {
               billing_agreement_id?: string | undefined
@@ -42710,8 +44025,22 @@ export type t_PostSubscriptionsRequestBody = {
                     | ""
                   )
                 | undefined
-              konbini?: (EmptyObject | "") | undefined
-              sepa_debit?: (EmptyObject | "") | undefined
+              konbini?:
+                | (
+                    | {
+                        [key: string]: unknown | undefined
+                      }
+                    | ""
+                  )
+                | undefined
+              sepa_debit?:
+                | (
+                    | {
+                        [key: string]: unknown | undefined
+                      }
+                    | ""
+                  )
+                | undefined
               us_bank_account?:
                 | (
                     | {
@@ -43086,8 +44415,22 @@ export type t_PostSubscriptionsSubscriptionExposedIdRequestBody = {
                     | ""
                   )
                 | undefined
-              konbini?: (EmptyObject | "") | undefined
-              sepa_debit?: (EmptyObject | "") | undefined
+              konbini?:
+                | (
+                    | {
+                        [key: string]: unknown | undefined
+                      }
+                    | ""
+                  )
+                | undefined
+              sepa_debit?:
+                | (
+                    | {
+                        [key: string]: unknown | undefined
+                      }
+                    | ""
+                  )
+                | undefined
               us_bank_account?:
                 | (
                     | {
@@ -45344,12 +46687,32 @@ export type t_PostTestHelpersConfirmationTokensRequestBody = {
               transit_number: string
             }
           | undefined
-        affirm?: EmptyObject | undefined
-        afterpay_clearpay?: EmptyObject | undefined
-        alipay?: EmptyObject | undefined
+        affirm?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        afterpay_clearpay?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        alipay?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         allow_redisplay?: ("always" | "limited" | "unspecified") | undefined
-        alma?: EmptyObject | undefined
-        amazon_pay?: EmptyObject | undefined
+        alma?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        amazon_pay?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         au_becs_debit?:
           | {
               account_number: string
@@ -45362,8 +46725,16 @@ export type t_PostTestHelpersConfirmationTokensRequestBody = {
               sort_code?: string | undefined
             }
           | undefined
-        bancontact?: EmptyObject | undefined
-        billie?: EmptyObject | undefined
+        bancontact?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        billie?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         billing_details?:
           | {
               address?:
@@ -45385,15 +46756,31 @@ export type t_PostTestHelpersConfirmationTokensRequestBody = {
               tax_id?: string | undefined
             }
           | undefined
-        blik?: EmptyObject | undefined
+        blik?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         boleto?:
           | {
               tax_id: string
             }
           | undefined
-        cashapp?: EmptyObject | undefined
-        crypto?: EmptyObject | undefined
-        customer_balance?: EmptyObject | undefined
+        cashapp?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        crypto?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        customer_balance?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         eps?:
           | {
               bank?:
@@ -45457,8 +46844,16 @@ export type t_PostTestHelpersConfirmationTokensRequestBody = {
                 | "uob"
             }
           | undefined
-        giropay?: EmptyObject | undefined
-        grabpay?: EmptyObject | undefined
+        giropay?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        grabpay?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         ideal?:
           | {
               bank?:
@@ -45484,8 +46879,16 @@ export type t_PostTestHelpersConfirmationTokensRequestBody = {
                 | undefined
             }
           | undefined
-        interac_present?: EmptyObject | undefined
-        kakao_pay?: EmptyObject | undefined
+        interac_present?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        kakao_pay?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         klarna?:
           | {
               dob?:
@@ -45497,16 +46900,36 @@ export type t_PostTestHelpersConfirmationTokensRequestBody = {
                 | undefined
             }
           | undefined
-        konbini?: EmptyObject | undefined
-        kr_card?: EmptyObject | undefined
-        link?: EmptyObject | undefined
+        konbini?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        kr_card?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        link?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         metadata?:
           | {
               [key: string]: string | undefined
             }
           | undefined
-        mobilepay?: EmptyObject | undefined
-        multibanco?: EmptyObject | undefined
+        mobilepay?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        multibanco?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         naver_pay?:
           | {
               funding?: ("card" | "points") | undefined
@@ -45522,7 +46945,11 @@ export type t_PostTestHelpersConfirmationTokensRequestBody = {
               suffix: string
             }
           | undefined
-        oxxo?: EmptyObject | undefined
+        oxxo?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         p24?:
           | {
               bank?:
@@ -45557,20 +46984,56 @@ export type t_PostTestHelpersConfirmationTokensRequestBody = {
                 | undefined
             }
           | undefined
-        pay_by_bank?: EmptyObject | undefined
-        payco?: EmptyObject | undefined
-        paynow?: EmptyObject | undefined
-        paypal?: EmptyObject | undefined
-        pix?: EmptyObject | undefined
-        promptpay?: EmptyObject | undefined
+        pay_by_bank?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        payco?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        paynow?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        paypal?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        pix?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        promptpay?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         radar_options?:
           | {
               session?: string | undefined
             }
           | undefined
-        revolut_pay?: EmptyObject | undefined
-        samsung_pay?: EmptyObject | undefined
-        satispay?: EmptyObject | undefined
+        revolut_pay?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        samsung_pay?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        satispay?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         sepa_debit?:
           | {
               iban: string
@@ -45581,8 +47044,16 @@ export type t_PostTestHelpersConfirmationTokensRequestBody = {
               country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL"
             }
           | undefined
-        swish?: EmptyObject | undefined
-        twint?: EmptyObject | undefined
+        swish?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        twint?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         type:
           | "acss_debit"
           | "affirm"
@@ -45640,8 +47111,16 @@ export type t_PostTestHelpersConfirmationTokensRequestBody = {
               routing_number?: string | undefined
             }
           | undefined
-        wechat_pay?: EmptyObject | undefined
-        zip?: EmptyObject | undefined
+        wechat_pay?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        zip?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
       }
     | undefined
   payment_method_options?:

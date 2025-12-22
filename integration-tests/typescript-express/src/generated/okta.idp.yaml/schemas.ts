@@ -268,7 +268,7 @@ export const s_Phone = z.object({
 export const s_Profile = z.object({
   createdAt: z.iso.datetime({offset: true}).optional(),
   modifiedAt: z.iso.datetime({offset: true}).optional(),
-  profile: z.object({}).optional(),
+  profile: z.record(z.string(), z.unknown()).optional(),
   _links: z
     .object({
       self: z.object({href: z.string().optional()}).optional(),
@@ -288,7 +288,7 @@ export const s_PushNotificationVerification = z.object({
 })
 
 export const s_Schema = z.object({
-  properties: z.object({}).optional(),
+  properties: z.record(z.string(), z.unknown()).optional(),
   _links: z
     .object({
       self: z.object({href: z.string().optional()}).optional(),
@@ -347,7 +347,7 @@ export const s_AuthenticatorEnrollment = z.object({
   lastChallenged: z.string().optional(),
   name: z.string().optional(),
   nickname: z.string().optional(),
-  profile: z.object({}).optional(),
+  profile: z.record(z.string(), z.unknown()).optional(),
   _links: z
     .object({
       self: s_HrefObject.optional(),
@@ -426,5 +426,5 @@ export const s_VerifyPhoneChallengeRequestBody = z.object({
 })
 
 export const s_ReplaceProfileRequestBody = z.object({
-  profile: z.object({}).optional(),
+  profile: z.record(z.string(), z.unknown()).optional(),
 })

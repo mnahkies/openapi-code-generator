@@ -377,7 +377,9 @@ export type t_assigned_issue_event = {
 
 export type t_authentication_token = {
   expires_at: string
-  permissions?: EmptyObject
+  permissions?: {
+    [key: string]: unknown | undefined
+  }
   repositories?: t_repository[]
   repository_selection?: "all" | "selected"
   single_file?: string | null
@@ -1341,7 +1343,9 @@ export type t_code_security_configuration_repositories = {
 
 export type t_code_security_default_configurations = {
   configuration?: t_code_security_configuration
-  default_for_new_repos?: EmptyObject
+  default_for_new_repos?: {
+    [key: string]: unknown | undefined
+  }
 }[]
 
 export type t_codeowners_errors = {
@@ -6464,7 +6468,9 @@ export type t_ruleset_version = {
 }
 
 export type t_ruleset_version_with_state = t_ruleset_version & {
-  state: EmptyObject
+  state: {
+    [key: string]: unknown | undefined
+  }
 }
 
 export type t_runner = {
@@ -9713,11 +9719,15 @@ export type t_ChecksCreateParamSchema = {
 
 export type t_ChecksCreateRequestBody =
   | {
-      status: EmptyObject
+      status: {
+        [key: string]: unknown | undefined
+      }
       [key: string]: unknown | undefined
     }
   | {
-      status?: EmptyObject
+      status?: {
+        [key: string]: unknown | undefined
+      }
       [key: string]: unknown | undefined
     }
 
@@ -9927,7 +9937,9 @@ export type t_CodeScanningCreateVariantAnalysisParamSchema = {
   repo: string
 }
 
-export type t_CodeScanningCreateVariantAnalysisRequestBody = EmptyObject
+export type t_CodeScanningCreateVariantAnalysisRequestBody = {
+  [key: string]: unknown | undefined
+}
 
 export type t_CodeScanningDeleteAnalysisParamSchema = {
   analysis_id: number

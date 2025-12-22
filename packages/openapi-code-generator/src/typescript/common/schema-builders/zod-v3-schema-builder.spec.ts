@@ -1265,7 +1265,7 @@ describe.each(testVersions)(
         })
 
         expect(code).toMatchInlineSnapshot(
-          `"const x = z.object({}).nullable().default(null)"`,
+          `"const x = z.record(z.unknown()).nullable().default(null)"`,
         )
 
         await expect(execute(undefined)).resolves.toBeNull()

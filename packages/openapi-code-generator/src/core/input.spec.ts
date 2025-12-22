@@ -444,8 +444,7 @@ describe("core/input - SchemaNormalizer", () => {
       expect(actual).toStrictEqual({...base.object, additionalProperties: true})
     })
 
-    // todo: fix
-    it.skip("translates 'type: object' with a description to a Record<string, any>", () => {
+    it("translates 'type: object' with a description to a Record<string, any>", () => {
       const actual = schemaNormalizer.normalize({
         type: "object",
         description: "something",

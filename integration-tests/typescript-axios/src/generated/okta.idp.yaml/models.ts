@@ -2,8 +2,6 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type EmptyObject = {[key: string]: never}
-
 export type UnknownEnumStringValue = string & {
   _brand: "unknown enum string value"
 }
@@ -147,7 +145,11 @@ export type t_AuthenticatorEnrollment = {
   readonly lastChallenged?: string | undefined
   name?: string | undefined
   nickname?: string | undefined
-  readonly profile?: EmptyObject | undefined
+  readonly profile?:
+    | {
+        [key: string]: unknown | undefined
+      }
+    | undefined
 }
 
 export type t_AuthenticatorKey =
@@ -423,7 +425,11 @@ export type t_Profile = {
     | undefined
   readonly createdAt?: string | undefined
   readonly modifiedAt?: string | undefined
-  profile?: EmptyObject | undefined
+  profile?:
+    | {
+        [key: string]: unknown | undefined
+      }
+    | undefined
 }
 
 export type t_PushNotificationChallenge = {
@@ -451,7 +457,11 @@ export type t_Schema = {
           | undefined
       }
     | undefined
-  readonly properties?: EmptyObject | undefined
+  readonly properties?:
+    | {
+        [key: string]: unknown | undefined
+      }
+    | undefined
 }
 
 export type t_UpdateAppAuthenticatorEnrollmentRequest = {
@@ -506,7 +516,11 @@ export type t_ReplacePasswordRequestBody = {
 }
 
 export type t_ReplaceProfileRequestBody = {
-  profile?: EmptyObject | undefined
+  profile?:
+    | {
+        [key: string]: unknown | undefined
+      }
+    | undefined
 }
 
 export type t_SendEmailChallengeRequestBody = {

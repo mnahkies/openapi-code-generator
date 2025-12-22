@@ -661,7 +661,10 @@ export const s_card_issuing_account_terms_of_service = z.object({
   user_agent: z.string().max(5000).optional(),
 })
 
-export const s_card_mandate_payment_method_details = z.object({})
+export const s_card_mandate_payment_method_details = z.record(
+  z.string(),
+  z.unknown(),
+)
 
 export const s_charge_fraud_details = z.object({
   stripe_report: z.string().max(5000).optional(),
@@ -857,7 +860,10 @@ export const s_connect_embedded_account_features_claim = z.object({
   external_account_collection: PermissiveBoolean,
 })
 
-export const s_connect_embedded_base_features = z.object({})
+export const s_connect_embedded_base_features = z.record(
+  z.string(),
+  z.unknown(),
+)
 
 export const s_connect_embedded_disputes_list_features = z.object({
   capture_payments: PermissiveBoolean,
@@ -1142,7 +1148,10 @@ export const s_deleted_webhook_endpoint = z.object({
   object: z.enum(["webhook_endpoint"]),
 })
 
-export const s_destination_details_unimplemented = z.object({})
+export const s_destination_details_unimplemented = z.record(
+  z.string(),
+  z.unknown(),
+)
 
 export const s_dispute_enhanced_eligibility_visa_compelling_evidence3 =
   z.object({
@@ -1355,7 +1364,10 @@ export const s_gelato_report_document_options = z.object({
   require_matching_selfie: PermissiveBoolean.optional(),
 })
 
-export const s_gelato_report_id_number_options = z.object({})
+export const s_gelato_report_id_number_options = z.record(
+  z.string(),
+  z.unknown(),
+)
 
 export const s_gelato_selfie_report_error = z.object({
   code: z
@@ -1383,7 +1395,10 @@ export const s_gelato_session_email_options = z.object({
   require_verification: PermissiveBoolean.optional(),
 })
 
-export const s_gelato_session_id_number_options = z.object({})
+export const s_gelato_session_id_number_options = z.record(
+  z.string(),
+  z.unknown(),
+)
 
 export const s_gelato_session_last_error = z.object({
   code: z
@@ -1462,9 +1477,15 @@ export const s_invoice_payment_method_options_bancontact = z.object({
 export const s_invoice_payment_method_options_customer_balance_bank_transfer_eu_bank_transfer =
   z.object({country: z.enum(["BE", "DE", "ES", "FR", "IE", "NL"])})
 
-export const s_invoice_payment_method_options_konbini = z.object({})
+export const s_invoice_payment_method_options_konbini = z.record(
+  z.string(),
+  z.unknown(),
+)
 
-export const s_invoice_payment_method_options_sepa_debit = z.object({})
+export const s_invoice_payment_method_options_sepa_debit = z.record(
+  z.string(),
+  z.unknown(),
+)
 
 export const s_invoice_payment_method_options_us_bank_account_linked_account_options_filters =
   z.object({
@@ -2670,7 +2691,7 @@ export const s_mandate_acss_debit = z.object({
   transaction_type: z.enum(["business", "personal"]),
 })
 
-export const s_mandate_amazon_pay = z.object({})
+export const s_mandate_amazon_pay = z.record(z.string(), z.unknown())
 
 export const s_mandate_au_becs_debit = z.object({url: z.string().max(5000)})
 
@@ -2690,28 +2711,28 @@ export const s_mandate_bacs_debit = z.object({
   url: z.string().max(5000),
 })
 
-export const s_mandate_cashapp = z.object({})
+export const s_mandate_cashapp = z.record(z.string(), z.unknown())
 
-export const s_mandate_kakao_pay = z.object({})
+export const s_mandate_kakao_pay = z.record(z.string(), z.unknown())
 
-export const s_mandate_klarna = z.object({})
+export const s_mandate_klarna = z.record(z.string(), z.unknown())
 
-export const s_mandate_kr_card = z.object({})
+export const s_mandate_kr_card = z.record(z.string(), z.unknown())
 
-export const s_mandate_link = z.object({})
+export const s_mandate_link = z.record(z.string(), z.unknown())
 
-export const s_mandate_multi_use = z.object({})
+export const s_mandate_multi_use = z.record(z.string(), z.unknown())
 
-export const s_mandate_naver_pay = z.object({})
+export const s_mandate_naver_pay = z.record(z.string(), z.unknown())
 
-export const s_mandate_nz_bank_account = z.object({})
+export const s_mandate_nz_bank_account = z.record(z.string(), z.unknown())
 
 export const s_mandate_paypal = z.object({
   billing_agreement_id: z.string().max(5000).nullable().optional(),
   payer_id: z.string().max(5000).nullable().optional(),
 })
 
-export const s_mandate_revolut_pay = z.object({})
+export const s_mandate_revolut_pay = z.record(z.string(), z.unknown())
 
 export const s_mandate_sepa_debit = z.object({
   reference: z.string().max(5000),
@@ -2733,8 +2754,8 @@ export const s_networks = z.object({
 })
 
 export const s_notification_event_data = z.object({
-  object: z.object({}),
-  previous_attributes: z.object({}).optional(),
+  object: z.record(z.string(), z.unknown()),
+  previous_attributes: z.record(z.string(), z.unknown()).optional(),
 })
 
 export const s_notification_event_request = z.object({
@@ -2742,7 +2763,7 @@ export const s_notification_event_request = z.object({
   idempotency_key: z.string().max(5000).nullable().optional(),
 })
 
-export const s_offline_acceptance = z.object({})
+export const s_offline_acceptance = z.record(z.string(), z.unknown())
 
 export const s_online_acceptance = z.object({
   ip_address: z.string().max(5000).nullable().optional(),
@@ -2782,7 +2803,10 @@ export const s_payment_flows_payment_intent_presentment_details = z.object({
   presentment_currency: z.string().max(5000),
 })
 
-export const s_payment_flows_private_payment_methods_alipay = z.object({})
+export const s_payment_flows_private_payment_methods_alipay = z.record(
+  z.string(),
+  z.unknown(),
+)
 
 export const s_payment_flows_private_payment_methods_alipay_details = z.object({
   buyer_id: z.string().max(5000).optional(),
@@ -3351,13 +3375,16 @@ export const s_payment_method_acss_debit = z.object({
   transit_number: z.string().max(5000).nullable().optional(),
 })
 
-export const s_payment_method_affirm = z.object({})
+export const s_payment_method_affirm = z.record(z.string(), z.unknown())
 
-export const s_payment_method_afterpay_clearpay = z.object({})
+export const s_payment_method_afterpay_clearpay = z.record(
+  z.string(),
+  z.unknown(),
+)
 
-export const s_payment_method_alma = z.object({})
+export const s_payment_method_alma = z.record(z.string(), z.unknown())
 
-export const s_payment_method_amazon_pay = z.object({})
+export const s_payment_method_amazon_pay = z.record(z.string(), z.unknown())
 
 export const s_payment_method_au_becs_debit = z.object({
   bsb_number: z.string().max(5000).nullable().optional(),
@@ -3371,11 +3398,11 @@ export const s_payment_method_bacs_debit = z.object({
   sort_code: z.string().max(5000).nullable().optional(),
 })
 
-export const s_payment_method_bancontact = z.object({})
+export const s_payment_method_bancontact = z.record(z.string(), z.unknown())
 
-export const s_payment_method_billie = z.object({})
+export const s_payment_method_billie = z.record(z.string(), z.unknown())
 
-export const s_payment_method_blik = z.object({})
+export const s_payment_method_blik = z.record(z.string(), z.unknown())
 
 export const s_payment_method_boleto = z.object({tax_id: z.string().max(5000)})
 
@@ -3390,15 +3417,30 @@ export const s_payment_method_card_present_networks = z.object({
   preferred: z.string().max(5000).nullable().optional(),
 })
 
-export const s_payment_method_card_wallet_amex_express_checkout = z.object({})
+export const s_payment_method_card_wallet_amex_express_checkout = z.record(
+  z.string(),
+  z.unknown(),
+)
 
-export const s_payment_method_card_wallet_apple_pay = z.object({})
+export const s_payment_method_card_wallet_apple_pay = z.record(
+  z.string(),
+  z.unknown(),
+)
 
-export const s_payment_method_card_wallet_google_pay = z.object({})
+export const s_payment_method_card_wallet_google_pay = z.record(
+  z.string(),
+  z.unknown(),
+)
 
-export const s_payment_method_card_wallet_link = z.object({})
+export const s_payment_method_card_wallet_link = z.record(
+  z.string(),
+  z.unknown(),
+)
 
-export const s_payment_method_card_wallet_samsung_pay = z.object({})
+export const s_payment_method_card_wallet_samsung_pay = z.record(
+  z.string(),
+  z.unknown(),
+)
 
 export const s_payment_method_cashapp = z.object({
   buyer_id: z.string().max(5000).nullable().optional(),
@@ -3417,9 +3459,12 @@ export const s_payment_method_config_resource_display_preference = z.object({
   value: z.enum(["off", "on"]),
 })
 
-export const s_payment_method_crypto = z.object({})
+export const s_payment_method_crypto = z.record(z.string(), z.unknown())
 
-export const s_payment_method_customer_balance = z.object({})
+export const s_payment_method_customer_balance = z.record(
+  z.string(),
+  z.unknown(),
+)
 
 export const s_payment_method_details_ach_credit_transfer = z.object({
   account_number: z.string().max(5000).nullable().optional(),
@@ -3457,7 +3502,7 @@ export const s_payment_method_details_afterpay_clearpay = z.object({
   reference: z.string().max(5000).nullable().optional(),
 })
 
-export const s_payment_method_details_alma = z.object({})
+export const s_payment_method_details_alma = z.record(z.string(), z.unknown())
 
 export const s_payment_method_details_au_becs_debit = z.object({
   bsb_number: z.string().max(5000).nullable().optional(),
@@ -3473,7 +3518,7 @@ export const s_payment_method_details_bacs_debit = z.object({
   sort_code: z.string().max(5000).nullable().optional(),
 })
 
-export const s_payment_method_details_billie = z.object({})
+export const s_payment_method_details_billie = z.record(z.string(), z.unknown())
 
 export const s_payment_method_details_blik = z.object({
   buyer_id: z.string().max(5000).nullable().optional(),
@@ -3517,15 +3562,27 @@ export const s_payment_method_details_card_present_receipt = z.object({
 })
 
 export const s_payment_method_details_card_wallet_amex_express_checkout =
-  z.object({})
+  z.record(z.string(), z.unknown())
 
-export const s_payment_method_details_card_wallet_apple_pay = z.object({})
+export const s_payment_method_details_card_wallet_apple_pay = z.record(
+  z.string(),
+  z.unknown(),
+)
 
-export const s_payment_method_details_card_wallet_google_pay = z.object({})
+export const s_payment_method_details_card_wallet_google_pay = z.record(
+  z.string(),
+  z.unknown(),
+)
 
-export const s_payment_method_details_card_wallet_link = z.object({})
+export const s_payment_method_details_card_wallet_link = z.record(
+  z.string(),
+  z.unknown(),
+)
 
-export const s_payment_method_details_card_wallet_samsung_pay = z.object({})
+export const s_payment_method_details_card_wallet_samsung_pay = z.record(
+  z.string(),
+  z.unknown(),
+)
 
 export const s_payment_method_details_cashapp = z.object({
   buyer_id: z.string().max(5000).nullable().optional(),
@@ -3540,7 +3597,10 @@ export const s_payment_method_details_crypto = z.object({
   transaction_hash: z.string().max(5000).optional(),
 })
 
-export const s_payment_method_details_customer_balance = z.object({})
+export const s_payment_method_details_customer_balance = z.record(
+  z.string(),
+  z.unknown(),
+)
 
 export const s_payment_method_details_eps = z.object({
   bank: z
@@ -3744,7 +3804,10 @@ export const s_payment_method_details_passthrough_card = z.object({
   last4: z.string().max(5000).nullable().optional(),
 })
 
-export const s_payment_method_details_pay_by_bank = z.object({})
+export const s_payment_method_details_pay_by_bank = z.record(
+  z.string(),
+  z.unknown(),
+)
 
 export const s_payment_method_details_payco = z.object({
   buyer_id: z.string().max(5000).nullable().optional(),
@@ -3766,7 +3829,10 @@ export const s_payment_method_details_samsung_pay = z.object({
   buyer_id: z.string().max(5000).nullable().optional(),
 })
 
-export const s_payment_method_details_satispay = z.object({})
+export const s_payment_method_details_satispay = z.record(
+  z.string(),
+  z.unknown(),
+)
 
 export const s_payment_method_details_sepa_debit = z.object({
   bank_code: z.string().max(5000).nullable().optional(),
@@ -3777,7 +3843,10 @@ export const s_payment_method_details_sepa_debit = z.object({
   mandate: z.string().max(5000).nullable().optional(),
 })
 
-export const s_payment_method_details_stripe_account = z.object({})
+export const s_payment_method_details_stripe_account = z.record(
+  z.string(),
+  z.unknown(),
+)
 
 export const s_payment_method_details_swish = z.object({
   fingerprint: z.string().max(5000).nullable().optional(),
@@ -3785,9 +3854,9 @@ export const s_payment_method_details_swish = z.object({
   verified_phone_last4: z.string().max(5000).nullable().optional(),
 })
 
-export const s_payment_method_details_twint = z.object({})
+export const s_payment_method_details_twint = z.record(z.string(), z.unknown())
 
-export const s_payment_method_details_wechat = z.object({})
+export const s_payment_method_details_wechat = z.record(z.string(), z.unknown())
 
 export const s_payment_method_details_wechat_pay = z.object({
   fingerprint: z.string().max(5000).nullable().optional(),
@@ -3796,7 +3865,7 @@ export const s_payment_method_details_wechat_pay = z.object({
   transaction_id: z.string().max(5000).nullable().optional(),
 })
 
-export const s_payment_method_details_zip = z.object({})
+export const s_payment_method_details_zip = z.record(z.string(), z.unknown())
 
 export const s_payment_method_domain_resource_payment_method_status_details =
   z.object({error_message: z.string().max(5000)})
@@ -3864,9 +3933,9 @@ export const s_payment_method_fpx = z.object({
   ]),
 })
 
-export const s_payment_method_giropay = z.object({})
+export const s_payment_method_giropay = z.record(z.string(), z.unknown())
 
-export const s_payment_method_grabpay = z.object({})
+export const s_payment_method_grabpay = z.record(z.string(), z.unknown())
 
 export const s_payment_method_ideal = z.object({
   bank: z
@@ -3916,9 +3985,9 @@ export const s_payment_method_ideal = z.object({
     .optional(),
 })
 
-export const s_payment_method_kakao_pay = z.object({})
+export const s_payment_method_kakao_pay = z.record(z.string(), z.unknown())
 
-export const s_payment_method_konbini = z.object({})
+export const s_payment_method_konbini = z.record(z.string(), z.unknown())
 
 export const s_payment_method_kr_card = z.object({
   brand: z
@@ -3955,9 +4024,9 @@ export const s_payment_method_link = z.object({
   email: z.string().max(5000).nullable().optional(),
 })
 
-export const s_payment_method_mobilepay = z.object({})
+export const s_payment_method_mobilepay = z.record(z.string(), z.unknown())
 
-export const s_payment_method_multibanco = z.object({})
+export const s_payment_method_multibanco = z.record(z.string(), z.unknown())
 
 export const s_payment_method_naver_pay = z.object({
   buyer_id: z.string().max(5000).nullable().optional(),
@@ -4062,7 +4131,10 @@ export const s_payment_method_options_ideal = z.object({
   setup_future_usage: z.enum(["none", "off_session"]).optional(),
 })
 
-export const s_payment_method_options_interac_present = z.object({})
+export const s_payment_method_options_interac_present = z.record(
+  z.string(),
+  z.unknown(),
+)
 
 export const s_payment_method_options_klarna = z.object({
   capture_method: z.enum(["manual"]).optional(),
@@ -4096,7 +4168,10 @@ export const s_payment_method_options_p24 = z.object({
   setup_future_usage: z.enum(["none"]).optional(),
 })
 
-export const s_payment_method_options_pay_by_bank = z.object({})
+export const s_payment_method_options_pay_by_bank = z.record(
+  z.string(),
+  z.unknown(),
+)
 
 export const s_payment_method_options_paynow = z.object({
   setup_future_usage: z.enum(["none"]).optional(),
@@ -4153,7 +4228,7 @@ export const s_payment_method_options_zip = z.object({
   setup_future_usage: z.enum(["none"]).optional(),
 })
 
-export const s_payment_method_oxxo = z.object({})
+export const s_payment_method_oxxo = z.record(z.string(), z.unknown())
 
 export const s_payment_method_p24 = z.object({
   bank: z
@@ -4189,11 +4264,11 @@ export const s_payment_method_p24 = z.object({
     .optional(),
 })
 
-export const s_payment_method_pay_by_bank = z.object({})
+export const s_payment_method_pay_by_bank = z.record(z.string(), z.unknown())
 
-export const s_payment_method_payco = z.object({})
+export const s_payment_method_payco = z.record(z.string(), z.unknown())
 
-export const s_payment_method_paynow = z.object({})
+export const s_payment_method_paynow = z.record(z.string(), z.unknown())
 
 export const s_payment_method_paypal = z.object({
   country: z.string().max(5000).nullable().optional(),
@@ -4201,23 +4276,23 @@ export const s_payment_method_paypal = z.object({
   payer_id: z.string().max(5000).nullable().optional(),
 })
 
-export const s_payment_method_pix = z.object({})
+export const s_payment_method_pix = z.record(z.string(), z.unknown())
 
-export const s_payment_method_promptpay = z.object({})
+export const s_payment_method_promptpay = z.record(z.string(), z.unknown())
 
-export const s_payment_method_revolut_pay = z.object({})
+export const s_payment_method_revolut_pay = z.record(z.string(), z.unknown())
 
-export const s_payment_method_samsung_pay = z.object({})
+export const s_payment_method_samsung_pay = z.record(z.string(), z.unknown())
 
-export const s_payment_method_satispay = z.object({})
+export const s_payment_method_satispay = z.record(z.string(), z.unknown())
 
 export const s_payment_method_sofort = z.object({
   country: z.string().max(5000).nullable().optional(),
 })
 
-export const s_payment_method_swish = z.object({})
+export const s_payment_method_swish = z.record(z.string(), z.unknown())
 
-export const s_payment_method_twint = z.object({})
+export const s_payment_method_twint = z.record(z.string(), z.unknown())
 
 export const s_payment_method_us_bank_account_blocked = z.object({
   network_code: z
@@ -4250,9 +4325,9 @@ export const s_payment_method_us_bank_account_blocked = z.object({
     .optional(),
 })
 
-export const s_payment_method_wechat_pay = z.object({})
+export const s_payment_method_wechat_pay = z.record(z.string(), z.unknown())
 
-export const s_payment_method_zip = z.object({})
+export const s_payment_method_zip = z.record(z.string(), z.unknown())
 
 export const s_payment_pages_checkout_session_adaptive_pricing = z.object({
   enabled: PermissiveBoolean,
@@ -5061,15 +5136,30 @@ export const s_secret_service_resource_scope = z.object({
   user: z.string().max(5000).optional(),
 })
 
-export const s_setup_attempt_payment_method_details_acss_debit = z.object({})
+export const s_setup_attempt_payment_method_details_acss_debit = z.record(
+  z.string(),
+  z.unknown(),
+)
 
-export const s_setup_attempt_payment_method_details_amazon_pay = z.object({})
+export const s_setup_attempt_payment_method_details_amazon_pay = z.record(
+  z.string(),
+  z.unknown(),
+)
 
-export const s_setup_attempt_payment_method_details_au_becs_debit = z.object({})
+export const s_setup_attempt_payment_method_details_au_becs_debit = z.record(
+  z.string(),
+  z.unknown(),
+)
 
-export const s_setup_attempt_payment_method_details_bacs_debit = z.object({})
+export const s_setup_attempt_payment_method_details_bacs_debit = z.record(
+  z.string(),
+  z.unknown(),
+)
 
-export const s_setup_attempt_payment_method_details_boleto = z.object({})
+export const s_setup_attempt_payment_method_details_boleto = z.record(
+  z.string(),
+  z.unknown(),
+)
 
 export const s_setup_attempt_payment_method_details_card_checks = z.object({
   address_line1_check: z.string().max(5000).nullable().optional(),
@@ -5077,32 +5167,58 @@ export const s_setup_attempt_payment_method_details_card_checks = z.object({
   cvc_check: z.string().max(5000).nullable().optional(),
 })
 
-export const s_setup_attempt_payment_method_details_cashapp = z.object({})
+export const s_setup_attempt_payment_method_details_cashapp = z.record(
+  z.string(),
+  z.unknown(),
+)
 
-export const s_setup_attempt_payment_method_details_kakao_pay = z.object({})
+export const s_setup_attempt_payment_method_details_kakao_pay = z.record(
+  z.string(),
+  z.unknown(),
+)
 
-export const s_setup_attempt_payment_method_details_klarna = z.object({})
+export const s_setup_attempt_payment_method_details_klarna = z.record(
+  z.string(),
+  z.unknown(),
+)
 
-export const s_setup_attempt_payment_method_details_kr_card = z.object({})
+export const s_setup_attempt_payment_method_details_kr_card = z.record(
+  z.string(),
+  z.unknown(),
+)
 
-export const s_setup_attempt_payment_method_details_link = z.object({})
+export const s_setup_attempt_payment_method_details_link = z.record(
+  z.string(),
+  z.unknown(),
+)
 
 export const s_setup_attempt_payment_method_details_naver_pay = z.object({
   buyer_id: z.string().max(5000).optional(),
 })
 
-export const s_setup_attempt_payment_method_details_nz_bank_account = z.object(
-  {},
+export const s_setup_attempt_payment_method_details_nz_bank_account = z.record(
+  z.string(),
+  z.unknown(),
 )
 
-export const s_setup_attempt_payment_method_details_paypal = z.object({})
+export const s_setup_attempt_payment_method_details_paypal = z.record(
+  z.string(),
+  z.unknown(),
+)
 
-export const s_setup_attempt_payment_method_details_revolut_pay = z.object({})
+export const s_setup_attempt_payment_method_details_revolut_pay = z.record(
+  z.string(),
+  z.unknown(),
+)
 
-export const s_setup_attempt_payment_method_details_sepa_debit = z.object({})
+export const s_setup_attempt_payment_method_details_sepa_debit = z.record(
+  z.string(),
+  z.unknown(),
+)
 
-export const s_setup_attempt_payment_method_details_us_bank_account = z.object(
-  {},
+export const s_setup_attempt_payment_method_details_us_bank_account = z.record(
+  z.string(),
+  z.unknown(),
 )
 
 export const s_setup_intent_next_action_redirect_to_url = z.object({
@@ -5119,7 +5235,10 @@ export const s_setup_intent_next_action_verify_with_microdeposits = z.object({
     .optional(),
 })
 
-export const s_setup_intent_payment_method_options_amazon_pay = z.object({})
+export const s_setup_intent_payment_method_options_amazon_pay = z.record(
+  z.string(),
+  z.unknown(),
+)
 
 export const s_setup_intent_payment_method_options_card_mandate_options =
   z.object({
@@ -5138,14 +5257,20 @@ export const s_setup_intent_payment_method_options_card_mandate_options =
       .optional(),
   })
 
-export const s_setup_intent_payment_method_options_card_present = z.object({})
+export const s_setup_intent_payment_method_options_card_present = z.record(
+  z.string(),
+  z.unknown(),
+)
 
 export const s_setup_intent_payment_method_options_klarna = z.object({
   currency: z.string().nullable().optional(),
   preferred_locale: z.string().max(5000).nullable().optional(),
 })
 
-export const s_setup_intent_payment_method_options_link = z.object({})
+export const s_setup_intent_payment_method_options_link = z.record(
+  z.string(),
+  z.unknown(),
+)
 
 export const s_setup_intent_payment_method_options_mandate_options_acss_debit =
   z.object({
@@ -5751,7 +5876,7 @@ export const s_tax_product_resource_tax_settings_defaults = z.object({
 })
 
 export const s_tax_product_resource_tax_settings_status_details_resource_active =
-  z.object({})
+  z.record(z.string(), z.unknown())
 
 export const s_tax_product_resource_tax_settings_status_details_resource_pending =
   z.object({
@@ -10249,7 +10374,7 @@ export const s_setup_intent_next_action = z.object({
     s_payment_intent_next_action_cashapp_handle_redirect_or_display_qr_code.optional(),
   redirect_to_url: s_setup_intent_next_action_redirect_to_url.optional(),
   type: z.string().max(5000),
-  use_stripe_sdk: z.object({}).optional(),
+  use_stripe_sdk: z.record(z.string(), z.unknown()).optional(),
   verify_with_microdeposits:
     s_setup_intent_next_action_verify_with_microdeposits.optional(),
 })
@@ -11485,7 +11610,7 @@ export const s_payment_intent_next_action = z.object({
   swish_handle_redirect_or_display_qr_code:
     s_payment_intent_next_action_swish_handle_redirect_or_display_qr_code.optional(),
   type: z.string().max(5000),
-  use_stripe_sdk: z.object({}).optional(),
+  use_stripe_sdk: z.record(z.string(), z.unknown()).optional(),
   verify_with_microdeposits:
     s_payment_intent_next_action_verify_with_microdeposits.optional(),
   wechat_pay_display_qr_code:
@@ -11834,7 +11959,10 @@ export const s_PostAccountSessionsRequestBody = z.object({
       })
       .optional(),
     documents: z
-      .object({enabled: PermissiveBoolean, features: z.object({}).optional()})
+      .object({
+        enabled: PermissiveBoolean,
+        features: z.record(z.string(), z.unknown()).optional(),
+      })
       .optional(),
     financial_account: z
       .object({
@@ -11963,13 +12091,22 @@ export const s_PostAccountSessionsRequestBody = z.object({
       })
       .optional(),
     payouts_list: z
-      .object({enabled: PermissiveBoolean, features: z.object({}).optional()})
+      .object({
+        enabled: PermissiveBoolean,
+        features: z.record(z.string(), z.unknown()).optional(),
+      })
       .optional(),
     tax_registrations: z
-      .object({enabled: PermissiveBoolean, features: z.object({}).optional()})
+      .object({
+        enabled: PermissiveBoolean,
+        features: z.record(z.string(), z.unknown()).optional(),
+      })
       .optional(),
     tax_settings: z
-      .object({enabled: PermissiveBoolean, features: z.object({}).optional()})
+      .object({
+        enabled: PermissiveBoolean,
+        features: z.record(z.string(), z.unknown()).optional(),
+      })
       .optional(),
   }),
   expand: z.array(z.string().max(5000)).optional(),
@@ -16320,7 +16457,7 @@ export const s_PostCheckoutSessionsRequestBody = z.object({
           tos_shown_and_accepted: PermissiveBoolean.optional(),
         })
         .optional(),
-      pay_by_bank: z.object({}).optional(),
+      pay_by_bank: z.record(z.string(), z.unknown()).optional(),
       payco: z
         .object({capture_method: z.enum(["manual"]).optional()})
         .optional(),
@@ -18628,8 +18765,12 @@ export const s_PostCustomersCustomerSubscriptionsRequestBody = z.object({
               z.enum([""]),
             ])
             .optional(),
-          konbini: z.union([z.object({}), z.enum([""])]).optional(),
-          sepa_debit: z.union([z.object({}), z.enum([""])]).optional(),
+          konbini: z
+            .union([z.record(z.string(), z.unknown()), z.enum([""])])
+            .optional(),
+          sepa_debit: z
+            .union([z.record(z.string(), z.unknown()), z.enum([""])])
+            .optional(),
           us_bank_account: z
             .union([
               z.object({
@@ -19026,8 +19167,12 @@ export const s_PostCustomersCustomerSubscriptionsSubscriptionExposedIdRequestBod
                 z.enum([""]),
               ])
               .optional(),
-            konbini: z.union([z.object({}), z.enum([""])]).optional(),
-            sepa_debit: z.union([z.object({}), z.enum([""])]).optional(),
+            konbini: z
+              .union([z.record(z.string(), z.unknown()), z.enum([""])])
+              .optional(),
+            sepa_debit: z
+              .union([z.record(z.string(), z.unknown()), z.enum([""])])
+              .optional(),
             us_bank_account: z
               .union([
                 z.object({
@@ -20433,8 +20578,12 @@ export const s_PostInvoicesRequestBody = z.object({
               z.enum([""]),
             ])
             .optional(),
-          konbini: z.union([z.object({}), z.enum([""])]).optional(),
-          sepa_debit: z.union([z.object({}), z.enum([""])]).optional(),
+          konbini: z
+            .union([z.record(z.string(), z.unknown()), z.enum([""])])
+            .optional(),
+          sepa_debit: z
+            .union([z.record(z.string(), z.unknown()), z.enum([""])])
+            .optional(),
           us_bank_account: z
             .union([
               z.object({
@@ -21246,8 +21395,12 @@ export const s_PostInvoicesInvoiceRequestBody = z.object({
               z.enum([""]),
             ])
             .optional(),
-          konbini: z.union([z.object({}), z.enum([""])]).optional(),
-          sepa_debit: z.union([z.object({}), z.enum([""])]).optional(),
+          konbini: z
+            .union([z.record(z.string(), z.unknown()), z.enum([""])])
+            .optional(),
+          sepa_debit: z
+            .union([z.record(z.string(), z.unknown()), z.enum([""])])
+            .optional(),
           us_bank_account: z
             .union([
               z.object({
@@ -26696,7 +26849,7 @@ export const s_PostPaymentIntentsRequestBody = z.object({
       z.object({
         customer_acceptance: z.object({
           accepted_at: z.coerce.number().optional(),
-          offline: z.object({}).optional(),
+          offline: z.record(z.string(), z.unknown()).optional(),
           online: z
             .object({ip_address: z.string(), user_agent: z.string().max(5000)})
             .optional(),
@@ -26722,12 +26875,12 @@ export const s_PostPaymentIntentsRequestBody = z.object({
           transit_number: z.string().max(5000),
         })
         .optional(),
-      affirm: z.object({}).optional(),
-      afterpay_clearpay: z.object({}).optional(),
-      alipay: z.object({}).optional(),
+      affirm: z.record(z.string(), z.unknown()).optional(),
+      afterpay_clearpay: z.record(z.string(), z.unknown()).optional(),
+      alipay: z.record(z.string(), z.unknown()).optional(),
       allow_redisplay: z.enum(["always", "limited", "unspecified"]).optional(),
-      alma: z.object({}).optional(),
-      amazon_pay: z.object({}).optional(),
+      alma: z.record(z.string(), z.unknown()).optional(),
+      amazon_pay: z.record(z.string(), z.unknown()).optional(),
       au_becs_debit: z
         .object({
           account_number: z.string().max(5000),
@@ -26740,8 +26893,8 @@ export const s_PostPaymentIntentsRequestBody = z.object({
           sort_code: z.string().max(5000).optional(),
         })
         .optional(),
-      bancontact: z.object({}).optional(),
-      billie: z.object({}).optional(),
+      bancontact: z.record(z.string(), z.unknown()).optional(),
+      billie: z.record(z.string(), z.unknown()).optional(),
       billing_details: z
         .object({
           address: z
@@ -26763,11 +26916,11 @@ export const s_PostPaymentIntentsRequestBody = z.object({
           tax_id: z.string().max(5000).optional(),
         })
         .optional(),
-      blik: z.object({}).optional(),
+      blik: z.record(z.string(), z.unknown()).optional(),
       boleto: z.object({tax_id: z.string().max(5000)}).optional(),
-      cashapp: z.object({}).optional(),
-      crypto: z.object({}).optional(),
-      customer_balance: z.object({}).optional(),
+      cashapp: z.record(z.string(), z.unknown()).optional(),
+      crypto: z.record(z.string(), z.unknown()).optional(),
+      customer_balance: z.record(z.string(), z.unknown()).optional(),
       eps: z
         .object({
           bank: z
@@ -26832,8 +26985,8 @@ export const s_PostPaymentIntentsRequestBody = z.object({
           ]),
         })
         .optional(),
-      giropay: z.object({}).optional(),
-      grabpay: z.object({}).optional(),
+      giropay: z.record(z.string(), z.unknown()).optional(),
+      grabpay: z.record(z.string(), z.unknown()).optional(),
       ideal: z
         .object({
           bank: z
@@ -26859,8 +27012,8 @@ export const s_PostPaymentIntentsRequestBody = z.object({
             .optional(),
         })
         .optional(),
-      interac_present: z.object({}).optional(),
-      kakao_pay: z.object({}).optional(),
+      interac_present: z.record(z.string(), z.unknown()).optional(),
+      kakao_pay: z.record(z.string(), z.unknown()).optional(),
       klarna: z
         .object({
           dob: z
@@ -26872,12 +27025,12 @@ export const s_PostPaymentIntentsRequestBody = z.object({
             .optional(),
         })
         .optional(),
-      konbini: z.object({}).optional(),
-      kr_card: z.object({}).optional(),
-      link: z.object({}).optional(),
+      konbini: z.record(z.string(), z.unknown()).optional(),
+      kr_card: z.record(z.string(), z.unknown()).optional(),
+      link: z.record(z.string(), z.unknown()).optional(),
       metadata: z.record(z.string(), z.string()).optional(),
-      mobilepay: z.object({}).optional(),
-      multibanco: z.object({}).optional(),
+      mobilepay: z.record(z.string(), z.unknown()).optional(),
+      multibanco: z.record(z.string(), z.unknown()).optional(),
       naver_pay: z
         .object({funding: z.enum(["card", "points"]).optional()})
         .optional(),
@@ -26891,7 +27044,7 @@ export const s_PostPaymentIntentsRequestBody = z.object({
           suffix: z.string().max(5000),
         })
         .optional(),
-      oxxo: z.object({}).optional(),
+      oxxo: z.record(z.string(), z.unknown()).optional(),
       p24: z
         .object({
           bank: z
@@ -26926,24 +27079,24 @@ export const s_PostPaymentIntentsRequestBody = z.object({
             .optional(),
         })
         .optional(),
-      pay_by_bank: z.object({}).optional(),
-      payco: z.object({}).optional(),
-      paynow: z.object({}).optional(),
-      paypal: z.object({}).optional(),
-      pix: z.object({}).optional(),
-      promptpay: z.object({}).optional(),
+      pay_by_bank: z.record(z.string(), z.unknown()).optional(),
+      payco: z.record(z.string(), z.unknown()).optional(),
+      paynow: z.record(z.string(), z.unknown()).optional(),
+      paypal: z.record(z.string(), z.unknown()).optional(),
+      pix: z.record(z.string(), z.unknown()).optional(),
+      promptpay: z.record(z.string(), z.unknown()).optional(),
       radar_options: z
         .object({session: z.string().max(5000).optional()})
         .optional(),
-      revolut_pay: z.object({}).optional(),
-      samsung_pay: z.object({}).optional(),
-      satispay: z.object({}).optional(),
+      revolut_pay: z.record(z.string(), z.unknown()).optional(),
+      samsung_pay: z.record(z.string(), z.unknown()).optional(),
+      satispay: z.record(z.string(), z.unknown()).optional(),
       sepa_debit: z.object({iban: z.string().max(5000)}).optional(),
       sofort: z
         .object({country: z.enum(["AT", "BE", "DE", "ES", "IT", "NL"])})
         .optional(),
-      swish: z.object({}).optional(),
-      twint: z.object({}).optional(),
+      swish: z.record(z.string(), z.unknown()).optional(),
+      twint: z.record(z.string(), z.unknown()).optional(),
       type: z.enum([
         "acss_debit",
         "affirm",
@@ -27002,8 +27155,8 @@ export const s_PostPaymentIntentsRequestBody = z.object({
           routing_number: z.string().max(5000).optional(),
         })
         .optional(),
-      wechat_pay: z.object({}).optional(),
-      zip: z.object({}).optional(),
+      wechat_pay: z.record(z.string(), z.unknown()).optional(),
+      zip: z.record(z.string(), z.unknown()).optional(),
     })
     .optional(),
   payment_method_options: z
@@ -27344,7 +27497,9 @@ export const s_PostPaymentIntentsRequestBody = z.object({
           z.enum([""]),
         ])
         .optional(),
-      interac_present: z.union([z.object({}), z.enum([""])]).optional(),
+      interac_present: z
+        .union([z.record(z.string(), z.unknown()), z.enum([""])])
+        .optional(),
       kakao_pay: z
         .union([
           z.object({
@@ -27534,7 +27689,9 @@ export const s_PostPaymentIntentsRequestBody = z.object({
           z.enum([""]),
         ])
         .optional(),
-      pay_by_bank: z.union([z.object({}), z.enum([""])]).optional(),
+      pay_by_bank: z
+        .union([z.record(z.string(), z.unknown()), z.enum([""])])
+        .optional(),
       payco: z
         .union([
           z.object({capture_method: z.enum(["", "manual"]).optional()}),
@@ -27792,12 +27949,12 @@ export const s_PostPaymentIntentsIntentRequestBody = z.object({
           transit_number: z.string().max(5000),
         })
         .optional(),
-      affirm: z.object({}).optional(),
-      afterpay_clearpay: z.object({}).optional(),
-      alipay: z.object({}).optional(),
+      affirm: z.record(z.string(), z.unknown()).optional(),
+      afterpay_clearpay: z.record(z.string(), z.unknown()).optional(),
+      alipay: z.record(z.string(), z.unknown()).optional(),
       allow_redisplay: z.enum(["always", "limited", "unspecified"]).optional(),
-      alma: z.object({}).optional(),
-      amazon_pay: z.object({}).optional(),
+      alma: z.record(z.string(), z.unknown()).optional(),
+      amazon_pay: z.record(z.string(), z.unknown()).optional(),
       au_becs_debit: z
         .object({
           account_number: z.string().max(5000),
@@ -27810,8 +27967,8 @@ export const s_PostPaymentIntentsIntentRequestBody = z.object({
           sort_code: z.string().max(5000).optional(),
         })
         .optional(),
-      bancontact: z.object({}).optional(),
-      billie: z.object({}).optional(),
+      bancontact: z.record(z.string(), z.unknown()).optional(),
+      billie: z.record(z.string(), z.unknown()).optional(),
       billing_details: z
         .object({
           address: z
@@ -27833,11 +27990,11 @@ export const s_PostPaymentIntentsIntentRequestBody = z.object({
           tax_id: z.string().max(5000).optional(),
         })
         .optional(),
-      blik: z.object({}).optional(),
+      blik: z.record(z.string(), z.unknown()).optional(),
       boleto: z.object({tax_id: z.string().max(5000)}).optional(),
-      cashapp: z.object({}).optional(),
-      crypto: z.object({}).optional(),
-      customer_balance: z.object({}).optional(),
+      cashapp: z.record(z.string(), z.unknown()).optional(),
+      crypto: z.record(z.string(), z.unknown()).optional(),
+      customer_balance: z.record(z.string(), z.unknown()).optional(),
       eps: z
         .object({
           bank: z
@@ -27902,8 +28059,8 @@ export const s_PostPaymentIntentsIntentRequestBody = z.object({
           ]),
         })
         .optional(),
-      giropay: z.object({}).optional(),
-      grabpay: z.object({}).optional(),
+      giropay: z.record(z.string(), z.unknown()).optional(),
+      grabpay: z.record(z.string(), z.unknown()).optional(),
       ideal: z
         .object({
           bank: z
@@ -27929,8 +28086,8 @@ export const s_PostPaymentIntentsIntentRequestBody = z.object({
             .optional(),
         })
         .optional(),
-      interac_present: z.object({}).optional(),
-      kakao_pay: z.object({}).optional(),
+      interac_present: z.record(z.string(), z.unknown()).optional(),
+      kakao_pay: z.record(z.string(), z.unknown()).optional(),
       klarna: z
         .object({
           dob: z
@@ -27942,12 +28099,12 @@ export const s_PostPaymentIntentsIntentRequestBody = z.object({
             .optional(),
         })
         .optional(),
-      konbini: z.object({}).optional(),
-      kr_card: z.object({}).optional(),
-      link: z.object({}).optional(),
+      konbini: z.record(z.string(), z.unknown()).optional(),
+      kr_card: z.record(z.string(), z.unknown()).optional(),
+      link: z.record(z.string(), z.unknown()).optional(),
       metadata: z.record(z.string(), z.string()).optional(),
-      mobilepay: z.object({}).optional(),
-      multibanco: z.object({}).optional(),
+      mobilepay: z.record(z.string(), z.unknown()).optional(),
+      multibanco: z.record(z.string(), z.unknown()).optional(),
       naver_pay: z
         .object({funding: z.enum(["card", "points"]).optional()})
         .optional(),
@@ -27961,7 +28118,7 @@ export const s_PostPaymentIntentsIntentRequestBody = z.object({
           suffix: z.string().max(5000),
         })
         .optional(),
-      oxxo: z.object({}).optional(),
+      oxxo: z.record(z.string(), z.unknown()).optional(),
       p24: z
         .object({
           bank: z
@@ -27996,24 +28153,24 @@ export const s_PostPaymentIntentsIntentRequestBody = z.object({
             .optional(),
         })
         .optional(),
-      pay_by_bank: z.object({}).optional(),
-      payco: z.object({}).optional(),
-      paynow: z.object({}).optional(),
-      paypal: z.object({}).optional(),
-      pix: z.object({}).optional(),
-      promptpay: z.object({}).optional(),
+      pay_by_bank: z.record(z.string(), z.unknown()).optional(),
+      payco: z.record(z.string(), z.unknown()).optional(),
+      paynow: z.record(z.string(), z.unknown()).optional(),
+      paypal: z.record(z.string(), z.unknown()).optional(),
+      pix: z.record(z.string(), z.unknown()).optional(),
+      promptpay: z.record(z.string(), z.unknown()).optional(),
       radar_options: z
         .object({session: z.string().max(5000).optional()})
         .optional(),
-      revolut_pay: z.object({}).optional(),
-      samsung_pay: z.object({}).optional(),
-      satispay: z.object({}).optional(),
+      revolut_pay: z.record(z.string(), z.unknown()).optional(),
+      samsung_pay: z.record(z.string(), z.unknown()).optional(),
+      satispay: z.record(z.string(), z.unknown()).optional(),
       sepa_debit: z.object({iban: z.string().max(5000)}).optional(),
       sofort: z
         .object({country: z.enum(["AT", "BE", "DE", "ES", "IT", "NL"])})
         .optional(),
-      swish: z.object({}).optional(),
-      twint: z.object({}).optional(),
+      swish: z.record(z.string(), z.unknown()).optional(),
+      twint: z.record(z.string(), z.unknown()).optional(),
       type: z.enum([
         "acss_debit",
         "affirm",
@@ -28072,8 +28229,8 @@ export const s_PostPaymentIntentsIntentRequestBody = z.object({
           routing_number: z.string().max(5000).optional(),
         })
         .optional(),
-      wechat_pay: z.object({}).optional(),
-      zip: z.object({}).optional(),
+      wechat_pay: z.record(z.string(), z.unknown()).optional(),
+      zip: z.record(z.string(), z.unknown()).optional(),
     })
     .optional(),
   payment_method_options: z
@@ -28414,7 +28571,9 @@ export const s_PostPaymentIntentsIntentRequestBody = z.object({
           z.enum([""]),
         ])
         .optional(),
-      interac_present: z.union([z.object({}), z.enum([""])]).optional(),
+      interac_present: z
+        .union([z.record(z.string(), z.unknown()), z.enum([""])])
+        .optional(),
       kakao_pay: z
         .union([
           z.object({
@@ -28604,7 +28763,9 @@ export const s_PostPaymentIntentsIntentRequestBody = z.object({
           z.enum([""]),
         ])
         .optional(),
-      pay_by_bank: z.union([z.object({}), z.enum([""])]).optional(),
+      pay_by_bank: z
+        .union([z.record(z.string(), z.unknown()), z.enum([""])])
+        .optional(),
       payco: z
         .union([
           z.object({capture_method: z.enum(["", "manual"]).optional()}),
@@ -28871,7 +29032,7 @@ export const s_PostPaymentIntentsIntentConfirmRequestBody = z.object({
       z.object({
         customer_acceptance: z.object({
           accepted_at: z.coerce.number().optional(),
-          offline: z.object({}).optional(),
+          offline: z.record(z.string(), z.unknown()).optional(),
           online: z
             .object({ip_address: z.string(), user_agent: z.string().max(5000)})
             .optional(),
@@ -28903,12 +29064,12 @@ export const s_PostPaymentIntentsIntentConfirmRequestBody = z.object({
           transit_number: z.string().max(5000),
         })
         .optional(),
-      affirm: z.object({}).optional(),
-      afterpay_clearpay: z.object({}).optional(),
-      alipay: z.object({}).optional(),
+      affirm: z.record(z.string(), z.unknown()).optional(),
+      afterpay_clearpay: z.record(z.string(), z.unknown()).optional(),
+      alipay: z.record(z.string(), z.unknown()).optional(),
       allow_redisplay: z.enum(["always", "limited", "unspecified"]).optional(),
-      alma: z.object({}).optional(),
-      amazon_pay: z.object({}).optional(),
+      alma: z.record(z.string(), z.unknown()).optional(),
+      amazon_pay: z.record(z.string(), z.unknown()).optional(),
       au_becs_debit: z
         .object({
           account_number: z.string().max(5000),
@@ -28921,8 +29082,8 @@ export const s_PostPaymentIntentsIntentConfirmRequestBody = z.object({
           sort_code: z.string().max(5000).optional(),
         })
         .optional(),
-      bancontact: z.object({}).optional(),
-      billie: z.object({}).optional(),
+      bancontact: z.record(z.string(), z.unknown()).optional(),
+      billie: z.record(z.string(), z.unknown()).optional(),
       billing_details: z
         .object({
           address: z
@@ -28944,11 +29105,11 @@ export const s_PostPaymentIntentsIntentConfirmRequestBody = z.object({
           tax_id: z.string().max(5000).optional(),
         })
         .optional(),
-      blik: z.object({}).optional(),
+      blik: z.record(z.string(), z.unknown()).optional(),
       boleto: z.object({tax_id: z.string().max(5000)}).optional(),
-      cashapp: z.object({}).optional(),
-      crypto: z.object({}).optional(),
-      customer_balance: z.object({}).optional(),
+      cashapp: z.record(z.string(), z.unknown()).optional(),
+      crypto: z.record(z.string(), z.unknown()).optional(),
+      customer_balance: z.record(z.string(), z.unknown()).optional(),
       eps: z
         .object({
           bank: z
@@ -29013,8 +29174,8 @@ export const s_PostPaymentIntentsIntentConfirmRequestBody = z.object({
           ]),
         })
         .optional(),
-      giropay: z.object({}).optional(),
-      grabpay: z.object({}).optional(),
+      giropay: z.record(z.string(), z.unknown()).optional(),
+      grabpay: z.record(z.string(), z.unknown()).optional(),
       ideal: z
         .object({
           bank: z
@@ -29040,8 +29201,8 @@ export const s_PostPaymentIntentsIntentConfirmRequestBody = z.object({
             .optional(),
         })
         .optional(),
-      interac_present: z.object({}).optional(),
-      kakao_pay: z.object({}).optional(),
+      interac_present: z.record(z.string(), z.unknown()).optional(),
+      kakao_pay: z.record(z.string(), z.unknown()).optional(),
       klarna: z
         .object({
           dob: z
@@ -29053,12 +29214,12 @@ export const s_PostPaymentIntentsIntentConfirmRequestBody = z.object({
             .optional(),
         })
         .optional(),
-      konbini: z.object({}).optional(),
-      kr_card: z.object({}).optional(),
-      link: z.object({}).optional(),
+      konbini: z.record(z.string(), z.unknown()).optional(),
+      kr_card: z.record(z.string(), z.unknown()).optional(),
+      link: z.record(z.string(), z.unknown()).optional(),
       metadata: z.record(z.string(), z.string()).optional(),
-      mobilepay: z.object({}).optional(),
-      multibanco: z.object({}).optional(),
+      mobilepay: z.record(z.string(), z.unknown()).optional(),
+      multibanco: z.record(z.string(), z.unknown()).optional(),
       naver_pay: z
         .object({funding: z.enum(["card", "points"]).optional()})
         .optional(),
@@ -29072,7 +29233,7 @@ export const s_PostPaymentIntentsIntentConfirmRequestBody = z.object({
           suffix: z.string().max(5000),
         })
         .optional(),
-      oxxo: z.object({}).optional(),
+      oxxo: z.record(z.string(), z.unknown()).optional(),
       p24: z
         .object({
           bank: z
@@ -29107,24 +29268,24 @@ export const s_PostPaymentIntentsIntentConfirmRequestBody = z.object({
             .optional(),
         })
         .optional(),
-      pay_by_bank: z.object({}).optional(),
-      payco: z.object({}).optional(),
-      paynow: z.object({}).optional(),
-      paypal: z.object({}).optional(),
-      pix: z.object({}).optional(),
-      promptpay: z.object({}).optional(),
+      pay_by_bank: z.record(z.string(), z.unknown()).optional(),
+      payco: z.record(z.string(), z.unknown()).optional(),
+      paynow: z.record(z.string(), z.unknown()).optional(),
+      paypal: z.record(z.string(), z.unknown()).optional(),
+      pix: z.record(z.string(), z.unknown()).optional(),
+      promptpay: z.record(z.string(), z.unknown()).optional(),
       radar_options: z
         .object({session: z.string().max(5000).optional()})
         .optional(),
-      revolut_pay: z.object({}).optional(),
-      samsung_pay: z.object({}).optional(),
-      satispay: z.object({}).optional(),
+      revolut_pay: z.record(z.string(), z.unknown()).optional(),
+      samsung_pay: z.record(z.string(), z.unknown()).optional(),
+      satispay: z.record(z.string(), z.unknown()).optional(),
       sepa_debit: z.object({iban: z.string().max(5000)}).optional(),
       sofort: z
         .object({country: z.enum(["AT", "BE", "DE", "ES", "IT", "NL"])})
         .optional(),
-      swish: z.object({}).optional(),
-      twint: z.object({}).optional(),
+      swish: z.record(z.string(), z.unknown()).optional(),
+      twint: z.record(z.string(), z.unknown()).optional(),
       type: z.enum([
         "acss_debit",
         "affirm",
@@ -29183,8 +29344,8 @@ export const s_PostPaymentIntentsIntentConfirmRequestBody = z.object({
           routing_number: z.string().max(5000).optional(),
         })
         .optional(),
-      wechat_pay: z.object({}).optional(),
-      zip: z.object({}).optional(),
+      wechat_pay: z.record(z.string(), z.unknown()).optional(),
+      zip: z.record(z.string(), z.unknown()).optional(),
     })
     .optional(),
   payment_method_options: z
@@ -29525,7 +29686,9 @@ export const s_PostPaymentIntentsIntentConfirmRequestBody = z.object({
           z.enum([""]),
         ])
         .optional(),
-      interac_present: z.union([z.object({}), z.enum([""])]).optional(),
+      interac_present: z
+        .union([z.record(z.string(), z.unknown()), z.enum([""])])
+        .optional(),
       kakao_pay: z
         .union([
           z.object({
@@ -29715,7 +29878,9 @@ export const s_PostPaymentIntentsIntentConfirmRequestBody = z.object({
           z.enum([""]),
         ])
         .optional(),
-      pay_by_bank: z.union([z.object({}), z.enum([""])]).optional(),
+      pay_by_bank: z
+        .union([z.record(z.string(), z.unknown()), z.enum([""])])
+        .optional(),
       payco: z
         .union([
           z.object({capture_method: z.enum(["", "manual"]).optional()}),
@@ -31901,12 +32066,12 @@ export const s_PostPaymentMethodsRequestBody = z.object({
       transit_number: z.string().max(5000),
     })
     .optional(),
-  affirm: z.object({}).optional(),
-  afterpay_clearpay: z.object({}).optional(),
-  alipay: z.object({}).optional(),
+  affirm: z.record(z.string(), z.unknown()).optional(),
+  afterpay_clearpay: z.record(z.string(), z.unknown()).optional(),
+  alipay: z.record(z.string(), z.unknown()).optional(),
   allow_redisplay: z.enum(["always", "limited", "unspecified"]).optional(),
-  alma: z.object({}).optional(),
-  amazon_pay: z.object({}).optional(),
+  alma: z.record(z.string(), z.unknown()).optional(),
+  amazon_pay: z.record(z.string(), z.unknown()).optional(),
   au_becs_debit: z
     .object({
       account_number: z.string().max(5000),
@@ -31919,8 +32084,8 @@ export const s_PostPaymentMethodsRequestBody = z.object({
       sort_code: z.string().max(5000).optional(),
     })
     .optional(),
-  bancontact: z.object({}).optional(),
-  billie: z.object({}).optional(),
+  bancontact: z.record(z.string(), z.unknown()).optional(),
+  billie: z.record(z.string(), z.unknown()).optional(),
   billing_details: z
     .object({
       address: z
@@ -31942,7 +32107,7 @@ export const s_PostPaymentMethodsRequestBody = z.object({
       tax_id: z.string().max(5000).optional(),
     })
     .optional(),
-  blik: z.object({}).optional(),
+  blik: z.record(z.string(), z.unknown()).optional(),
   boleto: z.object({tax_id: z.string().max(5000)}).optional(),
   card: z
     .union([
@@ -31962,10 +32127,10 @@ export const s_PostPaymentMethodsRequestBody = z.object({
       z.object({token: z.string().max(5000)}),
     ])
     .optional(),
-  cashapp: z.object({}).optional(),
-  crypto: z.object({}).optional(),
+  cashapp: z.record(z.string(), z.unknown()).optional(),
+  crypto: z.record(z.string(), z.unknown()).optional(),
   customer: z.string().max(5000).optional(),
-  customer_balance: z.object({}).optional(),
+  customer_balance: z.record(z.string(), z.unknown()).optional(),
   eps: z
     .object({
       bank: z
@@ -32031,8 +32196,8 @@ export const s_PostPaymentMethodsRequestBody = z.object({
       ]),
     })
     .optional(),
-  giropay: z.object({}).optional(),
-  grabpay: z.object({}).optional(),
+  giropay: z.record(z.string(), z.unknown()).optional(),
+  grabpay: z.record(z.string(), z.unknown()).optional(),
   ideal: z
     .object({
       bank: z
@@ -32058,8 +32223,8 @@ export const s_PostPaymentMethodsRequestBody = z.object({
         .optional(),
     })
     .optional(),
-  interac_present: z.object({}).optional(),
-  kakao_pay: z.object({}).optional(),
+  interac_present: z.record(z.string(), z.unknown()).optional(),
+  kakao_pay: z.record(z.string(), z.unknown()).optional(),
   klarna: z
     .object({
       dob: z
@@ -32071,12 +32236,12 @@ export const s_PostPaymentMethodsRequestBody = z.object({
         .optional(),
     })
     .optional(),
-  konbini: z.object({}).optional(),
-  kr_card: z.object({}).optional(),
-  link: z.object({}).optional(),
+  konbini: z.record(z.string(), z.unknown()).optional(),
+  kr_card: z.record(z.string(), z.unknown()).optional(),
+  link: z.record(z.string(), z.unknown()).optional(),
   metadata: z.record(z.string(), z.string()).optional(),
-  mobilepay: z.object({}).optional(),
-  multibanco: z.object({}).optional(),
+  mobilepay: z.record(z.string(), z.unknown()).optional(),
+  multibanco: z.record(z.string(), z.unknown()).optional(),
   naver_pay: z
     .object({funding: z.enum(["card", "points"]).optional()})
     .optional(),
@@ -32090,7 +32255,7 @@ export const s_PostPaymentMethodsRequestBody = z.object({
       suffix: z.string().max(5000),
     })
     .optional(),
-  oxxo: z.object({}).optional(),
+  oxxo: z.record(z.string(), z.unknown()).optional(),
   p24: z
     .object({
       bank: z
@@ -32125,25 +32290,25 @@ export const s_PostPaymentMethodsRequestBody = z.object({
         .optional(),
     })
     .optional(),
-  pay_by_bank: z.object({}).optional(),
-  payco: z.object({}).optional(),
+  pay_by_bank: z.record(z.string(), z.unknown()).optional(),
+  payco: z.record(z.string(), z.unknown()).optional(),
   payment_method: z.string().max(5000).optional(),
-  paynow: z.object({}).optional(),
-  paypal: z.object({}).optional(),
-  pix: z.object({}).optional(),
-  promptpay: z.object({}).optional(),
+  paynow: z.record(z.string(), z.unknown()).optional(),
+  paypal: z.record(z.string(), z.unknown()).optional(),
+  pix: z.record(z.string(), z.unknown()).optional(),
+  promptpay: z.record(z.string(), z.unknown()).optional(),
   radar_options: z
     .object({session: z.string().max(5000).optional()})
     .optional(),
-  revolut_pay: z.object({}).optional(),
-  samsung_pay: z.object({}).optional(),
-  satispay: z.object({}).optional(),
+  revolut_pay: z.record(z.string(), z.unknown()).optional(),
+  samsung_pay: z.record(z.string(), z.unknown()).optional(),
+  satispay: z.record(z.string(), z.unknown()).optional(),
   sepa_debit: z.object({iban: z.string().max(5000)}).optional(),
   sofort: z
     .object({country: z.enum(["AT", "BE", "DE", "ES", "IT", "NL"])})
     .optional(),
-  swish: z.object({}).optional(),
-  twint: z.object({}).optional(),
+  swish: z.record(z.string(), z.unknown()).optional(),
+  twint: z.record(z.string(), z.unknown()).optional(),
   type: z
     .enum([
       "acss_debit",
@@ -32205,8 +32370,8 @@ export const s_PostPaymentMethodsRequestBody = z.object({
       routing_number: z.string().max(5000).optional(),
     })
     .optional(),
-  wechat_pay: z.object({}).optional(),
-  zip: z.object({}).optional(),
+  wechat_pay: z.record(z.string(), z.unknown()).optional(),
+  zip: z.record(z.string(), z.unknown()).optional(),
 })
 
 export const s_GetPaymentMethodsPaymentMethodRequestBody = z.object({})
@@ -32248,11 +32413,11 @@ export const s_PostPaymentMethodsPaymentMethodRequestBody = z.object({
     })
     .optional(),
   expand: z.array(z.string().max(5000)).optional(),
-  link: z.object({}).optional(),
+  link: z.record(z.string(), z.unknown()).optional(),
   metadata: z
     .union([z.record(z.string(), z.string()), z.enum([""])])
     .optional(),
-  pay_by_bank: z.object({}).optional(),
+  pay_by_bank: z.record(z.string(), z.unknown()).optional(),
   us_bank_account: z
     .object({
       account_holder_type: z.enum(["company", "individual"]).optional(),
@@ -34129,7 +34294,7 @@ export const s_PostSetupIntentsRequestBody = z.object({
       z.object({
         customer_acceptance: z.object({
           accepted_at: z.coerce.number().optional(),
-          offline: z.object({}).optional(),
+          offline: z.record(z.string(), z.unknown()).optional(),
           online: z
             .object({ip_address: z.string(), user_agent: z.string().max(5000)})
             .optional(),
@@ -34152,12 +34317,12 @@ export const s_PostSetupIntentsRequestBody = z.object({
           transit_number: z.string().max(5000),
         })
         .optional(),
-      affirm: z.object({}).optional(),
-      afterpay_clearpay: z.object({}).optional(),
-      alipay: z.object({}).optional(),
+      affirm: z.record(z.string(), z.unknown()).optional(),
+      afterpay_clearpay: z.record(z.string(), z.unknown()).optional(),
+      alipay: z.record(z.string(), z.unknown()).optional(),
       allow_redisplay: z.enum(["always", "limited", "unspecified"]).optional(),
-      alma: z.object({}).optional(),
-      amazon_pay: z.object({}).optional(),
+      alma: z.record(z.string(), z.unknown()).optional(),
+      amazon_pay: z.record(z.string(), z.unknown()).optional(),
       au_becs_debit: z
         .object({
           account_number: z.string().max(5000),
@@ -34170,8 +34335,8 @@ export const s_PostSetupIntentsRequestBody = z.object({
           sort_code: z.string().max(5000).optional(),
         })
         .optional(),
-      bancontact: z.object({}).optional(),
-      billie: z.object({}).optional(),
+      bancontact: z.record(z.string(), z.unknown()).optional(),
+      billie: z.record(z.string(), z.unknown()).optional(),
       billing_details: z
         .object({
           address: z
@@ -34193,11 +34358,11 @@ export const s_PostSetupIntentsRequestBody = z.object({
           tax_id: z.string().max(5000).optional(),
         })
         .optional(),
-      blik: z.object({}).optional(),
+      blik: z.record(z.string(), z.unknown()).optional(),
       boleto: z.object({tax_id: z.string().max(5000)}).optional(),
-      cashapp: z.object({}).optional(),
-      crypto: z.object({}).optional(),
-      customer_balance: z.object({}).optional(),
+      cashapp: z.record(z.string(), z.unknown()).optional(),
+      crypto: z.record(z.string(), z.unknown()).optional(),
+      customer_balance: z.record(z.string(), z.unknown()).optional(),
       eps: z
         .object({
           bank: z
@@ -34262,8 +34427,8 @@ export const s_PostSetupIntentsRequestBody = z.object({
           ]),
         })
         .optional(),
-      giropay: z.object({}).optional(),
-      grabpay: z.object({}).optional(),
+      giropay: z.record(z.string(), z.unknown()).optional(),
+      grabpay: z.record(z.string(), z.unknown()).optional(),
       ideal: z
         .object({
           bank: z
@@ -34289,8 +34454,8 @@ export const s_PostSetupIntentsRequestBody = z.object({
             .optional(),
         })
         .optional(),
-      interac_present: z.object({}).optional(),
-      kakao_pay: z.object({}).optional(),
+      interac_present: z.record(z.string(), z.unknown()).optional(),
+      kakao_pay: z.record(z.string(), z.unknown()).optional(),
       klarna: z
         .object({
           dob: z
@@ -34302,12 +34467,12 @@ export const s_PostSetupIntentsRequestBody = z.object({
             .optional(),
         })
         .optional(),
-      konbini: z.object({}).optional(),
-      kr_card: z.object({}).optional(),
-      link: z.object({}).optional(),
+      konbini: z.record(z.string(), z.unknown()).optional(),
+      kr_card: z.record(z.string(), z.unknown()).optional(),
+      link: z.record(z.string(), z.unknown()).optional(),
       metadata: z.record(z.string(), z.string()).optional(),
-      mobilepay: z.object({}).optional(),
-      multibanco: z.object({}).optional(),
+      mobilepay: z.record(z.string(), z.unknown()).optional(),
+      multibanco: z.record(z.string(), z.unknown()).optional(),
       naver_pay: z
         .object({funding: z.enum(["card", "points"]).optional()})
         .optional(),
@@ -34321,7 +34486,7 @@ export const s_PostSetupIntentsRequestBody = z.object({
           suffix: z.string().max(5000),
         })
         .optional(),
-      oxxo: z.object({}).optional(),
+      oxxo: z.record(z.string(), z.unknown()).optional(),
       p24: z
         .object({
           bank: z
@@ -34356,24 +34521,24 @@ export const s_PostSetupIntentsRequestBody = z.object({
             .optional(),
         })
         .optional(),
-      pay_by_bank: z.object({}).optional(),
-      payco: z.object({}).optional(),
-      paynow: z.object({}).optional(),
-      paypal: z.object({}).optional(),
-      pix: z.object({}).optional(),
-      promptpay: z.object({}).optional(),
+      pay_by_bank: z.record(z.string(), z.unknown()).optional(),
+      payco: z.record(z.string(), z.unknown()).optional(),
+      paynow: z.record(z.string(), z.unknown()).optional(),
+      paypal: z.record(z.string(), z.unknown()).optional(),
+      pix: z.record(z.string(), z.unknown()).optional(),
+      promptpay: z.record(z.string(), z.unknown()).optional(),
       radar_options: z
         .object({session: z.string().max(5000).optional()})
         .optional(),
-      revolut_pay: z.object({}).optional(),
-      samsung_pay: z.object({}).optional(),
-      satispay: z.object({}).optional(),
+      revolut_pay: z.record(z.string(), z.unknown()).optional(),
+      samsung_pay: z.record(z.string(), z.unknown()).optional(),
+      satispay: z.record(z.string(), z.unknown()).optional(),
       sepa_debit: z.object({iban: z.string().max(5000)}).optional(),
       sofort: z
         .object({country: z.enum(["AT", "BE", "DE", "ES", "IT", "NL"])})
         .optional(),
-      swish: z.object({}).optional(),
-      twint: z.object({}).optional(),
+      swish: z.record(z.string(), z.unknown()).optional(),
+      twint: z.record(z.string(), z.unknown()).optional(),
       type: z.enum([
         "acss_debit",
         "affirm",
@@ -34432,8 +34597,8 @@ export const s_PostSetupIntentsRequestBody = z.object({
           routing_number: z.string().max(5000).optional(),
         })
         .optional(),
-      wechat_pay: z.object({}).optional(),
-      zip: z.object({}).optional(),
+      wechat_pay: z.record(z.string(), z.unknown()).optional(),
+      zip: z.record(z.string(), z.unknown()).optional(),
     })
     .optional(),
   payment_method_options: z
@@ -34461,7 +34626,7 @@ export const s_PostSetupIntentsRequestBody = z.object({
             .optional(),
         })
         .optional(),
-      amazon_pay: z.object({}).optional(),
+      amazon_pay: z.record(z.string(), z.unknown()).optional(),
       bacs_debit: z
         .object({
           mandate_options: z
@@ -34536,7 +34701,7 @@ export const s_PostSetupIntentsRequestBody = z.object({
             .optional(),
         })
         .optional(),
-      card_present: z.object({}).optional(),
+      card_present: z.record(z.string(), z.unknown()).optional(),
       klarna: z
         .object({
           currency: z.string().optional(),
@@ -34620,7 +34785,7 @@ export const s_PostSetupIntentsRequestBody = z.object({
             .optional(),
         })
         .optional(),
-      link: z.object({}).optional(),
+      link: z.record(z.string(), z.unknown()).optional(),
       paypal: z
         .object({billing_agreement_id: z.string().max(5000).optional()})
         .optional(),
@@ -34710,12 +34875,12 @@ export const s_PostSetupIntentsIntentRequestBody = z.object({
           transit_number: z.string().max(5000),
         })
         .optional(),
-      affirm: z.object({}).optional(),
-      afterpay_clearpay: z.object({}).optional(),
-      alipay: z.object({}).optional(),
+      affirm: z.record(z.string(), z.unknown()).optional(),
+      afterpay_clearpay: z.record(z.string(), z.unknown()).optional(),
+      alipay: z.record(z.string(), z.unknown()).optional(),
       allow_redisplay: z.enum(["always", "limited", "unspecified"]).optional(),
-      alma: z.object({}).optional(),
-      amazon_pay: z.object({}).optional(),
+      alma: z.record(z.string(), z.unknown()).optional(),
+      amazon_pay: z.record(z.string(), z.unknown()).optional(),
       au_becs_debit: z
         .object({
           account_number: z.string().max(5000),
@@ -34728,8 +34893,8 @@ export const s_PostSetupIntentsIntentRequestBody = z.object({
           sort_code: z.string().max(5000).optional(),
         })
         .optional(),
-      bancontact: z.object({}).optional(),
-      billie: z.object({}).optional(),
+      bancontact: z.record(z.string(), z.unknown()).optional(),
+      billie: z.record(z.string(), z.unknown()).optional(),
       billing_details: z
         .object({
           address: z
@@ -34751,11 +34916,11 @@ export const s_PostSetupIntentsIntentRequestBody = z.object({
           tax_id: z.string().max(5000).optional(),
         })
         .optional(),
-      blik: z.object({}).optional(),
+      blik: z.record(z.string(), z.unknown()).optional(),
       boleto: z.object({tax_id: z.string().max(5000)}).optional(),
-      cashapp: z.object({}).optional(),
-      crypto: z.object({}).optional(),
-      customer_balance: z.object({}).optional(),
+      cashapp: z.record(z.string(), z.unknown()).optional(),
+      crypto: z.record(z.string(), z.unknown()).optional(),
+      customer_balance: z.record(z.string(), z.unknown()).optional(),
       eps: z
         .object({
           bank: z
@@ -34820,8 +34985,8 @@ export const s_PostSetupIntentsIntentRequestBody = z.object({
           ]),
         })
         .optional(),
-      giropay: z.object({}).optional(),
-      grabpay: z.object({}).optional(),
+      giropay: z.record(z.string(), z.unknown()).optional(),
+      grabpay: z.record(z.string(), z.unknown()).optional(),
       ideal: z
         .object({
           bank: z
@@ -34847,8 +35012,8 @@ export const s_PostSetupIntentsIntentRequestBody = z.object({
             .optional(),
         })
         .optional(),
-      interac_present: z.object({}).optional(),
-      kakao_pay: z.object({}).optional(),
+      interac_present: z.record(z.string(), z.unknown()).optional(),
+      kakao_pay: z.record(z.string(), z.unknown()).optional(),
       klarna: z
         .object({
           dob: z
@@ -34860,12 +35025,12 @@ export const s_PostSetupIntentsIntentRequestBody = z.object({
             .optional(),
         })
         .optional(),
-      konbini: z.object({}).optional(),
-      kr_card: z.object({}).optional(),
-      link: z.object({}).optional(),
+      konbini: z.record(z.string(), z.unknown()).optional(),
+      kr_card: z.record(z.string(), z.unknown()).optional(),
+      link: z.record(z.string(), z.unknown()).optional(),
       metadata: z.record(z.string(), z.string()).optional(),
-      mobilepay: z.object({}).optional(),
-      multibanco: z.object({}).optional(),
+      mobilepay: z.record(z.string(), z.unknown()).optional(),
+      multibanco: z.record(z.string(), z.unknown()).optional(),
       naver_pay: z
         .object({funding: z.enum(["card", "points"]).optional()})
         .optional(),
@@ -34879,7 +35044,7 @@ export const s_PostSetupIntentsIntentRequestBody = z.object({
           suffix: z.string().max(5000),
         })
         .optional(),
-      oxxo: z.object({}).optional(),
+      oxxo: z.record(z.string(), z.unknown()).optional(),
       p24: z
         .object({
           bank: z
@@ -34914,24 +35079,24 @@ export const s_PostSetupIntentsIntentRequestBody = z.object({
             .optional(),
         })
         .optional(),
-      pay_by_bank: z.object({}).optional(),
-      payco: z.object({}).optional(),
-      paynow: z.object({}).optional(),
-      paypal: z.object({}).optional(),
-      pix: z.object({}).optional(),
-      promptpay: z.object({}).optional(),
+      pay_by_bank: z.record(z.string(), z.unknown()).optional(),
+      payco: z.record(z.string(), z.unknown()).optional(),
+      paynow: z.record(z.string(), z.unknown()).optional(),
+      paypal: z.record(z.string(), z.unknown()).optional(),
+      pix: z.record(z.string(), z.unknown()).optional(),
+      promptpay: z.record(z.string(), z.unknown()).optional(),
       radar_options: z
         .object({session: z.string().max(5000).optional()})
         .optional(),
-      revolut_pay: z.object({}).optional(),
-      samsung_pay: z.object({}).optional(),
-      satispay: z.object({}).optional(),
+      revolut_pay: z.record(z.string(), z.unknown()).optional(),
+      samsung_pay: z.record(z.string(), z.unknown()).optional(),
+      satispay: z.record(z.string(), z.unknown()).optional(),
       sepa_debit: z.object({iban: z.string().max(5000)}).optional(),
       sofort: z
         .object({country: z.enum(["AT", "BE", "DE", "ES", "IT", "NL"])})
         .optional(),
-      swish: z.object({}).optional(),
-      twint: z.object({}).optional(),
+      swish: z.record(z.string(), z.unknown()).optional(),
+      twint: z.record(z.string(), z.unknown()).optional(),
       type: z.enum([
         "acss_debit",
         "affirm",
@@ -34990,8 +35155,8 @@ export const s_PostSetupIntentsIntentRequestBody = z.object({
           routing_number: z.string().max(5000).optional(),
         })
         .optional(),
-      wechat_pay: z.object({}).optional(),
-      zip: z.object({}).optional(),
+      wechat_pay: z.record(z.string(), z.unknown()).optional(),
+      zip: z.record(z.string(), z.unknown()).optional(),
     })
     .optional(),
   payment_method_options: z
@@ -35019,7 +35184,7 @@ export const s_PostSetupIntentsIntentRequestBody = z.object({
             .optional(),
         })
         .optional(),
-      amazon_pay: z.object({}).optional(),
+      amazon_pay: z.record(z.string(), z.unknown()).optional(),
       bacs_debit: z
         .object({
           mandate_options: z
@@ -35094,7 +35259,7 @@ export const s_PostSetupIntentsIntentRequestBody = z.object({
             .optional(),
         })
         .optional(),
-      card_present: z.object({}).optional(),
+      card_present: z.record(z.string(), z.unknown()).optional(),
       klarna: z
         .object({
           currency: z.string().optional(),
@@ -35178,7 +35343,7 @@ export const s_PostSetupIntentsIntentRequestBody = z.object({
             .optional(),
         })
         .optional(),
-      link: z.object({}).optional(),
+      link: z.record(z.string(), z.unknown()).optional(),
       paypal: z
         .object({billing_agreement_id: z.string().max(5000).optional()})
         .optional(),
@@ -35256,7 +35421,7 @@ export const s_PostSetupIntentsIntentConfirmRequestBody = z.object({
       z.object({
         customer_acceptance: z.object({
           accepted_at: z.coerce.number().optional(),
-          offline: z.object({}).optional(),
+          offline: z.record(z.string(), z.unknown()).optional(),
           online: z
             .object({ip_address: z.string(), user_agent: z.string().max(5000)})
             .optional(),
@@ -35285,12 +35450,12 @@ export const s_PostSetupIntentsIntentConfirmRequestBody = z.object({
           transit_number: z.string().max(5000),
         })
         .optional(),
-      affirm: z.object({}).optional(),
-      afterpay_clearpay: z.object({}).optional(),
-      alipay: z.object({}).optional(),
+      affirm: z.record(z.string(), z.unknown()).optional(),
+      afterpay_clearpay: z.record(z.string(), z.unknown()).optional(),
+      alipay: z.record(z.string(), z.unknown()).optional(),
       allow_redisplay: z.enum(["always", "limited", "unspecified"]).optional(),
-      alma: z.object({}).optional(),
-      amazon_pay: z.object({}).optional(),
+      alma: z.record(z.string(), z.unknown()).optional(),
+      amazon_pay: z.record(z.string(), z.unknown()).optional(),
       au_becs_debit: z
         .object({
           account_number: z.string().max(5000),
@@ -35303,8 +35468,8 @@ export const s_PostSetupIntentsIntentConfirmRequestBody = z.object({
           sort_code: z.string().max(5000).optional(),
         })
         .optional(),
-      bancontact: z.object({}).optional(),
-      billie: z.object({}).optional(),
+      bancontact: z.record(z.string(), z.unknown()).optional(),
+      billie: z.record(z.string(), z.unknown()).optional(),
       billing_details: z
         .object({
           address: z
@@ -35326,11 +35491,11 @@ export const s_PostSetupIntentsIntentConfirmRequestBody = z.object({
           tax_id: z.string().max(5000).optional(),
         })
         .optional(),
-      blik: z.object({}).optional(),
+      blik: z.record(z.string(), z.unknown()).optional(),
       boleto: z.object({tax_id: z.string().max(5000)}).optional(),
-      cashapp: z.object({}).optional(),
-      crypto: z.object({}).optional(),
-      customer_balance: z.object({}).optional(),
+      cashapp: z.record(z.string(), z.unknown()).optional(),
+      crypto: z.record(z.string(), z.unknown()).optional(),
+      customer_balance: z.record(z.string(), z.unknown()).optional(),
       eps: z
         .object({
           bank: z
@@ -35395,8 +35560,8 @@ export const s_PostSetupIntentsIntentConfirmRequestBody = z.object({
           ]),
         })
         .optional(),
-      giropay: z.object({}).optional(),
-      grabpay: z.object({}).optional(),
+      giropay: z.record(z.string(), z.unknown()).optional(),
+      grabpay: z.record(z.string(), z.unknown()).optional(),
       ideal: z
         .object({
           bank: z
@@ -35422,8 +35587,8 @@ export const s_PostSetupIntentsIntentConfirmRequestBody = z.object({
             .optional(),
         })
         .optional(),
-      interac_present: z.object({}).optional(),
-      kakao_pay: z.object({}).optional(),
+      interac_present: z.record(z.string(), z.unknown()).optional(),
+      kakao_pay: z.record(z.string(), z.unknown()).optional(),
       klarna: z
         .object({
           dob: z
@@ -35435,12 +35600,12 @@ export const s_PostSetupIntentsIntentConfirmRequestBody = z.object({
             .optional(),
         })
         .optional(),
-      konbini: z.object({}).optional(),
-      kr_card: z.object({}).optional(),
-      link: z.object({}).optional(),
+      konbini: z.record(z.string(), z.unknown()).optional(),
+      kr_card: z.record(z.string(), z.unknown()).optional(),
+      link: z.record(z.string(), z.unknown()).optional(),
       metadata: z.record(z.string(), z.string()).optional(),
-      mobilepay: z.object({}).optional(),
-      multibanco: z.object({}).optional(),
+      mobilepay: z.record(z.string(), z.unknown()).optional(),
+      multibanco: z.record(z.string(), z.unknown()).optional(),
       naver_pay: z
         .object({funding: z.enum(["card", "points"]).optional()})
         .optional(),
@@ -35454,7 +35619,7 @@ export const s_PostSetupIntentsIntentConfirmRequestBody = z.object({
           suffix: z.string().max(5000),
         })
         .optional(),
-      oxxo: z.object({}).optional(),
+      oxxo: z.record(z.string(), z.unknown()).optional(),
       p24: z
         .object({
           bank: z
@@ -35489,24 +35654,24 @@ export const s_PostSetupIntentsIntentConfirmRequestBody = z.object({
             .optional(),
         })
         .optional(),
-      pay_by_bank: z.object({}).optional(),
-      payco: z.object({}).optional(),
-      paynow: z.object({}).optional(),
-      paypal: z.object({}).optional(),
-      pix: z.object({}).optional(),
-      promptpay: z.object({}).optional(),
+      pay_by_bank: z.record(z.string(), z.unknown()).optional(),
+      payco: z.record(z.string(), z.unknown()).optional(),
+      paynow: z.record(z.string(), z.unknown()).optional(),
+      paypal: z.record(z.string(), z.unknown()).optional(),
+      pix: z.record(z.string(), z.unknown()).optional(),
+      promptpay: z.record(z.string(), z.unknown()).optional(),
       radar_options: z
         .object({session: z.string().max(5000).optional()})
         .optional(),
-      revolut_pay: z.object({}).optional(),
-      samsung_pay: z.object({}).optional(),
-      satispay: z.object({}).optional(),
+      revolut_pay: z.record(z.string(), z.unknown()).optional(),
+      samsung_pay: z.record(z.string(), z.unknown()).optional(),
+      satispay: z.record(z.string(), z.unknown()).optional(),
       sepa_debit: z.object({iban: z.string().max(5000)}).optional(),
       sofort: z
         .object({country: z.enum(["AT", "BE", "DE", "ES", "IT", "NL"])})
         .optional(),
-      swish: z.object({}).optional(),
-      twint: z.object({}).optional(),
+      swish: z.record(z.string(), z.unknown()).optional(),
+      twint: z.record(z.string(), z.unknown()).optional(),
       type: z.enum([
         "acss_debit",
         "affirm",
@@ -35565,8 +35730,8 @@ export const s_PostSetupIntentsIntentConfirmRequestBody = z.object({
           routing_number: z.string().max(5000).optional(),
         })
         .optional(),
-      wechat_pay: z.object({}).optional(),
-      zip: z.object({}).optional(),
+      wechat_pay: z.record(z.string(), z.unknown()).optional(),
+      zip: z.record(z.string(), z.unknown()).optional(),
     })
     .optional(),
   payment_method_options: z
@@ -35594,7 +35759,7 @@ export const s_PostSetupIntentsIntentConfirmRequestBody = z.object({
             .optional(),
         })
         .optional(),
-      amazon_pay: z.object({}).optional(),
+      amazon_pay: z.record(z.string(), z.unknown()).optional(),
       bacs_debit: z
         .object({
           mandate_options: z
@@ -35669,7 +35834,7 @@ export const s_PostSetupIntentsIntentConfirmRequestBody = z.object({
             .optional(),
         })
         .optional(),
-      card_present: z.object({}).optional(),
+      card_present: z.record(z.string(), z.unknown()).optional(),
       klarna: z
         .object({
           currency: z.string().optional(),
@@ -35753,7 +35918,7 @@ export const s_PostSetupIntentsIntentConfirmRequestBody = z.object({
             .optional(),
         })
         .optional(),
-      link: z.object({}).optional(),
+      link: z.record(z.string(), z.unknown()).optional(),
       paypal: z
         .object({billing_agreement_id: z.string().max(5000).optional()})
         .optional(),
@@ -36997,8 +37162,12 @@ export const s_PostSubscriptionsRequestBody = z.object({
               z.enum([""]),
             ])
             .optional(),
-          konbini: z.union([z.object({}), z.enum([""])]).optional(),
-          sepa_debit: z.union([z.object({}), z.enum([""])]).optional(),
+          konbini: z
+            .union([z.record(z.string(), z.unknown()), z.enum([""])])
+            .optional(),
+          sepa_debit: z
+            .union([z.record(z.string(), z.unknown()), z.enum([""])])
+            .optional(),
           us_bank_account: z
             .union([
               z.object({
@@ -37412,8 +37581,12 @@ export const s_PostSubscriptionsSubscriptionExposedIdRequestBody = z.object({
               z.enum([""]),
             ])
             .optional(),
-          konbini: z.union([z.object({}), z.enum([""])]).optional(),
-          sepa_debit: z.union([z.object({}), z.enum([""])]).optional(),
+          konbini: z
+            .union([z.record(z.string(), z.unknown()), z.enum([""])])
+            .optional(),
+          sepa_debit: z
+            .union([z.record(z.string(), z.unknown()), z.enum([""])])
+            .optional(),
           us_bank_account: z
             .union([
               z.object({
@@ -39525,12 +39698,12 @@ export const s_PostTestHelpersConfirmationTokensRequestBody = z.object({
           transit_number: z.string().max(5000),
         })
         .optional(),
-      affirm: z.object({}).optional(),
-      afterpay_clearpay: z.object({}).optional(),
-      alipay: z.object({}).optional(),
+      affirm: z.record(z.string(), z.unknown()).optional(),
+      afterpay_clearpay: z.record(z.string(), z.unknown()).optional(),
+      alipay: z.record(z.string(), z.unknown()).optional(),
       allow_redisplay: z.enum(["always", "limited", "unspecified"]).optional(),
-      alma: z.object({}).optional(),
-      amazon_pay: z.object({}).optional(),
+      alma: z.record(z.string(), z.unknown()).optional(),
+      amazon_pay: z.record(z.string(), z.unknown()).optional(),
       au_becs_debit: z
         .object({
           account_number: z.string().max(5000),
@@ -39543,8 +39716,8 @@ export const s_PostTestHelpersConfirmationTokensRequestBody = z.object({
           sort_code: z.string().max(5000).optional(),
         })
         .optional(),
-      bancontact: z.object({}).optional(),
-      billie: z.object({}).optional(),
+      bancontact: z.record(z.string(), z.unknown()).optional(),
+      billie: z.record(z.string(), z.unknown()).optional(),
       billing_details: z
         .object({
           address: z
@@ -39566,11 +39739,11 @@ export const s_PostTestHelpersConfirmationTokensRequestBody = z.object({
           tax_id: z.string().max(5000).optional(),
         })
         .optional(),
-      blik: z.object({}).optional(),
+      blik: z.record(z.string(), z.unknown()).optional(),
       boleto: z.object({tax_id: z.string().max(5000)}).optional(),
-      cashapp: z.object({}).optional(),
-      crypto: z.object({}).optional(),
-      customer_balance: z.object({}).optional(),
+      cashapp: z.record(z.string(), z.unknown()).optional(),
+      crypto: z.record(z.string(), z.unknown()).optional(),
+      customer_balance: z.record(z.string(), z.unknown()).optional(),
       eps: z
         .object({
           bank: z
@@ -39635,8 +39808,8 @@ export const s_PostTestHelpersConfirmationTokensRequestBody = z.object({
           ]),
         })
         .optional(),
-      giropay: z.object({}).optional(),
-      grabpay: z.object({}).optional(),
+      giropay: z.record(z.string(), z.unknown()).optional(),
+      grabpay: z.record(z.string(), z.unknown()).optional(),
       ideal: z
         .object({
           bank: z
@@ -39662,8 +39835,8 @@ export const s_PostTestHelpersConfirmationTokensRequestBody = z.object({
             .optional(),
         })
         .optional(),
-      interac_present: z.object({}).optional(),
-      kakao_pay: z.object({}).optional(),
+      interac_present: z.record(z.string(), z.unknown()).optional(),
+      kakao_pay: z.record(z.string(), z.unknown()).optional(),
       klarna: z
         .object({
           dob: z
@@ -39675,12 +39848,12 @@ export const s_PostTestHelpersConfirmationTokensRequestBody = z.object({
             .optional(),
         })
         .optional(),
-      konbini: z.object({}).optional(),
-      kr_card: z.object({}).optional(),
-      link: z.object({}).optional(),
+      konbini: z.record(z.string(), z.unknown()).optional(),
+      kr_card: z.record(z.string(), z.unknown()).optional(),
+      link: z.record(z.string(), z.unknown()).optional(),
       metadata: z.record(z.string(), z.string()).optional(),
-      mobilepay: z.object({}).optional(),
-      multibanco: z.object({}).optional(),
+      mobilepay: z.record(z.string(), z.unknown()).optional(),
+      multibanco: z.record(z.string(), z.unknown()).optional(),
       naver_pay: z
         .object({funding: z.enum(["card", "points"]).optional()})
         .optional(),
@@ -39694,7 +39867,7 @@ export const s_PostTestHelpersConfirmationTokensRequestBody = z.object({
           suffix: z.string().max(5000),
         })
         .optional(),
-      oxxo: z.object({}).optional(),
+      oxxo: z.record(z.string(), z.unknown()).optional(),
       p24: z
         .object({
           bank: z
@@ -39729,24 +39902,24 @@ export const s_PostTestHelpersConfirmationTokensRequestBody = z.object({
             .optional(),
         })
         .optional(),
-      pay_by_bank: z.object({}).optional(),
-      payco: z.object({}).optional(),
-      paynow: z.object({}).optional(),
-      paypal: z.object({}).optional(),
-      pix: z.object({}).optional(),
-      promptpay: z.object({}).optional(),
+      pay_by_bank: z.record(z.string(), z.unknown()).optional(),
+      payco: z.record(z.string(), z.unknown()).optional(),
+      paynow: z.record(z.string(), z.unknown()).optional(),
+      paypal: z.record(z.string(), z.unknown()).optional(),
+      pix: z.record(z.string(), z.unknown()).optional(),
+      promptpay: z.record(z.string(), z.unknown()).optional(),
       radar_options: z
         .object({session: z.string().max(5000).optional()})
         .optional(),
-      revolut_pay: z.object({}).optional(),
-      samsung_pay: z.object({}).optional(),
-      satispay: z.object({}).optional(),
+      revolut_pay: z.record(z.string(), z.unknown()).optional(),
+      samsung_pay: z.record(z.string(), z.unknown()).optional(),
+      satispay: z.record(z.string(), z.unknown()).optional(),
       sepa_debit: z.object({iban: z.string().max(5000)}).optional(),
       sofort: z
         .object({country: z.enum(["AT", "BE", "DE", "ES", "IT", "NL"])})
         .optional(),
-      swish: z.object({}).optional(),
-      twint: z.object({}).optional(),
+      swish: z.record(z.string(), z.unknown()).optional(),
+      twint: z.record(z.string(), z.unknown()).optional(),
       type: z.enum([
         "acss_debit",
         "affirm",
@@ -39805,8 +39978,8 @@ export const s_PostTestHelpersConfirmationTokensRequestBody = z.object({
           routing_number: z.string().max(5000).optional(),
         })
         .optional(),
-      wechat_pay: z.object({}).optional(),
-      zip: z.object({}).optional(),
+      wechat_pay: z.record(z.string(), z.unknown()).optional(),
+      zip: z.record(z.string(), z.unknown()).optional(),
     })
     .optional(),
   payment_method_options: z
