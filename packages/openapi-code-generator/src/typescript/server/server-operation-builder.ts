@@ -304,7 +304,9 @@ export class ServerOperationBuilder {
         }
       }
       default: {
-        throw new Error(`unsupported query parameter schema type '${type}'`)
+        throw new Error(
+          `unsupported query parameter schema type '${type satisfies "any" | "never"}'`,
+        )
       }
     }
   }
