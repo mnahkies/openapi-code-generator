@@ -10,7 +10,6 @@ import {
   type ExpressRuntimeResponder,
   ExpressRuntimeResponse,
   type Params,
-  parseQueryParameters,
   type ServerConfig,
   SkipResponse,
   type StatusCode,
@@ -211,29 +210,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             getTodoListsQuerySchema,
-            parseQueryParameters(
-              new URL(`http://localhost${req.originalUrl}`).search,
-              [
-                {
-                  name: "created",
-                  explode: true,
-                  style: "form",
-                  schema: {type: "string"},
-                },
-                {
-                  name: "statuses",
-                  explode: true,
-                  style: "form",
-                  schema: {type: "array", items: {type: "string"}},
-                },
-                {
-                  name: "tags",
-                  explode: true,
-                  style: "form",
-                  schema: {type: "array", items: {type: "string"}},
-                },
-              ],
-            ),
+            req.query,
             RequestInputType.QueryString,
           ),
           body: undefined,

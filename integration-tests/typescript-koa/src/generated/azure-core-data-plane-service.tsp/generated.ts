@@ -11,7 +11,6 @@ import {
   type KoaRuntimeResponder,
   KoaRuntimeResponse,
   type Params,
-  parseQueryParameters,
   type Response,
   type ServerConfig,
   SkipResponse,
@@ -1232,38 +1231,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: parseRequestInput(
         widgetsListWidgetsQuerySchema,
-        parseQueryParameters(ctx.querystring, [
-          {
-            name: "api-version",
-            explode: false,
-            style: "form",
-            schema: {type: "string"},
-          },
-          {
-            name: "top",
-            explode: false,
-            style: "form",
-            schema: {type: "number"},
-          },
-          {
-            name: "skip",
-            explode: false,
-            style: "form",
-            schema: {type: "number"},
-          },
-          {
-            name: "maxpagesize",
-            explode: false,
-            style: "form",
-            schema: {type: "number"},
-          },
-          {
-            name: "select",
-            explode: true,
-            style: "form",
-            schema: {type: "array", items: {type: "string"}},
-          },
-        ]),
+        ctx.query,
         RequestInputType.QueryString,
       ),
       body: undefined,

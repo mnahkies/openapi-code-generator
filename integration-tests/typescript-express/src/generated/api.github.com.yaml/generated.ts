@@ -10,7 +10,6 @@ import {
   type ExpressRuntimeResponder,
   ExpressRuntimeResponse,
   type Params,
-  parseQueryParameters,
   type ServerConfig,
   SkipResponse,
   type StatusCode,
@@ -41110,53 +41109,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             apiInsightsGetRouteStatsByActorQuerySchema,
-            parseQueryParameters(
-              new URL(`http://localhost${req.originalUrl}`).search,
-              [
-                {
-                  name: "min_timestamp",
-                  explode: true,
-                  style: "form",
-                  schema: {type: "string"},
-                },
-                {
-                  name: "max_timestamp",
-                  explode: true,
-                  style: "form",
-                  schema: {type: "string"},
-                },
-                {
-                  name: "page",
-                  explode: true,
-                  style: "form",
-                  schema: {type: "number"},
-                },
-                {
-                  name: "per_page",
-                  explode: true,
-                  style: "form",
-                  schema: {type: "number"},
-                },
-                {
-                  name: "direction",
-                  explode: true,
-                  style: "form",
-                  schema: {type: "string"},
-                },
-                {
-                  name: "sort",
-                  explode: true,
-                  style: "form",
-                  schema: {type: "array", items: {type: "string"}},
-                },
-                {
-                  name: "api_route_substring",
-                  explode: true,
-                  style: "form",
-                  schema: {type: "string"},
-                },
-              ],
-            ),
+            req.query,
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -41249,53 +41202,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             apiInsightsGetSubjectStatsQuerySchema,
-            parseQueryParameters(
-              new URL(`http://localhost${req.originalUrl}`).search,
-              [
-                {
-                  name: "min_timestamp",
-                  explode: true,
-                  style: "form",
-                  schema: {type: "string"},
-                },
-                {
-                  name: "max_timestamp",
-                  explode: true,
-                  style: "form",
-                  schema: {type: "string"},
-                },
-                {
-                  name: "page",
-                  explode: true,
-                  style: "form",
-                  schema: {type: "number"},
-                },
-                {
-                  name: "per_page",
-                  explode: true,
-                  style: "form",
-                  schema: {type: "number"},
-                },
-                {
-                  name: "direction",
-                  explode: true,
-                  style: "form",
-                  schema: {type: "string"},
-                },
-                {
-                  name: "sort",
-                  explode: true,
-                  style: "form",
-                  schema: {type: "array", items: {type: "string"}},
-                },
-                {
-                  name: "subject_name_substring",
-                  explode: true,
-                  style: "form",
-                  schema: {type: "string"},
-                },
-              ],
-            ),
+            req.query,
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -41847,53 +41754,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             apiInsightsGetUserStatsQuerySchema,
-            parseQueryParameters(
-              new URL(`http://localhost${req.originalUrl}`).search,
-              [
-                {
-                  name: "min_timestamp",
-                  explode: true,
-                  style: "form",
-                  schema: {type: "string"},
-                },
-                {
-                  name: "max_timestamp",
-                  explode: true,
-                  style: "form",
-                  schema: {type: "string"},
-                },
-                {
-                  name: "page",
-                  explode: true,
-                  style: "form",
-                  schema: {type: "number"},
-                },
-                {
-                  name: "per_page",
-                  explode: true,
-                  style: "form",
-                  schema: {type: "number"},
-                },
-                {
-                  name: "direction",
-                  explode: true,
-                  style: "form",
-                  schema: {type: "string"},
-                },
-                {
-                  name: "sort",
-                  explode: true,
-                  style: "form",
-                  schema: {type: "array", items: {type: "string"}},
-                },
-                {
-                  name: "actor_name_substring",
-                  explode: true,
-                  style: "form",
-                  schema: {type: "string"},
-                },
-              ],
-            ),
+            req.query,
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -43882,29 +43743,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             migrationsListForOrgQuerySchema,
-            parseQueryParameters(
-              new URL(`http://localhost${req.originalUrl}`).search,
-              [
-                {
-                  name: "per_page",
-                  explode: true,
-                  style: "form",
-                  schema: {type: "number"},
-                },
-                {
-                  name: "page",
-                  explode: true,
-                  style: "form",
-                  schema: {type: "number"},
-                },
-                {
-                  name: "exclude",
-                  explode: true,
-                  style: "form",
-                  schema: {type: "array", items: {type: "string"}},
-                },
-              ],
-            ),
+            req.query,
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -44060,17 +43899,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             migrationsGetStatusForOrgQuerySchema,
-            parseQueryParameters(
-              new URL(`http://localhost${req.originalUrl}`).search,
-              [
-                {
-                  name: "exclude",
-                  explode: true,
-                  style: "form",
-                  schema: {type: "array", items: {type: "string"}},
-                },
-              ],
-            ),
+            req.query,
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -46186,71 +46015,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             orgsListPatGrantRequestsQuerySchema,
-            parseQueryParameters(
-              new URL(`http://localhost${req.originalUrl}`).search,
-              [
-                {
-                  name: "per_page",
-                  explode: true,
-                  style: "form",
-                  schema: {type: "number"},
-                },
-                {
-                  name: "page",
-                  explode: true,
-                  style: "form",
-                  schema: {type: "number"},
-                },
-                {
-                  name: "sort",
-                  explode: true,
-                  style: "form",
-                  schema: {type: "string"},
-                },
-                {
-                  name: "direction",
-                  explode: true,
-                  style: "form",
-                  schema: {type: "string"},
-                },
-                {
-                  name: "owner",
-                  explode: true,
-                  style: "form",
-                  schema: {type: "array", items: {type: "string"}},
-                },
-                {
-                  name: "repository",
-                  explode: true,
-                  style: "form",
-                  schema: {type: "string"},
-                },
-                {
-                  name: "permission",
-                  explode: true,
-                  style: "form",
-                  schema: {type: "string"},
-                },
-                {
-                  name: "last_used_before",
-                  explode: true,
-                  style: "form",
-                  schema: {type: "string"},
-                },
-                {
-                  name: "last_used_after",
-                  explode: true,
-                  style: "form",
-                  schema: {type: "string"},
-                },
-                {
-                  name: "token_id",
-                  explode: true,
-                  style: "form",
-                  schema: {type: "array", items: {type: "string"}},
-                },
-              ],
-            ),
+            req.query,
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -46628,71 +46393,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             orgsListPatGrantsQuerySchema,
-            parseQueryParameters(
-              new URL(`http://localhost${req.originalUrl}`).search,
-              [
-                {
-                  name: "per_page",
-                  explode: true,
-                  style: "form",
-                  schema: {type: "number"},
-                },
-                {
-                  name: "page",
-                  explode: true,
-                  style: "form",
-                  schema: {type: "number"},
-                },
-                {
-                  name: "sort",
-                  explode: true,
-                  style: "form",
-                  schema: {type: "string"},
-                },
-                {
-                  name: "direction",
-                  explode: true,
-                  style: "form",
-                  schema: {type: "string"},
-                },
-                {
-                  name: "owner",
-                  explode: true,
-                  style: "form",
-                  schema: {type: "array", items: {type: "string"}},
-                },
-                {
-                  name: "repository",
-                  explode: true,
-                  style: "form",
-                  schema: {type: "string"},
-                },
-                {
-                  name: "permission",
-                  explode: true,
-                  style: "form",
-                  schema: {type: "string"},
-                },
-                {
-                  name: "last_used_before",
-                  explode: true,
-                  style: "form",
-                  schema: {type: "string"},
-                },
-                {
-                  name: "last_used_after",
-                  explode: true,
-                  style: "form",
-                  schema: {type: "string"},
-                },
-                {
-                  name: "token_id",
-                  explode: true,
-                  style: "form",
-                  schema: {type: "array", items: {type: "string"}},
-                },
-              ],
-            ),
+            req.query,
             RequestInputType.QueryString,
           ),
           body: undefined,
@@ -100337,17 +100038,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: parseRequestInput(
             migrationsGetStatusForAuthenticatedUserQuerySchema,
-            parseQueryParameters(
-              new URL(`http://localhost${req.originalUrl}`).search,
-              [
-                {
-                  name: "exclude",
-                  explode: true,
-                  style: "form",
-                  schema: {type: "array", items: {type: "string"}},
-                },
-              ],
-            ),
+            req.query,
             RequestInputType.QueryString,
           ),
           body: undefined,

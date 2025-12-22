@@ -10,7 +10,6 @@ import {
   type ExpressRuntimeResponder,
   ExpressRuntimeResponse,
   type Params,
-  parseQueryParameters,
   type ServerConfig,
   SkipResponse,
   type StatusCode,
@@ -118,23 +117,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: parseRequestInput(
             findPetsQuerySchema,
-            parseQueryParameters(
-              new URL(`http://localhost${req.originalUrl}`).search,
-              [
-                {
-                  name: "tags",
-                  explode: true,
-                  style: "form",
-                  schema: {type: "array", items: {type: "string"}},
-                },
-                {
-                  name: "limit",
-                  explode: true,
-                  style: "form",
-                  schema: {type: "number"},
-                },
-              ],
-            ),
+            req.query,
             RequestInputType.QueryString,
           ),
           body: undefined,
