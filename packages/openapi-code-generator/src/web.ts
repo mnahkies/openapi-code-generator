@@ -1,5 +1,4 @@
 export {type Config, configSchema} from "./config"
-export {NodeFsAdaptor} from "./core/file-system/node-fs-adaptor"
 export {WebFsAdaptor} from "./core/file-system/web-fs-adaptor"
 export type {IFormatter} from "./core/interfaces"
 export {TypespecLoader} from "./core/loaders/typespec.loader"

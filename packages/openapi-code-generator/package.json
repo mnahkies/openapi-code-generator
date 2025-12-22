@@ -26,7 +26,13 @@
       "require": "./dist/index.js",
       "default": "./dist/index.js"
     },
-    "./cli": "./dist/cli.js"
+    "./cli": "./dist/cli.js",
+    "./web": {
+      "types": "./dist/web.d.ts",
+      "import": "./dist/web.js",
+      "require": "./dist/web.js",
+      "default": "./dist/web.js"
+    }
   },
   "scripts": {
     "clean": "rm -rf ./dist && rm tsconfig.tsbuildinfo",
@@ -34,23 +40,23 @@
     "test": "jest"
   },
   "devDependencies": {
-    "@azure-tools/typespec-autorest": "0.62.0",
-    "@azure-tools/typespec-azure-core": "0.62.0",
-    "@azure-tools/typespec-azure-resource-manager": "0.62.0",
-    "@azure-tools/typespec-client-generator-core": "0.62.0",
+    "@azure-tools/typespec-autorest": "0.63.0",
+    "@azure-tools/typespec-azure-core": "0.63.0",
+    "@azure-tools/typespec-azure-resource-manager": "0.63.0",
+    "@azure-tools/typespec-client-generator-core": "0.63.0",
     "@jest/globals": "^30.2.0",
     "@types/js-yaml": "^4.0.9",
     "@types/lodash": "^4.17.20",
-    "@typespec/compiler": "^1.5.0",
-    "@typespec/events": "0.76.0",
-    "@typespec/http": "^1.6.0",
-    "@typespec/openapi": "^1.6.0",
-    "@typespec/openapi3": "^1.6.0",
-    "@typespec/rest": "0.76.0",
-    "@typespec/sse": "0.76.0",
-    "@typespec/streams": "0.76.0",
-    "@typespec/versioning": "0.76.0",
-    "@typespec/xml": "0.76.0",
+    "@typespec/compiler": "^1.7.0",
+    "@typespec/events": "0.77.0",
+    "@typespec/http": "^1.7.0",
+    "@typespec/openapi": "^1.7.0",
+    "@typespec/openapi3": "^1.7.0",
+    "@typespec/rest": "0.77.0",
+    "@typespec/sse": "0.77.0",
+    "@typespec/streams": "0.77.0",
+    "@typespec/versioning": "0.77.0",
+    "@typespec/xml": "0.77.0",
     "joi": "^18.0.2",
     "piscina": "^5.1.4",
     "tsx": "^4.21.0"

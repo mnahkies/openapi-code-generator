@@ -1,4 +1,4 @@
-import type {Config} from "@nahkies/openapi-code-generator"
+import type {Config} from "@nahkies/openapi-code-generator/web"
 
 export type WorkerMessage = {type: "generate"; config: Config; input: string}
 export type WorkerResult = {files: Map<string, string>; elapsed: number}

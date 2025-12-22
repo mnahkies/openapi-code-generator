@@ -2,7 +2,7 @@
 
 import {zodResolver} from "@hookform/resolvers/zod"
 import {Editor, type Monaco, useMonaco} from "@monaco-editor/react"
-import {type Config, WebFsAdaptor} from "@nahkies/openapi-code-generator"
+import {type Config, WebFsAdaptor} from "@nahkies/openapi-code-generator/web"
 import type {editor} from "monaco-editor"
 import type {AutoTypingsCore} from "monaco-editor-auto-typings/lib/AutoTypingsCore"
 import {Callout} from "nextra/components"
