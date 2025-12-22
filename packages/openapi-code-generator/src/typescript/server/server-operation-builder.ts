@@ -1,3 +1,7 @@
+import type {
+  QueryParameter,
+  SchemaStructure,
+} from "@nahkies/typescript-common-runtime/query-parser"
 import type {Input} from "../../core/input"
 import {logger} from "../../core/logger"
 import type {IRModel, IROperation} from "../../core/openapi-types-normalized"
@@ -31,23 +35,6 @@ export type ServerOperationResponseSchemas = {
         schema: string
       }
     | undefined
-}
-
-export type PrimitiveType = {type: "string" | "number" | "boolean" | "null"}
-export type ObjectSchema = {
-  type: "object"
-  properties: Record<string, SchemaStructure>
-}
-export type ArraySchema = {type: "array"; items: SchemaStructure}
-
-export type SchemaStructure = PrimitiveType | ObjectSchema | ArraySchema
-export type Style = "deepObject" | "form" | "pipeDelimited" | "spaceDelimited"
-export interface QueryParameter {
-  name: string
-  schema: SchemaStructure
-  style?: Style
-  explode?: boolean
-  // allowEmptyValue: boolean
 }
 
 export type Parameters = {

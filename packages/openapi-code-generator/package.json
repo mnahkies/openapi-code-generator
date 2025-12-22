@@ -60,6 +60,7 @@
     "@biomejs/js-api": "4.0.0",
     "@biomejs/wasm-nodejs": "2.3.7",
     "@commander-js/extra-typings": "^14.0.0",
+    "@nahkies/typescript-common-runtime": "workspace:^",
     "ajv": "^8.17.1",
     "ajv-draft-04": "^1.0.0",
     "ajv-formats": "^3.0.1",

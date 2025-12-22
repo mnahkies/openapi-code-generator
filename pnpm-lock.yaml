@@ -364,6 +364,9 @@ importers:
       '@commander-js/extra-typings':
         specifier: ^14.0.0
         version: 14.0.0(commander@14.0.2)
+      '@nahkies/typescript-common-runtime':
+        specifier: workspace:^
+        version: link:../typescript-common-runtime
       ajv:
         specifier: ^8.17.1
         version: 8.17.1
