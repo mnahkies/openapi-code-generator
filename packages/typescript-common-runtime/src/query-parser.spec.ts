@@ -32,8 +32,7 @@ describe("query-parser", () => {
       const expected = ["foo[0]", "foo[1]", "foo[2]"]
       const actual = extractArrayNotationKeys(
         "foo",
-        // biome-ignore lint/suspicious/noExplicitAny: node v20
-        toIterator(["foo[0]", "foo[2]", "foo[1]"]) as any,
+        toIterator(["foo[0]", "foo[2]", "foo[1]"]),
       )
 
       expect(actual).toEqual(expected)
@@ -43,8 +42,7 @@ describe("query-parser", () => {
       const expected = ["foo[bar][0]", "foo[bar][1]", "foo[bar][2]"]
       const actual = extractArrayNotationKeys(
         "foo[bar]",
-        // biome-ignore lint/suspicious/noExplicitAny: node v20
-        toIterator(["foo[bar][0]", "foo[bar][2]", "foo[bar][1]"]) as any,
+        toIterator(["foo[bar][0]", "foo[bar][2]", "foo[bar][1]"]),
       )
 
       expect(actual).toEqual(expected)
@@ -54,8 +52,7 @@ describe("query-parser", () => {
       const expected: string[] = []
       const actual = extractArrayNotationKeys(
         "foo",
-        // biome-ignore lint/suspicious/noExplicitAny: node v20
-        toIterator(["foo[bar]", "foo[baz]"]) as any,
+        toIterator(["foo[bar]", "foo[baz]"]),
       )
 
       expect(actual).toEqual(expected)

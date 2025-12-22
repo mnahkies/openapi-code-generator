@@ -60,11 +60,13 @@ function escapeStringForRegExp(str: string): string {
  */
 export function extractArrayNotationKeys(
   key: string,
-  keys: IteratorObject<string>,
+  keys: Iterable<string>,
 ): string[] {
   const regex = new RegExp(`^${escapeStringForRegExp(key)}\\[[0-9]+]$`)
 
-  return Array.from(keys.filter((it) => regex.test(it))).sort()
+  return Array.from(keys)
+    .filter((it) => regex.test(it))
+    .sort()
 }
 
 function parseObjectQueryParameter(
