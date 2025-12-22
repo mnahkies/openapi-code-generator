@@ -14,6 +14,7 @@ import express, {
   type Router,
 } from "express"
 
+export {parseQueryParameters} from "@nahkies/typescript-common-runtime/query-parser"
 export type {
   Response,
   StatusCode,

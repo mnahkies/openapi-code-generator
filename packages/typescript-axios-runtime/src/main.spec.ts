@@ -2,6 +2,7 @@
 // biome-ignore-all lint/suspicious/noExplicitAny: tests
 
 import {describe, expect, it} from "@jest/globals"
+import type {Encoding} from "@nahkies/typescript-common-runtime/request-bodies/url-search-params"
 import type {AxiosRequestConfig, RawAxiosRequestHeaders} from "axios"
 import {
   AbstractAxiosClient,
@@ -9,7 +10,6 @@ import {
   type HeaderParams,
   type QueryParams,
 } from "./main"
-import type {Encoding} from "./request-bodies/url-search-params"
 
 class ConcreteAxiosClient extends AbstractAxiosClient {
   // biome-ignore lint/complexity/noUselessConstructor: make public

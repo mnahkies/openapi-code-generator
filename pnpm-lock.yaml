@@ -204,9 +204,6 @@ importers:
       '@nahkies/typescript-express-runtime':
         specifier: workspace:*
         version: link:../../packages/typescript-express-runtime
-      '@nahkies/typescript-koa-runtime':
-        specifier: workspace:*
-        version: link:../../packages/typescript-koa-runtime
       express:
         specifier: ^5.1.0
         version: 5.2.1

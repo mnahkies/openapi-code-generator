@@ -32,6 +32,11 @@
       "import": "./dist/types.js",
       "types": "./dist/types.d.ts"
     },
+    "./query-parser": {
+      "require": "./dist/query-parser.js",
+      "import": "./dist/query-parser.js",
+      "types": "./dist/query-parser.d.ts"
+    },
     "./request-bodies/url-search-params": {
       "require": "./dist/request-bodies/url-search-params.js",
       "import": "./dist/request-bodies/url-search-params.js",

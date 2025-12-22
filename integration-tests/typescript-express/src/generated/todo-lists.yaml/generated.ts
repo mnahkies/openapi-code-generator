@@ -10,6 +10,7 @@ import {
   type ExpressRuntimeResponder,
   ExpressRuntimeResponse,
   type Params,
+  parseQueryParameters,
   type ServerConfig,
   SkipResponse,
   type StatusCode,
@@ -21,7 +22,6 @@ import {
   parseRequestInput,
   responseValidationFactory,
 } from "@nahkies/typescript-express-runtime/zod-v4"
-import {parseQueryParameters} from "@nahkies/typescript-koa-runtime/server"
 import {type NextFunction, type Request, type Response, Router} from "express"
 import {z} from "zod/v4"
 import type {

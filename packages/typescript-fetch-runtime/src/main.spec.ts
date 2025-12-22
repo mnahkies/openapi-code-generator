@@ -1,6 +1,7 @@
 // biome-ignore-all lint/suspicious/noExplicitAny: tests
 
 import {describe, expect, it} from "@jest/globals"
+import type {Encoding} from "@nahkies/typescript-common-runtime/request-bodies/url-search-params"
 import {
   AbstractFetchClient,
   type AbstractFetchClientConfig,
@@ -8,7 +9,6 @@ import {
   type HeadersInit,
   type QueryParams,
 } from "./main"
-import type {Encoding} from "./request-bodies/url-search-params"
 
 class ConcreteFetchClient extends AbstractFetchClient {
   // biome-ignore lint/complexity/noUselessConstructor: make public

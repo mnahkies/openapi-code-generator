@@ -40,7 +40,7 @@ export class ExpressRouterBuilder extends AbstractRouterBuilder {
 
     this.imports
       .from("@nahkies/typescript-express-runtime/server")
-      .add("ExpressRuntimeResponse", "SkipResponse")
+      .add("ExpressRuntimeResponse", "SkipResponse", "parseQueryParameters")
       .addType(
         "ExpressRuntimeResponder",
         "Params",
@@ -51,11 +51,6 @@ export class ExpressRouterBuilder extends AbstractRouterBuilder {
         "StatusCode4xx",
         "StatusCode5xx",
       )
-
-    // todo: move to common imports
-    this.imports
-      .from("@nahkies/typescript-koa-runtime/server")
-      .add("parseQueryParameters")
 
     this.imports
       .from("@nahkies/typescript-express-runtime/errors")
