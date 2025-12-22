@@ -1,5 +1,5 @@
 import type {Monaco} from "@monaco-editor/react"
-import type {WebFsAdaptor} from "@nahkies/openapi-code-generator"
+import type {WebFsAdaptor} from "@nahkies/openapi-code-generator/web"
 
 export function createOrUpdateModel(
   {filename, value}: {filename: string; value: string},

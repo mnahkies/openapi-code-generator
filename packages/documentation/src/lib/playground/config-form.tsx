@@ -1,5 +1,5 @@
 import {zodResolver} from "@hookform/resolvers/zod"
-import {type Config, configSchema} from "@nahkies/openapi-code-generator"
+import {type Config, configSchema} from "@nahkies/openapi-code-generator/web"
 import type React from "react"
 import {useEffect} from "react"
 import {useForm} from "react-hook-form"

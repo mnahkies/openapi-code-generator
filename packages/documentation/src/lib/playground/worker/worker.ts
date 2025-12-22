@@ -5,7 +5,7 @@ import {
   TypescriptFormatterPrettier,
   TypespecLoader,
   WebFsAdaptor,
-} from "@nahkies/openapi-code-generator"
+} from "@nahkies/openapi-code-generator/web"
 import _ from "lodash"
 import type {
   Monad,
