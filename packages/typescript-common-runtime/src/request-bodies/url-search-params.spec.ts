@@ -100,39 +100,42 @@ describe("typescript-fetch-runtime/request-bodies/requestBodyToUrlSearchParams",
       // note: undefined by spec, using JSON.stringify representation
       object: "color=%7B%22R%22%3A100%2C%22G%22%3A200%2C%22B%22%3A150%7D",
     },
-  ] as const)(
-    "oas 4.8.12.4 style examples - when explode: $explode and style: $style",
-    ({explode, style, string, array, object}) => {
-      it("serializes a string correctly", () => {
-        const actual = requestBodyToUrlSearchParams(
-          {color: "blue"},
-          {color: {explode, style}},
-        )
-        expect(actual.toString()).toStrictEqual(string)
-      })
+  ] as const)("oas 4.8.12.4 style examples - when explode: $explode and style: $style", ({
+    explode,
+    style,
+    string,
+    array,
+    object,
+  }) => {
+    it("serializes a string correctly", () => {
+      const actual = requestBodyToUrlSearchParams(
+        {color: "blue"},
+        {color: {explode, style}},
+      )
+      expect(actual.toString()).toStrictEqual(string)
+    })
 
-      it("serializes a array correctly", () => {
-        const actual = requestBodyToUrlSearchParams(
-          {color: ["blue", "black", "brown"]},
-          {color: {explode, style}},
-        )
-        expect(actual.toString()).toStrictEqual(array)
-      })
+    it("serializes a array correctly", () => {
+      const actual = requestBodyToUrlSearchParams(
+        {color: ["blue", "black", "brown"]},
+        {color: {explode, style}},
+      )
+      expect(actual.toString()).toStrictEqual(array)
+    })
 
-      it("serializes a object correctly", () => {
-        const actual = requestBodyToUrlSearchParams(
-          {color: {R: 100, G: 200, B: 150}},
-          {
-            color: {
-              explode,
-              style,
-            },
+    it("serializes a object correctly", () => {
+      const actual = requestBodyToUrlSearchParams(
+        {color: {R: 100, G: 200, B: 150}},
+        {
+          color: {
+            explode,
+            style,
           },
-        )
-        expect(actual.toString()).toStrictEqual(object)
-      })
-    },
-  )
+        },
+      )
+      expect(actual.toString()).toStrictEqual(object)
+    })
+  })
 
   describe("stripe /v1 api conventions; style: 'deepObject' explode: true", () => {
     /**

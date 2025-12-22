@@ -153,31 +153,31 @@ describe("core/utils", () => {
       },
     ]
 
-    it.each(cases)(
-      "transforms to camelCase $input -> $camel",
-      ({input, camel}) => {
-        expect(normalizeFilename(input, "camel-case")).toBe(camel)
-      },
-    )
+    it.each(cases)("transforms to camelCase $input -> $camel", ({
+      input,
+      camel,
+    }) => {
+      expect(normalizeFilename(input, "camel-case")).toBe(camel)
+    })
 
-    it.each(cases)(
-      "transforms to TileCase $input -> $title",
-      ({input, title}) => {
-        expect(normalizeFilename(input, "title-case")).toBe(title)
-      },
-    )
-    it.each(cases)(
-      "transforms to snake_case $input -> $snake",
-      ({input, snake}) => {
-        expect(normalizeFilename(input, "snake-case")).toBe(snake)
-      },
-    )
-    it.each(cases)(
-      "transforms to kebab-case $input -> $kebab",
-      ({input, kebab}) => {
-        expect(normalizeFilename(input, "kebab-case")).toBe(kebab)
-      },
-    )
+    it.each(cases)("transforms to TileCase $input -> $title", ({
+      input,
+      title,
+    }) => {
+      expect(normalizeFilename(input, "title-case")).toBe(title)
+    })
+    it.each(cases)("transforms to snake_case $input -> $snake", ({
+      input,
+      snake,
+    }) => {
+      expect(normalizeFilename(input, "snake-case")).toBe(snake)
+    })
+    it.each(cases)("transforms to kebab-case $input -> $kebab", ({
+      input,
+      kebab,
+    }) => {
+      expect(normalizeFilename(input, "kebab-case")).toBe(kebab)
+    })
   })
 
   describe("#identifier", () => {
@@ -226,31 +226,31 @@ describe("core/utils", () => {
       },
     ]
 
-    it.each(cases)(
-      "transforms to camelCase $input -> $camel",
-      ({input, camel}) => {
-        expect(camelCase(input)).toBe(camel)
-      },
-    )
+    it.each(cases)("transforms to camelCase $input -> $camel", ({
+      input,
+      camel,
+    }) => {
+      expect(camelCase(input)).toBe(camel)
+    })
 
-    it.each(cases)(
-      "transforms to TileCase $input -> $title",
-      ({input, title}) => {
-        expect(titleCase(input)).toBe(title)
-      },
-    )
-    it.each(cases)(
-      "transforms to snake_case $input -> $snake",
-      ({input, snake}) => {
-        expect(snakeCase(input)).toBe(snake)
-      },
-    )
-    it.each(cases)(
-      "transforms to kebab-case $input -> $kebab",
-      ({input, kebab}) => {
-        expect(kebabCase(input)).toBe(kebab)
-      },
-    )
+    it.each(cases)("transforms to TileCase $input -> $title", ({
+      input,
+      title,
+    }) => {
+      expect(titleCase(input)).toBe(title)
+    })
+    it.each(cases)("transforms to snake_case $input -> $snake", ({
+      input,
+      snake,
+    }) => {
+      expect(snakeCase(input)).toBe(snake)
+    })
+    it.each(cases)("transforms to kebab-case $input -> $kebab", ({
+      input,
+      kebab,
+    }) => {
+      expect(kebabCase(input)).toBe(kebab)
+    })
 
     it("throws if the transformed result is a reserved word", () => {
       expect(() => camelCase("async")).toThrow(TypeError)

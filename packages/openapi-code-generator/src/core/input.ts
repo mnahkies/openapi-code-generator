@@ -87,7 +87,6 @@ export class Input {
 
     const schemas = allDocuments.reduce(
       (acc, it) => {
-        // biome-ignore lint/performance/noAccumulatingSpread: todo
         return Object.assign(acc, it.components?.schemas ?? {})
       },
       {} as {

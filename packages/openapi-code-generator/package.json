@@ -56,9 +56,9 @@
     "tsx": "^4.21.0"
   },
   "dependencies": {
-    "@biomejs/biome": "2.3.7",
+    "@biomejs/biome": "2.3.8",
     "@biomejs/js-api": "4.0.0",
-    "@biomejs/wasm-nodejs": "2.3.7",
+    "@biomejs/wasm-nodejs": "2.3.8",
     "@commander-js/extra-typings": "^14.0.0",
     "@nahkies/typescript-common-runtime": "workspace:^",
     "ajv": "^8.17.1",

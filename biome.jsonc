@@ -1,5 +1,5 @@
 {
-  "$schema": "https://biomejs.dev/schemas/2.3.4/schema.json",
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
   "vcs": {
     "enabled": true,
     "clientKind": "git",
@@ -17,13 +17,16 @@
     "maxSize": 10485760,
     "includes": [
       "**",
-      "!**/packages/openapi-code-generator/src/core/schemas/openapi-3.0-specification-validator.ts",
-      "!**/packages/openapi-code-generator/src/core/schemas/openapi-3.1-specification-validator.ts",
-      "!**/integration-tests/typescript-angular/src/generated/**/*",
-      "!**/integration-tests-definitions/**/*",
+      "!!**/packages/openapi-code-generator/src/core/schemas/openapi-3.0-specification-validator.ts",
+      "!!**/packages/openapi-code-generator/src/core/schemas/openapi-3.1-specification-validator.ts",
+      "!!**/integration-tests/typescript-angular/src/generated/**/*",
+      "!!**/integration-tests-definitions/**/*",
       "!**/schemas/**/*.json",
       "!**/package.json",
-      "!**/package.json"
+      "!**/package.json",
+      "!!**/.next",
+      "!!**/.angular",
+      "!!**/dist"
     ]
   },
   "formatter": {
