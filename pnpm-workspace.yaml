@@ -43,6 +43,7 @@ publicHoistPattern:
   - '@typespec/*'
   - '@azure-tools/*'
   - '@types/node'
+  - '@biomejs/biome'
 
 # GH actions doesn't checkout the branch
 gitChecks: false

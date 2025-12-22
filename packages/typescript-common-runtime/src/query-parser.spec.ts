@@ -109,20 +109,21 @@ describe("query-parser", () => {
         expect(actual).toEqual({foo: "something", bar: "123", baz: "true"})
       })
 
-      it.each(["form", "pipeDelimited", "spaceDelimited"] satisfies Style[])(
-        "explode: true, style: %s",
-        (style) => {
-          const query = new URLSearchParams(
-            "unrelated=bla&foo=something&bar=123&baz=true",
-          )
+      it.each([
+        "form",
+        "pipeDelimited",
+        "spaceDelimited",
+      ] satisfies Style[])("explode: true, style: %s", (style) => {
+        const query = new URLSearchParams(
+          "unrelated=bla&foo=something&bar=123&baz=true",
+        )
 
-          const actual = parseQueryParameter(
-            {name: "foobar", schema, explode: true, style},
-            query,
-          )
-          expect(actual).toEqual({foo: "something", bar: "123", baz: "true"})
-        },
-      )
+        const actual = parseQueryParameter(
+          {name: "foobar", schema, explode: true, style},
+          query,
+        )
+        expect(actual).toEqual({foo: "something", bar: "123", baz: "true"})
+      })
 
       it("explode: false, style: deepObject", () => {
         const query = new URLSearchParams("unrelated=bla")
@@ -142,54 +143,55 @@ describe("query-parser", () => {
         ["form", ","],
         ["pipeDelimited", "|"],
         ["spaceDelimited", " "],
-      ] satisfies [Style, string][])(
-        "explode: false, style: %s",
-        (style, sep) => {
-          const query = new URLSearchParams(
-            `unrelated=bla&foobar=foo${sep}something${sep}bar${sep}123${sep}baz${sep}true`,
-          )
+      ] satisfies [
+        Style,
+        string,
+      ][])("explode: false, style: %s", (style, sep) => {
+        const query = new URLSearchParams(
+          `unrelated=bla&foobar=foo${sep}something${sep}bar${sep}123${sep}baz${sep}true`,
+        )
 
-          const actual = parseQueryParameter(
-            {name: "foobar", schema, explode: false, style},
-            query,
-          )
-          expect(actual).toEqual({foo: "something", bar: "123", baz: "true"})
-        },
-      )
+        const actual = parseQueryParameter(
+          {name: "foobar", schema, explode: false, style},
+          query,
+        )
+        expect(actual).toEqual({foo: "something", bar: "123", baz: "true"})
+      })
     })
 
     describe("primitive array types", () => {
       const schema = {type: "array", items: {type: "string"}} as const
 
-      it.each(["form", "pipeDelimited", "spaceDelimited"] satisfies Style[])(
-        "explode: true, style: %s",
-        (style) => {
-          const query = new URLSearchParams("unrelated=bla&foo=bar&foo=baz")
+      it.each([
+        "form",
+        "pipeDelimited",
+        "spaceDelimited",
+      ] satisfies Style[])("explode: true, style: %s", (style) => {
+        const query = new URLSearchParams("unrelated=bla&foo=bar&foo=baz")
 
-          const actual = parseQueryParameter(
-            {name: "foo", schema, explode: true, style},
-            query,
-          )
-          expect(actual).toEqual(["bar", "baz"])
-        },
-      )
+        const actual = parseQueryParameter(
+          {name: "foo", schema, explode: true, style},
+          query,
+        )
+        expect(actual).toEqual(["bar", "baz"])
+      })
 
       it.each([
         ["form", ","],
         ["pipeDelimited", "|"],
         ["spaceDelimited", " "],
-      ] satisfies [Style, string][])(
-        "explode: false, style: %s",
-        (style, sep) => {
-          const query = new URLSearchParams(`unrelated=bla&foo=bar${sep}baz`)
+      ] satisfies [
+        Style,
+        string,
+      ][])("explode: false, style: %s", (style, sep) => {
+        const query = new URLSearchParams(`unrelated=bla&foo=bar${sep}baz`)
 
-          const actual = parseQueryParameter(
-            {name: "foo", schema, explode: false, style},
-            query,
-          )
-          expect(actual).toEqual(["bar", "baz"])
-        },
-      )
+        const actual = parseQueryParameter(
+          {name: "foo", schema, explode: false, style},
+          query,
+        )
+        expect(actual).toEqual(["bar", "baz"])
+      })
 
       it("explode: true, style: deepObject", () => {
         const query = new URLSearchParams("unrelated=bla")
