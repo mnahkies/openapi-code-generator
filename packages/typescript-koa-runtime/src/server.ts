@@ -2,40 +2,24 @@ import type {Server} from "node:http"
 import type {AddressInfo, ListenOptions} from "node:net"
 import Cors from "@koa/cors"
 import type Router from "@koa/router"
+import type {
+  Response,
+  StatusCode,
+} from "@nahkies/typescript-common-runtime/types"
+
 import Koa, {type Middleware} from "koa"
 import KoaBody from "koa-body"
 import type {KoaBodyMiddlewareOptions} from "koa-body/lib/types"
 
-// from https://stackoverflow.com/questions/39494689/is-it-possible-to-restrict-number-to-a-certain-range
-type Enumerate<
-  N extends number,
-  Acc extends number[] = [],
-> = Acc["length"] extends N
-  ? Acc[number]
-  : Enumerate<N, [...Acc, Acc["length"]]>
-
-type IntRange<F extends number, T extends number> = F extends T
-  ? F
-  : Exclude<Enumerate<T>, Enumerate<F>> extends never
-    ? never
-    : Exclude<Enumerate<T>, Enumerate<F>> | T
-
-export type StatusCode1xx = IntRange<100, 199> // `1${number}${number}`
-export type StatusCode2xx = IntRange<200, 299> // `2${number}${number}`
-export type StatusCode3xx = IntRange<300, 399> // `3${number}${number}`
-export type StatusCode4xx = IntRange<400, 499> // `4${number}${number}`
-export type StatusCode5xx = IntRange<500, 599> // `5${number}${number}`
-export type StatusCode =
-  | StatusCode1xx
-  | StatusCode2xx
-  | StatusCode3xx
-  | StatusCode4xx
-  | StatusCode5xx
-
-export type Response<Status extends StatusCode, Type> = {
-  status: Status
-  body: Type
-}
+export type {
+  Response,
+  StatusCode,
+  StatusCode1xx,
+  StatusCode2xx,
+  StatusCode3xx,
+  StatusCode4xx,
+  StatusCode5xx,
+} from "@nahkies/typescript-common-runtime/types"
 
 export const SkipResponse = Symbol("skip response processing")
 

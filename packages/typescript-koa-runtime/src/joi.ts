@@ -1,8 +1,7 @@
+import {findMatchingSchema} from "@nahkies/typescript-common-runtime/validation"
+
 import type {Schema as JoiSchema} from "joi"
 import {KoaRuntimeError, type RequestInputType} from "./errors"
-
-/** @deprecated: update and re-generate to import from @nahkies/typescript-koa-runtime/server directly */
-export type {Params} from "./server"
 
 // Note: joi types don't appear to have an equivalent of z.infer,
 //       hence any seems about as good as we can do here.
@@ -49,20 +48,16 @@ export function responseValidationFactory(
 
   return (status: number, value: unknown) => {
     try {
-      for (const [match, schema] of possibleResponses) {
-        const isMatch =
-          (/^\d+$/.test(match) && String(status) === match) ||
-          (/^\d[xX]{2}$/.test(match) && String(status)[0] === match[0])
+      const schema = findMatchingSchema(status, possibleResponses)
 
-        if (isMatch) {
-          const result = schema.validate(value)
+      if (schema) {
+        const result = schema.validate(value)
 
-          if (result.error) {
-            throw result.error
-          }
-
-          return result.value
+        if (result.error) {
+          throw result.error
         }
+
+        return result.value
       }
 
       if (defaultResponse) {

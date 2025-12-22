@@ -1,8 +1,8 @@
-import qs from "qs"
 import {
   type Encoding,
   requestBodyToUrlSearchParams,
-} from "./request-bodies/url-search-params"
+} from "@nahkies/typescript-common-runtime/request-bodies/url-search-params"
+import qs from "qs"
 import type {
   AbstractFetchClientConfig,
   HeaderParams,

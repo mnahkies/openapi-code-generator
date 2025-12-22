@@ -1,20 +1,17 @@
-export enum RequestInputType {
-  RouteParam = "route params",
-  QueryString = "querystring",
-  RequestBody = "request body",
-  RequestHeader = "request header",
-}
+import {
+  AbstractRuntimeError,
+  RequestInputType,
+} from "@nahkies/typescript-common-runtime/errors"
 
-export class KoaRuntimeError extends Error {
+export {RequestInputType}
+
+export class KoaRuntimeError extends AbstractRuntimeError {
   private constructor(
     message: string,
     cause: unknown,
-    public readonly phase:
-      | "request_validation"
-      | "request_handler"
-      | "response_validation",
+    phase: "request_validation" | "request_handler" | "response_validation",
   ) {
-    super(message, {cause})
+    super(message, cause, phase)
   }
 
   static RequestError(

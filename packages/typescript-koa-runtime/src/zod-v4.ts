@@ -1,8 +1,7 @@
+import {findMatchingSchema} from "@nahkies/typescript-common-runtime/validation"
+
 import type {z} from "zod/v4"
 import {KoaRuntimeError, type RequestInputType} from "./errors"
-
-/** @deprecated: update and re-generate to import from @nahkies/typescript-koa-runtime/server directly */
-export type {Params} from "./server"
 
 export function parseRequestInput<Schema extends z.ZodTypeAny>(
   schema: Schema,
@@ -36,14 +35,10 @@ export function responseValidationFactory(
 
   return (status: number, value: unknown) => {
     try {
-      for (const [match, schema] of possibleResponses) {
-        const isMatch =
-          (/^\d+$/.test(match) && String(status) === match) ||
-          (/^\d[xX]{2}$/.test(match) && String(status)[0] === match[0])
+      const schema = findMatchingSchema(status, possibleResponses)
 
-        if (isMatch) {
-          return schema.parse(value)
-        }
+      if (schema) {
+        return schema.parse(value)
       }
 
       if (defaultResponse) {

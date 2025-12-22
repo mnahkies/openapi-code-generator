@@ -1,3 +1,5 @@
+import {findMatchingSchema} from "@nahkies/typescript-common-runtime/validation"
+
 import type {Res, StatusCode} from "./types"
 
 export function responseValidationFactoryFactory<Schema>(
@@ -19,14 +21,10 @@ export function responseValidationFactoryFactory<Schema>(
       const status = res.status
       const value = await res.json()
 
-      for (const [match, schema] of possibleResponses) {
-        const isMatch =
-          (/^\d+$/.test(match) && String(status) === match) ||
-          (/^\d[xX]{2}$/.test(match) && String(status)[0] === match[0])
+      const schema = findMatchingSchema(status, possibleResponses)
 
-        if (isMatch) {
-          return parse(schema, value)
-        }
+      if (schema) {
+        return parse(schema, value)
       }
 
       if (defaultResponse) {
