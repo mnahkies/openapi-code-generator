@@ -3899,7 +3899,7 @@ export const s_code_security_configuration_for_repository = z.object({
 
 export const s_code_security_default_configurations = z.array(
   z.object({
-    default_for_new_repos: z.object({}).optional(),
+    default_for_new_repos: z.record(z.string(), z.unknown()).optional(),
     configuration: s_code_security_configuration.optional(),
   }),
 )
@@ -5438,7 +5438,7 @@ export const s_review_comment = z.object({
 })
 
 export const s_ruleset_version_with_state = s_ruleset_version.merge(
-  z.object({state: z.object({})}),
+  z.object({state: z.record(z.string(), z.unknown())}),
 )
 
 export const s_runner = z.object({
@@ -6042,7 +6042,7 @@ export const s_assigned_issue_event = z.object({
 export const s_authentication_token = z.object({
   token: z.string(),
   expires_at: z.iso.datetime({offset: true}),
-  permissions: z.object({}).optional(),
+  permissions: z.record(z.string(), z.unknown()).optional(),
   repositories: z.array(s_repository).optional(),
   single_file: z.string().nullable().optional(),
   repository_selection: z.enum(["all", "selected"]).optional(),
@@ -9634,11 +9634,11 @@ export const s_ReposRenameBranchRequestBody = z.object({new_name: z.string()})
 
 export const s_ChecksCreateRequestBody = z.union([
   z.intersection(
-    z.object({status: z.object({})}),
+    z.object({status: z.record(z.string(), z.unknown())}),
     z.record(z.string(), z.unknown()),
   ),
   z.intersection(
-    z.object({status: z.object({}).optional()}),
+    z.object({status: z.record(z.string(), z.unknown()).optional()}),
     z.record(z.string(), z.unknown()),
   ),
 ])
@@ -9736,9 +9736,9 @@ export const s_CodeScanningUpdateAlertRequestBody = z.object({
 })
 
 export const s_CodeScanningCreateVariantAnalysisRequestBody = z.union([
-  z.object({}),
-  z.object({}),
-  z.object({}),
+  z.record(z.string(), z.unknown()),
+  z.record(z.string(), z.unknown()),
+  z.record(z.string(), z.unknown()),
 ])
 
 export const s_CodeScanningUploadSarifRequestBody = z.object({

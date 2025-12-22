@@ -27,7 +27,10 @@ export const s_Azure_ResourceManager_CommonTypes_ActionType = z.union([
 ])
 
 export const s_Azure_ResourceManager_CommonTypes_ErrorAdditionalInfo = z.object(
-  {type: z.string().optional(), info: z.object({}).optional()},
+  {
+    type: z.string().optional(),
+    info: z.record(z.string(), z.unknown()).optional(),
+  },
 )
 
 export const s_Azure_ResourceManager_CommonTypes_OperationDisplay = z.object({
