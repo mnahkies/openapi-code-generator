@@ -174,8 +174,8 @@ everything should just work as you'd guess/expect.
 | required                 |     ✅     |                                                                              |
 | deprecated               |  __N/A__  |                                                                      Ignored |
 | allowEmptyValue          |    🚫     | Use schema `minLength: 1` to prevent empty string values in query parameters |
-| style                    |    🚫     |                                                            Not yet supported |
-| explode                  |    🚫     |                                                            Not yet supported |
+| style                    |   ✅/🚧    |                                              Fully supported for `in: query` |
+| explode                  |   ✅/🚧    |                                              Fully supported for `in: query` |
 | allowReserved            |    🚫     |                                              Use schema `pattern` to emulate |
 | [schema](#schema-object) |     ✅     |                                                                              |
 | example                  |  __N/A__  |                                                                      Ignored |
@@ -270,7 +270,7 @@ as a breaking change prior to v1.
 | anyOf                |     ✅     | Produces a union type like `A \| B`                                                                                                                      |
 | items                |     ✅     | Applies to `type: array`                                                                                                                                 |
 | properties           |     ✅     | Applies to `type: object`                                                                                                                                |
-| additionalProperties |   ✅/🚧    | Fairly comprehensive support, produces `Record<string, T>` or `unknown`/`any` (dependent on [`--ts-allow-any`](../reference/cli-options#--ts-allow-any)) |
+| additionalProperties |     ✅     | Fairly comprehensive support, produces `Record<string, T>` or `unknown`/`any` (dependent on [`--ts-allow-any`](../reference/cli-options#--ts-allow-any)) |
 | format               |   ✅/🚧    | Limited support for format `email` and `date-time`                                                                                                       |
 | default              |     ✅     |                                                                                                                                                          |
 | nullable             |     ✅     | Also supports `type: null` as an alternative                                                                                                             |

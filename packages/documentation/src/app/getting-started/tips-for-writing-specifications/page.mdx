@@ -28,6 +28,26 @@ client.getTodoListItems(...)
 client.createTodoListItem(...)
 ```
 
+## Keep query parameters simple
+
+Query parameters work best for simple primitive types. They get confusing and ill defined when you
+venture into complex objects.
+
+An effort has been made to correctly serialize and parse query parameters of all shapes, respecting the `style`
+and `explode` modifiers... but we'd suggest you just don't use this where possible.
+
+Stick to a simple set of `string` / `number` query parameters, maybe include an array of `string` / `number` if needed,
+and your API will be easier to reason about.
+
+For details of what is possible, albeit not recommended you can refer to the
+[query-parser.spec.ts](https://github.com/mnahkies/openapi-code-generator/blob/main/packages/typescript-common-runtime/src/query-parser.spec.ts) test suite
+
+## Use `application/json`, avoid using `application/x-www-form-urlencoded` request bodies
+
+Similar to the point about query parameters above, we'd suggest you avoid using the `application/x-www-form-urlencoded`
+content type for your request bodies, and use `application/json` instead. It doesn't have the same pitfalls around
+percent encoding, etc.
+
 ## Make liberal use of `$ref`
 
 Using `$ref` can reduce the repetition in your specification, making it far more readable

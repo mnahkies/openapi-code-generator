@@ -51,7 +51,7 @@ It's a format rife with issues, and undefined behavior. It's strongly recommende
 instead where possible, and limit the usage of `application/x-www-form-urlencoded` to endpoints that are handling
 plain html forum submissions, with a flat schema structure. This should largely avoid the undefined behavior.
 
-See the test suite at [url-search-param.spec.ts](https://github.com/mnahkies/openapi-code-generator/blob/main/packages/typescript-fetch-runtime/src/request-bodies/url-search-param.spec.ts)
+See the test suite at [url-search-param.spec.ts](https://github.com/mnahkies/openapi-code-generator/blob/main/packages/typescript-common-runtime/src/request-bodies/url-search-params.spec.ts)
 for details of how the `style` and `explode` properties of encoding impact serialization of request bodies in the client templates.
 
 Briefly:
