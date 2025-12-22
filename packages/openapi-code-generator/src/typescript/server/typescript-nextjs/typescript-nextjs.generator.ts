@@ -32,6 +32,13 @@ export async function generateTypescriptNextJS(
     config.compilerOptions,
   )
 
+  const importBuilderConfig = {
+    includeFileExtensions: config.isEsmProject,
+    importAlias,
+  }
+
+  const schemaBuilderImports = new ImportBuilder(importBuilderConfig)
+
   // biome-ignore lint/complexity/useLiteralKeys: <explanation>
   const subDirectory = process.env["OPENAPI_INTEGRATION_TESTS"]
     ? path.basename(config.input.loader.entryPointKey)
@@ -57,6 +64,8 @@ export async function generateTypescriptNextJS(
     input,
     config.schemaBuilder,
     {allowAny},
+    schemaBuilderImports,
+    rootTypeBuilder,
   )
 
   const project = new Project({useInMemoryFileSystem: true})
@@ -69,7 +78,10 @@ export async function generateTypescriptNextJS(
           routeToNextJSFilepath(group.name),
         )
 
-        const imports = new ImportBuilder({filename}, importAlias)
+        const imports = new ImportBuilder({
+          ...importBuilderConfig,
+          unit: {filename},
+        })
 
         const routerBuilder = new TypescriptNextjsRouterBuilder(
           filename,
@@ -117,10 +129,10 @@ export async function generateTypescriptNextJS(
   ).flat()
 
   const clientOutputPath = [generatedDirectory, "client.ts"].join(path.sep)
-  const clientImportBuilder = new ImportBuilder(
-    {filename: clientOutputPath},
-    importAlias,
-  )
+  const clientImportBuilder = new ImportBuilder({
+    ...importBuilderConfig,
+    unit: {filename: clientOutputPath},
+  })
 
   const fetchClientBuilder = new TypescriptFetchClientBuilder(
     clientOutputPath,

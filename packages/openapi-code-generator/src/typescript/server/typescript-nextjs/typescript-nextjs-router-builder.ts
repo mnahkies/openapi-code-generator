@@ -1,17 +1,15 @@
 import type {Input} from "../../../core/input"
 import {isDefined, titleCase} from "../../../core/utils"
 import type {ImportBuilder} from "../../common/import-builder"
-import {JoiBuilder} from "../../common/schema-builders/joi-schema-builder"
 import type {SchemaBuilder} from "../../common/schema-builders/schema-builder"
-import {ZodBuilder} from "../../common/schema-builders/zod-schema-builder"
 import type {TypeBuilder} from "../../common/type-builder"
 import {constStatement} from "../../common/type-utils"
 import {buildExport} from "../../common/typescript-common"
-import {
-  AbstractRouterBuilder,
-  type ServerSymbols,
-} from "../abstract-router-builder"
-import type {ServerOperationBuilder} from "../server-operation-builder"
+import {AbstractRouterBuilder} from "../abstract-router-builder"
+import type {
+  ServerOperationBuilder,
+  ServerSymbols,
+} from "../server-operation-builder"
 
 export class TypescriptNextjsRouterBuilder extends AbstractRouterBuilder {
   private readonly operationTypes: {
@@ -51,14 +49,27 @@ export class TypescriptNextjsRouterBuilder extends AbstractRouterBuilder {
       .from("@nahkies/typescript-nextjs-runtime/errors")
       .add("OpenAPIRuntimeError", "RequestInputType")
 
-    if (this.schemaBuilder instanceof ZodBuilder) {
-      this.imports
-        .from("@nahkies/typescript-nextjs-runtime/zod")
-        .add("parseRequestInput", "responseValidationFactory")
-    } else if (this.schemaBuilder instanceof JoiBuilder) {
-      this.imports
-        .from("@nahkies/typescript-nextjs-runtime/joi")
-        .add("parseRequestInput", "responseValidationFactory")
+    const schemaBuilderType = this.schemaBuilder.type
+
+    switch (schemaBuilderType) {
+      case "joi": {
+        this.imports
+          .from("@nahkies/typescript-nextjs-runtime/joi")
+          .add("parseRequestInput", "responseValidationFactory")
+        break
+      }
+      case "zod-v3":
+      case "zod-v4": {
+        this.imports
+          .from("@nahkies/typescript-nextjs-runtime/zod")
+          .add("parseRequestInput", "responseValidationFactory")
+        break
+      }
+      default: {
+        throw new Error(
+          `unsupported schema builder type '${schemaBuilderType satisfies never}'`,
+        )
+      }
     }
   }
 
@@ -66,23 +77,16 @@ export class TypescriptNextjsRouterBuilder extends AbstractRouterBuilder {
     const statements: string[] = []
 
     const symbols = this.operationSymbols(builder.operationId)
-    const params = builder.parameters(symbols)
+    const params = builder.parameters()
 
     if (params.path.schema) {
-      statements.push(constStatement(symbols.paramSchema, params.path.schema))
+      statements.push(constStatement(params.path.name, params.path.schema))
     }
     if (params.query.schema) {
-      statements.push(constStatement(symbols.querySchema, params.query.schema))
+      statements.push(constStatement(params.query.name, params.query.schema))
     }
     if (params.header.schema) {
-      statements.push(
-        constStatement(symbols.requestHeaderSchema, params.header.schema),
-      )
-    }
-    if (params.body.schema) {
-      statements.push(
-        constStatement(symbols.requestBodySchema, params.body.schema),
-      )
+      statements.push(constStatement(params.header.name, params.header.schema))
     }
 
     const responseSchemas = builder.responseSchemas()
@@ -122,23 +126,24 @@ try {
   const input = {
         params: ${
           params.path.schema
-            ? `parseRequestInput(${symbols.paramSchema}, await params, RequestInputType.RouteParam)`
+            ? `parseRequestInput(${params.path.name}, await params, RequestInputType.RouteParam)`
             : "undefined"
         },
         // TODO: this swallows repeated parameters
         query: ${
           params.query.schema
-            ? `parseRequestInput(${symbols.querySchema}, Object.fromEntries(request.nextUrl.searchParams.entries()), RequestInputType.QueryString)`
+            ? `parseRequestInput(${params.query.name}, Object.fromEntries(request.nextUrl.searchParams.entries()), RequestInputType.QueryString)`
             : "undefined"
         },
+        ${params.body.schema && !params.body.isSupported ? `// todo: request bodies with content-type '${params.body.contentType}' not yet supported\n` : ""}
         body: ${
           params.body.schema
-            ? `parseRequestInput(${symbols.requestBodySchema}, await request.json(), RequestInputType.RequestBody)`
+            ? `parseRequestInput(${params.body.schema}, await request.json(), RequestInputType.RequestBody)${!params.body.isSupported ? " as never" : ""}`
             : "undefined"
         },
         headers: ${
           params.header.schema
-            ? `parseRequestInput(${symbols.requestHeaderSchema}, Reflect.get(request, "headers"), RequestInputType.RequestHeader)`
+            ? `parseRequestInput(${params.header.name}, Reflect.get(request, "headers"), RequestInputType.RequestHeader)`
             : "undefined"
         }
        }
@@ -172,10 +177,6 @@ try {
       implPropName: operationId,
       implTypeName: titleCase(operationId),
       responderName: `${titleCase(operationId)}Responder`,
-      paramSchema: `${operationId}ParamSchema`,
-      querySchema: `${operationId}QuerySchema`,
-      requestBodySchema: `${operationId}BodySchema`,
-      requestHeaderSchema: `${operationId}HeaderSchema`,
       responseBodyValidator: `${operationId}ResponseValidator`,
     }
   }

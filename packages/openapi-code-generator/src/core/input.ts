@@ -66,7 +66,7 @@ export type InputConfig = {
 
 export class Input {
   constructor(
-    private loader: OpenapiLoader,
+    readonly loader: OpenapiLoader,
     readonly config: InputConfig,
     private readonly syntheticNameGenerator: SyntheticNameGenerator = defaultSyntheticNameGenerator,
     private readonly schemaNormalizer = new SchemaNormalizer(config),

@@ -85,7 +85,7 @@ export function categorizeImportSource(source: string): ImportCategory {
 export type ImportBuilderConfig = {
   unit?: {filename: string} | undefined
   includeFileExtensions: boolean
-  importAlias?: string
+  importAlias?: string | undefined
 }
 
 export class ImportBuilder {
@@ -225,7 +225,7 @@ export class ImportBuilder {
     }
   }
 
-  private normalizeFrom(from: string) {
+  normalizeFrom(from: string) {
     if (!this.config.includeFileExtensions && from.endsWith(".ts")) {
       // biome-ignore lint/style/noParameterAssign: normalization
       from = from.substring(0, from.length - ".ts".length)
@@ -233,9 +233,10 @@ export class ImportBuilder {
 
     // TODO: does this work on windows?
     if (this.config.unit && from.startsWith("./")) {
-
       if (this.config.importAlias) {
-        return this.config.importAlias + from.split(path.sep).slice(1).join(path.sep)
+        return (
+          this.config.importAlias + from.split(path.sep).slice(1).join(path.sep)
+        )
       }
 
       const unitDirname = path.dirname(this.config.unit.filename)

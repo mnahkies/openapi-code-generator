@@ -1,8 +1,8 @@
 import {
   type SourceFile,
   StructureKind,
-  VariableDeclarationKind,
   ts,
+  VariableDeclarationKind,
 } from "ts-morph"
 import type {Input} from "../../../core/input"
 import type {IROperation} from "../../../core/openapi-types-normalized"
@@ -16,11 +16,28 @@ import {CompilationUnit, type ICompilable} from "../../common/compilation-units"
 import type {ImportBuilder} from "../../common/import-builder"
 import type {SchemaBuilder} from "../../common/schema-builders/schema-builder"
 import type {TypeBuilder} from "../../common/type-builder"
-import type {ServerSymbols} from "../abstract-router-builder"
-import {ServerOperationBuilder} from "../server-operation-builder"
+import {
+  ServerOperationBuilder,
+  type ServerSymbols,
+} from "../server-operation-builder"
+
 import SyntaxKind = ts.SyntaxKind
 
 export class TypescriptNextjsAppRouterBuilder implements ICompilable {
+  protected readonly capabilities = {
+    requestBody: {
+      mediaTypes: [
+        "application/json",
+        "application/scim+json",
+        "application/merge-patch+json",
+        "application/x-www-form-urlencoded",
+        "text/json",
+        "text/plain",
+        "text/x-markdown",
+      ],
+    },
+  }
+
   constructor(
     private readonly filename: string,
     private readonly name: string,
@@ -40,10 +57,14 @@ export class TypescriptNextjsAppRouterBuilder implements ICompilable {
       this.input,
       this.types,
       this.schemaBuilder,
+      {
+        requestBody: {
+          supportedMediaTypes: this.capabilities.requestBody.mediaTypes,
+        },
+      },
     )
 
-    const symbols = this.operationSymbols(builder.operationId)
-    const params = builder.parameters(symbols)
+    const params = builder.parameters()
 
     const sourceFile = this.sourceFile
 
@@ -135,10 +156,6 @@ export class TypescriptNextjsAppRouterBuilder implements ICompilable {
       implPropName: operationId,
       implTypeName: titleCase(operationId),
       responderName: `${titleCase(operationId)}Responder`,
-      paramSchema: `${operationId}ParamSchema`,
-      querySchema: `${operationId}QuerySchema`,
-      requestBodySchema: `${operationId}BodySchema`,
-      requestHeaderSchema: `${operationId}HeaderSchema`,
       responseBodyValidator: `${operationId}ResponseValidator`,
     }
   }
@@ -152,12 +169,15 @@ export class TypescriptNextjsAppRouterBuilder implements ICompilable {
     const imports = this.sourceFile.getImportDeclarations()
     const from = this.imports.normalizeFrom(
       `./${this.companionFilename}`,
-      `./${this.filename}`,
+      // todo
+      // `./${this.filename}`,
     )
     // biome-ignore lint/complexity/noForEach: <explanation>
     imports
       .filter((it) => it.getModuleSpecifierValue().includes(from))
-      .forEach((it) => it.remove())
+      .forEach((it) => {
+        it.remove()
+      })
 
     this.sourceFile.addImportDeclaration({
       namedImports: Array.from(this.httpMethodsUsed)
@@ -174,7 +194,9 @@ export class TypescriptNextjsAppRouterBuilder implements ICompilable {
         const name = it.getName()
         return isHttpMethod(name) && !this.httpMethodsUsed.has(name)
       })
-      .forEach((it) => it.remove())
+      .forEach((it) => {
+        it.remove()
+      })
 
     return new CompilationUnit(
       this.filename,

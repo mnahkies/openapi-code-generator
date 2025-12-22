@@ -42,6 +42,7 @@ export const templates = {
     language: "typescript",
     type: "server",
     run: generateTypescriptNextJS,
+    syntheticNameGenerator: defaultSyntheticNameGenerator,
   },
 } satisfies {[key: string]: OpenapiGenerator}
 
