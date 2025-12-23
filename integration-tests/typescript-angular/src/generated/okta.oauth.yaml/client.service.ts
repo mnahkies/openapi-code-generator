@@ -225,7 +225,7 @@ export class OktaOpenIdConnectOAuth20Service {
       state: p["state"],
     })
 
-    return this.httpClient.request<any>(
+    return this.httpClient.request(
       "GET",
       this.config.basePath + `/oauth2/v1/authorize`,
       {
@@ -245,7 +245,7 @@ export class OktaOpenIdConnectOAuth20Service {
   > {
     const headers = this._headers({Accept: "application/json"})
 
-    return this.httpClient.request<any>(
+    return this.httpClient.request(
       "POST",
       this.config.basePath + `/oauth2/v1/authorize`,
       {
@@ -866,7 +866,7 @@ export class OktaOpenIdConnectOAuth20Service {
       state: p["state"],
     })
 
-    return this.httpClient.request<any>(
+    return this.httpClient.request(
       "GET",
       this.config.basePath +
         `/oauth2/${p["authorizationServerId"]}/v1/authorize`,
@@ -888,7 +888,7 @@ export class OktaOpenIdConnectOAuth20Service {
   > {
     const headers = this._headers({Accept: "application/json"})
 
-    return this.httpClient.request<any>(
+    return this.httpClient.request(
       "POST",
       this.config.basePath +
         `/oauth2/${p["authorizationServerId"]}/v1/authorize`,

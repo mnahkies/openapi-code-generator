@@ -7870,7 +7870,7 @@ export class GitHubV3RestApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
 
-    return this.httpClient.request<any>(
+    return this.httpClient.request(
       "GET",
       this.config.basePath +
         `/orgs/${p["org"]}/migrations/${p["migrationId"]}/archive`,
@@ -11674,7 +11674,7 @@ export class GitHubV3RestApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
 
-    return this.httpClient.request<any>(
+    return this.httpClient.request(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/artifacts/${p["artifactId"]}/${p["archiveFormat"]}`,
@@ -11816,7 +11816,7 @@ export class GitHubV3RestApiService {
   }): Observable<(HttpResponse<void> & {status: 302}) | HttpResponse<unknown>> {
     const headers = this._headers({Accept: "application/json"})
 
-    return this.httpClient.request<any>(
+    return this.httpClient.request(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/jobs/${p["jobId"]}/logs`,
@@ -12723,7 +12723,7 @@ export class GitHubV3RestApiService {
   }): Observable<(HttpResponse<void> & {status: 302}) | HttpResponse<unknown>> {
     const headers = this._headers({Accept: "application/json"})
 
-    return this.httpClient.request<any>(
+    return this.httpClient.request(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/attempts/${p["attemptNumber"]}/logs`,
@@ -12848,7 +12848,7 @@ export class GitHubV3RestApiService {
   }): Observable<(HttpResponse<void> & {status: 302}) | HttpResponse<unknown>> {
     const headers = this._headers({Accept: "application/json"})
 
-    return this.httpClient.request<any>(
+    return this.httpClient.request(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/logs`,
@@ -23625,7 +23625,7 @@ export class GitHubV3RestApiService {
   }): Observable<(HttpResponse<void> & {status: 302}) | HttpResponse<unknown>> {
     const headers = this._headers({Accept: "application/json"})
 
-    return this.httpClient.request<any>(
+    return this.httpClient.request(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/tarball/${p["ref"]}`,
@@ -23898,7 +23898,7 @@ export class GitHubV3RestApiService {
   }): Observable<(HttpResponse<void> & {status: 302}) | HttpResponse<unknown>> {
     const headers = this._headers({Accept: "application/json"})
 
-    return this.httpClient.request<any>(
+    return this.httpClient.request(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/zipball/${p["ref"]}`,
@@ -26646,7 +26646,7 @@ export class GitHubV3RestApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
 
-    return this.httpClient.request<any>(
+    return this.httpClient.request(
       "GET",
       this.config.basePath + `/user/migrations/${p["migrationId"]}/archive`,
       {

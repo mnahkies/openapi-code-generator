@@ -67,7 +67,7 @@ export class AngularServiceBuilder extends AbstractClientBuilder {
       .filter(Boolean)
       .join("\n")}
 
-return this.httpClient.request<any>(
+return this.httpClient.request${isBlobResponse ? "" : "<any>"}(
   "${method}",
   ${hasServers ? "basePath" : "this.config.basePath"} + \`${url}\`, {
     ${[

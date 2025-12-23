@@ -12497,7 +12497,7 @@ export class StripeApiService {
       },
     )
 
-    return this.httpClient.request<any>(
+    return this.httpClient.request(
       "GET",
       basePath + `/v1/quotes/${p["quote"]}/pdf`,
       {
