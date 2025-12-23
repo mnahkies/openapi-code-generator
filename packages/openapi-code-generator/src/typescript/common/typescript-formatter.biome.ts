@@ -69,7 +69,6 @@ export class TypescriptFormatterBiome implements IFormatter {
       vcs: {enabled: false},
       files: {
         maxSize: 5 * 1024 * 1024,
-        includes: ["**"],
       },
       linter: {enabled: false},
     })

@@ -65,6 +65,23 @@ export abstract class AbstractRouterBuilder implements ICompilable {
 
   protected abstract operationSymbols(operationId: string): ServerSymbols
 
+  protected parseRequestInput(
+    propertyName: string,
+    opts: {
+      name: string | undefined
+      schema: string | undefined
+      source: string
+      type: string
+      comment?: string
+    },
+  ) {
+    if (!opts.name || !opts.schema) {
+      return `${opts.comment ? `${opts.comment}\n` : ""}${propertyName}: undefined`
+    }
+
+    return `${opts.comment ? `${opts.comment}\n` : ""}${propertyName}: parseRequestInput(${opts.name}, ${opts.source}, ${opts.type})`
+  }
+
   toString(): string {
     return this.buildRouter(this.name, this.statements)
   }

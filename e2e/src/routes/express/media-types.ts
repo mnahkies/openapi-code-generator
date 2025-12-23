@@ -28,9 +28,6 @@ const postMediaTypesOctetStream: PostMediaTypesOctetStream = async (
   {body},
   respond,
 ) => {
-  const arrayBuffer = await body.arrayBuffer()
-  const hex = Buffer.from(arrayBuffer).toString("hex")
-  console.log(hex)
   return respond.with200().body(body)
 }
 

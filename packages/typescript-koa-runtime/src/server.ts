@@ -2,12 +2,12 @@ import type {Server} from "node:http"
 import type {AddressInfo, ListenOptions} from "node:net"
 import Cors from "@koa/cors"
 import type Router from "@koa/router"
+import {parseOctetStreamRequestBody} from "@nahkies/typescript-common-runtime/request-bodies"
 import type {Res, StatusCode} from "@nahkies/typescript-common-runtime/types"
 import {KoaRuntimeError} from "@nahkies/typescript-koa-runtime/errors"
 import Koa, {type Context, type Middleware, type Next} from "koa"
 import type {KoaBodyMiddlewareOptions} from "koa-body"
 import KoaBody from "koa-body"
-import getRawBody from "raw-body"
 
 export {parseQueryParameters} from "@nahkies/typescript-common-runtime/query-parser"
 export type {
@@ -115,33 +115,9 @@ export type ServerConfig = {
 export async function parseOctetStream(
   ctx: Context,
 ): Promise<Blob | undefined> {
-  const contentLength = ctx.req.headers["content-length"]
-    ? parseInt(ctx.req.headers["content-length"], 10)
-    : undefined
-
-  if (!contentLength) {
-    throw new Error("No content length provided")
-  }
-
-  const body = await getRawBody(ctx.req, {
-    length: contentLength,
-    limit: "1mb",
-  })
-
-  if (!body) {
-    return undefined
-  }
-
-  if (!Buffer.isBuffer(body)) {
-    throw new Error("body must be a buffer")
-  }
-
-  const blob = new Blob([new Uint8Array(body)], {
-    type: "application/octet-stream",
-  })
-
-  ctx.body = blob
-  return blob
+  const body = await parseOctetStreamRequestBody(ctx.req, {sizeLimit: "1mb"})
+  ctx.body = body
+  return body
 }
 
 /**

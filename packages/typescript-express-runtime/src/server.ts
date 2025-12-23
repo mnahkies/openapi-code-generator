@@ -13,9 +13,14 @@ import express, {
   type RequestHandler,
   type Router,
 } from "express"
-import getRawBody from "raw-body"
 
 export {parseQueryParameters} from "@nahkies/typescript-common-runtime/query-parser"
+
+import {
+  parseOctetStreamRequestBody,
+  type SizeLimit,
+} from "@nahkies/typescript-common-runtime/request-bodies"
+
 export type {
   Params,
   Res,
@@ -226,33 +231,9 @@ export async function startServer({
 
 export async function parseOctetStream(
   req: Request,
+  limit: SizeLimit = "1mb",
 ): Promise<Blob | undefined> {
-  const contentLength = req.headers["content-length"]
-    ? parseInt(req.headers["content-length"], 10)
-    : undefined
-
-  if (!contentLength) {
-    throw new Error("No content length provided")
-  }
-
-  const body = await getRawBody(req, {
-    length: contentLength,
-    limit: "1mb",
-  })
-
-  if (!body) {
-    return undefined
-  }
-
-  if (!Buffer.isBuffer(body)) {
-    throw new Error("body must be a buffer")
-  }
-
-  const blob = new Blob([new Uint8Array(body)], {
-    type: "application/octet-stream",
-  })
-
-  return blob
+  return parseOctetStreamRequestBody(req, {sizeLimit: limit})
 }
 
 export async function sendBlob(res: ExpressResponse, body: Blob) {

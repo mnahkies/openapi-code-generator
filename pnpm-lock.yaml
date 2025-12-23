@@ -477,6 +477,9 @@ importers:
 
   packages/typescript-common-runtime:
     dependencies:
+      raw-body:
+        specifier: ^3.0.2
+        version: 3.0.2
       tslib:
         specifier: ^2.8.1
         version: 2.8.1
@@ -508,9 +511,6 @@ importers:
       express:
         specifier: ^5.1.0
         version: 5.2.1
-      raw-body:
-        specifier: ^3.0.0
-        version: 3.0.2
       tslib:
         specifier: ^2.8.1
         version: 2.8.1
@@ -570,9 +570,6 @@ importers:
       '@nahkies/typescript-common-runtime':
         specifier: workspace:^
         version: link:../typescript-common-runtime
-      raw-body:
-        specifier: ^3.0.0
-        version: 3.0.2
       tslib:
         specifier: ^2.8.1
         version: 2.8.1

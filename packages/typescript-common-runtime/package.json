@@ -37,10 +37,10 @@
       "import": "./dist/query-parser.js",
       "types": "./dist/query-parser.d.ts"
     },
-    "./request-bodies/url-search-params": {
-      "require": "./dist/request-bodies/url-search-params.js",
-      "import": "./dist/request-bodies/url-search-params.js",
-      "types": "./dist/request-bodies/url-search-params.d.ts"
+    "./request-bodies": {
+      "require": "./dist/request-bodies/index.js",
+      "import": "./dist/request-bodies/index.js",
+      "types": "./dist/request-bodies/index.d.ts"
     }
   },
   "scripts": {
@@ -49,6 +49,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "raw-body": "^3.0.2",
     "tslib": "^2.8.1"
   },
   "peerDependencies": {

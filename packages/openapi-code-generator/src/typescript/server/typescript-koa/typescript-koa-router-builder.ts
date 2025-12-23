@@ -143,16 +143,47 @@ export class KoaRouterBuilder extends AbstractRouterBuilder {
       ],
     })
 
+    const inputObject = object([
+      this.parseRequestInput("params", {
+        name: params.path.name,
+        schema: params.path.schema,
+        source: "ctx.params",
+        type: "RequestInputType.RouteParam",
+      }),
+      this.parseRequestInput("query", {
+        name: params.query.name,
+        schema: params.query.schema,
+        source: params.query.isSimpleQuery
+          ? `ctx.query`
+          : `parseQueryParameters(ctx.querystring, ${JSON.stringify(params.query.parameters)})`,
+        type: "RequestInputType.QueryString",
+      }),
+      this.parseRequestInput("body", {
+        name: params.body.schema,
+        schema: params.body.schema,
+        source:
+          params.body.contentType === "application/octet-stream"
+            ? `await parseOctetStream(ctx)`
+            : `Reflect.get(ctx.request, "body")`,
+        type: `RequestInputType.RequestBody`,
+        comment:
+          params.body.schema && !params.body.isSupported
+            ? `// todo: request bodies with content-type '${params.body.contentType}' not yet supported`
+            : "",
+      }) + (params.body.schema && !params.body.isSupported ? " as never" : ""),
+      this.parseRequestInput("headers", {
+        name: params.header.name,
+        schema: params.header.schema,
+        source: 'Reflect.get(ctx.request, "headers")',
+        type: "RequestInputType.RequestHeader",
+      }),
+    ])
+
     statements.push(`
 const ${symbols.responseBodyValidator} = ${builder.responseValidator()}
 
 router.${builder.method.toLowerCase()}('${symbols.implPropName}','${builder.route}', async (ctx, next) => {
-   const input = {
-    params: ${params.path.schema ? `parseRequestInput(${params.path.name}, ctx.params, RequestInputType.RouteParam)` : "undefined"},
-    query: ${params.query.schema ? `parseRequestInput(${params.query.name}, ${params.query.isSimpleQuery ? "ctx.query" : `parseQueryParameters(ctx.querystring, ${JSON.stringify(params.query.parameters)})`}, RequestInputType.QueryString)` : "undefined"},
-    ${params.body.schema && !params.body.isSupported ? `// todo: request bodies with content-type '${params.body.contentType}' not yet supported\n` : ""}body: ${params.body.schema ? (params.body.contentType === "application/octet-stream" ? `parseRequestInput(${params.body.schema}, await parseOctetStream(ctx), RequestInputType.RequestBody)` : `parseRequestInput(${params.body.schema}, Reflect.get(ctx.request, "body"), RequestInputType.RequestBody)${!params.body.isSupported ? " as never" : ""}`) : "undefined"},
-    headers: ${params.header.schema ? `parseRequestInput(${params.header.name}, Reflect.get(ctx.request, "headers"), RequestInputType.RequestHeader)` : "undefined"}
-   }
+   const input = ${inputObject}
 
    const responder = ${responder.implementation}
 

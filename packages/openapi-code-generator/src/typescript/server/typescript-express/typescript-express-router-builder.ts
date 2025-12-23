@@ -137,18 +137,49 @@ export class ExpressRouterBuilder extends AbstractRouterBuilder {
       ],
     })
 
+    const inputObject = object([
+      this.parseRequestInput("params", {
+        name: params.path.name,
+        schema: params.path.schema,
+        source: "req.params",
+        type: "RequestInputType.RouteParam",
+      }),
+      this.parseRequestInput("query", {
+        name: params.query.name,
+        schema: params.query.schema,
+        source: params.query.isSimpleQuery
+          ? `req.query`
+          : `parseQueryParameters(new URL(\`http://localhost\${req.originalUrl}\`).search, ${JSON.stringify(params.query.parameters)})`,
+        type: "RequestInputType.QueryString",
+      }),
+      this.parseRequestInput("body", {
+        name: params.body.schema,
+        schema: params.body.schema,
+        source:
+          params.body.contentType === "application/octet-stream"
+            ? `await parseOctetStream(req)`
+            : `req.body`,
+        type: `RequestInputType.RequestBody`,
+        comment:
+          params.body.schema && !params.body.isSupported
+            ? `// todo: request bodies with content-type '${params.body.contentType}' not yet supported`
+            : "",
+      }) + (params.body.schema && !params.body.isSupported ? " as never" : ""),
+      this.parseRequestInput("headers", {
+        name: params.header.name,
+        schema: params.header.schema,
+        source: "req.headers",
+        type: "RequestInputType.RequestHeader",
+      }),
+    ])
+
     statements.push(`
 const ${symbols.responseBodyValidator} = ${builder.responseValidator()}
 
 // ${builder.operationId}
 router.${builder.method.toLowerCase()}(\`${builder.route}\`, async (req: Request, res: Response, next: NextFunction) => {
   try {
-   const input = {
-    params: ${params.path.schema ? `parseRequestInput(${params.path.name}, req.params, RequestInputType.RouteParam)` : "undefined"},
-    query: ${params.query.schema ? `parseRequestInput(${params.query.name}, ${params.query.isSimpleQuery ? `req.query` : `parseQueryParameters(new URL(\`http://localhost\${req.originalUrl}\`).search, ${JSON.stringify(params.query.parameters)})`}, RequestInputType.QueryString)` : "undefined"},
-    ${params.body.schema && !params.body.isSupported ? `// todo: request bodies with content-type '${params.body.contentType}' not yet supported\n` : ""}body: ${params.body.schema ? (params.body.contentType === "application/octet-stream" ? `parseRequestInput(${params.body.schema}, await parseOctetStream(req), RequestInputType.RequestBody)` : `parseRequestInput(${params.body.schema}, req.body, RequestInputType.RequestBody)${!params.body.isSupported ? " as never" : ""}`) : "undefined"},
-    headers: ${params.header.schema ? `parseRequestInput(${params.header.name}, req.headers, RequestInputType.RequestHeader)` : "undefined"}
-   }
+   const input = ${inputObject}
 
    const responder = ${responder.implementation}
 
