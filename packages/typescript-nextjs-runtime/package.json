@@ -32,10 +32,15 @@
       "import": "./dist/joi.js",
       "types": "./dist/joi.d.ts"
     },
-    "./zod": {
-      "require": "./dist/zod.js",
-      "import": "./dist/zod.js",
-      "types": "./dist/zod.d.ts"
+    "./zod-v3": {
+      "require": "./dist/zod-v3.js",
+      "import": "./dist/zod-v3.js",
+      "types": "./dist/zod-v3.d.ts"
+    },
+    "./zod-v4": {
+      "require": "./dist/zod-v4.js",
+      "import": "./dist/zod-v4.js",
+      "types": "./dist/zod-v4.d.ts"
     }
   },
   "scripts": {
@@ -44,9 +49,9 @@
     "test": "jest"
   },
   "peerDependencies": {
-    "joi": "^17.1.1",
+    "joi": "^17.13.3 || ^18.0.1",
     "next": "^16.1.0",
-    "zod": "^3.20.6"
+    "zod": "^3.25.74 || ^4.1.12"
   },
   "peerDependenciesMeta": {
     "joi": {
@@ -57,9 +62,9 @@
     }
   },
   "devDependencies": {
-    "jest": "^30.0.4",
-    "joi": "^17.13.3",
-    "typescript": "~5.8.3",
+    "jest": "^30.2.0",
+    "joi": "^18.0.2",
+    "typescript": "^5.9.3",
     "zod": "^3.25.74"
   },
   "files": [

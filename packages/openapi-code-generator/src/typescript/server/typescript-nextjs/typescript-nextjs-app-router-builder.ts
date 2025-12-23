@@ -96,18 +96,18 @@ export class TypescriptNextjsAppRouterBuilder implements ICompilable {
       })
 
     // Replace the params based on what inputs we have
-    // biome-ignore lint/style/noNonNullAssertion: <explanation>
+    // biome-ignore lint/style/noNonNullAssertion: ignore
     const declarations = variableDeclaration.getDeclarations()[0]!
     const callExpression = declarations.getInitializerIfKindOrThrow(
       SyntaxKind.CallExpression,
     )
 
-    // biome-ignore lint/style/noNonNullAssertion: <explanation>
+    // biome-ignore lint/style/noNonNullAssertion: ignore
     const implementationFunction = callExpression
       .getArguments()[0]!
       .asKind(SyntaxKind.ArrowFunction)!
 
-    // biome-ignore lint/complexity/noForEach: <explanation>
+    // biome-ignore lint/complexity/noForEach: ignore
     implementationFunction?.getParameters().forEach((parameter) => {
       parameter.remove()
     })
@@ -122,6 +122,10 @@ export class TypescriptNextjsAppRouterBuilder implements ICompilable {
         ]
           .filter(isDefined)
           .join(",")}}`,
+      })
+    } else {
+      implementationFunction?.addParameter({
+        name: "_params",
       })
     }
 
@@ -169,10 +173,9 @@ export class TypescriptNextjsAppRouterBuilder implements ICompilable {
     const imports = this.sourceFile.getImportDeclarations()
     const from = this.imports.normalizeFrom(
       `./${this.companionFilename}`,
-      // todo
-      // `./${this.filename}`,
+      `./${this.filename}`,
     )
-    // biome-ignore lint/complexity/noForEach: <explanation>
+    // biome-ignore lint/complexity/noForEach: ignore
     imports
       .filter((it) => it.getModuleSpecifierValue().includes(from))
       .forEach((it) => {
@@ -187,7 +190,7 @@ export class TypescriptNextjsAppRouterBuilder implements ICompilable {
     })
 
     // Remove any methods that were removed from the spec
-    // biome-ignore lint/complexity/noForEach: <explanation>
+    // biome-ignore lint/complexity/noForEach: ignore
     this.sourceFile
       .getVariableDeclarations()
       .filter((it) => {

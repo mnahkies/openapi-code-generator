@@ -195,7 +195,7 @@ export class ImportBuilder {
     isType: boolean,
   ): void {
     // biome-ignore lint/style/noParameterAssign: normalization
-    from = this.normalizeFrom(from)
+    from = this.normalizeFrom(from, this.config.unit?.filename)
 
     if (!this.imports[from]) {
       this.imports[from] = {
@@ -225,21 +225,21 @@ export class ImportBuilder {
     }
   }
 
-  normalizeFrom(from: string) {
+  normalizeFrom(from: string, filename?: string) {
     if (!this.config.includeFileExtensions && from.endsWith(".ts")) {
       // biome-ignore lint/style/noParameterAssign: normalization
       from = from.substring(0, from.length - ".ts".length)
     }
 
     // TODO: does this work on windows?
-    if (this.config.unit && from.startsWith("./")) {
+    if (filename && from.startsWith("./")) {
       if (this.config.importAlias) {
         return (
           this.config.importAlias + from.split(path.sep).slice(1).join(path.sep)
         )
       }
 
-      const unitDirname = path.dirname(this.config.unit.filename)
+      const unitDirname = path.dirname(filename)
       const fromDirname = path.dirname(from)
 
       const relative = path.relative(unitDirname, fromDirname)

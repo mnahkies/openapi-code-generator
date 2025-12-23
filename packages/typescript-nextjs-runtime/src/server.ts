@@ -1,4 +1,6 @@
 // from https://stackoverflow.com/questions/39494689/is-it-possible-to-restrict-number-to-a-certain-range
+import {OpenAPIRuntimeError} from "./errors"
+
 type Enumerate<
   N extends number,
   Acc extends number[] = [],
@@ -24,7 +26,7 @@ export type StatusCode =
   | StatusCode4xx
   | StatusCode5xx
 
-export type Response<Status extends StatusCode, Type> = {
+export type Res<Status extends StatusCode, Type> = {
   status: Status
   body: Type
 }
@@ -39,8 +41,19 @@ export class OpenAPIRuntimeResponse<Type> {
     return this
   }
 
-  unpack(): Response<StatusCode, Type | undefined> {
+  unpack(): Res<StatusCode, Type | undefined> {
     return {status: this.status, body: this._body}
+  }
+
+  static unwrap(it: OpenAPIRuntimeResponse<unknown> | Response): Response {
+    if (it instanceof Response) {
+      return it
+    }
+    const {status, body} = it.unpack()
+
+    return body !== undefined
+      ? Response.json(body, {status})
+      : new Response(undefined, {status})
   }
 }
 

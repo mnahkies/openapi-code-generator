@@ -47,4 +47,10 @@ export class OpenAPIRuntimeError extends Error {
   static isOpenAPIError(err: unknown): err is OpenAPIRuntimeError {
     return err instanceof OpenAPIRuntimeError
   }
+
+  static wrapped(fn: (err: unknown) => OpenAPIRuntimeError) {
+    return (err: unknown) => {
+      throw fn(err)
+    }
+  }
 }

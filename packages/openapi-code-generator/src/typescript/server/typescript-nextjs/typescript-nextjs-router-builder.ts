@@ -17,7 +17,7 @@ export class TypescriptNextjsRouterBuilder extends AbstractRouterBuilder {
     statements: string[]
   }[] = []
 
-  // biome-ignore lint/complexity/noUselessConstructor: <explanation>
+  // biome-ignore lint/complexity/noUselessConstructor: ignore
   constructor(
     filename: string,
     name: string,
@@ -32,8 +32,8 @@ export class TypescriptNextjsRouterBuilder extends AbstractRouterBuilder {
   protected buildImports(): void {
     this.imports
       .from("@nahkies/typescript-nextjs-runtime/server")
-      .add(
-        "OpenAPIRuntimeResponse",
+      .add("OpenAPIRuntimeResponse")
+      .addType(
         "OpenAPIRuntimeResponder",
         "Params",
         "StatusCode2xx",
@@ -43,7 +43,7 @@ export class TypescriptNextjsRouterBuilder extends AbstractRouterBuilder {
         "StatusCode",
       )
 
-    this.imports.from("next/server").add("NextRequest", "NextResponse")
+    this.imports.from("next/server").addType("NextRequest", "NextResponse")
 
     this.imports
       .from("@nahkies/typescript-nextjs-runtime/errors")
@@ -58,10 +58,15 @@ export class TypescriptNextjsRouterBuilder extends AbstractRouterBuilder {
           .add("parseRequestInput", "responseValidationFactory")
         break
       }
-      case "zod-v3":
+      case "zod-v3": {
+        this.imports
+          .from("@nahkies/typescript-nextjs-runtime/zod-v3")
+          .add("parseRequestInput", "responseValidationFactory")
+        break
+      }
       case "zod-v4": {
         this.imports
-          .from("@nahkies/typescript-nextjs-runtime/zod")
+          .from("@nahkies/typescript-nextjs-runtime/zod-v4")
           .add("parseRequestInput", "responseValidationFactory")
         break
       }
@@ -106,7 +111,7 @@ export class TypescriptNextjsRouterBuilder extends AbstractRouterBuilder {
         buildExport({
           name: symbols.implTypeName,
           value: `(${[
-            params.hasParams ? `params: ${params.type}` : undefined,
+            `params: ${params.type}`,
             `respond: ${symbols.responderName}`,
             "request: NextRequest",
           ]
@@ -129,14 +134,13 @@ try {
             ? `parseRequestInput(${params.path.name}, await params, RequestInputType.RouteParam)`
             : "undefined"
         },
-        // TODO: this swallows repeated parameters
+        // todo: this swallows repeated parameters
         query: ${
           params.query.schema
             ? `parseRequestInput(${params.query.name}, Object.fromEntries(request.nextUrl.searchParams.entries()), RequestInputType.QueryString)`
             : "undefined"
         },
-        ${params.body.schema && !params.body.isSupported ? `// todo: request bodies with content-type '${params.body.contentType}' not yet supported\n` : ""}
-        body: ${
+        ${params.body.schema && !params.body.isSupported ? `// todo: request bodies with content-type '${params.body.contentType}' not yet supported\n` : ""}body: ${
           params.body.schema
             ? `parseRequestInput(${params.body.schema}, await request.json(), RequestInputType.RequestBody)${!params.body.isSupported ? " as never" : ""}`
             : "undefined"
@@ -150,16 +154,9 @@ try {
 
        const responder = ${responder.implementation}
 
-       const res = await implementation(${[params.hasParams ? "input" : undefined, "responder", "request"].filter(isDefined).join(",")})
-          .then(it => {
-            if(it instanceof Response) {
-              return it
-            }
-            const {status, body} = it.unpack()
-
-           return body !== undefined ? Response.json(body, {status}) : new Response(undefined, {status})
-          })
-          .catch(err => { throw OpenAPIRuntimeError.HandlerError(err) })
+       const res = await implementation(input, responder, request)
+          .then(OpenAPIRuntimeResponse.unwrap)
+          .catch(OpenAPIRuntimeError.wrapped(OpenAPIRuntimeError.HandlerError))
 
     return res
   } catch (err) {
