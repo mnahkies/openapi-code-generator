@@ -12505,6 +12505,7 @@ export class StripeApiService {
         headers,
         // todo: request bodies with content-type 'application/x-www-form-urlencoded' not yet supported,
         observe: "response",
+        responseType: blob,
         reportProgress: false,
       },
     )

@@ -232,6 +232,7 @@ export class OktaOpenIdConnectOAuth20Service {
         params,
         headers,
         observe: "response",
+        responseType: blob,
         reportProgress: false,
       },
     )
@@ -251,6 +252,7 @@ export class OktaOpenIdConnectOAuth20Service {
         headers,
         // todo: request bodies with content-type 'application/x-www-form-urlencoded' not yet supported,
         observe: "response",
+        responseType: blob,
         reportProgress: false,
       },
     )
@@ -872,6 +874,7 @@ export class OktaOpenIdConnectOAuth20Service {
         params,
         headers,
         observe: "response",
+        responseType: blob,
         reportProgress: false,
       },
     )
@@ -893,6 +896,7 @@ export class OktaOpenIdConnectOAuth20Service {
         headers,
         // todo: request bodies with content-type 'application/x-www-form-urlencoded' not yet supported,
         observe: "response",
+        responseType: blob,
         reportProgress: false,
       },
     )

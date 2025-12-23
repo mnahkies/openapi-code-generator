@@ -46,6 +46,11 @@ export class AngularServiceBuilder extends AbstractClientBuilder {
       .concat(["HttpResponse<unknown>"])
       .join(" | ")
 
+    const isBlobResponse = builder
+      .returnType()
+      .filter((it) => it.statusType.startsWith("2"))
+      .every((it) => it.responseType === "Blob")
+
     const url = builder.routeToTemplateString()
 
     const body = `
@@ -73,6 +78,7 @@ return this.httpClient.request<any>(
           : `// todo: request bodies with content-type '${requestBody.contentType}' not yet supported`
         : "",
       'observe: "response"',
+      isBlobResponse ? "responseType: blob" : "",
       "reportProgress: false",
     ]
       .filter(Boolean)
