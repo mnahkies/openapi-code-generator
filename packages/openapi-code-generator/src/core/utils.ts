@@ -207,3 +207,23 @@ export function mediaTypeToIdentifier(mediaType: string): string {
 
   return titleCase([type, subType].filter(isDefined).join(" "))
 }
+
+export function convertBytesToHuman(
+  bytes: number,
+): number | `${number}${"mb" | "kb" | "b"}` {
+  const units = ["mb" as const, "kb" as const, "b" as const]
+
+  let adjusted = bytes
+  while (units.length > 1 && adjusted % 1024 === 0) {
+    adjusted /= 1024
+    units.pop()
+  }
+
+  const unit = units.pop()
+
+  if (!unit) {
+    return bytes
+  }
+
+  return `${adjusted}${unit}` as const
+}

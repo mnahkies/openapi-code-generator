@@ -2,6 +2,7 @@ import type {Server} from "node:http"
 import type {AddressInfo, ListenOptions} from "node:net"
 import Cors from "@koa/cors"
 import type Router from "@koa/router"
+import type {SizeLimit} from "@nahkies/typescript-common-runtime/request-bodies"
 import {parseOctetStreamRequestBody} from "@nahkies/typescript-common-runtime/request-bodies"
 import type {Res, StatusCode} from "@nahkies/typescript-common-runtime/types"
 import {KoaRuntimeError} from "@nahkies/typescript-koa-runtime/errors"
@@ -114,8 +115,9 @@ export type ServerConfig = {
 
 export async function parseOctetStream(
   ctx: Context,
+  sizeLimit: SizeLimit,
 ): Promise<Blob | undefined> {
-  const body = await parseOctetStreamRequestBody(ctx.req, {sizeLimit: "1mb"})
+  const body = await parseOctetStreamRequestBody(ctx.req, {sizeLimit})
   ctx.body = body
   return body
 }

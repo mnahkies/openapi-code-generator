@@ -180,6 +180,7 @@ export class TypeBuilder implements ICompilable {
             }
           } else if (
             schemaObject.format === "binary" ||
+            // todo: is byte the same as binary
             schemaObject.format === "byte"
           ) {
             result.push("Blob")

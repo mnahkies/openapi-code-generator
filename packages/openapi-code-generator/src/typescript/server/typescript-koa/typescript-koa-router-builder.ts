@@ -4,7 +4,11 @@ import type {ServerImplementationMethod} from "../../../templates.types"
 import type {ImportBuilder} from "../../common/import-builder"
 import type {SchemaBuilder} from "../../common/schema-builders/schema-builder"
 import type {TypeBuilder} from "../../common/type-builder"
-import {constStatement, object} from "../../common/type-utils"
+import {
+  constStatement,
+  object,
+  quotedStringLiteral,
+} from "../../common/type-utils"
 import {buildExport} from "../../common/typescript-common"
 import {AbstractRouterBuilder} from "../abstract-router-builder"
 import type {
@@ -163,7 +167,7 @@ export class KoaRouterBuilder extends AbstractRouterBuilder {
         schema: params.body.schema,
         source:
           params.body.contentType === "application/octet-stream"
-            ? `await parseOctetStream(ctx)`
+            ? `await parseOctetStream(ctx, ${typeof params.body.maxSize === "string" ? quotedStringLiteral(params.body.maxSize) : params.body.maxSize})`
             : `Reflect.get(ctx.request, "body")`,
         type: `RequestInputType.RequestBody`,
         comment:

@@ -47,6 +47,7 @@ export abstract class AbstractRouterBuilder implements ICompilable {
       {
         requestBody: {
           supportedMediaTypes: this.capabilities.requestBody.mediaTypes,
+          defaultMaxSize: "10mb",
         },
       },
     )

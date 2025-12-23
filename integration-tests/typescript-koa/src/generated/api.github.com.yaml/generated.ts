@@ -74112,7 +74112,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           z.any().optional(),
-          await parseOctetStream(ctx),
+          await parseOctetStream(ctx, "10mb"),
           RequestInputType.RequestBody,
         ),
         headers: undefined,

@@ -7,7 +7,7 @@ export async function parseOctetStreamRequestBody(
   req: IncomingMessage,
   opts: {
     contentLength?: number | undefined
-    sizeLimit: SizeLimit | undefined
+    sizeLimit: SizeLimit
   },
 ) {
   const contentLength =
@@ -22,7 +22,7 @@ export async function parseOctetStreamRequestBody(
 
   const body = await getRawBody(req, {
     length: contentLength,
-    limit: opts.sizeLimit ?? "1mb",
+    limit: opts.sizeLimit,
   })
 
   if (!body) {

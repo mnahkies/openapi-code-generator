@@ -165,7 +165,7 @@ export function createMediaTypesRouter(
           query: undefined,
           body: parseRequestInput(
             z.any(),
-            await parseOctetStream(req),
+            await parseOctetStream(req, "20mb"),
             RequestInputType.RequestBody,
           ),
           headers: undefined,

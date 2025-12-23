@@ -333,6 +333,7 @@ paths:
             schema:
               type: string
               format: binary
+              maxLength: 20971520
       responses:
         200:
           description: ok

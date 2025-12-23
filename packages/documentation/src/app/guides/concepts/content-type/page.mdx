@@ -80,7 +80,28 @@ by the server templates. Full support is expected to land soon.
 
 ## `application/octet-stream`
 
-🚫 Not yet supported. Coming soon.
+| Template           | Supported |                                                                           Notes |
+|:-------------------|:---------:|--------------------------------------------------------------------------------:|
+| typescript-angular |    🚫     |                                                                                 |
+| typescript-axios   |     ✅     |                         Uses `Blob` for request bodies, and response `res.data` |
+| typescript-express |     ✅     |                              Parses request bodies to `Blob`, serializes `Blob` |
+| typescript-fetch   |     ✅     | Pass a `Blob` for request bodies, access using `res.blob()` for response bodies |
+| typescript-koa     |     ✅     |                              Parses request bodies to `Blob`, serializes `Blob` |
+
+### Controlling Maximum Request Body size
+By default, a maximum of `10mb` is used as the maximum requset body size for binary data. You can override this for
+an individual schema by using the `maxLength` field, which will be interpreted as `bytes`, eg:
+
+```yaml
+post:
+  requestBody:
+    content:
+      application/octet-stream:
+        schema:
+          type: string
+          format: binary
+          maxLength: 20971520 # 20mb in bytes
+```
 
 ## Selecting between multiple possible `Content-Type`
 

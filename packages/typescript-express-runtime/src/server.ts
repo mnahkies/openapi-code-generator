@@ -231,9 +231,9 @@ export async function startServer({
 
 export async function parseOctetStream(
   req: Request,
-  limit: SizeLimit = "1mb",
+  sizeLimit: SizeLimit,
 ): Promise<Blob | undefined> {
-  return parseOctetStreamRequestBody(req, {sizeLimit: limit})
+  return parseOctetStreamRequestBody(req, {sizeLimit})
 }
 
 export async function sendBlob(res: ExpressResponse, body: Blob) {

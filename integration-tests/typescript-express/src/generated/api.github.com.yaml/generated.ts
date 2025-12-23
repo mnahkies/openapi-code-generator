@@ -72462,7 +72462,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           body: parseRequestInput(
             z.any().optional(),
-            await parseOctetStream(req),
+            await parseOctetStream(req, "10mb"),
             RequestInputType.RequestBody,
           ),
           headers: undefined,
