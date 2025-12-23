@@ -11,7 +11,7 @@ import {
   type KoaRuntimeResponder,
   KoaRuntimeResponse,
   type Params,
-  type Response,
+  type Res,
   type ServerConfig,
   SkipResponse,
   type StatusCode,
@@ -136,13 +136,13 @@ export type GetServiceStatus = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         statusString: string
       }
     >
-  | Response<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
+  | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
   | typeof SkipResponse
 >
 
@@ -179,7 +179,7 @@ export type WidgetsGetWidgetOperationStatusWidgetsGetWidgetDeleteOperationStatus
     next: Next,
   ) => Promise<
     | KoaRuntimeResponse<unknown>
-    | Response<
+    | Res<
         200,
         | {
             error?: t_Azure_Core_Foundations_Error
@@ -193,7 +193,7 @@ export type WidgetsGetWidgetOperationStatusWidgetsGetWidgetDeleteOperationStatus
             status: t_Azure_Core_Foundations_OperationState
           }
       >
-    | Response<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
+    | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
     | typeof SkipResponse
   >
 
@@ -217,9 +217,9 @@ export type WidgetsCreateOrUpdateWidget = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_Widget>
-  | Response<201, t_Widget>
-  | Response<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
+  | Res<200, t_Widget>
+  | Res<201, t_Widget>
+  | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
   | typeof SkipResponse
 >
 
@@ -242,8 +242,8 @@ export type WidgetsGetWidget = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_Widget>
-  | Response<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
+  | Res<200, t_Widget>
+  | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
   | typeof SkipResponse
 >
 
@@ -270,7 +270,7 @@ export type WidgetsDeleteWidget = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       202,
       {
         error?: t_Azure_Core_Foundations_Error
@@ -278,7 +278,7 @@ export type WidgetsDeleteWidget = (
         status: t_Azure_Core_Foundations_OperationState
       }
     >
-  | Response<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
+  | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
   | typeof SkipResponse
 >
 
@@ -301,8 +301,8 @@ export type WidgetsListWidgets = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_PagedWidget>
-  | Response<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
+  | Res<200, t_PagedWidget>
+  | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
   | typeof SkipResponse
 >
 
@@ -325,8 +325,8 @@ export type WidgetsGetAnalytics = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_WidgetAnalytics>
-  | Response<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
+  | Res<200, t_WidgetAnalytics>
+  | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
   | typeof SkipResponse
 >
 
@@ -350,9 +350,9 @@ export type WidgetsUpdateAnalytics = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_WidgetAnalytics>
-  | Response<201, t_WidgetAnalytics>
-  | Response<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
+  | Res<200, t_WidgetAnalytics>
+  | Res<201, t_WidgetAnalytics>
+  | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
   | typeof SkipResponse
 >
 
@@ -380,7 +380,7 @@ export type WidgetsGetRepairStatus = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         error?: t_Azure_Core_Foundations_Error
@@ -389,7 +389,7 @@ export type WidgetsGetRepairStatus = (
         status: t_Azure_Core_Foundations_OperationState
       }
     >
-  | Response<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
+  | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
   | typeof SkipResponse
 >
 
@@ -423,7 +423,7 @@ export type WidgetsScheduleRepairs = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       202,
       {
         error?: t_Azure_Core_Foundations_Error
@@ -438,7 +438,7 @@ export type WidgetsScheduleRepairs = (
         status: t_Azure_Core_Foundations_OperationState
       }
     >
-  | Response<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
+  | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
   | typeof SkipResponse
 >
 
@@ -466,7 +466,7 @@ export type WidgetPartsGetWidgetPartOperationStatus = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         error?: t_Azure_Core_Foundations_Error
@@ -475,7 +475,7 @@ export type WidgetPartsGetWidgetPartOperationStatus = (
         status: t_Azure_Core_Foundations_OperationState
       }
     >
-  | Response<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
+  | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
   | typeof SkipResponse
 >
 
@@ -498,8 +498,8 @@ export type WidgetPartsCreateWidgetPart = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, void>
-  | Response<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
+  | Res<201, void>
+  | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
   | typeof SkipResponse
 >
 
@@ -522,8 +522,8 @@ export type WidgetPartsListWidgetParts = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_PagedWidgetPart>
-  | Response<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
+  | Res<200, t_PagedWidgetPart>
+  | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
   | typeof SkipResponse
 >
 
@@ -546,8 +546,8 @@ export type WidgetPartsGetWidgetPart = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_WidgetPart>
-  | Response<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
+  | Res<200, t_WidgetPart>
+  | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
   | typeof SkipResponse
 >
 
@@ -570,8 +570,8 @@ export type WidgetPartsDeleteWidgetPart = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
+  | Res<204, void>
+  | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
   | typeof SkipResponse
 >
 
@@ -598,7 +598,7 @@ export type WidgetPartsReorderParts = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       202,
       {
         error?: t_Azure_Core_Foundations_Error
@@ -606,7 +606,7 @@ export type WidgetPartsReorderParts = (
         status: t_Azure_Core_Foundations_OperationState
       }
     >
-  | Response<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
+  | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
   | typeof SkipResponse
 >
 
@@ -634,7 +634,7 @@ export type ManufacturersGetManufacturerOperationStatus = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         error?: t_Azure_Core_Foundations_Error
@@ -643,7 +643,7 @@ export type ManufacturersGetManufacturerOperationStatus = (
         status: t_Azure_Core_Foundations_OperationState
       }
     >
-  | Response<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
+  | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
   | typeof SkipResponse
 >
 
@@ -667,9 +667,9 @@ export type ManufacturersCreateOrReplaceManufacturer = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_Manufacturer>
-  | Response<201, t_Manufacturer>
-  | Response<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
+  | Res<200, t_Manufacturer>
+  | Res<201, t_Manufacturer>
+  | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
   | typeof SkipResponse
 >
 
@@ -692,8 +692,8 @@ export type ManufacturersGetManufacturer = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_Manufacturer>
-  | Response<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
+  | Res<200, t_Manufacturer>
+  | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
   | typeof SkipResponse
 >
 
@@ -720,7 +720,7 @@ export type ManufacturersDeleteManufacturer = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       202,
       {
         error?: t_Azure_Core_Foundations_Error
@@ -728,7 +728,7 @@ export type ManufacturersDeleteManufacturer = (
         status: t_Azure_Core_Foundations_OperationState
       }
     >
-  | Response<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
+  | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
   | typeof SkipResponse
 >
 
@@ -751,8 +751,8 @@ export type ManufacturersListManufacturers = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_PagedManufacturer>
-  | Response<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
+  | Res<200, t_PagedManufacturer>
+  | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
   | typeof SkipResponse
 >
 

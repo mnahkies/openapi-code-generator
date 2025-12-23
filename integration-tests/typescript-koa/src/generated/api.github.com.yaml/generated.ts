@@ -11,7 +11,7 @@ import {
   type KoaRuntimeResponder,
   KoaRuntimeResponse,
   type Params,
-  type Response,
+  type Res,
   type ServerConfig,
   SkipResponse,
   type StatusCode,
@@ -2400,7 +2400,7 @@ export type MetaRoot = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  KoaRuntimeResponse<unknown> | Response<200, t_root> | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<200, t_root> | typeof SkipResponse
 >
 
 export type SecurityAdvisoriesListGlobalAdvisoriesResponder = {
@@ -2421,9 +2421,9 @@ export type SecurityAdvisoriesListGlobalAdvisories = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_global_advisory[]>
-  | Response<422, t_validation_error_simple>
-  | Response<429, t_basic_error>
+  | Res<200, t_global_advisory[]>
+  | Res<422, t_validation_error_simple>
+  | Res<429, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -2444,8 +2444,8 @@ export type SecurityAdvisoriesGetGlobalAdvisory = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_global_advisory>
-  | Response<404, t_basic_error>
+  | Res<200, t_global_advisory>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -2459,9 +2459,7 @@ export type AppsGetAuthenticated = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Response<200, t_integration>
-  | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<200, t_integration> | typeof SkipResponse
 >
 
 export type AppsCreateFromManifestResponder = {
@@ -2485,7 +2483,7 @@ export type AppsCreateFromManifest = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       201,
       t_integration & {
         client_id: string
@@ -2495,8 +2493,8 @@ export type AppsCreateFromManifest = (
         [key: string]: unknown | undefined
       }
     >
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error_simple>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error_simple>
   | typeof SkipResponse
 >
 
@@ -2510,9 +2508,7 @@ export type AppsGetWebhookConfigForApp = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Response<200, t_webhook_config>
-  | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<200, t_webhook_config> | typeof SkipResponse
 >
 
 export type AppsUpdateWebhookConfigForAppResponder = {
@@ -2525,9 +2521,7 @@ export type AppsUpdateWebhookConfigForApp = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Response<200, t_webhook_config>
-  | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<200, t_webhook_config> | typeof SkipResponse
 >
 
 export type AppsListWebhookDeliveriesResponder = {
@@ -2543,9 +2537,9 @@ export type AppsListWebhookDeliveries = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_hook_delivery_item[]>
-  | Response<400, t_scim_error>
-  | Response<422, t_validation_error>
+  | Res<200, t_hook_delivery_item[]>
+  | Res<400, t_scim_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -2562,9 +2556,9 @@ export type AppsGetWebhookDelivery = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_hook_delivery>
-  | Response<400, t_scim_error>
-  | Response<422, t_validation_error>
+  | Res<200, t_hook_delivery>
+  | Res<400, t_scim_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -2583,14 +2577,14 @@ export type AppsRedeliverWebhookDelivery = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       202,
       {
         [key: string]: unknown | undefined
       }
     >
-  | Response<400, t_scim_error>
-  | Response<422, t_validation_error>
+  | Res<400, t_scim_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -2612,9 +2606,9 @@ export type AppsListInstallationRequestsForAuthenticatedApp = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_integration_installation_request[]>
-  | Response<304, void>
-  | Response<401, t_basic_error>
+  | Res<200, t_integration_installation_request[]>
+  | Res<304, void>
+  | Res<401, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -2628,9 +2622,7 @@ export type AppsListInstallations = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Response<200, t_installation[]>
-  | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<200, t_installation[]> | typeof SkipResponse
 >
 
 export type AppsGetInstallationResponder = {
@@ -2645,8 +2637,8 @@ export type AppsGetInstallation = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_installation>
-  | Response<404, t_basic_error>
+  | Res<200, t_installation>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -2662,8 +2654,8 @@ export type AppsDeleteInstallation = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<404, t_basic_error>
+  | Res<204, void>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -2687,11 +2679,11 @@ export type AppsCreateInstallationAccessToken = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_installation_token>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<201, t_installation_token>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -2707,8 +2699,8 @@ export type AppsSuspendInstallation = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<404, t_basic_error>
+  | Res<204, void>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -2724,8 +2716,8 @@ export type AppsUnsuspendInstallation = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<404, t_basic_error>
+  | Res<204, void>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -2746,8 +2738,8 @@ export type AppsDeleteAuthorization = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<422, t_validation_error>
+  | Res<204, void>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -2769,9 +2761,9 @@ export type AppsCheckToken = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_authorization>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<200, t_authorization>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -2792,8 +2784,8 @@ export type AppsResetToken = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_authorization>
-  | Response<422, t_validation_error>
+  | Res<200, t_authorization>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -2814,8 +2806,8 @@ export type AppsDeleteToken = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<422, t_validation_error>
+  | Res<204, void>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -2839,11 +2831,11 @@ export type AppsScopeToken = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_authorization>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<200, t_authorization>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -2860,9 +2852,9 @@ export type AppsGetBySlug = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_integration>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<200, t_integration>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -2878,8 +2870,8 @@ export type ClassroomGetAnAssignment = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_classroom_assignment>
-  | Response<404, t_basic_error>
+  | Res<200, t_classroom_assignment>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -2899,7 +2891,7 @@ export type ClassroomListAcceptedAssignmentsForAnAssignment = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_classroom_accepted_assignment[]>
+  | Res<200, t_classroom_accepted_assignment[]>
   | typeof SkipResponse
 >
 
@@ -2915,8 +2907,8 @@ export type ClassroomGetAssignmentGrades = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_classroom_assignment_grade[]>
-  | Response<404, t_basic_error>
+  | Res<200, t_classroom_assignment_grade[]>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -2931,7 +2923,7 @@ export type ClassroomListClassrooms = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_simple_classroom[]>
+  | Res<200, t_simple_classroom[]>
   | typeof SkipResponse
 >
 
@@ -2947,8 +2939,8 @@ export type ClassroomGetAClassroom = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_classroom>
-  | Response<404, t_basic_error>
+  | Res<200, t_classroom>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -2968,7 +2960,7 @@ export type ClassroomListAssignmentsForAClassroom = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_simple_classroom_assignment[]>
+  | Res<200, t_simple_classroom_assignment[]>
   | typeof SkipResponse
 >
 
@@ -2984,8 +2976,8 @@ export type CodesOfConductGetAllCodesOfConduct = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_code_of_conduct[]>
-  | Response<304, void>
+  | Res<200, t_code_of_conduct[]>
+  | Res<304, void>
   | typeof SkipResponse
 >
 
@@ -3002,9 +2994,9 @@ export type CodesOfConductGetConductCode = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_code_of_conduct>
-  | Response<304, void>
-  | Response<404, t_basic_error>
+  | Res<200, t_code_of_conduct>
+  | Res<304, void>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -3023,14 +3015,14 @@ export type CredentialsRevoke = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       202,
       {
         [key: string]: unknown | undefined
       }
     >
-  | Response<422, t_validation_error_simple>
-  | Response<500, t_basic_error>
+  | Res<422, t_validation_error_simple>
+  | Res<500, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -3048,13 +3040,13 @@ export type EmojisGet = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         [key: string]: string | undefined
       }
     >
-  | Response<304, void>
+  | Res<304, void>
   | typeof SkipResponse
 >
 
@@ -3076,9 +3068,9 @@ export type CodeSecurityGetConfigurationsForEnterprise = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_code_security_configuration[]>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<200, t_code_security_configuration[]>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -3101,10 +3093,10 @@ export type CodeSecurityCreateConfigurationForEnterprise = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_code_security_configuration>
-  | Response<400, t_scim_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<201, t_code_security_configuration>
+  | Res<400, t_scim_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -3124,7 +3116,7 @@ export type CodeSecurityGetDefaultConfigurationsForEnterprise = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_code_security_default_configurations>
+  | Res<200, t_code_security_default_configurations>
   | typeof SkipResponse
 >
 
@@ -3147,10 +3139,10 @@ export type CodeSecurityGetSingleConfigurationForEnterprise = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_code_security_configuration>
-  | Response<304, void>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<200, t_code_security_configuration>
+  | Res<304, void>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -3174,11 +3166,11 @@ export type CodeSecurityUpdateEnterpriseConfiguration = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_code_security_configuration>
-  | Response<304, void>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<409, t_basic_error>
+  | Res<200, t_code_security_configuration>
+  | Res<304, void>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<409, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -3202,11 +3194,11 @@ export type CodeSecurityDeleteConfigurationForEnterprise = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<400, t_scim_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<409, t_basic_error>
+  | Res<204, void>
+  | Res<400, t_scim_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<409, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -3231,15 +3223,15 @@ export type CodeSecurityAttachEnterpriseConfiguration = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       202,
       {
         [key: string]: unknown | undefined
       }
     >
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<409, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<409, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -3264,7 +3256,7 @@ export type CodeSecuritySetConfigurationAsDefaultForEnterprise = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         configuration?: t_code_security_configuration
@@ -3275,8 +3267,8 @@ export type CodeSecuritySetConfigurationAsDefaultForEnterprise = (
           | "public"
       }
     >
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -3298,9 +3290,9 @@ export type CodeSecurityGetRepositoriesForEnterpriseConfiguration = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_code_security_configuration_repositories[]>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<200, t_code_security_configuration_repositories[]>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -3324,11 +3316,11 @@ export type DependabotListAlertsForEnterprise = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_dependabot_alert_with_repository[]>
-  | Response<304, void>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error_simple>
+  | Res<200, t_dependabot_alert_with_repository[]>
+  | Res<304, void>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error_simple>
   | typeof SkipResponse
 >
 
@@ -3354,9 +3346,9 @@ export type SecretScanningListAlertsForEnterprise = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_organization_secret_scanning_alert[]>
-  | Response<404, t_basic_error>
-  | Response<
+  | Res<200, t_organization_secret_scanning_alert[]>
+  | Res<404, t_basic_error>
+  | Res<
       503,
       {
         code?: string
@@ -3385,10 +3377,10 @@ export type ActivityListPublicEvents = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_event[]>
-  | Response<304, void>
-  | Response<403, t_basic_error>
-  | Response<
+  | Res<200, t_event[]>
+  | Res<304, void>
+  | Res<403, t_basic_error>
+  | Res<
       503,
       {
         code?: string
@@ -3409,7 +3401,7 @@ export type ActivityGetFeeds = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  KoaRuntimeResponse<unknown> | Response<200, t_feed> | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<200, t_feed> | typeof SkipResponse
 >
 
 export type GistsListResponder = {
@@ -3425,9 +3417,9 @@ export type GistsList = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_base_gist[]>
-  | Response<304, void>
-  | Response<403, t_basic_error>
+  | Res<200, t_base_gist[]>
+  | Res<304, void>
+  | Res<403, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -3446,11 +3438,11 @@ export type GistsCreate = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_gist_simple>
-  | Response<304, void>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<201, t_gist_simple>
+  | Res<304, void>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -3468,10 +3460,10 @@ export type GistsListPublic = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_base_gist[]>
-  | Response<304, void>
-  | Response<403, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<200, t_base_gist[]>
+  | Res<304, void>
+  | Res<403, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -3489,10 +3481,10 @@ export type GistsListStarred = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_base_gist[]>
-  | Response<304, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
+  | Res<200, t_base_gist[]>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -3518,9 +3510,9 @@ export type GistsGet = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_gist_simple>
-  | Response<304, void>
-  | Response<
+  | Res<200, t_gist_simple>
+  | Res<304, void>
+  | Res<
       403,
       {
         block?: {
@@ -3532,7 +3524,7 @@ export type GistsGet = (
         message?: string
       }
     >
-  | Response<404, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -3554,9 +3546,9 @@ export type GistsUpdate = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_gist_simple>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<200, t_gist_simple>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -3574,10 +3566,10 @@ export type GistsDelete = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<304, void>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<204, void>
+  | Res<304, void>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -3600,10 +3592,10 @@ export type GistsListComments = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_gist_comment[]>
-  | Response<304, void>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<200, t_gist_comment[]>
+  | Res<304, void>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -3626,10 +3618,10 @@ export type GistsCreateComment = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_gist_comment>
-  | Response<304, void>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<201, t_gist_comment>
+  | Res<304, void>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -3655,9 +3647,9 @@ export type GistsGetComment = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_gist_comment>
-  | Response<304, void>
-  | Response<
+  | Res<200, t_gist_comment>
+  | Res<304, void>
+  | Res<
       403,
       {
         block?: {
@@ -3669,7 +3661,7 @@ export type GistsGetComment = (
         message?: string
       }
     >
-  | Response<404, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -3690,8 +3682,8 @@ export type GistsUpdateComment = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_gist_comment>
-  | Response<404, t_basic_error>
+  | Res<200, t_gist_comment>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -3709,10 +3701,10 @@ export type GistsDeleteComment = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<304, void>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<204, void>
+  | Res<304, void>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -3735,10 +3727,10 @@ export type GistsListCommits = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_gist_commit[]>
-  | Response<304, void>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<200, t_gist_commit[]>
+  | Res<304, void>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -3761,10 +3753,10 @@ export type GistsListForks = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_gist_simple[]>
-  | Response<304, void>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<200, t_gist_simple[]>
+  | Res<304, void>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -3783,11 +3775,11 @@ export type GistsFork = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_base_gist>
-  | Response<304, void>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<201, t_base_gist>
+  | Res<304, void>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -3805,10 +3797,10 @@ export type GistsCheckIsStarred = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<304, void>
-  | Response<403, t_basic_error>
-  | Response<404, EmptyObject>
+  | Res<204, void>
+  | Res<304, void>
+  | Res<403, t_basic_error>
+  | Res<404, EmptyObject>
   | typeof SkipResponse
 >
 
@@ -3826,10 +3818,10 @@ export type GistsStar = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<304, void>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<204, void>
+  | Res<304, void>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -3847,10 +3839,10 @@ export type GistsUnstar = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<304, void>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<204, void>
+  | Res<304, void>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -3868,10 +3860,10 @@ export type GistsGetRevision = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_gist_simple>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<200, t_gist_simple>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -3887,8 +3879,8 @@ export type GitignoreGetAllTemplates = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, string[]>
-  | Response<304, void>
+  | Res<200, string[]>
+  | Res<304, void>
   | typeof SkipResponse
 >
 
@@ -3904,8 +3896,8 @@ export type GitignoreGetTemplate = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_gitignore_template>
-  | Response<304, void>
+  | Res<200, t_gitignore_template>
+  | Res<304, void>
   | typeof SkipResponse
 >
 
@@ -3932,7 +3924,7 @@ export type AppsListReposAccessibleToInstallation = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         repositories: t_repository[]
@@ -3940,9 +3932,9 @@ export type AppsListReposAccessibleToInstallation = (
         total_count: number
       }
     >
-  | Response<304, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -3955,9 +3947,7 @@ export type AppsRevokeInstallationAccessToken = (
   respond: AppsRevokeInstallationAccessTokenResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<204, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type IssuesListResponder = {
   with200(): KoaRuntimeResponse<t_issue[]>
@@ -3973,10 +3963,10 @@ export type IssuesList = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_issue[]>
-  | Response<304, void>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<200, t_issue[]>
+  | Res<304, void>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -3992,8 +3982,8 @@ export type LicensesGetAllCommonlyUsed = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_license_simple[]>
-  | Response<304, void>
+  | Res<200, t_license_simple[]>
+  | Res<304, void>
   | typeof SkipResponse
 >
 
@@ -4011,10 +4001,10 @@ export type LicensesGet = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_license>
-  | Response<304, void>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<200, t_license>
+  | Res<304, void>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -4030,8 +4020,8 @@ export type MarkdownRender = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, string>
-  | Response<304, void>
+  | Res<200, string>
+  | Res<304, void>
   | typeof SkipResponse
 >
 
@@ -4047,8 +4037,8 @@ export type MarkdownRenderRaw = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, string>
-  | Response<304, void>
+  | Res<200, string>
+  | Res<304, void>
   | typeof SkipResponse
 >
 
@@ -4070,9 +4060,9 @@ export type AppsGetSubscriptionPlanForAccount = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_marketplace_purchase>
-  | Response<401, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<200, t_marketplace_purchase>
+  | Res<401, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -4089,9 +4079,9 @@ export type AppsListPlans = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_marketplace_listing_plan[]>
-  | Response<401, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<200, t_marketplace_listing_plan[]>
+  | Res<401, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -4114,10 +4104,10 @@ export type AppsListAccountsForPlan = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_marketplace_purchase[]>
-  | Response<401, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<200, t_marketplace_purchase[]>
+  | Res<401, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -4139,9 +4129,9 @@ export type AppsGetSubscriptionPlanForAccountStubbed = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_marketplace_purchase>
-  | Response<401, t_basic_error>
-  | Response<404, void>
+  | Res<200, t_marketplace_purchase>
+  | Res<401, t_basic_error>
+  | Res<404, void>
   | typeof SkipResponse
 >
 
@@ -4157,8 +4147,8 @@ export type AppsListPlansStubbed = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_marketplace_listing_plan[]>
-  | Response<401, t_basic_error>
+  | Res<200, t_marketplace_listing_plan[]>
+  | Res<401, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -4179,8 +4169,8 @@ export type AppsListAccountsForPlanStubbed = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_marketplace_purchase[]>
-  | Response<401, t_basic_error>
+  | Res<200, t_marketplace_purchase[]>
+  | Res<401, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -4196,8 +4186,8 @@ export type MetaGet = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_api_overview>
-  | Response<304, void>
+  | Res<200, t_api_overview>
+  | Res<304, void>
   | typeof SkipResponse
 >
 
@@ -4221,11 +4211,11 @@ export type ActivityListPublicEventsForRepoNetwork = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_event[]>
-  | Response<301, t_basic_error>
-  | Response<304, void>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<200, t_event[]>
+  | Res<301, t_basic_error>
+  | Res<304, void>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -4249,11 +4239,11 @@ export type ActivityListNotificationsForAuthenticatedUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_thread[]>
-  | Response<304, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<200, t_thread[]>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -4279,16 +4269,16 @@ export type ActivityMarkNotificationsAsRead = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       202,
       {
         message?: string
       }
     >
-  | Response<205, void>
-  | Response<304, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
+  | Res<205, void>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -4306,10 +4296,10 @@ export type ActivityGetThread = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_thread>
-  | Response<304, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
+  | Res<200, t_thread>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -4326,9 +4316,9 @@ export type ActivityMarkThreadAsRead = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<205, void>
-  | Response<304, void>
-  | Response<403, t_basic_error>
+  | Res<205, void>
+  | Res<304, void>
+  | Res<403, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -4341,9 +4331,7 @@ export type ActivityMarkThreadAsDone = (
   respond: ActivityMarkThreadAsDoneResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<204, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type ActivityGetThreadSubscriptionForAuthenticatedUserResponder = {
   with200(): KoaRuntimeResponse<t_thread_subscription>
@@ -4364,10 +4352,10 @@ export type ActivityGetThreadSubscriptionForAuthenticatedUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_thread_subscription>
-  | Response<304, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
+  | Res<200, t_thread_subscription>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -4390,10 +4378,10 @@ export type ActivitySetThreadSubscription = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_thread_subscription>
-  | Response<304, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
+  | Res<200, t_thread_subscription>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -4416,10 +4404,10 @@ export type ActivityDeleteThreadSubscription = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<304, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
+  | Res<204, void>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -4433,7 +4421,7 @@ export type MetaGetOctocat = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  KoaRuntimeResponse<unknown> | Response<200, string> | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<200, string> | typeof SkipResponse
 >
 
 export type OrgsListResponder = {
@@ -4448,8 +4436,8 @@ export type OrgsList = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_organization_simple[]>
-  | Response<304, void>
+  | Res<200, t_organization_simple[]>
+  | Res<304, void>
   | typeof SkipResponse
 >
 
@@ -4471,9 +4459,9 @@ export type DependabotRepositoryAccessForOrg = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_dependabot_repository_access_details>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<200, t_dependabot_repository_access_details>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -4495,9 +4483,9 @@ export type DependabotUpdateRepositoryAccessForOrg = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<204, void>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -4519,9 +4507,9 @@ export type DependabotSetRepositoryAccessDefaultLevel = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<204, void>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -4549,11 +4537,11 @@ export type BillingGetGithubBillingUsageReportOrg = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_billing_usage_report>
-  | Response<400, t_scim_error>
-  | Response<403, t_basic_error>
-  | Response<500, t_basic_error>
-  | Response<
+  | Res<200, t_billing_usage_report>
+  | Res<400, t_scim_error>
+  | Res<403, t_basic_error>
+  | Res<500, t_basic_error>
+  | Res<
       503,
       {
         code?: string
@@ -4576,8 +4564,8 @@ export type OrgsGet = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_organization_full>
-  | Response<404, t_basic_error>
+  | Res<200, t_organization_full>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -4599,9 +4587,9 @@ export type OrgsUpdate = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_organization_full>
-  | Response<409, t_basic_error>
-  | Response<422, t_validation_error | t_validation_error_simple>
+  | Res<200, t_organization_full>
+  | Res<409, t_basic_error>
+  | Res<422, t_validation_error | t_validation_error_simple>
   | typeof SkipResponse
 >
 
@@ -4620,14 +4608,14 @@ export type OrgsDelete = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       202,
       {
         [key: string]: unknown | undefined
       }
     >
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -4647,7 +4635,7 @@ export type ActionsGetActionsCacheUsageForOrg = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_actions_cache_usage_org_enterprise>
+  | Res<200, t_actions_cache_usage_org_enterprise>
   | typeof SkipResponse
 >
 
@@ -4670,7 +4658,7 @@ export type ActionsGetActionsCacheUsageByRepoForOrg = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         repository_cache_usages: t_actions_cache_usage_by_repository[]
@@ -4699,7 +4687,7 @@ export type ActionsListHostedRunnersForOrg = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         runners: t_actions_hosted_runner[]
@@ -4725,7 +4713,7 @@ export type ActionsCreateHostedRunnerForOrg = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_actions_hosted_runner>
+  | Res<201, t_actions_hosted_runner>
   | typeof SkipResponse
 >
 
@@ -4748,7 +4736,7 @@ export type ActionsGetHostedRunnersGithubOwnedImagesForOrg = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         images: t_actions_hosted_runner_image[]
@@ -4777,7 +4765,7 @@ export type ActionsGetHostedRunnersPartnerImagesForOrg = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         images: t_actions_hosted_runner_image[]
@@ -4803,7 +4791,7 @@ export type ActionsGetHostedRunnersLimitsForOrg = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_actions_hosted_runner_limits>
+  | Res<200, t_actions_hosted_runner_limits>
   | typeof SkipResponse
 >
 
@@ -4826,7 +4814,7 @@ export type ActionsGetHostedRunnersMachineSpecsForOrg = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         machine_specs: t_actions_hosted_runner_machine_spec[]
@@ -4855,7 +4843,7 @@ export type ActionsGetHostedRunnersPlatformsForOrg = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         platforms: string[]
@@ -4876,7 +4864,7 @@ export type ActionsGetHostedRunnerForOrg = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_actions_hosted_runner>
+  | Res<200, t_actions_hosted_runner>
   | typeof SkipResponse
 >
 
@@ -4896,7 +4884,7 @@ export type ActionsUpdateHostedRunnerForOrg = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_actions_hosted_runner>
+  | Res<200, t_actions_hosted_runner>
   | typeof SkipResponse
 >
 
@@ -4916,7 +4904,7 @@ export type ActionsDeleteHostedRunnerForOrg = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<202, t_actions_hosted_runner>
+  | Res<202, t_actions_hosted_runner>
   | typeof SkipResponse
 >
 
@@ -4936,7 +4924,7 @@ export type OidcGetOidcCustomSubTemplateForOrg = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_oidc_custom_sub>
+  | Res<200, t_oidc_custom_sub>
   | typeof SkipResponse
 >
 
@@ -4958,9 +4946,9 @@ export type OidcUpdateOidcCustomSubTemplateForOrg = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_empty_object>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<201, t_empty_object>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -4980,7 +4968,7 @@ export type ActionsGetGithubActionsPermissionsOrganization = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_actions_organization_permissions>
+  | Res<200, t_actions_organization_permissions>
   | typeof SkipResponse
 >
 
@@ -4998,9 +4986,7 @@ export type ActionsSetGithubActionsPermissionsOrganization = (
   respond: ActionsSetGithubActionsPermissionsOrganizationResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<204, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type ActionsListSelectedRepositoriesEnabledGithubActionsOrganizationResponder =
   {
@@ -5022,7 +5008,7 @@ export type ActionsListSelectedRepositoriesEnabledGithubActionsOrganization = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         repositories: t_repository[]
@@ -5047,9 +5033,7 @@ export type ActionsSetSelectedRepositoriesEnabledGithubActionsOrganization = (
   respond: ActionsSetSelectedRepositoriesEnabledGithubActionsOrganizationResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<204, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type ActionsEnableSelectedRepositoryGithubActionsOrganizationResponder =
   {
@@ -5066,9 +5050,7 @@ export type ActionsEnableSelectedRepositoryGithubActionsOrganization = (
   respond: ActionsEnableSelectedRepositoryGithubActionsOrganizationResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<204, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type ActionsDisableSelectedRepositoryGithubActionsOrganizationResponder =
   {
@@ -5085,9 +5067,7 @@ export type ActionsDisableSelectedRepositoryGithubActionsOrganization = (
   respond: ActionsDisableSelectedRepositoryGithubActionsOrganizationResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<204, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type ActionsGetAllowedActionsOrganizationResponder = {
   with200(): KoaRuntimeResponse<t_selected_actions>
@@ -5105,7 +5085,7 @@ export type ActionsGetAllowedActionsOrganization = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_selected_actions>
+  | Res<200, t_selected_actions>
   | typeof SkipResponse
 >
 
@@ -5123,9 +5103,7 @@ export type ActionsSetAllowedActionsOrganization = (
   respond: ActionsSetAllowedActionsOrganizationResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<204, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type ActionsGetGithubActionsDefaultWorkflowPermissionsOrganizationResponder =
   {
@@ -5144,7 +5122,7 @@ export type ActionsGetGithubActionsDefaultWorkflowPermissionsOrganization = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_actions_get_default_workflow_permissions>
+  | Res<200, t_actions_get_default_workflow_permissions>
   | typeof SkipResponse
 >
 
@@ -5163,9 +5141,7 @@ export type ActionsSetGithubActionsDefaultWorkflowPermissionsOrganization = (
   respond: ActionsSetGithubActionsDefaultWorkflowPermissionsOrganizationResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<204, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type ActionsListSelfHostedRunnerGroupsForOrgResponder = {
   with200(): KoaRuntimeResponse<{
@@ -5186,7 +5162,7 @@ export type ActionsListSelfHostedRunnerGroupsForOrg = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         runner_groups: t_runner_groups_org[]
@@ -5212,7 +5188,7 @@ export type ActionsCreateSelfHostedRunnerGroupForOrg = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_runner_groups_org>
+  | Res<201, t_runner_groups_org>
   | typeof SkipResponse
 >
 
@@ -5232,7 +5208,7 @@ export type ActionsGetSelfHostedRunnerGroupForOrg = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_runner_groups_org>
+  | Res<200, t_runner_groups_org>
   | typeof SkipResponse
 >
 
@@ -5252,7 +5228,7 @@ export type ActionsUpdateSelfHostedRunnerGroupForOrg = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_runner_groups_org>
+  | Res<200, t_runner_groups_org>
   | typeof SkipResponse
 >
 
@@ -5270,9 +5246,7 @@ export type ActionsDeleteSelfHostedRunnerGroupFromOrg = (
   respond: ActionsDeleteSelfHostedRunnerGroupFromOrgResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<204, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type ActionsListGithubHostedRunnersInGroupForOrgResponder = {
   with200(): KoaRuntimeResponse<{
@@ -5293,7 +5267,7 @@ export type ActionsListGithubHostedRunnersInGroupForOrg = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         runners: t_actions_hosted_runner[]
@@ -5322,7 +5296,7 @@ export type ActionsListRepoAccessToSelfHostedRunnerGroupInOrg = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         repositories: t_minimal_repository[]
@@ -5346,9 +5320,7 @@ export type ActionsSetRepoAccessToSelfHostedRunnerGroupInOrg = (
   respond: ActionsSetRepoAccessToSelfHostedRunnerGroupInOrgResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<204, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type ActionsAddRepoAccessToSelfHostedRunnerGroupInOrgResponder = {
   with204(): KoaRuntimeResponse<void>
@@ -5364,9 +5336,7 @@ export type ActionsAddRepoAccessToSelfHostedRunnerGroupInOrg = (
   respond: ActionsAddRepoAccessToSelfHostedRunnerGroupInOrgResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<204, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type ActionsRemoveRepoAccessToSelfHostedRunnerGroupInOrgResponder = {
   with204(): KoaRuntimeResponse<void>
@@ -5382,9 +5352,7 @@ export type ActionsRemoveRepoAccessToSelfHostedRunnerGroupInOrg = (
   respond: ActionsRemoveRepoAccessToSelfHostedRunnerGroupInOrgResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<204, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type ActionsListSelfHostedRunnersInGroupForOrgResponder = {
   with200(): KoaRuntimeResponse<{
@@ -5405,7 +5373,7 @@ export type ActionsListSelfHostedRunnersInGroupForOrg = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         runners: t_runner[]
@@ -5429,9 +5397,7 @@ export type ActionsSetSelfHostedRunnersInGroupForOrg = (
   respond: ActionsSetSelfHostedRunnersInGroupForOrgResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<204, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type ActionsAddSelfHostedRunnerToGroupForOrgResponder = {
   with204(): KoaRuntimeResponse<void>
@@ -5447,9 +5413,7 @@ export type ActionsAddSelfHostedRunnerToGroupForOrg = (
   respond: ActionsAddSelfHostedRunnerToGroupForOrgResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<204, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type ActionsRemoveSelfHostedRunnerFromGroupForOrgResponder = {
   with204(): KoaRuntimeResponse<void>
@@ -5465,9 +5429,7 @@ export type ActionsRemoveSelfHostedRunnerFromGroupForOrg = (
   respond: ActionsRemoveSelfHostedRunnerFromGroupForOrgResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<204, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type ActionsListSelfHostedRunnersForOrgResponder = {
   with200(): KoaRuntimeResponse<{
@@ -5488,7 +5450,7 @@ export type ActionsListSelfHostedRunnersForOrg = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         runners: t_runner[]
@@ -5514,7 +5476,7 @@ export type ActionsListRunnerApplicationsForOrg = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_runner_application[]>
+  | Res<200, t_runner_application[]>
   | typeof SkipResponse
 >
 
@@ -5540,16 +5502,16 @@ export type ActionsGenerateRunnerJitconfigForOrg = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       201,
       {
         encoded_jit_config: string
         runner: t_runner
       }
     >
-  | Response<404, t_basic_error>
-  | Response<409, t_basic_error>
-  | Response<422, t_validation_error_simple>
+  | Res<404, t_basic_error>
+  | Res<409, t_basic_error>
+  | Res<422, t_validation_error_simple>
   | typeof SkipResponse
 >
 
@@ -5569,7 +5531,7 @@ export type ActionsCreateRegistrationTokenForOrg = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_authentication_token>
+  | Res<201, t_authentication_token>
   | typeof SkipResponse
 >
 
@@ -5584,7 +5546,7 @@ export type ActionsCreateRemoveTokenForOrg = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_authentication_token>
+  | Res<201, t_authentication_token>
   | typeof SkipResponse
 >
 
@@ -5603,7 +5565,7 @@ export type ActionsGetSelfHostedRunnerForOrg = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  KoaRuntimeResponse<unknown> | Response<200, t_runner> | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<200, t_runner> | typeof SkipResponse
 >
 
 export type ActionsDeleteSelfHostedRunnerFromOrgResponder = {
@@ -5623,8 +5585,8 @@ export type ActionsDeleteSelfHostedRunnerFromOrg = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<422, t_validation_error_simple>
+  | Res<204, void>
+  | Res<422, t_validation_error_simple>
   | typeof SkipResponse
 >
 
@@ -5648,14 +5610,14 @@ export type ActionsListLabelsForSelfHostedRunnerForOrg = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         labels: t_runner_label[]
         total_count: number
       }
     >
-  | Response<404, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -5680,15 +5642,15 @@ export type ActionsAddCustomLabelsToSelfHostedRunnerForOrg = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         labels: t_runner_label[]
         total_count: number
       }
     >
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error_simple>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error_simple>
   | typeof SkipResponse
 >
 
@@ -5713,15 +5675,15 @@ export type ActionsSetCustomLabelsForSelfHostedRunnerForOrg = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         labels: t_runner_label[]
         total_count: number
       }
     >
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error_simple>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error_simple>
   | typeof SkipResponse
 >
 
@@ -5745,14 +5707,14 @@ export type ActionsRemoveAllCustomLabelsFromSelfHostedRunnerForOrg = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         labels: t_runner_label[]
         total_count: number
       }
     >
-  | Response<404, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -5777,15 +5739,15 @@ export type ActionsRemoveCustomLabelFromSelfHostedRunnerForOrg = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         labels: t_runner_label[]
         total_count: number
       }
     >
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error_simple>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error_simple>
   | typeof SkipResponse
 >
 
@@ -5808,7 +5770,7 @@ export type ActionsListOrgSecrets = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         secrets: t_organization_actions_secret[]
@@ -5829,7 +5791,7 @@ export type ActionsGetOrgPublicKey = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_actions_public_key>
+  | Res<200, t_actions_public_key>
   | typeof SkipResponse
 >
 
@@ -5844,7 +5806,7 @@ export type ActionsGetOrgSecret = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_organization_actions_secret>
+  | Res<200, t_organization_actions_secret>
   | typeof SkipResponse
 >
 
@@ -5865,8 +5827,8 @@ export type ActionsCreateOrUpdateOrgSecret = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_empty_object>
-  | Response<204, void>
+  | Res<201, t_empty_object>
+  | Res<204, void>
   | typeof SkipResponse
 >
 
@@ -5879,9 +5841,7 @@ export type ActionsDeleteOrgSecret = (
   respond: ActionsDeleteOrgSecretResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<204, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type ActionsListSelectedReposForOrgSecretResponder = {
   with200(): KoaRuntimeResponse<{
@@ -5902,7 +5862,7 @@ export type ActionsListSelectedReposForOrgSecret = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         repositories: t_minimal_repository[]
@@ -5926,9 +5886,7 @@ export type ActionsSetSelectedReposForOrgSecret = (
   respond: ActionsSetSelectedReposForOrgSecretResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<204, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type ActionsAddSelectedRepoToOrgSecretResponder = {
   with204(): KoaRuntimeResponse<void>
@@ -5947,8 +5905,8 @@ export type ActionsAddSelectedRepoToOrgSecret = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<409, void>
+  | Res<204, void>
+  | Res<409, void>
   | typeof SkipResponse
 >
 
@@ -5969,8 +5927,8 @@ export type ActionsRemoveSelectedRepoFromOrgSecret = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<409, void>
+  | Res<204, void>
+  | Res<409, void>
   | typeof SkipResponse
 >
 
@@ -5993,7 +5951,7 @@ export type ActionsListOrgVariables = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         total_count: number
@@ -6018,9 +5976,7 @@ export type ActionsCreateOrgVariable = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Response<201, t_empty_object>
-  | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<201, t_empty_object> | typeof SkipResponse
 >
 
 export type ActionsGetOrgVariableResponder = {
@@ -6034,7 +5990,7 @@ export type ActionsGetOrgVariable = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_organization_actions_variable>
+  | Res<200, t_organization_actions_variable>
   | typeof SkipResponse
 >
 
@@ -6052,9 +6008,7 @@ export type ActionsUpdateOrgVariable = (
   respond: ActionsUpdateOrgVariableResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<204, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type ActionsDeleteOrgVariableResponder = {
   with204(): KoaRuntimeResponse<void>
@@ -6065,9 +6019,7 @@ export type ActionsDeleteOrgVariable = (
   respond: ActionsDeleteOrgVariableResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<204, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type ActionsListSelectedReposForOrgVariableResponder = {
   with200(): KoaRuntimeResponse<{
@@ -6089,14 +6041,14 @@ export type ActionsListSelectedReposForOrgVariable = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         repositories: t_minimal_repository[]
         total_count: number
       }
     >
-  | Response<409, void>
+  | Res<409, void>
   | typeof SkipResponse
 >
 
@@ -6117,8 +6069,8 @@ export type ActionsSetSelectedReposForOrgVariable = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<409, void>
+  | Res<204, void>
+  | Res<409, void>
   | typeof SkipResponse
 >
 
@@ -6139,8 +6091,8 @@ export type ActionsAddSelectedRepoToOrgVariable = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<409, void>
+  | Res<204, void>
+  | Res<409, void>
   | typeof SkipResponse
 >
 
@@ -6161,8 +6113,8 @@ export type ActionsRemoveSelectedRepoFromOrgVariable = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<409, void>
+  | Res<204, void>
+  | Res<409, void>
   | typeof SkipResponse
 >
 
@@ -6209,7 +6161,7 @@ export type OrgsListAttestationsBulk = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         attestations_subject_digests?: {
@@ -6260,8 +6212,8 @@ export type OrgsDeleteAttestationsBulk = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, void>
-  | Response<404, t_basic_error>
+  | Res<200, void>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -6283,9 +6235,9 @@ export type OrgsDeleteAttestationsBySubjectDigest = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, void>
-  | Response<204, void>
-  | Response<404, t_basic_error>
+  | Res<200, void>
+  | Res<204, void>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -6303,10 +6255,10 @@ export type OrgsDeleteAttestationsById = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, void>
-  | Response<204, void>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<200, void>
+  | Res<204, void>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -6340,7 +6292,7 @@ export type OrgsListAttestations = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         attestations?: {
@@ -6376,9 +6328,7 @@ export type OrgsListBlockedUsers = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Response<200, t_simple_user[]>
-  | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<200, t_simple_user[]> | typeof SkipResponse
 >
 
 export type OrgsCheckBlockedUserResponder = {
@@ -6393,8 +6343,8 @@ export type OrgsCheckBlockedUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<404, t_basic_error>
+  | Res<204, void>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -6410,8 +6360,8 @@ export type OrgsBlockUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<422, t_validation_error>
+  | Res<204, void>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -6424,9 +6374,7 @@ export type OrgsUnblockUser = (
   respond: OrgsUnblockUserResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<204, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type CampaignsListOrgCampaignsResponder = {
   with200(): KoaRuntimeResponse<t_campaign_summary[]>
@@ -6450,9 +6398,9 @@ export type CampaignsListOrgCampaigns = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_campaign_summary[]>
-  | Response<404, t_basic_error>
-  | Response<
+  | Res<200, t_campaign_summary[]>
+  | Res<404, t_basic_error>
+  | Res<
       503,
       {
         code?: string
@@ -6488,12 +6436,12 @@ export type CampaignsCreateCampaign = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_campaign_summary>
-  | Response<400, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<422, t_basic_error>
-  | Response<429, void>
-  | Response<
+  | Res<200, t_campaign_summary>
+  | Res<400, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, t_basic_error>
+  | Res<429, void>
+  | Res<
       503,
       {
         code?: string
@@ -6522,10 +6470,10 @@ export type CampaignsGetCampaignSummary = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_campaign_summary>
-  | Response<404, t_basic_error>
-  | Response<422, t_basic_error>
-  | Response<
+  | Res<200, t_campaign_summary>
+  | Res<404, t_basic_error>
+  | Res<422, t_basic_error>
+  | Res<
       503,
       {
         code?: string
@@ -6560,11 +6508,11 @@ export type CampaignsUpdateCampaign = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_campaign_summary>
-  | Response<400, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<422, t_basic_error>
-  | Response<
+  | Res<200, t_campaign_summary>
+  | Res<400, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, t_basic_error>
+  | Res<
       503,
       {
         code?: string
@@ -6592,9 +6540,9 @@ export type CampaignsDeleteCampaign = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<404, t_basic_error>
-  | Response<
+  | Res<204, void>
+  | Res<404, t_basic_error>
+  | Res<
       503,
       {
         code?: string
@@ -6627,9 +6575,9 @@ export type CodeScanningListAlertsForOrg = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_code_scanning_organization_alert_items[]>
-  | Response<404, t_basic_error>
-  | Response<
+  | Res<200, t_code_scanning_organization_alert_items[]>
+  | Res<404, t_basic_error>
+  | Res<
       503,
       {
         code?: string
@@ -6658,9 +6606,9 @@ export type CodeSecurityGetConfigurationsForOrg = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_code_security_configuration[]>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<200, t_code_security_configuration[]>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -6680,7 +6628,7 @@ export type CodeSecurityCreateConfiguration = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_code_security_configuration>
+  | Res<201, t_code_security_configuration>
   | typeof SkipResponse
 >
 
@@ -6703,10 +6651,10 @@ export type CodeSecurityGetDefaultConfigurations = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_code_security_default_configurations>
-  | Response<304, void>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<200, t_code_security_default_configurations>
+  | Res<304, void>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -6730,11 +6678,11 @@ export type CodeSecurityDetachConfiguration = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<400, t_scim_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<409, t_basic_error>
+  | Res<204, void>
+  | Res<400, t_scim_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<409, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -6752,10 +6700,10 @@ export type CodeSecurityGetConfiguration = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_code_security_configuration>
-  | Response<304, void>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<200, t_code_security_configuration>
+  | Res<304, void>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -6776,8 +6724,8 @@ export type CodeSecurityUpdateConfiguration = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_code_security_configuration>
-  | Response<204, void>
+  | Res<200, t_code_security_configuration>
+  | Res<204, void>
   | typeof SkipResponse
 >
 
@@ -6801,11 +6749,11 @@ export type CodeSecurityDeleteConfiguration = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<400, t_scim_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<409, t_basic_error>
+  | Res<204, void>
+  | Res<400, t_scim_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<409, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -6827,7 +6775,7 @@ export type CodeSecurityAttachConfiguration = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       202,
       {
         [key: string]: unknown | undefined
@@ -6857,7 +6805,7 @@ export type CodeSecuritySetConfigurationAsDefault = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         configuration?: t_code_security_configuration
@@ -6868,8 +6816,8 @@ export type CodeSecuritySetConfigurationAsDefault = (
           | "public"
       }
     >
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -6891,9 +6839,9 @@ export type CodeSecurityGetRepositoriesForConfiguration = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_code_security_configuration_repositories[]>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<200, t_code_security_configuration_repositories[]>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -6921,18 +6869,18 @@ export type CodespacesListInOrganization = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         codespaces: t_codespace[]
         total_count: number
       }
     >
-  | Response<304, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<500, t_basic_error>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<500, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -6957,12 +6905,12 @@ export type CodespacesSetCodespacesAccess = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<304, void>
-  | Response<400, void>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error>
-  | Response<500, t_basic_error>
+  | Res<204, void>
+  | Res<304, void>
+  | Res<400, void>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
+  | Res<500, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -6987,12 +6935,12 @@ export type CodespacesSetCodespacesAccessUsers = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<304, void>
-  | Response<400, void>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error>
-  | Response<500, t_basic_error>
+  | Res<204, void>
+  | Res<304, void>
+  | Res<400, void>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
+  | Res<500, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -7017,12 +6965,12 @@ export type CodespacesDeleteCodespacesAccessUsers = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<304, void>
-  | Response<400, void>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error>
-  | Response<500, t_basic_error>
+  | Res<204, void>
+  | Res<304, void>
+  | Res<400, void>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
+  | Res<500, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -7045,7 +6993,7 @@ export type CodespacesListOrgSecrets = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         secrets: t_codespaces_org_secret[]
@@ -7066,7 +7014,7 @@ export type CodespacesGetOrgPublicKey = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_codespaces_public_key>
+  | Res<200, t_codespaces_public_key>
   | typeof SkipResponse
 >
 
@@ -7081,7 +7029,7 @@ export type CodespacesGetOrgSecret = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_codespaces_org_secret>
+  | Res<200, t_codespaces_org_secret>
   | typeof SkipResponse
 >
 
@@ -7104,10 +7052,10 @@ export type CodespacesCreateOrUpdateOrgSecret = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_empty_object>
-  | Response<204, void>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<201, t_empty_object>
+  | Res<204, void>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -7123,8 +7071,8 @@ export type CodespacesDeleteOrgSecret = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<404, t_basic_error>
+  | Res<204, void>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -7148,14 +7096,14 @@ export type CodespacesListSelectedReposForOrgSecret = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         repositories: t_minimal_repository[]
         total_count: number
       }
     >
-  | Response<404, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -7177,9 +7125,9 @@ export type CodespacesSetSelectedReposForOrgSecret = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<404, t_basic_error>
-  | Response<409, void>
+  | Res<204, void>
+  | Res<404, t_basic_error>
+  | Res<409, void>
   | typeof SkipResponse
 >
 
@@ -7202,10 +7150,10 @@ export type CodespacesAddSelectedRepoToOrgSecret = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<404, t_basic_error>
-  | Response<409, void>
-  | Response<422, t_validation_error>
+  | Res<204, void>
+  | Res<404, t_basic_error>
+  | Res<409, void>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -7228,10 +7176,10 @@ export type CodespacesRemoveSelectedRepoFromOrgSecret = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<404, t_basic_error>
-  | Response<409, void>
-  | Response<422, t_validation_error>
+  | Res<204, void>
+  | Res<404, t_basic_error>
+  | Res<409, void>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -7256,12 +7204,12 @@ export type CopilotGetCopilotOrganizationDetails = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_copilot_organization_details>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<422, void>
-  | Response<500, t_basic_error>
+  | Res<200, t_copilot_organization_details>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, void>
+  | Res<500, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -7288,17 +7236,17 @@ export type CopilotListCopilotSeats = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         seats?: t_copilot_seat_details[]
         total_seats?: number
       }
     >
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<500, t_basic_error>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<500, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -7325,17 +7273,17 @@ export type CopilotAddCopilotSeatsForTeams = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       201,
       {
         seats_created: number
       }
     >
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<422, void>
-  | Response<500, t_basic_error>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, void>
+  | Res<500, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -7362,17 +7310,17 @@ export type CopilotCancelCopilotSeatAssignmentForTeams = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         seats_cancelled: number
       }
     >
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<422, void>
-  | Response<500, t_basic_error>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, void>
+  | Res<500, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -7399,17 +7347,17 @@ export type CopilotAddCopilotSeatsForUsers = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       201,
       {
         seats_created: number
       }
     >
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<422, void>
-  | Response<500, t_basic_error>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, void>
+  | Res<500, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -7436,17 +7384,17 @@ export type CopilotCancelCopilotSeatAssignmentForUsers = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         seats_cancelled: number
       }
     >
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<422, void>
-  | Response<500, t_basic_error>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, void>
+  | Res<500, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -7470,11 +7418,11 @@ export type CopilotCopilotMetricsForOrganization = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_copilot_usage_metrics_day[]>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<422, t_basic_error>
-  | Response<500, t_basic_error>
+  | Res<200, t_copilot_usage_metrics_day[]>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, t_basic_error>
+  | Res<500, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -7499,12 +7447,12 @@ export type DependabotListAlertsForOrg = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_dependabot_alert_with_repository[]>
-  | Response<304, void>
-  | Response<400, t_scim_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error_simple>
+  | Res<200, t_dependabot_alert_with_repository[]>
+  | Res<304, void>
+  | Res<400, t_scim_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error_simple>
   | typeof SkipResponse
 >
 
@@ -7527,7 +7475,7 @@ export type DependabotListOrgSecrets = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         secrets: t_organization_dependabot_secret[]
@@ -7548,7 +7496,7 @@ export type DependabotGetOrgPublicKey = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_dependabot_public_key>
+  | Res<200, t_dependabot_public_key>
   | typeof SkipResponse
 >
 
@@ -7563,7 +7511,7 @@ export type DependabotGetOrgSecret = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_organization_dependabot_secret>
+  | Res<200, t_organization_dependabot_secret>
   | typeof SkipResponse
 >
 
@@ -7584,8 +7532,8 @@ export type DependabotCreateOrUpdateOrgSecret = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_empty_object>
-  | Response<204, void>
+  | Res<201, t_empty_object>
+  | Res<204, void>
   | typeof SkipResponse
 >
 
@@ -7598,9 +7546,7 @@ export type DependabotDeleteOrgSecret = (
   respond: DependabotDeleteOrgSecretResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<204, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type DependabotListSelectedReposForOrgSecretResponder = {
   with200(): KoaRuntimeResponse<{
@@ -7621,7 +7567,7 @@ export type DependabotListSelectedReposForOrgSecret = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         repositories: t_minimal_repository[]
@@ -7645,9 +7591,7 @@ export type DependabotSetSelectedReposForOrgSecret = (
   respond: DependabotSetSelectedReposForOrgSecretResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<204, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type DependabotAddSelectedRepoToOrgSecretResponder = {
   with204(): KoaRuntimeResponse<void>
@@ -7666,8 +7610,8 @@ export type DependabotAddSelectedRepoToOrgSecret = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<409, void>
+  | Res<204, void>
+  | Res<409, void>
   | typeof SkipResponse
 >
 
@@ -7688,8 +7632,8 @@ export type DependabotRemoveSelectedRepoFromOrgSecret = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<409, void>
+  | Res<204, void>
+  | Res<409, void>
   | typeof SkipResponse
 >
 
@@ -7712,9 +7656,9 @@ export type PackagesListDockerMigrationConflictingPackagesForOrganization = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_package[]>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
+  | Res<200, t_package[]>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -7733,7 +7677,7 @@ export type ActivityListPublicOrgEvents = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  KoaRuntimeResponse<unknown> | Response<200, t_event[]> | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<200, t_event[]> | typeof SkipResponse
 >
 
 export type OrgsListFailedInvitationsResponder = {
@@ -7753,8 +7697,8 @@ export type OrgsListFailedInvitations = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_organization_invitation[]>
-  | Response<404, t_basic_error>
+  | Res<200, t_organization_invitation[]>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -7775,8 +7719,8 @@ export type OrgsListWebhooks = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_org_hook[]>
-  | Response<404, t_basic_error>
+  | Res<200, t_org_hook[]>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -7798,9 +7742,9 @@ export type OrgsCreateWebhook = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_org_hook>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<201, t_org_hook>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -7816,8 +7760,8 @@ export type OrgsGetWebhook = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_org_hook>
-  | Response<404, t_basic_error>
+  | Res<200, t_org_hook>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -7839,9 +7783,9 @@ export type OrgsUpdateWebhook = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_org_hook>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<200, t_org_hook>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -7857,8 +7801,8 @@ export type OrgsDeleteWebhook = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<404, t_basic_error>
+  | Res<204, void>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -7872,9 +7816,7 @@ export type OrgsGetWebhookConfigForOrg = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Response<200, t_webhook_config>
-  | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<200, t_webhook_config> | typeof SkipResponse
 >
 
 export type OrgsUpdateWebhookConfigForOrgResponder = {
@@ -7892,9 +7834,7 @@ export type OrgsUpdateWebhookConfigForOrg = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Response<200, t_webhook_config>
-  | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<200, t_webhook_config> | typeof SkipResponse
 >
 
 export type OrgsListWebhookDeliveriesResponder = {
@@ -7915,9 +7855,9 @@ export type OrgsListWebhookDeliveries = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_hook_delivery_item[]>
-  | Response<400, t_scim_error>
-  | Response<422, t_validation_error>
+  | Res<200, t_hook_delivery_item[]>
+  | Res<400, t_scim_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -7934,9 +7874,9 @@ export type OrgsGetWebhookDelivery = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_hook_delivery>
-  | Response<400, t_scim_error>
-  | Response<422, t_validation_error>
+  | Res<200, t_hook_delivery>
+  | Res<400, t_scim_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -7955,14 +7895,14 @@ export type OrgsRedeliverWebhookDelivery = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       202,
       {
         [key: string]: unknown | undefined
       }
     >
-  | Response<400, t_scim_error>
-  | Response<422, t_validation_error>
+  | Res<400, t_scim_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -7978,8 +7918,8 @@ export type OrgsPingWebhook = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<404, t_basic_error>
+  | Res<204, void>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -7999,7 +7939,7 @@ export type ApiInsightsGetRouteStatsByActor = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_api_insights_route_stats>
+  | Res<200, t_api_insights_route_stats>
   | typeof SkipResponse
 >
 
@@ -8019,7 +7959,7 @@ export type ApiInsightsGetSubjectStats = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_api_insights_subject_stats>
+  | Res<200, t_api_insights_subject_stats>
   | typeof SkipResponse
 >
 
@@ -8039,7 +7979,7 @@ export type ApiInsightsGetSummaryStats = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_api_insights_summary_stats>
+  | Res<200, t_api_insights_summary_stats>
   | typeof SkipResponse
 >
 
@@ -8059,7 +7999,7 @@ export type ApiInsightsGetSummaryStatsByUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_api_insights_summary_stats>
+  | Res<200, t_api_insights_summary_stats>
   | typeof SkipResponse
 >
 
@@ -8079,7 +8019,7 @@ export type ApiInsightsGetSummaryStatsByActor = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_api_insights_summary_stats>
+  | Res<200, t_api_insights_summary_stats>
   | typeof SkipResponse
 >
 
@@ -8099,7 +8039,7 @@ export type ApiInsightsGetTimeStats = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_api_insights_time_stats>
+  | Res<200, t_api_insights_time_stats>
   | typeof SkipResponse
 >
 
@@ -8119,7 +8059,7 @@ export type ApiInsightsGetTimeStatsByUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_api_insights_time_stats>
+  | Res<200, t_api_insights_time_stats>
   | typeof SkipResponse
 >
 
@@ -8139,7 +8079,7 @@ export type ApiInsightsGetTimeStatsByActor = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_api_insights_time_stats>
+  | Res<200, t_api_insights_time_stats>
   | typeof SkipResponse
 >
 
@@ -8159,7 +8099,7 @@ export type ApiInsightsGetUserStats = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_api_insights_user_stats>
+  | Res<200, t_api_insights_user_stats>
   | typeof SkipResponse
 >
 
@@ -8173,9 +8113,7 @@ export type AppsGetOrgInstallation = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Response<200, t_installation>
-  | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<200, t_installation> | typeof SkipResponse
 >
 
 export type OrgsListAppInstallationsResponder = {
@@ -8197,7 +8135,7 @@ export type OrgsListAppInstallations = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         installations: t_installation[]
@@ -8223,7 +8161,7 @@ export type InteractionsGetRestrictionsForOrg = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_interaction_limit_response | EmptyObject>
+  | Res<200, t_interaction_limit_response | EmptyObject>
   | typeof SkipResponse
 >
 
@@ -8244,8 +8182,8 @@ export type InteractionsSetRestrictionsForOrg = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_interaction_limit_response>
-  | Response<422, t_validation_error>
+  | Res<200, t_interaction_limit_response>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -8263,9 +8201,7 @@ export type InteractionsRemoveRestrictionsForOrg = (
   respond: InteractionsRemoveRestrictionsForOrgResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<204, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type OrgsListPendingInvitationsResponder = {
   with200(): KoaRuntimeResponse<t_organization_invitation[]>
@@ -8284,8 +8220,8 @@ export type OrgsListPendingInvitations = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_organization_invitation[]>
-  | Response<404, t_basic_error>
+  | Res<200, t_organization_invitation[]>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -8307,9 +8243,9 @@ export type OrgsCreateInvitation = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_organization_invitation>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<201, t_organization_invitation>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -8326,9 +8262,9 @@ export type OrgsCancelInvitation = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<204, void>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -8349,8 +8285,8 @@ export type OrgsListInvitationTeams = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_team[]>
-  | Response<404, t_basic_error>
+  | Res<200, t_team[]>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -8366,8 +8302,8 @@ export type OrgsListIssueTypes = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_issue_type[]>
-  | Response<404, t_basic_error>
+  | Res<200, t_issue_type[]>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -8389,9 +8325,9 @@ export type OrgsCreateIssueType = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_issue_type>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error_simple>
+  | Res<200, t_issue_type>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error_simple>
   | typeof SkipResponse
 >
 
@@ -8413,9 +8349,9 @@ export type OrgsUpdateIssueType = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_issue_type>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error_simple>
+  | Res<200, t_issue_type>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error_simple>
   | typeof SkipResponse
 >
 
@@ -8432,9 +8368,9 @@ export type OrgsDeleteIssueType = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error_simple>
+  | Res<204, void>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error_simple>
   | typeof SkipResponse
 >
 
@@ -8455,8 +8391,8 @@ export type IssuesListForOrg = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_issue[]>
-  | Response<404, t_basic_error>
+  | Res<200, t_issue[]>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -8477,8 +8413,8 @@ export type OrgsListMembers = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_simple_user[]>
-  | Response<422, t_validation_error>
+  | Res<200, t_simple_user[]>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -8495,9 +8431,9 @@ export type OrgsCheckMembershipForUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<302, void>
-  | Response<404, void>
+  | Res<204, void>
+  | Res<302, void>
+  | Res<404, void>
   | typeof SkipResponse
 >
 
@@ -8513,8 +8449,8 @@ export type OrgsRemoveMember = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<403, t_basic_error>
+  | Res<204, void>
+  | Res<403, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -8542,18 +8478,18 @@ export type CodespacesGetCodespacesForUserInOrg = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         codespaces: t_codespace[]
         total_count: number
       }
     >
-  | Response<304, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<500, t_basic_error>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<500, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -8580,17 +8516,17 @@ export type CodespacesDeleteFromOrganization = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       202,
       {
         [key: string]: unknown | undefined
       }
     >
-  | Response<304, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<500, t_basic_error>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<500, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -8610,12 +8546,12 @@ export type CodespacesStopInOrganization = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_codespace>
-  | Response<304, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<500, t_basic_error>
+  | Res<200, t_codespace>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<500, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -8640,12 +8576,12 @@ export type CopilotGetCopilotSeatDetailsForUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_copilot_seat_details>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<422, void>
-  | Response<500, t_basic_error>
+  | Res<200, t_copilot_seat_details>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, void>
+  | Res<500, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -8662,9 +8598,9 @@ export type OrgsGetMembershipForUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_org_membership>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<200, t_org_membership>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -8686,9 +8622,9 @@ export type OrgsSetMembershipForUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_org_membership>
-  | Response<403, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<200, t_org_membership>
+  | Res<403, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -8705,9 +8641,9 @@ export type OrgsRemoveMembershipForUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<204, void>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -8726,9 +8662,7 @@ export type MigrationsListForOrg = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Response<200, t_migration[]>
-  | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<200, t_migration[]> | typeof SkipResponse
 >
 
 export type MigrationsStartForOrgResponder = {
@@ -8749,9 +8683,9 @@ export type MigrationsStartForOrg = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_migration>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<201, t_migration>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -8772,8 +8706,8 @@ export type MigrationsGetStatusForOrg = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_migration>
-  | Response<404, t_basic_error>
+  | Res<200, t_migration>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -8794,8 +8728,8 @@ export type MigrationsDownloadArchiveForOrg = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<302, void>
-  | Response<404, t_basic_error>
+  | Res<302, void>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -8811,8 +8745,8 @@ export type MigrationsDeleteArchiveForOrg = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<404, t_basic_error>
+  | Res<204, void>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -8828,8 +8762,8 @@ export type MigrationsUnlockRepoForOrg = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<404, t_basic_error>
+  | Res<204, void>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -8850,8 +8784,8 @@ export type MigrationsListReposForOrg = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_minimal_repository[]>
-  | Response<404, t_basic_error>
+  | Res<200, t_minimal_repository[]>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -8871,15 +8805,15 @@ export type OrgsListOrgRoles = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         roles?: t_organization_role[]
         total_count?: number
       }
     >
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -8892,9 +8826,7 @@ export type OrgsRevokeAllOrgRolesTeam = (
   respond: OrgsRevokeAllOrgRolesTeamResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<204, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type OrgsAssignTeamToOrgRoleResponder = {
   with204(): KoaRuntimeResponse<void>
@@ -8909,9 +8841,9 @@ export type OrgsAssignTeamToOrgRole = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<404, void>
-  | Response<422, void>
+  | Res<204, void>
+  | Res<404, void>
+  | Res<422, void>
   | typeof SkipResponse
 >
 
@@ -8924,9 +8856,7 @@ export type OrgsRevokeOrgRoleTeam = (
   respond: OrgsRevokeOrgRoleTeamResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<204, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type OrgsRevokeAllOrgRolesUserResponder = {
   with204(): KoaRuntimeResponse<void>
@@ -8937,9 +8867,7 @@ export type OrgsRevokeAllOrgRolesUser = (
   respond: OrgsRevokeAllOrgRolesUserResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<204, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type OrgsAssignUserToOrgRoleResponder = {
   with204(): KoaRuntimeResponse<void>
@@ -8954,9 +8882,9 @@ export type OrgsAssignUserToOrgRole = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<404, void>
-  | Response<422, void>
+  | Res<204, void>
+  | Res<404, void>
+  | Res<422, void>
   | typeof SkipResponse
 >
 
@@ -8969,9 +8897,7 @@ export type OrgsRevokeOrgRoleUser = (
   respond: OrgsRevokeOrgRoleUserResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<204, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type OrgsGetOrgRoleResponder = {
   with200(): KoaRuntimeResponse<t_organization_role>
@@ -8986,9 +8912,9 @@ export type OrgsGetOrgRole = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_organization_role>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<200, t_organization_role>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -9010,9 +8936,9 @@ export type OrgsListOrgRoleTeams = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_team_role_assignment[]>
-  | Response<404, void>
-  | Response<422, void>
+  | Res<200, t_team_role_assignment[]>
+  | Res<404, void>
+  | Res<422, void>
   | typeof SkipResponse
 >
 
@@ -9034,9 +8960,9 @@ export type OrgsListOrgRoleUsers = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_user_role_assignment[]>
-  | Response<404, void>
-  | Response<422, void>
+  | Res<200, t_user_role_assignment[]>
+  | Res<404, void>
+  | Res<422, void>
   | typeof SkipResponse
 >
 
@@ -9055,9 +8981,7 @@ export type OrgsListOutsideCollaborators = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Response<200, t_simple_user[]>
-  | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<200, t_simple_user[]> | typeof SkipResponse
 >
 
 export type OrgsConvertMemberToOutsideCollaboratorResponder = {
@@ -9079,10 +9003,10 @@ export type OrgsConvertMemberToOutsideCollaborator = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<202, EmptyObject>
-  | Response<204, void>
-  | Response<403, void>
-  | Response<404, t_basic_error>
+  | Res<202, EmptyObject>
+  | Res<204, void>
+  | Res<403, void>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -9101,8 +9025,8 @@ export type OrgsRemoveOutsideCollaborator = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<
+  | Res<204, void>
+  | Res<
       422,
       {
         documentation_url?: string
@@ -9131,10 +9055,10 @@ export type PackagesListPackagesForOrganization = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_package[]>
-  | Response<400, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
+  | Res<200, t_package[]>
+  | Res<400, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -9153,7 +9077,7 @@ export type PackagesGetPackageForOrganization = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  KoaRuntimeResponse<unknown> | Response<200, t_package> | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<200, t_package> | typeof SkipResponse
 >
 
 export type PackagesDeletePackageForOrgResponder = {
@@ -9170,10 +9094,10 @@ export type PackagesDeletePackageForOrg = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<204, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -9196,10 +9120,10 @@ export type PackagesRestorePackageForOrg = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<204, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -9222,10 +9146,10 @@ export type PackagesGetAllPackageVersionsForPackageOwnedByOrg = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_package_version[]>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<200, t_package_version[]>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -9245,7 +9169,7 @@ export type PackagesGetPackageVersionForOrganization = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_package_version>
+  | Res<200, t_package_version>
   | typeof SkipResponse
 >
 
@@ -9268,10 +9192,10 @@ export type PackagesDeletePackageVersionForOrg = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<204, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -9294,10 +9218,10 @@ export type PackagesRestorePackageVersionForOrg = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<204, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -9323,11 +9247,11 @@ export type OrgsListPatGrantRequests = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_organization_programmatic_access_grant_request[]>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error>
-  | Response<500, t_basic_error>
+  | Res<200, t_organization_programmatic_access_grant_request[]>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
+  | Res<500, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -9353,16 +9277,16 @@ export type OrgsReviewPatGrantRequestsInBulk = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       202,
       {
         [key: string]: unknown | undefined
       }
     >
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error>
-  | Response<500, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
+  | Res<500, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -9386,11 +9310,11 @@ export type OrgsReviewPatGrantRequest = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error>
-  | Response<500, t_basic_error>
+  | Res<204, void>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
+  | Res<500, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -9413,10 +9337,10 @@ export type OrgsListPatGrantRequestRepositories = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_minimal_repository[]>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<500, t_basic_error>
+  | Res<200, t_minimal_repository[]>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<500, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -9440,11 +9364,11 @@ export type OrgsListPatGrants = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_organization_programmatic_access_grant[]>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error>
-  | Response<500, t_basic_error>
+  | Res<200, t_organization_programmatic_access_grant[]>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
+  | Res<500, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -9470,16 +9394,16 @@ export type OrgsUpdatePatAccesses = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       202,
       {
         [key: string]: unknown | undefined
       }
     >
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error>
-  | Response<500, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
+  | Res<500, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -9503,11 +9427,11 @@ export type OrgsUpdatePatAccess = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error>
-  | Response<500, t_basic_error>
+  | Res<204, void>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
+  | Res<500, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -9530,10 +9454,10 @@ export type OrgsListPatGrantRepositories = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_minimal_repository[]>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<500, t_basic_error>
+  | Res<200, t_minimal_repository[]>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<500, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -9558,15 +9482,15 @@ export type PrivateRegistriesListOrgPrivateRegistries = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         configurations: t_org_private_registry_configuration[]
         total_count: number
       }
     >
-  | Response<400, t_scim_error>
-  | Response<404, t_basic_error>
+  | Res<400, t_scim_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -9588,12 +9512,9 @@ export type PrivateRegistriesCreateOrgPrivateRegistry = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
-      201,
-      t_org_private_registry_configuration_with_selected_repositories
-    >
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<201, t_org_private_registry_configuration_with_selected_repositories>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -9617,14 +9538,14 @@ export type PrivateRegistriesGetOrgPublicKey = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         key: string
         key_id: string
       }
     >
-  | Response<404, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -9645,8 +9566,8 @@ export type PrivateRegistriesGetOrgPrivateRegistry = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_org_private_registry_configuration>
-  | Response<404, t_basic_error>
+  | Res<200, t_org_private_registry_configuration>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -9668,9 +9589,9 @@ export type PrivateRegistriesUpdateOrgPrivateRegistry = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<204, void>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -9692,9 +9613,9 @@ export type PrivateRegistriesDeleteOrgPrivateRegistry = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<400, t_scim_error>
-  | Response<404, t_basic_error>
+  | Res<204, void>
+  | Res<400, t_scim_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -9715,8 +9636,8 @@ export type ProjectsClassicListForOrg = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_project[]>
-  | Response<422, t_validation_error_simple>
+  | Res<200, t_project[]>
+  | Res<422, t_validation_error_simple>
   | typeof SkipResponse
 >
 
@@ -9741,12 +9662,12 @@ export type ProjectsClassicCreateForOrg = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_project>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<410, t_basic_error>
-  | Response<422, t_validation_error_simple>
+  | Res<201, t_project>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<410, t_basic_error>
+  | Res<422, t_validation_error_simple>
   | typeof SkipResponse
 >
 
@@ -9763,9 +9684,9 @@ export type OrgsGetAllCustomProperties = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_custom_property[]>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<200, t_custom_property[]>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -9787,9 +9708,9 @@ export type OrgsCreateOrUpdateCustomProperties = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_custom_property[]>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<200, t_custom_property[]>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -9806,9 +9727,9 @@ export type OrgsGetCustomProperty = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_custom_property>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<200, t_custom_property>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -9830,9 +9751,9 @@ export type OrgsCreateOrUpdateCustomProperty = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_custom_property>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<200, t_custom_property>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -9849,9 +9770,9 @@ export type OrgsRemoveCustomProperty = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<204, void>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -9873,9 +9794,9 @@ export type OrgsListCustomPropertiesValuesForRepos = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_org_repo_custom_property_values[]>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<200, t_org_repo_custom_property_values[]>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -9898,10 +9819,10 @@ export type OrgsCreateOrUpdateCustomPropertiesValuesForRepos = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<204, void>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -9920,9 +9841,7 @@ export type OrgsListPublicMembers = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Response<200, t_simple_user[]>
-  | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<200, t_simple_user[]> | typeof SkipResponse
 >
 
 export type OrgsCheckPublicMembershipForUserResponder = {
@@ -9942,8 +9861,8 @@ export type OrgsCheckPublicMembershipForUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<404, void>
+  | Res<204, void>
+  | Res<404, void>
   | typeof SkipResponse
 >
 
@@ -9964,8 +9883,8 @@ export type OrgsSetPublicMembershipForAuthenticatedUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<403, t_basic_error>
+  | Res<204, void>
+  | Res<403, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -9983,9 +9902,7 @@ export type OrgsRemovePublicMembershipForAuthenticatedUser = (
   respond: OrgsRemovePublicMembershipForAuthenticatedUserResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<204, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type ReposListForOrgResponder = {
   with200(): KoaRuntimeResponse<t_minimal_repository[]>
@@ -10003,7 +9920,7 @@ export type ReposListForOrg = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_minimal_repository[]>
+  | Res<200, t_minimal_repository[]>
   | typeof SkipResponse
 >
 
@@ -10025,9 +9942,9 @@ export type ReposCreateInOrg = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_full_repository>
-  | Response<403, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<201, t_full_repository>
+  | Res<403, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -10049,9 +9966,9 @@ export type ReposGetOrgRulesets = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_repository_ruleset[]>
-  | Response<404, t_basic_error>
-  | Response<500, t_basic_error>
+  | Res<200, t_repository_ruleset[]>
+  | Res<404, t_basic_error>
+  | Res<500, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -10073,9 +9990,9 @@ export type ReposCreateOrgRuleset = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_repository_ruleset>
-  | Response<404, t_basic_error>
-  | Response<500, t_basic_error>
+  | Res<201, t_repository_ruleset>
+  | Res<404, t_basic_error>
+  | Res<500, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -10097,9 +10014,9 @@ export type ReposGetOrgRuleSuites = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_rule_suites>
-  | Response<404, t_basic_error>
-  | Response<500, t_basic_error>
+  | Res<200, t_rule_suites>
+  | Res<404, t_basic_error>
+  | Res<500, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -10116,9 +10033,9 @@ export type ReposGetOrgRuleSuite = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_rule_suite>
-  | Response<404, t_basic_error>
-  | Response<500, t_basic_error>
+  | Res<200, t_rule_suite>
+  | Res<404, t_basic_error>
+  | Res<500, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -10135,9 +10052,9 @@ export type ReposGetOrgRuleset = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_repository_ruleset>
-  | Response<404, t_basic_error>
-  | Response<500, t_basic_error>
+  | Res<200, t_repository_ruleset>
+  | Res<404, t_basic_error>
+  | Res<500, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -10159,9 +10076,9 @@ export type ReposUpdateOrgRuleset = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_repository_ruleset>
-  | Response<404, t_basic_error>
-  | Response<500, t_basic_error>
+  | Res<200, t_repository_ruleset>
+  | Res<404, t_basic_error>
+  | Res<500, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -10178,9 +10095,9 @@ export type ReposDeleteOrgRuleset = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<404, t_basic_error>
-  | Response<500, t_basic_error>
+  | Res<204, void>
+  | Res<404, t_basic_error>
+  | Res<500, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -10202,9 +10119,9 @@ export type OrgsGetOrgRulesetHistory = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_ruleset_version[]>
-  | Response<404, t_basic_error>
-  | Response<500, t_basic_error>
+  | Res<200, t_ruleset_version[]>
+  | Res<404, t_basic_error>
+  | Res<500, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -10221,9 +10138,9 @@ export type OrgsGetOrgRulesetVersion = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_ruleset_version_with_state>
-  | Response<404, t_basic_error>
-  | Response<500, t_basic_error>
+  | Res<200, t_ruleset_version_with_state>
+  | Res<404, t_basic_error>
+  | Res<500, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -10249,9 +10166,9 @@ export type SecretScanningListAlertsForOrg = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_organization_secret_scanning_alert[]>
-  | Response<404, t_basic_error>
-  | Response<
+  | Res<200, t_organization_secret_scanning_alert[]>
+  | Res<404, t_basic_error>
+  | Res<
       503,
       {
         code?: string
@@ -10280,9 +10197,9 @@ export type SecurityAdvisoriesListOrgRepositoryAdvisories = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_repository_advisory[]>
-  | Response<400, t_scim_error>
-  | Response<404, t_basic_error>
+  | Res<200, t_repository_advisory[]>
+  | Res<400, t_scim_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -10296,9 +10213,7 @@ export type OrgsListSecurityManagerTeams = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Response<200, t_team_simple[]>
-  | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<200, t_team_simple[]> | typeof SkipResponse
 >
 
 export type OrgsAddSecurityManagerTeamResponder = {
@@ -10310,9 +10225,7 @@ export type OrgsAddSecurityManagerTeam = (
   respond: OrgsAddSecurityManagerTeamResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<204, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type OrgsRemoveSecurityManagerTeamResponder = {
   with204(): KoaRuntimeResponse<void>
@@ -10323,9 +10236,7 @@ export type OrgsRemoveSecurityManagerTeam = (
   respond: OrgsRemoveSecurityManagerTeamResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<204, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type BillingGetGithubActionsBillingOrgResponder = {
   with200(): KoaRuntimeResponse<t_actions_billing_usage>
@@ -10343,7 +10254,7 @@ export type BillingGetGithubActionsBillingOrg = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_actions_billing_usage>
+  | Res<200, t_actions_billing_usage>
   | typeof SkipResponse
 >
 
@@ -10363,7 +10274,7 @@ export type BillingGetGithubPackagesBillingOrg = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_packages_billing_usage>
+  | Res<200, t_packages_billing_usage>
   | typeof SkipResponse
 >
 
@@ -10383,7 +10294,7 @@ export type BillingGetSharedStorageBillingOrg = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_combined_billing_usage>
+  | Res<200, t_combined_billing_usage>
   | typeof SkipResponse
 >
 
@@ -10406,7 +10317,7 @@ export type HostedComputeListNetworkConfigurationsForOrg = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         network_configurations: t_network_configuration[]
@@ -10432,7 +10343,7 @@ export type HostedComputeCreateNetworkConfigurationForOrg = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_network_configuration>
+  | Res<201, t_network_configuration>
   | typeof SkipResponse
 >
 
@@ -10452,7 +10363,7 @@ export type HostedComputeGetNetworkConfigurationForOrg = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_network_configuration>
+  | Res<200, t_network_configuration>
   | typeof SkipResponse
 >
 
@@ -10472,7 +10383,7 @@ export type HostedComputeUpdateNetworkConfigurationForOrg = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_network_configuration>
+  | Res<200, t_network_configuration>
   | typeof SkipResponse
 >
 
@@ -10490,9 +10401,7 @@ export type HostedComputeDeleteNetworkConfigurationFromOrg = (
   respond: HostedComputeDeleteNetworkConfigurationFromOrgResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<204, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type HostedComputeGetNetworkSettingsForOrgResponder = {
   with200(): KoaRuntimeResponse<t_network_settings>
@@ -10510,7 +10419,7 @@ export type HostedComputeGetNetworkSettingsForOrg = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_network_settings>
+  | Res<200, t_network_settings>
   | typeof SkipResponse
 >
 
@@ -10534,11 +10443,11 @@ export type CopilotCopilotMetricsForTeam = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_copilot_usage_metrics_day[]>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<422, t_basic_error>
-  | Response<500, t_basic_error>
+  | Res<200, t_copilot_usage_metrics_day[]>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, t_basic_error>
+  | Res<500, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -10554,8 +10463,8 @@ export type TeamsList = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_team[]>
-  | Response<403, t_basic_error>
+  | Res<200, t_team[]>
+  | Res<403, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -10577,9 +10486,9 @@ export type TeamsCreate = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_team_full>
-  | Response<403, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<201, t_team_full>
+  | Res<403, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -10595,8 +10504,8 @@ export type TeamsGetByName = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_team_full>
-  | Response<404, t_basic_error>
+  | Res<200, t_team_full>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -10620,11 +10529,11 @@ export type TeamsUpdateInOrg = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_team_full>
-  | Response<201, t_team_full>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<200, t_team_full>
+  | Res<201, t_team_full>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -10637,9 +10546,7 @@ export type TeamsDeleteInOrg = (
   respond: TeamsDeleteInOrgResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<204, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type TeamsListDiscussionsInOrgResponder = {
   with200(): KoaRuntimeResponse<t_team_discussion[]>
@@ -10657,7 +10564,7 @@ export type TeamsListDiscussionsInOrg = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_team_discussion[]>
+  | Res<200, t_team_discussion[]>
   | typeof SkipResponse
 >
 
@@ -10677,7 +10584,7 @@ export type TeamsCreateDiscussionInOrg = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_team_discussion>
+  | Res<201, t_team_discussion>
   | typeof SkipResponse
 >
 
@@ -10692,7 +10599,7 @@ export type TeamsGetDiscussionInOrg = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_team_discussion>
+  | Res<200, t_team_discussion>
   | typeof SkipResponse
 >
 
@@ -10712,7 +10619,7 @@ export type TeamsUpdateDiscussionInOrg = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_team_discussion>
+  | Res<200, t_team_discussion>
   | typeof SkipResponse
 >
 
@@ -10725,9 +10632,7 @@ export type TeamsDeleteDiscussionInOrg = (
   respond: TeamsDeleteDiscussionInOrgResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<204, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type TeamsListDiscussionCommentsInOrgResponder = {
   with200(): KoaRuntimeResponse<t_team_discussion_comment[]>
@@ -10745,7 +10650,7 @@ export type TeamsListDiscussionCommentsInOrg = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_team_discussion_comment[]>
+  | Res<200, t_team_discussion_comment[]>
   | typeof SkipResponse
 >
 
@@ -10765,7 +10670,7 @@ export type TeamsCreateDiscussionCommentInOrg = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_team_discussion_comment>
+  | Res<201, t_team_discussion_comment>
   | typeof SkipResponse
 >
 
@@ -10780,7 +10685,7 @@ export type TeamsGetDiscussionCommentInOrg = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_team_discussion_comment>
+  | Res<200, t_team_discussion_comment>
   | typeof SkipResponse
 >
 
@@ -10800,7 +10705,7 @@ export type TeamsUpdateDiscussionCommentInOrg = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_team_discussion_comment>
+  | Res<200, t_team_discussion_comment>
   | typeof SkipResponse
 >
 
@@ -10818,9 +10723,7 @@ export type TeamsDeleteDiscussionCommentInOrg = (
   respond: TeamsDeleteDiscussionCommentInOrgResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<204, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type ReactionsListForTeamDiscussionCommentInOrgResponder = {
   with200(): KoaRuntimeResponse<t_reaction[]>
@@ -10837,9 +10740,7 @@ export type ReactionsListForTeamDiscussionCommentInOrg = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Response<200, t_reaction[]>
-  | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<200, t_reaction[]> | typeof SkipResponse
 >
 
 export type ReactionsCreateForTeamDiscussionCommentInOrgResponder = {
@@ -10859,8 +10760,8 @@ export type ReactionsCreateForTeamDiscussionCommentInOrg = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_reaction>
-  | Response<201, t_reaction>
+  | Res<200, t_reaction>
+  | Res<201, t_reaction>
   | typeof SkipResponse
 >
 
@@ -10878,9 +10779,7 @@ export type ReactionsDeleteForTeamDiscussionComment = (
   respond: ReactionsDeleteForTeamDiscussionCommentResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<204, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type ReactionsListForTeamDiscussionInOrgResponder = {
   with200(): KoaRuntimeResponse<t_reaction[]>
@@ -10897,9 +10796,7 @@ export type ReactionsListForTeamDiscussionInOrg = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Response<200, t_reaction[]>
-  | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<200, t_reaction[]> | typeof SkipResponse
 >
 
 export type ReactionsCreateForTeamDiscussionInOrgResponder = {
@@ -10919,8 +10816,8 @@ export type ReactionsCreateForTeamDiscussionInOrg = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_reaction>
-  | Response<201, t_reaction>
+  | Res<200, t_reaction>
+  | Res<201, t_reaction>
   | typeof SkipResponse
 >
 
@@ -10938,9 +10835,7 @@ export type ReactionsDeleteForTeamDiscussion = (
   respond: ReactionsDeleteForTeamDiscussionResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<204, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type TeamsListPendingInvitationsInOrgResponder = {
   with200(): KoaRuntimeResponse<t_organization_invitation[]>
@@ -10958,7 +10853,7 @@ export type TeamsListPendingInvitationsInOrg = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_organization_invitation[]>
+  | Res<200, t_organization_invitation[]>
   | typeof SkipResponse
 >
 
@@ -10977,9 +10872,7 @@ export type TeamsListMembersInOrg = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Response<200, t_simple_user[]>
-  | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<200, t_simple_user[]> | typeof SkipResponse
 >
 
 export type TeamsGetMembershipForUserInOrgResponder = {
@@ -10994,8 +10887,8 @@ export type TeamsGetMembershipForUserInOrg = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_team_membership>
-  | Response<404, void>
+  | Res<200, t_team_membership>
+  | Res<404, void>
   | typeof SkipResponse
 >
 
@@ -11017,9 +10910,9 @@ export type TeamsAddOrUpdateMembershipForUserInOrg = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_team_membership>
-  | Response<403, void>
-  | Response<422, void>
+  | Res<200, t_team_membership>
+  | Res<403, void>
+  | Res<422, void>
   | typeof SkipResponse
 >
 
@@ -11040,8 +10933,8 @@ export type TeamsRemoveMembershipForUserInOrg = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<403, void>
+  | Res<204, void>
+  | Res<403, void>
   | typeof SkipResponse
 >
 
@@ -11060,9 +10953,7 @@ export type TeamsListProjectsInOrg = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Response<200, t_team_project[]>
-  | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<200, t_team_project[]> | typeof SkipResponse
 >
 
 export type TeamsCheckPermissionsForProjectInOrgResponder = {
@@ -11082,8 +10973,8 @@ export type TeamsCheckPermissionsForProjectInOrg = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_team_project>
-  | Response<404, void>
+  | Res<200, t_team_project>
+  | Res<404, void>
   | typeof SkipResponse
 >
 
@@ -11107,8 +10998,8 @@ export type TeamsAddOrUpdateProjectPermissionsInOrg = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<
+  | Res<204, void>
+  | Res<
       403,
       {
         documentation_url?: string
@@ -11127,9 +11018,7 @@ export type TeamsRemoveProjectInOrg = (
   respond: TeamsRemoveProjectInOrgResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<204, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type TeamsListReposInOrgResponder = {
   with200(): KoaRuntimeResponse<t_minimal_repository[]>
@@ -11147,7 +11036,7 @@ export type TeamsListReposInOrg = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_minimal_repository[]>
+  | Res<200, t_minimal_repository[]>
   | typeof SkipResponse
 >
 
@@ -11169,9 +11058,9 @@ export type TeamsCheckPermissionsForRepoInOrg = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_team_repository>
-  | Response<204, void>
-  | Response<404, void>
+  | Res<200, t_team_repository>
+  | Res<204, void>
+  | Res<404, void>
   | typeof SkipResponse
 >
 
@@ -11189,9 +11078,7 @@ export type TeamsAddOrUpdateRepoPermissionsInOrg = (
   respond: TeamsAddOrUpdateRepoPermissionsInOrgResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<204, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type TeamsRemoveRepoInOrgResponder = {
   with204(): KoaRuntimeResponse<void>
@@ -11202,9 +11089,7 @@ export type TeamsRemoveRepoInOrg = (
   respond: TeamsRemoveRepoInOrgResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<204, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type TeamsListChildInOrgResponder = {
   with200(): KoaRuntimeResponse<t_team[]>
@@ -11221,7 +11106,7 @@ export type TeamsListChildInOrg = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  KoaRuntimeResponse<unknown> | Response<200, t_team[]> | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<200, t_team[]> | typeof SkipResponse
 >
 
 export type OrgsEnableOrDisableSecurityProductOnAllOrgReposResponder = {
@@ -11241,8 +11126,8 @@ export type OrgsEnableOrDisableSecurityProductOnAllOrgRepos = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<422, void>
+  | Res<204, void>
+  | Res<422, void>
   | typeof SkipResponse
 >
 
@@ -11261,11 +11146,11 @@ export type ProjectsClassicGetCard = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_project_card>
-  | Response<304, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<200, t_project_card>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -11290,12 +11175,12 @@ export type ProjectsClassicUpdateCard = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_project_card>
-  | Response<304, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error_simple>
+  | Res<200, t_project_card>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error_simple>
   | typeof SkipResponse
 >
 
@@ -11318,10 +11203,10 @@ export type ProjectsClassicDeleteCard = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<304, void>
-  | Response<401, t_basic_error>
-  | Response<
+  | Res<204, void>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<
       403,
       {
         documentation_url?: string
@@ -11329,7 +11214,7 @@ export type ProjectsClassicDeleteCard = (
         message?: string
       }
     >
-  | Response<404, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -11371,10 +11256,10 @@ export type ProjectsClassicMoveCard = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, EmptyObject>
-  | Response<304, void>
-  | Response<401, t_basic_error>
-  | Response<
+  | Res<201, EmptyObject>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<
       403,
       {
         documentation_url?: string
@@ -11387,8 +11272,8 @@ export type ProjectsClassicMoveCard = (
         message?: string
       }
     >
-  | Response<422, t_validation_error>
-  | Response<
+  | Res<422, t_validation_error>
+  | Res<
       503,
       {
         code?: string
@@ -11418,11 +11303,11 @@ export type ProjectsClassicGetColumn = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_project_column>
-  | Response<304, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<200, t_project_column>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -11445,10 +11330,10 @@ export type ProjectsClassicUpdateColumn = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_project_column>
-  | Response<304, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
+  | Res<200, t_project_column>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -11466,10 +11351,10 @@ export type ProjectsClassicDeleteColumn = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<304, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
+  | Res<204, void>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -11492,10 +11377,10 @@ export type ProjectsClassicListCards = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_project_card[]>
-  | Response<304, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
+  | Res<200, t_project_card[]>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -11528,12 +11413,12 @@ export type ProjectsClassicCreateCard = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_project_card>
-  | Response<304, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<422, t_validation_error | t_validation_error_simple>
-  | Response<
+  | Res<201, t_project_card>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<422, t_validation_error | t_validation_error_simple>
+  | Res<
       503,
       {
         code?: string
@@ -11568,11 +11453,11 @@ export type ProjectsClassicMoveColumn = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, EmptyObject>
-  | Response<304, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<422, t_validation_error_simple>
+  | Res<201, EmptyObject>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<422, t_validation_error_simple>
   | typeof SkipResponse
 >
 
@@ -11590,10 +11475,10 @@ export type ProjectsClassicGet = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_project>
-  | Response<304, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
+  | Res<200, t_project>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -11623,10 +11508,10 @@ export type ProjectsClassicUpdate = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_project>
-  | Response<304, void>
-  | Response<401, t_basic_error>
-  | Response<
+  | Res<200, t_project>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<
       403,
       {
         documentation_url?: string
@@ -11634,9 +11519,9 @@ export type ProjectsClassicUpdate = (
         message?: string
       }
     >
-  | Response<404, void>
-  | Response<410, t_basic_error>
-  | Response<422, t_validation_error_simple>
+  | Res<404, void>
+  | Res<410, t_basic_error>
+  | Res<422, t_validation_error_simple>
   | typeof SkipResponse
 >
 
@@ -11660,10 +11545,10 @@ export type ProjectsClassicDelete = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<304, void>
-  | Response<401, t_basic_error>
-  | Response<
+  | Res<204, void>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<
       403,
       {
         documentation_url?: string
@@ -11671,8 +11556,8 @@ export type ProjectsClassicDelete = (
         message?: string
       }
     >
-  | Response<404, t_basic_error>
-  | Response<410, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<410, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -11697,12 +11582,12 @@ export type ProjectsClassicListCollaborators = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_simple_user[]>
-  | Response<304, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<200, t_simple_user[]>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -11727,12 +11612,12 @@ export type ProjectsClassicAddCollaborator = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<304, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<204, void>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -11757,12 +11642,12 @@ export type ProjectsClassicRemoveCollaborator = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<304, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<204, void>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -11787,12 +11672,12 @@ export type ProjectsClassicGetPermissionForUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_project_collaborator_permission>
-  | Response<304, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<200, t_project_collaborator_permission>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -11815,10 +11700,10 @@ export type ProjectsClassicListColumns = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_project_column[]>
-  | Response<304, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
+  | Res<200, t_project_column[]>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -11842,11 +11727,11 @@ export type ProjectsClassicCreateColumn = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_project_column>
-  | Response<304, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<422, t_validation_error_simple>
+  | Res<201, t_project_column>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<422, t_validation_error_simple>
   | typeof SkipResponse
 >
 
@@ -11863,9 +11748,9 @@ export type RateLimitGet = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_rate_limit_overview>
-  | Response<304, void>
-  | Response<404, t_basic_error>
+  | Res<200, t_rate_limit_overview>
+  | Res<304, void>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -11883,10 +11768,10 @@ export type ReposGet = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_full_repository>
-  | Response<301, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<200, t_full_repository>
+  | Res<301, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -11910,11 +11795,11 @@ export type ReposUpdate = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_full_repository>
-  | Response<307, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<200, t_full_repository>
+  | Res<307, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -11936,17 +11821,17 @@ export type ReposDelete = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<307, t_basic_error>
-  | Response<
+  | Res<204, void>
+  | Res<307, t_basic_error>
+  | Res<
       403,
       {
         documentation_url?: string
         message?: string
       }
     >
-  | Response<404, t_basic_error>
-  | Response<409, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<409, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -11969,7 +11854,7 @@ export type ActionsListArtifactsForRepo = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         artifacts: t_artifact[]
@@ -11989,7 +11874,7 @@ export type ActionsGetArtifact = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  KoaRuntimeResponse<unknown> | Response<200, t_artifact> | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<200, t_artifact> | typeof SkipResponse
 >
 
 export type ActionsDeleteArtifactResponder = {
@@ -12001,9 +11886,7 @@ export type ActionsDeleteArtifact = (
   respond: ActionsDeleteArtifactResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<204, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type ActionsDownloadArtifactResponder = {
   with302(): KoaRuntimeResponse<void>
@@ -12017,8 +11900,8 @@ export type ActionsDownloadArtifact = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<302, void>
-  | Response<410, t_basic_error>
+  | Res<302, void>
+  | Res<410, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -12033,7 +11916,7 @@ export type ActionsGetActionsCacheUsage = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_actions_cache_usage_by_repository>
+  | Res<200, t_actions_cache_usage_by_repository>
   | typeof SkipResponse
 >
 
@@ -12053,7 +11936,7 @@ export type ActionsGetActionsCacheList = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_actions_cache_list>
+  | Res<200, t_actions_cache_list>
   | typeof SkipResponse
 >
 
@@ -12073,7 +11956,7 @@ export type ActionsDeleteActionsCacheByKey = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_actions_cache_list>
+  | Res<200, t_actions_cache_list>
   | typeof SkipResponse
 >
 
@@ -12086,9 +11969,7 @@ export type ActionsDeleteActionsCacheById = (
   respond: ActionsDeleteActionsCacheByIdResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<204, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type ActionsGetJobForWorkflowRunResponder = {
   with200(): KoaRuntimeResponse<t_job>
@@ -12100,7 +11981,7 @@ export type ActionsGetJobForWorkflowRun = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  KoaRuntimeResponse<unknown> | Response<200, t_job> | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<200, t_job> | typeof SkipResponse
 >
 
 export type ActionsDownloadJobLogsForWorkflowRunResponder = {
@@ -12117,9 +11998,7 @@ export type ActionsDownloadJobLogsForWorkflowRun = (
   respond: ActionsDownloadJobLogsForWorkflowRunResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<302, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<302, void> | typeof SkipResponse>
 
 export type ActionsReRunJobForWorkflowRunResponder = {
   with201(): KoaRuntimeResponse<t_empty_object>
@@ -12138,8 +12017,8 @@ export type ActionsReRunJobForWorkflowRun = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_empty_object>
-  | Response<403, t_basic_error>
+  | Res<201, t_empty_object>
+  | Res<403, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -12161,9 +12040,9 @@ export type ActionsGetCustomOidcSubClaimForRepo = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_oidc_custom_sub_repo>
-  | Response<400, t_scim_error>
-  | Response<404, t_basic_error>
+  | Res<200, t_oidc_custom_sub_repo>
+  | Res<400, t_scim_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -12186,10 +12065,10 @@ export type ActionsSetCustomOidcSubClaimForRepo = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_empty_object>
-  | Response<400, t_scim_error>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error_simple>
+  | Res<201, t_empty_object>
+  | Res<400, t_scim_error>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error_simple>
   | typeof SkipResponse
 >
 
@@ -12212,7 +12091,7 @@ export type ActionsListRepoOrganizationSecrets = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         secrets: t_actions_secret[]
@@ -12241,7 +12120,7 @@ export type ActionsListRepoOrganizationVariables = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         total_count: number
@@ -12267,7 +12146,7 @@ export type ActionsGetGithubActionsPermissionsRepository = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_actions_repository_permissions>
+  | Res<200, t_actions_repository_permissions>
   | typeof SkipResponse
 >
 
@@ -12285,9 +12164,7 @@ export type ActionsSetGithubActionsPermissionsRepository = (
   respond: ActionsSetGithubActionsPermissionsRepositoryResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<204, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type ActionsGetWorkflowAccessToRepositoryResponder = {
   with200(): KoaRuntimeResponse<t_actions_workflow_access_to_repository>
@@ -12305,7 +12182,7 @@ export type ActionsGetWorkflowAccessToRepository = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_actions_workflow_access_to_repository>
+  | Res<200, t_actions_workflow_access_to_repository>
   | typeof SkipResponse
 >
 
@@ -12323,9 +12200,7 @@ export type ActionsSetWorkflowAccessToRepository = (
   respond: ActionsSetWorkflowAccessToRepositoryResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<204, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type ActionsGetAllowedActionsRepositoryResponder = {
   with200(): KoaRuntimeResponse<t_selected_actions>
@@ -12343,7 +12218,7 @@ export type ActionsGetAllowedActionsRepository = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_selected_actions>
+  | Res<200, t_selected_actions>
   | typeof SkipResponse
 >
 
@@ -12361,9 +12236,7 @@ export type ActionsSetAllowedActionsRepository = (
   respond: ActionsSetAllowedActionsRepositoryResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<204, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type ActionsGetGithubActionsDefaultWorkflowPermissionsRepositoryResponder =
   {
@@ -12382,7 +12255,7 @@ export type ActionsGetGithubActionsDefaultWorkflowPermissionsRepository = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_actions_get_default_workflow_permissions>
+  | Res<200, t_actions_get_default_workflow_permissions>
   | typeof SkipResponse
 >
 
@@ -12404,8 +12277,8 @@ export type ActionsSetGithubActionsDefaultWorkflowPermissionsRepository = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<409, void>
+  | Res<204, void>
+  | Res<409, void>
   | typeof SkipResponse
 >
 
@@ -12428,7 +12301,7 @@ export type ActionsListSelfHostedRunnersForRepo = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         runners: t_runner[]
@@ -12454,7 +12327,7 @@ export type ActionsListRunnerApplicationsForRepo = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_runner_application[]>
+  | Res<200, t_runner_application[]>
   | typeof SkipResponse
 >
 
@@ -12480,16 +12353,16 @@ export type ActionsGenerateRunnerJitconfigForRepo = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       201,
       {
         encoded_jit_config: string
         runner: t_runner
       }
     >
-  | Response<404, t_basic_error>
-  | Response<409, t_basic_error>
-  | Response<422, t_validation_error_simple>
+  | Res<404, t_basic_error>
+  | Res<409, t_basic_error>
+  | Res<422, t_validation_error_simple>
   | typeof SkipResponse
 >
 
@@ -12509,7 +12382,7 @@ export type ActionsCreateRegistrationTokenForRepo = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_authentication_token>
+  | Res<201, t_authentication_token>
   | typeof SkipResponse
 >
 
@@ -12529,7 +12402,7 @@ export type ActionsCreateRemoveTokenForRepo = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_authentication_token>
+  | Res<201, t_authentication_token>
   | typeof SkipResponse
 >
 
@@ -12548,7 +12421,7 @@ export type ActionsGetSelfHostedRunnerForRepo = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  KoaRuntimeResponse<unknown> | Response<200, t_runner> | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<200, t_runner> | typeof SkipResponse
 >
 
 export type ActionsDeleteSelfHostedRunnerFromRepoResponder = {
@@ -12568,8 +12441,8 @@ export type ActionsDeleteSelfHostedRunnerFromRepo = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<422, t_validation_error_simple>
+  | Res<204, void>
+  | Res<422, t_validation_error_simple>
   | typeof SkipResponse
 >
 
@@ -12593,14 +12466,14 @@ export type ActionsListLabelsForSelfHostedRunnerForRepo = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         labels: t_runner_label[]
         total_count: number
       }
     >
-  | Response<404, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -12625,15 +12498,15 @@ export type ActionsAddCustomLabelsToSelfHostedRunnerForRepo = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         labels: t_runner_label[]
         total_count: number
       }
     >
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error_simple>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error_simple>
   | typeof SkipResponse
 >
 
@@ -12658,15 +12531,15 @@ export type ActionsSetCustomLabelsForSelfHostedRunnerForRepo = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         labels: t_runner_label[]
         total_count: number
       }
     >
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error_simple>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error_simple>
   | typeof SkipResponse
 >
 
@@ -12690,14 +12563,14 @@ export type ActionsRemoveAllCustomLabelsFromSelfHostedRunnerForRepo = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         labels: t_runner_label[]
         total_count: number
       }
     >
-  | Response<404, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -12722,15 +12595,15 @@ export type ActionsRemoveCustomLabelFromSelfHostedRunnerForRepo = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         labels: t_runner_label[]
         total_count: number
       }
     >
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error_simple>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error_simple>
   | typeof SkipResponse
 >
 
@@ -12753,7 +12626,7 @@ export type ActionsListWorkflowRunsForRepo = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         total_count: number
@@ -12778,9 +12651,7 @@ export type ActionsGetWorkflowRun = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Response<200, t_workflow_run>
-  | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<200, t_workflow_run> | typeof SkipResponse
 >
 
 export type ActionsDeleteWorkflowRunResponder = {
@@ -12792,9 +12663,7 @@ export type ActionsDeleteWorkflowRun = (
   respond: ActionsDeleteWorkflowRunResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<204, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type ActionsGetReviewsForRunResponder = {
   with200(): KoaRuntimeResponse<t_environment_approvals[]>
@@ -12807,7 +12676,7 @@ export type ActionsGetReviewsForRun = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_environment_approvals[]>
+  | Res<200, t_environment_approvals[]>
   | typeof SkipResponse
 >
 
@@ -12824,9 +12693,9 @@ export type ActionsApproveWorkflowRun = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_empty_object>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<201, t_empty_object>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -12849,7 +12718,7 @@ export type ActionsListWorkflowRunArtifacts = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         artifacts: t_artifact[]
@@ -12874,9 +12743,7 @@ export type ActionsGetWorkflowRunAttempt = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Response<200, t_workflow_run>
-  | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<200, t_workflow_run> | typeof SkipResponse
 >
 
 export type ActionsListJobsForWorkflowRunAttemptResponder = {
@@ -12899,14 +12766,14 @@ export type ActionsListJobsForWorkflowRunAttempt = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         jobs: t_job[]
         total_count: number
       }
     >
-  | Response<404, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -12924,9 +12791,7 @@ export type ActionsDownloadWorkflowRunAttemptLogs = (
   respond: ActionsDownloadWorkflowRunAttemptLogsResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<302, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<302, void> | typeof SkipResponse>
 
 export type ActionsCancelWorkflowRunResponder = {
   with202(): KoaRuntimeResponse<t_empty_object>
@@ -12940,8 +12805,8 @@ export type ActionsCancelWorkflowRun = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<202, t_empty_object>
-  | Response<409, t_basic_error>
+  | Res<202, t_empty_object>
+  | Res<409, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -12959,9 +12824,7 @@ export type ActionsReviewCustomGatesForRun = (
   respond: ActionsReviewCustomGatesForRunResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<204, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type ActionsForceCancelWorkflowRunResponder = {
   with202(): KoaRuntimeResponse<t_empty_object>
@@ -12975,8 +12838,8 @@ export type ActionsForceCancelWorkflowRun = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<202, t_empty_object>
-  | Response<409, t_basic_error>
+  | Res<202, t_empty_object>
+  | Res<409, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -12999,7 +12862,7 @@ export type ActionsListJobsForWorkflowRun = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         jobs: t_job[]
@@ -13018,9 +12881,7 @@ export type ActionsDownloadWorkflowRunLogs = (
   respond: ActionsDownloadWorkflowRunLogsResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<302, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<302, void> | typeof SkipResponse>
 
 export type ActionsDeleteWorkflowRunLogsResponder = {
   with204(): KoaRuntimeResponse<void>
@@ -13035,9 +12896,9 @@ export type ActionsDeleteWorkflowRunLogs = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<403, t_basic_error>
-  | Response<500, t_basic_error>
+  | Res<204, void>
+  | Res<403, t_basic_error>
+  | Res<500, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -13057,7 +12918,7 @@ export type ActionsGetPendingDeploymentsForRun = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_pending_deployment[]>
+  | Res<200, t_pending_deployment[]>
   | typeof SkipResponse
 >
 
@@ -13076,9 +12937,7 @@ export type ActionsReviewPendingDeploymentsForRun = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Response<200, t_deployment[]>
-  | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<200, t_deployment[]> | typeof SkipResponse
 >
 
 export type ActionsReRunWorkflowResponder = {
@@ -13096,9 +12955,7 @@ export type ActionsReRunWorkflow = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Response<201, t_empty_object>
-  | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<201, t_empty_object> | typeof SkipResponse
 >
 
 export type ActionsReRunWorkflowFailedJobsResponder = {
@@ -13116,9 +12973,7 @@ export type ActionsReRunWorkflowFailedJobs = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Response<201, t_empty_object>
-  | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<201, t_empty_object> | typeof SkipResponse
 >
 
 export type ActionsGetWorkflowRunUsageResponder = {
@@ -13132,7 +12987,7 @@ export type ActionsGetWorkflowRunUsage = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_workflow_run_usage>
+  | Res<200, t_workflow_run_usage>
   | typeof SkipResponse
 >
 
@@ -13155,7 +13010,7 @@ export type ActionsListRepoSecrets = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         secrets: t_actions_secret[]
@@ -13176,7 +13031,7 @@ export type ActionsGetRepoPublicKey = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_actions_public_key>
+  | Res<200, t_actions_public_key>
   | typeof SkipResponse
 >
 
@@ -13190,9 +13045,7 @@ export type ActionsGetRepoSecret = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Response<200, t_actions_secret>
-  | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<200, t_actions_secret> | typeof SkipResponse
 >
 
 export type ActionsCreateOrUpdateRepoSecretResponder = {
@@ -13212,8 +13065,8 @@ export type ActionsCreateOrUpdateRepoSecret = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_empty_object>
-  | Response<204, void>
+  | Res<201, t_empty_object>
+  | Res<204, void>
   | typeof SkipResponse
 >
 
@@ -13226,9 +13079,7 @@ export type ActionsDeleteRepoSecret = (
   respond: ActionsDeleteRepoSecretResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<204, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type ActionsListRepoVariablesResponder = {
   with200(): KoaRuntimeResponse<{
@@ -13249,7 +13100,7 @@ export type ActionsListRepoVariables = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         total_count: number
@@ -13274,9 +13125,7 @@ export type ActionsCreateRepoVariable = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Response<201, t_empty_object>
-  | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<201, t_empty_object> | typeof SkipResponse
 >
 
 export type ActionsGetRepoVariableResponder = {
@@ -13290,7 +13139,7 @@ export type ActionsGetRepoVariable = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_actions_variable>
+  | Res<200, t_actions_variable>
   | typeof SkipResponse
 >
 
@@ -13308,9 +13157,7 @@ export type ActionsUpdateRepoVariable = (
   respond: ActionsUpdateRepoVariableResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<204, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type ActionsDeleteRepoVariableResponder = {
   with204(): KoaRuntimeResponse<void>
@@ -13321,9 +13168,7 @@ export type ActionsDeleteRepoVariable = (
   respond: ActionsDeleteRepoVariableResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<204, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type ActionsListRepoWorkflowsResponder = {
   with200(): KoaRuntimeResponse<{
@@ -13344,7 +13189,7 @@ export type ActionsListRepoWorkflows = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         total_count: number
@@ -13364,7 +13209,7 @@ export type ActionsGetWorkflow = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  KoaRuntimeResponse<unknown> | Response<200, t_workflow> | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<200, t_workflow> | typeof SkipResponse
 >
 
 export type ActionsDisableWorkflowResponder = {
@@ -13376,9 +13221,7 @@ export type ActionsDisableWorkflow = (
   respond: ActionsDisableWorkflowResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<204, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type ActionsCreateWorkflowDispatchResponder = {
   with204(): KoaRuntimeResponse<void>
@@ -13394,9 +13237,7 @@ export type ActionsCreateWorkflowDispatch = (
   respond: ActionsCreateWorkflowDispatchResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<204, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type ActionsEnableWorkflowResponder = {
   with204(): KoaRuntimeResponse<void>
@@ -13407,9 +13248,7 @@ export type ActionsEnableWorkflow = (
   respond: ActionsEnableWorkflowResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<204, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type ActionsListWorkflowRunsResponder = {
   with200(): KoaRuntimeResponse<{
@@ -13430,7 +13269,7 @@ export type ActionsListWorkflowRuns = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         total_count: number
@@ -13450,9 +13289,7 @@ export type ActionsGetWorkflowUsage = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Response<200, t_workflow_usage>
-  | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<200, t_workflow_usage> | typeof SkipResponse
 >
 
 export type ReposListActivitiesResponder = {
@@ -13472,8 +13309,8 @@ export type ReposListActivities = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_activity[]>
-  | Response<422, t_validation_error_simple>
+  | Res<200, t_activity[]>
+  | Res<422, t_validation_error_simple>
   | typeof SkipResponse
 >
 
@@ -13494,8 +13331,8 @@ export type IssuesListAssignees = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_simple_user[]>
-  | Response<404, t_basic_error>
+  | Res<200, t_simple_user[]>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -13511,8 +13348,8 @@ export type IssuesCheckUserCanBeAssigned = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<404, t_basic_error>
+  | Res<204, void>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -13536,14 +13373,14 @@ export type ReposCreateAttestation = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       201,
       {
         id?: number
       }
     >
-  | Response<403, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<403, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -13577,7 +13414,7 @@ export type ReposListAttestations = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         attestations?: {
@@ -13608,9 +13445,7 @@ export type ReposListAutolinks = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Response<200, t_autolink[]>
-  | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<200, t_autolink[]> | typeof SkipResponse
 >
 
 export type ReposCreateAutolinkResponder = {
@@ -13630,8 +13465,8 @@ export type ReposCreateAutolink = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_autolink>
-  | Response<422, t_validation_error>
+  | Res<201, t_autolink>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -13647,8 +13482,8 @@ export type ReposGetAutolink = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_autolink>
-  | Response<404, t_basic_error>
+  | Res<200, t_autolink>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -13664,8 +13499,8 @@ export type ReposDeleteAutolink = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<404, t_basic_error>
+  | Res<204, void>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -13686,8 +13521,8 @@ export type ReposCheckAutomatedSecurityFixes = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_check_automated_security_fixes>
-  | Response<404, void>
+  | Res<200, t_check_automated_security_fixes>
+  | Res<404, void>
   | typeof SkipResponse
 >
 
@@ -13705,9 +13540,7 @@ export type ReposEnableAutomatedSecurityFixes = (
   respond: ReposEnableAutomatedSecurityFixesResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<204, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type ReposDisableAutomatedSecurityFixesResponder = {
   with204(): KoaRuntimeResponse<void>
@@ -13723,9 +13556,7 @@ export type ReposDisableAutomatedSecurityFixes = (
   respond: ReposDisableAutomatedSecurityFixesResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<204, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type ReposListBranchesResponder = {
   with200(): KoaRuntimeResponse<t_short_branch[]>
@@ -13744,8 +13575,8 @@ export type ReposListBranches = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_short_branch[]>
-  | Response<404, t_basic_error>
+  | Res<200, t_short_branch[]>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -13762,9 +13593,9 @@ export type ReposGetBranch = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_branch_with_protection>
-  | Response<301, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<200, t_branch_with_protection>
+  | Res<301, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -13780,8 +13611,8 @@ export type ReposGetBranchProtection = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_branch_protection>
-  | Response<404, t_basic_error>
+  | Res<200, t_branch_protection>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -13804,10 +13635,10 @@ export type ReposUpdateBranchProtection = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_protected_branch>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error_simple>
+  | Res<200, t_protected_branch>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error_simple>
   | typeof SkipResponse
 >
 
@@ -13823,8 +13654,8 @@ export type ReposDeleteBranchProtection = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<403, t_basic_error>
+  | Res<204, void>
+  | Res<403, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -13839,7 +13670,7 @@ export type ReposGetAdminBranchProtection = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_protected_branch_admin_enforced>
+  | Res<200, t_protected_branch_admin_enforced>
   | typeof SkipResponse
 >
 
@@ -13854,7 +13685,7 @@ export type ReposSetAdminBranchProtection = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_protected_branch_admin_enforced>
+  | Res<200, t_protected_branch_admin_enforced>
   | typeof SkipResponse
 >
 
@@ -13875,8 +13706,8 @@ export type ReposDeleteAdminBranchProtection = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<404, t_basic_error>
+  | Res<204, void>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -13896,7 +13727,7 @@ export type ReposGetPullRequestReviewProtection = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_protected_branch_pull_request_review>
+  | Res<200, t_protected_branch_pull_request_review>
   | typeof SkipResponse
 >
 
@@ -13917,8 +13748,8 @@ export type ReposUpdatePullRequestReviewProtection = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_protected_branch_pull_request_review>
-  | Response<422, t_validation_error>
+  | Res<200, t_protected_branch_pull_request_review>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -13939,8 +13770,8 @@ export type ReposDeletePullRequestReviewProtection = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<404, t_basic_error>
+  | Res<204, void>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -13961,8 +13792,8 @@ export type ReposGetCommitSignatureProtection = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_protected_branch_admin_enforced>
-  | Response<404, t_basic_error>
+  | Res<200, t_protected_branch_admin_enforced>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -13983,8 +13814,8 @@ export type ReposCreateCommitSignatureProtection = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_protected_branch_admin_enforced>
-  | Response<404, t_basic_error>
+  | Res<200, t_protected_branch_admin_enforced>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -14005,8 +13836,8 @@ export type ReposDeleteCommitSignatureProtection = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<404, t_basic_error>
+  | Res<204, void>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -14022,8 +13853,8 @@ export type ReposGetStatusChecksProtection = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_status_check_policy>
-  | Response<404, t_basic_error>
+  | Res<200, t_status_check_policy>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -14045,9 +13876,9 @@ export type ReposUpdateStatusCheckProtection = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_status_check_policy>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<200, t_status_check_policy>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -14065,9 +13896,7 @@ export type ReposRemoveStatusCheckProtection = (
   respond: ReposRemoveStatusCheckProtectionResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<204, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type ReposGetAllStatusCheckContextsResponder = {
   with200(): KoaRuntimeResponse<string[]>
@@ -14081,8 +13910,8 @@ export type ReposGetAllStatusCheckContexts = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, string[]>
-  | Response<404, t_basic_error>
+  | Res<200, string[]>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -14105,10 +13934,10 @@ export type ReposAddStatusCheckContexts = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, string[]>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<200, string[]>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -14130,9 +13959,9 @@ export type ReposSetStatusCheckContexts = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, string[]>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<200, string[]>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -14154,9 +13983,9 @@ export type ReposRemoveStatusCheckContexts = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, string[]>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<200, string[]>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -14172,8 +14001,8 @@ export type ReposGetAccessRestrictions = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_branch_restriction_policy>
-  | Response<404, t_basic_error>
+  | Res<200, t_branch_restriction_policy>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -14186,9 +14015,7 @@ export type ReposDeleteAccessRestrictions = (
   respond: ReposDeleteAccessRestrictionsResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<204, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type ReposGetAppsWithAccessToProtectedBranchResponder = {
   with200(): KoaRuntimeResponse<t_integration[]>
@@ -14207,8 +14034,8 @@ export type ReposGetAppsWithAccessToProtectedBranch = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_integration[]>
-  | Response<404, t_basic_error>
+  | Res<200, t_integration[]>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -14229,8 +14056,8 @@ export type ReposAddAppAccessRestrictions = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_integration[]>
-  | Response<422, t_validation_error>
+  | Res<200, t_integration[]>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -14251,8 +14078,8 @@ export type ReposSetAppAccessRestrictions = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_integration[]>
-  | Response<422, t_validation_error>
+  | Res<200, t_integration[]>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -14273,8 +14100,8 @@ export type ReposRemoveAppAccessRestrictions = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_integration[]>
-  | Response<422, t_validation_error>
+  | Res<200, t_integration[]>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -14295,8 +14122,8 @@ export type ReposGetTeamsWithAccessToProtectedBranch = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_team[]>
-  | Response<404, t_basic_error>
+  | Res<200, t_team[]>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -14317,8 +14144,8 @@ export type ReposAddTeamAccessRestrictions = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_team[]>
-  | Response<422, t_validation_error>
+  | Res<200, t_team[]>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -14339,8 +14166,8 @@ export type ReposSetTeamAccessRestrictions = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_team[]>
-  | Response<422, t_validation_error>
+  | Res<200, t_team[]>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -14361,8 +14188,8 @@ export type ReposRemoveTeamAccessRestrictions = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_team[]>
-  | Response<422, t_validation_error>
+  | Res<200, t_team[]>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -14383,8 +14210,8 @@ export type ReposGetUsersWithAccessToProtectedBranch = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_simple_user[]>
-  | Response<404, t_basic_error>
+  | Res<200, t_simple_user[]>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -14405,8 +14232,8 @@ export type ReposAddUserAccessRestrictions = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_simple_user[]>
-  | Response<422, t_validation_error>
+  | Res<200, t_simple_user[]>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -14427,8 +14254,8 @@ export type ReposSetUserAccessRestrictions = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_simple_user[]>
-  | Response<422, t_validation_error>
+  | Res<200, t_simple_user[]>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -14449,8 +14276,8 @@ export type ReposRemoveUserAccessRestrictions = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_simple_user[]>
-  | Response<422, t_validation_error>
+  | Res<200, t_simple_user[]>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -14473,10 +14300,10 @@ export type ReposRenameBranch = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_branch_with_protection>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<201, t_branch_with_protection>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -14495,7 +14322,7 @@ export type ChecksCreate = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  KoaRuntimeResponse<unknown> | Response<201, t_check_run> | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<201, t_check_run> | typeof SkipResponse
 >
 
 export type ChecksGetResponder = {
@@ -14508,7 +14335,7 @@ export type ChecksGet = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  KoaRuntimeResponse<unknown> | Response<200, t_check_run> | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<200, t_check_run> | typeof SkipResponse
 >
 
 export type ChecksUpdateResponder = {
@@ -14526,7 +14353,7 @@ export type ChecksUpdate = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  KoaRuntimeResponse<unknown> | Response<200, t_check_run> | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<200, t_check_run> | typeof SkipResponse
 >
 
 export type ChecksListAnnotationsResponder = {
@@ -14545,7 +14372,7 @@ export type ChecksListAnnotations = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_check_annotation[]>
+  | Res<200, t_check_annotation[]>
   | typeof SkipResponse
 >
 
@@ -14563,10 +14390,10 @@ export type ChecksRerequestRun = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_empty_object>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<422, t_basic_error>
+  | Res<201, t_empty_object>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -14587,8 +14414,8 @@ export type ChecksCreateSuite = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_check_suite>
-  | Response<201, t_check_suite>
+  | Res<200, t_check_suite>
+  | Res<201, t_check_suite>
   | typeof SkipResponse
 >
 
@@ -14608,7 +14435,7 @@ export type ChecksSetSuitesPreferences = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_check_suite_preference>
+  | Res<200, t_check_suite_preference>
   | typeof SkipResponse
 >
 
@@ -14622,9 +14449,7 @@ export type ChecksGetSuite = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Response<200, t_check_suite>
-  | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<200, t_check_suite> | typeof SkipResponse
 >
 
 export type ChecksListForSuiteResponder = {
@@ -14646,7 +14471,7 @@ export type ChecksListForSuite = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         check_runs: t_check_run[]
@@ -14666,9 +14491,7 @@ export type ChecksRerequestSuite = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Response<201, t_empty_object>
-  | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<201, t_empty_object> | typeof SkipResponse
 >
 
 export type CodeScanningListAlertsForRepoResponder = {
@@ -14695,11 +14518,11 @@ export type CodeScanningListAlertsForRepo = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_code_scanning_alert_items[]>
-  | Response<304, void>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<
+  | Res<200, t_code_scanning_alert_items[]>
+  | Res<304, void>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<
       503,
       {
         code?: string
@@ -14729,11 +14552,11 @@ export type CodeScanningGetAlert = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_code_scanning_alert>
-  | Response<304, void>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<
+  | Res<200, t_code_scanning_alert>
+  | Res<304, void>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<
       503,
       {
         code?: string
@@ -14768,11 +14591,11 @@ export type CodeScanningUpdateAlert = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_code_scanning_alert>
-  | Response<400, t_scim_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<
+  | Res<200, t_code_scanning_alert>
+  | Res<400, t_scim_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<
       503,
       {
         code?: string
@@ -14802,11 +14625,11 @@ export type CodeScanningGetAutofix = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_code_scanning_autofix>
-  | Response<400, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<
+  | Res<200, t_code_scanning_autofix>
+  | Res<400, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<
       503,
       {
         code?: string
@@ -14838,13 +14661,13 @@ export type CodeScanningCreateAutofix = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_code_scanning_autofix>
-  | Response<202, t_code_scanning_autofix>
-  | Response<400, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<422, void>
-  | Response<
+  | Res<200, t_code_scanning_autofix>
+  | Res<202, t_code_scanning_autofix>
+  | Res<400, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, void>
+  | Res<
       503,
       {
         code?: string
@@ -14880,12 +14703,12 @@ export type CodeScanningCommitAutofix = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_code_scanning_autofix_commits_response>
-  | Response<400, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<422, void>
-  | Response<
+  | Res<201, t_code_scanning_autofix_commits_response>
+  | Res<400, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, void>
+  | Res<
       503,
       {
         code?: string
@@ -14919,10 +14742,10 @@ export type CodeScanningListAlertInstances = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_code_scanning_alert_instance[]>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<
+  | Res<200, t_code_scanning_alert_instance[]>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<
       503,
       {
         code?: string
@@ -14956,10 +14779,10 @@ export type CodeScanningListRecentAnalyses = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_code_scanning_analysis[]>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<
+  | Res<200, t_code_scanning_analysis[]>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<
       503,
       {
         code?: string
@@ -14991,16 +14814,16 @@ export type CodeScanningGetAnalysis = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         [key: string]: unknown | undefined
       }
     >
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<422, t_basic_error>
-  | Response<
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, t_basic_error>
+  | Res<
       503,
       {
         code?: string
@@ -15035,11 +14858,11 @@ export type CodeScanningDeleteAnalysis = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_code_scanning_analysis_deletion>
-  | Response<400, t_scim_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<
+  | Res<200, t_code_scanning_analysis_deletion>
+  | Res<400, t_scim_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<
       503,
       {
         code?: string
@@ -15073,10 +14896,10 @@ export type CodeScanningListCodeqlDatabases = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_code_scanning_codeql_database[]>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<
+  | Res<200, t_code_scanning_codeql_database[]>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<
       503,
       {
         code?: string
@@ -15106,11 +14929,11 @@ export type CodeScanningGetCodeqlDatabase = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_code_scanning_codeql_database>
-  | Response<302, void>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<
+  | Res<200, t_code_scanning_codeql_database>
+  | Res<302, void>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<
       503,
       {
         code?: string
@@ -15144,10 +14967,10 @@ export type CodeScanningDeleteCodeqlDatabase = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<
+  | Res<204, void>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<
       503,
       {
         code?: string
@@ -15181,10 +15004,10 @@ export type CodeScanningCreateVariantAnalysis = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_code_scanning_variant_analysis>
-  | Response<404, t_basic_error>
-  | Response<422, t_basic_error>
-  | Response<
+  | Res<201, t_code_scanning_variant_analysis>
+  | Res<404, t_basic_error>
+  | Res<422, t_basic_error>
+  | Res<
       503,
       {
         code?: string
@@ -15212,9 +15035,9 @@ export type CodeScanningGetVariantAnalysis = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_code_scanning_variant_analysis>
-  | Response<404, t_basic_error>
-  | Response<
+  | Res<200, t_code_scanning_variant_analysis>
+  | Res<404, t_basic_error>
+  | Res<
       503,
       {
         code?: string
@@ -15247,9 +15070,9 @@ export type CodeScanningGetVariantAnalysisRepoTask = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_code_scanning_variant_analysis_repo_task>
-  | Response<404, t_basic_error>
-  | Response<
+  | Res<200, t_code_scanning_variant_analysis_repo_task>
+  | Res<404, t_basic_error>
+  | Res<
       503,
       {
         code?: string
@@ -15278,10 +15101,10 @@ export type CodeScanningGetDefaultSetup = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_code_scanning_default_setup>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<
+  | Res<200, t_code_scanning_default_setup>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<
       503,
       {
         code?: string
@@ -15318,13 +15141,13 @@ export type CodeScanningUpdateDefaultSetup = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_empty_object>
-  | Response<202, t_code_scanning_default_setup_update_response>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<409, t_basic_error>
-  | Response<422, t_basic_error>
-  | Response<
+  | Res<200, t_empty_object>
+  | Res<202, t_code_scanning_default_setup_update_response>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<409, t_basic_error>
+  | Res<422, t_basic_error>
+  | Res<
       503,
       {
         code?: string
@@ -15360,12 +15183,12 @@ export type CodeScanningUploadSarif = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<202, t_code_scanning_sarifs_receipt>
-  | Response<400, void>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<413, void>
-  | Response<
+  | Res<202, t_code_scanning_sarifs_receipt>
+  | Res<400, void>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<413, void>
+  | Res<
       503,
       {
         code?: string
@@ -15394,10 +15217,10 @@ export type CodeScanningGetSarif = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_code_scanning_sarifs_status>
-  | Response<403, t_basic_error>
-  | Response<404, void>
-  | Response<
+  | Res<200, t_code_scanning_sarifs_status>
+  | Res<403, t_basic_error>
+  | Res<404, void>
+  | Res<
       503,
       {
         code?: string
@@ -15428,11 +15251,11 @@ export type CodeSecurityGetConfigurationForRepository = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_code_security_configuration_for_repository>
-  | Response<204, void>
-  | Response<304, void>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<200, t_code_security_configuration_for_repository>
+  | Res<204, void>
+  | Res<304, void>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -15453,8 +15276,8 @@ export type ReposCodeownersErrors = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_codeowners_errors>
-  | Response<404, void>
+  | Res<200, t_codeowners_errors>
+  | Res<404, void>
   | typeof SkipResponse
 >
 
@@ -15481,17 +15304,17 @@ export type CodespacesListInRepositoryForAuthenticatedUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         codespaces: t_codespace[]
         total_count: number
       }
     >
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<500, t_basic_error>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<500, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -15521,13 +15344,13 @@ export type CodespacesCreateWithRepoForAuthenticatedUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_codespace>
-  | Response<202, t_codespace>
-  | Response<400, t_scim_error>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<
+  | Res<201, t_codespace>
+  | Res<202, t_codespace>
+  | Res<400, t_scim_error>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<
       503,
       {
         code?: string
@@ -15567,7 +15390,7 @@ export type CodespacesListDevcontainersInRepositoryForAuthenticatedUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         devcontainers: {
@@ -15578,11 +15401,11 @@ export type CodespacesListDevcontainersInRepositoryForAuthenticatedUser = (
         total_count: number
       }
     >
-  | Response<400, t_scim_error>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<500, t_basic_error>
+  | Res<400, t_scim_error>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<500, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -15610,18 +15433,18 @@ export type CodespacesRepoMachinesForAuthenticatedUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         machines: t_codespace_machine[]
         total_count: number
       }
     >
-  | Response<304, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<500, t_basic_error>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<500, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -15650,7 +15473,7 @@ export type CodespacesPreFlightWithRepoForAuthenticatedUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         billable_owner?: t_simple_user
@@ -15660,9 +15483,9 @@ export type CodespacesPreFlightWithRepoForAuthenticatedUser = (
         }
       }
     >
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -15691,12 +15514,12 @@ export type CodespacesCheckPermissionsForDevcontainer = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_codespaces_permissions_check_for_devcontainer>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error>
-  | Response<
+  | Res<200, t_codespaces_permissions_check_for_devcontainer>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
+  | Res<
       503,
       {
         code?: string
@@ -15726,7 +15549,7 @@ export type CodespacesListRepoSecrets = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         secrets: t_repo_codespaces_secret[]
@@ -15747,7 +15570,7 @@ export type CodespacesGetRepoPublicKey = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_codespaces_public_key>
+  | Res<200, t_codespaces_public_key>
   | typeof SkipResponse
 >
 
@@ -15762,7 +15585,7 @@ export type CodespacesGetRepoSecret = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_repo_codespaces_secret>
+  | Res<200, t_repo_codespaces_secret>
   | typeof SkipResponse
 >
 
@@ -15783,8 +15606,8 @@ export type CodespacesCreateOrUpdateRepoSecret = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_empty_object>
-  | Response<204, void>
+  | Res<201, t_empty_object>
+  | Res<204, void>
   | typeof SkipResponse
 >
 
@@ -15797,9 +15620,7 @@ export type CodespacesDeleteRepoSecret = (
   respond: CodespacesDeleteRepoSecretResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<204, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type ReposListCollaboratorsResponder = {
   with200(): KoaRuntimeResponse<t_collaborator[]>
@@ -15818,8 +15639,8 @@ export type ReposListCollaborators = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_collaborator[]>
-  | Response<404, t_basic_error>
+  | Res<200, t_collaborator[]>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -15835,8 +15656,8 @@ export type ReposCheckCollaborator = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<404, void>
+  | Res<204, void>
+  | Res<404, void>
   | typeof SkipResponse
 >
 
@@ -15859,10 +15680,10 @@ export type ReposAddCollaborator = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_repository_invitation>
-  | Response<204, void>
-  | Response<403, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<201, t_repository_invitation>
+  | Res<204, void>
+  | Res<403, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -15879,9 +15700,9 @@ export type ReposRemoveCollaborator = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<403, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<204, void>
+  | Res<403, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -15902,8 +15723,8 @@ export type ReposGetCollaboratorPermissionLevel = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_repository_collaborator_permission>
-  | Response<404, t_basic_error>
+  | Res<200, t_repository_collaborator_permission>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -15923,7 +15744,7 @@ export type ReposListCommitCommentsForRepo = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_commit_comment[]>
+  | Res<200, t_commit_comment[]>
   | typeof SkipResponse
 >
 
@@ -15939,8 +15760,8 @@ export type ReposGetCommitComment = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_commit_comment>
-  | Response<404, t_basic_error>
+  | Res<200, t_commit_comment>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -15961,8 +15782,8 @@ export type ReposUpdateCommitComment = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_commit_comment>
-  | Response<404, t_basic_error>
+  | Res<200, t_commit_comment>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -15978,8 +15799,8 @@ export type ReposDeleteCommitComment = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<404, t_basic_error>
+  | Res<204, void>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -16000,8 +15821,8 @@ export type ReactionsListForCommitComment = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_reaction[]>
-  | Response<404, t_basic_error>
+  | Res<200, t_reaction[]>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -16023,9 +15844,9 @@ export type ReactionsCreateForCommitComment = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_reaction>
-  | Response<201, t_reaction>
-  | Response<422, t_validation_error>
+  | Res<200, t_reaction>
+  | Res<201, t_reaction>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -16043,9 +15864,7 @@ export type ReactionsDeleteForCommitComment = (
   respond: ReactionsDeleteForCommitCommentResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<204, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type ReposListCommitsResponder = {
   with200(): KoaRuntimeResponse<t_commit[]>
@@ -16067,11 +15886,11 @@ export type ReposListCommits = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_commit[]>
-  | Response<400, t_scim_error>
-  | Response<404, t_basic_error>
-  | Response<409, t_basic_error>
-  | Response<500, t_basic_error>
+  | Res<200, t_commit[]>
+  | Res<400, t_scim_error>
+  | Res<404, t_basic_error>
+  | Res<409, t_basic_error>
+  | Res<500, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -16088,9 +15907,9 @@ export type ReposListBranchesForHeadCommit = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_branch_short[]>
-  | Response<409, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<200, t_branch_short[]>
+  | Res<409, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -16110,7 +15929,7 @@ export type ReposListCommentsForCommit = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_commit_comment[]>
+  | Res<200, t_commit_comment[]>
   | typeof SkipResponse
 >
 
@@ -16132,9 +15951,9 @@ export type ReposCreateCommitComment = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_commit_comment>
-  | Response<403, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<201, t_commit_comment>
+  | Res<403, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -16155,8 +15974,8 @@ export type ReposListPullRequestsAssociatedWithCommit = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_pull_request_simple[]>
-  | Response<409, t_basic_error>
+  | Res<200, t_pull_request_simple[]>
+  | Res<409, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -16185,12 +16004,12 @@ export type ReposGetCommit = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_commit>
-  | Response<404, t_basic_error>
-  | Response<409, t_basic_error>
-  | Response<422, t_validation_error>
-  | Response<500, t_basic_error>
-  | Response<
+  | Res<200, t_commit>
+  | Res<404, t_basic_error>
+  | Res<409, t_basic_error>
+  | Res<422, t_validation_error>
+  | Res<500, t_basic_error>
+  | Res<
       503,
       {
         code?: string
@@ -16220,7 +16039,7 @@ export type ChecksListForRef = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         check_runs: t_check_run[]
@@ -16249,7 +16068,7 @@ export type ChecksListSuitesForRef = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         check_suites: t_check_suite[]
@@ -16276,8 +16095,8 @@ export type ReposGetCombinedStatusForRef = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_combined_commit_status>
-  | Response<404, t_basic_error>
+  | Res<200, t_combined_commit_status>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -16298,8 +16117,8 @@ export type ReposListCommitStatusesForRef = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_status[]>
-  | Response<301, t_basic_error>
+  | Res<200, t_status[]>
+  | Res<301, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -16319,7 +16138,7 @@ export type ReposGetCommunityProfileMetrics = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_community_profile>
+  | Res<200, t_community_profile>
   | typeof SkipResponse
 >
 
@@ -16346,10 +16165,10 @@ export type ReposCompareCommits = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_commit_comparison>
-  | Response<404, t_basic_error>
-  | Response<500, t_basic_error>
-  | Response<
+  | Res<200, t_commit_comparison>
+  | Res<404, t_basic_error>
+  | Res<500, t_basic_error>
+  | Res<
       503,
       {
         code?: string
@@ -16385,17 +16204,17 @@ export type ReposGetContent = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       | t_content_directory
       | t_content_file
       | t_content_symlink
       | t_content_submodule
     >
-  | Response<302, void>
-  | Response<304, void>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<302, void>
+  | Res<304, void>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -16421,11 +16240,11 @@ export type ReposCreateOrUpdateFileContents = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_file_commit>
-  | Response<201, t_file_commit>
-  | Response<404, t_basic_error>
-  | Response<409, t_basic_error | t_repository_rule_violation_error>
-  | Response<422, t_validation_error>
+  | Res<200, t_file_commit>
+  | Res<201, t_file_commit>
+  | Res<404, t_basic_error>
+  | Res<409, t_basic_error | t_repository_rule_violation_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -16453,11 +16272,11 @@ export type ReposDeleteFile = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_file_commit>
-  | Response<404, t_basic_error>
-  | Response<409, t_basic_error>
-  | Response<422, t_validation_error>
-  | Response<
+  | Res<200, t_file_commit>
+  | Res<404, t_basic_error>
+  | Res<409, t_basic_error>
+  | Res<422, t_validation_error>
+  | Res<
       503,
       {
         code?: string
@@ -16487,10 +16306,10 @@ export type ReposListContributors = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_contributor[]>
-  | Response<204, void>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<200, t_contributor[]>
+  | Res<204, void>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -16515,12 +16334,12 @@ export type DependabotListAlertsForRepo = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_dependabot_alert[]>
-  | Response<304, void>
-  | Response<400, t_scim_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error_simple>
+  | Res<200, t_dependabot_alert[]>
+  | Res<304, void>
+  | Res<400, t_scim_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error_simple>
   | typeof SkipResponse
 >
 
@@ -16538,10 +16357,10 @@ export type DependabotGetAlert = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_dependabot_alert>
-  | Response<304, void>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<200, t_dependabot_alert>
+  | Res<304, void>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -16566,12 +16385,12 @@ export type DependabotUpdateAlert = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_dependabot_alert>
-  | Response<400, t_scim_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<409, t_basic_error>
-  | Response<422, t_validation_error_simple>
+  | Res<200, t_dependabot_alert>
+  | Res<400, t_scim_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<409, t_basic_error>
+  | Res<422, t_validation_error_simple>
   | typeof SkipResponse
 >
 
@@ -16594,7 +16413,7 @@ export type DependabotListRepoSecrets = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         secrets: t_dependabot_secret[]
@@ -16615,7 +16434,7 @@ export type DependabotGetRepoPublicKey = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_dependabot_public_key>
+  | Res<200, t_dependabot_public_key>
   | typeof SkipResponse
 >
 
@@ -16630,7 +16449,7 @@ export type DependabotGetRepoSecret = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_dependabot_secret>
+  | Res<200, t_dependabot_secret>
   | typeof SkipResponse
 >
 
@@ -16651,8 +16470,8 @@ export type DependabotCreateOrUpdateRepoSecret = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_empty_object>
-  | Response<204, void>
+  | Res<201, t_empty_object>
+  | Res<204, void>
   | typeof SkipResponse
 >
 
@@ -16665,9 +16484,7 @@ export type DependabotDeleteRepoSecret = (
   respond: DependabotDeleteRepoSecretResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<204, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type DependencyGraphDiffRangeResponder = {
   with200(): KoaRuntimeResponse<t_dependency_graph_diff>
@@ -16687,9 +16504,9 @@ export type DependencyGraphDiffRange = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_dependency_graph_diff>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<200, t_dependency_graph_diff>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -16706,9 +16523,9 @@ export type DependencyGraphExportSbom = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_dependency_graph_spdx_sbom>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<200, t_dependency_graph_spdx_sbom>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -16733,7 +16550,7 @@ export type DependencyGraphCreateRepositorySnapshot = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       201,
       {
         created_at: string
@@ -16760,9 +16577,7 @@ export type ReposListDeployments = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Response<200, t_deployment[]>
-  | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<200, t_deployment[]> | typeof SkipResponse
 >
 
 export type ReposCreateDeploymentResponder = {
@@ -16786,15 +16601,15 @@ export type ReposCreateDeployment = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_deployment>
-  | Response<
+  | Res<201, t_deployment>
+  | Res<
       202,
       {
         message?: string
       }
     >
-  | Response<409, void>
-  | Response<422, t_validation_error>
+  | Res<409, void>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -16810,8 +16625,8 @@ export type ReposGetDeployment = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_deployment>
-  | Response<404, t_basic_error>
+  | Res<200, t_deployment>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -16828,9 +16643,9 @@ export type ReposDeleteDeployment = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error_simple>
+  | Res<204, void>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error_simple>
   | typeof SkipResponse
 >
 
@@ -16851,8 +16666,8 @@ export type ReposListDeploymentStatuses = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_deployment_status[]>
-  | Response<404, t_basic_error>
+  | Res<200, t_deployment_status[]>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -16873,8 +16688,8 @@ export type ReposCreateDeploymentStatus = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_deployment_status>
-  | Response<422, t_validation_error>
+  | Res<201, t_deployment_status>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -16890,8 +16705,8 @@ export type ReposGetDeploymentStatus = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_deployment_status>
-  | Response<404, t_basic_error>
+  | Res<200, t_deployment_status>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -16913,9 +16728,9 @@ export type ReposCreateDispatchEvent = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<204, void>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -16938,7 +16753,7 @@ export type ReposGetAllEnvironments = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         environments?: t_environment[]
@@ -16958,9 +16773,7 @@ export type ReposGetEnvironment = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Response<200, t_environment>
-  | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<200, t_environment> | typeof SkipResponse
 >
 
 export type ReposCreateOrUpdateEnvironmentResponder = {
@@ -16980,8 +16793,8 @@ export type ReposCreateOrUpdateEnvironment = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_environment>
-  | Response<422, t_basic_error>
+  | Res<200, t_environment>
+  | Res<422, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -16994,9 +16807,7 @@ export type ReposDeleteAnEnvironment = (
   respond: ReposDeleteAnEnvironmentResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<204, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type ReposListDeploymentBranchPoliciesResponder = {
   with200(): KoaRuntimeResponse<{
@@ -17017,7 +16828,7 @@ export type ReposListDeploymentBranchPolicies = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         branch_policies: t_deployment_branch_policy[]
@@ -17045,9 +16856,9 @@ export type ReposCreateDeploymentBranchPolicy = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_deployment_branch_policy>
-  | Response<303, void>
-  | Response<404, void>
+  | Res<200, t_deployment_branch_policy>
+  | Res<303, void>
+  | Res<404, void>
   | typeof SkipResponse
 >
 
@@ -17062,7 +16873,7 @@ export type ReposGetDeploymentBranchPolicy = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_deployment_branch_policy>
+  | Res<200, t_deployment_branch_policy>
   | typeof SkipResponse
 >
 
@@ -17082,7 +16893,7 @@ export type ReposUpdateDeploymentBranchPolicy = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_deployment_branch_policy>
+  | Res<200, t_deployment_branch_policy>
   | typeof SkipResponse
 >
 
@@ -17100,9 +16911,7 @@ export type ReposDeleteDeploymentBranchPolicy = (
   respond: ReposDeleteDeploymentBranchPolicyResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<204, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type ReposGetAllDeploymentProtectionRulesResponder = {
   with200(): KoaRuntimeResponse<{
@@ -17123,7 +16932,7 @@ export type ReposGetAllDeploymentProtectionRules = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         custom_deployment_protection_rules?: t_deployment_protection_rule[]
@@ -17149,7 +16958,7 @@ export type ReposCreateDeploymentProtectionRule = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_deployment_protection_rule>
+  | Res<201, t_deployment_protection_rule>
   | typeof SkipResponse
 >
 
@@ -17172,7 +16981,7 @@ export type ReposListCustomDeploymentRuleIntegrations = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         available_custom_deployment_protection_rule_integrations?: t_custom_deployment_rule_app[]
@@ -17198,7 +17007,7 @@ export type ReposGetCustomDeploymentProtectionRule = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_deployment_protection_rule>
+  | Res<200, t_deployment_protection_rule>
   | typeof SkipResponse
 >
 
@@ -17216,9 +17025,7 @@ export type ReposDisableDeploymentProtectionRule = (
   respond: ReposDisableDeploymentProtectionRuleResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<204, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type ActionsListEnvironmentSecretsResponder = {
   with200(): KoaRuntimeResponse<{
@@ -17239,7 +17046,7 @@ export type ActionsListEnvironmentSecrets = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         secrets: t_actions_secret[]
@@ -17260,7 +17067,7 @@ export type ActionsGetEnvironmentPublicKey = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_actions_public_key>
+  | Res<200, t_actions_public_key>
   | typeof SkipResponse
 >
 
@@ -17274,9 +17081,7 @@ export type ActionsGetEnvironmentSecret = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Response<200, t_actions_secret>
-  | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<200, t_actions_secret> | typeof SkipResponse
 >
 
 export type ActionsCreateOrUpdateEnvironmentSecretResponder = {
@@ -17296,8 +17101,8 @@ export type ActionsCreateOrUpdateEnvironmentSecret = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_empty_object>
-  | Response<204, void>
+  | Res<201, t_empty_object>
+  | Res<204, void>
   | typeof SkipResponse
 >
 
@@ -17310,9 +17115,7 @@ export type ActionsDeleteEnvironmentSecret = (
   respond: ActionsDeleteEnvironmentSecretResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<204, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type ActionsListEnvironmentVariablesResponder = {
   with200(): KoaRuntimeResponse<{
@@ -17333,7 +17136,7 @@ export type ActionsListEnvironmentVariables = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         total_count: number
@@ -17358,9 +17161,7 @@ export type ActionsCreateEnvironmentVariable = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Response<201, t_empty_object>
-  | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<201, t_empty_object> | typeof SkipResponse
 >
 
 export type ActionsGetEnvironmentVariableResponder = {
@@ -17374,7 +17175,7 @@ export type ActionsGetEnvironmentVariable = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_actions_variable>
+  | Res<200, t_actions_variable>
   | typeof SkipResponse
 >
 
@@ -17392,9 +17193,7 @@ export type ActionsUpdateEnvironmentVariable = (
   respond: ActionsUpdateEnvironmentVariableResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<204, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type ActionsDeleteEnvironmentVariableResponder = {
   with204(): KoaRuntimeResponse<void>
@@ -17410,9 +17209,7 @@ export type ActionsDeleteEnvironmentVariable = (
   respond: ActionsDeleteEnvironmentVariableResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<204, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type ActivityListRepoEventsResponder = {
   with200(): KoaRuntimeResponse<t_event[]>
@@ -17429,7 +17226,7 @@ export type ActivityListRepoEvents = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  KoaRuntimeResponse<unknown> | Response<200, t_event[]> | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<200, t_event[]> | typeof SkipResponse
 >
 
 export type ReposListForksResponder = {
@@ -17449,8 +17246,8 @@ export type ReposListForks = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_minimal_repository[]>
-  | Response<400, t_scim_error>
+  | Res<200, t_minimal_repository[]>
+  | Res<400, t_scim_error>
   | typeof SkipResponse
 >
 
@@ -17474,11 +17271,11 @@ export type ReposCreateFork = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<202, t_full_repository>
-  | Response<400, t_scim_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<202, t_full_repository>
+  | Res<400, t_scim_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -17504,11 +17301,11 @@ export type GitCreateBlob = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_short_blob>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<409, t_basic_error>
-  | Response<422, t_validation_error | t_repository_rule_violation_error>
+  | Res<201, t_short_blob>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<409, t_basic_error>
+  | Res<422, t_validation_error | t_repository_rule_violation_error>
   | typeof SkipResponse
 >
 
@@ -17527,11 +17324,11 @@ export type GitGetBlob = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_blob>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<409, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<200, t_blob>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<409, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -17554,10 +17351,10 @@ export type GitCreateCommit = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_git_commit>
-  | Response<404, t_basic_error>
-  | Response<409, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<201, t_git_commit>
+  | Res<404, t_basic_error>
+  | Res<409, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -17574,9 +17371,9 @@ export type GitGetCommit = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_git_commit>
-  | Response<404, t_basic_error>
-  | Response<409, t_basic_error>
+  | Res<200, t_git_commit>
+  | Res<404, t_basic_error>
+  | Res<409, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -17592,8 +17389,8 @@ export type GitListMatchingRefs = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_git_ref[]>
-  | Response<409, t_basic_error>
+  | Res<200, t_git_ref[]>
+  | Res<409, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -17610,9 +17407,9 @@ export type GitGetRef = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_git_ref>
-  | Response<404, t_basic_error>
-  | Response<409, t_basic_error>
+  | Res<200, t_git_ref>
+  | Res<404, t_basic_error>
+  | Res<409, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -17634,9 +17431,9 @@ export type GitCreateRef = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_git_ref>
-  | Response<409, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<201, t_git_ref>
+  | Res<409, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -17658,9 +17455,9 @@ export type GitUpdateRef = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_git_ref>
-  | Response<409, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<200, t_git_ref>
+  | Res<409, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -17677,9 +17474,9 @@ export type GitDeleteRef = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<409, t_basic_error>
-  | Response<422, void>
+  | Res<204, void>
+  | Res<409, t_basic_error>
+  | Res<422, void>
   | typeof SkipResponse
 >
 
@@ -17701,9 +17498,9 @@ export type GitCreateTag = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_git_tag>
-  | Response<409, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<201, t_git_tag>
+  | Res<409, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -17720,9 +17517,9 @@ export type GitGetTag = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_git_tag>
-  | Response<404, t_basic_error>
-  | Response<409, t_basic_error>
+  | Res<200, t_git_tag>
+  | Res<404, t_basic_error>
+  | Res<409, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -17746,11 +17543,11 @@ export type GitCreateTree = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_git_tree>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<409, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<201, t_git_tree>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<409, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -17768,10 +17565,10 @@ export type GitGetTree = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_git_tree>
-  | Response<404, t_basic_error>
-  | Response<409, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<200, t_git_tree>
+  | Res<404, t_basic_error>
+  | Res<409, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -17792,8 +17589,8 @@ export type ReposListWebhooks = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_hook[]>
-  | Response<404, t_basic_error>
+  | Res<200, t_hook[]>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -17816,10 +17613,10 @@ export type ReposCreateWebhook = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_hook>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<201, t_hook>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -17835,8 +17632,8 @@ export type ReposGetWebhook = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_hook>
-  | Response<404, t_basic_error>
+  | Res<200, t_hook>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -17858,9 +17655,9 @@ export type ReposUpdateWebhook = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_hook>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<200, t_hook>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -17876,8 +17673,8 @@ export type ReposDeleteWebhook = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<404, t_basic_error>
+  | Res<204, void>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -17891,9 +17688,7 @@ export type ReposGetWebhookConfigForRepo = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Response<200, t_webhook_config>
-  | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<200, t_webhook_config> | typeof SkipResponse
 >
 
 export type ReposUpdateWebhookConfigForRepoResponder = {
@@ -17911,9 +17706,7 @@ export type ReposUpdateWebhookConfigForRepo = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Response<200, t_webhook_config>
-  | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<200, t_webhook_config> | typeof SkipResponse
 >
 
 export type ReposListWebhookDeliveriesResponder = {
@@ -17934,9 +17727,9 @@ export type ReposListWebhookDeliveries = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_hook_delivery_item[]>
-  | Response<400, t_scim_error>
-  | Response<422, t_validation_error>
+  | Res<200, t_hook_delivery_item[]>
+  | Res<400, t_scim_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -17953,9 +17746,9 @@ export type ReposGetWebhookDelivery = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_hook_delivery>
-  | Response<400, t_scim_error>
-  | Response<422, t_validation_error>
+  | Res<200, t_hook_delivery>
+  | Res<400, t_scim_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -17974,14 +17767,14 @@ export type ReposRedeliverWebhookDelivery = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       202,
       {
         [key: string]: unknown | undefined
       }
     >
-  | Response<400, t_scim_error>
-  | Response<422, t_validation_error>
+  | Res<400, t_scim_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -17997,8 +17790,8 @@ export type ReposPingWebhook = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<404, t_basic_error>
+  | Res<204, void>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -18014,8 +17807,8 @@ export type ReposTestPushWebhook = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<404, t_basic_error>
+  | Res<204, void>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -18032,9 +17825,9 @@ export type MigrationsGetImportStatus = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_import>
-  | Response<404, t_basic_error>
-  | Response<503, t_basic_error>
+  | Res<200, t_import>
+  | Res<404, t_basic_error>
+  | Res<503, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -18057,10 +17850,10 @@ export type MigrationsStartImport = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_import>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error>
-  | Response<503, t_basic_error>
+  | Res<201, t_import>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
+  | Res<503, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -18081,8 +17874,8 @@ export type MigrationsUpdateImport = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_import>
-  | Response<503, t_basic_error>
+  | Res<200, t_import>
+  | Res<503, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -18098,8 +17891,8 @@ export type MigrationsCancelImport = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<503, t_basic_error>
+  | Res<204, void>
+  | Res<503, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -18121,9 +17914,9 @@ export type MigrationsGetCommitAuthors = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_porter_author[]>
-  | Response<404, t_basic_error>
-  | Response<503, t_basic_error>
+  | Res<200, t_porter_author[]>
+  | Res<404, t_basic_error>
+  | Res<503, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -18146,10 +17939,10 @@ export type MigrationsMapCommitAuthor = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_porter_author>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error>
-  | Response<503, t_basic_error>
+  | Res<200, t_porter_author>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
+  | Res<503, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -18165,8 +17958,8 @@ export type MigrationsGetLargeFiles = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_porter_large_file[]>
-  | Response<503, t_basic_error>
+  | Res<200, t_porter_large_file[]>
+  | Res<503, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -18188,9 +17981,9 @@ export type MigrationsSetLfsPreference = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_import>
-  | Response<422, t_validation_error>
-  | Response<503, t_basic_error>
+  | Res<200, t_import>
+  | Res<422, t_validation_error>
+  | Res<503, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -18207,9 +18000,9 @@ export type AppsGetRepoInstallation = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_installation>
-  | Response<301, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<200, t_installation>
+  | Res<301, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -18229,7 +18022,7 @@ export type InteractionsGetRestrictionsForRepo = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_interaction_limit_response | EmptyObject>
+  | Res<200, t_interaction_limit_response | EmptyObject>
   | typeof SkipResponse
 >
 
@@ -18250,8 +18043,8 @@ export type InteractionsSetRestrictionsForRepo = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_interaction_limit_response>
-  | Response<409, void>
+  | Res<200, t_interaction_limit_response>
+  | Res<409, void>
   | typeof SkipResponse
 >
 
@@ -18272,8 +18065,8 @@ export type InteractionsRemoveRestrictionsForRepo = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<409, void>
+  | Res<204, void>
+  | Res<409, void>
   | typeof SkipResponse
 >
 
@@ -18293,7 +18086,7 @@ export type ReposListInvitations = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_repository_invitation[]>
+  | Res<200, t_repository_invitation[]>
   | typeof SkipResponse
 >
 
@@ -18313,7 +18106,7 @@ export type ReposUpdateInvitation = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_repository_invitation>
+  | Res<200, t_repository_invitation>
   | typeof SkipResponse
 >
 
@@ -18326,9 +18119,7 @@ export type ReposDeleteInvitation = (
   respond: ReposDeleteInvitationResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<204, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type IssuesListForRepoResponder = {
   with200(): KoaRuntimeResponse<t_issue[]>
@@ -18349,10 +18140,10 @@ export type IssuesListForRepo = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_issue[]>
-  | Response<301, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<200, t_issue[]>
+  | Res<301, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -18382,13 +18173,13 @@ export type IssuesCreate = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_issue>
-  | Response<400, t_scim_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<410, t_basic_error>
-  | Response<422, t_validation_error>
-  | Response<
+  | Res<201, t_issue>
+  | Res<400, t_scim_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<410, t_basic_error>
+  | Res<422, t_validation_error>
+  | Res<
       503,
       {
         code?: string
@@ -18417,9 +18208,9 @@ export type IssuesListCommentsForRepo = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_issue_comment[]>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<200, t_issue_comment[]>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -18435,8 +18226,8 @@ export type IssuesGetComment = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_issue_comment>
-  | Response<404, t_basic_error>
+  | Res<200, t_issue_comment>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -18457,8 +18248,8 @@ export type IssuesUpdateComment = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_issue_comment>
-  | Response<422, t_validation_error>
+  | Res<200, t_issue_comment>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -18471,9 +18262,7 @@ export type IssuesDeleteComment = (
   respond: IssuesDeleteCommentResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<204, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type ReactionsListForIssueCommentResponder = {
   with200(): KoaRuntimeResponse<t_reaction[]>
@@ -18492,8 +18281,8 @@ export type ReactionsListForIssueComment = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_reaction[]>
-  | Response<404, t_basic_error>
+  | Res<200, t_reaction[]>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -18515,9 +18304,9 @@ export type ReactionsCreateForIssueComment = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_reaction>
-  | Response<201, t_reaction>
-  | Response<422, t_validation_error>
+  | Res<200, t_reaction>
+  | Res<201, t_reaction>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -18530,9 +18319,7 @@ export type ReactionsDeleteForIssueComment = (
   respond: ReactionsDeleteForIssueCommentResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<204, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type IssuesListEventsForRepoResponder = {
   with200(): KoaRuntimeResponse<t_issue_event[]>
@@ -18551,8 +18338,8 @@ export type IssuesListEventsForRepo = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_issue_event[]>
-  | Response<422, t_validation_error>
+  | Res<200, t_issue_event[]>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -18570,10 +18357,10 @@ export type IssuesGetEvent = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_issue_event>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<410, t_basic_error>
+  | Res<200, t_issue_event>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<410, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -18592,11 +18379,11 @@ export type IssuesGet = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_issue>
-  | Response<301, t_basic_error>
-  | Response<304, void>
-  | Response<404, t_basic_error>
-  | Response<410, t_basic_error>
+  | Res<200, t_issue>
+  | Res<301, t_basic_error>
+  | Res<304, void>
+  | Res<404, t_basic_error>
+  | Res<410, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -18626,13 +18413,13 @@ export type IssuesUpdate = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_issue>
-  | Response<301, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<410, t_basic_error>
-  | Response<422, t_validation_error>
-  | Response<
+  | Res<200, t_issue>
+  | Res<301, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<410, t_basic_error>
+  | Res<422, t_validation_error>
+  | Res<
       503,
       {
         code?: string
@@ -18658,7 +18445,7 @@ export type IssuesAddAssignees = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  KoaRuntimeResponse<unknown> | Response<201, t_issue> | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<201, t_issue> | typeof SkipResponse
 >
 
 export type IssuesRemoveAssigneesResponder = {
@@ -18676,7 +18463,7 @@ export type IssuesRemoveAssignees = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  KoaRuntimeResponse<unknown> | Response<200, t_issue> | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<200, t_issue> | typeof SkipResponse
 >
 
 export type IssuesCheckUserCanBeAssignedToIssueResponder = {
@@ -18696,8 +18483,8 @@ export type IssuesCheckUserCanBeAssignedToIssue = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<404, t_basic_error>
+  | Res<204, void>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -18719,9 +18506,9 @@ export type IssuesListComments = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_issue_comment[]>
-  | Response<404, t_basic_error>
-  | Response<410, t_basic_error>
+  | Res<200, t_issue_comment[]>
+  | Res<404, t_basic_error>
+  | Res<410, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -18745,11 +18532,11 @@ export type IssuesCreateComment = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_issue_comment>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<410, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<201, t_issue_comment>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<410, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -18770,8 +18557,8 @@ export type IssuesListEvents = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_issue_event_for_issue[]>
-  | Response<410, t_basic_error>
+  | Res<200, t_issue_event_for_issue[]>
+  | Res<410, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -18794,10 +18581,10 @@ export type IssuesListLabelsOnIssue = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_label[]>
-  | Response<301, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<410, t_basic_error>
+  | Res<200, t_label[]>
+  | Res<301, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<410, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -18821,11 +18608,11 @@ export type IssuesAddLabels = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_label[]>
-  | Response<301, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<410, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<200, t_label[]>
+  | Res<301, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<410, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -18849,11 +18636,11 @@ export type IssuesSetLabels = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_label[]>
-  | Response<301, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<410, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<200, t_label[]>
+  | Res<301, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<410, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -18871,10 +18658,10 @@ export type IssuesRemoveAllLabels = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<301, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<410, t_basic_error>
+  | Res<204, void>
+  | Res<301, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<410, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -18892,10 +18679,10 @@ export type IssuesRemoveLabel = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_label[]>
-  | Response<301, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<410, t_basic_error>
+  | Res<200, t_label[]>
+  | Res<301, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<410, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -18919,11 +18706,11 @@ export type IssuesLock = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<410, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<204, void>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<410, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -18940,9 +18727,9 @@ export type IssuesUnlock = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<204, void>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -18964,9 +18751,9 @@ export type ReactionsListForIssue = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_reaction[]>
-  | Response<404, t_basic_error>
-  | Response<410, t_basic_error>
+  | Res<200, t_reaction[]>
+  | Res<404, t_basic_error>
+  | Res<410, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -18988,9 +18775,9 @@ export type ReactionsCreateForIssue = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_reaction>
-  | Response<201, t_reaction>
-  | Response<422, t_validation_error>
+  | Res<200, t_reaction>
+  | Res<201, t_reaction>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -19003,9 +18790,7 @@ export type ReactionsDeleteForIssue = (
   respond: ReactionsDeleteForIssueResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<204, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type IssuesRemoveSubIssueResponder = {
   with200(): KoaRuntimeResponse<t_issue>
@@ -19025,9 +18810,9 @@ export type IssuesRemoveSubIssue = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_issue>
-  | Response<400, t_scim_error>
-  | Response<404, t_basic_error>
+  | Res<200, t_issue>
+  | Res<400, t_scim_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -19049,9 +18834,9 @@ export type IssuesListSubIssues = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_issue[]>
-  | Response<404, t_basic_error>
-  | Response<410, t_basic_error>
+  | Res<200, t_issue[]>
+  | Res<404, t_basic_error>
+  | Res<410, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -19075,11 +18860,11 @@ export type IssuesAddSubIssue = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_issue>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<410, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<201, t_issue>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<410, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -19107,11 +18892,11 @@ export type IssuesReprioritizeSubIssue = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_issue>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error_simple>
-  | Response<
+  | Res<200, t_issue>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error_simple>
+  | Res<
       503,
       {
         code?: string
@@ -19140,9 +18925,9 @@ export type IssuesListEventsForTimeline = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_timeline_issue_events[]>
-  | Response<404, t_basic_error>
-  | Response<410, t_basic_error>
+  | Res<200, t_timeline_issue_events[]>
+  | Res<404, t_basic_error>
+  | Res<410, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -19161,9 +18946,7 @@ export type ReposListDeployKeys = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Response<200, t_deploy_key[]>
-  | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<200, t_deploy_key[]> | typeof SkipResponse
 >
 
 export type ReposCreateDeployKeyResponder = {
@@ -19183,8 +18966,8 @@ export type ReposCreateDeployKey = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_deploy_key>
-  | Response<422, t_validation_error>
+  | Res<201, t_deploy_key>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -19200,8 +18983,8 @@ export type ReposGetDeployKey = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_deploy_key>
-  | Response<404, t_basic_error>
+  | Res<200, t_deploy_key>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -19214,9 +18997,7 @@ export type ReposDeleteDeployKey = (
   respond: ReposDeleteDeployKeyResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<204, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type IssuesListLabelsForRepoResponder = {
   with200(): KoaRuntimeResponse<t_label[]>
@@ -19235,8 +19016,8 @@ export type IssuesListLabelsForRepo = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_label[]>
-  | Response<404, t_basic_error>
+  | Res<200, t_label[]>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -19258,9 +19039,9 @@ export type IssuesCreateLabel = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_label>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<201, t_label>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -19276,8 +19057,8 @@ export type IssuesGetLabel = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_label>
-  | Response<404, t_basic_error>
+  | Res<200, t_label>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -19296,7 +19077,7 @@ export type IssuesUpdateLabel = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  KoaRuntimeResponse<unknown> | Response<200, t_label> | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<200, t_label> | typeof SkipResponse
 >
 
 export type IssuesDeleteLabelResponder = {
@@ -19308,9 +19089,7 @@ export type IssuesDeleteLabel = (
   respond: IssuesDeleteLabelResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<204, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type ReposListLanguagesResponder = {
   with200(): KoaRuntimeResponse<t_language>
@@ -19322,7 +19101,7 @@ export type ReposListLanguages = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  KoaRuntimeResponse<unknown> | Response<200, t_language> | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<200, t_language> | typeof SkipResponse
 >
 
 export type LicensesGetForRepoResponder = {
@@ -19342,8 +19121,8 @@ export type LicensesGetForRepo = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_license_content>
-  | Response<404, t_basic_error>
+  | Res<200, t_license_content>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -19365,9 +19144,9 @@ export type ReposMergeUpstream = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_merged_upstream>
-  | Response<409, void>
-  | Response<422, void>
+  | Res<200, t_merged_upstream>
+  | Res<409, void>
+  | Res<422, void>
   | typeof SkipResponse
 >
 
@@ -19387,12 +19166,12 @@ export type ReposMerge = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_commit>
-  | Response<204, void>
-  | Response<403, t_basic_error>
-  | Response<404, void>
-  | Response<409, void>
-  | Response<422, t_validation_error>
+  | Res<201, t_commit>
+  | Res<204, void>
+  | Res<403, t_basic_error>
+  | Res<404, void>
+  | Res<409, void>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -19413,8 +19192,8 @@ export type IssuesListMilestones = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_milestone[]>
-  | Response<404, t_basic_error>
+  | Res<200, t_milestone[]>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -19436,9 +19215,9 @@ export type IssuesCreateMilestone = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_milestone>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<201, t_milestone>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -19454,8 +19233,8 @@ export type IssuesGetMilestone = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_milestone>
-  | Response<404, t_basic_error>
+  | Res<200, t_milestone>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -19474,7 +19253,7 @@ export type IssuesUpdateMilestone = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  KoaRuntimeResponse<unknown> | Response<200, t_milestone> | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<200, t_milestone> | typeof SkipResponse
 >
 
 export type IssuesDeleteMilestoneResponder = {
@@ -19489,8 +19268,8 @@ export type IssuesDeleteMilestone = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<404, t_basic_error>
+  | Res<204, void>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -19509,7 +19288,7 @@ export type IssuesListLabelsForMilestone = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  KoaRuntimeResponse<unknown> | Response<200, t_label[]> | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<200, t_label[]> | typeof SkipResponse
 >
 
 export type ActivityListRepoNotificationsForAuthenticatedUserResponder = {
@@ -19527,7 +19306,7 @@ export type ActivityListRepoNotificationsForAuthenticatedUser = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  KoaRuntimeResponse<unknown> | Response<200, t_thread[]> | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<200, t_thread[]> | typeof SkipResponse
 >
 
 export type ActivityMarkRepoNotificationsAsReadResponder = {
@@ -19550,14 +19329,14 @@ export type ActivityMarkRepoNotificationsAsRead = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       202,
       {
         message?: string
         url?: string
       }
     >
-  | Response<205, void>
+  | Res<205, void>
   | typeof SkipResponse
 >
 
@@ -19573,8 +19352,8 @@ export type ReposGetPages = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_page>
-  | Response<404, t_basic_error>
+  | Res<200, t_page>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -19596,9 +19375,9 @@ export type ReposCreatePagesSite = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_page>
-  | Response<409, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<201, t_page>
+  | Res<409, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -19621,10 +19400,10 @@ export type ReposUpdateInformationAboutPagesSite = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<400, t_scim_error>
-  | Response<409, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<204, void>
+  | Res<400, t_scim_error>
+  | Res<409, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -19642,10 +19421,10 @@ export type ReposDeletePagesSite = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<404, t_basic_error>
-  | Response<409, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<204, void>
+  | Res<404, t_basic_error>
+  | Res<409, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -19664,9 +19443,7 @@ export type ReposListPagesBuilds = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Response<200, t_page_build[]>
-  | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<200, t_page_build[]> | typeof SkipResponse
 >
 
 export type ReposRequestPagesBuildResponder = {
@@ -19680,7 +19457,7 @@ export type ReposRequestPagesBuild = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_page_build_status>
+  | Res<201, t_page_build_status>
   | typeof SkipResponse
 >
 
@@ -19694,9 +19471,7 @@ export type ReposGetLatestPagesBuild = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Response<200, t_page_build>
-  | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<200, t_page_build> | typeof SkipResponse
 >
 
 export type ReposGetPagesBuildResponder = {
@@ -19709,9 +19484,7 @@ export type ReposGetPagesBuild = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Response<200, t_page_build>
-  | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<200, t_page_build> | typeof SkipResponse
 >
 
 export type ReposCreatePagesDeploymentResponder = {
@@ -19733,10 +19506,10 @@ export type ReposCreatePagesDeployment = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_page_deployment>
-  | Response<400, t_scim_error>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<200, t_page_deployment>
+  | Res<400, t_scim_error>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -19752,8 +19525,8 @@ export type ReposGetPagesDeployment = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_pages_deployment_status>
-  | Response<404, t_basic_error>
+  | Res<200, t_pages_deployment_status>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -19769,8 +19542,8 @@ export type ReposCancelPagesDeployment = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<404, t_basic_error>
+  | Res<204, void>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -19789,11 +19562,11 @@ export type ReposGetPagesHealthCheck = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_pages_health_check>
-  | Response<202, t_empty_object>
-  | Response<400, void>
-  | Response<404, t_basic_error>
-  | Response<422, void>
+  | Res<200, t_pages_health_check>
+  | Res<202, t_empty_object>
+  | Res<400, void>
+  | Res<404, t_basic_error>
+  | Res<422, void>
   | typeof SkipResponse
 >
 
@@ -19816,13 +19589,13 @@ export type ReposCheckPrivateVulnerabilityReporting = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         enabled: boolean
       }
     >
-  | Response<422, t_scim_error>
+  | Res<422, t_scim_error>
   | typeof SkipResponse
 >
 
@@ -19843,8 +19616,8 @@ export type ReposEnablePrivateVulnerabilityReporting = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<422, t_scim_error>
+  | Res<204, void>
+  | Res<422, t_scim_error>
   | typeof SkipResponse
 >
 
@@ -19865,8 +19638,8 @@ export type ReposDisablePrivateVulnerabilityReporting = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<422, t_scim_error>
+  | Res<204, void>
+  | Res<422, t_scim_error>
   | typeof SkipResponse
 >
 
@@ -19891,12 +19664,12 @@ export type ProjectsClassicListForRepo = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_project[]>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<410, t_basic_error>
-  | Response<422, t_validation_error_simple>
+  | Res<200, t_project[]>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<410, t_basic_error>
+  | Res<422, t_validation_error_simple>
   | typeof SkipResponse
 >
 
@@ -19921,12 +19694,12 @@ export type ProjectsClassicCreateForRepo = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_project>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<410, t_basic_error>
-  | Response<422, t_validation_error_simple>
+  | Res<201, t_project>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<410, t_basic_error>
+  | Res<422, t_validation_error_simple>
   | typeof SkipResponse
 >
 
@@ -19943,9 +19716,9 @@ export type ReposGetCustomPropertiesValues = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_custom_property_value[]>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<200, t_custom_property_value[]>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -19968,10 +19741,10 @@ export type ReposCreateOrUpdateCustomPropertiesValues = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<204, void>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -19988,9 +19761,9 @@ export type PullsList = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_pull_request_simple[]>
-  | Response<304, void>
-  | Response<422, t_validation_error>
+  | Res<200, t_pull_request_simple[]>
+  | Res<304, void>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -20012,9 +19785,9 @@ export type PullsCreate = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_pull_request>
-  | Response<403, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<201, t_pull_request>
+  | Res<403, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -20034,7 +19807,7 @@ export type PullsListReviewCommentsForRepo = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_pull_request_review_comment[]>
+  | Res<200, t_pull_request_review_comment[]>
   | typeof SkipResponse
 >
 
@@ -20050,8 +19823,8 @@ export type PullsGetReviewComment = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_pull_request_review_comment>
-  | Response<404, t_basic_error>
+  | Res<200, t_pull_request_review_comment>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -20071,7 +19844,7 @@ export type PullsUpdateReviewComment = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_pull_request_review_comment>
+  | Res<200, t_pull_request_review_comment>
   | typeof SkipResponse
 >
 
@@ -20087,8 +19860,8 @@ export type PullsDeleteReviewComment = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<404, t_basic_error>
+  | Res<204, void>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -20109,8 +19882,8 @@ export type ReactionsListForPullRequestReviewComment = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_reaction[]>
-  | Response<404, t_basic_error>
+  | Res<200, t_reaction[]>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -20132,9 +19905,9 @@ export type ReactionsCreateForPullRequestReviewComment = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_reaction>
-  | Response<201, t_reaction>
-  | Response<422, t_validation_error>
+  | Res<200, t_reaction>
+  | Res<201, t_reaction>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -20152,9 +19925,7 @@ export type ReactionsDeleteForPullRequestComment = (
   respond: ReactionsDeleteForPullRequestCommentResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<204, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type PullsGetResponder = {
   with200(): KoaRuntimeResponse<t_pull_request>
@@ -20176,12 +19947,12 @@ export type PullsGet = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_pull_request>
-  | Response<304, void>
-  | Response<404, t_basic_error>
-  | Response<406, t_basic_error>
-  | Response<500, t_basic_error>
-  | Response<
+  | Res<200, t_pull_request>
+  | Res<304, void>
+  | Res<404, t_basic_error>
+  | Res<406, t_basic_error>
+  | Res<500, t_basic_error>
+  | Res<
       503,
       {
         code?: string
@@ -20210,9 +19981,9 @@ export type PullsUpdate = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_pull_request>
-  | Response<403, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<200, t_pull_request>
+  | Res<403, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -20241,12 +20012,12 @@ export type CodespacesCreateWithPrForAuthenticatedUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_codespace>
-  | Response<202, t_codespace>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<
+  | Res<201, t_codespace>
+  | Res<202, t_codespace>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<
       503,
       {
         code?: string
@@ -20273,7 +20044,7 @@ export type PullsListReviewComments = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_pull_request_review_comment[]>
+  | Res<200, t_pull_request_review_comment[]>
   | typeof SkipResponse
 >
 
@@ -20295,9 +20066,9 @@ export type PullsCreateReviewComment = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_pull_request_review_comment>
-  | Response<403, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<201, t_pull_request_review_comment>
+  | Res<403, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -20318,8 +20089,8 @@ export type PullsCreateReplyForReviewComment = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_pull_request_review_comment>
-  | Response<404, t_basic_error>
+  | Res<201, t_pull_request_review_comment>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -20338,7 +20109,7 @@ export type PullsListCommits = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  KoaRuntimeResponse<unknown> | Response<200, t_commit[]> | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<200, t_commit[]> | typeof SkipResponse
 >
 
 export type PullsListFilesResponder = {
@@ -20364,10 +20135,10 @@ export type PullsListFiles = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_diff_entry[]>
-  | Response<422, t_validation_error>
-  | Response<500, t_basic_error>
-  | Response<
+  | Res<200, t_diff_entry[]>
+  | Res<422, t_validation_error>
+  | Res<500, t_basic_error>
+  | Res<
       503,
       {
         code?: string
@@ -20390,8 +20161,8 @@ export type PullsCheckIfMerged = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<404, void>
+  | Res<204, void>
+  | Res<404, void>
   | typeof SkipResponse
 >
 
@@ -20422,24 +20193,24 @@ export type PullsMerge = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_pull_request_merge_result>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<
+  | Res<200, t_pull_request_merge_result>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<
       405,
       {
         documentation_url?: string
         message?: string
       }
     >
-  | Response<
+  | Res<
       409,
       {
         documentation_url?: string
         message?: string
       }
     >
-  | Response<422, t_validation_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -20454,7 +20225,7 @@ export type PullsListRequestedReviewers = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_pull_request_review_request>
+  | Res<200, t_pull_request_review_request>
   | typeof SkipResponse
 >
 
@@ -20476,9 +20247,9 @@ export type PullsRequestReviewers = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_pull_request_simple>
-  | Response<403, t_basic_error>
-  | Response<422, void>
+  | Res<201, t_pull_request_simple>
+  | Res<403, t_basic_error>
+  | Res<422, void>
   | typeof SkipResponse
 >
 
@@ -20499,8 +20270,8 @@ export type PullsRemoveRequestedReviewers = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_pull_request_simple>
-  | Response<422, t_validation_error>
+  | Res<200, t_pull_request_simple>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -20520,7 +20291,7 @@ export type PullsListReviews = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_pull_request_review[]>
+  | Res<200, t_pull_request_review[]>
   | typeof SkipResponse
 >
 
@@ -20542,9 +20313,9 @@ export type PullsCreateReview = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_pull_request_review>
-  | Response<403, t_basic_error>
-  | Response<422, t_validation_error_simple>
+  | Res<200, t_pull_request_review>
+  | Res<403, t_basic_error>
+  | Res<422, t_validation_error_simple>
   | typeof SkipResponse
 >
 
@@ -20560,8 +20331,8 @@ export type PullsGetReview = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_pull_request_review>
-  | Response<404, t_basic_error>
+  | Res<200, t_pull_request_review>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -20582,8 +20353,8 @@ export type PullsUpdateReview = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_pull_request_review>
-  | Response<422, t_validation_error_simple>
+  | Res<200, t_pull_request_review>
+  | Res<422, t_validation_error_simple>
   | typeof SkipResponse
 >
 
@@ -20600,9 +20371,9 @@ export type PullsDeletePendingReview = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_pull_request_review>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error_simple>
+  | Res<200, t_pull_request_review>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error_simple>
   | typeof SkipResponse
 >
 
@@ -20623,8 +20394,8 @@ export type PullsListCommentsForReview = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_review_comment[]>
-  | Response<404, t_basic_error>
+  | Res<200, t_review_comment[]>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -20646,9 +20417,9 @@ export type PullsDismissReview = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_pull_request_review>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error_simple>
+  | Res<200, t_pull_request_review>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error_simple>
   | typeof SkipResponse
 >
 
@@ -20671,10 +20442,10 @@ export type PullsSubmitReview = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_pull_request_review>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error_simple>
+  | Res<200, t_pull_request_review>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error_simple>
   | typeof SkipResponse
 >
 
@@ -20699,15 +20470,15 @@ export type PullsUpdateBranch = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       202,
       {
         message?: string
         url?: string
       }
     >
-  | Response<403, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<403, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -20730,10 +20501,10 @@ export type ReposGetReadme = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_content_file>
-  | Response<304, void>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<200, t_content_file>
+  | Res<304, void>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -20755,9 +20526,9 @@ export type ReposGetReadmeInDirectory = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_content_file>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<200, t_content_file>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -20778,8 +20549,8 @@ export type ReposListReleases = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_release[]>
-  | Response<404, t_basic_error>
+  | Res<200, t_release[]>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -20801,9 +20572,9 @@ export type ReposCreateRelease = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_release>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<201, t_release>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -20820,9 +20591,9 @@ export type ReposGetReleaseAsset = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_release_asset>
-  | Response<302, void>
-  | Response<404, t_basic_error>
+  | Res<200, t_release_asset>
+  | Res<302, void>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -20841,9 +20612,7 @@ export type ReposUpdateReleaseAsset = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Response<200, t_release_asset>
-  | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<200, t_release_asset> | typeof SkipResponse
 >
 
 export type ReposDeleteReleaseAssetResponder = {
@@ -20855,9 +20624,7 @@ export type ReposDeleteReleaseAsset = (
   respond: ReposDeleteReleaseAssetResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<204, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type ReposGenerateReleaseNotesResponder = {
   with200(): KoaRuntimeResponse<t_release_notes_content>
@@ -20876,8 +20643,8 @@ export type ReposGenerateReleaseNotes = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_release_notes_content>
-  | Response<404, t_basic_error>
+  | Res<200, t_release_notes_content>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -20891,7 +20658,7 @@ export type ReposGetLatestRelease = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  KoaRuntimeResponse<unknown> | Response<200, t_release> | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<200, t_release> | typeof SkipResponse
 >
 
 export type ReposGetReleaseByTagResponder = {
@@ -20906,8 +20673,8 @@ export type ReposGetReleaseByTag = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_release>
-  | Response<404, t_basic_error>
+  | Res<200, t_release>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -20923,8 +20690,8 @@ export type ReposGetRelease = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_release>
-  | Response<401, void>
+  | Res<200, t_release>
+  | Res<401, void>
   | typeof SkipResponse
 >
 
@@ -20945,8 +20712,8 @@ export type ReposUpdateRelease = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_release>
-  | Response<404, t_basic_error>
+  | Res<200, t_release>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -20959,9 +20726,7 @@ export type ReposDeleteRelease = (
   respond: ReposDeleteReleaseResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<204, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type ReposListReleaseAssetsResponder = {
   with200(): KoaRuntimeResponse<t_release_asset[]>
@@ -20979,7 +20744,7 @@ export type ReposListReleaseAssets = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_release_asset[]>
+  | Res<200, t_release_asset[]>
   | typeof SkipResponse
 >
 
@@ -21000,8 +20765,8 @@ export type ReposUploadReleaseAsset = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_release_asset>
-  | Response<422, void>
+  | Res<201, t_release_asset>
+  | Res<422, void>
   | typeof SkipResponse
 >
 
@@ -21022,8 +20787,8 @@ export type ReactionsListForRelease = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_reaction[]>
-  | Response<404, t_basic_error>
+  | Res<200, t_reaction[]>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -21045,9 +20810,9 @@ export type ReactionsCreateForRelease = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_reaction>
-  | Response<201, t_reaction>
-  | Response<422, t_validation_error>
+  | Res<200, t_reaction>
+  | Res<201, t_reaction>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -21060,9 +20825,7 @@ export type ReactionsDeleteForRelease = (
   respond: ReactionsDeleteForReleaseResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<204, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type ReposGetBranchRulesResponder = {
   with200(): KoaRuntimeResponse<t_repository_rule_detailed[]>
@@ -21080,7 +20843,7 @@ export type ReposGetBranchRules = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_repository_rule_detailed[]>
+  | Res<200, t_repository_rule_detailed[]>
   | typeof SkipResponse
 >
 
@@ -21102,9 +20865,9 @@ export type ReposGetRepoRulesets = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_repository_ruleset[]>
-  | Response<404, t_basic_error>
-  | Response<500, t_basic_error>
+  | Res<200, t_repository_ruleset[]>
+  | Res<404, t_basic_error>
+  | Res<500, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -21126,9 +20889,9 @@ export type ReposCreateRepoRuleset = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_repository_ruleset>
-  | Response<404, t_basic_error>
-  | Response<500, t_basic_error>
+  | Res<201, t_repository_ruleset>
+  | Res<404, t_basic_error>
+  | Res<500, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -21150,9 +20913,9 @@ export type ReposGetRepoRuleSuites = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_rule_suites>
-  | Response<404, t_basic_error>
-  | Response<500, t_basic_error>
+  | Res<200, t_rule_suites>
+  | Res<404, t_basic_error>
+  | Res<500, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -21169,9 +20932,9 @@ export type ReposGetRepoRuleSuite = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_rule_suite>
-  | Response<404, t_basic_error>
-  | Response<500, t_basic_error>
+  | Res<200, t_rule_suite>
+  | Res<404, t_basic_error>
+  | Res<500, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -21193,9 +20956,9 @@ export type ReposGetRepoRuleset = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_repository_ruleset>
-  | Response<404, t_basic_error>
-  | Response<500, t_basic_error>
+  | Res<200, t_repository_ruleset>
+  | Res<404, t_basic_error>
+  | Res<500, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -21217,9 +20980,9 @@ export type ReposUpdateRepoRuleset = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_repository_ruleset>
-  | Response<404, t_basic_error>
-  | Response<500, t_basic_error>
+  | Res<200, t_repository_ruleset>
+  | Res<404, t_basic_error>
+  | Res<500, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -21236,9 +20999,9 @@ export type ReposDeleteRepoRuleset = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<404, t_basic_error>
-  | Response<500, t_basic_error>
+  | Res<204, void>
+  | Res<404, t_basic_error>
+  | Res<500, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -21260,9 +21023,9 @@ export type ReposGetRepoRulesetHistory = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_ruleset_version[]>
-  | Response<404, t_basic_error>
-  | Response<500, t_basic_error>
+  | Res<200, t_ruleset_version[]>
+  | Res<404, t_basic_error>
+  | Res<500, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -21279,9 +21042,9 @@ export type ReposGetRepoRulesetVersion = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_ruleset_version_with_state>
-  | Response<404, t_basic_error>
-  | Response<500, t_basic_error>
+  | Res<200, t_ruleset_version_with_state>
+  | Res<404, t_basic_error>
+  | Res<500, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -21307,9 +21070,9 @@ export type SecretScanningListAlertsForRepo = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_secret_scanning_alert[]>
-  | Response<404, void>
-  | Response<
+  | Res<200, t_secret_scanning_alert[]>
+  | Res<404, void>
+  | Res<
       503,
       {
         code?: string
@@ -21343,10 +21106,10 @@ export type SecretScanningGetAlert = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_secret_scanning_alert>
-  | Response<304, void>
-  | Response<404, void>
-  | Response<
+  | Res<200, t_secret_scanning_alert>
+  | Res<304, void>
+  | Res<404, void>
+  | Res<
       503,
       {
         code?: string
@@ -21381,11 +21144,11 @@ export type SecretScanningUpdateAlert = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_secret_scanning_alert>
-  | Response<400, void>
-  | Response<404, void>
-  | Response<422, void>
-  | Response<
+  | Res<200, t_secret_scanning_alert>
+  | Res<400, void>
+  | Res<404, void>
+  | Res<422, void>
+  | Res<
       503,
       {
         code?: string
@@ -21418,9 +21181,9 @@ export type SecretScanningListLocationsForAlert = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_secret_scanning_location[]>
-  | Response<404, void>
-  | Response<
+  | Res<200, t_secret_scanning_location[]>
+  | Res<404, void>
+  | Res<
       503,
       {
         code?: string
@@ -21455,11 +21218,11 @@ export type SecretScanningCreatePushProtectionBypass = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_secret_scanning_push_protection_bypass>
-  | Response<403, void>
-  | Response<404, void>
-  | Response<422, void>
-  | Response<
+  | Res<200, t_secret_scanning_push_protection_bypass>
+  | Res<403, void>
+  | Res<404, void>
+  | Res<422, void>
+  | Res<
       503,
       {
         code?: string
@@ -21487,9 +21250,9 @@ export type SecretScanningGetScanHistory = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_secret_scanning_scan_history>
-  | Response<404, void>
-  | Response<
+  | Res<200, t_secret_scanning_scan_history>
+  | Res<404, void>
+  | Res<
       503,
       {
         code?: string
@@ -21518,9 +21281,9 @@ export type SecurityAdvisoriesListRepositoryAdvisories = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_repository_advisory[]>
-  | Response<400, t_scim_error>
-  | Response<404, t_basic_error>
+  | Res<200, t_repository_advisory[]>
+  | Res<400, t_scim_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -21543,10 +21306,10 @@ export type SecurityAdvisoriesCreateRepositoryAdvisory = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_repository_advisory>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<201, t_repository_advisory>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -21569,10 +21332,10 @@ export type SecurityAdvisoriesCreatePrivateVulnerabilityReport = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_repository_advisory>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<201, t_repository_advisory>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -21594,9 +21357,9 @@ export type SecurityAdvisoriesGetRepositoryAdvisory = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_repository_advisory>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<200, t_repository_advisory>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -21619,10 +21382,10 @@ export type SecurityAdvisoriesUpdateRepositoryAdvisory = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_repository_advisory>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<200, t_repository_advisory>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -21648,16 +21411,16 @@ export type SecurityAdvisoriesCreateRepositoryAdvisoryCveRequest = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       202,
       {
         [key: string]: unknown | undefined
       }
     >
-  | Response<400, t_scim_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<400, t_scim_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -21676,11 +21439,11 @@ export type SecurityAdvisoriesCreateFork = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<202, t_full_repository>
-  | Response<400, t_scim_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<202, t_full_repository>
+  | Res<400, t_scim_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -21701,8 +21464,8 @@ export type ActivityListStargazersForRepo = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_simple_user[] | t_stargazer[]>
-  | Response<422, t_validation_error>
+  | Res<200, t_simple_user[] | t_stargazer[]>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -21722,15 +21485,15 @@ export type ReposGetCodeFrequencyStats = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_code_frequency_stat[]>
-  | Response<
+  | Res<200, t_code_frequency_stat[]>
+  | Res<
       202,
       {
         [key: string]: unknown | undefined
       }
     >
-  | Response<204, void>
-  | Response<422, void>
+  | Res<204, void>
+  | Res<422, void>
   | typeof SkipResponse
 >
 
@@ -21749,14 +21512,14 @@ export type ReposGetCommitActivityStats = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_commit_activity[]>
-  | Response<
+  | Res<200, t_commit_activity[]>
+  | Res<
       202,
       {
         [key: string]: unknown | undefined
       }
     >
-  | Response<204, void>
+  | Res<204, void>
   | typeof SkipResponse
 >
 
@@ -21775,14 +21538,14 @@ export type ReposGetContributorsStats = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_contributor_activity[]>
-  | Response<
+  | Res<200, t_contributor_activity[]>
+  | Res<
       202,
       {
         [key: string]: unknown | undefined
       }
     >
-  | Response<204, void>
+  | Res<204, void>
   | typeof SkipResponse
 >
 
@@ -21798,8 +21561,8 @@ export type ReposGetParticipationStats = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_participation_stats>
-  | Response<404, t_basic_error>
+  | Res<200, t_participation_stats>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -21815,8 +21578,8 @@ export type ReposGetPunchCardStats = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_code_frequency_stat[]>
-  | Response<204, void>
+  | Res<200, t_code_frequency_stat[]>
+  | Res<204, void>
   | typeof SkipResponse
 >
 
@@ -21835,7 +21598,7 @@ export type ReposCreateCommitStatus = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  KoaRuntimeResponse<unknown> | Response<201, t_status> | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<201, t_status> | typeof SkipResponse
 >
 
 export type ActivityListWatchersForRepoResponder = {
@@ -21853,9 +21616,7 @@ export type ActivityListWatchersForRepo = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Response<200, t_simple_user[]>
-  | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<200, t_simple_user[]> | typeof SkipResponse
 >
 
 export type ActivityGetRepoSubscriptionResponder = {
@@ -21871,9 +21632,9 @@ export type ActivityGetRepoSubscription = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_repository_subscription>
-  | Response<403, t_basic_error>
-  | Response<404, void>
+  | Res<200, t_repository_subscription>
+  | Res<403, t_basic_error>
+  | Res<404, void>
   | typeof SkipResponse
 >
 
@@ -21893,7 +21654,7 @@ export type ActivitySetRepoSubscription = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_repository_subscription>
+  | Res<200, t_repository_subscription>
   | typeof SkipResponse
 >
 
@@ -21906,9 +21667,7 @@ export type ActivityDeleteRepoSubscription = (
   respond: ActivityDeleteRepoSubscriptionResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<204, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type ReposListTagsResponder = {
   with200(): KoaRuntimeResponse<t_tag[]>
@@ -21925,7 +21684,7 @@ export type ReposListTags = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  KoaRuntimeResponse<unknown> | Response<200, t_tag[]> | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<200, t_tag[]> | typeof SkipResponse
 >
 
 export type ReposListTagProtectionResponder = {
@@ -21941,9 +21700,9 @@ export type ReposListTagProtection = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_tag_protection[]>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<200, t_tag_protection[]>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -21965,9 +21724,9 @@ export type ReposCreateTagProtection = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_tag_protection>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<201, t_tag_protection>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -21984,9 +21743,9 @@ export type ReposDeleteTagProtection = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<204, void>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -21999,9 +21758,7 @@ export type ReposDownloadTarballArchive = (
   respond: ReposDownloadTarballArchiveResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<302, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<302, void> | typeof SkipResponse>
 
 export type ReposListTeamsResponder = {
   with200(): KoaRuntimeResponse<t_team[]>
@@ -22020,8 +21777,8 @@ export type ReposListTeams = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_team[]>
-  | Response<404, t_basic_error>
+  | Res<200, t_team[]>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -22042,8 +21799,8 @@ export type ReposGetAllTopics = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_topic>
-  | Response<404, t_basic_error>
+  | Res<200, t_topic>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -22065,9 +21822,9 @@ export type ReposReplaceAllTopics = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_topic>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error_simple>
+  | Res<200, t_topic>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error_simple>
   | typeof SkipResponse
 >
 
@@ -22088,8 +21845,8 @@ export type ReposGetClones = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_clone_traffic>
-  | Response<403, t_basic_error>
+  | Res<200, t_clone_traffic>
+  | Res<403, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -22105,8 +21862,8 @@ export type ReposGetTopPaths = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_content_traffic[]>
-  | Response<403, t_basic_error>
+  | Res<200, t_content_traffic[]>
+  | Res<403, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -22122,8 +21879,8 @@ export type ReposGetTopReferrers = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_referrer_traffic[]>
-  | Response<403, t_basic_error>
+  | Res<200, t_referrer_traffic[]>
+  | Res<403, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -22144,8 +21901,8 @@ export type ReposGetViews = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_view_traffic>
-  | Response<403, t_basic_error>
+  | Res<200, t_view_traffic>
+  | Res<403, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -22165,7 +21922,7 @@ export type ReposTransfer = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<202, t_minimal_repository>
+  | Res<202, t_minimal_repository>
   | typeof SkipResponse
 >
 
@@ -22181,8 +21938,8 @@ export type ReposCheckVulnerabilityAlerts = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<404, void>
+  | Res<204, void>
+  | Res<404, void>
   | typeof SkipResponse
 >
 
@@ -22195,9 +21952,7 @@ export type ReposEnableVulnerabilityAlerts = (
   respond: ReposEnableVulnerabilityAlertsResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<204, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type ReposDisableVulnerabilityAlertsResponder = {
   with204(): KoaRuntimeResponse<void>
@@ -22213,9 +21968,7 @@ export type ReposDisableVulnerabilityAlerts = (
   respond: ReposDisableVulnerabilityAlertsResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<204, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type ReposDownloadZipballArchiveResponder = {
   with302(): KoaRuntimeResponse<void>
@@ -22226,9 +21979,7 @@ export type ReposDownloadZipballArchive = (
   respond: ReposDownloadZipballArchiveResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<302, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<302, void> | typeof SkipResponse>
 
 export type ReposCreateUsingTemplateResponder = {
   with201(): KoaRuntimeResponse<t_full_repository>
@@ -22246,7 +21997,7 @@ export type ReposCreateUsingTemplate = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_full_repository>
+  | Res<201, t_full_repository>
   | typeof SkipResponse
 >
 
@@ -22263,9 +22014,9 @@ export type ReposListPublic = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_minimal_repository[]>
-  | Response<304, void>
-  | Response<422, t_validation_error>
+  | Res<200, t_minimal_repository[]>
+  | Res<304, void>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -22292,7 +22043,7 @@ export type SearchCode = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         incomplete_results: boolean
@@ -22300,10 +22051,10 @@ export type SearchCode = (
         total_count: number
       }
     >
-  | Response<304, void>
-  | Response<403, t_basic_error>
-  | Response<422, t_validation_error>
-  | Response<
+  | Res<304, void>
+  | Res<403, t_basic_error>
+  | Res<422, t_validation_error>
+  | Res<
       503,
       {
         code?: string
@@ -22330,7 +22081,7 @@ export type SearchCommits = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         incomplete_results: boolean
@@ -22338,7 +22089,7 @@ export type SearchCommits = (
         total_count: number
       }
     >
-  | Response<304, void>
+  | Res<304, void>
   | typeof SkipResponse
 >
 
@@ -22365,7 +22116,7 @@ export type SearchIssuesAndPullRequests = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         incomplete_results: boolean
@@ -22373,10 +22124,10 @@ export type SearchIssuesAndPullRequests = (
         total_count: number
       }
     >
-  | Response<304, void>
-  | Response<403, t_basic_error>
-  | Response<422, t_validation_error>
-  | Response<
+  | Res<304, void>
+  | Res<403, t_basic_error>
+  | Res<422, t_validation_error>
+  | Res<
       503,
       {
         code?: string
@@ -22406,7 +22157,7 @@ export type SearchLabels = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         incomplete_results: boolean
@@ -22414,10 +22165,10 @@ export type SearchLabels = (
         total_count: number
       }
     >
-  | Response<304, void>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<304, void>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -22443,7 +22194,7 @@ export type SearchRepos = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         incomplete_results: boolean
@@ -22451,9 +22202,9 @@ export type SearchRepos = (
         total_count: number
       }
     >
-  | Response<304, void>
-  | Response<422, t_validation_error>
-  | Response<
+  | Res<304, void>
+  | Res<422, t_validation_error>
+  | Res<
       503,
       {
         code?: string
@@ -22480,7 +22231,7 @@ export type SearchTopics = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         incomplete_results: boolean
@@ -22488,7 +22239,7 @@ export type SearchTopics = (
         total_count: number
       }
     >
-  | Response<304, void>
+  | Res<304, void>
   | typeof SkipResponse
 >
 
@@ -22514,7 +22265,7 @@ export type SearchUsers = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         incomplete_results: boolean
@@ -22522,9 +22273,9 @@ export type SearchUsers = (
         total_count: number
       }
     >
-  | Response<304, void>
-  | Response<422, t_validation_error>
-  | Response<
+  | Res<304, void>
+  | Res<422, t_validation_error>
+  | Res<
       503,
       {
         code?: string
@@ -22547,8 +22298,8 @@ export type TeamsGetLegacy = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_team_full>
-  | Response<404, t_basic_error>
+  | Res<200, t_team_full>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -22572,11 +22323,11 @@ export type TeamsUpdateLegacy = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_team_full>
-  | Response<201, t_team_full>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<200, t_team_full>
+  | Res<201, t_team_full>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -22593,9 +22344,9 @@ export type TeamsDeleteLegacy = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<204, void>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -22615,7 +22366,7 @@ export type TeamsListDiscussionsLegacy = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_team_discussion[]>
+  | Res<200, t_team_discussion[]>
   | typeof SkipResponse
 >
 
@@ -22635,7 +22386,7 @@ export type TeamsCreateDiscussionLegacy = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_team_discussion>
+  | Res<201, t_team_discussion>
   | typeof SkipResponse
 >
 
@@ -22650,7 +22401,7 @@ export type TeamsGetDiscussionLegacy = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_team_discussion>
+  | Res<200, t_team_discussion>
   | typeof SkipResponse
 >
 
@@ -22670,7 +22421,7 @@ export type TeamsUpdateDiscussionLegacy = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_team_discussion>
+  | Res<200, t_team_discussion>
   | typeof SkipResponse
 >
 
@@ -22683,9 +22434,7 @@ export type TeamsDeleteDiscussionLegacy = (
   respond: TeamsDeleteDiscussionLegacyResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<204, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type TeamsListDiscussionCommentsLegacyResponder = {
   with200(): KoaRuntimeResponse<t_team_discussion_comment[]>
@@ -22703,7 +22452,7 @@ export type TeamsListDiscussionCommentsLegacy = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_team_discussion_comment[]>
+  | Res<200, t_team_discussion_comment[]>
   | typeof SkipResponse
 >
 
@@ -22723,7 +22472,7 @@ export type TeamsCreateDiscussionCommentLegacy = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_team_discussion_comment>
+  | Res<201, t_team_discussion_comment>
   | typeof SkipResponse
 >
 
@@ -22743,7 +22492,7 @@ export type TeamsGetDiscussionCommentLegacy = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_team_discussion_comment>
+  | Res<200, t_team_discussion_comment>
   | typeof SkipResponse
 >
 
@@ -22763,7 +22512,7 @@ export type TeamsUpdateDiscussionCommentLegacy = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_team_discussion_comment>
+  | Res<200, t_team_discussion_comment>
   | typeof SkipResponse
 >
 
@@ -22781,9 +22530,7 @@ export type TeamsDeleteDiscussionCommentLegacy = (
   respond: TeamsDeleteDiscussionCommentLegacyResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<204, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type ReactionsListForTeamDiscussionCommentLegacyResponder = {
   with200(): KoaRuntimeResponse<t_reaction[]>
@@ -22800,9 +22547,7 @@ export type ReactionsListForTeamDiscussionCommentLegacy = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Response<200, t_reaction[]>
-  | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<200, t_reaction[]> | typeof SkipResponse
 >
 
 export type ReactionsCreateForTeamDiscussionCommentLegacyResponder = {
@@ -22820,7 +22565,7 @@ export type ReactionsCreateForTeamDiscussionCommentLegacy = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  KoaRuntimeResponse<unknown> | Response<201, t_reaction> | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<201, t_reaction> | typeof SkipResponse
 >
 
 export type ReactionsListForTeamDiscussionLegacyResponder = {
@@ -22838,9 +22583,7 @@ export type ReactionsListForTeamDiscussionLegacy = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Response<200, t_reaction[]>
-  | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<200, t_reaction[]> | typeof SkipResponse
 >
 
 export type ReactionsCreateForTeamDiscussionLegacyResponder = {
@@ -22858,7 +22601,7 @@ export type ReactionsCreateForTeamDiscussionLegacy = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  KoaRuntimeResponse<unknown> | Response<201, t_reaction> | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<201, t_reaction> | typeof SkipResponse
 >
 
 export type TeamsListPendingInvitationsLegacyResponder = {
@@ -22877,7 +22620,7 @@ export type TeamsListPendingInvitationsLegacy = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_organization_invitation[]>
+  | Res<200, t_organization_invitation[]>
   | typeof SkipResponse
 >
 
@@ -22898,8 +22641,8 @@ export type TeamsListMembersLegacy = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_simple_user[]>
-  | Response<404, t_basic_error>
+  | Res<200, t_simple_user[]>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -22915,8 +22658,8 @@ export type TeamsGetMemberLegacy = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<404, void>
+  | Res<204, void>
+  | Res<404, void>
   | typeof SkipResponse
 >
 
@@ -22934,10 +22677,10 @@ export type TeamsAddMemberLegacy = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<403, t_basic_error>
-  | Response<404, void>
-  | Response<422, void>
+  | Res<204, void>
+  | Res<403, t_basic_error>
+  | Res<404, void>
+  | Res<422, void>
   | typeof SkipResponse
 >
 
@@ -22953,8 +22696,8 @@ export type TeamsRemoveMemberLegacy = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<404, void>
+  | Res<204, void>
+  | Res<404, void>
   | typeof SkipResponse
 >
 
@@ -22975,8 +22718,8 @@ export type TeamsGetMembershipForUserLegacy = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_team_membership>
-  | Response<404, t_basic_error>
+  | Res<200, t_team_membership>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -22999,10 +22742,10 @@ export type TeamsAddOrUpdateMembershipForUserLegacy = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_team_membership>
-  | Response<403, void>
-  | Response<404, t_basic_error>
-  | Response<422, void>
+  | Res<200, t_team_membership>
+  | Res<403, void>
+  | Res<404, t_basic_error>
+  | Res<422, void>
   | typeof SkipResponse
 >
 
@@ -23023,8 +22766,8 @@ export type TeamsRemoveMembershipForUserLegacy = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<403, void>
+  | Res<204, void>
+  | Res<403, void>
   | typeof SkipResponse
 >
 
@@ -23045,8 +22788,8 @@ export type TeamsListProjectsLegacy = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_team_project[]>
-  | Response<404, t_basic_error>
+  | Res<200, t_team_project[]>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -23067,8 +22810,8 @@ export type TeamsCheckPermissionsForProjectLegacy = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_team_project>
-  | Response<404, void>
+  | Res<200, t_team_project>
+  | Res<404, void>
   | typeof SkipResponse
 >
 
@@ -23094,16 +22837,16 @@ export type TeamsAddOrUpdateProjectPermissionsLegacy = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<
+  | Res<204, void>
+  | Res<
       403,
       {
         documentation_url?: string
         message?: string
       }
     >
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -23120,9 +22863,9 @@ export type TeamsRemoveProjectLegacy = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<204, void>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -23143,8 +22886,8 @@ export type TeamsListReposLegacy = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_minimal_repository[]>
-  | Response<404, t_basic_error>
+  | Res<200, t_minimal_repository[]>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -23166,9 +22909,9 @@ export type TeamsCheckPermissionsForRepoLegacy = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_team_repository>
-  | Response<204, void>
-  | Response<404, void>
+  | Res<200, t_team_repository>
+  | Res<204, void>
+  | Res<404, void>
   | typeof SkipResponse
 >
 
@@ -23190,9 +22933,9 @@ export type TeamsAddOrUpdateRepoPermissionsLegacy = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<403, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<204, void>
+  | Res<403, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -23205,9 +22948,7 @@ export type TeamsRemoveRepoLegacy = (
   respond: TeamsRemoveRepoLegacyResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<204, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type TeamsListChildLegacyResponder = {
   with200(): KoaRuntimeResponse<t_team[]>
@@ -23228,10 +22969,10 @@ export type TeamsListChildLegacy = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_team[]>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<200, t_team[]>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -23249,10 +22990,10 @@ export type UsersGetAuthenticated = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_private_user | t_public_user>
-  | Response<304, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
+  | Res<200, t_private_user | t_public_user>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -23277,12 +23018,12 @@ export type UsersUpdateAuthenticated = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_private_user>
-  | Response<304, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<200, t_private_user>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -23306,11 +23047,11 @@ export type UsersListBlockedByAuthenticatedUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_simple_user[]>
-  | Response<304, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<200, t_simple_user[]>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -23329,11 +23070,11 @@ export type UsersCheckBlocked = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<304, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<204, void>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -23353,12 +23094,12 @@ export type UsersBlock = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<304, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<204, void>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -23377,11 +23118,11 @@ export type UsersUnblock = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<304, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<204, void>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -23409,18 +23150,18 @@ export type CodespacesListForAuthenticatedUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         codespaces: t_codespace[]
         total_count: number
       }
     >
-  | Response<304, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<500, t_basic_error>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<500, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -23449,12 +23190,12 @@ export type CodespacesCreateForAuthenticatedUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_codespace>
-  | Response<202, t_codespace>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<
+  | Res<201, t_codespace>
+  | Res<202, t_codespace>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<
       503,
       {
         code?: string
@@ -23484,7 +23225,7 @@ export type CodespacesListSecretsForAuthenticatedUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         secrets: t_codespaces_secret[]
@@ -23505,7 +23246,7 @@ export type CodespacesGetPublicKeyForAuthenticatedUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_codespaces_user_public_key>
+  | Res<200, t_codespaces_user_public_key>
   | typeof SkipResponse
 >
 
@@ -23525,7 +23266,7 @@ export type CodespacesGetSecretForAuthenticatedUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_codespaces_secret>
+  | Res<200, t_codespaces_secret>
   | typeof SkipResponse
 >
 
@@ -23548,10 +23289,10 @@ export type CodespacesCreateOrUpdateSecretForAuthenticatedUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_empty_object>
-  | Response<204, void>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<201, t_empty_object>
+  | Res<204, void>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -23569,9 +23310,7 @@ export type CodespacesDeleteSecretForAuthenticatedUser = (
   respond: CodespacesDeleteSecretForAuthenticatedUserResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<204, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type CodespacesListRepositoriesForSecretForAuthenticatedUserResponder = {
   with200(): KoaRuntimeResponse<{
@@ -23596,17 +23335,17 @@ export type CodespacesListRepositoriesForSecretForAuthenticatedUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         repositories: t_minimal_repository[]
         total_count: number
       }
     >
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<500, t_basic_error>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<500, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -23630,11 +23369,11 @@ export type CodespacesSetRepositoriesForSecretForAuthenticatedUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<500, t_basic_error>
+  | Res<204, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<500, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -23658,11 +23397,11 @@ export type CodespacesAddRepositoryForSecretForAuthenticatedUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<500, t_basic_error>
+  | Res<204, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<500, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -23686,11 +23425,11 @@ export type CodespacesRemoveRepositoryForSecretForAuthenticatedUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<500, t_basic_error>
+  | Res<204, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<500, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -23715,12 +23454,12 @@ export type CodespacesGetForAuthenticatedUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_codespace>
-  | Response<304, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<500, t_basic_error>
+  | Res<200, t_codespace>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<500, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -23743,10 +23482,10 @@ export type CodespacesUpdateForAuthenticatedUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_codespace>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<200, t_codespace>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -23773,17 +23512,17 @@ export type CodespacesDeleteForAuthenticatedUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       202,
       {
         [key: string]: unknown | undefined
       }
     >
-  | Response<304, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<500, t_basic_error>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<500, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -23808,12 +23547,12 @@ export type CodespacesExportForAuthenticatedUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<202, t_codespace_export_details>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error>
-  | Response<500, t_basic_error>
+  | Res<202, t_codespace_export_details>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
+  | Res<500, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -23834,8 +23573,8 @@ export type CodespacesGetExportDetailsForAuthenticatedUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_codespace_export_details>
-  | Response<404, t_basic_error>
+  | Res<200, t_codespace_export_details>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -23863,18 +23602,18 @@ export type CodespacesCodespaceMachinesForAuthenticatedUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         machines: t_codespace_machine[]
         total_count: number
       }
     >
-  | Response<304, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<500, t_basic_error>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<500, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -23898,11 +23637,11 @@ export type CodespacesPublishForAuthenticatedUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_codespace_with_full_repository>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<201, t_codespace_with_full_repository>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -23930,15 +23669,15 @@ export type CodespacesStartForAuthenticatedUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_codespace>
-  | Response<304, void>
-  | Response<400, t_scim_error>
-  | Response<401, t_basic_error>
-  | Response<402, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<409, t_basic_error>
-  | Response<500, t_basic_error>
+  | Res<200, t_codespace>
+  | Res<304, void>
+  | Res<400, t_scim_error>
+  | Res<401, t_basic_error>
+  | Res<402, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<409, t_basic_error>
+  | Res<500, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -23962,11 +23701,11 @@ export type CodespacesStopForAuthenticatedUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_codespace>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<500, t_basic_error>
+  | Res<200, t_codespace>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<500, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -23982,9 +23721,7 @@ export type PackagesListDockerMigrationConflictingPackagesForAuthenticatedUser =
     ctx: RouterContext,
     next: Next,
   ) => Promise<
-    | KoaRuntimeResponse<unknown>
-    | Response<200, t_package[]>
-    | typeof SkipResponse
+    KoaRuntimeResponse<unknown> | Res<200, t_package[]> | typeof SkipResponse
   >
 
 export type UsersSetPrimaryEmailVisibilityForAuthenticatedUserResponder = {
@@ -24008,12 +23745,12 @@ export type UsersSetPrimaryEmailVisibilityForAuthenticatedUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_email[]>
-  | Response<304, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<200, t_email[]>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -24037,11 +23774,11 @@ export type UsersListEmailsForAuthenticatedUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_email[]>
-  | Response<304, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<200, t_email[]>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -24066,12 +23803,12 @@ export type UsersAddEmailForAuthenticatedUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_email[]>
-  | Response<304, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<201, t_email[]>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -24096,12 +23833,12 @@ export type UsersDeleteEmailForAuthenticatedUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<304, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<204, void>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -24124,10 +23861,10 @@ export type UsersListFollowersForAuthenticatedUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_simple_user[]>
-  | Response<304, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
+  | Res<200, t_simple_user[]>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -24150,10 +23887,10 @@ export type UsersListFollowedByAuthenticatedUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_simple_user[]>
-  | Response<304, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
+  | Res<200, t_simple_user[]>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -24177,11 +23914,11 @@ export type UsersCheckPersonIsFollowedByAuthenticated = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<304, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<204, void>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -24201,12 +23938,12 @@ export type UsersFollow = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<304, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<204, void>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -24225,11 +23962,11 @@ export type UsersUnfollow = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<304, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<204, void>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -24253,11 +23990,11 @@ export type UsersListGpgKeysForAuthenticatedUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_gpg_key[]>
-  | Response<304, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<200, t_gpg_key[]>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -24282,12 +24019,12 @@ export type UsersCreateGpgKeyForAuthenticatedUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_gpg_key>
-  | Response<304, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<201, t_gpg_key>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -24311,11 +24048,11 @@ export type UsersGetGpgKeyForAuthenticatedUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_gpg_key>
-  | Response<304, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<200, t_gpg_key>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -24340,12 +24077,12 @@ export type UsersDeleteGpgKeyForAuthenticatedUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<304, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<204, void>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -24371,16 +24108,16 @@ export type AppsListInstallationsForAuthenticatedUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         installations: t_installation[]
         total_count: number
       }
     >
-  | Response<304, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -24407,7 +24144,7 @@ export type AppsListInstallationReposForAuthenticatedUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         repositories: t_repository[]
@@ -24415,9 +24152,9 @@ export type AppsListInstallationReposForAuthenticatedUser = (
         total_count: number
       }
     >
-  | Response<304, void>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<304, void>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -24440,10 +24177,10 @@ export type AppsAddRepoToInstallationForAuthenticatedUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<304, void>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<204, void>
+  | Res<304, void>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -24467,11 +24204,11 @@ export type AppsRemoveRepoFromInstallationForAuthenticatedUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<304, void>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<422, void>
+  | Res<204, void>
+  | Res<304, void>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, void>
   | typeof SkipResponse
 >
 
@@ -24487,8 +24224,8 @@ export type InteractionsGetRestrictionsForAuthenticatedUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_interaction_limit_response | EmptyObject>
-  | Response<204, void>
+  | Res<200, t_interaction_limit_response | EmptyObject>
+  | Res<204, void>
   | typeof SkipResponse
 >
 
@@ -24504,8 +24241,8 @@ export type InteractionsSetRestrictionsForAuthenticatedUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_interaction_limit_response>
-  | Response<422, t_validation_error>
+  | Res<200, t_interaction_limit_response>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -24518,9 +24255,7 @@ export type InteractionsRemoveRestrictionsForAuthenticatedUser = (
   respond: InteractionsRemoveRestrictionsForAuthenticatedUserResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<204, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type IssuesListForAuthenticatedUserResponder = {
   with200(): KoaRuntimeResponse<t_issue[]>
@@ -24535,9 +24270,9 @@ export type IssuesListForAuthenticatedUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_issue[]>
-  | Response<304, void>
-  | Response<404, t_basic_error>
+  | Res<200, t_issue[]>
+  | Res<304, void>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -24561,11 +24296,11 @@ export type UsersListPublicSshKeysForAuthenticatedUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_key[]>
-  | Response<304, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<200, t_key[]>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -24590,12 +24325,12 @@ export type UsersCreatePublicSshKeyForAuthenticatedUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_key>
-  | Response<304, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<201, t_key>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -24619,11 +24354,11 @@ export type UsersGetPublicSshKeyForAuthenticatedUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_key>
-  | Response<304, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<200, t_key>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -24647,11 +24382,11 @@ export type UsersDeletePublicSshKeyForAuthenticatedUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<304, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<204, void>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -24674,10 +24409,10 @@ export type AppsListSubscriptionsForAuthenticatedUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_user_marketplace_purchase[]>
-  | Response<304, void>
-  | Response<401, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<200, t_user_marketplace_purchase[]>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -24699,9 +24434,9 @@ export type AppsListSubscriptionsForAuthenticatedUserStubbed = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_user_marketplace_purchase[]>
-  | Response<304, void>
-  | Response<401, t_basic_error>
+  | Res<200, t_user_marketplace_purchase[]>
+  | Res<304, void>
+  | Res<401, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -24725,11 +24460,11 @@ export type OrgsListMembershipsForAuthenticatedUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_org_membership[]>
-  | Response<304, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<200, t_org_membership[]>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -24751,9 +24486,9 @@ export type OrgsGetMembershipForAuthenticatedUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_org_membership>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<200, t_org_membership>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -24776,10 +24511,10 @@ export type OrgsUpdateMembershipForAuthenticatedUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_org_membership>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<200, t_org_membership>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -24802,10 +24537,10 @@ export type MigrationsListForAuthenticatedUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_migration[]>
-  | Response<304, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
+  | Res<200, t_migration[]>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -24829,11 +24564,11 @@ export type MigrationsStartForAuthenticatedUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_migration>
-  | Response<304, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<201, t_migration>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -24857,11 +24592,11 @@ export type MigrationsGetStatusForAuthenticatedUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_migration>
-  | Response<304, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<200, t_migration>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -24884,10 +24619,10 @@ export type MigrationsGetArchiveForAuthenticatedUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<302, void>
-  | Response<304, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
+  | Res<302, void>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -24911,11 +24646,11 @@ export type MigrationsDeleteArchiveForAuthenticatedUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<304, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<204, void>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -24939,11 +24674,11 @@ export type MigrationsUnlockRepoForAuthenticatedUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<304, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<204, void>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -24964,8 +24699,8 @@ export type MigrationsListReposForAuthenticatedUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_minimal_repository[]>
-  | Response<404, t_basic_error>
+  | Res<200, t_minimal_repository[]>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -24983,10 +24718,10 @@ export type OrgsListForAuthenticatedUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_organization_simple[]>
-  | Response<304, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
+  | Res<200, t_organization_simple[]>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -25007,8 +24742,8 @@ export type PackagesListPackagesForAuthenticatedUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_package[]>
-  | Response<400, void>
+  | Res<200, t_package[]>
+  | Res<400, void>
   | typeof SkipResponse
 >
 
@@ -25027,7 +24762,7 @@ export type PackagesGetPackageForAuthenticatedUser = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  KoaRuntimeResponse<unknown> | Response<200, t_package> | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<200, t_package> | typeof SkipResponse
 >
 
 export type PackagesDeletePackageForAuthenticatedUserResponder = {
@@ -25049,10 +24784,10 @@ export type PackagesDeletePackageForAuthenticatedUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<204, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -25075,10 +24810,10 @@ export type PackagesRestorePackageForAuthenticatedUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<204, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -25102,10 +24837,10 @@ export type PackagesGetAllPackageVersionsForPackageOwnedByAuthenticatedUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_package_version[]>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<200, t_package_version[]>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -25125,7 +24860,7 @@ export type PackagesGetPackageVersionForAuthenticatedUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_package_version>
+  | Res<200, t_package_version>
   | typeof SkipResponse
 >
 
@@ -25148,10 +24883,10 @@ export type PackagesDeletePackageVersionForAuthenticatedUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<204, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -25174,10 +24909,10 @@ export type PackagesRestorePackageVersionForAuthenticatedUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<204, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -25201,11 +24936,11 @@ export type ProjectsClassicCreateForAuthenticatedUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_project>
-  | Response<304, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<422, t_validation_error_simple>
+  | Res<201, t_project>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<422, t_validation_error_simple>
   | typeof SkipResponse
 >
 
@@ -25229,11 +24964,11 @@ export type UsersListPublicEmailsForAuthenticatedUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_email[]>
-  | Response<304, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<200, t_email[]>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -25252,11 +24987,11 @@ export type ReposListForAuthenticatedUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_repository[]>
-  | Response<304, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<200, t_repository[]>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -25282,13 +25017,13 @@ export type ReposCreateForAuthenticatedUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_full_repository>
-  | Response<304, void>
-  | Response<400, t_scim_error>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<201, t_full_repository>
+  | Res<304, void>
+  | Res<400, t_scim_error>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -25312,11 +25047,11 @@ export type ReposListInvitationsForAuthenticatedUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_repository_invitation[]>
-  | Response<304, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<200, t_repository_invitation[]>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -25340,11 +25075,11 @@ export type ReposAcceptInvitationForAuthenticatedUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<304, void>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<409, t_basic_error>
+  | Res<204, void>
+  | Res<304, void>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<409, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -25368,11 +25103,11 @@ export type ReposDeclineInvitationForAuthenticatedUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<304, void>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<409, t_basic_error>
+  | Res<204, void>
+  | Res<304, void>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<409, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -25396,11 +25131,11 @@ export type UsersListSocialAccountsForAuthenticatedUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_social_account[]>
-  | Response<304, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<200, t_social_account[]>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -25425,12 +25160,12 @@ export type UsersAddSocialAccountForAuthenticatedUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_social_account[]>
-  | Response<304, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<201, t_social_account[]>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -25455,12 +25190,12 @@ export type UsersDeleteSocialAccountForAuthenticatedUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<304, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<204, void>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -25484,11 +25219,11 @@ export type UsersListSshSigningKeysForAuthenticatedUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_ssh_signing_key[]>
-  | Response<304, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<200, t_ssh_signing_key[]>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -25513,12 +25248,12 @@ export type UsersCreateSshSigningKeyForAuthenticatedUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_ssh_signing_key>
-  | Response<304, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<201, t_ssh_signing_key>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -25542,11 +25277,11 @@ export type UsersGetSshSigningKeyForAuthenticatedUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_ssh_signing_key>
-  | Response<304, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<200, t_ssh_signing_key>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -25570,11 +25305,11 @@ export type UsersDeleteSshSigningKeyForAuthenticatedUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<304, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<204, void>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -25597,10 +25332,10 @@ export type ActivityListReposStarredByAuthenticatedUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_starred_repository[]>
-  | Response<304, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
+  | Res<200, t_starred_repository[]>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -25624,11 +25359,11 @@ export type ActivityCheckRepoIsStarredByAuthenticatedUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<304, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<204, void>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -25652,11 +25387,11 @@ export type ActivityStarRepoForAuthenticatedUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<304, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<204, void>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -25680,11 +25415,11 @@ export type ActivityUnstarRepoForAuthenticatedUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<304, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<204, void>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -25707,10 +25442,10 @@ export type ActivityListWatchedReposForAuthenticatedUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_minimal_repository[]>
-  | Response<304, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
+  | Res<200, t_minimal_repository[]>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -25728,10 +25463,10 @@ export type TeamsListForAuthenticatedUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_team_full[]>
-  | Response<304, void>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<200, t_team_full[]>
+  | Res<304, void>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -25747,8 +25482,8 @@ export type UsersGetById = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_private_user | t_public_user>
-  | Response<404, t_basic_error>
+  | Res<200, t_private_user | t_public_user>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -25764,8 +25499,8 @@ export type UsersList = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_simple_user[]>
-  | Response<304, void>
+  | Res<200, t_simple_user[]>
+  | Res<304, void>
   | typeof SkipResponse
 >
 
@@ -25781,8 +25516,8 @@ export type UsersGetByUsername = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_private_user | t_public_user>
-  | Response<404, t_basic_error>
+  | Res<200, t_private_user | t_public_user>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -25829,7 +25564,7 @@ export type UsersListAttestationsBulk = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         attestations_subject_digests?: {
@@ -25880,8 +25615,8 @@ export type UsersDeleteAttestationsBulk = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, void>
-  | Response<404, t_basic_error>
+  | Res<200, void>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -25903,9 +25638,9 @@ export type UsersDeleteAttestationsBySubjectDigest = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, void>
-  | Response<204, void>
-  | Response<404, t_basic_error>
+  | Res<200, void>
+  | Res<204, void>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -25923,10 +25658,10 @@ export type UsersDeleteAttestationsById = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, void>
-  | Response<204, void>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<200, void>
+  | Res<204, void>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -25963,7 +25698,7 @@ export type UsersListAttestations = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         attestations?: {
@@ -25981,9 +25716,9 @@ export type UsersListAttestations = (
         }[]
       }
     >
-  | Response<201, t_empty_object>
-  | Response<204, void>
-  | Response<404, t_basic_error>
+  | Res<201, t_empty_object>
+  | Res<204, void>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -26005,9 +25740,9 @@ export type PackagesListDockerMigrationConflictingPackagesForUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_package[]>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
+  | Res<200, t_package[]>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -26026,7 +25761,7 @@ export type ActivityListEventsForAuthenticatedUser = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  KoaRuntimeResponse<unknown> | Response<200, t_event[]> | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<200, t_event[]> | typeof SkipResponse
 >
 
 export type ActivityListOrgEventsForAuthenticatedUserResponder = {
@@ -26044,7 +25779,7 @@ export type ActivityListOrgEventsForAuthenticatedUser = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  KoaRuntimeResponse<unknown> | Response<200, t_event[]> | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<200, t_event[]> | typeof SkipResponse
 >
 
 export type ActivityListPublicEventsForUserResponder = {
@@ -26062,7 +25797,7 @@ export type ActivityListPublicEventsForUser = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  KoaRuntimeResponse<unknown> | Response<200, t_event[]> | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<200, t_event[]> | typeof SkipResponse
 >
 
 export type UsersListFollowersForUserResponder = {
@@ -26080,9 +25815,7 @@ export type UsersListFollowersForUser = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Response<200, t_simple_user[]>
-  | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<200, t_simple_user[]> | typeof SkipResponse
 >
 
 export type UsersListFollowingForUserResponder = {
@@ -26100,9 +25833,7 @@ export type UsersListFollowingForUser = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Response<200, t_simple_user[]>
-  | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<200, t_simple_user[]> | typeof SkipResponse
 >
 
 export type UsersCheckFollowingForUserResponder = {
@@ -26117,8 +25848,8 @@ export type UsersCheckFollowingForUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<404, void>
+  | Res<204, void>
+  | Res<404, void>
   | typeof SkipResponse
 >
 
@@ -26139,8 +25870,8 @@ export type GistsListForUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_base_gist[]>
-  | Response<422, t_validation_error>
+  | Res<200, t_base_gist[]>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -26159,7 +25890,7 @@ export type UsersListGpgKeysForUser = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  KoaRuntimeResponse<unknown> | Response<200, t_gpg_key[]> | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<200, t_gpg_key[]> | typeof SkipResponse
 >
 
 export type UsersGetContextForUserResponder = {
@@ -26180,9 +25911,9 @@ export type UsersGetContextForUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_hovercard>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error>
+  | Res<200, t_hovercard>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -26196,9 +25927,7 @@ export type AppsGetUserInstallation = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Response<200, t_installation>
-  | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<200, t_installation> | typeof SkipResponse
 >
 
 export type UsersListPublicKeysForUserResponder = {
@@ -26216,9 +25945,7 @@ export type UsersListPublicKeysForUser = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Response<200, t_key_simple[]>
-  | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<200, t_key_simple[]> | typeof SkipResponse
 >
 
 export type OrgsListForUserResponder = {
@@ -26237,7 +25964,7 @@ export type OrgsListForUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_organization_simple[]>
+  | Res<200, t_organization_simple[]>
   | typeof SkipResponse
 >
 
@@ -26260,10 +25987,10 @@ export type PackagesListPackagesForUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_package[]>
-  | Response<400, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
+  | Res<200, t_package[]>
+  | Res<400, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -26277,7 +26004,7 @@ export type PackagesGetPackageForUser = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  KoaRuntimeResponse<unknown> | Response<200, t_package> | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<200, t_package> | typeof SkipResponse
 >
 
 export type PackagesDeletePackageForUserResponder = {
@@ -26294,10 +26021,10 @@ export type PackagesDeletePackageForUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<204, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -26320,10 +26047,10 @@ export type PackagesRestorePackageForUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<204, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -26346,10 +26073,10 @@ export type PackagesGetAllPackageVersionsForPackageOwnedByUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_package_version[]>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<200, t_package_version[]>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -26369,7 +26096,7 @@ export type PackagesGetPackageVersionForUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_package_version>
+  | Res<200, t_package_version>
   | typeof SkipResponse
 >
 
@@ -26392,10 +26119,10 @@ export type PackagesDeletePackageVersionForUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<204, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -26418,10 +26145,10 @@ export type PackagesRestorePackageVersionForUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
+  | Res<204, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -26442,8 +26169,8 @@ export type ProjectsClassicListForUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_project[]>
-  | Response<422, t_validation_error>
+  | Res<200, t_project[]>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -26462,7 +26189,7 @@ export type ActivityListReceivedEventsForUser = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  KoaRuntimeResponse<unknown> | Response<200, t_event[]> | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<200, t_event[]> | typeof SkipResponse
 >
 
 export type ActivityListReceivedPublicEventsForUserResponder = {
@@ -26480,7 +26207,7 @@ export type ActivityListReceivedPublicEventsForUser = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  KoaRuntimeResponse<unknown> | Response<200, t_event[]> | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<200, t_event[]> | typeof SkipResponse
 >
 
 export type ReposListForUserResponder = {
@@ -26499,7 +26226,7 @@ export type ReposListForUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_minimal_repository[]>
+  | Res<200, t_minimal_repository[]>
   | typeof SkipResponse
 >
 
@@ -26519,7 +26246,7 @@ export type BillingGetGithubActionsBillingUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_actions_billing_usage>
+  | Res<200, t_actions_billing_usage>
   | typeof SkipResponse
 >
 
@@ -26539,7 +26266,7 @@ export type BillingGetGithubPackagesBillingUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_packages_billing_usage>
+  | Res<200, t_packages_billing_usage>
   | typeof SkipResponse
 >
 
@@ -26559,7 +26286,7 @@ export type BillingGetSharedStorageBillingUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_combined_billing_usage>
+  | Res<200, t_combined_billing_usage>
   | typeof SkipResponse
 >
 
@@ -26587,11 +26314,11 @@ export type BillingGetGithubBillingUsageReportUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_billing_usage_report_user>
-  | Response<400, t_scim_error>
-  | Response<403, t_basic_error>
-  | Response<500, t_basic_error>
-  | Response<
+  | Res<200, t_billing_usage_report_user>
+  | Res<400, t_scim_error>
+  | Res<403, t_basic_error>
+  | Res<500, t_basic_error>
+  | Res<
       503,
       {
         code?: string
@@ -26618,7 +26345,7 @@ export type UsersListSocialAccountsForUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_social_account[]>
+  | Res<200, t_social_account[]>
   | typeof SkipResponse
 >
 
@@ -26638,7 +26365,7 @@ export type UsersListSshSigningKeysForUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_ssh_signing_key[]>
+  | Res<200, t_ssh_signing_key[]>
   | typeof SkipResponse
 >
 
@@ -26658,7 +26385,7 @@ export type ActivityListReposStarredByUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_starred_repository[] | t_repository[]>
+  | Res<200, t_starred_repository[] | t_repository[]>
   | typeof SkipResponse
 >
 
@@ -26678,7 +26405,7 @@ export type ActivityListReposWatchedByUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_minimal_repository[]>
+  | Res<200, t_minimal_repository[]>
   | typeof SkipResponse
 >
 
@@ -26694,8 +26421,8 @@ export type MetaGetAllVersions = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, string[]>
-  | Response<404, t_basic_error>
+  | Res<200, string[]>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -26709,7 +26436,7 @@ export type MetaGetZen = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  KoaRuntimeResponse<unknown> | Response<200, string> | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<200, string> | typeof SkipResponse
 >
 
 export type Implementation = {

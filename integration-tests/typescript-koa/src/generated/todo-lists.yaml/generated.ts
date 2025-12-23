@@ -11,7 +11,7 @@ import {
   type KoaRuntimeResponder,
   KoaRuntimeResponse,
   type Params,
-  type Response,
+  type Res,
   type ServerConfig,
   SkipResponse,
   type StatusCode,
@@ -57,9 +57,7 @@ export type GetTodoLists = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Response<200, t_TodoList[]>
-  | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<200, t_TodoList[]> | typeof SkipResponse
 >
 
 export type GetTodoListByIdResponder = {
@@ -75,9 +73,9 @@ export type GetTodoListById = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_TodoList>
-  | Response<StatusCode4xx, t_Error>
-  | Response<StatusCode, void>
+  | Res<200, t_TodoList>
+  | Res<StatusCode4xx, t_Error>
+  | Res<StatusCode, void>
   | typeof SkipResponse
 >
 
@@ -99,9 +97,9 @@ export type UpdateTodoListById = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_TodoList>
-  | Response<StatusCode4xx, t_Error>
-  | Response<StatusCode, void>
+  | Res<200, t_TodoList>
+  | Res<StatusCode4xx, t_Error>
+  | Res<StatusCode, void>
   | typeof SkipResponse
 >
 
@@ -118,9 +116,9 @@ export type DeleteTodoListById = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<StatusCode4xx, t_Error>
-  | Response<StatusCode, void>
+  | Res<204, void>
+  | Res<StatusCode4xx, t_Error>
+  | Res<StatusCode, void>
   | typeof SkipResponse
 >
 
@@ -144,7 +142,7 @@ export type GetTodoListItems = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         completedAt?: string
@@ -153,7 +151,7 @@ export type GetTodoListItems = (
         id: string
       }
     >
-  | Response<
+  | Res<
       StatusCode5xx,
       {
         code: string
@@ -177,9 +175,7 @@ export type CreateTodoListItem = (
   respond: CreateTodoListItemResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<204, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type ListAttachmentsResponder = {
   with200(): KoaRuntimeResponse<t_UnknownObject[]>
@@ -192,7 +188,7 @@ export type ListAttachments = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_UnknownObject[]>
+  | Res<200, t_UnknownObject[]>
   | typeof SkipResponse
 >
 
@@ -205,9 +201,7 @@ export type UploadAttachment = (
   respond: UploadAttachmentResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<202, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<202, void> | typeof SkipResponse>
 
 export type Implementation = {
   getTodoLists: GetTodoLists

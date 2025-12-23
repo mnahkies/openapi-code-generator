@@ -11,7 +11,7 @@ import {
   type KoaRuntimeResponder,
   KoaRuntimeResponse,
   type Params,
-  type Response,
+  type Res,
   type ServerConfig,
   SkipResponse,
   type StatusCode,
@@ -45,8 +45,8 @@ export type FindPets = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_Pet[]>
-  | Response<StatusCode, t_Error>
+  | Res<200, t_Pet[]>
+  | Res<StatusCode, t_Error>
   | typeof SkipResponse
 >
 
@@ -62,8 +62,8 @@ export type AddPet = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_Pet>
-  | Response<StatusCode, t_Error>
+  | Res<200, t_Pet>
+  | Res<StatusCode, t_Error>
   | typeof SkipResponse
 >
 
@@ -79,8 +79,8 @@ export type FindPetById = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_Pet>
-  | Response<StatusCode, t_Error>
+  | Res<200, t_Pet>
+  | Res<StatusCode, t_Error>
   | typeof SkipResponse
 >
 
@@ -96,8 +96,8 @@ export type DeletePet = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<StatusCode, t_Error>
+  | Res<204, void>
+  | Res<StatusCode, t_Error>
   | typeof SkipResponse
 >
 
