@@ -11,6 +11,7 @@ export class AngularServiceBuilder extends AbstractClientBuilder {
         "application/json",
         "application/scim+json",
         "application/merge-patch+json",
+        "application/octet-stream",
         "text/json",
         "text/plain",
         "text/x-markdown",

@@ -22433,7 +22433,7 @@ export class GitHubV3RestApiService {
       releaseId: number
       name: string
       label?: string
-      requestBody?: never
+      requestBody?: Blob
     },
     basePath:
       | Server<"reposUploadReleaseAsset_GitHubV3RestApiService">
@@ -22445,8 +22445,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<void> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({Accept: "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type":
+        p.requestBody !== undefined ? "application/octet-stream" : undefined,
+    })
     const params = this._query({name: p["name"], label: p["label"]})
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
@@ -22455,7 +22460,7 @@ export class GitHubV3RestApiService {
       {
         params,
         headers,
-        // todo: request bodies with content-type 'application/octet-stream' not yet supported,
+        body,
         observe: "response",
         reportProgress: false,
       },

@@ -426,16 +426,20 @@ export class TodoListsExampleApiService {
 
   replaceAttachment(p: {
     id: string
-    requestBody: never
+    requestBody: Blob
   }): Observable<(HttpResponse<void> & {status: 202}) | HttpResponse<unknown>> {
-    const headers = this._headers({Accept: "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/octet-stream",
+    })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath + `/attachments/${p["id"]}`,
       {
         headers,
-        // todo: request bodies with content-type 'application/octet-stream' not yet supported,
+        body,
         observe: "response",
         reportProgress: false,
       },
