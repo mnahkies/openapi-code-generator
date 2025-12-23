@@ -464,6 +464,44 @@ describe("core/input - SchemaNormalizer", () => {
     })
   })
 
+  describe("type: undefined", () => {
+    it("detects a numeric enum", () => {
+      const actual = schemaNormalizer.normalize({
+        type: undefined,
+        enum: [1, 2, 3],
+      })
+
+      expect(actual).toStrictEqual({
+        ...base.number,
+        "x-enum-extensibility": "open",
+        enum: [1, 2, 3],
+      })
+    })
+    it("detects a boolean enum", () => {
+      const actual = schemaNormalizer.normalize({
+        type: undefined,
+        enum: [true],
+      })
+
+      expect(actual).toStrictEqual({
+        ...base.boolean,
+        enum: ["true"],
+      })
+    })
+    it("detects a string enum", () => {
+      const actual = schemaNormalizer.normalize({
+        type: undefined,
+        enum: ["foo", "bar"],
+      })
+
+      expect(actual).toStrictEqual({
+        ...base.string,
+        "x-enum-extensibility": "open",
+        enum: ["foo", "bar"],
+      })
+    })
+  })
+
   describe("openapi 3.2", () => {
     it("translates a type array to oneOf and preserves nullable", () => {
       const actual = schemaNormalizer.normalize({

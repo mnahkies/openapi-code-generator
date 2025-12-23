@@ -1343,9 +1343,7 @@ export type t_code_security_configuration_repositories = {
 
 export type t_code_security_default_configurations = {
   configuration?: t_code_security_configuration
-  default_for_new_repos?: {
-    [key: string]: unknown | undefined
-  }
+  default_for_new_repos?: "public" | "private_and_internal" | "all"
 }[]
 
 export type t_codeowners_errors = {
@@ -9719,15 +9717,11 @@ export type t_ChecksCreateParamSchema = {
 
 export type t_ChecksCreateRequestBody =
   | {
-      status: {
-        [key: string]: unknown | undefined
-      }
+      status: "completed"
       [key: string]: unknown | undefined
     }
   | {
-      status?: {
-        [key: string]: unknown | undefined
-      }
+      status?: "queued" | "in_progress"
       [key: string]: unknown | undefined
     }
 
