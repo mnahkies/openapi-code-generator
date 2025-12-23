@@ -42,7 +42,6 @@ export class ExpressRouterBuilder extends AbstractRouterBuilder {
       .from("@nahkies/typescript-express-runtime/server")
       .add(
         "ExpressRuntimeResponse",
-        "SkipResponse",
         "parseQueryParameters",
         "handleResponse",
         "handleImplementationError",
@@ -56,6 +55,7 @@ export class ExpressRouterBuilder extends AbstractRouterBuilder {
         "StatusCode3xx",
         "StatusCode4xx",
         "StatusCode5xx",
+        "SkipResponse",
       )
 
     this.imports

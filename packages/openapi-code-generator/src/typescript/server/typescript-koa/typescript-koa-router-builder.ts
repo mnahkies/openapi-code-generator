@@ -35,7 +35,6 @@ export class KoaRouterBuilder extends AbstractRouterBuilder {
       .from("@nahkies/typescript-koa-runtime/server")
       .add(
         "KoaRuntimeResponse",
-        "SkipResponse",
         "startServer",
         "parseQueryParameters",
         "handleResponse",
@@ -50,6 +49,7 @@ export class KoaRouterBuilder extends AbstractRouterBuilder {
         "StatusCode3xx",
         "StatusCode4xx",
         "StatusCode5xx",
+        "SkipResponse",
       )
 
     this.imports
