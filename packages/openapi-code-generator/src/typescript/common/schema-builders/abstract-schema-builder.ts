@@ -203,7 +203,9 @@ export abstract class AbstractSchemaBuilder<
 
     switch (model.type) {
       case "string": {
-        if (model.format === "byte" || model.format === "binary") {
+        // todo: byte is base64 encoded string, https://spec.openapis.org/registry/format/byte.html
+        // model.format === "byte"
+        if (model.format === "binary") {
           result = this.any()
         } else {
           result = this.string(model)

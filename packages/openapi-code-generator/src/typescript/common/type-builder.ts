@@ -179,9 +179,9 @@ export class TypeBuilder implements ICompilable {
               result.push(this.addStaticType("UnknownEnumStringValue"))
             }
           } else if (
-            schemaObject.format === "binary" ||
-            // todo: is byte the same as binary
-            schemaObject.format === "byte"
+            schemaObject.format === "binary"
+            // todo: byte is base64 encoded string, https://spec.openapis.org/registry/format/byte.html
+            // || schemaObject.format === "byte"
           ) {
             result.push("Blob")
           } else {
