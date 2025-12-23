@@ -3899,7 +3899,9 @@ export const s_code_security_configuration_for_repository = z.object({
 
 export const s_code_security_default_configurations = z.array(
   z.object({
-    default_for_new_repos: z.record(z.string(), z.unknown()).optional(),
+    default_for_new_repos: z
+      .enum(["public", "private_and_internal", "all"])
+      .optional(),
     configuration: s_code_security_configuration.optional(),
   }),
 )
@@ -9634,11 +9636,11 @@ export const s_ReposRenameBranchRequestBody = z.object({new_name: z.string()})
 
 export const s_ChecksCreateRequestBody = z.union([
   z.intersection(
-    z.object({status: z.record(z.string(), z.unknown())}),
+    z.object({status: z.enum(["completed"])}),
     z.record(z.string(), z.unknown()),
   ),
   z.intersection(
-    z.object({status: z.record(z.string(), z.unknown()).optional()}),
+    z.object({status: z.enum(["queued", "in_progress"]).optional()}),
     z.record(z.string(), z.unknown()),
   ),
 ])
