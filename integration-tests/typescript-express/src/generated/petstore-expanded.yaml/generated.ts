@@ -2,16 +2,15 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import {
-  ExpressRuntimeError,
-  RequestInputType,
-} from "@nahkies/typescript-express-runtime/errors"
+import {RequestInputType} from "@nahkies/typescript-express-runtime/errors"
 import {
   type ExpressRuntimeResponder,
   ExpressRuntimeResponse,
+  handleImplementationError,
+  handleResponse,
   type Params,
   type ServerConfig,
-  SkipResponse,
+  type SkipResponse,
   type StatusCode,
   startServer,
 } from "@nahkies/typescript-express-runtime/server"
@@ -136,29 +135,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .findPets(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(findPetsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, findPetsResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -198,29 +178,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .addPet(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(addPetResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, addPetResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -262,29 +223,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .findPetById(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(findPetByIdResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, findPetByIdResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -326,29 +268,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .deletePet(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(deletePetResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, deletePetResponseBodyValidator))
       } catch (error) {
         next(error)
       }

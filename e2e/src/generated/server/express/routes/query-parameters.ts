@@ -2,16 +2,15 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import {
-  ExpressRuntimeError,
-  RequestInputType,
-} from "@nahkies/typescript-express-runtime/errors"
+import {RequestInputType} from "@nahkies/typescript-express-runtime/errors"
 import {
   type ExpressRuntimeResponder,
   ExpressRuntimeResponse,
+  handleImplementationError,
+  handleResponse,
   type Params,
   parseQueryParameters,
-  SkipResponse,
+  type SkipResponse,
   type StatusCode,
 } from "@nahkies/typescript-express-runtime/server"
 import {
@@ -134,29 +133,10 @@ export function createQueryParametersRouter(
           },
         }
 
-        const response = await implementation
+        await implementation
           .getParamsSimpleQuery(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getParamsSimpleQueryResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getParamsSimpleQueryResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -213,31 +193,15 @@ export function createQueryParametersRouter(
           },
         }
 
-        const response = await implementation
+        await implementation
           .getParamsDefaultObjectQuery(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getParamsDefaultObjectQueryResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getParamsDefaultObjectQueryResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -294,31 +258,15 @@ export function createQueryParametersRouter(
           },
         }
 
-        const response = await implementation
+        await implementation
           .getParamsUnexplodedObjectQuery(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getParamsUnexplodedObjectQueryResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getParamsUnexplodedObjectQueryResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -365,29 +313,10 @@ export function createQueryParametersRouter(
           },
         }
 
-        const response = await implementation
+        await implementation
           .getParamsMixedQuery(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getParamsMixedQueryResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getParamsMixedQueryResponseBodyValidator))
       } catch (error) {
         next(error)
       }

@@ -2,15 +2,14 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import {
-  ExpressRuntimeError,
-  RequestInputType,
-} from "@nahkies/typescript-express-runtime/errors"
+import {RequestInputType} from "@nahkies/typescript-express-runtime/errors"
 import {
   type ExpressRuntimeResponder,
   ExpressRuntimeResponse,
+  handleImplementationError,
+  handleResponse,
   type Params,
-  SkipResponse,
+  type SkipResponse,
   type StatusCode,
 } from "@nahkies/typescript-express-runtime/server"
 import {
@@ -92,29 +91,10 @@ export function createRequestHeadersRouter(
           },
         }
 
-        const response = await implementation
+        await implementation
           .getHeadersUndeclared(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getHeadersUndeclaredResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getHeadersUndeclaredResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -161,29 +141,10 @@ export function createRequestHeadersRouter(
           },
         }
 
-        const response = await implementation
+        await implementation
           .getHeadersRequest(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getHeadersRequestResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getHeadersRequestResponseBodyValidator))
       } catch (error) {
         next(error)
       }

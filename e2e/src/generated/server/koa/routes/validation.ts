@@ -3,16 +3,15 @@
 /* eslint-disable */
 
 import KoaRouter, {type RouterContext} from "@koa/router"
+import {RequestInputType} from "@nahkies/typescript-koa-runtime/errors"
 import {
-  KoaRuntimeError,
-  RequestInputType,
-} from "@nahkies/typescript-koa-runtime/errors"
-import {
+  handleImplementationError,
+  handleResponse,
   type KoaRuntimeResponder,
   KoaRuntimeResponse,
   type Params,
-  type Response,
-  SkipResponse,
+  type Res,
+  type SkipResponse,
   type StatusCode,
 } from "@nahkies/typescript-koa-runtime/server"
 import {
@@ -50,9 +49,7 @@ export type GetValidationNumbersRandomNumber = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Response<200, t_RandomNumber>
-  | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<200, t_RandomNumber> | typeof SkipResponse
 >
 
 export type PostValidationEnumsResponder = {
@@ -65,9 +62,7 @@ export type PostValidationEnums = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Response<200, t_Enumerations>
-  | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<200, t_Enumerations> | typeof SkipResponse
 >
 
 export type PostValidationOptionalBodyResponder = {
@@ -87,8 +82,8 @@ export type PostValidationOptionalBody = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_PostValidationOptionalBody200Response>
-  | Response<204, void>
+  | Res<200, t_PostValidationOptionalBody200Response>
+  | Res<204, void>
   | typeof SkipResponse
 >
 
@@ -101,9 +96,7 @@ export type GetResponses500 = (
   respond: GetResponses500Responder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<500, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<500, void> | typeof SkipResponse>
 
 export type GetResponsesEmptyResponder = {
   with204(): KoaRuntimeResponse<void>
@@ -114,9 +107,7 @@ export type GetResponsesEmpty = (
   respond: GetResponsesEmptyResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<204, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type ValidationImplementation = {
   getValidationNumbersRandomNumber: GetValidationNumbersRandomNumber
@@ -169,23 +160,16 @@ export function createValidationRouter(
         },
       }
 
-      const response = await implementation
+      await implementation
         .getValidationNumbersRandomNumber(input, responder, ctx, next)
-        .catch((err) => {
-          throw KoaRuntimeError.HandlerError(err)
-        })
-
-      // escape hatch to allow responses to be sent by the implementation handler
-      if (response === SkipResponse) {
-        return
-      }
-
-      const {status, body} =
-        response instanceof KoaRuntimeResponse ? response.unpack() : response
-
-      ctx.body = getValidationNumbersRandomNumberResponseValidator(status, body)
-      ctx.status = status
-      return next()
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            next,
+            getValidationNumbersRandomNumberResponseValidator,
+          ),
+        )
     },
   )
 
@@ -215,23 +199,10 @@ export function createValidationRouter(
       },
     }
 
-    const response = await implementation
+    await implementation
       .postValidationEnums(input, responder, ctx, next)
-      .catch((err) => {
-        throw KoaRuntimeError.HandlerError(err)
-      })
-
-    // escape hatch to allow responses to be sent by the implementation handler
-    if (response === SkipResponse) {
-      return
-    }
-
-    const {status, body} =
-      response instanceof KoaRuntimeResponse ? response.unpack() : response
-
-    ctx.body = postValidationEnumsResponseValidator(status, body)
-    ctx.status = status
-    return next()
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, next, postValidationEnumsResponseValidator))
   })
 
   const postValidationOptionalBodyResponseValidator = responseValidationFactory(
@@ -271,23 +242,16 @@ export function createValidationRouter(
         },
       }
 
-      const response = await implementation
+      await implementation
         .postValidationOptionalBody(input, responder, ctx, next)
-        .catch((err) => {
-          throw KoaRuntimeError.HandlerError(err)
-        })
-
-      // escape hatch to allow responses to be sent by the implementation handler
-      if (response === SkipResponse) {
-        return
-      }
-
-      const {status, body} =
-        response instanceof KoaRuntimeResponse ? response.unpack() : response
-
-      ctx.body = postValidationOptionalBodyResponseValidator(status, body)
-      ctx.status = status
-      return next()
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            next,
+            postValidationOptionalBodyResponseValidator,
+          ),
+        )
     },
   )
 
@@ -313,23 +277,10 @@ export function createValidationRouter(
       },
     }
 
-    const response = await implementation
+    await implementation
       .getResponses500(input, responder, ctx, next)
-      .catch((err) => {
-        throw KoaRuntimeError.HandlerError(err)
-      })
-
-    // escape hatch to allow responses to be sent by the implementation handler
-    if (response === SkipResponse) {
-      return
-    }
-
-    const {status, body} =
-      response instanceof KoaRuntimeResponse ? response.unpack() : response
-
-    ctx.body = getResponses500ResponseValidator(status, body)
-    ctx.status = status
-    return next()
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, next, getResponses500ResponseValidator))
   })
 
   const getResponsesEmptyResponseValidator = responseValidationFactory(
@@ -354,23 +305,10 @@ export function createValidationRouter(
       },
     }
 
-    const response = await implementation
+    await implementation
       .getResponsesEmpty(input, responder, ctx, next)
-      .catch((err) => {
-        throw KoaRuntimeError.HandlerError(err)
-      })
-
-    // escape hatch to allow responses to be sent by the implementation handler
-    if (response === SkipResponse) {
-      return
-    }
-
-    const {status, body} =
-      response instanceof KoaRuntimeResponse ? response.unpack() : response
-
-    ctx.body = getResponsesEmptyResponseValidator(status, body)
-    ctx.status = status
-    return next()
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, next, getResponsesEmptyResponseValidator))
   })
 
   return router
