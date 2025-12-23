@@ -1,12 +1,10 @@
 import type {Server} from "node:http"
 import type {AddressInfo, ListenOptions} from "node:net"
-import type {
-  Response,
-  StatusCode,
-} from "@nahkies/typescript-common-runtime/types"
-
+import type {Res, StatusCode} from "@nahkies/typescript-common-runtime/types"
+import {ExpressRuntimeError} from "@nahkies/typescript-express-runtime/errors"
 import type {OptionsJson, OptionsText, OptionsUrlencoded} from "body-parser"
 import Cors, {type CorsOptions, type CorsOptionsDelegate} from "cors"
+import type {Response} from "express"
 import express, {
   type ErrorRequestHandler,
   type Express,
@@ -16,7 +14,8 @@ import express, {
 
 export {parseQueryParameters} from "@nahkies/typescript-common-runtime/query-parser"
 export type {
-  Response,
+  Params,
+  Res,
   StatusCode,
   StatusCode1xx,
   StatusCode2xx,
@@ -37,9 +36,41 @@ export class ExpressRuntimeResponse<Type> {
     return this
   }
 
-  unpack(): Response<StatusCode, Type | undefined> {
+  unpack(): Res<StatusCode, Type | undefined> {
     return {status: this.status, body: this._body}
   }
+}
+
+export function handleResponse(
+  res: Response,
+  validator: (status: number, value: unknown) => unknown,
+) {
+  return (
+    response:
+      | ExpressRuntimeResponse<unknown>
+      | typeof SkipResponse
+      | Res<StatusCode, unknown>,
+  ): void => {
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
+
+    const {status, body} =
+      response instanceof ExpressRuntimeResponse ? response.unpack() : response
+
+    res.status(status)
+
+    if (body !== undefined) {
+      res.json(validator(status, body))
+    } else {
+      res.end()
+    }
+  }
+}
+
+export function handleImplementationError(err: unknown): never {
+  throw ExpressRuntimeError.HandlerError(err)
 }
 
 export type ExpressRuntimeResponder<
@@ -102,13 +133,6 @@ export type ServerConfig = {
    * bound to.
    */
   port?: number | ListenOptions
-}
-
-export type Params<Params, Query, Body, Header> = {
-  params: Params
-  query: Query
-  body: Body
-  headers: Header
 }
 
 /**

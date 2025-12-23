@@ -40,7 +40,13 @@ export class ExpressRouterBuilder extends AbstractRouterBuilder {
 
     this.imports
       .from("@nahkies/typescript-express-runtime/server")
-      .add("ExpressRuntimeResponse", "SkipResponse", "parseQueryParameters")
+      .add(
+        "ExpressRuntimeResponse",
+        "SkipResponse",
+        "parseQueryParameters",
+        "handleResponse",
+        "handleImplementationError",
+      )
       .addType(
         "ExpressRuntimeResponder",
         "Params",
@@ -145,23 +151,10 @@ router.${builder.method.toLowerCase()}(\`${builder.route}\`, async (req: Request
 
    const responder = ${responder.implementation}
 
-   const response = await implementation.${symbols.implPropName}(input, responder, req, res, next)
-    .catch(err => { throw ExpressRuntimeError.HandlerError(err) })
+   await implementation.${symbols.implPropName}(input, responder, req, res, next)
+    .catch(handleImplementationError)
+    .then(handleResponse(res, ${symbols.responseBodyValidator}))
 
-   // escape hatch to allow responses to be sent by the implementation handler
-   if(response === SkipResponse) {
-    return
-   }
-
-   const { status, body } = response instanceof ExpressRuntimeResponse ? response.unpack() : response
-
-    res.status(status)
-
-    if (body !== undefined) {
-      res.json(${symbols.responseBodyValidator}(status, body))
-    } else {
-      res.end()
-    }
   } catch (error) {
     next(error)
   }

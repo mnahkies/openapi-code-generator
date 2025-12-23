@@ -38,11 +38,13 @@ export class KoaRouterBuilder extends AbstractRouterBuilder {
         "SkipResponse",
         "startServer",
         "parseQueryParameters",
+        "handleResponse",
+        "handleImplementationError",
       )
       .addType(
         "KoaRuntimeResponder",
+        "Res",
         "Params",
-        "Response",
         "StatusCode",
         "StatusCode2xx",
         "StatusCode3xx",
@@ -127,10 +129,10 @@ export class KoaRouterBuilder extends AbstractRouterBuilder {
                     next: Next
                   ) => Promise<KoaRuntimeResponse<unknown> | ${[
                     ...responseSchemas.specific.map(
-                      (it) => `Response<${it.statusType}, ${it.type}>`,
+                      (it) => `Res<${it.statusType}, ${it.type}>`,
                     ),
                     responseSchemas.defaultResponse &&
-                      `Response<StatusCode, ${responseSchemas.defaultResponse.type}>`,
+                      `Res<StatusCode, ${responseSchemas.defaultResponse.type}>`,
                     "typeof SkipResponse",
                   ]
                     .filter(isDefined)
@@ -153,19 +155,9 @@ router.${builder.method.toLowerCase()}('${symbols.implPropName}','${builder.rout
 
    const responder = ${responder.implementation}
 
-   const response = await implementation.${symbols.implPropName}(input, responder, ctx, next)
-    .catch(err => { throw KoaRuntimeError.HandlerError(err) })
-
-   // escape hatch to allow responses to be sent by the implementation handler
-   if(response === SkipResponse) {
-    return
-   }
-
-   const { status, body } = response instanceof KoaRuntimeResponse ? response.unpack() : response
-
-   ctx.body = ${symbols.responseBodyValidator}(status, body)
-   ctx.status = status
-   return next();
+   await implementation.${symbols.implPropName}(input, responder, ctx, next)
+    .catch(handleImplementationError)
+    .then(handleResponse(ctx, next, ${symbols.responseBodyValidator}))
 })`)
 
     return statements.join("\n\n")

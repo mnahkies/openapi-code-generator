@@ -2,18 +2,16 @@ import type {Server} from "node:http"
 import type {AddressInfo, ListenOptions} from "node:net"
 import Cors from "@koa/cors"
 import type Router from "@koa/router"
-import type {
-  Response,
-  StatusCode,
-} from "@nahkies/typescript-common-runtime/types"
-
-import Koa, {type Middleware} from "koa"
+import type {Res, StatusCode} from "@nahkies/typescript-common-runtime/types"
+import {KoaRuntimeError} from "@nahkies/typescript-koa-runtime/errors"
+import Koa, {type Context, type Middleware, type Next} from "koa"
 import KoaBody from "koa-body"
 import type {KoaBodyMiddlewareOptions} from "koa-body/lib/types"
 
 export {parseQueryParameters} from "@nahkies/typescript-common-runtime/query-parser"
 export type {
-  Response,
+  Params,
+  Res,
   StatusCode,
   StatusCode1xx,
   StatusCode2xx,
@@ -34,9 +32,39 @@ export class KoaRuntimeResponse<Type> {
     return this
   }
 
-  unpack(): Response<StatusCode, Type | undefined> {
+  unpack(): Res<StatusCode, Type | undefined> {
     return {status: this.status, body: this._body}
   }
+}
+
+export function handleResponse(
+  ctx: Context,
+  next: Next,
+  validator: (status: number, value: unknown) => unknown,
+) {
+  return async (
+    response:
+      | KoaRuntimeResponse<unknown>
+      | typeof SkipResponse
+      | Res<StatusCode, unknown>,
+  ): Promise<void> => {
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
+
+    const {status, body} =
+      response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+    ctx.body = validator(status, body)
+    ctx.status = status
+
+    return next()
+  }
+}
+
+export function handleImplementationError(err: unknown): never {
+  throw KoaRuntimeError.HandlerError(err)
 }
 
 export type KoaRuntimeResponder<
@@ -81,13 +109,6 @@ export type ServerConfig = {
    * bound to.
    */
   port?: number | ListenOptions
-}
-
-export type Params<Params, Query, Body, Header> = {
-  params: Params
-  query: Query
-  body: Body
-  headers: Header
 }
 
 /**
