@@ -1,6 +1,7 @@
 import {SkipResponse} from "@nahkies/typescript-express-runtime/server"
 import {
   createRouter,
+  type PostMediaTypesOctetStream,
   type PostMediaTypesText,
   type PostMediaTypesXWwwFormUrlencoded,
 } from "../../generated/server/express/routes/media-types.ts"
@@ -23,9 +24,20 @@ const postMediaTypesXWwwFormUrlencoded: PostMediaTypesXWwwFormUrlencoded =
     return respond.with200().body(body)
   }
 
+const postMediaTypesOctetStream: PostMediaTypesOctetStream = async (
+  {body},
+  respond,
+) => {
+  const arrayBuffer = await body.arrayBuffer()
+  const hex = Buffer.from(arrayBuffer).toString("hex")
+  console.log(hex)
+  return respond.with200().body(body)
+}
+
 export function createMediaTypesRouter() {
   return createRouter({
     postMediaTypesText,
     postMediaTypesXWwwFormUrlencoded,
+    postMediaTypesOctetStream,
   })
 }

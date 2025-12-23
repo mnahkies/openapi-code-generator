@@ -323,6 +323,24 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ProductOrder'
+  /media-types/octet-stream:
+    post:
+      tags:
+        - media types
+      requestBody:
+        content:
+          application/octet-stream:
+            schema:
+              type: string
+              format: binary
+      responses:
+        200:
+          description: ok
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
 
   /escape-hatches/plain-text:
     get:

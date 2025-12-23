@@ -444,6 +444,33 @@ export class E2ETestClient extends AbstractAxiosClient {
     return {...res, data: s_ProductOrder.parse(res.data)}
   }
 
+  async postMediaTypesOctetStream(
+    p: {
+      requestBody: Blob
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<Blob>> {
+    const url = `/media-types/octet-stream`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/octet-stream"},
+      opts.headers,
+    )
+    const body = p.requestBody
+
+    const res = await this._request({
+      url: url,
+      method: "POST",
+      responseType: "arraybuffer",
+      data: body,
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+
+    return {...res, data: z.any().parse(this._parseBlobResponse(res))}
+  }
+
   async getEscapeHatchesPlainText(
     timeout?: number,
     opts: AxiosRequestConfig = {},
