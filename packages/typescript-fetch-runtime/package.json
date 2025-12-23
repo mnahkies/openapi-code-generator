@@ -27,11 +27,6 @@
       "import": "./dist/joi.js",
       "types": "./dist/joi.d.ts"
     },
-    "./zod": {
-      "require": "./dist/zod.js",
-      "import": "./dist/zod.js",
-      "types": "./dist/zod.d.ts"
-    },
     "./zod-v3": {
       "require": "./dist/zod-v3.js",
       "import": "./dist/zod-v3.js",
