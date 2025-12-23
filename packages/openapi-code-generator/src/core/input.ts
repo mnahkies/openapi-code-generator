@@ -832,6 +832,37 @@ export class SchemaNormalizer {
           schemaObject,
         )
 
+        if (
+          (allOf.length || oneOf.length || anyOf.length) &&
+          (additionalProperties || Object.keys(properties).length > 0)
+        ) {
+          return {
+            ...base,
+            nullable: false,
+            type: "object",
+            allOf: [
+              ...allOf,
+              {
+                ...base,
+                type: "object",
+                nullable:
+                  base.nullable || schemaObject.type === "null" || hasNull,
+                allOf: [],
+                oneOf: [],
+                anyOf: [],
+                required,
+                properties,
+                additionalProperties,
+              },
+            ],
+            oneOf,
+            anyOf,
+            required: [],
+            properties: {},
+            additionalProperties: false,
+          } satisfies IRModelObject
+        }
+
         return {
           ...base,
           nullable,

@@ -437,6 +437,31 @@ describe("core/input - SchemaNormalizer", () => {
         anyOf: [{...base.number}, {$ref: "#/components/schemas/Another"}],
       })
     })
+
+    it("lifts the raw schema properties into an allOf", () => {
+      const actual = schemaNormalizer.normalize({
+        type: "object",
+        properties: {
+          name: {type: "string"},
+        },
+        allOf: [
+          {
+            type: "object",
+            properties: {
+              id: {type: "string"},
+            },
+          },
+        ],
+      })
+
+      expect(actual).toStrictEqual({
+        ...base.object,
+        allOf: [
+          {...base.object, properties: {id: {...base.string}}},
+          {...base.object, properties: {name: {...base.string}}},
+        ],
+      })
+    })
   })
 
   describe("empty schemas / additionalProperties", () => {
