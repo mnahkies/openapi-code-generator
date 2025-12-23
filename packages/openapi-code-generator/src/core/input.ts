@@ -749,6 +749,9 @@ export class SchemaNormalizer {
           if (schemaObject.enum?.every((it) => typeof it === "number")) {
             return self.normalize({...schemaObject, type: "number"})
           }
+          if (schemaObject.enum?.every((it) => typeof it === "boolean")) {
+            return self.normalize({...schemaObject, type: "boolean"})
+          }
           return self.normalize({...schemaObject, type: "string"})
         }
 

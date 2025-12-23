@@ -477,6 +477,17 @@ describe("core/input - SchemaNormalizer", () => {
         enum: [1, 2, 3],
       })
     })
+    it("detects a boolean enum", () => {
+      const actual = schemaNormalizer.normalize({
+        type: undefined,
+        enum: [true],
+      })
+
+      expect(actual).toStrictEqual({
+        ...base.boolean,
+        enum: ["true"],
+      })
+    })
     it("detects a string enum", () => {
       const actual = schemaNormalizer.normalize({
         type: undefined,
