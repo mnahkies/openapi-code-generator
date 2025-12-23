@@ -11,7 +11,7 @@ import {
   type KoaRuntimeResponder,
   KoaRuntimeResponse,
   type Params,
-  type Response,
+  type Res,
   type ServerConfig,
   SkipResponse,
   type StatusCode,
@@ -136,8 +136,8 @@ export type GetWellKnownOpenIdConfiguration = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_OidcMetadata>
-  | Response<400, t_Error>
+  | Res<200, t_OidcMetadata>
+  | Res<400, t_Error>
   | typeof SkipResponse
 >
 
@@ -151,7 +151,7 @@ export type Authorize = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  KoaRuntimeResponse<unknown> | Response<429, t_Error> | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<429, t_Error> | typeof SkipResponse
 >
 
 export type AuthorizeWithPostResponder = {
@@ -164,7 +164,7 @@ export type AuthorizeWithPost = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  KoaRuntimeResponse<unknown> | Response<429, t_Error> | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<429, t_Error> | typeof SkipResponse
 >
 
 export type BcAuthorizeResponder = {
@@ -181,10 +181,10 @@ export type BcAuthorize = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_BackchannelAuthorizeResponse>
-  | Response<400, t_OAuthError>
-  | Response<401, t_OAuthError>
-  | Response<429, t_Error>
+  | Res<200, t_BackchannelAuthorizeResponse>
+  | Res<400, t_OAuthError>
+  | Res<401, t_OAuthError>
+  | Res<429, t_Error>
   | typeof SkipResponse
 >
 
@@ -203,11 +203,11 @@ export type Challenge = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_ChallengeResponse>
-  | Response<400, t_OAuthError>
-  | Response<401, t_OAuthError>
-  | Response<403, t_OAuthError>
-  | Response<429, t_OAuthError>
+  | Res<200, t_ChallengeResponse>
+  | Res<400, t_OAuthError>
+  | Res<401, t_OAuthError>
+  | Res<403, t_OAuthError>
+  | Res<429, t_OAuthError>
   | typeof SkipResponse
 >
 
@@ -224,9 +224,9 @@ export type ListClients = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_Client[]>
-  | Response<403, t_Error>
-  | Response<429, t_Error>
+  | Res<200, t_Client[]>
+  | Res<403, t_Error>
+  | Res<429, t_Error>
   | typeof SkipResponse
 >
 
@@ -244,10 +244,10 @@ export type CreateClient = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_Client>
-  | Response<400, t_Error>
-  | Response<403, t_Error>
-  | Response<429, t_Error>
+  | Res<201, t_Client>
+  | Res<400, t_Error>
+  | Res<403, t_Error>
+  | Res<429, t_Error>
   | typeof SkipResponse
 >
 
@@ -265,10 +265,10 @@ export type GetClient = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_Client>
-  | Response<403, t_Error>
-  | Response<404, t_Error>
-  | Response<429, t_Error>
+  | Res<200, t_Client>
+  | Res<403, t_Error>
+  | Res<404, t_Error>
+  | Res<429, t_Error>
   | typeof SkipResponse
 >
 
@@ -287,11 +287,11 @@ export type ReplaceClient = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_Client>
-  | Response<400, t_Error>
-  | Response<403, t_Error>
-  | Response<404, t_Error>
-  | Response<429, t_Error>
+  | Res<200, t_Client>
+  | Res<400, t_Error>
+  | Res<403, t_Error>
+  | Res<404, t_Error>
+  | Res<429, t_Error>
   | typeof SkipResponse
 >
 
@@ -309,10 +309,10 @@ export type DeleteClient = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<403, t_Error>
-  | Response<404, t_Error>
-  | Response<429, t_Error>
+  | Res<204, void>
+  | Res<403, t_Error>
+  | Res<404, t_Error>
+  | Res<429, t_Error>
   | typeof SkipResponse
 >
 
@@ -330,10 +330,10 @@ export type GenerateNewClientSecret = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_Client>
-  | Response<403, t_Error>
-  | Response<404, t_Error>
-  | Response<429, t_Error>
+  | Res<200, t_Client>
+  | Res<403, t_Error>
+  | Res<404, t_Error>
+  | Res<429, t_Error>
   | typeof SkipResponse
 >
 
@@ -351,10 +351,10 @@ export type DeviceAuthorize = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_DeviceAuthorizeResponse>
-  | Response<400, t_OAuthError>
-  | Response<401, t_OAuthError>
-  | Response<429, t_Error>
+  | Res<200, t_DeviceAuthorizeResponse>
+  | Res<400, t_OAuthError>
+  | Res<401, t_OAuthError>
+  | Res<429, t_Error>
   | typeof SkipResponse
 >
 
@@ -372,10 +372,10 @@ export type GlobalTokenRevocation = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<400, void>
-  | Response<403, t_Error>
-  | Response<429, t_Error>
+  | Res<204, void>
+  | Res<400, void>
+  | Res<403, t_Error>
+  | Res<429, t_Error>
   | typeof SkipResponse
 >
 
@@ -393,10 +393,10 @@ export type Introspect = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_IntrospectionResponse>
-  | Response<400, t_OAuthError>
-  | Response<401, t_OAuthError>
-  | Response<429, t_Error>
+  | Res<200, t_IntrospectionResponse>
+  | Res<400, t_OAuthError>
+  | Res<401, t_OAuthError>
+  | Res<429, t_Error>
   | typeof SkipResponse
 >
 
@@ -412,8 +412,8 @@ export type OauthKeys = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_OAuthKeys>
-  | Response<429, t_Error>
+  | Res<200, t_OAuthKeys>
+  | Res<429, t_Error>
   | typeof SkipResponse
 >
 
@@ -429,8 +429,8 @@ export type Logout = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, void>
-  | Response<429, t_Error>
+  | Res<200, void>
+  | Res<429, t_Error>
   | typeof SkipResponse
 >
 
@@ -446,8 +446,8 @@ export type LogoutWithPost = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, void>
-  | Response<429, t_Error>
+  | Res<200, void>
+  | Res<429, t_Error>
   | typeof SkipResponse
 >
 
@@ -466,11 +466,11 @@ export type OobAuthenticate = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_OobAuthenticateResponse>
-  | Response<400, t_OAuthError>
-  | Response<401, t_OAuthError>
-  | Response<403, t_OAuthError>
-  | Response<429, t_OAuthError>
+  | Res<200, t_OobAuthenticateResponse>
+  | Res<400, t_OAuthError>
+  | Res<401, t_OAuthError>
+  | Res<403, t_OAuthError>
+  | Res<429, t_OAuthError>
   | typeof SkipResponse
 >
 
@@ -486,8 +486,8 @@ export type ParOptions = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<429, t_Error>
+  | Res<204, void>
+  | Res<429, t_Error>
   | typeof SkipResponse
 >
 
@@ -506,11 +506,11 @@ export type Par = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_ParResponse>
-  | Response<400, t_OAuthError>
-  | Response<401, t_OAuthError>
-  | Response<403, t_OAuthError>
-  | Response<429, t_Error>
+  | Res<200, t_ParResponse>
+  | Res<400, t_OAuthError>
+  | Res<401, t_OAuthError>
+  | Res<403, t_OAuthError>
+  | Res<429, t_Error>
   | typeof SkipResponse
 >
 
@@ -528,10 +528,10 @@ export type Revoke = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, void>
-  | Response<400, t_OAuthError>
-  | Response<401, t_OAuthError>
-  | Response<429, t_Error>
+  | Res<200, void>
+  | Res<400, t_OAuthError>
+  | Res<401, t_OAuthError>
+  | Res<429, t_Error>
   | typeof SkipResponse
 >
 
@@ -547,8 +547,8 @@ export type TokenOptions = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<429, t_Error>
+  | Res<204, void>
+  | Res<429, t_Error>
   | typeof SkipResponse
 >
 
@@ -566,10 +566,10 @@ export type Token = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_TokenResponse>
-  | Response<400, t_OAuthError>
-  | Response<401, t_OAuthError>
-  | Response<429, t_Error>
+  | Res<200, t_TokenResponse>
+  | Res<400, t_OAuthError>
+  | Res<401, t_OAuthError>
+  | Res<429, t_Error>
   | typeof SkipResponse
 >
 
@@ -587,10 +587,10 @@ export type Userinfo = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_UserInfo>
-  | Response<401, void>
-  | Response<403, void>
-  | Response<429, t_Error>
+  | Res<200, t_UserInfo>
+  | Res<401, void>
+  | Res<403, void>
+  | Res<429, t_Error>
   | typeof SkipResponse
 >
 
@@ -612,9 +612,9 @@ export type GetWellKnownOAuthConfigurationCustomAs = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_OAuthMetadata>
-  | Response<400, t_Error>
-  | Response<404, t_Error>
+  | Res<200, t_OAuthMetadata>
+  | Res<400, t_Error>
+  | Res<404, t_Error>
   | typeof SkipResponse
 >
 
@@ -636,9 +636,9 @@ export type GetWellKnownOpenIdConfigurationCustomAs = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_OidcMetadata>
-  | Response<400, t_Error>
-  | Response<404, t_Error>
+  | Res<200, t_OidcMetadata>
+  | Res<400, t_Error>
+  | Res<404, t_Error>
   | typeof SkipResponse
 >
 
@@ -657,7 +657,7 @@ export type AuthorizeCustomAs = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  KoaRuntimeResponse<unknown> | Response<429, t_Error> | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<429, t_Error> | typeof SkipResponse
 >
 
 export type AuthorizeCustomAsWithPostResponder = {
@@ -675,7 +675,7 @@ export type AuthorizeCustomAsWithPost = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  KoaRuntimeResponse<unknown> | Response<429, t_Error> | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<429, t_Error> | typeof SkipResponse
 >
 
 export type BcAuthorizeCustomAsResponder = {
@@ -697,10 +697,10 @@ export type BcAuthorizeCustomAs = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_BackchannelAuthorizeResponse>
-  | Response<400, t_OAuthError>
-  | Response<401, t_OAuthError>
-  | Response<429, t_Error>
+  | Res<200, t_BackchannelAuthorizeResponse>
+  | Res<400, t_OAuthError>
+  | Res<401, t_OAuthError>
+  | Res<429, t_Error>
   | typeof SkipResponse
 >
 
@@ -724,11 +724,11 @@ export type ChallengeCustomAs = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_ChallengeResponse>
-  | Response<400, t_OAuthError>
-  | Response<401, t_OAuthError>
-  | Response<403, t_OAuthError>
-  | Response<429, t_OAuthError>
+  | Res<200, t_ChallengeResponse>
+  | Res<400, t_OAuthError>
+  | Res<401, t_OAuthError>
+  | Res<403, t_OAuthError>
+  | Res<429, t_OAuthError>
   | typeof SkipResponse
 >
 
@@ -751,10 +751,10 @@ export type DeviceAuthorizeCustomAs = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_DeviceAuthorizeResponse>
-  | Response<400, t_OAuthError>
-  | Response<401, t_OAuthError>
-  | Response<429, t_Error>
+  | Res<200, t_DeviceAuthorizeResponse>
+  | Res<400, t_OAuthError>
+  | Res<401, t_OAuthError>
+  | Res<429, t_Error>
   | typeof SkipResponse
 >
 
@@ -777,10 +777,10 @@ export type IntrospectCustomAs = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_IntrospectionResponse>
-  | Response<400, t_OAuthError>
-  | Response<401, t_OAuthError>
-  | Response<429, t_Error>
+  | Res<200, t_IntrospectionResponse>
+  | Res<400, t_OAuthError>
+  | Res<401, t_OAuthError>
+  | Res<429, t_Error>
   | typeof SkipResponse
 >
 
@@ -796,8 +796,8 @@ export type OauthKeysCustomAs = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_OAuthKeys>
-  | Response<429, t_Error>
+  | Res<200, t_OAuthKeys>
+  | Res<429, t_Error>
   | typeof SkipResponse
 >
 
@@ -818,8 +818,8 @@ export type LogoutCustomAs = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, void>
-  | Response<429, t_Error>
+  | Res<200, void>
+  | Res<429, t_Error>
   | typeof SkipResponse
 >
 
@@ -840,8 +840,8 @@ export type LogoutCustomAsWithPost = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, void>
-  | Response<429, t_Error>
+  | Res<200, void>
+  | Res<429, t_Error>
   | typeof SkipResponse
 >
 
@@ -865,11 +865,11 @@ export type OobAuthenticateCustomAs = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_OobAuthenticateResponse>
-  | Response<400, t_OAuthError>
-  | Response<401, t_OAuthError>
-  | Response<403, t_OAuthError>
-  | Response<429, t_OAuthError>
+  | Res<200, t_OobAuthenticateResponse>
+  | Res<400, t_OAuthError>
+  | Res<401, t_OAuthError>
+  | Res<403, t_OAuthError>
+  | Res<429, t_OAuthError>
   | typeof SkipResponse
 >
 
@@ -890,8 +890,8 @@ export type ParOptionsCustomAs = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<429, t_Error>
+  | Res<204, void>
+  | Res<429, t_Error>
   | typeof SkipResponse
 >
 
@@ -910,11 +910,11 @@ export type ParCustomAs = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_ParResponse>
-  | Response<400, t_OAuthError>
-  | Response<401, t_OAuthError>
-  | Response<403, t_OAuthError>
-  | Response<429, t_Error>
+  | Res<200, t_ParResponse>
+  | Res<400, t_OAuthError>
+  | Res<401, t_OAuthError>
+  | Res<403, t_OAuthError>
+  | Res<429, t_Error>
   | typeof SkipResponse
 >
 
@@ -932,10 +932,10 @@ export type RevokeCustomAs = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, void>
-  | Response<400, t_OAuthError>
-  | Response<401, t_OAuthError>
-  | Response<429, t_Error>
+  | Res<200, void>
+  | Res<400, t_OAuthError>
+  | Res<401, t_OAuthError>
+  | Res<429, t_Error>
   | typeof SkipResponse
 >
 
@@ -956,8 +956,8 @@ export type TokenOptionsCustomAs = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<429, t_Error>
+  | Res<204, void>
+  | Res<429, t_Error>
   | typeof SkipResponse
 >
 
@@ -975,10 +975,10 @@ export type TokenCustomAs = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_TokenResponse>
-  | Response<400, t_OAuthError>
-  | Response<401, t_OAuthError>
-  | Response<429, t_Error>
+  | Res<200, t_TokenResponse>
+  | Res<400, t_OAuthError>
+  | Res<401, t_OAuthError>
+  | Res<429, t_Error>
   | typeof SkipResponse
 >
 
@@ -996,10 +996,10 @@ export type UserinfoCustomAs = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_UserInfo>
-  | Response<401, void>
-  | Response<403, void>
-  | Response<429, t_Error>
+  | Res<200, t_UserInfo>
+  | Res<401, void>
+  | Res<403, void>
+  | Res<429, t_Error>
   | typeof SkipResponse
 >
 

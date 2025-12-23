@@ -274,6 +274,46 @@ importers:
         specifier: ^5.9.3
         version: 5.9.3
 
+  integration-tests/typescript-nextjs:
+    dependencies:
+      '@nahkies/typescript-fetch-runtime':
+        specifier: workspace:*
+        version: link:../../packages/typescript-fetch-runtime
+      '@nahkies/typescript-nextjs-runtime':
+        specifier: workspace:*
+        version: link:../../packages/typescript-nextjs-runtime
+      joi:
+        specifier: ^18.0.2
+        version: 18.0.2
+      next:
+        specifier: ^16.1.0
+        version: 16.1.0(@babel/core@7.28.5)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(sass@1.93.2)
+      react:
+        specifier: ^19.1.0
+        version: 19.2.3
+      react-dom:
+        specifier: ^19.1.0
+        version: 19.2.3(react@19.2.3)
+      tslib:
+        specifier: ^2.8.1
+        version: 2.8.1
+      zod:
+        specifier: ^3.25.74
+        version: 3.25.76
+    devDependencies:
+      '@types/node':
+        specifier: 22.16.5
+        version: 22.16.5
+      '@types/react':
+        specifier: ^19.1.8
+        version: 19.2.7
+      '@types/react-dom':
+        specifier: ^19.1.6
+        version: 19.2.3(@types/react@19.2.7)
+      typescript:
+        specifier: ^5.9.3
+        version: 5.9.3
+
   packages/documentation:
     dependencies:
       '@hookform/resolvers':
@@ -382,6 +422,9 @@ importers:
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
+      ts-morph:
+        specifier: ^26.0.0
+        version: 26.0.0
       tslib:
         specifier: ^2.8.1
         version: 2.8.1
@@ -601,6 +644,28 @@ importers:
       koa-body:
         specifier: ^6.0.1
         version: 6.0.1
+      typescript:
+        specifier: ^5.9.3
+        version: 5.9.3
+      zod:
+        specifier: ^3.25.74
+        version: 3.25.76
+
+  packages/typescript-nextjs-runtime:
+    dependencies:
+      '@nahkies/typescript-common-runtime':
+        specifier: workspace:^
+        version: link:../typescript-common-runtime
+      next:
+        specifier: ^16.1.0
+        version: 16.1.0(@babel/core@7.28.5)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(sass@1.93.2)
+    devDependencies:
+      jest:
+        specifier: ^30.2.0
+        version: 30.2.0(@types/node@22.16.5)
+      joi:
+        specifier: ^18.0.2
+        version: 18.0.2
       typescript:
         specifier: ^5.9.3
         version: 5.9.3
@@ -3415,6 +3480,9 @@ packages:
 
   '@theguild/remark-npm2yarn@0.3.3':
     resolution: {integrity: sha512-ma6DvR03gdbvwqfKx1omqhg9May/VYGdMHvTzB4VuxkyS7KzfZ/lzrj43hmcsggpMje0x7SADA/pcMph0ejRnA==}
+
+  '@ts-morph/common@0.27.0':
+    resolution: {integrity: sha512-Wf29UqxWDpc+i61k3oIOzcUfQt79PIT9y/MWfAGlrkjg6lBC1hwDECLXPVJAhWjiGbfBCxZd65F/LIZF3+jeJQ==}
 
   '@ts-morph/common@0.28.1':
     resolution: {integrity: sha512-W74iWf7ILp1ZKNYXY5qbddNaml7e9Sedv5lvU1V8lftlitkc9Pq1A+jlH23ltDgWYeZFFEqGCD1Ies9hqu3O+g==}
@@ -7898,6 +7966,9 @@ packages:
     resolution: {integrity: sha512-q5W7tVM71e2xjHZTlgfTDoPF/SmqKG5hddq9SzR49CH2hayqRKJtQ4mtRlSxKaJlR/+9rEM+mnBHf7I2/BQcpQ==}
     engines: {node: '>=6.10'}
 
+  ts-morph@26.0.0:
+    resolution: {integrity: sha512-ztMO++owQnz8c/gIENcM9XfCEzgoGphTv+nKpYNM1bgsdOVC/jRZuEBf6N+mLLDNg68Kl+GgUZfOySaRiG1/Ug==}
+
   ts-morph@27.0.2:
     resolution: {integrity: sha512-fhUhgeljcrdZ+9DZND1De1029PrE+cMkIP7ooqkLRTrRLTqcki2AstsyJm0vRNbTbVCNJ0idGlbBrfqc7/nA8w==}
 
@@ -11001,6 +11072,12 @@ snapshots:
     dependencies:
       npm-to-yarn: 3.0.1
       unist-util-visit: 5.0.0
+
+  '@ts-morph/common@0.27.0':
+    dependencies:
+      fast-glob: 3.3.3
+      minimatch: 10.1.1
+      path-browserify: 1.0.1
 
   '@ts-morph/common@0.28.1':
     dependencies:
@@ -14276,7 +14353,7 @@ snapshots:
 
   log-symbols@4.1.0:
     dependencies:
-      chalk: 4.1.0
+      chalk: 4.1.2
       is-unicode-supported: 0.1.0
 
   log-symbols@7.0.1:
@@ -15300,7 +15377,7 @@ snapshots:
     dependencies:
       hosted-git-info: 8.1.0
       proc-log: 5.0.0
-      semver: 7.7.2
+      semver: 7.7.3
       validate-npm-package-name: 6.0.2
 
   npm-package-arg@13.0.1:
@@ -15462,7 +15539,7 @@ snapshots:
   ora@5.3.0:
     dependencies:
       bl: 4.1.0
-      chalk: 4.1.0
+      chalk: 4.1.2
       cli-cursor: 3.1.0
       cli-spinners: 2.6.1
       is-interactive: 1.0.0
@@ -16717,6 +16794,11 @@ snapshots:
   trough@2.2.0: {}
 
   ts-dedent@2.2.0: {}
+
+  ts-morph@26.0.0:
+    dependencies:
+      '@ts-morph/common': 0.27.0
+      code-block-writer: 13.0.3
 
   ts-morph@27.0.2:
     dependencies:

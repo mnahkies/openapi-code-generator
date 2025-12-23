@@ -93,5 +93,6 @@ export async function generate(
     isEsmProject: config.tsIsEsmProject,
     allowAny: config.tsAllowAny,
     serverImplementationMethod: config.tsServerImplementationMethod,
+    fsAdaptor,
   })
 }

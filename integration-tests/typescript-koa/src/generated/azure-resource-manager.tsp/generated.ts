@@ -11,7 +11,7 @@ import {
   type KoaRuntimeResponder,
   KoaRuntimeResponse,
   type Params,
-  type Response,
+  type Res,
   type ServerConfig,
   SkipResponse,
   type StatusCode,
@@ -74,8 +74,8 @@ export type OperationsList = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_OperationListResult>
-  | Response<StatusCode, t_Azure_ResourceManager_CommonTypes_ErrorResponse>
+  | Res<200, t_OperationListResult>
+  | Res<StatusCode, t_Azure_ResourceManager_CommonTypes_ErrorResponse>
   | typeof SkipResponse
 >
 
@@ -98,8 +98,8 @@ export type EmployeesGet = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_Employee>
-  | Response<StatusCode, t_Azure_ResourceManager_CommonTypes_ErrorResponse>
+  | Res<200, t_Employee>
+  | Res<StatusCode, t_Azure_ResourceManager_CommonTypes_ErrorResponse>
   | typeof SkipResponse
 >
 
@@ -123,9 +123,9 @@ export type EmployeesCreateOrUpdate = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_Employee>
-  | Response<201, t_Employee>
-  | Response<StatusCode, t_Azure_ResourceManager_CommonTypes_ErrorResponse>
+  | Res<200, t_Employee>
+  | Res<201, t_Employee>
+  | Res<StatusCode, t_Azure_ResourceManager_CommonTypes_ErrorResponse>
   | typeof SkipResponse
 >
 
@@ -148,8 +148,8 @@ export type EmployeesUpdate = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_Employee>
-  | Response<StatusCode, t_Azure_ResourceManager_CommonTypes_ErrorResponse>
+  | Res<200, t_Employee>
+  | Res<StatusCode, t_Azure_ResourceManager_CommonTypes_ErrorResponse>
   | typeof SkipResponse
 >
 
@@ -173,9 +173,9 @@ export type EmployeesDelete = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<202, void>
-  | Response<204, void>
-  | Response<StatusCode, t_Azure_ResourceManager_CommonTypes_ErrorResponse>
+  | Res<202, void>
+  | Res<204, void>
+  | Res<StatusCode, t_Azure_ResourceManager_CommonTypes_ErrorResponse>
   | typeof SkipResponse
 >
 
@@ -199,9 +199,9 @@ export type EmployeesCheckExistence = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<404, void>
-  | Response<StatusCode, t_Azure_ResourceManager_CommonTypes_ErrorResponse>
+  | Res<204, void>
+  | Res<404, void>
+  | Res<StatusCode, t_Azure_ResourceManager_CommonTypes_ErrorResponse>
   | typeof SkipResponse
 >
 
@@ -224,8 +224,8 @@ export type EmployeesListByResourceGroup = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_EmployeeListResult>
-  | Response<StatusCode, t_Azure_ResourceManager_CommonTypes_ErrorResponse>
+  | Res<200, t_EmployeeListResult>
+  | Res<StatusCode, t_Azure_ResourceManager_CommonTypes_ErrorResponse>
   | typeof SkipResponse
 >
 
@@ -248,8 +248,8 @@ export type EmployeesListBySubscription = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_EmployeeListResult>
-  | Response<StatusCode, t_Azure_ResourceManager_CommonTypes_ErrorResponse>
+  | Res<200, t_EmployeeListResult>
+  | Res<StatusCode, t_Azure_ResourceManager_CommonTypes_ErrorResponse>
   | typeof SkipResponse
 >
 
@@ -272,8 +272,8 @@ export type EmployeesMove = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_MoveResponse>
-  | Response<StatusCode, t_Azure_ResourceManager_CommonTypes_ErrorResponse>
+  | Res<200, t_MoveResponse>
+  | Res<StatusCode, t_Azure_ResourceManager_CommonTypes_ErrorResponse>
   | typeof SkipResponse
 >
 

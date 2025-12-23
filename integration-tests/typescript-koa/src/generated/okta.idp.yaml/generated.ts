@@ -11,7 +11,7 @@ import {
   type KoaRuntimeResponder,
   KoaRuntimeResponse,
   type Params,
-  type Response,
+  type Res,
   type ServerConfig,
   SkipResponse,
   type StatusCode,
@@ -112,11 +112,11 @@ export type CreateAppAuthenticatorEnrollment = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_AppAuthenticatorEnrollment>
-  | Response<400, t_Error>
-  | Response<401, t_Error>
-  | Response<403, t_Error>
-  | Response<404, t_Error>
+  | Res<200, t_AppAuthenticatorEnrollment>
+  | Res<400, t_Error>
+  | Res<401, t_Error>
+  | Res<403, t_Error>
+  | Res<404, t_Error>
   | typeof SkipResponse
 >
 
@@ -138,9 +138,9 @@ export type VerifyAppAuthenticatorPushNotificationChallenge = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, void>
-  | Response<204, void>
-  | Response<400, void>
+  | Res<200, void>
+  | Res<204, void>
+  | Res<400, void>
   | typeof SkipResponse
 >
 
@@ -163,10 +163,10 @@ export type UpdateAppAuthenticatorEnrollment = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_AppAuthenticatorEnrollment>
-  | Response<401, t_Error>
-  | Response<403, t_Error>
-  | Response<404, t_Error>
+  | Res<200, t_AppAuthenticatorEnrollment>
+  | Res<401, t_Error>
+  | Res<403, t_Error>
+  | Res<404, t_Error>
   | typeof SkipResponse
 >
 
@@ -189,10 +189,10 @@ export type DeleteAppAuthenticatorEnrollment = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<401, t_Error>
-  | Response<403, t_Error>
-  | Response<404, t_Error>
+  | Res<204, void>
+  | Res<401, t_Error>
+  | Res<403, t_Error>
+  | Res<404, t_Error>
   | typeof SkipResponse
 >
 
@@ -213,8 +213,8 @@ export type ListAppAuthenticatorPendingPushNotificationChallenges = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_PushNotificationChallenge[]>
-  | Response<401, t_Error>
+  | Res<200, t_PushNotificationChallenge[]>
+  | Res<401, t_Error>
   | typeof SkipResponse
 >
 
@@ -231,9 +231,9 @@ export type ListAuthenticators = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_Authenticator[]>
-  | Response<403, t_Error>
-  | Response<429, t_Error>
+  | Res<200, t_Authenticator[]>
+  | Res<403, t_Error>
+  | Res<429, t_Error>
   | typeof SkipResponse
 >
 
@@ -256,10 +256,10 @@ export type GetAuthenticator = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_Authenticator>
-  | Response<403, t_Error>
-  | Response<404, t_Error>
-  | Response<429, t_Error>
+  | Res<200, t_Authenticator>
+  | Res<403, t_Error>
+  | Res<404, t_Error>
+  | Res<429, t_Error>
   | typeof SkipResponse
 >
 
@@ -277,10 +277,10 @@ export type ListEnrollments = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_AuthenticatorEnrollment[]>
-  | Response<403, t_Error>
-  | Response<404, t_Error>
-  | Response<429, t_Error>
+  | Res<200, t_AuthenticatorEnrollment[]>
+  | Res<403, t_Error>
+  | Res<404, t_Error>
+  | Res<429, t_Error>
   | typeof SkipResponse
 >
 
@@ -298,10 +298,10 @@ export type GetEnrollment = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_AuthenticatorEnrollment>
-  | Response<403, t_Error>
-  | Response<404, t_Error>
-  | Response<429, t_Error>
+  | Res<200, t_AuthenticatorEnrollment>
+  | Res<403, t_Error>
+  | Res<404, t_Error>
+  | Res<429, t_Error>
   | typeof SkipResponse
 >
 
@@ -324,10 +324,10 @@ export type UpdateEnrollment = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_AuthenticatorEnrollment>
-  | Response<401, t_Error>
-  | Response<403, t_Error>
-  | Response<404, t_Error>
+  | Res<200, t_AuthenticatorEnrollment>
+  | Res<401, t_Error>
+  | Res<403, t_Error>
+  | Res<404, t_Error>
   | typeof SkipResponse
 >
 
@@ -343,8 +343,8 @@ export type ListEmails = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_Email[]>
-  | Response<401, t_Error>
+  | Res<200, t_Email[]>
+  | Res<401, t_Error>
   | typeof SkipResponse
 >
 
@@ -363,11 +363,11 @@ export type CreateEmail = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_Email>
-  | Response<400, t_Error>
-  | Response<401, t_Error>
-  | Response<403, t_Error>
-  | Response<409, t_Error>
+  | Res<201, t_Email>
+  | Res<400, t_Error>
+  | Res<401, t_Error>
+  | Res<403, t_Error>
+  | Res<409, t_Error>
   | typeof SkipResponse
 >
 
@@ -383,8 +383,8 @@ export type GetEmail = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_Email>
-  | Response<401, t_Error>
+  | Res<200, t_Email>
+  | Res<401, t_Error>
   | typeof SkipResponse
 >
 
@@ -402,10 +402,10 @@ export type DeleteEmail = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<400, t_Error>
-  | Response<401, t_Error>
-  | Response<404, t_Error>
+  | Res<204, void>
+  | Res<400, t_Error>
+  | Res<401, t_Error>
+  | Res<404, t_Error>
   | typeof SkipResponse
 >
 
@@ -449,7 +449,7 @@ export type SendEmailChallenge = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       201,
       {
         _links: {
@@ -474,9 +474,9 @@ export type SendEmailChallenge = (
         status: "VERIFIED" | "UNVERIFIED"
       }
     >
-  | Response<401, t_Error>
-  | Response<403, t_Error>
-  | Response<404, t_Error>
+  | Res<401, t_Error>
+  | Res<403, t_Error>
+  | Res<404, t_Error>
   | typeof SkipResponse
 >
 
@@ -514,7 +514,7 @@ export type PollChallengeForEmailMagicLink = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         _links: {
@@ -539,8 +539,8 @@ export type PollChallengeForEmailMagicLink = (
         status: "VERIFIED" | "UNVERIFIED"
       }
     >
-  | Response<401, t_Error>
-  | Response<404, t_Error>
+  | Res<401, t_Error>
+  | Res<404, t_Error>
   | typeof SkipResponse
 >
 
@@ -563,10 +563,10 @@ export type VerifyEmailOtp = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, void>
-  | Response<401, t_Error>
-  | Response<403, t_Error>
-  | Response<404, t_Error>
+  | Res<200, void>
+  | Res<401, t_Error>
+  | Res<403, t_Error>
+  | Res<404, t_Error>
   | typeof SkipResponse
 >
 
@@ -582,8 +582,8 @@ export type ListOktaApplications = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_OktaApplication[]>
-  | Response<400, t_Error>
+  | Res<200, t_OktaApplication[]>
+  | Res<400, t_Error>
   | typeof SkipResponse
 >
 
@@ -599,8 +599,8 @@ export type GetOrganization = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_Organization>
-  | Response<401, t_Error>
+  | Res<200, t_Organization>
+  | Res<401, t_Error>
   | typeof SkipResponse
 >
 
@@ -616,8 +616,8 @@ export type GetPassword = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_PasswordResponse>
-  | Response<401, t_Error>
+  | Res<200, t_PasswordResponse>
+  | Res<401, t_Error>
   | typeof SkipResponse
 >
 
@@ -635,10 +635,10 @@ export type CreatePassword = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_PasswordResponse>
-  | Response<400, t_Error>
-  | Response<401, t_Error>
-  | Response<403, t_Error>
+  | Res<201, t_PasswordResponse>
+  | Res<400, t_Error>
+  | Res<401, t_Error>
+  | Res<403, t_Error>
   | typeof SkipResponse
 >
 
@@ -656,10 +656,10 @@ export type ReplacePassword = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_PasswordResponse>
-  | Response<400, t_Error>
-  | Response<401, t_Error>
-  | Response<403, t_Error>
+  | Res<201, t_PasswordResponse>
+  | Res<400, t_Error>
+  | Res<401, t_Error>
+  | Res<403, t_Error>
   | typeof SkipResponse
 >
 
@@ -676,9 +676,9 @@ export type DeletePassword = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<401, t_Error>
-  | Response<404, t_Error>
+  | Res<204, void>
+  | Res<401, t_Error>
+  | Res<404, t_Error>
   | typeof SkipResponse
 >
 
@@ -694,8 +694,8 @@ export type ListPhones = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_Phone[]>
-  | Response<401, t_Error>
+  | Res<200, t_Phone[]>
+  | Res<401, t_Error>
   | typeof SkipResponse
 >
 
@@ -715,12 +715,12 @@ export type CreatePhone = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_Phone>
-  | Response<400, t_Error>
-  | Response<401, t_Error>
-  | Response<403, t_Error>
-  | Response<409, t_Error>
-  | Response<500, t_Error>
+  | Res<201, t_Phone>
+  | Res<400, t_Error>
+  | Res<401, t_Error>
+  | Res<403, t_Error>
+  | Res<409, t_Error>
+  | Res<500, t_Error>
   | typeof SkipResponse
 >
 
@@ -737,9 +737,9 @@ export type GetPhone = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_Phone>
-  | Response<401, t_Error>
-  | Response<404, t_Error>
+  | Res<200, t_Phone>
+  | Res<401, t_Error>
+  | Res<404, t_Error>
   | typeof SkipResponse
 >
 
@@ -757,10 +757,10 @@ export type DeletePhone = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<401, t_Error>
-  | Response<403, t_Error>
-  | Response<404, t_Error>
+  | Res<204, void>
+  | Res<401, t_Error>
+  | Res<403, t_Error>
+  | Res<404, t_Error>
   | typeof SkipResponse
 >
 
@@ -794,7 +794,7 @@ export type SendPhoneChallenge = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         _links?: {
@@ -807,11 +807,11 @@ export type SendPhoneChallenge = (
         }
       }
     >
-  | Response<400, t_Error>
-  | Response<401, t_Error>
-  | Response<403, t_Error>
-  | Response<404, t_Error>
-  | Response<500, t_Error>
+  | Res<400, t_Error>
+  | Res<401, t_Error>
+  | Res<403, t_Error>
+  | Res<404, t_Error>
+  | Res<500, t_Error>
   | typeof SkipResponse
 >
 
@@ -836,12 +836,12 @@ export type VerifyPhoneChallenge = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<400, t_Error>
-  | Response<401, t_Error>
-  | Response<403, t_Error>
-  | Response<404, t_Error>
-  | Response<409, t_Error>
+  | Res<204, void>
+  | Res<400, t_Error>
+  | Res<401, t_Error>
+  | Res<403, t_Error>
+  | Res<404, t_Error>
+  | Res<409, t_Error>
   | typeof SkipResponse
 >
 
@@ -857,8 +857,8 @@ export type GetProfile = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_Profile>
-  | Response<401, t_Error>
+  | Res<200, t_Profile>
+  | Res<401, t_Error>
   | typeof SkipResponse
 >
 
@@ -875,9 +875,9 @@ export type ReplaceProfile = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_Profile>
-  | Response<400, t_Error>
-  | Response<401, t_Error>
+  | Res<200, t_Profile>
+  | Res<400, t_Error>
+  | Res<401, t_Error>
   | typeof SkipResponse
 >
 
@@ -893,8 +893,8 @@ export type GetProfileSchema = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_Schema>
-  | Response<401, t_Error>
+  | Res<200, t_Schema>
+  | Res<401, t_Error>
   | typeof SkipResponse
 >
 
@@ -911,9 +911,9 @@ export type DeleteSessions = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<401, t_Error>
-  | Response<404, t_Error>
+  | Res<204, void>
+  | Res<401, t_Error>
+  | Res<404, t_Error>
   | typeof SkipResponse
 >
 

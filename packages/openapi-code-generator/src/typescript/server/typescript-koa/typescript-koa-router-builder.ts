@@ -42,7 +42,7 @@ export class KoaRouterBuilder extends AbstractRouterBuilder {
       .addType(
         "KoaRuntimeResponder",
         "Params",
-        "Response",
+        "Res",
         "StatusCode",
         "StatusCode2xx",
         "StatusCode3xx",
@@ -127,10 +127,10 @@ export class KoaRouterBuilder extends AbstractRouterBuilder {
                     next: Next
                   ) => Promise<KoaRuntimeResponse<unknown> | ${[
                     ...responseSchemas.specific.map(
-                      (it) => `Response<${it.statusType}, ${it.type}>`,
+                      (it) => `Res<${it.statusType}, ${it.type}>`,
                     ),
                     responseSchemas.defaultResponse &&
-                      `Response<StatusCode, ${responseSchemas.defaultResponse.type}>`,
+                      `Res<StatusCode, ${responseSchemas.defaultResponse.type}>`,
                     "typeof SkipResponse",
                   ]
                     .filter(isDefined)

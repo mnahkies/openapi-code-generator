@@ -1,0 +1,78 @@
+import {findMatchingSchema} from "@nahkies/typescript-common-runtime/validation"
+
+import type {Schema as JoiSchema} from "joi"
+import {OpenAPIRuntimeError, type RequestInputType} from "./errors"
+
+// Note: joi types don't appear to have an equivalent of z.infer,
+//       hence any seems about as good as we can do here.
+export function parseRequestInput<Schema extends JoiSchema>(
+  schema: Schema,
+  input: unknown,
+  type: RequestInputType,
+  // biome-ignore lint/suspicious/noExplicitAny: needed
+): any
+export function parseRequestInput(
+  schema: undefined,
+  input: unknown,
+  type: RequestInputType,
+): undefined
+export function parseRequestInput<Schema extends JoiSchema>(
+  schema: Schema | undefined,
+  input: unknown,
+  type: RequestInputType,
+  // biome-ignore lint/suspicious/noExplicitAny: needed
+): any {
+  try {
+    if (!schema) {
+      return undefined
+    }
+
+    const result = schema.validate(input, {stripUnknown: true})
+
+    if (result.error) {
+      throw result.error
+    }
+
+    return result.value
+  } catch (err) {
+    throw OpenAPIRuntimeError.RequestError(err, type)
+  }
+}
+
+export function responseValidationFactory(
+  possibleResponses: [string, JoiSchema][],
+  defaultResponse?: JoiSchema,
+) {
+  // Exploit the natural ordering matching the desired specificity of eg: 404 vs 4xx
+  possibleResponses.sort((x, y) => (x[0] < y[0] ? -1 : 1))
+
+  return (status: number, value: unknown) => {
+    try {
+      const schema = findMatchingSchema(status, possibleResponses)
+
+      if (schema) {
+        const result = schema.validate(value)
+
+        if (result.error) {
+          throw result.error
+        }
+
+        return result.value
+      }
+
+      if (defaultResponse) {
+        const result = defaultResponse.validate(value)
+
+        if (result.error) {
+          throw result.error
+        }
+
+        return result.value
+      }
+
+      return value
+    } catch (err) {
+      throw OpenAPIRuntimeError.ResponseError(err)
+    }
+  }
+}

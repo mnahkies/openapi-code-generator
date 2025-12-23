@@ -23,7 +23,7 @@ export class OpenapiLoader {
   private readonly library = new Map<string, OpenapiDocument>()
 
   private constructor(
-    private readonly entryPointKey: string,
+    public readonly entryPointKey: string,
     private readonly config: {titleOverride: string | undefined},
     private readonly validator: OpenapiValidator,
     private readonly genericLoader: GenericLoader,

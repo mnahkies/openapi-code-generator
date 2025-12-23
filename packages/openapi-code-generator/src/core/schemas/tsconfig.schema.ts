@@ -37,6 +37,7 @@ export const tsconfigSchema = z.object({
       allowUnreachableCode: z.boolean(),
       rewriteRelativeImportExtensions: z.boolean(),
       verbatimModuleSyntax: z.boolean(),
+      paths: z.record(z.string(), z.array(z.string())),
     })
     .partial()
     .optional()

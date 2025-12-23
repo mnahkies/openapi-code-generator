@@ -12,7 +12,7 @@ import {
   KoaRuntimeResponse,
   type Params,
   parseQueryParameters,
-  type Response,
+  type Res,
   type ServerConfig,
   SkipResponse,
   type StatusCode,
@@ -1568,8 +1568,8 @@ export type GetAccount = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_account>
-  | Response<StatusCode, t_error>
+  | Res<200, t_account>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -1585,8 +1585,8 @@ export type PostAccountLinks = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_account_link>
-  | Response<StatusCode, t_error>
+  | Res<200, t_account_link>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -1602,8 +1602,8 @@ export type PostAccountSessions = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_account_session>
-  | Response<StatusCode, t_error>
+  | Res<200, t_account_session>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -1624,7 +1624,7 @@ export type GetAccounts = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_account[]
@@ -1633,7 +1633,7 @@ export type GetAccounts = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -1649,8 +1649,8 @@ export type PostAccounts = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_account>
-  | Response<StatusCode, t_error>
+  | Res<200, t_account>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -1666,8 +1666,8 @@ export type DeleteAccountsAccount = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_deleted_account>
-  | Response<StatusCode, t_error>
+  | Res<200, t_deleted_account>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -1688,8 +1688,8 @@ export type GetAccountsAccount = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_account>
-  | Response<StatusCode, t_error>
+  | Res<200, t_account>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -1710,8 +1710,8 @@ export type PostAccountsAccount = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_account>
-  | Response<StatusCode, t_error>
+  | Res<200, t_account>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -1732,8 +1732,8 @@ export type PostAccountsAccountBankAccounts = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_external_account>
-  | Response<StatusCode, t_error>
+  | Res<200, t_external_account>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -1754,8 +1754,8 @@ export type DeleteAccountsAccountBankAccountsId = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_deleted_external_account>
-  | Response<StatusCode, t_error>
+  | Res<200, t_deleted_external_account>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -1776,8 +1776,8 @@ export type GetAccountsAccountBankAccountsId = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_external_account>
-  | Response<StatusCode, t_error>
+  | Res<200, t_external_account>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -1798,8 +1798,8 @@ export type PostAccountsAccountBankAccountsId = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_external_account>
-  | Response<StatusCode, t_error>
+  | Res<200, t_external_account>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -1825,7 +1825,7 @@ export type GetAccountsAccountCapabilities = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_capability[]
@@ -1834,7 +1834,7 @@ export type GetAccountsAccountCapabilities = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -1855,8 +1855,8 @@ export type GetAccountsAccountCapabilitiesCapability = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_capability>
-  | Response<StatusCode, t_error>
+  | Res<200, t_capability>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -1877,8 +1877,8 @@ export type PostAccountsAccountCapabilitiesCapability = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_capability>
-  | Response<StatusCode, t_error>
+  | Res<200, t_capability>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -1904,7 +1904,7 @@ export type GetAccountsAccountExternalAccounts = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: (t_bank_account | t_card)[]
@@ -1913,7 +1913,7 @@ export type GetAccountsAccountExternalAccounts = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -1934,8 +1934,8 @@ export type PostAccountsAccountExternalAccounts = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_external_account>
-  | Response<StatusCode, t_error>
+  | Res<200, t_external_account>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -1956,8 +1956,8 @@ export type DeleteAccountsAccountExternalAccountsId = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_deleted_external_account>
-  | Response<StatusCode, t_error>
+  | Res<200, t_deleted_external_account>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -1978,8 +1978,8 @@ export type GetAccountsAccountExternalAccountsId = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_external_account>
-  | Response<StatusCode, t_error>
+  | Res<200, t_external_account>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -2000,8 +2000,8 @@ export type PostAccountsAccountExternalAccountsId = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_external_account>
-  | Response<StatusCode, t_error>
+  | Res<200, t_external_account>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -2022,8 +2022,8 @@ export type PostAccountsAccountLoginLinks = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_login_link>
-  | Response<StatusCode, t_error>
+  | Res<200, t_login_link>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -2049,7 +2049,7 @@ export type GetAccountsAccountPeople = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_person[]
@@ -2058,7 +2058,7 @@ export type GetAccountsAccountPeople = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -2079,8 +2079,8 @@ export type PostAccountsAccountPeople = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_person>
-  | Response<StatusCode, t_error>
+  | Res<200, t_person>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -2101,8 +2101,8 @@ export type DeleteAccountsAccountPeoplePerson = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_deleted_person>
-  | Response<StatusCode, t_error>
+  | Res<200, t_deleted_person>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -2123,8 +2123,8 @@ export type GetAccountsAccountPeoplePerson = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_person>
-  | Response<StatusCode, t_error>
+  | Res<200, t_person>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -2145,8 +2145,8 @@ export type PostAccountsAccountPeoplePerson = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_person>
-  | Response<StatusCode, t_error>
+  | Res<200, t_person>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -2172,7 +2172,7 @@ export type GetAccountsAccountPersons = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_person[]
@@ -2181,7 +2181,7 @@ export type GetAccountsAccountPersons = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -2202,8 +2202,8 @@ export type PostAccountsAccountPersons = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_person>
-  | Response<StatusCode, t_error>
+  | Res<200, t_person>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -2224,8 +2224,8 @@ export type DeleteAccountsAccountPersonsPerson = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_deleted_person>
-  | Response<StatusCode, t_error>
+  | Res<200, t_deleted_person>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -2246,8 +2246,8 @@ export type GetAccountsAccountPersonsPerson = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_person>
-  | Response<StatusCode, t_error>
+  | Res<200, t_person>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -2268,8 +2268,8 @@ export type PostAccountsAccountPersonsPerson = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_person>
-  | Response<StatusCode, t_error>
+  | Res<200, t_person>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -2290,8 +2290,8 @@ export type PostAccountsAccountReject = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_account>
-  | Response<StatusCode, t_error>
+  | Res<200, t_account>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -2312,7 +2312,7 @@ export type GetApplePayDomains = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_apple_pay_domain[]
@@ -2321,7 +2321,7 @@ export type GetApplePayDomains = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -2337,8 +2337,8 @@ export type PostApplePayDomains = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_apple_pay_domain>
-  | Response<StatusCode, t_error>
+  | Res<200, t_apple_pay_domain>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -2354,8 +2354,8 @@ export type DeleteApplePayDomainsDomain = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_deleted_apple_pay_domain>
-  | Response<StatusCode, t_error>
+  | Res<200, t_deleted_apple_pay_domain>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -2376,8 +2376,8 @@ export type GetApplePayDomainsDomain = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_apple_pay_domain>
-  | Response<StatusCode, t_error>
+  | Res<200, t_apple_pay_domain>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -2398,7 +2398,7 @@ export type GetApplicationFees = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_application_fee[]
@@ -2407,7 +2407,7 @@ export type GetApplicationFees = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -2428,8 +2428,8 @@ export type GetApplicationFeesFeeRefundsId = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_fee_refund>
-  | Response<StatusCode, t_error>
+  | Res<200, t_fee_refund>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -2450,8 +2450,8 @@ export type PostApplicationFeesFeeRefundsId = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_fee_refund>
-  | Response<StatusCode, t_error>
+  | Res<200, t_fee_refund>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -2472,8 +2472,8 @@ export type GetApplicationFeesId = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_application_fee>
-  | Response<StatusCode, t_error>
+  | Res<200, t_application_fee>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -2494,8 +2494,8 @@ export type PostApplicationFeesIdRefund = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_application_fee>
-  | Response<StatusCode, t_error>
+  | Res<200, t_application_fee>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -2521,7 +2521,7 @@ export type GetApplicationFeesIdRefunds = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_fee_refund[]
@@ -2530,7 +2530,7 @@ export type GetApplicationFeesIdRefunds = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -2551,8 +2551,8 @@ export type PostApplicationFeesIdRefunds = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_fee_refund>
-  | Response<StatusCode, t_error>
+  | Res<200, t_fee_refund>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -2573,7 +2573,7 @@ export type GetAppsSecrets = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_apps_secret[]
@@ -2582,7 +2582,7 @@ export type GetAppsSecrets = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -2598,8 +2598,8 @@ export type PostAppsSecrets = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_apps_secret>
-  | Response<StatusCode, t_error>
+  | Res<200, t_apps_secret>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -2615,8 +2615,8 @@ export type PostAppsSecretsDelete = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_apps_secret>
-  | Response<StatusCode, t_error>
+  | Res<200, t_apps_secret>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -2632,8 +2632,8 @@ export type GetAppsSecretsFind = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_apps_secret>
-  | Response<StatusCode, t_error>
+  | Res<200, t_apps_secret>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -2649,8 +2649,8 @@ export type GetBalance = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_balance>
-  | Response<StatusCode, t_error>
+  | Res<200, t_balance>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -2671,7 +2671,7 @@ export type GetBalanceHistory = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_balance_transaction[]
@@ -2680,7 +2680,7 @@ export type GetBalanceHistory = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -2701,8 +2701,8 @@ export type GetBalanceHistoryId = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_balance_transaction>
-  | Response<StatusCode, t_error>
+  | Res<200, t_balance_transaction>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -2723,7 +2723,7 @@ export type GetBalanceTransactions = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_balance_transaction[]
@@ -2732,7 +2732,7 @@ export type GetBalanceTransactions = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -2753,8 +2753,8 @@ export type GetBalanceTransactionsId = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_balance_transaction>
-  | Response<StatusCode, t_error>
+  | Res<200, t_balance_transaction>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -2775,7 +2775,7 @@ export type GetBillingAlerts = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_billing_alert[]
@@ -2784,7 +2784,7 @@ export type GetBillingAlerts = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -2800,8 +2800,8 @@ export type PostBillingAlerts = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_billing_alert>
-  | Response<StatusCode, t_error>
+  | Res<200, t_billing_alert>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -2822,8 +2822,8 @@ export type GetBillingAlertsId = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_billing_alert>
-  | Response<StatusCode, t_error>
+  | Res<200, t_billing_alert>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -2844,8 +2844,8 @@ export type PostBillingAlertsIdActivate = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_billing_alert>
-  | Response<StatusCode, t_error>
+  | Res<200, t_billing_alert>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -2866,8 +2866,8 @@ export type PostBillingAlertsIdArchive = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_billing_alert>
-  | Response<StatusCode, t_error>
+  | Res<200, t_billing_alert>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -2888,8 +2888,8 @@ export type PostBillingAlertsIdDeactivate = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_billing_alert>
-  | Response<StatusCode, t_error>
+  | Res<200, t_billing_alert>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -2905,8 +2905,8 @@ export type GetBillingCreditBalanceSummary = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_billing_credit_balance_summary>
-  | Response<StatusCode, t_error>
+  | Res<200, t_billing_credit_balance_summary>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -2932,7 +2932,7 @@ export type GetBillingCreditBalanceTransactions = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_billing_credit_balance_transaction[]
@@ -2941,7 +2941,7 @@ export type GetBillingCreditBalanceTransactions = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -2962,8 +2962,8 @@ export type GetBillingCreditBalanceTransactionsId = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_billing_credit_balance_transaction>
-  | Response<StatusCode, t_error>
+  | Res<200, t_billing_credit_balance_transaction>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -2984,7 +2984,7 @@ export type GetBillingCreditGrants = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_billing_credit_grant[]
@@ -2993,7 +2993,7 @@ export type GetBillingCreditGrants = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -3009,8 +3009,8 @@ export type PostBillingCreditGrants = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_billing_credit_grant>
-  | Response<StatusCode, t_error>
+  | Res<200, t_billing_credit_grant>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -3031,8 +3031,8 @@ export type GetBillingCreditGrantsId = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_billing_credit_grant>
-  | Response<StatusCode, t_error>
+  | Res<200, t_billing_credit_grant>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -3053,8 +3053,8 @@ export type PostBillingCreditGrantsId = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_billing_credit_grant>
-  | Response<StatusCode, t_error>
+  | Res<200, t_billing_credit_grant>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -3075,8 +3075,8 @@ export type PostBillingCreditGrantsIdExpire = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_billing_credit_grant>
-  | Response<StatusCode, t_error>
+  | Res<200, t_billing_credit_grant>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -3097,8 +3097,8 @@ export type PostBillingCreditGrantsIdVoid = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_billing_credit_grant>
-  | Response<StatusCode, t_error>
+  | Res<200, t_billing_credit_grant>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -3119,8 +3119,8 @@ export type PostBillingMeterEventAdjustments = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_billing_meter_event_adjustment>
-  | Response<StatusCode, t_error>
+  | Res<200, t_billing_meter_event_adjustment>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -3136,8 +3136,8 @@ export type PostBillingMeterEvents = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_billing_meter_event>
-  | Response<StatusCode, t_error>
+  | Res<200, t_billing_meter_event>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -3158,7 +3158,7 @@ export type GetBillingMeters = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_billing_meter[]
@@ -3167,7 +3167,7 @@ export type GetBillingMeters = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -3183,8 +3183,8 @@ export type PostBillingMeters = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_billing_meter>
-  | Response<StatusCode, t_error>
+  | Res<200, t_billing_meter>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -3205,8 +3205,8 @@ export type GetBillingMetersId = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_billing_meter>
-  | Response<StatusCode, t_error>
+  | Res<200, t_billing_meter>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -3227,8 +3227,8 @@ export type PostBillingMetersId = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_billing_meter>
-  | Response<StatusCode, t_error>
+  | Res<200, t_billing_meter>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -3249,8 +3249,8 @@ export type PostBillingMetersIdDeactivate = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_billing_meter>
-  | Response<StatusCode, t_error>
+  | Res<200, t_billing_meter>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -3276,7 +3276,7 @@ export type GetBillingMetersIdEventSummaries = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_billing_meter_event_summary[]
@@ -3285,7 +3285,7 @@ export type GetBillingMetersIdEventSummaries = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -3306,8 +3306,8 @@ export type PostBillingMetersIdReactivate = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_billing_meter>
-  | Response<StatusCode, t_error>
+  | Res<200, t_billing_meter>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -3328,7 +3328,7 @@ export type GetBillingPortalConfigurations = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_billing_portal_configuration[]
@@ -3337,7 +3337,7 @@ export type GetBillingPortalConfigurations = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -3358,8 +3358,8 @@ export type PostBillingPortalConfigurations = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_billing_portal_configuration>
-  | Response<StatusCode, t_error>
+  | Res<200, t_billing_portal_configuration>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -3380,8 +3380,8 @@ export type GetBillingPortalConfigurationsConfiguration = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_billing_portal_configuration>
-  | Response<StatusCode, t_error>
+  | Res<200, t_billing_portal_configuration>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -3402,8 +3402,8 @@ export type PostBillingPortalConfigurationsConfiguration = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_billing_portal_configuration>
-  | Response<StatusCode, t_error>
+  | Res<200, t_billing_portal_configuration>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -3419,8 +3419,8 @@ export type PostBillingPortalSessions = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_billing_portal_session>
-  | Response<StatusCode, t_error>
+  | Res<200, t_billing_portal_session>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -3441,7 +3441,7 @@ export type GetCharges = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_charge[]
@@ -3450,7 +3450,7 @@ export type GetCharges = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -3466,8 +3466,8 @@ export type PostCharges = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_charge>
-  | Response<StatusCode, t_error>
+  | Res<200, t_charge>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -3490,7 +3490,7 @@ export type GetChargesSearch = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_charge[]
@@ -3501,7 +3501,7 @@ export type GetChargesSearch = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -3522,8 +3522,8 @@ export type GetChargesCharge = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_charge>
-  | Response<StatusCode, t_error>
+  | Res<200, t_charge>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -3544,8 +3544,8 @@ export type PostChargesCharge = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_charge>
-  | Response<StatusCode, t_error>
+  | Res<200, t_charge>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -3566,8 +3566,8 @@ export type PostChargesChargeCapture = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_charge>
-  | Response<StatusCode, t_error>
+  | Res<200, t_charge>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -3588,8 +3588,8 @@ export type GetChargesChargeDispute = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_dispute>
-  | Response<StatusCode, t_error>
+  | Res<200, t_dispute>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -3610,8 +3610,8 @@ export type PostChargesChargeDispute = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_dispute>
-  | Response<StatusCode, t_error>
+  | Res<200, t_dispute>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -3632,8 +3632,8 @@ export type PostChargesChargeDisputeClose = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_dispute>
-  | Response<StatusCode, t_error>
+  | Res<200, t_dispute>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -3654,8 +3654,8 @@ export type PostChargesChargeRefund = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_charge>
-  | Response<StatusCode, t_error>
+  | Res<200, t_charge>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -3681,7 +3681,7 @@ export type GetChargesChargeRefunds = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_refund[]
@@ -3690,7 +3690,7 @@ export type GetChargesChargeRefunds = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -3711,8 +3711,8 @@ export type PostChargesChargeRefunds = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_refund>
-  | Response<StatusCode, t_error>
+  | Res<200, t_refund>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -3733,8 +3733,8 @@ export type GetChargesChargeRefundsRefund = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_refund>
-  | Response<StatusCode, t_error>
+  | Res<200, t_refund>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -3755,8 +3755,8 @@ export type PostChargesChargeRefundsRefund = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_refund>
-  | Response<StatusCode, t_error>
+  | Res<200, t_refund>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -3777,7 +3777,7 @@ export type GetCheckoutSessions = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_checkout_session[]
@@ -3786,7 +3786,7 @@ export type GetCheckoutSessions = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -3807,8 +3807,8 @@ export type PostCheckoutSessions = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_checkout_session>
-  | Response<StatusCode, t_error>
+  | Res<200, t_checkout_session>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -3829,8 +3829,8 @@ export type GetCheckoutSessionsSession = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_checkout_session>
-  | Response<StatusCode, t_error>
+  | Res<200, t_checkout_session>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -3851,8 +3851,8 @@ export type PostCheckoutSessionsSession = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_checkout_session>
-  | Response<StatusCode, t_error>
+  | Res<200, t_checkout_session>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -3873,8 +3873,8 @@ export type PostCheckoutSessionsSessionExpire = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_checkout_session>
-  | Response<StatusCode, t_error>
+  | Res<200, t_checkout_session>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -3900,7 +3900,7 @@ export type GetCheckoutSessionsSessionLineItems = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_item[]
@@ -3909,7 +3909,7 @@ export type GetCheckoutSessionsSessionLineItems = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -3930,7 +3930,7 @@ export type GetClimateOrders = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_climate_order[]
@@ -3939,7 +3939,7 @@ export type GetClimateOrders = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -3955,8 +3955,8 @@ export type PostClimateOrders = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_climate_order>
-  | Response<StatusCode, t_error>
+  | Res<200, t_climate_order>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -3977,8 +3977,8 @@ export type GetClimateOrdersOrder = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_climate_order>
-  | Response<StatusCode, t_error>
+  | Res<200, t_climate_order>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -3999,8 +3999,8 @@ export type PostClimateOrdersOrder = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_climate_order>
-  | Response<StatusCode, t_error>
+  | Res<200, t_climate_order>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -4021,8 +4021,8 @@ export type PostClimateOrdersOrderCancel = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_climate_order>
-  | Response<StatusCode, t_error>
+  | Res<200, t_climate_order>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -4043,7 +4043,7 @@ export type GetClimateProducts = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_climate_product[]
@@ -4052,7 +4052,7 @@ export type GetClimateProducts = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -4073,8 +4073,8 @@ export type GetClimateProductsProduct = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_climate_product>
-  | Response<StatusCode, t_error>
+  | Res<200, t_climate_product>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -4095,7 +4095,7 @@ export type GetClimateSuppliers = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_climate_supplier[]
@@ -4104,7 +4104,7 @@ export type GetClimateSuppliers = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -4125,8 +4125,8 @@ export type GetClimateSuppliersSupplier = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_climate_supplier>
-  | Response<StatusCode, t_error>
+  | Res<200, t_climate_supplier>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -4147,8 +4147,8 @@ export type GetConfirmationTokensConfirmationToken = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_confirmation_token>
-  | Response<StatusCode, t_error>
+  | Res<200, t_confirmation_token>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -4169,7 +4169,7 @@ export type GetCountrySpecs = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_country_spec[]
@@ -4178,7 +4178,7 @@ export type GetCountrySpecs = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -4199,8 +4199,8 @@ export type GetCountrySpecsCountry = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_country_spec>
-  | Response<StatusCode, t_error>
+  | Res<200, t_country_spec>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -4221,7 +4221,7 @@ export type GetCoupons = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_coupon[]
@@ -4230,7 +4230,7 @@ export type GetCoupons = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -4246,8 +4246,8 @@ export type PostCoupons = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_coupon>
-  | Response<StatusCode, t_error>
+  | Res<200, t_coupon>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -4263,8 +4263,8 @@ export type DeleteCouponsCoupon = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_deleted_coupon>
-  | Response<StatusCode, t_error>
+  | Res<200, t_deleted_coupon>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -4285,8 +4285,8 @@ export type GetCouponsCoupon = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_coupon>
-  | Response<StatusCode, t_error>
+  | Res<200, t_coupon>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -4307,8 +4307,8 @@ export type PostCouponsCoupon = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_coupon>
-  | Response<StatusCode, t_error>
+  | Res<200, t_coupon>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -4329,7 +4329,7 @@ export type GetCreditNotes = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_credit_note[]
@@ -4338,7 +4338,7 @@ export type GetCreditNotes = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -4354,8 +4354,8 @@ export type PostCreditNotes = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_credit_note>
-  | Response<StatusCode, t_error>
+  | Res<200, t_credit_note>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -4371,8 +4371,8 @@ export type GetCreditNotesPreview = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_credit_note>
-  | Response<StatusCode, t_error>
+  | Res<200, t_credit_note>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -4393,7 +4393,7 @@ export type GetCreditNotesPreviewLines = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_credit_note_line_item[]
@@ -4402,7 +4402,7 @@ export type GetCreditNotesPreviewLines = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -4428,7 +4428,7 @@ export type GetCreditNotesCreditNoteLines = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_credit_note_line_item[]
@@ -4437,7 +4437,7 @@ export type GetCreditNotesCreditNoteLines = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -4458,8 +4458,8 @@ export type GetCreditNotesId = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_credit_note>
-  | Response<StatusCode, t_error>
+  | Res<200, t_credit_note>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -4480,8 +4480,8 @@ export type PostCreditNotesId = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_credit_note>
-  | Response<StatusCode, t_error>
+  | Res<200, t_credit_note>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -4502,8 +4502,8 @@ export type PostCreditNotesIdVoid = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_credit_note>
-  | Response<StatusCode, t_error>
+  | Res<200, t_credit_note>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -4519,8 +4519,8 @@ export type PostCustomerSessions = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_customer_session>
-  | Response<StatusCode, t_error>
+  | Res<200, t_customer_session>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -4541,7 +4541,7 @@ export type GetCustomers = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_customer[]
@@ -4550,7 +4550,7 @@ export type GetCustomers = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -4566,8 +4566,8 @@ export type PostCustomers = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_customer>
-  | Response<StatusCode, t_error>
+  | Res<200, t_customer>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -4590,7 +4590,7 @@ export type GetCustomersSearch = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_customer[]
@@ -4601,7 +4601,7 @@ export type GetCustomersSearch = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -4617,8 +4617,8 @@ export type DeleteCustomersCustomer = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_deleted_customer>
-  | Response<StatusCode, t_error>
+  | Res<200, t_deleted_customer>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -4639,8 +4639,8 @@ export type GetCustomersCustomer = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_customer | t_deleted_customer>
-  | Response<StatusCode, t_error>
+  | Res<200, t_customer | t_deleted_customer>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -4661,8 +4661,8 @@ export type PostCustomersCustomer = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_customer>
-  | Response<StatusCode, t_error>
+  | Res<200, t_customer>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -4688,7 +4688,7 @@ export type GetCustomersCustomerBalanceTransactions = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_customer_balance_transaction[]
@@ -4697,7 +4697,7 @@ export type GetCustomersCustomerBalanceTransactions = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -4718,8 +4718,8 @@ export type PostCustomersCustomerBalanceTransactions = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_customer_balance_transaction>
-  | Response<StatusCode, t_error>
+  | Res<200, t_customer_balance_transaction>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -4740,8 +4740,8 @@ export type GetCustomersCustomerBalanceTransactionsTransaction = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_customer_balance_transaction>
-  | Response<StatusCode, t_error>
+  | Res<200, t_customer_balance_transaction>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -4763,8 +4763,8 @@ export type PostCustomersCustomerBalanceTransactionsTransaction = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_customer_balance_transaction>
-  | Response<StatusCode, t_error>
+  | Res<200, t_customer_balance_transaction>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -4790,7 +4790,7 @@ export type GetCustomersCustomerBankAccounts = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_bank_account[]
@@ -4799,7 +4799,7 @@ export type GetCustomersCustomerBankAccounts = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -4820,8 +4820,8 @@ export type PostCustomersCustomerBankAccounts = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_payment_source>
-  | Response<StatusCode, t_error>
+  | Res<200, t_payment_source>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -4842,8 +4842,8 @@ export type DeleteCustomersCustomerBankAccountsId = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_payment_source | t_deleted_payment_source>
-  | Response<StatusCode, t_error>
+  | Res<200, t_payment_source | t_deleted_payment_source>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -4864,8 +4864,8 @@ export type GetCustomersCustomerBankAccountsId = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_bank_account>
-  | Response<StatusCode, t_error>
+  | Res<200, t_bank_account>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -4886,8 +4886,8 @@ export type PostCustomersCustomerBankAccountsId = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_card | t_bank_account | t_source>
-  | Response<StatusCode, t_error>
+  | Res<200, t_card | t_bank_account | t_source>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -4908,8 +4908,8 @@ export type PostCustomersCustomerBankAccountsIdVerify = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_bank_account>
-  | Response<StatusCode, t_error>
+  | Res<200, t_bank_account>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -4935,7 +4935,7 @@ export type GetCustomersCustomerCards = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_card[]
@@ -4944,7 +4944,7 @@ export type GetCustomersCustomerCards = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -4965,8 +4965,8 @@ export type PostCustomersCustomerCards = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_payment_source>
-  | Response<StatusCode, t_error>
+  | Res<200, t_payment_source>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -4987,8 +4987,8 @@ export type DeleteCustomersCustomerCardsId = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_payment_source | t_deleted_payment_source>
-  | Response<StatusCode, t_error>
+  | Res<200, t_payment_source | t_deleted_payment_source>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -5009,8 +5009,8 @@ export type GetCustomersCustomerCardsId = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_card>
-  | Response<StatusCode, t_error>
+  | Res<200, t_card>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -5031,8 +5031,8 @@ export type PostCustomersCustomerCardsId = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_card | t_bank_account | t_source>
-  | Response<StatusCode, t_error>
+  | Res<200, t_card | t_bank_account | t_source>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -5053,8 +5053,8 @@ export type GetCustomersCustomerCashBalance = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_cash_balance>
-  | Response<StatusCode, t_error>
+  | Res<200, t_cash_balance>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -5075,8 +5075,8 @@ export type PostCustomersCustomerCashBalance = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_cash_balance>
-  | Response<StatusCode, t_error>
+  | Res<200, t_cash_balance>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -5102,7 +5102,7 @@ export type GetCustomersCustomerCashBalanceTransactions = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_customer_cash_balance_transaction[]
@@ -5111,7 +5111,7 @@ export type GetCustomersCustomerCashBalanceTransactions = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -5132,8 +5132,8 @@ export type GetCustomersCustomerCashBalanceTransactionsTransaction = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_customer_cash_balance_transaction>
-  | Response<StatusCode, t_error>
+  | Res<200, t_customer_cash_balance_transaction>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -5154,8 +5154,8 @@ export type DeleteCustomersCustomerDiscount = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_deleted_discount>
-  | Response<StatusCode, t_error>
+  | Res<200, t_deleted_discount>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -5176,8 +5176,8 @@ export type GetCustomersCustomerDiscount = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_discount>
-  | Response<StatusCode, t_error>
+  | Res<200, t_discount>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -5198,8 +5198,8 @@ export type PostCustomersCustomerFundingInstructions = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_funding_instructions>
-  | Response<StatusCode, t_error>
+  | Res<200, t_funding_instructions>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -5225,7 +5225,7 @@ export type GetCustomersCustomerPaymentMethods = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_payment_method[]
@@ -5234,7 +5234,7 @@ export type GetCustomersCustomerPaymentMethods = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -5255,8 +5255,8 @@ export type GetCustomersCustomerPaymentMethodsPaymentMethod = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_payment_method>
-  | Response<StatusCode, t_error>
+  | Res<200, t_payment_method>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -5282,7 +5282,7 @@ export type GetCustomersCustomerSources = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: (t_bank_account | t_card | t_source)[]
@@ -5291,7 +5291,7 @@ export type GetCustomersCustomerSources = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -5312,8 +5312,8 @@ export type PostCustomersCustomerSources = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_payment_source>
-  | Response<StatusCode, t_error>
+  | Res<200, t_payment_source>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -5334,8 +5334,8 @@ export type DeleteCustomersCustomerSourcesId = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_payment_source | t_deleted_payment_source>
-  | Response<StatusCode, t_error>
+  | Res<200, t_payment_source | t_deleted_payment_source>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -5356,8 +5356,8 @@ export type GetCustomersCustomerSourcesId = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_payment_source>
-  | Response<StatusCode, t_error>
+  | Res<200, t_payment_source>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -5378,8 +5378,8 @@ export type PostCustomersCustomerSourcesId = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_card | t_bank_account | t_source>
-  | Response<StatusCode, t_error>
+  | Res<200, t_card | t_bank_account | t_source>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -5400,8 +5400,8 @@ export type PostCustomersCustomerSourcesIdVerify = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_bank_account>
-  | Response<StatusCode, t_error>
+  | Res<200, t_bank_account>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -5427,7 +5427,7 @@ export type GetCustomersCustomerSubscriptions = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_subscription[]
@@ -5436,7 +5436,7 @@ export type GetCustomersCustomerSubscriptions = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -5457,8 +5457,8 @@ export type PostCustomersCustomerSubscriptions = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_subscription>
-  | Response<StatusCode, t_error>
+  | Res<200, t_subscription>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -5481,8 +5481,8 @@ export type DeleteCustomersCustomerSubscriptionsSubscriptionExposedId = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_subscription>
-  | Response<StatusCode, t_error>
+  | Res<200, t_subscription>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -5503,8 +5503,8 @@ export type GetCustomersCustomerSubscriptionsSubscriptionExposedId = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_subscription>
-  | Response<StatusCode, t_error>
+  | Res<200, t_subscription>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -5526,8 +5526,8 @@ export type PostCustomersCustomerSubscriptionsSubscriptionExposedId = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_subscription>
-  | Response<StatusCode, t_error>
+  | Res<200, t_subscription>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -5550,8 +5550,8 @@ export type DeleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount =
     next: Next,
   ) => Promise<
     | KoaRuntimeResponse<unknown>
-    | Response<200, t_deleted_discount>
-    | Response<StatusCode, t_error>
+    | Res<200, t_deleted_discount>
+    | Res<StatusCode, t_error>
     | typeof SkipResponse
   >
 
@@ -5573,8 +5573,8 @@ export type GetCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_discount>
-  | Response<StatusCode, t_error>
+  | Res<200, t_discount>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -5600,7 +5600,7 @@ export type GetCustomersCustomerTaxIds = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_tax_id[]
@@ -5609,7 +5609,7 @@ export type GetCustomersCustomerTaxIds = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -5630,8 +5630,8 @@ export type PostCustomersCustomerTaxIds = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_tax_id>
-  | Response<StatusCode, t_error>
+  | Res<200, t_tax_id>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -5652,8 +5652,8 @@ export type DeleteCustomersCustomerTaxIdsId = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_deleted_tax_id>
-  | Response<StatusCode, t_error>
+  | Res<200, t_deleted_tax_id>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -5674,8 +5674,8 @@ export type GetCustomersCustomerTaxIdsId = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_tax_id>
-  | Response<StatusCode, t_error>
+  | Res<200, t_tax_id>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -5696,7 +5696,7 @@ export type GetDisputes = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_dispute[]
@@ -5705,7 +5705,7 @@ export type GetDisputes = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -5726,8 +5726,8 @@ export type GetDisputesDispute = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_dispute>
-  | Response<StatusCode, t_error>
+  | Res<200, t_dispute>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -5748,8 +5748,8 @@ export type PostDisputesDispute = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_dispute>
-  | Response<StatusCode, t_error>
+  | Res<200, t_dispute>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -5770,8 +5770,8 @@ export type PostDisputesDisputeClose = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_dispute>
-  | Response<StatusCode, t_error>
+  | Res<200, t_dispute>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -5797,7 +5797,7 @@ export type GetEntitlementsActiveEntitlements = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_entitlements_active_entitlement[]
@@ -5806,7 +5806,7 @@ export type GetEntitlementsActiveEntitlements = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -5827,8 +5827,8 @@ export type GetEntitlementsActiveEntitlementsId = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_entitlements_active_entitlement>
-  | Response<StatusCode, t_error>
+  | Res<200, t_entitlements_active_entitlement>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -5849,7 +5849,7 @@ export type GetEntitlementsFeatures = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_entitlements_feature[]
@@ -5858,7 +5858,7 @@ export type GetEntitlementsFeatures = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -5874,8 +5874,8 @@ export type PostEntitlementsFeatures = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_entitlements_feature>
-  | Response<StatusCode, t_error>
+  | Res<200, t_entitlements_feature>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -5896,8 +5896,8 @@ export type GetEntitlementsFeaturesId = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_entitlements_feature>
-  | Response<StatusCode, t_error>
+  | Res<200, t_entitlements_feature>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -5918,8 +5918,8 @@ export type PostEntitlementsFeaturesId = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_entitlements_feature>
-  | Response<StatusCode, t_error>
+  | Res<200, t_entitlements_feature>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -5935,8 +5935,8 @@ export type PostEphemeralKeys = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_ephemeral_key>
-  | Response<StatusCode, t_error>
+  | Res<200, t_ephemeral_key>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -5957,8 +5957,8 @@ export type DeleteEphemeralKeysKey = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_ephemeral_key>
-  | Response<StatusCode, t_error>
+  | Res<200, t_ephemeral_key>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -5979,7 +5979,7 @@ export type GetEvents = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_event[]
@@ -5988,7 +5988,7 @@ export type GetEvents = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -6009,8 +6009,8 @@ export type GetEventsId = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_event>
-  | Response<StatusCode, t_error>
+  | Res<200, t_event>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -6031,7 +6031,7 @@ export type GetExchangeRates = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_exchange_rate[]
@@ -6040,7 +6040,7 @@ export type GetExchangeRates = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -6061,8 +6061,8 @@ export type GetExchangeRatesRateId = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_exchange_rate>
-  | Response<StatusCode, t_error>
+  | Res<200, t_exchange_rate>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -6083,8 +6083,8 @@ export type PostExternalAccountsId = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_external_account>
-  | Response<StatusCode, t_error>
+  | Res<200, t_external_account>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -6105,7 +6105,7 @@ export type GetFileLinks = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_file_link[]
@@ -6114,7 +6114,7 @@ export type GetFileLinks = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -6130,8 +6130,8 @@ export type PostFileLinks = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_file_link>
-  | Response<StatusCode, t_error>
+  | Res<200, t_file_link>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -6152,8 +6152,8 @@ export type GetFileLinksLink = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_file_link>
-  | Response<StatusCode, t_error>
+  | Res<200, t_file_link>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -6174,8 +6174,8 @@ export type PostFileLinksLink = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_file_link>
-  | Response<StatusCode, t_error>
+  | Res<200, t_file_link>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -6196,7 +6196,7 @@ export type GetFiles = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_file[]
@@ -6205,7 +6205,7 @@ export type GetFiles = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -6221,8 +6221,8 @@ export type PostFiles = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_file>
-  | Response<StatusCode, t_error>
+  | Res<200, t_file>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -6243,8 +6243,8 @@ export type GetFilesFile = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_file>
-  | Response<StatusCode, t_error>
+  | Res<200, t_file>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -6270,7 +6270,7 @@ export type GetFinancialConnectionsAccounts = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_financial_connections_account[]
@@ -6279,7 +6279,7 @@ export type GetFinancialConnectionsAccounts = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -6300,8 +6300,8 @@ export type GetFinancialConnectionsAccountsAccount = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_financial_connections_account>
-  | Response<StatusCode, t_error>
+  | Res<200, t_financial_connections_account>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -6322,8 +6322,8 @@ export type PostFinancialConnectionsAccountsAccountDisconnect = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_financial_connections_account>
-  | Response<StatusCode, t_error>
+  | Res<200, t_financial_connections_account>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -6349,7 +6349,7 @@ export type GetFinancialConnectionsAccountsAccountOwners = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_financial_connections_account_owner[]
@@ -6358,7 +6358,7 @@ export type GetFinancialConnectionsAccountsAccountOwners = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -6379,8 +6379,8 @@ export type PostFinancialConnectionsAccountsAccountRefresh = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_financial_connections_account>
-  | Response<StatusCode, t_error>
+  | Res<200, t_financial_connections_account>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -6401,8 +6401,8 @@ export type PostFinancialConnectionsAccountsAccountSubscribe = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_financial_connections_account>
-  | Response<StatusCode, t_error>
+  | Res<200, t_financial_connections_account>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -6423,8 +6423,8 @@ export type PostFinancialConnectionsAccountsAccountUnsubscribe = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_financial_connections_account>
-  | Response<StatusCode, t_error>
+  | Res<200, t_financial_connections_account>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -6445,8 +6445,8 @@ export type PostFinancialConnectionsSessions = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_financial_connections_session>
-  | Response<StatusCode, t_error>
+  | Res<200, t_financial_connections_session>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -6467,8 +6467,8 @@ export type GetFinancialConnectionsSessionsSession = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_financial_connections_session>
-  | Response<StatusCode, t_error>
+  | Res<200, t_financial_connections_session>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -6494,7 +6494,7 @@ export type GetFinancialConnectionsTransactions = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_financial_connections_transaction[]
@@ -6503,7 +6503,7 @@ export type GetFinancialConnectionsTransactions = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -6524,8 +6524,8 @@ export type GetFinancialConnectionsTransactionsTransaction = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_financial_connections_transaction>
-  | Response<StatusCode, t_error>
+  | Res<200, t_financial_connections_transaction>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -6546,7 +6546,7 @@ export type GetForwardingRequests = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_forwarding_request[]
@@ -6555,7 +6555,7 @@ export type GetForwardingRequests = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -6571,8 +6571,8 @@ export type PostForwardingRequests = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_forwarding_request>
-  | Response<StatusCode, t_error>
+  | Res<200, t_forwarding_request>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -6593,8 +6593,8 @@ export type GetForwardingRequestsId = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_forwarding_request>
-  | Response<StatusCode, t_error>
+  | Res<200, t_forwarding_request>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -6615,7 +6615,7 @@ export type GetIdentityVerificationReports = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_identity_verification_report[]
@@ -6624,7 +6624,7 @@ export type GetIdentityVerificationReports = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -6645,8 +6645,8 @@ export type GetIdentityVerificationReportsReport = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_identity_verification_report>
-  | Response<StatusCode, t_error>
+  | Res<200, t_identity_verification_report>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -6672,7 +6672,7 @@ export type GetIdentityVerificationSessions = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_identity_verification_session[]
@@ -6681,7 +6681,7 @@ export type GetIdentityVerificationSessions = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -6702,8 +6702,8 @@ export type PostIdentityVerificationSessions = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_identity_verification_session>
-  | Response<StatusCode, t_error>
+  | Res<200, t_identity_verification_session>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -6724,8 +6724,8 @@ export type GetIdentityVerificationSessionsSession = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_identity_verification_session>
-  | Response<StatusCode, t_error>
+  | Res<200, t_identity_verification_session>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -6746,8 +6746,8 @@ export type PostIdentityVerificationSessionsSession = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_identity_verification_session>
-  | Response<StatusCode, t_error>
+  | Res<200, t_identity_verification_session>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -6768,8 +6768,8 @@ export type PostIdentityVerificationSessionsSessionCancel = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_identity_verification_session>
-  | Response<StatusCode, t_error>
+  | Res<200, t_identity_verification_session>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -6790,8 +6790,8 @@ export type PostIdentityVerificationSessionsSessionRedact = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_identity_verification_session>
-  | Response<StatusCode, t_error>
+  | Res<200, t_identity_verification_session>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -6812,7 +6812,7 @@ export type GetInvoicePayments = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_invoice_payment[]
@@ -6821,7 +6821,7 @@ export type GetInvoicePayments = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -6842,8 +6842,8 @@ export type GetInvoicePaymentsInvoicePayment = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_invoice_payment>
-  | Response<StatusCode, t_error>
+  | Res<200, t_invoice_payment>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -6864,7 +6864,7 @@ export type GetInvoiceRenderingTemplates = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_invoice_rendering_template[]
@@ -6873,7 +6873,7 @@ export type GetInvoiceRenderingTemplates = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -6894,8 +6894,8 @@ export type GetInvoiceRenderingTemplatesTemplate = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_invoice_rendering_template>
-  | Response<StatusCode, t_error>
+  | Res<200, t_invoice_rendering_template>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -6916,8 +6916,8 @@ export type PostInvoiceRenderingTemplatesTemplateArchive = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_invoice_rendering_template>
-  | Response<StatusCode, t_error>
+  | Res<200, t_invoice_rendering_template>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -6938,8 +6938,8 @@ export type PostInvoiceRenderingTemplatesTemplateUnarchive = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_invoice_rendering_template>
-  | Response<StatusCode, t_error>
+  | Res<200, t_invoice_rendering_template>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -6960,7 +6960,7 @@ export type GetInvoiceitems = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_invoiceitem[]
@@ -6969,7 +6969,7 @@ export type GetInvoiceitems = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -6985,8 +6985,8 @@ export type PostInvoiceitems = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_invoiceitem>
-  | Response<StatusCode, t_error>
+  | Res<200, t_invoiceitem>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -7002,8 +7002,8 @@ export type DeleteInvoiceitemsInvoiceitem = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_deleted_invoiceitem>
-  | Response<StatusCode, t_error>
+  | Res<200, t_deleted_invoiceitem>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -7024,8 +7024,8 @@ export type GetInvoiceitemsInvoiceitem = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_invoiceitem>
-  | Response<StatusCode, t_error>
+  | Res<200, t_invoiceitem>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -7046,8 +7046,8 @@ export type PostInvoiceitemsInvoiceitem = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_invoiceitem>
-  | Response<StatusCode, t_error>
+  | Res<200, t_invoiceitem>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -7068,7 +7068,7 @@ export type GetInvoices = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_invoice[]
@@ -7077,7 +7077,7 @@ export type GetInvoices = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -7093,8 +7093,8 @@ export type PostInvoices = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_invoice>
-  | Response<StatusCode, t_error>
+  | Res<200, t_invoice>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -7115,8 +7115,8 @@ export type PostInvoicesCreatePreview = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_invoice>
-  | Response<StatusCode, t_error>
+  | Res<200, t_invoice>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -7139,7 +7139,7 @@ export type GetInvoicesSearch = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_invoice[]
@@ -7150,7 +7150,7 @@ export type GetInvoicesSearch = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -7166,8 +7166,8 @@ export type DeleteInvoicesInvoice = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_deleted_invoice>
-  | Response<StatusCode, t_error>
+  | Res<200, t_deleted_invoice>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -7188,8 +7188,8 @@ export type GetInvoicesInvoice = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_invoice>
-  | Response<StatusCode, t_error>
+  | Res<200, t_invoice>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -7210,8 +7210,8 @@ export type PostInvoicesInvoice = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_invoice>
-  | Response<StatusCode, t_error>
+  | Res<200, t_invoice>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -7232,8 +7232,8 @@ export type PostInvoicesInvoiceAddLines = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_invoice>
-  | Response<StatusCode, t_error>
+  | Res<200, t_invoice>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -7254,8 +7254,8 @@ export type PostInvoicesInvoiceAttachPayment = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_invoice>
-  | Response<StatusCode, t_error>
+  | Res<200, t_invoice>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -7276,8 +7276,8 @@ export type PostInvoicesInvoiceFinalize = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_invoice>
-  | Response<StatusCode, t_error>
+  | Res<200, t_invoice>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -7303,7 +7303,7 @@ export type GetInvoicesInvoiceLines = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_line_item[]
@@ -7312,7 +7312,7 @@ export type GetInvoicesInvoiceLines = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -7333,8 +7333,8 @@ export type PostInvoicesInvoiceLinesLineItemId = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_line_item>
-  | Response<StatusCode, t_error>
+  | Res<200, t_line_item>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -7355,8 +7355,8 @@ export type PostInvoicesInvoiceMarkUncollectible = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_invoice>
-  | Response<StatusCode, t_error>
+  | Res<200, t_invoice>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -7377,8 +7377,8 @@ export type PostInvoicesInvoicePay = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_invoice>
-  | Response<StatusCode, t_error>
+  | Res<200, t_invoice>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -7399,8 +7399,8 @@ export type PostInvoicesInvoiceRemoveLines = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_invoice>
-  | Response<StatusCode, t_error>
+  | Res<200, t_invoice>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -7421,8 +7421,8 @@ export type PostInvoicesInvoiceSend = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_invoice>
-  | Response<StatusCode, t_error>
+  | Res<200, t_invoice>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -7443,8 +7443,8 @@ export type PostInvoicesInvoiceUpdateLines = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_invoice>
-  | Response<StatusCode, t_error>
+  | Res<200, t_invoice>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -7465,8 +7465,8 @@ export type PostInvoicesInvoiceVoid = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_invoice>
-  | Response<StatusCode, t_error>
+  | Res<200, t_invoice>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -7487,7 +7487,7 @@ export type GetIssuingAuthorizations = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_issuing_authorization[]
@@ -7496,7 +7496,7 @@ export type GetIssuingAuthorizations = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -7517,8 +7517,8 @@ export type GetIssuingAuthorizationsAuthorization = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_issuing_authorization>
-  | Response<StatusCode, t_error>
+  | Res<200, t_issuing_authorization>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -7539,8 +7539,8 @@ export type PostIssuingAuthorizationsAuthorization = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_issuing_authorization>
-  | Response<StatusCode, t_error>
+  | Res<200, t_issuing_authorization>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -7561,8 +7561,8 @@ export type PostIssuingAuthorizationsAuthorizationApprove = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_issuing_authorization>
-  | Response<StatusCode, t_error>
+  | Res<200, t_issuing_authorization>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -7583,8 +7583,8 @@ export type PostIssuingAuthorizationsAuthorizationDecline = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_issuing_authorization>
-  | Response<StatusCode, t_error>
+  | Res<200, t_issuing_authorization>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -7605,7 +7605,7 @@ export type GetIssuingCardholders = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_issuing_cardholder[]
@@ -7614,7 +7614,7 @@ export type GetIssuingCardholders = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -7630,8 +7630,8 @@ export type PostIssuingCardholders = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_issuing_cardholder>
-  | Response<StatusCode, t_error>
+  | Res<200, t_issuing_cardholder>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -7652,8 +7652,8 @@ export type GetIssuingCardholdersCardholder = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_issuing_cardholder>
-  | Response<StatusCode, t_error>
+  | Res<200, t_issuing_cardholder>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -7674,8 +7674,8 @@ export type PostIssuingCardholdersCardholder = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_issuing_cardholder>
-  | Response<StatusCode, t_error>
+  | Res<200, t_issuing_cardholder>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -7696,7 +7696,7 @@ export type GetIssuingCards = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_issuing_card[]
@@ -7705,7 +7705,7 @@ export type GetIssuingCards = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -7721,8 +7721,8 @@ export type PostIssuingCards = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_issuing_card>
-  | Response<StatusCode, t_error>
+  | Res<200, t_issuing_card>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -7743,8 +7743,8 @@ export type GetIssuingCardsCard = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_issuing_card>
-  | Response<StatusCode, t_error>
+  | Res<200, t_issuing_card>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -7765,8 +7765,8 @@ export type PostIssuingCardsCard = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_issuing_card>
-  | Response<StatusCode, t_error>
+  | Res<200, t_issuing_card>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -7787,7 +7787,7 @@ export type GetIssuingDisputes = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_issuing_dispute[]
@@ -7796,7 +7796,7 @@ export type GetIssuingDisputes = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -7817,8 +7817,8 @@ export type PostIssuingDisputes = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_issuing_dispute>
-  | Response<StatusCode, t_error>
+  | Res<200, t_issuing_dispute>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -7839,8 +7839,8 @@ export type GetIssuingDisputesDispute = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_issuing_dispute>
-  | Response<StatusCode, t_error>
+  | Res<200, t_issuing_dispute>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -7861,8 +7861,8 @@ export type PostIssuingDisputesDispute = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_issuing_dispute>
-  | Response<StatusCode, t_error>
+  | Res<200, t_issuing_dispute>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -7883,8 +7883,8 @@ export type PostIssuingDisputesDisputeSubmit = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_issuing_dispute>
-  | Response<StatusCode, t_error>
+  | Res<200, t_issuing_dispute>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -7910,7 +7910,7 @@ export type GetIssuingPersonalizationDesigns = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_issuing_personalization_design[]
@@ -7919,7 +7919,7 @@ export type GetIssuingPersonalizationDesigns = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -7940,8 +7940,8 @@ export type PostIssuingPersonalizationDesigns = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_issuing_personalization_design>
-  | Response<StatusCode, t_error>
+  | Res<200, t_issuing_personalization_design>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -7962,8 +7962,8 @@ export type GetIssuingPersonalizationDesignsPersonalizationDesign = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_issuing_personalization_design>
-  | Response<StatusCode, t_error>
+  | Res<200, t_issuing_personalization_design>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -7985,8 +7985,8 @@ export type PostIssuingPersonalizationDesignsPersonalizationDesign = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_issuing_personalization_design>
-  | Response<StatusCode, t_error>
+  | Res<200, t_issuing_personalization_design>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -8007,7 +8007,7 @@ export type GetIssuingPhysicalBundles = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_issuing_physical_bundle[]
@@ -8016,7 +8016,7 @@ export type GetIssuingPhysicalBundles = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -8037,8 +8037,8 @@ export type GetIssuingPhysicalBundlesPhysicalBundle = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_issuing_physical_bundle>
-  | Response<StatusCode, t_error>
+  | Res<200, t_issuing_physical_bundle>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -8059,8 +8059,8 @@ export type GetIssuingSettlementsSettlement = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_issuing_settlement>
-  | Response<StatusCode, t_error>
+  | Res<200, t_issuing_settlement>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -8081,8 +8081,8 @@ export type PostIssuingSettlementsSettlement = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_issuing_settlement>
-  | Response<StatusCode, t_error>
+  | Res<200, t_issuing_settlement>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -8103,7 +8103,7 @@ export type GetIssuingTokens = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_issuing_token[]
@@ -8112,7 +8112,7 @@ export type GetIssuingTokens = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -8133,8 +8133,8 @@ export type GetIssuingTokensToken = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_issuing_token>
-  | Response<StatusCode, t_error>
+  | Res<200, t_issuing_token>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -8155,8 +8155,8 @@ export type PostIssuingTokensToken = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_issuing_token>
-  | Response<StatusCode, t_error>
+  | Res<200, t_issuing_token>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -8177,7 +8177,7 @@ export type GetIssuingTransactions = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_issuing_transaction[]
@@ -8186,7 +8186,7 @@ export type GetIssuingTransactions = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -8207,8 +8207,8 @@ export type GetIssuingTransactionsTransaction = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_issuing_transaction>
-  | Response<StatusCode, t_error>
+  | Res<200, t_issuing_transaction>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -8229,8 +8229,8 @@ export type PostIssuingTransactionsTransaction = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_issuing_transaction>
-  | Response<StatusCode, t_error>
+  | Res<200, t_issuing_transaction>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -8246,8 +8246,8 @@ export type PostLinkAccountSessions = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_financial_connections_session>
-  | Response<StatusCode, t_error>
+  | Res<200, t_financial_connections_session>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -8268,8 +8268,8 @@ export type GetLinkAccountSessionsSession = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_financial_connections_session>
-  | Response<StatusCode, t_error>
+  | Res<200, t_financial_connections_session>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -8290,7 +8290,7 @@ export type GetLinkedAccounts = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_financial_connections_account[]
@@ -8299,7 +8299,7 @@ export type GetLinkedAccounts = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -8320,8 +8320,8 @@ export type GetLinkedAccountsAccount = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_financial_connections_account>
-  | Response<StatusCode, t_error>
+  | Res<200, t_financial_connections_account>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -8342,8 +8342,8 @@ export type PostLinkedAccountsAccountDisconnect = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_financial_connections_account>
-  | Response<StatusCode, t_error>
+  | Res<200, t_financial_connections_account>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -8369,7 +8369,7 @@ export type GetLinkedAccountsAccountOwners = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_financial_connections_account_owner[]
@@ -8378,7 +8378,7 @@ export type GetLinkedAccountsAccountOwners = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -8399,8 +8399,8 @@ export type PostLinkedAccountsAccountRefresh = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_financial_connections_account>
-  | Response<StatusCode, t_error>
+  | Res<200, t_financial_connections_account>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -8421,8 +8421,8 @@ export type GetMandatesMandate = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_mandate>
-  | Response<StatusCode, t_error>
+  | Res<200, t_mandate>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -8443,7 +8443,7 @@ export type GetPaymentIntents = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_payment_intent[]
@@ -8452,7 +8452,7 @@ export type GetPaymentIntents = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -8468,8 +8468,8 @@ export type PostPaymentIntents = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_payment_intent>
-  | Response<StatusCode, t_error>
+  | Res<200, t_payment_intent>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -8492,7 +8492,7 @@ export type GetPaymentIntentsSearch = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_payment_intent[]
@@ -8503,7 +8503,7 @@ export type GetPaymentIntentsSearch = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -8524,8 +8524,8 @@ export type GetPaymentIntentsIntent = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_payment_intent>
-  | Response<StatusCode, t_error>
+  | Res<200, t_payment_intent>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -8546,8 +8546,8 @@ export type PostPaymentIntentsIntent = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_payment_intent>
-  | Response<StatusCode, t_error>
+  | Res<200, t_payment_intent>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -8568,8 +8568,8 @@ export type PostPaymentIntentsIntentApplyCustomerBalance = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_payment_intent>
-  | Response<StatusCode, t_error>
+  | Res<200, t_payment_intent>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -8590,8 +8590,8 @@ export type PostPaymentIntentsIntentCancel = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_payment_intent>
-  | Response<StatusCode, t_error>
+  | Res<200, t_payment_intent>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -8612,8 +8612,8 @@ export type PostPaymentIntentsIntentCapture = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_payment_intent>
-  | Response<StatusCode, t_error>
+  | Res<200, t_payment_intent>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -8634,8 +8634,8 @@ export type PostPaymentIntentsIntentConfirm = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_payment_intent>
-  | Response<StatusCode, t_error>
+  | Res<200, t_payment_intent>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -8656,8 +8656,8 @@ export type PostPaymentIntentsIntentIncrementAuthorization = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_payment_intent>
-  | Response<StatusCode, t_error>
+  | Res<200, t_payment_intent>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -8678,8 +8678,8 @@ export type PostPaymentIntentsIntentVerifyMicrodeposits = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_payment_intent>
-  | Response<StatusCode, t_error>
+  | Res<200, t_payment_intent>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -8700,7 +8700,7 @@ export type GetPaymentLinks = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_payment_link[]
@@ -8709,7 +8709,7 @@ export type GetPaymentLinks = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -8725,8 +8725,8 @@ export type PostPaymentLinks = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_payment_link>
-  | Response<StatusCode, t_error>
+  | Res<200, t_payment_link>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -8747,8 +8747,8 @@ export type GetPaymentLinksPaymentLink = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_payment_link>
-  | Response<StatusCode, t_error>
+  | Res<200, t_payment_link>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -8769,8 +8769,8 @@ export type PostPaymentLinksPaymentLink = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_payment_link>
-  | Response<StatusCode, t_error>
+  | Res<200, t_payment_link>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -8796,7 +8796,7 @@ export type GetPaymentLinksPaymentLinkLineItems = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_item[]
@@ -8805,7 +8805,7 @@ export type GetPaymentLinksPaymentLinkLineItems = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -8826,7 +8826,7 @@ export type GetPaymentMethodConfigurations = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_payment_method_configuration[]
@@ -8835,7 +8835,7 @@ export type GetPaymentMethodConfigurations = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -8856,8 +8856,8 @@ export type PostPaymentMethodConfigurations = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_payment_method_configuration>
-  | Response<StatusCode, t_error>
+  | Res<200, t_payment_method_configuration>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -8878,8 +8878,8 @@ export type GetPaymentMethodConfigurationsConfiguration = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_payment_method_configuration>
-  | Response<StatusCode, t_error>
+  | Res<200, t_payment_method_configuration>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -8900,8 +8900,8 @@ export type PostPaymentMethodConfigurationsConfiguration = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_payment_method_configuration>
-  | Response<StatusCode, t_error>
+  | Res<200, t_payment_method_configuration>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -8922,7 +8922,7 @@ export type GetPaymentMethodDomains = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_payment_method_domain[]
@@ -8931,7 +8931,7 @@ export type GetPaymentMethodDomains = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -8947,8 +8947,8 @@ export type PostPaymentMethodDomains = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_payment_method_domain>
-  | Response<StatusCode, t_error>
+  | Res<200, t_payment_method_domain>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -8969,8 +8969,8 @@ export type GetPaymentMethodDomainsPaymentMethodDomain = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_payment_method_domain>
-  | Response<StatusCode, t_error>
+  | Res<200, t_payment_method_domain>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -8991,8 +8991,8 @@ export type PostPaymentMethodDomainsPaymentMethodDomain = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_payment_method_domain>
-  | Response<StatusCode, t_error>
+  | Res<200, t_payment_method_domain>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -9014,8 +9014,8 @@ export type PostPaymentMethodDomainsPaymentMethodDomainValidate = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_payment_method_domain>
-  | Response<StatusCode, t_error>
+  | Res<200, t_payment_method_domain>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -9036,7 +9036,7 @@ export type GetPaymentMethods = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_payment_method[]
@@ -9045,7 +9045,7 @@ export type GetPaymentMethods = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -9061,8 +9061,8 @@ export type PostPaymentMethods = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_payment_method>
-  | Response<StatusCode, t_error>
+  | Res<200, t_payment_method>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -9083,8 +9083,8 @@ export type GetPaymentMethodsPaymentMethod = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_payment_method>
-  | Response<StatusCode, t_error>
+  | Res<200, t_payment_method>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -9105,8 +9105,8 @@ export type PostPaymentMethodsPaymentMethod = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_payment_method>
-  | Response<StatusCode, t_error>
+  | Res<200, t_payment_method>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -9127,8 +9127,8 @@ export type PostPaymentMethodsPaymentMethodAttach = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_payment_method>
-  | Response<StatusCode, t_error>
+  | Res<200, t_payment_method>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -9149,8 +9149,8 @@ export type PostPaymentMethodsPaymentMethodDetach = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_payment_method>
-  | Response<StatusCode, t_error>
+  | Res<200, t_payment_method>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -9171,7 +9171,7 @@ export type GetPayouts = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_payout[]
@@ -9180,7 +9180,7 @@ export type GetPayouts = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -9196,8 +9196,8 @@ export type PostPayouts = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_payout>
-  | Response<StatusCode, t_error>
+  | Res<200, t_payout>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -9218,8 +9218,8 @@ export type GetPayoutsPayout = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_payout>
-  | Response<StatusCode, t_error>
+  | Res<200, t_payout>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -9240,8 +9240,8 @@ export type PostPayoutsPayout = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_payout>
-  | Response<StatusCode, t_error>
+  | Res<200, t_payout>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -9262,8 +9262,8 @@ export type PostPayoutsPayoutCancel = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_payout>
-  | Response<StatusCode, t_error>
+  | Res<200, t_payout>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -9284,8 +9284,8 @@ export type PostPayoutsPayoutReverse = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_payout>
-  | Response<StatusCode, t_error>
+  | Res<200, t_payout>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -9306,7 +9306,7 @@ export type GetPlans = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_plan[]
@@ -9315,7 +9315,7 @@ export type GetPlans = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -9331,8 +9331,8 @@ export type PostPlans = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_plan>
-  | Response<StatusCode, t_error>
+  | Res<200, t_plan>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -9348,8 +9348,8 @@ export type DeletePlansPlan = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_deleted_plan>
-  | Response<StatusCode, t_error>
+  | Res<200, t_deleted_plan>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -9370,8 +9370,8 @@ export type GetPlansPlan = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_plan>
-  | Response<StatusCode, t_error>
+  | Res<200, t_plan>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -9392,8 +9392,8 @@ export type PostPlansPlan = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_plan>
-  | Response<StatusCode, t_error>
+  | Res<200, t_plan>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -9414,7 +9414,7 @@ export type GetPrices = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_price[]
@@ -9423,7 +9423,7 @@ export type GetPrices = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -9439,8 +9439,8 @@ export type PostPrices = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_price>
-  | Response<StatusCode, t_error>
+  | Res<200, t_price>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -9463,7 +9463,7 @@ export type GetPricesSearch = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_price[]
@@ -9474,7 +9474,7 @@ export type GetPricesSearch = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -9495,8 +9495,8 @@ export type GetPricesPrice = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_price>
-  | Response<StatusCode, t_error>
+  | Res<200, t_price>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -9517,8 +9517,8 @@ export type PostPricesPrice = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_price>
-  | Response<StatusCode, t_error>
+  | Res<200, t_price>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -9539,7 +9539,7 @@ export type GetProducts = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_product[]
@@ -9548,7 +9548,7 @@ export type GetProducts = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -9564,8 +9564,8 @@ export type PostProducts = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_product>
-  | Response<StatusCode, t_error>
+  | Res<200, t_product>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -9588,7 +9588,7 @@ export type GetProductsSearch = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_product[]
@@ -9599,7 +9599,7 @@ export type GetProductsSearch = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -9615,8 +9615,8 @@ export type DeleteProductsId = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_deleted_product>
-  | Response<StatusCode, t_error>
+  | Res<200, t_deleted_product>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -9637,8 +9637,8 @@ export type GetProductsId = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_product>
-  | Response<StatusCode, t_error>
+  | Res<200, t_product>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -9659,8 +9659,8 @@ export type PostProductsId = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_product>
-  | Response<StatusCode, t_error>
+  | Res<200, t_product>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -9686,7 +9686,7 @@ export type GetProductsProductFeatures = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_product_feature[]
@@ -9695,7 +9695,7 @@ export type GetProductsProductFeatures = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -9716,8 +9716,8 @@ export type PostProductsProductFeatures = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_product_feature>
-  | Response<StatusCode, t_error>
+  | Res<200, t_product_feature>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -9738,8 +9738,8 @@ export type DeleteProductsProductFeaturesId = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_deleted_product_feature>
-  | Response<StatusCode, t_error>
+  | Res<200, t_deleted_product_feature>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -9760,8 +9760,8 @@ export type GetProductsProductFeaturesId = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_product_feature>
-  | Response<StatusCode, t_error>
+  | Res<200, t_product_feature>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -9782,7 +9782,7 @@ export type GetPromotionCodes = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_promotion_code[]
@@ -9791,7 +9791,7 @@ export type GetPromotionCodes = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -9807,8 +9807,8 @@ export type PostPromotionCodes = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_promotion_code>
-  | Response<StatusCode, t_error>
+  | Res<200, t_promotion_code>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -9829,8 +9829,8 @@ export type GetPromotionCodesPromotionCode = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_promotion_code>
-  | Response<StatusCode, t_error>
+  | Res<200, t_promotion_code>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -9851,8 +9851,8 @@ export type PostPromotionCodesPromotionCode = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_promotion_code>
-  | Response<StatusCode, t_error>
+  | Res<200, t_promotion_code>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -9873,7 +9873,7 @@ export type GetQuotes = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_quote[]
@@ -9882,7 +9882,7 @@ export type GetQuotes = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -9898,8 +9898,8 @@ export type PostQuotes = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_quote>
-  | Response<StatusCode, t_error>
+  | Res<200, t_quote>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -9920,8 +9920,8 @@ export type GetQuotesQuote = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_quote>
-  | Response<StatusCode, t_error>
+  | Res<200, t_quote>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -9942,8 +9942,8 @@ export type PostQuotesQuote = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_quote>
-  | Response<StatusCode, t_error>
+  | Res<200, t_quote>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -9964,8 +9964,8 @@ export type PostQuotesQuoteAccept = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_quote>
-  | Response<StatusCode, t_error>
+  | Res<200, t_quote>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -9986,8 +9986,8 @@ export type PostQuotesQuoteCancel = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_quote>
-  | Response<StatusCode, t_error>
+  | Res<200, t_quote>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -10013,7 +10013,7 @@ export type GetQuotesQuoteComputedUpfrontLineItems = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_item[]
@@ -10022,7 +10022,7 @@ export type GetQuotesQuoteComputedUpfrontLineItems = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -10043,8 +10043,8 @@ export type PostQuotesQuoteFinalize = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_quote>
-  | Response<StatusCode, t_error>
+  | Res<200, t_quote>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -10070,7 +10070,7 @@ export type GetQuotesQuoteLineItems = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_item[]
@@ -10079,7 +10079,7 @@ export type GetQuotesQuoteLineItems = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -10100,8 +10100,8 @@ export type GetQuotesQuotePdf = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, string>
-  | Response<StatusCode, t_error>
+  | Res<200, string>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -10122,7 +10122,7 @@ export type GetRadarEarlyFraudWarnings = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_radar_early_fraud_warning[]
@@ -10131,7 +10131,7 @@ export type GetRadarEarlyFraudWarnings = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -10152,8 +10152,8 @@ export type GetRadarEarlyFraudWarningsEarlyFraudWarning = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_radar_early_fraud_warning>
-  | Response<StatusCode, t_error>
+  | Res<200, t_radar_early_fraud_warning>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -10174,7 +10174,7 @@ export type GetRadarValueListItems = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_radar_value_list_item[]
@@ -10183,7 +10183,7 @@ export type GetRadarValueListItems = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -10199,8 +10199,8 @@ export type PostRadarValueListItems = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_radar_value_list_item>
-  | Response<StatusCode, t_error>
+  | Res<200, t_radar_value_list_item>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -10216,8 +10216,8 @@ export type DeleteRadarValueListItemsItem = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_deleted_radar_value_list_item>
-  | Response<StatusCode, t_error>
+  | Res<200, t_deleted_radar_value_list_item>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -10238,8 +10238,8 @@ export type GetRadarValueListItemsItem = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_radar_value_list_item>
-  | Response<StatusCode, t_error>
+  | Res<200, t_radar_value_list_item>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -10260,7 +10260,7 @@ export type GetRadarValueLists = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_radar_value_list[]
@@ -10269,7 +10269,7 @@ export type GetRadarValueLists = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -10285,8 +10285,8 @@ export type PostRadarValueLists = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_radar_value_list>
-  | Response<StatusCode, t_error>
+  | Res<200, t_radar_value_list>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -10302,8 +10302,8 @@ export type DeleteRadarValueListsValueList = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_deleted_radar_value_list>
-  | Response<StatusCode, t_error>
+  | Res<200, t_deleted_radar_value_list>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -10324,8 +10324,8 @@ export type GetRadarValueListsValueList = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_radar_value_list>
-  | Response<StatusCode, t_error>
+  | Res<200, t_radar_value_list>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -10346,8 +10346,8 @@ export type PostRadarValueListsValueList = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_radar_value_list>
-  | Response<StatusCode, t_error>
+  | Res<200, t_radar_value_list>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -10368,7 +10368,7 @@ export type GetRefunds = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_refund[]
@@ -10377,7 +10377,7 @@ export type GetRefunds = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -10393,8 +10393,8 @@ export type PostRefunds = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_refund>
-  | Response<StatusCode, t_error>
+  | Res<200, t_refund>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -10415,8 +10415,8 @@ export type GetRefundsRefund = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_refund>
-  | Response<StatusCode, t_error>
+  | Res<200, t_refund>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -10437,8 +10437,8 @@ export type PostRefundsRefund = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_refund>
-  | Response<StatusCode, t_error>
+  | Res<200, t_refund>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -10459,8 +10459,8 @@ export type PostRefundsRefundCancel = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_refund>
-  | Response<StatusCode, t_error>
+  | Res<200, t_refund>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -10481,7 +10481,7 @@ export type GetReportingReportRuns = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_reporting_report_run[]
@@ -10490,7 +10490,7 @@ export type GetReportingReportRuns = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -10506,8 +10506,8 @@ export type PostReportingReportRuns = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_reporting_report_run>
-  | Response<StatusCode, t_error>
+  | Res<200, t_reporting_report_run>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -10528,8 +10528,8 @@ export type GetReportingReportRunsReportRun = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_reporting_report_run>
-  | Response<StatusCode, t_error>
+  | Res<200, t_reporting_report_run>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -10550,7 +10550,7 @@ export type GetReportingReportTypes = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_reporting_report_type[]
@@ -10559,7 +10559,7 @@ export type GetReportingReportTypes = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -10580,8 +10580,8 @@ export type GetReportingReportTypesReportType = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_reporting_report_type>
-  | Response<StatusCode, t_error>
+  | Res<200, t_reporting_report_type>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -10602,7 +10602,7 @@ export type GetReviews = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_review[]
@@ -10611,7 +10611,7 @@ export type GetReviews = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -10632,8 +10632,8 @@ export type GetReviewsReview = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_review>
-  | Response<StatusCode, t_error>
+  | Res<200, t_review>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -10654,8 +10654,8 @@ export type PostReviewsReviewApprove = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_review>
-  | Response<StatusCode, t_error>
+  | Res<200, t_review>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -10676,7 +10676,7 @@ export type GetSetupAttempts = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_setup_attempt[]
@@ -10685,7 +10685,7 @@ export type GetSetupAttempts = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -10706,7 +10706,7 @@ export type GetSetupIntents = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_setup_intent[]
@@ -10715,7 +10715,7 @@ export type GetSetupIntents = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -10731,8 +10731,8 @@ export type PostSetupIntents = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_setup_intent>
-  | Response<StatusCode, t_error>
+  | Res<200, t_setup_intent>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -10753,8 +10753,8 @@ export type GetSetupIntentsIntent = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_setup_intent>
-  | Response<StatusCode, t_error>
+  | Res<200, t_setup_intent>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -10775,8 +10775,8 @@ export type PostSetupIntentsIntent = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_setup_intent>
-  | Response<StatusCode, t_error>
+  | Res<200, t_setup_intent>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -10797,8 +10797,8 @@ export type PostSetupIntentsIntentCancel = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_setup_intent>
-  | Response<StatusCode, t_error>
+  | Res<200, t_setup_intent>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -10819,8 +10819,8 @@ export type PostSetupIntentsIntentConfirm = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_setup_intent>
-  | Response<StatusCode, t_error>
+  | Res<200, t_setup_intent>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -10841,8 +10841,8 @@ export type PostSetupIntentsIntentVerifyMicrodeposits = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_setup_intent>
-  | Response<StatusCode, t_error>
+  | Res<200, t_setup_intent>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -10863,7 +10863,7 @@ export type GetShippingRates = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_shipping_rate[]
@@ -10872,7 +10872,7 @@ export type GetShippingRates = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -10888,8 +10888,8 @@ export type PostShippingRates = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_shipping_rate>
-  | Response<StatusCode, t_error>
+  | Res<200, t_shipping_rate>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -10910,8 +10910,8 @@ export type GetShippingRatesShippingRateToken = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_shipping_rate>
-  | Response<StatusCode, t_error>
+  | Res<200, t_shipping_rate>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -10932,8 +10932,8 @@ export type PostShippingRatesShippingRateToken = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_shipping_rate>
-  | Response<StatusCode, t_error>
+  | Res<200, t_shipping_rate>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -10954,8 +10954,8 @@ export type PostSigmaSavedQueriesId = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_sigma_sigma_api_query>
-  | Response<StatusCode, t_error>
+  | Res<200, t_sigma_sigma_api_query>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -10976,7 +10976,7 @@ export type GetSigmaScheduledQueryRuns = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_scheduled_query_run[]
@@ -10985,7 +10985,7 @@ export type GetSigmaScheduledQueryRuns = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -11006,8 +11006,8 @@ export type GetSigmaScheduledQueryRunsScheduledQueryRun = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_scheduled_query_run>
-  | Response<StatusCode, t_error>
+  | Res<200, t_scheduled_query_run>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -11023,8 +11023,8 @@ export type PostSources = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_source>
-  | Response<StatusCode, t_error>
+  | Res<200, t_source>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -11045,8 +11045,8 @@ export type GetSourcesSource = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_source>
-  | Response<StatusCode, t_error>
+  | Res<200, t_source>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -11067,8 +11067,8 @@ export type PostSourcesSource = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_source>
-  | Response<StatusCode, t_error>
+  | Res<200, t_source>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -11089,8 +11089,8 @@ export type GetSourcesSourceMandateNotificationsMandateNotification = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_source_mandate_notification>
-  | Response<StatusCode, t_error>
+  | Res<200, t_source_mandate_notification>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -11116,7 +11116,7 @@ export type GetSourcesSourceSourceTransactions = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_source_transaction[]
@@ -11125,7 +11125,7 @@ export type GetSourcesSourceSourceTransactions = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -11146,8 +11146,8 @@ export type GetSourcesSourceSourceTransactionsSourceTransaction = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_source_transaction>
-  | Response<StatusCode, t_error>
+  | Res<200, t_source_transaction>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -11168,8 +11168,8 @@ export type PostSourcesSourceVerify = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_source>
-  | Response<StatusCode, t_error>
+  | Res<200, t_source>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -11190,7 +11190,7 @@ export type GetSubscriptionItems = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_subscription_item[]
@@ -11199,7 +11199,7 @@ export type GetSubscriptionItems = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -11215,8 +11215,8 @@ export type PostSubscriptionItems = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_subscription_item>
-  | Response<StatusCode, t_error>
+  | Res<200, t_subscription_item>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -11237,8 +11237,8 @@ export type DeleteSubscriptionItemsItem = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_deleted_subscription_item>
-  | Response<StatusCode, t_error>
+  | Res<200, t_deleted_subscription_item>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -11259,8 +11259,8 @@ export type GetSubscriptionItemsItem = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_subscription_item>
-  | Response<StatusCode, t_error>
+  | Res<200, t_subscription_item>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -11281,8 +11281,8 @@ export type PostSubscriptionItemsItem = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_subscription_item>
-  | Response<StatusCode, t_error>
+  | Res<200, t_subscription_item>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -11303,7 +11303,7 @@ export type GetSubscriptionSchedules = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_subscription_schedule[]
@@ -11312,7 +11312,7 @@ export type GetSubscriptionSchedules = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -11333,8 +11333,8 @@ export type PostSubscriptionSchedules = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_subscription_schedule>
-  | Response<StatusCode, t_error>
+  | Res<200, t_subscription_schedule>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -11355,8 +11355,8 @@ export type GetSubscriptionSchedulesSchedule = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_subscription_schedule>
-  | Response<StatusCode, t_error>
+  | Res<200, t_subscription_schedule>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -11377,8 +11377,8 @@ export type PostSubscriptionSchedulesSchedule = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_subscription_schedule>
-  | Response<StatusCode, t_error>
+  | Res<200, t_subscription_schedule>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -11399,8 +11399,8 @@ export type PostSubscriptionSchedulesScheduleCancel = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_subscription_schedule>
-  | Response<StatusCode, t_error>
+  | Res<200, t_subscription_schedule>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -11421,8 +11421,8 @@ export type PostSubscriptionSchedulesScheduleRelease = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_subscription_schedule>
-  | Response<StatusCode, t_error>
+  | Res<200, t_subscription_schedule>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -11443,7 +11443,7 @@ export type GetSubscriptions = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_subscription[]
@@ -11452,7 +11452,7 @@ export type GetSubscriptions = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -11468,8 +11468,8 @@ export type PostSubscriptions = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_subscription>
-  | Response<StatusCode, t_error>
+  | Res<200, t_subscription>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -11492,7 +11492,7 @@ export type GetSubscriptionsSearch = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_subscription[]
@@ -11503,7 +11503,7 @@ export type GetSubscriptionsSearch = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -11524,8 +11524,8 @@ export type DeleteSubscriptionsSubscriptionExposedId = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_subscription>
-  | Response<StatusCode, t_error>
+  | Res<200, t_subscription>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -11546,8 +11546,8 @@ export type GetSubscriptionsSubscriptionExposedId = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_subscription>
-  | Response<StatusCode, t_error>
+  | Res<200, t_subscription>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -11568,8 +11568,8 @@ export type PostSubscriptionsSubscriptionExposedId = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_subscription>
-  | Response<StatusCode, t_error>
+  | Res<200, t_subscription>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -11590,8 +11590,8 @@ export type DeleteSubscriptionsSubscriptionExposedIdDiscount = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_deleted_discount>
-  | Response<StatusCode, t_error>
+  | Res<200, t_deleted_discount>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -11612,8 +11612,8 @@ export type PostSubscriptionsSubscriptionMigrate = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_subscription>
-  | Response<StatusCode, t_error>
+  | Res<200, t_subscription>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -11634,8 +11634,8 @@ export type PostSubscriptionsSubscriptionResume = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_subscription>
-  | Response<StatusCode, t_error>
+  | Res<200, t_subscription>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -11651,8 +11651,8 @@ export type PostTaxCalculations = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_tax_calculation>
-  | Response<StatusCode, t_error>
+  | Res<200, t_tax_calculation>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -11673,8 +11673,8 @@ export type GetTaxCalculationsCalculation = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_tax_calculation>
-  | Response<StatusCode, t_error>
+  | Res<200, t_tax_calculation>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -11700,7 +11700,7 @@ export type GetTaxCalculationsCalculationLineItems = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_tax_calculation_line_item[]
@@ -11709,7 +11709,7 @@ export type GetTaxCalculationsCalculationLineItems = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -11730,7 +11730,7 @@ export type GetTaxRegistrations = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_tax_registration[]
@@ -11739,7 +11739,7 @@ export type GetTaxRegistrations = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -11755,8 +11755,8 @@ export type PostTaxRegistrations = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_tax_registration>
-  | Response<StatusCode, t_error>
+  | Res<200, t_tax_registration>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -11777,8 +11777,8 @@ export type GetTaxRegistrationsId = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_tax_registration>
-  | Response<StatusCode, t_error>
+  | Res<200, t_tax_registration>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -11799,8 +11799,8 @@ export type PostTaxRegistrationsId = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_tax_registration>
-  | Response<StatusCode, t_error>
+  | Res<200, t_tax_registration>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -11816,8 +11816,8 @@ export type GetTaxSettings = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_tax_settings>
-  | Response<StatusCode, t_error>
+  | Res<200, t_tax_settings>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -11833,8 +11833,8 @@ export type PostTaxSettings = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_tax_settings>
-  | Response<StatusCode, t_error>
+  | Res<200, t_tax_settings>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -11855,8 +11855,8 @@ export type PostTaxTransactionsCreateFromCalculation = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_tax_transaction>
-  | Response<StatusCode, t_error>
+  | Res<200, t_tax_transaction>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -11877,8 +11877,8 @@ export type PostTaxTransactionsCreateReversal = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_tax_transaction>
-  | Response<StatusCode, t_error>
+  | Res<200, t_tax_transaction>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -11899,8 +11899,8 @@ export type GetTaxTransactionsTransaction = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_tax_transaction>
-  | Response<StatusCode, t_error>
+  | Res<200, t_tax_transaction>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -11926,7 +11926,7 @@ export type GetTaxTransactionsTransactionLineItems = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_tax_transaction_line_item[]
@@ -11935,7 +11935,7 @@ export type GetTaxTransactionsTransactionLineItems = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -11956,7 +11956,7 @@ export type GetTaxCodes = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_tax_code[]
@@ -11965,7 +11965,7 @@ export type GetTaxCodes = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -11986,8 +11986,8 @@ export type GetTaxCodesId = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_tax_code>
-  | Response<StatusCode, t_error>
+  | Res<200, t_tax_code>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -12008,7 +12008,7 @@ export type GetTaxIds = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_tax_id[]
@@ -12017,7 +12017,7 @@ export type GetTaxIds = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -12033,8 +12033,8 @@ export type PostTaxIds = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_tax_id>
-  | Response<StatusCode, t_error>
+  | Res<200, t_tax_id>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -12050,8 +12050,8 @@ export type DeleteTaxIdsId = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_deleted_tax_id>
-  | Response<StatusCode, t_error>
+  | Res<200, t_deleted_tax_id>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -12072,8 +12072,8 @@ export type GetTaxIdsId = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_tax_id>
-  | Response<StatusCode, t_error>
+  | Res<200, t_tax_id>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -12094,7 +12094,7 @@ export type GetTaxRates = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_tax_rate[]
@@ -12103,7 +12103,7 @@ export type GetTaxRates = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -12119,8 +12119,8 @@ export type PostTaxRates = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_tax_rate>
-  | Response<StatusCode, t_error>
+  | Res<200, t_tax_rate>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -12141,8 +12141,8 @@ export type GetTaxRatesTaxRate = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_tax_rate>
-  | Response<StatusCode, t_error>
+  | Res<200, t_tax_rate>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -12163,8 +12163,8 @@ export type PostTaxRatesTaxRate = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_tax_rate>
-  | Response<StatusCode, t_error>
+  | Res<200, t_tax_rate>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -12185,7 +12185,7 @@ export type GetTerminalConfigurations = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_terminal_configuration[]
@@ -12194,7 +12194,7 @@ export type GetTerminalConfigurations = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -12215,8 +12215,8 @@ export type PostTerminalConfigurations = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_terminal_configuration>
-  | Response<StatusCode, t_error>
+  | Res<200, t_terminal_configuration>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -12237,8 +12237,8 @@ export type DeleteTerminalConfigurationsConfiguration = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_deleted_terminal_configuration>
-  | Response<StatusCode, t_error>
+  | Res<200, t_deleted_terminal_configuration>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -12261,8 +12261,8 @@ export type GetTerminalConfigurationsConfiguration = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_terminal_configuration | t_deleted_terminal_configuration>
-  | Response<StatusCode, t_error>
+  | Res<200, t_terminal_configuration | t_deleted_terminal_configuration>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -12285,8 +12285,8 @@ export type PostTerminalConfigurationsConfiguration = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_terminal_configuration | t_deleted_terminal_configuration>
-  | Response<StatusCode, t_error>
+  | Res<200, t_terminal_configuration | t_deleted_terminal_configuration>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -12307,8 +12307,8 @@ export type PostTerminalConnectionTokens = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_terminal_connection_token>
-  | Response<StatusCode, t_error>
+  | Res<200, t_terminal_connection_token>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -12329,7 +12329,7 @@ export type GetTerminalLocations = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_terminal_location[]
@@ -12338,7 +12338,7 @@ export type GetTerminalLocations = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -12354,8 +12354,8 @@ export type PostTerminalLocations = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_terminal_location>
-  | Response<StatusCode, t_error>
+  | Res<200, t_terminal_location>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -12376,8 +12376,8 @@ export type DeleteTerminalLocationsLocation = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_deleted_terminal_location>
-  | Response<StatusCode, t_error>
+  | Res<200, t_deleted_terminal_location>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -12400,8 +12400,8 @@ export type GetTerminalLocationsLocation = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_terminal_location | t_deleted_terminal_location>
-  | Response<StatusCode, t_error>
+  | Res<200, t_terminal_location | t_deleted_terminal_location>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -12424,8 +12424,8 @@ export type PostTerminalLocationsLocation = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_terminal_location | t_deleted_terminal_location>
-  | Response<StatusCode, t_error>
+  | Res<200, t_terminal_location | t_deleted_terminal_location>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -12446,7 +12446,7 @@ export type GetTerminalReaders = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_terminal_reader[]
@@ -12455,7 +12455,7 @@ export type GetTerminalReaders = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -12471,8 +12471,8 @@ export type PostTerminalReaders = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_terminal_reader>
-  | Response<StatusCode, t_error>
+  | Res<200, t_terminal_reader>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -12488,8 +12488,8 @@ export type DeleteTerminalReadersReader = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_deleted_terminal_reader>
-  | Response<StatusCode, t_error>
+  | Res<200, t_deleted_terminal_reader>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -12510,8 +12510,8 @@ export type GetTerminalReadersReader = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_terminal_reader | t_deleted_terminal_reader>
-  | Response<StatusCode, t_error>
+  | Res<200, t_terminal_reader | t_deleted_terminal_reader>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -12532,8 +12532,8 @@ export type PostTerminalReadersReader = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_terminal_reader | t_deleted_terminal_reader>
-  | Response<StatusCode, t_error>
+  | Res<200, t_terminal_reader | t_deleted_terminal_reader>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -12554,8 +12554,8 @@ export type PostTerminalReadersReaderCancelAction = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_terminal_reader>
-  | Response<StatusCode, t_error>
+  | Res<200, t_terminal_reader>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -12576,8 +12576,8 @@ export type PostTerminalReadersReaderCollectInputs = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_terminal_reader>
-  | Response<StatusCode, t_error>
+  | Res<200, t_terminal_reader>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -12598,8 +12598,8 @@ export type PostTerminalReadersReaderCollectPaymentMethod = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_terminal_reader>
-  | Response<StatusCode, t_error>
+  | Res<200, t_terminal_reader>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -12620,8 +12620,8 @@ export type PostTerminalReadersReaderConfirmPaymentIntent = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_terminal_reader>
-  | Response<StatusCode, t_error>
+  | Res<200, t_terminal_reader>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -12642,8 +12642,8 @@ export type PostTerminalReadersReaderProcessPaymentIntent = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_terminal_reader>
-  | Response<StatusCode, t_error>
+  | Res<200, t_terminal_reader>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -12664,8 +12664,8 @@ export type PostTerminalReadersReaderProcessSetupIntent = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_terminal_reader>
-  | Response<StatusCode, t_error>
+  | Res<200, t_terminal_reader>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -12686,8 +12686,8 @@ export type PostTerminalReadersReaderRefundPayment = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_terminal_reader>
-  | Response<StatusCode, t_error>
+  | Res<200, t_terminal_reader>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -12708,8 +12708,8 @@ export type PostTerminalReadersReaderSetReaderDisplay = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_terminal_reader>
-  | Response<StatusCode, t_error>
+  | Res<200, t_terminal_reader>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -12730,8 +12730,8 @@ export type PostTestHelpersConfirmationTokens = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_confirmation_token>
-  | Response<StatusCode, t_error>
+  | Res<200, t_confirmation_token>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -12752,8 +12752,8 @@ export type PostTestHelpersCustomersCustomerFundCashBalance = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_customer_cash_balance_transaction>
-  | Response<StatusCode, t_error>
+  | Res<200, t_customer_cash_balance_transaction>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -12774,8 +12774,8 @@ export type PostTestHelpersIssuingAuthorizations = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_issuing_authorization>
-  | Response<StatusCode, t_error>
+  | Res<200, t_issuing_authorization>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -12798,8 +12798,8 @@ export type PostTestHelpersIssuingAuthorizationsAuthorizationCapture = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_issuing_authorization>
-  | Response<StatusCode, t_error>
+  | Res<200, t_issuing_authorization>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -12821,8 +12821,8 @@ export type PostTestHelpersIssuingAuthorizationsAuthorizationExpire = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_issuing_authorization>
-  | Response<StatusCode, t_error>
+  | Res<200, t_issuing_authorization>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -12844,8 +12844,8 @@ export type PostTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmount = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_issuing_authorization>
-  | Response<StatusCode, t_error>
+  | Res<200, t_issuing_authorization>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -12868,8 +12868,8 @@ export type PostTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesResp
     next: Next,
   ) => Promise<
     | KoaRuntimeResponse<unknown>
-    | Response<200, t_issuing_authorization>
-    | Response<StatusCode, t_error>
+    | Res<200, t_issuing_authorization>
+    | Res<StatusCode, t_error>
     | typeof SkipResponse
   >
 
@@ -12891,8 +12891,8 @@ export type PostTestHelpersIssuingAuthorizationsAuthorizationIncrement = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_issuing_authorization>
-  | Response<StatusCode, t_error>
+  | Res<200, t_issuing_authorization>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -12915,8 +12915,8 @@ export type PostTestHelpersIssuingAuthorizationsAuthorizationReverse = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_issuing_authorization>
-  | Response<StatusCode, t_error>
+  | Res<200, t_issuing_authorization>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -12937,8 +12937,8 @@ export type PostTestHelpersIssuingCardsCardShippingDeliver = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_issuing_card>
-  | Response<StatusCode, t_error>
+  | Res<200, t_issuing_card>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -12959,8 +12959,8 @@ export type PostTestHelpersIssuingCardsCardShippingFail = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_issuing_card>
-  | Response<StatusCode, t_error>
+  | Res<200, t_issuing_card>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -12981,8 +12981,8 @@ export type PostTestHelpersIssuingCardsCardShippingReturn = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_issuing_card>
-  | Response<StatusCode, t_error>
+  | Res<200, t_issuing_card>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -13003,8 +13003,8 @@ export type PostTestHelpersIssuingCardsCardShippingShip = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_issuing_card>
-  | Response<StatusCode, t_error>
+  | Res<200, t_issuing_card>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -13025,8 +13025,8 @@ export type PostTestHelpersIssuingCardsCardShippingSubmit = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_issuing_card>
-  | Response<StatusCode, t_error>
+  | Res<200, t_issuing_card>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -13050,8 +13050,8 @@ export type PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignAct
     next: Next,
   ) => Promise<
     | KoaRuntimeResponse<unknown>
-    | Response<200, t_issuing_personalization_design>
-    | Response<StatusCode, t_error>
+    | Res<200, t_issuing_personalization_design>
+    | Res<StatusCode, t_error>
     | typeof SkipResponse
   >
 
@@ -13075,8 +13075,8 @@ export type PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDea
     next: Next,
   ) => Promise<
     | KoaRuntimeResponse<unknown>
-    | Response<200, t_issuing_personalization_design>
-    | Response<StatusCode, t_error>
+    | Res<200, t_issuing_personalization_design>
+    | Res<StatusCode, t_error>
     | typeof SkipResponse
   >
 
@@ -13099,8 +13099,8 @@ export type PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignRej
     next: Next,
   ) => Promise<
     | KoaRuntimeResponse<unknown>
-    | Response<200, t_issuing_personalization_design>
-    | Response<StatusCode, t_error>
+    | Res<200, t_issuing_personalization_design>
+    | Res<StatusCode, t_error>
     | typeof SkipResponse
   >
 
@@ -13121,8 +13121,8 @@ export type PostTestHelpersIssuingSettlements = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_issuing_settlement>
-  | Response<StatusCode, t_error>
+  | Res<200, t_issuing_settlement>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -13144,8 +13144,8 @@ export type PostTestHelpersIssuingSettlementsSettlementComplete = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_issuing_settlement>
-  | Response<StatusCode, t_error>
+  | Res<200, t_issuing_settlement>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -13166,8 +13166,8 @@ export type PostTestHelpersIssuingTransactionsCreateForceCapture = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_issuing_transaction>
-  | Response<StatusCode, t_error>
+  | Res<200, t_issuing_transaction>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -13188,8 +13188,8 @@ export type PostTestHelpersIssuingTransactionsCreateUnlinkedRefund = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_issuing_transaction>
-  | Response<StatusCode, t_error>
+  | Res<200, t_issuing_transaction>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -13211,8 +13211,8 @@ export type PostTestHelpersIssuingTransactionsTransactionRefund = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_issuing_transaction>
-  | Response<StatusCode, t_error>
+  | Res<200, t_issuing_transaction>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -13233,8 +13233,8 @@ export type PostTestHelpersRefundsRefundExpire = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_refund>
-  | Response<StatusCode, t_error>
+  | Res<200, t_refund>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -13257,8 +13257,8 @@ export type PostTestHelpersTerminalReadersReaderPresentPaymentMethod = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_terminal_reader>
-  | Response<StatusCode, t_error>
+  | Res<200, t_terminal_reader>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -13281,8 +13281,8 @@ export type PostTestHelpersTerminalReadersReaderSucceedInputCollection = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_terminal_reader>
-  | Response<StatusCode, t_error>
+  | Res<200, t_terminal_reader>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -13305,8 +13305,8 @@ export type PostTestHelpersTerminalReadersReaderTimeoutInputCollection = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_terminal_reader>
-  | Response<StatusCode, t_error>
+  | Res<200, t_terminal_reader>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -13327,7 +13327,7 @@ export type GetTestHelpersTestClocks = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_test_helpers_test_clock[]
@@ -13336,7 +13336,7 @@ export type GetTestHelpersTestClocks = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -13352,8 +13352,8 @@ export type PostTestHelpersTestClocks = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_test_helpers_test_clock>
-  | Response<StatusCode, t_error>
+  | Res<200, t_test_helpers_test_clock>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -13374,8 +13374,8 @@ export type DeleteTestHelpersTestClocksTestClock = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_deleted_test_helpers_test_clock>
-  | Response<StatusCode, t_error>
+  | Res<200, t_deleted_test_helpers_test_clock>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -13396,8 +13396,8 @@ export type GetTestHelpersTestClocksTestClock = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_test_helpers_test_clock>
-  | Response<StatusCode, t_error>
+  | Res<200, t_test_helpers_test_clock>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -13418,8 +13418,8 @@ export type PostTestHelpersTestClocksTestClockAdvance = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_test_helpers_test_clock>
-  | Response<StatusCode, t_error>
+  | Res<200, t_test_helpers_test_clock>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -13440,8 +13440,8 @@ export type PostTestHelpersTreasuryInboundTransfersIdFail = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_treasury_inbound_transfer>
-  | Response<StatusCode, t_error>
+  | Res<200, t_treasury_inbound_transfer>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -13462,8 +13462,8 @@ export type PostTestHelpersTreasuryInboundTransfersIdReturn = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_treasury_inbound_transfer>
-  | Response<StatusCode, t_error>
+  | Res<200, t_treasury_inbound_transfer>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -13484,8 +13484,8 @@ export type PostTestHelpersTreasuryInboundTransfersIdSucceed = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_treasury_inbound_transfer>
-  | Response<StatusCode, t_error>
+  | Res<200, t_treasury_inbound_transfer>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -13506,8 +13506,8 @@ export type PostTestHelpersTreasuryOutboundPaymentsId = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_treasury_outbound_payment>
-  | Response<StatusCode, t_error>
+  | Res<200, t_treasury_outbound_payment>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -13528,8 +13528,8 @@ export type PostTestHelpersTreasuryOutboundPaymentsIdFail = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_treasury_outbound_payment>
-  | Response<StatusCode, t_error>
+  | Res<200, t_treasury_outbound_payment>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -13550,8 +13550,8 @@ export type PostTestHelpersTreasuryOutboundPaymentsIdPost = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_treasury_outbound_payment>
-  | Response<StatusCode, t_error>
+  | Res<200, t_treasury_outbound_payment>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -13572,8 +13572,8 @@ export type PostTestHelpersTreasuryOutboundPaymentsIdReturn = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_treasury_outbound_payment>
-  | Response<StatusCode, t_error>
+  | Res<200, t_treasury_outbound_payment>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -13595,8 +13595,8 @@ export type PostTestHelpersTreasuryOutboundTransfersOutboundTransfer = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_treasury_outbound_transfer>
-  | Response<StatusCode, t_error>
+  | Res<200, t_treasury_outbound_transfer>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -13619,8 +13619,8 @@ export type PostTestHelpersTreasuryOutboundTransfersOutboundTransferFail = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_treasury_outbound_transfer>
-  | Response<StatusCode, t_error>
+  | Res<200, t_treasury_outbound_transfer>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -13643,8 +13643,8 @@ export type PostTestHelpersTreasuryOutboundTransfersOutboundTransferPost = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_treasury_outbound_transfer>
-  | Response<StatusCode, t_error>
+  | Res<200, t_treasury_outbound_transfer>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -13667,8 +13667,8 @@ export type PostTestHelpersTreasuryOutboundTransfersOutboundTransferReturn = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_treasury_outbound_transfer>
-  | Response<StatusCode, t_error>
+  | Res<200, t_treasury_outbound_transfer>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -13689,8 +13689,8 @@ export type PostTestHelpersTreasuryReceivedCredits = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_treasury_received_credit>
-  | Response<StatusCode, t_error>
+  | Res<200, t_treasury_received_credit>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -13711,8 +13711,8 @@ export type PostTestHelpersTreasuryReceivedDebits = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_treasury_received_debit>
-  | Response<StatusCode, t_error>
+  | Res<200, t_treasury_received_debit>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -13728,8 +13728,8 @@ export type PostTokens = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_token>
-  | Response<StatusCode, t_error>
+  | Res<200, t_token>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -13750,8 +13750,8 @@ export type GetTokensToken = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_token>
-  | Response<StatusCode, t_error>
+  | Res<200, t_token>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -13772,7 +13772,7 @@ export type GetTopups = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_topup[]
@@ -13781,7 +13781,7 @@ export type GetTopups = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -13797,8 +13797,8 @@ export type PostTopups = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_topup>
-  | Response<StatusCode, t_error>
+  | Res<200, t_topup>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -13819,8 +13819,8 @@ export type GetTopupsTopup = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_topup>
-  | Response<StatusCode, t_error>
+  | Res<200, t_topup>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -13841,8 +13841,8 @@ export type PostTopupsTopup = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_topup>
-  | Response<StatusCode, t_error>
+  | Res<200, t_topup>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -13863,8 +13863,8 @@ export type PostTopupsTopupCancel = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_topup>
-  | Response<StatusCode, t_error>
+  | Res<200, t_topup>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -13885,7 +13885,7 @@ export type GetTransfers = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_transfer[]
@@ -13894,7 +13894,7 @@ export type GetTransfers = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -13910,8 +13910,8 @@ export type PostTransfers = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_transfer>
-  | Response<StatusCode, t_error>
+  | Res<200, t_transfer>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -13937,7 +13937,7 @@ export type GetTransfersIdReversals = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_transfer_reversal[]
@@ -13946,7 +13946,7 @@ export type GetTransfersIdReversals = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -13967,8 +13967,8 @@ export type PostTransfersIdReversals = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_transfer_reversal>
-  | Response<StatusCode, t_error>
+  | Res<200, t_transfer_reversal>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -13989,8 +13989,8 @@ export type GetTransfersTransfer = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_transfer>
-  | Response<StatusCode, t_error>
+  | Res<200, t_transfer>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -14011,8 +14011,8 @@ export type PostTransfersTransfer = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_transfer>
-  | Response<StatusCode, t_error>
+  | Res<200, t_transfer>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -14033,8 +14033,8 @@ export type GetTransfersTransferReversalsId = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_transfer_reversal>
-  | Response<StatusCode, t_error>
+  | Res<200, t_transfer_reversal>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -14055,8 +14055,8 @@ export type PostTransfersTransferReversalsId = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_transfer_reversal>
-  | Response<StatusCode, t_error>
+  | Res<200, t_transfer_reversal>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -14077,7 +14077,7 @@ export type GetTreasuryCreditReversals = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_treasury_credit_reversal[]
@@ -14086,7 +14086,7 @@ export type GetTreasuryCreditReversals = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -14102,8 +14102,8 @@ export type PostTreasuryCreditReversals = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_treasury_credit_reversal>
-  | Response<StatusCode, t_error>
+  | Res<200, t_treasury_credit_reversal>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -14124,8 +14124,8 @@ export type GetTreasuryCreditReversalsCreditReversal = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_treasury_credit_reversal>
-  | Response<StatusCode, t_error>
+  | Res<200, t_treasury_credit_reversal>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -14146,7 +14146,7 @@ export type GetTreasuryDebitReversals = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_treasury_debit_reversal[]
@@ -14155,7 +14155,7 @@ export type GetTreasuryDebitReversals = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -14171,8 +14171,8 @@ export type PostTreasuryDebitReversals = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_treasury_debit_reversal>
-  | Response<StatusCode, t_error>
+  | Res<200, t_treasury_debit_reversal>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -14193,8 +14193,8 @@ export type GetTreasuryDebitReversalsDebitReversal = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_treasury_debit_reversal>
-  | Response<StatusCode, t_error>
+  | Res<200, t_treasury_debit_reversal>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -14215,7 +14215,7 @@ export type GetTreasuryFinancialAccounts = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_treasury_financial_account[]
@@ -14224,7 +14224,7 @@ export type GetTreasuryFinancialAccounts = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -14240,8 +14240,8 @@ export type PostTreasuryFinancialAccounts = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_treasury_financial_account>
-  | Response<StatusCode, t_error>
+  | Res<200, t_treasury_financial_account>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -14262,8 +14262,8 @@ export type GetTreasuryFinancialAccountsFinancialAccount = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_treasury_financial_account>
-  | Response<StatusCode, t_error>
+  | Res<200, t_treasury_financial_account>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -14284,8 +14284,8 @@ export type PostTreasuryFinancialAccountsFinancialAccount = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_treasury_financial_account>
-  | Response<StatusCode, t_error>
+  | Res<200, t_treasury_financial_account>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -14306,8 +14306,8 @@ export type PostTreasuryFinancialAccountsFinancialAccountClose = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_treasury_financial_account>
-  | Response<StatusCode, t_error>
+  | Res<200, t_treasury_financial_account>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -14328,8 +14328,8 @@ export type GetTreasuryFinancialAccountsFinancialAccountFeatures = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_treasury_financial_account_features>
-  | Response<StatusCode, t_error>
+  | Res<200, t_treasury_financial_account_features>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -14351,8 +14351,8 @@ export type PostTreasuryFinancialAccountsFinancialAccountFeatures = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_treasury_financial_account_features>
-  | Response<StatusCode, t_error>
+  | Res<200, t_treasury_financial_account_features>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -14373,7 +14373,7 @@ export type GetTreasuryInboundTransfers = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_treasury_inbound_transfer[]
@@ -14382,7 +14382,7 @@ export type GetTreasuryInboundTransfers = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -14398,8 +14398,8 @@ export type PostTreasuryInboundTransfers = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_treasury_inbound_transfer>
-  | Response<StatusCode, t_error>
+  | Res<200, t_treasury_inbound_transfer>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -14420,8 +14420,8 @@ export type GetTreasuryInboundTransfersId = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_treasury_inbound_transfer>
-  | Response<StatusCode, t_error>
+  | Res<200, t_treasury_inbound_transfer>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -14442,8 +14442,8 @@ export type PostTreasuryInboundTransfersInboundTransferCancel = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_treasury_inbound_transfer>
-  | Response<StatusCode, t_error>
+  | Res<200, t_treasury_inbound_transfer>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -14464,7 +14464,7 @@ export type GetTreasuryOutboundPayments = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_treasury_outbound_payment[]
@@ -14473,7 +14473,7 @@ export type GetTreasuryOutboundPayments = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -14489,8 +14489,8 @@ export type PostTreasuryOutboundPayments = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_treasury_outbound_payment>
-  | Response<StatusCode, t_error>
+  | Res<200, t_treasury_outbound_payment>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -14511,8 +14511,8 @@ export type GetTreasuryOutboundPaymentsId = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_treasury_outbound_payment>
-  | Response<StatusCode, t_error>
+  | Res<200, t_treasury_outbound_payment>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -14533,8 +14533,8 @@ export type PostTreasuryOutboundPaymentsIdCancel = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_treasury_outbound_payment>
-  | Response<StatusCode, t_error>
+  | Res<200, t_treasury_outbound_payment>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -14555,7 +14555,7 @@ export type GetTreasuryOutboundTransfers = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_treasury_outbound_transfer[]
@@ -14564,7 +14564,7 @@ export type GetTreasuryOutboundTransfers = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -14580,8 +14580,8 @@ export type PostTreasuryOutboundTransfers = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_treasury_outbound_transfer>
-  | Response<StatusCode, t_error>
+  | Res<200, t_treasury_outbound_transfer>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -14602,8 +14602,8 @@ export type GetTreasuryOutboundTransfersOutboundTransfer = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_treasury_outbound_transfer>
-  | Response<StatusCode, t_error>
+  | Res<200, t_treasury_outbound_transfer>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -14625,8 +14625,8 @@ export type PostTreasuryOutboundTransfersOutboundTransferCancel = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_treasury_outbound_transfer>
-  | Response<StatusCode, t_error>
+  | Res<200, t_treasury_outbound_transfer>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -14647,7 +14647,7 @@ export type GetTreasuryReceivedCredits = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_treasury_received_credit[]
@@ -14656,7 +14656,7 @@ export type GetTreasuryReceivedCredits = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -14677,8 +14677,8 @@ export type GetTreasuryReceivedCreditsId = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_treasury_received_credit>
-  | Response<StatusCode, t_error>
+  | Res<200, t_treasury_received_credit>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -14699,7 +14699,7 @@ export type GetTreasuryReceivedDebits = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_treasury_received_debit[]
@@ -14708,7 +14708,7 @@ export type GetTreasuryReceivedDebits = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -14729,8 +14729,8 @@ export type GetTreasuryReceivedDebitsId = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_treasury_received_debit>
-  | Response<StatusCode, t_error>
+  | Res<200, t_treasury_received_debit>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -14751,7 +14751,7 @@ export type GetTreasuryTransactionEntries = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_treasury_transaction_entry[]
@@ -14760,7 +14760,7 @@ export type GetTreasuryTransactionEntries = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -14781,8 +14781,8 @@ export type GetTreasuryTransactionEntriesId = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_treasury_transaction_entry>
-  | Response<StatusCode, t_error>
+  | Res<200, t_treasury_transaction_entry>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -14803,7 +14803,7 @@ export type GetTreasuryTransactions = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_treasury_transaction[]
@@ -14812,7 +14812,7 @@ export type GetTreasuryTransactions = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -14833,8 +14833,8 @@ export type GetTreasuryTransactionsId = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_treasury_transaction>
-  | Response<StatusCode, t_error>
+  | Res<200, t_treasury_transaction>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -14855,7 +14855,7 @@ export type GetWebhookEndpoints = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         data: t_webhook_endpoint[]
@@ -14864,7 +14864,7 @@ export type GetWebhookEndpoints = (
         url: string
       }
     >
-  | Response<StatusCode, t_error>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -14880,8 +14880,8 @@ export type PostWebhookEndpoints = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_webhook_endpoint>
-  | Response<StatusCode, t_error>
+  | Res<200, t_webhook_endpoint>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -14902,8 +14902,8 @@ export type DeleteWebhookEndpointsWebhookEndpoint = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_deleted_webhook_endpoint>
-  | Response<StatusCode, t_error>
+  | Res<200, t_deleted_webhook_endpoint>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -14924,8 +14924,8 @@ export type GetWebhookEndpointsWebhookEndpoint = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_webhook_endpoint>
-  | Response<StatusCode, t_error>
+  | Res<200, t_webhook_endpoint>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 
@@ -14946,8 +14946,8 @@ export type PostWebhookEndpointsWebhookEndpoint = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_webhook_endpoint>
-  | Response<StatusCode, t_error>
+  | Res<200, t_webhook_endpoint>
+  | Res<StatusCode, t_error>
   | typeof SkipResponse
 >
 

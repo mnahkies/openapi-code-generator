@@ -1,3 +1,4 @@
+import type {IFsAdaptor} from "./core/file-system/fs-adaptor"
 import type {Input, OperationGroupStrategy} from "./core/input"
 import type {CompilerOptions} from "./core/loaders/tsconfig.loader"
 import type {SyntheticNameGenerator} from "./core/synthetic-name-generator"
@@ -21,6 +22,7 @@ export interface OpenapiGeneratorConfig {
   enableTypedBasePaths: boolean
   groupingStrategy: OperationGroupStrategy
   filenameConvention: IdentifierConvention
+  fsAdaptor: IFsAdaptor
 }
 
 export interface OpenapiTypescriptGeneratorConfig

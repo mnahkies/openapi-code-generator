@@ -53,7 +53,11 @@ import {
 } from "./utils"
 
 export type OperationGroup = {name: string; operations: IROperation[]}
-export type OperationGroupStrategy = "none" | "first-tag" | "first-slug"
+export type OperationGroupStrategy =
+  | "none"
+  | "first-tag"
+  | "first-slug"
+  | "route"
 
 export type InputConfig = {
   extractInlineSchemas: boolean
@@ -62,7 +66,7 @@ export type InputConfig = {
 
 export class Input {
   constructor(
-    private loader: OpenapiLoader,
+    readonly loader: OpenapiLoader,
     readonly config: InputConfig,
     private readonly syntheticNameGenerator: SyntheticNameGenerator = defaultSyntheticNameGenerator,
     private readonly schemaNormalizer = new SchemaNormalizer(config),
@@ -115,6 +119,8 @@ export class Input {
         return this.operationsByFirstTag()
       case "first-slug":
         return this.operationsByFirstSlug()
+      case "route":
+        return this.operationsByRoute()
       default:
         throw new Error(`unsupported grouping strategy '${strategy}'`)
     }
@@ -219,6 +225,12 @@ export class Input {
       }
 
       return slug.toLowerCase()
+    })
+  }
+
+  private operationsByRoute(): OperationGroup[] {
+    return this.groupOperations((operation) => {
+      return operation.route
     })
   }
 
