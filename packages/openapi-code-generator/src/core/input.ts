@@ -744,6 +744,14 @@ export class SchemaNormalizer {
 
     switch (schemaObject.type) {
       case undefined: {
+        // hack: detect missing `type` but `enum` provided, implying a `type`
+        if (schemaObject.enum?.length) {
+          if (schemaObject.enum?.every((it) => typeof it === "number")) {
+            return self.normalize({...schemaObject, type: "number"})
+          }
+          return self.normalize({...schemaObject, type: "string"})
+        }
+
         if (
           deepEqual(schemaObject, {}) ||
           deepEqual(schemaObject, {additionalProperties: true})
