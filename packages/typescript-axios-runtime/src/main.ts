@@ -1,7 +1,7 @@
 import {
   type Encoding,
   requestBodyToUrlSearchParams,
-} from "@nahkies/typescript-common-runtime/request-bodies/url-search-params"
+} from "@nahkies/typescript-common-runtime/request-bodies"
 import type {
   HeaderParams,
   QueryParams,
@@ -108,6 +108,12 @@ export abstract class AbstractAxiosClient {
     encoding: Record<string, Encoding> = {},
   ): URLSearchParams {
     return requestBodyToUrlSearchParams(obj, encoding)
+  }
+
+  protected _parseBlobResponse(res: AxiosResponse) {
+    return new Blob([res.data], {
+      type: res.headers["content-type"] || "application/octet-stream",
+    })
   }
 
   private setHeaders(

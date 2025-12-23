@@ -325,6 +325,24 @@ export class TodoListsExampleApi extends AbstractFetchClient {
       timeout,
     )
   }
+
+  async replaceAttachment(
+    p: {
+      id: string
+      requestBody: Blob
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<202, void>> {
+    const url = this.basePath + `/attachments/${p["id"]}`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/octet-stream"},
+      opts.headers,
+    )
+    const body = p.requestBody
+
+    return this._fetch(url, {method: "PUT", body, ...opts, headers}, timeout)
+  }
 }
 
 export {TodoListsExampleApi as ApiClient}

@@ -416,6 +416,29 @@ export class E2ETestClient extends AbstractFetchClient {
     return responseValidationFactory([["200", s_ProductOrder]], undefined)(res)
   }
 
+  async postMediaTypesOctetStream(
+    p: {
+      requestBody: Blob
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<200, Blob>> {
+    const url = this.basePath + `/media-types/octet-stream`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/octet-stream"},
+      opts.headers,
+    )
+    const body = p.requestBody
+
+    const res = this._fetch(
+      url,
+      {method: "POST", body, ...opts, headers},
+      timeout,
+    )
+
+    return responseValidationFactory([["200", z.any()]], undefined)(res)
+  }
+
   async getEscapeHatchesPlainText(
     timeout?: number,
     opts: RequestInit = {},

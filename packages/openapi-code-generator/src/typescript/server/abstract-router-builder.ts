@@ -17,6 +17,7 @@ export abstract class AbstractRouterBuilder implements ICompilable {
         "application/scim+json",
         "application/merge-patch+json",
         "application/x-www-form-urlencoded",
+        "application/octet-stream",
         "text/json",
         "text/plain",
         "text/x-markdown",
@@ -46,6 +47,7 @@ export abstract class AbstractRouterBuilder implements ICompilable {
       {
         requestBody: {
           supportedMediaTypes: this.capabilities.requestBody.mediaTypes,
+          defaultMaxSize: "10mb",
         },
       },
     )
@@ -63,6 +65,23 @@ export abstract class AbstractRouterBuilder implements ICompilable {
   ): string
 
   protected abstract operationSymbols(operationId: string): ServerSymbols
+
+  protected parseRequestInput(
+    propertyName: string,
+    opts: {
+      name: string | undefined
+      schema: string | undefined
+      source: string
+      type: string
+      comment?: string
+    },
+  ) {
+    if (!opts.name || !opts.schema) {
+      return `${opts.comment ? `${opts.comment}\n` : ""}${propertyName}: undefined`
+    }
+
+    return `${opts.comment ? `${opts.comment}\n` : ""}${propertyName}: parseRequestInput(${opts.name}, ${opts.source}, ${opts.type})`
+  }
 
   toString(): string {
     return this.buildRouter(this.name, this.statements)

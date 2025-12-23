@@ -2,10 +2,12 @@ import type {
   QueryParameter,
   SchemaStructure,
 } from "@nahkies/typescript-common-runtime/query-parser"
+import type {SizeLimit} from "@nahkies/typescript-common-runtime/request-bodies"
 import type {Input} from "../../core/input"
 import {logger} from "../../core/logger"
 import type {IRModel, IROperation} from "../../core/openapi-types-normalized"
 import {extractPlaceholders} from "../../core/openapi-utils"
+import {convertBytesToHuman} from "../../core/utils"
 import type {SchemaBuilder} from "../common/schema-builders/schema-builder"
 import type {TypeBuilder} from "../common/type-builder"
 import {intersect, object} from "../common/type-utils"
@@ -62,6 +64,7 @@ export type Parameters = {
     schema: string | undefined
     type: string
     isRequired: boolean
+    maxSize: SizeLimit
   }
 }
 
@@ -71,7 +74,9 @@ export class ServerOperationBuilder {
     private readonly input: Input,
     private readonly types: TypeBuilder,
     private readonly schemaBuilder: SchemaBuilder,
-    private readonly config: {requestBody: {supportedMediaTypes: string[]}},
+    private readonly config: {
+      requestBody: {supportedMediaTypes: string[]; defaultMaxSize: SizeLimit}
+    },
   ) {}
 
   get operationId(): string {
@@ -329,6 +334,10 @@ export class ServerOperationBuilder {
     const isRequired = Boolean(requestBody?.parameter?.required)
     const isSupported = Boolean(requestBody?.isSupported)
 
+    const deferenced = requestBody?.parameter
+      ? this.input.schema(requestBody?.parameter.schema)
+      : undefined
+
     const schema = requestBody?.parameter
       ? this.schemaBuilder.fromModel(
           requestBody.parameter.schema,
@@ -350,6 +359,7 @@ export class ServerOperationBuilder {
         contentType: undefined,
         schema: undefined,
         isRequired: false,
+        maxSize: this.config.requestBody.defaultMaxSize,
       }
     }
 
@@ -365,6 +375,11 @@ export class ServerOperationBuilder {
       schema,
       type,
       isRequired,
+      maxSize:
+        deferenced?.type === "string" &&
+        typeof deferenced.maxLength === "number"
+          ? convertBytesToHuman(deferenced.maxLength)
+          : this.config.requestBody.defaultMaxSize,
     }
   }
 

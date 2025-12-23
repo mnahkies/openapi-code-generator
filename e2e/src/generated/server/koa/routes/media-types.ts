@@ -10,6 +10,7 @@ import {
   type KoaRuntimeResponder,
   KoaRuntimeResponse,
   type Params,
+  parseOctetStream,
   type Res,
   type SkipResponse,
   type StatusCode,
@@ -49,9 +50,21 @@ export type PostMediaTypesXWwwFormUrlencoded = (
   KoaRuntimeResponse<unknown> | Res<200, t_ProductOrder> | typeof SkipResponse
 >
 
+export type PostMediaTypesOctetStreamResponder = {
+  with200(): KoaRuntimeResponse<Blob>
+} & KoaRuntimeResponder
+
+export type PostMediaTypesOctetStream = (
+  params: Params<void, void, Blob, void>,
+  respond: PostMediaTypesOctetStreamResponder,
+  ctx: RouterContext,
+  next: Next,
+) => Promise<KoaRuntimeResponse<unknown> | Res<200, Blob> | typeof SkipResponse>
+
 export type MediaTypesImplementation = {
   postMediaTypesText: PostMediaTypesText
   postMediaTypesXWwwFormUrlencoded: PostMediaTypesXWwwFormUrlencoded
+  postMediaTypesOctetStream: PostMediaTypesOctetStream
 }
 
 export function createMediaTypesRouter(
@@ -127,6 +140,44 @@ export function createMediaTypesRouter(
             next,
             postMediaTypesXWwwFormUrlencodedResponseValidator,
           ),
+        )
+    },
+  )
+
+  const postMediaTypesOctetStreamResponseValidator = responseValidationFactory(
+    [["200", z.any()]],
+    undefined,
+  )
+
+  router.post(
+    "postMediaTypesOctetStream",
+    "/media-types/octet-stream",
+    async (ctx, next) => {
+      const input = {
+        params: undefined,
+        query: undefined,
+        body: parseRequestInput(
+          z.any(),
+          await parseOctetStream(ctx, "20mb"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<Blob>(200)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .postMediaTypesOctetStream(input, responder, ctx, next)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(ctx, next, postMediaTypesOctetStreamResponseValidator),
         )
     },
   )

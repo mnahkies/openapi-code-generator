@@ -190,6 +190,23 @@ paths:
       responses:
         202:
           description: accepted
+  /attachments/{id}:
+    parameters:
+      - name: id
+        in: path
+        schema:
+          type: string
+    put:
+      operationId: replaceAttachment
+      requestBody:
+        content:
+          application/octet-stream:
+            schema:
+              type: string
+              format: binary
+      responses:
+        202:
+          description: accepted
 components:
   schemas:
     CreateUpdateTodoList:

@@ -2,6 +2,7 @@ import {describe, expect, it} from "@jest/globals"
 import {
   camelCase,
   coalesce,
+  convertBytesToHuman,
   deepEqual,
   hasSingleElement,
   isDefined,
@@ -356,6 +357,18 @@ describe("core/utils", () => {
       ["application/x-7z-compressed", "ApplicationX7ZCompressed"],
     ])("%s -> %s", async (contentType, expected) => {
       expect(mediaTypeToIdentifier(contentType)).toBe(expected)
+    })
+  })
+
+  describe("#convertBytesToHuman", () => {
+    it("converts to mb", () => {
+      expect(convertBytesToHuman(5 * 1024 * 1024)).toBe("5mb")
+    })
+    it("converts to kb", () => {
+      expect(convertBytesToHuman(128 * 1024)).toBe("128kb")
+    })
+    it("leaves as b", () => {
+      expect(convertBytesToHuman(768)).toBe("768b")
     })
   })
 })

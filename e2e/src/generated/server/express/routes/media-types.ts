@@ -9,6 +9,7 @@ import {
   handleImplementationError,
   handleResponse,
   type Params,
+  parseOctetStream,
   type SkipResponse,
   type StatusCode,
 } from "@nahkies/typescript-express-runtime/server"
@@ -45,9 +46,22 @@ export type PostMediaTypesXWwwFormUrlencoded = (
   next: NextFunction,
 ) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
+export type PostMediaTypesOctetStreamResponder = {
+  with200(): ExpressRuntimeResponse<Blob>
+} & ExpressRuntimeResponder
+
+export type PostMediaTypesOctetStream = (
+  params: Params<void, void, Blob, void>,
+  respond: PostMediaTypesOctetStreamResponder,
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
+
 export type MediaTypesImplementation = {
   postMediaTypesText: PostMediaTypesText
   postMediaTypesXWwwFormUrlencoded: PostMediaTypesXWwwFormUrlencoded
+  postMediaTypesOctetStream: PostMediaTypesOctetStream
 }
 
 export function createMediaTypesRouter(
@@ -131,6 +145,46 @@ export function createMediaTypesRouter(
               res,
               postMediaTypesXWwwFormUrlencodedResponseBodyValidator,
             ),
+          )
+      } catch (error) {
+        next(error)
+      }
+    },
+  )
+
+  const postMediaTypesOctetStreamResponseBodyValidator =
+    responseValidationFactory([["200", z.any()]], undefined)
+
+  // postMediaTypesOctetStream
+  router.post(
+    `/media-types/octet-stream`,
+    async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        const input = {
+          params: undefined,
+          query: undefined,
+          body: parseRequestInput(
+            z.any(),
+            await parseOctetStream(req, "20mb"),
+            RequestInputType.RequestBody,
+          ),
+          headers: undefined,
+        }
+
+        const responder = {
+          with200() {
+            return new ExpressRuntimeResponse<Blob>(200)
+          },
+          withStatus(status: StatusCode) {
+            return new ExpressRuntimeResponse(status)
+          },
+        }
+
+        await implementation
+          .postMediaTypesOctetStream(input, responder, req, res, next)
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(res, postMediaTypesOctetStreamResponseBodyValidator),
           )
       } catch (error) {
         next(error)

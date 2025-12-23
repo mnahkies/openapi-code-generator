@@ -2,11 +2,13 @@ import type {Server} from "node:http"
 import type {AddressInfo, ListenOptions} from "node:net"
 import Cors from "@koa/cors"
 import type Router from "@koa/router"
+import type {SizeLimit} from "@nahkies/typescript-common-runtime/request-bodies"
+import {parseOctetStreamRequestBody} from "@nahkies/typescript-common-runtime/request-bodies"
 import type {Res, StatusCode} from "@nahkies/typescript-common-runtime/types"
 import {KoaRuntimeError} from "@nahkies/typescript-koa-runtime/errors"
 import Koa, {type Context, type Middleware, type Next} from "koa"
+import type {KoaBodyMiddlewareOptions} from "koa-body"
 import KoaBody from "koa-body"
-import type {KoaBodyMiddlewareOptions} from "koa-body/lib/types"
 
 export {parseQueryParameters} from "@nahkies/typescript-common-runtime/query-parser"
 export type {
@@ -109,6 +111,15 @@ export type ServerConfig = {
    * bound to.
    */
   port?: number | ListenOptions
+}
+
+export async function parseOctetStream(
+  ctx: Context,
+  sizeLimit: SizeLimit,
+): Promise<Blob | undefined> {
+  const body = await parseOctetStreamRequestBody(ctx.req, {sizeLimit})
+  ctx.body = body
+  return body
 }
 
 /**

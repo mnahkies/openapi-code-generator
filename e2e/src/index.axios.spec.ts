@@ -430,6 +430,20 @@ describe.each(
     })
   })
 
+  describe("POST /media-types/octet-stream", () => {
+    it("can send and parse application/octet-stream request bodies", async () => {
+      const blob = new Blob([new Uint8Array([0xde, 0xad, 0xbe, 0xef])], {
+        type: "application/octet-stream",
+      })
+      const res = await client.postMediaTypesOctetStream({
+        requestBody: blob,
+      })
+      expect(res.status).toBe(200)
+
+      await expect(res.data).toEqualBlob(blob)
+    })
+  })
+
   describe("query parameters", () => {
     it("GET /params/simple-query", async () => {
       const {status, data} = await client.getParamsSimpleQuery({

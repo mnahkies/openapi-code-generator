@@ -423,6 +423,28 @@ export class TodoListsExampleApiService {
       reportProgress: false,
     })
   }
+
+  replaceAttachment(p: {
+    id: string
+    requestBody: Blob
+  }): Observable<(HttpResponse<void> & {status: 202}) | HttpResponse<unknown>> {
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/octet-stream",
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "PUT",
+      this.config.basePath + `/attachments/${p["id"]}`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
 }
 
 export {TodoListsExampleApiService as ApiClient}

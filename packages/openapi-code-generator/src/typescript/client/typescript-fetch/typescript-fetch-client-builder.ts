@@ -16,6 +16,7 @@ export class TypescriptFetchClientBuilder extends AbstractClientBuilder {
         "application/scim+json",
         "application/merge-patch+json",
         "application/x-www-form-urlencoded",
+        "application/octet-stream",
         "text/json",
         "text/plain",
         "text/x-markdown",
@@ -197,6 +198,16 @@ export class TypescriptFetchClientBuilder extends AbstractClientBuilder {
         ]
           .filter(isDefined)
           .join(", ")})`
+
+        if (requestBody.parameter.required) {
+          return serialize
+        }
+
+        return `${param} !== undefined ? ${serialize} : null`
+      }
+
+      case "Blob": {
+        const serialize = param
 
         if (requestBody.parameter.required) {
           return serialize

@@ -11,6 +11,7 @@ export class AngularServiceBuilder extends AbstractClientBuilder {
         "application/json",
         "application/scim+json",
         "application/merge-patch+json",
+        "application/octet-stream",
         "text/json",
         "text/plain",
         "text/x-markdown",
@@ -46,6 +47,11 @@ export class AngularServiceBuilder extends AbstractClientBuilder {
       .concat(["HttpResponse<unknown>"])
       .join(" | ")
 
+    const isBlobResponse = builder
+      .returnType()
+      .filter((it) => it.statusType.startsWith("2"))
+      .every((it) => it.responseType === "Blob")
+
     const url = builder.routeToTemplateString()
 
     const body = `
@@ -61,7 +67,7 @@ export class AngularServiceBuilder extends AbstractClientBuilder {
       .filter(Boolean)
       .join("\n")}
 
-return this.httpClient.request<any>(
+return this.httpClient.request${isBlobResponse ? "" : "<any>"}(
   "${method}",
   ${hasServers ? "basePath" : "this.config.basePath"} + \`${url}\`, {
     ${[
@@ -73,6 +79,7 @@ return this.httpClient.request<any>(
           : `// todo: request bodies with content-type '${requestBody.contentType}' not yet supported`
         : "",
       'observe: "response"',
+      isBlobResponse ? "responseType: 'blob'" : "",
       "reportProgress: false",
     ]
       .filter(Boolean)

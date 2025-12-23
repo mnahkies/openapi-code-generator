@@ -141,9 +141,12 @@ export function buildExport(args: ExportDefinition) {
   }
 }
 
-export type Serializer = "JSON.stringify" | "String" | "URLSearchParams"
+export type Serializer =
+  | "JSON.stringify"
+  | "String"
+  | "URLSearchParams"
+  | "Blob"
 // TODO: support more serializations
-// | "Blob"
 // | "FormData"
 
 export type RequestBodyAsParameter = {
@@ -169,10 +172,10 @@ function serializerForNormalizedContentType(contentType: string): Serializer {
     case "application/x-www-form-urlencoded":
       return "URLSearchParams"
 
+    case "application/octet-stream":
+      return "Blob"
+
     // TODO: support more serializations
-    // case "application/octet-stream":
-    //   return "Blob"
-    //
     // case "multipart/form-data":
     //   return "FormData"
 

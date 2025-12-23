@@ -21024,7 +21024,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       releaseId: number
       name: string
       label?: string
-      requestBody?: never
+      requestBody?: Blob
     },
     basePath:
       | Server<"reposUploadReleaseAsset_GitHubV3RestApi">
@@ -21035,13 +21035,21 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_release_asset>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/releases/${p["releaseId"]}/assets`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/octet-stream" : false,
+      },
+      opts.headers,
+    )
     const query = this._query({name: p["name"], label: p["label"]})
+    const body = p.requestBody !== undefined ? p.requestBody : null
 
     return this._request({
       url: url + query,
       method: "POST",
-      // todo: request bodies with content-type 'application/octet-stream' not yet supported,
+      data: body,
       baseURL: basePath,
       ...(timeout ? {timeout} : {}),
       ...opts,

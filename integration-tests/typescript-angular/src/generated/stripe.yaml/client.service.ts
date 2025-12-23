@@ -12482,7 +12482,7 @@ export class StripeApiService {
       | Server<"getQuotesQuotePdf_StripeApiService">
       | string = StripeApiServiceServers.operations.getQuotesQuotePdf().build(),
   ): Observable<
-    | (HttpResponse<string> & {status: 200})
+    | (HttpResponse<Blob> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
@@ -12497,7 +12497,7 @@ export class StripeApiService {
       },
     )
 
-    return this.httpClient.request<any>(
+    return this.httpClient.request(
       "GET",
       basePath + `/v1/quotes/${p["quote"]}/pdf`,
       {
@@ -12505,6 +12505,7 @@ export class StripeApiService {
         headers,
         // todo: request bodies with content-type 'application/x-www-form-urlencoded' not yet supported,
         observe: "response",
+        responseType: "blob",
         reportProgress: false,
       },
     )

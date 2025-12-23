@@ -12949,7 +12949,7 @@ export class StripeApi extends AbstractFetchClient {
       | string = StripeApiServers.operations.getQuotesQuotePdf().build(),
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, string> | Res<StatusCode, t_error>> {
+  ): Promise<Res<200, Blob> | Res<StatusCode, t_error>> {
     const url = basePath + `/v1/quotes/${p["quote"]}/pdf`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(

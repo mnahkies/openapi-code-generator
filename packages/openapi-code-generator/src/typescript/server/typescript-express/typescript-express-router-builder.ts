@@ -4,7 +4,11 @@ import type {ServerImplementationMethod} from "../../../templates.types"
 import type {ImportBuilder} from "../../common/import-builder"
 import type {SchemaBuilder} from "../../common/schema-builders/schema-builder"
 import type {TypeBuilder} from "../../common/type-builder"
-import {constStatement, object} from "../../common/type-utils"
+import {
+  constStatement,
+  object,
+  quotedStringLiteral,
+} from "../../common/type-utils"
 import {buildExport} from "../../common/typescript-common"
 import {AbstractRouterBuilder} from "../abstract-router-builder"
 import type {
@@ -45,6 +49,7 @@ export class ExpressRouterBuilder extends AbstractRouterBuilder {
         "parseQueryParameters",
         "handleResponse",
         "handleImplementationError",
+        "parseOctetStream",
       )
       .addType(
         "ExpressRuntimeResponder",
@@ -136,18 +141,49 @@ export class ExpressRouterBuilder extends AbstractRouterBuilder {
       ],
     })
 
+    const inputObject = object([
+      this.parseRequestInput("params", {
+        name: params.path.name,
+        schema: params.path.schema,
+        source: "req.params",
+        type: "RequestInputType.RouteParam",
+      }),
+      this.parseRequestInput("query", {
+        name: params.query.name,
+        schema: params.query.schema,
+        source: params.query.isSimpleQuery
+          ? `req.query`
+          : `parseQueryParameters(new URL(\`http://localhost\${req.originalUrl}\`).search, ${JSON.stringify(params.query.parameters)})`,
+        type: "RequestInputType.QueryString",
+      }),
+      this.parseRequestInput("body", {
+        name: params.body.schema,
+        schema: params.body.schema,
+        source:
+          params.body.contentType === "application/octet-stream"
+            ? `await parseOctetStream(req, ${typeof params.body.maxSize === "string" ? quotedStringLiteral(params.body.maxSize) : params.body.maxSize})`
+            : `req.body`,
+        type: `RequestInputType.RequestBody`,
+        comment:
+          params.body.schema && !params.body.isSupported
+            ? `// todo: request bodies with content-type '${params.body.contentType}' not yet supported`
+            : "",
+      }) + (params.body.schema && !params.body.isSupported ? " as never" : ""),
+      this.parseRequestInput("headers", {
+        name: params.header.name,
+        schema: params.header.schema,
+        source: "req.headers",
+        type: "RequestInputType.RequestHeader",
+      }),
+    ])
+
     statements.push(`
 const ${symbols.responseBodyValidator} = ${builder.responseValidator()}
 
 // ${builder.operationId}
 router.${builder.method.toLowerCase()}(\`${builder.route}\`, async (req: Request, res: Response, next: NextFunction) => {
   try {
-   const input = {
-    params: ${params.path.schema ? `parseRequestInput(${params.path.name}, req.params, RequestInputType.RouteParam)` : "undefined"},
-    query: ${params.query.schema ? `parseRequestInput(${params.query.name}, ${params.query.isSimpleQuery ? `req.query` : `parseQueryParameters(new URL(\`http://localhost\${req.originalUrl}\`).search, ${JSON.stringify(params.query.parameters)})`}, RequestInputType.QueryString)` : "undefined"},
-    ${params.body.schema && !params.body.isSupported ? `// todo: request bodies with content-type '${params.body.contentType}' not yet supported\n` : ""}body: ${params.body.schema ? `parseRequestInput(${params.body.schema}, req.body, RequestInputType.RequestBody)${!params.body.isSupported ? " as never" : ""}` : "undefined"},
-    headers: ${params.header.schema ? `parseRequestInput(${params.header.name}, req.headers, RequestInputType.RequestHeader)` : "undefined"}
-   }
+   const input = ${inputObject}
 
    const responder = ${responder.implementation}
 

@@ -178,6 +178,12 @@ export class TypeBuilder implements ICompilable {
             if (schemaObject["x-enum-extensibility"] === "open") {
               result.push(this.addStaticType("UnknownEnumStringValue"))
             }
+          } else if (
+            schemaObject.format === "binary"
+            // todo: byte is base64 encoded string, https://spec.openapis.org/registry/format/byte.html
+            // || schemaObject.format === "byte"
+          ) {
+            result.push("Blob")
           } else {
             result.push("string")
           }

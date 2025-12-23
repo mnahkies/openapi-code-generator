@@ -8,11 +8,19 @@ import type {Response} from "express"
 import express, {
   type ErrorRequestHandler,
   type Express,
+  type Response as ExpressResponse,
+  type Request,
   type RequestHandler,
   type Router,
 } from "express"
 
 export {parseQueryParameters} from "@nahkies/typescript-common-runtime/query-parser"
+
+import {
+  parseOctetStreamRequestBody,
+  type SizeLimit,
+} from "@nahkies/typescript-common-runtime/request-bodies"
+
 export type {
   Params,
   Res,
@@ -23,6 +31,9 @@ export type {
   StatusCode4xx,
   StatusCode5xx,
 } from "@nahkies/typescript-common-runtime/types"
+
+// biome-ignore lint/suspicious/noExplicitAny: needed
+export type ResponseValidator = (status: number, value: unknown) => any
 
 export const SkipResponse = Symbol("skip response processing")
 
@@ -45,12 +56,12 @@ export function handleResponse(
   res: Response,
   validator: (status: number, value: unknown) => unknown,
 ) {
-  return (
+  return async (
     response:
       | ExpressRuntimeResponse<unknown>
       | typeof SkipResponse
       | Res<StatusCode, unknown>,
-  ): void => {
+  ): Promise<void> => {
     // escape hatch to allow responses to be sent by the implementation handler
     if (response === SkipResponse) {
       return
@@ -61,10 +72,15 @@ export function handleResponse(
 
     res.status(status)
 
-    if (body !== undefined) {
-      res.json(validator(status, body))
-    } else {
+    if (body === undefined) {
       res.end()
+      return
+    }
+
+    if (body instanceof Blob) {
+      await sendBlob(res, body)
+    } else {
+      res.json(validator(status, body))
     }
   }
 }
@@ -211,4 +227,21 @@ export async function startServer({
       reject(err)
     }
   })
+}
+
+export async function parseOctetStream(
+  req: Request,
+  sizeLimit: SizeLimit,
+): Promise<Blob | undefined> {
+  return parseOctetStreamRequestBody(req, {sizeLimit})
+}
+
+export async function sendBlob(res: ExpressResponse, body: Blob) {
+  const arrayBuffer = await body.arrayBuffer()
+  const buffer = Buffer.from(arrayBuffer)
+
+  res.setHeader("Content-Type", body.type ?? "application/octet-stream")
+  res.setHeader("Content-Length", buffer.length)
+
+  res.send(buffer)
 }
