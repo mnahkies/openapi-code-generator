@@ -10,6 +10,7 @@ import {
   type KoaRuntimeResponder,
   KoaRuntimeResponse,
   type Params,
+  parseOctetStream,
   type Res,
   type ServerConfig,
   type SkipResponse,
@@ -33,6 +34,7 @@ import type {
   t_GetTodoListByIdParamSchema,
   t_GetTodoListItemsParamSchema,
   t_GetTodoListsQuerySchema,
+  t_ReplaceAttachmentParamSchema,
   t_TodoList,
   t_UnknownObject,
   t_UpdateTodoListByIdParamSchema,
@@ -202,6 +204,17 @@ export type UploadAttachment = (
   next: Next,
 ) => Promise<KoaRuntimeResponse<unknown> | Res<202, void> | typeof SkipResponse>
 
+export type ReplaceAttachmentResponder = {
+  with202(): KoaRuntimeResponse<void>
+} & KoaRuntimeResponder
+
+export type ReplaceAttachment = (
+  params: Params<t_ReplaceAttachmentParamSchema, void, Blob, void>,
+  respond: ReplaceAttachmentResponder,
+  ctx: RouterContext,
+  next: Next,
+) => Promise<KoaRuntimeResponse<unknown> | Res<202, void> | typeof SkipResponse>
+
 export type Implementation = {
   getTodoLists: GetTodoLists
   getTodoListById: GetTodoListById
@@ -211,6 +224,7 @@ export type Implementation = {
   createTodoListItem: CreateTodoListItem
   listAttachments: ListAttachments
   uploadAttachment: UploadAttachment
+  replaceAttachment: ReplaceAttachment
 }
 
 export function createRouter(implementation: Implementation): KoaRouter {
@@ -554,6 +568,44 @@ export function createRouter(implementation: Implementation): KoaRouter {
       .uploadAttachment(input, responder, ctx, next)
       .catch(handleImplementationError)
       .then(handleResponse(ctx, next, uploadAttachmentResponseValidator))
+  })
+
+  const replaceAttachmentParamSchema = z.object({id: z.string().optional()})
+
+  const replaceAttachmentResponseValidator = responseValidationFactory(
+    [["202", z.undefined()]],
+    undefined,
+  )
+
+  router.put("replaceAttachment", "/attachments/:id", async (ctx, next) => {
+    const input = {
+      params: parseRequestInput(
+        replaceAttachmentParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
+      query: undefined,
+      body: parseRequestInput(
+        z.any(),
+        await parseOctetStream(ctx, "10mb"),
+        RequestInputType.RequestBody,
+      ),
+      headers: undefined,
+    }
+
+    const responder = {
+      with202() {
+        return new KoaRuntimeResponse<void>(202)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
+
+    await implementation
+      .replaceAttachment(input, responder, ctx, next)
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, next, replaceAttachmentResponseValidator))
   })
 
   return router

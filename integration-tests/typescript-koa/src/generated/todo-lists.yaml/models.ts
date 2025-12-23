@@ -54,6 +54,10 @@ export type t_GetTodoListsQuerySchema = {
   tags?: string[]
 }
 
+export type t_ReplaceAttachmentParamSchema = {
+  id?: string
+}
+
 export type t_UpdateTodoListByIdParamSchema = {
   listId: string
 }

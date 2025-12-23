@@ -423,6 +423,24 @@ export class TodoListsExampleApiService {
       reportProgress: false,
     })
   }
+
+  replaceAttachment(p: {
+    id: string
+    requestBody: never
+  }): Observable<(HttpResponse<void> & {status: 202}) | HttpResponse<unknown>> {
+    const headers = this._headers({Accept: "application/json"})
+
+    return this.httpClient.request<any>(
+      "PUT",
+      this.config.basePath + `/attachments/${p["id"]}`,
+      {
+        headers,
+        // todo: request bodies with content-type 'application/octet-stream' not yet supported,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
 }
 
 export {TodoListsExampleApiService as ApiClient}

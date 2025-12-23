@@ -700,7 +700,7 @@ export class SchemaNormalizer {
   constructor(readonly config: InputConfig) {}
 
   public isNormalized(schema: Schema | IRModel): schema is IRModel {
-    return Reflect.get(schema, "isIRModel")
+    return schema && Reflect.get(schema, "isIRModel")
   }
 
   public normalize(schemaObject: Schema): IRModel

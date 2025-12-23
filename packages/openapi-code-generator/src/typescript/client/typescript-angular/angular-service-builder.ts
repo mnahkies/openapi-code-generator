@@ -78,7 +78,7 @@ return this.httpClient.request<any>(
           : `// todo: request bodies with content-type '${requestBody.contentType}' not yet supported`
         : "",
       'observe: "response"',
-      isBlobResponse ? "responseType: blob" : "",
+      isBlobResponse ? "responseType: 'blob'" : "",
       "reportProgress: false",
     ]
       .filter(Boolean)

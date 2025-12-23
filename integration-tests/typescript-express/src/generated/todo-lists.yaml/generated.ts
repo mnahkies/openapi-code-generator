@@ -9,6 +9,7 @@ import {
   handleImplementationError,
   handleResponse,
   type Params,
+  parseOctetStream,
   type ServerConfig,
   type SkipResponse,
   type StatusCode,
@@ -31,6 +32,7 @@ import type {
   t_GetTodoListByIdParamSchema,
   t_GetTodoListItemsParamSchema,
   t_GetTodoListsQuerySchema,
+  t_ReplaceAttachmentParamSchema,
   t_TodoList,
   t_UnknownObject,
   t_UpdateTodoListByIdParamSchema,
@@ -165,6 +167,18 @@ export type UploadAttachment = (
   next: NextFunction,
 ) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
+export type ReplaceAttachmentResponder = {
+  with202(): ExpressRuntimeResponse<void>
+} & ExpressRuntimeResponder
+
+export type ReplaceAttachment = (
+  params: Params<t_ReplaceAttachmentParamSchema, void, Blob, void>,
+  respond: ReplaceAttachmentResponder,
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
+
 export type Implementation = {
   getTodoLists: GetTodoLists
   getTodoListById: GetTodoListById
@@ -174,6 +188,7 @@ export type Implementation = {
   createTodoListItem: CreateTodoListItem
   listAttachments: ListAttachments
   uploadAttachment: UploadAttachment
+  replaceAttachment: ReplaceAttachment
 }
 
 export function createRouter(implementation: Implementation): Router {
@@ -573,6 +588,52 @@ export function createRouter(implementation: Implementation): Router {
           .uploadAttachment(input, responder, req, res, next)
           .catch(handleImplementationError)
           .then(handleResponse(res, uploadAttachmentResponseBodyValidator))
+      } catch (error) {
+        next(error)
+      }
+    },
+  )
+
+  const replaceAttachmentParamSchema = z.object({id: z.string().optional()})
+
+  const replaceAttachmentResponseBodyValidator = responseValidationFactory(
+    [["202", z.undefined()]],
+    undefined,
+  )
+
+  // replaceAttachment
+  router.put(
+    `/attachments/:id`,
+    async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        const input = {
+          params: parseRequestInput(
+            replaceAttachmentParamSchema,
+            req.params,
+            RequestInputType.RouteParam,
+          ),
+          query: undefined,
+          body: parseRequestInput(
+            z.any(),
+            await parseOctetStream(req, "10mb"),
+            RequestInputType.RequestBody,
+          ),
+          headers: undefined,
+        }
+
+        const responder = {
+          with202() {
+            return new ExpressRuntimeResponse<void>(202)
+          },
+          withStatus(status: StatusCode) {
+            return new ExpressRuntimeResponse(status)
+          },
+        }
+
+        await implementation
+          .replaceAttachment(input, responder, req, res, next)
+          .catch(handleImplementationError)
+          .then(handleResponse(res, replaceAttachmentResponseBodyValidator))
       } catch (error) {
         next(error)
       }

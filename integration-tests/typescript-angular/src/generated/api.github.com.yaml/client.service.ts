@@ -7877,7 +7877,7 @@ export class GitHubV3RestApiService {
       {
         headers,
         observe: "response",
-        responseType: blob,
+        responseType: "blob",
         reportProgress: false,
       },
     )
@@ -11681,7 +11681,7 @@ export class GitHubV3RestApiService {
       {
         headers,
         observe: "response",
-        responseType: blob,
+        responseType: "blob",
         reportProgress: false,
       },
     )
@@ -11823,7 +11823,7 @@ export class GitHubV3RestApiService {
       {
         headers,
         observe: "response",
-        responseType: blob,
+        responseType: "blob",
         reportProgress: false,
       },
     )
@@ -12730,7 +12730,7 @@ export class GitHubV3RestApiService {
       {
         headers,
         observe: "response",
-        responseType: blob,
+        responseType: "blob",
         reportProgress: false,
       },
     )
@@ -12855,7 +12855,7 @@ export class GitHubV3RestApiService {
       {
         headers,
         observe: "response",
-        responseType: blob,
+        responseType: "blob",
         reportProgress: false,
       },
     )
@@ -23627,7 +23627,7 @@ export class GitHubV3RestApiService {
       {
         headers,
         observe: "response",
-        responseType: blob,
+        responseType: "blob",
         reportProgress: false,
       },
     )
@@ -23900,7 +23900,7 @@ export class GitHubV3RestApiService {
       {
         headers,
         observe: "response",
-        responseType: blob,
+        responseType: "blob",
         reportProgress: false,
       },
     )
@@ -26647,7 +26647,7 @@ export class GitHubV3RestApiService {
       {
         headers,
         observe: "response",
-        responseType: blob,
+        responseType: "blob",
         reportProgress: false,
       },
     )
