@@ -48,6 +48,9 @@
     "build": "tsc -p ./tsconfig.json",
     "test": "jest"
   },
+  "dependencies": {
+    "@nahkies/typescript-common-runtime": "workspace:^"
+  },
   "peerDependencies": {
     "joi": "^17.13.3 || ^18.0.1",
     "next": "^16.1.0",

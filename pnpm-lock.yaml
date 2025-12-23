@@ -653,6 +653,9 @@ importers:
 
   packages/typescript-nextjs-runtime:
     dependencies:
+      '@nahkies/typescript-common-runtime':
+        specifier: workspace:^
+        version: link:../typescript-common-runtime
       next:
         specifier: ^16.1.0
         version: 16.1.0(@babel/core@7.28.5)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(sass@1.93.2)

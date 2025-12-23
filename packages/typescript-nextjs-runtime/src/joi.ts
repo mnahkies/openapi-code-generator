@@ -1,3 +1,5 @@
+import {findMatchingSchema} from "@nahkies/typescript-common-runtime/validation"
+
 import type {Schema as JoiSchema} from "joi"
 import {OpenAPIRuntimeError, type RequestInputType} from "./errors"
 
@@ -46,20 +48,16 @@ export function responseValidationFactory(
 
   return (status: number, value: unknown) => {
     try {
-      for (const [match, schema] of possibleResponses) {
-        const isMatch =
-          (/^\d+$/.test(match) && String(status) === match) ||
-          (/^\d[xX]{2}$/.test(match) && String(status)[0] === match[0])
+      const schema = findMatchingSchema(status, possibleResponses)
 
-        if (isMatch) {
-          const result = schema.validate(value)
+      if (schema) {
+        const result = schema.validate(value)
 
-          if (result.error) {
-            throw result.error
-          }
-
-          return result.value
+        if (result.error) {
+          throw result.error
         }
+
+        return result.value
       }
 
       if (defaultResponse) {

@@ -1,3 +1,4 @@
+import {findMatchingSchema} from "@nahkies/typescript-common-runtime/validation"
 import type {z} from "zod/v3"
 import {OpenAPIRuntimeError, type RequestInputType} from "./errors"
 
@@ -33,14 +34,10 @@ export function responseValidationFactory(
 
   return (status: number, value: unknown) => {
     try {
-      for (const [match, schema] of possibleResponses) {
-        const isMatch =
-          (/^\d+$/.test(match) && String(status) === match) ||
-          (/^\d[xX]{2}$/.test(match) && String(status)[0] === match[0])
+      const schema = findMatchingSchema(status, possibleResponses)
 
-        if (isMatch) {
-          return schema.parse(value)
-        }
+      if (schema) {
+        return schema.parse(value)
       }
 
       if (defaultResponse) {

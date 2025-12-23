@@ -1,9 +1,6 @@
 import type {Server} from "node:http"
 import type {AddressInfo, ListenOptions} from "node:net"
-import type {
-  Response,
-  StatusCode,
-} from "@nahkies/typescript-common-runtime/types"
+import type {Res, StatusCode} from "@nahkies/typescript-common-runtime/types"
 
 import type {OptionsJson, OptionsText, OptionsUrlencoded} from "body-parser"
 import Cors, {type CorsOptions, type CorsOptionsDelegate} from "cors"
@@ -16,7 +13,8 @@ import express, {
 
 export {parseQueryParameters} from "@nahkies/typescript-common-runtime/query-parser"
 export type {
-  Response,
+  Params,
+  Res,
   StatusCode,
   StatusCode1xx,
   StatusCode2xx,
@@ -37,7 +35,7 @@ export class ExpressRuntimeResponse<Type> {
     return this
   }
 
-  unpack(): Response<StatusCode, Type | undefined> {
+  unpack(): Res<StatusCode, Type | undefined> {
     return {status: this.status, body: this._body}
   }
 }
@@ -102,13 +100,6 @@ export type ServerConfig = {
    * bound to.
    */
   port?: number | ListenOptions
-}
-
-export type Params<Params, Query, Body, Header> = {
-  params: Params
-  query: Query
-  body: Body
-  headers: Header
 }
 
 /**
