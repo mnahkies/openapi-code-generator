@@ -9,6 +9,7 @@ import {
   handleImplementationError,
   handleResponse,
   type Params,
+  parseOctetStream,
   type ServerConfig,
   type SkipResponse,
   type StatusCode,
@@ -16609,7 +16610,7 @@ export type ReposUploadReleaseAsset = (
   params: Params<
     t_ReposUploadReleaseAssetParamSchema,
     t_ReposUploadReleaseAssetQuerySchema,
-    never | undefined,
+    Blob | undefined,
     void
   >,
   respond: ReposUploadReleaseAssetResponder,
@@ -72459,12 +72460,11 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          // todo: request bodies with content-type 'application/octet-stream' not yet supported
           body: parseRequestInput(
-            z.never().optional(),
-            req.body,
+            z.any().optional(),
+            await parseOctetStream(req),
             RequestInputType.RequestBody,
-          ) as never,
+          ),
           headers: undefined,
         }
 

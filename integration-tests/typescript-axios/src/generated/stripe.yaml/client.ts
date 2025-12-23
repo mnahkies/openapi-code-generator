@@ -14717,7 +14717,7 @@ export class StripeApi extends AbstractAxiosClient {
       | string = StripeApiServers.operations.getQuotesQuotePdf().build(),
     timeout?: number,
     opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<string>> {
+  ): Promise<AxiosResponse<Blob>> {
     const url = `/v1/quotes/${p["quote"]}/pdf`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(

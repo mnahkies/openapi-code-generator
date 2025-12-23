@@ -12482,7 +12482,7 @@ export class StripeApiService {
       | Server<"getQuotesQuotePdf_StripeApiService">
       | string = StripeApiServiceServers.operations.getQuotesQuotePdf().build(),
   ): Observable<
-    | (HttpResponse<string> & {status: 200})
+    | (HttpResponse<Blob> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {

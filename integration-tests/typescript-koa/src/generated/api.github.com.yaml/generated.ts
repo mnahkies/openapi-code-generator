@@ -10,6 +10,7 @@ import {
   type KoaRuntimeResponder,
   KoaRuntimeResponse,
   type Params,
+  parseOctetStream,
   type Res,
   type ServerConfig,
   type SkipResponse,
@@ -20756,7 +20757,7 @@ export type ReposUploadReleaseAsset = (
   params: Params<
     t_ReposUploadReleaseAssetParamSchema,
     t_ReposUploadReleaseAssetQuerySchema,
-    never | undefined,
+    Blob | undefined,
     void
   >,
   respond: ReposUploadReleaseAssetResponder,
@@ -74109,12 +74110,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
           ctx.query,
           RequestInputType.QueryString,
         ),
-        // todo: request bodies with content-type 'application/octet-stream' not yet supported
         body: parseRequestInput(
-          z.never().optional(),
-          Reflect.get(ctx.request, "body"),
+          z.any().optional(),
+          await parseOctetStream(ctx),
           RequestInputType.RequestBody,
-        ) as never,
+        ),
         headers: undefined,
       }
 

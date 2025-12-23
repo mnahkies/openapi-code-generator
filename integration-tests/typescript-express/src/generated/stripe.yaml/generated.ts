@@ -7937,7 +7937,7 @@ export type GetQuotesQuoteLineItems = (
 ) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetQuotesQuotePdfResponder = {
-  with200(): ExpressRuntimeResponse<string>
+  with200(): ExpressRuntimeResponse<Blob>
   withDefault(status: StatusCode): ExpressRuntimeResponse<t_error>
 } & ExpressRuntimeResponder
 
@@ -39750,7 +39750,7 @@ export function createRouter(implementation: Implementation): Router {
   })
 
   const getQuotesQuotePdfResponseBodyValidator = responseValidationFactory(
-    [["200", z.string()]],
+    [["200", z.any()]],
     s_error,
   )
 
@@ -39786,7 +39786,7 @@ export function createRouter(implementation: Implementation): Router {
 
         const responder = {
           with200() {
-            return new ExpressRuntimeResponse<string>(200)
+            return new ExpressRuntimeResponse<Blob>(200)
           },
           withDefault(status: StatusCode) {
             return new ExpressRuntimeResponse<t_error>(status)
