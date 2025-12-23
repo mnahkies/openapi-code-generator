@@ -3,17 +3,16 @@
 /* eslint-disable */
 
 import KoaRouter, {type RouterContext} from "@koa/router"
+import {RequestInputType} from "@nahkies/typescript-koa-runtime/errors"
 import {
-  KoaRuntimeError,
-  RequestInputType,
-} from "@nahkies/typescript-koa-runtime/errors"
-import {
+  handleImplementationError,
+  handleResponse,
   type KoaRuntimeResponder,
   KoaRuntimeResponse,
   type Params,
   parseQueryParameters,
-  type Response,
-  SkipResponse,
+  type Res,
+  type SkipResponse,
   type StatusCode,
 } from "@nahkies/typescript-koa-runtime/server"
 import {
@@ -50,7 +49,7 @@ export type GetParamsSimpleQuery = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_GetParamsSimpleQuery200Response>
+  | Res<200, t_GetParamsSimpleQuery200Response>
   | typeof SkipResponse
 >
 
@@ -65,7 +64,7 @@ export type GetParamsDefaultObjectQuery = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_GetParamsDefaultObjectQuery200Response>
+  | Res<200, t_GetParamsDefaultObjectQuery200Response>
   | typeof SkipResponse
 >
 
@@ -80,7 +79,7 @@ export type GetParamsUnexplodedObjectQuery = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_GetParamsUnexplodedObjectQuery200Response>
+  | Res<200, t_GetParamsUnexplodedObjectQuery200Response>
   | typeof SkipResponse
 >
 
@@ -95,7 +94,7 @@ export type GetParamsMixedQuery = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_GetParamsMixedQuery200Response>
+  | Res<200, t_GetParamsMixedQuery200Response>
   | typeof SkipResponse
 >
 
@@ -145,23 +144,10 @@ export function createQueryParametersRouter(
         },
       }
 
-      const response = await implementation
+      await implementation
         .getParamsSimpleQuery(input, responder, ctx, next)
-        .catch((err) => {
-          throw KoaRuntimeError.HandlerError(err)
-        })
-
-      // escape hatch to allow responses to be sent by the implementation handler
-      if (response === SkipResponse) {
-        return
-      }
-
-      const {status, body} =
-        response instanceof KoaRuntimeResponse ? response.unpack() : response
-
-      ctx.body = getParamsSimpleQueryResponseValidator(status, body)
-      ctx.status = status
-      return next()
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, next, getParamsSimpleQueryResponseValidator))
     },
   )
 
@@ -211,23 +197,16 @@ export function createQueryParametersRouter(
         },
       }
 
-      const response = await implementation
+      await implementation
         .getParamsDefaultObjectQuery(input, responder, ctx, next)
-        .catch((err) => {
-          throw KoaRuntimeError.HandlerError(err)
-        })
-
-      // escape hatch to allow responses to be sent by the implementation handler
-      if (response === SkipResponse) {
-        return
-      }
-
-      const {status, body} =
-        response instanceof KoaRuntimeResponse ? response.unpack() : response
-
-      ctx.body = getParamsDefaultObjectQueryResponseValidator(status, body)
-      ctx.status = status
-      return next()
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            next,
+            getParamsDefaultObjectQueryResponseValidator,
+          ),
+        )
     },
   )
 
@@ -277,23 +256,16 @@ export function createQueryParametersRouter(
         },
       }
 
-      const response = await implementation
+      await implementation
         .getParamsUnexplodedObjectQuery(input, responder, ctx, next)
-        .catch((err) => {
-          throw KoaRuntimeError.HandlerError(err)
-        })
-
-      // escape hatch to allow responses to be sent by the implementation handler
-      if (response === SkipResponse) {
-        return
-      }
-
-      const {status, body} =
-        response instanceof KoaRuntimeResponse ? response.unpack() : response
-
-      ctx.body = getParamsUnexplodedObjectQueryResponseValidator(status, body)
-      ctx.status = status
-      return next()
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            next,
+            getParamsUnexplodedObjectQueryResponseValidator,
+          ),
+        )
     },
   )
 
@@ -334,23 +306,10 @@ export function createQueryParametersRouter(
         },
       }
 
-      const response = await implementation
+      await implementation
         .getParamsMixedQuery(input, responder, ctx, next)
-        .catch((err) => {
-          throw KoaRuntimeError.HandlerError(err)
-        })
-
-      // escape hatch to allow responses to be sent by the implementation handler
-      if (response === SkipResponse) {
-        return
-      }
-
-      const {status, body} =
-        response instanceof KoaRuntimeResponse ? response.unpack() : response
-
-      ctx.body = getParamsMixedQueryResponseValidator(status, body)
-      ctx.status = status
-      return next()
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, next, getParamsMixedQueryResponseValidator))
     },
   )
 

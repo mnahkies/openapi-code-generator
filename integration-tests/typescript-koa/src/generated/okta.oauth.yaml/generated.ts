@@ -3,17 +3,16 @@
 /* eslint-disable */
 
 import KoaRouter, {type RouterContext} from "@koa/router"
+import {RequestInputType} from "@nahkies/typescript-koa-runtime/errors"
 import {
-  KoaRuntimeError,
-  RequestInputType,
-} from "@nahkies/typescript-koa-runtime/errors"
-import {
+  handleImplementationError,
+  handleResponse,
   type KoaRuntimeResponder,
   KoaRuntimeResponse,
   type Params,
-  type Response,
+  type Res,
   type ServerConfig,
-  SkipResponse,
+  type SkipResponse,
   type StatusCode,
   startServer,
 } from "@nahkies/typescript-koa-runtime/server"
@@ -136,8 +135,8 @@ export type GetWellKnownOpenIdConfiguration = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_OidcMetadata>
-  | Response<400, t_Error>
+  | Res<200, t_OidcMetadata>
+  | Res<400, t_Error>
   | typeof SkipResponse
 >
 
@@ -151,7 +150,7 @@ export type Authorize = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  KoaRuntimeResponse<unknown> | Response<429, t_Error> | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<429, t_Error> | typeof SkipResponse
 >
 
 export type AuthorizeWithPostResponder = {
@@ -164,7 +163,7 @@ export type AuthorizeWithPost = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  KoaRuntimeResponse<unknown> | Response<429, t_Error> | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<429, t_Error> | typeof SkipResponse
 >
 
 export type BcAuthorizeResponder = {
@@ -181,10 +180,10 @@ export type BcAuthorize = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_BackchannelAuthorizeResponse>
-  | Response<400, t_OAuthError>
-  | Response<401, t_OAuthError>
-  | Response<429, t_Error>
+  | Res<200, t_BackchannelAuthorizeResponse>
+  | Res<400, t_OAuthError>
+  | Res<401, t_OAuthError>
+  | Res<429, t_Error>
   | typeof SkipResponse
 >
 
@@ -203,11 +202,11 @@ export type Challenge = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_ChallengeResponse>
-  | Response<400, t_OAuthError>
-  | Response<401, t_OAuthError>
-  | Response<403, t_OAuthError>
-  | Response<429, t_OAuthError>
+  | Res<200, t_ChallengeResponse>
+  | Res<400, t_OAuthError>
+  | Res<401, t_OAuthError>
+  | Res<403, t_OAuthError>
+  | Res<429, t_OAuthError>
   | typeof SkipResponse
 >
 
@@ -224,9 +223,9 @@ export type ListClients = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_Client[]>
-  | Response<403, t_Error>
-  | Response<429, t_Error>
+  | Res<200, t_Client[]>
+  | Res<403, t_Error>
+  | Res<429, t_Error>
   | typeof SkipResponse
 >
 
@@ -244,10 +243,10 @@ export type CreateClient = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, t_Client>
-  | Response<400, t_Error>
-  | Response<403, t_Error>
-  | Response<429, t_Error>
+  | Res<201, t_Client>
+  | Res<400, t_Error>
+  | Res<403, t_Error>
+  | Res<429, t_Error>
   | typeof SkipResponse
 >
 
@@ -265,10 +264,10 @@ export type GetClient = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_Client>
-  | Response<403, t_Error>
-  | Response<404, t_Error>
-  | Response<429, t_Error>
+  | Res<200, t_Client>
+  | Res<403, t_Error>
+  | Res<404, t_Error>
+  | Res<429, t_Error>
   | typeof SkipResponse
 >
 
@@ -287,11 +286,11 @@ export type ReplaceClient = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_Client>
-  | Response<400, t_Error>
-  | Response<403, t_Error>
-  | Response<404, t_Error>
-  | Response<429, t_Error>
+  | Res<200, t_Client>
+  | Res<400, t_Error>
+  | Res<403, t_Error>
+  | Res<404, t_Error>
+  | Res<429, t_Error>
   | typeof SkipResponse
 >
 
@@ -309,10 +308,10 @@ export type DeleteClient = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<403, t_Error>
-  | Response<404, t_Error>
-  | Response<429, t_Error>
+  | Res<204, void>
+  | Res<403, t_Error>
+  | Res<404, t_Error>
+  | Res<429, t_Error>
   | typeof SkipResponse
 >
 
@@ -330,10 +329,10 @@ export type GenerateNewClientSecret = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_Client>
-  | Response<403, t_Error>
-  | Response<404, t_Error>
-  | Response<429, t_Error>
+  | Res<200, t_Client>
+  | Res<403, t_Error>
+  | Res<404, t_Error>
+  | Res<429, t_Error>
   | typeof SkipResponse
 >
 
@@ -351,10 +350,10 @@ export type DeviceAuthorize = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_DeviceAuthorizeResponse>
-  | Response<400, t_OAuthError>
-  | Response<401, t_OAuthError>
-  | Response<429, t_Error>
+  | Res<200, t_DeviceAuthorizeResponse>
+  | Res<400, t_OAuthError>
+  | Res<401, t_OAuthError>
+  | Res<429, t_Error>
   | typeof SkipResponse
 >
 
@@ -372,10 +371,10 @@ export type GlobalTokenRevocation = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<400, void>
-  | Response<403, t_Error>
-  | Response<429, t_Error>
+  | Res<204, void>
+  | Res<400, void>
+  | Res<403, t_Error>
+  | Res<429, t_Error>
   | typeof SkipResponse
 >
 
@@ -393,10 +392,10 @@ export type Introspect = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_IntrospectionResponse>
-  | Response<400, t_OAuthError>
-  | Response<401, t_OAuthError>
-  | Response<429, t_Error>
+  | Res<200, t_IntrospectionResponse>
+  | Res<400, t_OAuthError>
+  | Res<401, t_OAuthError>
+  | Res<429, t_Error>
   | typeof SkipResponse
 >
 
@@ -412,8 +411,8 @@ export type OauthKeys = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_OAuthKeys>
-  | Response<429, t_Error>
+  | Res<200, t_OAuthKeys>
+  | Res<429, t_Error>
   | typeof SkipResponse
 >
 
@@ -429,8 +428,8 @@ export type Logout = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, void>
-  | Response<429, t_Error>
+  | Res<200, void>
+  | Res<429, t_Error>
   | typeof SkipResponse
 >
 
@@ -446,8 +445,8 @@ export type LogoutWithPost = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, void>
-  | Response<429, t_Error>
+  | Res<200, void>
+  | Res<429, t_Error>
   | typeof SkipResponse
 >
 
@@ -466,11 +465,11 @@ export type OobAuthenticate = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_OobAuthenticateResponse>
-  | Response<400, t_OAuthError>
-  | Response<401, t_OAuthError>
-  | Response<403, t_OAuthError>
-  | Response<429, t_OAuthError>
+  | Res<200, t_OobAuthenticateResponse>
+  | Res<400, t_OAuthError>
+  | Res<401, t_OAuthError>
+  | Res<403, t_OAuthError>
+  | Res<429, t_OAuthError>
   | typeof SkipResponse
 >
 
@@ -486,8 +485,8 @@ export type ParOptions = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<429, t_Error>
+  | Res<204, void>
+  | Res<429, t_Error>
   | typeof SkipResponse
 >
 
@@ -506,11 +505,11 @@ export type Par = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_ParResponse>
-  | Response<400, t_OAuthError>
-  | Response<401, t_OAuthError>
-  | Response<403, t_OAuthError>
-  | Response<429, t_Error>
+  | Res<200, t_ParResponse>
+  | Res<400, t_OAuthError>
+  | Res<401, t_OAuthError>
+  | Res<403, t_OAuthError>
+  | Res<429, t_Error>
   | typeof SkipResponse
 >
 
@@ -528,10 +527,10 @@ export type Revoke = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, void>
-  | Response<400, t_OAuthError>
-  | Response<401, t_OAuthError>
-  | Response<429, t_Error>
+  | Res<200, void>
+  | Res<400, t_OAuthError>
+  | Res<401, t_OAuthError>
+  | Res<429, t_Error>
   | typeof SkipResponse
 >
 
@@ -547,8 +546,8 @@ export type TokenOptions = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<429, t_Error>
+  | Res<204, void>
+  | Res<429, t_Error>
   | typeof SkipResponse
 >
 
@@ -566,10 +565,10 @@ export type Token = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_TokenResponse>
-  | Response<400, t_OAuthError>
-  | Response<401, t_OAuthError>
-  | Response<429, t_Error>
+  | Res<200, t_TokenResponse>
+  | Res<400, t_OAuthError>
+  | Res<401, t_OAuthError>
+  | Res<429, t_Error>
   | typeof SkipResponse
 >
 
@@ -587,10 +586,10 @@ export type Userinfo = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_UserInfo>
-  | Response<401, void>
-  | Response<403, void>
-  | Response<429, t_Error>
+  | Res<200, t_UserInfo>
+  | Res<401, void>
+  | Res<403, void>
+  | Res<429, t_Error>
   | typeof SkipResponse
 >
 
@@ -612,9 +611,9 @@ export type GetWellKnownOAuthConfigurationCustomAs = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_OAuthMetadata>
-  | Response<400, t_Error>
-  | Response<404, t_Error>
+  | Res<200, t_OAuthMetadata>
+  | Res<400, t_Error>
+  | Res<404, t_Error>
   | typeof SkipResponse
 >
 
@@ -636,9 +635,9 @@ export type GetWellKnownOpenIdConfigurationCustomAs = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_OidcMetadata>
-  | Response<400, t_Error>
-  | Response<404, t_Error>
+  | Res<200, t_OidcMetadata>
+  | Res<400, t_Error>
+  | Res<404, t_Error>
   | typeof SkipResponse
 >
 
@@ -657,7 +656,7 @@ export type AuthorizeCustomAs = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  KoaRuntimeResponse<unknown> | Response<429, t_Error> | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<429, t_Error> | typeof SkipResponse
 >
 
 export type AuthorizeCustomAsWithPostResponder = {
@@ -675,7 +674,7 @@ export type AuthorizeCustomAsWithPost = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  KoaRuntimeResponse<unknown> | Response<429, t_Error> | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<429, t_Error> | typeof SkipResponse
 >
 
 export type BcAuthorizeCustomAsResponder = {
@@ -697,10 +696,10 @@ export type BcAuthorizeCustomAs = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_BackchannelAuthorizeResponse>
-  | Response<400, t_OAuthError>
-  | Response<401, t_OAuthError>
-  | Response<429, t_Error>
+  | Res<200, t_BackchannelAuthorizeResponse>
+  | Res<400, t_OAuthError>
+  | Res<401, t_OAuthError>
+  | Res<429, t_Error>
   | typeof SkipResponse
 >
 
@@ -724,11 +723,11 @@ export type ChallengeCustomAs = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_ChallengeResponse>
-  | Response<400, t_OAuthError>
-  | Response<401, t_OAuthError>
-  | Response<403, t_OAuthError>
-  | Response<429, t_OAuthError>
+  | Res<200, t_ChallengeResponse>
+  | Res<400, t_OAuthError>
+  | Res<401, t_OAuthError>
+  | Res<403, t_OAuthError>
+  | Res<429, t_OAuthError>
   | typeof SkipResponse
 >
 
@@ -751,10 +750,10 @@ export type DeviceAuthorizeCustomAs = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_DeviceAuthorizeResponse>
-  | Response<400, t_OAuthError>
-  | Response<401, t_OAuthError>
-  | Response<429, t_Error>
+  | Res<200, t_DeviceAuthorizeResponse>
+  | Res<400, t_OAuthError>
+  | Res<401, t_OAuthError>
+  | Res<429, t_Error>
   | typeof SkipResponse
 >
 
@@ -777,10 +776,10 @@ export type IntrospectCustomAs = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_IntrospectionResponse>
-  | Response<400, t_OAuthError>
-  | Response<401, t_OAuthError>
-  | Response<429, t_Error>
+  | Res<200, t_IntrospectionResponse>
+  | Res<400, t_OAuthError>
+  | Res<401, t_OAuthError>
+  | Res<429, t_Error>
   | typeof SkipResponse
 >
 
@@ -796,8 +795,8 @@ export type OauthKeysCustomAs = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_OAuthKeys>
-  | Response<429, t_Error>
+  | Res<200, t_OAuthKeys>
+  | Res<429, t_Error>
   | typeof SkipResponse
 >
 
@@ -818,8 +817,8 @@ export type LogoutCustomAs = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, void>
-  | Response<429, t_Error>
+  | Res<200, void>
+  | Res<429, t_Error>
   | typeof SkipResponse
 >
 
@@ -840,8 +839,8 @@ export type LogoutCustomAsWithPost = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, void>
-  | Response<429, t_Error>
+  | Res<200, void>
+  | Res<429, t_Error>
   | typeof SkipResponse
 >
 
@@ -865,11 +864,11 @@ export type OobAuthenticateCustomAs = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_OobAuthenticateResponse>
-  | Response<400, t_OAuthError>
-  | Response<401, t_OAuthError>
-  | Response<403, t_OAuthError>
-  | Response<429, t_OAuthError>
+  | Res<200, t_OobAuthenticateResponse>
+  | Res<400, t_OAuthError>
+  | Res<401, t_OAuthError>
+  | Res<403, t_OAuthError>
+  | Res<429, t_OAuthError>
   | typeof SkipResponse
 >
 
@@ -890,8 +889,8 @@ export type ParOptionsCustomAs = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<429, t_Error>
+  | Res<204, void>
+  | Res<429, t_Error>
   | typeof SkipResponse
 >
 
@@ -910,11 +909,11 @@ export type ParCustomAs = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_ParResponse>
-  | Response<400, t_OAuthError>
-  | Response<401, t_OAuthError>
-  | Response<403, t_OAuthError>
-  | Response<429, t_Error>
+  | Res<200, t_ParResponse>
+  | Res<400, t_OAuthError>
+  | Res<401, t_OAuthError>
+  | Res<403, t_OAuthError>
+  | Res<429, t_Error>
   | typeof SkipResponse
 >
 
@@ -932,10 +931,10 @@ export type RevokeCustomAs = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, void>
-  | Response<400, t_OAuthError>
-  | Response<401, t_OAuthError>
-  | Response<429, t_Error>
+  | Res<200, void>
+  | Res<400, t_OAuthError>
+  | Res<401, t_OAuthError>
+  | Res<429, t_Error>
   | typeof SkipResponse
 >
 
@@ -956,8 +955,8 @@ export type TokenOptionsCustomAs = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<429, t_Error>
+  | Res<204, void>
+  | Res<429, t_Error>
   | typeof SkipResponse
 >
 
@@ -975,10 +974,10 @@ export type TokenCustomAs = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_TokenResponse>
-  | Response<400, t_OAuthError>
-  | Response<401, t_OAuthError>
-  | Response<429, t_Error>
+  | Res<200, t_TokenResponse>
+  | Res<400, t_OAuthError>
+  | Res<401, t_OAuthError>
+  | Res<429, t_Error>
   | typeof SkipResponse
 >
 
@@ -996,10 +995,10 @@ export type UserinfoCustomAs = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_UserInfo>
-  | Response<401, void>
-  | Response<403, void>
-  | Response<429, t_Error>
+  | Res<200, t_UserInfo>
+  | Res<401, void>
+  | Res<403, void>
+  | Res<429, t_Error>
   | typeof SkipResponse
 >
 
@@ -1091,23 +1090,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
         },
       }
 
-      const response = await implementation
+      await implementation
         .getWellKnownOpenIdConfiguration(input, responder, ctx, next)
-        .catch((err) => {
-          throw KoaRuntimeError.HandlerError(err)
-        })
-
-      // escape hatch to allow responses to be sent by the implementation handler
-      if (response === SkipResponse) {
-        return
-      }
-
-      const {status, body} =
-        response instanceof KoaRuntimeResponse ? response.unpack() : response
-
-      ctx.body = getWellKnownOpenIdConfigurationResponseValidator(status, body)
-      ctx.status = status
-      return next()
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            next,
+            getWellKnownOpenIdConfigurationResponseValidator,
+          ),
+        )
     },
   )
 
@@ -1160,23 +1152,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       },
     }
 
-    const response = await implementation
+    await implementation
       .authorize(input, responder, ctx, next)
-      .catch((err) => {
-        throw KoaRuntimeError.HandlerError(err)
-      })
-
-    // escape hatch to allow responses to be sent by the implementation handler
-    if (response === SkipResponse) {
-      return
-    }
-
-    const {status, body} =
-      response instanceof KoaRuntimeResponse ? response.unpack() : response
-
-    ctx.body = authorizeResponseValidator(status, body)
-    ctx.status = status
-    return next()
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, next, authorizeResponseValidator))
   })
 
   const authorizeWithPostResponseValidator = responseValidationFactory(
@@ -1208,23 +1187,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
         },
       }
 
-      const response = await implementation
+      await implementation
         .authorizeWithPost(input, responder, ctx, next)
-        .catch((err) => {
-          throw KoaRuntimeError.HandlerError(err)
-        })
-
-      // escape hatch to allow responses to be sent by the implementation handler
-      if (response === SkipResponse) {
-        return
-      }
-
-      const {status, body} =
-        response instanceof KoaRuntimeResponse ? response.unpack() : response
-
-      ctx.body = authorizeWithPostResponseValidator(status, body)
-      ctx.status = status
-      return next()
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, next, authorizeWithPostResponseValidator))
     },
   )
 
@@ -1268,23 +1234,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       },
     }
 
-    const response = await implementation
+    await implementation
       .bcAuthorize(input, responder, ctx, next)
-      .catch((err) => {
-        throw KoaRuntimeError.HandlerError(err)
-      })
-
-    // escape hatch to allow responses to be sent by the implementation handler
-    if (response === SkipResponse) {
-      return
-    }
-
-    const {status, body} =
-      response instanceof KoaRuntimeResponse ? response.unpack() : response
-
-    ctx.body = bcAuthorizeResponseValidator(status, body)
-    ctx.status = status
-    return next()
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, next, bcAuthorizeResponseValidator))
   })
 
   const challengeResponseValidator = responseValidationFactory(
@@ -1331,23 +1284,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       },
     }
 
-    const response = await implementation
+    await implementation
       .challenge(input, responder, ctx, next)
-      .catch((err) => {
-        throw KoaRuntimeError.HandlerError(err)
-      })
-
-    // escape hatch to allow responses to be sent by the implementation handler
-    if (response === SkipResponse) {
-      return
-    }
-
-    const {status, body} =
-      response instanceof KoaRuntimeResponse ? response.unpack() : response
-
-    ctx.body = challengeResponseValidator(status, body)
-    ctx.status = status
-    return next()
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, next, challengeResponseValidator))
   })
 
   const listClientsQuerySchema = z.object({
@@ -1392,23 +1332,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       },
     }
 
-    const response = await implementation
+    await implementation
       .listClients(input, responder, ctx, next)
-      .catch((err) => {
-        throw KoaRuntimeError.HandlerError(err)
-      })
-
-    // escape hatch to allow responses to be sent by the implementation handler
-    if (response === SkipResponse) {
-      return
-    }
-
-    const {status, body} =
-      response instanceof KoaRuntimeResponse ? response.unpack() : response
-
-    ctx.body = listClientsResponseValidator(status, body)
-    ctx.status = status
-    return next()
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, next, listClientsResponseValidator))
   })
 
   const createClientResponseValidator = responseValidationFactory(
@@ -1451,23 +1378,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       },
     }
 
-    const response = await implementation
+    await implementation
       .createClient(input, responder, ctx, next)
-      .catch((err) => {
-        throw KoaRuntimeError.HandlerError(err)
-      })
-
-    // escape hatch to allow responses to be sent by the implementation handler
-    if (response === SkipResponse) {
-      return
-    }
-
-    const {status, body} =
-      response instanceof KoaRuntimeResponse ? response.unpack() : response
-
-    ctx.body = createClientResponseValidator(status, body)
-    ctx.status = status
-    return next()
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, next, createClientResponseValidator))
   })
 
   const getClientParamSchema = z.object({clientId: z.string()})
@@ -1512,23 +1426,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       },
     }
 
-    const response = await implementation
+    await implementation
       .getClient(input, responder, ctx, next)
-      .catch((err) => {
-        throw KoaRuntimeError.HandlerError(err)
-      })
-
-    // escape hatch to allow responses to be sent by the implementation handler
-    if (response === SkipResponse) {
-      return
-    }
-
-    const {status, body} =
-      response instanceof KoaRuntimeResponse ? response.unpack() : response
-
-    ctx.body = getClientResponseValidator(status, body)
-    ctx.status = status
-    return next()
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, next, getClientResponseValidator))
   })
 
   const replaceClientParamSchema = z.object({clientId: z.string()})
@@ -1584,23 +1485,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
         },
       }
 
-      const response = await implementation
+      await implementation
         .replaceClient(input, responder, ctx, next)
-        .catch((err) => {
-          throw KoaRuntimeError.HandlerError(err)
-        })
-
-      // escape hatch to allow responses to be sent by the implementation handler
-      if (response === SkipResponse) {
-        return
-      }
-
-      const {status, body} =
-        response instanceof KoaRuntimeResponse ? response.unpack() : response
-
-      ctx.body = replaceClientResponseValidator(status, body)
-      ctx.status = status
-      return next()
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, next, replaceClientResponseValidator))
     },
   )
 
@@ -1649,23 +1537,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
         },
       }
 
-      const response = await implementation
+      await implementation
         .deleteClient(input, responder, ctx, next)
-        .catch((err) => {
-          throw KoaRuntimeError.HandlerError(err)
-        })
-
-      // escape hatch to allow responses to be sent by the implementation handler
-      if (response === SkipResponse) {
-        return
-      }
-
-      const {status, body} =
-        response instanceof KoaRuntimeResponse ? response.unpack() : response
-
-      ctx.body = deleteClientResponseValidator(status, body)
-      ctx.status = status
-      return next()
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, next, deleteClientResponseValidator))
     },
   )
 
@@ -1714,23 +1589,12 @@ export function createRouter(implementation: Implementation): KoaRouter {
         },
       }
 
-      const response = await implementation
+      await implementation
         .generateNewClientSecret(input, responder, ctx, next)
-        .catch((err) => {
-          throw KoaRuntimeError.HandlerError(err)
-        })
-
-      // escape hatch to allow responses to be sent by the implementation handler
-      if (response === SkipResponse) {
-        return
-      }
-
-      const {status, body} =
-        response instanceof KoaRuntimeResponse ? response.unpack() : response
-
-      ctx.body = generateNewClientSecretResponseValidator(status, body)
-      ctx.status = status
-      return next()
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(ctx, next, generateNewClientSecretResponseValidator),
+        )
     },
   )
 
@@ -1777,23 +1641,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
         },
       }
 
-      const response = await implementation
+      await implementation
         .deviceAuthorize(input, responder, ctx, next)
-        .catch((err) => {
-          throw KoaRuntimeError.HandlerError(err)
-        })
-
-      // escape hatch to allow responses to be sent by the implementation handler
-      if (response === SkipResponse) {
-        return
-      }
-
-      const {status, body} =
-        response instanceof KoaRuntimeResponse ? response.unpack() : response
-
-      ctx.body = deviceAuthorizeResponseValidator(status, body)
-      ctx.status = status
-      return next()
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, next, deviceAuthorizeResponseValidator))
     },
   )
 
@@ -1840,23 +1691,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
         },
       }
 
-      const response = await implementation
+      await implementation
         .globalTokenRevocation(input, responder, ctx, next)
-        .catch((err) => {
-          throw KoaRuntimeError.HandlerError(err)
-        })
-
-      // escape hatch to allow responses to be sent by the implementation handler
-      if (response === SkipResponse) {
-        return
-      }
-
-      const {status, body} =
-        response instanceof KoaRuntimeResponse ? response.unpack() : response
-
-      ctx.body = globalTokenRevocationResponseValidator(status, body)
-      ctx.status = status
-      return next()
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, next, globalTokenRevocationResponseValidator))
     },
   )
 
@@ -1900,23 +1738,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       },
     }
 
-    const response = await implementation
+    await implementation
       .introspect(input, responder, ctx, next)
-      .catch((err) => {
-        throw KoaRuntimeError.HandlerError(err)
-      })
-
-    // escape hatch to allow responses to be sent by the implementation handler
-    if (response === SkipResponse) {
-      return
-    }
-
-    const {status, body} =
-      response instanceof KoaRuntimeResponse ? response.unpack() : response
-
-    ctx.body = introspectResponseValidator(status, body)
-    ctx.status = status
-    return next()
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, next, introspectResponseValidator))
   })
 
   const oauthKeysQuerySchema = z.object({client_id: z.string().optional()})
@@ -1953,23 +1778,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       },
     }
 
-    const response = await implementation
+    await implementation
       .oauthKeys(input, responder, ctx, next)
-      .catch((err) => {
-        throw KoaRuntimeError.HandlerError(err)
-      })
-
-    // escape hatch to allow responses to be sent by the implementation handler
-    if (response === SkipResponse) {
-      return
-    }
-
-    const {status, body} =
-      response instanceof KoaRuntimeResponse ? response.unpack() : response
-
-    ctx.body = oauthKeysResponseValidator(status, body)
-    ctx.status = status
-    return next()
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, next, oauthKeysResponseValidator))
   })
 
   const logoutQuerySchema = z.object({
@@ -2010,23 +1822,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       },
     }
 
-    const response = await implementation
+    await implementation
       .logout(input, responder, ctx, next)
-      .catch((err) => {
-        throw KoaRuntimeError.HandlerError(err)
-      })
-
-    // escape hatch to allow responses to be sent by the implementation handler
-    if (response === SkipResponse) {
-      return
-    }
-
-    const {status, body} =
-      response instanceof KoaRuntimeResponse ? response.unpack() : response
-
-    ctx.body = logoutResponseValidator(status, body)
-    ctx.status = status
-    return next()
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, next, logoutResponseValidator))
   })
 
   const logoutWithPostResponseValidator = responseValidationFactory(
@@ -2061,23 +1860,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       },
     }
 
-    const response = await implementation
+    await implementation
       .logoutWithPost(input, responder, ctx, next)
-      .catch((err) => {
-        throw KoaRuntimeError.HandlerError(err)
-      })
-
-    // escape hatch to allow responses to be sent by the implementation handler
-    if (response === SkipResponse) {
-      return
-    }
-
-    const {status, body} =
-      response instanceof KoaRuntimeResponse ? response.unpack() : response
-
-    ctx.body = logoutWithPostResponseValidator(status, body)
-    ctx.status = status
-    return next()
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, next, logoutWithPostResponseValidator))
   })
 
   const oobAuthenticateResponseValidator = responseValidationFactory(
@@ -2127,23 +1913,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
         },
       }
 
-      const response = await implementation
+      await implementation
         .oobAuthenticate(input, responder, ctx, next)
-        .catch((err) => {
-          throw KoaRuntimeError.HandlerError(err)
-        })
-
-      // escape hatch to allow responses to be sent by the implementation handler
-      if (response === SkipResponse) {
-        return
-      }
-
-      const {status, body} =
-        response instanceof KoaRuntimeResponse ? response.unpack() : response
-
-      ctx.body = oobAuthenticateResponseValidator(status, body)
-      ctx.status = status
-      return next()
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, next, oobAuthenticateResponseValidator))
     },
   )
 
@@ -2183,23 +1956,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       },
     }
 
-    const response = await implementation
+    await implementation
       .parOptions(input, responder, ctx, next)
-      .catch((err) => {
-        throw KoaRuntimeError.HandlerError(err)
-      })
-
-    // escape hatch to allow responses to be sent by the implementation handler
-    if (response === SkipResponse) {
-      return
-    }
-
-    const {status, body} =
-      response instanceof KoaRuntimeResponse ? response.unpack() : response
-
-    ctx.body = parOptionsResponseValidator(status, body)
-    ctx.status = status
-    return next()
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, next, parOptionsResponseValidator))
   })
 
   const parResponseValidator = responseValidationFactory(
@@ -2246,23 +2006,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       },
     }
 
-    const response = await implementation
+    await implementation
       .par(input, responder, ctx, next)
-      .catch((err) => {
-        throw KoaRuntimeError.HandlerError(err)
-      })
-
-    // escape hatch to allow responses to be sent by the implementation handler
-    if (response === SkipResponse) {
-      return
-    }
-
-    const {status, body} =
-      response instanceof KoaRuntimeResponse ? response.unpack() : response
-
-    ctx.body = parResponseValidator(status, body)
-    ctx.status = status
-    return next()
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, next, parResponseValidator))
   })
 
   const revokeResponseValidator = responseValidationFactory(
@@ -2305,23 +2052,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       },
     }
 
-    const response = await implementation
+    await implementation
       .revoke(input, responder, ctx, next)
-      .catch((err) => {
-        throw KoaRuntimeError.HandlerError(err)
-      })
-
-    // escape hatch to allow responses to be sent by the implementation handler
-    if (response === SkipResponse) {
-      return
-    }
-
-    const {status, body} =
-      response instanceof KoaRuntimeResponse ? response.unpack() : response
-
-    ctx.body = revokeResponseValidator(status, body)
-    ctx.status = status
-    return next()
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, next, revokeResponseValidator))
   })
 
   const tokenOptionsRequestHeaderSchema = z.object({
@@ -2360,23 +2094,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       },
     }
 
-    const response = await implementation
+    await implementation
       .tokenOptions(input, responder, ctx, next)
-      .catch((err) => {
-        throw KoaRuntimeError.HandlerError(err)
-      })
-
-    // escape hatch to allow responses to be sent by the implementation handler
-    if (response === SkipResponse) {
-      return
-    }
-
-    const {status, body} =
-      response instanceof KoaRuntimeResponse ? response.unpack() : response
-
-    ctx.body = tokenOptionsResponseValidator(status, body)
-    ctx.status = status
-    return next()
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, next, tokenOptionsResponseValidator))
   })
 
   const tokenResponseValidator = responseValidationFactory(
@@ -2419,23 +2140,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       },
     }
 
-    const response = await implementation
+    await implementation
       .token(input, responder, ctx, next)
-      .catch((err) => {
-        throw KoaRuntimeError.HandlerError(err)
-      })
-
-    // escape hatch to allow responses to be sent by the implementation handler
-    if (response === SkipResponse) {
-      return
-    }
-
-    const {status, body} =
-      response instanceof KoaRuntimeResponse ? response.unpack() : response
-
-    ctx.body = tokenResponseValidator(status, body)
-    ctx.status = status
-    return next()
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, next, tokenResponseValidator))
   })
 
   const userinfoResponseValidator = responseValidationFactory(
@@ -2474,23 +2182,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       },
     }
 
-    const response = await implementation
+    await implementation
       .userinfo(input, responder, ctx, next)
-      .catch((err) => {
-        throw KoaRuntimeError.HandlerError(err)
-      })
-
-    // escape hatch to allow responses to be sent by the implementation handler
-    if (response === SkipResponse) {
-      return
-    }
-
-    const {status, body} =
-      response instanceof KoaRuntimeResponse ? response.unpack() : response
-
-    ctx.body = userinfoResponseValidator(status, body)
-    ctx.status = status
-    return next()
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, next, userinfoResponseValidator))
   })
 
   const getWellKnownOAuthConfigurationCustomAsParamSchema = z.object({
@@ -2545,26 +2240,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
         },
       }
 
-      const response = await implementation
+      await implementation
         .getWellKnownOAuthConfigurationCustomAs(input, responder, ctx, next)
-        .catch((err) => {
-          throw KoaRuntimeError.HandlerError(err)
-        })
-
-      // escape hatch to allow responses to be sent by the implementation handler
-      if (response === SkipResponse) {
-        return
-      }
-
-      const {status, body} =
-        response instanceof KoaRuntimeResponse ? response.unpack() : response
-
-      ctx.body = getWellKnownOAuthConfigurationCustomAsResponseValidator(
-        status,
-        body,
-      )
-      ctx.status = status
-      return next()
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            next,
+            getWellKnownOAuthConfigurationCustomAsResponseValidator,
+          ),
+        )
     },
   )
 
@@ -2620,26 +2305,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
         },
       }
 
-      const response = await implementation
+      await implementation
         .getWellKnownOpenIdConfigurationCustomAs(input, responder, ctx, next)
-        .catch((err) => {
-          throw KoaRuntimeError.HandlerError(err)
-        })
-
-      // escape hatch to allow responses to be sent by the implementation handler
-      if (response === SkipResponse) {
-        return
-      }
-
-      const {status, body} =
-        response instanceof KoaRuntimeResponse ? response.unpack() : response
-
-      ctx.body = getWellKnownOpenIdConfigurationCustomAsResponseValidator(
-        status,
-        body,
-      )
-      ctx.status = status
-      return next()
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            next,
+            getWellKnownOpenIdConfigurationCustomAsResponseValidator,
+          ),
+        )
     },
   )
 
@@ -2703,23 +2378,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
         },
       }
 
-      const response = await implementation
+      await implementation
         .authorizeCustomAs(input, responder, ctx, next)
-        .catch((err) => {
-          throw KoaRuntimeError.HandlerError(err)
-        })
-
-      // escape hatch to allow responses to be sent by the implementation handler
-      if (response === SkipResponse) {
-        return
-      }
-
-      const {status, body} =
-        response instanceof KoaRuntimeResponse ? response.unpack() : response
-
-      ctx.body = authorizeCustomAsResponseValidator(status, body)
-      ctx.status = status
-      return next()
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, next, authorizeCustomAsResponseValidator))
     },
   )
 
@@ -2760,23 +2422,12 @@ export function createRouter(implementation: Implementation): KoaRouter {
         },
       }
 
-      const response = await implementation
+      await implementation
         .authorizeCustomAsWithPost(input, responder, ctx, next)
-        .catch((err) => {
-          throw KoaRuntimeError.HandlerError(err)
-        })
-
-      // escape hatch to allow responses to be sent by the implementation handler
-      if (response === SkipResponse) {
-        return
-      }
-
-      const {status, body} =
-        response instanceof KoaRuntimeResponse ? response.unpack() : response
-
-      ctx.body = authorizeCustomAsWithPostResponseValidator(status, body)
-      ctx.status = status
-      return next()
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(ctx, next, authorizeCustomAsWithPostResponseValidator),
+        )
     },
   )
 
@@ -2831,23 +2482,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
         },
       }
 
-      const response = await implementation
+      await implementation
         .bcAuthorizeCustomAs(input, responder, ctx, next)
-        .catch((err) => {
-          throw KoaRuntimeError.HandlerError(err)
-        })
-
-      // escape hatch to allow responses to be sent by the implementation handler
-      if (response === SkipResponse) {
-        return
-      }
-
-      const {status, body} =
-        response instanceof KoaRuntimeResponse ? response.unpack() : response
-
-      ctx.body = bcAuthorizeCustomAsResponseValidator(status, body)
-      ctx.status = status
-      return next()
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, next, bcAuthorizeCustomAsResponseValidator))
     },
   )
 
@@ -2906,23 +2544,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
         },
       }
 
-      const response = await implementation
+      await implementation
         .challengeCustomAs(input, responder, ctx, next)
-        .catch((err) => {
-          throw KoaRuntimeError.HandlerError(err)
-        })
-
-      // escape hatch to allow responses to be sent by the implementation handler
-      if (response === SkipResponse) {
-        return
-      }
-
-      const {status, body} =
-        response instanceof KoaRuntimeResponse ? response.unpack() : response
-
-      ctx.body = challengeCustomAsResponseValidator(status, body)
-      ctx.status = status
-      return next()
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, next, challengeCustomAsResponseValidator))
     },
   )
 
@@ -2977,23 +2602,12 @@ export function createRouter(implementation: Implementation): KoaRouter {
         },
       }
 
-      const response = await implementation
+      await implementation
         .deviceAuthorizeCustomAs(input, responder, ctx, next)
-        .catch((err) => {
-          throw KoaRuntimeError.HandlerError(err)
-        })
-
-      // escape hatch to allow responses to be sent by the implementation handler
-      if (response === SkipResponse) {
-        return
-      }
-
-      const {status, body} =
-        response instanceof KoaRuntimeResponse ? response.unpack() : response
-
-      ctx.body = deviceAuthorizeCustomAsResponseValidator(status, body)
-      ctx.status = status
-      return next()
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(ctx, next, deviceAuthorizeCustomAsResponseValidator),
+        )
     },
   )
 
@@ -3048,23 +2662,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
         },
       }
 
-      const response = await implementation
+      await implementation
         .introspectCustomAs(input, responder, ctx, next)
-        .catch((err) => {
-          throw KoaRuntimeError.HandlerError(err)
-        })
-
-      // escape hatch to allow responses to be sent by the implementation handler
-      if (response === SkipResponse) {
-        return
-      }
-
-      const {status, body} =
-        response instanceof KoaRuntimeResponse ? response.unpack() : response
-
-      ctx.body = introspectCustomAsResponseValidator(status, body)
-      ctx.status = status
-      return next()
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, next, introspectCustomAsResponseValidator))
     },
   )
 
@@ -3107,23 +2708,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
         },
       }
 
-      const response = await implementation
+      await implementation
         .oauthKeysCustomAs(input, responder, ctx, next)
-        .catch((err) => {
-          throw KoaRuntimeError.HandlerError(err)
-        })
-
-      // escape hatch to allow responses to be sent by the implementation handler
-      if (response === SkipResponse) {
-        return
-      }
-
-      const {status, body} =
-        response instanceof KoaRuntimeResponse ? response.unpack() : response
-
-      ctx.body = oauthKeysCustomAsResponseValidator(status, body)
-      ctx.status = status
-      return next()
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, next, oauthKeysCustomAsResponseValidator))
     },
   )
 
@@ -3176,23 +2764,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
         },
       }
 
-      const response = await implementation
+      await implementation
         .logoutCustomAs(input, responder, ctx, next)
-        .catch((err) => {
-          throw KoaRuntimeError.HandlerError(err)
-        })
-
-      // escape hatch to allow responses to be sent by the implementation handler
-      if (response === SkipResponse) {
-        return
-      }
-
-      const {status, body} =
-        response instanceof KoaRuntimeResponse ? response.unpack() : response
-
-      ctx.body = logoutCustomAsResponseValidator(status, body)
-      ctx.status = status
-      return next()
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, next, logoutCustomAsResponseValidator))
     },
   )
 
@@ -3239,23 +2814,12 @@ export function createRouter(implementation: Implementation): KoaRouter {
         },
       }
 
-      const response = await implementation
+      await implementation
         .logoutCustomAsWithPost(input, responder, ctx, next)
-        .catch((err) => {
-          throw KoaRuntimeError.HandlerError(err)
-        })
-
-      // escape hatch to allow responses to be sent by the implementation handler
-      if (response === SkipResponse) {
-        return
-      }
-
-      const {status, body} =
-        response instanceof KoaRuntimeResponse ? response.unpack() : response
-
-      ctx.body = logoutCustomAsWithPostResponseValidator(status, body)
-      ctx.status = status
-      return next()
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(ctx, next, logoutCustomAsWithPostResponseValidator),
+        )
     },
   )
 
@@ -3314,23 +2878,12 @@ export function createRouter(implementation: Implementation): KoaRouter {
         },
       }
 
-      const response = await implementation
+      await implementation
         .oobAuthenticateCustomAs(input, responder, ctx, next)
-        .catch((err) => {
-          throw KoaRuntimeError.HandlerError(err)
-        })
-
-      // escape hatch to allow responses to be sent by the implementation handler
-      if (response === SkipResponse) {
-        return
-      }
-
-      const {status, body} =
-        response instanceof KoaRuntimeResponse ? response.unpack() : response
-
-      ctx.body = oobAuthenticateCustomAsResponseValidator(status, body)
-      ctx.status = status
-      return next()
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(ctx, next, oobAuthenticateCustomAsResponseValidator),
+        )
     },
   )
 
@@ -3381,23 +2934,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
         },
       }
 
-      const response = await implementation
+      await implementation
         .parOptionsCustomAs(input, responder, ctx, next)
-        .catch((err) => {
-          throw KoaRuntimeError.HandlerError(err)
-        })
-
-      // escape hatch to allow responses to be sent by the implementation handler
-      if (response === SkipResponse) {
-        return
-      }
-
-      const {status, body} =
-        response instanceof KoaRuntimeResponse ? response.unpack() : response
-
-      ctx.body = parOptionsCustomAsResponseValidator(status, body)
-      ctx.status = status
-      return next()
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, next, parOptionsCustomAsResponseValidator))
     },
   )
 
@@ -3454,23 +2994,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
         },
       }
 
-      const response = await implementation
+      await implementation
         .parCustomAs(input, responder, ctx, next)
-        .catch((err) => {
-          throw KoaRuntimeError.HandlerError(err)
-        })
-
-      // escape hatch to allow responses to be sent by the implementation handler
-      if (response === SkipResponse) {
-        return
-      }
-
-      const {status, body} =
-        response instanceof KoaRuntimeResponse ? response.unpack() : response
-
-      ctx.body = parCustomAsResponseValidator(status, body)
-      ctx.status = status
-      return next()
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, next, parCustomAsResponseValidator))
     },
   )
 
@@ -3525,23 +3052,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
         },
       }
 
-      const response = await implementation
+      await implementation
         .revokeCustomAs(input, responder, ctx, next)
-        .catch((err) => {
-          throw KoaRuntimeError.HandlerError(err)
-        })
-
-      // escape hatch to allow responses to be sent by the implementation handler
-      if (response === SkipResponse) {
-        return
-      }
-
-      const {status, body} =
-        response instanceof KoaRuntimeResponse ? response.unpack() : response
-
-      ctx.body = revokeCustomAsResponseValidator(status, body)
-      ctx.status = status
-      return next()
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, next, revokeCustomAsResponseValidator))
     },
   )
 
@@ -3592,23 +3106,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
         },
       }
 
-      const response = await implementation
+      await implementation
         .tokenOptionsCustomAs(input, responder, ctx, next)
-        .catch((err) => {
-          throw KoaRuntimeError.HandlerError(err)
-        })
-
-      // escape hatch to allow responses to be sent by the implementation handler
-      if (response === SkipResponse) {
-        return
-      }
-
-      const {status, body} =
-        response instanceof KoaRuntimeResponse ? response.unpack() : response
-
-      ctx.body = tokenOptionsCustomAsResponseValidator(status, body)
-      ctx.status = status
-      return next()
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, next, tokenOptionsCustomAsResponseValidator))
     },
   )
 
@@ -3661,23 +3162,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
         },
       }
 
-      const response = await implementation
+      await implementation
         .tokenCustomAs(input, responder, ctx, next)
-        .catch((err) => {
-          throw KoaRuntimeError.HandlerError(err)
-        })
-
-      // escape hatch to allow responses to be sent by the implementation handler
-      if (response === SkipResponse) {
-        return
-      }
-
-      const {status, body} =
-        response instanceof KoaRuntimeResponse ? response.unpack() : response
-
-      ctx.body = tokenCustomAsResponseValidator(status, body)
-      ctx.status = status
-      return next()
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, next, tokenCustomAsResponseValidator))
     },
   )
 
@@ -3728,23 +3216,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
         },
       }
 
-      const response = await implementation
+      await implementation
         .userinfoCustomAs(input, responder, ctx, next)
-        .catch((err) => {
-          throw KoaRuntimeError.HandlerError(err)
-        })
-
-      // escape hatch to allow responses to be sent by the implementation handler
-      if (response === SkipResponse) {
-        return
-      }
-
-      const {status, body} =
-        response instanceof KoaRuntimeResponse ? response.unpack() : response
-
-      ctx.body = userinfoCustomAsResponseValidator(status, body)
-      ctx.status = status
-      return next()
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, next, userinfoCustomAsResponseValidator))
     },
   )
 

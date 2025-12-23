@@ -2,17 +2,16 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import {
-  ExpressRuntimeError,
-  RequestInputType,
-} from "@nahkies/typescript-express-runtime/errors"
+import {RequestInputType} from "@nahkies/typescript-express-runtime/errors"
 import {
   type ExpressRuntimeResponder,
   ExpressRuntimeResponse,
+  handleImplementationError,
+  handleResponse,
   type Params,
   parseQueryParameters,
   type ServerConfig,
-  SkipResponse,
+  type SkipResponse,
   type StatusCode,
   startServer,
 } from "@nahkies/typescript-express-runtime/server"
@@ -12271,29 +12270,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getAccount(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getAccountResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getAccountResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -12333,29 +12313,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postAccountLinks(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postAccountLinksResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, postAccountLinksResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -12395,29 +12356,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postAccountSessions(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postAccountSessionsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, postAccountSessionsResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -12537,29 +12479,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getAccounts(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getAccountsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getAccountsResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -12599,29 +12522,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postAccounts(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postAccountsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, postAccountsResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -12665,29 +12569,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .deleteAccountsAccount(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(deleteAccountsAccountResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, deleteAccountsAccountResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -12754,29 +12639,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getAccountsAccount(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getAccountsAccountResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getAccountsAccountResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -12824,29 +12690,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postAccountsAccount(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postAccountsAccountResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, postAccountsAccountResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -12892,31 +12739,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postAccountsAccountBankAccounts(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postAccountsAccountBankAccountsResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postAccountsAccountBankAccountsResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -12959,34 +12790,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .deleteAccountsAccountBankAccountsId(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            deleteAccountsAccountBankAccountsIdResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              deleteAccountsAccountBankAccountsIdResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -13052,31 +12864,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getAccountsAccountBankAccountsId(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getAccountsAccountBankAccountsIdResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getAccountsAccountBankAccountsIdResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -13123,34 +12919,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postAccountsAccountBankAccountsId(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postAccountsAccountBankAccountsIdResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postAccountsAccountBankAccountsIdResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -13233,31 +13010,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getAccountsAccountCapabilities(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getAccountsAccountCapabilitiesResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getAccountsAccountCapabilitiesResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -13323,7 +13084,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getAccountsAccountCapabilitiesCapability(
             input,
             responder,
@@ -13331,32 +13092,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getAccountsAccountCapabilitiesCapabilityResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getAccountsAccountCapabilitiesCapabilityResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -13403,7 +13145,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postAccountsAccountCapabilitiesCapability(
             input,
             responder,
@@ -13411,32 +13153,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postAccountsAccountCapabilitiesCapabilityResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postAccountsAccountCapabilitiesCapabilityResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -13549,34 +13272,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getAccountsAccountExternalAccounts(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getAccountsAccountExternalAccountsResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getAccountsAccountExternalAccountsResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -13622,34 +13326,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postAccountsAccountExternalAccounts(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postAccountsAccountExternalAccountsResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postAccountsAccountExternalAccountsResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -13692,7 +13377,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .deleteAccountsAccountExternalAccountsId(
             input,
             responder,
@@ -13700,32 +13385,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            deleteAccountsAccountExternalAccountsIdResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              deleteAccountsAccountExternalAccountsIdResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -13791,7 +13457,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getAccountsAccountExternalAccountsId(
             input,
             responder,
@@ -13799,32 +13465,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getAccountsAccountExternalAccountsIdResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getAccountsAccountExternalAccountsIdResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -13871,7 +13518,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postAccountsAccountExternalAccountsId(
             input,
             responder,
@@ -13879,32 +13526,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postAccountsAccountExternalAccountsIdResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postAccountsAccountExternalAccountsIdResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -13950,31 +13578,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postAccountsAccountLoginLinks(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postAccountsAccountLoginLinksResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postAccountsAccountLoginLinksResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -14104,29 +13716,12 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getAccountsAccountPeople(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getAccountsAccountPeopleResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(res, getAccountsAccountPeopleResponseBodyValidator),
+          )
       } catch (error) {
         next(error)
       }
@@ -14172,29 +13767,12 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postAccountsAccountPeople(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postAccountsAccountPeopleResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(res, postAccountsAccountPeopleResponseBodyValidator),
+          )
       } catch (error) {
         next(error)
       }
@@ -14237,34 +13815,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .deleteAccountsAccountPeoplePerson(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            deleteAccountsAccountPeoplePersonResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              deleteAccountsAccountPeoplePersonResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -14330,31 +13889,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getAccountsAccountPeoplePerson(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getAccountsAccountPeoplePersonResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getAccountsAccountPeoplePersonResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -14401,31 +13944,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postAccountsAccountPeoplePerson(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postAccountsAccountPeoplePersonResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postAccountsAccountPeoplePersonResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -14555,29 +14082,12 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getAccountsAccountPersons(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getAccountsAccountPersonsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(res, getAccountsAccountPersonsResponseBodyValidator),
+          )
       } catch (error) {
         next(error)
       }
@@ -14623,31 +14133,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postAccountsAccountPersons(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postAccountsAccountPersonsResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postAccountsAccountPersonsResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -14690,34 +14184,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .deleteAccountsAccountPersonsPerson(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            deleteAccountsAccountPersonsPersonResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              deleteAccountsAccountPersonsPersonResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -14783,31 +14258,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getAccountsAccountPersonsPerson(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getAccountsAccountPersonsPersonResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getAccountsAccountPersonsPersonResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -14854,31 +14313,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postAccountsAccountPersonsPerson(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postAccountsAccountPersonsPersonResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postAccountsAccountPersonsPersonResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -14924,29 +14367,12 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postAccountsAccountReject(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postAccountsAccountRejectResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(res, postAccountsAccountRejectResponseBodyValidator),
+          )
       } catch (error) {
         next(error)
       }
@@ -15048,29 +14474,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getApplePayDomains(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getApplePayDomainsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getApplePayDomainsResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -15110,29 +14517,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postApplePayDomains(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postApplePayDomainsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, postApplePayDomainsResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -15174,31 +14562,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .deleteApplePayDomainsDomain(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            deleteApplePayDomainsDomainResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              deleteApplePayDomainsDomainResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -15263,29 +14635,12 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getApplePayDomainsDomain(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getApplePayDomainsDomainResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(res, getApplePayDomainsDomainResponseBodyValidator),
+          )
       } catch (error) {
         next(error)
       }
@@ -15412,29 +14767,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getApplicationFees(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getApplicationFeesResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getApplicationFeesResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -15500,31 +14836,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getApplicationFeesFeeRefundsId(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getApplicationFeesFeeRefundsIdResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getApplicationFeesFeeRefundsIdResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -15571,31 +14891,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postApplicationFeesFeeRefundsId(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postApplicationFeesFeeRefundsIdResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postApplicationFeesFeeRefundsIdResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -15660,29 +14964,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getApplicationFeesId(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getApplicationFeesIdResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getApplicationFeesIdResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -15728,31 +15013,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postApplicationFeesIdRefund(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postApplicationFeesIdRefundResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postApplicationFeesIdRefundResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -15856,31 +15125,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getApplicationFeesIdRefunds(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getApplicationFeesIdRefundsResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getApplicationFeesIdRefundsResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -15926,31 +15179,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postApplicationFeesIdRefunds(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postApplicationFeesIdRefundsResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postApplicationFeesIdRefundsResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -16061,29 +15298,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getAppsSecrets(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getAppsSecretsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getAppsSecretsResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -16123,29 +15341,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postAppsSecrets(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postAppsSecretsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, postAppsSecretsResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -16185,29 +15384,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postAppsSecretsDelete(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postAppsSecretsDeleteResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, postAppsSecretsDeleteResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -16289,29 +15469,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getAppsSecretsFind(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getAppsSecretsFindResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getAppsSecretsFindResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -16370,29 +15531,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getBalance(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getBalanceResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getBalanceResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -16543,29 +15685,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getBalanceHistory(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getBalanceHistoryResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getBalanceHistoryResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -16630,29 +15753,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getBalanceHistoryId(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getBalanceHistoryIdResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getBalanceHistoryIdResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -16803,29 +15907,12 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getBalanceTransactions(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getBalanceTransactionsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(res, getBalanceTransactionsResponseBodyValidator),
+          )
       } catch (error) {
         next(error)
       }
@@ -16890,29 +15977,12 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getBalanceTransactionsId(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getBalanceTransactionsIdResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(res, getBalanceTransactionsIdResponseBodyValidator),
+          )
       } catch (error) {
         next(error)
       }
@@ -17021,29 +16091,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getBillingAlerts(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getBillingAlertsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getBillingAlertsResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -17083,29 +16134,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postBillingAlerts(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postBillingAlertsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, postBillingAlertsResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -17170,29 +16202,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getBillingAlertsId(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getBillingAlertsIdResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getBillingAlertsIdResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -17238,31 +16251,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postBillingAlertsIdActivate(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postBillingAlertsIdActivateResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postBillingAlertsIdActivateResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -17308,31 +16305,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postBillingAlertsIdArchive(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postBillingAlertsIdArchiveResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postBillingAlertsIdArchiveResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -17378,31 +16359,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postBillingAlertsIdDeactivate(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postBillingAlertsIdDeactivateResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postBillingAlertsIdDeactivateResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -17506,31 +16471,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getBillingCreditBalanceSummary(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getBillingCreditBalanceSummaryResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getBillingCreditBalanceSummaryResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -17643,34 +16592,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getBillingCreditBalanceTransactions(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getBillingCreditBalanceTransactionsResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getBillingCreditBalanceTransactionsResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -17740,7 +16670,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getBillingCreditBalanceTransactionsId(
             input,
             responder,
@@ -17748,32 +16678,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getBillingCreditBalanceTransactionsIdResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getBillingCreditBalanceTransactionsIdResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -17878,29 +16789,12 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getBillingCreditGrants(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getBillingCreditGrantsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(res, getBillingCreditGrantsResponseBodyValidator),
+          )
       } catch (error) {
         next(error)
       }
@@ -17938,29 +16832,12 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postBillingCreditGrants(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postBillingCreditGrantsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(res, postBillingCreditGrantsResponseBodyValidator),
+          )
       } catch (error) {
         next(error)
       }
@@ -18025,29 +16902,12 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getBillingCreditGrantsId(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getBillingCreditGrantsIdResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(res, getBillingCreditGrantsIdResponseBodyValidator),
+          )
       } catch (error) {
         next(error)
       }
@@ -18093,29 +16953,12 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postBillingCreditGrantsId(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postBillingCreditGrantsIdResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(res, postBillingCreditGrantsIdResponseBodyValidator),
+          )
       } catch (error) {
         next(error)
       }
@@ -18161,31 +17004,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postBillingCreditGrantsIdExpire(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postBillingCreditGrantsIdExpireResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postBillingCreditGrantsIdExpireResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -18231,31 +17058,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postBillingCreditGrantsIdVoid(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postBillingCreditGrantsIdVoidResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postBillingCreditGrantsIdVoidResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -18298,31 +17109,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postBillingMeterEventAdjustments(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postBillingMeterEventAdjustmentsResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postBillingMeterEventAdjustmentsResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -18362,29 +17157,12 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postBillingMeterEvents(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postBillingMeterEventsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(res, postBillingMeterEventsResponseBodyValidator),
+          )
       } catch (error) {
         next(error)
       }
@@ -18486,29 +17264,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getBillingMeters(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getBillingMetersResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getBillingMetersResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -18548,29 +17307,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postBillingMeters(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postBillingMetersResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, postBillingMetersResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -18635,29 +17375,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getBillingMetersId(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getBillingMetersIdResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getBillingMetersIdResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -18703,29 +17424,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postBillingMetersId(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postBillingMetersIdResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, postBillingMetersIdResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -18771,31 +17473,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postBillingMetersIdDeactivate(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postBillingMetersIdDeactivateResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postBillingMetersIdDeactivateResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -18930,31 +17616,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getBillingMetersIdEventSummaries(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getBillingMetersIdEventSummariesResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getBillingMetersIdEventSummariesResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -19000,31 +17670,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postBillingMetersIdReactivate(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postBillingMetersIdReactivateResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postBillingMetersIdReactivateResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -19137,31 +17791,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getBillingPortalConfigurations(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getBillingPortalConfigurationsResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getBillingPortalConfigurationsResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -19204,31 +17842,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postBillingPortalConfigurations(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postBillingPortalConfigurationsResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postBillingPortalConfigurationsResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -19298,7 +17920,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getBillingPortalConfigurationsConfiguration(
             input,
             responder,
@@ -19306,32 +17928,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getBillingPortalConfigurationsConfigurationResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getBillingPortalConfigurationsConfigurationResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -19382,7 +17985,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postBillingPortalConfigurationsConfiguration(
             input,
             responder,
@@ -19390,32 +17993,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postBillingPortalConfigurationsConfigurationResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postBillingPortalConfigurationsConfigurationResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -19453,29 +18037,12 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postBillingPortalSessions(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postBillingPortalSessionsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(res, postBillingPortalSessionsResponseBodyValidator),
+          )
       } catch (error) {
         next(error)
       }
@@ -19616,29 +18183,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getCharges(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getChargesResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getChargesResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -19678,29 +18226,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postCharges(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postChargesResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, postChargesResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -19799,29 +18328,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getChargesSearch(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getChargesSearchResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getChargesSearchResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -19886,29 +18396,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getChargesCharge(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getChargesChargeResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getChargesChargeResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -19954,29 +18445,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postChargesCharge(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postChargesChargeResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, postChargesChargeResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -20022,29 +18494,12 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postChargesChargeCapture(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postChargesChargeCaptureResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(res, postChargesChargeCaptureResponseBodyValidator),
+          )
       } catch (error) {
         next(error)
       }
@@ -20109,29 +18564,12 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getChargesChargeDispute(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getChargesChargeDisputeResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(res, getChargesChargeDisputeResponseBodyValidator),
+          )
       } catch (error) {
         next(error)
       }
@@ -20177,29 +18615,12 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postChargesChargeDispute(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postChargesChargeDisputeResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(res, postChargesChargeDisputeResponseBodyValidator),
+          )
       } catch (error) {
         next(error)
       }
@@ -20245,31 +18666,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postChargesChargeDisputeClose(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postChargesChargeDisputeCloseResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postChargesChargeDisputeCloseResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -20315,29 +18720,12 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postChargesChargeRefund(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postChargesChargeRefundResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(res, postChargesChargeRefundResponseBodyValidator),
+          )
       } catch (error) {
         next(error)
       }
@@ -20439,29 +18827,12 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getChargesChargeRefunds(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getChargesChargeRefundsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(res, getChargesChargeRefundsResponseBodyValidator),
+          )
       } catch (error) {
         next(error)
       }
@@ -20507,29 +18878,12 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postChargesChargeRefunds(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postChargesChargeRefundsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(res, postChargesChargeRefundsResponseBodyValidator),
+          )
       } catch (error) {
         next(error)
       }
@@ -20595,31 +18949,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getChargesChargeRefundsRefund(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getChargesChargeRefundsRefundResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getChargesChargeRefundsRefundResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -20666,31 +19004,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postChargesChargeRefundsRefund(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postChargesChargeRefundsRefundResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postChargesChargeRefundsRefundResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -20855,29 +19177,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getCheckoutSessions(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getCheckoutSessionsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getCheckoutSessionsResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -20917,29 +19220,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postCheckoutSessions(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postCheckoutSessionsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, postCheckoutSessionsResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -21004,31 +19288,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getCheckoutSessionsSession(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getCheckoutSessionsSessionResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getCheckoutSessionsSessionResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -21074,31 +19342,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postCheckoutSessionsSession(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postCheckoutSessionsSessionResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postCheckoutSessionsSessionResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -21144,34 +19396,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postCheckoutSessionsSessionExpire(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postCheckoutSessionsSessionExpireResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postCheckoutSessionsSessionExpireResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -21275,34 +19508,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getCheckoutSessionsSessionLineItems(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getCheckoutSessionsSessionLineItemsResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getCheckoutSessionsSessionLineItemsResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -21397,29 +19611,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getClimateOrders(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getClimateOrdersResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getClimateOrdersResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -21459,29 +19654,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postClimateOrders(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postClimateOrdersResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, postClimateOrdersResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -21548,29 +19724,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getClimateOrdersOrder(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getClimateOrdersOrderResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getClimateOrdersOrderResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -21618,29 +19775,12 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postClimateOrdersOrder(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postClimateOrdersOrderResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(res, postClimateOrdersOrderResponseBodyValidator),
+          )
       } catch (error) {
         next(error)
       }
@@ -21686,31 +19826,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postClimateOrdersOrderCancel(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postClimateOrdersOrderCancelResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postClimateOrdersOrderCancelResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -21805,29 +19929,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getClimateProducts(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getClimateProductsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getClimateProductsResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -21892,29 +19997,12 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getClimateProductsProduct(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getClimateProductsProductResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(res, getClimateProductsProductResponseBodyValidator),
+          )
       } catch (error) {
         next(error)
       }
@@ -22009,29 +20097,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getClimateSuppliers(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getClimateSuppliersResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getClimateSuppliersResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -22096,31 +20165,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getClimateSuppliersSupplier(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getClimateSuppliersSupplierResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getClimateSuppliersSupplierResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -22185,7 +20238,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getConfirmationTokensConfirmationToken(
             input,
             responder,
@@ -22193,32 +20246,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getConfirmationTokensConfirmationTokenResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getConfirmationTokensConfirmationTokenResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -22313,29 +20347,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getCountrySpecs(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getCountrySpecsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getCountrySpecsResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -22402,29 +20417,12 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getCountrySpecsCountry(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getCountrySpecsCountryResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(res, getCountrySpecsCountryResponseBodyValidator),
+          )
       } catch (error) {
         next(error)
       }
@@ -22544,29 +20542,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getCoupons(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getCouponsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getCouponsResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -22606,29 +20585,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postCoupons(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postCouponsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, postCouponsResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -22672,29 +20632,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .deleteCouponsCoupon(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(deleteCouponsCouponResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, deleteCouponsCouponResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -22759,29 +20700,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getCouponsCoupon(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getCouponsCouponResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getCouponsCouponResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -22827,29 +20749,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postCouponsCoupon(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postCouponsCouponResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, postCouponsCouponResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -22983,29 +20886,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getCreditNotes(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getCreditNotesResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getCreditNotesResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -23045,29 +20929,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postCreditNotes(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postCreditNotesResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, postCreditNotesResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -23304,29 +21169,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getCreditNotesPreview(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getCreditNotesPreviewResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getCreditNotesPreviewResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -23600,31 +21446,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getCreditNotesPreviewLines(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getCreditNotesPreviewLinesResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getCreditNotesPreviewLinesResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -23728,31 +21558,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getCreditNotesCreditNoteLines(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getCreditNotesCreditNoteLinesResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getCreditNotesCreditNoteLinesResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -23817,29 +21631,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getCreditNotesId(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getCreditNotesIdResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getCreditNotesIdResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -23885,29 +21680,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postCreditNotesId(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postCreditNotesIdResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, postCreditNotesIdResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -23953,29 +21729,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postCreditNotesIdVoid(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postCreditNotesIdVoidResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, postCreditNotesIdVoidResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -24015,29 +21772,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postCustomerSessions(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postCustomerSessionsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, postCustomerSessionsResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -24171,29 +21909,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getCustomers(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getCustomersResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getCustomersResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -24233,29 +21952,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postCustomers(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postCustomersResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, postCustomersResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -24354,29 +22054,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getCustomersSearch(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getCustomersSearchResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getCustomersSearchResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -24418,29 +22099,12 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .deleteCustomersCustomer(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(deleteCustomersCustomerResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(res, deleteCustomersCustomerResponseBodyValidator),
+          )
       } catch (error) {
         next(error)
       }
@@ -24509,29 +22173,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getCustomersCustomer(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getCustomersCustomerResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getCustomersCustomerResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -24579,29 +22224,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postCustomersCustomer(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postCustomersCustomerResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, postCustomersCustomerResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -24705,7 +22331,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getCustomersCustomerBalanceTransactions(
             input,
             responder,
@@ -24713,32 +22339,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getCustomersCustomerBalanceTransactionsResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getCustomersCustomerBalanceTransactionsResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -24789,7 +22396,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postCustomersCustomerBalanceTransactions(
             input,
             responder,
@@ -24797,32 +22404,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postCustomersCustomerBalanceTransactionsResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postCustomersCustomerBalanceTransactionsResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -24892,7 +22480,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getCustomersCustomerBalanceTransactionsTransaction(
             input,
             responder,
@@ -24900,32 +22488,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getCustomersCustomerBalanceTransactionsTransactionResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getCustomersCustomerBalanceTransactionsTransactionResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -24978,7 +22547,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postCustomersCustomerBalanceTransactionsTransaction(
             input,
             responder,
@@ -24986,32 +22555,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postCustomersCustomerBalanceTransactionsTransactionResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postCustomersCustomerBalanceTransactionsTransactionResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -25115,31 +22665,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getCustomersCustomerBankAccounts(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getCustomersCustomerBankAccountsResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getCustomersCustomerBankAccountsResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -25185,34 +22719,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postCustomersCustomerBankAccounts(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postCustomersCustomerBankAccountsResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postCustomersCustomerBankAccountsResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -25269,7 +22784,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .deleteCustomersCustomerBankAccountsId(
             input,
             responder,
@@ -25277,32 +22792,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            deleteCustomersCustomerBankAccountsIdResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              deleteCustomersCustomerBankAccountsIdResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -25368,34 +22864,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getCustomersCustomerBankAccountsId(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getCustomersCustomerBankAccountsIdResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getCustomersCustomerBankAccountsIdResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -25456,34 +22933,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postCustomersCustomerBankAccountsId(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postCustomersCustomerBankAccountsIdResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postCustomersCustomerBankAccountsIdResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -25530,7 +22988,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postCustomersCustomerBankAccountsIdVerify(
             input,
             responder,
@@ -25538,32 +22996,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postCustomersCustomerBankAccountsIdVerifyResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postCustomersCustomerBankAccountsIdVerifyResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -25667,29 +23106,12 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getCustomersCustomerCards(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getCustomersCustomerCardsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(res, getCustomersCustomerCardsResponseBodyValidator),
+          )
       } catch (error) {
         next(error)
       }
@@ -25735,31 +23157,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postCustomersCustomerCards(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postCustomersCustomerCardsResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postCustomersCustomerCardsResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -25816,31 +23222,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .deleteCustomersCustomerCardsId(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            deleteCustomersCustomerCardsIdResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              deleteCustomersCustomerCardsIdResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -25906,31 +23296,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getCustomersCustomerCardsId(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getCustomersCustomerCardsIdResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getCustomersCustomerCardsIdResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -25991,31 +23365,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postCustomersCustomerCardsId(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postCustomersCustomerCardsIdResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postCustomersCustomerCardsIdResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -26080,31 +23438,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getCustomersCustomerCashBalance(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getCustomersCustomerCashBalanceResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getCustomersCustomerCashBalanceResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -26150,31 +23492,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postCustomersCustomerCashBalance(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postCustomersCustomerCashBalanceResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postCustomersCustomerCashBalanceResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -26278,7 +23604,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getCustomersCustomerCashBalanceTransactions(
             input,
             responder,
@@ -26286,32 +23612,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getCustomersCustomerCashBalanceTransactionsResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getCustomersCustomerCashBalanceTransactionsResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -26381,7 +23688,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getCustomersCustomerCashBalanceTransactionsTransaction(
             input,
             responder,
@@ -26389,32 +23696,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getCustomersCustomerCashBalanceTransactionsTransactionResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getCustomersCustomerCashBalanceTransactionsTransactionResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -26456,31 +23744,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .deleteCustomersCustomerDiscount(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            deleteCustomersCustomerDiscountResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              deleteCustomersCustomerDiscountResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -26545,31 +23817,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getCustomersCustomerDiscount(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getCustomersCustomerDiscountResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getCustomersCustomerDiscountResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -26615,7 +23871,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postCustomersCustomerFundingInstructions(
             input,
             responder,
@@ -26623,32 +23879,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postCustomersCustomerFundingInstructionsResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postCustomersCustomerFundingInstructionsResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -26817,34 +24054,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getCustomersCustomerPaymentMethods(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getCustomersCustomerPaymentMethodsResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getCustomersCustomerPaymentMethodsResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -26910,7 +24128,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getCustomersCustomerPaymentMethodsPaymentMethod(
             input,
             responder,
@@ -26918,32 +24136,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getCustomersCustomerPaymentMethodsPaymentMethodResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getCustomersCustomerPaymentMethodsPaymentMethodResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -27060,31 +24259,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getCustomersCustomerSources(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getCustomersCustomerSourcesResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getCustomersCustomerSourcesResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -27130,31 +24313,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postCustomersCustomerSources(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postCustomersCustomerSourcesResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postCustomersCustomerSourcesResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -27211,31 +24378,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .deleteCustomersCustomerSourcesId(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            deleteCustomersCustomerSourcesIdResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              deleteCustomersCustomerSourcesIdResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -27301,31 +24452,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getCustomersCustomerSourcesId(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getCustomersCustomerSourcesIdResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getCustomersCustomerSourcesIdResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -27386,31 +24521,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postCustomersCustomerSourcesId(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postCustomersCustomerSourcesIdResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postCustomersCustomerSourcesIdResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -27457,7 +24576,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postCustomersCustomerSourcesIdVerify(
             input,
             responder,
@@ -27465,32 +24584,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postCustomersCustomerSourcesIdVerifyResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postCustomersCustomerSourcesIdVerifyResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -27594,34 +24694,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getCustomersCustomerSubscriptions(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getCustomersCustomerSubscriptionsResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getCustomersCustomerSubscriptionsResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -27667,34 +24748,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postCustomersCustomerSubscriptions(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postCustomersCustomerSubscriptionsResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postCustomersCustomerSubscriptionsResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -27742,7 +24804,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .deleteCustomersCustomerSubscriptionsSubscriptionExposedId(
             input,
             responder,
@@ -27750,32 +24812,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            deleteCustomersCustomerSubscriptionsSubscriptionExposedIdResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              deleteCustomersCustomerSubscriptionsSubscriptionExposedIdResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -27843,7 +24886,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getCustomersCustomerSubscriptionsSubscriptionExposedId(
             input,
             responder,
@@ -27851,32 +24894,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getCustomersCustomerSubscriptionsSubscriptionExposedIdResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getCustomersCustomerSubscriptionsSubscriptionExposedIdResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -27924,7 +24948,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postCustomersCustomerSubscriptionsSubscriptionExposedId(
             input,
             responder,
@@ -27932,32 +24956,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postCustomersCustomerSubscriptionsSubscriptionExposedIdResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postCustomersCustomerSubscriptionsSubscriptionExposedIdResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -28001,7 +25006,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .deleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount(
             input,
             responder,
@@ -28009,32 +25014,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            deleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              deleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -28102,7 +25088,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount(
             input,
             responder,
@@ -28110,32 +25096,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -28239,31 +25206,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getCustomersCustomerTaxIds(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getCustomersCustomerTaxIdsResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getCustomersCustomerTaxIdsResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -28309,31 +25260,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postCustomersCustomerTaxIds(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postCustomersCustomerTaxIdsResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postCustomersCustomerTaxIdsResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -28376,31 +25311,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .deleteCustomersCustomerTaxIdsId(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            deleteCustomersCustomerTaxIdsIdResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              deleteCustomersCustomerTaxIdsIdResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -28466,31 +25385,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getCustomersCustomerTaxIdsId(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getCustomersCustomerTaxIdsIdResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getCustomersCustomerTaxIdsIdResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -28624,29 +25527,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getDisputes(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getDisputesResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getDisputesResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -28713,29 +25597,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getDisputesDispute(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getDisputesDisputeResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getDisputesDisputeResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -28783,29 +25648,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postDisputesDispute(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postDisputesDisputeResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, postDisputesDisputeResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -28851,29 +25697,12 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postDisputesDisputeClose(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postDisputesDisputeCloseResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(res, postDisputesDisputeCloseResponseBodyValidator),
+          )
       } catch (error) {
         next(error)
       }
@@ -28976,34 +25805,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getEntitlementsActiveEntitlements(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getEntitlementsActiveEntitlementsResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getEntitlementsActiveEntitlementsResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -29073,34 +25883,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getEntitlementsActiveEntitlementsId(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getEntitlementsActiveEntitlementsIdResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getEntitlementsActiveEntitlementsIdResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -29213,29 +26004,12 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getEntitlementsFeatures(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getEntitlementsFeaturesResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(res, getEntitlementsFeaturesResponseBodyValidator),
+          )
       } catch (error) {
         next(error)
       }
@@ -29273,29 +26047,12 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postEntitlementsFeatures(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postEntitlementsFeaturesResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(res, postEntitlementsFeaturesResponseBodyValidator),
+          )
       } catch (error) {
         next(error)
       }
@@ -29360,29 +26117,12 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getEntitlementsFeaturesId(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getEntitlementsFeaturesIdResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(res, getEntitlementsFeaturesIdResponseBodyValidator),
+          )
       } catch (error) {
         next(error)
       }
@@ -29428,31 +26168,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postEntitlementsFeaturesId(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postEntitlementsFeaturesIdResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postEntitlementsFeaturesIdResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -29492,29 +26216,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postEphemeralKeys(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postEphemeralKeysResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, postEphemeralKeysResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -29562,29 +26267,12 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .deleteEphemeralKeysKey(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(deleteEphemeralKeysKeyResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(res, deleteEphemeralKeysKeyResponseBodyValidator),
+          )
       } catch (error) {
         next(error)
       }
@@ -29730,29 +26418,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getEvents(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getEventsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getEventsResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -29817,29 +26486,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getEventsId(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getEventsIdResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getEventsIdResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -29934,29 +26584,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getExchangeRates(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getExchangeRatesResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getExchangeRatesResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -30023,29 +26654,12 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getExchangeRatesRateId(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getExchangeRatesRateIdResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(res, getExchangeRatesRateIdResponseBodyValidator),
+          )
       } catch (error) {
         next(error)
       }
@@ -30091,29 +26705,12 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postExternalAccountsId(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postExternalAccountsIdResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(res, postExternalAccountsIdResponseBodyValidator),
+          )
       } catch (error) {
         next(error)
       }
@@ -30247,29 +26844,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getFileLinks(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getFileLinksResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getFileLinksResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -30309,29 +26887,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postFileLinks(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postFileLinksResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, postFileLinksResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -30396,29 +26955,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getFileLinksLink(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getFileLinksLinkResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getFileLinksLinkResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -30464,29 +27004,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postFileLinksLink(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postFileLinksLinkResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, postFileLinksLinkResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -30633,29 +27154,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getFiles(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getFilesResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getFilesResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -30696,29 +27198,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postFiles(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postFilesResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, postFilesResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -30783,29 +27266,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getFilesFile(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getFilesFileResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getFilesFileResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -30929,31 +27393,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getFinancialConnectionsAccounts(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getFinancialConnectionsAccountsResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getFinancialConnectionsAccountsResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -31023,7 +27471,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getFinancialConnectionsAccountsAccount(
             input,
             responder,
@@ -31031,32 +27479,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getFinancialConnectionsAccountsAccountResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getFinancialConnectionsAccountsAccountResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -31107,7 +27536,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postFinancialConnectionsAccountsAccountDisconnect(
             input,
             responder,
@@ -31115,32 +27544,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postFinancialConnectionsAccountsAccountDisconnectResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postFinancialConnectionsAccountsAccountDisconnectResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -31251,7 +27661,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getFinancialConnectionsAccountsAccountOwners(
             input,
             responder,
@@ -31259,32 +27669,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getFinancialConnectionsAccountsAccountOwnersResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getFinancialConnectionsAccountsAccountOwnersResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -31335,7 +27726,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postFinancialConnectionsAccountsAccountRefresh(
             input,
             responder,
@@ -31343,32 +27734,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postFinancialConnectionsAccountsAccountRefreshResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postFinancialConnectionsAccountsAccountRefreshResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -31419,7 +27791,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postFinancialConnectionsAccountsAccountSubscribe(
             input,
             responder,
@@ -31427,32 +27799,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postFinancialConnectionsAccountsAccountSubscribeResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postFinancialConnectionsAccountsAccountSubscribeResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -31502,7 +27855,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postFinancialConnectionsAccountsAccountUnsubscribe(
             input,
             responder,
@@ -31510,32 +27863,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postFinancialConnectionsAccountsAccountUnsubscribeResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postFinancialConnectionsAccountsAccountUnsubscribeResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -31578,31 +27912,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postFinancialConnectionsSessions(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postFinancialConnectionsSessionsResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postFinancialConnectionsSessionsResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -31672,7 +27990,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getFinancialConnectionsSessionsSession(
             input,
             responder,
@@ -31680,32 +27998,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getFinancialConnectionsSessionsSessionResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getFinancialConnectionsSessionsSessionResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -31846,34 +28145,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getFinancialConnectionsTransactions(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getFinancialConnectionsTransactionsResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getFinancialConnectionsTransactionsResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -31943,7 +28223,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getFinancialConnectionsTransactionsTransaction(
             input,
             responder,
@@ -31951,32 +28231,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getFinancialConnectionsTransactionsTransactionResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getFinancialConnectionsTransactionsTransactionResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -32093,29 +28354,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getForwardingRequests(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getForwardingRequestsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getForwardingRequestsResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -32155,29 +28397,12 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postForwardingRequests(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postForwardingRequestsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(res, postForwardingRequestsResponseBodyValidator),
+          )
       } catch (error) {
         next(error)
       }
@@ -32242,29 +28467,12 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getForwardingRequestsId(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getForwardingRequestsIdResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(res, getForwardingRequestsIdResponseBodyValidator),
+          )
       } catch (error) {
         next(error)
       }
@@ -32409,31 +28617,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getIdentityVerificationReports(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getIdentityVerificationReportsResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getIdentityVerificationReportsResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -32503,7 +28695,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getIdentityVerificationReportsReport(
             input,
             responder,
@@ -32511,32 +28703,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getIdentityVerificationReportsReportResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getIdentityVerificationReportsReportResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -32683,31 +28856,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getIdentityVerificationSessions(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getIdentityVerificationSessionsResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getIdentityVerificationSessionsResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -32750,31 +28907,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postIdentityVerificationSessions(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postIdentityVerificationSessionsResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postIdentityVerificationSessionsResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -32844,7 +28985,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getIdentityVerificationSessionsSession(
             input,
             responder,
@@ -32852,32 +28993,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getIdentityVerificationSessionsSessionResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getIdentityVerificationSessionsSessionResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -32928,7 +29050,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postIdentityVerificationSessionsSession(
             input,
             responder,
@@ -32936,32 +29058,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postIdentityVerificationSessionsSessionResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postIdentityVerificationSessionsSessionResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -33012,7 +29115,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postIdentityVerificationSessionsSessionCancel(
             input,
             responder,
@@ -33020,32 +29123,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postIdentityVerificationSessionsSessionCancelResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postIdentityVerificationSessionsSessionCancelResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -33096,7 +29180,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postIdentityVerificationSessionsSessionRedact(
             input,
             responder,
@@ -33104,32 +29188,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postIdentityVerificationSessionsSessionRedactResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postIdentityVerificationSessionsSessionRedactResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -33256,29 +29321,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getInvoicePayments(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getInvoicePaymentsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getInvoicePaymentsResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -33343,31 +29389,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getInvoicePaymentsInvoicePayment(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getInvoicePaymentsInvoicePaymentResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getInvoicePaymentsInvoicePaymentResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -33470,31 +29500,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getInvoiceRenderingTemplates(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getInvoiceRenderingTemplatesResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getInvoiceRenderingTemplatesResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -33566,7 +29580,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getInvoiceRenderingTemplatesTemplate(
             input,
             responder,
@@ -33574,32 +29588,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getInvoiceRenderingTemplatesTemplateResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getInvoiceRenderingTemplatesTemplateResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -33645,7 +29640,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postInvoiceRenderingTemplatesTemplateArchive(
             input,
             responder,
@@ -33653,32 +29648,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postInvoiceRenderingTemplatesTemplateArchiveResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postInvoiceRenderingTemplatesTemplateArchiveResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -33724,7 +29700,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postInvoiceRenderingTemplatesTemplateUnarchive(
             input,
             responder,
@@ -33732,32 +29708,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postInvoiceRenderingTemplatesTemplateUnarchiveResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postInvoiceRenderingTemplatesTemplateUnarchiveResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -33898,29 +29855,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getInvoiceitems(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getInvoiceitemsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getInvoiceitemsResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -33960,29 +29898,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postInvoiceitems(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postInvoiceitemsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, postInvoiceitemsResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -34024,31 +29943,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .deleteInvoiceitemsInvoiceitem(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            deleteInvoiceitemsInvoiceitemResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              deleteInvoiceitemsInvoiceitemResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -34113,31 +30016,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getInvoiceitemsInvoiceitem(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getInvoiceitemsInvoiceitemResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getInvoiceitemsInvoiceitemResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -34183,31 +30070,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postInvoiceitemsInvoiceitem(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postInvoiceitemsInvoiceitemResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postInvoiceitemsInvoiceitemResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -34384,29 +30255,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getInvoices(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getInvoicesResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getInvoicesResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -34446,29 +30298,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postInvoices(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postInvoicesResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, postInvoicesResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -34506,29 +30339,12 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postInvoicesCreatePreview(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postInvoicesCreatePreviewResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(res, postInvoicesCreatePreviewResponseBodyValidator),
+          )
       } catch (error) {
         next(error)
       }
@@ -34627,29 +30443,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getInvoicesSearch(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getInvoicesSearchResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getInvoicesSearchResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -34693,29 +30490,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .deleteInvoicesInvoice(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(deleteInvoicesInvoiceResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, deleteInvoicesInvoiceResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -34782,29 +30560,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getInvoicesInvoice(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getInvoicesInvoiceResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getInvoicesInvoiceResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -34852,29 +30611,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postInvoicesInvoice(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postInvoicesInvoiceResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, postInvoicesInvoiceResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -34920,31 +30660,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postInvoicesInvoiceAddLines(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postInvoicesInvoiceAddLinesResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postInvoicesInvoiceAddLinesResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -34990,31 +30714,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postInvoicesInvoiceAttachPayment(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postInvoicesInvoiceAttachPaymentResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postInvoicesInvoiceAttachPaymentResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -35060,31 +30768,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postInvoicesInvoiceFinalize(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postInvoicesInvoiceFinalizeResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postInvoicesInvoiceFinalizeResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -35188,29 +30880,12 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getInvoicesInvoiceLines(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getInvoicesInvoiceLinesResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(res, getInvoicesInvoiceLinesResponseBodyValidator),
+          )
       } catch (error) {
         next(error)
       }
@@ -35257,34 +30932,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postInvoicesInvoiceLinesLineItemId(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postInvoicesInvoiceLinesLineItemIdResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postInvoicesInvoiceLinesLineItemIdResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -35330,7 +30986,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postInvoicesInvoiceMarkUncollectible(
             input,
             responder,
@@ -35338,32 +30994,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postInvoicesInvoiceMarkUncollectibleResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postInvoicesInvoiceMarkUncollectibleResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -35411,29 +31048,12 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postInvoicesInvoicePay(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postInvoicesInvoicePayResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(res, postInvoicesInvoicePayResponseBodyValidator),
+          )
       } catch (error) {
         next(error)
       }
@@ -35479,31 +31099,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postInvoicesInvoiceRemoveLines(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postInvoicesInvoiceRemoveLinesResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postInvoicesInvoiceRemoveLinesResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -35549,29 +31153,12 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postInvoicesInvoiceSend(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postInvoicesInvoiceSendResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(res, postInvoicesInvoiceSendResponseBodyValidator),
+          )
       } catch (error) {
         next(error)
       }
@@ -35617,31 +31204,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postInvoicesInvoiceUpdateLines(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postInvoicesInvoiceUpdateLinesResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postInvoicesInvoiceUpdateLinesResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -35687,29 +31258,12 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postInvoicesInvoiceVoid(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postInvoicesInvoiceVoidResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(res, postInvoicesInvoiceVoidResponseBodyValidator),
+          )
       } catch (error) {
         next(error)
       }
@@ -35854,29 +31408,12 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getIssuingAuthorizations(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getIssuingAuthorizationsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(res, getIssuingAuthorizationsResponseBodyValidator),
+          )
       } catch (error) {
         next(error)
       }
@@ -35941,7 +31478,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getIssuingAuthorizationsAuthorization(
             input,
             responder,
@@ -35949,32 +31486,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getIssuingAuthorizationsAuthorizationResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getIssuingAuthorizationsAuthorizationResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -36020,7 +31538,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postIssuingAuthorizationsAuthorization(
             input,
             responder,
@@ -36028,32 +31546,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postIssuingAuthorizationsAuthorizationResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postIssuingAuthorizationsAuthorizationResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -36099,7 +31598,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postIssuingAuthorizationsAuthorizationApprove(
             input,
             responder,
@@ -36107,32 +31606,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postIssuingAuthorizationsAuthorizationApproveResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postIssuingAuthorizationsAuthorizationApproveResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -36178,7 +31658,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postIssuingAuthorizationsAuthorizationDecline(
             input,
             responder,
@@ -36186,32 +31666,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postIssuingAuthorizationsAuthorizationDeclineResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postIssuingAuthorizationsAuthorizationDeclineResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -36362,29 +31823,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getIssuingCardholders(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getIssuingCardholdersResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getIssuingCardholdersResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -36424,29 +31866,12 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postIssuingCardholders(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postIssuingCardholdersResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(res, postIssuingCardholdersResponseBodyValidator),
+          )
       } catch (error) {
         next(error)
       }
@@ -36511,31 +31936,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getIssuingCardholdersCardholder(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getIssuingCardholdersCardholderResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getIssuingCardholdersCardholderResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -36581,31 +31990,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postIssuingCardholdersCardholder(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postIssuingCardholdersCardholderResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postIssuingCardholdersCardholderResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -36774,29 +32167,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getIssuingCards(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getIssuingCardsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getIssuingCardsResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -36836,29 +32210,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postIssuingCards(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postIssuingCardsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, postIssuingCardsResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -36923,29 +32278,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getIssuingCardsCard(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getIssuingCardsCardResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getIssuingCardsCardResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -36991,29 +32327,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postIssuingCardsCard(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postIssuingCardsCardResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, postIssuingCardsCardResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -37149,29 +32466,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getIssuingDisputes(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getIssuingDisputesResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getIssuingDisputesResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -37211,29 +32509,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postIssuingDisputes(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postIssuingDisputesResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, postIssuingDisputesResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -37298,29 +32577,12 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getIssuingDisputesDispute(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getIssuingDisputesDisputeResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(res, getIssuingDisputesDisputeResponseBodyValidator),
+          )
       } catch (error) {
         next(error)
       }
@@ -37366,31 +32628,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postIssuingDisputesDispute(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postIssuingDisputesDisputeResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postIssuingDisputesDisputeResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -37436,31 +32682,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postIssuingDisputesDisputeSubmit(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postIssuingDisputesDisputeSubmitResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postIssuingDisputesDisputeSubmitResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -37596,31 +32826,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getIssuingPersonalizationDesigns(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getIssuingPersonalizationDesignsResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getIssuingPersonalizationDesignsResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -37663,34 +32877,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postIssuingPersonalizationDesigns(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postIssuingPersonalizationDesignsResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postIssuingPersonalizationDesignsResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -37760,7 +32955,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getIssuingPersonalizationDesignsPersonalizationDesign(
             input,
             responder,
@@ -37768,32 +32963,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getIssuingPersonalizationDesignsPersonalizationDesignResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getIssuingPersonalizationDesignsPersonalizationDesignResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -37843,7 +33019,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postIssuingPersonalizationDesignsPersonalizationDesign(
             input,
             responder,
@@ -37851,32 +33027,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postIssuingPersonalizationDesignsPersonalizationDesignResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postIssuingPersonalizationDesignsPersonalizationDesignResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -37989,29 +33146,12 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getIssuingPhysicalBundles(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getIssuingPhysicalBundlesResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(res, getIssuingPhysicalBundlesResponseBodyValidator),
+          )
       } catch (error) {
         next(error)
       }
@@ -38076,7 +33216,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getIssuingPhysicalBundlesPhysicalBundle(
             input,
             responder,
@@ -38084,32 +33224,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getIssuingPhysicalBundlesPhysicalBundleResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getIssuingPhysicalBundlesPhysicalBundleResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -38174,31 +33295,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getIssuingSettlementsSettlement(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getIssuingSettlementsSettlementResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getIssuingSettlementsSettlementResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -38244,31 +33349,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postIssuingSettlementsSettlement(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postIssuingSettlementsSettlementResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postIssuingSettlementsSettlementResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -38402,29 +33491,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getIssuingTokens(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getIssuingTokensResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getIssuingTokensResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -38491,29 +33561,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getIssuingTokensToken(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getIssuingTokensTokenResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getIssuingTokensTokenResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -38561,29 +33612,12 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postIssuingTokensToken(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postIssuingTokensTokenResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(res, postIssuingTokensTokenResponseBodyValidator),
+          )
       } catch (error) {
         next(error)
       }
@@ -38727,29 +33761,12 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getIssuingTransactions(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getIssuingTransactionsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(res, getIssuingTransactionsResponseBodyValidator),
+          )
       } catch (error) {
         next(error)
       }
@@ -38814,34 +33831,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getIssuingTransactionsTransaction(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getIssuingTransactionsTransactionResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getIssuingTransactionsTransactionResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -38887,34 +33885,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postIssuingTransactionsTransaction(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postIssuingTransactionsTransactionResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postIssuingTransactionsTransactionResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -38957,29 +33936,12 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postLinkAccountSessions(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postLinkAccountSessionsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(res, postLinkAccountSessionsResponseBodyValidator),
+          )
       } catch (error) {
         next(error)
       }
@@ -39049,31 +34011,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getLinkAccountSessionsSession(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getLinkAccountSessionsSessionResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getLinkAccountSessionsSessionResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -39196,29 +34142,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getLinkedAccounts(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getLinkedAccountsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getLinkedAccountsResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -39288,29 +34215,12 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getLinkedAccountsAccount(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getLinkedAccountsAccountResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(res, getLinkedAccountsAccountResponseBodyValidator),
+          )
       } catch (error) {
         next(error)
       }
@@ -39361,34 +34271,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postLinkedAccountsAccountDisconnect(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postLinkedAccountsAccountDisconnectResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postLinkedAccountsAccountDisconnectResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -39499,31 +34390,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getLinkedAccountsAccountOwners(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getLinkedAccountsAccountOwnersResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getLinkedAccountsAccountOwnersResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -39574,31 +34449,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postLinkedAccountsAccountRefresh(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postLinkedAccountsAccountRefreshResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postLinkedAccountsAccountRefreshResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -39663,29 +34522,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getMandatesMandate(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getMandatesMandateResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getMandatesMandateResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -39812,29 +34652,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getPaymentIntents(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getPaymentIntentsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getPaymentIntentsResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -39874,29 +34695,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postPaymentIntents(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postPaymentIntentsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, postPaymentIntentsResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -39996,29 +34798,12 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getPaymentIntentsSearch(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getPaymentIntentsSearchResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(res, getPaymentIntentsSearchResponseBodyValidator),
+          )
       } catch (error) {
         next(error)
       }
@@ -40090,29 +34875,12 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getPaymentIntentsIntent(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getPaymentIntentsIntentResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(res, getPaymentIntentsIntentResponseBodyValidator),
+          )
       } catch (error) {
         next(error)
       }
@@ -40158,29 +34926,12 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postPaymentIntentsIntent(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postPaymentIntentsIntentResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(res, postPaymentIntentsIntentResponseBodyValidator),
+          )
       } catch (error) {
         next(error)
       }
@@ -40226,7 +34977,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postPaymentIntentsIntentApplyCustomerBalance(
             input,
             responder,
@@ -40234,32 +34985,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postPaymentIntentsIntentApplyCustomerBalanceResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postPaymentIntentsIntentApplyCustomerBalanceResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -40305,31 +35037,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postPaymentIntentsIntentCancel(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postPaymentIntentsIntentCancelResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postPaymentIntentsIntentCancelResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -40375,31 +35091,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postPaymentIntentsIntentCapture(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postPaymentIntentsIntentCaptureResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postPaymentIntentsIntentCaptureResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -40445,31 +35145,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postPaymentIntentsIntentConfirm(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postPaymentIntentsIntentConfirmResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postPaymentIntentsIntentConfirmResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -40515,7 +35199,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postPaymentIntentsIntentIncrementAuthorization(
             input,
             responder,
@@ -40523,32 +35207,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postPaymentIntentsIntentIncrementAuthorizationResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postPaymentIntentsIntentIncrementAuthorizationResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -40594,7 +35259,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postPaymentIntentsIntentVerifyMicrodeposits(
             input,
             responder,
@@ -40602,32 +35267,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postPaymentIntentsIntentVerifyMicrodepositsResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postPaymentIntentsIntentVerifyMicrodepositsResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -40729,29 +35375,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getPaymentLinks(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getPaymentLinksResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getPaymentLinksResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -40791,29 +35418,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postPaymentLinks(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postPaymentLinksResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, postPaymentLinksResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -40878,31 +35486,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getPaymentLinksPaymentLink(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getPaymentLinksPaymentLinkResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getPaymentLinksPaymentLinkResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -40948,31 +35540,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postPaymentLinksPaymentLink(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postPaymentLinksPaymentLinkResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postPaymentLinksPaymentLinkResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -41076,34 +35652,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getPaymentLinksPaymentLinkLineItems(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getPaymentLinksPaymentLinkLineItemsResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getPaymentLinksPaymentLinkLineItemsResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -41209,31 +35766,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getPaymentMethodConfigurations(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getPaymentMethodConfigurationsResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getPaymentMethodConfigurationsResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -41276,31 +35817,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postPaymentMethodConfigurations(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postPaymentMethodConfigurationsResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postPaymentMethodConfigurationsResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -41370,7 +35895,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getPaymentMethodConfigurationsConfiguration(
             input,
             responder,
@@ -41378,32 +35903,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getPaymentMethodConfigurationsConfigurationResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getPaymentMethodConfigurationsConfigurationResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -41454,7 +35960,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postPaymentMethodConfigurationsConfiguration(
             input,
             responder,
@@ -41462,32 +35968,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postPaymentMethodConfigurationsConfigurationResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postPaymentMethodConfigurationsConfigurationResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -41600,29 +36087,12 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getPaymentMethodDomains(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getPaymentMethodDomainsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(res, getPaymentMethodDomainsResponseBodyValidator),
+          )
       } catch (error) {
         next(error)
       }
@@ -41660,29 +36130,12 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postPaymentMethodDomains(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postPaymentMethodDomainsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(res, postPaymentMethodDomainsResponseBodyValidator),
+          )
       } catch (error) {
         next(error)
       }
@@ -41747,7 +36200,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getPaymentMethodDomainsPaymentMethodDomain(
             input,
             responder,
@@ -41755,32 +36208,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getPaymentMethodDomainsPaymentMethodDomainResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getPaymentMethodDomainsPaymentMethodDomainResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -41826,7 +36260,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postPaymentMethodDomainsPaymentMethodDomain(
             input,
             responder,
@@ -41834,32 +36268,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postPaymentMethodDomainsPaymentMethodDomainResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postPaymentMethodDomainsPaymentMethodDomainResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -41904,7 +36319,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postPaymentMethodDomainsPaymentMethodDomainValidate(
             input,
             responder,
@@ -41912,32 +36327,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postPaymentMethodDomainsPaymentMethodDomainValidateResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postPaymentMethodDomainsPaymentMethodDomainValidateResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -42097,29 +36493,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getPaymentMethods(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getPaymentMethodsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getPaymentMethodsResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -42159,29 +36536,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postPaymentMethods(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postPaymentMethodsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, postPaymentMethodsResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -42246,31 +36604,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getPaymentMethodsPaymentMethod(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getPaymentMethodsPaymentMethodResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getPaymentMethodsPaymentMethodResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -42316,31 +36658,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postPaymentMethodsPaymentMethod(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postPaymentMethodsPaymentMethodResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postPaymentMethodsPaymentMethodResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -42386,7 +36712,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postPaymentMethodsPaymentMethodAttach(
             input,
             responder,
@@ -42394,32 +36720,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postPaymentMethodsPaymentMethodAttachResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postPaymentMethodsPaymentMethodAttachResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -42465,7 +36772,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postPaymentMethodsPaymentMethodDetach(
             input,
             responder,
@@ -42473,32 +36780,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postPaymentMethodsPaymentMethodDetachResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postPaymentMethodsPaymentMethodDetachResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -42657,29 +36945,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getPayouts(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getPayoutsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getPayoutsResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -42719,29 +36988,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postPayouts(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postPayoutsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, postPayoutsResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -42806,29 +37056,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getPayoutsPayout(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getPayoutsPayoutResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getPayoutsPayoutResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -42874,29 +37105,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postPayoutsPayout(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postPayoutsPayoutResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, postPayoutsPayoutResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -42942,29 +37154,12 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postPayoutsPayoutCancel(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postPayoutsPayoutCancelResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(res, postPayoutsPayoutCancelResponseBodyValidator),
+          )
       } catch (error) {
         next(error)
       }
@@ -43010,29 +37205,12 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postPayoutsPayoutReverse(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postPayoutsPayoutReverseResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(res, postPayoutsPayoutReverseResponseBodyValidator),
+          )
       } catch (error) {
         next(error)
       }
@@ -43166,29 +37344,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getPlans(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getPlansResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getPlansResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -43228,29 +37387,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postPlans(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postPlansResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, postPlansResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -43292,29 +37432,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .deletePlansPlan(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(deletePlansPlanResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, deletePlansPlanResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -43379,29 +37500,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getPlansPlan(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getPlansPlanResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getPlansPlanResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -43447,29 +37549,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postPlansPlan(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postPlansPlanResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, postPlansPlanResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -43649,29 +37732,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getPrices(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getPricesResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getPricesResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -43711,29 +37775,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postPrices(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postPricesResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, postPricesResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -43832,29 +37877,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getPricesSearch(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getPricesSearchResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getPricesSearchResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -43919,29 +37945,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getPricesPrice(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getPricesPriceResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getPricesPriceResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -43987,29 +37994,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postPricesPrice(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postPricesPriceResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, postPricesPriceResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -44162,29 +38150,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getProducts(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getProductsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getProductsResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -44224,29 +38193,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postProducts(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postProductsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, postProductsResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -44345,29 +38295,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getProductsSearch(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getProductsSearchResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getProductsSearchResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -44409,29 +38340,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .deleteProductsId(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(deleteProductsIdResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, deleteProductsIdResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -44496,29 +38408,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getProductsId(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getProductsIdResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getProductsIdResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -44564,29 +38457,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postProductsId(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postProductsIdResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, postProductsIdResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -44690,31 +38564,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getProductsProductFeatures(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getProductsProductFeaturesResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getProductsProductFeaturesResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -44760,31 +38618,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postProductsProductFeatures(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postProductsProductFeaturesResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postProductsProductFeaturesResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -44827,31 +38669,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .deleteProductsProductFeaturesId(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            deleteProductsProductFeaturesIdResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              deleteProductsProductFeaturesIdResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -44917,31 +38743,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getProductsProductFeaturesId(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getProductsProductFeaturesIdResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getProductsProductFeaturesIdResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -45089,29 +38899,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getPromotionCodes(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getPromotionCodesResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getPromotionCodesResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -45151,29 +38942,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postPromotionCodes(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postPromotionCodesResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, postPromotionCodesResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -45238,31 +39010,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getPromotionCodesPromotionCode(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getPromotionCodesPromotionCodeResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getPromotionCodesPromotionCodeResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -45308,31 +39064,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postPromotionCodesPromotionCode(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postPromotionCodesPromotionCodeResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postPromotionCodesPromotionCodeResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -45448,29 +39188,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getQuotes(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getQuotesResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getQuotesResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -45510,29 +39231,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postQuotes(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postQuotesResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, postQuotesResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -45597,29 +39299,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getQuotesQuote(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getQuotesQuoteResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getQuotesQuoteResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -45665,29 +39348,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postQuotesQuote(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postQuotesQuoteResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, postQuotesQuoteResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -45735,29 +39399,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postQuotesQuoteAccept(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postQuotesQuoteAcceptResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, postQuotesQuoteAcceptResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -45805,29 +39450,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postQuotesQuoteCancel(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postQuotesQuoteCancelResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, postQuotesQuoteCancelResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -45931,7 +39557,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getQuotesQuoteComputedUpfrontLineItems(
             input,
             responder,
@@ -45939,32 +39565,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getQuotesQuoteComputedUpfrontLineItemsResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getQuotesQuoteComputedUpfrontLineItemsResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -46010,29 +39617,12 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postQuotesQuoteFinalize(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postQuotesQuoteFinalizeResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(res, postQuotesQuoteFinalizeResponseBodyValidator),
+          )
       } catch (error) {
         next(error)
       }
@@ -46136,29 +39726,12 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getQuotesQuoteLineItems(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getQuotesQuoteLineItemsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(res, getQuotesQuoteLineItemsResponseBodyValidator),
+          )
       } catch (error) {
         next(error)
       }
@@ -46223,29 +39796,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getQuotesQuotePdf(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getQuotesQuotePdfResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getQuotesQuotePdfResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -46383,31 +39937,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getRadarEarlyFraudWarnings(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getRadarEarlyFraudWarningsResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getRadarEarlyFraudWarningsResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -46472,7 +40010,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getRadarEarlyFraudWarningsEarlyFraudWarning(
             input,
             responder,
@@ -46480,32 +40018,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getRadarEarlyFraudWarningsEarlyFraudWarningResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getRadarEarlyFraudWarningsEarlyFraudWarningResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -46642,29 +40161,12 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getRadarValueListItems(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getRadarValueListItemsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(res, getRadarValueListItemsResponseBodyValidator),
+          )
       } catch (error) {
         next(error)
       }
@@ -46702,29 +40204,12 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postRadarValueListItems(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postRadarValueListItemsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(res, postRadarValueListItemsResponseBodyValidator),
+          )
       } catch (error) {
         next(error)
       }
@@ -46771,31 +40256,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .deleteRadarValueListItemsItem(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            deleteRadarValueListItemsItemResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              deleteRadarValueListItemsItemResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -46860,31 +40329,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getRadarValueListItemsItem(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getRadarValueListItemsItemResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getRadarValueListItemsItemResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -47018,29 +40471,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getRadarValueLists(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getRadarValueListsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getRadarValueListsResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -47080,29 +40514,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postRadarValueLists(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postRadarValueListsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, postRadarValueListsResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -47144,31 +40559,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .deleteRadarValueListsValueList(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            deleteRadarValueListsValueListResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              deleteRadarValueListsValueListResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -47233,31 +40632,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getRadarValueListsValueList(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getRadarValueListsValueListResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getRadarValueListsValueListResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -47303,31 +40686,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postRadarValueListsValueList(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postRadarValueListsValueListResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postRadarValueListsValueListResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -47461,29 +40828,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getRefunds(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getRefundsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getRefundsResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -47523,29 +40871,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postRefunds(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postRefundsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, postRefundsResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -47610,29 +40939,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getRefundsRefund(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getRefundsRefundResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getRefundsRefundResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -47678,29 +40988,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postRefundsRefund(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postRefundsRefundResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, postRefundsRefundResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -47744,29 +41035,12 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postRefundsRefundCancel(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postRefundsRefundCancelResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(res, postRefundsRefundCancelResponseBodyValidator),
+          )
       } catch (error) {
         next(error)
       }
@@ -47889,29 +41163,12 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getReportingReportRuns(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getReportingReportRunsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(res, getReportingReportRunsResponseBodyValidator),
+          )
       } catch (error) {
         next(error)
       }
@@ -47949,29 +41206,12 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postReportingReportRuns(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postReportingReportRunsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(res, postReportingReportRunsResponseBodyValidator),
+          )
       } catch (error) {
         next(error)
       }
@@ -48036,31 +41276,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getReportingReportRunsReportRun(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getReportingReportRunsReportRunResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getReportingReportRunsReportRunResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -48135,29 +41359,12 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getReportingReportTypes(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getReportingReportTypesResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(res, getReportingReportTypesResponseBodyValidator),
+          )
       } catch (error) {
         next(error)
       }
@@ -48222,34 +41429,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getReportingReportTypesReportType(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getReportingReportTypesReportTypeResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getReportingReportTypesReportTypeResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -48369,29 +41557,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getReviews(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getReviewsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getReviewsResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -48456,29 +41625,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getReviewsReview(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getReviewsReviewResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getReviewsReviewResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -48524,29 +41674,12 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postReviewsReviewApprove(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postReviewsReviewApproveResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(res, postReviewsReviewApproveResponseBodyValidator),
+          )
       } catch (error) {
         next(error)
       }
@@ -48673,29 +41806,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getSetupAttempts(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getSetupAttemptsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getSetupAttemptsResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -48836,29 +41950,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getSetupIntents(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getSetupIntentsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getSetupIntentsResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -48898,29 +41993,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postSetupIntents(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postSetupIntentsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, postSetupIntentsResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -48994,29 +42070,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getSetupIntentsIntent(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getSetupIntentsIntentResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getSetupIntentsIntentResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -49064,29 +42121,12 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postSetupIntentsIntent(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postSetupIntentsIntentResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(res, postSetupIntentsIntentResponseBodyValidator),
+          )
       } catch (error) {
         next(error)
       }
@@ -49132,31 +42172,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postSetupIntentsIntentCancel(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postSetupIntentsIntentCancelResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postSetupIntentsIntentCancelResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -49202,31 +42226,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postSetupIntentsIntentConfirm(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postSetupIntentsIntentConfirmResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postSetupIntentsIntentConfirmResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -49272,7 +42280,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postSetupIntentsIntentVerifyMicrodeposits(
             input,
             responder,
@@ -49280,32 +42288,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postSetupIntentsIntentVerifyMicrodepositsResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postSetupIntentsIntentVerifyMicrodepositsResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -49439,29 +42428,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getShippingRates(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getShippingRatesResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getShippingRatesResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -49501,29 +42471,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postShippingRates(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postShippingRatesResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, postShippingRatesResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -49588,34 +42539,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getShippingRatesShippingRateToken(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getShippingRatesShippingRateTokenResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getShippingRatesShippingRateTokenResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -49661,34 +42593,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postShippingRatesShippingRateToken(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postShippingRatesShippingRateTokenResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postShippingRatesShippingRateTokenResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -49734,29 +42647,12 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postSigmaSavedQueriesId(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postSigmaSavedQueriesIdResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(res, postSigmaSavedQueriesIdResponseBodyValidator),
+          )
       } catch (error) {
         next(error)
       }
@@ -49855,31 +42751,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getSigmaScheduledQueryRuns(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getSigmaScheduledQueryRunsResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getSigmaScheduledQueryRunsResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -49944,7 +42824,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getSigmaScheduledQueryRunsScheduledQueryRun(
             input,
             responder,
@@ -49952,32 +42832,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getSigmaScheduledQueryRunsScheduledQueryRunResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getSigmaScheduledQueryRunsScheduledQueryRunResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -50017,29 +42878,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postSources(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postSourcesResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, postSourcesResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -50111,29 +42953,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getSourcesSource(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getSourcesSourceResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getSourcesSourceResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -50179,29 +43002,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postSourcesSource(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postSourcesSourceResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, postSourcesSourceResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -50271,7 +43075,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getSourcesSourceMandateNotificationsMandateNotification(
             input,
             responder,
@@ -50279,32 +43083,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getSourcesSourceMandateNotificationsMandateNotificationResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getSourcesSourceMandateNotificationsMandateNotificationResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -50408,34 +43193,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getSourcesSourceSourceTransactions(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getSourcesSourceSourceTransactionsResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getSourcesSourceSourceTransactionsResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -50503,7 +43269,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getSourcesSourceSourceTransactionsSourceTransaction(
             input,
             responder,
@@ -50511,32 +43277,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getSourcesSourceSourceTransactionsSourceTransactionResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getSourcesSourceSourceTransactionsSourceTransactionResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -50582,29 +43329,12 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postSourcesSourceVerify(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postSourcesSourceVerifyResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(res, postSourcesSourceVerifyResponseBodyValidator),
+          )
       } catch (error) {
         next(error)
       }
@@ -50709,29 +43439,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getSubscriptionItems(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getSubscriptionItemsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getSubscriptionItemsResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -50771,29 +43482,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postSubscriptionItems(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postSubscriptionItemsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, postSubscriptionItemsResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -50839,31 +43531,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .deleteSubscriptionItemsItem(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            deleteSubscriptionItemsItemResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              deleteSubscriptionItemsItemResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -50928,29 +43604,12 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getSubscriptionItemsItem(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getSubscriptionItemsItemResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(res, getSubscriptionItemsItemResponseBodyValidator),
+          )
       } catch (error) {
         next(error)
       }
@@ -50996,29 +43655,12 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postSubscriptionItemsItem(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postSubscriptionItemsItemResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(res, postSubscriptionItemsItemResponseBodyValidator),
+          )
       } catch (error) {
         next(error)
       }
@@ -51231,29 +43873,12 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getSubscriptionSchedules(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getSubscriptionSchedulesResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(res, getSubscriptionSchedulesResponseBodyValidator),
+          )
       } catch (error) {
         next(error)
       }
@@ -51291,29 +43916,12 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postSubscriptionSchedules(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postSubscriptionSchedulesResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(res, postSubscriptionSchedulesResponseBodyValidator),
+          )
       } catch (error) {
         next(error)
       }
@@ -51378,31 +43986,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getSubscriptionSchedulesSchedule(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getSubscriptionSchedulesScheduleResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getSubscriptionSchedulesScheduleResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -51448,34 +44040,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postSubscriptionSchedulesSchedule(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postSubscriptionSchedulesScheduleResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postSubscriptionSchedulesScheduleResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -51521,7 +44094,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postSubscriptionSchedulesScheduleCancel(
             input,
             responder,
@@ -51529,32 +44102,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postSubscriptionSchedulesScheduleCancelResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postSubscriptionSchedulesScheduleCancelResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -51600,7 +44154,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postSubscriptionSchedulesScheduleRelease(
             input,
             responder,
@@ -51608,32 +44162,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postSubscriptionSchedulesScheduleReleaseResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postSubscriptionSchedulesScheduleReleaseResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -51863,29 +44398,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getSubscriptions(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getSubscriptionsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getSubscriptionsResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -51925,29 +44441,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postSubscriptions(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postSubscriptionsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, postSubscriptionsResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -52046,29 +44543,12 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getSubscriptionsSearch(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getSubscriptionsSearchResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(res, getSubscriptionsSearchResponseBodyValidator),
+          )
       } catch (error) {
         next(error)
       }
@@ -52114,7 +44594,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .deleteSubscriptionsSubscriptionExposedId(
             input,
             responder,
@@ -52122,32 +44602,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            deleteSubscriptionsSubscriptionExposedIdResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              deleteSubscriptionsSubscriptionExposedIdResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -52212,7 +44673,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getSubscriptionsSubscriptionExposedId(
             input,
             responder,
@@ -52220,32 +44681,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getSubscriptionsSubscriptionExposedIdResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getSubscriptionsSubscriptionExposedIdResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -52291,7 +44733,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postSubscriptionsSubscriptionExposedId(
             input,
             responder,
@@ -52299,32 +44741,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postSubscriptionsSubscriptionExposedIdResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postSubscriptionsSubscriptionExposedIdResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -52366,7 +44789,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .deleteSubscriptionsSubscriptionExposedIdDiscount(
             input,
             responder,
@@ -52374,32 +44797,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            deleteSubscriptionsSubscriptionExposedIdDiscountResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              deleteSubscriptionsSubscriptionExposedIdDiscountResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -52445,7 +44849,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postSubscriptionsSubscriptionMigrate(
             input,
             responder,
@@ -52453,32 +44857,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postSubscriptionsSubscriptionMigrateResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postSubscriptionsSubscriptionMigrateResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -52524,34 +44909,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postSubscriptionsSubscriptionResume(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postSubscriptionsSubscriptionResumeResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postSubscriptionsSubscriptionResumeResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -52591,29 +44957,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postTaxCalculations(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postTaxCalculationsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, postTaxCalculationsResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -52678,31 +45025,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getTaxCalculationsCalculation(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getTaxCalculationsCalculationResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getTaxCalculationsCalculationResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -52809,7 +45140,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getTaxCalculationsCalculationLineItems(
             input,
             responder,
@@ -52817,32 +45148,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getTaxCalculationsCalculationLineItemsResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getTaxCalculationsCalculationLineItemsResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -52944,29 +45256,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getTaxRegistrations(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getTaxRegistrationsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getTaxRegistrationsResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -53006,29 +45299,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postTaxRegistrations(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postTaxRegistrationsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, postTaxRegistrationsResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -53093,29 +45367,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getTaxRegistrationsId(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getTaxRegistrationsIdResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getTaxRegistrationsIdResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -53161,29 +45416,12 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postTaxRegistrationsId(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postTaxRegistrationsIdResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(res, postTaxRegistrationsIdResponseBodyValidator),
+          )
       } catch (error) {
         next(error)
       }
@@ -53242,29 +45480,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getTaxSettings(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getTaxSettingsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getTaxSettingsResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -53304,29 +45523,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postTaxSettings(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postTaxSettingsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, postTaxSettingsResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -53364,7 +45564,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postTaxTransactionsCreateFromCalculation(
             input,
             responder,
@@ -53372,32 +45572,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTaxTransactionsCreateFromCalculationResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postTaxTransactionsCreateFromCalculationResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -53435,34 +45616,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postTaxTransactionsCreateReversal(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTaxTransactionsCreateReversalResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postTaxTransactionsCreateReversalResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -53527,31 +45689,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getTaxTransactionsTransaction(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getTaxTransactionsTransactionResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getTaxTransactionsTransactionResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -53658,7 +45804,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getTaxTransactionsTransactionLineItems(
             input,
             responder,
@@ -53666,32 +45812,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getTaxTransactionsTransactionLineItemsResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getTaxTransactionsTransactionLineItemsResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -53786,29 +45913,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getTaxCodes(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getTaxCodesResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getTaxCodesResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -53873,29 +45981,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getTaxCodesId(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getTaxCodesIdResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getTaxCodesIdResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -54010,29 +46099,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getTaxIds(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getTaxIdsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getTaxIdsResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -54072,29 +46142,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postTaxIds(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postTaxIdsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, postTaxIdsResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -54136,29 +46187,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .deleteTaxIdsId(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(deleteTaxIdsIdResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, deleteTaxIdsIdResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -54223,29 +46255,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getTaxIdsId(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getTaxIdsIdResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getTaxIdsIdResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -54379,29 +46392,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getTaxRates(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getTaxRatesResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getTaxRatesResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -54441,29 +46435,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postTaxRates(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postTaxRatesResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, postTaxRatesResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -54530,29 +46505,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getTaxRatesTaxRate(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getTaxRatesTaxRateResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getTaxRatesTaxRateResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -54600,29 +46556,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postTaxRatesTaxRate(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postTaxRatesTaxRateResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, postTaxRatesTaxRateResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -54728,29 +46665,12 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getTerminalConfigurations(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getTerminalConfigurationsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(res, getTerminalConfigurationsResponseBodyValidator),
+          )
       } catch (error) {
         next(error)
       }
@@ -54788,31 +46708,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postTerminalConfigurations(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTerminalConfigurationsResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postTerminalConfigurationsResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -54859,7 +46763,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .deleteTerminalConfigurationsConfiguration(
             input,
             responder,
@@ -54867,32 +46771,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            deleteTerminalConfigurationsConfigurationResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              deleteTerminalConfigurationsConfigurationResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -54970,7 +46855,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getTerminalConfigurationsConfiguration(
             input,
             responder,
@@ -54978,32 +46863,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getTerminalConfigurationsConfigurationResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getTerminalConfigurationsConfigurationResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -55062,7 +46928,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postTerminalConfigurationsConfiguration(
             input,
             responder,
@@ -55070,32 +46936,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTerminalConfigurationsConfigurationResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postTerminalConfigurationsConfigurationResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -55133,31 +46980,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postTerminalConnectionTokens(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTerminalConnectionTokensResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postTerminalConnectionTokensResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -55255,29 +47086,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getTerminalLocations(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getTerminalLocationsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getTerminalLocationsResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -55317,29 +47129,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postTerminalLocations(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postTerminalLocationsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, postTerminalLocationsResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -55381,31 +47174,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .deleteTerminalLocationsLocation(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            deleteTerminalLocationsLocationResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              deleteTerminalLocationsLocationResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -55475,31 +47252,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getTerminalLocationsLocation(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getTerminalLocationsLocationResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getTerminalLocationsLocationResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -55550,31 +47311,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postTerminalLocationsLocation(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTerminalLocationsLocationResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postTerminalLocationsLocationResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -55709,29 +47454,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getTerminalReaders(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getTerminalReadersResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getTerminalReadersResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -55771,29 +47497,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postTerminalReaders(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postTerminalReadersResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, postTerminalReadersResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -55835,31 +47542,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .deleteTerminalReadersReader(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            deleteTerminalReadersReaderResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              deleteTerminalReadersReaderResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -55934,29 +47625,12 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getTerminalReadersReader(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getTerminalReadersReaderResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(res, getTerminalReadersReaderResponseBodyValidator),
+          )
       } catch (error) {
         next(error)
       }
@@ -56012,29 +47686,12 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postTerminalReadersReader(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postTerminalReadersReaderResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(res, postTerminalReadersReaderResponseBodyValidator),
+          )
       } catch (error) {
         next(error)
       }
@@ -56080,7 +47737,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postTerminalReadersReaderCancelAction(
             input,
             responder,
@@ -56088,32 +47745,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTerminalReadersReaderCancelActionResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postTerminalReadersReaderCancelActionResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -56159,7 +47797,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postTerminalReadersReaderCollectInputs(
             input,
             responder,
@@ -56167,32 +47805,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTerminalReadersReaderCollectInputsResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postTerminalReadersReaderCollectInputsResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -56238,7 +47857,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postTerminalReadersReaderCollectPaymentMethod(
             input,
             responder,
@@ -56246,32 +47865,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTerminalReadersReaderCollectPaymentMethodResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postTerminalReadersReaderCollectPaymentMethodResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -56317,7 +47917,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postTerminalReadersReaderConfirmPaymentIntent(
             input,
             responder,
@@ -56325,32 +47925,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTerminalReadersReaderConfirmPaymentIntentResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postTerminalReadersReaderConfirmPaymentIntentResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -56396,7 +47977,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postTerminalReadersReaderProcessPaymentIntent(
             input,
             responder,
@@ -56404,32 +47985,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTerminalReadersReaderProcessPaymentIntentResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postTerminalReadersReaderProcessPaymentIntentResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -56475,7 +48037,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postTerminalReadersReaderProcessSetupIntent(
             input,
             responder,
@@ -56483,32 +48045,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTerminalReadersReaderProcessSetupIntentResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postTerminalReadersReaderProcessSetupIntentResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -56554,7 +48097,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postTerminalReadersReaderRefundPayment(
             input,
             responder,
@@ -56562,32 +48105,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTerminalReadersReaderRefundPaymentResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postTerminalReadersReaderRefundPaymentResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -56633,7 +48157,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postTerminalReadersReaderSetReaderDisplay(
             input,
             responder,
@@ -56641,32 +48165,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTerminalReadersReaderSetReaderDisplayResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postTerminalReadersReaderSetReaderDisplayResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -56704,34 +48209,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postTestHelpersConfirmationTokens(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTestHelpersConfirmationTokensResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postTestHelpersConfirmationTokensResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -56782,7 +48268,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postTestHelpersCustomersCustomerFundCashBalance(
             input,
             responder,
@@ -56790,32 +48276,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTestHelpersCustomersCustomerFundCashBalanceResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postTestHelpersCustomersCustomerFundCashBalanceResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -56853,7 +48320,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postTestHelpersIssuingAuthorizations(
             input,
             responder,
@@ -56861,32 +48328,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTestHelpersIssuingAuthorizationsResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postTestHelpersIssuingAuthorizationsResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -56931,7 +48379,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postTestHelpersIssuingAuthorizationsAuthorizationCapture(
             input,
             responder,
@@ -56939,32 +48387,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTestHelpersIssuingAuthorizationsAuthorizationCaptureResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postTestHelpersIssuingAuthorizationsAuthorizationCaptureResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -57009,7 +48438,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postTestHelpersIssuingAuthorizationsAuthorizationExpire(
             input,
             responder,
@@ -57017,32 +48446,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTestHelpersIssuingAuthorizationsAuthorizationExpireResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postTestHelpersIssuingAuthorizationsAuthorizationExpireResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -57087,7 +48497,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmount(
             input,
             responder,
@@ -57095,32 +48505,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmountResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmountResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -57165,7 +48556,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespond(
             input,
             responder,
@@ -57173,32 +48564,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespondResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespondResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -57243,7 +48615,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postTestHelpersIssuingAuthorizationsAuthorizationIncrement(
             input,
             responder,
@@ -57251,32 +48623,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTestHelpersIssuingAuthorizationsAuthorizationIncrementResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postTestHelpersIssuingAuthorizationsAuthorizationIncrementResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -57321,7 +48674,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postTestHelpersIssuingAuthorizationsAuthorizationReverse(
             input,
             responder,
@@ -57329,32 +48682,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTestHelpersIssuingAuthorizationsAuthorizationReverseResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postTestHelpersIssuingAuthorizationsAuthorizationReverseResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -57400,7 +48734,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postTestHelpersIssuingCardsCardShippingDeliver(
             input,
             responder,
@@ -57408,32 +48742,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTestHelpersIssuingCardsCardShippingDeliverResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postTestHelpersIssuingCardsCardShippingDeliverResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -57479,7 +48794,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postTestHelpersIssuingCardsCardShippingFail(
             input,
             responder,
@@ -57487,32 +48802,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTestHelpersIssuingCardsCardShippingFailResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postTestHelpersIssuingCardsCardShippingFailResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -57558,7 +48854,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postTestHelpersIssuingCardsCardShippingReturn(
             input,
             responder,
@@ -57566,32 +48862,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTestHelpersIssuingCardsCardShippingReturnResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postTestHelpersIssuingCardsCardShippingReturnResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -57637,7 +48914,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postTestHelpersIssuingCardsCardShippingShip(
             input,
             responder,
@@ -57645,32 +48922,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTestHelpersIssuingCardsCardShippingShipResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postTestHelpersIssuingCardsCardShippingShipResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -57716,7 +48974,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postTestHelpersIssuingCardsCardShippingSubmit(
             input,
             responder,
@@ -57724,32 +48982,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTestHelpersIssuingCardsCardShippingSubmitResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postTestHelpersIssuingCardsCardShippingSubmitResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -57799,7 +49038,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivate(
             input,
             responder,
@@ -57807,32 +49046,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivateResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivateResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -57882,7 +49102,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivate(
             input,
             responder,
@@ -57890,32 +49110,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivateResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivateResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -57965,7 +49166,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignReject(
             input,
             responder,
@@ -57973,32 +49174,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignRejectResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignRejectResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -58036,34 +49218,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postTestHelpersIssuingSettlements(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTestHelpersIssuingSettlementsResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postTestHelpersIssuingSettlementsResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -58108,7 +49271,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postTestHelpersIssuingSettlementsSettlementComplete(
             input,
             responder,
@@ -58116,32 +49279,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTestHelpersIssuingSettlementsSettlementCompleteResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postTestHelpersIssuingSettlementsSettlementCompleteResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -58179,7 +49323,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postTestHelpersIssuingTransactionsCreateForceCapture(
             input,
             responder,
@@ -58187,32 +49331,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTestHelpersIssuingTransactionsCreateForceCaptureResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postTestHelpersIssuingTransactionsCreateForceCaptureResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -58250,7 +49375,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postTestHelpersIssuingTransactionsCreateUnlinkedRefund(
             input,
             responder,
@@ -58258,32 +49383,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTestHelpersIssuingTransactionsCreateUnlinkedRefundResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postTestHelpersIssuingTransactionsCreateUnlinkedRefundResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -58328,7 +49434,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postTestHelpersIssuingTransactionsTransactionRefund(
             input,
             responder,
@@ -58336,32 +49442,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTestHelpersIssuingTransactionsTransactionRefundResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postTestHelpersIssuingTransactionsTransactionRefundResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -58407,34 +49494,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postTestHelpersRefundsRefundExpire(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTestHelpersRefundsRefundExpireResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postTestHelpersRefundsRefundExpireResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -58479,7 +49547,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postTestHelpersTerminalReadersReaderPresentPaymentMethod(
             input,
             responder,
@@ -58487,32 +49555,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTestHelpersTerminalReadersReaderPresentPaymentMethodResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postTestHelpersTerminalReadersReaderPresentPaymentMethodResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -58557,7 +49606,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postTestHelpersTerminalReadersReaderSucceedInputCollection(
             input,
             responder,
@@ -58565,32 +49614,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTestHelpersTerminalReadersReaderSucceedInputCollectionResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postTestHelpersTerminalReadersReaderSucceedInputCollectionResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -58635,7 +49665,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postTestHelpersTerminalReadersReaderTimeoutInputCollection(
             input,
             responder,
@@ -58643,32 +49673,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTestHelpersTerminalReadersReaderTimeoutInputCollectionResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postTestHelpersTerminalReadersReaderTimeoutInputCollectionResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -58767,29 +49778,12 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getTestHelpersTestClocks(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getTestHelpersTestClocksResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(res, getTestHelpersTestClocksResponseBodyValidator),
+          )
       } catch (error) {
         next(error)
       }
@@ -58827,29 +49821,12 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postTestHelpersTestClocks(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postTestHelpersTestClocksResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(res, postTestHelpersTestClocksResponseBodyValidator),
+          )
       } catch (error) {
         next(error)
       }
@@ -58896,7 +49873,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .deleteTestHelpersTestClocksTestClock(
             input,
             responder,
@@ -58904,32 +49881,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            deleteTestHelpersTestClocksTestClockResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              deleteTestHelpersTestClocksTestClockResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -58994,34 +49952,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getTestHelpersTestClocksTestClock(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getTestHelpersTestClocksTestClockResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getTestHelpersTestClocksTestClockResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -59067,7 +50006,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postTestHelpersTestClocksTestClockAdvance(
             input,
             responder,
@@ -59075,32 +50014,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTestHelpersTestClocksTestClockAdvanceResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postTestHelpersTestClocksTestClockAdvanceResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -59146,7 +50066,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postTestHelpersTreasuryInboundTransfersIdFail(
             input,
             responder,
@@ -59154,32 +50074,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTestHelpersTreasuryInboundTransfersIdFailResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postTestHelpersTreasuryInboundTransfersIdFailResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -59225,7 +50126,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postTestHelpersTreasuryInboundTransfersIdReturn(
             input,
             responder,
@@ -59233,32 +50134,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTestHelpersTreasuryInboundTransfersIdReturnResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postTestHelpersTreasuryInboundTransfersIdReturnResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -59304,7 +50186,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postTestHelpersTreasuryInboundTransfersIdSucceed(
             input,
             responder,
@@ -59312,32 +50194,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTestHelpersTreasuryInboundTransfersIdSucceedResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postTestHelpersTreasuryInboundTransfersIdSucceedResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -59383,7 +50246,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postTestHelpersTreasuryOutboundPaymentsId(
             input,
             responder,
@@ -59391,32 +50254,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTestHelpersTreasuryOutboundPaymentsIdResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postTestHelpersTreasuryOutboundPaymentsIdResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -59462,7 +50306,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postTestHelpersTreasuryOutboundPaymentsIdFail(
             input,
             responder,
@@ -59470,32 +50314,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTestHelpersTreasuryOutboundPaymentsIdFailResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postTestHelpersTreasuryOutboundPaymentsIdFailResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -59541,7 +50366,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postTestHelpersTreasuryOutboundPaymentsIdPost(
             input,
             responder,
@@ -59549,32 +50374,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTestHelpersTreasuryOutboundPaymentsIdPostResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postTestHelpersTreasuryOutboundPaymentsIdPostResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -59620,7 +50426,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postTestHelpersTreasuryOutboundPaymentsIdReturn(
             input,
             responder,
@@ -59628,32 +50434,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTestHelpersTreasuryOutboundPaymentsIdReturnResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postTestHelpersTreasuryOutboundPaymentsIdReturnResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -59698,7 +50485,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postTestHelpersTreasuryOutboundTransfersOutboundTransfer(
             input,
             responder,
@@ -59706,32 +50493,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTestHelpersTreasuryOutboundTransfersOutboundTransferResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postTestHelpersTreasuryOutboundTransfersOutboundTransferResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -59776,7 +50544,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postTestHelpersTreasuryOutboundTransfersOutboundTransferFail(
             input,
             responder,
@@ -59784,32 +50552,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTestHelpersTreasuryOutboundTransfersOutboundTransferFailResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postTestHelpersTreasuryOutboundTransfersOutboundTransferFailResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -59854,7 +50603,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postTestHelpersTreasuryOutboundTransfersOutboundTransferPost(
             input,
             responder,
@@ -59862,32 +50611,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTestHelpersTreasuryOutboundTransfersOutboundTransferPostResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postTestHelpersTreasuryOutboundTransfersOutboundTransferPostResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -59932,7 +50662,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postTestHelpersTreasuryOutboundTransfersOutboundTransferReturn(
             input,
             responder,
@@ -59940,32 +50670,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTestHelpersTreasuryOutboundTransfersOutboundTransferReturnResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postTestHelpersTreasuryOutboundTransfersOutboundTransferReturnResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -60003,7 +50714,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postTestHelpersTreasuryReceivedCredits(
             input,
             responder,
@@ -60011,32 +50722,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTestHelpersTreasuryReceivedCreditsResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postTestHelpersTreasuryReceivedCreditsResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -60074,7 +50766,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postTestHelpersTreasuryReceivedDebits(
             input,
             responder,
@@ -60082,32 +50774,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTestHelpersTreasuryReceivedDebitsResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postTestHelpersTreasuryReceivedDebitsResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -60147,29 +50820,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postTokens(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postTokensResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, postTokensResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -60234,29 +50888,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getTokensToken(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getTokensTokenResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getTokensTokenResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -60408,29 +51043,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getTopups(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getTopupsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getTopupsResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -60470,29 +51086,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postTopups(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postTopupsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, postTopupsResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -60557,29 +51154,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getTopupsTopup(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getTopupsTopupResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getTopupsTopupResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -60625,29 +51203,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postTopupsTopup(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postTopupsTopupResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, postTopupsTopupResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -60695,29 +51254,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postTopupsTopupCancel(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postTopupsTopupCancelResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, postTopupsTopupCancelResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -60851,29 +51391,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getTransfers(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getTransfersResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getTransfersResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -60913,29 +51434,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postTransfers(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postTransfersResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, postTransfersResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -61039,29 +51541,12 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getTransfersIdReversals(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getTransfersIdReversalsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(res, getTransfersIdReversalsResponseBodyValidator),
+          )
       } catch (error) {
         next(error)
       }
@@ -61107,29 +51592,12 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postTransfersIdReversals(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postTransfersIdReversalsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(res, postTransfersIdReversalsResponseBodyValidator),
+          )
       } catch (error) {
         next(error)
       }
@@ -61196,29 +51664,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getTransfersTransfer(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getTransfersTransferResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getTransfersTransferResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -61266,29 +51715,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postTransfersTransfer(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postTransfersTransferResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, postTransfersTransferResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -61354,31 +51784,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getTransfersTransferReversalsId(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getTransfersTransferReversalsIdResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getTransfersTransferReversalsIdResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -61425,31 +51839,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postTransfersTransferReversalsId(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTransfersTransferReversalsIdResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postTransfersTransferReversalsIdResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -61566,31 +51964,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getTreasuryCreditReversals(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getTreasuryCreditReversalsResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getTreasuryCreditReversalsResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -61628,31 +52010,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postTreasuryCreditReversals(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTreasuryCreditReversalsResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postTreasuryCreditReversalsResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -61717,7 +52083,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getTreasuryCreditReversalsCreditReversal(
             input,
             responder,
@@ -61725,32 +52091,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getTreasuryCreditReversalsCreditReversalResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getTreasuryCreditReversalsCreditReversalResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -61874,29 +52221,12 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getTreasuryDebitReversals(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getTreasuryDebitReversalsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(res, getTreasuryDebitReversalsResponseBodyValidator),
+          )
       } catch (error) {
         next(error)
       }
@@ -61934,31 +52264,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postTreasuryDebitReversals(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTreasuryDebitReversalsResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postTreasuryDebitReversalsResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -62023,7 +52337,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getTreasuryDebitReversalsDebitReversal(
             input,
             responder,
@@ -62031,32 +52345,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getTreasuryDebitReversalsDebitReversalResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getTreasuryDebitReversalsDebitReversalResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -62187,31 +52482,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getTreasuryFinancialAccounts(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getTreasuryFinancialAccountsResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getTreasuryFinancialAccountsResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -62249,31 +52528,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postTreasuryFinancialAccounts(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTreasuryFinancialAccountsResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postTreasuryFinancialAccountsResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -62338,7 +52601,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getTreasuryFinancialAccountsFinancialAccount(
             input,
             responder,
@@ -62346,32 +52609,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getTreasuryFinancialAccountsFinancialAccountResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getTreasuryFinancialAccountsFinancialAccountResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -62417,7 +52661,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postTreasuryFinancialAccountsFinancialAccount(
             input,
             responder,
@@ -62425,32 +52669,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTreasuryFinancialAccountsFinancialAccountResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postTreasuryFinancialAccountsFinancialAccountResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -62495,7 +52720,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postTreasuryFinancialAccountsFinancialAccountClose(
             input,
             responder,
@@ -62503,32 +52728,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTreasuryFinancialAccountsFinancialAccountCloseResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postTreasuryFinancialAccountsFinancialAccountCloseResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -62598,7 +52804,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getTreasuryFinancialAccountsFinancialAccountFeatures(
             input,
             responder,
@@ -62606,32 +52812,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getTreasuryFinancialAccountsFinancialAccountFeaturesResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getTreasuryFinancialAccountsFinancialAccountFeaturesResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -62681,7 +52868,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postTreasuryFinancialAccountsFinancialAccountFeatures(
             input,
             responder,
@@ -62689,32 +52876,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTreasuryFinancialAccountsFinancialAccountFeaturesResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postTreasuryFinancialAccountsFinancialAccountFeaturesResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -62826,31 +52994,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getTreasuryInboundTransfers(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getTreasuryInboundTransfersResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getTreasuryInboundTransfersResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -62888,31 +53040,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postTreasuryInboundTransfers(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTreasuryInboundTransfersResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postTreasuryInboundTransfersResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -62977,31 +53113,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getTreasuryInboundTransfersId(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getTreasuryInboundTransfersIdResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getTreasuryInboundTransfersIdResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -63047,7 +53167,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postTreasuryInboundTransfersInboundTransferCancel(
             input,
             responder,
@@ -63055,32 +53175,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTreasuryInboundTransfersInboundTransferCancelResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postTreasuryInboundTransfersInboundTransferCancelResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -63227,31 +53328,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getTreasuryOutboundPayments(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getTreasuryOutboundPaymentsResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getTreasuryOutboundPaymentsResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -63289,31 +53374,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postTreasuryOutboundPayments(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTreasuryOutboundPaymentsResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postTreasuryOutboundPaymentsResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -63378,31 +53447,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getTreasuryOutboundPaymentsId(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getTreasuryOutboundPaymentsIdResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getTreasuryOutboundPaymentsIdResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -63448,7 +53501,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postTreasuryOutboundPaymentsIdCancel(
             input,
             responder,
@@ -63456,32 +53509,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTreasuryOutboundPaymentsIdCancelResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postTreasuryOutboundPaymentsIdCancelResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -63593,31 +53627,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getTreasuryOutboundTransfers(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getTreasuryOutboundTransfersResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getTreasuryOutboundTransfersResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -63655,31 +53673,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postTreasuryOutboundTransfers(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTreasuryOutboundTransfersResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postTreasuryOutboundTransfersResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -63744,7 +53746,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getTreasuryOutboundTransfersOutboundTransfer(
             input,
             responder,
@@ -63752,32 +53754,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getTreasuryOutboundTransfersOutboundTransferResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getTreasuryOutboundTransfersOutboundTransferResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -63822,7 +53805,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postTreasuryOutboundTransfersOutboundTransferCancel(
             input,
             responder,
@@ -63830,32 +53813,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTreasuryOutboundTransfersOutboundTransferCancelResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postTreasuryOutboundTransfersOutboundTransferCancelResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -63985,31 +53949,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getTreasuryReceivedCredits(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getTreasuryReceivedCreditsResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getTreasuryReceivedCreditsResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -64074,31 +54022,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getTreasuryReceivedCreditsId(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getTreasuryReceivedCreditsIdResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getTreasuryReceivedCreditsIdResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -64208,29 +54140,12 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getTreasuryReceivedDebits(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getTreasuryReceivedDebitsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(res, getTreasuryReceivedDebitsResponseBodyValidator),
+          )
       } catch (error) {
         next(error)
       }
@@ -64295,31 +54210,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getTreasuryReceivedDebitsId(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getTreasuryReceivedDebitsIdResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getTreasuryReceivedDebitsIdResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -64489,31 +54388,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getTreasuryTransactionEntries(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getTreasuryTransactionEntriesResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getTreasuryTransactionEntriesResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -64578,31 +54461,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getTreasuryTransactionEntriesId(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getTreasuryTransactionEntriesIdResponseBodyValidator(status, body),
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getTreasuryTransactionEntriesIdResponseBodyValidator,
+            ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -64778,29 +54645,12 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getTreasuryTransactions(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getTreasuryTransactionsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(res, getTreasuryTransactionsResponseBodyValidator),
+          )
       } catch (error) {
         next(error)
       }
@@ -64865,29 +54715,12 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getTreasuryTransactionsId(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getTreasuryTransactionsIdResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(res, getTreasuryTransactionsIdResponseBodyValidator),
+          )
       } catch (error) {
         next(error)
       }
@@ -64982,29 +54815,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getWebhookEndpoints(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getWebhookEndpointsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getWebhookEndpointsResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -65044,29 +54858,10 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postWebhookEndpoints(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postWebhookEndpointsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(handleResponse(res, postWebhookEndpointsResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -65108,7 +54903,7 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .deleteWebhookEndpointsWebhookEndpoint(
             input,
             responder,
@@ -65116,32 +54911,13 @@ export function createRouter(implementation: Implementation): Router {
             res,
             next,
           )
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            deleteWebhookEndpointsWebhookEndpointResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              deleteWebhookEndpointsWebhookEndpointResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -65206,34 +54982,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .getWebhookEndpointsWebhookEndpoint(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getWebhookEndpointsWebhookEndpointResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getWebhookEndpointsWebhookEndpointResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }
@@ -65279,34 +55036,15 @@ export function createRouter(implementation: Implementation): Router {
           },
         }
 
-        const response = await implementation
+        await implementation
           .postWebhookEndpointsWebhookEndpoint(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postWebhookEndpointsWebhookEndpointResponseBodyValidator(
-              status,
-              body,
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postWebhookEndpointsWebhookEndpointResponseBodyValidator,
             ),
           )
-        } else {
-          res.end()
-        }
       } catch (error) {
         next(error)
       }

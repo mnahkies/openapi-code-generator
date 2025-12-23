@@ -3,13 +3,14 @@
 /* eslint-disable */
 
 import KoaRouter, {type RouterContext} from "@koa/router"
-import {KoaRuntimeError} from "@nahkies/typescript-koa-runtime/errors"
 import {
+  handleImplementationError,
+  handleResponse,
   type KoaRuntimeResponder,
   KoaRuntimeResponse,
   type Params,
-  type Response,
-  SkipResponse,
+  type Res,
+  type SkipResponse,
   type StatusCode,
 } from "@nahkies/typescript-koa-runtime/server"
 import {responseValidationFactory} from "@nahkies/typescript-koa-runtime/zod-v4"
@@ -26,7 +27,7 @@ export type GetEscapeHatchesPlainText = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  KoaRuntimeResponse<unknown> | Response<200, string> | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<200, string> | typeof SkipResponse
 >
 
 export type EscapeHatchesImplementation = {
@@ -63,23 +64,12 @@ export function createEscapeHatchesRouter(
         },
       }
 
-      const response = await implementation
+      await implementation
         .getEscapeHatchesPlainText(input, responder, ctx, next)
-        .catch((err) => {
-          throw KoaRuntimeError.HandlerError(err)
-        })
-
-      // escape hatch to allow responses to be sent by the implementation handler
-      if (response === SkipResponse) {
-        return
-      }
-
-      const {status, body} =
-        response instanceof KoaRuntimeResponse ? response.unpack() : response
-
-      ctx.body = getEscapeHatchesPlainTextResponseValidator(status, body)
-      ctx.status = status
-      return next()
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(ctx, next, getEscapeHatchesPlainTextResponseValidator),
+        )
     },
   )
 

@@ -3,17 +3,16 @@
 /* eslint-disable */
 
 import KoaRouter, {type RouterContext} from "@koa/router"
+import {RequestInputType} from "@nahkies/typescript-koa-runtime/errors"
 import {
-  KoaRuntimeError,
-  RequestInputType,
-} from "@nahkies/typescript-koa-runtime/errors"
-import {
+  handleImplementationError,
+  handleResponse,
   type KoaRuntimeResponder,
   KoaRuntimeResponse,
   type Params,
-  type Response,
+  type Res,
   type ServerConfig,
-  SkipResponse,
+  type SkipResponse,
   type StatusCode,
   type StatusCode4xx,
   type StatusCode5xx,
@@ -57,9 +56,7 @@ export type GetTodoLists = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Response<200, t_TodoList[]>
-  | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<200, t_TodoList[]> | typeof SkipResponse
 >
 
 export type GetTodoListByIdResponder = {
@@ -75,9 +72,9 @@ export type GetTodoListById = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_TodoList>
-  | Response<StatusCode4xx, t_Error>
-  | Response<StatusCode, void>
+  | Res<200, t_TodoList>
+  | Res<StatusCode4xx, t_Error>
+  | Res<StatusCode, void>
   | typeof SkipResponse
 >
 
@@ -99,9 +96,9 @@ export type UpdateTodoListById = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_TodoList>
-  | Response<StatusCode4xx, t_Error>
-  | Response<StatusCode, void>
+  | Res<200, t_TodoList>
+  | Res<StatusCode4xx, t_Error>
+  | Res<StatusCode, void>
   | typeof SkipResponse
 >
 
@@ -118,9 +115,9 @@ export type DeleteTodoListById = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<204, void>
-  | Response<StatusCode4xx, t_Error>
-  | Response<StatusCode, void>
+  | Res<204, void>
+  | Res<StatusCode4xx, t_Error>
+  | Res<StatusCode, void>
   | typeof SkipResponse
 >
 
@@ -144,7 +141,7 @@ export type GetTodoListItems = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
+  | Res<
       200,
       {
         completedAt?: string
@@ -153,7 +150,7 @@ export type GetTodoListItems = (
         id: string
       }
     >
-  | Response<
+  | Res<
       StatusCode5xx,
       {
         code: string
@@ -177,9 +174,7 @@ export type CreateTodoListItem = (
   respond: CreateTodoListItemResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<204, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type ListAttachmentsResponder = {
   with200(): KoaRuntimeResponse<t_UnknownObject[]>
@@ -192,7 +187,7 @@ export type ListAttachments = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_UnknownObject[]>
+  | Res<200, t_UnknownObject[]>
   | typeof SkipResponse
 >
 
@@ -205,9 +200,7 @@ export type UploadAttachment = (
   respond: UploadAttachmentResponder,
   ctx: RouterContext,
   next: Next,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Response<202, void> | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<202, void> | typeof SkipResponse>
 
 export type Implementation = {
   getTodoLists: GetTodoLists
@@ -265,23 +258,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       },
     }
 
-    const response = await implementation
+    await implementation
       .getTodoLists(input, responder, ctx, next)
-      .catch((err) => {
-        throw KoaRuntimeError.HandlerError(err)
-      })
-
-    // escape hatch to allow responses to be sent by the implementation handler
-    if (response === SkipResponse) {
-      return
-    }
-
-    const {status, body} =
-      response instanceof KoaRuntimeResponse ? response.unpack() : response
-
-    ctx.body = getTodoListsResponseValidator(status, body)
-    ctx.status = status
-    return next()
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, next, getTodoListsResponseValidator))
   })
 
   const getTodoListByIdParamSchema = z.object({listId: z.string()})
@@ -321,23 +301,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       },
     }
 
-    const response = await implementation
+    await implementation
       .getTodoListById(input, responder, ctx, next)
-      .catch((err) => {
-        throw KoaRuntimeError.HandlerError(err)
-      })
-
-    // escape hatch to allow responses to be sent by the implementation handler
-    if (response === SkipResponse) {
-      return
-    }
-
-    const {status, body} =
-      response instanceof KoaRuntimeResponse ? response.unpack() : response
-
-    ctx.body = getTodoListByIdResponseValidator(status, body)
-    ctx.status = status
-    return next()
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, next, getTodoListByIdResponseValidator))
   })
 
   const updateTodoListByIdParamSchema = z.object({listId: z.string()})
@@ -381,23 +348,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       },
     }
 
-    const response = await implementation
+    await implementation
       .updateTodoListById(input, responder, ctx, next)
-      .catch((err) => {
-        throw KoaRuntimeError.HandlerError(err)
-      })
-
-    // escape hatch to allow responses to be sent by the implementation handler
-    if (response === SkipResponse) {
-      return
-    }
-
-    const {status, body} =
-      response instanceof KoaRuntimeResponse ? response.unpack() : response
-
-    ctx.body = updateTodoListByIdResponseValidator(status, body)
-    ctx.status = status
-    return next()
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, next, updateTodoListByIdResponseValidator))
   })
 
   const deleteTodoListByIdParamSchema = z.object({listId: z.string()})
@@ -437,23 +391,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       },
     }
 
-    const response = await implementation
+    await implementation
       .deleteTodoListById(input, responder, ctx, next)
-      .catch((err) => {
-        throw KoaRuntimeError.HandlerError(err)
-      })
-
-    // escape hatch to allow responses to be sent by the implementation handler
-    if (response === SkipResponse) {
-      return
-    }
-
-    const {status, body} =
-      response instanceof KoaRuntimeResponse ? response.unpack() : response
-
-    ctx.body = deleteTodoListByIdResponseValidator(status, body)
-    ctx.status = status
-    return next()
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, next, deleteTodoListByIdResponseValidator))
   })
 
   const getTodoListItemsParamSchema = z.object({listId: z.string()})
@@ -506,23 +447,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       },
     }
 
-    const response = await implementation
+    await implementation
       .getTodoListItems(input, responder, ctx, next)
-      .catch((err) => {
-        throw KoaRuntimeError.HandlerError(err)
-      })
-
-    // escape hatch to allow responses to be sent by the implementation handler
-    if (response === SkipResponse) {
-      return
-    }
-
-    const {status, body} =
-      response instanceof KoaRuntimeResponse ? response.unpack() : response
-
-    ctx.body = getTodoListItemsResponseValidator(status, body)
-    ctx.status = status
-    return next()
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, next, getTodoListItemsResponseValidator))
   })
 
   const createTodoListItemParamSchema = z.object({listId: z.string()})
@@ -560,23 +488,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
         },
       }
 
-      const response = await implementation
+      await implementation
         .createTodoListItem(input, responder, ctx, next)
-        .catch((err) => {
-          throw KoaRuntimeError.HandlerError(err)
-        })
-
-      // escape hatch to allow responses to be sent by the implementation handler
-      if (response === SkipResponse) {
-        return
-      }
-
-      const {status, body} =
-        response instanceof KoaRuntimeResponse ? response.unpack() : response
-
-      ctx.body = createTodoListItemResponseValidator(status, body)
-      ctx.status = status
-      return next()
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, next, createTodoListItemResponseValidator))
     },
   )
 
@@ -602,23 +517,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       },
     }
 
-    const response = await implementation
+    await implementation
       .listAttachments(input, responder, ctx, next)
-      .catch((err) => {
-        throw KoaRuntimeError.HandlerError(err)
-      })
-
-    // escape hatch to allow responses to be sent by the implementation handler
-    if (response === SkipResponse) {
-      return
-    }
-
-    const {status, body} =
-      response instanceof KoaRuntimeResponse ? response.unpack() : response
-
-    ctx.body = listAttachmentsResponseValidator(status, body)
-    ctx.status = status
-    return next()
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, next, listAttachmentsResponseValidator))
   })
 
   const uploadAttachmentResponseValidator = responseValidationFactory(
@@ -648,23 +550,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       },
     }
 
-    const response = await implementation
+    await implementation
       .uploadAttachment(input, responder, ctx, next)
-      .catch((err) => {
-        throw KoaRuntimeError.HandlerError(err)
-      })
-
-    // escape hatch to allow responses to be sent by the implementation handler
-    if (response === SkipResponse) {
-      return
-    }
-
-    const {status, body} =
-      response instanceof KoaRuntimeResponse ? response.unpack() : response
-
-    ctx.body = uploadAttachmentResponseValidator(status, body)
-    ctx.status = status
-    return next()
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, next, uploadAttachmentResponseValidator))
   })
 
   return router

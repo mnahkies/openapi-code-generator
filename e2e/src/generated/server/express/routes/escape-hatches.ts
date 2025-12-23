@@ -2,12 +2,13 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import {ExpressRuntimeError} from "@nahkies/typescript-express-runtime/errors"
 import {
   type ExpressRuntimeResponder,
   ExpressRuntimeResponse,
+  handleImplementationError,
+  handleResponse,
   type Params,
-  SkipResponse,
+  type SkipResponse,
   type StatusCode,
 } from "@nahkies/typescript-express-runtime/server"
 import {responseValidationFactory} from "@nahkies/typescript-express-runtime/zod-v4"
@@ -59,29 +60,12 @@ export function createEscapeHatchesRouter(
           },
         }
 
-        const response = await implementation
+        await implementation
           .getEscapeHatchesPlainText(input, responder, req, res, next)
-          .catch((err) => {
-            throw ExpressRuntimeError.HandlerError(err)
-          })
-
-        // escape hatch to allow responses to be sent by the implementation handler
-        if (response === SkipResponse) {
-          return
-        }
-
-        const {status, body} =
-          response instanceof ExpressRuntimeResponse
-            ? response.unpack()
-            : response
-
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getEscapeHatchesPlainTextResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(res, getEscapeHatchesPlainTextResponseBodyValidator),
+          )
       } catch (error) {
         next(error)
       }

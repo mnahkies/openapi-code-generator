@@ -24,9 +24,16 @@ export type StatusCode =
   | StatusCode4xx
   | StatusCode5xx
 
-export type Response<Status extends StatusCode, Type> = {
+export type Res<Status extends StatusCode, Type> = {
   status: Status
   body: Type
+}
+
+export type Params<Params, Query, Body, Header> = {
+  params: Params
+  query: Query
+  body: Body
+  headers: Header
 }
 
 export type QueryParams = {

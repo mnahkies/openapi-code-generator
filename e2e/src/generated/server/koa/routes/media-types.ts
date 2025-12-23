@@ -3,16 +3,15 @@
 /* eslint-disable */
 
 import KoaRouter, {type RouterContext} from "@koa/router"
+import {RequestInputType} from "@nahkies/typescript-koa-runtime/errors"
 import {
-  KoaRuntimeError,
-  RequestInputType,
-} from "@nahkies/typescript-koa-runtime/errors"
-import {
+  handleImplementationError,
+  handleResponse,
   type KoaRuntimeResponder,
   KoaRuntimeResponse,
   type Params,
-  type Response,
-  SkipResponse,
+  type Res,
+  type SkipResponse,
   type StatusCode,
 } from "@nahkies/typescript-koa-runtime/server"
 import {
@@ -34,7 +33,7 @@ export type PostMediaTypesText = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  KoaRuntimeResponse<unknown> | Response<200, string> | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<200, string> | typeof SkipResponse
 >
 
 export type PostMediaTypesXWwwFormUrlencodedResponder = {
@@ -47,9 +46,7 @@ export type PostMediaTypesXWwwFormUrlencoded = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Response<200, t_ProductOrder>
-  | typeof SkipResponse
+  KoaRuntimeResponse<unknown> | Res<200, t_ProductOrder> | typeof SkipResponse
 >
 
 export type MediaTypesImplementation = {
@@ -88,23 +85,10 @@ export function createMediaTypesRouter(
       },
     }
 
-    const response = await implementation
+    await implementation
       .postMediaTypesText(input, responder, ctx, next)
-      .catch((err) => {
-        throw KoaRuntimeError.HandlerError(err)
-      })
-
-    // escape hatch to allow responses to be sent by the implementation handler
-    if (response === SkipResponse) {
-      return
-    }
-
-    const {status, body} =
-      response instanceof KoaRuntimeResponse ? response.unpack() : response
-
-    ctx.body = postMediaTypesTextResponseValidator(status, body)
-    ctx.status = status
-    return next()
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, next, postMediaTypesTextResponseValidator))
   })
 
   const postMediaTypesXWwwFormUrlencodedResponseValidator =
@@ -134,23 +118,16 @@ export function createMediaTypesRouter(
         },
       }
 
-      const response = await implementation
+      await implementation
         .postMediaTypesXWwwFormUrlencoded(input, responder, ctx, next)
-        .catch((err) => {
-          throw KoaRuntimeError.HandlerError(err)
-        })
-
-      // escape hatch to allow responses to be sent by the implementation handler
-      if (response === SkipResponse) {
-        return
-      }
-
-      const {status, body} =
-        response instanceof KoaRuntimeResponse ? response.unpack() : response
-
-      ctx.body = postMediaTypesXWwwFormUrlencodedResponseValidator(status, body)
-      ctx.status = status
-      return next()
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            next,
+            postMediaTypesXWwwFormUrlencodedResponseValidator,
+          ),
+        )
     },
   )
 

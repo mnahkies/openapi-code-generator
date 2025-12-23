@@ -3,16 +3,15 @@
 /* eslint-disable */
 
 import KoaRouter, {type RouterContext} from "@koa/router"
+import {RequestInputType} from "@nahkies/typescript-koa-runtime/errors"
 import {
-  KoaRuntimeError,
-  RequestInputType,
-} from "@nahkies/typescript-koa-runtime/errors"
-import {
+  handleImplementationError,
+  handleResponse,
   type KoaRuntimeResponder,
   KoaRuntimeResponse,
   type Params,
-  type Response,
-  SkipResponse,
+  type Res,
+  type SkipResponse,
   type StatusCode,
 } from "@nahkies/typescript-koa-runtime/server"
 import {
@@ -43,7 +42,7 @@ export type GetHeadersUndeclared = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_GetHeadersUndeclared200Response>
+  | Res<200, t_GetHeadersUndeclared200Response>
   | typeof SkipResponse
 >
 
@@ -58,7 +57,7 @@ export type GetHeadersRequest = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_GetHeadersRequest200Response>
+  | Res<200, t_GetHeadersRequest200Response>
   | typeof SkipResponse
 >
 
@@ -97,23 +96,10 @@ export function createRequestHeadersRouter(
         },
       }
 
-      const response = await implementation
+      await implementation
         .getHeadersUndeclared(input, responder, ctx, next)
-        .catch((err) => {
-          throw KoaRuntimeError.HandlerError(err)
-        })
-
-      // escape hatch to allow responses to be sent by the implementation handler
-      if (response === SkipResponse) {
-        return
-      }
-
-      const {status, body} =
-        response instanceof KoaRuntimeResponse ? response.unpack() : response
-
-      ctx.body = getHeadersUndeclaredResponseValidator(status, body)
-      ctx.status = status
-      return next()
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, next, getHeadersUndeclaredResponseValidator))
     },
   )
 
@@ -151,23 +137,10 @@ export function createRequestHeadersRouter(
       },
     }
 
-    const response = await implementation
+    await implementation
       .getHeadersRequest(input, responder, ctx, next)
-      .catch((err) => {
-        throw KoaRuntimeError.HandlerError(err)
-      })
-
-    // escape hatch to allow responses to be sent by the implementation handler
-    if (response === SkipResponse) {
-      return
-    }
-
-    const {status, body} =
-      response instanceof KoaRuntimeResponse ? response.unpack() : response
-
-    ctx.body = getHeadersRequestResponseValidator(status, body)
-    ctx.status = status
-    return next()
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, next, getHeadersRequestResponseValidator))
   })
 
   return router
