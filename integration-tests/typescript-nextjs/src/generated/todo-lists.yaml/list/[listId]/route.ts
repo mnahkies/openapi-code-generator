@@ -3,28 +3,28 @@
 /* eslint-disable */
 
 import {
-  t_DeleteTodoListByIdParamSchema,
-  t_Error,
-  t_GetTodoListByIdParamSchema,
-  t_TodoList,
-  t_UpdateTodoListByIdBodySchema,
-  t_UpdateTodoListByIdParamSchema,
-} from "../../models"
-import {s_CreateUpdateTodoList} from "../../schemas"
-import {
   OpenAPIRuntimeError,
   RequestInputType,
 } from "@nahkies/typescript-nextjs-runtime/errors"
 import {
-  OpenAPIRuntimeResponder,
+  type OpenAPIRuntimeResponder,
   OpenAPIRuntimeResponse,
-  Params,
-  StatusCode,
-  StatusCode4xx,
+  type Params,
+  type StatusCode,
+  type StatusCode4xx,
 } from "@nahkies/typescript-nextjs-runtime/server"
-import {parseRequestInput} from "@nahkies/typescript-nextjs-runtime/zod"
-import {NextRequest} from "next/server"
-import {z} from "zod"
+import {parseRequestInput} from "@nahkies/typescript-nextjs-runtime/zod-v4"
+import type {NextRequest} from "next/server"
+import {z} from "zod/v4"
+import type {
+  t_CreateUpdateTodoList,
+  t_DeleteTodoListByIdParamSchema,
+  t_Error,
+  t_GetTodoListByIdParamSchema,
+  t_TodoList,
+  t_UpdateTodoListByIdParamSchema,
+} from "../../models"
+import {s_CreateUpdateTodoList} from "../../schemas"
 
 // /list/{listId}
 export type GetTodoListByIdResponder = {
@@ -49,7 +49,7 @@ export type UpdateTodoListById = (
   params: Params<
     t_UpdateTodoListByIdParamSchema,
     void,
-    t_UpdateTodoListByIdBodySchema,
+    t_CreateUpdateTodoList,
     void
   >,
   respond: UpdateTodoListByIdResponder,
@@ -86,7 +86,7 @@ export const _GET =
           await params,
           RequestInputType.RouteParam,
         ),
-        // TODO: this swallows repeated parameters
+        // todo: this swallows repeated parameters
         query: undefined,
         body: undefined,
         headers: undefined,
@@ -108,19 +108,8 @@ export const _GET =
       }
 
       const res = await implementation(input, responder, request)
-        .then((it) => {
-          if (it instanceof Response) {
-            return it
-          }
-          const {status, body} = it.unpack()
-
-          return body !== undefined
-            ? Response.json(body, {status})
-            : new Response(undefined, {status})
-        })
-        .catch((err) => {
-          throw OpenAPIRuntimeError.HandlerError(err)
-        })
+        .then(OpenAPIRuntimeResponse.unwrap)
+        .catch(OpenAPIRuntimeError.wrapped(OpenAPIRuntimeError.HandlerError))
 
       return res
     } catch (err) {
@@ -129,8 +118,6 @@ export const _GET =
   }
 
 const updateTodoListByIdParamSchema = z.object({listId: z.string()})
-
-const updateTodoListByIdBodySchema = s_CreateUpdateTodoList
 
 export const _PUT =
   (
@@ -148,10 +135,10 @@ export const _PUT =
           await params,
           RequestInputType.RouteParam,
         ),
-        // TODO: this swallows repeated parameters
+        // todo: this swallows repeated parameters
         query: undefined,
         body: parseRequestInput(
-          updateTodoListByIdBodySchema,
+          s_CreateUpdateTodoList,
           await request.json(),
           RequestInputType.RequestBody,
         ),
@@ -174,19 +161,8 @@ export const _PUT =
       }
 
       const res = await implementation(input, responder, request)
-        .then((it) => {
-          if (it instanceof Response) {
-            return it
-          }
-          const {status, body} = it.unpack()
-
-          return body !== undefined
-            ? Response.json(body, {status})
-            : new Response(undefined, {status})
-        })
-        .catch((err) => {
-          throw OpenAPIRuntimeError.HandlerError(err)
-        })
+        .then(OpenAPIRuntimeResponse.unwrap)
+        .catch(OpenAPIRuntimeError.wrapped(OpenAPIRuntimeError.HandlerError))
 
       return res
     } catch (err) {
@@ -212,7 +188,7 @@ export const _DELETE =
           await params,
           RequestInputType.RouteParam,
         ),
-        // TODO: this swallows repeated parameters
+        // todo: this swallows repeated parameters
         query: undefined,
         body: undefined,
         headers: undefined,
@@ -234,19 +210,8 @@ export const _DELETE =
       }
 
       const res = await implementation(input, responder, request)
-        .then((it) => {
-          if (it instanceof Response) {
-            return it
-          }
-          const {status, body} = it.unpack()
-
-          return body !== undefined
-            ? Response.json(body, {status})
-            : new Response(undefined, {status})
-        })
-        .catch((err) => {
-          throw OpenAPIRuntimeError.HandlerError(err)
-        })
+        .then(OpenAPIRuntimeResponse.unwrap)
+        .catch(OpenAPIRuntimeError.wrapped(OpenAPIRuntimeError.HandlerError))
 
       return res
     } catch (err) {

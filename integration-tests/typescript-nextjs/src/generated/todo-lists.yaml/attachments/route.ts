@@ -2,20 +2,20 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import {t_UnknownObject, t_UploadAttachmentBodySchema} from "../models"
 import {
   OpenAPIRuntimeError,
   RequestInputType,
 } from "@nahkies/typescript-nextjs-runtime/errors"
 import {
-  OpenAPIRuntimeResponder,
+  type OpenAPIRuntimeResponder,
   OpenAPIRuntimeResponse,
-  Params,
-  StatusCode,
+  type Params,
+  type StatusCode,
 } from "@nahkies/typescript-nextjs-runtime/server"
-import {parseRequestInput} from "@nahkies/typescript-nextjs-runtime/zod"
-import {NextRequest} from "next/server"
-import {z} from "zod"
+import {parseRequestInput} from "@nahkies/typescript-nextjs-runtime/zod-v4"
+import type {NextRequest} from "next/server"
+import {z} from "zod/v4"
+import type {t_UnknownObject} from "../models"
 
 // /attachments
 export type ListAttachmentsResponder = {
@@ -23,6 +23,7 @@ export type ListAttachmentsResponder = {
 } & OpenAPIRuntimeResponder
 
 export type ListAttachments = (
+  params: Params<void, void, void, void>,
   respond: ListAttachmentsResponder,
   request: NextRequest,
 ) => Promise<OpenAPIRuntimeResponse<unknown>>
@@ -32,7 +33,7 @@ export type UploadAttachmentResponder = {
 } & OpenAPIRuntimeResponder
 
 export type UploadAttachment = (
-  params: Params<void, void, t_UploadAttachmentBodySchema, void>,
+  params: Params<void, void, never, void>,
   respond: UploadAttachmentResponder,
   request: NextRequest,
 ) => Promise<OpenAPIRuntimeResponse<unknown>>
@@ -46,7 +47,7 @@ export const _GET =
     try {
       const input = {
         params: undefined,
-        // TODO: this swallows repeated parameters
+        // todo: this swallows repeated parameters
         query: undefined,
         body: undefined,
         headers: undefined,
@@ -61,28 +62,15 @@ export const _GET =
         },
       }
 
-      const res = await implementation(responder, request)
-        .then((it) => {
-          if (it instanceof Response) {
-            return it
-          }
-          const {status, body} = it.unpack()
-
-          return body !== undefined
-            ? Response.json(body, {status})
-            : new Response(undefined, {status})
-        })
-        .catch((err) => {
-          throw OpenAPIRuntimeError.HandlerError(err)
-        })
+      const res = await implementation(input, responder, request)
+        .then(OpenAPIRuntimeResponse.unwrap)
+        .catch(OpenAPIRuntimeError.wrapped(OpenAPIRuntimeError.HandlerError))
 
       return res
     } catch (err) {
       return await onError(err)
     }
   }
-
-const uploadAttachmentBodySchema = z.object({file: z.unknown().optional()})
 
 export const _POST =
   (
@@ -93,13 +81,14 @@ export const _POST =
     try {
       const input = {
         params: undefined,
-        // TODO: this swallows repeated parameters
+        // todo: this swallows repeated parameters
         query: undefined,
+        // todo: request bodies with content-type 'multipart/form-data' not yet supported
         body: parseRequestInput(
-          uploadAttachmentBodySchema,
+          z.never(),
           await request.json(),
           RequestInputType.RequestBody,
-        ),
+        ) as never,
         headers: undefined,
       }
 
@@ -113,19 +102,8 @@ export const _POST =
       }
 
       const res = await implementation(input, responder, request)
-        .then((it) => {
-          if (it instanceof Response) {
-            return it
-          }
-          const {status, body} = it.unpack()
-
-          return body !== undefined
-            ? Response.json(body, {status})
-            : new Response(undefined, {status})
-        })
-        .catch((err) => {
-          throw OpenAPIRuntimeError.HandlerError(err)
-        })
+        .then(OpenAPIRuntimeResponse.unwrap)
+        .catch(OpenAPIRuntimeError.wrapped(OpenAPIRuntimeError.HandlerError))
 
       return res
     } catch (err) {

@@ -3,24 +3,25 @@
 /* eslint-disable */
 
 import {
-  t_CreateTodoListItemBodySchema,
-  t_CreateTodoListItemParamSchema,
-  t_GetTodoListItemsParamSchema,
-} from "../../../models"
-import {
   OpenAPIRuntimeError,
   RequestInputType,
 } from "@nahkies/typescript-nextjs-runtime/errors"
 import {
-  OpenAPIRuntimeResponder,
+  type OpenAPIRuntimeResponder,
   OpenAPIRuntimeResponse,
-  Params,
-  StatusCode,
-  StatusCode5xx,
+  type Params,
+  type StatusCode,
+  type StatusCode5xx,
 } from "@nahkies/typescript-nextjs-runtime/server"
-import {parseRequestInput} from "@nahkies/typescript-nextjs-runtime/zod"
-import {NextRequest} from "next/server"
-import {z} from "zod"
+import {parseRequestInput} from "@nahkies/typescript-nextjs-runtime/zod-v4"
+import type {NextRequest} from "next/server"
+import {z} from "zod/v4"
+import type {
+  t_CreateTodoListItemParamSchema,
+  t_CreateTodoListItemRequestBody,
+  t_GetTodoListItemsParamSchema,
+} from "../../../models"
+import {s_CreateTodoListItemRequestBody} from "../../../schemas"
 
 // /list/{listId}/items
 export type GetTodoListItemsResponder = {
@@ -50,7 +51,7 @@ export type CreateTodoListItem = (
   params: Params<
     t_CreateTodoListItemParamSchema,
     void,
-    t_CreateTodoListItemBodySchema,
+    t_CreateTodoListItemRequestBody,
     void
   >,
   respond: CreateTodoListItemResponder,
@@ -75,7 +76,7 @@ export const _GET =
           await params,
           RequestInputType.RouteParam,
         ),
-        // TODO: this swallows repeated parameters
+        // todo: this swallows repeated parameters
         query: undefined,
         body: undefined,
         headers: undefined,
@@ -102,19 +103,8 @@ export const _GET =
       }
 
       const res = await implementation(input, responder, request)
-        .then((it) => {
-          if (it instanceof Response) {
-            return it
-          }
-          const {status, body} = it.unpack()
-
-          return body !== undefined
-            ? Response.json(body, {status})
-            : new Response(undefined, {status})
-        })
-        .catch((err) => {
-          throw OpenAPIRuntimeError.HandlerError(err)
-        })
+        .then(OpenAPIRuntimeResponse.unwrap)
+        .catch(OpenAPIRuntimeError.wrapped(OpenAPIRuntimeError.HandlerError))
 
       return res
     } catch (err) {
@@ -123,12 +113,6 @@ export const _GET =
   }
 
 const createTodoListItemParamSchema = z.object({listId: z.string()})
-
-const createTodoListItemBodySchema = z.object({
-  id: z.string(),
-  content: z.string(),
-  completedAt: z.string().datetime({offset: true}).optional(),
-})
 
 export const _POST =
   (
@@ -146,10 +130,10 @@ export const _POST =
           await params,
           RequestInputType.RouteParam,
         ),
-        // TODO: this swallows repeated parameters
+        // todo: this swallows repeated parameters
         query: undefined,
         body: parseRequestInput(
-          createTodoListItemBodySchema,
+          s_CreateTodoListItemRequestBody,
           await request.json(),
           RequestInputType.RequestBody,
         ),
@@ -166,19 +150,8 @@ export const _POST =
       }
 
       const res = await implementation(input, responder, request)
-        .then((it) => {
-          if (it instanceof Response) {
-            return it
-          }
-          const {status, body} = it.unpack()
-
-          return body !== undefined
-            ? Response.json(body, {status})
-            : new Response(undefined, {status})
-        })
-        .catch((err) => {
-          throw OpenAPIRuntimeError.HandlerError(err)
-        })
+        .then(OpenAPIRuntimeResponse.unwrap)
+        .catch(OpenAPIRuntimeError.wrapped(OpenAPIRuntimeError.HandlerError))
 
       return res
     } catch (err) {

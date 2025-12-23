@@ -2,21 +2,21 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import {t_GetTodoListsQuerySchema, t_TodoList} from "../models"
-import {s_Statuses} from "../schemas"
 import {
   OpenAPIRuntimeError,
   RequestInputType,
 } from "@nahkies/typescript-nextjs-runtime/errors"
 import {
-  OpenAPIRuntimeResponder,
+  type OpenAPIRuntimeResponder,
   OpenAPIRuntimeResponse,
-  Params,
-  StatusCode,
+  type Params,
+  type StatusCode,
 } from "@nahkies/typescript-nextjs-runtime/server"
-import {parseRequestInput} from "@nahkies/typescript-nextjs-runtime/zod"
-import {NextRequest} from "next/server"
-import {z} from "zod"
+import {parseRequestInput} from "@nahkies/typescript-nextjs-runtime/zod-v4"
+import type {NextRequest} from "next/server"
+import {z} from "zod/v4"
+import type {t_GetTodoListsQuerySchema, t_TodoList} from "../models"
+import {s_Statuses} from "../schemas"
 
 // /list
 export type GetTodoListsResponder = {
@@ -30,7 +30,7 @@ export type GetTodoLists = (
 ) => Promise<OpenAPIRuntimeResponse<unknown>>
 
 const getTodoListsQuerySchema = z.object({
-  created: z.string().datetime({offset: true}).optional(),
+  created: z.iso.datetime({offset: true}).optional(),
   statuses: z
     .preprocess(
       (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
@@ -54,7 +54,7 @@ export const _GET =
     try {
       const input = {
         params: undefined,
-        // TODO: this swallows repeated parameters
+        // todo: this swallows repeated parameters
         query: parseRequestInput(
           getTodoListsQuerySchema,
           Object.fromEntries(request.nextUrl.searchParams.entries()),
@@ -74,19 +74,8 @@ export const _GET =
       }
 
       const res = await implementation(input, responder, request)
-        .then((it) => {
-          if (it instanceof Response) {
-            return it
-          }
-          const {status, body} = it.unpack()
-
-          return body !== undefined
-            ? Response.json(body, {status})
-            : new Response(undefined, {status})
-        })
-        .catch((err) => {
-          throw OpenAPIRuntimeError.HandlerError(err)
-        })
+        .then(OpenAPIRuntimeResponse.unwrap)
+        .catch(OpenAPIRuntimeError.wrapped(OpenAPIRuntimeError.HandlerError))
 
       return res
     } catch (err) {

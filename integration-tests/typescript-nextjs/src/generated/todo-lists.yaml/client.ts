@@ -3,21 +3,22 @@
 /* eslint-disable */
 
 import {
+  AbstractFetchClient,
+  type AbstractFetchClientConfig,
+  type Res,
+  type Server,
+  type StatusCode,
+  type StatusCode4xx,
+  type StatusCode5xx,
+} from "@nahkies/typescript-fetch-runtime/main"
+import type {
+  t_CreateTodoListItemRequestBody,
   t_CreateUpdateTodoList,
   t_Error,
   t_Statuses,
   t_TodoList,
   t_UnknownObject,
 } from "./models"
-import {
-  AbstractFetchClient,
-  AbstractFetchClientConfig,
-  Res,
-  Server,
-  StatusCode,
-  StatusCode4xx,
-  StatusCode5xx,
-} from "@nahkies/typescript-fetch-runtime/main"
 
 export class ApiClientServersOperations {
   static listAttachments(url?: "{schema}://{tenant}.attachments.example.com"): {
@@ -164,12 +165,20 @@ export class ApiClient extends AbstractFetchClient {
     opts: RequestInit = {},
   ): Promise<Res<200, t_TodoList[]>> {
     const url = this.basePath + `/list`
-    const headers = this._headers({}, opts.headers)
-    const query = this._query({
-      created: p["created"],
-      statuses: p["statuses"],
-      tags: p["tags"],
-    })
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query(
+      {created: p["created"], statuses: p["statuses"], tags: p["tags"]},
+      {
+        statuses: {
+          style: "form",
+          explode: true,
+        },
+        tags: {
+          style: "form",
+          explode: true,
+        },
+      },
+    )
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -184,7 +193,7 @@ export class ApiClient extends AbstractFetchClient {
     Res<200, t_TodoList> | Res<StatusCode4xx, t_Error> | Res<StatusCode, void>
   > {
     const url = this.basePath + `/list/${p["listId"]}`
-    const headers = this._headers({}, opts.headers)
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
 
     return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
   }
@@ -201,7 +210,7 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url = this.basePath + `/list/${p["listId"]}`
     const headers = this._headers(
-      {"Content-Type": "application/json"},
+      {Accept: "application/json", "Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -219,7 +228,7 @@ export class ApiClient extends AbstractFetchClient {
     Res<204, void> | Res<StatusCode4xx, t_Error> | Res<StatusCode, void>
   > {
     const url = this.basePath + `/list/${p["listId"]}`
-    const headers = this._headers({}, opts.headers)
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
 
     return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
   }
@@ -249,7 +258,7 @@ export class ApiClient extends AbstractFetchClient {
       >
   > {
     const url = this.basePath + `/list/${p["listId"]}/items`
-    const headers = this._headers({}, opts.headers)
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
 
     return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
   }
@@ -257,18 +266,14 @@ export class ApiClient extends AbstractFetchClient {
   async createTodoListItem(
     p: {
       listId: string
-      requestBody: {
-        completedAt?: string
-        content: string
-        id: string
-      }
+      requestBody: t_CreateTodoListItemRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<204, void>> {
     const url = this.basePath + `/list/${p["listId"]}/items`
     const headers = this._headers(
-      {"Content-Type": "application/json"},
+      {Accept: "application/json", "Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -284,16 +289,14 @@ export class ApiClient extends AbstractFetchClient {
     opts: RequestInit = {},
   ): Promise<Res<200, t_UnknownObject[]>> {
     const url = basePath + `/attachments`
-    const headers = this._headers({}, opts.headers)
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
 
     return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
   }
 
   async uploadAttachment(
     p: {
-      requestBody: {
-        file?: unknown
-      }
+      requestBody: never
     },
     basePath:
       | Server<"uploadAttachment_ApiClient">
@@ -302,12 +305,17 @@ export class ApiClient extends AbstractFetchClient {
     opts: RequestInit = {},
   ): Promise<Res<202, void>> {
     const url = basePath + `/attachments`
-    const headers = this._headers(
-      {"Content-Type": "multipart/form-data"},
-      opts.headers,
-    )
-    const body = JSON.stringify(p.requestBody)
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
 
-    return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
+    return this._fetch(
+      url,
+      {
+        method: "POST",
+        // todo: request bodies with content-type 'multipart/form-data' not yet supported,
+        ...opts,
+        headers,
+      },
+      timeout,
+    )
   }
 }
