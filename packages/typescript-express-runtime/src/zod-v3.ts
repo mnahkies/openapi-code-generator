@@ -2,6 +2,7 @@ import {findMatchingSchema} from "@nahkies/typescript-common-runtime/validation"
 
 import type {z} from "zod/v3"
 import {ExpressRuntimeError, type RequestInputType} from "./errors"
+import type {ResponseValidator} from "./server"
 
 export function parseRequestInput<Schema extends z.ZodTypeAny>(
   schema: Schema,
@@ -29,7 +30,7 @@ export function parseRequestInput<Schema extends z.ZodTypeAny>(
 export function responseValidationFactory(
   possibleResponses: [string, z.ZodTypeAny][],
   defaultResponse?: z.ZodTypeAny,
-) {
+): ResponseValidator {
   // Exploit the natural ordering matching the desired specificity of eg: 404 vs 4xx
   possibleResponses.sort((x, y) => (x[0] < y[0] ? -1 : 1))
 

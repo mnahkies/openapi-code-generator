@@ -110,6 +110,12 @@ export abstract class AbstractAxiosClient {
     return requestBodyToUrlSearchParams(obj, encoding)
   }
 
+  protected _parseBlobResponse(res: AxiosResponse) {
+    return new Blob([res.data], {
+      type: res.headers["content-type"] || "application/octet-stream",
+    })
+  }
+
   private setHeaders(
     headers: Pick<Headers, "set" | "delete">,
     headersInit: HeaderParams | AxiosRequestConfig["headers"],

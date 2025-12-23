@@ -16,6 +16,16 @@ minimumReleaseAgeExclude:
   - '@next/swc-linux-x64-musl@16.1.0'
   - '@next/swc-win32-arm64-msvc@16.1.0'
   - '@next/swc-win32-x64-msvc@16.1.0'
+  - "@biomejs/biome@2.3.10"
+  - "@biomejs/wasm-nodejs@2.3.10"
+  - "@biomejs/cli-linux-x64-musl@2.3.10"
+  - "@biomejs/cli-linux-arm64-musl@2.3.10"
+  - "@biomejs/cli-linux-arm64@2.3.10"
+  - "@biomejs/cli-darwin-arm64@2.3.10"
+  - "@biomejs/cli-linux-x64@2.3.10"
+  - "@biomejs/cli-win32-x64@2.3.10"
+  - "@biomejs/cli-darwin-x64@2.3.10"
+  - "@biomejs/cli-win32-arm64@2.3.10"
 
 nodeOptions: "${NODE_OPTIONS:- } --experimental-vm-modules"
 

@@ -202,9 +202,15 @@ export abstract class AbstractSchemaBuilder<
     const model = maybeModel
 
     switch (model.type) {
-      case "string":
-        result = this.string(model)
+      case "string": {
+        if (model.format === "byte" || model.format === "binary") {
+          result = this.any()
+        } else {
+          result = this.string(model)
+        }
+
         break
+      }
       case "number":
         result = this.number(model)
         break

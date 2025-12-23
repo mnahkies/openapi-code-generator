@@ -37,6 +37,7 @@ export class KoaRouterBuilder extends AbstractRouterBuilder {
         "KoaRuntimeResponse",
         "startServer",
         "parseQueryParameters",
+        "parseOctetStream",
         "handleResponse",
         "handleImplementationError",
       )
@@ -149,7 +150,7 @@ router.${builder.method.toLowerCase()}('${symbols.implPropName}','${builder.rout
    const input = {
     params: ${params.path.schema ? `parseRequestInput(${params.path.name}, ctx.params, RequestInputType.RouteParam)` : "undefined"},
     query: ${params.query.schema ? `parseRequestInput(${params.query.name}, ${params.query.isSimpleQuery ? "ctx.query" : `parseQueryParameters(ctx.querystring, ${JSON.stringify(params.query.parameters)})`}, RequestInputType.QueryString)` : "undefined"},
-    ${params.body.schema && !params.body.isSupported ? `// todo: request bodies with content-type '${params.body.contentType}' not yet supported\n` : ""}body: ${params.body.schema ? `parseRequestInput(${params.body.schema}, Reflect.get(ctx.request, "body"), RequestInputType.RequestBody)${!params.body.isSupported ? " as never" : ""}` : "undefined"},
+    ${params.body.schema && !params.body.isSupported ? `// todo: request bodies with content-type '${params.body.contentType}' not yet supported\n` : ""}body: ${params.body.schema ? (params.body.contentType === "application/octet-stream" ? `parseRequestInput(${params.body.schema}, await parseOctetStream(ctx), RequestInputType.RequestBody)` : `parseRequestInput(${params.body.schema}, Reflect.get(ctx.request, "body"), RequestInputType.RequestBody)${!params.body.isSupported ? " as never" : ""}`) : "undefined"},
     headers: ${params.header.schema ? `parseRequestInput(${params.header.name}, Reflect.get(ctx.request, "headers"), RequestInputType.RequestHeader)` : "undefined"}
    }
 

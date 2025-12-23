@@ -45,6 +45,7 @@ export class ExpressRouterBuilder extends AbstractRouterBuilder {
         "parseQueryParameters",
         "handleResponse",
         "handleImplementationError",
+        "parseOctetStream",
       )
       .addType(
         "ExpressRuntimeResponder",
@@ -145,7 +146,7 @@ router.${builder.method.toLowerCase()}(\`${builder.route}\`, async (req: Request
    const input = {
     params: ${params.path.schema ? `parseRequestInput(${params.path.name}, req.params, RequestInputType.RouteParam)` : "undefined"},
     query: ${params.query.schema ? `parseRequestInput(${params.query.name}, ${params.query.isSimpleQuery ? `req.query` : `parseQueryParameters(new URL(\`http://localhost\${req.originalUrl}\`).search, ${JSON.stringify(params.query.parameters)})`}, RequestInputType.QueryString)` : "undefined"},
-    ${params.body.schema && !params.body.isSupported ? `// todo: request bodies with content-type '${params.body.contentType}' not yet supported\n` : ""}body: ${params.body.schema ? `parseRequestInput(${params.body.schema}, req.body, RequestInputType.RequestBody)${!params.body.isSupported ? " as never" : ""}` : "undefined"},
+    ${params.body.schema && !params.body.isSupported ? `// todo: request bodies with content-type '${params.body.contentType}' not yet supported\n` : ""}body: ${params.body.schema ? (params.body.contentType === "application/octet-stream" ? `parseRequestInput(${params.body.schema}, await parseOctetStream(req), RequestInputType.RequestBody)` : `parseRequestInput(${params.body.schema}, req.body, RequestInputType.RequestBody)${!params.body.isSupported ? " as never" : ""}`) : "undefined"},
     headers: ${params.header.schema ? `parseRequestInput(${params.header.name}, req.headers, RequestInputType.RequestHeader)` : "undefined"}
    }
 
