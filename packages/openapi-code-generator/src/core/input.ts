@@ -255,6 +255,16 @@ export class Input {
     return maybeRef
   }
 
+  isRecordNever(schemaObject: MaybeIRModel): boolean {
+    const dereferenced = this.schema(schemaObject)
+
+    return (
+      dereferenced.type === "record" &&
+      !isRef(dereferenced.value) &&
+      dereferenced.value.type === "never"
+    )
+  }
+
   preprocess(maybePreprocess: Reference | xInternalPreproccess): IRPreprocess {
     return this.loader.preprocess(maybePreprocess)
   }

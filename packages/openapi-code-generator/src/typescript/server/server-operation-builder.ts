@@ -360,7 +360,7 @@ export class ServerOperationBuilder {
     if (
       requestBody?.parameter &&
       !requestBody?.parameter.required &&
-      this.types.isRecordNever(requestBody.parameter.schema)
+      this.input.isRecordNever(requestBody.parameter.schema)
     ) {
       logger.warn(
         `[${this.route}]: skipping optional requestBody parameter that resolves to Record<string, never>`,
