@@ -39,12 +39,12 @@ export const s_RandomNumber = z.object({
 
 export const s_GetHeadersUndeclared200Response = z.object({
   rawHeaders: z.record(z.string(), z.unknown()).optional(),
-  typedHeaders: z.record(z.string(), z.unknown()).optional(),
+  typedHeaders: z.unknown().optional(),
 })
 
 export const s_GetHeadersRequest200Response = z.object({
   rawHeaders: z.record(z.string(), z.unknown()).optional(),
-  typedHeaders: z.record(z.string(), z.unknown()).optional(),
+  typedHeaders: z.unknown().optional(),
 })
 
 export const s_GetParamsSimpleQuery200Response = z.object({
