@@ -143,7 +143,6 @@ export class TypeBuilder implements ICompilable {
 
     const result: string[] = []
 
-    if (result.length === 0) {
       switch (schemaObject.type) {
         case "intersection": {
           result.push(
@@ -153,7 +152,7 @@ export class TypeBuilder implements ICompilable {
         }
 
         case "union": {
-          result.push(union(schemaObject.schemas.map(this.schemaObjectToType)))
+          result.push(...schemaObject.schemas.map(this.schemaObjectToType))
           break
         }
 
@@ -272,7 +271,6 @@ export class TypeBuilder implements ICompilable {
           )
         }
       }
-    }
 
     if (schemaObject.nullable) {
       result.push("null")

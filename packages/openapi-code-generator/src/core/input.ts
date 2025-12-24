@@ -268,6 +268,15 @@ export class Input {
     )
   }
 
+  private isPrimitiveOrRef(schemaObject: MaybeIRModel): boolean {
+    return isRef(schemaObject) || (
+      ['string', 'number', 'boolean', 'null', 'any', 'never'].includes(schemaObject.type)
+      || (schemaObject.type === 'record' && this.isPrimitiveOrRef(schemaObject.value))
+      || (schemaObject.type === 'array' && this.isPrimitiveOrRef(schemaObject.items))
+      || ((schemaObject.type === 'union' || schemaObject.type === 'intersection') && schemaObject.schemas.every(it => this.isPrimitiveOrRef(it)))
+    )
+  }
+
   preprocess(maybePreprocess: Reference | xInternalPreproccess): IRPreprocess {
     return this.loader.preprocess(maybePreprocess)
   }
@@ -442,13 +451,7 @@ export class Input {
     const result = this.schemaNormalizer.normalize(schema)
 
     const shouldCreateVirtualType =
-      (this.config.extractInlineSchemas || context === "RequestBody") &&
-      !isRef(result) &&
-      !isRef(schema) &&
-      (result.type === "object" ||
-        (result.type === "array" &&
-          !isRef(result.items) &&
-          result.items.type === "object"))
+      (this.config.extractInlineSchemas || context === "RequestBody") && !this.isPrimitiveOrRef(result)
 
     return shouldCreateVirtualType
       ? this.loader.addVirtualType(operationId, syntheticName, schema)
@@ -1138,8 +1141,17 @@ export class SchemaNormalizer {
     schemas: MaybeIRModel[],
   ): MaybeIRModel | IRModelUnion | undefined {
     if (schemas.length === 1) {
+      if(base.nullable){
+        // @ts-ignore
+        return {...base, type: "union", schemas}
+      }
       return schemas[0]
     }
+
+    // (A|B)|(C|D) is the same as (A|B|C|D)
+    schemas = schemas.flatMap(it => !isRef(it) && it.type === 'union' ? it.schemas : [it])
+
+    // todo: merge repeated in-line schemas
 
     if (isNonEmptyArray(schemas)) {
       return {
