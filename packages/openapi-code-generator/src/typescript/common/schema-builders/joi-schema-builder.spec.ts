@@ -303,7 +303,7 @@ describe.each(
 
           export const s_AdditionalPropertiesBool = joi
             .object()
-            .pattern(joi.any(), joi.any().required())
+            .pattern(joi.any(), joi.any())
             .required()
             .id("s_AdditionalPropertiesBool")"
         `)
@@ -325,7 +325,7 @@ describe.each(
 
           export const s_AdditionalPropertiesUnknownEmptySchema = joi
             .object()
-            .pattern(joi.any(), joi.any().required())
+            .pattern(joi.any(), joi.any())
             .required()
             .id("s_AdditionalPropertiesUnknownEmptySchema")"
         `)
@@ -347,10 +347,7 @@ describe.each(
 
           export const s_AdditionalPropertiesUnknownEmptyObjectSchema = joi
             .object()
-            .pattern(
-              joi.any(),
-              joi.object().pattern(joi.any(), joi.any().required()).required(),
-            )
+            .pattern(joi.any(), joi.object().pattern(joi.any(), joi.any()).required())
             .required()
             .id("s_AdditionalPropertiesUnknownEmptyObjectSchema")"
         `)
@@ -403,7 +400,7 @@ describe.each(
             .object()
             .keys({ id: joi.string(), name: joi.string() })
             .options({ stripUnknown: true })
-            .concat(joi.object().pattern(joi.any(), joi.any().required()).required())
+            .concat(joi.object().pattern(joi.any(), joi.any()).required())
             .required()
             .id("s_AdditionalPropertiesMixed")"
         `)
@@ -1401,7 +1398,7 @@ describe.each(
       )
 
       expect(code).toMatchInlineSnapshot(
-        `"const x = joi.object().pattern(joi.any(), joi.any().required()).required()"`,
+        `"const x = joi.object().pattern(joi.any(), joi.any()).required()"`,
       )
 
       await expect(execute({key: 1})).resolves.toEqual({
@@ -1433,7 +1430,7 @@ describe.each(
       expect(code).toMatchInlineSnapshot(`
           "const x = joi
             .array()
-            .items(joi.object().pattern(joi.any(), joi.any().required()))
+            .items(joi.object().pattern(joi.any(), joi.any()))
             .required()"
         `)
 
@@ -1506,7 +1503,7 @@ describe.each(
       )
 
       expect(code).toMatchInlineSnapshot(
-        `"const x = joi.object().pattern(joi.any(), joi.any().required()).required()"`,
+        `"const x = joi.object().pattern(joi.any(), joi.any()).required()"`,
       )
 
       await expect(execute({key: 1})).resolves.toEqual({
@@ -1538,7 +1535,7 @@ describe.each(
       expect(code).toMatchInlineSnapshot(`
           "const x = joi
             .array()
-            .items(joi.object().pattern(joi.any(), joi.any().required()))
+            .items(joi.object().pattern(joi.any(), joi.any()))
             .required()"
         `)
 

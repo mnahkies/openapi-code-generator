@@ -200,8 +200,9 @@ export class JoiBuilder extends AbstractSchemaBuilder<
       return this.object({})
     }
 
-    // const key = this.fromModel(model.key, true, false, model.key.nullable)
-    const value = this.fromModel(model.value, true)
+    const required = isRef(model.value) || model.value.type !== "any"
+
+    const value = this.fromModel(model.value, required)
 
     return [joi, "object()", `pattern(${this.any()}, ${value})`]
       .filter(isDefined)
