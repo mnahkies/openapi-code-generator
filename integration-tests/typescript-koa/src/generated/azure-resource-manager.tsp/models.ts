@@ -9,16 +9,16 @@ export type t_Azure_Core_uuid = string
 export type t_Azure_ResourceManager_CommonTypes_ActionType = "Internal" | string
 
 export type t_Azure_ResourceManager_CommonTypes_ErrorAdditionalInfo = {
-  readonly info?: unknown
-  readonly type?: string
+  info?: unknown
+  type?: string
 }
 
 export type t_Azure_ResourceManager_CommonTypes_ErrorDetail = {
-  readonly additionalInfo?: t_Azure_ResourceManager_CommonTypes_ErrorAdditionalInfo[]
-  readonly code?: string
-  readonly details?: t_Azure_ResourceManager_CommonTypes_ErrorDetail[]
-  readonly message?: string
-  readonly target?: string
+  additionalInfo?: t_Azure_ResourceManager_CommonTypes_ErrorAdditionalInfo[]
+  code?: string
+  details?: t_Azure_ResourceManager_CommonTypes_ErrorDetail[]
+  message?: string
+  target?: string
 }
 
 export type t_Azure_ResourceManager_CommonTypes_ErrorResponse = {
@@ -26,18 +26,18 @@ export type t_Azure_ResourceManager_CommonTypes_ErrorResponse = {
 }
 
 export type t_Azure_ResourceManager_CommonTypes_Operation = {
-  readonly actionType?: t_Azure_ResourceManager_CommonTypes_ActionType
+  actionType?: t_Azure_ResourceManager_CommonTypes_ActionType
   display?: t_Azure_ResourceManager_CommonTypes_OperationDisplay
-  readonly isDataAction?: boolean
-  readonly name?: string
-  readonly origin?: t_Azure_ResourceManager_CommonTypes_Origin
+  isDataAction?: boolean
+  name?: string
+  origin?: t_Azure_ResourceManager_CommonTypes_Origin
 }
 
 export type t_Azure_ResourceManager_CommonTypes_OperationDisplay = {
-  readonly description?: string
-  readonly operation?: string
-  readonly provider?: string
-  readonly resource?: string
+  description?: string
+  operation?: string
+  provider?: string
+  resource?: string
 }
 
 export type t_Azure_ResourceManager_CommonTypes_Origin =
@@ -47,10 +47,10 @@ export type t_Azure_ResourceManager_CommonTypes_Origin =
   | string
 
 export type t_Azure_ResourceManager_CommonTypes_Resource = {
-  readonly id?: string
-  readonly name?: string
-  readonly systemData?: t_Azure_ResourceManager_CommonTypes_SystemData
-  readonly type?: t_Azure_Core_armResourceType
+  id?: string
+  name?: string
+  systemData?: t_Azure_ResourceManager_CommonTypes_SystemData
+  type?: t_Azure_Core_armResourceType
 }
 
 export type t_Azure_ResourceManager_CommonTypes_SystemData = {

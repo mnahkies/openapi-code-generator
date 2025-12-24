@@ -33,8 +33,8 @@ export type t_Azure_Core_uuid = string
 
 export type t_Manufacturer = {
   address: string
-  readonly etag: t_Azure_Core_eTag
-  readonly id: string
+  etag: t_Azure_Core_eTag
+  id: string
   name: string
 }
 
@@ -55,13 +55,13 @@ export type t_PagedWidgetPart = {
 
 export type t_Widget = {
   color: t_WidgetColor
-  readonly etag: t_Azure_Core_eTag
+  etag: t_Azure_Core_eTag
   manufacturerId: string
-  readonly name: string
+  name: string
 }
 
 export type t_WidgetAnalytics = {
-  readonly id: "current"
+  id: "current"
   repairCount: number
   useCount: number
 }
@@ -85,9 +85,9 @@ export type t_WidgetCreateOrUpdate = {
 }
 
 export type t_WidgetPart = {
-  readonly etag: t_Azure_Core_eTag
+  etag: t_Azure_Core_eTag
   manufacturerId: string
-  readonly name: string
+  name: string
   partId: string
 }
 

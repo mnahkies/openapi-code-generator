@@ -3,18 +3,18 @@
 /* eslint-disable */
 
 export type t_AppAuthenticatorEnrollment = {
-  readonly authenticatorId?: string
-  readonly createdDate?: string
-  readonly device?: {
+  authenticatorId?: string
+  createdDate?: string
+  device?: {
     clientInstanceId?: string
     createdDate?: string
     id?: string
     lastUpdated?: string
     status?: "ACTIVE"
   }
-  readonly id?: string
-  readonly lastUpdated?: string
-  readonly links?: {
+  id?: string
+  lastUpdated?: string
+  links?: {
     self?: {
       hints?: {
         allow?: ("PATCH" | "DELETE")[]
@@ -37,7 +37,7 @@ export type t_AppAuthenticatorEnrollment = {
       }
     }
   }
-  readonly user?: {
+  user?: {
     id?: string
     username?: string
   }
@@ -77,35 +77,35 @@ export type t_AppAuthenticatorMethodCapabilities = {
 }
 
 export type t_Authenticator = {
-  readonly _embedded?: {
+  _embedded?: {
     enrollments?: t_AuthenticatorEnrollment[]
   }
-  readonly _links?: {
+  _links?: {
     enroll?: t_HrefObject
     enrollments?: t_HrefObject
     self?: t_HrefObject
   }
-  readonly enrollable?: boolean
-  readonly id?: string
+  enrollable?: boolean
+  id?: string
   key?: t_AuthenticatorKey
-  readonly name?: string
+  name?: string
 }
 
 export type t_AuthenticatorEnrollment = {
-  readonly _links?: {
+  _links?: {
     authenticator?: t_HrefObject
     modify?: t_HrefObject
     self?: t_HrefObject
     unenroll?: t_HrefObject
   }
-  readonly canReset?: boolean
-  readonly canUnenroll?: boolean
-  readonly created?: string
-  readonly id?: string
-  readonly lastChallenged?: string
+  canReset?: boolean
+  canUnenroll?: boolean
+  created?: string
+  id?: string
+  lastChallenged?: string
   name?: string
   nickname?: string
-  readonly profile?: Record<string, unknown>
+  profile?: Record<string, unknown>
 }
 
 export type t_AuthenticatorKey =
@@ -152,22 +152,22 @@ export type t_Email = {
       href?: string
     }
   }
-  readonly id: string
+  id: string
   profile: {
     email: string
   }
   roles: ("PRIMARY" | "SECONDARY")[]
-  readonly status: "VERIFIED" | "UNVERIFIED"
+  status: "VERIFIED" | "UNVERIFIED"
 }
 
 export type t_Error = {
   errorCauses?: {
-    readonly errorSummary?: string
+    errorSummary?: string
   }[]
-  readonly errorCode?: string
-  readonly errorId?: string
-  readonly errorLink?: string
-  readonly errorSummary?: string
+  errorCode?: string
+  errorId?: string
+  errorLink?: string
+  errorSummary?: string
 }
 
 export type t_HrefObject = {
@@ -201,9 +201,9 @@ export type t_KeyRSA = {
 }
 
 export type t_OktaApplication = {
-  readonly displayName?: string
-  readonly id?: string
-  readonly name?: string
+  displayName?: string
+  id?: string
+  name?: string
 }
 
 export type t_Organization = {
@@ -215,10 +215,10 @@ export type t_Organization = {
       href?: string
     }
   }
-  readonly helpLink?: string
-  readonly name?: string
-  readonly supportEmail?: string
-  readonly url?: string
+  helpLink?: string
+  name?: string
+  supportEmail?: string
+  url?: string
 }
 
 export type t_PasswordResponse = {
@@ -231,7 +231,7 @@ export type t_PasswordResponse = {
     }
   }
   created?: string
-  readonly id?: string
+  id?: string
   lastUpdated?: string
   status?: string
 }
@@ -257,24 +257,24 @@ export type t_Phone = {
       href?: string
     }
   }
-  readonly id: string
+  id: string
   profile: {
     phoneNumber: string
   }
-  readonly status: "VERIFIED" | "UNVERIFIED"
+  status: "VERIFIED" | "UNVERIFIED"
 }
 
 export type t_Profile = {
   _links?: {
     describedBy?: {
-      readonly href?: string
+      href?: string
     }
     self?: {
-      readonly href?: string
+      href?: string
     }
   }
-  readonly createdAt?: string
-  readonly modifiedAt?: string
+  createdAt?: string
+  modifiedAt?: string
   profile?: Record<string, unknown>
 }
 
@@ -291,13 +291,13 @@ export type t_PushNotificationVerification = {
 export type t_Schema = {
   _links?: {
     self?: {
-      readonly href?: string
+      href?: string
     }
     user?: {
-      readonly href?: string
+      href?: string
     }
   }
-  readonly properties?: Record<string, unknown>
+  properties?: Record<string, unknown>
 }
 
 export type t_UpdateAppAuthenticatorEnrollmentRequest = {
