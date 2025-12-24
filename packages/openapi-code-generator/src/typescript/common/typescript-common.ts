@@ -284,7 +284,6 @@ export function requestBodyAsParameter(
         isIRModel: true,
         type: "never",
         nullable: false,
-        readOnly: false,
       },
       deprecated: false,
     },

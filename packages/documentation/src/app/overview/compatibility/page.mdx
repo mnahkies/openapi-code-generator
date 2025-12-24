@@ -29,7 +29,7 @@ Most common functionality used by JSON based APIs should work.
 - Decent support for `paths` using `application/x-www-form-urlencoded` request bodies
 - Comprehensive support for most `schema` properties, including json validation stuff like `minLength`,
 but only for `json` content types. Notable exceptions:
-- `readonly` is currently implemented incorrectly
+- `writeOnly` / `readonly` is ignored
 - `discriminator` is ignored, but `union` / `intersection` types will be generated based on `anyOf` / `allOf` so
 this isn't an issue in practice
 - No support for security schemes, you'll need to fudge these as header parameters, or implement out-of-band
@@ -242,8 +242,7 @@ CLI option.
 The majority of attributes that can be specified by `schema` objects are supported, and accurately match the underlying
 openapi specification / json schema validation specifications.
 
-Most notable exception is `readOnly` / `writeOnly` which are currently implemented incorrectly, planned to be addressed
-as a breaking change prior to v1.
+Most notable exception is `readOnly` / `writeOnly` which are currently ignored, planned to be addressed prior to v1.
 
 | Attribute            | Supported | Notes                                                                                                                                                    |
 |:---------------------|:---------:|:---------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -275,7 +274,7 @@ as a breaking change prior to v1.
 | default              |     ✅     |                                                                                                                                                          |
 | nullable             |     ✅     | Also supports `type: null` as an alternative                                                                                                             |
 | discriminator        |    🚫     | Ignored. Union / Intersection types are usd based on `anyOf` / `allOf` / `oneOf`.                                                                        |
-| readOnly             |    🚫     | Produces `readonly` modifiers, but this behavior [is incorrect](https://github.com/mnahkies/openapi-code-generator/issues/157)                           |
+| readOnly             |    🚫     | Not yet supported                                                                                                                                        |
 | writeOnly            |    🚫     | Not yet supported                                                                                                                                        |
 | example              |  __N/A__  | Ignored                                                                                                                                                  |
 | externalDocs         |  __N/A__  | Ignored                                                                                                                                                  |

@@ -289,7 +289,6 @@ export class ServerOperationBuilder {
               schema.properties[key] ?? {
                 isIRModel: true,
                 nullable: false,
-                readOnly: false,
                 type: "any",
               },
             ),
