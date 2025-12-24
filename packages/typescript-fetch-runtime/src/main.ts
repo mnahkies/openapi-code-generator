@@ -2,6 +2,7 @@ import {
   type Encoding,
   requestBodyToUrlSearchParams,
 } from "@nahkies/typescript-common-runtime/request-bodies"
+import {isNonEmptyArray} from "@nahkies/typescript-common-runtime/types"
 import type {
   AbstractFetchClientConfig,
   HeaderParams,
@@ -197,12 +198,6 @@ export abstract class AbstractFetchClient {
 
 function isMultiDimArray<T>(arr: unknown): arr is T[][] {
   return Array.isArray(arr) && Array.isArray(arr[0])
-}
-
-type NonEmptyArray<T> = [T, ...T[]]
-
-function isNonEmptyArray<T>(it: T[]): it is NonEmptyArray<T> {
-  return Array.isArray(it) && it.length > 0
 }
 
 function headerArrayToTuples<

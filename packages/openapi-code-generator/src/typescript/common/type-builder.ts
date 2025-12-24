@@ -143,20 +143,20 @@ export class TypeBuilder implements ICompilable {
 
     const result: string[] = []
 
-    if (schemaObject.type === "object" && schemaObject.allOf.length) {
-      result.push(intersect(schemaObject.allOf.map(this.schemaObjectToType)))
-    }
-
-    if (schemaObject.type === "object" && schemaObject.oneOf.length) {
-      result.push(...schemaObject.oneOf.flatMap(this.schemaObjectToTypes))
-    }
-
-    if (schemaObject.type === "object" && schemaObject.anyOf.length) {
-      result.push(...schemaObject.anyOf.flatMap(this.schemaObjectToTypes))
-    }
-
     if (result.length === 0) {
       switch (schemaObject.type) {
+        case "intersection": {
+          result.push(
+            intersect(schemaObject.schemas.map(this.schemaObjectToType)),
+          )
+          break
+        }
+
+        case "union": {
+          result.push(union(schemaObject.schemas.map(this.schemaObjectToType)))
+          break
+        }
+
         case "array": {
           result.push(array(this.schemaObjectToType(schemaObject.items)))
           break
@@ -293,9 +293,6 @@ export class TypeBuilder implements ICompilable {
 
     return (
       dereferenced.type === "object" &&
-      dereferenced.allOf.length === 0 &&
-      dereferenced.anyOf.length === 0 &&
-      dereferenced.oneOf.length === 0 &&
       dereferenced.additionalProperties === undefined &&
       Object.keys(dereferenced.properties).length === 0
     )

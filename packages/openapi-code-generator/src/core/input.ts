@@ -1,3 +1,4 @@
+import {isNonEmptyArray} from "@nahkies/typescript-common-runtime/types"
 import {generationLib} from "./generation-lib"
 import {logger} from "./logger"
 import type {OpenapiLoader} from "./openapi-loader"
@@ -22,10 +23,12 @@ import type {
   IRModelArray,
   IRModelBase,
   IRModelBoolean,
+  IRModelIntersection,
   IRModelNumeric,
   IRModelObject,
   IRModelRecord,
   IRModelString,
+  IRModelUnion,
   IROperation,
   IROperationParameters,
   IRParameter,
@@ -809,6 +812,10 @@ export class SchemaNormalizer {
           hasATypeNull(schemaObject.oneOf) ||
           hasATypeNull(schemaObject.anyOf)
 
+        // TODO: HACK
+        const nullable =
+          base.nullable || schemaObject.type === "null" || hasNull
+
         const allOf = normalizeAllOf(schemaObject.allOf)
         const oneOf = normalizeOneOf(schemaObject.oneOf)
         const anyOf = normalizeAnyOf(schemaObject.anyOf)
@@ -817,63 +824,69 @@ export class SchemaNormalizer {
           const include = Reflect.has(properties, it)
 
           if (!include) {
+            // todo: check for presence in anyOf / allOf
             logger.warn("skipping required property not present on object")
           }
 
           return include
         })
 
-        // TODO: HACK
-        const nullable =
-          base.nullable || schemaObject.type === "null" || hasNull
-
         const additionalProperties = self.normalizeAdditionalProperties(
           {...base, nullable},
           schemaObject,
         )
 
-        if (
-          (allOf.length || oneOf.length || anyOf.length) &&
-          (additionalProperties || Object.keys(properties).length > 0)
-        ) {
-          return {
-            ...base,
-            nullable: false,
-            type: "object",
-            allOf: [
-              ...allOf,
-              {
-                ...base,
-                type: "object",
-                nullable:
-                  base.nullable || schemaObject.type === "null" || hasNull,
-                allOf: [],
-                oneOf: [],
-                anyOf: [],
-                required,
-                properties,
-                additionalProperties,
-              },
-            ],
-            oneOf,
-            anyOf,
-            required: [],
-            properties: {},
-            additionalProperties: false,
-          } satisfies IRModelObject
-        }
+        /**
+         * 1. Collect the object itself, sans the allOf/anyOf/oneOf
+         *   - ignore if nothing interesting
+         * 2. Convert allOf + object itself to an intersection
+         * 3. Convert oneOf/anyOf to an union
+         * 4. Wrap intersection + union in an intersection
+         *
+         * Notes:
+         * - flatten when only a single schema
+         * - later need to resolve anyOf / oneOf / allOf against parent schemas somehow, eg: to flip a property to required.
+         */
 
-        return {
+        const result = {
           ...base,
           nullable,
           type: "object",
-          allOf,
-          oneOf,
-          anyOf,
           required,
           properties,
           additionalProperties,
         } satisfies IRModelObject
+
+        const isPartOfComposition = Boolean(
+          allOf.length || oneOf.length || anyOf.length,
+        )
+        const hasOwnProperties = Boolean(
+          additionalProperties || Object.keys(properties).length > 0,
+        )
+
+        if (!isPartOfComposition) {
+          return result
+        }
+
+        const maybeIntersection = this.intersection(
+          base,
+          hasOwnProperties ? [...allOf, result] : allOf,
+        )
+        const maybeUnion = this.union(base, [...oneOf, ...anyOf])
+
+        if (maybeIntersection && maybeUnion) {
+          return this.intersection(base, [maybeIntersection, maybeUnion])!
+        }
+
+        if (maybeIntersection && !maybeUnion) {
+          return maybeIntersection
+        }
+
+        if (maybeUnion && !maybeIntersection) {
+          return maybeUnion
+        }
+
+        throw new Error(`unreachable`)
       }
       case "array": {
         let items = schemaObject.items
@@ -1098,5 +1111,44 @@ export class SchemaNormalizer {
       key: this.normalize(key) as IRModelString,
       value: this.normalize(value) as IRModelAny,
     }
+  }
+
+  // todo: is base needed?
+  private intersection(
+    base: IRModelBase,
+    schemas: MaybeIRModel[],
+  ): MaybeIRModel | IRModelIntersection | undefined {
+    if (schemas.length === 1) {
+      return schemas[0]
+    }
+
+    if (isNonEmptyArray(schemas)) {
+      return {
+        ...base,
+        type: "intersection",
+        schemas,
+      }
+    }
+
+    return undefined
+  }
+  // todo: is base needed?
+  private union(
+    base: IRModelBase,
+    schemas: MaybeIRModel[],
+  ): MaybeIRModel | IRModelUnion | undefined {
+    if (schemas.length === 1) {
+      return schemas[0]
+    }
+
+    if (isNonEmptyArray(schemas)) {
+      return {
+        ...base,
+        type: "union",
+        schemas,
+      }
+    }
+
+    return undefined
   }
 }

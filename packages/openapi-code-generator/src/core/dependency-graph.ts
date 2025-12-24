@@ -20,18 +20,6 @@ const getAllSourcesFromSchema = (it: IRModel) => {
   const allSources: Array<MaybeIRModel> = [it as MaybeIRModel]
 
   if (it.type === "object") {
-    if (it.oneOf.length > 0) {
-      allSources.push(...it.oneOf)
-    }
-
-    if (it.allOf.length > 0) {
-      allSources.push(...it.allOf)
-    }
-
-    if (it.anyOf.length > 0) {
-      allSources.push(...it.anyOf)
-    }
-
     if (it.additionalProperties) {
       allSources.push(it.additionalProperties.key)
       allSources.push(it.additionalProperties.value)
@@ -41,6 +29,8 @@ const getAllSourcesFromSchema = (it: IRModel) => {
   } else if (it.type === "record") {
     allSources.push(it.key)
     allSources.push(it.value)
+  } else if (it.type === "intersection" || it.type === "union") {
+    allSources.push(...it.schemas)
   }
 
   return allSources
@@ -59,16 +49,9 @@ const getDependenciesFromSchema = (
     } else if (it.type === "object") {
       const innerSources = Object.values(it.properties)
 
-      if (it.oneOf.length > 0) {
-        innerSources.push(...it.oneOf)
-      }
-
-      if (it.allOf.length > 0) {
-        innerSources.push(...it.allOf)
-      }
-
-      if (it.anyOf.length > 0) {
-        innerSources.push(...it.anyOf)
+      if (it.additionalProperties) {
+        innerSources.push(it.additionalProperties.key)
+        innerSources.push(it.additionalProperties.value)
       }
 
       for (const prop of innerSources) {
