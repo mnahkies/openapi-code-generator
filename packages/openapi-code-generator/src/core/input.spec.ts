@@ -19,7 +19,6 @@ describe("core/input - SchemaNormalizer", () => {
       type: "any",
       default: undefined,
       nullable: false,
-      readOnly: false,
       "x-internal-preprocess": undefined,
     } satisfies IRModelAny,
     never: {
@@ -27,7 +26,6 @@ describe("core/input - SchemaNormalizer", () => {
       type: "never",
       default: undefined,
       nullable: false,
-      readOnly: false,
       "x-internal-preprocess": undefined,
     } satisfies IRModelNever,
     object: {
@@ -35,7 +33,6 @@ describe("core/input - SchemaNormalizer", () => {
       type: "object",
       default: undefined,
       nullable: false,
-      readOnly: false,
       properties: {},
       required: [],
       allOf: [],
@@ -49,7 +46,6 @@ describe("core/input - SchemaNormalizer", () => {
       type: "array",
       default: undefined,
       nullable: false,
-      readOnly: false,
       uniqueItems: false,
       minItems: undefined,
       maxItems: undefined,
@@ -65,7 +61,6 @@ describe("core/input - SchemaNormalizer", () => {
       minLength: undefined,
       nullable: false,
       pattern: undefined,
-      readOnly: false,
       "x-enum-extensibility": undefined,
       "x-internal-preprocess": undefined,
     } satisfies IRModelString,
@@ -81,7 +76,6 @@ describe("core/input - SchemaNormalizer", () => {
       inclusiveMinimum: undefined,
       multipleOf: undefined,
       nullable: false,
-      readOnly: false,
       "x-enum-extensibility": undefined,
       "x-internal-preprocess": undefined,
     } satisfies IRModelNumeric,
@@ -91,7 +85,6 @@ describe("core/input - SchemaNormalizer", () => {
       default: undefined,
       enum: undefined,
       nullable: false,
-      readOnly: false,
       "x-internal-preprocess": undefined,
     } satisfies IRModelBoolean,
   }
@@ -104,7 +97,6 @@ describe("core/input - SchemaNormalizer", () => {
       value: base.any,
       default: undefined,
       nullable: false,
-      readOnly: false,
       "x-internal-preprocess": undefined,
     } satisfies IRModelRecord,
   }

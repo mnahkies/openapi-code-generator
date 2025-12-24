@@ -753,7 +753,6 @@ export class SchemaNormalizer {
     const base: IRModelBase = {
       isIRModel: true,
       nullable: schemaObject.nullable || false,
-      readOnly: schemaObject.readOnly || false,
       default: schemaObject.default,
       "x-internal-preprocess": schemaObject["x-internal-preprocess"],
     }

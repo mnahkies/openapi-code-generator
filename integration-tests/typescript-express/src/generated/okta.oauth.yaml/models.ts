@@ -96,11 +96,11 @@ export type t_Claim = string
 
 export type t_Client = {
   application_type?: t_ApplicationType | undefined
-  readonly client_id?: string | undefined
-  readonly client_id_issued_at?: number | undefined
+  client_id?: string | undefined
+  client_id_issued_at?: number | undefined
   client_name: string
-  readonly client_secret?: (string | null) | undefined
-  readonly client_secret_expires_at?: (number | null) | undefined
+  client_secret?: (string | null) | undefined
+  client_secret_expires_at?: (number | null) | undefined
   frontchannel_logout_session_required?: boolean | undefined
   frontchannel_logout_uri?: (string | null) | undefined
   grant_types?: t_GrantType[] | undefined

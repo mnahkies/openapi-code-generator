@@ -3,9 +3,9 @@
 /* eslint-disable */
 
 export type t_AppAuthenticatorEnrollment = {
-  readonly authenticatorId?: string | undefined
-  readonly createdDate?: string | undefined
-  readonly device?:
+  authenticatorId?: string | undefined
+  createdDate?: string | undefined
+  device?:
     | {
         clientInstanceId?: string | undefined
         createdDate?: string | undefined
@@ -14,9 +14,9 @@ export type t_AppAuthenticatorEnrollment = {
         status?: "ACTIVE" | undefined
       }
     | undefined
-  readonly id?: string | undefined
-  readonly lastUpdated?: string | undefined
-  readonly links?:
+  id?: string | undefined
+  lastUpdated?: string | undefined
+  links?:
     | {
         self?:
           | {
@@ -55,7 +55,7 @@ export type t_AppAuthenticatorEnrollment = {
           | undefined
       }
     | undefined
-  readonly user?:
+  user?:
     | {
         id?: string | undefined
         username?: string | undefined
@@ -97,26 +97,26 @@ export type t_AppAuthenticatorMethodCapabilities = {
 }
 
 export type t_Authenticator = {
-  readonly _embedded?:
+  _embedded?:
     | {
         enrollments?: t_AuthenticatorEnrollment[] | undefined
       }
     | undefined
-  readonly _links?:
+  _links?:
     | {
         enroll?: t_HrefObject | undefined
         enrollments?: t_HrefObject | undefined
         self?: t_HrefObject | undefined
       }
     | undefined
-  readonly enrollable?: boolean | undefined
-  readonly id?: string | undefined
+  enrollable?: boolean | undefined
+  id?: string | undefined
   key?: t_AuthenticatorKey | undefined
-  readonly name?: string | undefined
+  name?: string | undefined
 }
 
 export type t_AuthenticatorEnrollment = {
-  readonly _links?:
+  _links?:
     | {
         authenticator?: t_HrefObject | undefined
         modify?: t_HrefObject | undefined
@@ -124,14 +124,14 @@ export type t_AuthenticatorEnrollment = {
         unenroll?: t_HrefObject | undefined
       }
     | undefined
-  readonly canReset?: boolean | undefined
-  readonly canUnenroll?: boolean | undefined
-  readonly created?: string | undefined
-  readonly id?: string | undefined
-  readonly lastChallenged?: string | undefined
+  canReset?: boolean | undefined
+  canUnenroll?: boolean | undefined
+  created?: string | undefined
+  id?: string | undefined
+  lastChallenged?: string | undefined
   name?: string | undefined
   nickname?: string | undefined
-  readonly profile?: Record<string, unknown> | undefined
+  profile?: Record<string, unknown> | undefined
 }
 
 export type t_AuthenticatorKey =
@@ -196,24 +196,24 @@ export type t_Email = {
           | undefined
       }
     | undefined
-  readonly id: string
+  id: string
   profile: {
     email: string
   }
   roles: ("PRIMARY" | "SECONDARY")[]
-  readonly status: "VERIFIED" | "UNVERIFIED"
+  status: "VERIFIED" | "UNVERIFIED"
 }
 
 export type t_Error = {
   errorCauses?:
     | {
-        readonly errorSummary?: string | undefined
+        errorSummary?: string | undefined
       }[]
     | undefined
-  readonly errorCode?: string | undefined
-  readonly errorId?: string | undefined
-  readonly errorLink?: string | undefined
-  readonly errorSummary?: string | undefined
+  errorCode?: string | undefined
+  errorId?: string | undefined
+  errorLink?: string | undefined
+  errorSummary?: string | undefined
 }
 
 export type t_HrefObject = {
@@ -249,9 +249,9 @@ export type t_KeyRSA = {
 }
 
 export type t_OktaApplication = {
-  readonly displayName?: string | undefined
-  readonly id?: string | undefined
-  readonly name?: string | undefined
+  displayName?: string | undefined
+  id?: string | undefined
+  name?: string | undefined
 }
 
 export type t_Organization = {
@@ -269,10 +269,10 @@ export type t_Organization = {
           | undefined
       }
     | undefined
-  readonly helpLink?: string | undefined
-  readonly name?: string | undefined
-  readonly supportEmail?: string | undefined
-  readonly url?: string | undefined
+  helpLink?: string | undefined
+  name?: string | undefined
+  supportEmail?: string | undefined
+  url?: string | undefined
 }
 
 export type t_PasswordResponse = {
@@ -291,7 +291,7 @@ export type t_PasswordResponse = {
       }
     | undefined
   created?: string | undefined
-  readonly id?: string | undefined
+  id?: string | undefined
   lastUpdated?: string | undefined
   status?: string | undefined
 }
@@ -331,11 +331,11 @@ export type t_Phone = {
           | undefined
       }
     | undefined
-  readonly id: string
+  id: string
   profile: {
     phoneNumber: string
   }
-  readonly status: "VERIFIED" | "UNVERIFIED"
+  status: "VERIFIED" | "UNVERIFIED"
 }
 
 export type t_Profile = {
@@ -343,18 +343,18 @@ export type t_Profile = {
     | {
         describedBy?:
           | {
-              readonly href?: string | undefined
+              href?: string | undefined
             }
           | undefined
         self?:
           | {
-              readonly href?: string | undefined
+              href?: string | undefined
             }
           | undefined
       }
     | undefined
-  readonly createdAt?: string | undefined
-  readonly modifiedAt?: string | undefined
+  createdAt?: string | undefined
+  modifiedAt?: string | undefined
   profile?: Record<string, unknown> | undefined
 }
 
@@ -373,17 +373,17 @@ export type t_Schema = {
     | {
         self?:
           | {
-              readonly href?: string | undefined
+              href?: string | undefined
             }
           | undefined
         user?:
           | {
-              readonly href?: string | undefined
+              href?: string | undefined
             }
           | undefined
       }
     | undefined
-  readonly properties?: Record<string, unknown> | undefined
+  properties?: Record<string, unknown> | undefined
 }
 
 export type t_UpdateAppAuthenticatorEnrollmentRequest = {

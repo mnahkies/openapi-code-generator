@@ -9,20 +9,18 @@ export type t_Azure_Core_uuid = string
 export type t_Azure_ResourceManager_CommonTypes_ActionType = "Internal" | string
 
 export type t_Azure_ResourceManager_CommonTypes_ErrorAdditionalInfo = {
-  readonly info?: unknown | undefined
-  readonly type?: string | undefined
+  info?: unknown | undefined
+  type?: string | undefined
 }
 
 export type t_Azure_ResourceManager_CommonTypes_ErrorDetail = {
-  readonly additionalInfo?:
+  additionalInfo?:
     | t_Azure_ResourceManager_CommonTypes_ErrorAdditionalInfo[]
     | undefined
-  readonly code?: string | undefined
-  readonly details?:
-    | t_Azure_ResourceManager_CommonTypes_ErrorDetail[]
-    | undefined
-  readonly message?: string | undefined
-  readonly target?: string | undefined
+  code?: string | undefined
+  details?: t_Azure_ResourceManager_CommonTypes_ErrorDetail[] | undefined
+  message?: string | undefined
+  target?: string | undefined
 }
 
 export type t_Azure_ResourceManager_CommonTypes_ErrorResponse = {
@@ -30,20 +28,18 @@ export type t_Azure_ResourceManager_CommonTypes_ErrorResponse = {
 }
 
 export type t_Azure_ResourceManager_CommonTypes_Operation = {
-  readonly actionType?:
-    | t_Azure_ResourceManager_CommonTypes_ActionType
-    | undefined
+  actionType?: t_Azure_ResourceManager_CommonTypes_ActionType | undefined
   display?: t_Azure_ResourceManager_CommonTypes_OperationDisplay | undefined
-  readonly isDataAction?: boolean | undefined
-  readonly name?: string | undefined
-  readonly origin?: t_Azure_ResourceManager_CommonTypes_Origin | undefined
+  isDataAction?: boolean | undefined
+  name?: string | undefined
+  origin?: t_Azure_ResourceManager_CommonTypes_Origin | undefined
 }
 
 export type t_Azure_ResourceManager_CommonTypes_OperationDisplay = {
-  readonly description?: string | undefined
-  readonly operation?: string | undefined
-  readonly provider?: string | undefined
-  readonly resource?: string | undefined
+  description?: string | undefined
+  operation?: string | undefined
+  provider?: string | undefined
+  resource?: string | undefined
 }
 
 export type t_Azure_ResourceManager_CommonTypes_Origin =
@@ -53,12 +49,10 @@ export type t_Azure_ResourceManager_CommonTypes_Origin =
   | string
 
 export type t_Azure_ResourceManager_CommonTypes_Resource = {
-  readonly id?: string | undefined
-  readonly name?: string | undefined
-  readonly systemData?:
-    | t_Azure_ResourceManager_CommonTypes_SystemData
-    | undefined
-  readonly type?: t_Azure_Core_armResourceType | undefined
+  id?: string | undefined
+  name?: string | undefined
+  systemData?: t_Azure_ResourceManager_CommonTypes_SystemData | undefined
+  type?: t_Azure_Core_armResourceType | undefined
 }
 
 export type t_Azure_ResourceManager_CommonTypes_SystemData = {

@@ -212,8 +212,6 @@ export class TypeBuilder implements ICompilable {
               const isRequired = schemaObject.required.some((it) => it === name)
               const type = this.schemaObjectToType(definition)
 
-              const isReadonly = isRef(definition) ? false : definition.readOnly
-
               // ensure compatibility with `exactOptionalPropertyTypes` compiler option
               // https://www.typescriptlang.org/tsconfig#exactOptionalPropertyTypes
               const exactOptionalPropertyTypes =
@@ -224,7 +222,7 @@ export class TypeBuilder implements ICompilable {
                 type: exactOptionalPropertyTypes
                   ? union(type, "undefined")
                   : type,
-                isReadonly,
+                isReadonly: false,
                 isRequired,
               })
             })

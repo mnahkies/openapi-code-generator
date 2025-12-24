@@ -1085,8 +1085,8 @@ export type t_code_scanning_analysis_commit_sha = string
 export type t_code_scanning_analysis_created_at = string
 
 export type t_code_scanning_analysis_deletion = {
-  readonly confirm_delete_url: string | null
-  readonly next_analysis_url: string | null
+  confirm_delete_url: string | null
+  next_analysis_url: string | null
 }
 
 export type t_code_scanning_analysis_environment = string
@@ -1233,12 +1233,12 @@ export type t_code_scanning_ref_full = string
 
 export type t_code_scanning_sarifs_receipt = {
   id?: t_code_scanning_analysis_sarif_id
-  readonly url?: string
+  url?: string
 }
 
 export type t_code_scanning_sarifs_status = {
-  readonly analyses_url?: string | null
-  readonly errors?: string[] | null
+  analyses_url?: string | null
+  errors?: string[] | null
   processing_status?: "pending" | "complete" | "failed" | UnknownEnumStringValue
 }
 
@@ -2179,11 +2179,11 @@ export type t_custom_property_value = {
 
 export type t_cvss_severities = {
   cvss_v3?: {
-    readonly score: number | null
+    score: number | null
     vector_string: string | null
   } | null
   cvss_v4?: {
-    readonly score: number | null
+    score: number | null
     vector_string: string | null
   } | null
 } | null
@@ -2206,16 +2206,16 @@ export type t_demilestoned_issue_event = {
 export type t_dependabot_alert = {
   auto_dismissed_at?: t_alert_auto_dismissed_at
   created_at: t_alert_created_at
-  readonly dependency: {
-    readonly manifest_path?: string
+  dependency: {
+    manifest_path?: string
     package?: t_dependabot_alert_package
-    readonly relationship?:
+    relationship?:
       | "unknown"
       | "direct"
       | "transitive"
       | UnknownEnumStringValue
       | null
-    readonly scope?: "development" | "runtime" | UnknownEnumStringValue | null
+    scope?: "development" | "runtime" | UnknownEnumStringValue | null
   }
   dismissed_at: t_alert_dismissed_at
   dismissed_by: t_nullable_simple_user
@@ -2233,7 +2233,7 @@ export type t_dependabot_alert = {
   number: t_alert_number
   security_advisory: t_dependabot_alert_security_advisory
   security_vulnerability: t_dependabot_alert_security_vulnerability
-  readonly state:
+  state:
     | "auto_dismissed"
     | "dismissed"
     | "fixed"
@@ -2244,71 +2244,61 @@ export type t_dependabot_alert = {
 }
 
 export type t_dependabot_alert_package = {
-  readonly ecosystem: string
-  readonly name: string
+  ecosystem: string
+  name: string
 }
 
 export type t_dependabot_alert_security_advisory = {
-  readonly cve_id: string | null
-  readonly cvss: {
-    readonly score: number
-    readonly vector_string: string | null
+  cve_id: string | null
+  cvss: {
+    score: number
+    vector_string: string | null
   }
   cvss_severities?: t_cvss_severities
-  readonly cwes: {
-    readonly cwe_id: string
-    readonly name: string
+  cwes: {
+    cwe_id: string
+    name: string
   }[]
-  readonly description: string
+  description: string
   epss?: t_security_advisory_epss
-  readonly ghsa_id: string
-  readonly identifiers: {
-    readonly type: "CVE" | "GHSA" | UnknownEnumStringValue
-    readonly value: string
+  ghsa_id: string
+  identifiers: {
+    type: "CVE" | "GHSA" | UnknownEnumStringValue
+    value: string
   }[]
-  readonly published_at: string
-  readonly references: {
-    readonly url: string
+  published_at: string
+  references: {
+    url: string
   }[]
-  readonly severity:
-    | "low"
-    | "medium"
-    | "high"
-    | "critical"
-    | UnknownEnumStringValue
-  readonly summary: string
-  readonly updated_at: string
-  readonly vulnerabilities: t_dependabot_alert_security_vulnerability[]
-  readonly withdrawn_at: string | null
+  severity: "low" | "medium" | "high" | "critical" | UnknownEnumStringValue
+  summary: string
+  updated_at: string
+  vulnerabilities: t_dependabot_alert_security_vulnerability[]
+  withdrawn_at: string | null
 }
 
 export type t_dependabot_alert_security_vulnerability = {
-  readonly first_patched_version: {
-    readonly identifier: string
+  first_patched_version: {
+    identifier: string
   } | null
   package: t_dependabot_alert_package
-  readonly severity:
-    | "low"
-    | "medium"
-    | "high"
-    | "critical"
-    | UnknownEnumStringValue
-  readonly vulnerable_version_range: string
+  severity: "low" | "medium" | "high" | "critical" | UnknownEnumStringValue
+  vulnerable_version_range: string
 }
 
 export type t_dependabot_alert_with_repository = {
   auto_dismissed_at?: t_alert_auto_dismissed_at
   created_at: t_alert_created_at
-  readonly dependency: {
-    readonly manifest_path?: string
+  dependency: {
+    manifest_path?: string
     package?: t_dependabot_alert_package
-    readonly relationship?:
+    relationship?:
       | "unknown"
       | "direct"
       | "transitive"
       | UnknownEnumStringValue
       | null
-    readonly scope?: "development" | "runtime" | UnknownEnumStringValue | null
+    scope?: "development" | "runtime" | UnknownEnumStringValue | null
   }
   dismissed_at: t_alert_dismissed_at
   dismissed_by: t_nullable_simple_user
@@ -2327,7 +2317,7 @@ export type t_dependabot_alert_with_repository = {
   repository: t_simple_repository
   security_advisory: t_dependabot_alert_security_advisory
   security_vulnerability: t_dependabot_alert_security_vulnerability
-  readonly state:
+  state:
     | "auto_dismissed"
     | "dismissed"
     | "fixed"
@@ -3062,39 +3052,39 @@ export type t_gitignore_template = {
 }
 
 export type t_global_advisory = {
-  readonly credits:
+  credits:
     | {
         type: t_security_advisory_credit_types
         user: t_simple_user
       }[]
     | null
-  readonly cve_id: string | null
+  cve_id: string | null
   cvss: {
-    readonly score: number | null
+    score: number | null
     vector_string: string | null
   } | null
   cvss_severities?: t_cvss_severities
   cwes:
     | {
         cwe_id: string
-        readonly name: string
+        name: string
       }[]
     | null
   description: string | null
   epss?: t_security_advisory_epss
-  readonly ghsa_id: string
-  readonly github_reviewed_at: string | null
-  readonly html_url: string
-  readonly identifiers:
+  ghsa_id: string
+  github_reviewed_at: string | null
+  html_url: string
+  identifiers:
     | {
         type: "CVE" | "GHSA" | UnknownEnumStringValue
         value: string
       }[]
     | null
-  readonly nvd_published_at: string | null
-  readonly published_at: string
+  nvd_published_at: string | null
+  published_at: string
   references: string[] | null
-  readonly repository_advisory_url: string | null
+  repository_advisory_url: string | null
   severity:
     | "critical"
     | "high"
@@ -3104,11 +3094,11 @@ export type t_global_advisory = {
     | UnknownEnumStringValue
   source_code_location: string | null
   summary: string
-  readonly type: "reviewed" | "unreviewed" | "malware" | UnknownEnumStringValue
-  readonly updated_at: string
-  readonly url: string
+  type: "reviewed" | "unreviewed" | "malware" | UnknownEnumStringValue
+  updated_at: string
+  url: string
   vulnerabilities: t_vulnerability[] | null
-  readonly withdrawn_at: string | null
+  withdrawn_at: string | null
 }
 
 export type t_gpg_key = {
@@ -6112,41 +6102,41 @@ export type t_repository = {
 }
 
 export type t_repository_advisory = {
-  readonly author: t_simple_user | null
-  readonly closed_at: string | null
+  author: t_simple_user | null
+  closed_at: string | null
   collaborating_teams: t_team[] | null
   collaborating_users: t_simple_user[] | null
-  readonly created_at: string | null
+  created_at: string | null
   credits:
     | {
         login?: string
         type?: t_security_advisory_credit_types
       }[]
     | null
-  readonly credits_detailed: t_repository_advisory_credit[] | null
+  credits_detailed: t_repository_advisory_credit[] | null
   cve_id: string | null
   cvss: {
-    readonly score: number | null
+    score: number | null
     vector_string: string | null
   } | null
   cvss_severities?: t_cvss_severities
   cwe_ids: string[] | null
-  readonly cwes:
+  cwes:
     | {
         cwe_id: string
-        readonly name: string
+        name: string
       }[]
     | null
   description: string | null
-  readonly ghsa_id: string
-  readonly html_url: string
-  readonly identifiers: {
+  ghsa_id: string
+  html_url: string
+  identifiers: {
     type: "CVE" | "GHSA" | UnknownEnumStringValue
     value: string
   }[]
-  readonly private_fork: t_simple_repository | null
-  readonly published_at: string | null
-  readonly publisher: t_simple_user | null
+  private_fork: t_simple_repository | null
+  published_at: string | null
+  publisher: t_simple_user | null
   severity:
     | "critical"
     | "high"
@@ -6161,14 +6151,14 @@ export type t_repository_advisory = {
     | "draft"
     | "triage"
     | UnknownEnumStringValue
-  readonly submission: {
-    readonly accepted: boolean
+  submission: {
+    accepted: boolean
   } | null
   summary: string
-  readonly updated_at: string | null
-  readonly url: string
+  updated_at: string | null
+  url: string
   vulnerabilities: t_repository_advisory_vulnerability[] | null
-  readonly withdrawn_at: string | null
+  withdrawn_at: string | null
 }
 
 export type t_repository_advisory_create = {
@@ -8107,7 +8097,7 @@ export type t_vulnerability = {
     ecosystem: t_security_advisory_ecosystems
     name: string | null
   } | null
-  readonly vulnerable_functions: string[] | null
+  vulnerable_functions: string[] | null
   vulnerable_version_range: string | null
 }
 
