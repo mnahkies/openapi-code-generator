@@ -1559,12 +1559,7 @@ export type GetAccountResponder = {
 } & ExpressRuntimeResponder
 
 export type GetAccount = (
-  params: Params<
-    void,
-    t_GetAccountQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetAccountQuerySchema, void, void>,
   respond: GetAccountResponder,
   req: Request,
   res: Response,
@@ -1608,12 +1603,7 @@ export type GetAccountsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetAccounts = (
-  params: Params<
-    void,
-    t_GetAccountsQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetAccountsQuerySchema, void, void>,
   respond: GetAccountsResponder,
   req: Request,
   res: Response,
@@ -1639,12 +1629,7 @@ export type DeleteAccountsAccountResponder = {
 } & ExpressRuntimeResponder
 
 export type DeleteAccountsAccount = (
-  params: Params<
-    t_DeleteAccountsAccountParamSchema,
-    void,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<t_DeleteAccountsAccountParamSchema, void, void, void>,
   respond: DeleteAccountsAccountResponder,
   req: Request,
   res: Response,
@@ -1660,7 +1645,7 @@ export type GetAccountsAccount = (
   params: Params<
     t_GetAccountsAccountParamSchema,
     t_GetAccountsAccountQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetAccountsAccountResponder,
@@ -1714,7 +1699,7 @@ export type DeleteAccountsAccountBankAccountsId = (
   params: Params<
     t_DeleteAccountsAccountBankAccountsIdParamSchema,
     void,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: DeleteAccountsAccountBankAccountsIdResponder,
@@ -1732,7 +1717,7 @@ export type GetAccountsAccountBankAccountsId = (
   params: Params<
     t_GetAccountsAccountBankAccountsIdParamSchema,
     t_GetAccountsAccountBankAccountsIdQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetAccountsAccountBankAccountsIdResponder,
@@ -1773,7 +1758,7 @@ export type GetAccountsAccountCapabilities = (
   params: Params<
     t_GetAccountsAccountCapabilitiesParamSchema,
     t_GetAccountsAccountCapabilitiesQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetAccountsAccountCapabilitiesResponder,
@@ -1791,7 +1776,7 @@ export type GetAccountsAccountCapabilitiesCapability = (
   params: Params<
     t_GetAccountsAccountCapabilitiesCapabilityParamSchema,
     t_GetAccountsAccountCapabilitiesCapabilityQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetAccountsAccountCapabilitiesCapabilityResponder,
@@ -1832,7 +1817,7 @@ export type GetAccountsAccountExternalAccounts = (
   params: Params<
     t_GetAccountsAccountExternalAccountsParamSchema,
     t_GetAccountsAccountExternalAccountsQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetAccountsAccountExternalAccountsResponder,
@@ -1868,7 +1853,7 @@ export type DeleteAccountsAccountExternalAccountsId = (
   params: Params<
     t_DeleteAccountsAccountExternalAccountsIdParamSchema,
     void,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: DeleteAccountsAccountExternalAccountsIdResponder,
@@ -1886,7 +1871,7 @@ export type GetAccountsAccountExternalAccountsId = (
   params: Params<
     t_GetAccountsAccountExternalAccountsIdParamSchema,
     t_GetAccountsAccountExternalAccountsIdQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetAccountsAccountExternalAccountsIdResponder,
@@ -1945,7 +1930,7 @@ export type GetAccountsAccountPeople = (
   params: Params<
     t_GetAccountsAccountPeopleParamSchema,
     t_GetAccountsAccountPeopleQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetAccountsAccountPeopleResponder,
@@ -1981,7 +1966,7 @@ export type DeleteAccountsAccountPeoplePerson = (
   params: Params<
     t_DeleteAccountsAccountPeoplePersonParamSchema,
     void,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: DeleteAccountsAccountPeoplePersonResponder,
@@ -1999,7 +1984,7 @@ export type GetAccountsAccountPeoplePerson = (
   params: Params<
     t_GetAccountsAccountPeoplePersonParamSchema,
     t_GetAccountsAccountPeoplePersonQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetAccountsAccountPeoplePersonResponder,
@@ -2040,7 +2025,7 @@ export type GetAccountsAccountPersons = (
   params: Params<
     t_GetAccountsAccountPersonsParamSchema,
     t_GetAccountsAccountPersonsQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetAccountsAccountPersonsResponder,
@@ -2076,7 +2061,7 @@ export type DeleteAccountsAccountPersonsPerson = (
   params: Params<
     t_DeleteAccountsAccountPersonsPersonParamSchema,
     void,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: DeleteAccountsAccountPersonsPersonResponder,
@@ -2094,7 +2079,7 @@ export type GetAccountsAccountPersonsPerson = (
   params: Params<
     t_GetAccountsAccountPersonsPersonParamSchema,
     t_GetAccountsAccountPersonsPersonQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetAccountsAccountPersonsPersonResponder,
@@ -2150,12 +2135,7 @@ export type GetApplePayDomainsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetApplePayDomains = (
-  params: Params<
-    void,
-    t_GetApplePayDomainsQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetApplePayDomainsQuerySchema, void, void>,
   respond: GetApplePayDomainsResponder,
   req: Request,
   res: Response,
@@ -2181,12 +2161,7 @@ export type DeleteApplePayDomainsDomainResponder = {
 } & ExpressRuntimeResponder
 
 export type DeleteApplePayDomainsDomain = (
-  params: Params<
-    t_DeleteApplePayDomainsDomainParamSchema,
-    void,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<t_DeleteApplePayDomainsDomainParamSchema, void, void, void>,
   respond: DeleteApplePayDomainsDomainResponder,
   req: Request,
   res: Response,
@@ -2202,7 +2177,7 @@ export type GetApplePayDomainsDomain = (
   params: Params<
     t_GetApplePayDomainsDomainParamSchema,
     t_GetApplePayDomainsDomainQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetApplePayDomainsDomainResponder,
@@ -2222,12 +2197,7 @@ export type GetApplicationFeesResponder = {
 } & ExpressRuntimeResponder
 
 export type GetApplicationFees = (
-  params: Params<
-    void,
-    t_GetApplicationFeesQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetApplicationFeesQuerySchema, void, void>,
   respond: GetApplicationFeesResponder,
   req: Request,
   res: Response,
@@ -2243,7 +2213,7 @@ export type GetApplicationFeesFeeRefundsId = (
   params: Params<
     t_GetApplicationFeesFeeRefundsIdParamSchema,
     t_GetApplicationFeesFeeRefundsIdQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetApplicationFeesFeeRefundsIdResponder,
@@ -2279,7 +2249,7 @@ export type GetApplicationFeesId = (
   params: Params<
     t_GetApplicationFeesIdParamSchema,
     t_GetApplicationFeesIdQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetApplicationFeesIdResponder,
@@ -2320,7 +2290,7 @@ export type GetApplicationFeesIdRefunds = (
   params: Params<
     t_GetApplicationFeesIdRefundsParamSchema,
     t_GetApplicationFeesIdRefundsQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetApplicationFeesIdRefundsResponder,
@@ -2358,12 +2328,7 @@ export type GetAppsSecretsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetAppsSecrets = (
-  params: Params<
-    void,
-    t_GetAppsSecretsQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetAppsSecretsQuerySchema, void, void>,
   respond: GetAppsSecretsResponder,
   req: Request,
   res: Response,
@@ -2402,12 +2367,7 @@ export type GetAppsSecretsFindResponder = {
 } & ExpressRuntimeResponder
 
 export type GetAppsSecretsFind = (
-  params: Params<
-    void,
-    t_GetAppsSecretsFindQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetAppsSecretsFindQuerySchema, void, void>,
   respond: GetAppsSecretsFindResponder,
   req: Request,
   res: Response,
@@ -2420,12 +2380,7 @@ export type GetBalanceResponder = {
 } & ExpressRuntimeResponder
 
 export type GetBalance = (
-  params: Params<
-    void,
-    t_GetBalanceQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetBalanceQuerySchema, void, void>,
   respond: GetBalanceResponder,
   req: Request,
   res: Response,
@@ -2443,12 +2398,7 @@ export type GetBalanceHistoryResponder = {
 } & ExpressRuntimeResponder
 
 export type GetBalanceHistory = (
-  params: Params<
-    void,
-    t_GetBalanceHistoryQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetBalanceHistoryQuerySchema, void, void>,
   respond: GetBalanceHistoryResponder,
   req: Request,
   res: Response,
@@ -2464,7 +2414,7 @@ export type GetBalanceHistoryId = (
   params: Params<
     t_GetBalanceHistoryIdParamSchema,
     t_GetBalanceHistoryIdQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetBalanceHistoryIdResponder,
@@ -2484,12 +2434,7 @@ export type GetBalanceTransactionsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetBalanceTransactions = (
-  params: Params<
-    void,
-    t_GetBalanceTransactionsQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetBalanceTransactionsQuerySchema, void, void>,
   respond: GetBalanceTransactionsResponder,
   req: Request,
   res: Response,
@@ -2505,7 +2450,7 @@ export type GetBalanceTransactionsId = (
   params: Params<
     t_GetBalanceTransactionsIdParamSchema,
     t_GetBalanceTransactionsIdQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetBalanceTransactionsIdResponder,
@@ -2525,12 +2470,7 @@ export type GetBillingAlertsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetBillingAlerts = (
-  params: Params<
-    void,
-    t_GetBillingAlertsQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetBillingAlertsQuerySchema, void, void>,
   respond: GetBillingAlertsResponder,
   req: Request,
   res: Response,
@@ -2559,7 +2499,7 @@ export type GetBillingAlertsId = (
   params: Params<
     t_GetBillingAlertsIdParamSchema,
     t_GetBillingAlertsIdQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetBillingAlertsIdResponder,
@@ -2628,12 +2568,7 @@ export type GetBillingCreditBalanceSummaryResponder = {
 } & ExpressRuntimeResponder
 
 export type GetBillingCreditBalanceSummary = (
-  params: Params<
-    void,
-    t_GetBillingCreditBalanceSummaryQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetBillingCreditBalanceSummaryQuerySchema, void, void>,
   respond: GetBillingCreditBalanceSummaryResponder,
   req: Request,
   res: Response,
@@ -2654,7 +2589,7 @@ export type GetBillingCreditBalanceTransactions = (
   params: Params<
     void,
     t_GetBillingCreditBalanceTransactionsQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetBillingCreditBalanceTransactionsResponder,
@@ -2672,7 +2607,7 @@ export type GetBillingCreditBalanceTransactionsId = (
   params: Params<
     t_GetBillingCreditBalanceTransactionsIdParamSchema,
     t_GetBillingCreditBalanceTransactionsIdQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetBillingCreditBalanceTransactionsIdResponder,
@@ -2692,12 +2627,7 @@ export type GetBillingCreditGrantsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetBillingCreditGrants = (
-  params: Params<
-    void,
-    t_GetBillingCreditGrantsQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetBillingCreditGrantsQuerySchema, void, void>,
   respond: GetBillingCreditGrantsResponder,
   req: Request,
   res: Response,
@@ -2726,7 +2656,7 @@ export type GetBillingCreditGrantsId = (
   params: Params<
     t_GetBillingCreditGrantsIdParamSchema,
     t_GetBillingCreditGrantsIdQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetBillingCreditGrantsIdResponder,
@@ -2831,12 +2761,7 @@ export type GetBillingMetersResponder = {
 } & ExpressRuntimeResponder
 
 export type GetBillingMeters = (
-  params: Params<
-    void,
-    t_GetBillingMetersQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetBillingMetersQuerySchema, void, void>,
   respond: GetBillingMetersResponder,
   req: Request,
   res: Response,
@@ -2865,7 +2790,7 @@ export type GetBillingMetersId = (
   params: Params<
     t_GetBillingMetersIdParamSchema,
     t_GetBillingMetersIdQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetBillingMetersIdResponder,
@@ -2924,7 +2849,7 @@ export type GetBillingMetersIdEventSummaries = (
   params: Params<
     t_GetBillingMetersIdEventSummariesParamSchema,
     t_GetBillingMetersIdEventSummariesQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetBillingMetersIdEventSummariesResponder,
@@ -2962,12 +2887,7 @@ export type GetBillingPortalConfigurationsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetBillingPortalConfigurations = (
-  params: Params<
-    void,
-    t_GetBillingPortalConfigurationsQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetBillingPortalConfigurationsQuerySchema, void, void>,
   respond: GetBillingPortalConfigurationsResponder,
   req: Request,
   res: Response,
@@ -3001,7 +2921,7 @@ export type GetBillingPortalConfigurationsConfiguration = (
   params: Params<
     t_GetBillingPortalConfigurationsConfigurationParamSchema,
     t_GetBillingPortalConfigurationsConfigurationQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetBillingPortalConfigurationsConfigurationResponder,
@@ -3052,12 +2972,7 @@ export type GetChargesResponder = {
 } & ExpressRuntimeResponder
 
 export type GetCharges = (
-  params: Params<
-    void,
-    t_GetChargesQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetChargesQuerySchema, void, void>,
   respond: GetChargesResponder,
   req: Request,
   res: Response,
@@ -3090,12 +3005,7 @@ export type GetChargesSearchResponder = {
 } & ExpressRuntimeResponder
 
 export type GetChargesSearch = (
-  params: Params<
-    void,
-    t_GetChargesSearchQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetChargesSearchQuerySchema, void, void>,
   respond: GetChargesSearchResponder,
   req: Request,
   res: Response,
@@ -3111,7 +3021,7 @@ export type GetChargesCharge = (
   params: Params<
     t_GetChargesChargeParamSchema,
     t_GetChargesChargeQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetChargesChargeResponder,
@@ -3165,7 +3075,7 @@ export type GetChargesChargeDispute = (
   params: Params<
     t_GetChargesChargeDisputeParamSchema,
     t_GetChargesChargeDisputeQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetChargesChargeDisputeResponder,
@@ -3242,7 +3152,7 @@ export type GetChargesChargeRefunds = (
   params: Params<
     t_GetChargesChargeRefundsParamSchema,
     t_GetChargesChargeRefundsQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetChargesChargeRefundsResponder,
@@ -3278,7 +3188,7 @@ export type GetChargesChargeRefundsRefund = (
   params: Params<
     t_GetChargesChargeRefundsRefundParamSchema,
     t_GetChargesChargeRefundsRefundQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetChargesChargeRefundsRefundResponder,
@@ -3316,12 +3226,7 @@ export type GetCheckoutSessionsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetCheckoutSessions = (
-  params: Params<
-    void,
-    t_GetCheckoutSessionsQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetCheckoutSessionsQuerySchema, void, void>,
   respond: GetCheckoutSessionsResponder,
   req: Request,
   res: Response,
@@ -3355,7 +3260,7 @@ export type GetCheckoutSessionsSession = (
   params: Params<
     t_GetCheckoutSessionsSessionParamSchema,
     t_GetCheckoutSessionsSessionQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetCheckoutSessionsSessionResponder,
@@ -3414,7 +3319,7 @@ export type GetCheckoutSessionsSessionLineItems = (
   params: Params<
     t_GetCheckoutSessionsSessionLineItemsParamSchema,
     t_GetCheckoutSessionsSessionLineItemsQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetCheckoutSessionsSessionLineItemsResponder,
@@ -3434,12 +3339,7 @@ export type GetClimateOrdersResponder = {
 } & ExpressRuntimeResponder
 
 export type GetClimateOrders = (
-  params: Params<
-    void,
-    t_GetClimateOrdersQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetClimateOrdersQuerySchema, void, void>,
   respond: GetClimateOrdersResponder,
   req: Request,
   res: Response,
@@ -3468,7 +3368,7 @@ export type GetClimateOrdersOrder = (
   params: Params<
     t_GetClimateOrdersOrderParamSchema,
     t_GetClimateOrdersOrderQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetClimateOrdersOrderResponder,
@@ -3524,12 +3424,7 @@ export type GetClimateProductsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetClimateProducts = (
-  params: Params<
-    void,
-    t_GetClimateProductsQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetClimateProductsQuerySchema, void, void>,
   respond: GetClimateProductsResponder,
   req: Request,
   res: Response,
@@ -3545,7 +3440,7 @@ export type GetClimateProductsProduct = (
   params: Params<
     t_GetClimateProductsProductParamSchema,
     t_GetClimateProductsProductQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetClimateProductsProductResponder,
@@ -3565,12 +3460,7 @@ export type GetClimateSuppliersResponder = {
 } & ExpressRuntimeResponder
 
 export type GetClimateSuppliers = (
-  params: Params<
-    void,
-    t_GetClimateSuppliersQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetClimateSuppliersQuerySchema, void, void>,
   respond: GetClimateSuppliersResponder,
   req: Request,
   res: Response,
@@ -3586,7 +3476,7 @@ export type GetClimateSuppliersSupplier = (
   params: Params<
     t_GetClimateSuppliersSupplierParamSchema,
     t_GetClimateSuppliersSupplierQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetClimateSuppliersSupplierResponder,
@@ -3604,7 +3494,7 @@ export type GetConfirmationTokensConfirmationToken = (
   params: Params<
     t_GetConfirmationTokensConfirmationTokenParamSchema,
     t_GetConfirmationTokensConfirmationTokenQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetConfirmationTokensConfirmationTokenResponder,
@@ -3624,12 +3514,7 @@ export type GetCountrySpecsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetCountrySpecs = (
-  params: Params<
-    void,
-    t_GetCountrySpecsQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetCountrySpecsQuerySchema, void, void>,
   respond: GetCountrySpecsResponder,
   req: Request,
   res: Response,
@@ -3645,7 +3530,7 @@ export type GetCountrySpecsCountry = (
   params: Params<
     t_GetCountrySpecsCountryParamSchema,
     t_GetCountrySpecsCountryQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetCountrySpecsCountryResponder,
@@ -3665,12 +3550,7 @@ export type GetCouponsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetCoupons = (
-  params: Params<
-    void,
-    t_GetCouponsQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetCouponsQuerySchema, void, void>,
   respond: GetCouponsResponder,
   req: Request,
   res: Response,
@@ -3696,12 +3576,7 @@ export type DeleteCouponsCouponResponder = {
 } & ExpressRuntimeResponder
 
 export type DeleteCouponsCoupon = (
-  params: Params<
-    t_DeleteCouponsCouponParamSchema,
-    void,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<t_DeleteCouponsCouponParamSchema, void, void, void>,
   respond: DeleteCouponsCouponResponder,
   req: Request,
   res: Response,
@@ -3717,7 +3592,7 @@ export type GetCouponsCoupon = (
   params: Params<
     t_GetCouponsCouponParamSchema,
     t_GetCouponsCouponQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetCouponsCouponResponder,
@@ -3755,12 +3630,7 @@ export type GetCreditNotesResponder = {
 } & ExpressRuntimeResponder
 
 export type GetCreditNotes = (
-  params: Params<
-    void,
-    t_GetCreditNotesQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetCreditNotesQuerySchema, void, void>,
   respond: GetCreditNotesResponder,
   req: Request,
   res: Response,
@@ -3786,12 +3656,7 @@ export type GetCreditNotesPreviewResponder = {
 } & ExpressRuntimeResponder
 
 export type GetCreditNotesPreview = (
-  params: Params<
-    void,
-    t_GetCreditNotesPreviewQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetCreditNotesPreviewQuerySchema, void, void>,
   respond: GetCreditNotesPreviewResponder,
   req: Request,
   res: Response,
@@ -3809,12 +3674,7 @@ export type GetCreditNotesPreviewLinesResponder = {
 } & ExpressRuntimeResponder
 
 export type GetCreditNotesPreviewLines = (
-  params: Params<
-    void,
-    t_GetCreditNotesPreviewLinesQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetCreditNotesPreviewLinesQuerySchema, void, void>,
   respond: GetCreditNotesPreviewLinesResponder,
   req: Request,
   res: Response,
@@ -3835,7 +3695,7 @@ export type GetCreditNotesCreditNoteLines = (
   params: Params<
     t_GetCreditNotesCreditNoteLinesParamSchema,
     t_GetCreditNotesCreditNoteLinesQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetCreditNotesCreditNoteLinesResponder,
@@ -3853,7 +3713,7 @@ export type GetCreditNotesId = (
   params: Params<
     t_GetCreditNotesIdParamSchema,
     t_GetCreditNotesIdQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetCreditNotesIdResponder,
@@ -3922,12 +3782,7 @@ export type GetCustomersResponder = {
 } & ExpressRuntimeResponder
 
 export type GetCustomers = (
-  params: Params<
-    void,
-    t_GetCustomersQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetCustomersQuerySchema, void, void>,
   respond: GetCustomersResponder,
   req: Request,
   res: Response,
@@ -3960,12 +3815,7 @@ export type GetCustomersSearchResponder = {
 } & ExpressRuntimeResponder
 
 export type GetCustomersSearch = (
-  params: Params<
-    void,
-    t_GetCustomersSearchQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetCustomersSearchQuerySchema, void, void>,
   respond: GetCustomersSearchResponder,
   req: Request,
   res: Response,
@@ -3978,12 +3828,7 @@ export type DeleteCustomersCustomerResponder = {
 } & ExpressRuntimeResponder
 
 export type DeleteCustomersCustomer = (
-  params: Params<
-    t_DeleteCustomersCustomerParamSchema,
-    void,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<t_DeleteCustomersCustomerParamSchema, void, void, void>,
   respond: DeleteCustomersCustomerResponder,
   req: Request,
   res: Response,
@@ -3999,7 +3844,7 @@ export type GetCustomersCustomer = (
   params: Params<
     t_GetCustomersCustomerParamSchema,
     t_GetCustomersCustomerQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetCustomersCustomerResponder,
@@ -4040,7 +3885,7 @@ export type GetCustomersCustomerBalanceTransactions = (
   params: Params<
     t_GetCustomersCustomerBalanceTransactionsParamSchema,
     t_GetCustomersCustomerBalanceTransactionsQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetCustomersCustomerBalanceTransactionsResponder,
@@ -4076,7 +3921,7 @@ export type GetCustomersCustomerBalanceTransactionsTransaction = (
   params: Params<
     t_GetCustomersCustomerBalanceTransactionsTransactionParamSchema,
     t_GetCustomersCustomerBalanceTransactionsTransactionQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetCustomersCustomerBalanceTransactionsTransactionResponder,
@@ -4118,7 +3963,7 @@ export type GetCustomersCustomerBankAccounts = (
   params: Params<
     t_GetCustomersCustomerBankAccountsParamSchema,
     t_GetCustomersCustomerBankAccountsQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetCustomersCustomerBankAccountsResponder,
@@ -4172,7 +4017,7 @@ export type GetCustomersCustomerBankAccountsId = (
   params: Params<
     t_GetCustomersCustomerBankAccountsIdParamSchema,
     t_GetCustomersCustomerBankAccountsIdQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetCustomersCustomerBankAccountsIdResponder,
@@ -4231,7 +4076,7 @@ export type GetCustomersCustomerCards = (
   params: Params<
     t_GetCustomersCustomerCardsParamSchema,
     t_GetCustomersCustomerCardsQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetCustomersCustomerCardsResponder,
@@ -4285,7 +4130,7 @@ export type GetCustomersCustomerCardsId = (
   params: Params<
     t_GetCustomersCustomerCardsIdParamSchema,
     t_GetCustomersCustomerCardsIdQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetCustomersCustomerCardsIdResponder,
@@ -4321,7 +4166,7 @@ export type GetCustomersCustomerCashBalance = (
   params: Params<
     t_GetCustomersCustomerCashBalanceParamSchema,
     t_GetCustomersCustomerCashBalanceQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetCustomersCustomerCashBalanceResponder,
@@ -4362,7 +4207,7 @@ export type GetCustomersCustomerCashBalanceTransactions = (
   params: Params<
     t_GetCustomersCustomerCashBalanceTransactionsParamSchema,
     t_GetCustomersCustomerCashBalanceTransactionsQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetCustomersCustomerCashBalanceTransactionsResponder,
@@ -4380,7 +4225,7 @@ export type GetCustomersCustomerCashBalanceTransactionsTransaction = (
   params: Params<
     t_GetCustomersCustomerCashBalanceTransactionsTransactionParamSchema,
     t_GetCustomersCustomerCashBalanceTransactionsTransactionQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetCustomersCustomerCashBalanceTransactionsTransactionResponder,
@@ -4398,7 +4243,7 @@ export type DeleteCustomersCustomerDiscount = (
   params: Params<
     t_DeleteCustomersCustomerDiscountParamSchema,
     void,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: DeleteCustomersCustomerDiscountResponder,
@@ -4416,7 +4261,7 @@ export type GetCustomersCustomerDiscount = (
   params: Params<
     t_GetCustomersCustomerDiscountParamSchema,
     t_GetCustomersCustomerDiscountQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetCustomersCustomerDiscountResponder,
@@ -4457,7 +4302,7 @@ export type GetCustomersCustomerPaymentMethods = (
   params: Params<
     t_GetCustomersCustomerPaymentMethodsParamSchema,
     t_GetCustomersCustomerPaymentMethodsQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetCustomersCustomerPaymentMethodsResponder,
@@ -4475,7 +4320,7 @@ export type GetCustomersCustomerPaymentMethodsPaymentMethod = (
   params: Params<
     t_GetCustomersCustomerPaymentMethodsPaymentMethodParamSchema,
     t_GetCustomersCustomerPaymentMethodsPaymentMethodQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetCustomersCustomerPaymentMethodsPaymentMethodResponder,
@@ -4498,7 +4343,7 @@ export type GetCustomersCustomerSources = (
   params: Params<
     t_GetCustomersCustomerSourcesParamSchema,
     t_GetCustomersCustomerSourcesQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetCustomersCustomerSourcesResponder,
@@ -4552,7 +4397,7 @@ export type GetCustomersCustomerSourcesId = (
   params: Params<
     t_GetCustomersCustomerSourcesIdParamSchema,
     t_GetCustomersCustomerSourcesIdQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetCustomersCustomerSourcesIdResponder,
@@ -4611,7 +4456,7 @@ export type GetCustomersCustomerSubscriptions = (
   params: Params<
     t_GetCustomersCustomerSubscriptionsParamSchema,
     t_GetCustomersCustomerSubscriptionsQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetCustomersCustomerSubscriptionsResponder,
@@ -4667,7 +4512,7 @@ export type GetCustomersCustomerSubscriptionsSubscriptionExposedId = (
   params: Params<
     t_GetCustomersCustomerSubscriptionsSubscriptionExposedIdParamSchema,
     t_GetCustomersCustomerSubscriptionsSubscriptionExposedIdQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetCustomersCustomerSubscriptionsSubscriptionExposedIdResponder,
@@ -4706,7 +4551,7 @@ export type DeleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount =
     params: Params<
       t_DeleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountParamSchema,
       void,
-      Record<string, never> | undefined,
+      void,
       void
     >,
     respond: DeleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountResponder,
@@ -4725,7 +4570,7 @@ export type GetCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount = (
   params: Params<
     t_GetCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountParamSchema,
     t_GetCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountResponder,
@@ -4748,7 +4593,7 @@ export type GetCustomersCustomerTaxIds = (
   params: Params<
     t_GetCustomersCustomerTaxIdsParamSchema,
     t_GetCustomersCustomerTaxIdsQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetCustomersCustomerTaxIdsResponder,
@@ -4784,7 +4629,7 @@ export type DeleteCustomersCustomerTaxIdsId = (
   params: Params<
     t_DeleteCustomersCustomerTaxIdsIdParamSchema,
     void,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: DeleteCustomersCustomerTaxIdsIdResponder,
@@ -4802,7 +4647,7 @@ export type GetCustomersCustomerTaxIdsId = (
   params: Params<
     t_GetCustomersCustomerTaxIdsIdParamSchema,
     t_GetCustomersCustomerTaxIdsIdQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetCustomersCustomerTaxIdsIdResponder,
@@ -4822,12 +4667,7 @@ export type GetDisputesResponder = {
 } & ExpressRuntimeResponder
 
 export type GetDisputes = (
-  params: Params<
-    void,
-    t_GetDisputesQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetDisputesQuerySchema, void, void>,
   respond: GetDisputesResponder,
   req: Request,
   res: Response,
@@ -4843,7 +4683,7 @@ export type GetDisputesDispute = (
   params: Params<
     t_GetDisputesDisputeParamSchema,
     t_GetDisputesDisputeQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetDisputesDisputeResponder,
@@ -4902,7 +4742,7 @@ export type GetEntitlementsActiveEntitlements = (
   params: Params<
     void,
     t_GetEntitlementsActiveEntitlementsQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetEntitlementsActiveEntitlementsResponder,
@@ -4920,7 +4760,7 @@ export type GetEntitlementsActiveEntitlementsId = (
   params: Params<
     t_GetEntitlementsActiveEntitlementsIdParamSchema,
     t_GetEntitlementsActiveEntitlementsIdQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetEntitlementsActiveEntitlementsIdResponder,
@@ -4940,12 +4780,7 @@ export type GetEntitlementsFeaturesResponder = {
 } & ExpressRuntimeResponder
 
 export type GetEntitlementsFeatures = (
-  params: Params<
-    void,
-    t_GetEntitlementsFeaturesQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetEntitlementsFeaturesQuerySchema, void, void>,
   respond: GetEntitlementsFeaturesResponder,
   req: Request,
   res: Response,
@@ -4974,7 +4809,7 @@ export type GetEntitlementsFeaturesId = (
   params: Params<
     t_GetEntitlementsFeaturesIdParamSchema,
     t_GetEntitlementsFeaturesIdQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetEntitlementsFeaturesIdResponder,
@@ -5043,12 +4878,7 @@ export type GetEventsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetEvents = (
-  params: Params<
-    void,
-    t_GetEventsQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetEventsQuerySchema, void, void>,
   respond: GetEventsResponder,
   req: Request,
   res: Response,
@@ -5064,7 +4894,7 @@ export type GetEventsId = (
   params: Params<
     t_GetEventsIdParamSchema,
     t_GetEventsIdQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetEventsIdResponder,
@@ -5084,12 +4914,7 @@ export type GetExchangeRatesResponder = {
 } & ExpressRuntimeResponder
 
 export type GetExchangeRates = (
-  params: Params<
-    void,
-    t_GetExchangeRatesQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetExchangeRatesQuerySchema, void, void>,
   respond: GetExchangeRatesResponder,
   req: Request,
   res: Response,
@@ -5105,7 +4930,7 @@ export type GetExchangeRatesRateId = (
   params: Params<
     t_GetExchangeRatesRateIdParamSchema,
     t_GetExchangeRatesRateIdQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetExchangeRatesRateIdResponder,
@@ -5143,12 +4968,7 @@ export type GetFileLinksResponder = {
 } & ExpressRuntimeResponder
 
 export type GetFileLinks = (
-  params: Params<
-    void,
-    t_GetFileLinksQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetFileLinksQuerySchema, void, void>,
   respond: GetFileLinksResponder,
   req: Request,
   res: Response,
@@ -5177,7 +4997,7 @@ export type GetFileLinksLink = (
   params: Params<
     t_GetFileLinksLinkParamSchema,
     t_GetFileLinksLinkQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetFileLinksLinkResponder,
@@ -5215,12 +5035,7 @@ export type GetFilesResponder = {
 } & ExpressRuntimeResponder
 
 export type GetFiles = (
-  params: Params<
-    void,
-    t_GetFilesQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetFilesQuerySchema, void, void>,
   respond: GetFilesResponder,
   req: Request,
   res: Response,
@@ -5249,7 +5064,7 @@ export type GetFilesFile = (
   params: Params<
     t_GetFilesFileParamSchema,
     t_GetFilesFileQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetFilesFileResponder,
@@ -5272,7 +5087,7 @@ export type GetFinancialConnectionsAccounts = (
   params: Params<
     void,
     t_GetFinancialConnectionsAccountsQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetFinancialConnectionsAccountsResponder,
@@ -5290,7 +5105,7 @@ export type GetFinancialConnectionsAccountsAccount = (
   params: Params<
     t_GetFinancialConnectionsAccountsAccountParamSchema,
     t_GetFinancialConnectionsAccountsAccountQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetFinancialConnectionsAccountsAccountResponder,
@@ -5331,7 +5146,7 @@ export type GetFinancialConnectionsAccountsAccountOwners = (
   params: Params<
     t_GetFinancialConnectionsAccountsAccountOwnersParamSchema,
     t_GetFinancialConnectionsAccountsAccountOwnersQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetFinancialConnectionsAccountsAccountOwnersResponder,
@@ -5421,7 +5236,7 @@ export type GetFinancialConnectionsSessionsSession = (
   params: Params<
     t_GetFinancialConnectionsSessionsSessionParamSchema,
     t_GetFinancialConnectionsSessionsSessionQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetFinancialConnectionsSessionsSessionResponder,
@@ -5444,7 +5259,7 @@ export type GetFinancialConnectionsTransactions = (
   params: Params<
     void,
     t_GetFinancialConnectionsTransactionsQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetFinancialConnectionsTransactionsResponder,
@@ -5462,7 +5277,7 @@ export type GetFinancialConnectionsTransactionsTransaction = (
   params: Params<
     t_GetFinancialConnectionsTransactionsTransactionParamSchema,
     t_GetFinancialConnectionsTransactionsTransactionQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetFinancialConnectionsTransactionsTransactionResponder,
@@ -5482,12 +5297,7 @@ export type GetForwardingRequestsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetForwardingRequests = (
-  params: Params<
-    void,
-    t_GetForwardingRequestsQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetForwardingRequestsQuerySchema, void, void>,
   respond: GetForwardingRequestsResponder,
   req: Request,
   res: Response,
@@ -5516,7 +5326,7 @@ export type GetForwardingRequestsId = (
   params: Params<
     t_GetForwardingRequestsIdParamSchema,
     t_GetForwardingRequestsIdQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetForwardingRequestsIdResponder,
@@ -5536,12 +5346,7 @@ export type GetIdentityVerificationReportsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetIdentityVerificationReports = (
-  params: Params<
-    void,
-    t_GetIdentityVerificationReportsQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetIdentityVerificationReportsQuerySchema, void, void>,
   respond: GetIdentityVerificationReportsResponder,
   req: Request,
   res: Response,
@@ -5557,7 +5362,7 @@ export type GetIdentityVerificationReportsReport = (
   params: Params<
     t_GetIdentityVerificationReportsReportParamSchema,
     t_GetIdentityVerificationReportsReportQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetIdentityVerificationReportsReportResponder,
@@ -5580,7 +5385,7 @@ export type GetIdentityVerificationSessions = (
   params: Params<
     void,
     t_GetIdentityVerificationSessionsQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetIdentityVerificationSessionsResponder,
@@ -5616,7 +5421,7 @@ export type GetIdentityVerificationSessionsSession = (
   params: Params<
     t_GetIdentityVerificationSessionsSessionParamSchema,
     t_GetIdentityVerificationSessionsSessionQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetIdentityVerificationSessionsSessionResponder,
@@ -5690,12 +5495,7 @@ export type GetInvoicePaymentsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetInvoicePayments = (
-  params: Params<
-    void,
-    t_GetInvoicePaymentsQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetInvoicePaymentsQuerySchema, void, void>,
   respond: GetInvoicePaymentsResponder,
   req: Request,
   res: Response,
@@ -5711,7 +5511,7 @@ export type GetInvoicePaymentsInvoicePayment = (
   params: Params<
     t_GetInvoicePaymentsInvoicePaymentParamSchema,
     t_GetInvoicePaymentsInvoicePaymentQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetInvoicePaymentsInvoicePaymentResponder,
@@ -5731,12 +5531,7 @@ export type GetInvoiceRenderingTemplatesResponder = {
 } & ExpressRuntimeResponder
 
 export type GetInvoiceRenderingTemplates = (
-  params: Params<
-    void,
-    t_GetInvoiceRenderingTemplatesQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetInvoiceRenderingTemplatesQuerySchema, void, void>,
   respond: GetInvoiceRenderingTemplatesResponder,
   req: Request,
   res: Response,
@@ -5752,7 +5547,7 @@ export type GetInvoiceRenderingTemplatesTemplate = (
   params: Params<
     t_GetInvoiceRenderingTemplatesTemplateParamSchema,
     t_GetInvoiceRenderingTemplatesTemplateQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetInvoiceRenderingTemplatesTemplateResponder,
@@ -5808,12 +5603,7 @@ export type GetInvoiceitemsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetInvoiceitems = (
-  params: Params<
-    void,
-    t_GetInvoiceitemsQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetInvoiceitemsQuerySchema, void, void>,
   respond: GetInvoiceitemsResponder,
   req: Request,
   res: Response,
@@ -5839,12 +5629,7 @@ export type DeleteInvoiceitemsInvoiceitemResponder = {
 } & ExpressRuntimeResponder
 
 export type DeleteInvoiceitemsInvoiceitem = (
-  params: Params<
-    t_DeleteInvoiceitemsInvoiceitemParamSchema,
-    void,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<t_DeleteInvoiceitemsInvoiceitemParamSchema, void, void, void>,
   respond: DeleteInvoiceitemsInvoiceitemResponder,
   req: Request,
   res: Response,
@@ -5860,7 +5645,7 @@ export type GetInvoiceitemsInvoiceitem = (
   params: Params<
     t_GetInvoiceitemsInvoiceitemParamSchema,
     t_GetInvoiceitemsInvoiceitemQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetInvoiceitemsInvoiceitemResponder,
@@ -5898,12 +5683,7 @@ export type GetInvoicesResponder = {
 } & ExpressRuntimeResponder
 
 export type GetInvoices = (
-  params: Params<
-    void,
-    t_GetInvoicesQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetInvoicesQuerySchema, void, void>,
   respond: GetInvoicesResponder,
   req: Request,
   res: Response,
@@ -5954,12 +5734,7 @@ export type GetInvoicesSearchResponder = {
 } & ExpressRuntimeResponder
 
 export type GetInvoicesSearch = (
-  params: Params<
-    void,
-    t_GetInvoicesSearchQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetInvoicesSearchQuerySchema, void, void>,
   respond: GetInvoicesSearchResponder,
   req: Request,
   res: Response,
@@ -5972,12 +5747,7 @@ export type DeleteInvoicesInvoiceResponder = {
 } & ExpressRuntimeResponder
 
 export type DeleteInvoicesInvoice = (
-  params: Params<
-    t_DeleteInvoicesInvoiceParamSchema,
-    void,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<t_DeleteInvoicesInvoiceParamSchema, void, void, void>,
   respond: DeleteInvoicesInvoiceResponder,
   req: Request,
   res: Response,
@@ -5993,7 +5763,7 @@ export type GetInvoicesInvoice = (
   params: Params<
     t_GetInvoicesInvoiceParamSchema,
     t_GetInvoicesInvoiceQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetInvoicesInvoiceResponder,
@@ -6088,7 +5858,7 @@ export type GetInvoicesInvoiceLines = (
   params: Params<
     t_GetInvoicesInvoiceLinesParamSchema,
     t_GetInvoicesInvoiceLinesQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetInvoicesInvoiceLinesResponder,
@@ -6234,12 +6004,7 @@ export type GetIssuingAuthorizationsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetIssuingAuthorizations = (
-  params: Params<
-    void,
-    t_GetIssuingAuthorizationsQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetIssuingAuthorizationsQuerySchema, void, void>,
   respond: GetIssuingAuthorizationsResponder,
   req: Request,
   res: Response,
@@ -6255,7 +6020,7 @@ export type GetIssuingAuthorizationsAuthorization = (
   params: Params<
     t_GetIssuingAuthorizationsAuthorizationParamSchema,
     t_GetIssuingAuthorizationsAuthorizationQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetIssuingAuthorizationsAuthorizationResponder,
@@ -6329,12 +6094,7 @@ export type GetIssuingCardholdersResponder = {
 } & ExpressRuntimeResponder
 
 export type GetIssuingCardholders = (
-  params: Params<
-    void,
-    t_GetIssuingCardholdersQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetIssuingCardholdersQuerySchema, void, void>,
   respond: GetIssuingCardholdersResponder,
   req: Request,
   res: Response,
@@ -6363,7 +6123,7 @@ export type GetIssuingCardholdersCardholder = (
   params: Params<
     t_GetIssuingCardholdersCardholderParamSchema,
     t_GetIssuingCardholdersCardholderQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetIssuingCardholdersCardholderResponder,
@@ -6401,12 +6161,7 @@ export type GetIssuingCardsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetIssuingCards = (
-  params: Params<
-    void,
-    t_GetIssuingCardsQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetIssuingCardsQuerySchema, void, void>,
   respond: GetIssuingCardsResponder,
   req: Request,
   res: Response,
@@ -6435,7 +6190,7 @@ export type GetIssuingCardsCard = (
   params: Params<
     t_GetIssuingCardsCardParamSchema,
     t_GetIssuingCardsCardQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetIssuingCardsCardResponder,
@@ -6473,12 +6228,7 @@ export type GetIssuingDisputesResponder = {
 } & ExpressRuntimeResponder
 
 export type GetIssuingDisputes = (
-  params: Params<
-    void,
-    t_GetIssuingDisputesQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetIssuingDisputesQuerySchema, void, void>,
   respond: GetIssuingDisputesResponder,
   req: Request,
   res: Response,
@@ -6512,7 +6262,7 @@ export type GetIssuingDisputesDispute = (
   params: Params<
     t_GetIssuingDisputesDisputeParamSchema,
     t_GetIssuingDisputesDisputeQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetIssuingDisputesDisputeResponder,
@@ -6571,7 +6321,7 @@ export type GetIssuingPersonalizationDesigns = (
   params: Params<
     void,
     t_GetIssuingPersonalizationDesignsQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetIssuingPersonalizationDesignsResponder,
@@ -6607,7 +6357,7 @@ export type GetIssuingPersonalizationDesignsPersonalizationDesign = (
   params: Params<
     t_GetIssuingPersonalizationDesignsPersonalizationDesignParamSchema,
     t_GetIssuingPersonalizationDesignsPersonalizationDesignQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetIssuingPersonalizationDesignsPersonalizationDesignResponder,
@@ -6646,12 +6396,7 @@ export type GetIssuingPhysicalBundlesResponder = {
 } & ExpressRuntimeResponder
 
 export type GetIssuingPhysicalBundles = (
-  params: Params<
-    void,
-    t_GetIssuingPhysicalBundlesQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetIssuingPhysicalBundlesQuerySchema, void, void>,
   respond: GetIssuingPhysicalBundlesResponder,
   req: Request,
   res: Response,
@@ -6667,7 +6412,7 @@ export type GetIssuingPhysicalBundlesPhysicalBundle = (
   params: Params<
     t_GetIssuingPhysicalBundlesPhysicalBundleParamSchema,
     t_GetIssuingPhysicalBundlesPhysicalBundleQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetIssuingPhysicalBundlesPhysicalBundleResponder,
@@ -6685,7 +6430,7 @@ export type GetIssuingSettlementsSettlement = (
   params: Params<
     t_GetIssuingSettlementsSettlementParamSchema,
     t_GetIssuingSettlementsSettlementQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetIssuingSettlementsSettlementResponder,
@@ -6723,12 +6468,7 @@ export type GetIssuingTokensResponder = {
 } & ExpressRuntimeResponder
 
 export type GetIssuingTokens = (
-  params: Params<
-    void,
-    t_GetIssuingTokensQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetIssuingTokensQuerySchema, void, void>,
   respond: GetIssuingTokensResponder,
   req: Request,
   res: Response,
@@ -6744,7 +6484,7 @@ export type GetIssuingTokensToken = (
   params: Params<
     t_GetIssuingTokensTokenParamSchema,
     t_GetIssuingTokensTokenQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetIssuingTokensTokenResponder,
@@ -6782,12 +6522,7 @@ export type GetIssuingTransactionsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetIssuingTransactions = (
-  params: Params<
-    void,
-    t_GetIssuingTransactionsQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetIssuingTransactionsQuerySchema, void, void>,
   respond: GetIssuingTransactionsResponder,
   req: Request,
   res: Response,
@@ -6803,7 +6538,7 @@ export type GetIssuingTransactionsTransaction = (
   params: Params<
     t_GetIssuingTransactionsTransactionParamSchema,
     t_GetIssuingTransactionsTransactionQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetIssuingTransactionsTransactionResponder,
@@ -6852,7 +6587,7 @@ export type GetLinkAccountSessionsSession = (
   params: Params<
     t_GetLinkAccountSessionsSessionParamSchema,
     t_GetLinkAccountSessionsSessionQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetLinkAccountSessionsSessionResponder,
@@ -6872,12 +6607,7 @@ export type GetLinkedAccountsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetLinkedAccounts = (
-  params: Params<
-    void,
-    t_GetLinkedAccountsQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetLinkedAccountsQuerySchema, void, void>,
   respond: GetLinkedAccountsResponder,
   req: Request,
   res: Response,
@@ -6893,7 +6623,7 @@ export type GetLinkedAccountsAccount = (
   params: Params<
     t_GetLinkedAccountsAccountParamSchema,
     t_GetLinkedAccountsAccountQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetLinkedAccountsAccountResponder,
@@ -6934,7 +6664,7 @@ export type GetLinkedAccountsAccountOwners = (
   params: Params<
     t_GetLinkedAccountsAccountOwnersParamSchema,
     t_GetLinkedAccountsAccountOwnersQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetLinkedAccountsAccountOwnersResponder,
@@ -6970,7 +6700,7 @@ export type GetMandatesMandate = (
   params: Params<
     t_GetMandatesMandateParamSchema,
     t_GetMandatesMandateQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetMandatesMandateResponder,
@@ -6990,12 +6720,7 @@ export type GetPaymentIntentsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetPaymentIntents = (
-  params: Params<
-    void,
-    t_GetPaymentIntentsQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetPaymentIntentsQuerySchema, void, void>,
   respond: GetPaymentIntentsResponder,
   req: Request,
   res: Response,
@@ -7028,12 +6753,7 @@ export type GetPaymentIntentsSearchResponder = {
 } & ExpressRuntimeResponder
 
 export type GetPaymentIntentsSearch = (
-  params: Params<
-    void,
-    t_GetPaymentIntentsSearchQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetPaymentIntentsSearchQuerySchema, void, void>,
   respond: GetPaymentIntentsSearchResponder,
   req: Request,
   res: Response,
@@ -7049,7 +6769,7 @@ export type GetPaymentIntentsIntent = (
   params: Params<
     t_GetPaymentIntentsIntentParamSchema,
     t_GetPaymentIntentsIntentQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetPaymentIntentsIntentResponder,
@@ -7195,12 +6915,7 @@ export type GetPaymentLinksResponder = {
 } & ExpressRuntimeResponder
 
 export type GetPaymentLinks = (
-  params: Params<
-    void,
-    t_GetPaymentLinksQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetPaymentLinksQuerySchema, void, void>,
   respond: GetPaymentLinksResponder,
   req: Request,
   res: Response,
@@ -7229,7 +6944,7 @@ export type GetPaymentLinksPaymentLink = (
   params: Params<
     t_GetPaymentLinksPaymentLinkParamSchema,
     t_GetPaymentLinksPaymentLinkQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetPaymentLinksPaymentLinkResponder,
@@ -7270,7 +6985,7 @@ export type GetPaymentLinksPaymentLinkLineItems = (
   params: Params<
     t_GetPaymentLinksPaymentLinkLineItemsParamSchema,
     t_GetPaymentLinksPaymentLinkLineItemsQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetPaymentLinksPaymentLinkLineItemsResponder,
@@ -7290,12 +7005,7 @@ export type GetPaymentMethodConfigurationsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetPaymentMethodConfigurations = (
-  params: Params<
-    void,
-    t_GetPaymentMethodConfigurationsQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetPaymentMethodConfigurationsQuerySchema, void, void>,
   respond: GetPaymentMethodConfigurationsResponder,
   req: Request,
   res: Response,
@@ -7329,7 +7039,7 @@ export type GetPaymentMethodConfigurationsConfiguration = (
   params: Params<
     t_GetPaymentMethodConfigurationsConfigurationParamSchema,
     t_GetPaymentMethodConfigurationsConfigurationQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetPaymentMethodConfigurationsConfigurationResponder,
@@ -7367,12 +7077,7 @@ export type GetPaymentMethodDomainsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetPaymentMethodDomains = (
-  params: Params<
-    void,
-    t_GetPaymentMethodDomainsQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetPaymentMethodDomainsQuerySchema, void, void>,
   respond: GetPaymentMethodDomainsResponder,
   req: Request,
   res: Response,
@@ -7401,7 +7106,7 @@ export type GetPaymentMethodDomainsPaymentMethodDomain = (
   params: Params<
     t_GetPaymentMethodDomainsPaymentMethodDomainParamSchema,
     t_GetPaymentMethodDomainsPaymentMethodDomainQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetPaymentMethodDomainsPaymentMethodDomainResponder,
@@ -7458,12 +7163,7 @@ export type GetPaymentMethodsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetPaymentMethods = (
-  params: Params<
-    void,
-    t_GetPaymentMethodsQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetPaymentMethodsQuerySchema, void, void>,
   respond: GetPaymentMethodsResponder,
   req: Request,
   res: Response,
@@ -7492,7 +7192,7 @@ export type GetPaymentMethodsPaymentMethod = (
   params: Params<
     t_GetPaymentMethodsPaymentMethodParamSchema,
     t_GetPaymentMethodsPaymentMethodQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetPaymentMethodsPaymentMethodResponder,
@@ -7566,12 +7266,7 @@ export type GetPayoutsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetPayouts = (
-  params: Params<
-    void,
-    t_GetPayoutsQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetPayoutsQuerySchema, void, void>,
   respond: GetPayoutsResponder,
   req: Request,
   res: Response,
@@ -7600,7 +7295,7 @@ export type GetPayoutsPayout = (
   params: Params<
     t_GetPayoutsPayoutParamSchema,
     t_GetPayoutsPayoutQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetPayoutsPayoutResponder,
@@ -7674,12 +7369,7 @@ export type GetPlansResponder = {
 } & ExpressRuntimeResponder
 
 export type GetPlans = (
-  params: Params<
-    void,
-    t_GetPlansQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetPlansQuerySchema, void, void>,
   respond: GetPlansResponder,
   req: Request,
   res: Response,
@@ -7705,12 +7395,7 @@ export type DeletePlansPlanResponder = {
 } & ExpressRuntimeResponder
 
 export type DeletePlansPlan = (
-  params: Params<
-    t_DeletePlansPlanParamSchema,
-    void,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<t_DeletePlansPlanParamSchema, void, void, void>,
   respond: DeletePlansPlanResponder,
   req: Request,
   res: Response,
@@ -7726,7 +7411,7 @@ export type GetPlansPlan = (
   params: Params<
     t_GetPlansPlanParamSchema,
     t_GetPlansPlanQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetPlansPlanResponder,
@@ -7764,12 +7449,7 @@ export type GetPricesResponder = {
 } & ExpressRuntimeResponder
 
 export type GetPrices = (
-  params: Params<
-    void,
-    t_GetPricesQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetPricesQuerySchema, void, void>,
   respond: GetPricesResponder,
   req: Request,
   res: Response,
@@ -7802,12 +7482,7 @@ export type GetPricesSearchResponder = {
 } & ExpressRuntimeResponder
 
 export type GetPricesSearch = (
-  params: Params<
-    void,
-    t_GetPricesSearchQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetPricesSearchQuerySchema, void, void>,
   respond: GetPricesSearchResponder,
   req: Request,
   res: Response,
@@ -7823,7 +7498,7 @@ export type GetPricesPrice = (
   params: Params<
     t_GetPricesPriceParamSchema,
     t_GetPricesPriceQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetPricesPriceResponder,
@@ -7861,12 +7536,7 @@ export type GetProductsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetProducts = (
-  params: Params<
-    void,
-    t_GetProductsQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetProductsQuerySchema, void, void>,
   respond: GetProductsResponder,
   req: Request,
   res: Response,
@@ -7899,12 +7569,7 @@ export type GetProductsSearchResponder = {
 } & ExpressRuntimeResponder
 
 export type GetProductsSearch = (
-  params: Params<
-    void,
-    t_GetProductsSearchQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetProductsSearchQuerySchema, void, void>,
   respond: GetProductsSearchResponder,
   req: Request,
   res: Response,
@@ -7917,12 +7582,7 @@ export type DeleteProductsIdResponder = {
 } & ExpressRuntimeResponder
 
 export type DeleteProductsId = (
-  params: Params<
-    t_DeleteProductsIdParamSchema,
-    void,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<t_DeleteProductsIdParamSchema, void, void, void>,
   respond: DeleteProductsIdResponder,
   req: Request,
   res: Response,
@@ -7938,7 +7598,7 @@ export type GetProductsId = (
   params: Params<
     t_GetProductsIdParamSchema,
     t_GetProductsIdQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetProductsIdResponder,
@@ -7979,7 +7639,7 @@ export type GetProductsProductFeatures = (
   params: Params<
     t_GetProductsProductFeaturesParamSchema,
     t_GetProductsProductFeaturesQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetProductsProductFeaturesResponder,
@@ -8015,7 +7675,7 @@ export type DeleteProductsProductFeaturesId = (
   params: Params<
     t_DeleteProductsProductFeaturesIdParamSchema,
     void,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: DeleteProductsProductFeaturesIdResponder,
@@ -8033,7 +7693,7 @@ export type GetProductsProductFeaturesId = (
   params: Params<
     t_GetProductsProductFeaturesIdParamSchema,
     t_GetProductsProductFeaturesIdQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetProductsProductFeaturesIdResponder,
@@ -8053,12 +7713,7 @@ export type GetPromotionCodesResponder = {
 } & ExpressRuntimeResponder
 
 export type GetPromotionCodes = (
-  params: Params<
-    void,
-    t_GetPromotionCodesQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetPromotionCodesQuerySchema, void, void>,
   respond: GetPromotionCodesResponder,
   req: Request,
   res: Response,
@@ -8087,7 +7742,7 @@ export type GetPromotionCodesPromotionCode = (
   params: Params<
     t_GetPromotionCodesPromotionCodeParamSchema,
     t_GetPromotionCodesPromotionCodeQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetPromotionCodesPromotionCodeResponder,
@@ -8125,12 +7780,7 @@ export type GetQuotesResponder = {
 } & ExpressRuntimeResponder
 
 export type GetQuotes = (
-  params: Params<
-    void,
-    t_GetQuotesQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetQuotesQuerySchema, void, void>,
   respond: GetQuotesResponder,
   req: Request,
   res: Response,
@@ -8159,7 +7809,7 @@ export type GetQuotesQuote = (
   params: Params<
     t_GetQuotesQuoteParamSchema,
     t_GetQuotesQuoteQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetQuotesQuoteResponder,
@@ -8236,7 +7886,7 @@ export type GetQuotesQuoteComputedUpfrontLineItems = (
   params: Params<
     t_GetQuotesQuoteComputedUpfrontLineItemsParamSchema,
     t_GetQuotesQuoteComputedUpfrontLineItemsQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetQuotesQuoteComputedUpfrontLineItemsResponder,
@@ -8277,7 +7927,7 @@ export type GetQuotesQuoteLineItems = (
   params: Params<
     t_GetQuotesQuoteLineItemsParamSchema,
     t_GetQuotesQuoteLineItemsQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetQuotesQuoteLineItemsResponder,
@@ -8295,7 +7945,7 @@ export type GetQuotesQuotePdf = (
   params: Params<
     t_GetQuotesQuotePdfParamSchema,
     t_GetQuotesQuotePdfQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetQuotesQuotePdfResponder,
@@ -8315,12 +7965,7 @@ export type GetRadarEarlyFraudWarningsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetRadarEarlyFraudWarnings = (
-  params: Params<
-    void,
-    t_GetRadarEarlyFraudWarningsQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetRadarEarlyFraudWarningsQuerySchema, void, void>,
   respond: GetRadarEarlyFraudWarningsResponder,
   req: Request,
   res: Response,
@@ -8336,7 +7981,7 @@ export type GetRadarEarlyFraudWarningsEarlyFraudWarning = (
   params: Params<
     t_GetRadarEarlyFraudWarningsEarlyFraudWarningParamSchema,
     t_GetRadarEarlyFraudWarningsEarlyFraudWarningQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetRadarEarlyFraudWarningsEarlyFraudWarningResponder,
@@ -8356,12 +8001,7 @@ export type GetRadarValueListItemsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetRadarValueListItems = (
-  params: Params<
-    void,
-    t_GetRadarValueListItemsQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetRadarValueListItemsQuerySchema, void, void>,
   respond: GetRadarValueListItemsResponder,
   req: Request,
   res: Response,
@@ -8387,12 +8027,7 @@ export type DeleteRadarValueListItemsItemResponder = {
 } & ExpressRuntimeResponder
 
 export type DeleteRadarValueListItemsItem = (
-  params: Params<
-    t_DeleteRadarValueListItemsItemParamSchema,
-    void,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<t_DeleteRadarValueListItemsItemParamSchema, void, void, void>,
   respond: DeleteRadarValueListItemsItemResponder,
   req: Request,
   res: Response,
@@ -8408,7 +8043,7 @@ export type GetRadarValueListItemsItem = (
   params: Params<
     t_GetRadarValueListItemsItemParamSchema,
     t_GetRadarValueListItemsItemQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetRadarValueListItemsItemResponder,
@@ -8428,12 +8063,7 @@ export type GetRadarValueListsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetRadarValueLists = (
-  params: Params<
-    void,
-    t_GetRadarValueListsQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetRadarValueListsQuerySchema, void, void>,
   respond: GetRadarValueListsResponder,
   req: Request,
   res: Response,
@@ -8459,12 +8089,7 @@ export type DeleteRadarValueListsValueListResponder = {
 } & ExpressRuntimeResponder
 
 export type DeleteRadarValueListsValueList = (
-  params: Params<
-    t_DeleteRadarValueListsValueListParamSchema,
-    void,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<t_DeleteRadarValueListsValueListParamSchema, void, void, void>,
   respond: DeleteRadarValueListsValueListResponder,
   req: Request,
   res: Response,
@@ -8480,7 +8105,7 @@ export type GetRadarValueListsValueList = (
   params: Params<
     t_GetRadarValueListsValueListParamSchema,
     t_GetRadarValueListsValueListQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetRadarValueListsValueListResponder,
@@ -8518,12 +8143,7 @@ export type GetRefundsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetRefunds = (
-  params: Params<
-    void,
-    t_GetRefundsQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetRefundsQuerySchema, void, void>,
   respond: GetRefundsResponder,
   req: Request,
   res: Response,
@@ -8552,7 +8172,7 @@ export type GetRefundsRefund = (
   params: Params<
     t_GetRefundsRefundParamSchema,
     t_GetRefundsRefundQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetRefundsRefundResponder,
@@ -8608,12 +8228,7 @@ export type GetReportingReportRunsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetReportingReportRuns = (
-  params: Params<
-    void,
-    t_GetReportingReportRunsQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetReportingReportRunsQuerySchema, void, void>,
   respond: GetReportingReportRunsResponder,
   req: Request,
   res: Response,
@@ -8642,7 +8257,7 @@ export type GetReportingReportRunsReportRun = (
   params: Params<
     t_GetReportingReportRunsReportRunParamSchema,
     t_GetReportingReportRunsReportRunQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetReportingReportRunsReportRunResponder,
@@ -8662,12 +8277,7 @@ export type GetReportingReportTypesResponder = {
 } & ExpressRuntimeResponder
 
 export type GetReportingReportTypes = (
-  params: Params<
-    void,
-    t_GetReportingReportTypesQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetReportingReportTypesQuerySchema, void, void>,
   respond: GetReportingReportTypesResponder,
   req: Request,
   res: Response,
@@ -8683,7 +8293,7 @@ export type GetReportingReportTypesReportType = (
   params: Params<
     t_GetReportingReportTypesReportTypeParamSchema,
     t_GetReportingReportTypesReportTypeQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetReportingReportTypesReportTypeResponder,
@@ -8703,12 +8313,7 @@ export type GetReviewsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetReviews = (
-  params: Params<
-    void,
-    t_GetReviewsQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetReviewsQuerySchema, void, void>,
   respond: GetReviewsResponder,
   req: Request,
   res: Response,
@@ -8724,7 +8329,7 @@ export type GetReviewsReview = (
   params: Params<
     t_GetReviewsReviewParamSchema,
     t_GetReviewsReviewQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetReviewsReviewResponder,
@@ -8762,12 +8367,7 @@ export type GetSetupAttemptsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetSetupAttempts = (
-  params: Params<
-    void,
-    t_GetSetupAttemptsQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetSetupAttemptsQuerySchema, void, void>,
   respond: GetSetupAttemptsResponder,
   req: Request,
   res: Response,
@@ -8785,12 +8385,7 @@ export type GetSetupIntentsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetSetupIntents = (
-  params: Params<
-    void,
-    t_GetSetupIntentsQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetSetupIntentsQuerySchema, void, void>,
   respond: GetSetupIntentsResponder,
   req: Request,
   res: Response,
@@ -8819,7 +8414,7 @@ export type GetSetupIntentsIntent = (
   params: Params<
     t_GetSetupIntentsIntentParamSchema,
     t_GetSetupIntentsIntentQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetSetupIntentsIntentResponder,
@@ -8911,12 +8506,7 @@ export type GetShippingRatesResponder = {
 } & ExpressRuntimeResponder
 
 export type GetShippingRates = (
-  params: Params<
-    void,
-    t_GetShippingRatesQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetShippingRatesQuerySchema, void, void>,
   respond: GetShippingRatesResponder,
   req: Request,
   res: Response,
@@ -8945,7 +8535,7 @@ export type GetShippingRatesShippingRateToken = (
   params: Params<
     t_GetShippingRatesShippingRateTokenParamSchema,
     t_GetShippingRatesShippingRateTokenQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetShippingRatesShippingRateTokenResponder,
@@ -9001,12 +8591,7 @@ export type GetSigmaScheduledQueryRunsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetSigmaScheduledQueryRuns = (
-  params: Params<
-    void,
-    t_GetSigmaScheduledQueryRunsQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetSigmaScheduledQueryRunsQuerySchema, void, void>,
   respond: GetSigmaScheduledQueryRunsResponder,
   req: Request,
   res: Response,
@@ -9022,7 +8607,7 @@ export type GetSigmaScheduledQueryRunsScheduledQueryRun = (
   params: Params<
     t_GetSigmaScheduledQueryRunsScheduledQueryRunParamSchema,
     t_GetSigmaScheduledQueryRunsScheduledQueryRunQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetSigmaScheduledQueryRunsScheduledQueryRunResponder,
@@ -9053,7 +8638,7 @@ export type GetSourcesSource = (
   params: Params<
     t_GetSourcesSourceParamSchema,
     t_GetSourcesSourceQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetSourcesSourceResponder,
@@ -9089,7 +8674,7 @@ export type GetSourcesSourceMandateNotificationsMandateNotification = (
   params: Params<
     t_GetSourcesSourceMandateNotificationsMandateNotificationParamSchema,
     t_GetSourcesSourceMandateNotificationsMandateNotificationQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetSourcesSourceMandateNotificationsMandateNotificationResponder,
@@ -9112,7 +8697,7 @@ export type GetSourcesSourceSourceTransactions = (
   params: Params<
     t_GetSourcesSourceSourceTransactionsParamSchema,
     t_GetSourcesSourceSourceTransactionsQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetSourcesSourceSourceTransactionsResponder,
@@ -9130,7 +8715,7 @@ export type GetSourcesSourceSourceTransactionsSourceTransaction = (
   params: Params<
     t_GetSourcesSourceSourceTransactionsSourceTransactionParamSchema,
     t_GetSourcesSourceSourceTransactionsSourceTransactionQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetSourcesSourceSourceTransactionsSourceTransactionResponder,
@@ -9168,12 +8753,7 @@ export type GetSubscriptionItemsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetSubscriptionItems = (
-  params: Params<
-    void,
-    t_GetSubscriptionItemsQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetSubscriptionItemsQuerySchema, void, void>,
   respond: GetSubscriptionItemsResponder,
   req: Request,
   res: Response,
@@ -9220,7 +8800,7 @@ export type GetSubscriptionItemsItem = (
   params: Params<
     t_GetSubscriptionItemsItemParamSchema,
     t_GetSubscriptionItemsItemQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetSubscriptionItemsItemResponder,
@@ -9258,12 +8838,7 @@ export type GetSubscriptionSchedulesResponder = {
 } & ExpressRuntimeResponder
 
 export type GetSubscriptionSchedules = (
-  params: Params<
-    void,
-    t_GetSubscriptionSchedulesQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetSubscriptionSchedulesQuerySchema, void, void>,
   respond: GetSubscriptionSchedulesResponder,
   req: Request,
   res: Response,
@@ -9297,7 +8872,7 @@ export type GetSubscriptionSchedulesSchedule = (
   params: Params<
     t_GetSubscriptionSchedulesScheduleParamSchema,
     t_GetSubscriptionSchedulesScheduleQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetSubscriptionSchedulesScheduleResponder,
@@ -9371,12 +8946,7 @@ export type GetSubscriptionsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetSubscriptions = (
-  params: Params<
-    void,
-    t_GetSubscriptionsQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetSubscriptionsQuerySchema, void, void>,
   respond: GetSubscriptionsResponder,
   req: Request,
   res: Response,
@@ -9409,12 +8979,7 @@ export type GetSubscriptionsSearchResponder = {
 } & ExpressRuntimeResponder
 
 export type GetSubscriptionsSearch = (
-  params: Params<
-    void,
-    t_GetSubscriptionsSearchQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetSubscriptionsSearchQuerySchema, void, void>,
   respond: GetSubscriptionsSearchResponder,
   req: Request,
   res: Response,
@@ -9448,7 +9013,7 @@ export type GetSubscriptionsSubscriptionExposedId = (
   params: Params<
     t_GetSubscriptionsSubscriptionExposedIdParamSchema,
     t_GetSubscriptionsSubscriptionExposedIdQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetSubscriptionsSubscriptionExposedIdResponder,
@@ -9484,7 +9049,7 @@ export type DeleteSubscriptionsSubscriptionExposedIdDiscount = (
   params: Params<
     t_DeleteSubscriptionsSubscriptionExposedIdDiscountParamSchema,
     void,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: DeleteSubscriptionsSubscriptionExposedIdDiscountResponder,
@@ -9551,7 +9116,7 @@ export type GetTaxCalculationsCalculation = (
   params: Params<
     t_GetTaxCalculationsCalculationParamSchema,
     t_GetTaxCalculationsCalculationQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetTaxCalculationsCalculationResponder,
@@ -9574,7 +9139,7 @@ export type GetTaxCalculationsCalculationLineItems = (
   params: Params<
     t_GetTaxCalculationsCalculationLineItemsParamSchema,
     t_GetTaxCalculationsCalculationLineItemsQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetTaxCalculationsCalculationLineItemsResponder,
@@ -9594,12 +9159,7 @@ export type GetTaxRegistrationsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetTaxRegistrations = (
-  params: Params<
-    void,
-    t_GetTaxRegistrationsQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetTaxRegistrationsQuerySchema, void, void>,
   respond: GetTaxRegistrationsResponder,
   req: Request,
   res: Response,
@@ -9628,7 +9188,7 @@ export type GetTaxRegistrationsId = (
   params: Params<
     t_GetTaxRegistrationsIdParamSchema,
     t_GetTaxRegistrationsIdQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetTaxRegistrationsIdResponder,
@@ -9661,12 +9221,7 @@ export type GetTaxSettingsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetTaxSettings = (
-  params: Params<
-    void,
-    t_GetTaxSettingsQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetTaxSettingsQuerySchema, void, void>,
   respond: GetTaxSettingsResponder,
   req: Request,
   res: Response,
@@ -9731,7 +9286,7 @@ export type GetTaxTransactionsTransaction = (
   params: Params<
     t_GetTaxTransactionsTransactionParamSchema,
     t_GetTaxTransactionsTransactionQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetTaxTransactionsTransactionResponder,
@@ -9754,7 +9309,7 @@ export type GetTaxTransactionsTransactionLineItems = (
   params: Params<
     t_GetTaxTransactionsTransactionLineItemsParamSchema,
     t_GetTaxTransactionsTransactionLineItemsQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetTaxTransactionsTransactionLineItemsResponder,
@@ -9774,12 +9329,7 @@ export type GetTaxCodesResponder = {
 } & ExpressRuntimeResponder
 
 export type GetTaxCodes = (
-  params: Params<
-    void,
-    t_GetTaxCodesQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetTaxCodesQuerySchema, void, void>,
   respond: GetTaxCodesResponder,
   req: Request,
   res: Response,
@@ -9795,7 +9345,7 @@ export type GetTaxCodesId = (
   params: Params<
     t_GetTaxCodesIdParamSchema,
     t_GetTaxCodesIdQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetTaxCodesIdResponder,
@@ -9815,12 +9365,7 @@ export type GetTaxIdsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetTaxIds = (
-  params: Params<
-    void,
-    t_GetTaxIdsQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetTaxIdsQuerySchema, void, void>,
   respond: GetTaxIdsResponder,
   req: Request,
   res: Response,
@@ -9846,12 +9391,7 @@ export type DeleteTaxIdsIdResponder = {
 } & ExpressRuntimeResponder
 
 export type DeleteTaxIdsId = (
-  params: Params<
-    t_DeleteTaxIdsIdParamSchema,
-    void,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<t_DeleteTaxIdsIdParamSchema, void, void, void>,
   respond: DeleteTaxIdsIdResponder,
   req: Request,
   res: Response,
@@ -9867,7 +9407,7 @@ export type GetTaxIdsId = (
   params: Params<
     t_GetTaxIdsIdParamSchema,
     t_GetTaxIdsIdQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetTaxIdsIdResponder,
@@ -9887,12 +9427,7 @@ export type GetTaxRatesResponder = {
 } & ExpressRuntimeResponder
 
 export type GetTaxRates = (
-  params: Params<
-    void,
-    t_GetTaxRatesQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetTaxRatesQuerySchema, void, void>,
   respond: GetTaxRatesResponder,
   req: Request,
   res: Response,
@@ -9921,7 +9456,7 @@ export type GetTaxRatesTaxRate = (
   params: Params<
     t_GetTaxRatesTaxRateParamSchema,
     t_GetTaxRatesTaxRateQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetTaxRatesTaxRateResponder,
@@ -9959,12 +9494,7 @@ export type GetTerminalConfigurationsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetTerminalConfigurations = (
-  params: Params<
-    void,
-    t_GetTerminalConfigurationsQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetTerminalConfigurationsQuerySchema, void, void>,
   respond: GetTerminalConfigurationsResponder,
   req: Request,
   res: Response,
@@ -9998,7 +9528,7 @@ export type DeleteTerminalConfigurationsConfiguration = (
   params: Params<
     t_DeleteTerminalConfigurationsConfigurationParamSchema,
     void,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: DeleteTerminalConfigurationsConfigurationResponder,
@@ -10018,7 +9548,7 @@ export type GetTerminalConfigurationsConfiguration = (
   params: Params<
     t_GetTerminalConfigurationsConfigurationParamSchema,
     t_GetTerminalConfigurationsConfigurationQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetTerminalConfigurationsConfigurationResponder,
@@ -10076,12 +9606,7 @@ export type GetTerminalLocationsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetTerminalLocations = (
-  params: Params<
-    void,
-    t_GetTerminalLocationsQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetTerminalLocationsQuerySchema, void, void>,
   respond: GetTerminalLocationsResponder,
   req: Request,
   res: Response,
@@ -10110,7 +9635,7 @@ export type DeleteTerminalLocationsLocation = (
   params: Params<
     t_DeleteTerminalLocationsLocationParamSchema,
     void,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: DeleteTerminalLocationsLocationResponder,
@@ -10130,7 +9655,7 @@ export type GetTerminalLocationsLocation = (
   params: Params<
     t_GetTerminalLocationsLocationParamSchema,
     t_GetTerminalLocationsLocationQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetTerminalLocationsLocationResponder,
@@ -10170,12 +9695,7 @@ export type GetTerminalReadersResponder = {
 } & ExpressRuntimeResponder
 
 export type GetTerminalReaders = (
-  params: Params<
-    void,
-    t_GetTerminalReadersQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetTerminalReadersQuerySchema, void, void>,
   respond: GetTerminalReadersResponder,
   req: Request,
   res: Response,
@@ -10201,12 +9721,7 @@ export type DeleteTerminalReadersReaderResponder = {
 } & ExpressRuntimeResponder
 
 export type DeleteTerminalReadersReader = (
-  params: Params<
-    t_DeleteTerminalReadersReaderParamSchema,
-    void,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<t_DeleteTerminalReadersReaderParamSchema, void, void, void>,
   respond: DeleteTerminalReadersReaderResponder,
   req: Request,
   res: Response,
@@ -10224,7 +9739,7 @@ export type GetTerminalReadersReader = (
   params: Params<
     t_GetTerminalReadersReaderParamSchema,
     t_GetTerminalReadersReaderQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetTerminalReadersReaderResponder,
@@ -10901,12 +10416,7 @@ export type GetTestHelpersTestClocksResponder = {
 } & ExpressRuntimeResponder
 
 export type GetTestHelpersTestClocks = (
-  params: Params<
-    void,
-    t_GetTestHelpersTestClocksQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetTestHelpersTestClocksQuerySchema, void, void>,
   respond: GetTestHelpersTestClocksResponder,
   req: Request,
   res: Response,
@@ -10935,7 +10445,7 @@ export type DeleteTestHelpersTestClocksTestClock = (
   params: Params<
     t_DeleteTestHelpersTestClocksTestClockParamSchema,
     void,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: DeleteTestHelpersTestClocksTestClockResponder,
@@ -10953,7 +10463,7 @@ export type GetTestHelpersTestClocksTestClock = (
   params: Params<
     t_GetTestHelpersTestClocksTestClockParamSchema,
     t_GetTestHelpersTestClocksTestClockQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetTestHelpersTestClocksTestClockResponder,
@@ -11243,7 +10753,7 @@ export type GetTokensToken = (
   params: Params<
     t_GetTokensTokenParamSchema,
     t_GetTokensTokenQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetTokensTokenResponder,
@@ -11263,12 +10773,7 @@ export type GetTopupsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetTopups = (
-  params: Params<
-    void,
-    t_GetTopupsQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetTopupsQuerySchema, void, void>,
   respond: GetTopupsResponder,
   req: Request,
   res: Response,
@@ -11297,7 +10802,7 @@ export type GetTopupsTopup = (
   params: Params<
     t_GetTopupsTopupParamSchema,
     t_GetTopupsTopupQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetTopupsTopupResponder,
@@ -11353,12 +10858,7 @@ export type GetTransfersResponder = {
 } & ExpressRuntimeResponder
 
 export type GetTransfers = (
-  params: Params<
-    void,
-    t_GetTransfersQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetTransfersQuerySchema, void, void>,
   respond: GetTransfersResponder,
   req: Request,
   res: Response,
@@ -11392,7 +10892,7 @@ export type GetTransfersIdReversals = (
   params: Params<
     t_GetTransfersIdReversalsParamSchema,
     t_GetTransfersIdReversalsQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetTransfersIdReversalsResponder,
@@ -11428,7 +10928,7 @@ export type GetTransfersTransfer = (
   params: Params<
     t_GetTransfersTransferParamSchema,
     t_GetTransfersTransferQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetTransfersTransferResponder,
@@ -11464,7 +10964,7 @@ export type GetTransfersTransferReversalsId = (
   params: Params<
     t_GetTransfersTransferReversalsIdParamSchema,
     t_GetTransfersTransferReversalsIdQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetTransfersTransferReversalsIdResponder,
@@ -11502,12 +11002,7 @@ export type GetTreasuryCreditReversalsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetTreasuryCreditReversals = (
-  params: Params<
-    void,
-    t_GetTreasuryCreditReversalsQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetTreasuryCreditReversalsQuerySchema, void, void>,
   respond: GetTreasuryCreditReversalsResponder,
   req: Request,
   res: Response,
@@ -11536,7 +11031,7 @@ export type GetTreasuryCreditReversalsCreditReversal = (
   params: Params<
     t_GetTreasuryCreditReversalsCreditReversalParamSchema,
     t_GetTreasuryCreditReversalsCreditReversalQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetTreasuryCreditReversalsCreditReversalResponder,
@@ -11556,12 +11051,7 @@ export type GetTreasuryDebitReversalsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetTreasuryDebitReversals = (
-  params: Params<
-    void,
-    t_GetTreasuryDebitReversalsQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetTreasuryDebitReversalsQuerySchema, void, void>,
   respond: GetTreasuryDebitReversalsResponder,
   req: Request,
   res: Response,
@@ -11590,7 +11080,7 @@ export type GetTreasuryDebitReversalsDebitReversal = (
   params: Params<
     t_GetTreasuryDebitReversalsDebitReversalParamSchema,
     t_GetTreasuryDebitReversalsDebitReversalQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetTreasuryDebitReversalsDebitReversalResponder,
@@ -11610,12 +11100,7 @@ export type GetTreasuryFinancialAccountsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetTreasuryFinancialAccounts = (
-  params: Params<
-    void,
-    t_GetTreasuryFinancialAccountsQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetTreasuryFinancialAccountsQuerySchema, void, void>,
   respond: GetTreasuryFinancialAccountsResponder,
   req: Request,
   res: Response,
@@ -11644,7 +11129,7 @@ export type GetTreasuryFinancialAccountsFinancialAccount = (
   params: Params<
     t_GetTreasuryFinancialAccountsFinancialAccountParamSchema,
     t_GetTreasuryFinancialAccountsFinancialAccountQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetTreasuryFinancialAccountsFinancialAccountResponder,
@@ -11698,7 +11183,7 @@ export type GetTreasuryFinancialAccountsFinancialAccountFeatures = (
   params: Params<
     t_GetTreasuryFinancialAccountsFinancialAccountFeaturesParamSchema,
     t_GetTreasuryFinancialAccountsFinancialAccountFeaturesQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetTreasuryFinancialAccountsFinancialAccountFeaturesResponder,
@@ -11737,12 +11222,7 @@ export type GetTreasuryInboundTransfersResponder = {
 } & ExpressRuntimeResponder
 
 export type GetTreasuryInboundTransfers = (
-  params: Params<
-    void,
-    t_GetTreasuryInboundTransfersQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetTreasuryInboundTransfersQuerySchema, void, void>,
   respond: GetTreasuryInboundTransfersResponder,
   req: Request,
   res: Response,
@@ -11771,7 +11251,7 @@ export type GetTreasuryInboundTransfersId = (
   params: Params<
     t_GetTreasuryInboundTransfersIdParamSchema,
     t_GetTreasuryInboundTransfersIdQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetTreasuryInboundTransfersIdResponder,
@@ -11809,12 +11289,7 @@ export type GetTreasuryOutboundPaymentsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetTreasuryOutboundPayments = (
-  params: Params<
-    void,
-    t_GetTreasuryOutboundPaymentsQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetTreasuryOutboundPaymentsQuerySchema, void, void>,
   respond: GetTreasuryOutboundPaymentsResponder,
   req: Request,
   res: Response,
@@ -11843,7 +11318,7 @@ export type GetTreasuryOutboundPaymentsId = (
   params: Params<
     t_GetTreasuryOutboundPaymentsIdParamSchema,
     t_GetTreasuryOutboundPaymentsIdQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetTreasuryOutboundPaymentsIdResponder,
@@ -11881,12 +11356,7 @@ export type GetTreasuryOutboundTransfersResponder = {
 } & ExpressRuntimeResponder
 
 export type GetTreasuryOutboundTransfers = (
-  params: Params<
-    void,
-    t_GetTreasuryOutboundTransfersQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetTreasuryOutboundTransfersQuerySchema, void, void>,
   respond: GetTreasuryOutboundTransfersResponder,
   req: Request,
   res: Response,
@@ -11915,7 +11385,7 @@ export type GetTreasuryOutboundTransfersOutboundTransfer = (
   params: Params<
     t_GetTreasuryOutboundTransfersOutboundTransferParamSchema,
     t_GetTreasuryOutboundTransfersOutboundTransferQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetTreasuryOutboundTransfersOutboundTransferResponder,
@@ -11954,12 +11424,7 @@ export type GetTreasuryReceivedCreditsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetTreasuryReceivedCredits = (
-  params: Params<
-    void,
-    t_GetTreasuryReceivedCreditsQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetTreasuryReceivedCreditsQuerySchema, void, void>,
   respond: GetTreasuryReceivedCreditsResponder,
   req: Request,
   res: Response,
@@ -11975,7 +11440,7 @@ export type GetTreasuryReceivedCreditsId = (
   params: Params<
     t_GetTreasuryReceivedCreditsIdParamSchema,
     t_GetTreasuryReceivedCreditsIdQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetTreasuryReceivedCreditsIdResponder,
@@ -11995,12 +11460,7 @@ export type GetTreasuryReceivedDebitsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetTreasuryReceivedDebits = (
-  params: Params<
-    void,
-    t_GetTreasuryReceivedDebitsQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetTreasuryReceivedDebitsQuerySchema, void, void>,
   respond: GetTreasuryReceivedDebitsResponder,
   req: Request,
   res: Response,
@@ -12016,7 +11476,7 @@ export type GetTreasuryReceivedDebitsId = (
   params: Params<
     t_GetTreasuryReceivedDebitsIdParamSchema,
     t_GetTreasuryReceivedDebitsIdQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetTreasuryReceivedDebitsIdResponder,
@@ -12036,12 +11496,7 @@ export type GetTreasuryTransactionEntriesResponder = {
 } & ExpressRuntimeResponder
 
 export type GetTreasuryTransactionEntries = (
-  params: Params<
-    void,
-    t_GetTreasuryTransactionEntriesQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetTreasuryTransactionEntriesQuerySchema, void, void>,
   respond: GetTreasuryTransactionEntriesResponder,
   req: Request,
   res: Response,
@@ -12057,7 +11512,7 @@ export type GetTreasuryTransactionEntriesId = (
   params: Params<
     t_GetTreasuryTransactionEntriesIdParamSchema,
     t_GetTreasuryTransactionEntriesIdQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetTreasuryTransactionEntriesIdResponder,
@@ -12077,12 +11532,7 @@ export type GetTreasuryTransactionsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetTreasuryTransactions = (
-  params: Params<
-    void,
-    t_GetTreasuryTransactionsQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetTreasuryTransactionsQuerySchema, void, void>,
   respond: GetTreasuryTransactionsResponder,
   req: Request,
   res: Response,
@@ -12098,7 +11548,7 @@ export type GetTreasuryTransactionsId = (
   params: Params<
     t_GetTreasuryTransactionsIdParamSchema,
     t_GetTreasuryTransactionsIdQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetTreasuryTransactionsIdResponder,
@@ -12118,12 +11568,7 @@ export type GetWebhookEndpointsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetWebhookEndpoints = (
-  params: Params<
-    void,
-    t_GetWebhookEndpointsQuerySchema,
-    Record<string, never> | undefined,
-    void
-  >,
+  params: Params<void, t_GetWebhookEndpointsQuerySchema, void, void>,
   respond: GetWebhookEndpointsResponder,
   req: Request,
   res: Response,
@@ -12152,7 +11597,7 @@ export type DeleteWebhookEndpointsWebhookEndpoint = (
   params: Params<
     t_DeleteWebhookEndpointsWebhookEndpointParamSchema,
     void,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: DeleteWebhookEndpointsWebhookEndpointResponder,
@@ -12170,7 +11615,7 @@ export type GetWebhookEndpointsWebhookEndpoint = (
   params: Params<
     t_GetWebhookEndpointsWebhookEndpointParamSchema,
     t_GetWebhookEndpointsWebhookEndpointQuerySchema,
-    Record<string, never> | undefined,
+    void,
     void
   >,
   respond: GetWebhookEndpointsWebhookEndpointResponder,
@@ -12809,11 +12254,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -13017,11 +12458,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -13116,11 +12553,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.RouteParam,
           ),
           query: undefined,
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -13190,11 +12623,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -13345,11 +12774,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.RouteParam,
           ),
           query: undefined,
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -13423,11 +12848,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -13568,11 +12989,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -13651,11 +13068,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -13838,11 +13251,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -13952,11 +13361,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.RouteParam,
           ),
           query: undefined,
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -14036,11 +13441,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -14294,11 +13695,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -14402,11 +13799,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.RouteParam,
           ),
           query: undefined,
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -14480,11 +13873,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -14672,11 +14061,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -14783,11 +14168,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.RouteParam,
           ),
           query: undefined,
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -14861,11 +14242,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -15076,11 +14453,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -15173,11 +14546,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.RouteParam,
           ),
           query: undefined,
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -15250,11 +14619,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -15381,11 +14746,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -15459,11 +14820,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -15591,11 +14948,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -15751,11 +15104,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -15928,11 +15277,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -16108,11 +15453,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -16174,11 +15515,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -16327,11 +15664,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -16404,11 +15737,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -16557,11 +15886,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -16636,11 +15961,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -16749,11 +16070,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -16869,11 +16186,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -17140,11 +16453,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -17262,11 +16571,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -17347,11 +16652,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -17467,11 +16768,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -17589,11 +16886,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -17950,11 +17243,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -18070,11 +17359,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -18310,11 +17595,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -18489,11 +17770,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -18625,11 +17902,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -18889,11 +18162,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -19036,11 +18305,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -19115,11 +18380,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -19287,11 +18548,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -19549,11 +18806,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -19680,11 +18933,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -19907,11 +19156,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -20027,11 +19272,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -20246,11 +19487,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -20353,11 +19590,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -20475,11 +19708,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -20679,11 +19908,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -20756,11 +19981,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -20855,11 +20076,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -20932,11 +20149,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -21009,11 +20222,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -21117,11 +20326,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -21196,11 +20401,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -21320,11 +20521,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -21419,11 +20616,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.RouteParam,
           ),
           query: undefined,
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -21491,11 +20684,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -21676,11 +20865,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -21968,11 +21153,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -22244,11 +21425,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -22360,11 +21537,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -22442,11 +21615,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -22719,11 +21888,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -22866,11 +22031,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -22922,11 +22083,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.RouteParam,
           ),
           query: undefined,
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -22998,11 +22155,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -23157,11 +22310,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -23313,11 +22462,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -23499,11 +22644,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -23707,11 +22848,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -23948,11 +23085,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -24147,11 +23280,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -24293,11 +23422,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -24458,11 +23583,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -24549,11 +23670,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -24611,11 +23728,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.RouteParam,
           ),
           query: undefined,
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -24688,11 +23801,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -24924,11 +24033,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -25007,11 +24112,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -25137,11 +24238,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -25339,11 +24436,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -25580,11 +24673,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -25781,11 +24870,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -25905,11 +24990,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.RouteParam,
           ),
           query: undefined,
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -25991,11 +25072,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -26108,11 +25185,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -26222,11 +25295,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.RouteParam,
           ),
           query: undefined,
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -26300,11 +25369,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -26441,11 +25506,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -26520,11 +25581,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -26727,11 +25784,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -26812,11 +25865,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -26934,11 +25983,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -27056,11 +26101,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -27356,11 +26397,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -27433,11 +26470,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -27530,11 +26563,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -27609,11 +26638,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -27798,11 +26823,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -27918,11 +26939,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -28116,11 +27133,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -28237,11 +27250,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -28363,11 +27372,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -28448,11 +27453,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -28639,11 +27640,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -28975,11 +27972,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -29131,11 +28124,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -29216,11 +28205,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -29348,11 +28333,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -29470,11 +28451,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -29619,11 +28596,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -29704,11 +28677,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -29866,11 +28835,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -30002,11 +28967,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -30339,11 +29300,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -30416,11 +29373,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -30526,11 +29479,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -30615,11 +29564,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -30889,11 +29834,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -30986,11 +29927,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.RouteParam,
           ),
           query: undefined,
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -31063,11 +30000,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -31301,11 +30234,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -31491,11 +30420,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -31549,11 +30474,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.RouteParam,
           ),
           query: undefined,
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -31623,11 +30544,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -31942,11 +30859,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -32474,11 +31387,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -32553,11 +31462,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -32897,11 +31802,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -33019,11 +31920,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -33249,11 +32146,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -33369,11 +32262,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -33556,11 +32445,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -33676,11 +32561,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -33924,11 +32805,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -34060,11 +32937,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -34252,11 +33125,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -34331,11 +33200,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -34414,11 +33279,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -34609,11 +33470,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -34688,11 +33545,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -34887,11 +33740,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -34966,11 +33815,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -35148,11 +33993,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -35280,11 +34121,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -35360,11 +34197,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -35536,11 +34369,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -35677,11 +34506,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -35806,11 +34631,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -35954,11 +34775,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -36042,11 +34859,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -36541,11 +35354,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -36661,11 +35470,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -36826,11 +35631,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -36944,11 +35745,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -37080,11 +35877,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -37273,11 +36066,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -37395,11 +36184,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -37687,11 +36472,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -37807,11 +36588,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -38147,11 +36924,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -38267,11 +37040,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -38554,11 +37323,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -38651,11 +37416,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.RouteParam,
           ),
           query: undefined,
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -38723,11 +37484,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -38954,11 +37711,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -39101,11 +37854,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -39180,11 +37929,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -39384,11 +38129,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -39531,11 +38272,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -39587,11 +38324,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.RouteParam,
           ),
           query: undefined,
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -39659,11 +38392,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -39814,11 +38543,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -39928,11 +38653,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.RouteParam,
           ),
           query: undefined,
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -40006,11 +38727,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -40161,11 +38878,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -40281,11 +38994,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -40458,11 +39167,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -40578,11 +39283,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -40835,11 +39536,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -41008,11 +39705,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -41087,11 +39780,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -41227,11 +39916,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -41309,11 +39994,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -41459,11 +40140,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -41561,11 +40238,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.RouteParam,
           ),
           query: undefined,
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -41640,11 +40313,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -41781,11 +40450,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -41878,11 +40543,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.RouteParam,
           ),
           query: undefined,
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -41955,11 +40616,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -42150,11 +40807,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -42270,11 +40923,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -42493,11 +41142,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -42615,11 +41260,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -42697,11 +41338,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -42776,11 +41413,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -42903,11 +41536,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -42980,11 +41609,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -43160,11 +41785,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -43308,11 +41929,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -43437,11 +42054,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -43794,11 +42407,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -43914,11 +42523,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -44125,11 +42730,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -44207,11 +42808,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -44340,11 +42937,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -44464,11 +43057,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -44583,11 +43172,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -44668,11 +43253,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -44837,11 +43418,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -45011,11 +43588,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -45279,11 +43852,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -45401,11 +43970,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -45812,11 +44377,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -45959,11 +44520,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -46100,11 +44657,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -46220,11 +44773,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.RouteParam,
           ),
           query: undefined,
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -46460,11 +45009,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -46574,11 +45119,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -46694,11 +45235,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -46814,11 +45351,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -46931,11 +45464,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -47144,11 +45673,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -47258,11 +45783,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -47371,11 +45892,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -47448,11 +45965,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -47565,11 +46078,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -47662,11 +46171,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.RouteParam,
           ),
           query: undefined,
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -47734,11 +46239,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -47870,11 +46371,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -47992,11 +46489,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -48151,11 +46644,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -48256,11 +46745,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.RouteParam,
           ),
           query: undefined,
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -48352,11 +46837,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -48584,11 +47065,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -48681,11 +47158,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.RouteParam,
           ),
           query: undefined,
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -48761,11 +47234,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -48964,11 +47433,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -49061,11 +47526,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.RouteParam,
           ),
           query: undefined,
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -49146,11 +47607,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -51300,11 +49757,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -51402,11 +49855,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.RouteParam,
           ),
           query: undefined,
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -51487,11 +49936,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -52427,11 +50872,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -52581,11 +51022,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -52701,11 +51138,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -52937,11 +51370,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -53091,11 +51520,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -53223,11 +51648,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -53347,11 +51768,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -53526,11 +51943,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -53654,11 +52067,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -53791,11 +52200,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -53916,11 +52321,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -54060,11 +52461,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -54188,11 +52585,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -54393,11 +52786,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -54584,11 +52973,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -54712,11 +53097,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -54926,11 +53307,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -55054,11 +53431,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -55233,11 +53606,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -55361,11 +53730,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -55563,11 +53928,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -55645,11 +54006,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -55762,11 +54119,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -55841,11 +54194,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -56018,11 +54367,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -56100,11 +54445,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -56283,11 +54624,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -56362,11 +54699,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -56461,11 +54794,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -56558,11 +54887,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.RouteParam,
           ),
           query: undefined,
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -56641,11 +54966,7 @@ export function createRouter(implementation: Implementation): Router {
             ),
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            z.object({}).optional(),
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
