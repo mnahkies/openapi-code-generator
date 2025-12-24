@@ -19,6 +19,8 @@ export const PermissiveBoolean = z.preprocess((value) => {
 
 export const s_Azure_Core_armResourceType = z.string()
 
+export const s_Azure_Core_azureLocation = z.string()
+
 export const s_Azure_Core_uuid = z.string()
 
 export const s_Azure_ResourceManager_CommonTypes_ActionType = z.union([
@@ -57,6 +59,19 @@ export const s_MoveRequest = z.object({from: z.string(), to: z.string()})
 
 export const s_MoveResponse = z.object({movingStatus: z.string()})
 
+export const s_ProvisioningState = z.union([
+  z.string(),
+  z.enum([
+    "Accepted",
+    "Provisioning",
+    "Updating",
+    "Succeeded",
+    "Failed",
+    "Canceled",
+    "Deleting",
+  ]),
+])
+
 export const s_Azure_ResourceManager_CommonTypes_Operation = z.object({
   name: z.string().optional(),
   isDataAction: PermissiveBoolean.optional(),
@@ -73,6 +88,13 @@ export const s_Azure_ResourceManager_CommonTypes_SystemData = z.object({
   lastModifiedByType:
     s_Azure_ResourceManager_CommonTypes_createdByType.optional(),
   lastModifiedAt: z.iso.datetime({offset: true}).optional(),
+})
+
+export const s_EmployeeProperties = z.object({
+  age: z.coerce.number().optional(),
+  city: z.string().optional(),
+  profile: z.string().optional(),
+  provisioningState: s_ProvisioningState.optional(),
 })
 
 export const s_EmployeeUpdate = z.object({
@@ -93,9 +115,17 @@ export const s_OperationListResult = z.object({
 })
 
 export const s_Azure_ResourceManager_CommonTypes_TrackedResource =
-  s_Azure_ResourceManager_CommonTypes_Resource
+  s_Azure_ResourceManager_CommonTypes_Resource.merge(
+    z.object({
+      tags: z.record(z.string(), z.string()).optional(),
+      location: s_Azure_Core_azureLocation,
+    }),
+  )
 
-export const s_Employee = s_Azure_ResourceManager_CommonTypes_TrackedResource
+export const s_Employee = z.intersection(
+  s_Azure_ResourceManager_CommonTypes_TrackedResource,
+  z.object({properties: s_EmployeeProperties.optional()}),
+)
 
 export const s_EmployeeListResult = z.object({
   value: z.array(s_Employee),

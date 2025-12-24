@@ -8317,10 +8317,6 @@ export type t_ActionsReRunWorkflowFailedJobsRequestBody = {
   enable_debug_logging?: boolean
 } | null
 
-export type t_ActionsReviewCustomGatesForRunRequestBody =
-  | t_review_custom_gates_comment_required
-  | t_review_custom_gates_state_required
-
 export type t_ActionsReviewPendingDeploymentsForRunRequestBody = {
   comment: string
   environment_ids: number[]
@@ -8484,15 +8480,68 @@ export type t_CampaignsUpdateCampaignRequestBody = {
   team_managers?: string[]
 }
 
-export type t_ChecksCreateRequestBody =
-  | {
-      status: "completed" | UnknownEnumStringValue
-      [key: string]: unknown | undefined
-    }
-  | {
-      status?: "queued" | "in_progress" | UnknownEnumStringValue
-      [key: string]: unknown | undefined
-    }
+export type t_ChecksCreateRequestBody = {
+  actions?: {
+    description: string
+    identifier: string
+    label: string
+  }[]
+  completed_at?: string
+  conclusion?:
+    | "action_required"
+    | "cancelled"
+    | "failure"
+    | "neutral"
+    | "success"
+    | "skipped"
+    | "stale"
+    | "timed_out"
+    | UnknownEnumStringValue
+  details_url?: string
+  external_id?: string
+  head_sha: string
+  name: string
+  output?: {
+    annotations?: {
+      annotation_level:
+        | "notice"
+        | "warning"
+        | "failure"
+        | UnknownEnumStringValue
+      end_column?: number
+      end_line: number
+      message: string
+      path: string
+      raw_details?: string
+      start_column?: number
+      start_line: number
+      title?: string
+    }[]
+    images?: {
+      alt: string
+      caption?: string
+      image_url: string
+    }[]
+    summary: string
+    text?: string
+    title: string
+  }
+  started_at?: string
+  status?:
+    | "queued"
+    | "in_progress"
+    | "completed"
+    | "waiting"
+    | "requested"
+    | "pending"
+    | UnknownEnumStringValue
+} & {
+  status: "completed" | UnknownEnumStringValue
+  [key: string]: unknown | undefined
+} & {
+  status?: "queued" | "in_progress" | UnknownEnumStringValue
+  [key: string]: unknown | undefined
+}
 
 export type t_ChecksCreateSuiteRequestBody = {
   head_sha: string
@@ -8561,7 +8610,13 @@ export type t_ChecksUpdateRequestBody = {
     | UnknownEnumStringValue
 }
 
-export type t_CodeScanningCreateVariantAnalysisRequestBody = unknown
+export type t_CodeScanningCreateVariantAnalysisRequestBody = {
+  language: t_code_scanning_variant_analysis_language
+  query_pack: string
+  repositories?: string[]
+  repository_lists?: string[]
+  repository_owners?: string[]
+} & unknown
 
 export type t_CodeScanningUpdateAlertRequestBody = {
   create_request?: t_code_scanning_alert_create_request

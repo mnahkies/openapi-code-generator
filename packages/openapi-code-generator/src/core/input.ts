@@ -1,3 +1,4 @@
+import {isNonEmptyArray} from "@nahkies/typescript-common-runtime/types"
 import {generationLib} from "./generation-lib"
 import {logger} from "./logger"
 import type {OpenapiLoader} from "./openapi-loader"
@@ -22,10 +23,12 @@ import type {
   IRModelArray,
   IRModelBase,
   IRModelBoolean,
+  IRModelIntersection,
   IRModelNumeric,
   IRModelObject,
   IRModelRecord,
   IRModelString,
+  IRModelUnion,
   IROperation,
   IROperationParameters,
   IRParameter,
@@ -265,6 +268,22 @@ export class Input {
     )
   }
 
+  private isPrimitiveOrRef(schemaObject: MaybeIRModel): boolean {
+    return (
+      isRef(schemaObject) ||
+      ["string", "number", "boolean", "null", "any", "never"].includes(
+        schemaObject.type,
+      ) ||
+      (schemaObject.type === "record" &&
+        this.isPrimitiveOrRef(schemaObject.value)) ||
+      (schemaObject.type === "array" &&
+        this.isPrimitiveOrRef(schemaObject.items)) ||
+      ((schemaObject.type === "union" ||
+        schemaObject.type === "intersection") &&
+        schemaObject.schemas.every((it) => this.isPrimitiveOrRef(it)))
+    )
+  }
+
   preprocess(maybePreprocess: Reference | xInternalPreproccess): IRPreprocess {
     return this.loader.preprocess(maybePreprocess)
   }
@@ -440,12 +459,7 @@ export class Input {
 
     const shouldCreateVirtualType =
       (this.config.extractInlineSchemas || context === "RequestBody") &&
-      !isRef(result) &&
-      !isRef(schema) &&
-      (result.type === "object" ||
-        (result.type === "array" &&
-          !isRef(result.items) &&
-          result.items.type === "object"))
+      !this.isPrimitiveOrRef(result)
 
     return shouldCreateVirtualType
       ? this.loader.addVirtualType(operationId, syntheticName, schema)
@@ -809,6 +823,10 @@ export class SchemaNormalizer {
           hasATypeNull(schemaObject.oneOf) ||
           hasATypeNull(schemaObject.anyOf)
 
+        // TODO: HACK
+        const nullable =
+          base.nullable || schemaObject.type === "null" || hasNull
+
         const allOf = normalizeAllOf(schemaObject.allOf)
         const oneOf = normalizeOneOf(schemaObject.oneOf)
         const anyOf = normalizeAnyOf(schemaObject.anyOf)
@@ -817,32 +835,72 @@ export class SchemaNormalizer {
           const include = Reflect.has(properties, it)
 
           if (!include) {
+            // todo: check for presence in anyOf / allOf
             logger.warn("skipping required property not present on object")
           }
 
           return include
         })
 
-        // TODO: HACK
-        const nullable =
-          base.nullable || schemaObject.type === "null" || hasNull
-
         const additionalProperties = self.normalizeAdditionalProperties(
           {...base, nullable},
           schemaObject,
         )
 
-        return {
+        /**
+         * 1. Collect the object itself, sans the allOf/anyOf/oneOf
+         *   - ignore if nothing interesting
+         * 2. Convert allOf + object itself to an intersection
+         * 3. Convert oneOf/anyOf to an union
+         * 4. Wrap intersection + union in an intersection
+         *
+         * Notes:
+         * - flatten when only a single schema
+         * - later need to resolve anyOf / oneOf / allOf against parent schemas somehow, eg: to flip a property to required.
+         */
+
+        const result = {
           ...base,
           nullable,
           type: "object",
-          allOf,
-          oneOf,
-          anyOf,
           required,
           properties,
           additionalProperties,
         } satisfies IRModelObject
+
+        const isPartOfComposition = Boolean(
+          allOf.length || oneOf.length || anyOf.length,
+        )
+        const hasOwnProperties = Boolean(
+          additionalProperties || Object.keys(properties).length > 0,
+        )
+
+        if (!isPartOfComposition) {
+          return result
+        }
+
+        const maybeIntersection = this.intersection(
+          {...base, nullable},
+          hasOwnProperties ? [...allOf, result] : allOf,
+        )
+        const maybeUnion = this.union({...base, nullable}, [...oneOf, ...anyOf])
+
+        if (maybeIntersection && maybeUnion) {
+          return this.intersection({...base, nullable}, [
+            maybeIntersection,
+            maybeUnion,
+          ])
+        }
+
+        if (maybeIntersection && !maybeUnion) {
+          return maybeIntersection
+        }
+
+        if (maybeUnion && !maybeIntersection) {
+          return maybeUnion
+        }
+
+        throw new Error(`unreachable`)
       }
       case "array": {
         let items = schemaObject.items
@@ -1067,5 +1125,71 @@ export class SchemaNormalizer {
       key: this.normalize(key) as IRModelString,
       value: this.normalize(value) as IRModelAny,
     }
+  }
+
+  // todo: is base needed?
+  private intersection(base: IRModelBase, schemas: []): undefined
+  private intersection(
+    base: IRModelBase,
+    schemas: [MaybeIRModel],
+  ): MaybeIRModel | IRModelIntersection
+  private intersection(
+    base: IRModelBase,
+    schemas: [MaybeIRModel, ...MaybeIRModel[]],
+  ): IRModelIntersection
+  private intersection(
+    base: IRModelBase,
+    schemas: [] | MaybeIRModel[] | [MaybeIRModel, ...MaybeIRModel[]],
+  ): undefined | MaybeIRModel | IRModelIntersection
+  private intersection(
+    base: IRModelBase,
+    schemas: [] | MaybeIRModel[] | [MaybeIRModel, ...MaybeIRModel[]],
+  ): undefined | MaybeIRModel | IRModelIntersection {
+    if (isNonEmptyArray(schemas)) {
+      if (schemas.length === 1) {
+        if (base.nullable) {
+          return {...base, type: "intersection", schemas}
+        }
+        return schemas[0]
+      }
+
+      return {
+        ...base,
+        type: "intersection",
+        schemas,
+      }
+    }
+
+    return undefined
+  }
+
+  // todo: is base needed?
+  private union(
+    base: IRModelBase,
+    schemas: MaybeIRModel[],
+  ): MaybeIRModel | IRModelUnion | undefined {
+    // (A|B)|(C|D) is the same as (A|B|C|D)
+    // todo: merge repeated in-line schemas
+    // biome-ignore lint/style/noParameterAssign: ignore
+    schemas = schemas.flatMap((it) =>
+      !isRef(it) && it.type === "union" ? it.schemas : [it],
+    )
+
+    if (isNonEmptyArray(schemas)) {
+      if (schemas.length === 1) {
+        if (base.nullable) {
+          return {...base, type: "union", schemas}
+        }
+        return schemas[0]
+      }
+
+      return {
+        ...base,
+        type: "union",
+        schemas,
+      }
+    }
+
+    return undefined
   }
 }

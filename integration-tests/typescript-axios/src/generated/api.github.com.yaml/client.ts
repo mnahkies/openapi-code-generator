@@ -25,7 +25,6 @@ import type {
   t_ActionsReRunJobForWorkflowRunRequestBody,
   t_ActionsReRunWorkflowFailedJobsRequestBody,
   t_ActionsReRunWorkflowRequestBody,
-  t_ActionsReviewCustomGatesForRunRequestBody,
   t_ActionsReviewPendingDeploymentsForRunRequestBody,
   t_ActionsSetCustomLabelsForSelfHostedRunnerForOrgRequestBody,
   t_ActionsSetCustomLabelsForSelfHostedRunnerForRepoRequestBody,
@@ -482,6 +481,8 @@ import type {
   t_repository_ruleset,
   t_repository_subscription,
   t_review_comment,
+  t_review_custom_gates_comment_required,
+  t_review_custom_gates_state_required,
   t_root,
   t_rule_suite,
   t_rule_suites,
@@ -11967,7 +11968,9 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       runId: number
-      requestBody: t_ActionsReviewCustomGatesForRunRequestBody
+      requestBody:
+        | t_review_custom_gates_comment_required
+        | t_review_custom_gates_state_required
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},

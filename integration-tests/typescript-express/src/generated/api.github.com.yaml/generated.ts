@@ -195,7 +195,6 @@ import type {
   t_ActionsReRunWorkflowParamSchema,
   t_ActionsReRunWorkflowRequestBody,
   t_ActionsReviewCustomGatesForRunParamSchema,
-  t_ActionsReviewCustomGatesForRunRequestBody,
   t_ActionsReviewPendingDeploymentsForRunParamSchema,
   t_ActionsReviewPendingDeploymentsForRunRequestBody,
   t_ActionsSetAllowedActionsOrganizationParamSchema,
@@ -1585,6 +1584,8 @@ import type {
   t_repository_ruleset,
   t_repository_subscription,
   t_review_comment,
+  t_review_custom_gates_comment_required,
+  t_review_custom_gates_state_required,
   t_root,
   t_rule_suite,
   t_rule_suites,
@@ -1841,7 +1842,6 @@ import {
   s_ActionsReRunJobForWorkflowRunRequestBody,
   s_ActionsReRunWorkflowFailedJobsRequestBody,
   s_ActionsReRunWorkflowRequestBody,
-  s_ActionsReviewCustomGatesForRunRequestBody,
   s_ActionsReviewPendingDeploymentsForRunRequestBody,
   s_ActionsSetCustomLabelsForSelfHostedRunnerForOrgRequestBody,
   s_ActionsSetCustomLabelsForSelfHostedRunnerForRepoRequestBody,
@@ -2300,6 +2300,8 @@ import {
   s_repository_ruleset,
   s_repository_subscription,
   s_review_comment,
+  s_review_custom_gates_comment_required,
+  s_review_custom_gates_state_required,
   s_root,
   s_rule_suite,
   s_rule_suites,
@@ -10428,7 +10430,8 @@ export type ActionsReviewCustomGatesForRun = (
   params: Params<
     t_ActionsReviewCustomGatesForRunParamSchema,
     void,
-    t_ActionsReviewCustomGatesForRunRequestBody,
+    | t_review_custom_gates_comment_required
+    | t_review_custom_gates_state_required,
     void
   >,
   respond: ActionsReviewCustomGatesForRunResponder,
@@ -50445,7 +50448,10 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            s_ActionsReviewCustomGatesForRunRequestBody,
+            z.union([
+              s_review_custom_gates_comment_required,
+              s_review_custom_gates_state_required,
+            ]),
             req.body,
             RequestInputType.RequestBody,
           ),
