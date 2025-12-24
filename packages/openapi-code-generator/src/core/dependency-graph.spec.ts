@@ -41,6 +41,11 @@ describe.each(testVersions)("%s - core/dependency-graph", (version) => {
       graph.order.indexOf("s_AOrdering"),
     )
 
+    // check record values schemas are handled correctly.
+    expect(graph.order.indexOf("s_NamedNullableStringEnum")).toBeLessThan(
+      graph.order.indexOf("s_AdditionalPropertiesSchema"),
+    )
+
     expect(graph.order.indexOf("s_Recursive")).toBe(-1)
 
     expect(graph.circular).toStrictEqual(new Set(["s_Recursive"]))

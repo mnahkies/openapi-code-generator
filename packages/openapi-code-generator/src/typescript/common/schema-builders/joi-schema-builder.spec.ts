@@ -370,18 +370,18 @@ describe.each(
       expect(schemas).toMatchInlineSnapshot(`
           "import joi from "joi"
 
-          export const s_AdditionalPropertiesSchema = joi
-            .object()
-            .pattern(joi.any(), s_NamedNullableStringEnum.required())
-            .required()
-            .id("s_AdditionalPropertiesSchema")
-
           export const s_NamedNullableStringEnum = joi
             .string()
             .valid("", "one", "two", "three")
             .allow(null)
             .required()
-            .id("s_NamedNullableStringEnum")"
+            .id("s_NamedNullableStringEnum")
+
+          export const s_AdditionalPropertiesSchema = joi
+            .object()
+            .pattern(joi.any(), s_NamedNullableStringEnum.required())
+            .required()
+            .id("s_AdditionalPropertiesSchema")"
         `)
     })
 
