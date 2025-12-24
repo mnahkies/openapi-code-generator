@@ -9,6 +9,7 @@ import type {
   IRModelString,
   MaybeIRModel,
 } from "../../../core/openapi-types-normalized"
+import {isRef} from "../../../core/openapi-utils"
 import {hasSingleElement, isDefined} from "../../../core/utils"
 import type {ImportBuilder} from "../import-builder"
 import type {TypeBuilder} from "../type-builder"
@@ -190,6 +191,12 @@ export class ZodV4Builder extends AbstractSchemaBuilder<
   }
 
   protected record(model: IRModelRecord): string {
+    // we'd rather output a `z.object({})` than a `z.record<z.string(), z.never()>`
+    // as that'll just strip all keys
+    if (!isRef(model.value) && model.value.type === "never") {
+      return this.object({})
+    }
+
     const key = this.fromModel(model.key, true, false, model.key.nullable)
     const value = this.fromModel(model.value, true)
 

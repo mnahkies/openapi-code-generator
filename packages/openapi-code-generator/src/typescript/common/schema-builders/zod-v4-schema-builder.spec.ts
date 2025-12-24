@@ -1502,12 +1502,10 @@ describe.each(
         },
         config,
       )
-      expect(code).toMatchInlineSnapshot(
-        `"const x = z.record(z.string(), z.never())"`,
-      )
-      await expect(execute({})).resolves.toEqual({})
+      expect(code).toMatchInlineSnapshot(`"const x = z.object({})"`)
+      await expect(execute({any: "object"})).resolves.toEqual({})
       await expect(execute("some string")).rejects.toThrow(
-        "Invalid input: expected record, received string",
+        "Invalid input: expected object, received string",
       )
     })
   })
@@ -1604,12 +1602,10 @@ describe.each(
         },
         config,
       )
-      expect(code).toMatchInlineSnapshot(
-        `"const x = z.record(z.string(), z.never())"`,
-      )
-      await expect(execute({})).resolves.toEqual({})
+      expect(code).toMatchInlineSnapshot(`"const x = z.object({})"`)
+      await expect(execute({any: "object"})).resolves.toEqual({})
       await expect(execute("some string")).rejects.toThrow(
-        "Invalid input: expected record, received string",
+        "Invalid input: expected object, received string",
       )
     })
   })
