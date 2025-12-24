@@ -16111,7 +16111,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         RequestInputType.QueryString,
       ),
       body: parseRequestInput(
-        z.record(z.string(), z.never()).optional(),
+        z.object({}).optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -16296,7 +16296,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         RequestInputType.QueryString,
       ),
       body: parseRequestInput(
-        z.record(z.string(), z.never()).optional(),
+        z.object({}).optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -16382,7 +16382,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -16449,7 +16449,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -16593,7 +16593,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -16665,7 +16665,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -16801,7 +16801,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -16878,7 +16878,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -17044,7 +17044,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -17152,7 +17152,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -17224,7 +17224,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -17457,7 +17457,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -17559,7 +17559,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -17631,7 +17631,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -17813,7 +17813,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -17919,7 +17919,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -17991,7 +17991,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -18195,7 +18195,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -18284,7 +18284,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -18357,7 +18357,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -18481,7 +18481,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -18552,7 +18552,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -18675,7 +18675,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -18825,7 +18825,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -18987,7 +18987,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         RequestInputType.QueryString,
       ),
       body: parseRequestInput(
-        z.record(z.string(), z.never()).optional(),
+        z.object({}).optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -19144,7 +19144,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -19200,7 +19200,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         RequestInputType.QueryString,
       ),
       body: parseRequestInput(
-        z.record(z.string(), z.never()).optional(),
+        z.object({}).optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -19342,7 +19342,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         RequestInputType.QueryString,
       ),
       body: parseRequestInput(
-        z.record(z.string(), z.never()).optional(),
+        z.object({}).optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -19411,7 +19411,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -19557,7 +19557,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -19631,7 +19631,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -19734,7 +19734,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         RequestInputType.QueryString,
       ),
       body: parseRequestInput(
-        z.record(z.string(), z.never()).optional(),
+        z.object({}).optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -19838,7 +19838,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -20095,7 +20095,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -20209,7 +20209,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -20288,7 +20288,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -20396,7 +20396,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -20511,7 +20511,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -20845,7 +20845,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         RequestInputType.QueryString,
       ),
       body: parseRequestInput(
-        z.record(z.string(), z.never()).optional(),
+        z.object({}).optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -20949,7 +20949,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -21175,7 +21175,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -21345,7 +21345,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -21470,7 +21470,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -21714,7 +21714,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         RequestInputType.QueryString,
       ),
       body: parseRequestInput(
-        z.record(z.string(), z.never()).optional(),
+        z.object({}).optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -21842,7 +21842,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         RequestInputType.QueryString,
       ),
       body: parseRequestInput(
-        z.record(z.string(), z.never()).optional(),
+        z.object({}).optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -21910,7 +21910,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         RequestInputType.QueryString,
       ),
       body: parseRequestInput(
-        z.record(z.string(), z.never()).optional(),
+        z.object({}).optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -22066,7 +22066,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -22313,7 +22313,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -22435,7 +22435,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -22650,7 +22650,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -22761,7 +22761,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -22968,7 +22968,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -23066,7 +23066,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         RequestInputType.QueryString,
       ),
       body: parseRequestInput(
-        z.record(z.string(), z.never()).optional(),
+        z.object({}).optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -23172,7 +23172,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -23362,7 +23362,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -23434,7 +23434,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -23526,7 +23526,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -23596,7 +23596,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -23667,7 +23667,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -23760,7 +23760,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         RequestInputType.QueryString,
       ),
       body: parseRequestInput(
-        z.record(z.string(), z.never()).optional(),
+        z.object({}).optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -23831,7 +23831,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -23945,7 +23945,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         RequestInputType.QueryString,
       ),
       body: parseRequestInput(
-        z.record(z.string(), z.never()).optional(),
+        z.object({}).optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -24031,7 +24031,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -24093,7 +24093,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         RequestInputType.QueryString,
       ),
       body: parseRequestInput(
-        z.record(z.string(), z.never()).optional(),
+        z.object({}).optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -24259,7 +24259,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         RequestInputType.QueryString,
       ),
       body: parseRequestInput(
-        z.record(z.string(), z.never()).optional(),
+        z.object({}).optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -24535,7 +24535,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -24803,7 +24803,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -24913,7 +24913,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -24986,7 +24986,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         RequestInputType.QueryString,
       ),
       body: parseRequestInput(
-        z.record(z.string(), z.never()).optional(),
+        z.object({}).optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -25240,7 +25240,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         RequestInputType.QueryString,
       ),
       body: parseRequestInput(
-        z.record(z.string(), z.never()).optional(),
+        z.object({}).optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -25371,7 +25371,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -25425,7 +25425,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -25494,7 +25494,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -25640,7 +25640,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -25773,7 +25773,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -25944,7 +25944,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -26134,7 +26134,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -26354,7 +26354,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -26542,7 +26542,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -26677,7 +26677,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -26833,7 +26833,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -26917,7 +26917,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -26975,7 +26975,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -27046,7 +27046,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -27267,7 +27267,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -27344,7 +27344,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -27467,7 +27467,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -27657,7 +27657,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -27878,7 +27878,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -28066,7 +28066,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -28182,7 +28182,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -28261,7 +28261,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -28370,7 +28370,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -28478,7 +28478,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -28550,7 +28550,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -28682,7 +28682,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         RequestInputType.QueryString,
       ),
       body: parseRequestInput(
-        z.record(z.string(), z.never()).optional(),
+        z.object({}).optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -28753,7 +28753,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -28947,7 +28947,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -29026,7 +29026,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -29139,7 +29139,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -29254,7 +29254,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -29531,7 +29531,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         RequestInputType.QueryString,
       ),
       body: parseRequestInput(
-        z.record(z.string(), z.never()).optional(),
+        z.object({}).optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -29597,7 +29597,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         RequestInputType.QueryString,
       ),
       body: parseRequestInput(
-        z.record(z.string(), z.never()).optional(),
+        z.object({}).optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -29683,7 +29683,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         RequestInputType.QueryString,
       ),
       body: parseRequestInput(
-        z.record(z.string(), z.never()).optional(),
+        z.object({}).optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -29754,7 +29754,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -29929,7 +29929,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         RequestInputType.QueryString,
       ),
       body: parseRequestInput(
-        z.record(z.string(), z.never()).optional(),
+        z.object({}).optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -30030,7 +30030,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         RequestInputType.QueryString,
       ),
       body: parseRequestInput(
-        z.record(z.string(), z.never()).optional(),
+        z.object({}).optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -30213,7 +30213,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         RequestInputType.QueryString,
       ),
       body: parseRequestInput(
-        z.record(z.string(), z.never()).optional(),
+        z.object({}).optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -30315,7 +30315,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         RequestInputType.QueryString,
       ),
       body: parseRequestInput(
-        z.record(z.string(), z.never()).optional(),
+        z.object({}).optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -30433,7 +30433,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -30512,7 +30512,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -30683,7 +30683,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -30989,7 +30989,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -31128,7 +31128,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -31207,7 +31207,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -31332,7 +31332,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -31445,7 +31445,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -31587,7 +31587,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -31666,7 +31666,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -31814,7 +31814,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -31939,7 +31939,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -32239,7 +32239,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -32309,7 +32309,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -32413,7 +32413,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -32496,7 +32496,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -32747,7 +32747,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         RequestInputType.QueryString,
       ),
       body: parseRequestInput(
-        z.record(z.string(), z.never()).optional(),
+        z.object({}).optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -32831,7 +32831,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -32904,7 +32904,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -33130,7 +33130,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         RequestInputType.QueryString,
       ),
       body: parseRequestInput(
-        z.record(z.string(), z.never()).optional(),
+        z.object({}).optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -33299,7 +33299,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         RequestInputType.QueryString,
       ),
       body: parseRequestInput(
-        z.record(z.string(), z.never()).optional(),
+        z.object({}).optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -33352,7 +33352,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -33419,7 +33419,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -33717,7 +33717,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -34215,7 +34215,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -34287,7 +34287,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -34602,7 +34602,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -34713,7 +34713,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -34931,7 +34931,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         RequestInputType.QueryString,
       ),
       body: parseRequestInput(
-        z.record(z.string(), z.never()).optional(),
+        z.object({}).optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -35035,7 +35035,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -35211,7 +35211,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -35322,7 +35322,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -35559,7 +35559,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -35684,7 +35684,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -35860,7 +35860,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -35932,7 +35932,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -36003,7 +36003,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -36186,7 +36186,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         RequestInputType.QueryString,
       ),
       body: parseRequestInput(
-        z.record(z.string(), z.never()).optional(),
+        z.object({}).optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -36257,7 +36257,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -36445,7 +36445,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -36517,7 +36517,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -36683,7 +36683,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -36804,7 +36804,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         RequestInputType.QueryString,
       ),
       body: parseRequestInput(
-        z.record(z.string(), z.never()).optional(),
+        z.object({}).optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -36875,7 +36875,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -37037,7 +37037,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -37167,7 +37167,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -37286,7 +37286,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         RequestInputType.QueryString,
       ),
       body: parseRequestInput(
-        z.record(z.string(), z.never()).optional(),
+        z.object({}).optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -37421,7 +37421,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -37504,7 +37504,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -37970,7 +37970,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         RequestInputType.QueryString,
       ),
       body: parseRequestInput(
-        z.record(z.string(), z.never()).optional(),
+        z.object({}).optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -38076,7 +38076,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -38232,7 +38232,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -38344,7 +38344,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -38469,7 +38469,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -38646,7 +38646,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -38759,7 +38759,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -39028,7 +39028,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         RequestInputType.QueryString,
       ),
       body: parseRequestInput(
-        z.record(z.string(), z.never()).optional(),
+        z.object({}).optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -39136,7 +39136,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -39446,7 +39446,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         RequestInputType.QueryString,
       ),
       body: parseRequestInput(
-        z.record(z.string(), z.never()).optional(),
+        z.object({}).optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -39547,7 +39547,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         RequestInputType.QueryString,
       ),
       body: parseRequestInput(
-        z.record(z.string(), z.never()).optional(),
+        z.object({}).optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -39811,7 +39811,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         RequestInputType.QueryString,
       ),
       body: parseRequestInput(
-        z.record(z.string(), z.never()).optional(),
+        z.object({}).optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -39892,7 +39892,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       query: undefined,
       body: parseRequestInput(
-        z.record(z.string(), z.never()).optional(),
+        z.object({}).optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -39953,7 +39953,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         RequestInputType.QueryString,
       ),
       body: parseRequestInput(
-        z.record(z.string(), z.never()).optional(),
+        z.object({}).optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -40165,7 +40165,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         RequestInputType.QueryString,
       ),
       body: parseRequestInput(
-        z.record(z.string(), z.never()).optional(),
+        z.object({}).optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -40293,7 +40293,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         RequestInputType.QueryString,
       ),
       body: parseRequestInput(
-        z.record(z.string(), z.never()).optional(),
+        z.object({}).optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -40361,7 +40361,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         RequestInputType.QueryString,
       ),
       body: parseRequestInput(
-        z.record(z.string(), z.never()).optional(),
+        z.object({}).optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -40541,7 +40541,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         RequestInputType.QueryString,
       ),
       body: parseRequestInput(
-        z.record(z.string(), z.never()).optional(),
+        z.object({}).optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -40669,7 +40669,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         RequestInputType.QueryString,
       ),
       body: parseRequestInput(
-        z.record(z.string(), z.never()).optional(),
+        z.object({}).optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -40717,7 +40717,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       query: undefined,
       body: parseRequestInput(
-        z.record(z.string(), z.never()).optional(),
+        z.object({}).optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -40778,7 +40778,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         RequestInputType.QueryString,
       ),
       body: parseRequestInput(
-        z.record(z.string(), z.never()).optional(),
+        z.object({}).optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -40916,7 +40916,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -41024,7 +41024,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -41096,7 +41096,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -41242,7 +41242,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         RequestInputType.QueryString,
       ),
       body: parseRequestInput(
-        z.record(z.string(), z.never()).optional(),
+        z.object({}).optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -41350,7 +41350,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -41515,7 +41515,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         RequestInputType.QueryString,
       ),
       body: parseRequestInput(
-        z.record(z.string(), z.never()).optional(),
+        z.object({}).optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -41616,7 +41616,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         RequestInputType.QueryString,
       ),
       body: parseRequestInput(
-        z.record(z.string(), z.never()).optional(),
+        z.object({}).optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -41849,7 +41849,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -42007,7 +42007,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -42079,7 +42079,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -42211,7 +42211,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -42287,7 +42287,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -42430,7 +42430,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -42526,7 +42526,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -42599,7 +42599,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -42734,7 +42734,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -42823,7 +42823,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -42894,7 +42894,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -43077,7 +43077,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         RequestInputType.QueryString,
       ),
       body: parseRequestInput(
-        z.record(z.string(), z.never()).optional(),
+        z.object({}).optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -43178,7 +43178,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         RequestInputType.QueryString,
       ),
       body: parseRequestInput(
-        z.record(z.string(), z.never()).optional(),
+        z.object({}).optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -43383,7 +43383,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -43496,7 +43496,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -43571,7 +43571,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -43643,7 +43643,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -43761,7 +43761,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         RequestInputType.QueryString,
       ),
       body: parseRequestInput(
-        z.record(z.string(), z.never()).optional(),
+        z.object({}).optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -43827,7 +43827,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         RequestInputType.QueryString,
       ),
       body: parseRequestInput(
-        z.record(z.string(), z.never()).optional(),
+        z.object({}).optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -43994,7 +43994,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         RequestInputType.QueryString,
       ),
       body: parseRequestInput(
-        z.record(z.string(), z.never()).optional(),
+        z.object({}).optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -44131,7 +44131,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         RequestInputType.QueryString,
       ),
       body: parseRequestInput(
-        z.record(z.string(), z.never()).optional(),
+        z.object({}).optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -44244,7 +44244,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -44572,7 +44572,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         RequestInputType.QueryString,
       ),
       body: parseRequestInput(
-        z.record(z.string(), z.never()).optional(),
+        z.object({}).optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -44676,7 +44676,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -44875,7 +44875,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -44951,7 +44951,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -45066,7 +45066,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         RequestInputType.QueryString,
       ),
       body: parseRequestInput(
-        z.record(z.string(), z.never()).optional(),
+        z.object({}).optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -45174,7 +45174,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -45284,7 +45284,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -45363,7 +45363,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -45523,7 +45523,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -45685,7 +45685,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -45943,7 +45943,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -46056,7 +46056,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -46434,7 +46434,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         RequestInputType.QueryString,
       ),
       body: parseRequestInput(
-        z.record(z.string(), z.never()).optional(),
+        z.object({}).optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -46565,7 +46565,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -46690,7 +46690,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -46792,7 +46792,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -47009,7 +47009,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -47117,7 +47117,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -47225,7 +47225,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -47334,7 +47334,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -47437,7 +47437,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         RequestInputType.QueryString,
       ),
       body: parseRequestInput(
-        z.record(z.string(), z.never()).optional(),
+        z.object({}).optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -47622,7 +47622,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -47730,7 +47730,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -47828,7 +47828,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         RequestInputType.QueryString,
       ),
       body: parseRequestInput(
-        z.record(z.string(), z.never()).optional(),
+        z.object({}).optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -47894,7 +47894,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         RequestInputType.QueryString,
       ),
       body: parseRequestInput(
-        z.record(z.string(), z.never()).optional(),
+        z.object({}).optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -48000,7 +48000,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         RequestInputType.QueryString,
       ),
       body: parseRequestInput(
-        z.record(z.string(), z.never()).optional(),
+        z.object({}).optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -48081,7 +48081,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       query: undefined,
       body: parseRequestInput(
-        z.record(z.string(), z.never()).optional(),
+        z.object({}).optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -48142,7 +48142,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         RequestInputType.QueryString,
       ),
       body: parseRequestInput(
-        z.record(z.string(), z.never()).optional(),
+        z.object({}).optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -48267,7 +48267,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         RequestInputType.QueryString,
       ),
       body: parseRequestInput(
-        z.record(z.string(), z.never()).optional(),
+        z.object({}).optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -48373,7 +48373,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -48520,7 +48520,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -48620,7 +48620,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -48702,7 +48702,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -48910,7 +48910,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -48999,7 +48999,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -49073,7 +49073,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -49267,7 +49267,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -49356,7 +49356,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -49434,7 +49434,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -51411,7 +51411,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -51507,7 +51507,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -51578,7 +51578,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -52425,7 +52425,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         RequestInputType.QueryString,
       ),
       body: parseRequestInput(
-        z.record(z.string(), z.never()).optional(),
+        z.object({}).optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -52568,7 +52568,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         RequestInputType.QueryString,
       ),
       body: parseRequestInput(
-        z.record(z.string(), z.never()).optional(),
+        z.object({}).optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -52669,7 +52669,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         RequestInputType.QueryString,
       ),
       body: parseRequestInput(
-        z.record(z.string(), z.never()).optional(),
+        z.object({}).optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -52882,7 +52882,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         RequestInputType.QueryString,
       ),
       body: parseRequestInput(
-        z.record(z.string(), z.never()).optional(),
+        z.object({}).optional(),
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
@@ -53019,7 +53019,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -53142,7 +53142,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -53255,7 +53255,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -53424,7 +53424,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -53543,7 +53543,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -53667,7 +53667,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -53784,7 +53784,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -53916,7 +53916,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -54035,7 +54035,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -54225,7 +54225,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -54405,7 +54405,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -54524,7 +54524,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -54728,7 +54728,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -54847,7 +54847,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -55011,7 +55011,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -55130,7 +55130,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -55320,7 +55320,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -55396,7 +55396,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -55506,7 +55506,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -55578,7 +55578,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -55749,7 +55749,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -55825,7 +55825,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -56001,7 +56001,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -56075,7 +56075,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -56167,7 +56167,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -56256,7 +56256,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         query: undefined,
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -56327,7 +56327,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          z.record(z.string(), z.never()).optional(),
+          z.object({}).optional(),
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),

@@ -12810,7 +12810,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -13018,7 +13018,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -13117,7 +13117,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -13191,7 +13191,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -13346,7 +13346,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -13424,7 +13424,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -13569,7 +13569,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -13652,7 +13652,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -13839,7 +13839,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -13953,7 +13953,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -14037,7 +14037,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -14295,7 +14295,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -14403,7 +14403,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -14481,7 +14481,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -14673,7 +14673,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -14784,7 +14784,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -14862,7 +14862,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -15077,7 +15077,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -15174,7 +15174,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -15251,7 +15251,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -15382,7 +15382,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -15460,7 +15460,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -15592,7 +15592,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -15752,7 +15752,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -15929,7 +15929,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -16109,7 +16109,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -16175,7 +16175,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -16328,7 +16328,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -16405,7 +16405,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -16558,7 +16558,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -16637,7 +16637,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -16750,7 +16750,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -16870,7 +16870,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -17141,7 +17141,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -17263,7 +17263,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -17348,7 +17348,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -17468,7 +17468,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -17590,7 +17590,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -17951,7 +17951,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -18071,7 +18071,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -18311,7 +18311,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -18490,7 +18490,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -18626,7 +18626,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -18890,7 +18890,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -19037,7 +19037,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -19116,7 +19116,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -19288,7 +19288,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -19550,7 +19550,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -19681,7 +19681,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -19908,7 +19908,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -20028,7 +20028,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -20247,7 +20247,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -20354,7 +20354,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -20476,7 +20476,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -20680,7 +20680,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -20757,7 +20757,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -20856,7 +20856,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -20933,7 +20933,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -21010,7 +21010,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -21118,7 +21118,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -21197,7 +21197,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -21321,7 +21321,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -21420,7 +21420,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -21492,7 +21492,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -21677,7 +21677,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -21969,7 +21969,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -22245,7 +22245,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -22361,7 +22361,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -22443,7 +22443,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -22720,7 +22720,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -22867,7 +22867,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -22923,7 +22923,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -22999,7 +22999,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -23158,7 +23158,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -23314,7 +23314,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -23500,7 +23500,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -23708,7 +23708,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -23949,7 +23949,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -24148,7 +24148,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -24294,7 +24294,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -24459,7 +24459,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -24550,7 +24550,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -24612,7 +24612,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -24689,7 +24689,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -24925,7 +24925,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -25008,7 +25008,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -25138,7 +25138,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -25340,7 +25340,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -25581,7 +25581,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -25782,7 +25782,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -25906,7 +25906,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -25992,7 +25992,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -26109,7 +26109,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -26223,7 +26223,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -26301,7 +26301,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -26442,7 +26442,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -26521,7 +26521,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -26728,7 +26728,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -26813,7 +26813,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -26935,7 +26935,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -27057,7 +27057,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -27357,7 +27357,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -27434,7 +27434,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -27531,7 +27531,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -27610,7 +27610,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -27799,7 +27799,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -27919,7 +27919,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -28117,7 +28117,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -28238,7 +28238,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -28364,7 +28364,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -28449,7 +28449,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -28640,7 +28640,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -28976,7 +28976,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -29132,7 +29132,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -29217,7 +29217,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -29349,7 +29349,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -29471,7 +29471,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -29620,7 +29620,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -29705,7 +29705,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -29867,7 +29867,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -30003,7 +30003,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -30340,7 +30340,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -30417,7 +30417,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -30527,7 +30527,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -30616,7 +30616,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -30890,7 +30890,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -30987,7 +30987,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -31064,7 +31064,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -31302,7 +31302,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -31492,7 +31492,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -31550,7 +31550,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -31624,7 +31624,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -31943,7 +31943,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -32475,7 +32475,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -32554,7 +32554,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -32898,7 +32898,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -33020,7 +33020,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -33250,7 +33250,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -33370,7 +33370,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -33557,7 +33557,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -33677,7 +33677,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -33925,7 +33925,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -34061,7 +34061,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -34253,7 +34253,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -34332,7 +34332,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -34415,7 +34415,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -34610,7 +34610,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -34689,7 +34689,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -34888,7 +34888,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -34967,7 +34967,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -35149,7 +35149,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -35281,7 +35281,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -35361,7 +35361,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -35537,7 +35537,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -35678,7 +35678,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -35807,7 +35807,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -35955,7 +35955,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -36043,7 +36043,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -36542,7 +36542,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -36662,7 +36662,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -36827,7 +36827,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -36945,7 +36945,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -37081,7 +37081,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -37274,7 +37274,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -37396,7 +37396,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -37688,7 +37688,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -37808,7 +37808,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -38148,7 +38148,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -38268,7 +38268,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -38555,7 +38555,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -38652,7 +38652,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -38724,7 +38724,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -38955,7 +38955,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -39102,7 +39102,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -39181,7 +39181,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -39385,7 +39385,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -39532,7 +39532,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -39588,7 +39588,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -39660,7 +39660,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -39815,7 +39815,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -39929,7 +39929,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -40007,7 +40007,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -40162,7 +40162,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -40282,7 +40282,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -40459,7 +40459,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -40579,7 +40579,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -40836,7 +40836,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -41009,7 +41009,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -41088,7 +41088,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -41228,7 +41228,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -41310,7 +41310,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -41460,7 +41460,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -41562,7 +41562,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -41641,7 +41641,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -41782,7 +41782,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -41879,7 +41879,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -41956,7 +41956,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -42151,7 +42151,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -42271,7 +42271,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -42494,7 +42494,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -42616,7 +42616,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -42698,7 +42698,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -42777,7 +42777,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -42904,7 +42904,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -42981,7 +42981,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -43161,7 +43161,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -43309,7 +43309,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -43438,7 +43438,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -43795,7 +43795,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -43915,7 +43915,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -44126,7 +44126,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -44208,7 +44208,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -44341,7 +44341,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -44465,7 +44465,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -44584,7 +44584,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -44669,7 +44669,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -44838,7 +44838,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -45012,7 +45012,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -45280,7 +45280,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -45402,7 +45402,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -45813,7 +45813,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -45960,7 +45960,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -46101,7 +46101,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -46221,7 +46221,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -46461,7 +46461,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -46575,7 +46575,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -46695,7 +46695,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -46815,7 +46815,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -46932,7 +46932,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -47145,7 +47145,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -47259,7 +47259,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -47372,7 +47372,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -47449,7 +47449,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -47566,7 +47566,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -47663,7 +47663,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -47735,7 +47735,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -47871,7 +47871,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -47993,7 +47993,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -48152,7 +48152,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -48257,7 +48257,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -48353,7 +48353,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -48585,7 +48585,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -48682,7 +48682,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -48762,7 +48762,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -48965,7 +48965,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -49062,7 +49062,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -49147,7 +49147,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -51301,7 +51301,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -51403,7 +51403,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -51488,7 +51488,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -52428,7 +52428,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -52582,7 +52582,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -52702,7 +52702,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -52938,7 +52938,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -53092,7 +53092,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -53224,7 +53224,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -53348,7 +53348,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -53527,7 +53527,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -53655,7 +53655,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -53792,7 +53792,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -53917,7 +53917,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -54061,7 +54061,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -54189,7 +54189,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -54394,7 +54394,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -54585,7 +54585,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -54713,7 +54713,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -54927,7 +54927,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -55055,7 +55055,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -55234,7 +55234,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -55362,7 +55362,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -55564,7 +55564,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -55646,7 +55646,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -55763,7 +55763,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -55842,7 +55842,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -56019,7 +56019,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -56101,7 +56101,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -56284,7 +56284,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -56363,7 +56363,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -56462,7 +56462,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -56559,7 +56559,7 @@ export function createRouter(implementation: Implementation): Router {
           ),
           query: undefined,
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -56642,7 +56642,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.QueryString,
           ),
           body: parseRequestInput(
-            z.record(z.string(), z.never()).optional(),
+            z.object({}).optional(),
             req.body,
             RequestInputType.RequestBody,
           ),

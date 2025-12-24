@@ -30704,7 +30704,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ["204", z.undefined()],
       ["304", z.undefined()],
       ["403", s_basic_error],
-      ["404", z.record(z.string(), z.never())],
+      ["404", z.object({})],
     ],
     undefined,
   )
@@ -41397,15 +41397,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const interactionsGetRestrictionsForOrgResponseValidator =
     responseValidationFactory(
-      [
-        [
-          "200",
-          z.union([
-            s_interaction_limit_response,
-            z.record(z.string(), z.never()),
-          ]),
-        ],
-      ],
+      [["200", z.union([s_interaction_limit_response, z.object({})])]],
       undefined,
     )
 
@@ -43629,7 +43621,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const orgsConvertMemberToOutsideCollaboratorResponseValidator =
     responseValidationFactory(
       [
-        ["202", z.record(z.string(), z.never())],
+        ["202", z.object({})],
         ["204", z.undefined()],
         ["403", z.undefined()],
         ["404", s_basic_error],
@@ -49582,7 +49574,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const projectsClassicMoveCardResponseValidator = responseValidationFactory(
     [
-      ["201", z.record(z.string(), z.never())],
+      ["201", z.object({})],
       ["304", z.undefined()],
       ["401", s_basic_error],
       [
@@ -50046,7 +50038,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const projectsClassicMoveColumnResponseValidator = responseValidationFactory(
     [
-      ["201", z.record(z.string(), z.never())],
+      ["201", z.object({})],
       ["304", z.undefined()],
       ["401", s_basic_error],
       ["403", s_basic_error],
@@ -66811,15 +66803,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const interactionsGetRestrictionsForRepoResponseValidator =
     responseValidationFactory(
-      [
-        [
-          "200",
-          z.union([
-            s_interaction_limit_response,
-            z.record(z.string(), z.never()),
-          ]),
-        ],
-      ],
+      [["200", z.union([s_interaction_limit_response, z.object({})])]],
       undefined,
     )
 
@@ -82377,13 +82361,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const interactionsGetRestrictionsForAuthenticatedUserResponseValidator =
     responseValidationFactory(
       [
-        [
-          "200",
-          z.union([
-            s_interaction_limit_response,
-            z.record(z.string(), z.never()),
-          ]),
-        ],
+        ["200", z.union([s_interaction_limit_response, z.object({})])],
         ["204", z.undefined()],
       ],
       undefined,

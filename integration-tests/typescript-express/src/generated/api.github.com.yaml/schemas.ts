@@ -1451,7 +1451,7 @@ export const s_email = z.object({
   visibility: z.string().nullable(),
 })
 
-export const s_empty_object = z.record(z.string(), z.never())
+export const s_empty_object = z.object({})
 
 export const s_enabled_repositories = z.enum(["all", "none", "selected"])
 
