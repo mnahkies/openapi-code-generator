@@ -113,8 +113,9 @@ describe.each(
               .boolean()
               .truthy(1, "1")
               .falsy(0, "0")
+              .required()
               .allow(null),
-            nullableSingularOneOfRef: s_AString.allow(null),
+            nullableSingularOneOfRef: s_AString.required().allow(null),
           })
           .options({ stripUnknown: true })
           .required()
