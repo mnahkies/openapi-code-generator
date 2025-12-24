@@ -24,14 +24,12 @@ export type t_Azure_Core_Foundations_InnerError = {
 }
 
 export type t_Azure_Core_Foundations_OperationState =
-  | (
-      | "NotStarted"
-      | "Running"
-      | "Succeeded"
-      | "Failed"
-      | "Canceled"
-      | UnknownEnumStringValue
-    )
+  | "NotStarted"
+  | "Running"
+  | "Succeeded"
+  | "Failed"
+  | "Canceled"
+  | UnknownEnumStringValue
   | string
 
 export type t_Azure_Core_eTag = string
@@ -80,7 +78,12 @@ export type t_WidgetAnalyticsCreateOrUpdate = {
 
 export type t_WidgetColor =
   | string
-  | ("Black" | "White" | "Red" | "Green" | "Blue" | UnknownEnumStringValue)
+  | "Black"
+  | "White"
+  | "Red"
+  | "Green"
+  | "Blue"
+  | UnknownEnumStringValue
 
 export type t_WidgetCreateOrUpdate = {
   color?: t_WidgetColor | undefined
@@ -108,10 +111,8 @@ export type t_WidgetRepairRequest = {
 
 export type t_WidgetRepairState =
   | string
-  | (
-      | "Succeeded"
-      | "Failed"
-      | "Canceled"
-      | "SentToManufacturer"
-      | UnknownEnumStringValue
-    )
+  | "Succeeded"
+  | "Failed"
+  | "Canceled"
+  | "SentToManufacturer"
+  | UnknownEnumStringValue

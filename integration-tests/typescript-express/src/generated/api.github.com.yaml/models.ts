@@ -8040,9 +8040,7 @@ export type t_validation_error = {
         index?: number | undefined
         message?: string | undefined
         resource?: string | undefined
-        value?:
-          | ((string | null) | (number | null) | (string[] | null))
-          | undefined
+        value?: (string | null | number | string[]) | undefined
       }[]
     | undefined
   message: string
@@ -10152,16 +10150,13 @@ export type t_ChecksCreateRequestBody = {
         | "pending"
       )
     | undefined
-} & (
-  | {
-      status: "completed"
-      [key: string]: unknown | undefined
-    }
-  | {
-      status?: ("queued" | "in_progress") | undefined
-      [key: string]: unknown | undefined
-    }
-)
+} & {
+  status: "completed"
+  [key: string]: unknown | undefined
+} & {
+  status?: ("queued" | "in_progress") | undefined
+  [key: string]: unknown | undefined
+}
 
 export type t_ChecksCreateSuiteParamSchema = {
   owner: string
@@ -11657,7 +11652,7 @@ export type t_GistsCreateRequestBody = {
       content: string
     }
   >
-  public?: (boolean | ("true" | "false")) | undefined
+  public?: (boolean | "true" | "false") | undefined
 }
 
 export type t_GistsCreateCommentParamSchema = {
@@ -16380,7 +16375,9 @@ export type t_ReposUpdateInformationAboutPagesSiteRequestBody = {
   https_enforced?: boolean | undefined
   source?:
     | (
-        | ("gh-pages" | "master" | "master /docs")
+        | "gh-pages"
+        | "master"
+        | "master /docs"
         | {
             branch: string
             path: "/" | "/docs"

@@ -13,7 +13,8 @@ export type t_Azure_Core_azureLocation = string
 export type t_Azure_Core_uuid = string
 
 export type t_Azure_ResourceManager_CommonTypes_ActionType =
-  | ("Internal" | UnknownEnumStringValue)
+  | "Internal"
+  | UnknownEnumStringValue
   | string
 
 export type t_Azure_ResourceManager_CommonTypes_ErrorAdditionalInfo = {
@@ -49,7 +50,10 @@ export type t_Azure_ResourceManager_CommonTypes_OperationDisplay = {
 }
 
 export type t_Azure_ResourceManager_CommonTypes_Origin =
-  | ("user" | "system" | "user,system" | UnknownEnumStringValue)
+  | "user"
+  | "system"
+  | "user,system"
+  | UnknownEnumStringValue
   | string
 
 export type t_Azure_ResourceManager_CommonTypes_Resource = {
@@ -75,13 +79,11 @@ export type t_Azure_ResourceManager_CommonTypes_TrackedResource =
   }
 
 export type t_Azure_ResourceManager_CommonTypes_createdByType =
-  | (
-      | "User"
-      | "Application"
-      | "ManagedIdentity"
-      | "Key"
-      | UnknownEnumStringValue
-    )
+  | "User"
+  | "Application"
+  | "ManagedIdentity"
+  | "Key"
+  | UnknownEnumStringValue
   | string
 
 export type t_Employee = t_Azure_ResourceManager_CommonTypes_TrackedResource & {
@@ -127,13 +129,11 @@ export type t_OperationListResult = {
 
 export type t_ProvisioningState =
   | string
-  | (
-      | "Accepted"
-      | "Provisioning"
-      | "Updating"
-      | "Succeeded"
-      | "Failed"
-      | "Canceled"
-      | "Deleting"
-      | UnknownEnumStringValue
-    )
+  | "Accepted"
+  | "Provisioning"
+  | "Updating"
+  | "Succeeded"
+  | "Failed"
+  | "Canceled"
+  | "Deleting"
+  | UnknownEnumStringValue

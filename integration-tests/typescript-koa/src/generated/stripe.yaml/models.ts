@@ -21593,7 +21593,7 @@ export type t_PostCustomersCustomerSubscriptionsRequestBody = {
         reset_billing_cycle_anchor?: boolean
       }
     | ""
-  cancel_at?: number | ("max_period_end" | "min_period_end")
+  cancel_at?: number | "max_period_end" | "min_period_end"
   cancel_at_period_end?: boolean
   collection_method?: "charge_automatically" | "send_invoice"
   currency?: string
@@ -21828,7 +21828,7 @@ export type t_PostCustomersCustomerSubscriptionsSubscriptionExposedIdRequestBody
           reset_billing_cycle_anchor?: boolean
         }
       | ""
-    cancel_at?: number | "" | ("max_period_end" | "min_period_end")
+    cancel_at?: number | "" | "max_period_end" | "min_period_end"
     cancel_at_period_end?: boolean
     cancellation_details?: {
       comment?: string | ""
@@ -23087,11 +23087,11 @@ export type t_PostInvoicesCreatePreviewRequestBody = {
   }
   subscription?: string
   subscription_details?: {
-    billing_cycle_anchor?: ("now" | "unchanged") | number
+    billing_cycle_anchor?: "now" | "unchanged" | number
     billing_mode?: {
       type: "classic" | "flexible"
     }
-    cancel_at?: number | "" | ("max_period_end" | "min_period_end")
+    cancel_at?: number | "" | "max_period_end" | "min_period_end"
     cancel_at_period_end?: boolean
     cancel_now?: boolean
     default_tax_rates?: string[] | ""
@@ -27870,7 +27870,7 @@ export type t_PostPaymentIntentsRequestBody = {
       }
     | ""
   metadata?: Record<string, string>
-  off_session?: boolean | ("one_off" | "recurring")
+  off_session?: boolean | "one_off" | "recurring"
   on_behalf_of?: string
   payment_method?: string
   payment_method_configuration?: string
@@ -29528,7 +29528,7 @@ export type t_PostPaymentIntentsIntentConfirmRequestBody = {
           type: "online"
         }
       }
-  off_session?: boolean | ("one_off" | "recurring")
+  off_session?: boolean | "one_off" | "recurring"
   payment_method?: string
   payment_method_data?: {
     acss_debit?: {
@@ -35418,7 +35418,7 @@ export type t_PostSubscriptionsRequestBody = {
         reset_billing_cycle_anchor?: boolean
       }
     | ""
-  cancel_at?: number | ("max_period_end" | "min_period_end")
+  cancel_at?: number | "max_period_end" | "min_period_end"
   cancel_at_period_end?: boolean
   collection_method?: "charge_automatically" | "send_invoice"
   currency?: string
@@ -35653,7 +35653,7 @@ export type t_PostSubscriptionsSubscriptionExposedIdRequestBody = {
         reset_billing_cycle_anchor?: boolean
       }
     | ""
-  cancel_at?: number | "" | ("max_period_end" | "min_period_end")
+  cancel_at?: number | "" | "max_period_end" | "min_period_end"
   cancel_at_period_end?: boolean
   cancellation_details?: {
     comment?: string | ""

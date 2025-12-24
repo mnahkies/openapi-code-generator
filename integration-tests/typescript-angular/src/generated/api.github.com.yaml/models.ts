@@ -8066,7 +8066,7 @@ export type t_validation_error = {
     index?: number
     message?: string
     resource?: string
-    value?: (string | null) | (number | null) | (string[] | null)
+    value?: string | null | number | string[]
   }[]
   message: string
 }
@@ -8535,16 +8535,13 @@ export type t_ChecksCreateRequestBody = {
     | "requested"
     | "pending"
     | UnknownEnumStringValue
-} & (
-  | {
-      status: "completed" | UnknownEnumStringValue
-      [key: string]: unknown | undefined
-    }
-  | {
-      status?: "queued" | "in_progress" | UnknownEnumStringValue
-      [key: string]: unknown | undefined
-    }
-)
+} & {
+  status: "completed" | UnknownEnumStringValue
+  [key: string]: unknown | undefined
+} & {
+  status?: "queued" | "in_progress" | UnknownEnumStringValue
+  [key: string]: unknown | undefined
+}
 
 export type t_ChecksCreateSuiteRequestBody = {
   head_sha: string
@@ -9211,7 +9208,7 @@ export type t_GistsCreateRequestBody = {
       content: string
     }
   >
-  public?: boolean | ("true" | "false" | UnknownEnumStringValue)
+  public?: boolean | "true" | "false" | UnknownEnumStringValue
 }
 
 export type t_GistsCreateCommentRequestBody = {
@@ -10439,7 +10436,10 @@ export type t_ReposUpdateInformationAboutPagesSiteRequestBody = {
   cname?: string | null
   https_enforced?: boolean
   source?:
-    | ("gh-pages" | "master" | "master /docs" | UnknownEnumStringValue)
+    | "gh-pages"
+    | "master"
+    | "master /docs"
+    | UnknownEnumStringValue
     | {
         branch: string
         path: "/" | "/docs" | UnknownEnumStringValue

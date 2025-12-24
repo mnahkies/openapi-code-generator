@@ -24525,7 +24525,7 @@ export type t_PostCustomersCustomerSubscriptionsRequestBody = {
         | ""
       )
     | undefined
-  cancel_at?: (number | ("max_period_end" | "min_period_end")) | undefined
+  cancel_at?: (number | "max_period_end" | "min_period_end") | undefined
   cancel_at_period_end?: boolean | undefined
   collection_method?: ("charge_automatically" | "send_invoice") | undefined
   currency?: string | undefined
@@ -24859,9 +24859,7 @@ export type t_PostCustomersCustomerSubscriptionsSubscriptionExposedIdRequestBody
           | ""
         )
       | undefined
-    cancel_at?:
-      | (number | "" | ("max_period_end" | "min_period_end"))
-      | undefined
+    cancel_at?: (number | "" | "max_period_end" | "min_period_end") | undefined
     cancel_at_period_end?: boolean | undefined
     cancellation_details?:
       | {
@@ -26479,14 +26477,14 @@ export type t_PostInvoicesCreatePreviewRequestBody = {
   subscription?: string | undefined
   subscription_details?:
     | {
-        billing_cycle_anchor?: (("now" | "unchanged") | number) | undefined
+        billing_cycle_anchor?: ("now" | "unchanged" | number) | undefined
         billing_mode?:
           | {
               type: "classic" | "flexible"
             }
           | undefined
         cancel_at?:
-          | (number | "" | ("max_period_end" | "min_period_end"))
+          | (number | "" | "max_period_end" | "min_period_end")
           | undefined
         cancel_at_period_end?: boolean | undefined
         cancel_now?: boolean | undefined
@@ -31639,7 +31637,7 @@ export type t_PostPaymentIntentsRequestBody = {
       )
     | undefined
   metadata?: Record<string, string> | undefined
-  off_session?: (boolean | ("one_off" | "recurring")) | undefined
+  off_session?: (boolean | "one_off" | "recurring") | undefined
   on_behalf_of?: string | undefined
   payment_method?: string | undefined
   payment_method_configuration?: string | undefined
@@ -33891,7 +33889,7 @@ export type t_PostPaymentIntentsIntentConfirmRequestBody = {
           }
       )
     | undefined
-  off_session?: (boolean | ("one_off" | "recurring")) | undefined
+  off_session?: (boolean | "one_off" | "recurring") | undefined
   payment_method?: string | undefined
   payment_method_data?:
     | {
@@ -41449,7 +41447,7 @@ export type t_PostSubscriptionsRequestBody = {
         | ""
       )
     | undefined
-  cancel_at?: (number | ("max_period_end" | "min_period_end")) | undefined
+  cancel_at?: (number | "max_period_end" | "min_period_end") | undefined
   cancel_at_period_end?: boolean | undefined
   collection_method?: ("charge_automatically" | "send_invoice") | undefined
   currency?: string | undefined
@@ -41783,7 +41781,7 @@ export type t_PostSubscriptionsSubscriptionExposedIdRequestBody = {
         | ""
       )
     | undefined
-  cancel_at?: (number | "" | ("max_period_end" | "min_period_end")) | undefined
+  cancel_at?: (number | "" | "max_period_end" | "min_period_end") | undefined
   cancel_at_period_end?: boolean | undefined
   cancellation_details?:
     | {
