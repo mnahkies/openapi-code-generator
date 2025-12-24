@@ -57,7 +57,12 @@ const getDependenciesFromSchema = (
       for (const prop of innerSources) {
         if (isRef(prop)) {
           result.add(getNameForRef(prop))
-        } else if (prop.type === "object") {
+        } else if (
+          prop.type === "object" ||
+          prop.type === "union" ||
+          prop.type === "intersection" ||
+          prop.type === "record"
+        ) {
           intersect(result, getDependenciesFromSchema(prop, getNameForRef))
         } else if (prop.type === "array") {
           if (isRef(prop.items)) {
@@ -68,6 +73,14 @@ const getDependenciesFromSchema = (
               getDependenciesFromSchema(prop.items, getNameForRef),
             )
           }
+        }
+      }
+    } else if (it.type === "intersection" || it.type === "union") {
+      for (const prop of it.schemas) {
+        if (isRef(prop)) {
+          result.add(getNameForRef(prop))
+        } else {
+          intersect(result, getDependenciesFromSchema(prop, getNameForRef))
         }
       }
     }

@@ -5,11 +5,13 @@ import type {
   IRModelAny,
   IRModelArray,
   IRModelBoolean,
+  IRModelIntersection,
   IRModelNever,
   IRModelNumeric,
   IRModelObject,
   IRModelRecord,
   IRModelString,
+  IRModelUnion,
 } from "./openapi-types-normalized"
 
 describe("core/input - SchemaNormalizer", () => {
@@ -96,6 +98,22 @@ describe("core/input - SchemaNormalizer", () => {
       nullable: false,
       "x-internal-preprocess": undefined,
     } satisfies IRModelRecord,
+    intersection: {
+      isIRModel: true,
+      type: "intersection",
+      schemas: [base.any],
+      nullable: false,
+      default: undefined,
+      "x-internal-preprocess": undefined,
+    } satisfies IRModelIntersection,
+    union: {
+      isIRModel: true,
+      type: "union",
+      schemas: [base.any],
+      nullable: false,
+      default: undefined,
+      "x-internal-preprocess": undefined,
+    } satisfies IRModelUnion,
   }
 
   const schemaNormalizer = new SchemaNormalizer({
@@ -394,9 +412,9 @@ describe("core/input - SchemaNormalizer", () => {
       })
 
       expect(actual).toStrictEqual({
-        ...base.object,
+        ...extension.intersection,
         nullable: true,
-        allOf: [{...base.string}, {$ref: "#/components/schemas/Thing"}],
+        schemas: [base.string, {$ref: "#/components/schemas/Thing"}],
       })
     })
 
@@ -411,9 +429,9 @@ describe("core/input - SchemaNormalizer", () => {
       })
 
       expect(actual).toStrictEqual({
-        ...base.object,
+        ...extension.union,
         nullable: true,
-        oneOf: [{...base.number}, {$ref: "#/components/schemas/RefModel"}],
+        schemas: [{...base.number}, {$ref: "#/components/schemas/RefModel"}],
       })
     })
 
@@ -429,9 +447,9 @@ describe("core/input - SchemaNormalizer", () => {
       })
 
       expect(actual).toStrictEqual({
-        ...base.object,
+        ...extension.union,
         nullable: true,
-        anyOf: [{...base.number}, {$ref: "#/components/schemas/Another"}],
+        schemas: [{...base.number}, {$ref: "#/components/schemas/Another"}],
       })
     })
 
@@ -452,10 +470,69 @@ describe("core/input - SchemaNormalizer", () => {
       })
 
       expect(actual).toStrictEqual({
-        ...base.object,
-        allOf: [
+        ...extension.intersection,
+        schemas: [
           {...base.object, properties: {id: {...base.string}}},
           {...base.object, properties: {name: {...base.string}}},
+        ],
+      })
+    })
+
+    it("handles concurrent use of allOf and oneOf", () => {
+      const actual = schemaNormalizer.normalize({
+        type: "object",
+        properties: {
+          name: {type: "string"},
+        },
+        allOf: [
+          {
+            type: "object",
+            properties: {
+              id: {type: "string"},
+            },
+          },
+        ],
+        oneOf: [
+          {type: "object", properties: {type: {enum: ["foo"]}}},
+          {type: "object", properties: {type: {enum: ["bar"]}}},
+        ],
+      })
+
+      expect(actual).toStrictEqual({
+        ...extension.intersection,
+        schemas: [
+          {
+            ...extension.intersection,
+            schemas: [
+              {...base.object, properties: {id: {...base.string}}},
+              {...base.object, properties: {name: {...base.string}}},
+            ],
+          },
+          {
+            ...extension.union,
+            schemas: [
+              {
+                ...base.object,
+                properties: {
+                  type: {
+                    ...base.string,
+                    enum: ["foo"],
+                    "x-enum-extensibility": "open",
+                  },
+                },
+              },
+              {
+                ...base.object,
+                properties: {
+                  type: {
+                    ...base.string,
+                    enum: ["bar"],
+                    "x-enum-extensibility": "open",
+                  },
+                },
+              },
+            ],
+          },
         ],
       })
     })
@@ -607,8 +684,8 @@ describe("core/input - SchemaNormalizer", () => {
       })
 
       expect(actual).toStrictEqual({
-        ...base.object,
-        oneOf: [
+        ...extension.union,
+        schemas: [
           {...base.string, nullable: true},
           {...base.number, nullable: true},
         ],

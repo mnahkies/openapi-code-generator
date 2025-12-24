@@ -143,134 +143,134 @@ export class TypeBuilder implements ICompilable {
 
     const result: string[] = []
 
-      switch (schemaObject.type) {
-        case "intersection": {
-          result.push(
-            intersect(schemaObject.schemas.map(this.schemaObjectToType)),
-          )
-          break
-        }
-
-        case "union": {
-          result.push(...schemaObject.schemas.map(this.schemaObjectToType))
-          break
-        }
-
-        case "array": {
-          result.push(array(this.schemaObjectToType(schemaObject.items)))
-          break
-        }
-
-        case "boolean": {
-          if (schemaObject.enum) {
-            result.push(...schemaObject.enum)
-          } else {
-            result.push("boolean")
-          }
-          break
-        }
-
-        case "string": {
-          if (schemaObject.enum) {
-            result.push(...schemaObject.enum.map(quotedStringLiteral))
-
-            if (schemaObject["x-enum-extensibility"] === "open") {
-              result.push(this.addStaticType("UnknownEnumStringValue"))
-            }
-          } else if (
-            schemaObject.format === "binary"
-            // todo: byte is base64 encoded string, https://spec.openapis.org/registry/format/byte.html
-            // || schemaObject.format === "byte"
-          ) {
-            result.push("Blob")
-          } else {
-            result.push("string")
-          }
-          break
-        }
-
-        case "number": {
-          // todo: support bigint as string, https://github.com/mnahkies/openapi-code-generator/issues/51
-
-          if (schemaObject.enum) {
-            result.push(...schemaObject.enum.map(coerceToString))
-
-            if (schemaObject["x-enum-extensibility"] === "open") {
-              result.push(this.addStaticType("UnknownEnumNumberValue"))
-            }
-          } else {
-            result.push("number")
-          }
-          break
-        }
-
-        case "object": {
-          const properties = Object.entries(schemaObject.properties)
-            .sort(([a], [b]) => (a < b ? -1 : 1))
-            .map(([name, definition]) => {
-              const isRequired = schemaObject.required.some((it) => it === name)
-              const type = this.schemaObjectToType(definition)
-
-              // ensure compatibility with `exactOptionalPropertyTypes` compiler option
-              // https://www.typescriptlang.org/tsconfig#exactOptionalPropertyTypes
-              const exactOptionalPropertyTypes =
-                !isRequired && this.compilerOptions.exactOptionalPropertyTypes
-
-              return objectProperty({
-                name,
-                type: exactOptionalPropertyTypes
-                  ? union(type, "undefined")
-                  : type,
-                isReadonly: false,
-                isRequired,
-              })
-            })
-
-          if (schemaObject.additionalProperties) {
-            const key = this.schemaObjectToTypes(
-              schemaObject.additionalProperties.key,
-            )
-            const value = this.schemaObjectToType(
-              schemaObject.additionalProperties.value,
-            )
-            properties.push(`[key: ${key}]: ${union(value, "undefined")}`)
-          }
-
-          const emptyObject = this.isEmptyObject(schemaObject)
-            ? this.addStaticType("EmptyObject")
-            : ""
-
-          result.push(object(properties), emptyObject)
-          break
-        }
-
-        case "any": {
-          result.push(this.config.allowAny ? "any" : "unknown")
-          break
-        }
-
-        case "never": {
-          result.push("never")
-          break
-        }
-
-        case "null": {
-          throw new Error("unreachable - input should normalize this out")
-        }
-
-        case "record": {
-          result.push(
-            `Record<${this.schemaObjectToType(schemaObject.key)}, ${this.schemaObjectToType(schemaObject.value)}>`,
-          )
-          break
-        }
-
-        default: {
-          throw new Error(
-            `unsupported type '${JSON.stringify(schemaObject satisfies never, undefined, 2)}'`,
-          )
-        }
+    switch (schemaObject.type) {
+      case "intersection": {
+        result.push(
+          intersect(schemaObject.schemas.map(this.schemaObjectToType)),
+        )
+        break
       }
+
+      case "union": {
+        result.push(...schemaObject.schemas.map(this.schemaObjectToType))
+        break
+      }
+
+      case "array": {
+        result.push(array(this.schemaObjectToType(schemaObject.items)))
+        break
+      }
+
+      case "boolean": {
+        if (schemaObject.enum) {
+          result.push(...schemaObject.enum)
+        } else {
+          result.push("boolean")
+        }
+        break
+      }
+
+      case "string": {
+        if (schemaObject.enum) {
+          result.push(...schemaObject.enum.map(quotedStringLiteral))
+
+          if (schemaObject["x-enum-extensibility"] === "open") {
+            result.push(this.addStaticType("UnknownEnumStringValue"))
+          }
+        } else if (
+          schemaObject.format === "binary"
+          // todo: byte is base64 encoded string, https://spec.openapis.org/registry/format/byte.html
+          // || schemaObject.format === "byte"
+        ) {
+          result.push("Blob")
+        } else {
+          result.push("string")
+        }
+        break
+      }
+
+      case "number": {
+        // todo: support bigint as string, https://github.com/mnahkies/openapi-code-generator/issues/51
+
+        if (schemaObject.enum) {
+          result.push(...schemaObject.enum.map(coerceToString))
+
+          if (schemaObject["x-enum-extensibility"] === "open") {
+            result.push(this.addStaticType("UnknownEnumNumberValue"))
+          }
+        } else {
+          result.push("number")
+        }
+        break
+      }
+
+      case "object": {
+        const properties = Object.entries(schemaObject.properties)
+          .sort(([a], [b]) => (a < b ? -1 : 1))
+          .map(([name, definition]) => {
+            const isRequired = schemaObject.required.some((it) => it === name)
+            const type = this.schemaObjectToType(definition)
+
+            // ensure compatibility with `exactOptionalPropertyTypes` compiler option
+            // https://www.typescriptlang.org/tsconfig#exactOptionalPropertyTypes
+            const exactOptionalPropertyTypes =
+              !isRequired && this.compilerOptions.exactOptionalPropertyTypes
+
+            return objectProperty({
+              name,
+              type: exactOptionalPropertyTypes
+                ? union(type, "undefined")
+                : type,
+              isReadonly: false,
+              isRequired,
+            })
+          })
+
+        if (schemaObject.additionalProperties) {
+          const key = this.schemaObjectToTypes(
+            schemaObject.additionalProperties.key,
+          )
+          const value = this.schemaObjectToType(
+            schemaObject.additionalProperties.value,
+          )
+          properties.push(`[key: ${key}]: ${union(value, "undefined")}`)
+        }
+
+        const emptyObject = this.isEmptyObject(schemaObject)
+          ? this.addStaticType("EmptyObject")
+          : ""
+
+        result.push(object(properties), emptyObject)
+        break
+      }
+
+      case "any": {
+        result.push(this.config.allowAny ? "any" : "unknown")
+        break
+      }
+
+      case "never": {
+        result.push("never")
+        break
+      }
+
+      case "null": {
+        throw new Error("unreachable - input should normalize this out")
+      }
+
+      case "record": {
+        result.push(
+          `Record<${this.schemaObjectToType(schemaObject.key)}, ${this.schemaObjectToType(schemaObject.value)}>`,
+        )
+        break
+      }
+
+      default: {
+        throw new Error(
+          `unsupported type '${JSON.stringify(schemaObject satisfies never, undefined, 2)}'`,
+        )
+      }
+    }
 
     if (schemaObject.nullable) {
       result.push("null")

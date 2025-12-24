@@ -15,7 +15,6 @@ import type {
   MaybeIRModel,
 } from "../../../core/openapi-types-normalized"
 import {getNameFromRef, isRef} from "../../../core/openapi-utils"
-import {hasSingleElement} from "../../../core/utils"
 import {CompilationUnit, type ICompilable} from "../compilation-units"
 import type {ImportBuilder} from "../import-builder"
 import type {TypeBuilder} from "../type-builder"
