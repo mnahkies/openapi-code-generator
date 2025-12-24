@@ -10,6 +10,7 @@ import type {
   IRModelBase,
   IRModelBoolean,
   IRModelNumeric,
+  IRModelRecord,
   IRModelString,
   MaybeIRModel,
 } from "../../../core/openapi-types-normalized"
@@ -287,13 +288,7 @@ export abstract class AbstractSchemaBuilder<
 
           const additionalProperties =
             model.additionalProperties &&
-            this.record(
-              typeof model.additionalProperties === "boolean"
-                ? this.config.allowAny
-                  ? this.any()
-                  : this.unknown()
-                : this.fromModel(model.additionalProperties, true),
-            )
+            this.fromModel(model.additionalProperties, true)
 
           if (properties && additionalProperties) {
             result = this.intersect([properties, additionalProperties])
@@ -319,6 +314,11 @@ export abstract class AbstractSchemaBuilder<
 
       case "null": {
         throw new Error("unreachable - input should normalize this out")
+      }
+
+      case "record": {
+        result = this.record(model)
+        break
       }
 
       default: {
@@ -388,7 +388,7 @@ export abstract class AbstractSchemaBuilder<
     required: boolean,
   ): string
 
-  protected abstract record(schema: string): string
+  protected abstract record(model: IRModelRecord): string
 
   protected abstract array(model: IRModelArray, items: string[]): string
 

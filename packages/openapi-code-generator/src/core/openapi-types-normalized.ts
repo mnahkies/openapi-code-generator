@@ -75,11 +75,17 @@ export interface IRModelObject extends IRModelBase {
   type: "object"
   required: string[]
   properties: {[propertyName: string]: MaybeIRModel}
-  additionalProperties: undefined | boolean | MaybeIRModel
+  additionalProperties: IRModelRecord | undefined
 }
 
 export interface IRModelAny extends IRModelBase {
   type: "any"
+}
+
+export interface IRModelRecord extends IRModelBase {
+  type: "record"
+  key: IRModelString | IRModelNumeric
+  value: MaybeIRModel
 }
 
 export interface IRModelNever extends IRModelBase {
@@ -107,6 +113,7 @@ export type IRModel =
   | IRModelArray
   | IRModelAny
   | IRModelNull
+  | IRModelRecord
   | IRModelNever
 
 export type MaybeIRModel = IRModel | IRRef

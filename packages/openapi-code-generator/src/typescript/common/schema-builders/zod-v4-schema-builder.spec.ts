@@ -296,14 +296,14 @@ describe.each(
       expect(schemas).toMatchInlineSnapshot(`
           "import { z } from "zod/v4"
 
-          export const s_NamedNullableStringEnum = z
-            .enum(["", "one", "two", "three"])
-            .nullable()
-
           export const s_AdditionalPropertiesSchema = z.record(
             z.string(),
             s_NamedNullableStringEnum,
-          )"
+          )
+
+          export const s_NamedNullableStringEnum = z
+            .enum(["", "one", "two", "three"])
+            .nullable()"
         `)
     })
 
@@ -1502,10 +1502,12 @@ describe.each(
         },
         config,
       )
-      expect(code).toMatchInlineSnapshot('"const x = z.object({})"')
-      await expect(execute({any: "object"})).resolves.toEqual({})
+      expect(code).toMatchInlineSnapshot(
+        `"const x = z.record(z.string(), z.never())"`,
+      )
+      await expect(execute({})).resolves.toEqual({})
       await expect(execute("some string")).rejects.toThrow(
-        "Invalid input: expected object, received string",
+        "Invalid input: expected record, received string",
       )
     })
   })
@@ -1602,10 +1604,12 @@ describe.each(
         },
         config,
       )
-      expect(code).toMatchInlineSnapshot('"const x = z.object({})"')
-      await expect(execute({any: "object"})).resolves.toEqual({})
+      expect(code).toMatchInlineSnapshot(
+        `"const x = z.record(z.string(), z.never())"`,
+      )
+      await expect(execute({})).resolves.toEqual({})
       await expect(execute("some string")).rejects.toThrow(
-        "Invalid input: expected object, received string",
+        "Invalid input: expected record, received string",
       )
     })
   })

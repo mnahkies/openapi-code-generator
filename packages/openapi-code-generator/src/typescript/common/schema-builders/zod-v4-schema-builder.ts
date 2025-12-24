@@ -5,6 +5,7 @@ import type {
   IRModelArray,
   IRModelBoolean,
   IRModelNumeric,
+  IRModelRecord,
   IRModelString,
   MaybeIRModel,
 } from "../../../core/openapi-types-normalized"
@@ -188,11 +189,11 @@ export class ZodV4Builder extends AbstractSchemaBuilder<
       .join(".")
   }
 
-  protected record(schema: string): string {
-    // note: openapi doesn't currently support records with numeric keys
-    return [zod, `record(${zod}.string(), ${schema})`]
-      .filter(isDefined)
-      .join(".")
+  protected record(model: IRModelRecord): string {
+    const key = this.fromModel(model.key, true, false, model.key.nullable)
+    const value = this.fromModel(model.value, true)
+
+    return [zod, `record(${key}, ${value})`].filter(isDefined).join(".")
   }
 
   protected array(model: IRModelArray, items: string[]): string {

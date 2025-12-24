@@ -5,9 +5,11 @@ import type {
   IRModelArray,
   IRModelBoolean,
   IRModelNumeric,
+  IRModelRecord,
   IRModelString,
   MaybeIRModel,
 } from "../../../core/openapi-types-normalized"
+import {isRef} from "../../../core/openapi-utils"
 import {hasSingleElement, isDefined} from "../../../core/utils"
 import type {ImportBuilder} from "../import-builder"
 import type {TypeBuilder} from "../type-builder"
@@ -193,8 +195,15 @@ export class JoiBuilder extends AbstractSchemaBuilder<
       .join(".")
   }
 
-  protected record(schema: string): string {
-    return [joi, "object()", `pattern(${this.any()}, ${schema})`]
+  protected record(model: IRModelRecord): string {
+    if (!isRef(model.value) && model.value.type === "never") {
+      return this.object({})
+    }
+
+    // const key = this.fromModel(model.key, true, false, model.key.nullable)
+    const value = this.fromModel(model.value, true)
+
+    return [joi, "object()", `pattern(${this.any()}, ${value})`]
       .filter(isDefined)
       .join(".")
   }

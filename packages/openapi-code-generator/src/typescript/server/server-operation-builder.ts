@@ -301,9 +301,20 @@ export class ServerOperationBuilder {
           properties,
         }
       }
+
+      case "record": {
+        logger.error(
+          "additionalProperties/record style objects not supported in query parameters.",
+        )
+        return {
+          type: "object",
+          properties: {},
+        }
+      }
+
       default: {
         throw new Error(
-          `unsupported query parameter schema type '${type satisfies "any" | "never"}'`,
+          `unsupported query parameter schema type '${type satisfies "any" | "never" | "record"}'`,
         )
       }
     }

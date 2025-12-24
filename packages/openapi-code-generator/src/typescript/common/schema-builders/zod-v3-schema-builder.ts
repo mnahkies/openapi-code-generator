@@ -5,6 +5,7 @@ import type {
   IRModelArray,
   IRModelBoolean,
   IRModelNumeric,
+  IRModelRecord,
   IRModelString,
   MaybeIRModel,
 } from "../../../core/openapi-types-normalized"
@@ -186,8 +187,10 @@ export class ZodV3Builder extends AbstractSchemaBuilder<
       .join(".")
   }
 
-  protected record(schema: string): string {
-    return [zod, `record(${schema})`].filter(isDefined).join(".")
+  protected record(model: IRModelRecord): string {
+    const value = this.fromModel(model.value, true)
+
+    return [zod, `record(${value})`].filter(isDefined).join(".")
   }
 
   protected array(model: IRModelArray, items: string[]): string {

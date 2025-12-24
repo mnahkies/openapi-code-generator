@@ -11,7 +11,7 @@ const getHeadersUndeclared: GetHeadersUndeclared = async (
 ) => {
   return respond
     .with200()
-    .body({typedHeaders: headers, rawHeaders: ctx.headers})
+    .body({typedHeaders: headers as any, rawHeaders: ctx.headers})
 }
 
 const getHeadersRequest: GetHeadersRequest = async (

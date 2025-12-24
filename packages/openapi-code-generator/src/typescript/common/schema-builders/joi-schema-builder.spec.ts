@@ -303,7 +303,7 @@ describe.each(
 
           export const s_AdditionalPropertiesBool = joi
             .object()
-            .pattern(joi.any(), joi.any())
+            .pattern(joi.any(), joi.any().required())
             .required()
             .id("s_AdditionalPropertiesBool")"
         `)
@@ -325,7 +325,7 @@ describe.each(
 
           export const s_AdditionalPropertiesUnknownEmptySchema = joi
             .object()
-            .pattern(joi.any(), joi.any())
+            .pattern(joi.any(), joi.any().required())
             .required()
             .id("s_AdditionalPropertiesUnknownEmptySchema")"
         `)
@@ -347,7 +347,10 @@ describe.each(
 
           export const s_AdditionalPropertiesUnknownEmptyObjectSchema = joi
             .object()
-            .pattern(joi.any(), joi.object().pattern(joi.any(), joi.any()).required())
+            .pattern(
+              joi.any(),
+              joi.object().pattern(joi.any(), joi.any().required()).required(),
+            )
             .required()
             .id("s_AdditionalPropertiesUnknownEmptyObjectSchema")"
         `)
@@ -367,18 +370,18 @@ describe.each(
       expect(schemas).toMatchInlineSnapshot(`
           "import joi from "joi"
 
+          export const s_AdditionalPropertiesSchema = joi
+            .object()
+            .pattern(joi.any(), s_NamedNullableStringEnum.required())
+            .required()
+            .id("s_AdditionalPropertiesSchema")
+
           export const s_NamedNullableStringEnum = joi
             .string()
             .valid("", "one", "two", "three")
             .allow(null)
             .required()
-            .id("s_NamedNullableStringEnum")
-
-          export const s_AdditionalPropertiesSchema = joi
-            .object()
-            .pattern(joi.any(), s_NamedNullableStringEnum.required())
-            .required()
-            .id("s_AdditionalPropertiesSchema")"
+            .id("s_NamedNullableStringEnum")"
         `)
     })
 
@@ -400,7 +403,7 @@ describe.each(
             .object()
             .keys({ id: joi.string(), name: joi.string() })
             .options({ stripUnknown: true })
-            .concat(joi.object().pattern(joi.any(), joi.any()))
+            .concat(joi.object().pattern(joi.any(), joi.any().required()).required())
             .required()
             .id("s_AdditionalPropertiesMixed")"
         `)
@@ -1398,7 +1401,7 @@ describe.each(
       )
 
       expect(code).toMatchInlineSnapshot(
-        `"const x = joi.object().pattern(joi.any(), joi.any()).required()"`,
+        `"const x = joi.object().pattern(joi.any(), joi.any().required()).required()"`,
       )
 
       await expect(execute({key: 1})).resolves.toEqual({
@@ -1430,7 +1433,7 @@ describe.each(
       expect(code).toMatchInlineSnapshot(`
           "const x = joi
             .array()
-            .items(joi.object().pattern(joi.any(), joi.any()))
+            .items(joi.object().pattern(joi.any(), joi.any().required()))
             .required()"
         `)
 
@@ -1503,7 +1506,7 @@ describe.each(
       )
 
       expect(code).toMatchInlineSnapshot(
-        `"const x = joi.object().pattern(joi.any(), joi.any()).required()"`,
+        `"const x = joi.object().pattern(joi.any(), joi.any().required()).required()"`,
       )
 
       await expect(execute({key: 1})).resolves.toEqual({
@@ -1535,7 +1538,7 @@ describe.each(
       expect(code).toMatchInlineSnapshot(`
           "const x = joi
             .array()
-            .items(joi.object().pattern(joi.any(), joi.any()))
+            .items(joi.object().pattern(joi.any(), joi.any().required()))
             .required()"
         `)
 
