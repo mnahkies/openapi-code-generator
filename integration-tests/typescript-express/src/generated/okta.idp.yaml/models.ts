@@ -70,11 +70,7 @@ export type t_AppAuthenticatorEnrollmentRequest = {
     clientInstanceDeviceSdkVersion: string
     clientInstanceKey: t_KeyObject
     clientInstanceVersion: string
-    deviceAttestation?:
-      | {
-          [key: string]: unknown | undefined
-        }
-      | undefined
+    deviceAttestation?: Record<string, unknown> | undefined
     displayName: string
     manufacturer?: string | undefined
     model?: string | undefined
@@ -135,11 +131,7 @@ export type t_AuthenticatorEnrollment = {
   readonly lastChallenged?: string | undefined
   name?: string | undefined
   nickname?: string | undefined
-  readonly profile?:
-    | {
-        [key: string]: unknown | undefined
-      }
-    | undefined
+  readonly profile?: Record<string, unknown> | undefined
 }
 
 export type t_AuthenticatorKey =
@@ -363,11 +355,7 @@ export type t_Profile = {
     | undefined
   readonly createdAt?: string | undefined
   readonly modifiedAt?: string | undefined
-  profile?:
-    | {
-        [key: string]: unknown | undefined
-      }
-    | undefined
+  profile?: Record<string, unknown> | undefined
 }
 
 export type t_PushNotificationChallenge = {
@@ -395,11 +383,7 @@ export type t_Schema = {
           | undefined
       }
     | undefined
-  readonly properties?:
-    | {
-        [key: string]: unknown | undefined
-      }
-    | undefined
+  readonly properties?: Record<string, unknown> | undefined
 }
 
 export type t_UpdateAppAuthenticatorEnrollmentRequest = {
@@ -505,11 +489,7 @@ export type t_ReplacePasswordRequestBody = {
 }
 
 export type t_ReplaceProfileRequestBody = {
-  profile?:
-    | {
-        [key: string]: unknown | undefined
-      }
-    | undefined
+  profile?: Record<string, unknown> | undefined
 }
 
 export type t_SendEmailChallengeParamSchema = {

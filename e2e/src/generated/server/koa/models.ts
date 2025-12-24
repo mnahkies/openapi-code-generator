@@ -30,8 +30,8 @@ export type t_RandomNumber = {
 }
 
 export type t_GetHeadersRequest200Response = {
-  rawHeaders?: unknown | undefined
-  typedHeaders?: unknown | undefined
+  rawHeaders?: Record<string, unknown> | undefined
+  typedHeaders?: Record<string, unknown> | undefined
 }
 
 export type t_GetHeadersRequestRequestHeaderSchema = {
@@ -43,8 +43,8 @@ export type t_GetHeadersRequestRequestHeaderSchema = {
 }
 
 export type t_GetHeadersUndeclared200Response = {
-  rawHeaders?: unknown | undefined
-  typedHeaders?: unknown | undefined
+  rawHeaders?: Record<string, unknown> | undefined
+  typedHeaders?: Record<string, unknown> | undefined
 }
 
 export type t_GetParamsDefaultObjectQuery200Response = {

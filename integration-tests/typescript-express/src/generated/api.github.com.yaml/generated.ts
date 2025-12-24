@@ -22,7 +22,6 @@ import {
 import {type NextFunction, type Request, type Response, Router} from "express"
 import {z} from "zod/v4"
 import type {
-  EmptyObject,
   t_ActionsAddCustomLabelsToSelfHostedRunnerForOrgParamSchema,
   t_ActionsAddCustomLabelsToSelfHostedRunnerForOrgRequestBody,
   t_ActionsAddCustomLabelsToSelfHostedRunnerForRepoParamSchema,
@@ -2524,9 +2523,7 @@ export type AppsGetWebhookDelivery = (
 ) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type AppsRedeliverWebhookDeliveryResponder = {
-  with202(): ExpressRuntimeResponse<{
-    [key: string]: unknown | undefined
-  }>
+  with202(): ExpressRuntimeResponse<Record<string, unknown>>
   with400(): ExpressRuntimeResponse<t_scim_error>
   with422(): ExpressRuntimeResponse<t_validation_error>
 } & ExpressRuntimeResponder
@@ -2864,9 +2861,7 @@ export type CodesOfConductGetConductCode = (
 ) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type CredentialsRevokeResponder = {
-  with202(): ExpressRuntimeResponse<{
-    [key: string]: unknown | undefined
-  }>
+  with202(): ExpressRuntimeResponse<Record<string, unknown>>
   with422(): ExpressRuntimeResponse<t_validation_error_simple>
   with500(): ExpressRuntimeResponse<t_basic_error>
 } & ExpressRuntimeResponder
@@ -2880,9 +2875,7 @@ export type CredentialsRevoke = (
 ) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type EmojisGetResponder = {
-  with200(): ExpressRuntimeResponse<{
-    [key: string]: string | undefined
-  }>
+  with200(): ExpressRuntimeResponse<Record<string, string>>
   with304(): ExpressRuntimeResponse<void>
 } & ExpressRuntimeResponder
 
@@ -3013,9 +3006,7 @@ export type CodeSecurityDeleteConfigurationForEnterprise = (
 ) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type CodeSecurityAttachEnterpriseConfigurationResponder = {
-  with202(): ExpressRuntimeResponse<{
-    [key: string]: unknown | undefined
-  }>
+  with202(): ExpressRuntimeResponse<Record<string, unknown>>
   with403(): ExpressRuntimeResponse<t_basic_error>
   with404(): ExpressRuntimeResponse<t_basic_error>
   with409(): ExpressRuntimeResponse<t_basic_error>
@@ -3431,7 +3422,7 @@ export type GistsCheckIsStarredResponder = {
   with204(): ExpressRuntimeResponse<void>
   with304(): ExpressRuntimeResponse<void>
   with403(): ExpressRuntimeResponse<t_basic_error>
-  with404(): ExpressRuntimeResponse<EmptyObject>
+  with404(): ExpressRuntimeResponse<Record<string, never>>
 } & ExpressRuntimeResponder
 
 export type GistsCheckIsStarred = (
@@ -4042,9 +4033,7 @@ export type OrgsUpdate = (
 ) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type OrgsDeleteResponder = {
-  with202(): ExpressRuntimeResponse<{
-    [key: string]: unknown | undefined
-  }>
+  with202(): ExpressRuntimeResponse<Record<string, unknown>>
   with403(): ExpressRuntimeResponse<t_basic_error>
   with404(): ExpressRuntimeResponse<t_basic_error>
 } & ExpressRuntimeResponder
@@ -5274,32 +5263,21 @@ export type ActionsRemoveSelectedRepoFromOrgVariable = (
 export type OrgsListAttestationsBulkResponder = {
   with200(): ExpressRuntimeResponse<{
     attestations_subject_digests?:
-      | {
-          [key: string]:
-            | (
+      | Record<
+          string,
+          | {
+              bundle?:
                 | {
-                    bundle?:
-                      | {
-                          dsseEnvelope?:
-                            | {
-                                [key: string]: unknown | undefined
-                              }
-                            | undefined
-                          mediaType?: string | undefined
-                          verificationMaterial?:
-                            | {
-                                [key: string]: unknown | undefined
-                              }
-                            | undefined
-                        }
-                      | undefined
-                    bundle_url?: string | undefined
-                    repository_id?: number | undefined
-                  }[]
-                | null
-              )
-            | undefined
-        }
+                    dsseEnvelope?: Record<string, unknown> | undefined
+                    mediaType?: string | undefined
+                    verificationMaterial?: Record<string, unknown> | undefined
+                  }
+                | undefined
+              bundle_url?: string | undefined
+              repository_id?: number | undefined
+            }[]
+          | null
+        >
       | undefined
     page_info?:
       | {
@@ -5383,17 +5361,9 @@ export type OrgsListAttestationsResponder = {
       | {
           bundle?:
             | {
-                dsseEnvelope?:
-                  | {
-                      [key: string]: unknown | undefined
-                    }
-                  | undefined
+                dsseEnvelope?: Record<string, unknown> | undefined
                 mediaType?: string | undefined
-                verificationMaterial?:
-                  | {
-                      [key: string]: unknown | undefined
-                    }
-                  | undefined
+                verificationMaterial?: Record<string, unknown> | undefined
               }
             | undefined
           bundle_url?: string | undefined
@@ -5737,9 +5707,7 @@ export type CodeSecurityDeleteConfiguration = (
 ) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type CodeSecurityAttachConfigurationResponder = {
-  with202(): ExpressRuntimeResponse<{
-    [key: string]: unknown | undefined
-  }>
+  with202(): ExpressRuntimeResponse<Record<string, unknown>>
 } & ExpressRuntimeResponder
 
 export type CodeSecurityAttachConfiguration = (
@@ -6580,9 +6548,7 @@ export type OrgsGetWebhookDelivery = (
 ) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type OrgsRedeliverWebhookDeliveryResponder = {
-  with202(): ExpressRuntimeResponse<{
-    [key: string]: unknown | undefined
-  }>
+  with202(): ExpressRuntimeResponse<Record<string, unknown>>
   with400(): ExpressRuntimeResponse<t_scim_error>
   with422(): ExpressRuntimeResponse<t_validation_error>
 } & ExpressRuntimeResponder
@@ -6794,7 +6760,9 @@ export type OrgsListAppInstallations = (
 ) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type InteractionsGetRestrictionsForOrgResponder = {
-  with200(): ExpressRuntimeResponse<t_interaction_limit_response | EmptyObject>
+  with200(): ExpressRuntimeResponse<
+    t_interaction_limit_response | Record<string, never>
+  >
 } & ExpressRuntimeResponder
 
 export type InteractionsGetRestrictionsForOrg = (
@@ -7068,9 +7036,7 @@ export type CodespacesGetCodespacesForUserInOrg = (
 ) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type CodespacesDeleteFromOrganizationResponder = {
-  with202(): ExpressRuntimeResponse<{
-    [key: string]: unknown | undefined
-  }>
+  with202(): ExpressRuntimeResponse<Record<string, unknown>>
   with304(): ExpressRuntimeResponse<void>
   with401(): ExpressRuntimeResponse<t_basic_error>
   with403(): ExpressRuntimeResponse<t_basic_error>
@@ -7456,7 +7422,7 @@ export type OrgsListOutsideCollaborators = (
 ) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type OrgsConvertMemberToOutsideCollaboratorResponder = {
-  with202(): ExpressRuntimeResponse<EmptyObject>
+  with202(): ExpressRuntimeResponse<Record<string, never>>
   with204(): ExpressRuntimeResponse<void>
   with403(): ExpressRuntimeResponse<void>
   with404(): ExpressRuntimeResponse<t_basic_error>
@@ -7664,9 +7630,7 @@ export type OrgsListPatGrantRequests = (
 ) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type OrgsReviewPatGrantRequestsInBulkResponder = {
-  with202(): ExpressRuntimeResponse<{
-    [key: string]: unknown | undefined
-  }>
+  with202(): ExpressRuntimeResponse<Record<string, unknown>>
   with403(): ExpressRuntimeResponse<t_basic_error>
   with404(): ExpressRuntimeResponse<t_basic_error>
   with422(): ExpressRuntimeResponse<t_validation_error>
@@ -7749,9 +7713,7 @@ export type OrgsListPatGrants = (
 ) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type OrgsUpdatePatAccessesResponder = {
-  with202(): ExpressRuntimeResponse<{
-    [key: string]: unknown | undefined
-  }>
+  with202(): ExpressRuntimeResponse<Record<string, unknown>>
   with403(): ExpressRuntimeResponse<t_basic_error>
   with404(): ExpressRuntimeResponse<t_basic_error>
   with422(): ExpressRuntimeResponse<t_validation_error>
@@ -9249,7 +9211,7 @@ export type ProjectsClassicDeleteCard = (
 ) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type ProjectsClassicMoveCardResponder = {
-  with201(): ExpressRuntimeResponse<EmptyObject>
+  with201(): ExpressRuntimeResponse<Record<string, never>>
   with304(): ExpressRuntimeResponse<void>
   with401(): ExpressRuntimeResponse<t_basic_error>
   with403(): ExpressRuntimeResponse<{
@@ -9397,7 +9359,7 @@ export type ProjectsClassicCreateCard = (
 ) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type ProjectsClassicMoveColumnResponder = {
-  with201(): ExpressRuntimeResponse<EmptyObject>
+  with201(): ExpressRuntimeResponse<Record<string, never>>
   with304(): ExpressRuntimeResponse<void>
   with401(): ExpressRuntimeResponse<t_basic_error>
   with403(): ExpressRuntimeResponse<t_basic_error>
@@ -10947,17 +10909,9 @@ export type ReposListAttestationsResponder = {
       | {
           bundle?:
             | {
-                dsseEnvelope?:
-                  | {
-                      [key: string]: unknown | undefined
-                    }
-                  | undefined
+                dsseEnvelope?: Record<string, unknown> | undefined
                 mediaType?: string | undefined
-                verificationMaterial?:
-                  | {
-                      [key: string]: unknown | undefined
-                    }
-                  | undefined
+                verificationMaterial?: Record<string, unknown> | undefined
               }
             | undefined
           bundle_url?: string | undefined
@@ -12040,9 +11994,7 @@ export type CodeScanningListRecentAnalyses = (
 ) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type CodeScanningGetAnalysisResponder = {
-  with200(): ExpressRuntimeResponse<{
-    [key: string]: unknown | undefined
-  }>
+  with200(): ExpressRuntimeResponse<Record<string, unknown>>
   with403(): ExpressRuntimeResponse<t_basic_error>
   with404(): ExpressRuntimeResponse<t_basic_error>
   with422(): ExpressRuntimeResponse<t_basic_error>
@@ -14251,9 +14203,7 @@ export type ReposGetWebhookDelivery = (
 ) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type ReposRedeliverWebhookDeliveryResponder = {
-  with202(): ExpressRuntimeResponse<{
-    [key: string]: unknown | undefined
-  }>
+  with202(): ExpressRuntimeResponse<Record<string, unknown>>
   with400(): ExpressRuntimeResponse<t_scim_error>
   with422(): ExpressRuntimeResponse<t_validation_error>
 } & ExpressRuntimeResponder
@@ -14443,7 +14393,9 @@ export type AppsGetRepoInstallation = (
 ) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type InteractionsGetRestrictionsForRepoResponder = {
-  with200(): ExpressRuntimeResponse<t_interaction_limit_response | EmptyObject>
+  with200(): ExpressRuntimeResponse<
+    t_interaction_limit_response | Record<string, never>
+  >
 } & ExpressRuntimeResponder
 
 export type InteractionsGetRestrictionsForRepo = (
@@ -17078,9 +17030,7 @@ export type SecurityAdvisoriesUpdateRepositoryAdvisory = (
 ) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type SecurityAdvisoriesCreateRepositoryAdvisoryCveRequestResponder = {
-  with202(): ExpressRuntimeResponse<{
-    [key: string]: unknown | undefined
-  }>
+  with202(): ExpressRuntimeResponse<Record<string, unknown>>
   with400(): ExpressRuntimeResponse<t_scim_error>
   with403(): ExpressRuntimeResponse<t_basic_error>
   with404(): ExpressRuntimeResponse<t_basic_error>
@@ -17136,9 +17086,7 @@ export type ActivityListStargazersForRepo = (
 
 export type ReposGetCodeFrequencyStatsResponder = {
   with200(): ExpressRuntimeResponse<t_code_frequency_stat[]>
-  with202(): ExpressRuntimeResponse<{
-    [key: string]: unknown | undefined
-  }>
+  with202(): ExpressRuntimeResponse<Record<string, unknown>>
   with204(): ExpressRuntimeResponse<void>
   with422(): ExpressRuntimeResponse<void>
 } & ExpressRuntimeResponder
@@ -17153,9 +17101,7 @@ export type ReposGetCodeFrequencyStats = (
 
 export type ReposGetCommitActivityStatsResponder = {
   with200(): ExpressRuntimeResponse<t_commit_activity[]>
-  with202(): ExpressRuntimeResponse<{
-    [key: string]: unknown | undefined
-  }>
+  with202(): ExpressRuntimeResponse<Record<string, unknown>>
   with204(): ExpressRuntimeResponse<void>
 } & ExpressRuntimeResponder
 
@@ -17169,9 +17115,7 @@ export type ReposGetCommitActivityStats = (
 
 export type ReposGetContributorsStatsResponder = {
   with200(): ExpressRuntimeResponse<t_contributor_activity[]>
-  with202(): ExpressRuntimeResponse<{
-    [key: string]: unknown | undefined
-  }>
+  with202(): ExpressRuntimeResponse<Record<string, unknown>>
   with204(): ExpressRuntimeResponse<void>
 } & ExpressRuntimeResponder
 
@@ -18672,9 +18616,7 @@ export type CodespacesUpdateForAuthenticatedUser = (
 ) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type CodespacesDeleteForAuthenticatedUserResponder = {
-  with202(): ExpressRuntimeResponse<{
-    [key: string]: unknown | undefined
-  }>
+  with202(): ExpressRuntimeResponse<Record<string, unknown>>
   with304(): ExpressRuntimeResponse<void>
   with401(): ExpressRuntimeResponse<t_basic_error>
   with403(): ExpressRuntimeResponse<t_basic_error>
@@ -19197,7 +19139,9 @@ export type AppsRemoveRepoFromInstallationForAuthenticatedUser = (
 ) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type InteractionsGetRestrictionsForAuthenticatedUserResponder = {
-  with200(): ExpressRuntimeResponse<t_interaction_limit_response | EmptyObject>
+  with200(): ExpressRuntimeResponse<
+    t_interaction_limit_response | Record<string, never>
+  >
   with204(): ExpressRuntimeResponse<void>
 } & ExpressRuntimeResponder
 
@@ -20196,32 +20140,21 @@ export type UsersGetByUsername = (
 export type UsersListAttestationsBulkResponder = {
   with200(): ExpressRuntimeResponse<{
     attestations_subject_digests?:
-      | {
-          [key: string]:
-            | (
+      | Record<
+          string,
+          | {
+              bundle?:
                 | {
-                    bundle?:
-                      | {
-                          dsseEnvelope?:
-                            | {
-                                [key: string]: unknown | undefined
-                              }
-                            | undefined
-                          mediaType?: string | undefined
-                          verificationMaterial?:
-                            | {
-                                [key: string]: unknown | undefined
-                              }
-                            | undefined
-                        }
-                      | undefined
-                    bundle_url?: string | undefined
-                    repository_id?: number | undefined
-                  }[]
-                | null
-              )
-            | undefined
-        }
+                    dsseEnvelope?: Record<string, unknown> | undefined
+                    mediaType?: string | undefined
+                    verificationMaterial?: Record<string, unknown> | undefined
+                  }
+                | undefined
+              bundle_url?: string | undefined
+              repository_id?: number | undefined
+            }[]
+          | null
+        >
       | undefined
     page_info?:
       | {
@@ -20305,17 +20238,9 @@ export type UsersListAttestationsResponder = {
       | {
           bundle?:
             | {
-                dsseEnvelope?:
-                  | {
-                      [key: string]: unknown | undefined
-                    }
-                  | undefined
+                dsseEnvelope?: Record<string, unknown> | undefined
                 mediaType?: string | undefined
-                verificationMaterial?:
-                  | {
-                      [key: string]: unknown | undefined
-                    }
-                  | undefined
+                verificationMaterial?: Record<string, unknown> | undefined
               }
             | undefined
           bundle_url?: string | undefined
@@ -22505,9 +22430,7 @@ export function createRouter(implementation: Implementation): Router {
 
         const responder = {
           with202() {
-            return new ExpressRuntimeResponse<{
-              [key: string]: unknown | undefined
-            }>(202)
+            return new ExpressRuntimeResponse<Record<string, unknown>>(202)
           },
           with400() {
             return new ExpressRuntimeResponse<t_scim_error>(400)
@@ -23737,9 +23660,7 @@ export function createRouter(implementation: Implementation): Router {
 
         const responder = {
           with202() {
-            return new ExpressRuntimeResponse<{
-              [key: string]: unknown | undefined
-            }>(202)
+            return new ExpressRuntimeResponse<Record<string, unknown>>(202)
           },
           with422() {
             return new ExpressRuntimeResponse<t_validation_error_simple>(422)
@@ -23784,9 +23705,7 @@ export function createRouter(implementation: Implementation): Router {
 
         const responder = {
           with200() {
-            return new ExpressRuntimeResponse<{
-              [key: string]: string | undefined
-            }>(200)
+            return new ExpressRuntimeResponse<Record<string, string>>(200)
           },
           with304() {
             return new ExpressRuntimeResponse<void>(304)
@@ -24285,9 +24204,7 @@ export function createRouter(implementation: Implementation): Router {
 
         const responder = {
           with202() {
-            return new ExpressRuntimeResponse<{
-              [key: string]: unknown | undefined
-            }>(202)
+            return new ExpressRuntimeResponse<Record<string, unknown>>(202)
           },
           with403() {
             return new ExpressRuntimeResponse<t_basic_error>(403)
@@ -25729,7 +25646,7 @@ export function createRouter(implementation: Implementation): Router {
       ["204", z.undefined()],
       ["304", z.undefined()],
       ["403", s_basic_error],
-      ["404", z.object({})],
+      ["404", z.record(z.string(), z.never())],
     ],
     undefined,
   )
@@ -25761,7 +25678,7 @@ export function createRouter(implementation: Implementation): Router {
             return new ExpressRuntimeResponse<t_basic_error>(403)
           },
           with404() {
-            return new ExpressRuntimeResponse<EmptyObject>(404)
+            return new ExpressRuntimeResponse<Record<string, never>>(404)
           },
           withStatus(status: StatusCode) {
             return new ExpressRuntimeResponse(status)
@@ -27980,9 +27897,7 @@ export function createRouter(implementation: Implementation): Router {
 
         const responder = {
           with202() {
-            return new ExpressRuntimeResponse<{
-              [key: string]: unknown | undefined
-            }>(202)
+            return new ExpressRuntimeResponse<Record<string, unknown>>(202)
           },
           with403() {
             return new ExpressRuntimeResponse<t_basic_error>(403)
@@ -32177,32 +32092,23 @@ export function createRouter(implementation: Implementation): Router {
           with200() {
             return new ExpressRuntimeResponse<{
               attestations_subject_digests?:
-                | {
-                    [key: string]:
-                      | (
+                | Record<
+                    string,
+                    | {
+                        bundle?:
                           | {
-                              bundle?:
-                                | {
-                                    dsseEnvelope?:
-                                      | {
-                                          [key: string]: unknown | undefined
-                                        }
-                                      | undefined
-                                    mediaType?: string | undefined
-                                    verificationMaterial?:
-                                      | {
-                                          [key: string]: unknown | undefined
-                                        }
-                                      | undefined
-                                  }
+                              dsseEnvelope?: Record<string, unknown> | undefined
+                              mediaType?: string | undefined
+                              verificationMaterial?:
+                                | Record<string, unknown>
                                 | undefined
-                              bundle_url?: string | undefined
-                              repository_id?: number | undefined
-                            }[]
-                          | null
-                        )
-                      | undefined
-                  }
+                            }
+                          | undefined
+                        bundle_url?: string | undefined
+                        repository_id?: number | undefined
+                      }[]
+                    | null
+                  >
                 | undefined
               page_info?:
                 | {
@@ -32488,16 +32394,10 @@ export function createRouter(implementation: Implementation): Router {
                 | {
                     bundle?:
                       | {
-                          dsseEnvelope?:
-                            | {
-                                [key: string]: unknown | undefined
-                              }
-                            | undefined
+                          dsseEnvelope?: Record<string, unknown> | undefined
                           mediaType?: string | undefined
                           verificationMaterial?:
-                            | {
-                                [key: string]: unknown | undefined
-                              }
+                            | Record<string, unknown>
                             | undefined
                         }
                       | undefined
@@ -33698,9 +33598,7 @@ export function createRouter(implementation: Implementation): Router {
 
         const responder = {
           with202() {
-            return new ExpressRuntimeResponse<{
-              [key: string]: unknown | undefined
-            }>(202)
+            return new ExpressRuntimeResponse<Record<string, unknown>>(202)
           },
           withStatus(status: StatusCode) {
             return new ExpressRuntimeResponse(status)
@@ -36680,9 +36578,7 @@ export function createRouter(implementation: Implementation): Router {
 
         const responder = {
           with202() {
-            return new ExpressRuntimeResponse<{
-              [key: string]: unknown | undefined
-            }>(202)
+            return new ExpressRuntimeResponse<Record<string, unknown>>(202)
           },
           with400() {
             return new ExpressRuntimeResponse<t_scim_error>(400)
@@ -37471,7 +37367,15 @@ export function createRouter(implementation: Implementation): Router {
 
   const interactionsGetRestrictionsForOrgResponseBodyValidator =
     responseValidationFactory(
-      [["200", z.union([s_interaction_limit_response, z.object({})])]],
+      [
+        [
+          "200",
+          z.union([
+            s_interaction_limit_response,
+            z.record(z.string(), z.never()),
+          ]),
+        ],
+      ],
       undefined,
     )
 
@@ -37494,7 +37398,7 @@ export function createRouter(implementation: Implementation): Router {
         const responder = {
           with200() {
             return new ExpressRuntimeResponse<
-              t_interaction_limit_response | EmptyObject
+              t_interaction_limit_response | Record<string, never>
             >(200)
           },
           withStatus(status: StatusCode) {
@@ -38471,9 +38375,7 @@ export function createRouter(implementation: Implementation): Router {
 
         const responder = {
           with202() {
-            return new ExpressRuntimeResponse<{
-              [key: string]: unknown | undefined
-            }>(202)
+            return new ExpressRuntimeResponse<Record<string, unknown>>(202)
           },
           with304() {
             return new ExpressRuntimeResponse<void>(304)
@@ -39863,7 +39765,7 @@ export function createRouter(implementation: Implementation): Router {
   const orgsConvertMemberToOutsideCollaboratorResponseBodyValidator =
     responseValidationFactory(
       [
-        ["202", z.object({})],
+        ["202", z.record(z.string(), z.never())],
         ["204", z.undefined()],
         ["403", z.undefined()],
         ["404", s_basic_error],
@@ -39893,7 +39795,7 @@ export function createRouter(implementation: Implementation): Router {
 
         const responder = {
           with202() {
-            return new ExpressRuntimeResponse<EmptyObject>(202)
+            return new ExpressRuntimeResponse<Record<string, never>>(202)
           },
           with204() {
             return new ExpressRuntimeResponse<void>(204)
@@ -40722,9 +40624,7 @@ export function createRouter(implementation: Implementation): Router {
 
         const responder = {
           with202() {
-            return new ExpressRuntimeResponse<{
-              [key: string]: unknown | undefined
-            }>(202)
+            return new ExpressRuntimeResponse<Record<string, unknown>>(202)
           },
           with403() {
             return new ExpressRuntimeResponse<t_basic_error>(403)
@@ -41026,9 +40926,7 @@ export function createRouter(implementation: Implementation): Router {
 
         const responder = {
           with202() {
-            return new ExpressRuntimeResponse<{
-              [key: string]: unknown | undefined
-            }>(202)
+            return new ExpressRuntimeResponse<Record<string, unknown>>(202)
           },
           with403() {
             return new ExpressRuntimeResponse<t_basic_error>(403)
@@ -46289,7 +46187,7 @@ export function createRouter(implementation: Implementation): Router {
   const projectsClassicMoveCardResponseBodyValidator =
     responseValidationFactory(
       [
-        ["201", z.object({})],
+        ["201", z.record(z.string(), z.never())],
         ["304", z.undefined()],
         ["401", s_basic_error],
         [
@@ -46352,7 +46250,7 @@ export function createRouter(implementation: Implementation): Router {
 
         const responder = {
           with201() {
-            return new ExpressRuntimeResponse<EmptyObject>(201)
+            return new ExpressRuntimeResponse<Record<string, never>>(201)
           },
           with304() {
             return new ExpressRuntimeResponse<void>(304)
@@ -46785,7 +46683,7 @@ export function createRouter(implementation: Implementation): Router {
   const projectsClassicMoveColumnResponseBodyValidator =
     responseValidationFactory(
       [
-        ["201", z.object({})],
+        ["201", z.record(z.string(), z.never())],
         ["304", z.undefined()],
         ["401", s_basic_error],
         ["403", s_basic_error],
@@ -46816,7 +46714,7 @@ export function createRouter(implementation: Implementation): Router {
 
         const responder = {
           with201() {
-            return new ExpressRuntimeResponse<EmptyObject>(201)
+            return new ExpressRuntimeResponse<Record<string, never>>(201)
           },
           with304() {
             return new ExpressRuntimeResponse<void>(304)
@@ -52340,16 +52238,10 @@ export function createRouter(implementation: Implementation): Router {
                 | {
                     bundle?:
                       | {
-                          dsseEnvelope?:
-                            | {
-                                [key: string]: unknown | undefined
-                              }
-                            | undefined
+                          dsseEnvelope?: Record<string, unknown> | undefined
                           mediaType?: string | undefined
                           verificationMaterial?:
-                            | {
-                                [key: string]: unknown | undefined
-                              }
+                            | Record<string, unknown>
                             | undefined
                         }
                       | undefined
@@ -56193,9 +56085,7 @@ export function createRouter(implementation: Implementation): Router {
 
         const responder = {
           with200() {
-            return new ExpressRuntimeResponse<{
-              [key: string]: unknown | undefined
-            }>(200)
+            return new ExpressRuntimeResponse<Record<string, unknown>>(200)
           },
           with403() {
             return new ExpressRuntimeResponse<t_basic_error>(403)
@@ -64104,9 +63994,7 @@ export function createRouter(implementation: Implementation): Router {
 
         const responder = {
           with202() {
-            return new ExpressRuntimeResponse<{
-              [key: string]: unknown | undefined
-            }>(202)
+            return new ExpressRuntimeResponse<Record<string, unknown>>(202)
           },
           with400() {
             return new ExpressRuntimeResponse<t_scim_error>(400)
@@ -64789,7 +64677,15 @@ export function createRouter(implementation: Implementation): Router {
 
   const interactionsGetRestrictionsForRepoResponseBodyValidator =
     responseValidationFactory(
-      [["200", z.union([s_interaction_limit_response, z.object({})])]],
+      [
+        [
+          "200",
+          z.union([
+            s_interaction_limit_response,
+            z.record(z.string(), z.never()),
+          ]),
+        ],
+      ],
       undefined,
     )
 
@@ -64812,7 +64708,7 @@ export function createRouter(implementation: Implementation): Router {
         const responder = {
           with200() {
             return new ExpressRuntimeResponse<
-              t_interaction_limit_response | EmptyObject
+              t_interaction_limit_response | Record<string, never>
             >(200)
           },
           withStatus(status: StatusCode) {
@@ -74212,9 +74108,7 @@ export function createRouter(implementation: Implementation): Router {
 
         const responder = {
           with202() {
-            return new ExpressRuntimeResponse<{
-              [key: string]: unknown | undefined
-            }>(202)
+            return new ExpressRuntimeResponse<Record<string, unknown>>(202)
           },
           with400() {
             return new ExpressRuntimeResponse<t_scim_error>(400)
@@ -74429,9 +74323,7 @@ export function createRouter(implementation: Implementation): Router {
             return new ExpressRuntimeResponse<t_code_frequency_stat[]>(200)
           },
           with202() {
-            return new ExpressRuntimeResponse<{
-              [key: string]: unknown | undefined
-            }>(202)
+            return new ExpressRuntimeResponse<Record<string, unknown>>(202)
           },
           with204() {
             return new ExpressRuntimeResponse<void>(204)
@@ -74495,9 +74387,7 @@ export function createRouter(implementation: Implementation): Router {
             return new ExpressRuntimeResponse<t_commit_activity[]>(200)
           },
           with202() {
-            return new ExpressRuntimeResponse<{
-              [key: string]: unknown | undefined
-            }>(202)
+            return new ExpressRuntimeResponse<Record<string, unknown>>(202)
           },
           with204() {
             return new ExpressRuntimeResponse<void>(204)
@@ -74558,9 +74448,7 @@ export function createRouter(implementation: Implementation): Router {
             return new ExpressRuntimeResponse<t_contributor_activity[]>(200)
           },
           with202() {
-            return new ExpressRuntimeResponse<{
-              [key: string]: unknown | undefined
-            }>(202)
+            return new ExpressRuntimeResponse<Record<string, unknown>>(202)
           },
           with204() {
             return new ExpressRuntimeResponse<void>(204)
@@ -79878,9 +79766,7 @@ export function createRouter(implementation: Implementation): Router {
 
         const responder = {
           with202() {
-            return new ExpressRuntimeResponse<{
-              [key: string]: unknown | undefined
-            }>(202)
+            return new ExpressRuntimeResponse<Record<string, unknown>>(202)
           },
           with304() {
             return new ExpressRuntimeResponse<void>(304)
@@ -81668,7 +81554,13 @@ export function createRouter(implementation: Implementation): Router {
   const interactionsGetRestrictionsForAuthenticatedUserResponseBodyValidator =
     responseValidationFactory(
       [
-        ["200", z.union([s_interaction_limit_response, z.object({})])],
+        [
+          "200",
+          z.union([
+            s_interaction_limit_response,
+            z.record(z.string(), z.never()),
+          ]),
+        ],
         ["204", z.undefined()],
       ],
       undefined,
@@ -81689,7 +81581,7 @@ export function createRouter(implementation: Implementation): Router {
         const responder = {
           with200() {
             return new ExpressRuntimeResponse<
-              t_interaction_limit_response | EmptyObject
+              t_interaction_limit_response | Record<string, never>
             >(200)
           },
           with204() {
@@ -85442,32 +85334,23 @@ export function createRouter(implementation: Implementation): Router {
           with200() {
             return new ExpressRuntimeResponse<{
               attestations_subject_digests?:
-                | {
-                    [key: string]:
-                      | (
+                | Record<
+                    string,
+                    | {
+                        bundle?:
                           | {
-                              bundle?:
-                                | {
-                                    dsseEnvelope?:
-                                      | {
-                                          [key: string]: unknown | undefined
-                                        }
-                                      | undefined
-                                    mediaType?: string | undefined
-                                    verificationMaterial?:
-                                      | {
-                                          [key: string]: unknown | undefined
-                                        }
-                                      | undefined
-                                  }
+                              dsseEnvelope?: Record<string, unknown> | undefined
+                              mediaType?: string | undefined
+                              verificationMaterial?:
+                                | Record<string, unknown>
                                 | undefined
-                              bundle_url?: string | undefined
-                              repository_id?: number | undefined
-                            }[]
-                          | null
-                        )
-                      | undefined
-                  }
+                            }
+                          | undefined
+                        bundle_url?: string | undefined
+                        repository_id?: number | undefined
+                      }[]
+                    | null
+                  >
                 | undefined
               page_info?:
                 | {
@@ -85758,16 +85641,10 @@ export function createRouter(implementation: Implementation): Router {
                 | {
                     bundle?:
                       | {
-                          dsseEnvelope?:
-                            | {
-                                [key: string]: unknown | undefined
-                              }
-                            | undefined
+                          dsseEnvelope?: Record<string, unknown> | undefined
                           mediaType?: string | undefined
                           verificationMaterial?:
-                            | {
-                                [key: string]: unknown | undefined
-                              }
+                            | Record<string, unknown>
                             | undefined
                         }
                       | undefined

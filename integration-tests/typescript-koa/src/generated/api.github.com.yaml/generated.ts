@@ -24,7 +24,6 @@ import {
 import type {Next} from "koa"
 import {z} from "zod/v4"
 import type {
-  EmptyObject,
   t_ActionsAddCustomLabelsToSelfHostedRunnerForOrgParamSchema,
   t_ActionsAddCustomLabelsToSelfHostedRunnerForOrgRequestBody,
   t_ActionsAddCustomLabelsToSelfHostedRunnerForRepoParamSchema,
@@ -2563,9 +2562,7 @@ export type AppsGetWebhookDelivery = (
 >
 
 export type AppsRedeliverWebhookDeliveryResponder = {
-  with202(): KoaRuntimeResponse<{
-    [key: string]: unknown | undefined
-  }>
+  with202(): KoaRuntimeResponse<Record<string, unknown>>
   with400(): KoaRuntimeResponse<t_scim_error>
   with422(): KoaRuntimeResponse<t_validation_error>
 } & KoaRuntimeResponder
@@ -2577,12 +2574,7 @@ export type AppsRedeliverWebhookDelivery = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Res<
-      202,
-      {
-        [key: string]: unknown | undefined
-      }
-    >
+  | Res<202, Record<string, unknown>>
   | Res<400, t_scim_error>
   | Res<422, t_validation_error>
   | typeof SkipResponse
@@ -3001,9 +2993,7 @@ export type CodesOfConductGetConductCode = (
 >
 
 export type CredentialsRevokeResponder = {
-  with202(): KoaRuntimeResponse<{
-    [key: string]: unknown | undefined
-  }>
+  with202(): KoaRuntimeResponse<Record<string, unknown>>
   with422(): KoaRuntimeResponse<t_validation_error_simple>
   with500(): KoaRuntimeResponse<t_basic_error>
 } & KoaRuntimeResponder
@@ -3015,21 +3005,14 @@ export type CredentialsRevoke = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Res<
-      202,
-      {
-        [key: string]: unknown | undefined
-      }
-    >
+  | Res<202, Record<string, unknown>>
   | Res<422, t_validation_error_simple>
   | Res<500, t_basic_error>
   | typeof SkipResponse
 >
 
 export type EmojisGetResponder = {
-  with200(): KoaRuntimeResponse<{
-    [key: string]: string | undefined
-  }>
+  with200(): KoaRuntimeResponse<Record<string, string>>
   with304(): KoaRuntimeResponse<void>
 } & KoaRuntimeResponder
 
@@ -3040,12 +3023,7 @@ export type EmojisGet = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Res<
-      200,
-      {
-        [key: string]: string | undefined
-      }
-    >
+  | Res<200, Record<string, string>>
   | Res<304, void>
   | typeof SkipResponse
 >
@@ -3203,9 +3181,7 @@ export type CodeSecurityDeleteConfigurationForEnterprise = (
 >
 
 export type CodeSecurityAttachEnterpriseConfigurationResponder = {
-  with202(): KoaRuntimeResponse<{
-    [key: string]: unknown | undefined
-  }>
+  with202(): KoaRuntimeResponse<Record<string, unknown>>
   with403(): KoaRuntimeResponse<t_basic_error>
   with404(): KoaRuntimeResponse<t_basic_error>
   with409(): KoaRuntimeResponse<t_basic_error>
@@ -3223,12 +3199,7 @@ export type CodeSecurityAttachEnterpriseConfiguration = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Res<
-      202,
-      {
-        [key: string]: unknown | undefined
-      }
-    >
+  | Res<202, Record<string, unknown>>
   | Res<403, t_basic_error>
   | Res<404, t_basic_error>
   | Res<409, t_basic_error>
@@ -3787,7 +3758,7 @@ export type GistsCheckIsStarredResponder = {
   with204(): KoaRuntimeResponse<void>
   with304(): KoaRuntimeResponse<void>
   with403(): KoaRuntimeResponse<t_basic_error>
-  with404(): KoaRuntimeResponse<EmptyObject>
+  with404(): KoaRuntimeResponse<Record<string, never>>
 } & KoaRuntimeResponder
 
 export type GistsCheckIsStarred = (
@@ -3800,7 +3771,7 @@ export type GistsCheckIsStarred = (
   | Res<204, void>
   | Res<304, void>
   | Res<403, t_basic_error>
-  | Res<404, EmptyObject>
+  | Res<404, Record<string, never>>
   | typeof SkipResponse
 >
 
@@ -4594,9 +4565,7 @@ export type OrgsUpdate = (
 >
 
 export type OrgsDeleteResponder = {
-  with202(): KoaRuntimeResponse<{
-    [key: string]: unknown | undefined
-  }>
+  with202(): KoaRuntimeResponse<Record<string, unknown>>
   with403(): KoaRuntimeResponse<t_basic_error>
   with404(): KoaRuntimeResponse<t_basic_error>
 } & KoaRuntimeResponder
@@ -4608,12 +4577,7 @@ export type OrgsDelete = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Res<
-      202,
-      {
-        [key: string]: unknown | undefined
-      }
-    >
+  | Res<202, Record<string, unknown>>
   | Res<403, t_basic_error>
   | Res<404, t_basic_error>
   | typeof SkipResponse
@@ -6120,26 +6084,19 @@ export type ActionsRemoveSelectedRepoFromOrgVariable = (
 
 export type OrgsListAttestationsBulkResponder = {
   with200(): KoaRuntimeResponse<{
-    attestations_subject_digests?: {
-      [key: string]:
-        | (
-            | {
-                bundle?: {
-                  dsseEnvelope?: {
-                    [key: string]: unknown | undefined
-                  }
-                  mediaType?: string
-                  verificationMaterial?: {
-                    [key: string]: unknown | undefined
-                  }
-                }
-                bundle_url?: string
-                repository_id?: number
-              }[]
-            | null
-          )
-        | undefined
-    }
+    attestations_subject_digests?: Record<
+      string,
+      | {
+          bundle?: {
+            dsseEnvelope?: Record<string, unknown>
+            mediaType?: string
+            verificationMaterial?: Record<string, unknown>
+          }
+          bundle_url?: string
+          repository_id?: number
+        }[]
+      | null
+    >
     page_info?: {
       has_next?: boolean
       has_previous?: boolean
@@ -6164,26 +6121,19 @@ export type OrgsListAttestationsBulk = (
   | Res<
       200,
       {
-        attestations_subject_digests?: {
-          [key: string]:
-            | (
-                | {
-                    bundle?: {
-                      dsseEnvelope?: {
-                        [key: string]: unknown | undefined
-                      }
-                      mediaType?: string
-                      verificationMaterial?: {
-                        [key: string]: unknown | undefined
-                      }
-                    }
-                    bundle_url?: string
-                    repository_id?: number
-                  }[]
-                | null
-              )
-            | undefined
-        }
+        attestations_subject_digests?: Record<
+          string,
+          | {
+              bundle?: {
+                dsseEnvelope?: Record<string, unknown>
+                mediaType?: string
+                verificationMaterial?: Record<string, unknown>
+              }
+              bundle_url?: string
+              repository_id?: number
+            }[]
+          | null
+        >
         page_info?: {
           has_next?: boolean
           has_previous?: boolean
@@ -6266,13 +6216,9 @@ export type OrgsListAttestationsResponder = {
   with200(): KoaRuntimeResponse<{
     attestations?: {
       bundle?: {
-        dsseEnvelope?: {
-          [key: string]: unknown | undefined
-        }
+        dsseEnvelope?: Record<string, unknown>
         mediaType?: string
-        verificationMaterial?: {
-          [key: string]: unknown | undefined
-        }
+        verificationMaterial?: Record<string, unknown>
       }
       bundle_url?: string
       repository_id?: number
@@ -6297,13 +6243,9 @@ export type OrgsListAttestations = (
       {
         attestations?: {
           bundle?: {
-            dsseEnvelope?: {
-              [key: string]: unknown | undefined
-            }
+            dsseEnvelope?: Record<string, unknown>
             mediaType?: string
-            verificationMaterial?: {
-              [key: string]: unknown | undefined
-            }
+            verificationMaterial?: Record<string, unknown>
           }
           bundle_url?: string
           repository_id?: number
@@ -6758,9 +6700,7 @@ export type CodeSecurityDeleteConfiguration = (
 >
 
 export type CodeSecurityAttachConfigurationResponder = {
-  with202(): KoaRuntimeResponse<{
-    [key: string]: unknown | undefined
-  }>
+  with202(): KoaRuntimeResponse<Record<string, unknown>>
 } & KoaRuntimeResponder
 
 export type CodeSecurityAttachConfiguration = (
@@ -6775,12 +6715,7 @@ export type CodeSecurityAttachConfiguration = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Res<
-      202,
-      {
-        [key: string]: unknown | undefined
-      }
-    >
+  | Res<202, Record<string, unknown>>
   | typeof SkipResponse
 >
 
@@ -7881,9 +7816,7 @@ export type OrgsGetWebhookDelivery = (
 >
 
 export type OrgsRedeliverWebhookDeliveryResponder = {
-  with202(): KoaRuntimeResponse<{
-    [key: string]: unknown | undefined
-  }>
+  with202(): KoaRuntimeResponse<Record<string, unknown>>
   with400(): KoaRuntimeResponse<t_scim_error>
   with422(): KoaRuntimeResponse<t_validation_error>
 } & KoaRuntimeResponder
@@ -7895,12 +7828,7 @@ export type OrgsRedeliverWebhookDelivery = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Res<
-      202,
-      {
-        [key: string]: unknown | undefined
-      }
-    >
+  | Res<202, Record<string, unknown>>
   | Res<400, t_scim_error>
   | Res<422, t_validation_error>
   | typeof SkipResponse
@@ -8146,7 +8074,9 @@ export type OrgsListAppInstallations = (
 >
 
 export type InteractionsGetRestrictionsForOrgResponder = {
-  with200(): KoaRuntimeResponse<t_interaction_limit_response | EmptyObject>
+  with200(): KoaRuntimeResponse<
+    t_interaction_limit_response | Record<string, never>
+  >
 } & KoaRuntimeResponder
 
 export type InteractionsGetRestrictionsForOrg = (
@@ -8161,7 +8091,7 @@ export type InteractionsGetRestrictionsForOrg = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Res<200, t_interaction_limit_response | EmptyObject>
+  | Res<200, t_interaction_limit_response | Record<string, never>>
   | typeof SkipResponse
 >
 
@@ -8494,9 +8424,7 @@ export type CodespacesGetCodespacesForUserInOrg = (
 >
 
 export type CodespacesDeleteFromOrganizationResponder = {
-  with202(): KoaRuntimeResponse<{
-    [key: string]: unknown | undefined
-  }>
+  with202(): KoaRuntimeResponse<Record<string, unknown>>
   with304(): KoaRuntimeResponse<void>
   with401(): KoaRuntimeResponse<t_basic_error>
   with403(): KoaRuntimeResponse<t_basic_error>
@@ -8516,12 +8444,7 @@ export type CodespacesDeleteFromOrganization = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Res<
-      202,
-      {
-        [key: string]: unknown | undefined
-      }
-    >
+  | Res<202, Record<string, unknown>>
   | Res<304, void>
   | Res<401, t_basic_error>
   | Res<403, t_basic_error>
@@ -8985,7 +8908,7 @@ export type OrgsListOutsideCollaborators = (
 >
 
 export type OrgsConvertMemberToOutsideCollaboratorResponder = {
-  with202(): KoaRuntimeResponse<EmptyObject>
+  with202(): KoaRuntimeResponse<Record<string, never>>
   with204(): KoaRuntimeResponse<void>
   with403(): KoaRuntimeResponse<void>
   with404(): KoaRuntimeResponse<t_basic_error>
@@ -9003,7 +8926,7 @@ export type OrgsConvertMemberToOutsideCollaborator = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Res<202, EmptyObject>
+  | Res<202, Record<string, never>>
   | Res<204, void>
   | Res<403, void>
   | Res<404, t_basic_error>
@@ -9256,9 +9179,7 @@ export type OrgsListPatGrantRequests = (
 >
 
 export type OrgsReviewPatGrantRequestsInBulkResponder = {
-  with202(): KoaRuntimeResponse<{
-    [key: string]: unknown | undefined
-  }>
+  with202(): KoaRuntimeResponse<Record<string, unknown>>
   with403(): KoaRuntimeResponse<t_basic_error>
   with404(): KoaRuntimeResponse<t_basic_error>
   with422(): KoaRuntimeResponse<t_validation_error>
@@ -9277,12 +9198,7 @@ export type OrgsReviewPatGrantRequestsInBulk = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Res<
-      202,
-      {
-        [key: string]: unknown | undefined
-      }
-    >
+  | Res<202, Record<string, unknown>>
   | Res<403, t_basic_error>
   | Res<404, t_basic_error>
   | Res<422, t_validation_error>
@@ -9373,9 +9289,7 @@ export type OrgsListPatGrants = (
 >
 
 export type OrgsUpdatePatAccessesResponder = {
-  with202(): KoaRuntimeResponse<{
-    [key: string]: unknown | undefined
-  }>
+  with202(): KoaRuntimeResponse<Record<string, unknown>>
   with403(): KoaRuntimeResponse<t_basic_error>
   with404(): KoaRuntimeResponse<t_basic_error>
   with422(): KoaRuntimeResponse<t_validation_error>
@@ -9394,12 +9308,7 @@ export type OrgsUpdatePatAccesses = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Res<
-      202,
-      {
-        [key: string]: unknown | undefined
-      }
-    >
+  | Res<202, Record<string, unknown>>
   | Res<403, t_basic_error>
   | Res<404, t_basic_error>
   | Res<422, t_validation_error>
@@ -11219,7 +11128,7 @@ export type ProjectsClassicDeleteCard = (
 >
 
 export type ProjectsClassicMoveCardResponder = {
-  with201(): KoaRuntimeResponse<EmptyObject>
+  with201(): KoaRuntimeResponse<Record<string, never>>
   with304(): KoaRuntimeResponse<void>
   with401(): KoaRuntimeResponse<t_basic_error>
   with403(): KoaRuntimeResponse<{
@@ -11256,7 +11165,7 @@ export type ProjectsClassicMoveCard = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Res<201, EmptyObject>
+  | Res<201, Record<string, never>>
   | Res<304, void>
   | Res<401, t_basic_error>
   | Res<
@@ -11434,7 +11343,7 @@ export type ProjectsClassicCreateCard = (
 >
 
 export type ProjectsClassicMoveColumnResponder = {
-  with201(): KoaRuntimeResponse<EmptyObject>
+  with201(): KoaRuntimeResponse<Record<string, never>>
   with304(): KoaRuntimeResponse<void>
   with401(): KoaRuntimeResponse<t_basic_error>
   with403(): KoaRuntimeResponse<t_basic_error>
@@ -11453,7 +11362,7 @@ export type ProjectsClassicMoveColumn = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Res<201, EmptyObject>
+  | Res<201, Record<string, never>>
   | Res<304, void>
   | Res<401, t_basic_error>
   | Res<403, t_basic_error>
@@ -13388,13 +13297,9 @@ export type ReposListAttestationsResponder = {
   with200(): KoaRuntimeResponse<{
     attestations?: {
       bundle?: {
-        dsseEnvelope?: {
-          [key: string]: unknown | undefined
-        }
+        dsseEnvelope?: Record<string, unknown>
         mediaType?: string
-        verificationMaterial?: {
-          [key: string]: unknown | undefined
-        }
+        verificationMaterial?: Record<string, unknown>
       }
       bundle_url?: string
       repository_id?: number
@@ -13419,13 +13324,9 @@ export type ReposListAttestations = (
       {
         attestations?: {
           bundle?: {
-            dsseEnvelope?: {
-              [key: string]: unknown | undefined
-            }
+            dsseEnvelope?: Record<string, unknown>
             mediaType?: string
-            verificationMaterial?: {
-              [key: string]: unknown | undefined
-            }
+            verificationMaterial?: Record<string, unknown>
           }
           bundle_url?: string
           repository_id?: number
@@ -14794,9 +14695,7 @@ export type CodeScanningListRecentAnalyses = (
 >
 
 export type CodeScanningGetAnalysisResponder = {
-  with200(): KoaRuntimeResponse<{
-    [key: string]: unknown | undefined
-  }>
+  with200(): KoaRuntimeResponse<Record<string, unknown>>
   with403(): KoaRuntimeResponse<t_basic_error>
   with404(): KoaRuntimeResponse<t_basic_error>
   with422(): KoaRuntimeResponse<t_basic_error>
@@ -14814,12 +14713,7 @@ export type CodeScanningGetAnalysis = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Res<
-      200,
-      {
-        [key: string]: unknown | undefined
-      }
-    >
+  | Res<200, Record<string, unknown>>
   | Res<403, t_basic_error>
   | Res<404, t_basic_error>
   | Res<422, t_basic_error>
@@ -17753,9 +17647,7 @@ export type ReposGetWebhookDelivery = (
 >
 
 export type ReposRedeliverWebhookDeliveryResponder = {
-  with202(): KoaRuntimeResponse<{
-    [key: string]: unknown | undefined
-  }>
+  with202(): KoaRuntimeResponse<Record<string, unknown>>
   with400(): KoaRuntimeResponse<t_scim_error>
   with422(): KoaRuntimeResponse<t_validation_error>
 } & KoaRuntimeResponder
@@ -17767,12 +17659,7 @@ export type ReposRedeliverWebhookDelivery = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Res<
-      202,
-      {
-        [key: string]: unknown | undefined
-      }
-    >
+  | Res<202, Record<string, unknown>>
   | Res<400, t_scim_error>
   | Res<422, t_validation_error>
   | typeof SkipResponse
@@ -18007,7 +17894,9 @@ export type AppsGetRepoInstallation = (
 >
 
 export type InteractionsGetRestrictionsForRepoResponder = {
-  with200(): KoaRuntimeResponse<t_interaction_limit_response | EmptyObject>
+  with200(): KoaRuntimeResponse<
+    t_interaction_limit_response | Record<string, never>
+  >
 } & KoaRuntimeResponder
 
 export type InteractionsGetRestrictionsForRepo = (
@@ -18022,7 +17911,7 @@ export type InteractionsGetRestrictionsForRepo = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Res<200, t_interaction_limit_response | EmptyObject>
+  | Res<200, t_interaction_limit_response | Record<string, never>>
   | typeof SkipResponse
 >
 
@@ -21390,9 +21279,7 @@ export type SecurityAdvisoriesUpdateRepositoryAdvisory = (
 >
 
 export type SecurityAdvisoriesCreateRepositoryAdvisoryCveRequestResponder = {
-  with202(): KoaRuntimeResponse<{
-    [key: string]: unknown | undefined
-  }>
+  with202(): KoaRuntimeResponse<Record<string, unknown>>
   with400(): KoaRuntimeResponse<t_scim_error>
   with403(): KoaRuntimeResponse<t_basic_error>
   with404(): KoaRuntimeResponse<t_basic_error>
@@ -21411,12 +21298,7 @@ export type SecurityAdvisoriesCreateRepositoryAdvisoryCveRequest = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Res<
-      202,
-      {
-        [key: string]: unknown | undefined
-      }
-    >
+  | Res<202, Record<string, unknown>>
   | Res<400, t_scim_error>
   | Res<403, t_basic_error>
   | Res<404, t_basic_error>
@@ -21471,9 +21353,7 @@ export type ActivityListStargazersForRepo = (
 
 export type ReposGetCodeFrequencyStatsResponder = {
   with200(): KoaRuntimeResponse<t_code_frequency_stat[]>
-  with202(): KoaRuntimeResponse<{
-    [key: string]: unknown | undefined
-  }>
+  with202(): KoaRuntimeResponse<Record<string, unknown>>
   with204(): KoaRuntimeResponse<void>
   with422(): KoaRuntimeResponse<void>
 } & KoaRuntimeResponder
@@ -21486,12 +21366,7 @@ export type ReposGetCodeFrequencyStats = (
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_code_frequency_stat[]>
-  | Res<
-      202,
-      {
-        [key: string]: unknown | undefined
-      }
-    >
+  | Res<202, Record<string, unknown>>
   | Res<204, void>
   | Res<422, void>
   | typeof SkipResponse
@@ -21499,9 +21374,7 @@ export type ReposGetCodeFrequencyStats = (
 
 export type ReposGetCommitActivityStatsResponder = {
   with200(): KoaRuntimeResponse<t_commit_activity[]>
-  with202(): KoaRuntimeResponse<{
-    [key: string]: unknown | undefined
-  }>
+  with202(): KoaRuntimeResponse<Record<string, unknown>>
   with204(): KoaRuntimeResponse<void>
 } & KoaRuntimeResponder
 
@@ -21513,21 +21386,14 @@ export type ReposGetCommitActivityStats = (
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_commit_activity[]>
-  | Res<
-      202,
-      {
-        [key: string]: unknown | undefined
-      }
-    >
+  | Res<202, Record<string, unknown>>
   | Res<204, void>
   | typeof SkipResponse
 >
 
 export type ReposGetContributorsStatsResponder = {
   with200(): KoaRuntimeResponse<t_contributor_activity[]>
-  with202(): KoaRuntimeResponse<{
-    [key: string]: unknown | undefined
-  }>
+  with202(): KoaRuntimeResponse<Record<string, unknown>>
   with204(): KoaRuntimeResponse<void>
 } & KoaRuntimeResponder
 
@@ -21539,12 +21405,7 @@ export type ReposGetContributorsStats = (
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_contributor_activity[]>
-  | Res<
-      202,
-      {
-        [key: string]: unknown | undefined
-      }
-    >
+  | Res<202, Record<string, unknown>>
   | Res<204, void>
   | typeof SkipResponse
 >
@@ -23490,9 +23351,7 @@ export type CodespacesUpdateForAuthenticatedUser = (
 >
 
 export type CodespacesDeleteForAuthenticatedUserResponder = {
-  with202(): KoaRuntimeResponse<{
-    [key: string]: unknown | undefined
-  }>
+  with202(): KoaRuntimeResponse<Record<string, unknown>>
   with304(): KoaRuntimeResponse<void>
   with401(): KoaRuntimeResponse<t_basic_error>
   with403(): KoaRuntimeResponse<t_basic_error>
@@ -23512,12 +23371,7 @@ export type CodespacesDeleteForAuthenticatedUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Res<
-      202,
-      {
-        [key: string]: unknown | undefined
-      }
-    >
+  | Res<202, Record<string, unknown>>
   | Res<304, void>
   | Res<401, t_basic_error>
   | Res<403, t_basic_error>
@@ -24213,7 +24067,9 @@ export type AppsRemoveRepoFromInstallationForAuthenticatedUser = (
 >
 
 export type InteractionsGetRestrictionsForAuthenticatedUserResponder = {
-  with200(): KoaRuntimeResponse<t_interaction_limit_response | EmptyObject>
+  with200(): KoaRuntimeResponse<
+    t_interaction_limit_response | Record<string, never>
+  >
   with204(): KoaRuntimeResponse<void>
 } & KoaRuntimeResponder
 
@@ -24224,7 +24080,7 @@ export type InteractionsGetRestrictionsForAuthenticatedUser = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Res<200, t_interaction_limit_response | EmptyObject>
+  | Res<200, t_interaction_limit_response | Record<string, never>>
   | Res<204, void>
   | typeof SkipResponse
 >
@@ -25523,26 +25379,19 @@ export type UsersGetByUsername = (
 
 export type UsersListAttestationsBulkResponder = {
   with200(): KoaRuntimeResponse<{
-    attestations_subject_digests?: {
-      [key: string]:
-        | (
-            | {
-                bundle?: {
-                  dsseEnvelope?: {
-                    [key: string]: unknown | undefined
-                  }
-                  mediaType?: string
-                  verificationMaterial?: {
-                    [key: string]: unknown | undefined
-                  }
-                }
-                bundle_url?: string
-                repository_id?: number
-              }[]
-            | null
-          )
-        | undefined
-    }
+    attestations_subject_digests?: Record<
+      string,
+      | {
+          bundle?: {
+            dsseEnvelope?: Record<string, unknown>
+            mediaType?: string
+            verificationMaterial?: Record<string, unknown>
+          }
+          bundle_url?: string
+          repository_id?: number
+        }[]
+      | null
+    >
     page_info?: {
       has_next?: boolean
       has_previous?: boolean
@@ -25567,26 +25416,19 @@ export type UsersListAttestationsBulk = (
   | Res<
       200,
       {
-        attestations_subject_digests?: {
-          [key: string]:
-            | (
-                | {
-                    bundle?: {
-                      dsseEnvelope?: {
-                        [key: string]: unknown | undefined
-                      }
-                      mediaType?: string
-                      verificationMaterial?: {
-                        [key: string]: unknown | undefined
-                      }
-                    }
-                    bundle_url?: string
-                    repository_id?: number
-                  }[]
-                | null
-              )
-            | undefined
-        }
+        attestations_subject_digests?: Record<
+          string,
+          | {
+              bundle?: {
+                dsseEnvelope?: Record<string, unknown>
+                mediaType?: string
+                verificationMaterial?: Record<string, unknown>
+              }
+              bundle_url?: string
+              repository_id?: number
+            }[]
+          | null
+        >
         page_info?: {
           has_next?: boolean
           has_previous?: boolean
@@ -25669,13 +25511,9 @@ export type UsersListAttestationsResponder = {
   with200(): KoaRuntimeResponse<{
     attestations?: {
       bundle?: {
-        dsseEnvelope?: {
-          [key: string]: unknown | undefined
-        }
+        dsseEnvelope?: Record<string, unknown>
         mediaType?: string
-        verificationMaterial?: {
-          [key: string]: unknown | undefined
-        }
+        verificationMaterial?: Record<string, unknown>
       }
       bundle_url?: string
       repository_id?: number
@@ -25703,13 +25541,9 @@ export type UsersListAttestations = (
       {
         attestations?: {
           bundle?: {
-            dsseEnvelope?: {
-              [key: string]: unknown | undefined
-            }
+            dsseEnvelope?: Record<string, unknown>
             mediaType?: string
-            verificationMaterial?: {
-              [key: string]: unknown | undefined
-            }
+            verificationMaterial?: Record<string, unknown>
           }
           bundle_url?: string
           repository_id?: number
@@ -27961,9 +27795,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
       const responder = {
         with202() {
-          return new KoaRuntimeResponse<{
-            [key: string]: unknown | undefined
-          }>(202)
+          return new KoaRuntimeResponse<Record<string, unknown>>(202)
         },
         with400() {
           return new KoaRuntimeResponse<t_scim_error>(400)
@@ -29084,9 +28916,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
     const responder = {
       with202() {
-        return new KoaRuntimeResponse<{
-          [key: string]: unknown | undefined
-        }>(202)
+        return new KoaRuntimeResponse<Record<string, unknown>>(202)
       },
       with422() {
         return new KoaRuntimeResponse<t_validation_error_simple>(422)
@@ -29123,9 +28953,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
     const responder = {
       with200() {
-        return new KoaRuntimeResponse<{
-          [key: string]: string | undefined
-        }>(200)
+        return new KoaRuntimeResponse<Record<string, string>>(200)
       },
       with304() {
         return new KoaRuntimeResponse<void>(304)
@@ -29577,9 +29405,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
       const responder = {
         with202() {
-          return new KoaRuntimeResponse<{
-            [key: string]: unknown | undefined
-          }>(202)
+          return new KoaRuntimeResponse<Record<string, unknown>>(202)
         },
         with403() {
           return new KoaRuntimeResponse<t_basic_error>(403)
@@ -30878,7 +30704,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ["204", z.undefined()],
       ["304", z.undefined()],
       ["403", s_basic_error],
-      ["404", z.object({})],
+      ["404", z.record(z.string(), z.never())],
     ],
     undefined,
   )
@@ -30909,7 +30735,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           return new KoaRuntimeResponse<t_basic_error>(403)
         },
         with404() {
-          return new KoaRuntimeResponse<EmptyObject>(404)
+          return new KoaRuntimeResponse<Record<string, never>>(404)
         },
         withStatus(status: StatusCode) {
           return new KoaRuntimeResponse(status)
@@ -32897,9 +32723,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
     const responder = {
       with202() {
-        return new KoaRuntimeResponse<{
-          [key: string]: unknown | undefined
-        }>(202)
+        return new KoaRuntimeResponse<Record<string, unknown>>(202)
       },
       with403() {
         return new KoaRuntimeResponse<t_basic_error>(403)
@@ -36708,26 +36532,19 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const responder = {
         with200() {
           return new KoaRuntimeResponse<{
-            attestations_subject_digests?: {
-              [key: string]:
-                | (
-                    | {
-                        bundle?: {
-                          dsseEnvelope?: {
-                            [key: string]: unknown | undefined
-                          }
-                          mediaType?: string
-                          verificationMaterial?: {
-                            [key: string]: unknown | undefined
-                          }
-                        }
-                        bundle_url?: string
-                        repository_id?: number
-                      }[]
-                    | null
-                  )
-                | undefined
-            }
+            attestations_subject_digests?: Record<
+              string,
+              | {
+                  bundle?: {
+                    dsseEnvelope?: Record<string, unknown>
+                    mediaType?: string
+                    verificationMaterial?: Record<string, unknown>
+                  }
+                  bundle_url?: string
+                  repository_id?: number
+                }[]
+              | null
+            >
             page_info?: {
               has_next?: boolean
               has_previous?: boolean
@@ -36987,13 +36804,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
           return new KoaRuntimeResponse<{
             attestations?: {
               bundle?: {
-                dsseEnvelope?: {
-                  [key: string]: unknown | undefined
-                }
+                dsseEnvelope?: Record<string, unknown>
                 mediaType?: string
-                verificationMaterial?: {
-                  [key: string]: unknown | undefined
-                }
+                verificationMaterial?: Record<string, unknown>
               }
               bundle_url?: string
               repository_id?: number
@@ -38106,9 +37919,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
       const responder = {
         with202() {
-          return new KoaRuntimeResponse<{
-            [key: string]: unknown | undefined
-          }>(202)
+          return new KoaRuntimeResponse<Record<string, unknown>>(202)
         },
         withStatus(status: StatusCode) {
           return new KoaRuntimeResponse(status)
@@ -40839,9 +40650,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
       const responder = {
         with202() {
-          return new KoaRuntimeResponse<{
-            [key: string]: unknown | undefined
-          }>(202)
+          return new KoaRuntimeResponse<Record<string, unknown>>(202)
         },
         with400() {
           return new KoaRuntimeResponse<t_scim_error>(400)
@@ -41588,7 +41397,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const interactionsGetRestrictionsForOrgResponseValidator =
     responseValidationFactory(
-      [["200", z.union([s_interaction_limit_response, z.object({})])]],
+      [
+        [
+          "200",
+          z.union([
+            s_interaction_limit_response,
+            z.record(z.string(), z.never()),
+          ]),
+        ],
+      ],
       undefined,
     )
 
@@ -41610,7 +41427,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const responder = {
         with200() {
           return new KoaRuntimeResponse<
-            t_interaction_limit_response | EmptyObject
+            t_interaction_limit_response | Record<string, never>
           >(200)
         },
         withStatus(status: StatusCode) {
@@ -42512,9 +42329,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
       const responder = {
         with202() {
-          return new KoaRuntimeResponse<{
-            [key: string]: unknown | undefined
-          }>(202)
+          return new KoaRuntimeResponse<Record<string, unknown>>(202)
         },
         with304() {
           return new KoaRuntimeResponse<void>(304)
@@ -43814,7 +43629,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const orgsConvertMemberToOutsideCollaboratorResponseValidator =
     responseValidationFactory(
       [
-        ["202", z.object({})],
+        ["202", z.record(z.string(), z.never())],
         ["204", z.undefined()],
         ["403", z.undefined()],
         ["404", s_basic_error],
@@ -43843,7 +43658,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
       const responder = {
         with202() {
-          return new KoaRuntimeResponse<EmptyObject>(202)
+          return new KoaRuntimeResponse<Record<string, never>>(202)
         },
         with204() {
           return new KoaRuntimeResponse<void>(204)
@@ -44624,9 +44439,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
       const responder = {
         with202() {
-          return new KoaRuntimeResponse<{
-            [key: string]: unknown | undefined
-          }>(202)
+          return new KoaRuntimeResponse<Record<string, unknown>>(202)
         },
         with403() {
           return new KoaRuntimeResponse<t_basic_error>(403)
@@ -44913,9 +44726,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
       const responder = {
         with202() {
-          return new KoaRuntimeResponse<{
-            [key: string]: unknown | undefined
-          }>(202)
+          return new KoaRuntimeResponse<Record<string, unknown>>(202)
         },
         with403() {
           return new KoaRuntimeResponse<t_basic_error>(403)
@@ -49771,7 +49582,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const projectsClassicMoveCardResponseValidator = responseValidationFactory(
     [
-      ["201", z.object({})],
+      ["201", z.record(z.string(), z.never())],
       ["304", z.undefined()],
       ["401", s_basic_error],
       [
@@ -49833,7 +49644,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
       const responder = {
         with201() {
-          return new KoaRuntimeResponse<EmptyObject>(201)
+          return new KoaRuntimeResponse<Record<string, never>>(201)
         },
         with304() {
           return new KoaRuntimeResponse<void>(304)
@@ -50235,7 +50046,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const projectsClassicMoveColumnResponseValidator = responseValidationFactory(
     [
-      ["201", z.object({})],
+      ["201", z.record(z.string(), z.never())],
       ["304", z.undefined()],
       ["401", s_basic_error],
       ["403", s_basic_error],
@@ -50265,7 +50076,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
       const responder = {
         with201() {
-          return new KoaRuntimeResponse<EmptyObject>(201)
+          return new KoaRuntimeResponse<Record<string, never>>(201)
         },
         with304() {
           return new KoaRuntimeResponse<void>(304)
@@ -55397,13 +55208,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
           return new KoaRuntimeResponse<{
             attestations?: {
               bundle?: {
-                dsseEnvelope?: {
-                  [key: string]: unknown | undefined
-                }
+                dsseEnvelope?: Record<string, unknown>
                 mediaType?: string
-                verificationMaterial?: {
-                  [key: string]: unknown | undefined
-                }
+                verificationMaterial?: Record<string, unknown>
               }
               bundle_url?: string
               repository_id?: number
@@ -58975,9 +58782,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
       const responder = {
         with200() {
-          return new KoaRuntimeResponse<{
-            [key: string]: unknown | undefined
-          }>(200)
+          return new KoaRuntimeResponse<Record<string, unknown>>(200)
         },
         with403() {
           return new KoaRuntimeResponse<t_basic_error>(403)
@@ -66373,9 +66178,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
       const responder = {
         with202() {
-          return new KoaRuntimeResponse<{
-            [key: string]: unknown | undefined
-          }>(202)
+          return new KoaRuntimeResponse<Record<string, unknown>>(202)
         },
         with400() {
           return new KoaRuntimeResponse<t_scim_error>(400)
@@ -67008,7 +66811,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const interactionsGetRestrictionsForRepoResponseValidator =
     responseValidationFactory(
-      [["200", z.union([s_interaction_limit_response, z.object({})])]],
+      [
+        [
+          "200",
+          z.union([
+            s_interaction_limit_response,
+            z.record(z.string(), z.never()),
+          ]),
+        ],
+      ],
       undefined,
     )
 
@@ -67030,7 +66841,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const responder = {
         with200() {
           return new KoaRuntimeResponse<
-            t_interaction_limit_response | EmptyObject
+            t_interaction_limit_response | Record<string, never>
           >(200)
         },
         withStatus(status: StatusCode) {
@@ -75737,9 +75548,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
       const responder = {
         with202() {
-          return new KoaRuntimeResponse<{
-            [key: string]: unknown | undefined
-          }>(202)
+          return new KoaRuntimeResponse<Record<string, unknown>>(202)
         },
         with400() {
           return new KoaRuntimeResponse<t_scim_error>(400)
@@ -75941,9 +75750,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           return new KoaRuntimeResponse<t_code_frequency_stat[]>(200)
         },
         with202() {
-          return new KoaRuntimeResponse<{
-            [key: string]: unknown | undefined
-          }>(202)
+          return new KoaRuntimeResponse<Record<string, unknown>>(202)
         },
         with204() {
           return new KoaRuntimeResponse<void>(204)
@@ -76004,9 +75811,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           return new KoaRuntimeResponse<t_commit_activity[]>(200)
         },
         with202() {
-          return new KoaRuntimeResponse<{
-            [key: string]: unknown | undefined
-          }>(202)
+          return new KoaRuntimeResponse<Record<string, unknown>>(202)
         },
         with204() {
           return new KoaRuntimeResponse<void>(204)
@@ -76063,9 +75868,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           return new KoaRuntimeResponse<t_contributor_activity[]>(200)
         },
         with202() {
-          return new KoaRuntimeResponse<{
-            [key: string]: unknown | undefined
-          }>(202)
+          return new KoaRuntimeResponse<Record<string, unknown>>(202)
         },
         with204() {
           return new KoaRuntimeResponse<void>(204)
@@ -80941,9 +80744,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
       const responder = {
         with202() {
-          return new KoaRuntimeResponse<{
-            [key: string]: unknown | undefined
-          }>(202)
+          return new KoaRuntimeResponse<Record<string, unknown>>(202)
         },
         with304() {
           return new KoaRuntimeResponse<void>(304)
@@ -82576,7 +82377,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const interactionsGetRestrictionsForAuthenticatedUserResponseValidator =
     responseValidationFactory(
       [
-        ["200", z.union([s_interaction_limit_response, z.object({})])],
+        [
+          "200",
+          z.union([
+            s_interaction_limit_response,
+            z.record(z.string(), z.never()),
+          ]),
+        ],
         ["204", z.undefined()],
       ],
       undefined,
@@ -82596,7 +82403,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const responder = {
         with200() {
           return new KoaRuntimeResponse<
-            t_interaction_limit_response | EmptyObject
+            t_interaction_limit_response | Record<string, never>
           >(200)
         },
         with204() {
@@ -86011,26 +85818,19 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const responder = {
         with200() {
           return new KoaRuntimeResponse<{
-            attestations_subject_digests?: {
-              [key: string]:
-                | (
-                    | {
-                        bundle?: {
-                          dsseEnvelope?: {
-                            [key: string]: unknown | undefined
-                          }
-                          mediaType?: string
-                          verificationMaterial?: {
-                            [key: string]: unknown | undefined
-                          }
-                        }
-                        bundle_url?: string
-                        repository_id?: number
-                      }[]
-                    | null
-                  )
-                | undefined
-            }
+            attestations_subject_digests?: Record<
+              string,
+              | {
+                  bundle?: {
+                    dsseEnvelope?: Record<string, unknown>
+                    mediaType?: string
+                    verificationMaterial?: Record<string, unknown>
+                  }
+                  bundle_url?: string
+                  repository_id?: number
+                }[]
+              | null
+            >
             page_info?: {
               has_next?: boolean
               has_previous?: boolean
@@ -86297,13 +86097,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
           return new KoaRuntimeResponse<{
             attestations?: {
               bundle?: {
-                dsseEnvelope?: {
-                  [key: string]: unknown | undefined
-                }
+                dsseEnvelope?: Record<string, unknown>
                 mediaType?: string
-                verificationMaterial?: {
-                  [key: string]: unknown | undefined
-                }
+                verificationMaterial?: Record<string, unknown>
               }
               bundle_url?: string
               repository_id?: number

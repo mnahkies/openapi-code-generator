@@ -9,11 +9,7 @@ export type t_Azure_Core_uuid = string
 export type t_Azure_ResourceManager_CommonTypes_ActionType = "Internal" | string
 
 export type t_Azure_ResourceManager_CommonTypes_ErrorAdditionalInfo = {
-  readonly info?:
-    | {
-        [key: string]: unknown | undefined
-      }
-    | undefined
+  readonly info?: unknown | undefined
   readonly type?: string | undefined
 }
 
@@ -95,11 +91,7 @@ export type t_EmployeeListResult = {
 
 export type t_EmployeeUpdate = {
   properties?: t_EmployeeUpdateProperties | undefined
-  tags?:
-    | {
-        [key: string]: string | undefined
-      }
-    | undefined
+  tags?: Record<string, string> | undefined
 }
 
 export type t_EmployeeUpdateProperties = {

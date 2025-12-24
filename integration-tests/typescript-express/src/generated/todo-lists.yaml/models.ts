@@ -36,9 +36,7 @@ export type t_DeleteTodoListByIdParamSchema = {
   listId: string
 }
 
-export type t_UnknownObject = {
-  [key: string]: unknown | undefined
-}
+export type t_UnknownObject = Record<string, unknown>
 
 export type t_GetTodoListByIdParamSchema = {
   listId: string

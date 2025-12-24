@@ -528,12 +528,22 @@ export class StripeApi extends AbstractFetchClient {
   async getAccount(
     p: {
       expand?: string[]
+      requestBody?: Record<string, never>
     } = {},
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_account> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/account`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -543,8 +553,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postAccountLinks(
@@ -607,6 +625,7 @@ export class StripeApi extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
+      requestBody?: Record<string, never>
     } = {},
     timeout?: number,
     opts: RequestInit = {},
@@ -623,7 +642,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/accounts`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         created: p["created"],
@@ -643,8 +671,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postAccounts(
@@ -689,26 +725,50 @@ export class StripeApi extends AbstractFetchClient {
   async deleteAccountsAccount(
     p: {
       account: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_deleted_account> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/accounts/${p["account"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
+    return this._fetch(url, {method: "DELETE", body, ...opts, headers}, timeout)
   }
 
   async getAccountsAccount(
     p: {
       account: string
       expand?: string[]
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_account> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/accounts/${p["account"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -718,8 +778,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postAccountsAccount(
@@ -795,15 +863,29 @@ export class StripeApi extends AbstractFetchClient {
     p: {
       account: string
       id: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_deleted_external_account> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/accounts/${p["account"]}/bank_accounts/${p["id"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
+    return this._fetch(url, {method: "DELETE", body, ...opts, headers}, timeout)
   }
 
   async getAccountsAccountBankAccountsId(
@@ -811,13 +893,23 @@ export class StripeApi extends AbstractFetchClient {
       account: string
       expand?: string[]
       id: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_external_account> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/accounts/${p["account"]}/bank_accounts/${p["id"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -827,8 +919,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postAccountsAccountBankAccountsId(
@@ -868,6 +968,7 @@ export class StripeApi extends AbstractFetchClient {
     p: {
       account: string
       expand?: string[]
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -884,7 +985,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/accounts/${p["account"]}/capabilities`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -894,8 +1004,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async getAccountsAccountCapabilitiesCapability(
@@ -903,6 +1021,7 @@ export class StripeApi extends AbstractFetchClient {
       account: string
       capability: string
       expand?: string[]
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -910,7 +1029,16 @@ export class StripeApi extends AbstractFetchClient {
     const url =
       this.basePath +
       `/v1/accounts/${p["account"]}/capabilities/${p["capability"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -920,8 +1048,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postAccountsAccountCapabilitiesCapability(
@@ -964,6 +1100,7 @@ export class StripeApi extends AbstractFetchClient {
       limit?: number
       object?: "bank_account" | "card" | UnknownEnumStringValue
       startingAfter?: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -980,7 +1117,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/accounts/${p["account"]}/external_accounts`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         ending_before: p["endingBefore"],
@@ -996,8 +1142,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postAccountsAccountExternalAccounts(
@@ -1035,6 +1189,7 @@ export class StripeApi extends AbstractFetchClient {
     p: {
       account: string
       id: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -1042,9 +1197,22 @@ export class StripeApi extends AbstractFetchClient {
     const url =
       this.basePath +
       `/v1/accounts/${p["account"]}/external_accounts/${p["id"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
+    return this._fetch(url, {method: "DELETE", body, ...opts, headers}, timeout)
   }
 
   async getAccountsAccountExternalAccountsId(
@@ -1052,6 +1220,7 @@ export class StripeApi extends AbstractFetchClient {
       account: string
       expand?: string[]
       id: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -1059,7 +1228,16 @@ export class StripeApi extends AbstractFetchClient {
     const url =
       this.basePath +
       `/v1/accounts/${p["account"]}/external_accounts/${p["id"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -1069,8 +1247,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postAccountsAccountExternalAccountsId(
@@ -1151,6 +1337,7 @@ export class StripeApi extends AbstractFetchClient {
         representative?: boolean
       }
       startingAfter?: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -1167,7 +1354,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/accounts/${p["account"]}/people`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         ending_before: p["endingBefore"],
@@ -1187,8 +1383,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postAccountsAccountPeople(
@@ -1236,15 +1440,29 @@ export class StripeApi extends AbstractFetchClient {
     p: {
       account: string
       person: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_deleted_person> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/accounts/${p["account"]}/people/${p["person"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
+    return this._fetch(url, {method: "DELETE", body, ...opts, headers}, timeout)
   }
 
   async getAccountsAccountPeoplePerson(
@@ -1252,13 +1470,23 @@ export class StripeApi extends AbstractFetchClient {
       account: string
       expand?: string[]
       person: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_person> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/accounts/${p["account"]}/people/${p["person"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -1268,8 +1496,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postAccountsAccountPeoplePerson(
@@ -1330,6 +1566,7 @@ export class StripeApi extends AbstractFetchClient {
         representative?: boolean
       }
       startingAfter?: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -1346,7 +1583,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/accounts/${p["account"]}/persons`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         ending_before: p["endingBefore"],
@@ -1366,8 +1612,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postAccountsAccountPersons(
@@ -1415,15 +1669,29 @@ export class StripeApi extends AbstractFetchClient {
     p: {
       account: string
       person: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_deleted_person> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/accounts/${p["account"]}/persons/${p["person"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
+    return this._fetch(url, {method: "DELETE", body, ...opts, headers}, timeout)
   }
 
   async getAccountsAccountPersonsPerson(
@@ -1431,13 +1699,23 @@ export class StripeApi extends AbstractFetchClient {
       account: string
       expand?: string[]
       person: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_person> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/accounts/${p["account"]}/persons/${p["person"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -1447,8 +1725,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postAccountsAccountPersonsPerson(
@@ -1524,6 +1810,7 @@ export class StripeApi extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
+      requestBody?: Record<string, never>
     } = {},
     timeout?: number,
     opts: RequestInit = {},
@@ -1540,7 +1827,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/apple_pay/domains`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         domain_name: p["domainName"],
@@ -1556,8 +1852,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postApplePayDomains(
@@ -1585,26 +1889,50 @@ export class StripeApi extends AbstractFetchClient {
   async deleteApplePayDomainsDomain(
     p: {
       domain: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_deleted_apple_pay_domain> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/apple_pay/domains/${p["domain"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
+    return this._fetch(url, {method: "DELETE", body, ...opts, headers}, timeout)
   }
 
   async getApplePayDomainsDomain(
     p: {
       domain: string
       expand?: string[]
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_apple_pay_domain> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/apple_pay/domains/${p["domain"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -1614,8 +1942,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async getApplicationFees(
@@ -1633,6 +1969,7 @@ export class StripeApi extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
+      requestBody?: Record<string, never>
     } = {},
     timeout?: number,
     opts: RequestInit = {},
@@ -1649,7 +1986,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/application_fees`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         charge: p["charge"],
@@ -1670,8 +2016,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async getApplicationFeesFeeRefundsId(
@@ -1679,13 +2033,23 @@ export class StripeApi extends AbstractFetchClient {
       expand?: string[]
       fee: string
       id: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_fee_refund> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/application_fees/${p["fee"]}/refunds/${p["id"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -1695,8 +2059,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postApplicationFeesFeeRefundsId(
@@ -1735,12 +2107,22 @@ export class StripeApi extends AbstractFetchClient {
     p: {
       expand?: string[]
       id: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_application_fee> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/application_fees/${p["id"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -1750,8 +2132,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postApplicationFeesIdRefund(
@@ -1790,6 +2180,7 @@ export class StripeApi extends AbstractFetchClient {
       id: string
       limit?: number
       startingAfter?: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -1806,7 +2197,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/application_fees/${p["id"]}/refunds`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         ending_before: p["endingBefore"],
@@ -1821,8 +2221,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postApplicationFeesIdRefunds(
@@ -1865,6 +2273,7 @@ export class StripeApi extends AbstractFetchClient {
         user?: string
       }
       startingAfter?: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -1881,7 +2290,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/apps/secrets`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         ending_before: p["endingBefore"],
@@ -1901,8 +2319,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postAppsSecrets(
@@ -1959,12 +2385,22 @@ export class StripeApi extends AbstractFetchClient {
         type: "account" | "user" | UnknownEnumStringValue
         user?: string
       }
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_apps_secret> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/apps/secrets/find`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"], name: p["name"], scope: p["scope"]},
       {
@@ -1978,19 +2414,37 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async getBalance(
     p: {
       expand?: string[]
+      requestBody?: Record<string, never>
     } = {},
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_balance> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/balance`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -2000,8 +2454,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async getBalanceHistory(
@@ -2022,6 +2484,7 @@ export class StripeApi extends AbstractFetchClient {
       source?: string
       startingAfter?: string
       type?: string
+      requestBody?: Record<string, never>
     } = {},
     timeout?: number,
     opts: RequestInit = {},
@@ -2038,7 +2501,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/balance/history`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         created: p["created"],
@@ -2062,20 +2534,38 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async getBalanceHistoryId(
     p: {
       expand?: string[]
       id: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_balance_transaction> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/balance/history/${p["id"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -2085,8 +2575,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async getBalanceTransactions(
@@ -2107,6 +2605,7 @@ export class StripeApi extends AbstractFetchClient {
       source?: string
       startingAfter?: string
       type?: string
+      requestBody?: Record<string, never>
     } = {},
     timeout?: number,
     opts: RequestInit = {},
@@ -2123,7 +2622,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/balance_transactions`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         created: p["created"],
@@ -2147,20 +2655,38 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async getBalanceTransactionsId(
     p: {
       expand?: string[]
       id: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_balance_transaction> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/balance_transactions/${p["id"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -2170,8 +2696,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async getBillingAlerts(
@@ -2182,6 +2716,7 @@ export class StripeApi extends AbstractFetchClient {
       limit?: number
       meter?: string
       startingAfter?: string
+      requestBody?: Record<string, never>
     } = {},
     timeout?: number,
     opts: RequestInit = {},
@@ -2198,7 +2733,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/billing/alerts`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         alert_type: p["alertType"],
@@ -2215,8 +2759,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postBillingAlerts(
@@ -2246,12 +2798,22 @@ export class StripeApi extends AbstractFetchClient {
     p: {
       expand?: string[]
       id: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_billing_alert> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/billing/alerts/${p["id"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -2261,8 +2823,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postBillingAlertsIdActivate(
@@ -2366,6 +2936,7 @@ export class StripeApi extends AbstractFetchClient {
         credit_grant?: string
         type: "applicability_scope" | "credit_grant" | UnknownEnumStringValue
       }
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -2373,7 +2944,16 @@ export class StripeApi extends AbstractFetchClient {
     Res<200, t_billing_credit_balance_summary> | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/billing/credit_balance_summary`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {customer: p["customer"], expand: p["expand"], filter: p["filter"]},
       {
@@ -2387,8 +2967,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async getBillingCreditBalanceTransactions(
@@ -2399,6 +2987,7 @@ export class StripeApi extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -2415,7 +3004,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/billing/credit_balance_transactions`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         credit_grant: p["creditGrant"],
@@ -2432,14 +3030,23 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async getBillingCreditBalanceTransactionsId(
     p: {
       expand?: string[]
       id: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -2448,7 +3055,16 @@ export class StripeApi extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/billing/credit_balance_transactions/${p["id"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -2458,8 +3074,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async getBillingCreditGrants(
@@ -2469,6 +3093,7 @@ export class StripeApi extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
+      requestBody?: Record<string, never>
     } = {},
     timeout?: number,
     opts: RequestInit = {},
@@ -2485,7 +3110,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/billing/credit_grants`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         customer: p["customer"],
@@ -2501,8 +3135,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postBillingCreditGrants(
@@ -2534,12 +3176,22 @@ export class StripeApi extends AbstractFetchClient {
     p: {
       expand?: string[]
       id: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_billing_credit_grant> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/billing/credit_grants/${p["id"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -2549,8 +3201,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postBillingCreditGrantsId(
@@ -2697,6 +3357,7 @@ export class StripeApi extends AbstractFetchClient {
       limit?: number
       startingAfter?: string
       status?: "active" | "inactive" | UnknownEnumStringValue
+      requestBody?: Record<string, never>
     } = {},
     timeout?: number,
     opts: RequestInit = {},
@@ -2713,7 +3374,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/billing/meters`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         ending_before: p["endingBefore"],
@@ -2729,8 +3399,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postBillingMeters(
@@ -2762,12 +3440,22 @@ export class StripeApi extends AbstractFetchClient {
     p: {
       expand?: string[]
       id: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_billing_meter> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/billing/meters/${p["id"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -2777,8 +3465,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postBillingMetersId(
@@ -2850,6 +3546,7 @@ export class StripeApi extends AbstractFetchClient {
       startTime: number
       startingAfter?: string
       valueGroupingWindow?: "day" | "hour" | UnknownEnumStringValue
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -2866,7 +3563,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/billing/meters/${p["id"]}/event_summaries`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         customer: p["customer"],
@@ -2885,8 +3591,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postBillingMetersIdReactivate(
@@ -2926,6 +3640,7 @@ export class StripeApi extends AbstractFetchClient {
       isDefault?: boolean
       limit?: number
       startingAfter?: string
+      requestBody?: Record<string, never>
     } = {},
     timeout?: number,
     opts: RequestInit = {},
@@ -2942,7 +3657,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/billing_portal/configurations`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         active: p["active"],
@@ -2959,8 +3683,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postBillingPortalConfigurations(
@@ -2996,6 +3728,7 @@ export class StripeApi extends AbstractFetchClient {
     p: {
       configuration: string
       expand?: string[]
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -3004,7 +3737,16 @@ export class StripeApi extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/billing_portal/configurations/${p["configuration"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -3014,8 +3756,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postBillingPortalConfigurationsConfiguration(
@@ -3095,6 +3845,7 @@ export class StripeApi extends AbstractFetchClient {
       paymentIntent?: string
       startingAfter?: string
       transferGroup?: string
+      requestBody?: Record<string, never>
     } = {},
     timeout?: number,
     opts: RequestInit = {},
@@ -3111,7 +3862,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/charges`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         created: p["created"],
@@ -3134,8 +3894,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postCharges(
@@ -3178,6 +3946,7 @@ export class StripeApi extends AbstractFetchClient {
       limit?: number
       page?: string
       query: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -3196,7 +3965,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/charges/search`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         expand: p["expand"],
@@ -3211,20 +3989,38 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async getChargesCharge(
     p: {
       charge: string
       expand?: string[]
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_charge> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/charges/${p["charge"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -3234,8 +4030,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postChargesCharge(
@@ -3304,12 +4108,22 @@ export class StripeApi extends AbstractFetchClient {
     p: {
       charge: string
       expand?: string[]
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_dispute> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/charges/${p["charge"]}/dispute`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -3319,8 +4133,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postChargesChargeDispute(
@@ -3420,6 +4242,7 @@ export class StripeApi extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -3436,7 +4259,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/charges/${p["charge"]}/refunds`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         ending_before: p["endingBefore"],
@@ -3451,8 +4283,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postChargesChargeRefunds(
@@ -3490,13 +4330,23 @@ export class StripeApi extends AbstractFetchClient {
       charge: string
       expand?: string[]
       refund: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_refund> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/charges/${p["charge"]}/refunds/${p["refund"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -3506,8 +4356,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postChargesChargeRefundsRefund(
@@ -3564,6 +4422,7 @@ export class StripeApi extends AbstractFetchClient {
       startingAfter?: string
       status?: "complete" | "expired" | "open" | UnknownEnumStringValue
       subscription?: string
+      requestBody?: Record<string, never>
     } = {},
     timeout?: number,
     opts: RequestInit = {},
@@ -3580,7 +4439,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/checkout/sessions`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         created: p["created"],
@@ -3610,8 +4478,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postCheckoutSessions(
@@ -3671,12 +4547,22 @@ export class StripeApi extends AbstractFetchClient {
     p: {
       expand?: string[]
       session: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_checkout_session> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/checkout/sessions/${p["session"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -3686,8 +4572,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postCheckoutSessionsSession(
@@ -3758,6 +4652,7 @@ export class StripeApi extends AbstractFetchClient {
       limit?: number
       session: string
       startingAfter?: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -3775,7 +4670,16 @@ export class StripeApi extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/checkout/sessions/${p["session"]}/line_items`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         ending_before: p["endingBefore"],
@@ -3790,8 +4694,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async getClimateOrders(
@@ -3800,6 +4712,7 @@ export class StripeApi extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
+      requestBody?: Record<string, never>
     } = {},
     timeout?: number,
     opts: RequestInit = {},
@@ -3816,7 +4729,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/climate/orders`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         ending_before: p["endingBefore"],
@@ -3831,8 +4753,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postClimateOrders(
@@ -3863,12 +4793,22 @@ export class StripeApi extends AbstractFetchClient {
     p: {
       expand?: string[]
       order: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_climate_order> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/climate/orders/${p["order"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -3878,8 +4818,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postClimateOrdersOrder(
@@ -3948,6 +4896,7 @@ export class StripeApi extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
+      requestBody?: Record<string, never>
     } = {},
     timeout?: number,
     opts: RequestInit = {},
@@ -3964,7 +4913,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/climate/products`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         ending_before: p["endingBefore"],
@@ -3979,20 +4937,38 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async getClimateProductsProduct(
     p: {
       expand?: string[]
       product: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_climate_product> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/climate/products/${p["product"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -4002,8 +4978,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async getClimateSuppliers(
@@ -4012,6 +4996,7 @@ export class StripeApi extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
+      requestBody?: Record<string, never>
     } = {},
     timeout?: number,
     opts: RequestInit = {},
@@ -4028,7 +5013,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/climate/suppliers`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         ending_before: p["endingBefore"],
@@ -4043,20 +5037,38 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async getClimateSuppliersSupplier(
     p: {
       expand?: string[]
       supplier: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_climate_supplier> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/climate/suppliers/${p["supplier"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -4066,21 +5078,39 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async getConfirmationTokensConfirmationToken(
     p: {
       confirmationToken: string
       expand?: string[]
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_confirmation_token> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/confirmation_tokens/${p["confirmationToken"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -4090,8 +5120,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async getCountrySpecs(
@@ -4100,6 +5138,7 @@ export class StripeApi extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
+      requestBody?: Record<string, never>
     } = {},
     timeout?: number,
     opts: RequestInit = {},
@@ -4116,7 +5155,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/country_specs`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         ending_before: p["endingBefore"],
@@ -4131,20 +5179,38 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async getCountrySpecsCountry(
     p: {
       country: string
       expand?: string[]
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_country_spec> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/country_specs/${p["country"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -4154,8 +5220,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async getCoupons(
@@ -4172,6 +5246,7 @@ export class StripeApi extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
+      requestBody?: Record<string, never>
     } = {},
     timeout?: number,
     opts: RequestInit = {},
@@ -4188,7 +5263,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/coupons`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         created: p["created"],
@@ -4208,8 +5292,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postCoupons(
@@ -4246,26 +5338,50 @@ export class StripeApi extends AbstractFetchClient {
   async deleteCouponsCoupon(
     p: {
       coupon: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_deleted_coupon> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/coupons/${p["coupon"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
+    return this._fetch(url, {method: "DELETE", body, ...opts, headers}, timeout)
   }
 
   async getCouponsCoupon(
     p: {
       coupon: string
       expand?: string[]
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_coupon> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/coupons/${p["coupon"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -4275,8 +5391,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postCouponsCoupon(
@@ -4326,6 +5450,7 @@ export class StripeApi extends AbstractFetchClient {
       invoice?: string
       limit?: number
       startingAfter?: string
+      requestBody?: Record<string, never>
     } = {},
     timeout?: number,
     opts: RequestInit = {},
@@ -4342,7 +5467,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/credit_notes`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         created: p["created"],
@@ -4364,8 +5498,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postCreditNotes(
@@ -4421,9 +5563,7 @@ export class StripeApi extends AbstractFetchClient {
         unit_amount_decimal?: string
       }[]
       memo?: string
-      metadata?: {
-        [key: string]: string | undefined
-      }
+      metadata?: Record<string, string>
       outOfBandAmount?: number
       reason?:
         | "duplicate"
@@ -4439,12 +5579,22 @@ export class StripeApi extends AbstractFetchClient {
       shippingCost?: {
         shipping_rate?: string
       }
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_credit_note> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/credit_notes/preview`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         amount: p["amount"],
@@ -4485,8 +5635,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async getCreditNotesPreviewLines(
@@ -4518,9 +5676,7 @@ export class StripeApi extends AbstractFetchClient {
         unit_amount_decimal?: string
       }[]
       memo?: string
-      metadata?: {
-        [key: string]: string | undefined
-      }
+      metadata?: Record<string, string>
       outOfBandAmount?: number
       reason?:
         | "duplicate"
@@ -4537,6 +5693,7 @@ export class StripeApi extends AbstractFetchClient {
         shipping_rate?: string
       }
       startingAfter?: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -4553,7 +5710,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/credit_notes/preview/lines`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         amount: p["amount"],
@@ -4597,8 +5763,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async getCreditNotesCreditNoteLines(
@@ -4608,6 +5782,7 @@ export class StripeApi extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -4624,7 +5799,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/credit_notes/${p["creditNote"]}/lines`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         ending_before: p["endingBefore"],
@@ -4639,20 +5823,38 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async getCreditNotesId(
     p: {
       expand?: string[]
       id: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_credit_note> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/credit_notes/${p["id"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -4662,8 +5864,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postCreditNotesId(
@@ -4764,6 +5974,7 @@ export class StripeApi extends AbstractFetchClient {
       limit?: number
       startingAfter?: string
       testClock?: string
+      requestBody?: Record<string, never>
     } = {},
     timeout?: number,
     opts: RequestInit = {},
@@ -4780,7 +5991,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/customers`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         created: p["created"],
@@ -4802,8 +6022,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postCustomers(
@@ -4848,6 +6076,7 @@ export class StripeApi extends AbstractFetchClient {
       limit?: number
       page?: string
       query: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -4866,7 +6095,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/customers/search`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         expand: p["expand"],
@@ -4881,27 +6119,50 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async deleteCustomersCustomer(
     p: {
       customer: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_deleted_customer> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/customers/${p["customer"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
+    return this._fetch(url, {method: "DELETE", body, ...opts, headers}, timeout)
   }
 
   async getCustomersCustomer(
     p: {
       customer: string
       expand?: string[]
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -4909,7 +6170,16 @@ export class StripeApi extends AbstractFetchClient {
     Res<200, t_customer | t_deleted_customer> | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/customers/${p["customer"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -4919,8 +6189,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postCustomersCustomer(
@@ -4968,6 +6246,7 @@ export class StripeApi extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -4985,7 +6264,16 @@ export class StripeApi extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/customers/${p["customer"]}/balance_transactions`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         ending_before: p["endingBefore"],
@@ -5000,8 +6288,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postCustomersCustomerBalanceTransactions(
@@ -5036,6 +6332,7 @@ export class StripeApi extends AbstractFetchClient {
       customer: string
       expand?: string[]
       transaction: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -5045,7 +6342,16 @@ export class StripeApi extends AbstractFetchClient {
     const url =
       this.basePath +
       `/v1/customers/${p["customer"]}/balance_transactions/${p["transaction"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -5055,8 +6361,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postCustomersCustomerBalanceTransactionsTransaction(
@@ -5101,6 +6415,7 @@ export class StripeApi extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -5117,7 +6432,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/customers/${p["customer"]}/bank_accounts`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         ending_before: p["endingBefore"],
@@ -5132,8 +6456,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postCustomersCustomerBankAccounts(
@@ -5207,13 +6539,23 @@ export class StripeApi extends AbstractFetchClient {
       customer: string
       expand?: string[]
       id: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_bank_account> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/customers/${p["customer"]}/bank_accounts/${p["id"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -5223,8 +6565,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postCustomersCustomerBankAccountsId(
@@ -5302,6 +6652,7 @@ export class StripeApi extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -5318,7 +6669,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/customers/${p["customer"]}/cards`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         ending_before: p["endingBefore"],
@@ -5333,8 +6693,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postCustomersCustomerCards(
@@ -5408,13 +6776,23 @@ export class StripeApi extends AbstractFetchClient {
       customer: string
       expand?: string[]
       id: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_card> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/customers/${p["customer"]}/cards/${p["id"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -5424,8 +6802,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postCustomersCustomerCardsId(
@@ -5467,12 +6853,22 @@ export class StripeApi extends AbstractFetchClient {
     p: {
       customer: string
       expand?: string[]
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_cash_balance> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/customers/${p["customer"]}/cash_balance`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -5482,8 +6878,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postCustomersCustomerCashBalance(
@@ -5523,6 +6927,7 @@ export class StripeApi extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -5540,7 +6945,16 @@ export class StripeApi extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/customers/${p["customer"]}/cash_balance_transactions`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         ending_before: p["endingBefore"],
@@ -5555,8 +6969,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async getCustomersCustomerCashBalanceTransactionsTransaction(
@@ -5564,6 +6986,7 @@ export class StripeApi extends AbstractFetchClient {
       customer: string
       expand?: string[]
       transaction: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -5573,7 +6996,16 @@ export class StripeApi extends AbstractFetchClient {
     const url =
       this.basePath +
       `/v1/customers/${p["customer"]}/cash_balance_transactions/${p["transaction"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -5583,33 +7015,65 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async deleteCustomersCustomerDiscount(
     p: {
       customer: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_deleted_discount> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/customers/${p["customer"]}/discount`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
+    return this._fetch(url, {method: "DELETE", body, ...opts, headers}, timeout)
   }
 
   async getCustomersCustomerDiscount(
     p: {
       customer: string
       expand?: string[]
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_discount> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/customers/${p["customer"]}/discount`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -5619,8 +7083,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postCustomersCustomerFundingInstructions(
@@ -5710,6 +7182,7 @@ export class StripeApi extends AbstractFetchClient {
         | "wechat_pay"
         | "zip"
         | UnknownEnumStringValue
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -5726,7 +7199,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/customers/${p["customer"]}/payment_methods`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         allow_redisplay: p["allowRedisplay"],
@@ -5743,8 +7225,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async getCustomersCustomerPaymentMethodsPaymentMethod(
@@ -5752,6 +7242,7 @@ export class StripeApi extends AbstractFetchClient {
       customer: string
       expand?: string[]
       paymentMethod: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -5759,7 +7250,16 @@ export class StripeApi extends AbstractFetchClient {
     const url =
       this.basePath +
       `/v1/customers/${p["customer"]}/payment_methods/${p["paymentMethod"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -5769,8 +7269,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async getCustomersCustomerSources(
@@ -5781,6 +7289,7 @@ export class StripeApi extends AbstractFetchClient {
       limit?: number
       object?: string
       startingAfter?: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -5797,7 +7306,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/customers/${p["customer"]}/sources`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         ending_before: p["endingBefore"],
@@ -5813,8 +7331,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postCustomersCustomerSources(
@@ -5888,13 +7414,23 @@ export class StripeApi extends AbstractFetchClient {
       customer: string
       expand?: string[]
       id: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_payment_source> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/customers/${p["customer"]}/sources/${p["id"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -5904,8 +7440,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postCustomersCustomerSourcesId(
@@ -5982,6 +7526,7 @@ export class StripeApi extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -5998,7 +7543,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/customers/${p["customer"]}/subscriptions`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         ending_before: p["endingBefore"],
@@ -6013,8 +7567,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postCustomersCustomerSubscriptions(
@@ -6098,6 +7660,7 @@ export class StripeApi extends AbstractFetchClient {
       customer: string
       expand?: string[]
       subscriptionExposedId: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -6105,7 +7668,16 @@ export class StripeApi extends AbstractFetchClient {
     const url =
       this.basePath +
       `/v1/customers/${p["customer"]}/subscriptions/${p["subscriptionExposedId"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -6115,8 +7687,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postCustomersCustomerSubscriptionsSubscriptionExposedId(
@@ -6173,6 +7753,7 @@ export class StripeApi extends AbstractFetchClient {
     p: {
       customer: string
       subscriptionExposedId: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -6180,9 +7761,22 @@ export class StripeApi extends AbstractFetchClient {
     const url =
       this.basePath +
       `/v1/customers/${p["customer"]}/subscriptions/${p["subscriptionExposedId"]}/discount`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
+    return this._fetch(url, {method: "DELETE", body, ...opts, headers}, timeout)
   }
 
   async getCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount(
@@ -6190,6 +7784,7 @@ export class StripeApi extends AbstractFetchClient {
       customer: string
       expand?: string[]
       subscriptionExposedId: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -6197,7 +7792,16 @@ export class StripeApi extends AbstractFetchClient {
     const url =
       this.basePath +
       `/v1/customers/${p["customer"]}/subscriptions/${p["subscriptionExposedId"]}/discount`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -6207,8 +7811,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async getCustomersCustomerTaxIds(
@@ -6218,6 +7830,7 @@ export class StripeApi extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -6234,7 +7847,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/customers/${p["customer"]}/tax_ids`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         ending_before: p["endingBefore"],
@@ -6249,8 +7871,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postCustomersCustomerTaxIds(
@@ -6280,15 +7910,29 @@ export class StripeApi extends AbstractFetchClient {
     p: {
       customer: string
       id: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_deleted_tax_id> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/customers/${p["customer"]}/tax_ids/${p["id"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
+    return this._fetch(url, {method: "DELETE", body, ...opts, headers}, timeout)
   }
 
   async getCustomersCustomerTaxIdsId(
@@ -6296,13 +7940,23 @@ export class StripeApi extends AbstractFetchClient {
       customer: string
       expand?: string[]
       id: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_tax_id> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/customers/${p["customer"]}/tax_ids/${p["id"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -6312,8 +7966,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async getDisputes(
@@ -6332,6 +7994,7 @@ export class StripeApi extends AbstractFetchClient {
       limit?: number
       paymentIntent?: string
       startingAfter?: string
+      requestBody?: Record<string, never>
     } = {},
     timeout?: number,
     opts: RequestInit = {},
@@ -6348,7 +8011,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/disputes`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         charge: p["charge"],
@@ -6370,20 +8042,38 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async getDisputesDispute(
     p: {
       dispute: string
       expand?: string[]
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_dispute> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/disputes/${p["dispute"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -6393,8 +8083,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postDisputesDispute(
@@ -6464,6 +8162,7 @@ export class StripeApi extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -6480,7 +8179,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/entitlements/active_entitlements`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         customer: p["customer"],
@@ -6496,14 +8204,23 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async getEntitlementsActiveEntitlementsId(
     p: {
       expand?: string[]
       id: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -6512,7 +8229,16 @@ export class StripeApi extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/entitlements/active_entitlements/${p["id"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -6522,8 +8248,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async getEntitlementsFeatures(
@@ -6534,6 +8268,7 @@ export class StripeApi extends AbstractFetchClient {
       limit?: number
       lookupKey?: string
       startingAfter?: string
+      requestBody?: Record<string, never>
     } = {},
     timeout?: number,
     opts: RequestInit = {},
@@ -6550,7 +8285,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/entitlements/features`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         archived: p["archived"],
@@ -6567,8 +8311,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postEntitlementsFeatures(
@@ -6598,12 +8350,22 @@ export class StripeApi extends AbstractFetchClient {
     p: {
       expand?: string[]
       id: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_entitlements_feature> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/entitlements/features/${p["id"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -6613,8 +8375,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postEntitlementsFeaturesId(
@@ -6721,6 +8491,7 @@ export class StripeApi extends AbstractFetchClient {
       startingAfter?: string
       type?: string
       types?: string[]
+      requestBody?: Record<string, never>
     } = {},
     timeout?: number,
     opts: RequestInit = {},
@@ -6737,7 +8508,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/events`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         created: p["created"],
@@ -6764,20 +8544,38 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async getEventsId(
     p: {
       expand?: string[]
       id: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_event> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/events/${p["id"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -6787,8 +8585,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async getExchangeRates(
@@ -6797,6 +8603,7 @@ export class StripeApi extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
+      requestBody?: Record<string, never>
     } = {},
     timeout?: number,
     opts: RequestInit = {},
@@ -6813,7 +8620,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/exchange_rates`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         ending_before: p["endingBefore"],
@@ -6828,20 +8644,38 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async getExchangeRatesRateId(
     p: {
       expand?: string[]
       rateId: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_exchange_rate> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/exchange_rates/${p["rateId"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -6851,8 +8685,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postExternalAccountsId(
@@ -6902,6 +8744,7 @@ export class StripeApi extends AbstractFetchClient {
       file?: string
       limit?: number
       startingAfter?: string
+      requestBody?: Record<string, never>
     } = {},
     timeout?: number,
     opts: RequestInit = {},
@@ -6918,7 +8761,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/file_links`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         created: p["created"],
@@ -6940,8 +8792,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postFileLinks(
@@ -6971,12 +8831,22 @@ export class StripeApi extends AbstractFetchClient {
     p: {
       expand?: string[]
       link: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_file_link> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/file_links/${p["link"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -6986,8 +8856,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postFileLinksLink(
@@ -7054,6 +8932,7 @@ export class StripeApi extends AbstractFetchClient {
         | "terminal_reader_splashscreen"
         | UnknownEnumStringValue
       startingAfter?: string
+      requestBody?: Record<string, never>
     } = {},
     timeout?: number,
     opts: RequestInit = {},
@@ -7070,7 +8949,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/files`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         created: p["created"],
@@ -7091,8 +8979,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postFiles(
@@ -7124,12 +9020,22 @@ export class StripeApi extends AbstractFetchClient {
     p: {
       expand?: string[]
       file: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_file> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/files/${p["file"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -7139,8 +9045,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async getFinancialConnectionsAccounts(
@@ -7154,6 +9068,7 @@ export class StripeApi extends AbstractFetchClient {
       limit?: number
       session?: string
       startingAfter?: string
+      requestBody?: Record<string, never>
     } = {},
     timeout?: number,
     opts: RequestInit = {},
@@ -7170,7 +9085,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/financial_connections/accounts`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         account_holder: p["accountHolder"],
@@ -7191,14 +9115,23 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async getFinancialConnectionsAccountsAccount(
     p: {
       account: string
       expand?: string[]
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -7207,7 +9140,16 @@ export class StripeApi extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/financial_connections/accounts/${p["account"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -7217,8 +9159,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postFinancialConnectionsAccountsAccountDisconnect(
@@ -7262,6 +9212,7 @@ export class StripeApi extends AbstractFetchClient {
       limit?: number
       ownership: string
       startingAfter?: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -7280,7 +9231,16 @@ export class StripeApi extends AbstractFetchClient {
     const url =
       this.basePath +
       `/v1/financial_connections/accounts/${p["account"]}/owners`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         ending_before: p["endingBefore"],
@@ -7296,8 +9256,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postFinancialConnectionsAccountsAccountRefresh(
@@ -7416,6 +9384,7 @@ export class StripeApi extends AbstractFetchClient {
     p: {
       expand?: string[]
       session: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -7424,7 +9393,16 @@ export class StripeApi extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/financial_connections/sessions/${p["session"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -7434,8 +9412,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async getFinancialConnectionsTransactions(
@@ -7456,6 +9442,7 @@ export class StripeApi extends AbstractFetchClient {
       transactionRefresh?: {
         after: string
       }
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -7472,7 +9459,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/financial_connections/transactions`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         account: p["account"],
@@ -7498,14 +9494,23 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async getFinancialConnectionsTransactionsTransaction(
     p: {
       expand?: string[]
       transaction: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -7515,7 +9520,16 @@ export class StripeApi extends AbstractFetchClient {
     const url =
       this.basePath +
       `/v1/financial_connections/transactions/${p["transaction"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -7525,8 +9539,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async getForwardingRequests(
@@ -7541,6 +9563,7 @@ export class StripeApi extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
+      requestBody?: Record<string, never>
     } = {},
     timeout?: number,
     opts: RequestInit = {},
@@ -7557,7 +9580,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/forwarding/requests`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         created: p["created"],
@@ -7577,8 +9609,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postForwardingRequests(
@@ -7610,12 +9650,22 @@ export class StripeApi extends AbstractFetchClient {
     p: {
       expand?: string[]
       id: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_forwarding_request> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/forwarding/requests/${p["id"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -7625,8 +9675,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async getIdentityVerificationReports(
@@ -7646,6 +9704,7 @@ export class StripeApi extends AbstractFetchClient {
       startingAfter?: string
       type?: "document" | "id_number" | UnknownEnumStringValue
       verificationSession?: string
+      requestBody?: Record<string, never>
     } = {},
     timeout?: number,
     opts: RequestInit = {},
@@ -7662,7 +9721,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/identity/verification_reports`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         client_reference_id: p["clientReferenceId"],
@@ -7685,14 +9753,23 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async getIdentityVerificationReportsReport(
     p: {
       expand?: string[]
       report: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -7701,7 +9778,16 @@ export class StripeApi extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/identity/verification_reports/${p["report"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -7711,8 +9797,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async getIdentityVerificationSessions(
@@ -7737,6 +9831,7 @@ export class StripeApi extends AbstractFetchClient {
         | "requires_input"
         | "verified"
         | UnknownEnumStringValue
+      requestBody?: Record<string, never>
     } = {},
     timeout?: number,
     opts: RequestInit = {},
@@ -7753,7 +9848,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/identity/verification_sessions`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         client_reference_id: p["clientReferenceId"],
@@ -7776,8 +9880,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postIdentityVerificationSessions(
@@ -7818,6 +9930,7 @@ export class StripeApi extends AbstractFetchClient {
     p: {
       expand?: string[]
       session: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -7826,7 +9939,16 @@ export class StripeApi extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/identity/verification_sessions/${p["session"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -7836,8 +9958,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postIdentityVerificationSessionsSession(
@@ -7953,6 +10083,7 @@ export class StripeApi extends AbstractFetchClient {
       }
       startingAfter?: string
       status?: "canceled" | "open" | "paid" | UnknownEnumStringValue
+      requestBody?: Record<string, never>
     } = {},
     timeout?: number,
     opts: RequestInit = {},
@@ -7969,7 +10100,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/invoice_payments`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         ending_before: p["endingBefore"],
@@ -7991,20 +10131,38 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async getInvoicePaymentsInvoicePayment(
     p: {
       expand?: string[]
       invoicePayment: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_invoice_payment> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/invoice_payments/${p["invoicePayment"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -8014,8 +10172,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async getInvoiceRenderingTemplates(
@@ -8025,6 +10191,7 @@ export class StripeApi extends AbstractFetchClient {
       limit?: number
       startingAfter?: string
       status?: "active" | "archived" | UnknownEnumStringValue
+      requestBody?: Record<string, never>
     } = {},
     timeout?: number,
     opts: RequestInit = {},
@@ -8041,7 +10208,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/invoice_rendering_templates`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         ending_before: p["endingBefore"],
@@ -8057,8 +10233,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async getInvoiceRenderingTemplatesTemplate(
@@ -8066,6 +10250,7 @@ export class StripeApi extends AbstractFetchClient {
       expand?: string[]
       template: string
       version?: number
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -8074,7 +10259,16 @@ export class StripeApi extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/invoice_rendering_templates/${p["template"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"], version: p["version"]},
       {
@@ -8084,8 +10278,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postInvoiceRenderingTemplatesTemplateArchive(
@@ -8170,6 +10372,7 @@ export class StripeApi extends AbstractFetchClient {
       limit?: number
       pending?: boolean
       startingAfter?: string
+      requestBody?: Record<string, never>
     } = {},
     timeout?: number,
     opts: RequestInit = {},
@@ -8186,7 +10389,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/invoiceitems`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         created: p["created"],
@@ -8209,8 +10421,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postInvoiceitems(
@@ -8245,26 +10465,50 @@ export class StripeApi extends AbstractFetchClient {
   async deleteInvoiceitemsInvoiceitem(
     p: {
       invoiceitem: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_deleted_invoiceitem> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/invoiceitems/${p["invoiceitem"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
+    return this._fetch(url, {method: "DELETE", body, ...opts, headers}, timeout)
   }
 
   async getInvoiceitemsInvoiceitem(
     p: {
       expand?: string[]
       invoiceitem: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_invoiceitem> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/invoiceitems/${p["invoiceitem"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -8274,8 +10518,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postInvoiceitemsInvoiceitem(
@@ -8349,6 +10601,7 @@ export class StripeApi extends AbstractFetchClient {
         | "void"
         | UnknownEnumStringValue
       subscription?: string
+      requestBody?: Record<string, never>
     } = {},
     timeout?: number,
     opts: RequestInit = {},
@@ -8365,7 +10618,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/invoices`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         collection_method: p["collectionMethod"],
@@ -8394,8 +10656,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postInvoices(
@@ -8481,6 +10751,7 @@ export class StripeApi extends AbstractFetchClient {
       limit?: number
       page?: string
       query: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -8499,7 +10770,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/invoices/search`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         expand: p["expand"],
@@ -8514,33 +10794,65 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async deleteInvoicesInvoice(
     p: {
       invoice: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_deleted_invoice> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/invoices/${p["invoice"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
+    return this._fetch(url, {method: "DELETE", body, ...opts, headers}, timeout)
   }
 
   async getInvoicesInvoice(
     p: {
       expand?: string[]
       invoice: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_invoice> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/invoices/${p["invoice"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -8550,8 +10862,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postInvoicesInvoice(
@@ -8689,6 +11009,7 @@ export class StripeApi extends AbstractFetchClient {
       invoice: string
       limit?: number
       startingAfter?: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -8705,7 +11026,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/invoices/${p["invoice"]}/lines`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         ending_before: p["endingBefore"],
@@ -8720,8 +11050,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postInvoicesInvoiceLinesLineItemId(
@@ -8952,6 +11290,7 @@ export class StripeApi extends AbstractFetchClient {
         | "pending"
         | "reversed"
         | UnknownEnumStringValue
+      requestBody?: Record<string, never>
     } = {},
     timeout?: number,
     opts: RequestInit = {},
@@ -8968,7 +11307,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/issuing/authorizations`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         card: p["card"],
@@ -8991,21 +11339,39 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async getIssuingAuthorizationsAuthorization(
     p: {
       authorization: string
       expand?: string[]
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_issuing_authorization> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/issuing/authorizations/${p["authorization"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -9015,8 +11381,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postIssuingAuthorizationsAuthorization(
@@ -9130,6 +11504,7 @@ export class StripeApi extends AbstractFetchClient {
       startingAfter?: string
       status?: "active" | "blocked" | "inactive" | UnknownEnumStringValue
       type?: "company" | "individual" | UnknownEnumStringValue
+      requestBody?: Record<string, never>
     } = {},
     timeout?: number,
     opts: RequestInit = {},
@@ -9146,7 +11521,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/issuing/cardholders`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         created: p["created"],
@@ -9170,8 +11554,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postIssuingCardholders(
@@ -9206,12 +11598,22 @@ export class StripeApi extends AbstractFetchClient {
     p: {
       cardholder: string
       expand?: string[]
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_issuing_cardholder> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/issuing/cardholders/${p["cardholder"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -9221,8 +11623,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postIssuingCardholdersCardholder(
@@ -9281,6 +11691,7 @@ export class StripeApi extends AbstractFetchClient {
       startingAfter?: string
       status?: "active" | "canceled" | "inactive" | UnknownEnumStringValue
       type?: "physical" | "virtual" | UnknownEnumStringValue
+      requestBody?: Record<string, never>
     } = {},
     timeout?: number,
     opts: RequestInit = {},
@@ -9297,7 +11708,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/issuing/cards`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         cardholder: p["cardholder"],
@@ -9324,8 +11744,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postIssuingCards(
@@ -9359,12 +11787,22 @@ export class StripeApi extends AbstractFetchClient {
     p: {
       card: string
       expand?: string[]
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_issuing_card> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/issuing/cards/${p["card"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -9374,8 +11812,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postIssuingCardsCard(
@@ -9433,6 +11879,7 @@ export class StripeApi extends AbstractFetchClient {
         | "won"
         | UnknownEnumStringValue
       transaction?: string
+      requestBody?: Record<string, never>
     } = {},
     timeout?: number,
     opts: RequestInit = {},
@@ -9449,7 +11896,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/issuing/disputes`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         created: p["created"],
@@ -9471,8 +11927,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postIssuingDisputes(
@@ -9510,12 +11974,22 @@ export class StripeApi extends AbstractFetchClient {
     p: {
       dispute: string
       expand?: string[]
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_issuing_dispute> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/issuing/disputes/${p["dispute"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -9525,8 +11999,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postIssuingDisputesDispute(
@@ -9607,6 +12089,7 @@ export class StripeApi extends AbstractFetchClient {
         | "rejected"
         | "review"
         | UnknownEnumStringValue
+      requestBody?: Record<string, never>
     } = {},
     timeout?: number,
     opts: RequestInit = {},
@@ -9623,7 +12106,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/issuing/personalization_designs`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         ending_before: p["endingBefore"],
@@ -9649,8 +12141,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postIssuingPersonalizationDesigns(
@@ -9684,6 +12184,7 @@ export class StripeApi extends AbstractFetchClient {
     p: {
       expand?: string[]
       personalizationDesign: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -9693,7 +12194,16 @@ export class StripeApi extends AbstractFetchClient {
     const url =
       this.basePath +
       `/v1/issuing/personalization_designs/${p["personalizationDesign"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -9703,8 +12213,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postIssuingPersonalizationDesignsPersonalizationDesign(
@@ -9754,6 +12272,7 @@ export class StripeApi extends AbstractFetchClient {
       startingAfter?: string
       status?: "active" | "inactive" | "review" | UnknownEnumStringValue
       type?: "custom" | "standard" | UnknownEnumStringValue
+      requestBody?: Record<string, never>
     } = {},
     timeout?: number,
     opts: RequestInit = {},
@@ -9770,7 +12289,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/issuing/physical_bundles`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         ending_before: p["endingBefore"],
@@ -9787,21 +12315,39 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async getIssuingPhysicalBundlesPhysicalBundle(
     p: {
       expand?: string[]
       physicalBundle: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_issuing_physical_bundle> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/issuing/physical_bundles/${p["physicalBundle"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -9811,20 +12357,38 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async getIssuingSettlementsSettlement(
     p: {
       expand?: string[]
       settlement: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_issuing_settlement> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/issuing/settlements/${p["settlement"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -9834,8 +12398,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postIssuingSettlementsSettlement(
@@ -9889,6 +12461,7 @@ export class StripeApi extends AbstractFetchClient {
         | "requested"
         | "suspended"
         | UnknownEnumStringValue
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -9905,7 +12478,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/issuing/tokens`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         card: p["card"],
@@ -9927,20 +12509,38 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async getIssuingTokensToken(
     p: {
       expand?: string[]
       token: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_issuing_token> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/issuing/tokens/${p["token"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -9950,8 +12550,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postIssuingTokensToken(
@@ -9994,6 +12602,7 @@ export class StripeApi extends AbstractFetchClient {
       limit?: number
       startingAfter?: string
       type?: "capture" | "refund" | UnknownEnumStringValue
+      requestBody?: Record<string, never>
     } = {},
     timeout?: number,
     opts: RequestInit = {},
@@ -10010,7 +12619,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/issuing/transactions`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         card: p["card"],
@@ -10033,20 +12651,38 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async getIssuingTransactionsTransaction(
     p: {
       expand?: string[]
       transaction: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_issuing_transaction> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/issuing/transactions/${p["transaction"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -10056,8 +12692,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postIssuingTransactionsTransaction(
@@ -10122,6 +12766,7 @@ export class StripeApi extends AbstractFetchClient {
     p: {
       expand?: string[]
       session: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -10129,7 +12774,16 @@ export class StripeApi extends AbstractFetchClient {
     Res<200, t_financial_connections_session> | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/link_account_sessions/${p["session"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -10139,8 +12793,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async getLinkedAccounts(
@@ -10154,6 +12816,7 @@ export class StripeApi extends AbstractFetchClient {
       limit?: number
       session?: string
       startingAfter?: string
+      requestBody?: Record<string, never>
     } = {},
     timeout?: number,
     opts: RequestInit = {},
@@ -10170,7 +12833,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/linked_accounts`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         account_holder: p["accountHolder"],
@@ -10191,14 +12863,23 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async getLinkedAccountsAccount(
     p: {
       account: string
       expand?: string[]
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -10206,7 +12887,16 @@ export class StripeApi extends AbstractFetchClient {
     Res<200, t_financial_connections_account> | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/linked_accounts/${p["account"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -10216,8 +12906,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postLinkedAccountsAccountDisconnect(
@@ -10259,6 +12957,7 @@ export class StripeApi extends AbstractFetchClient {
       limit?: number
       ownership: string
       startingAfter?: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -10275,7 +12974,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/linked_accounts/${p["account"]}/owners`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         ending_before: p["endingBefore"],
@@ -10291,8 +12999,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postLinkedAccountsAccountRefresh(
@@ -10325,12 +13041,22 @@ export class StripeApi extends AbstractFetchClient {
     p: {
       expand?: string[]
       mandate: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_mandate> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/mandates/${p["mandate"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -10340,8 +13066,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async getPaymentIntents(
@@ -10359,6 +13093,7 @@ export class StripeApi extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
+      requestBody?: Record<string, never>
     } = {},
     timeout?: number,
     opts: RequestInit = {},
@@ -10375,7 +13110,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/payment_intents`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         created: p["created"],
@@ -10396,8 +13140,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postPaymentIntents(
@@ -10438,6 +13190,7 @@ export class StripeApi extends AbstractFetchClient {
       limit?: number
       page?: string
       query: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -10456,7 +13209,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/payment_intents/search`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         expand: p["expand"],
@@ -10471,8 +13233,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async getPaymentIntentsIntent(
@@ -10480,12 +13250,22 @@ export class StripeApi extends AbstractFetchClient {
       clientSecret?: string
       expand?: string[]
       intent: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_payment_intent> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/payment_intents/${p["intent"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {client_secret: p["clientSecret"], expand: p["expand"]},
       {
@@ -10495,8 +13275,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postPaymentIntentsIntent(
@@ -10729,6 +13517,7 @@ export class StripeApi extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
+      requestBody?: Record<string, never>
     } = {},
     timeout?: number,
     opts: RequestInit = {},
@@ -10745,7 +13534,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/payment_links`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         active: p["active"],
@@ -10761,8 +13559,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postPaymentLinks(
@@ -10809,12 +13615,22 @@ export class StripeApi extends AbstractFetchClient {
     p: {
       expand?: string[]
       paymentLink: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_payment_link> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/payment_links/${p["paymentLink"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -10824,8 +13640,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postPaymentLinksPaymentLink(
@@ -10879,6 +13703,7 @@ export class StripeApi extends AbstractFetchClient {
       limit?: number
       paymentLink: string
       startingAfter?: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -10896,7 +13721,16 @@ export class StripeApi extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/payment_links/${p["paymentLink"]}/line_items`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         ending_before: p["endingBefore"],
@@ -10911,8 +13745,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async getPaymentMethodConfigurations(
@@ -10922,6 +13764,7 @@ export class StripeApi extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
+      requestBody?: Record<string, never>
     } = {},
     timeout?: number,
     opts: RequestInit = {},
@@ -10938,7 +13781,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/payment_method_configurations`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         application: p["application"],
@@ -10958,8 +13810,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postPaymentMethodConfigurations(
@@ -11048,6 +13908,7 @@ export class StripeApi extends AbstractFetchClient {
     p: {
       configuration: string
       expand?: string[]
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -11056,7 +13917,16 @@ export class StripeApi extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/payment_method_configurations/${p["configuration"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -11066,8 +13936,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postPaymentMethodConfigurationsConfiguration(
@@ -11162,6 +14040,7 @@ export class StripeApi extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
+      requestBody?: Record<string, never>
     } = {},
     timeout?: number,
     opts: RequestInit = {},
@@ -11178,7 +14057,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/payment_method_domains`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         domain_name: p["domainName"],
@@ -11195,8 +14083,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postPaymentMethodDomains(
@@ -11225,13 +14121,23 @@ export class StripeApi extends AbstractFetchClient {
     p: {
       expand?: string[]
       paymentMethodDomain: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_payment_method_domain> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/payment_method_domains/${p["paymentMethodDomain"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -11241,8 +14147,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postPaymentMethodDomainsPaymentMethodDomain(
@@ -11363,6 +14277,7 @@ export class StripeApi extends AbstractFetchClient {
         | "wechat_pay"
         | "zip"
         | UnknownEnumStringValue
+      requestBody?: Record<string, never>
     } = {},
     timeout?: number,
     opts: RequestInit = {},
@@ -11379,7 +14294,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/payment_methods`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         customer: p["customer"],
@@ -11396,8 +14320,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postPaymentMethods(
@@ -11484,12 +14416,22 @@ export class StripeApi extends AbstractFetchClient {
     p: {
       expand?: string[]
       paymentMethod: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_payment_method> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/payment_methods/${p["paymentMethod"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -11499,8 +14441,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postPaymentMethodsPaymentMethod(
@@ -11616,6 +14566,7 @@ export class StripeApi extends AbstractFetchClient {
       limit?: number
       startingAfter?: string
       status?: string
+      requestBody?: Record<string, never>
     } = {},
     timeout?: number,
     opts: RequestInit = {},
@@ -11632,7 +14583,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/payouts`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         arrival_date: p["arrivalDate"],
@@ -11659,8 +14619,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postPayouts(
@@ -11690,12 +14658,22 @@ export class StripeApi extends AbstractFetchClient {
     p: {
       expand?: string[]
       payout: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_payout> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/payouts/${p["payout"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -11705,8 +14683,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postPayoutsPayout(
@@ -11814,6 +14800,7 @@ export class StripeApi extends AbstractFetchClient {
       limit?: number
       product?: string
       startingAfter?: string
+      requestBody?: Record<string, never>
     } = {},
     timeout?: number,
     opts: RequestInit = {},
@@ -11830,7 +14817,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/plans`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         active: p["active"],
@@ -11852,8 +14848,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postPlans(
@@ -11885,26 +14889,50 @@ export class StripeApi extends AbstractFetchClient {
   async deletePlansPlan(
     p: {
       plan: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_deleted_plan> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/plans/${p["plan"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
+    return this._fetch(url, {method: "DELETE", body, ...opts, headers}, timeout)
   }
 
   async getPlansPlan(
     p: {
       expand?: string[]
       plan: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_plan> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/plans/${p["plan"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -11914,8 +14942,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postPlansPlan(
@@ -11972,6 +15008,7 @@ export class StripeApi extends AbstractFetchClient {
       }
       startingAfter?: string
       type?: "one_time" | "recurring" | UnknownEnumStringValue
+      requestBody?: Record<string, never>
     } = {},
     timeout?: number,
     opts: RequestInit = {},
@@ -11988,7 +15025,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/prices`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         active: p["active"],
@@ -12022,8 +15068,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postPrices(
@@ -12061,6 +15115,7 @@ export class StripeApi extends AbstractFetchClient {
       limit?: number
       page?: string
       query: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -12079,7 +15134,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/prices/search`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         expand: p["expand"],
@@ -12094,20 +15158,38 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async getPricesPrice(
     p: {
       expand?: string[]
       price: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_price> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/prices/${p["price"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -12117,8 +15199,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postPricesPrice(
@@ -12170,6 +15260,7 @@ export class StripeApi extends AbstractFetchClient {
       shippable?: boolean
       startingAfter?: string
       url?: string
+      requestBody?: Record<string, never>
     } = {},
     timeout?: number,
     opts: RequestInit = {},
@@ -12186,7 +15277,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/products`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         active: p["active"],
@@ -12214,8 +15314,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postProducts(
@@ -12251,6 +15359,7 @@ export class StripeApi extends AbstractFetchClient {
       limit?: number
       page?: string
       query: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -12269,7 +15378,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/products/search`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         expand: p["expand"],
@@ -12284,33 +15402,65 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async deleteProductsId(
     p: {
       id: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_deleted_product> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/products/${p["id"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
+    return this._fetch(url, {method: "DELETE", body, ...opts, headers}, timeout)
   }
 
   async getProductsId(
     p: {
       expand?: string[]
       id: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_product> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/products/${p["id"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -12320,8 +15470,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postProductsId(
@@ -12368,6 +15526,7 @@ export class StripeApi extends AbstractFetchClient {
       limit?: number
       product: string
       startingAfter?: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -12384,7 +15543,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/products/${p["product"]}/features`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         ending_before: p["endingBefore"],
@@ -12399,8 +15567,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postProductsProductFeatures(
@@ -12430,15 +15606,29 @@ export class StripeApi extends AbstractFetchClient {
     p: {
       id: string
       product: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_deleted_product_feature> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/products/${p["product"]}/features/${p["id"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
+    return this._fetch(url, {method: "DELETE", body, ...opts, headers}, timeout)
   }
 
   async getProductsProductFeaturesId(
@@ -12446,13 +15636,23 @@ export class StripeApi extends AbstractFetchClient {
       expand?: string[]
       id: string
       product: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_product_feature> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/products/${p["product"]}/features/${p["id"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -12462,8 +15662,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async getPromotionCodes(
@@ -12484,6 +15692,7 @@ export class StripeApi extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
+      requestBody?: Record<string, never>
     } = {},
     timeout?: number,
     opts: RequestInit = {},
@@ -12500,7 +15709,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/promotion_codes`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         active: p["active"],
@@ -12524,8 +15742,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postPromotionCodes(
@@ -12556,12 +15782,22 @@ export class StripeApi extends AbstractFetchClient {
     p: {
       expand?: string[]
       promotionCode: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_promotion_code> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/promotion_codes/${p["promotionCode"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -12571,8 +15807,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postPromotionCodesPromotionCode(
@@ -12620,6 +15864,7 @@ export class StripeApi extends AbstractFetchClient {
         | "open"
         | UnknownEnumStringValue
       testClock?: string
+      requestBody?: Record<string, never>
     } = {},
     timeout?: number,
     opts: RequestInit = {},
@@ -12636,7 +15881,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/quotes`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         customer: p["customer"],
@@ -12654,8 +15908,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postQuotes(
@@ -12705,12 +15967,22 @@ export class StripeApi extends AbstractFetchClient {
     p: {
       expand?: string[]
       quote: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_quote> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/quotes/${p["quote"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -12720,8 +15992,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postQuotesQuote(
@@ -12832,6 +16112,7 @@ export class StripeApi extends AbstractFetchClient {
       limit?: number
       quote: string
       startingAfter?: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -12849,7 +16130,16 @@ export class StripeApi extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/quotes/${p["quote"]}/computed_upfront_line_items`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         ending_before: p["endingBefore"],
@@ -12864,8 +16154,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postQuotesQuoteFinalize(
@@ -12904,6 +16202,7 @@ export class StripeApi extends AbstractFetchClient {
       limit?: number
       quote: string
       startingAfter?: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -12920,7 +16219,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/quotes/${p["quote"]}/line_items`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         ending_before: p["endingBefore"],
@@ -12935,14 +16243,23 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async getQuotesQuotePdf(
     p: {
       expand?: string[]
       quote: string
+      requestBody?: Record<string, never>
     },
     basePath:
       | Server<"getQuotesQuotePdf_StripeApi">
@@ -12951,7 +16268,16 @@ export class StripeApi extends AbstractFetchClient {
     opts: RequestInit = {},
   ): Promise<Res<200, Blob> | Res<StatusCode, t_error>> {
     const url = basePath + `/v1/quotes/${p["quote"]}/pdf`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -12961,8 +16287,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async getRadarEarlyFraudWarnings(
@@ -12981,6 +16315,7 @@ export class StripeApi extends AbstractFetchClient {
       limit?: number
       paymentIntent?: string
       startingAfter?: string
+      requestBody?: Record<string, never>
     } = {},
     timeout?: number,
     opts: RequestInit = {},
@@ -12997,7 +16332,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/radar/early_fraud_warnings`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         charge: p["charge"],
@@ -13019,21 +16363,39 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async getRadarEarlyFraudWarningsEarlyFraudWarning(
     p: {
       earlyFraudWarning: string
       expand?: string[]
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_radar_early_fraud_warning> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/radar/early_fraud_warnings/${p["earlyFraudWarning"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -13043,8 +16405,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async getRadarValueListItems(
@@ -13063,6 +16433,7 @@ export class StripeApi extends AbstractFetchClient {
       startingAfter?: string
       value?: string
       valueList: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -13079,7 +16450,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/radar/value_list_items`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         created: p["created"],
@@ -13101,8 +16481,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postRadarValueListItems(
@@ -13130,6 +16518,7 @@ export class StripeApi extends AbstractFetchClient {
   async deleteRadarValueListItemsItem(
     p: {
       item: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -13137,21 +16526,44 @@ export class StripeApi extends AbstractFetchClient {
     Res<200, t_deleted_radar_value_list_item> | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/radar/value_list_items/${p["item"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
+    return this._fetch(url, {method: "DELETE", body, ...opts, headers}, timeout)
   }
 
   async getRadarValueListItemsItem(
     p: {
       expand?: string[]
       item: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_radar_value_list_item> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/radar/value_list_items/${p["item"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -13161,8 +16573,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async getRadarValueLists(
@@ -13181,6 +16601,7 @@ export class StripeApi extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
+      requestBody?: Record<string, never>
     } = {},
     timeout?: number,
     opts: RequestInit = {},
@@ -13197,7 +16618,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/radar/value_lists`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         alias: p["alias"],
@@ -13219,8 +16649,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postRadarValueLists(
@@ -13249,26 +16687,50 @@ export class StripeApi extends AbstractFetchClient {
   async deleteRadarValueListsValueList(
     p: {
       valueList: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_deleted_radar_value_list> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/radar/value_lists/${p["valueList"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
+    return this._fetch(url, {method: "DELETE", body, ...opts, headers}, timeout)
   }
 
   async getRadarValueListsValueList(
     p: {
       expand?: string[]
       valueList: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_radar_value_list> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/radar/value_lists/${p["valueList"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -13278,8 +16740,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postRadarValueListsValueList(
@@ -13328,6 +16798,7 @@ export class StripeApi extends AbstractFetchClient {
       limit?: number
       paymentIntent?: string
       startingAfter?: string
+      requestBody?: Record<string, never>
     } = {},
     timeout?: number,
     opts: RequestInit = {},
@@ -13344,7 +16815,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/refunds`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         charge: p["charge"],
@@ -13366,8 +16846,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postRefunds(
@@ -13403,12 +16891,22 @@ export class StripeApi extends AbstractFetchClient {
     p: {
       expand?: string[]
       refund: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_refund> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/refunds/${p["refund"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -13418,8 +16916,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postRefundsRefund(
@@ -13495,6 +17001,7 @@ export class StripeApi extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
+      requestBody?: Record<string, never>
     } = {},
     timeout?: number,
     opts: RequestInit = {},
@@ -13511,7 +17018,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/reporting/report_runs`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         created: p["created"],
@@ -13531,8 +17047,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postReportingReportRuns(
@@ -13562,12 +17086,22 @@ export class StripeApi extends AbstractFetchClient {
     p: {
       expand?: string[]
       reportRun: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_reporting_report_run> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/reporting/report_runs/${p["reportRun"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -13577,13 +17111,22 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async getReportingReportTypes(
     p: {
       expand?: string[]
+      requestBody?: Record<string, never>
     } = {},
     timeout?: number,
     opts: RequestInit = {},
@@ -13600,7 +17143,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/reporting/report_types`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -13610,20 +17162,38 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async getReportingReportTypesReportType(
     p: {
       expand?: string[]
       reportType: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_reporting_report_type> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/reporting/report_types/${p["reportType"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -13633,8 +17203,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async getReviews(
@@ -13651,6 +17229,7 @@ export class StripeApi extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
+      requestBody?: Record<string, never>
     } = {},
     timeout?: number,
     opts: RequestInit = {},
@@ -13667,7 +17246,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/reviews`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         created: p["created"],
@@ -13687,20 +17275,38 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async getReviewsReview(
     p: {
       expand?: string[]
       review: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_review> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/reviews/${p["review"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -13710,8 +17316,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postReviewsReviewApprove(
@@ -13758,6 +17372,7 @@ export class StripeApi extends AbstractFetchClient {
       limit?: number
       setupIntent: string
       startingAfter?: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -13774,7 +17389,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/setup_attempts`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         created: p["created"],
@@ -13795,8 +17419,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async getSetupIntents(
@@ -13816,6 +17448,7 @@ export class StripeApi extends AbstractFetchClient {
       limit?: number
       paymentMethod?: string
       startingAfter?: string
+      requestBody?: Record<string, never>
     } = {},
     timeout?: number,
     opts: RequestInit = {},
@@ -13832,7 +17465,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/setup_intents`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         attach_to_self: p["attachToSelf"],
@@ -13855,8 +17497,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postSetupIntents(
@@ -13900,12 +17550,22 @@ export class StripeApi extends AbstractFetchClient {
       clientSecret?: string
       expand?: string[]
       intent: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_setup_intent> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/setup_intents/${p["intent"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {client_secret: p["clientSecret"], expand: p["expand"]},
       {
@@ -13915,8 +17575,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postSetupIntentsIntent(
@@ -14061,6 +17729,7 @@ export class StripeApi extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
+      requestBody?: Record<string, never>
     } = {},
     timeout?: number,
     opts: RequestInit = {},
@@ -14077,7 +17746,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/shipping_rates`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         active: p["active"],
@@ -14099,8 +17777,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postShippingRates(
@@ -14132,12 +17818,22 @@ export class StripeApi extends AbstractFetchClient {
     p: {
       expand?: string[]
       shippingRateToken: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_shipping_rate> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/shipping_rates/${p["shippingRateToken"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -14147,8 +17843,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postShippingRatesShippingRateToken(
@@ -14217,6 +17921,7 @@ export class StripeApi extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
+      requestBody?: Record<string, never>
     } = {},
     timeout?: number,
     opts: RequestInit = {},
@@ -14233,7 +17938,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/sigma/scheduled_query_runs`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         ending_before: p["endingBefore"],
@@ -14248,21 +17962,39 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async getSigmaScheduledQueryRunsScheduledQueryRun(
     p: {
       expand?: string[]
       scheduledQueryRun: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_scheduled_query_run> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/sigma/scheduled_query_runs/${p["scheduledQueryRun"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -14272,8 +18004,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postSources(
@@ -14315,12 +18055,22 @@ export class StripeApi extends AbstractFetchClient {
       clientSecret?: string
       expand?: string[]
       source: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_source> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/sources/${p["source"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {client_secret: p["clientSecret"], expand: p["expand"]},
       {
@@ -14330,8 +18080,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postSourcesSource(
@@ -14372,6 +18130,7 @@ export class StripeApi extends AbstractFetchClient {
       expand?: string[]
       mandateNotification: string
       source: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -14381,7 +18140,16 @@ export class StripeApi extends AbstractFetchClient {
     const url =
       this.basePath +
       `/v1/sources/${p["source"]}/mandate_notifications/${p["mandateNotification"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -14391,8 +18159,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async getSourcesSourceSourceTransactions(
@@ -14402,6 +18178,7 @@ export class StripeApi extends AbstractFetchClient {
       limit?: number
       source: string
       startingAfter?: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -14418,7 +18195,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/sources/${p["source"]}/source_transactions`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         ending_before: p["endingBefore"],
@@ -14433,8 +18219,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async getSourcesSourceSourceTransactionsSourceTransaction(
@@ -14442,6 +18236,7 @@ export class StripeApi extends AbstractFetchClient {
       expand?: string[]
       source: string
       sourceTransaction: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -14449,7 +18244,16 @@ export class StripeApi extends AbstractFetchClient {
     const url =
       this.basePath +
       `/v1/sources/${p["source"]}/source_transactions/${p["sourceTransaction"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -14459,8 +18263,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postSourcesSourceVerify(
@@ -14494,6 +18306,7 @@ export class StripeApi extends AbstractFetchClient {
       limit?: number
       startingAfter?: string
       subscription: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -14510,7 +18323,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/subscription_items`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         ending_before: p["endingBefore"],
@@ -14526,8 +18348,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postSubscriptionItems(
@@ -14588,12 +18418,22 @@ export class StripeApi extends AbstractFetchClient {
     p: {
       expand?: string[]
       item: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_subscription_item> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/subscription_items/${p["item"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -14603,8 +18443,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postSubscriptionItemsItem(
@@ -14681,6 +18529,7 @@ export class StripeApi extends AbstractFetchClient {
         | number
       scheduled?: boolean
       startingAfter?: string
+      requestBody?: Record<string, never>
     } = {},
     timeout?: number,
     opts: RequestInit = {},
@@ -14697,7 +18546,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/subscription_schedules`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         canceled_at: p["canceledAt"],
@@ -14734,8 +18592,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postSubscriptionSchedules(
@@ -14775,12 +18641,22 @@ export class StripeApi extends AbstractFetchClient {
     p: {
       expand?: string[]
       schedule: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_subscription_schedule> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/subscription_schedules/${p["schedule"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -14790,8 +18666,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postSubscriptionSchedulesSchedule(
@@ -14938,6 +18822,7 @@ export class StripeApi extends AbstractFetchClient {
         | "unpaid"
         | UnknownEnumStringValue
       testClock?: string
+      requestBody?: Record<string, never>
     } = {},
     timeout?: number,
     opts: RequestInit = {},
@@ -14954,7 +18839,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/subscriptions`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         automatic_tax: p["automaticTax"],
@@ -14994,8 +18888,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postSubscriptions(
@@ -15044,6 +18946,7 @@ export class StripeApi extends AbstractFetchClient {
       limit?: number
       page?: string
       query: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -15062,7 +18965,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/subscriptions/search`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         expand: p["expand"],
@@ -15077,8 +18989,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async deleteSubscriptionsSubscriptionExposedId(
@@ -15116,13 +19036,23 @@ export class StripeApi extends AbstractFetchClient {
     p: {
       expand?: string[]
       subscriptionExposedId: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_subscription> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/subscriptions/${p["subscriptionExposedId"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -15132,8 +19062,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postSubscriptionsSubscriptionExposedId(
@@ -15189,15 +19127,29 @@ export class StripeApi extends AbstractFetchClient {
   async deleteSubscriptionsSubscriptionExposedIdDiscount(
     p: {
       subscriptionExposedId: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_deleted_discount> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/subscriptions/${p["subscriptionExposedId"]}/discount`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
+    return this._fetch(url, {method: "DELETE", body, ...opts, headers}, timeout)
   }
 
   async postSubscriptionsSubscriptionMigrate(
@@ -15283,12 +19235,22 @@ export class StripeApi extends AbstractFetchClient {
     p: {
       calculation: string
       expand?: string[]
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_tax_calculation> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/tax/calculations/${p["calculation"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -15298,8 +19260,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async getTaxCalculationsCalculationLineItems(
@@ -15309,6 +19279,7 @@ export class StripeApi extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -15326,7 +19297,16 @@ export class StripeApi extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/tax/calculations/${p["calculation"]}/line_items`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         ending_before: p["endingBefore"],
@@ -15341,8 +19321,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async getTaxRegistrations(
@@ -15357,6 +19345,7 @@ export class StripeApi extends AbstractFetchClient {
         | "expired"
         | "scheduled"
         | UnknownEnumStringValue
+      requestBody?: Record<string, never>
     } = {},
     timeout?: number,
     opts: RequestInit = {},
@@ -15373,7 +19362,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/tax/registrations`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         ending_before: p["endingBefore"],
@@ -15389,8 +19387,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postTaxRegistrations(
@@ -15421,12 +19427,22 @@ export class StripeApi extends AbstractFetchClient {
     p: {
       expand?: string[]
       id: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_tax_registration> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/tax/registrations/${p["id"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -15436,8 +19452,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postTaxRegistrationsId(
@@ -15474,12 +19498,22 @@ export class StripeApi extends AbstractFetchClient {
   async getTaxSettings(
     p: {
       expand?: string[]
+      requestBody?: Record<string, never>
     } = {},
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_tax_settings> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/tax/settings`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -15489,8 +19523,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postTaxSettings(
@@ -15575,12 +19617,22 @@ export class StripeApi extends AbstractFetchClient {
     p: {
       expand?: string[]
       transaction: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_tax_transaction> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/tax/transactions/${p["transaction"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -15590,8 +19642,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async getTaxTransactionsTransactionLineItems(
@@ -15601,6 +19661,7 @@ export class StripeApi extends AbstractFetchClient {
       limit?: number
       startingAfter?: string
       transaction: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -15618,7 +19679,16 @@ export class StripeApi extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/tax/transactions/${p["transaction"]}/line_items`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         ending_before: p["endingBefore"],
@@ -15633,8 +19703,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async getTaxCodes(
@@ -15643,6 +19721,7 @@ export class StripeApi extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
+      requestBody?: Record<string, never>
     } = {},
     timeout?: number,
     opts: RequestInit = {},
@@ -15659,7 +19738,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/tax_codes`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         ending_before: p["endingBefore"],
@@ -15674,20 +19762,38 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async getTaxCodesId(
     p: {
       expand?: string[]
       id: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_tax_code> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/tax_codes/${p["id"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -15697,8 +19803,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async getTaxIds(
@@ -15717,6 +19831,7 @@ export class StripeApi extends AbstractFetchClient {
           | UnknownEnumStringValue
       }
       startingAfter?: string
+      requestBody?: Record<string, never>
     } = {},
     timeout?: number,
     opts: RequestInit = {},
@@ -15733,7 +19848,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/tax_ids`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         ending_before: p["endingBefore"],
@@ -15753,8 +19877,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postTaxIds(
@@ -15783,26 +19915,50 @@ export class StripeApi extends AbstractFetchClient {
   async deleteTaxIdsId(
     p: {
       id: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_deleted_tax_id> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/tax_ids/${p["id"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
+    return this._fetch(url, {method: "DELETE", body, ...opts, headers}, timeout)
   }
 
   async getTaxIdsId(
     p: {
       expand?: string[]
       id: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_tax_id> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/tax_ids/${p["id"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -15812,8 +19968,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async getTaxRates(
@@ -15832,6 +19996,7 @@ export class StripeApi extends AbstractFetchClient {
       inclusive?: boolean
       limit?: number
       startingAfter?: string
+      requestBody?: Record<string, never>
     } = {},
     timeout?: number,
     opts: RequestInit = {},
@@ -15848,7 +20013,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/tax_rates`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         active: p["active"],
@@ -15870,8 +20044,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postTaxRates(
@@ -15901,12 +20083,22 @@ export class StripeApi extends AbstractFetchClient {
     p: {
       expand?: string[]
       taxRate: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_tax_rate> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/tax_rates/${p["taxRate"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -15916,8 +20108,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postTaxRatesTaxRate(
@@ -15957,6 +20157,7 @@ export class StripeApi extends AbstractFetchClient {
       isAccountDefault?: boolean
       limit?: number
       startingAfter?: string
+      requestBody?: Record<string, never>
     } = {},
     timeout?: number,
     opts: RequestInit = {},
@@ -15973,7 +20174,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/terminal/configurations`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         ending_before: p["endingBefore"],
@@ -15989,8 +20199,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postTerminalConfigurations(
@@ -16031,6 +20249,7 @@ export class StripeApi extends AbstractFetchClient {
   async deleteTerminalConfigurationsConfiguration(
     p: {
       configuration: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -16039,15 +20258,29 @@ export class StripeApi extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/terminal/configurations/${p["configuration"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
+    return this._fetch(url, {method: "DELETE", body, ...opts, headers}, timeout)
   }
 
   async getTerminalConfigurationsConfiguration(
     p: {
       configuration: string
       expand?: string[]
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -16057,7 +20290,16 @@ export class StripeApi extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/terminal/configurations/${p["configuration"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -16067,8 +20309,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postTerminalConfigurationsConfiguration(
@@ -16145,6 +20395,7 @@ export class StripeApi extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
+      requestBody?: Record<string, never>
     } = {},
     timeout?: number,
     opts: RequestInit = {},
@@ -16161,7 +20412,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/terminal/locations`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         ending_before: p["endingBefore"],
@@ -16176,8 +20436,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postTerminalLocations(
@@ -16207,20 +20475,35 @@ export class StripeApi extends AbstractFetchClient {
   async deleteTerminalLocationsLocation(
     p: {
       location: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_deleted_terminal_location> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/terminal/locations/${p["location"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
+    return this._fetch(url, {method: "DELETE", body, ...opts, headers}, timeout)
   }
 
   async getTerminalLocationsLocation(
     p: {
       expand?: string[]
       location: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -16229,7 +20512,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/terminal/locations/${p["location"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -16239,8 +20531,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postTerminalLocationsLocation(
@@ -16299,6 +20599,7 @@ export class StripeApi extends AbstractFetchClient {
       serialNumber?: string
       startingAfter?: string
       status?: "offline" | "online" | UnknownEnumStringValue
+      requestBody?: Record<string, never>
     } = {},
     timeout?: number,
     opts: RequestInit = {},
@@ -16315,7 +20616,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/terminal/readers`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         device_type: p["deviceType"],
@@ -16334,8 +20644,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postTerminalReaders(
@@ -16364,20 +20682,35 @@ export class StripeApi extends AbstractFetchClient {
   async deleteTerminalReadersReader(
     p: {
       reader: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_deleted_terminal_reader> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/terminal/readers/${p["reader"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
+    return this._fetch(url, {method: "DELETE", body, ...opts, headers}, timeout)
   }
 
   async getTerminalReadersReader(
     p: {
       expand?: string[]
       reader: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -16386,7 +20719,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/terminal/readers/${p["reader"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -16396,8 +20738,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postTerminalReadersReader(
@@ -17422,6 +21772,7 @@ export class StripeApi extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
+      requestBody?: Record<string, never>
     } = {},
     timeout?: number,
     opts: RequestInit = {},
@@ -17438,7 +21789,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/test_helpers/test_clocks`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         ending_before: p["endingBefore"],
@@ -17453,8 +21813,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postTestHelpersTestClocks(
@@ -17482,6 +21850,7 @@ export class StripeApi extends AbstractFetchClient {
   async deleteTestHelpersTestClocksTestClock(
     p: {
       testClock: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -17489,21 +21858,44 @@ export class StripeApi extends AbstractFetchClient {
     Res<200, t_deleted_test_helpers_test_clock> | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/test_helpers/test_clocks/${p["testClock"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
+    return this._fetch(url, {method: "DELETE", body, ...opts, headers}, timeout)
   }
 
   async getTestHelpersTestClocksTestClock(
     p: {
       expand?: string[]
       testClock: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_test_helpers_test_clock> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/test_helpers/test_clocks/${p["testClock"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -17513,8 +21905,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postTestHelpersTestClocksTestClockAdvance(
@@ -17966,12 +22366,22 @@ export class StripeApi extends AbstractFetchClient {
     p: {
       expand?: string[]
       token: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_token> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/tokens/${p["token"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -17981,8 +22391,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async getTopups(
@@ -18013,6 +22431,7 @@ export class StripeApi extends AbstractFetchClient {
         | "pending"
         | "succeeded"
         | UnknownEnumStringValue
+      requestBody?: Record<string, never>
     } = {},
     timeout?: number,
     opts: RequestInit = {},
@@ -18029,7 +22448,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/topups`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         amount: p["amount"],
@@ -18055,8 +22483,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postTopups(
@@ -18086,12 +22522,22 @@ export class StripeApi extends AbstractFetchClient {
     p: {
       expand?: string[]
       topup: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_topup> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/topups/${p["topup"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -18101,8 +22547,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postTopupsTopup(
@@ -18180,6 +22634,7 @@ export class StripeApi extends AbstractFetchClient {
       limit?: number
       startingAfter?: string
       transferGroup?: string
+      requestBody?: Record<string, never>
     } = {},
     timeout?: number,
     opts: RequestInit = {},
@@ -18196,7 +22651,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/transfers`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         created: p["created"],
@@ -18218,8 +22682,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postTransfers(
@@ -18252,6 +22724,7 @@ export class StripeApi extends AbstractFetchClient {
       id: string
       limit?: number
       startingAfter?: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -18268,7 +22741,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/transfers/${p["id"]}/reversals`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         ending_before: p["endingBefore"],
@@ -18283,8 +22765,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postTransfersIdReversals(
@@ -18321,12 +22811,22 @@ export class StripeApi extends AbstractFetchClient {
     p: {
       expand?: string[]
       transfer: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_transfer> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/transfers/${p["transfer"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -18336,8 +22836,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postTransfersTransfer(
@@ -18375,13 +22883,23 @@ export class StripeApi extends AbstractFetchClient {
       expand?: string[]
       id: string
       transfer: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_transfer_reversal> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/transfers/${p["transfer"]}/reversals/${p["id"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -18391,8 +22909,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postTransfersTransferReversalsId(
@@ -18436,6 +22962,7 @@ export class StripeApi extends AbstractFetchClient {
       receivedCredit?: string
       startingAfter?: string
       status?: "canceled" | "posted" | "processing" | UnknownEnumStringValue
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -18452,7 +22979,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/treasury/credit_reversals`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         ending_before: p["endingBefore"],
@@ -18470,8 +23006,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postTreasuryCreditReversals(
@@ -18501,13 +23045,23 @@ export class StripeApi extends AbstractFetchClient {
     p: {
       creditReversal: string
       expand?: string[]
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_treasury_credit_reversal> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/treasury/credit_reversals/${p["creditReversal"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -18517,8 +23071,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async getTreasuryDebitReversals(
@@ -18531,6 +23093,7 @@ export class StripeApi extends AbstractFetchClient {
       resolution?: "lost" | "won" | UnknownEnumStringValue
       startingAfter?: string
       status?: "canceled" | "completed" | "processing" | UnknownEnumStringValue
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -18547,7 +23110,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/treasury/debit_reversals`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         ending_before: p["endingBefore"],
@@ -18566,8 +23138,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postTreasuryDebitReversals(
@@ -18597,13 +23177,23 @@ export class StripeApi extends AbstractFetchClient {
     p: {
       debitReversal: string
       expand?: string[]
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_treasury_debit_reversal> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/treasury/debit_reversals/${p["debitReversal"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -18613,8 +23203,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async getTreasuryFinancialAccounts(
@@ -18632,6 +23230,7 @@ export class StripeApi extends AbstractFetchClient {
       limit?: number
       startingAfter?: string
       status?: "closed" | "open" | UnknownEnumStringValue
+      requestBody?: Record<string, never>
     } = {},
     timeout?: number,
     opts: RequestInit = {},
@@ -18648,7 +23247,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/treasury/financial_accounts`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         created: p["created"],
@@ -18669,8 +23277,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postTreasuryFinancialAccounts(
@@ -18706,6 +23322,7 @@ export class StripeApi extends AbstractFetchClient {
     p: {
       expand?: string[]
       financialAccount: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -18714,7 +23331,16 @@ export class StripeApi extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/treasury/financial_accounts/${p["financialAccount"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -18724,8 +23350,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postTreasuryFinancialAccountsFinancialAccount(
@@ -18803,6 +23437,7 @@ export class StripeApi extends AbstractFetchClient {
     p: {
       expand?: string[]
       financialAccount: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -18812,7 +23447,16 @@ export class StripeApi extends AbstractFetchClient {
     const url =
       this.basePath +
       `/v1/treasury/financial_accounts/${p["financialAccount"]}/features`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -18822,8 +23466,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postTreasuryFinancialAccountsFinancialAccountFeatures(
@@ -18879,6 +23531,7 @@ export class StripeApi extends AbstractFetchClient {
         | "processing"
         | "succeeded"
         | UnknownEnumStringValue
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -18895,7 +23548,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/treasury/inbound_transfers`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         ending_before: p["endingBefore"],
@@ -18912,8 +23574,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postTreasuryInboundTransfers(
@@ -18943,12 +23613,22 @@ export class StripeApi extends AbstractFetchClient {
     p: {
       expand?: string[]
       id: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_treasury_inbound_transfer> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/treasury/inbound_transfers/${p["id"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -18958,8 +23638,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postTreasuryInboundTransfersInboundTransferCancel(
@@ -19016,6 +23704,7 @@ export class StripeApi extends AbstractFetchClient {
         | "processing"
         | "returned"
         | UnknownEnumStringValue
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -19032,7 +23721,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/treasury/outbound_payments`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         created: p["created"],
@@ -19055,8 +23753,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postTreasuryOutboundPayments(
@@ -19089,12 +23795,22 @@ export class StripeApi extends AbstractFetchClient {
     p: {
       expand?: string[]
       id: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_treasury_outbound_payment> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/treasury/outbound_payments/${p["id"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -19104,8 +23820,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postTreasuryOutboundPaymentsIdCancel(
@@ -19152,6 +23876,7 @@ export class StripeApi extends AbstractFetchClient {
         | "processing"
         | "returned"
         | UnknownEnumStringValue
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -19168,7 +23893,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/treasury/outbound_transfers`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         ending_before: p["endingBefore"],
@@ -19185,8 +23919,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postTreasuryOutboundTransfers(
@@ -19220,6 +23962,7 @@ export class StripeApi extends AbstractFetchClient {
     p: {
       expand?: string[]
       outboundTransfer: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -19228,7 +23971,16 @@ export class StripeApi extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/treasury/outbound_transfers/${p["outboundTransfer"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -19238,8 +23990,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postTreasuryOutboundTransfersOutboundTransferCancel(
@@ -19292,6 +24052,7 @@ export class StripeApi extends AbstractFetchClient {
       }
       startingAfter?: string
       status?: "failed" | "succeeded" | UnknownEnumStringValue
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -19308,7 +24069,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/treasury/received_credits`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         ending_before: p["endingBefore"],
@@ -19330,20 +24100,38 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async getTreasuryReceivedCreditsId(
     p: {
       expand?: string[]
       id: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_treasury_received_credit> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/treasury/received_credits/${p["id"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -19353,8 +24141,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async getTreasuryReceivedDebits(
@@ -19365,6 +24161,7 @@ export class StripeApi extends AbstractFetchClient {
       limit?: number
       startingAfter?: string
       status?: "failed" | "succeeded" | UnknownEnumStringValue
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -19381,7 +24178,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/treasury/received_debits`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         ending_before: p["endingBefore"],
@@ -19398,20 +24204,38 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async getTreasuryReceivedDebitsId(
     p: {
       expand?: string[]
       id: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_treasury_received_debit> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/treasury/received_debits/${p["id"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -19421,8 +24245,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async getTreasuryTransactionEntries(
@@ -19450,6 +24282,7 @@ export class StripeApi extends AbstractFetchClient {
       orderBy?: "created" | "effective_at" | UnknownEnumStringValue
       startingAfter?: string
       transaction?: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -19466,7 +24299,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/treasury/transaction_entries`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         created: p["created"],
@@ -19494,14 +24336,23 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async getTreasuryTransactionEntriesId(
     p: {
       expand?: string[]
       id: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -19509,7 +24360,16 @@ export class StripeApi extends AbstractFetchClient {
     Res<200, t_treasury_transaction_entry> | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/treasury/transaction_entries/${p["id"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -19519,8 +24379,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async getTreasuryTransactions(
@@ -19550,6 +24418,7 @@ export class StripeApi extends AbstractFetchClient {
             }
           | number
       }
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -19566,7 +24435,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/treasury/transactions`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         created: p["created"],
@@ -19594,20 +24472,38 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async getTreasuryTransactionsId(
     p: {
       expand?: string[]
       id: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_treasury_transaction> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/treasury/transactions/${p["id"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -19617,8 +24513,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async getWebhookEndpoints(
@@ -19627,6 +24531,7 @@ export class StripeApi extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
+      requestBody?: Record<string, never>
     } = {},
     timeout?: number,
     opts: RequestInit = {},
@@ -19643,7 +24548,16 @@ export class StripeApi extends AbstractFetchClient {
     | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/webhook_endpoints`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {
         ending_before: p["endingBefore"],
@@ -19658,8 +24572,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postWebhookEndpoints(
@@ -19690,26 +24612,50 @@ export class StripeApi extends AbstractFetchClient {
   async deleteWebhookEndpointsWebhookEndpoint(
     p: {
       webhookEndpoint: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_deleted_webhook_endpoint> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/webhook_endpoints/${p["webhookEndpoint"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
+    return this._fetch(url, {method: "DELETE", body, ...opts, headers}, timeout)
   }
 
   async getWebhookEndpointsWebhookEndpoint(
     p: {
       expand?: string[]
       webhookEndpoint: string
+      requestBody?: Record<string, never>
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_webhook_endpoint> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/webhook_endpoints/${p["webhookEndpoint"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
+      },
+      opts.headers,
+    )
     const query = this._query(
       {expand: p["expand"]},
       {
@@ -19719,8 +24665,16 @@ export class StripeApi extends AbstractFetchClient {
         },
       },
     )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "GET", body, ...opts, headers},
+      timeout,
+    )
   }
 
   async postWebhookEndpointsWebhookEndpoint(

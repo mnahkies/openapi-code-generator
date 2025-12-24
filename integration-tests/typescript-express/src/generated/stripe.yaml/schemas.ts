@@ -4986,6 +4986,15 @@ export const s_promotion_code_currency_option = z.object({
   minimum_amount: z.coerce.number(),
 })
 
+export const s_promotion_codes_resource_restrictions = z.object({
+  currency_options: z
+    .record(z.string(), s_promotion_code_currency_option)
+    .optional(),
+  first_time_transaction: PermissiveBoolean,
+  minimum_amount: z.coerce.number().nullable().optional(),
+  minimum_amount_currency: z.string().max(5000).nullable().optional(),
+})
+
 export const s_quotes_resource_status_transitions = z.object({
   accepted_at: z.coerce.number().nullable().optional(),
   canceled_at: z.coerce.number().nullable().optional(),
@@ -5309,6 +5318,14 @@ export const s_shipping_rate_currency_option = z.object({
 export const s_shipping_rate_delivery_estimate_bound = z.object({
   unit: z.enum(["business_day", "day", "hour", "month", "week"]),
   value: z.coerce.number(),
+})
+
+export const s_shipping_rate_fixed_amount = z.object({
+  amount: z.coerce.number(),
+  currency: z.string(),
+  currency_options: z
+    .record(z.string(), s_shipping_rate_currency_option)
+    .optional(),
 })
 
 export const s_sigma_scheduled_query_run_error = z.object({
@@ -9151,15 +9168,6 @@ export const s_product_feature = z.object({
   object: z.enum(["product_feature"]),
 })
 
-export const s_promotion_codes_resource_restrictions = z.object({
-  currency_options: z
-    .record(z.string(), s_promotion_code_currency_option)
-    .optional(),
-  first_time_transaction: PermissiveBoolean,
-  minimum_amount: z.coerce.number().nullable().optional(),
-  minimum_amount_currency: z.string().max(5000).nullable().optional(),
-})
-
 export const s_quotes_resource_subscription_data_subscription_data = z.object({
   billing_mode: s_quotes_resource_subscription_data_billing_mode,
   description: z.string().max(5000).nullable().optional(),
@@ -9309,14 +9317,6 @@ export const s_shipping = z.object({
 export const s_shipping_rate_delivery_estimate = z.object({
   maximum: s_shipping_rate_delivery_estimate_bound.nullable().optional(),
   minimum: s_shipping_rate_delivery_estimate_bound.nullable().optional(),
-})
-
-export const s_shipping_rate_fixed_amount = z.object({
-  amount: z.coerce.number(),
-  currency: z.string(),
-  currency_options: z
-    .record(z.string(), s_shipping_rate_currency_option)
-    .optional(),
 })
 
 export const s_source_owner = z.object({
@@ -11846,8 +11846,6 @@ export const s_billing_portal_session = z.object({
   url: z.string().max(5000),
 })
 
-export const s_GetAccountRequestBody = z.object({})
-
 export const s_account: z.ZodType<t_account> = z.object({
   business_profile: s_account_business_profile.nullable().optional(),
   business_type: z
@@ -12111,8 +12109,6 @@ export const s_PostAccountSessionsRequestBody = z.object({
   }),
   expand: z.array(z.string().max(5000)).optional(),
 })
-
-export const s_GetAccountsRequestBody = z.object({})
 
 export const s_PostAccountsRequestBody = z.object({
   account_token: z.string().max(5000).optional(),
@@ -12769,10 +12765,6 @@ export const s_PostAccountsRequestBody = z.object({
   type: z.enum(["custom", "express", "standard"]).optional(),
 })
 
-export const s_DeleteAccountsAccountRequestBody = z.object({})
-
-export const s_GetAccountsAccountRequestBody = z.object({})
-
 export const s_PostAccountsAccountRequestBody = z.object({
   account_token: z.string().max(5000).optional(),
   business_profile: z
@@ -13427,10 +13419,6 @@ export const s_external_account: z.ZodType<t_external_account> = z.union([
   z.lazy(() => s_card),
 ])
 
-export const s_DeleteAccountsAccountBankAccountsIdRequestBody = z.object({})
-
-export const s_GetAccountsAccountBankAccountsIdRequestBody = z.object({})
-
 export const s_PostAccountsAccountBankAccountsIdRequestBody = z.object({
   account_holder_name: z.string().max(5000).optional(),
   account_holder_type: z.enum(["", "company", "individual"]).optional(),
@@ -13458,8 +13446,6 @@ export const s_PostAccountsAccountBankAccountsIdRequestBody = z.object({
   name: z.string().max(5000).optional(),
 })
 
-export const s_GetAccountsAccountCapabilitiesRequestBody = z.object({})
-
 export const s_capability: z.ZodType<t_capability> = z.object({
   account: z.union([z.string().max(5000), z.lazy(() => s_account)]),
   future_requirements: s_account_capability_future_requirements.optional(),
@@ -13471,16 +13457,10 @@ export const s_capability: z.ZodType<t_capability> = z.object({
   status: z.enum(["active", "inactive", "pending", "unrequested"]),
 })
 
-export const s_GetAccountsAccountCapabilitiesCapabilityRequestBody = z.object(
-  {},
-)
-
 export const s_PostAccountsAccountCapabilitiesCapabilityRequestBody = z.object({
   expand: z.array(z.string().max(5000)).optional(),
   requested: PermissiveBoolean.optional(),
 })
-
-export const s_GetAccountsAccountExternalAccountsRequestBody = z.object({})
 
 export const s_bank_account: z.ZodType<t_bank_account> = z.object({
   account: z
@@ -13591,10 +13571,6 @@ export const s_PostAccountsAccountExternalAccountsRequestBody = z.object({
   metadata: z.record(z.string(), z.string()).optional(),
 })
 
-export const s_DeleteAccountsAccountExternalAccountsIdRequestBody = z.object({})
-
-export const s_GetAccountsAccountExternalAccountsIdRequestBody = z.object({})
-
 export const s_PostAccountsAccountExternalAccountsIdRequestBody = z.object({
   account_holder_name: z.string().max(5000).optional(),
   account_holder_type: z.enum(["", "company", "individual"]).optional(),
@@ -13625,8 +13601,6 @@ export const s_PostAccountsAccountExternalAccountsIdRequestBody = z.object({
 export const s_PostAccountsAccountLoginLinksRequestBody = z.object({
   expand: z.array(z.string().max(5000)).optional(),
 })
-
-export const s_GetAccountsAccountPeopleRequestBody = z.object({})
 
 export const s_person: z.ZodType<t_person> = z.object({
   account: z.string().max(5000),
@@ -13863,10 +13837,6 @@ export const s_PostAccountsAccountPeopleRequestBody = z.object({
     .optional(),
 })
 
-export const s_DeleteAccountsAccountPeoplePersonRequestBody = z.object({})
-
-export const s_GetAccountsAccountPeoplePersonRequestBody = z.object({})
-
 export const s_PostAccountsAccountPeoplePersonRequestBody = z.object({
   additional_tos_acceptances: z
     .object({
@@ -14067,8 +14037,6 @@ export const s_PostAccountsAccountPeoplePersonRequestBody = z.object({
     .optional(),
 })
 
-export const s_GetAccountsAccountPersonsRequestBody = z.object({})
-
 export const s_PostAccountsAccountPersonsRequestBody = z.object({
   additional_tos_acceptances: z
     .object({
@@ -14268,10 +14236,6 @@ export const s_PostAccountsAccountPersonsRequestBody = z.object({
     })
     .optional(),
 })
-
-export const s_DeleteAccountsAccountPersonsPersonRequestBody = z.object({})
-
-export const s_GetAccountsAccountPersonsPersonRequestBody = z.object({})
 
 export const s_PostAccountsAccountPersonsPersonRequestBody = z.object({
   additional_tos_acceptances: z
@@ -14478,18 +14442,10 @@ export const s_PostAccountsAccountRejectRequestBody = z.object({
   reason: z.string().max(5000),
 })
 
-export const s_GetApplePayDomainsRequestBody = z.object({})
-
 export const s_PostApplePayDomainsRequestBody = z.object({
   domain_name: z.string(),
   expand: z.array(z.string().max(5000)).optional(),
 })
-
-export const s_DeleteApplePayDomainsDomainRequestBody = z.object({})
-
-export const s_GetApplePayDomainsDomainRequestBody = z.object({})
-
-export const s_GetApplicationFeesRequestBody = z.object({})
 
 export const s_application_fee: z.ZodType<t_application_fee> = z.object({
   account: z.union([z.string().max(5000), z.lazy(() => s_account)]),
@@ -14520,8 +14476,6 @@ export const s_application_fee: z.ZodType<t_application_fee> = z.object({
   }),
 })
 
-export const s_GetApplicationFeesFeeRefundsIdRequestBody = z.object({})
-
 export const s_fee_refund: z.ZodType<t_fee_refund> = z.object({
   amount: z.coerce.number(),
   balance_transaction: z
@@ -14543,23 +14497,17 @@ export const s_PostApplicationFeesFeeRefundsIdRequestBody = z.object({
     .optional(),
 })
 
-export const s_GetApplicationFeesIdRequestBody = z.object({})
-
 export const s_PostApplicationFeesIdRefundRequestBody = z.object({
   amount: z.coerce.number().optional(),
   directive: z.string().max(5000).optional(),
   expand: z.array(z.string().max(5000)).optional(),
 })
 
-export const s_GetApplicationFeesIdRefundsRequestBody = z.object({})
-
 export const s_PostApplicationFeesIdRefundsRequestBody = z.object({
   amount: z.coerce.number().optional(),
   expand: z.array(z.string().max(5000)).optional(),
   metadata: z.record(z.string(), z.string()).optional(),
 })
-
-export const s_GetAppsSecretsRequestBody = z.object({})
 
 export const s_PostAppsSecretsRequestBody = z.object({
   expand: z.array(z.string().max(5000)).optional(),
@@ -14580,12 +14528,6 @@ export const s_PostAppsSecretsDeleteRequestBody = z.object({
     user: z.string().max(5000).optional(),
   }),
 })
-
-export const s_GetAppsSecretsFindRequestBody = z.object({})
-
-export const s_GetBalanceRequestBody = z.object({})
-
-export const s_GetBalanceHistoryRequestBody = z.object({})
 
 export const s_balance_transaction: z.ZodType<t_balance_transaction> = z.object(
   {
@@ -14676,14 +14618,6 @@ export const s_balance_transaction: z.ZodType<t_balance_transaction> = z.object(
   },
 )
 
-export const s_GetBalanceHistoryIdRequestBody = z.object({})
-
-export const s_GetBalanceTransactionsRequestBody = z.object({})
-
-export const s_GetBalanceTransactionsIdRequestBody = z.object({})
-
-export const s_GetBillingAlertsRequestBody = z.object({})
-
 export const s_billing_alert: z.ZodType<t_billing_alert> = z.object({
   alert_type: z.enum(["usage_threshold"]),
   id: z.string().max(5000),
@@ -14717,8 +14651,6 @@ export const s_PostBillingAlertsRequestBody = z.object({
     .optional(),
 })
 
-export const s_GetBillingAlertsIdRequestBody = z.object({})
-
 export const s_PostBillingAlertsIdActivateRequestBody = z.object({
   expand: z.array(z.string().max(5000)).optional(),
 })
@@ -14731,8 +14663,6 @@ export const s_PostBillingAlertsIdDeactivateRequestBody = z.object({
   expand: z.array(z.string().max(5000)).optional(),
 })
 
-export const s_GetBillingCreditBalanceSummaryRequestBody = z.object({})
-
 export const s_billing_credit_balance_summary: z.ZodType<t_billing_credit_balance_summary> =
   z.object({
     balances: z.array(s_credit_balance),
@@ -14744,8 +14674,6 @@ export const s_billing_credit_balance_summary: z.ZodType<t_billing_credit_balanc
     livemode: PermissiveBoolean,
     object: z.enum(["billing.credit_balance_summary"]),
   })
-
-export const s_GetBillingCreditBalanceTransactionsRequestBody = z.object({})
 
 export const s_billing_credit_balance_transaction: z.ZodType<t_billing_credit_balance_transaction> =
   z.object({
@@ -14770,10 +14698,6 @@ export const s_billing_credit_balance_transaction: z.ZodType<t_billing_credit_ba
       .optional(),
     type: z.enum(["credit", "debit"]).nullable().optional(),
   })
-
-export const s_GetBillingCreditBalanceTransactionsIdRequestBody = z.object({})
-
-export const s_GetBillingCreditGrantsRequestBody = z.object({})
 
 export const s_billing_credit_grant: z.ZodType<t_billing_credit_grant> =
   z.object({
@@ -14825,8 +14749,6 @@ export const s_PostBillingCreditGrantsRequestBody = z.object({
   priority: z.coerce.number().optional(),
 })
 
-export const s_GetBillingCreditGrantsIdRequestBody = z.object({})
-
 export const s_PostBillingCreditGrantsIdRequestBody = z.object({
   expand: z.array(z.string().max(5000)).optional(),
   expires_at: z.union([z.coerce.number(), z.enum([""])]).optional(),
@@ -14856,8 +14778,6 @@ export const s_PostBillingMeterEventsRequestBody = z.object({
   timestamp: z.coerce.number().optional(),
 })
 
-export const s_GetBillingMetersRequestBody = z.object({})
-
 export const s_PostBillingMetersRequestBody = z.object({
   customer_mapping: z
     .object({event_payload_key: z.string().max(100), type: z.enum(["by_id"])})
@@ -14870,8 +14790,6 @@ export const s_PostBillingMetersRequestBody = z.object({
   value_settings: z.object({event_payload_key: z.string().max(100)}).optional(),
 })
 
-export const s_GetBillingMetersIdRequestBody = z.object({})
-
 export const s_PostBillingMetersIdRequestBody = z.object({
   display_name: z.string().max(250).optional(),
   expand: z.array(z.string().max(5000)).optional(),
@@ -14881,13 +14799,9 @@ export const s_PostBillingMetersIdDeactivateRequestBody = z.object({
   expand: z.array(z.string().max(5000)).optional(),
 })
 
-export const s_GetBillingMetersIdEventSummariesRequestBody = z.object({})
-
 export const s_PostBillingMetersIdReactivateRequestBody = z.object({
   expand: z.array(z.string().max(5000)).optional(),
 })
-
-export const s_GetBillingPortalConfigurationsRequestBody = z.object({})
 
 export const s_PostBillingPortalConfigurationsRequestBody = z.object({
   business_profile: z
@@ -15001,9 +14915,6 @@ export const s_PostBillingPortalConfigurationsRequestBody = z.object({
   login_page: z.object({enabled: PermissiveBoolean}).optional(),
   metadata: z.record(z.string(), z.string()).optional(),
 })
-
-export const s_GetBillingPortalConfigurationsConfigurationRequestBody =
-  z.object({})
 
 export const s_PostBillingPortalConfigurationsConfigurationRequestBody =
   z.object({
@@ -15243,8 +15154,6 @@ export const s_PostBillingPortalSessionsRequestBody = z.object({
   return_url: z.string().optional(),
 })
 
-export const s_GetChargesRequestBody = z.object({})
-
 export const s_charge: z.ZodType<t_charge> = z.object({
   amount: z.coerce.number(),
   amount_captured: z.coerce.number(),
@@ -15407,10 +15316,6 @@ export const s_PostChargesRequestBody = z.object({
   transfer_group: z.string().optional(),
 })
 
-export const s_GetChargesSearchRequestBody = z.object({})
-
-export const s_GetChargesChargeRequestBody = z.object({})
-
 export const s_PostChargesChargeRequestBody = z.object({
   customer: z.string().max(5000).optional(),
   description: z.string().max(40000).optional(),
@@ -15452,8 +15357,6 @@ export const s_PostChargesChargeCaptureRequestBody = z.object({
   transfer_data: z.object({amount: z.coerce.number().optional()}).optional(),
   transfer_group: z.string().optional(),
 })
-
-export const s_GetChargesChargeDisputeRequestBody = z.object({})
 
 export const s_dispute: z.ZodType<t_dispute> = z.object({
   amount: z.coerce.number(),
@@ -15654,8 +15557,6 @@ export const s_PostChargesChargeRefundRequestBody = z.object({
   reverse_transfer: PermissiveBoolean.optional(),
 })
 
-export const s_GetChargesChargeRefundsRequestBody = z.object({})
-
 export const s_refund: z.ZodType<t_refund> = z.object({
   amount: z.coerce.number(),
   balance_transaction: z
@@ -15727,16 +15628,12 @@ export const s_PostChargesChargeRefundsRequestBody = z.object({
   reverse_transfer: PermissiveBoolean.optional(),
 })
 
-export const s_GetChargesChargeRefundsRefundRequestBody = z.object({})
-
 export const s_PostChargesChargeRefundsRefundRequestBody = z.object({
   expand: z.array(z.string().max(5000)).optional(),
   metadata: z
     .union([z.record(z.string(), z.string()), z.enum([""])])
     .optional(),
 })
-
-export const s_GetCheckoutSessionsRequestBody = z.object({})
 
 export const s_checkout_session: z.ZodType<t_checkout_session> = z.object({
   adaptive_pricing: s_payment_pages_checkout_session_adaptive_pricing
@@ -17017,8 +16914,6 @@ export const s_PostCheckoutSessionsRequestBody = z.object({
     .optional(),
 })
 
-export const s_GetCheckoutSessionsSessionRequestBody = z.object({})
-
 export const s_PostCheckoutSessionsSessionRequestBody = z.object({
   collected_information: z
     .object({
@@ -17113,8 +17008,6 @@ export const s_PostCheckoutSessionsSessionExpireRequestBody = z.object({
   expand: z.array(z.string().max(5000)).optional(),
 })
 
-export const s_GetCheckoutSessionsSessionLineItemsRequestBody = z.object({})
-
 export const s_item: z.ZodType<t_item> = z.object({
   amount_discount: z.coerce.number(),
   amount_subtotal: z.coerce.number(),
@@ -17130,8 +17023,6 @@ export const s_item: z.ZodType<t_item> = z.object({
   taxes: z.array(s_line_items_tax_amount).optional(),
 })
 
-export const s_GetClimateOrdersRequestBody = z.object({})
-
 export const s_PostClimateOrdersRequestBody = z.object({
   amount: z.coerce.number().optional(),
   beneficiary: z.object({public_name: z.string().max(5000)}).optional(),
@@ -17141,8 +17032,6 @@ export const s_PostClimateOrdersRequestBody = z.object({
   metric_tons: z.string().optional(),
   product: z.string().max(5000),
 })
-
-export const s_GetClimateOrdersOrderRequestBody = z.object({})
 
 export const s_PostClimateOrdersOrderRequestBody = z.object({
   beneficiary: z
@@ -17158,16 +17047,6 @@ export const s_PostClimateOrdersOrderRequestBody = z.object({
 export const s_PostClimateOrdersOrderCancelRequestBody = z.object({
   expand: z.array(z.string().max(5000)).optional(),
 })
-
-export const s_GetClimateProductsRequestBody = z.object({})
-
-export const s_GetClimateProductsProductRequestBody = z.object({})
-
-export const s_GetClimateSuppliersRequestBody = z.object({})
-
-export const s_GetClimateSuppliersSupplierRequestBody = z.object({})
-
-export const s_GetConfirmationTokensConfirmationTokenRequestBody = z.object({})
 
 export const s_confirmation_token: z.ZodType<t_confirmation_token> = z.object({
   created: z.coerce.number(),
@@ -17195,12 +17074,6 @@ export const s_confirmation_token: z.ZodType<t_confirmation_token> = z.object({
   use_stripe_sdk: PermissiveBoolean,
 })
 
-export const s_GetCountrySpecsRequestBody = z.object({})
-
-export const s_GetCountrySpecsCountryRequestBody = z.object({})
-
-export const s_GetCouponsRequestBody = z.object({})
-
 export const s_PostCouponsRequestBody = z.object({
   amount_off: z.coerce.number().optional(),
   applies_to: z
@@ -17223,10 +17096,6 @@ export const s_PostCouponsRequestBody = z.object({
   redeem_by: z.coerce.number().optional(),
 })
 
-export const s_DeleteCouponsCouponRequestBody = z.object({})
-
-export const s_GetCouponsCouponRequestBody = z.object({})
-
 export const s_PostCouponsCouponRequestBody = z.object({
   currency_options: z
     .record(z.string(), z.object({amount_off: z.coerce.number()}))
@@ -17237,8 +17106,6 @@ export const s_PostCouponsCouponRequestBody = z.object({
     .optional(),
   name: z.string().max(40).optional(),
 })
-
-export const s_GetCreditNotesRequestBody = z.object({})
 
 export const s_credit_note: z.ZodType<t_credit_note> = z.object({
   amount: z.coerce.number(),
@@ -17351,10 +17218,6 @@ export const s_PostCreditNotesRequestBody = z.object({
     .optional(),
 })
 
-export const s_GetCreditNotesPreviewRequestBody = z.object({})
-
-export const s_GetCreditNotesPreviewLinesRequestBody = z.object({})
-
 export const s_credit_note_line_item: z.ZodType<t_credit_note_line_item> =
   z.object({
     amount: z.coerce.number(),
@@ -17380,10 +17243,6 @@ export const s_credit_note_line_item: z.ZodType<t_credit_note_line_item> =
     unit_amount: z.coerce.number().nullable().optional(),
     unit_amount_decimal: z.string().nullable().optional(),
   })
-
-export const s_GetCreditNotesCreditNoteLinesRequestBody = z.object({})
-
-export const s_GetCreditNotesIdRequestBody = z.object({})
 
 export const s_PostCreditNotesIdRequestBody = z.object({
   expand: z.array(z.string().max(5000)).optional(),
@@ -17434,8 +17293,6 @@ export const s_customer_session: z.ZodType<t_customer_session> = z.object({
   livemode: PermissiveBoolean,
   object: z.enum(["customer_session"]),
 })
-
-export const s_GetCustomersRequestBody = z.object({})
 
 export const s_customer: z.ZodType<t_customer> = z.object({
   address: s_address.nullable().optional(),
@@ -17712,12 +17569,6 @@ export const s_PostCustomersRequestBody = z.object({
   test_clock: z.string().max(5000).optional(),
 })
 
-export const s_GetCustomersSearchRequestBody = z.object({})
-
-export const s_DeleteCustomersCustomerRequestBody = z.object({})
-
-export const s_GetCustomersCustomerRequestBody = z.object({})
-
 export const s_PostCustomersCustomerRequestBody = z.object({
   address: z
     .union([
@@ -17845,8 +17696,6 @@ export const s_PostCustomersCustomerRequestBody = z.object({
   tax_exempt: z.enum(["", "exempt", "none", "reverse"]).optional(),
 })
 
-export const s_GetCustomersCustomerBalanceTransactionsRequestBody = z.object({})
-
 export const s_customer_balance_transaction: z.ZodType<t_customer_balance_transaction> =
   z.object({
     amount: z.coerce.number(),
@@ -17897,9 +17746,6 @@ export const s_PostCustomersCustomerBalanceTransactionsRequestBody = z.object({
     .optional(),
 })
 
-export const s_GetCustomersCustomerBalanceTransactionsTransactionRequestBody =
-  z.object({})
-
 export const s_PostCustomersCustomerBalanceTransactionsTransactionRequestBody =
   z.object({
     description: z.string().max(350).optional(),
@@ -17908,8 +17754,6 @@ export const s_PostCustomersCustomerBalanceTransactionsTransactionRequestBody =
       .union([z.record(z.string(), z.string()), z.enum([""])])
       .optional(),
   })
-
-export const s_GetCustomersCustomerBankAccountsRequestBody = z.object({})
 
 export const s_PostCustomersCustomerBankAccountsRequestBody = z.object({
   alipay_account: z.string().max(5000).optional(),
@@ -17963,8 +17807,6 @@ export const s_DeleteCustomersCustomerBankAccountsIdRequestBody = z.object({
   expand: z.array(z.string().max(5000)).optional(),
 })
 
-export const s_GetCustomersCustomerBankAccountsIdRequestBody = z.object({})
-
 export const s_PostCustomersCustomerBankAccountsIdRequestBody = z.object({
   account_holder_name: z.string().max(5000).optional(),
   account_holder_type: z.enum(["company", "individual"]).optional(),
@@ -18004,8 +17846,6 @@ export const s_PostCustomersCustomerBankAccountsIdVerifyRequestBody = z.object({
   amounts: z.array(z.coerce.number()).optional(),
   expand: z.array(z.string().max(5000)).optional(),
 })
-
-export const s_GetCustomersCustomerCardsRequestBody = z.object({})
 
 export const s_PostCustomersCustomerCardsRequestBody = z.object({
   alipay_account: z.string().max(5000).optional(),
@@ -18052,8 +17892,6 @@ export const s_DeleteCustomersCustomerCardsIdRequestBody = z.object({
   expand: z.array(z.string().max(5000)).optional(),
 })
 
-export const s_GetCustomersCustomerCardsIdRequestBody = z.object({})
-
 export const s_PostCustomersCustomerCardsIdRequestBody = z.object({
   account_holder_name: z.string().max(5000).optional(),
   account_holder_type: z.enum(["company", "individual"]).optional(),
@@ -18089,8 +17927,6 @@ export const s_PostCustomersCustomerCardsIdRequestBody = z.object({
     .optional(),
 })
 
-export const s_GetCustomersCustomerCashBalanceRequestBody = z.object({})
-
 export const s_PostCustomersCustomerCashBalanceRequestBody = z.object({
   expand: z.array(z.string().max(5000)).optional(),
   settings: z
@@ -18101,9 +17937,6 @@ export const s_PostCustomersCustomerCashBalanceRequestBody = z.object({
     })
     .optional(),
 })
-
-export const s_GetCustomersCustomerCashBalanceTransactionsRequestBody =
-  z.object({})
 
 export const s_customer_cash_balance_transaction: z.ZodType<t_customer_cash_balance_transaction> =
   z.object({
@@ -18145,11 +17978,6 @@ export const s_customer_cash_balance_transaction: z.ZodType<t_customer_cash_bala
     ),
   })
 
-export const s_GetCustomersCustomerCashBalanceTransactionsTransactionRequestBody =
-  z.object({})
-
-export const s_DeleteCustomersCustomerDiscountRequestBody = z.object({})
-
 export const s_deleted_discount: z.ZodType<t_deleted_discount> = z.object({
   checkout_session: z.string().max(5000).nullable().optional(),
   coupon: s_coupon,
@@ -18170,8 +17998,6 @@ export const s_deleted_discount: z.ZodType<t_deleted_discount> = z.object({
   subscription: z.string().max(5000).nullable().optional(),
   subscription_item: z.string().max(5000).nullable().optional(),
 })
-
-export const s_GetCustomersCustomerDiscountRequestBody = z.object({})
 
 export const s_discount: z.ZodType<t_discount> = z.object({
   checkout_session: z.string().max(5000).nullable().optional(),
@@ -18212,8 +18038,6 @@ export const s_PostCustomersCustomerFundingInstructionsRequestBody = z.object({
   expand: z.array(z.string().max(5000)).optional(),
   funding_type: z.enum(["bank_transfer"]),
 })
-
-export const s_GetCustomersCustomerPaymentMethodsRequestBody = z.object({})
 
 export const s_payment_method: z.ZodType<t_payment_method> = z.object({
   acss_debit: s_payment_method_acss_debit.optional(),
@@ -18332,11 +18156,6 @@ export const s_payment_method: z.ZodType<t_payment_method> = z.object({
   zip: s_payment_method_zip.optional(),
 })
 
-export const s_GetCustomersCustomerPaymentMethodsPaymentMethodRequestBody =
-  z.object({})
-
-export const s_GetCustomersCustomerSourcesRequestBody = z.object({})
-
 export const s_PostCustomersCustomerSourcesRequestBody = z.object({
   alipay_account: z.string().max(5000).optional(),
   bank_account: z
@@ -18382,8 +18201,6 @@ export const s_DeleteCustomersCustomerSourcesIdRequestBody = z.object({
   expand: z.array(z.string().max(5000)).optional(),
 })
 
-export const s_GetCustomersCustomerSourcesIdRequestBody = z.object({})
-
 export const s_PostCustomersCustomerSourcesIdRequestBody = z.object({
   account_holder_name: z.string().max(5000).optional(),
   account_holder_type: z.enum(["company", "individual"]).optional(),
@@ -18423,8 +18240,6 @@ export const s_PostCustomersCustomerSourcesIdVerifyRequestBody = z.object({
   amounts: z.array(z.coerce.number()).optional(),
   expand: z.array(z.string().max(5000)).optional(),
 })
-
-export const s_GetCustomersCustomerSubscriptionsRequestBody = z.object({})
 
 export const s_subscription: z.ZodType<t_subscription> = z.object({
   application: z
@@ -18897,9 +18712,6 @@ export const s_DeleteCustomersCustomerSubscriptionsSubscriptionExposedIdRequestB
     prorate: PermissiveBoolean.optional(),
   })
 
-export const s_GetCustomersCustomerSubscriptionsSubscriptionExposedIdRequestBody =
-  z.object({})
-
 export const s_PostCustomersCustomerSubscriptionsSubscriptionExposedIdRequestBody =
   z.object({
     add_invoice_items: z
@@ -19297,14 +19109,6 @@ export const s_PostCustomersCustomerSubscriptionsSubscriptionExposedIdRequestBod
       .optional(),
   })
 
-export const s_DeleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountRequestBody =
-  z.object({})
-
-export const s_GetCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountRequestBody =
-  z.object({})
-
-export const s_GetCustomersCustomerTaxIdsRequestBody = z.object({})
-
 export const s_tax_id: z.ZodType<t_tax_id> = z.object({
   country: z.string().max(5000).nullable().optional(),
   created: z.coerce.number(),
@@ -19550,14 +19354,6 @@ export const s_PostCustomersCustomerTaxIdsRequestBody = z.object({
   value: z.string(),
 })
 
-export const s_DeleteCustomersCustomerTaxIdsIdRequestBody = z.object({})
-
-export const s_GetCustomersCustomerTaxIdsIdRequestBody = z.object({})
-
-export const s_GetDisputesRequestBody = z.object({})
-
-export const s_GetDisputesDisputeRequestBody = z.object({})
-
 export const s_PostDisputesDisputeRequestBody = z.object({
   evidence: z
     .object({
@@ -19709,20 +19505,12 @@ export const s_PostDisputesDisputeCloseRequestBody = z.object({
   expand: z.array(z.string().max(5000)).optional(),
 })
 
-export const s_GetEntitlementsActiveEntitlementsRequestBody = z.object({})
-
-export const s_GetEntitlementsActiveEntitlementsIdRequestBody = z.object({})
-
-export const s_GetEntitlementsFeaturesRequestBody = z.object({})
-
 export const s_PostEntitlementsFeaturesRequestBody = z.object({
   expand: z.array(z.string().max(5000)).optional(),
   lookup_key: z.string().max(80),
   metadata: z.record(z.string(), z.string()).optional(),
   name: z.string().max(80),
 })
-
-export const s_GetEntitlementsFeaturesIdRequestBody = z.object({})
 
 export const s_PostEntitlementsFeaturesIdRequestBody = z.object({
   active: PermissiveBoolean.optional(),
@@ -19744,14 +19532,6 @@ export const s_PostEphemeralKeysRequestBody = z.object({
 export const s_DeleteEphemeralKeysKeyRequestBody = z.object({
   expand: z.array(z.string().max(5000)).optional(),
 })
-
-export const s_GetEventsRequestBody = z.object({})
-
-export const s_GetEventsIdRequestBody = z.object({})
-
-export const s_GetExchangeRatesRequestBody = z.object({})
-
-export const s_GetExchangeRatesRateIdRequestBody = z.object({})
 
 export const s_PostExternalAccountsIdRequestBody = z.object({
   account_holder_name: z.string().max(5000).optional(),
@@ -19780,8 +19560,6 @@ export const s_PostExternalAccountsIdRequestBody = z.object({
   name: z.string().max(5000).optional(),
 })
 
-export const s_GetFileLinksRequestBody = z.object({})
-
 export const s_file_link: z.ZodType<t_file_link> = z.object({
   created: z.coerce.number(),
   expired: PermissiveBoolean,
@@ -19803,8 +19581,6 @@ export const s_PostFileLinksRequestBody = z.object({
     .optional(),
 })
 
-export const s_GetFileLinksLinkRequestBody = z.object({})
-
 export const s_PostFileLinksLinkRequestBody = z.object({
   expand: z.array(z.string().max(5000)).optional(),
   expires_at: z
@@ -19814,8 +19590,6 @@ export const s_PostFileLinksLinkRequestBody = z.object({
     .union([z.record(z.string(), z.string()), z.enum([""])])
     .optional(),
 })
-
-export const s_GetFilesRequestBody = z.object({})
 
 export const s_file: z.ZodType<t_file> = z.object({
   created: z.coerce.number(),
@@ -19856,10 +19630,6 @@ export const s_file: z.ZodType<t_file> = z.object({
   type: z.string().max(5000).nullable().optional(),
   url: z.string().max(5000).nullable().optional(),
 })
-
-export const s_GetFilesFileRequestBody = z.object({})
-
-export const s_GetFinancialConnectionsAccountsRequestBody = z.object({})
 
 export const s_financial_connections_account: z.ZodType<t_financial_connections_account> =
   z.object({
@@ -19912,13 +19682,8 @@ export const s_financial_connections_account: z.ZodType<t_financial_connections_
       .optional(),
   })
 
-export const s_GetFinancialConnectionsAccountsAccountRequestBody = z.object({})
-
 export const s_PostFinancialConnectionsAccountsAccountDisconnectRequestBody =
   z.object({expand: z.array(z.string().max(5000)).optional()})
-
-export const s_GetFinancialConnectionsAccountsAccountOwnersRequestBody =
-  z.object({})
 
 export const s_PostFinancialConnectionsAccountsAccountRefreshRequestBody =
   z.object({
@@ -20000,15 +19765,6 @@ export const s_financial_connections_session: z.ZodType<t_financial_connections_
     return_url: z.string().max(5000).optional(),
   })
 
-export const s_GetFinancialConnectionsSessionsSessionRequestBody = z.object({})
-
-export const s_GetFinancialConnectionsTransactionsRequestBody = z.object({})
-
-export const s_GetFinancialConnectionsTransactionsTransactionRequestBody =
-  z.object({})
-
-export const s_GetForwardingRequestsRequestBody = z.object({})
-
 export const s_PostForwardingRequestsRequestBody = z.object({
   expand: z.array(z.string().max(5000)).optional(),
   metadata: z.record(z.string(), z.string()).optional(),
@@ -20034,14 +19790,6 @@ export const s_PostForwardingRequestsRequestBody = z.object({
     .optional(),
   url: z.string().max(5000),
 })
-
-export const s_GetForwardingRequestsIdRequestBody = z.object({})
-
-export const s_GetIdentityVerificationReportsRequestBody = z.object({})
-
-export const s_GetIdentityVerificationReportsReportRequestBody = z.object({})
-
-export const s_GetIdentityVerificationSessionsRequestBody = z.object({})
 
 export const s_PostIdentityVerificationSessionsRequestBody = z.object({
   client_reference_id: z.string().max(5000).optional(),
@@ -20076,8 +19824,6 @@ export const s_PostIdentityVerificationSessionsRequestBody = z.object({
   verification_flow: z.string().max(5000).optional(),
 })
 
-export const s_GetIdentityVerificationSessionsSessionRequestBody = z.object({})
-
 export const s_PostIdentityVerificationSessionsSessionRequestBody = z.object({
   expand: z.array(z.string().max(5000)).optional(),
   metadata: z.record(z.string(), z.string()).optional(),
@@ -20110,8 +19856,6 @@ export const s_PostIdentityVerificationSessionsSessionCancelRequestBody =
 export const s_PostIdentityVerificationSessionsSessionRedactRequestBody =
   z.object({expand: z.array(z.string().max(5000)).optional()})
 
-export const s_GetInvoicePaymentsRequestBody = z.object({})
-
 export const s_invoice_payment: z.ZodType<t_invoice_payment> = z.object({
   amount_paid: z.coerce.number().nullable().optional(),
   amount_requested: z.coerce.number(),
@@ -20131,19 +19875,11 @@ export const s_invoice_payment: z.ZodType<t_invoice_payment> = z.object({
   status_transitions: s_invoices_payments_invoice_payment_status_transitions,
 })
 
-export const s_GetInvoicePaymentsInvoicePaymentRequestBody = z.object({})
-
-export const s_GetInvoiceRenderingTemplatesRequestBody = z.object({})
-
-export const s_GetInvoiceRenderingTemplatesTemplateRequestBody = z.object({})
-
 export const s_PostInvoiceRenderingTemplatesTemplateArchiveRequestBody =
   z.object({expand: z.array(z.string().max(5000)).optional()})
 
 export const s_PostInvoiceRenderingTemplatesTemplateUnarchiveRequestBody =
   z.object({expand: z.array(z.string().max(5000)).optional()})
-
-export const s_GetInvoiceitemsRequestBody = z.object({})
 
 export const s_invoiceitem: z.ZodType<t_invoiceitem> = z.object({
   amount: z.coerce.number(),
@@ -20230,10 +19966,6 @@ export const s_PostInvoiceitemsRequestBody = z.object({
   unit_amount_decimal: z.string().optional(),
 })
 
-export const s_DeleteInvoiceitemsInvoiceitemRequestBody = z.object({})
-
-export const s_GetInvoiceitemsInvoiceitemRequestBody = z.object({})
-
 export const s_PostInvoiceitemsInvoiceitemRequestBody = z.object({
   amount: z.coerce.number().optional(),
   description: z.string().max(5000).optional(),
@@ -20275,8 +20007,6 @@ export const s_PostInvoiceitemsInvoiceitemRequestBody = z.object({
   tax_rates: z.union([z.array(z.string().max(5000)), z.enum([""])]).optional(),
   unit_amount_decimal: z.string().optional(),
 })
-
-export const s_GetInvoicesRequestBody = z.object({})
 
 export const s_invoice: z.ZodType<t_invoice> = z.object({
   account_country: z.string().max(5000).nullable().optional(),
@@ -21260,12 +20990,6 @@ export const s_PostInvoicesCreatePreviewRequestBody = z.object({
     .optional(),
 })
 
-export const s_GetInvoicesSearchRequestBody = z.object({})
-
-export const s_DeleteInvoicesInvoiceRequestBody = z.object({})
-
-export const s_GetInvoicesInvoiceRequestBody = z.object({})
-
 export const s_PostInvoicesInvoiceRequestBody = z.object({
   account_tax_ids: z
     .union([z.array(z.string().max(5000)), z.enum([""])])
@@ -21724,8 +21448,6 @@ export const s_PostInvoicesInvoiceFinalizeRequestBody = z.object({
   expand: z.array(z.string().max(5000)).optional(),
 })
 
-export const s_GetInvoicesInvoiceLinesRequestBody = z.object({})
-
 export const s_line_item: z.ZodType<t_line_item> = z.object({
   amount: z.coerce.number(),
   currency: z.string(),
@@ -22039,8 +21761,6 @@ export const s_PostInvoicesInvoiceVoidRequestBody = z.object({
   expand: z.array(z.string().max(5000)).optional(),
 })
 
-export const s_GetIssuingAuthorizationsRequestBody = z.object({})
-
 export const s_issuing_authorization: z.ZodType<t_issuing_authorization> =
   z.object({
     amount: z.coerce.number(),
@@ -22093,8 +21813,6 @@ export const s_issuing_authorization: z.ZodType<t_issuing_authorization> =
     wallet: z.string().max(5000).nullable().optional(),
   })
 
-export const s_GetIssuingAuthorizationsAuthorizationRequestBody = z.object({})
-
 export const s_PostIssuingAuthorizationsAuthorizationRequestBody = z.object({
   expand: z.array(z.string().max(5000)).optional(),
   metadata: z
@@ -22118,8 +21836,6 @@ export const s_PostIssuingAuthorizationsAuthorizationDeclineRequestBody =
       .union([z.record(z.string(), z.string()), z.enum([""])])
       .optional(),
   })
-
-export const s_GetIssuingCardholdersRequestBody = z.object({})
 
 export const s_issuing_cardholder: z.ZodType<t_issuing_cardholder> = z.object({
   billing: s_issuing_cardholder_address,
@@ -23130,8 +22846,6 @@ export const s_PostIssuingCardholdersRequestBody = z.object({
   type: z.enum(["company", "individual"]).optional(),
 })
 
-export const s_GetIssuingCardholdersCardholderRequestBody = z.object({})
-
 export const s_PostIssuingCardholdersCardholderRequestBody = z.object({
   billing: z
     .object({
@@ -24114,8 +23828,6 @@ export const s_PostIssuingCardholdersCardholderRequestBody = z.object({
     .optional(),
   status: z.enum(["active", "inactive"]).optional(),
 })
-
-export const s_GetIssuingCardsRequestBody = z.object({})
 
 export const s_issuing_card: z.ZodType<t_issuing_card> = z.object({
   brand: z.string().max(5000),
@@ -25132,8 +24844,6 @@ export const s_PostIssuingCardsRequestBody = z.object({
   type: z.enum(["physical", "virtual"]),
 })
 
-export const s_GetIssuingCardsCardRequestBody = z.object({})
-
 export const s_PostIssuingCardsCardRequestBody = z.object({
   cancellation_reason: z.enum(["lost", "stolen"]).optional(),
   expand: z.array(z.string().max(5000)).optional(),
@@ -26098,8 +25808,6 @@ export const s_PostIssuingCardsCardRequestBody = z.object({
   status: z.enum(["active", "canceled", "inactive"]).optional(),
 })
 
-export const s_GetIssuingDisputesRequestBody = z.object({})
-
 export const s_issuing_dispute: z.ZodType<t_issuing_dispute> = z.object({
   amount: z.coerce.number(),
   balance_transactions: z
@@ -26315,8 +26023,6 @@ export const s_PostIssuingDisputesRequestBody = z.object({
   treasury: z.object({received_debit: z.string().max(5000)}).optional(),
 })
 
-export const s_GetIssuingDisputesDisputeRequestBody = z.object({})
-
 export const s_PostIssuingDisputesDisputeRequestBody = z.object({
   amount: z.coerce.number().optional(),
   evidence: z
@@ -26494,8 +26200,6 @@ export const s_PostIssuingDisputesDisputeSubmitRequestBody = z.object({
     .optional(),
 })
 
-export const s_GetIssuingPersonalizationDesignsRequestBody = z.object({})
-
 export const s_issuing_personalization_design: z.ZodType<t_issuing_personalization_design> =
   z.object({
     card_logo: z
@@ -26537,9 +26241,6 @@ export const s_PostIssuingPersonalizationDesignsRequestBody = z.object({
   transfer_lookup_key: PermissiveBoolean.optional(),
 })
 
-export const s_GetIssuingPersonalizationDesignsPersonalizationDesignRequestBody =
-  z.object({})
-
 export const s_PostIssuingPersonalizationDesignsPersonalizationDesignRequestBody =
   z.object({
     card_logo: z.union([z.string(), z.enum([""])]).optional(),
@@ -26563,18 +26264,10 @@ export const s_PostIssuingPersonalizationDesignsPersonalizationDesignRequestBody
     transfer_lookup_key: PermissiveBoolean.optional(),
   })
 
-export const s_GetIssuingPhysicalBundlesRequestBody = z.object({})
-
-export const s_GetIssuingPhysicalBundlesPhysicalBundleRequestBody = z.object({})
-
-export const s_GetIssuingSettlementsSettlementRequestBody = z.object({})
-
 export const s_PostIssuingSettlementsSettlementRequestBody = z.object({
   expand: z.array(z.string().max(5000)).optional(),
   metadata: z.record(z.string(), z.string()).optional(),
 })
-
-export const s_GetIssuingTokensRequestBody = z.object({})
 
 export const s_issuing_token: z.ZodType<t_issuing_token> = z.object({
   card: z.union([z.string().max(5000), z.lazy(() => s_issuing_card)]),
@@ -26593,14 +26286,10 @@ export const s_issuing_token: z.ZodType<t_issuing_token> = z.object({
     .optional(),
 })
 
-export const s_GetIssuingTokensTokenRequestBody = z.object({})
-
 export const s_PostIssuingTokensTokenRequestBody = z.object({
   expand: z.array(z.string().max(5000)).optional(),
   status: z.enum(["active", "deleted", "suspended"]),
 })
-
-export const s_GetIssuingTransactionsRequestBody = z.object({})
 
 export const s_issuing_transaction: z.ZodType<t_issuing_transaction> = z.object(
   {
@@ -26649,8 +26338,6 @@ export const s_issuing_transaction: z.ZodType<t_issuing_transaction> = z.object(
   },
 )
 
-export const s_GetIssuingTransactionsTransactionRequestBody = z.object({})
-
 export const s_PostIssuingTransactionsTransactionRequestBody = z.object({
   expand: z.array(z.string().max(5000)).optional(),
   metadata: z
@@ -26690,24 +26377,14 @@ export const s_PostLinkAccountSessionsRequestBody = z.object({
   return_url: z.string().max(5000).optional(),
 })
 
-export const s_GetLinkAccountSessionsSessionRequestBody = z.object({})
-
-export const s_GetLinkedAccountsRequestBody = z.object({})
-
-export const s_GetLinkedAccountsAccountRequestBody = z.object({})
-
 export const s_PostLinkedAccountsAccountDisconnectRequestBody = z.object({
   expand: z.array(z.string().max(5000)).optional(),
 })
-
-export const s_GetLinkedAccountsAccountOwnersRequestBody = z.object({})
 
 export const s_PostLinkedAccountsAccountRefreshRequestBody = z.object({
   expand: z.array(z.string().max(5000)).optional(),
   features: z.array(z.enum(["balance", "ownership", "transactions"])),
 })
-
-export const s_GetMandatesMandateRequestBody = z.object({})
 
 export const s_mandate: z.ZodType<t_mandate> = z.object({
   customer_acceptance: s_customer_acceptance,
@@ -26725,8 +26402,6 @@ export const s_mandate: z.ZodType<t_mandate> = z.object({
   status: z.enum(["active", "inactive", "pending"]),
   type: z.enum(["multi_use", "single_use"]),
 })
-
-export const s_GetPaymentIntentsRequestBody = z.object({})
 
 export const s_payment_intent: z.ZodType<t_payment_intent> = z.object({
   amount: z.coerce.number().optional(),
@@ -27922,10 +27597,6 @@ export const s_PostPaymentIntentsRequestBody = z.object({
   transfer_group: z.string().optional(),
   use_stripe_sdk: PermissiveBoolean.optional(),
 })
-
-export const s_GetPaymentIntentsSearchRequestBody = z.object({})
-
-export const s_GetPaymentIntentsIntentRequestBody = z.object({})
 
 export const s_PostPaymentIntentsIntentRequestBody = z.object({
   amount: z.coerce.number().optional(),
@@ -30128,8 +29799,6 @@ export const s_PostPaymentIntentsIntentVerifyMicrodepositsRequestBody =
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-export const s_GetPaymentLinksRequestBody = z.object({})
-
 export const s_payment_link: z.ZodType<t_payment_link> = z.object({
   active: PermissiveBoolean,
   after_completion: s_payment_links_resource_after_completion,
@@ -30779,8 +30448,6 @@ export const s_PostPaymentLinksRequestBody = z.object({
     .optional(),
 })
 
-export const s_GetPaymentLinksPaymentLinkRequestBody = z.object({})
-
 export const s_PostPaymentLinksPaymentLinkRequestBody = z.object({
   active: PermissiveBoolean.optional(),
   after_completion: z
@@ -31287,10 +30954,6 @@ export const s_PostPaymentLinksPaymentLinkRequestBody = z.object({
     .optional(),
 })
 
-export const s_GetPaymentLinksPaymentLinkLineItemsRequestBody = z.object({})
-
-export const s_GetPaymentMethodConfigurationsRequestBody = z.object({})
-
 export const s_PostPaymentMethodConfigurationsRequestBody = z.object({
   acss_debit: z
     .object({
@@ -31660,9 +31323,6 @@ export const s_PostPaymentMethodConfigurationsRequestBody = z.object({
     })
     .optional(),
 })
-
-export const s_GetPaymentMethodConfigurationsConfigurationRequestBody =
-  z.object({})
 
 export const s_PostPaymentMethodConfigurationsConfigurationRequestBody =
   z.object({
@@ -32035,17 +31695,11 @@ export const s_PostPaymentMethodConfigurationsConfigurationRequestBody =
       .optional(),
   })
 
-export const s_GetPaymentMethodDomainsRequestBody = z.object({})
-
 export const s_PostPaymentMethodDomainsRequestBody = z.object({
   domain_name: z.string().max(5000),
   enabled: PermissiveBoolean.optional(),
   expand: z.array(z.string().max(5000)).optional(),
 })
-
-export const s_GetPaymentMethodDomainsPaymentMethodDomainRequestBody = z.object(
-  {},
-)
 
 export const s_PostPaymentMethodDomainsPaymentMethodDomainRequestBody =
   z.object({
@@ -32055,8 +31709,6 @@ export const s_PostPaymentMethodDomainsPaymentMethodDomainRequestBody =
 
 export const s_PostPaymentMethodDomainsPaymentMethodDomainValidateRequestBody =
   z.object({expand: z.array(z.string().max(5000)).optional()})
-
-export const s_GetPaymentMethodsRequestBody = z.object({})
 
 export const s_PostPaymentMethodsRequestBody = z.object({
   acss_debit: z
@@ -32374,8 +32026,6 @@ export const s_PostPaymentMethodsRequestBody = z.object({
   zip: z.record(z.string(), z.unknown()).optional(),
 })
 
-export const s_GetPaymentMethodsPaymentMethodRequestBody = z.object({})
-
 export const s_PostPaymentMethodsPaymentMethodRequestBody = z.object({
   allow_redisplay: z.enum(["always", "limited", "unspecified"]).optional(),
   billing_details: z
@@ -32434,8 +32084,6 @@ export const s_PostPaymentMethodsPaymentMethodAttachRequestBody = z.object({
 export const s_PostPaymentMethodsPaymentMethodDetachRequestBody = z.object({
   expand: z.array(z.string().max(5000)).optional(),
 })
-
-export const s_GetPayoutsRequestBody = z.object({})
 
 export const s_payout: z.ZodType<t_payout> = z.object({
   amount: z.coerce.number(),
@@ -32502,8 +32150,6 @@ export const s_PostPayoutsRequestBody = z.object({
   statement_descriptor: z.string().max(22).optional(),
 })
 
-export const s_GetPayoutsPayoutRequestBody = z.object({})
-
 export const s_PostPayoutsPayoutRequestBody = z.object({
   expand: z.array(z.string().max(5000)).optional(),
   metadata: z
@@ -32519,8 +32165,6 @@ export const s_PostPayoutsPayoutReverseRequestBody = z.object({
   expand: z.array(z.string().max(5000)).optional(),
   metadata: z.record(z.string(), z.string()).optional(),
 })
-
-export const s_GetPlansRequestBody = z.object({})
 
 export const s_plan: z.ZodType<t_plan> = z.object({
   active: PermissiveBoolean,
@@ -32596,10 +32240,6 @@ export const s_PostPlansRequestBody = z.object({
   usage_type: z.enum(["licensed", "metered"]).optional(),
 })
 
-export const s_DeletePlansPlanRequestBody = z.object({})
-
-export const s_GetPlansPlanRequestBody = z.object({})
-
 export const s_PostPlansPlanRequestBody = z.object({
   active: PermissiveBoolean.optional(),
   expand: z.array(z.string().max(5000)).optional(),
@@ -32610,8 +32250,6 @@ export const s_PostPlansPlanRequestBody = z.object({
   product: z.string().max(5000).optional(),
   trial_period_days: z.coerce.number().optional(),
 })
-
-export const s_GetPricesRequestBody = z.object({})
 
 export const s_price: z.ZodType<t_price> = z.object({
   active: PermissiveBoolean,
@@ -32732,10 +32370,6 @@ export const s_PostPricesRequestBody = z.object({
   unit_amount_decimal: z.string().optional(),
 })
 
-export const s_GetPricesSearchRequestBody = z.object({})
-
-export const s_GetPricesPriceRequestBody = z.object({})
-
 export const s_PostPricesPriceRequestBody = z.object({
   active: PermissiveBoolean.optional(),
   currency_options: z
@@ -32781,8 +32415,6 @@ export const s_PostPricesPriceRequestBody = z.object({
   tax_behavior: z.enum(["exclusive", "inclusive", "unspecified"]).optional(),
   transfer_lookup_key: PermissiveBoolean.optional(),
 })
-
-export const s_GetProductsRequestBody = z.object({})
 
 export const s_product: z.ZodType<t_product> = z.object({
   active: PermissiveBoolean,
@@ -32893,12 +32525,6 @@ export const s_PostProductsRequestBody = z.object({
   url: z.string().max(5000).optional(),
 })
 
-export const s_GetProductsSearchRequestBody = z.object({})
-
-export const s_DeleteProductsIdRequestBody = z.object({})
-
-export const s_GetProductsIdRequestBody = z.object({})
-
 export const s_PostProductsIdRequestBody = z.object({
   active: PermissiveBoolean.optional(),
   default_price: z.string().max(5000).optional(),
@@ -32930,18 +32556,10 @@ export const s_PostProductsIdRequestBody = z.object({
   url: z.union([z.string(), z.enum([""])]).optional(),
 })
 
-export const s_GetProductsProductFeaturesRequestBody = z.object({})
-
 export const s_PostProductsProductFeaturesRequestBody = z.object({
   entitlement_feature: z.string().max(5000),
   expand: z.array(z.string().max(5000)).optional(),
 })
-
-export const s_DeleteProductsProductFeaturesIdRequestBody = z.object({})
-
-export const s_GetProductsProductFeaturesIdRequestBody = z.object({})
-
-export const s_GetPromotionCodesRequestBody = z.object({})
 
 export const s_promotion_code: z.ZodType<t_promotion_code> = z.object({
   active: PermissiveBoolean,
@@ -32986,8 +32604,6 @@ export const s_PostPromotionCodesRequestBody = z.object({
     .optional(),
 })
 
-export const s_GetPromotionCodesPromotionCodeRequestBody = z.object({})
-
 export const s_PostPromotionCodesPromotionCodeRequestBody = z.object({
   active: PermissiveBoolean.optional(),
   expand: z.array(z.string().max(5000)).optional(),
@@ -33005,8 +32621,6 @@ export const s_PostPromotionCodesPromotionCodeRequestBody = z.object({
     })
     .optional(),
 })
-
-export const s_GetQuotesRequestBody = z.object({})
 
 export const s_quote: z.ZodType<t_quote> = z.object({
   amount_subtotal: z.coerce.number(),
@@ -33207,8 +32821,6 @@ export const s_PostQuotesRequestBody = z.object({
     .optional(),
 })
 
-export const s_GetQuotesQuoteRequestBody = z.object({})
-
 export const s_PostQuotesQuoteRequestBody = z.object({
   application_fee_amount: z.union([z.coerce.number(), z.enum([""])]).optional(),
   application_fee_percent: z
@@ -33337,18 +32949,10 @@ export const s_PostQuotesQuoteCancelRequestBody = z.object({
   expand: z.array(z.string().max(5000)).optional(),
 })
 
-export const s_GetQuotesQuoteComputedUpfrontLineItemsRequestBody = z.object({})
-
 export const s_PostQuotesQuoteFinalizeRequestBody = z.object({
   expand: z.array(z.string().max(5000)).optional(),
   expires_at: z.coerce.number().optional(),
 })
-
-export const s_GetQuotesQuoteLineItemsRequestBody = z.object({})
-
-export const s_GetQuotesQuotePdfRequestBody = z.object({})
-
-export const s_GetRadarEarlyFraudWarningsRequestBody = z.object({})
 
 export const s_radar_early_fraud_warning: z.ZodType<t_radar_early_fraud_warning> =
   z.object({
@@ -33364,22 +32968,11 @@ export const s_radar_early_fraud_warning: z.ZodType<t_radar_early_fraud_warning>
       .optional(),
   })
 
-export const s_GetRadarEarlyFraudWarningsEarlyFraudWarningRequestBody =
-  z.object({})
-
-export const s_GetRadarValueListItemsRequestBody = z.object({})
-
 export const s_PostRadarValueListItemsRequestBody = z.object({
   expand: z.array(z.string().max(5000)).optional(),
   value: z.string().max(800),
   value_list: z.string().max(5000),
 })
-
-export const s_DeleteRadarValueListItemsItemRequestBody = z.object({})
-
-export const s_GetRadarValueListItemsItemRequestBody = z.object({})
-
-export const s_GetRadarValueListsRequestBody = z.object({})
 
 export const s_PostRadarValueListsRequestBody = z.object({
   alias: z.string().max(100),
@@ -33402,18 +32995,12 @@ export const s_PostRadarValueListsRequestBody = z.object({
   name: z.string().max(100),
 })
 
-export const s_DeleteRadarValueListsValueListRequestBody = z.object({})
-
-export const s_GetRadarValueListsValueListRequestBody = z.object({})
-
 export const s_PostRadarValueListsValueListRequestBody = z.object({
   alias: z.string().max(100).optional(),
   expand: z.array(z.string().max(5000)).optional(),
   metadata: z.record(z.string(), z.string()).optional(),
   name: z.string().max(100).optional(),
 })
-
-export const s_GetRefundsRequestBody = z.object({})
 
 export const s_PostRefundsRequestBody = z.object({
   amount: z.coerce.number().optional(),
@@ -33434,8 +33021,6 @@ export const s_PostRefundsRequestBody = z.object({
   reverse_transfer: PermissiveBoolean.optional(),
 })
 
-export const s_GetRefundsRefundRequestBody = z.object({})
-
 export const s_PostRefundsRefundRequestBody = z.object({
   expand: z.array(z.string().max(5000)).optional(),
   metadata: z
@@ -33446,8 +33031,6 @@ export const s_PostRefundsRefundRequestBody = z.object({
 export const s_PostRefundsRefundCancelRequestBody = z.object({
   expand: z.array(z.string().max(5000)).optional(),
 })
-
-export const s_GetReportingReportRunsRequestBody = z.object({})
 
 export const s_reporting_report_run: z.ZodType<t_reporting_report_run> =
   z.object({
@@ -34122,14 +33705,6 @@ export const s_PostReportingReportRunsRequestBody = z.object({
   report_type: z.string(),
 })
 
-export const s_GetReportingReportRunsReportRunRequestBody = z.object({})
-
-export const s_GetReportingReportTypesRequestBody = z.object({})
-
-export const s_GetReportingReportTypesReportTypeRequestBody = z.object({})
-
-export const s_GetReviewsRequestBody = z.object({})
-
 export const s_review: z.ZodType<t_review> = z.object({
   billing_zip: z.string().max(5000).nullable().optional(),
   charge: z
@@ -34162,13 +33737,9 @@ export const s_review: z.ZodType<t_review> = z.object({
   session: s_radar_review_resource_session.nullable().optional(),
 })
 
-export const s_GetReviewsReviewRequestBody = z.object({})
-
 export const s_PostReviewsReviewApproveRequestBody = z.object({
   expand: z.array(z.string().max(5000)).optional(),
 })
-
-export const s_GetSetupAttemptsRequestBody = z.object({})
 
 export const s_setup_attempt: z.ZodType<t_setup_attempt> = z.object({
   application: z
@@ -34202,8 +33773,6 @@ export const s_setup_attempt: z.ZodType<t_setup_attempt> = z.object({
   status: z.string().max(5000),
   usage: z.string().max(5000),
 })
-
-export const s_GetSetupIntentsRequestBody = z.object({})
 
 export const s_setup_intent: z.ZodType<t_setup_intent> = z.object({
   application: z
@@ -34852,8 +34421,6 @@ export const s_PostSetupIntentsRequestBody = z.object({
   usage: z.enum(["off_session", "on_session"]).optional(),
   use_stripe_sdk: PermissiveBoolean.optional(),
 })
-
-export const s_GetSetupIntentsIntentRequestBody = z.object({})
 
 export const s_PostSetupIntentsIntentRequestBody = z.object({
   attach_to_self: PermissiveBoolean.optional(),
@@ -35988,8 +35555,6 @@ export const s_PostSetupIntentsIntentVerifyMicrodepositsRequestBody = z.object({
   expand: z.array(z.string().max(5000)).optional(),
 })
 
-export const s_GetShippingRatesRequestBody = z.object({})
-
 export const s_PostShippingRatesRequestBody = z.object({
   delivery_estimate: z
     .object({
@@ -36032,8 +35597,6 @@ export const s_PostShippingRatesRequestBody = z.object({
   type: z.enum(["fixed_amount"]).optional(),
 })
 
-export const s_GetShippingRatesShippingRateTokenRequestBody = z.object({})
-
 export const s_PostShippingRatesShippingRateTokenRequestBody = z.object({
   active: PermissiveBoolean.optional(),
   expand: z.array(z.string().max(5000)).optional(),
@@ -36064,8 +35627,6 @@ export const s_PostSigmaSavedQueriesIdRequestBody = z.object({
   sql: z.string().max(100000).optional(),
 })
 
-export const s_GetSigmaScheduledQueryRunsRequestBody = z.object({})
-
 export const s_scheduled_query_run: z.ZodType<t_scheduled_query_run> = z.object(
   {
     created: z.coerce.number(),
@@ -36081,9 +35642,6 @@ export const s_scheduled_query_run: z.ZodType<t_scheduled_query_run> = z.object(
     title: z.string().max(5000),
   },
 )
-
-export const s_GetSigmaScheduledQueryRunsScheduledQueryRunRequestBody =
-  z.object({})
 
 export const s_PostSourcesRequestBody = z.object({
   amount: z.coerce.number().optional(),
@@ -36183,8 +35741,6 @@ export const s_PostSourcesRequestBody = z.object({
   usage: z.enum(["reusable", "single_use"]).optional(),
 })
 
-export const s_GetSourcesSourceRequestBody = z.object({})
-
 export const s_PostSourcesSourceRequestBody = z.object({
   amount: z.coerce.number().optional(),
   expand: z.array(z.string().max(5000)).optional(),
@@ -36269,20 +35825,10 @@ export const s_PostSourcesSourceRequestBody = z.object({
     .optional(),
 })
 
-export const s_GetSourcesSourceMandateNotificationsMandateNotificationRequestBody =
-  z.object({})
-
-export const s_GetSourcesSourceSourceTransactionsRequestBody = z.object({})
-
-export const s_GetSourcesSourceSourceTransactionsSourceTransactionRequestBody =
-  z.object({})
-
 export const s_PostSourcesSourceVerifyRequestBody = z.object({
   expand: z.array(z.string().max(5000)).optional(),
   values: z.array(z.string().max(5000)),
 })
-
-export const s_GetSubscriptionItemsRequestBody = z.object({})
 
 export const s_subscription_item: z.ZodType<t_subscription_item> = z.object({
   billing_thresholds: s_subscription_item_billing_thresholds
@@ -36360,8 +35906,6 @@ export const s_DeleteSubscriptionItemsItemRequestBody = z.object({
   proration_date: z.coerce.number().optional(),
 })
 
-export const s_GetSubscriptionItemsItemRequestBody = z.object({})
-
 export const s_PostSubscriptionItemsItemRequestBody = z.object({
   billing_thresholds: z
     .union([z.object({usage_gte: z.coerce.number()}), z.enum([""])])
@@ -36414,8 +35958,6 @@ export const s_PostSubscriptionItemsItemRequestBody = z.object({
   quantity: z.coerce.number().optional(),
   tax_rates: z.union([z.array(z.string().max(5000)), z.enum([""])]).optional(),
 })
-
-export const s_GetSubscriptionSchedulesRequestBody = z.object({})
 
 export const s_subscription_schedule: z.ZodType<t_subscription_schedule> =
   z.object({
@@ -36683,8 +36225,6 @@ export const s_PostSubscriptionSchedulesRequestBody = z.object({
   start_date: z.union([z.coerce.number(), z.enum(["now"])]).optional(),
 })
 
-export const s_GetSubscriptionSchedulesScheduleRequestBody = z.object({})
-
 export const s_PostSubscriptionSchedulesScheduleRequestBody = z.object({
   default_settings: z
     .object({
@@ -36916,8 +36456,6 @@ export const s_PostSubscriptionSchedulesScheduleReleaseRequestBody = z.object({
   expand: z.array(z.string().max(5000)).optional(),
   preserve_cancel_date: PermissiveBoolean.optional(),
 })
-
-export const s_GetSubscriptionsRequestBody = z.object({})
 
 export const s_PostSubscriptionsRequestBody = z.object({
   add_invoice_items: z
@@ -37287,8 +36825,6 @@ export const s_PostSubscriptionsRequestBody = z.object({
     .optional(),
 })
 
-export const s_GetSubscriptionsSearchRequestBody = z.object({})
-
 export const s_DeleteSubscriptionsSubscriptionExposedIdRequestBody = z.object({
   cancellation_details: z
     .object({
@@ -37312,8 +36848,6 @@ export const s_DeleteSubscriptionsSubscriptionExposedIdRequestBody = z.object({
   invoice_now: PermissiveBoolean.optional(),
   prorate: PermissiveBoolean.optional(),
 })
-
-export const s_GetSubscriptionsSubscriptionExposedIdRequestBody = z.object({})
 
 export const s_PostSubscriptionsSubscriptionExposedIdRequestBody = z.object({
   add_invoice_items: z
@@ -37709,9 +37243,6 @@ export const s_PostSubscriptionsSubscriptionExposedIdRequestBody = z.object({
     .optional(),
 })
 
-export const s_DeleteSubscriptionsSubscriptionExposedIdDiscountRequestBody =
-  z.object({})
-
 export const s_PostSubscriptionsSubscriptionMigrateRequestBody = z.object({
   billing_mode: z.object({type: z.enum(["flexible"])}),
   expand: z.array(z.string().max(5000)).optional(),
@@ -37901,12 +37432,6 @@ export const s_PostTaxCalculationsRequestBody = z.object({
     .optional(),
   tax_date: z.coerce.number().optional(),
 })
-
-export const s_GetTaxCalculationsCalculationRequestBody = z.object({})
-
-export const s_GetTaxCalculationsCalculationLineItemsRequestBody = z.object({})
-
-export const s_GetTaxRegistrationsRequestBody = z.object({})
 
 export const s_PostTaxRegistrationsRequestBody = z.object({
   active_from: z.union([z.enum(["now"]), z.coerce.number()]),
@@ -38735,8 +38260,6 @@ export const s_PostTaxRegistrationsRequestBody = z.object({
   expires_at: z.coerce.number().optional(),
 })
 
-export const s_GetTaxRegistrationsIdRequestBody = z.object({})
-
 export const s_PostTaxRegistrationsIdRequestBody = z.object({
   active_from: z.union([z.enum(["now"]), z.coerce.number()]).optional(),
   expand: z.array(z.string().max(5000)).optional(),
@@ -38744,8 +38267,6 @@ export const s_PostTaxRegistrationsIdRequestBody = z.object({
     .union([z.enum(["now"]), z.coerce.number(), z.enum([""])])
     .optional(),
 })
-
-export const s_GetTaxSettingsRequestBody = z.object({})
 
 export const s_PostTaxSettingsRequestBody = z.object({
   defaults: z
@@ -38802,16 +38323,6 @@ export const s_PostTaxTransactionsCreateReversalRequestBody = z.object({
     .object({amount: z.coerce.number(), amount_tax: z.coerce.number()})
     .optional(),
 })
-
-export const s_GetTaxTransactionsTransactionRequestBody = z.object({})
-
-export const s_GetTaxTransactionsTransactionLineItemsRequestBody = z.object({})
-
-export const s_GetTaxCodesRequestBody = z.object({})
-
-export const s_GetTaxCodesIdRequestBody = z.object({})
-
-export const s_GetTaxIdsRequestBody = z.object({})
 
 export const s_PostTaxIdsRequestBody = z.object({
   expand: z.array(z.string().max(5000)).optional(),
@@ -38937,12 +38448,6 @@ export const s_PostTaxIdsRequestBody = z.object({
   value: z.string(),
 })
 
-export const s_DeleteTaxIdsIdRequestBody = z.object({})
-
-export const s_GetTaxIdsIdRequestBody = z.object({})
-
-export const s_GetTaxRatesRequestBody = z.object({})
-
 export const s_PostTaxRatesRequestBody = z.object({
   active: PermissiveBoolean.optional(),
   country: z.string().max(5000).optional(),
@@ -38974,8 +38479,6 @@ export const s_PostTaxRatesRequestBody = z.object({
     .optional(),
 })
 
-export const s_GetTaxRatesTaxRateRequestBody = z.object({})
-
 export const s_PostTaxRatesTaxRateRequestBody = z.object({
   active: PermissiveBoolean.optional(),
   country: z.string().max(5000).optional(),
@@ -39006,8 +38509,6 @@ export const s_PostTaxRatesTaxRateRequestBody = z.object({
     ])
     .optional(),
 })
-
-export const s_GetTerminalConfigurationsRequestBody = z.object({})
 
 export const s_terminal_configuration: z.ZodType<t_terminal_configuration> =
   z.object({
@@ -39232,12 +38733,6 @@ export const s_PostTerminalConfigurationsRequestBody = z.object({
     .optional(),
 })
 
-export const s_DeleteTerminalConfigurationsConfigurationRequestBody = z.object(
-  {},
-)
-
-export const s_GetTerminalConfigurationsConfigurationRequestBody = z.object({})
-
 export const s_PostTerminalConfigurationsConfigurationRequestBody = z.object({
   bbpos_wisepos_e: z
     .union([
@@ -39454,8 +38949,6 @@ export const s_PostTerminalConnectionTokensRequestBody = z.object({
   location: z.string().max(5000).optional(),
 })
 
-export const s_GetTerminalLocationsRequestBody = z.object({})
-
 export const s_PostTerminalLocationsRequestBody = z.object({
   address: z.object({
     city: z.string().max(5000).optional(),
@@ -39472,10 +38965,6 @@ export const s_PostTerminalLocationsRequestBody = z.object({
     .union([z.record(z.string(), z.string()), z.enum([""])])
     .optional(),
 })
-
-export const s_DeleteTerminalLocationsLocationRequestBody = z.object({})
-
-export const s_GetTerminalLocationsLocationRequestBody = z.object({})
 
 export const s_PostTerminalLocationsLocationRequestBody = z.object({
   address: z
@@ -39497,8 +38986,6 @@ export const s_PostTerminalLocationsLocationRequestBody = z.object({
     .union([z.record(z.string(), z.string()), z.enum([""])])
     .optional(),
 })
-
-export const s_GetTerminalReadersRequestBody = z.object({})
 
 export const s_terminal_reader: z.ZodType<t_terminal_reader> = z.object({
   action: z.lazy(() =>
@@ -39539,10 +39026,6 @@ export const s_PostTerminalReadersRequestBody = z.object({
     .optional(),
   registration_code: z.string().max(5000),
 })
-
-export const s_DeleteTerminalReadersReaderRequestBody = z.object({})
-
-export const s_GetTerminalReadersReaderRequestBody = z.object({})
 
 export const s_PostTerminalReadersReaderRequestBody = z.object({
   expand: z.array(z.string().max(5000)).optional(),
@@ -41622,17 +41105,11 @@ export const s_PostTestHelpersTerminalReadersReaderSucceedInputCollectionRequest
 export const s_PostTestHelpersTerminalReadersReaderTimeoutInputCollectionRequestBody =
   z.object({expand: z.array(z.string().max(5000)).optional()})
 
-export const s_GetTestHelpersTestClocksRequestBody = z.object({})
-
 export const s_PostTestHelpersTestClocksRequestBody = z.object({
   expand: z.array(z.string().max(5000)).optional(),
   frozen_time: z.coerce.number(),
   name: z.string().max(300).optional(),
 })
-
-export const s_DeleteTestHelpersTestClocksTestClockRequestBody = z.object({})
-
-export const s_GetTestHelpersTestClocksTestClockRequestBody = z.object({})
 
 export const s_PostTestHelpersTestClocksTestClockAdvanceRequestBody = z.object({
   expand: z.array(z.string().max(5000)).optional(),
@@ -42475,10 +41952,6 @@ export const s_token: z.ZodType<t_token> = z.object({
   used: PermissiveBoolean,
 })
 
-export const s_GetTokensTokenRequestBody = z.object({})
-
-export const s_GetTopupsRequestBody = z.object({})
-
 export const s_topup: z.ZodType<t_topup> = z.object({
   amount: z.coerce.number(),
   balance_transaction: z
@@ -42514,8 +41987,6 @@ export const s_PostTopupsRequestBody = z.object({
   transfer_group: z.string().optional(),
 })
 
-export const s_GetTopupsTopupRequestBody = z.object({})
-
 export const s_PostTopupsTopupRequestBody = z.object({
   description: z.string().max(5000).optional(),
   expand: z.array(z.string().max(5000)).optional(),
@@ -42527,8 +41998,6 @@ export const s_PostTopupsTopupRequestBody = z.object({
 export const s_PostTopupsTopupCancelRequestBody = z.object({
   expand: z.array(z.string().max(5000)).optional(),
 })
-
-export const s_GetTransfersRequestBody = z.object({})
 
 export const s_transfer: z.ZodType<t_transfer> = z.object({
   amount: z.coerce.number(),
@@ -42578,8 +42047,6 @@ export const s_PostTransfersRequestBody = z.object({
   transfer_group: z.string().optional(),
 })
 
-export const s_GetTransfersIdReversalsRequestBody = z.object({})
-
 export const s_transfer_reversal: z.ZodType<t_transfer_reversal> = z.object({
   amount: z.coerce.number(),
   balance_transaction: z
@@ -42612,8 +42079,6 @@ export const s_PostTransfersIdReversalsRequestBody = z.object({
   refund_application_fee: PermissiveBoolean.optional(),
 })
 
-export const s_GetTransfersTransferRequestBody = z.object({})
-
 export const s_PostTransfersTransferRequestBody = z.object({
   description: z.string().max(5000).optional(),
   expand: z.array(z.string().max(5000)).optional(),
@@ -42622,16 +42087,12 @@ export const s_PostTransfersTransferRequestBody = z.object({
     .optional(),
 })
 
-export const s_GetTransfersTransferReversalsIdRequestBody = z.object({})
-
 export const s_PostTransfersTransferReversalsIdRequestBody = z.object({
   expand: z.array(z.string().max(5000)).optional(),
   metadata: z
     .union([z.record(z.string(), z.string()), z.enum([""])])
     .optional(),
 })
-
-export const s_GetTreasuryCreditReversalsRequestBody = z.object({})
 
 export const s_treasury_credit_reversal: z.ZodType<t_treasury_credit_reversal> =
   z.object({
@@ -42659,12 +42120,6 @@ export const s_PostTreasuryCreditReversalsRequestBody = z.object({
   metadata: z.record(z.string(), z.string()).optional(),
   received_credit: z.string().max(5000),
 })
-
-export const s_GetTreasuryCreditReversalsCreditReversalRequestBody = z.object(
-  {},
-)
-
-export const s_GetTreasuryDebitReversalsRequestBody = z.object({})
 
 export const s_treasury_debit_reversal: z.ZodType<t_treasury_debit_reversal> =
   z.object({
@@ -42696,10 +42151,6 @@ export const s_PostTreasuryDebitReversalsRequestBody = z.object({
   metadata: z.record(z.string(), z.string()).optional(),
   received_debit: z.string().max(5000),
 })
-
-export const s_GetTreasuryDebitReversalsDebitReversalRequestBody = z.object({})
-
-export const s_GetTreasuryFinancialAccountsRequestBody = z.object({})
 
 export const s_PostTreasuryFinancialAccountsRequestBody = z.object({
   expand: z.array(z.string().max(5000)).optional(),
@@ -42738,9 +42189,6 @@ export const s_PostTreasuryFinancialAccountsRequestBody = z.object({
     .optional(),
   supported_currencies: z.array(z.string().max(5000)),
 })
-
-export const s_GetTreasuryFinancialAccountsFinancialAccountRequestBody =
-  z.object({})
 
 export const s_PostTreasuryFinancialAccountsFinancialAccountRequestBody =
   z.object({
@@ -42803,9 +42251,6 @@ export const s_PostTreasuryFinancialAccountsFinancialAccountCloseRequestBody =
       .optional(),
   })
 
-export const s_GetTreasuryFinancialAccountsFinancialAccountFeaturesRequestBody =
-  z.object({})
-
 export const s_PostTreasuryFinancialAccountsFinancialAccountFeaturesRequestBody =
   z.object({
     card_issuing: z.object({requested: PermissiveBoolean}).optional(),
@@ -42832,8 +42277,6 @@ export const s_PostTreasuryFinancialAccountsFinancialAccountFeaturesRequestBody 
       .optional(),
   })
 
-export const s_GetTreasuryInboundTransfersRequestBody = z.object({})
-
 export const s_PostTreasuryInboundTransfersRequestBody = z.object({
   amount: z.coerce.number(),
   currency: z.string(),
@@ -42845,12 +42288,8 @@ export const s_PostTreasuryInboundTransfersRequestBody = z.object({
   statement_descriptor: z.string().max(10).optional(),
 })
 
-export const s_GetTreasuryInboundTransfersIdRequestBody = z.object({})
-
 export const s_PostTreasuryInboundTransfersInboundTransferCancelRequestBody =
   z.object({expand: z.array(z.string().max(5000)).optional()})
-
-export const s_GetTreasuryOutboundPaymentsRequestBody = z.object({})
 
 export const s_PostTreasuryOutboundPaymentsRequestBody = z.object({
   amount: z.coerce.number(),
@@ -42913,13 +42352,9 @@ export const s_PostTreasuryOutboundPaymentsRequestBody = z.object({
   statement_descriptor: z.string().max(5000).optional(),
 })
 
-export const s_GetTreasuryOutboundPaymentsIdRequestBody = z.object({})
-
 export const s_PostTreasuryOutboundPaymentsIdCancelRequestBody = z.object({
   expand: z.array(z.string().max(5000)).optional(),
 })
-
-export const s_GetTreasuryOutboundTransfersRequestBody = z.object({})
 
 export const s_PostTreasuryOutboundTransfersRequestBody = z.object({
   amount: z.coerce.number(),
@@ -42948,21 +42383,8 @@ export const s_PostTreasuryOutboundTransfersRequestBody = z.object({
   statement_descriptor: z.string().max(5000).optional(),
 })
 
-export const s_GetTreasuryOutboundTransfersOutboundTransferRequestBody =
-  z.object({})
-
 export const s_PostTreasuryOutboundTransfersOutboundTransferCancelRequestBody =
   z.object({expand: z.array(z.string().max(5000)).optional()})
-
-export const s_GetTreasuryReceivedCreditsRequestBody = z.object({})
-
-export const s_GetTreasuryReceivedCreditsIdRequestBody = z.object({})
-
-export const s_GetTreasuryReceivedDebitsRequestBody = z.object({})
-
-export const s_GetTreasuryReceivedDebitsIdRequestBody = z.object({})
-
-export const s_GetTreasuryTransactionEntriesRequestBody = z.object({})
 
 export const s_treasury_transaction_entry: z.ZodType<t_treasury_transaction_entry> =
   z.object({
@@ -43017,10 +42439,6 @@ export const s_treasury_transaction_entry: z.ZodType<t_treasury_transaction_entr
     ]),
   })
 
-export const s_GetTreasuryTransactionEntriesIdRequestBody = z.object({})
-
-export const s_GetTreasuryTransactionsRequestBody = z.object({})
-
 export const s_treasury_transaction: z.ZodType<t_treasury_transaction> =
   z.object({
     amount: z.coerce.number(),
@@ -43063,10 +42481,6 @@ export const s_treasury_transaction: z.ZodType<t_treasury_transaction> =
     status_transitions:
       s_treasury_transactions_resource_abstract_transaction_resource_status_transitions,
   })
-
-export const s_GetTreasuryTransactionsIdRequestBody = z.object({})
-
-export const s_GetWebhookEndpointsRequestBody = z.object({})
 
 export const s_PostWebhookEndpointsRequestBody = z.object({
   api_version: z
@@ -43442,10 +42856,6 @@ export const s_PostWebhookEndpointsRequestBody = z.object({
     .optional(),
   url: z.string(),
 })
-
-export const s_DeleteWebhookEndpointsWebhookEndpointRequestBody = z.object({})
-
-export const s_GetWebhookEndpointsWebhookEndpointRequestBody = z.object({})
 
 export const s_PostWebhookEndpointsWebhookEndpointRequestBody = z.object({
   description: z.union([z.string().max(5000), z.enum([""])]).optional(),
