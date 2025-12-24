@@ -1108,7 +1108,7 @@ export const s_copilot_dotcom_chat = z
         )
         .optional(),
     }),
-    z.record(z.string(), z.unknown()),
+    z.record(z.string(), z.unknown()).nullable(),
   )
   .nullable()
 
@@ -1136,7 +1136,7 @@ export const s_copilot_dotcom_pull_requests = z
         )
         .optional(),
     }),
-    z.record(z.string(), z.unknown()),
+    z.record(z.string(), z.unknown()).nullable(),
   )
   .nullable()
 
@@ -1166,7 +1166,7 @@ export const s_copilot_ide_chat = z
         )
         .optional(),
     }),
-    z.record(z.string(), z.unknown()),
+    z.record(z.string(), z.unknown()).nullable(),
   )
   .nullable()
 
@@ -1223,7 +1223,7 @@ export const s_copilot_ide_code_completions = z
         )
         .optional(),
     }),
-    z.record(z.string(), z.unknown()),
+    z.record(z.string(), z.unknown()).nullable(),
   )
   .nullable()
 
@@ -4233,6 +4233,13 @@ export const s_license_content = z.object({
   license: s_nullable_license_simple,
 })
 
+export const s_manifest = z.object({
+  name: z.string(),
+  file: z.object({source_location: z.string().optional()}).optional(),
+  metadata: s_metadata.optional(),
+  resolved: z.record(z.string(), s_dependency).optional(),
+})
+
 export const s_marketplace_purchase = z.object({
   url: z.string(),
   type: z.string(),
@@ -5581,6 +5588,21 @@ export const s_simple_repository = z.object({
   teams_url: z.string(),
   trees_url: z.string(),
   hooks_url: z.string(),
+})
+
+export const s_snapshot = z.object({
+  version: z.coerce.number(),
+  job: z.object({
+    id: z.string(),
+    correlator: z.string(),
+    html_url: z.string().optional(),
+  }),
+  sha: z.string().min(40).max(40),
+  ref: z.string().regex(new RegExp("^refs/")),
+  detector: z.object({name: z.string(), version: z.string(), url: z.string()}),
+  metadata: s_metadata.optional(),
+  manifests: z.record(z.string(), s_manifest).optional(),
+  scanned: z.iso.datetime({offset: true}),
 })
 
 export const s_stargazer = z.object({
@@ -7068,13 +7090,6 @@ export const s_locked_issue_event = z.object({
   lock_reason: z.string().nullable(),
 })
 
-export const s_manifest = z.object({
-  name: z.string(),
-  file: z.object({source_location: z.string().optional()}).optional(),
-  metadata: s_metadata.optional(),
-  resolved: z.record(z.string(), s_dependency).optional(),
-})
-
 export const s_migration = z.object({
   id: z.coerce.number(),
   owner: s_nullable_simple_user,
@@ -8266,21 +8281,6 @@ export const s_repository_ruleset = z.object({
   rules: z.array(s_repository_rule).optional(),
   created_at: z.iso.datetime({offset: true}).optional(),
   updated_at: z.iso.datetime({offset: true}).optional(),
-})
-
-export const s_snapshot = z.object({
-  version: z.coerce.number(),
-  job: z.object({
-    id: z.string(),
-    correlator: z.string(),
-    html_url: z.string().optional(),
-  }),
-  sha: z.string().min(40).max(40),
-  ref: z.string().regex(new RegExp("^refs/")),
-  detector: z.object({name: z.string(), version: z.string(), url: z.string()}),
-  metadata: s_metadata.optional(),
-  manifests: z.record(z.string(), s_manifest).optional(),
-  scanned: z.iso.datetime({offset: true}),
 })
 
 export const s_timeline_cross_referenced_event = z.object({
@@ -9738,9 +9738,9 @@ export const s_CodeScanningUpdateAlertRequestBody = z.object({
 })
 
 export const s_CodeScanningCreateVariantAnalysisRequestBody = z.union([
-  z.record(z.string(), z.unknown()),
-  z.record(z.string(), z.unknown()),
-  z.record(z.string(), z.unknown()),
+  z.unknown(),
+  z.unknown(),
+  z.unknown(),
 ])
 
 export const s_CodeScanningUploadSarifRequestBody = z.object({

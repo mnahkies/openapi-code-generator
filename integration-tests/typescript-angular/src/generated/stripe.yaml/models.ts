@@ -34,9 +34,7 @@ export type t_account = {
   groups?: t_account_group_membership | null
   id: string
   individual?: t_person
-  metadata?: {
-    [key: string]: string | undefined
-  }
+  metadata?: Record<string, string>
   object: "account" | UnknownEnumStringValue
   payouts_enabled?: boolean
   requirements?: t_account_requirements
@@ -845,9 +843,7 @@ export type t_bank_account = {
   future_requirements?: t_external_account_requirements | null
   id: string
   last4: string
-  metadata?: {
-    [key: string]: string | undefined
-  } | null
+  metadata?: Record<string, string> | null
   object: "bank_account" | UnknownEnumStringValue
   requirements?: t_external_account_requirements | null
   routing_number?: string | null
@@ -864,22 +860,16 @@ export type t_bank_connections_resource_balance = {
   as_of: number
   cash?: t_bank_connections_resource_balance_api_resource_cash_balance
   credit?: t_bank_connections_resource_balance_api_resource_credit_balance
-  current: {
-    [key: string]: number | undefined
-  }
+  current: Record<string, number>
   type: "cash" | "credit" | UnknownEnumStringValue
 }
 
 export type t_bank_connections_resource_balance_api_resource_cash_balance = {
-  available?: {
-    [key: string]: number | undefined
-  } | null
+  available?: Record<string, number> | null
 }
 
 export type t_bank_connections_resource_balance_api_resource_credit_balance = {
-  used?: {
-    [key: string]: number | undefined
-  } | null
+  used?: Record<string, number> | null
 }
 
 export type t_bank_connections_resource_balance_refresh = {
@@ -961,9 +951,7 @@ export type t_billing_credit_grant = {
   expires_at?: number | null
   id: string
   livemode: boolean
-  metadata: {
-    [key: string]: string | undefined
-  }
+  metadata: Record<string, string>
   name?: string | null
   object: "billing.credit_grant" | UnknownEnumStringValue
   priority?: number | null
@@ -994,9 +982,7 @@ export type t_billing_meter_event = {
   identifier: string
   livemode: boolean
   object: "billing.meter_event" | UnknownEnumStringValue
-  payload: {
-    [key: string]: string | undefined
-  }
+  payload: Record<string, string>
   timestamp: number
 }
 
@@ -1078,9 +1064,7 @@ export type t_billing_bill_resource_invoicing_parents_invoice_quote_parent = {
 
 export type t_billing_bill_resource_invoicing_parents_invoice_subscription_parent =
   {
-    metadata?: {
-      [key: string]: string | undefined
-    } | null
+    metadata?: Record<string, string> | null
     subscription: string | t_subscription
     subscription_proration_date?: number
   }
@@ -1228,9 +1212,7 @@ export type t_billing_portal_configuration = {
   is_default: boolean
   livemode: boolean
   login_page: t_portal_login_page
-  metadata?: {
-    [key: string]: string | undefined
-  } | null
+  metadata?: Record<string, string> | null
   object: "billing_portal.configuration" | UnknownEnumStringValue
   updated: number
 }
@@ -1368,9 +1350,7 @@ export type t_card = {
   id: string
   iin?: string
   last4: string
-  metadata?: {
-    [key: string]: string | undefined
-  } | null
+  metadata?: Record<string, string> | null
   name?: string | null
   networks?: t_token_card_networks
   object: "card" | UnknownEnumStringValue
@@ -1390,14 +1370,10 @@ export type t_card_issuing_account_terms_of_service = {
   user_agent?: string
 }
 
-export type t_card_mandate_payment_method_details = {
-  [key: string]: unknown | undefined
-}
+export type t_card_mandate_payment_method_details = Record<string, unknown>
 
 export type t_cash_balance = {
-  available?: {
-    [key: string]: number | undefined
-  } | null
+  available?: Record<string, number> | null
   customer: string
   livemode: boolean
   object: "cash_balance" | UnknownEnumStringValue
@@ -1426,9 +1402,7 @@ export type t_charge = {
   fraud_details?: t_charge_fraud_details | null
   id: string
   livemode: boolean
-  metadata: {
-    [key: string]: string | undefined
-  }
+  metadata: Record<string, string>
   object: "charge" | UnknownEnumStringValue
   on_behalf_of?: string | t_account | null
   outcome?: t_charge_outcome | null
@@ -1570,9 +1544,7 @@ export type t_checkout_session = {
     | "zh-TW"
     | UnknownEnumStringValue
     | null
-  metadata?: {
-    [key: string]: string | undefined
-  } | null
+  metadata?: Record<string, string> | null
   mode: "payment" | "setup" | "subscription" | UnknownEnumStringValue
   object: "checkout.session" | UnknownEnumStringValue
   optional_items?: t_payment_pages_checkout_session_optional_item[] | null
@@ -1965,9 +1937,7 @@ export type t_climate_order = {
   expected_delivery_year: number
   id: string
   livemode: boolean
-  metadata: {
-    [key: string]: string | undefined
-  }
+  metadata: Record<string, string>
   metric_tons: string
   object: "climate.order" | UnknownEnumStringValue
   product: string | t_climate_product
@@ -1983,9 +1953,10 @@ export type t_climate_order = {
 
 export type t_climate_product = {
   created: number
-  current_prices_per_metric_ton: {
-    [key: string]: t_climate_removals_products_price | undefined
-  }
+  current_prices_per_metric_ton: Record<
+    string,
+    t_climate_removals_products_price
+  >
   delivery_year?: number | null
   id: string
   livemode: boolean
@@ -2255,9 +2226,7 @@ export type t_connect_embedded_base_config_claim = {
   features: t_connect_embedded_base_features
 }
 
-export type t_connect_embedded_base_features = {
-  [key: string]: unknown | undefined
-}
+export type t_connect_embedded_base_features = Record<string, unknown>
 
 export type t_connect_embedded_disputes_list_config = {
   enabled: boolean
@@ -2368,9 +2337,7 @@ export type t_country_spec = {
   default_currency: string
   id: string
   object: "country_spec" | UnknownEnumStringValue
-  supported_bank_account_currencies: {
-    [key: string]: string[] | undefined
-  }
+  supported_bank_account_currencies: Record<string, string[]>
   supported_payment_currencies: string[]
   supported_payment_methods: string[]
   supported_transfer_countries: string[]
@@ -2392,17 +2359,13 @@ export type t_coupon = {
   applies_to?: t_coupon_applies_to
   created: number
   currency?: string | null
-  currency_options?: {
-    [key: string]: t_coupon_currency_option | undefined
-  }
+  currency_options?: Record<string, t_coupon_currency_option>
   duration: "forever" | "once" | "repeating" | UnknownEnumStringValue
   duration_in_months?: number | null
   id: string
   livemode: boolean
   max_redemptions?: number | null
-  metadata?: {
-    [key: string]: string | undefined
-  } | null
+  metadata?: Record<string, string> | null
   name?: string | null
   object: "coupon" | UnknownEnumStringValue
   percent_off?: number | null
@@ -2444,9 +2407,7 @@ export type t_credit_note = {
   }
   livemode: boolean
   memo?: string | null
-  metadata?: {
-    [key: string]: string | undefined
-  } | null
+  metadata?: Record<string, string> | null
   number: string
   object: "credit_note" | UnknownEnumStringValue
   out_of_band_amount?: number | null
@@ -2534,15 +2495,11 @@ export type t_customer = {
   discount?: t_discount | null
   email?: string | null
   id: string
-  invoice_credit_balance?: {
-    [key: string]: number | undefined
-  }
+  invoice_credit_balance?: Record<string, number>
   invoice_prefix?: string | null
   invoice_settings?: t_invoice_setting_customer_setting
   livemode: boolean
-  metadata?: {
-    [key: string]: string | undefined
-  }
+  metadata?: Record<string, string>
   name?: string | null
   next_invoice_sequence?: number
   object: "customer" | UnknownEnumStringValue
@@ -2670,9 +2627,7 @@ export type t_customer_balance_transaction = {
   id: string
   invoice?: string | t_invoice | null
   livemode: boolean
-  metadata?: {
-    [key: string]: string | undefined
-  } | null
+  metadata?: Record<string, string> | null
   object: "customer_balance_transaction" | UnknownEnumStringValue
   type:
     | "adjustment"
@@ -2948,9 +2903,7 @@ export type t_deleted_webhook_endpoint = {
   object: "webhook_endpoint" | UnknownEnumStringValue
 }
 
-export type t_destination_details_unimplemented = {
-  [key: string]: unknown | undefined
-}
+export type t_destination_details_unimplemented = Record<string, unknown>
 
 export type t_discount = {
   checkout_session?: string | null
@@ -2994,9 +2947,7 @@ export type t_dispute = {
   id: string
   is_charge_refundable: boolean
   livemode: boolean
-  metadata: {
-    [key: string]: string | undefined
-  }
+  metadata: Record<string, string>
   object: "dispute" | UnknownEnumStringValue
   payment_intent?: string | t_payment_intent | null
   payment_method_details?: t_dispute_payment_method_details
@@ -3173,9 +3124,7 @@ export type t_entitlements_feature = {
   id: string
   livemode: boolean
   lookup_key: string
-  metadata: {
-    [key: string]: string | undefined
-  }
+  metadata: Record<string, string>
   name: string
   object: "entitlements.feature" | UnknownEnumStringValue
 }
@@ -3210,9 +3159,7 @@ export type t_event = {
 export type t_exchange_rate = {
   id: string
   object: "exchange_rate" | UnknownEnumStringValue
-  rates: {
-    [key: string]: number | undefined
-  }
+  rates: Record<string, number>
 }
 
 export type t_external_account = t_bank_account | t_card
@@ -3239,9 +3186,7 @@ export type t_fee_refund = {
   currency: string
   fee: string | t_application_fee
   id: string
-  metadata?: {
-    [key: string]: string | undefined
-  } | null
+  metadata?: Record<string, string> | null
   object: "fee_refund" | UnknownEnumStringValue
 }
 
@@ -3289,9 +3234,7 @@ export type t_file_link = {
   file: string | t_file
   id: string
   livemode: boolean
-  metadata: {
-    [key: string]: string | undefined
-  }
+  metadata: Record<string, string>
   object: "file_link" | UnknownEnumStringValue
   url?: string | null
 }
@@ -3438,9 +3381,7 @@ export type t_forwarding_request = {
   created: number
   id: string
   livemode: boolean
-  metadata?: {
-    [key: string]: string | undefined
-  } | null
+  metadata?: Record<string, string> | null
   object: "forwarding.request" | UnknownEnumStringValue
   payment_method: string
   replacements: (
@@ -3703,9 +3644,7 @@ export type t_gelato_report_document_options = {
   require_matching_selfie?: boolean
 }
 
-export type t_gelato_report_id_number_options = {
-  [key: string]: unknown | undefined
-}
+export type t_gelato_report_id_number_options = Record<string, unknown>
 
 export type t_gelato_selfie_report = {
   document?: string | null
@@ -3741,9 +3680,7 @@ export type t_gelato_session_email_options = {
   require_verification?: boolean
 }
 
-export type t_gelato_session_id_number_options = {
-  [key: string]: unknown | undefined
-}
+export type t_gelato_session_id_number_options = Record<string, unknown>
 
 export type t_gelato_session_last_error = {
   code?:
@@ -3843,9 +3780,7 @@ export type t_identity_verification_session = {
   last_error?: t_gelato_session_last_error | null
   last_verification_report?: string | t_identity_verification_report | null
   livemode: boolean
-  metadata: {
-    [key: string]: string | undefined
-  }
+  metadata: Record<string, string>
   object: "identity.verification_session" | UnknownEnumStringValue
   options?: t_gelato_verification_session_options | null
   provided_details?: t_gelato_provided_details | null
@@ -3960,9 +3895,7 @@ export type t_invoice = {
     url: string
   }
   livemode: boolean
-  metadata?: {
-    [key: string]: string | undefined
-  } | null
+  metadata?: Record<string, string> | null
   next_payment_attempt?: number | null
   number?: string | null
   object: "invoice" | UnknownEnumStringValue
@@ -4085,13 +4018,12 @@ export type t_invoice_payment_method_options_customer_balance_bank_transfer_eu_b
     country: "BE" | "DE" | "ES" | "FR" | "IE" | "NL" | UnknownEnumStringValue
   }
 
-export type t_invoice_payment_method_options_konbini = {
-  [key: string]: unknown | undefined
-}
+export type t_invoice_payment_method_options_konbini = Record<string, unknown>
 
-export type t_invoice_payment_method_options_sepa_debit = {
-  [key: string]: unknown | undefined
-}
+export type t_invoice_payment_method_options_sepa_debit = Record<
+  string,
+  unknown
+>
 
 export type t_invoice_payment_method_options_us_bank_account = {
   financial_connections?: t_invoice_payment_method_options_us_bank_account_linked_account_options
@@ -4130,9 +4062,7 @@ export type t_invoice_rendering_template = {
   created: number
   id: string
   livemode: boolean
-  metadata?: {
-    [key: string]: string | undefined
-  } | null
+  metadata?: Record<string, string> | null
   nickname?: string | null
   object: "invoice_rendering_template" | UnknownEnumStringValue
   status: "active" | "archived" | UnknownEnumStringValue
@@ -4194,9 +4124,7 @@ export type t_invoiceitem = {
   id: string
   invoice?: string | t_invoice | null
   livemode: boolean
-  metadata?: {
-    [key: string]: string | undefined
-  } | null
+  metadata?: Record<string, string> | null
   object: "invoiceitem" | UnknownEnumStringValue
   parent?: t_billing_bill_resource_invoice_item_parents_invoice_item_parent | null
   period: t_invoice_line_item_period
@@ -4460,9 +4388,7 @@ export type t_issuing_authorization = {
   merchant_amount: number
   merchant_currency: string
   merchant_data: t_issuing_authorization_merchant_data
-  metadata: {
-    [key: string]: string | undefined
-  }
+  metadata: Record<string, string>
   network_data?: t_issuing_authorization_network_data | null
   object: "issuing.authorization" | UnknownEnumStringValue
   pending_request?: t_issuing_authorization_pending_request | null
@@ -4494,9 +4420,7 @@ export type t_issuing_card = {
   id: string
   last4: string
   livemode: boolean
-  metadata: {
-    [key: string]: string | undefined
-  }
+  metadata: Record<string, string>
   number?: string
   object: "issuing.card" | UnknownEnumStringValue
   personalization_design?: string | t_issuing_personalization_design | null
@@ -4524,9 +4448,7 @@ export type t_issuing_cardholder = {
   id: string
   individual?: t_issuing_cardholder_individual | null
   livemode: boolean
-  metadata: {
-    [key: string]: string | undefined
-  }
+  metadata: Record<string, string>
   name: string
   object: "issuing.cardholder" | UnknownEnumStringValue
   phone_number?: string | null
@@ -4569,9 +4491,7 @@ export type t_issuing_dispute = {
     | "transaction_qualifies_for_visa_easy_payment_service"
     | "transaction_unattended"
     | UnknownEnumStringValue
-  metadata: {
-    [key: string]: string | undefined
-  }
+  metadata: Record<string, string>
   object: "issuing.dispute" | UnknownEnumStringValue
   status:
     | "expired"
@@ -4591,9 +4511,7 @@ export type t_issuing_personalization_design = {
   id: string
   livemode: boolean
   lookup_key?: string | null
-  metadata: {
-    [key: string]: string | undefined
-  }
+  metadata: Record<string, string>
   name?: string | null
   object: "issuing.personalization_design" | UnknownEnumStringValue
   physical_bundle: string | t_issuing_physical_bundle
@@ -4620,9 +4538,7 @@ export type t_issuing_settlement = {
   id: string
   interchange_fees_amount: number
   livemode: boolean
-  metadata: {
-    [key: string]: string | undefined
-  }
+  metadata: Record<string, string>
   net_total_amount: number
   network: "maestro" | "visa" | UnknownEnumStringValue
   network_fees_amount: number
@@ -4673,9 +4589,7 @@ export type t_issuing_transaction = {
   merchant_amount: number
   merchant_currency: string
   merchant_data: t_issuing_authorization_merchant_data
-  metadata: {
-    [key: string]: string | undefined
-  }
+  metadata: Record<string, string>
   network_data?: t_issuing_transaction_network_data | null
   object: "issuing.transaction" | UnknownEnumStringValue
   purchase_details?: t_issuing_transaction_purchase_details | null
@@ -7340,9 +7254,7 @@ export type t_line_item = {
   id: string
   invoice?: string | null
   livemode: boolean
-  metadata: {
-    [key: string]: string | undefined
-  }
+  metadata: Record<string, string>
   object: "line_item" | UnknownEnumStringValue
   parent?: t_billing_bill_resource_invoicing_lines_parents_invoice_line_item_parent | null
   period: t_invoice_line_item_period
@@ -7428,9 +7340,7 @@ export type t_mandate_acss_debit = {
   transaction_type: "business" | "personal" | UnknownEnumStringValue
 }
 
-export type t_mandate_amazon_pay = {
-  [key: string]: unknown | undefined
-}
+export type t_mandate_amazon_pay = Record<string, unknown>
 
 export type t_mandate_au_becs_debit = {
   url: string
@@ -7455,37 +7365,21 @@ export type t_mandate_bacs_debit = {
   url: string
 }
 
-export type t_mandate_cashapp = {
-  [key: string]: unknown | undefined
-}
+export type t_mandate_cashapp = Record<string, unknown>
 
-export type t_mandate_kakao_pay = {
-  [key: string]: unknown | undefined
-}
+export type t_mandate_kakao_pay = Record<string, unknown>
 
-export type t_mandate_klarna = {
-  [key: string]: unknown | undefined
-}
+export type t_mandate_klarna = Record<string, unknown>
 
-export type t_mandate_kr_card = {
-  [key: string]: unknown | undefined
-}
+export type t_mandate_kr_card = Record<string, unknown>
 
-export type t_mandate_link = {
-  [key: string]: unknown | undefined
-}
+export type t_mandate_link = Record<string, unknown>
 
-export type t_mandate_multi_use = {
-  [key: string]: unknown | undefined
-}
+export type t_mandate_multi_use = Record<string, unknown>
 
-export type t_mandate_naver_pay = {
-  [key: string]: unknown | undefined
-}
+export type t_mandate_naver_pay = Record<string, unknown>
 
-export type t_mandate_nz_bank_account = {
-  [key: string]: unknown | undefined
-}
+export type t_mandate_nz_bank_account = Record<string, unknown>
 
 export type t_mandate_payment_method_details = {
   acss_debit?: t_mandate_acss_debit
@@ -7512,9 +7406,7 @@ export type t_mandate_paypal = {
   payer_id?: string | null
 }
 
-export type t_mandate_revolut_pay = {
-  [key: string]: unknown | undefined
-}
+export type t_mandate_revolut_pay = Record<string, unknown>
 
 export type t_mandate_sepa_debit = {
   reference: string
@@ -7536,12 +7428,8 @@ export type t_networks = {
 }
 
 export type t_notification_event_data = {
-  object: {
-    [key: string]: unknown | undefined
-  }
-  previous_attributes?: {
-    [key: string]: unknown | undefined
-  }
+  object: Record<string, unknown>
+  previous_attributes?: Record<string, unknown>
 }
 
 export type t_notification_event_request = {
@@ -7549,9 +7437,7 @@ export type t_notification_event_request = {
   idempotency_key?: string | null
 }
 
-export type t_offline_acceptance = {
-  [key: string]: unknown | undefined
-}
+export type t_offline_acceptance = Record<string, unknown>
 
 export type t_online_acceptance = {
   ip_address?: string | null
@@ -7643,9 +7529,10 @@ export type t_payment_flows_payment_intent_presentment_details = {
   presentment_currency: string
 }
 
-export type t_payment_flows_private_payment_methods_alipay = {
-  [key: string]: unknown | undefined
-}
+export type t_payment_flows_private_payment_methods_alipay = Record<
+  string,
+  unknown
+>
 
 export type t_payment_flows_private_payment_methods_alipay_details = {
   buyer_id?: string
@@ -7754,9 +7641,7 @@ export type t_payment_intent = {
   last_payment_error?: t_api_errors | null
   latest_charge?: string | t_charge | null
   livemode: boolean
-  metadata?: {
-    [key: string]: string | undefined
-  }
+  metadata?: Record<string, string>
   next_action?: t_payment_intent_next_action | null
   object: "payment_intent" | UnknownEnumStringValue
   on_behalf_of?: string | t_account | null
@@ -7808,9 +7693,7 @@ export type t_payment_intent_next_action = {
   redirect_to_url?: t_payment_intent_next_action_redirect_to_url
   swish_handle_redirect_or_display_qr_code?: t_payment_intent_next_action_swish_handle_redirect_or_display_qr_code
   type: string
-  use_stripe_sdk?: {
-    [key: string]: unknown | undefined
-  }
+  use_stripe_sdk?: Record<string, unknown>
   verify_with_microdeposits?: t_payment_intent_next_action_verify_with_microdeposits
   wechat_pay_display_qr_code?: t_payment_intent_next_action_wechat_pay_display_qr_code
   wechat_pay_redirect_to_android_app?: t_payment_intent_next_action_wechat_pay_redirect_to_android_app
@@ -8348,9 +8231,7 @@ export type t_payment_link = {
     url: string
   }
   livemode: boolean
-  metadata: {
-    [key: string]: string | undefined
-  }
+  metadata: Record<string, string>
   object: "payment_link" | UnknownEnumStringValue
   on_behalf_of?: string | t_account | null
   optional_items?: t_payment_links_resource_optional_item[] | null
@@ -8504,9 +8385,7 @@ export type t_payment_links_resource_invoice_settings = {
   description?: string | null
   footer?: string | null
   issuer?: t_connect_account_reference | null
-  metadata?: {
-    [key: string]: string | undefined
-  } | null
+  metadata?: Record<string, string> | null
   rendering_options?: t_invoice_setting_checkout_rendering_options | null
 }
 
@@ -8530,9 +8409,7 @@ export type t_payment_links_resource_payment_intent_data = {
     | UnknownEnumStringValue
     | null
   description?: string | null
-  metadata: {
-    [key: string]: string | undefined
-  }
+  metadata: Record<string, string>
   setup_future_usage?:
     | "off_session"
     | "on_session"
@@ -8807,9 +8684,7 @@ export type t_payment_links_resource_shipping_option = {
 export type t_payment_links_resource_subscription_data = {
   description?: string | null
   invoice_settings: t_payment_links_resource_subscription_data_invoice_settings
-  metadata: {
-    [key: string]: string | undefined
-  }
+  metadata: Record<string, string>
   trial_period_days?: number | null
   trial_settings?: t_subscriptions_trials_resource_trial_settings | null
 }
@@ -8867,9 +8742,7 @@ export type t_payment_method = {
   kr_card?: t_payment_method_kr_card
   link?: t_payment_method_link
   livemode: boolean
-  metadata?: {
-    [key: string]: string | undefined
-  } | null
+  metadata?: Record<string, string> | null
   mobilepay?: t_payment_method_mobilepay
   multibanco?: t_payment_method_multibanco
   naver_pay?: t_payment_method_naver_pay
@@ -8956,21 +8829,13 @@ export type t_payment_method_acss_debit = {
   transit_number?: string | null
 }
 
-export type t_payment_method_affirm = {
-  [key: string]: unknown | undefined
-}
+export type t_payment_method_affirm = Record<string, unknown>
 
-export type t_payment_method_afterpay_clearpay = {
-  [key: string]: unknown | undefined
-}
+export type t_payment_method_afterpay_clearpay = Record<string, unknown>
 
-export type t_payment_method_alma = {
-  [key: string]: unknown | undefined
-}
+export type t_payment_method_alma = Record<string, unknown>
 
-export type t_payment_method_amazon_pay = {
-  [key: string]: unknown | undefined
-}
+export type t_payment_method_amazon_pay = Record<string, unknown>
 
 export type t_payment_method_au_becs_debit = {
   bsb_number?: string | null
@@ -8984,17 +8849,11 @@ export type t_payment_method_bacs_debit = {
   sort_code?: string | null
 }
 
-export type t_payment_method_bancontact = {
-  [key: string]: unknown | undefined
-}
+export type t_payment_method_bancontact = Record<string, unknown>
 
-export type t_payment_method_billie = {
-  [key: string]: unknown | undefined
-}
+export type t_payment_method_billie = Record<string, unknown>
 
-export type t_payment_method_blik = {
-  [key: string]: unknown | undefined
-}
+export type t_payment_method_blik = Record<string, unknown>
 
 export type t_payment_method_boleto = {
   tax_id: string
@@ -9080,21 +8939,16 @@ export type t_payment_method_card_wallet = {
   visa_checkout?: t_payment_method_card_wallet_visa_checkout
 }
 
-export type t_payment_method_card_wallet_amex_express_checkout = {
-  [key: string]: unknown | undefined
-}
+export type t_payment_method_card_wallet_amex_express_checkout = Record<
+  string,
+  unknown
+>
 
-export type t_payment_method_card_wallet_apple_pay = {
-  [key: string]: unknown | undefined
-}
+export type t_payment_method_card_wallet_apple_pay = Record<string, unknown>
 
-export type t_payment_method_card_wallet_google_pay = {
-  [key: string]: unknown | undefined
-}
+export type t_payment_method_card_wallet_google_pay = Record<string, unknown>
 
-export type t_payment_method_card_wallet_link = {
-  [key: string]: unknown | undefined
-}
+export type t_payment_method_card_wallet_link = Record<string, unknown>
 
 export type t_payment_method_card_wallet_masterpass = {
   billing_address?: t_address | null
@@ -9103,9 +8957,7 @@ export type t_payment_method_card_wallet_masterpass = {
   shipping_address?: t_address | null
 }
 
-export type t_payment_method_card_wallet_samsung_pay = {
-  [key: string]: unknown | undefined
-}
+export type t_payment_method_card_wallet_samsung_pay = Record<string, unknown>
 
 export type t_payment_method_card_wallet_visa_checkout = {
   billing_address?: t_address | null
@@ -9197,13 +9049,9 @@ export type t_payment_method_configuration = {
   zip?: t_payment_method_config_resource_payment_method_properties
 }
 
-export type t_payment_method_crypto = {
-  [key: string]: unknown | undefined
-}
+export type t_payment_method_crypto = Record<string, unknown>
 
-export type t_payment_method_customer_balance = {
-  [key: string]: unknown | undefined
-}
+export type t_payment_method_customer_balance = Record<string, unknown>
 
 export type t_payment_method_details = {
   ach_credit_transfer?: t_payment_method_details_ach_credit_transfer
@@ -9299,9 +9147,7 @@ export type t_payment_method_details_afterpay_clearpay = {
   reference?: string | null
 }
 
-export type t_payment_method_details_alma = {
-  [key: string]: unknown | undefined
-}
+export type t_payment_method_details_alma = Record<string, unknown>
 
 export type t_payment_method_details_amazon_pay = {
   funding?: t_amazon_pay_underlying_payment_method_funding_details
@@ -9332,9 +9178,7 @@ export type t_payment_method_details_bancontact = {
   verified_name?: string | null
 }
 
-export type t_payment_method_details_billie = {
-  [key: string]: unknown | undefined
-}
+export type t_payment_method_details_billie = Record<string, unknown>
 
 export type t_payment_method_details_blik = {
   buyer_id?: string | null
@@ -9466,21 +9310,22 @@ export type t_payment_method_details_card_wallet = {
   visa_checkout?: t_payment_method_details_card_wallet_visa_checkout
 }
 
-export type t_payment_method_details_card_wallet_amex_express_checkout = {
-  [key: string]: unknown | undefined
-}
+export type t_payment_method_details_card_wallet_amex_express_checkout = Record<
+  string,
+  unknown
+>
 
-export type t_payment_method_details_card_wallet_apple_pay = {
-  [key: string]: unknown | undefined
-}
+export type t_payment_method_details_card_wallet_apple_pay = Record<
+  string,
+  unknown
+>
 
-export type t_payment_method_details_card_wallet_google_pay = {
-  [key: string]: unknown | undefined
-}
+export type t_payment_method_details_card_wallet_google_pay = Record<
+  string,
+  unknown
+>
 
-export type t_payment_method_details_card_wallet_link = {
-  [key: string]: unknown | undefined
-}
+export type t_payment_method_details_card_wallet_link = Record<string, unknown>
 
 export type t_payment_method_details_card_wallet_masterpass = {
   billing_address?: t_address | null
@@ -9489,9 +9334,10 @@ export type t_payment_method_details_card_wallet_masterpass = {
   shipping_address?: t_address | null
 }
 
-export type t_payment_method_details_card_wallet_samsung_pay = {
-  [key: string]: unknown | undefined
-}
+export type t_payment_method_details_card_wallet_samsung_pay = Record<
+  string,
+  unknown
+>
 
 export type t_payment_method_details_card_wallet_visa_checkout = {
   billing_address?: t_address | null
@@ -9513,9 +9359,7 @@ export type t_payment_method_details_crypto = {
   transaction_hash?: string
 }
 
-export type t_payment_method_details_customer_balance = {
-  [key: string]: unknown | undefined
-}
+export type t_payment_method_details_customer_balance = Record<string, unknown>
 
 export type t_payment_method_details_eps = {
   bank?:
@@ -9805,9 +9649,7 @@ export type t_payment_method_details_passthrough_card = {
   last4?: string | null
 }
 
-export type t_payment_method_details_pay_by_bank = {
-  [key: string]: unknown | undefined
-}
+export type t_payment_method_details_pay_by_bank = Record<string, unknown>
 
 export type t_payment_method_details_payco = {
   buyer_id?: string | null
@@ -9842,9 +9684,7 @@ export type t_payment_method_details_samsung_pay = {
   buyer_id?: string | null
 }
 
-export type t_payment_method_details_satispay = {
-  [key: string]: unknown | undefined
-}
+export type t_payment_method_details_satispay = Record<string, unknown>
 
 export type t_payment_method_details_sepa_debit = {
   bank_code?: string | null
@@ -9876,9 +9716,7 @@ export type t_payment_method_details_sofort = {
   verified_name?: string | null
 }
 
-export type t_payment_method_details_stripe_account = {
-  [key: string]: unknown | undefined
-}
+export type t_payment_method_details_stripe_account = Record<string, unknown>
 
 export type t_payment_method_details_swish = {
   fingerprint?: string | null
@@ -9886,9 +9724,7 @@ export type t_payment_method_details_swish = {
   verified_phone_last4?: string | null
 }
 
-export type t_payment_method_details_twint = {
-  [key: string]: unknown | undefined
-}
+export type t_payment_method_details_twint = Record<string, unknown>
 
 export type t_payment_method_details_us_bank_account = {
   account_holder_type?: "company" | "individual" | UnknownEnumStringValue | null
@@ -9901,9 +9737,7 @@ export type t_payment_method_details_us_bank_account = {
   routing_number?: string | null
 }
 
-export type t_payment_method_details_wechat = {
-  [key: string]: unknown | undefined
-}
+export type t_payment_method_details_wechat = Record<string, unknown>
 
 export type t_payment_method_details_wechat_pay = {
   fingerprint?: string | null
@@ -9912,9 +9746,7 @@ export type t_payment_method_details_wechat_pay = {
   transaction_id?: string | null
 }
 
-export type t_payment_method_details_zip = {
-  [key: string]: unknown | undefined
-}
+export type t_payment_method_details_zip = Record<string, unknown>
 
 export type t_payment_method_domain = {
   amazon_pay: t_payment_method_domain_resource_payment_method_status
@@ -10001,13 +9833,9 @@ export type t_payment_method_fpx = {
     | UnknownEnumStringValue
 }
 
-export type t_payment_method_giropay = {
-  [key: string]: unknown | undefined
-}
+export type t_payment_method_giropay = Record<string, unknown>
 
-export type t_payment_method_grabpay = {
-  [key: string]: unknown | undefined
-}
+export type t_payment_method_grabpay = Record<string, unknown>
 
 export type t_payment_method_ideal = {
   bank?:
@@ -10076,17 +9904,13 @@ export type t_payment_method_interac_present = {
     | null
 }
 
-export type t_payment_method_kakao_pay = {
-  [key: string]: unknown | undefined
-}
+export type t_payment_method_kakao_pay = Record<string, unknown>
 
 export type t_payment_method_klarna = {
   dob?: t_payment_flows_private_payment_methods_klarna_dob | null
 }
 
-export type t_payment_method_konbini = {
-  [key: string]: unknown | undefined
-}
+export type t_payment_method_konbini = Record<string, unknown>
 
 export type t_payment_method_kr_card = {
   brand?:
@@ -10121,13 +9945,9 @@ export type t_payment_method_link = {
   email?: string | null
 }
 
-export type t_payment_method_mobilepay = {
-  [key: string]: unknown | undefined
-}
+export type t_payment_method_mobilepay = Record<string, unknown>
 
-export type t_payment_method_multibanco = {
-  [key: string]: unknown | undefined
-}
+export type t_payment_method_multibanco = Record<string, unknown>
 
 export type t_payment_method_naver_pay = {
   buyer_id?: string | null
@@ -10285,9 +10105,7 @@ export type t_payment_method_options_ideal = {
   setup_future_usage?: "none" | "off_session" | UnknownEnumStringValue
 }
 
-export type t_payment_method_options_interac_present = {
-  [key: string]: unknown | undefined
-}
+export type t_payment_method_options_interac_present = Record<string, unknown>
 
 export type t_payment_method_options_klarna = {
   capture_method?: "manual" | UnknownEnumStringValue
@@ -10325,9 +10143,7 @@ export type t_payment_method_options_p24 = {
   setup_future_usage?: "none" | UnknownEnumStringValue
 }
 
-export type t_payment_method_options_pay_by_bank = {
-  [key: string]: unknown | undefined
-}
+export type t_payment_method_options_pay_by_bank = Record<string, unknown>
 
 export type t_payment_method_options_paynow = {
   setup_future_usage?: "none" | UnknownEnumStringValue
@@ -10391,9 +10207,7 @@ export type t_payment_method_options_zip = {
   setup_future_usage?: "none" | UnknownEnumStringValue
 }
 
-export type t_payment_method_oxxo = {
-  [key: string]: unknown | undefined
-}
+export type t_payment_method_oxxo = Record<string, unknown>
 
 export type t_payment_method_p24 = {
   bank?:
@@ -10427,17 +10241,11 @@ export type t_payment_method_p24 = {
     | null
 }
 
-export type t_payment_method_pay_by_bank = {
-  [key: string]: unknown | undefined
-}
+export type t_payment_method_pay_by_bank = Record<string, unknown>
 
-export type t_payment_method_payco = {
-  [key: string]: unknown | undefined
-}
+export type t_payment_method_payco = Record<string, unknown>
 
-export type t_payment_method_paynow = {
-  [key: string]: unknown | undefined
-}
+export type t_payment_method_paynow = Record<string, unknown>
 
 export type t_payment_method_paypal = {
   country?: string | null
@@ -10445,25 +10253,15 @@ export type t_payment_method_paypal = {
   payer_id?: string | null
 }
 
-export type t_payment_method_pix = {
-  [key: string]: unknown | undefined
-}
+export type t_payment_method_pix = Record<string, unknown>
 
-export type t_payment_method_promptpay = {
-  [key: string]: unknown | undefined
-}
+export type t_payment_method_promptpay = Record<string, unknown>
 
-export type t_payment_method_revolut_pay = {
-  [key: string]: unknown | undefined
-}
+export type t_payment_method_revolut_pay = Record<string, unknown>
 
-export type t_payment_method_samsung_pay = {
-  [key: string]: unknown | undefined
-}
+export type t_payment_method_samsung_pay = Record<string, unknown>
 
-export type t_payment_method_satispay = {
-  [key: string]: unknown | undefined
-}
+export type t_payment_method_satispay = Record<string, unknown>
 
 export type t_payment_method_sepa_debit = {
   bank_code?: string | null
@@ -10478,13 +10276,9 @@ export type t_payment_method_sofort = {
   country?: string | null
 }
 
-export type t_payment_method_swish = {
-  [key: string]: unknown | undefined
-}
+export type t_payment_method_swish = Record<string, unknown>
 
-export type t_payment_method_twint = {
-  [key: string]: unknown | undefined
-}
+export type t_payment_method_twint = Record<string, unknown>
 
 export type t_payment_method_us_bank_account = {
   account_holder_type?: "company" | "individual" | UnknownEnumStringValue | null
@@ -10529,13 +10323,9 @@ export type t_payment_method_us_bank_account_status_details = {
   blocked?: t_payment_method_us_bank_account_blocked
 }
 
-export type t_payment_method_wechat_pay = {
-  [key: string]: unknown | undefined
-}
+export type t_payment_method_wechat_pay = Record<string, unknown>
 
-export type t_payment_method_zip = {
-  [key: string]: unknown | undefined
-}
+export type t_payment_method_zip = Record<string, unknown>
 
 export type t_payment_pages_checkout_session_adaptive_pricing = {
   enabled: boolean
@@ -10667,9 +10457,7 @@ export type t_payment_pages_checkout_session_invoice_settings = {
   description?: string | null
   footer?: string | null
   issuer?: t_connect_account_reference | null
-  metadata?: {
-    [key: string]: string | undefined
-  } | null
+  metadata?: Record<string, string> | null
   rendering_options?: t_invoice_setting_checkout_rendering_options | null
 }
 
@@ -11137,9 +10925,7 @@ export type t_payout = {
   failure_message?: string | null
   id: string
   livemode: boolean
-  metadata?: {
-    [key: string]: string | undefined
-  } | null
+  metadata?: Record<string, string> | null
   method: string
   object: "payout" | UnknownEnumStringValue
   original_payout?: string | t_payout | null
@@ -11194,9 +10980,7 @@ export type t_person = {
   last_name_kana?: string | null
   last_name_kanji?: string | null
   maiden_name?: string | null
-  metadata?: {
-    [key: string]: string | undefined
-  }
+  metadata?: Record<string, string>
   nationality?: string | null
   object: "person" | UnknownEnumStringValue
   phone?: string | null
@@ -11314,9 +11098,7 @@ export type t_plan = {
   interval: "day" | "month" | "week" | "year" | UnknownEnumStringValue
   interval_count: number
   livemode: boolean
-  metadata?: {
-    [key: string]: string | undefined
-  } | null
+  metadata?: Record<string, string> | null
   meter?: string | null
   nickname?: string | null
   object: "plan" | UnknownEnumStringValue
@@ -11519,16 +11301,12 @@ export type t_price = {
   billing_scheme: "per_unit" | "tiered" | UnknownEnumStringValue
   created: number
   currency: string
-  currency_options?: {
-    [key: string]: t_currency_option | undefined
-  }
+  currency_options?: Record<string, t_currency_option>
   custom_unit_amount?: t_custom_unit_amount | null
   id: string
   livemode: boolean
   lookup_key?: string | null
-  metadata: {
-    [key: string]: string | undefined
-  }
+  metadata: Record<string, string>
   nickname?: string | null
   object: "price" | UnknownEnumStringValue
   product: string | t_product | t_deleted_product
@@ -11564,9 +11342,7 @@ export type t_product = {
   images: string[]
   livemode: boolean
   marketing_features: t_product_marketing_feature[]
-  metadata: {
-    [key: string]: string | undefined
-  }
+  metadata: Record<string, string>
   name: string
   object: "product" | UnknownEnumStringValue
   package_dimensions?: t_package_dimensions | null
@@ -11599,9 +11375,7 @@ export type t_promotion_code = {
   id: string
   livemode: boolean
   max_redemptions?: number | null
-  metadata?: {
-    [key: string]: string | undefined
-  } | null
+  metadata?: Record<string, string> | null
   object: "promotion_code" | UnknownEnumStringValue
   restrictions: t_promotion_codes_resource_restrictions
   times_redeemed: number
@@ -11612,9 +11386,7 @@ export type t_promotion_code_currency_option = {
 }
 
 export type t_promotion_codes_resource_restrictions = {
-  currency_options?: {
-    [key: string]: t_promotion_code_currency_option | undefined
-  }
+  currency_options?: Record<string, t_promotion_code_currency_option>
   first_time_transaction: boolean
   minimum_amount?: number | null
   minimum_amount_currency?: string | null
@@ -11652,9 +11424,7 @@ export type t_quote = {
     url: string
   }
   livemode: boolean
-  metadata: {
-    [key: string]: string | undefined
-  }
+  metadata: Record<string, string>
   number?: string | null
   object: "quote" | UnknownEnumStringValue
   on_behalf_of?: string | t_account | null
@@ -11712,9 +11482,7 @@ export type t_quotes_resource_subscription_data_subscription_data = {
   billing_mode: t_quotes_resource_subscription_data_billing_mode
   description?: string | null
   effective_date?: number | null
-  metadata?: {
-    [key: string]: string | undefined
-  } | null
+  metadata?: Record<string, string> | null
   trial_period_days?: number | null
 }
 
@@ -11783,9 +11551,7 @@ export type t_radar_value_list = {
     url: string
   }
   livemode: boolean
-  metadata: {
-    [key: string]: string | undefined
-  }
+  metadata: Record<string, string>
   name: string
   object: "radar.value_list" | UnknownEnumStringValue
 }
@@ -11843,9 +11609,7 @@ export type t_refund = {
   failure_reason?: string
   id: string
   instructions_email?: string
-  metadata?: {
-    [key: string]: string | undefined
-  } | null
+  metadata?: Record<string, string> | null
   next_action?: t_refund_next_action
   object: "refund" | UnknownEnumStringValue
   payment_intent?: string | t_payment_intent | null
@@ -12124,21 +11888,25 @@ export type t_setup_attempt_payment_method_details = {
   us_bank_account?: t_setup_attempt_payment_method_details_us_bank_account
 }
 
-export type t_setup_attempt_payment_method_details_acss_debit = {
-  [key: string]: unknown | undefined
-}
+export type t_setup_attempt_payment_method_details_acss_debit = Record<
+  string,
+  unknown
+>
 
-export type t_setup_attempt_payment_method_details_amazon_pay = {
-  [key: string]: unknown | undefined
-}
+export type t_setup_attempt_payment_method_details_amazon_pay = Record<
+  string,
+  unknown
+>
 
-export type t_setup_attempt_payment_method_details_au_becs_debit = {
-  [key: string]: unknown | undefined
-}
+export type t_setup_attempt_payment_method_details_au_becs_debit = Record<
+  string,
+  unknown
+>
 
-export type t_setup_attempt_payment_method_details_bacs_debit = {
-  [key: string]: unknown | undefined
-}
+export type t_setup_attempt_payment_method_details_bacs_debit = Record<
+  string,
+  unknown
+>
 
 export type t_setup_attempt_payment_method_details_bancontact = {
   bank_code?: string | null
@@ -12151,9 +11919,10 @@ export type t_setup_attempt_payment_method_details_bancontact = {
   verified_name?: string | null
 }
 
-export type t_setup_attempt_payment_method_details_boleto = {
-  [key: string]: unknown | undefined
-}
+export type t_setup_attempt_payment_method_details_boleto = Record<
+  string,
+  unknown
+>
 
 export type t_setup_attempt_payment_method_details_card = {
   brand?: string | null
@@ -12186,9 +11955,10 @@ export type t_setup_attempt_payment_method_details_card_wallet = {
   type: "apple_pay" | "google_pay" | "link" | UnknownEnumStringValue
 }
 
-export type t_setup_attempt_payment_method_details_cashapp = {
-  [key: string]: unknown | undefined
-}
+export type t_setup_attempt_payment_method_details_cashapp = Record<
+  string,
+  unknown
+>
 
 export type t_setup_attempt_payment_method_details_ideal = {
   bank?:
@@ -12238,41 +12008,49 @@ export type t_setup_attempt_payment_method_details_ideal = {
   verified_name?: string | null
 }
 
-export type t_setup_attempt_payment_method_details_kakao_pay = {
-  [key: string]: unknown | undefined
-}
+export type t_setup_attempt_payment_method_details_kakao_pay = Record<
+  string,
+  unknown
+>
 
-export type t_setup_attempt_payment_method_details_klarna = {
-  [key: string]: unknown | undefined
-}
+export type t_setup_attempt_payment_method_details_klarna = Record<
+  string,
+  unknown
+>
 
-export type t_setup_attempt_payment_method_details_kr_card = {
-  [key: string]: unknown | undefined
-}
+export type t_setup_attempt_payment_method_details_kr_card = Record<
+  string,
+  unknown
+>
 
-export type t_setup_attempt_payment_method_details_link = {
-  [key: string]: unknown | undefined
-}
+export type t_setup_attempt_payment_method_details_link = Record<
+  string,
+  unknown
+>
 
 export type t_setup_attempt_payment_method_details_naver_pay = {
   buyer_id?: string
 }
 
-export type t_setup_attempt_payment_method_details_nz_bank_account = {
-  [key: string]: unknown | undefined
-}
+export type t_setup_attempt_payment_method_details_nz_bank_account = Record<
+  string,
+  unknown
+>
 
-export type t_setup_attempt_payment_method_details_paypal = {
-  [key: string]: unknown | undefined
-}
+export type t_setup_attempt_payment_method_details_paypal = Record<
+  string,
+  unknown
+>
 
-export type t_setup_attempt_payment_method_details_revolut_pay = {
-  [key: string]: unknown | undefined
-}
+export type t_setup_attempt_payment_method_details_revolut_pay = Record<
+  string,
+  unknown
+>
 
-export type t_setup_attempt_payment_method_details_sepa_debit = {
-  [key: string]: unknown | undefined
-}
+export type t_setup_attempt_payment_method_details_sepa_debit = Record<
+  string,
+  unknown
+>
 
 export type t_setup_attempt_payment_method_details_sofort = {
   bank_code?: string | null
@@ -12285,9 +12063,10 @@ export type t_setup_attempt_payment_method_details_sofort = {
   verified_name?: string | null
 }
 
-export type t_setup_attempt_payment_method_details_us_bank_account = {
-  [key: string]: unknown | undefined
-}
+export type t_setup_attempt_payment_method_details_us_bank_account = Record<
+  string,
+  unknown
+>
 
 export type t_setup_intent = {
   application?: string | t_application | null
@@ -12309,9 +12088,7 @@ export type t_setup_intent = {
   latest_attempt?: string | t_setup_attempt | null
   livemode: boolean
   mandate?: string | t_mandate | null
-  metadata?: {
-    [key: string]: string | undefined
-  } | null
+  metadata?: Record<string, string> | null
   next_action?: t_setup_intent_next_action | null
   object: "setup_intent" | UnknownEnumStringValue
   on_behalf_of?: string | t_account | null
@@ -12335,9 +12112,7 @@ export type t_setup_intent_next_action = {
   cashapp_handle_redirect_or_display_qr_code?: t_payment_intent_next_action_cashapp_handle_redirect_or_display_qr_code
   redirect_to_url?: t_setup_intent_next_action_redirect_to_url
   type: string
-  use_stripe_sdk?: {
-    [key: string]: unknown | undefined
-  }
+  use_stripe_sdk?: Record<string, unknown>
   verify_with_microdeposits?: t_setup_intent_next_action_verify_with_microdeposits
 }
 
@@ -12399,9 +12174,10 @@ export type t_setup_intent_payment_method_options_acss_debit = {
     | UnknownEnumStringValue
 }
 
-export type t_setup_intent_payment_method_options_amazon_pay = {
-  [key: string]: unknown | undefined
-}
+export type t_setup_intent_payment_method_options_amazon_pay = Record<
+  string,
+  unknown
+>
 
 export type t_setup_intent_payment_method_options_bacs_debit = {
   mandate_options?: t_setup_intent_payment_method_options_mandate_options_bacs_debit
@@ -12452,18 +12228,17 @@ export type t_setup_intent_payment_method_options_card_mandate_options = {
   supported_types?: ("india" | UnknownEnumStringValue)[] | null
 }
 
-export type t_setup_intent_payment_method_options_card_present = {
-  [key: string]: unknown | undefined
-}
+export type t_setup_intent_payment_method_options_card_present = Record<
+  string,
+  unknown
+>
 
 export type t_setup_intent_payment_method_options_klarna = {
   currency?: string | null
   preferred_locale?: string | null
 }
 
-export type t_setup_intent_payment_method_options_link = {
-  [key: string]: unknown | undefined
-}
+export type t_setup_intent_payment_method_options_link = Record<string, unknown>
 
 export type t_setup_intent_payment_method_options_mandate_options_acss_debit = {
   custom_mandate_url?: string
@@ -12528,9 +12303,7 @@ export type t_shipping_rate = {
   fixed_amount?: t_shipping_rate_fixed_amount
   id: string
   livemode: boolean
-  metadata: {
-    [key: string]: string | undefined
-  }
+  metadata: Record<string, string>
   object: "shipping_rate" | UnknownEnumStringValue
   tax_behavior?:
     | "exclusive"
@@ -12570,9 +12343,7 @@ export type t_shipping_rate_delivery_estimate_bound = {
 export type t_shipping_rate_fixed_amount = {
   amount: number
   currency: string
-  currency_options?: {
-    [key: string]: t_shipping_rate_currency_option | undefined
-  }
+  currency_options?: Record<string, t_shipping_rate_currency_option>
 }
 
 export type t_sigma_sigma_api_query = {
@@ -12616,9 +12387,7 @@ export type t_source = {
   ideal?: t_source_type_ideal
   klarna?: t_source_type_klarna
   livemode: boolean
-  metadata?: {
-    [key: string]: string | undefined
-  } | null
+  metadata?: Record<string, string> | null
   multibanco?: t_source_type_multibanco
   object: "source" | UnknownEnumStringValue
   owner?: t_source_owner | null
@@ -13047,9 +12816,7 @@ export type t_subscription = {
   }
   latest_invoice?: string | t_invoice | null
   livemode: boolean
-  metadata: {
-    [key: string]: string | undefined
-  }
+  metadata: Record<string, string>
   next_pending_invoice_item_invoice?: number | null
   object: "subscription" | UnknownEnumStringValue
   on_behalf_of?: string | t_account | null
@@ -13095,9 +12862,7 @@ export type t_subscription_item = {
   current_period_start: number
   discounts: (string | t_discount)[]
   id: string
-  metadata: {
-    [key: string]: string | undefined
-  }
+  metadata: Record<string, string>
   object: "subscription_item" | UnknownEnumStringValue
   price: t_price
   quantity?: number
@@ -13152,9 +12917,7 @@ export type t_subscription_schedule = {
   end_behavior: "cancel" | "none" | "release" | "renew" | UnknownEnumStringValue
   id: string
   livemode: boolean
-  metadata?: {
-    [key: string]: string | undefined
-  } | null
+  metadata?: Record<string, string> | null
   object: "subscription_schedule" | UnknownEnumStringValue
   phases: t_subscription_schedule_phase_configuration[]
   released_at?: number | null
@@ -13180,9 +12943,7 @@ export type t_subscription_schedule_add_invoice_item = {
 export type t_subscription_schedule_configuration_item = {
   billing_thresholds?: t_subscription_item_billing_thresholds | null
   discounts: t_discounts_resource_stackable_discount[]
-  metadata?: {
-    [key: string]: string | undefined
-  } | null
+  metadata?: Record<string, string> | null
   price: string | t_price | t_deleted_price
   quantity?: number
   tax_rates?: t_tax_rate[] | null
@@ -13216,9 +12977,7 @@ export type t_subscription_schedule_phase_configuration = {
   end_date: number
   invoice_settings?: t_invoice_setting_subscription_schedule_phase_setting | null
   items: t_subscription_schedule_configuration_item[]
-  metadata?: {
-    [key: string]: string | undefined
-  } | null
+  metadata?: Record<string, string> | null
   on_behalf_of?: string | t_account | null
   proration_behavior:
     | "always_invoice"
@@ -13396,9 +13155,7 @@ export type t_tax_calculation_line_item = {
   amount_tax: number
   id: string
   livemode: boolean
-  metadata?: {
-    [key: string]: string | undefined
-  } | null
+  metadata?: Record<string, string> | null
   object: "tax.calculation_line_item" | UnknownEnumStringValue
   product?: string | null
   quantity: number
@@ -13442,9 +13199,7 @@ export type t_tax_transaction = {
     url: string
   } | null
   livemode: boolean
-  metadata?: {
-    [key: string]: string | undefined
-  } | null
+  metadata?: Record<string, string> | null
   object: "tax.transaction" | UnknownEnumStringValue
   posted_at: number
   reference: string
@@ -13460,9 +13215,7 @@ export type t_tax_transaction_line_item = {
   amount_tax: number
   id: string
   livemode: boolean
-  metadata?: {
-    [key: string]: string | undefined
-  } | null
+  metadata?: Record<string, string> | null
   object: "tax.transaction_line_item" | UnknownEnumStringValue
   product?: string | null
   quantity: number
@@ -14102,9 +13855,7 @@ export type t_tax_product_resource_tax_settings_status_details = {
 }
 
 export type t_tax_product_resource_tax_settings_status_details_resource_active =
-  {
-    [key: string]: unknown | undefined
-  }
+  Record<string, unknown>
 
 export type t_tax_product_resource_tax_settings_status_details_resource_pending =
   {
@@ -14149,9 +13900,7 @@ export type t_tax_rate = {
     | UnknownEnumStringValue
     | null
   livemode: boolean
-  metadata?: {
-    [key: string]: string | undefined
-  } | null
+  metadata?: Record<string, string> | null
   object: "tax_rate" | UnknownEnumStringValue
   percentage: number
   rate_type?: "flat_amount" | "percentage" | UnknownEnumStringValue | null
@@ -14207,9 +13956,7 @@ export type t_terminal_location = {
   display_name: string
   id: string
   livemode: boolean
-  metadata: {
-    [key: string]: string | undefined
-  }
+  metadata: Record<string, string>
   object: "terminal.location" | UnknownEnumStringValue
 }
 
@@ -14232,9 +13979,7 @@ export type t_terminal_reader = {
   label: string
   livemode: boolean
   location?: string | t_terminal_location | null
-  metadata: {
-    [key: string]: string | undefined
-  }
+  metadata: Record<string, string>
   object: "terminal.reader" | UnknownEnumStringValue
   serial_number: string
   status?: "offline" | "online" | UnknownEnumStringValue | null
@@ -14339,9 +14084,7 @@ export type t_terminal_reader_reader_resource_collect_config = {
 
 export type t_terminal_reader_reader_resource_collect_inputs_action = {
   inputs: t_terminal_reader_reader_resource_input[]
-  metadata?: {
-    [key: string]: string | undefined
-  } | null
+  metadata?: Record<string, string> | null
 }
 
 export type t_terminal_reader_reader_resource_collect_payment_method_action = {
@@ -14452,9 +14195,7 @@ export type t_terminal_reader_reader_resource_reader_action = {
 export type t_terminal_reader_reader_resource_refund_payment_action = {
   amount?: number
   charge?: string | t_charge
-  metadata?: {
-    [key: string]: string | undefined
-  }
+  metadata?: Record<string, string>
   payment_intent?: string | t_payment_intent
   reason?:
     | "duplicate"
@@ -14632,9 +14373,7 @@ export type t_topup = {
   failure_message?: string | null
   id: string
   livemode: boolean
-  metadata: {
-    [key: string]: string | undefined
-  }
+  metadata: Record<string, string>
   object: "topup" | UnknownEnumStringValue
   source?: t_source | null
   statement_descriptor?: string | null
@@ -14659,9 +14398,7 @@ export type t_transfer = {
   destination_payment?: string | t_charge
   id: string
   livemode: boolean
-  metadata: {
-    [key: string]: string | undefined
-  }
+  metadata: Record<string, string>
   object: "transfer" | UnknownEnumStringValue
   reversals: {
     data: t_transfer_reversal[]
@@ -14687,9 +14424,7 @@ export type t_transfer_reversal = {
   currency: string
   destination_payment_refund?: string | t_refund | null
   id: string
-  metadata?: {
-    [key: string]: string | undefined
-  } | null
+  metadata?: Record<string, string> | null
   object: "transfer_reversal" | UnknownEnumStringValue
   source_refund?: string | t_refund | null
   transfer: string | t_transfer
@@ -14731,9 +14466,7 @@ export type t_treasury_credit_reversal = {
   hosted_regulatory_receipt_url?: string | null
   id: string
   livemode: boolean
-  metadata: {
-    [key: string]: string | undefined
-  }
+  metadata: Record<string, string>
   network: "ach" | "stripe" | UnknownEnumStringValue
   object: "treasury.credit_reversal" | UnknownEnumStringValue
   received_credit: string
@@ -14751,9 +14484,7 @@ export type t_treasury_debit_reversal = {
   id: string
   linked_flows?: t_treasury_received_debits_resource_debit_reversal_linked_flows | null
   livemode: boolean
-  metadata: {
-    [key: string]: string | undefined
-  }
+  metadata: Record<string, string>
   network: "ach" | "card" | UnknownEnumStringValue
   object: "treasury.debit_reversal" | UnknownEnumStringValue
   received_debit: string
@@ -14785,9 +14516,7 @@ export type t_treasury_financial_account = {
   id: string
   is_default?: boolean
   livemode: boolean
-  metadata?: {
-    [key: string]: string | undefined
-  } | null
+  metadata?: Record<string, string> | null
   nickname?: string | null
   object: "treasury.financial_account" | UnknownEnumStringValue
   pending_features?: (
@@ -14847,9 +14576,7 @@ export type t_treasury_inbound_transfer = {
   id: string
   linked_flows: t_treasury_inbound_transfers_resource_inbound_transfer_resource_linked_flows
   livemode: boolean
-  metadata: {
-    [key: string]: string | undefined
-  }
+  metadata: Record<string, string>
   object: "treasury.inbound_transfer" | UnknownEnumStringValue
   origin_payment_method?: string | null
   origin_payment_method_details?: t_inbound_transfers | null
@@ -14880,9 +14607,7 @@ export type t_treasury_outbound_payment = {
   hosted_regulatory_receipt_url?: string | null
   id: string
   livemode: boolean
-  metadata: {
-    [key: string]: string | undefined
-  }
+  metadata: Record<string, string>
   object: "treasury.outbound_payment" | UnknownEnumStringValue
   returned_details?: t_treasury_outbound_payments_resource_returned_status | null
   statement_descriptor: string
@@ -14911,9 +14636,7 @@ export type t_treasury_outbound_transfer = {
   hosted_regulatory_receipt_url?: string | null
   id: string
   livemode: boolean
-  metadata: {
-    [key: string]: string | undefined
-  }
+  metadata: Record<string, string>
   object: "treasury.outbound_transfer" | UnknownEnumStringValue
   returned_details?: t_treasury_outbound_transfers_resource_returned_details | null
   statement_descriptor: string
@@ -15080,15 +14803,9 @@ export type t_treasury_financial_accounts_resource_aba_toggle_settings = {
 }
 
 export type t_treasury_financial_accounts_resource_balance = {
-  cash: {
-    [key: string]: number | undefined
-  }
-  inbound_pending: {
-    [key: string]: number | undefined
-  }
-  outbound_pending: {
-    [key: string]: number | undefined
-  }
+  cash: Record<string, number>
+  inbound_pending: Record<string, number>
+  outbound_pending: Record<string, number>
 }
 
 export type t_treasury_financial_accounts_resource_closed_status_details = {
@@ -15442,9 +15159,7 @@ export type t_webhook_endpoint = {
   enabled_events: string[]
   id: string
   livemode: boolean
-  metadata: {
-    [key: string]: string | undefined
-  }
+  metadata: Record<string, string>
   object: "webhook_endpoint" | UnknownEnumStringValue
   secret?: string
   status: string

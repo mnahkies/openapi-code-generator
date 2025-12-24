@@ -91,10 +91,11 @@ function parseObjectQueryParameter(
               query,
             )
           } else {
-            // todo: parse nested objects?
             result[subKey] = query.get(`${key}[${subKey}]`) ?? undefined
           }
         }
+
+        // todo: handle records/additional properties, eg: metadata[some-key]
 
         return result
       }

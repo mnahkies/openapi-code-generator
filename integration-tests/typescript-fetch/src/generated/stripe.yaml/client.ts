@@ -4421,9 +4421,7 @@ export class StripeApi extends AbstractFetchClient {
         unit_amount_decimal?: string
       }[]
       memo?: string
-      metadata?: {
-        [key: string]: string | undefined
-      }
+      metadata?: Record<string, string>
       outOfBandAmount?: number
       reason?:
         | "duplicate"
@@ -4518,9 +4516,7 @@ export class StripeApi extends AbstractFetchClient {
         unit_amount_decimal?: string
       }[]
       memo?: string
-      metadata?: {
-        [key: string]: string | undefined
-      }
+      metadata?: Record<string, string>
       outOfBandAmount?: number
       reason?:
         | "duplicate"

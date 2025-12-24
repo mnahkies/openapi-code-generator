@@ -366,8 +366,7 @@ components:
             properties:
               rawHeaders:
                 additionalProperties: true
-              typedHeaders:
-                additionalProperties: true
+              typedHeaders: {}
 
   schemas:
     Enumerations:

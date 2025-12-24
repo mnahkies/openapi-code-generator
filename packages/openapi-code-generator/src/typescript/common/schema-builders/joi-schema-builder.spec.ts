@@ -400,7 +400,7 @@ describe.each(
             .object()
             .keys({ id: joi.string(), name: joi.string() })
             .options({ stripUnknown: true })
-            .concat(joi.object().pattern(joi.any(), joi.any()))
+            .concat(joi.object().pattern(joi.any(), joi.any()).required())
             .required()
             .id("s_AdditionalPropertiesMixed")"
         `)

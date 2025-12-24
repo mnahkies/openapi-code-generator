@@ -9,7 +9,6 @@ import {
 } from "@nahkies/typescript-axios-runtime/main"
 import type {AxiosRequestConfig, AxiosResponse} from "axios"
 import type {
-  EmptyObject,
   t_ActionsAddCustomLabelsToSelfHostedRunnerForOrgRequestBody,
   t_ActionsAddCustomLabelsToSelfHostedRunnerForRepoRequestBody,
   t_ActionsCreateEnvironmentVariableRequestBody,
@@ -864,11 +863,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
-  ): Promise<
-    AxiosResponse<{
-      [key: string]: unknown | undefined
-    }>
-  > {
+  ): Promise<AxiosResponse<Record<string, unknown>>> {
     const url = `/app/hook/deliveries/${p["deliveryId"]}/attempts`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
 
@@ -1343,11 +1338,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
-  ): Promise<
-    AxiosResponse<{
-      [key: string]: unknown | undefined
-    }>
-  > {
+  ): Promise<AxiosResponse<Record<string, unknown>>> {
     const url = `/credentials/revoke`
     const headers = this._headers(
       {Accept: "application/json", "Content-Type": "application/json"},
@@ -1368,11 +1359,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async emojisGet(
     timeout?: number,
     opts: AxiosRequestConfig = {},
-  ): Promise<
-    AxiosResponse<{
-      [key: string]: string | undefined
-    }>
-  > {
+  ): Promise<AxiosResponse<Record<string, string>>> {
     const url = `/emojis`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
 
@@ -1530,11 +1517,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
-  ): Promise<
-    AxiosResponse<{
-      [key: string]: unknown | undefined
-    }>
-  > {
+  ): Promise<AxiosResponse<Record<string, unknown>>> {
     const url = `/enterprises/${p["enterprise"]}/code-security/configurations/${p["configurationId"]}/attach`
     const headers = this._headers(
       {Accept: "application/json", "Content-Type": "application/json"},
@@ -2968,11 +2951,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
-  ): Promise<
-    AxiosResponse<{
-      [key: string]: unknown | undefined
-    }>
-  > {
+  ): Promise<AxiosResponse<Record<string, unknown>>> {
     const url = `/orgs/${p["org"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
 
@@ -4617,32 +4596,21 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<
     AxiosResponse<{
       attestations_subject_digests?:
-        | {
-            [key: string]:
-              | (
+        | Record<
+            string,
+            | {
+                bundle?:
                   | {
-                      bundle?:
-                        | {
-                            dsseEnvelope?:
-                              | {
-                                  [key: string]: unknown | undefined
-                                }
-                              | undefined
-                            mediaType?: string | undefined
-                            verificationMaterial?:
-                              | {
-                                  [key: string]: unknown | undefined
-                                }
-                              | undefined
-                          }
-                        | undefined
-                      bundle_url?: string | undefined
-                      repository_id?: number | undefined
-                    }[]
-                  | null
-                )
-              | undefined
-          }
+                      dsseEnvelope?: Record<string, unknown> | undefined
+                      mediaType?: string | undefined
+                      verificationMaterial?: Record<string, unknown> | undefined
+                    }
+                  | undefined
+                bundle_url?: string | undefined
+                repository_id?: number | undefined
+              }[]
+            | null
+          >
         | undefined
       page_info?:
         | {
@@ -4758,17 +4726,9 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         | {
             bundle?:
               | {
-                  dsseEnvelope?:
-                    | {
-                        [key: string]: unknown | undefined
-                      }
-                    | undefined
+                  dsseEnvelope?: Record<string, unknown> | undefined
                   mediaType?: string | undefined
-                  verificationMaterial?:
-                    | {
-                        [key: string]: unknown | undefined
-                      }
-                    | undefined
+                  verificationMaterial?: Record<string, unknown> | undefined
                 }
               | undefined
             bundle_url?: string | undefined
@@ -5219,11 +5179,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
-  ): Promise<
-    AxiosResponse<{
-      [key: string]: unknown | undefined
-    }>
-  > {
+  ): Promise<AxiosResponse<Record<string, unknown>>> {
     const url = `/orgs/${p["org"]}/code-security/configurations/${p["configurationId"]}/attach`
     const headers = this._headers(
       {Accept: "application/json", "Content-Type": "application/json"},
@@ -6360,11 +6316,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
-  ): Promise<
-    AxiosResponse<{
-      [key: string]: unknown | undefined
-    }>
-  > {
+  ): Promise<AxiosResponse<Record<string, unknown>>> {
     const url = `/orgs/${p["org"]}/hooks/${p["hookId"]}/deliveries/${p["deliveryId"]}/attempts`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
 
@@ -6783,7 +6735,9 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<t_interaction_limit_response | EmptyObject>> {
+  ): Promise<
+    AxiosResponse<t_interaction_limit_response | Record<string, never>>
+  > {
     const url = `/orgs/${p["org"]}/interaction-limits`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
 
@@ -7189,11 +7143,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
-  ): Promise<
-    AxiosResponse<{
-      [key: string]: unknown | undefined
-    }>
-  > {
+  ): Promise<AxiosResponse<Record<string, unknown>>> {
     const url = `/orgs/${p["org"]}/members/${p["username"]}/codespaces/${p["codespaceName"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
 
@@ -7737,7 +7687,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<EmptyObject> | AxiosResponse<void>> {
+  ): Promise<AxiosResponse<Record<string, never>> | AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/outside_collaborators/${p["username"]}`
     const headers = this._headers(
       {
@@ -8087,11 +8037,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
-  ): Promise<
-    AxiosResponse<{
-      [key: string]: unknown | undefined
-    }>
-  > {
+  ): Promise<AxiosResponse<Record<string, unknown>>> {
     const url = `/orgs/${p["org"]}/personal-access-token-requests`
     const headers = this._headers(
       {Accept: "application/json", "Content-Type": "application/json"},
@@ -8218,11 +8164,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
-  ): Promise<
-    AxiosResponse<{
-      [key: string]: unknown | undefined
-    }>
-  > {
+  ): Promise<AxiosResponse<Record<string, unknown>>> {
     const url = `/orgs/${p["org"]}/personal-access-tokens`
     const headers = this._headers(
       {Accept: "application/json", "Content-Type": "application/json"},
@@ -10406,7 +10348,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<EmptyObject>> {
+  ): Promise<AxiosResponse<Record<string, never>>> {
     const url = `/projects/columns/cards/${p["cardId"]}/moves`
     const headers = this._headers(
       {Accept: "application/json", "Content-Type": "application/json"},
@@ -10550,7 +10492,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<EmptyObject>> {
+  ): Promise<AxiosResponse<Record<string, never>>> {
     const url = `/projects/columns/${p["columnId"]}/moves`
     const headers = this._headers(
       {Accept: "application/json", "Content-Type": "application/json"},
@@ -12862,17 +12804,9 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         | {
             bundle?:
               | {
-                  dsseEnvelope?:
-                    | {
-                        [key: string]: unknown | undefined
-                      }
-                    | undefined
+                  dsseEnvelope?: Record<string, unknown> | undefined
                   mediaType?: string | undefined
-                  verificationMaterial?:
-                    | {
-                        [key: string]: unknown | undefined
-                      }
-                    | undefined
+                  verificationMaterial?: Record<string, unknown> | undefined
                 }
               | undefined
             bundle_url?: string | undefined
@@ -14434,11 +14368,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
-  ): Promise<
-    AxiosResponse<{
-      [key: string]: unknown | undefined
-    }>
-  > {
+  ): Promise<AxiosResponse<Record<string, unknown>>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/code-scanning/analyses/${p["analysisId"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
 
@@ -17533,11 +17463,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
-  ): Promise<
-    AxiosResponse<{
-      [key: string]: unknown | undefined
-    }>
-  > {
+  ): Promise<AxiosResponse<Record<string, unknown>>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}/deliveries/${p["deliveryId"]}/attempts`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
 
@@ -17816,7 +17742,9 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<t_interaction_limit_response | EmptyObject>> {
+  ): Promise<
+    AxiosResponse<t_interaction_limit_response | Record<string, never>>
+  > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/interaction-limits`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
 
@@ -21719,11 +21647,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
-  ): Promise<
-    AxiosResponse<{
-      [key: string]: unknown | undefined
-    }>
-  > {
+  ): Promise<AxiosResponse<Record<string, unknown>>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/security-advisories/${p["ghsaId"]}/cve`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
 
@@ -21789,9 +21713,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<
     | AxiosResponse<t_code_frequency_stat[]>
-    | AxiosResponse<{
-        [key: string]: unknown | undefined
-      }>
+    | AxiosResponse<Record<string, unknown>>
     | AxiosResponse<void>
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/stats/code_frequency`
@@ -21815,9 +21737,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<
     | AxiosResponse<t_commit_activity[]>
-    | AxiosResponse<{
-        [key: string]: unknown | undefined
-      }>
+    | AxiosResponse<Record<string, unknown>>
     | AxiosResponse<void>
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/stats/commit_activity`
@@ -21841,9 +21761,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<
     | AxiosResponse<t_contributor_activity[]>
-    | AxiosResponse<{
-        [key: string]: unknown | undefined
-      }>
+    | AxiosResponse<Record<string, unknown>>
     | AxiosResponse<void>
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/stats/contributors`
@@ -23963,11 +23881,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
-  ): Promise<
-    AxiosResponse<{
-      [key: string]: unknown | undefined
-    }>
-  > {
+  ): Promise<AxiosResponse<Record<string, unknown>>> {
     const url = `/user/codespaces/${p["codespaceName"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
 
@@ -24500,7 +24414,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     timeout?: number,
     opts: AxiosRequestConfig = {},
   ): Promise<
-    | AxiosResponse<t_interaction_limit_response | EmptyObject>
+    | AxiosResponse<t_interaction_limit_response | Record<string, never>>
     | AxiosResponse<void>
   > {
     const url = `/user/interaction-limits`
@@ -25736,32 +25650,21 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<
     AxiosResponse<{
       attestations_subject_digests?:
-        | {
-            [key: string]:
-              | (
+        | Record<
+            string,
+            | {
+                bundle?:
                   | {
-                      bundle?:
-                        | {
-                            dsseEnvelope?:
-                              | {
-                                  [key: string]: unknown | undefined
-                                }
-                              | undefined
-                            mediaType?: string | undefined
-                            verificationMaterial?:
-                              | {
-                                  [key: string]: unknown | undefined
-                                }
-                              | undefined
-                          }
-                        | undefined
-                      bundle_url?: string | undefined
-                      repository_id?: number | undefined
-                    }[]
-                  | null
-                )
-              | undefined
-          }
+                      dsseEnvelope?: Record<string, unknown> | undefined
+                      mediaType?: string | undefined
+                      verificationMaterial?: Record<string, unknown> | undefined
+                    }
+                  | undefined
+                bundle_url?: string | undefined
+                repository_id?: number | undefined
+              }[]
+            | null
+          >
         | undefined
       page_info?:
         | {
@@ -25877,17 +25780,9 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
           | {
               bundle?:
                 | {
-                    dsseEnvelope?:
-                      | {
-                          [key: string]: unknown | undefined
-                        }
-                      | undefined
+                    dsseEnvelope?: Record<string, unknown> | undefined
                     mediaType?: string | undefined
-                    verificationMaterial?:
-                      | {
-                          [key: string]: unknown | undefined
-                        }
-                      | undefined
+                    verificationMaterial?: Record<string, unknown> | undefined
                   }
                 | undefined
               bundle_url?: string | undefined

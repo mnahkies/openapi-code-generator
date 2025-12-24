@@ -9,7 +9,6 @@ import {
   type Server,
 } from "@nahkies/typescript-fetch-runtime/main"
 import type {
-  EmptyObject,
   t_ActionsAddCustomLabelsToSelfHostedRunnerForOrgRequestBody,
   t_ActionsAddCustomLabelsToSelfHostedRunnerForRepoRequestBody,
   t_ActionsCreateEnvironmentVariableRequestBody,
@@ -830,12 +829,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<
-        202,
-        {
-          [key: string]: unknown | undefined
-        }
-      >
+    | Res<202, Record<string, unknown>>
     | Res<400, t_scim_error>
     | Res<422, t_validation_error>
   > {
@@ -1207,12 +1201,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<
-        202,
-        {
-          [key: string]: unknown | undefined
-        }
-      >
+    | Res<202, Record<string, unknown>>
     | Res<422, t_validation_error_simple>
     | Res<500, t_basic_error>
   > {
@@ -1229,15 +1218,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   async emojisGet(
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    | Res<
-        200,
-        {
-          [key: string]: string | undefined
-        }
-      >
-    | Res<304, void>
-  > {
+  ): Promise<Res<200, Record<string, string>> | Res<304, void>> {
     const url = this.basePath + `/emojis`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
 
@@ -1390,12 +1371,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<
-        202,
-        {
-          [key: string]: unknown | undefined
-        }
-      >
+    | Res<202, Record<string, unknown>>
     | Res<403, t_basic_error>
     | Res<404, t_basic_error>
     | Res<409, t_basic_error>
@@ -1974,7 +1950,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     | Res<204, void>
     | Res<304, void>
     | Res<403, t_basic_error>
-    | Res<404, EmptyObject>
+    | Res<404, Record<string, never>>
   > {
     const url = this.basePath + `/gists/${p["gistId"]}/star`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
@@ -2730,12 +2706,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<
-        202,
-        {
-          [key: string]: unknown | undefined
-        }
-      >
+    | Res<202, Record<string, unknown>>
     | Res<403, t_basic_error>
     | Res<404, t_basic_error>
   > {
@@ -4114,26 +4085,19 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     Res<
       200,
       {
-        attestations_subject_digests?: {
-          [key: string]:
-            | (
-                | {
-                    bundle?: {
-                      dsseEnvelope?: {
-                        [key: string]: unknown | undefined
-                      }
-                      mediaType?: string
-                      verificationMaterial?: {
-                        [key: string]: unknown | undefined
-                      }
-                    }
-                    bundle_url?: string
-                    repository_id?: number
-                  }[]
-                | null
-              )
-            | undefined
-        }
+        attestations_subject_digests?: Record<
+          string,
+          | {
+              bundle?: {
+                dsseEnvelope?: Record<string, unknown>
+                mediaType?: string
+                verificationMaterial?: Record<string, unknown>
+              }
+              bundle_url?: string
+              repository_id?: number
+            }[]
+          | null
+        >
         page_info?: {
           has_next?: boolean
           has_previous?: boolean
@@ -4233,13 +4197,9 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       {
         attestations?: {
           bundle?: {
-            dsseEnvelope?: {
-              [key: string]: unknown | undefined
-            }
+            dsseEnvelope?: Record<string, unknown>
             mediaType?: string
-            verificationMaterial?: {
-              [key: string]: unknown | undefined
-            }
+            verificationMaterial?: Record<string, unknown>
           }
           bundle_url?: string
           repository_id?: number
@@ -4684,14 +4644,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    Res<
-      202,
-      {
-        [key: string]: unknown | undefined
-      }
-    >
-  > {
+  ): Promise<Res<202, Record<string, unknown>>> {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/code-security/configurations/${p["configurationId"]}/attach`
@@ -5722,12 +5675,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<
-        202,
-        {
-          [key: string]: unknown | undefined
-        }
-      >
+    | Res<202, Record<string, unknown>>
     | Res<400, t_scim_error>
     | Res<422, t_validation_error>
   > {
@@ -6087,7 +6035,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_interaction_limit_response | EmptyObject>> {
+  ): Promise<Res<200, t_interaction_limit_response | Record<string, never>>> {
     const url = this.basePath + `/orgs/${p["org"]}/interaction-limits`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
 
@@ -6427,12 +6375,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<
-        202,
-        {
-          [key: string]: unknown | undefined
-        }
-      >
+    | Res<202, Record<string, unknown>>
     | Res<304, void>
     | Res<401, t_basic_error>
     | Res<403, t_basic_error>
@@ -6907,7 +6850,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<202, EmptyObject>
+    | Res<202, Record<string, never>>
     | Res<204, void>
     | Res<403, void>
     | Res<404, t_basic_error>
@@ -7255,12 +7198,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<
-        202,
-        {
-          [key: string]: unknown | undefined
-        }
-      >
+    | Res<202, Record<string, unknown>>
     | Res<403, t_basic_error>
     | Res<404, t_basic_error>
     | Res<422, t_validation_error>
@@ -7389,12 +7327,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<
-        202,
-        {
-          [key: string]: unknown | undefined
-        }
-      >
+    | Res<202, Record<string, unknown>>
     | Res<403, t_basic_error>
     | Res<404, t_basic_error>
     | Res<422, t_validation_error>
@@ -9291,7 +9224,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<201, EmptyObject>
+    | Res<201, Record<string, never>>
     | Res<304, void>
     | Res<401, t_basic_error>
     | Res<
@@ -9465,7 +9398,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<201, EmptyObject>
+    | Res<201, Record<string, never>>
     | Res<304, void>
     | Res<401, t_basic_error>
     | Res<403, t_basic_error>
@@ -11544,13 +11477,9 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       {
         attestations?: {
           bundle?: {
-            dsseEnvelope?: {
-              [key: string]: unknown | undefined
-            }
+            dsseEnvelope?: Record<string, unknown>
             mediaType?: string
-            verificationMaterial?: {
-              [key: string]: unknown | undefined
-            }
+            verificationMaterial?: Record<string, unknown>
           }
           bundle_url?: string
           repository_id?: number
@@ -12976,12 +12905,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<
-        200,
-        {
-          [key: string]: unknown | undefined
-        }
-      >
+    | Res<200, Record<string, unknown>>
     | Res<403, t_basic_error>
     | Res<404, t_basic_error>
     | Res<422, t_basic_error>
@@ -15920,12 +15844,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<
-        202,
-        {
-          [key: string]: unknown | undefined
-        }
-      >
+    | Res<202, Record<string, unknown>>
     | Res<400, t_scim_error>
     | Res<422, t_validation_error>
   > {
@@ -16161,7 +16080,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_interaction_limit_response | EmptyObject>> {
+  ): Promise<Res<200, t_interaction_limit_response | Record<string, never>>> {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/interaction-limits`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
@@ -19769,12 +19688,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<
-        202,
-        {
-          [key: string]: unknown | undefined
-        }
-      >
+    | Res<202, Record<string, unknown>>
     | Res<400, t_scim_error>
     | Res<403, t_basic_error>
     | Res<404, t_basic_error>
@@ -19839,12 +19753,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     opts: RequestInit = {},
   ): Promise<
     | Res<200, t_code_frequency_stat[]>
-    | Res<
-        202,
-        {
-          [key: string]: unknown | undefined
-        }
-      >
+    | Res<202, Record<string, unknown>>
     | Res<204, void>
     | Res<422, void>
   > {
@@ -19864,12 +19773,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     opts: RequestInit = {},
   ): Promise<
     | Res<200, t_commit_activity[]>
-    | Res<
-        202,
-        {
-          [key: string]: unknown | undefined
-        }
-      >
+    | Res<202, Record<string, unknown>>
     | Res<204, void>
   > {
     const url =
@@ -19888,12 +19792,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     opts: RequestInit = {},
   ): Promise<
     | Res<200, t_contributor_activity[]>
-    | Res<
-        202,
-        {
-          [key: string]: unknown | undefined
-        }
-      >
+    | Res<202, Record<string, unknown>>
     | Res<204, void>
   > {
     const url =
@@ -21760,12 +21659,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<
-        202,
-        {
-          [key: string]: unknown | undefined
-        }
-      >
+    | Res<202, Record<string, unknown>>
     | Res<304, void>
     | Res<401, t_basic_error>
     | Res<403, t_basic_error>
@@ -22299,7 +22193,8 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    Res<200, t_interaction_limit_response | EmptyObject> | Res<204, void>
+    | Res<200, t_interaction_limit_response | Record<string, never>>
+    | Res<204, void>
   > {
     const url = this.basePath + `/user/interaction-limits`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
@@ -23472,26 +23367,19 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     Res<
       200,
       {
-        attestations_subject_digests?: {
-          [key: string]:
-            | (
-                | {
-                    bundle?: {
-                      dsseEnvelope?: {
-                        [key: string]: unknown | undefined
-                      }
-                      mediaType?: string
-                      verificationMaterial?: {
-                        [key: string]: unknown | undefined
-                      }
-                    }
-                    bundle_url?: string
-                    repository_id?: number
-                  }[]
-                | null
-              )
-            | undefined
-        }
+        attestations_subject_digests?: Record<
+          string,
+          | {
+              bundle?: {
+                dsseEnvelope?: Record<string, unknown>
+                mediaType?: string
+                verificationMaterial?: Record<string, unknown>
+              }
+              bundle_url?: string
+              repository_id?: number
+            }[]
+          | null
+        >
         page_info?: {
           has_next?: boolean
           has_previous?: boolean
@@ -23593,13 +23481,9 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         {
           attestations?: {
             bundle?: {
-              dsseEnvelope?: {
-                [key: string]: unknown | undefined
-              }
+              dsseEnvelope?: Record<string, unknown>
               mediaType?: string
-              verificationMaterial?: {
-                [key: string]: unknown | undefined
-              }
+              verificationMaterial?: Record<string, unknown>
             }
             bundle_url?: string
             repository_id?: number

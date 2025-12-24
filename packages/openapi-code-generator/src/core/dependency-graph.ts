@@ -32,14 +32,15 @@ const getAllSourcesFromSchema = (it: IRModel) => {
       allSources.push(...it.anyOf)
     }
 
-    if (
-      it.additionalProperties &&
-      typeof it.additionalProperties !== "boolean"
-    ) {
-      allSources.push(it.additionalProperties)
+    if (it.additionalProperties) {
+      allSources.push(it.additionalProperties.key)
+      allSources.push(it.additionalProperties.value)
     }
   } else if (it.type === "array") {
     allSources.push(it.items)
+  } else if (it.type === "record") {
+    allSources.push(it.key)
+    allSources.push(it.value)
   }
 
   return allSources

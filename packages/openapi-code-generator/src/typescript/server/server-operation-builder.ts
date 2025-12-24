@@ -301,9 +301,20 @@ export class ServerOperationBuilder {
           properties,
         }
       }
+
+      case "record": {
+        logger.error(
+          "additionalProperties/record style objects not supported in query parameters.",
+        )
+        return {
+          type: "object",
+          properties: {},
+        }
+      }
+
       default: {
         throw new Error(
-          `unsupported query parameter schema type '${type satisfies "any" | "never"}'`,
+          `unsupported query parameter schema type '${type satisfies "any" | "never" | "record"}'`,
         )
       }
     }
@@ -348,10 +359,11 @@ export class ServerOperationBuilder {
 
     if (
       requestBody?.parameter &&
-      this.types.isEmptyObject(requestBody.parameter.schema)
+      !requestBody?.parameter.required &&
+      this.input.isRecordNever(requestBody.parameter.schema)
     ) {
       logger.warn(
-        `[${this.route}]: skipping requestBody parameter that resolves to EmptyObject`,
+        `[${this.route}]: skipping optional requestBody parameter that resolves to Record<string, never>`,
       )
       return {
         isSupported: true,

@@ -5049,9 +5049,7 @@ export class StripeApi extends AbstractAxiosClient {
         unit_amount_decimal?: string | undefined
       }[]
       memo?: string
-      metadata?: {
-        [key: string]: string | undefined
-      }
+      metadata?: Record<string, string>
       outOfBandAmount?: number
       reason?:
         | "duplicate"
@@ -5155,9 +5153,7 @@ export class StripeApi extends AbstractAxiosClient {
         unit_amount_decimal?: string | undefined
       }[]
       memo?: string
-      metadata?: {
-        [key: string]: string | undefined
-      }
+      metadata?: Record<string, string>
       outOfBandAmount?: number
       reason?:
         | "duplicate"

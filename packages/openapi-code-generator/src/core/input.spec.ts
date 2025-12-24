@@ -8,6 +8,7 @@ import type {
   IRModelNever,
   IRModelNumeric,
   IRModelObject,
+  IRModelRecord,
   IRModelString,
 } from "./openapi-types-normalized"
 
@@ -40,7 +41,7 @@ describe("core/input - SchemaNormalizer", () => {
       allOf: [],
       oneOf: [],
       anyOf: [],
-      additionalProperties: false,
+      additionalProperties: undefined,
       "x-internal-preprocess": undefined,
     } satisfies IRModelObject,
     array: {
@@ -93,6 +94,19 @@ describe("core/input - SchemaNormalizer", () => {
       readOnly: false,
       "x-internal-preprocess": undefined,
     } satisfies IRModelBoolean,
+  }
+
+  const extension = {
+    record: {
+      isIRModel: true,
+      type: "record",
+      key: base.string,
+      value: base.any,
+      default: undefined,
+      nullable: false,
+      readOnly: false,
+      "x-internal-preprocess": undefined,
+    } satisfies IRModelRecord,
   }
 
   const schemaNormalizer = new SchemaNormalizer({
@@ -439,27 +453,80 @@ describe("core/input - SchemaNormalizer", () => {
       expect(actual).toStrictEqual({...base.any})
     })
 
-    it("translates 'type: object' to a Record<string, any>", () => {
-      const actual = schemaNormalizer.normalize({type: "object"})
-      expect(actual).toStrictEqual({...base.object, additionalProperties: true})
+    it("translates '{description: foo}' to an any", () => {
+      const actual = schemaNormalizer.normalize({description: "foo"})
+      expect(actual).toStrictEqual({...base.any})
     })
 
-    it("translates 'type: object' with a description to a Record<string, any>", () => {
+    it("translates 'type: object' to Record<string, any>", () => {
+      const actual = schemaNormalizer.normalize({type: "object"})
+      expect(actual).toStrictEqual({...extension.record})
+    })
+
+    it("translates 'type: object' with a description to Record<string, any>", () => {
       const actual = schemaNormalizer.normalize({
         type: "object",
         description: "something",
       })
-      expect(actual).toStrictEqual({...base.object, additionalProperties: true})
+      expect(actual).toStrictEqual({...extension.record})
     })
 
-    it("translates '{additionalProperties: false} to an record of never", () => {
+    it("translates '{additionalProperties: true}' to an Record<string, any>", () => {
+      const actual = schemaNormalizer.normalize({
+        additionalProperties: true,
+      })
+
+      expect(actual).toStrictEqual({
+        ...extension.record,
+      })
+    })
+
+    it("translates '{additionalProperties: number}' to an Record<string, number>", () => {
+      const actual = schemaNormalizer.normalize({
+        additionalProperties: {type: "number"},
+      })
+
+      expect(actual).toStrictEqual({
+        ...extension.record,
+        key: base.string,
+        value: base.number,
+      })
+    })
+
+    it("translates '{additionalProperties: $ref}' to an Record<string, SomeClass>", () => {
+      const actual = schemaNormalizer.normalize({
+        additionalProperties: {$ref: "#/components/schemas/SomeClass"},
+      })
+
+      expect(actual).toStrictEqual({
+        ...extension.record,
+        key: base.string,
+        value: {$ref: "#/components/schemas/SomeClass"},
+      })
+    })
+
+    it("translates '{additionalProperties: false}' to an Record<string, never>", () => {
       const actual = schemaNormalizer.normalize({
         additionalProperties: false,
       })
 
       expect(actual).toStrictEqual({
+        ...extension.record,
+        key: base.string,
+        value: base.never,
+      })
+    })
+
+    it("translates an object with properties + additionalProperties", () => {
+      const actual = schemaNormalizer.normalize({
+        properties: {name: {type: "string"}},
+        additionalProperties: true,
+      })
+
+      expect(actual).toStrictEqual({
         ...base.object,
-        additionalProperties: false,
+        properties: {name: base.string},
+        additionalProperties: {...extension.record},
       })
     })
   })
@@ -477,6 +544,7 @@ describe("core/input - SchemaNormalizer", () => {
         enum: [1, 2, 3],
       })
     })
+
     it("detects a boolean enum", () => {
       const actual = schemaNormalizer.normalize({
         type: undefined,
@@ -488,6 +556,7 @@ describe("core/input - SchemaNormalizer", () => {
         enum: ["true"],
       })
     })
+
     it("detects a string enum", () => {
       const actual = schemaNormalizer.normalize({
         type: undefined,
@@ -498,6 +567,21 @@ describe("core/input - SchemaNormalizer", () => {
         ...base.string,
         "x-enum-extensibility": "open",
         enum: ["foo", "bar"],
+      })
+    })
+
+    it("will fallback to assuming its an any, when nothing is present", () => {
+      const actual = schemaNormalizer.normalize({})
+      expect(actual).toStrictEqual({...base.any})
+    })
+
+    it("will fallback to assuming its an object, when properties are present", () => {
+      const actual = schemaNormalizer.normalize({
+        properties: {name: {type: "string"}},
+      })
+      expect(actual).toStrictEqual({
+        ...base.object,
+        properties: {name: base.string},
       })
     })
   })

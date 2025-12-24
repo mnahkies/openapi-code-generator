@@ -6,7 +6,6 @@ import {HttpClient, HttpParams, type HttpResponse} from "@angular/common/http"
 import {Injectable} from "@angular/core"
 import type {Observable} from "rxjs"
 import type {
-  EmptyObject,
   t_ActionsAddCustomLabelsToSelfHostedRunnerForOrgRequestBody,
   t_ActionsAddCustomLabelsToSelfHostedRunnerForRepoRequestBody,
   t_ActionsCreateEnvironmentVariableRequestBody,
@@ -945,10 +944,10 @@ export class GitHubV3RestApiService {
     )
   }
 
-  appsRedeliverWebhookDelivery(p: {deliveryId: number}): Observable<
-    | (HttpResponse<{
-        [key: string]: unknown | undefined
-      }> & {status: 202})
+  appsRedeliverWebhookDelivery(p: {
+    deliveryId: number
+  }): Observable<
+    | (HttpResponse<Record<string, unknown>> & {status: 202})
     | (HttpResponse<t_scim_error> & {status: 400})
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
@@ -1456,9 +1455,7 @@ export class GitHubV3RestApiService {
   credentialsRevoke(p: {
     requestBody: t_CredentialsRevokeRequestBody
   }): Observable<
-    | (HttpResponse<{
-        [key: string]: unknown | undefined
-      }> & {status: 202})
+    | (HttpResponse<Record<string, unknown>> & {status: 202})
     | (HttpResponse<t_validation_error_simple> & {status: 422})
     | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
@@ -1482,9 +1479,7 @@ export class GitHubV3RestApiService {
   }
 
   emojisGet(): Observable<
-    | (HttpResponse<{
-        [key: string]: string | undefined
-      }> & {status: 200})
+    | (HttpResponse<Record<string, string>> & {status: 200})
     | (HttpResponse<void> & {status: 304})
     | HttpResponse<unknown>
   > {
@@ -1666,9 +1661,7 @@ export class GitHubV3RestApiService {
     configurationId: number
     requestBody: t_CodeSecurityAttachEnterpriseConfigurationRequestBody
   }): Observable<
-    | (HttpResponse<{
-        [key: string]: unknown | undefined
-      }> & {status: 202})
+    | (HttpResponse<Record<string, unknown>> & {status: 202})
     | (HttpResponse<t_basic_error> & {status: 403})
     | (HttpResponse<t_basic_error> & {status: 404})
     | (HttpResponse<t_basic_error> & {status: 409})
@@ -2327,7 +2320,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<void> & {status: 204})
     | (HttpResponse<void> & {status: 304})
     | (HttpResponse<t_basic_error> & {status: 403})
-    | (HttpResponse<EmptyObject> & {status: 404})
+    | (HttpResponse<Record<string, never>> & {status: 404})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
@@ -3261,10 +3254,10 @@ export class GitHubV3RestApiService {
     )
   }
 
-  orgsDelete(p: {org: string}): Observable<
-    | (HttpResponse<{
-        [key: string]: unknown | undefined
-      }> & {status: 202})
+  orgsDelete(p: {
+    org: string
+  }): Observable<
+    | (HttpResponse<Record<string, unknown>> & {status: 202})
     | (HttpResponse<t_basic_error> & {status: 403})
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
@@ -4869,26 +4862,19 @@ export class GitHubV3RestApiService {
     requestBody: t_OrgsListAttestationsBulkRequestBody
   }): Observable<
     | (HttpResponse<{
-        attestations_subject_digests?: {
-          [key: string]:
-            | (
-                | {
-                    bundle?: {
-                      dsseEnvelope?: {
-                        [key: string]: unknown | undefined
-                      }
-                      mediaType?: string
-                      verificationMaterial?: {
-                        [key: string]: unknown | undefined
-                      }
-                    }
-                    bundle_url?: string
-                    repository_id?: number
-                  }[]
-                | null
-              )
-            | undefined
-        }
+        attestations_subject_digests?: Record<
+          string,
+          | {
+              bundle?: {
+                dsseEnvelope?: Record<string, unknown>
+                mediaType?: string
+                verificationMaterial?: Record<string, unknown>
+              }
+              bundle_url?: string
+              repository_id?: number
+            }[]
+          | null
+        >
         page_info?: {
           has_next?: boolean
           has_previous?: boolean
@@ -5006,13 +4992,9 @@ export class GitHubV3RestApiService {
     | (HttpResponse<{
         attestations?: {
           bundle?: {
-            dsseEnvelope?: {
-              [key: string]: unknown | undefined
-            }
+            dsseEnvelope?: Record<string, unknown>
             mediaType?: string
-            verificationMaterial?: {
-              [key: string]: unknown | undefined
-            }
+            verificationMaterial?: Record<string, unknown>
           }
           bundle_url?: string
           repository_id?: number
@@ -5526,9 +5508,7 @@ export class GitHubV3RestApiService {
     configurationId: number
     requestBody: t_CodeSecurityAttachConfigurationRequestBody
   }): Observable<
-    | (HttpResponse<{
-        [key: string]: unknown | undefined
-      }> & {status: 202})
+    | (HttpResponse<Record<string, unknown>> & {status: 202})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -6751,9 +6731,7 @@ export class GitHubV3RestApiService {
     hookId: number
     deliveryId: number
   }): Observable<
-    | (HttpResponse<{
-        [key: string]: unknown | undefined
-      }> & {status: 202})
+    | (HttpResponse<Record<string, unknown>> & {status: 202})
     | (HttpResponse<t_scim_error> & {status: 400})
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
@@ -7189,7 +7167,9 @@ export class GitHubV3RestApiService {
   interactionsGetRestrictionsForOrg(p: {
     org: string
   }): Observable<
-    | (HttpResponse<t_interaction_limit_response | EmptyObject> & {status: 200})
+    | (HttpResponse<t_interaction_limit_response | Record<string, never>> & {
+        status: 200
+      })
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
@@ -7620,9 +7600,7 @@ export class GitHubV3RestApiService {
     username: string
     codespaceName: string
   }): Observable<
-    | (HttpResponse<{
-        [key: string]: unknown | undefined
-      }> & {status: 202})
+    | (HttpResponse<Record<string, unknown>> & {status: 202})
     | (HttpResponse<void> & {status: 304})
     | (HttpResponse<t_basic_error> & {status: 401})
     | (HttpResponse<t_basic_error> & {status: 403})
@@ -8207,7 +8185,7 @@ export class GitHubV3RestApiService {
     username: string
     requestBody?: t_OrgsConvertMemberToOutsideCollaboratorRequestBody
   }): Observable<
-    | (HttpResponse<EmptyObject> & {status: 202})
+    | (HttpResponse<Record<string, never>> & {status: 202})
     | (HttpResponse<void> & {status: 204})
     | (HttpResponse<void> & {status: 403})
     | (HttpResponse<t_basic_error> & {status: 404})
@@ -8590,9 +8568,7 @@ export class GitHubV3RestApiService {
     org: string
     requestBody: t_OrgsReviewPatGrantRequestsInBulkRequestBody
   }): Observable<
-    | (HttpResponse<{
-        [key: string]: unknown | undefined
-      }> & {status: 202})
+    | (HttpResponse<Record<string, unknown>> & {status: 202})
     | (HttpResponse<t_basic_error> & {status: 403})
     | (HttpResponse<t_basic_error> & {status: 404})
     | (HttpResponse<t_validation_error> & {status: 422})
@@ -8738,9 +8714,7 @@ export class GitHubV3RestApiService {
     org: string
     requestBody: t_OrgsUpdatePatAccessesRequestBody
   }): Observable<
-    | (HttpResponse<{
-        [key: string]: unknown | undefined
-      }> & {status: 202})
+    | (HttpResponse<Record<string, unknown>> & {status: 202})
     | (HttpResponse<t_basic_error> & {status: 403})
     | (HttpResponse<t_basic_error> & {status: 404})
     | (HttpResponse<t_validation_error> & {status: 422})
@@ -11019,7 +10993,7 @@ export class GitHubV3RestApiService {
     cardId: number
     requestBody: t_ProjectsClassicMoveCardRequestBody
   }): Observable<
-    | (HttpResponse<EmptyObject> & {status: 201})
+    | (HttpResponse<Record<string, never>> & {status: 201})
     | (HttpResponse<void> & {status: 304})
     | (HttpResponse<t_basic_error> & {status: 401})
     | (HttpResponse<{
@@ -11210,7 +11184,7 @@ export class GitHubV3RestApiService {
     columnId: number
     requestBody: t_ProjectsClassicMoveColumnRequestBody
   }): Observable<
-    | (HttpResponse<EmptyObject> & {status: 201})
+    | (HttpResponse<Record<string, never>> & {status: 201})
     | (HttpResponse<void> & {status: 304})
     | (HttpResponse<t_basic_error> & {status: 401})
     | (HttpResponse<t_basic_error> & {status: 403})
@@ -13586,13 +13560,9 @@ export class GitHubV3RestApiService {
     | (HttpResponse<{
         attestations?: {
           bundle?: {
-            dsseEnvelope?: {
-              [key: string]: unknown | undefined
-            }
+            dsseEnvelope?: Record<string, unknown>
             mediaType?: string
-            verificationMaterial?: {
-              [key: string]: unknown | undefined
-            }
+            verificationMaterial?: Record<string, unknown>
           }
           bundle_url?: string
           repository_id?: number
@@ -15280,9 +15250,7 @@ export class GitHubV3RestApiService {
     repo: string
     analysisId: number
   }): Observable<
-    | (HttpResponse<{
-        [key: string]: unknown | undefined
-      }> & {status: 200})
+    | (HttpResponse<Record<string, unknown>> & {status: 200})
     | (HttpResponse<t_basic_error> & {status: 403})
     | (HttpResponse<t_basic_error> & {status: 404})
     | (HttpResponse<t_basic_error> & {status: 422})
@@ -18686,9 +18654,7 @@ export class GitHubV3RestApiService {
     hookId: number
     deliveryId: number
   }): Observable<
-    | (HttpResponse<{
-        [key: string]: unknown | undefined
-      }> & {status: 202})
+    | (HttpResponse<Record<string, unknown>> & {status: 202})
     | (HttpResponse<t_scim_error> & {status: 400})
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
@@ -18986,7 +18952,9 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
   }): Observable<
-    | (HttpResponse<t_interaction_limit_response | EmptyObject> & {status: 200})
+    | (HttpResponse<t_interaction_limit_response | Record<string, never>> & {
+        status: 200
+      })
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
@@ -23218,9 +23186,7 @@ export class GitHubV3RestApiService {
     repo: string
     ghsaId: string
   }): Observable<
-    | (HttpResponse<{
-        [key: string]: unknown | undefined
-      }> & {status: 202})
+    | (HttpResponse<Record<string, unknown>> & {status: 202})
     | (HttpResponse<t_scim_error> & {status: 400})
     | (HttpResponse<t_basic_error> & {status: 403})
     | (HttpResponse<t_basic_error> & {status: 404})
@@ -23292,11 +23258,12 @@ export class GitHubV3RestApiService {
     )
   }
 
-  reposGetCodeFrequencyStats(p: {owner: string; repo: string}): Observable<
+  reposGetCodeFrequencyStats(p: {
+    owner: string
+    repo: string
+  }): Observable<
     | (HttpResponse<t_code_frequency_stat[]> & {status: 200})
-    | (HttpResponse<{
-        [key: string]: unknown | undefined
-      }> & {status: 202})
+    | (HttpResponse<Record<string, unknown>> & {status: 202})
     | (HttpResponse<void> & {status: 204})
     | (HttpResponse<void> & {status: 422})
     | HttpResponse<unknown>
@@ -23315,11 +23282,12 @@ export class GitHubV3RestApiService {
     )
   }
 
-  reposGetCommitActivityStats(p: {owner: string; repo: string}): Observable<
+  reposGetCommitActivityStats(p: {
+    owner: string
+    repo: string
+  }): Observable<
     | (HttpResponse<t_commit_activity[]> & {status: 200})
-    | (HttpResponse<{
-        [key: string]: unknown | undefined
-      }> & {status: 202})
+    | (HttpResponse<Record<string, unknown>> & {status: 202})
     | (HttpResponse<void> & {status: 204})
     | HttpResponse<unknown>
   > {
@@ -23337,11 +23305,12 @@ export class GitHubV3RestApiService {
     )
   }
 
-  reposGetContributorsStats(p: {owner: string; repo: string}): Observable<
+  reposGetContributorsStats(p: {
+    owner: string
+    repo: string
+  }): Observable<
     | (HttpResponse<t_contributor_activity[]> & {status: 200})
-    | (HttpResponse<{
-        [key: string]: unknown | undefined
-      }> & {status: 202})
+    | (HttpResponse<Record<string, unknown>> & {status: 202})
     | (HttpResponse<void> & {status: 204})
     | HttpResponse<unknown>
   > {
@@ -25582,10 +25551,10 @@ export class GitHubV3RestApiService {
     )
   }
 
-  codespacesDeleteForAuthenticatedUser(p: {codespaceName: string}): Observable<
-    | (HttpResponse<{
-        [key: string]: unknown | undefined
-      }> & {status: 202})
+  codespacesDeleteForAuthenticatedUser(p: {
+    codespaceName: string
+  }): Observable<
+    | (HttpResponse<Record<string, unknown>> & {status: 202})
     | (HttpResponse<void> & {status: 304})
     | (HttpResponse<t_basic_error> & {status: 401})
     | (HttpResponse<t_basic_error> & {status: 403})
@@ -26214,7 +26183,9 @@ export class GitHubV3RestApiService {
   }
 
   interactionsGetRestrictionsForAuthenticatedUser(): Observable<
-    | (HttpResponse<t_interaction_limit_response | EmptyObject> & {status: 200})
+    | (HttpResponse<t_interaction_limit_response | Record<string, never>> & {
+        status: 200
+      })
     | (HttpResponse<void> & {status: 204})
     | HttpResponse<unknown>
   > {
@@ -27635,26 +27606,19 @@ export class GitHubV3RestApiService {
     requestBody: t_UsersListAttestationsBulkRequestBody
   }): Observable<
     | (HttpResponse<{
-        attestations_subject_digests?: {
-          [key: string]:
-            | (
-                | {
-                    bundle?: {
-                      dsseEnvelope?: {
-                        [key: string]: unknown | undefined
-                      }
-                      mediaType?: string
-                      verificationMaterial?: {
-                        [key: string]: unknown | undefined
-                      }
-                    }
-                    bundle_url?: string
-                    repository_id?: number
-                  }[]
-                | null
-              )
-            | undefined
-        }
+        attestations_subject_digests?: Record<
+          string,
+          | {
+              bundle?: {
+                dsseEnvelope?: Record<string, unknown>
+                mediaType?: string
+                verificationMaterial?: Record<string, unknown>
+              }
+              bundle_url?: string
+              repository_id?: number
+            }[]
+          | null
+        >
         page_info?: {
           has_next?: boolean
           has_previous?: boolean
@@ -27773,13 +27737,9 @@ export class GitHubV3RestApiService {
     | (HttpResponse<{
         attestations?: {
           bundle?: {
-            dsseEnvelope?: {
-              [key: string]: unknown | undefined
-            }
+            dsseEnvelope?: Record<string, unknown>
             mediaType?: string
-            verificationMaterial?: {
-              [key: string]: unknown | undefined
-            }
+            verificationMaterial?: Record<string, unknown>
           }
           bundle_url?: string
           repository_id?: number

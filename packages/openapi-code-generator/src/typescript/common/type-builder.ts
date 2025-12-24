@@ -229,24 +229,19 @@ export class TypeBuilder implements ICompilable {
               })
             })
 
-          // todo: https://github.com/mnahkies/openapi-code-generator/issues/44
-          const additionalPropertiesType = schemaObject.additionalProperties
-            ? typeof schemaObject.additionalProperties === "boolean"
-              ? this.config.allowAny
-                ? "any"
-                : "unknown"
-              : this.schemaObjectToType(schemaObject.additionalProperties)
-            : ""
-
-          const additionalProperties = additionalPropertiesType
-            ? `[key: string]: ${union(additionalPropertiesType, "undefined")}`
-            : ""
+          if (schemaObject.additionalProperties) {
+            const key = this.schemaObjectToTypes(
+              schemaObject.additionalProperties.key,
+            )
+            const value = this.schemaObjectToType(
+              schemaObject.additionalProperties.value,
+            )
+            properties.push(`[key: ${key}]: ${union(value, "undefined")}`)
+          }
 
           const emptyObject = this.isEmptyObject(schemaObject)
             ? this.addStaticType("EmptyObject")
             : ""
-
-          properties.push(additionalProperties)
 
           result.push(object(properties), emptyObject)
           break
@@ -264,6 +259,13 @@ export class TypeBuilder implements ICompilable {
 
         case "null": {
           throw new Error("unreachable - input should normalize this out")
+        }
+
+        case "record": {
+          result.push(
+            `Record<${this.schemaObjectToType(schemaObject.key)}, ${this.schemaObjectToType(schemaObject.value)}>`,
+          )
+          break
         }
 
         default: {
@@ -285,6 +287,9 @@ export class TypeBuilder implements ICompilable {
     return new CompilationUnit(this.filename, this.imports, this.toString())
   }
 
+  /**
+   * @deprecated
+   */
   isEmptyObject(schemaObject: MaybeIRModel): boolean {
     const dereferenced = this.input.schema(schemaObject)
 
@@ -293,7 +298,7 @@ export class TypeBuilder implements ICompilable {
       dereferenced.allOf.length === 0 &&
       dereferenced.anyOf.length === 0 &&
       dereferenced.oneOf.length === 0 &&
-      dereferenced.additionalProperties === false &&
+      dereferenced.additionalProperties === undefined &&
       Object.keys(dereferenced.properties).length === 0
     )
   }

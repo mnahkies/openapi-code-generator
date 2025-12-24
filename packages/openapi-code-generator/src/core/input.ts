@@ -9,18 +9,22 @@ import type {
   RequestBody,
   Responses,
   Schema,
+  SchemaNumber,
   SchemaObject,
+  SchemaString,
   Server,
   Style,
   xInternalPreproccess,
 } from "./openapi-types"
 import type {
   IRModel,
+  IRModelAny,
   IRModelArray,
   IRModelBase,
   IRModelBoolean,
   IRModelNumeric,
   IRModelObject,
+  IRModelRecord,
   IRModelString,
   IROperation,
   IROperationParameters,
@@ -43,14 +47,7 @@ import {
   defaultSyntheticNameGenerator,
   type SyntheticNameGenerator,
 } from "./synthetic-name-generator"
-import {
-  camelCase,
-  coalesce,
-  deepEqual,
-  isDefined,
-  isHttpMethod,
-  lowerFirst,
-} from "./utils"
+import {camelCase, coalesce, isDefined, isHttpMethod, lowerFirst} from "./utils"
 
 export type OperationGroup = {name: string; operations: IROperation[]}
 export type OperationGroupStrategy = "none" | "first-tag" | "first-slug"
@@ -258,6 +255,16 @@ export class Input {
     return maybeRef
   }
 
+  isRecordNever(schemaObject: MaybeIRModel): boolean {
+    const dereferenced = this.schema(schemaObject)
+
+    return (
+      dereferenced.type === "record" &&
+      !isRef(dereferenced.value) &&
+      dereferenced.value.type === "never"
+    )
+  }
+
   preprocess(maybePreprocess: Reference | xInternalPreproccess): IRPreprocess {
     return this.loader.preprocess(maybePreprocess)
   }
@@ -441,7 +448,7 @@ export class Input {
           result.items.type === "object"))
 
     return shouldCreateVirtualType
-      ? this.loader.addVirtualType(operationId, syntheticName, result)
+      ? this.loader.addVirtualType(operationId, syntheticName, schema)
       : result
   }
 }
@@ -703,6 +710,15 @@ export class SchemaNormalizer {
     return schema && Reflect.get(schema, "isIRModel")
   }
 
+  private hasPropertiesOrComposition(schema: SchemaObject): boolean {
+    return Boolean(
+      schema.allOf?.length ||
+        schema.oneOf?.length ||
+        schema.anyOf?.length ||
+        Object.keys(schema.properties ?? {}).length > 0,
+    )
+  }
+
   public normalize(schemaObject: Schema): IRModel
   public normalize(schemaObject: Reference): IRRef
   public normalize(schemaObject: Schema | Reference): IRModel | IRRef
@@ -755,11 +771,12 @@ export class SchemaNormalizer {
           return self.normalize({...schemaObject, type: "string"})
         }
 
+        // `{}` or `{description: "something"}` should translate to `any`
         if (
-          deepEqual(schemaObject, {}) ||
-          deepEqual(schemaObject, {additionalProperties: true})
+          !this.hasPropertiesOrComposition(schemaObject) &&
+          schemaObject.additionalProperties === undefined
         ) {
-          return {...base, type: "any"}
+          return self.normalize({...schemaObject, type: "any"})
         }
 
         return self.normalize({...schemaObject, type: "object"})
@@ -767,21 +784,22 @@ export class SchemaNormalizer {
       case "null": // TODO: HACK to support OA 3.1
       case "object": {
         if (
-          !schemaObject.allOf?.length &&
-          !schemaObject.oneOf?.length &&
-          !schemaObject.anyOf?.length &&
-          Object.keys(schemaObject.properties ?? {}).length === 0 &&
-          schemaObject.additionalProperties === undefined
+          schemaObject.type !== "null" &&
+          !this.hasPropertiesOrComposition(schemaObject)
         ) {
-          return {
-            ...base,
-            type: "object",
-            additionalProperties: true,
-            properties: {},
-            allOf: [],
-            oneOf: [],
-            anyOf: [],
-            required: [],
+          if (
+            schemaObject.additionalProperties === undefined ||
+            schemaObject.additionalProperties === true
+          ) {
+            return this.record(base, {type: "string"}, {type: "any"})
+          } else if (schemaObject.additionalProperties === false) {
+            return this.record(base, {type: "string"}, {type: "never"})
+          } else {
+            return this.record(
+              base,
+              {type: "string"},
+              schemaObject.additionalProperties,
+            )
           }
         }
 
@@ -806,14 +824,18 @@ export class SchemaNormalizer {
           return include
         })
 
-        const additionalProperties = normalizeAdditionalProperties(
-          schemaObject.additionalProperties,
+        // TODO: HACK
+        const nullable =
+          base.nullable || schemaObject.type === "null" || hasNull
+
+        const additionalProperties = self.normalizeAdditionalProperties(
+          {...base, nullable},
+          schemaObject,
         )
 
         return {
           ...base,
-          // TODO: HACK
-          nullable: base.nullable || schemaObject.type === "null" || hasNull,
+          nullable,
           type: "object",
           allOf,
           oneOf,
@@ -977,24 +999,6 @@ export class SchemaNormalizer {
       )
     }
 
-    function normalizeAdditionalProperties(
-      additionalProperties: SchemaObject["additionalProperties"] = false,
-    ): boolean | MaybeIRModel {
-      if (typeof additionalProperties === "boolean") {
-        return additionalProperties
-      }
-
-      // `additionalProperties: {}` is equivalent to `additionalProperties: true`
-      if (
-        typeof additionalProperties === "object" &&
-        deepEqual(additionalProperties, {})
-      ) {
-        return true
-      }
-
-      return self.normalize(additionalProperties)
-    }
-
     function normalizeAllOf(allOf: SchemaObject["allOf"] = []): MaybeIRModel[] {
       return allOf
         ?.filter((it) => isRef(it) || it.type !== "null")
@@ -1025,6 +1029,44 @@ export class SchemaNormalizer {
           return !isRef(it) && it.type === "null"
         }),
       )
+    }
+  }
+
+  private normalizeAdditionalProperties(
+    base: IRModelBase,
+    schema: SchemaObject,
+  ): IRModelRecord | undefined {
+    const additionalProperties = schema.additionalProperties
+
+    if (additionalProperties === undefined) {
+      return undefined
+    }
+
+    if (additionalProperties === false) {
+      if (this.hasPropertiesOrComposition(schema)) {
+        return undefined
+      }
+
+      return this.record(base, {type: "string"}, {type: "never"})
+    }
+
+    if (additionalProperties === true) {
+      return this.record(base, {type: "string"}, {type: "any"})
+    }
+
+    return this.record(base, {type: "string"}, additionalProperties)
+  }
+
+  private record(
+    base: IRModelBase,
+    key: SchemaString | SchemaNumber,
+    value: Schema | Reference,
+  ): IRModelRecord {
+    return {
+      ...base,
+      type: "record",
+      key: this.normalize(key) as IRModelString,
+      value: this.normalize(value) as IRModelAny,
     }
   }
 }

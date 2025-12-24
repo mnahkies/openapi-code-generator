@@ -32,6 +32,4 @@ export type t_CreateTodoListItemRequestBody = {
   id: string
 }
 
-export type t_UnknownObject = {
-  [key: string]: unknown | undefined
-}
+export type t_UnknownObject = Record<string, unknown>

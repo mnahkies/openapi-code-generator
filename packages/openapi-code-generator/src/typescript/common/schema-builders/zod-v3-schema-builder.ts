@@ -5,9 +5,11 @@ import type {
   IRModelArray,
   IRModelBoolean,
   IRModelNumeric,
+  IRModelRecord,
   IRModelString,
   MaybeIRModel,
 } from "../../../core/openapi-types-normalized"
+import {isRef} from "../../../core/openapi-utils"
 import {hasSingleElement, isDefined} from "../../../core/utils"
 import type {ImportBuilder} from "../import-builder"
 import type {TypeBuilder} from "../type-builder"
@@ -186,8 +188,16 @@ export class ZodV3Builder extends AbstractSchemaBuilder<
       .join(".")
   }
 
-  protected record(schema: string): string {
-    return [zod, `record(${schema})`].filter(isDefined).join(".")
+  protected record(model: IRModelRecord): string {
+    // we'd rather output a `z.object({})` than a `z.record<z.string(), z.never()>`
+    // as that'll just strip all keys
+    if (!isRef(model.value) && model.value.type === "never") {
+      return this.object({})
+    }
+
+    const value = this.fromModel(model.value, true)
+
+    return [zod, `record(${value})`].filter(isDefined).join(".")
   }
 
   protected array(model: IRModelArray, items: string[]): string {

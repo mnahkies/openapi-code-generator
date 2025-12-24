@@ -2,8 +2,6 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type EmptyObject = {[key: string]: never}
-
 export type UnknownEnumStringValue = string & {
   _brand: "unknown enum string value"
 }
@@ -405,9 +403,7 @@ export type t_assigned_issue_event = {
 
 export type t_authentication_token = {
   expires_at: string
-  permissions?: {
-    [key: string]: unknown | undefined
-  }
+  permissions?: Record<string, unknown>
   repositories?: t_repository[]
   repository_selection?: "all" | "selected" | UnknownEnumStringValue
   single_file?: string | null
@@ -468,18 +464,17 @@ export type t_base_gist = {
   commits_url: string
   created_at: string
   description: string | null
-  files: {
-    [key: string]:
-      | {
-          encoding?: string
-          filename?: string
-          language?: string
-          raw_url?: string
-          size?: number
-          type?: string
-        }
-      | undefined
-  }
+  files: Record<
+    string,
+    {
+      encoding?: string
+      filename?: string
+      language?: string
+      raw_url?: string
+      size?: number
+      type?: string
+    }
+  >
   forks?: unknown[]
   forks_url: string
   git_pull_url: string
@@ -2441,11 +2436,7 @@ export type t_deployment = {
   id: number
   node_id: string
   original_environment?: string
-  payload:
-    | {
-        [key: string]: unknown | undefined
-      }
-    | string
+  payload: Record<string, unknown> | string
   performed_via_github_app?: t_nullable_integration
   production_environment?: boolean
   ref: string
@@ -2563,7 +2554,7 @@ export type t_email = {
   visibility: string | null
 }
 
-export type t_empty_object = EmptyObject
+export type t_empty_object = Record<string, never>
 
 export type t_enabled_repositories =
   | "all"
@@ -2775,9 +2766,7 @@ export type t_full_repository = {
   contents_url: string
   contributors_url: string
   created_at: string
-  custom_properties?: {
-    [key: string]: unknown | undefined
-  }
+  custom_properties?: Record<string, unknown>
   default_branch: string
   delete_branch_on_merge?: boolean
   deployments_url: string
@@ -2920,20 +2909,19 @@ export type t_gist_simple = {
   commits_url?: string
   created_at?: string
   description?: string | null
-  files?: {
-    [key: string]:
-      | ({
-          content?: string
-          encoding?: string
-          filename?: string
-          language?: string
-          raw_url?: string
-          size?: number
-          truncated?: boolean
-          type?: string
-        } | null)
-      | undefined
-  }
+  files?: Record<
+    string,
+    {
+      content?: string
+      encoding?: string
+      filename?: string
+      language?: string
+      raw_url?: string
+      size?: number
+      truncated?: boolean
+      type?: string
+    } | null
+  >
   fork_of?: {
     comments: number
     comments_enabled?: boolean
@@ -2941,17 +2929,16 @@ export type t_gist_simple = {
     commits_url: string
     created_at: string
     description: string | null
-    files: {
-      [key: string]:
-        | {
-            filename?: string
-            language?: string
-            raw_url?: string
-            size?: number
-            type?: string
-          }
-        | undefined
-    }
+    files: Record<
+      string,
+      {
+        filename?: string
+        language?: string
+        raw_url?: string
+        size?: number
+        type?: string
+      }
+    >
     forks?: unknown[]
     forks_url: string
     git_pull_url: string
@@ -3190,17 +3177,11 @@ export type t_hook_delivery = {
   redelivery: boolean
   repository_id: number | null
   request: {
-    headers: {
-      [key: string]: unknown | undefined
-    } | null
-    payload: {
-      [key: string]: unknown | undefined
-    } | null
+    headers: Record<string, unknown> | null
+    payload: Record<string, unknown> | null
   }
   response: {
-    headers: {
-      [key: string]: unknown | undefined
-    } | null
+    headers: Record<string, unknown> | null
     payload: string | null
   }
   status: string
@@ -3707,9 +3688,7 @@ export type t_labeled_issue_event = {
   url: string
 }
 
-export type t_language = {
-  [key: string]: number | undefined
-}
+export type t_language = Record<string, number>
 
 export type t_license = {
   body: string
@@ -3784,9 +3763,7 @@ export type t_manifest = {
   }
   metadata?: t_metadata
   name: string
-  resolved?: {
-    [key: string]: t_dependency | undefined
-  }
+  resolved?: Record<string, t_dependency>
 }
 
 export type t_marketplace_account = {
@@ -3847,9 +3824,7 @@ export type t_merged_upstream = {
   message?: string
 }
 
-export type t_metadata = {
-  [key: string]: (string | number | boolean | null) | undefined
-}
+export type t_metadata = Record<string, string | number | boolean | null>
 
 export type t_migration = {
   archive_url?: string
@@ -3922,9 +3897,7 @@ export type t_minimal_repository = {
   contents_url: string
   contributors_url: string
   created_at?: string | null
-  custom_properties?: {
-    [key: string]: unknown | undefined
-  }
+  custom_properties?: Record<string, unknown>
   default_branch?: string
   delete_branch_on_merge?: boolean
   deployments_url: string
@@ -4251,9 +4224,7 @@ export type t_nullable_minimal_repository = {
   contents_url: string
   contributors_url: string
   created_at?: string | null
-  custom_properties?: {
-    [key: string]: unknown | undefined
-  }
+  custom_properties?: Record<string, unknown>
   default_branch?: string
   delete_branch_on_merge?: boolean
   deployments_url: string
@@ -4873,15 +4844,9 @@ export type t_organization_programmatic_access_grant = {
   id: number
   owner: t_simple_user
   permissions: {
-    organization?: {
-      [key: string]: string | undefined
-    }
-    other?: {
-      [key: string]: string | undefined
-    }
-    repository?: {
-      [key: string]: string | undefined
-    }
+    organization?: Record<string, string>
+    other?: Record<string, string>
+    repository?: Record<string, string>
   }
   repositories_url: string
   repository_selection: "none" | "all" | "subset" | UnknownEnumStringValue
@@ -4897,15 +4862,9 @@ export type t_organization_programmatic_access_grant_request = {
   id: number
   owner: t_simple_user
   permissions: {
-    organization?: {
-      [key: string]: string | undefined
-    }
-    other?: {
-      [key: string]: string | undefined
-    }
-    repository?: {
-      [key: string]: string | undefined
-    }
+    organization?: Record<string, string>
+    other?: Record<string, string>
+    repository?: Record<string, string>
   }
   reason: string | null
   repositories_url: string
@@ -6883,9 +6842,7 @@ export type t_ruleset_version = {
 }
 
 export type t_ruleset_version_with_state = t_ruleset_version & {
-  state: {
-    [key: string]: unknown | undefined
-  }
+  state: Record<string, unknown>
 }
 
 export type t_runner = {
@@ -7376,9 +7333,7 @@ export type t_snapshot = {
     html_url?: string
     id: string
   }
-  manifests?: {
-    [key: string]: t_manifest | undefined
-  }
+  manifests?: Record<string, t_manifest>
   metadata?: t_metadata
   ref: string
   scanned: string
@@ -8342,9 +8297,7 @@ export type t_ActionsCreateSelfHostedRunnerGroupForOrgRequestBody = {
 }
 
 export type t_ActionsCreateWorkflowDispatchRequestBody = {
-  inputs?: {
-    [key: string]: unknown | undefined
-  }
+  inputs?: Record<string, unknown>
   ref: string
 }
 
@@ -8618,9 +8571,7 @@ export type t_ChecksUpdateRequestBody = {
     | UnknownEnumStringValue
 }
 
-export type t_CodeScanningCreateVariantAnalysisRequestBody = {
-  [key: string]: unknown | undefined
-}
+export type t_CodeScanningCreateVariantAnalysisRequestBody = unknown
 
 export type t_CodeScanningUpdateAlertRequestBody = {
   create_request?: t_code_scanning_alert_create_request
@@ -9206,13 +9157,12 @@ export type t_DependabotUpdateRepositoryAccessForOrgRequestBody = {
 
 export type t_GistsCreateRequestBody = {
   description?: string
-  files: {
-    [key: string]:
-      | {
-          content: string
-        }
-      | undefined
-  }
+  files: Record<
+    string,
+    {
+      content: string
+    }
+  >
   public?: boolean | "true" | "false" | UnknownEnumStringValue
 }
 
@@ -9222,14 +9172,13 @@ export type t_GistsCreateCommentRequestBody = {
 
 export type t_GistsUpdateRequestBody = {
   description?: string
-  files?: {
-    [key: string]:
-      | ({
-          content?: string
-          filename?: string | null
-        } | null)
-      | undefined
-  }
+  files?: Record<
+    string,
+    {
+      content?: string
+      filename?: string | null
+    } | null
+  >
 } | null
 
 export type t_GistsUpdateCommentRequestBody = {
@@ -9994,13 +9943,9 @@ export type t_ReposAddUserAccessRestrictionsRequestBody = {
 
 export type t_ReposCreateAttestationRequestBody = {
   bundle: {
-    dsseEnvelope?: {
-      [key: string]: unknown | undefined
-    }
+    dsseEnvelope?: Record<string, unknown>
     mediaType?: string
-    verificationMaterial?: {
-      [key: string]: unknown | undefined
-    }
+    verificationMaterial?: Record<string, unknown>
   }
 }
 
@@ -10034,11 +9979,7 @@ export type t_ReposCreateDeploymentRequestBody = {
   auto_merge?: boolean
   description?: string | null
   environment?: string
-  payload?:
-    | {
-        [key: string]: unknown | undefined
-      }
-    | string
+  payload?: Record<string, unknown> | string
   production_environment?: boolean
   ref: string
   required_contexts?: string[]
@@ -10069,9 +10010,7 @@ export type t_ReposCreateDeploymentStatusRequestBody = {
 }
 
 export type t_ReposCreateDispatchEventRequestBody = {
-  client_payload?: {
-    [key: string]: unknown | undefined
-  }
+  client_payload?: Record<string, unknown>
   event_type: string
 }
 
@@ -10124,9 +10063,7 @@ export type t_ReposCreateInOrgRequestBody = {
   allow_rebase_merge?: boolean
   allow_squash_merge?: boolean
   auto_init?: boolean
-  custom_properties?: {
-    [key: string]: unknown | undefined
-  }
+  custom_properties?: Record<string, unknown>
   delete_branch_on_merge?: boolean
   description?: string
   gitignore_template?: string

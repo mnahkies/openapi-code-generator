@@ -196,9 +196,10 @@ describe.each(
       `)
 
     expect(types).toMatchInlineSnapshot(`
-        "export type t_AdditionalPropertiesSchema = {
-          [key: string]: t_NamedNullableStringEnum | undefined
-        }
+        "export type t_AdditionalPropertiesSchema = Record<
+          string,
+          t_NamedNullableStringEnum
+        >
 
         export type t_NamedNullableStringEnum = "" | "one" | "two" | "three" | null"
       `)
@@ -217,11 +218,9 @@ describe.each(
           declare const x: t_AdditionalPropertiesBool"
         `)
 
-      expect(types).toMatchInlineSnapshot(`
-                  "export type t_AdditionalPropertiesBool = {
-                    [key: string]: any | undefined
-                  }"
-              `)
+      expect(types).toMatchInlineSnapshot(
+        `"export type t_AdditionalPropertiesBool = Record<string, any>"`,
+      )
     })
 
     it("handles additionalProperties set to {}", async () => {
@@ -236,11 +235,9 @@ describe.each(
           declare const x: t_AdditionalPropertiesUnknownEmptySchema"
         `)
 
-      expect(types).toMatchInlineSnapshot(`
-                  "export type t_AdditionalPropertiesUnknownEmptySchema = {
-                    [key: string]: any | undefined
-                  }"
-              `)
+      expect(types).toMatchInlineSnapshot(
+        `"export type t_AdditionalPropertiesUnknownEmptySchema = Record<string, any>"`,
+      )
     })
 
     it("handles additionalProperties set to {type: 'object'}", async () => {
@@ -256,14 +253,11 @@ describe.each(
         `)
 
       expect(types).toMatchInlineSnapshot(`
-                  "export type t_AdditionalPropertiesUnknownEmptyObjectSchema = {
-                    [key: string]:
-                      | {
-                          [key: string]: any | undefined
-                        }
-                      | undefined
-                  }"
-              `)
+          "export type t_AdditionalPropertiesUnknownEmptyObjectSchema = Record<
+            string,
+            Record<string, any>
+          >"
+        `)
     })
 
     it("handles additionalProperties set to true in conjunction with properties", async () => {
@@ -299,18 +293,14 @@ describe.each(
         `)
 
       expect(types).toMatchInlineSnapshot(`
-                  "export type EmptyObject = { [key: string]: never }
-
-                  export type t_AnyJsonValue = {
-                    anyObject?: {
-                      [key: string]: any | undefined
-                    }
-                    arrayOfAny?: any[]
-                    emptyObject?: EmptyObject
-                    emptySchema?: any
-                    emptySchemaAdditionalProperties?: any
-                  }"
-              `)
+          "export type t_AnyJsonValue = {
+            anyObject?: Record<string, any>
+            arrayOfAny?: any[]
+            emptyObject?: Record<string, never>
+            emptySchema?: any
+            emptySchemaAdditionalProperties?: Record<string, any>
+          }"
+        `)
     })
   })
 
@@ -327,11 +317,9 @@ describe.each(
           declare const x: t_AdditionalPropertiesBool"
         `)
 
-      expect(types).toMatchInlineSnapshot(`
-          "export type t_AdditionalPropertiesBool = {
-            [key: string]: unknown | undefined
-          }"
-        `)
+      expect(types).toMatchInlineSnapshot(
+        `"export type t_AdditionalPropertiesBool = Record<string, unknown>"`,
+      )
     })
 
     it("handles additionalProperties set to {}", async () => {
@@ -346,11 +334,9 @@ describe.each(
           declare const x: t_AdditionalPropertiesUnknownEmptySchema"
         `)
 
-      expect(types).toMatchInlineSnapshot(`
-          "export type t_AdditionalPropertiesUnknownEmptySchema = {
-            [key: string]: unknown | undefined
-          }"
-        `)
+      expect(types).toMatchInlineSnapshot(
+        `"export type t_AdditionalPropertiesUnknownEmptySchema = Record<string, unknown>"`,
+      )
     })
 
     it("handles additionalProperties set to {type: 'object'}", async () => {
@@ -366,13 +352,10 @@ describe.each(
         `)
 
       expect(types).toMatchInlineSnapshot(`
-          "export type t_AdditionalPropertiesUnknownEmptyObjectSchema = {
-            [key: string]:
-              | {
-                  [key: string]: unknown | undefined
-                }
-              | undefined
-          }"
+          "export type t_AdditionalPropertiesUnknownEmptyObjectSchema = Record<
+            string,
+            Record<string, unknown>
+          >"
         `)
     })
 
@@ -409,16 +392,12 @@ describe.each(
         `)
 
       expect(types).toMatchInlineSnapshot(`
-          "export type EmptyObject = { [key: string]: never }
-
-          export type t_AnyJsonValue = {
-            anyObject?: {
-              [key: string]: unknown | undefined
-            }
+          "export type t_AnyJsonValue = {
+            anyObject?: Record<string, unknown>
             arrayOfAny?: unknown[]
-            emptyObject?: EmptyObject
+            emptyObject?: Record<string, never>
             emptySchema?: unknown
-            emptySchemaAdditionalProperties?: unknown
+            emptySchemaAdditionalProperties?: Record<string, unknown>
           }"
         `)
     })
