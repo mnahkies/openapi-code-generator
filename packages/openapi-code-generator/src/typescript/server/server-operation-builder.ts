@@ -359,10 +359,11 @@ export class ServerOperationBuilder {
 
     if (
       requestBody?.parameter &&
-      this.types.isEmptyObject(requestBody.parameter.schema)
+      !requestBody?.parameter.required &&
+      this.types.isRecordNever(requestBody.parameter.schema)
     ) {
       logger.warn(
-        `[${this.route}]: skipping requestBody parameter that resolves to EmptyObject`,
+        `[${this.route}]: skipping optional requestBody parameter that resolves to Record<string, never>`,
       )
       return {
         isSupported: true,

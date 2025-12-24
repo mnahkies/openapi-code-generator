@@ -287,6 +287,18 @@ export class TypeBuilder implements ICompilable {
     return new CompilationUnit(this.filename, this.imports, this.toString())
   }
 
+  isRecordNever(schemaObject: MaybeIRModel): boolean {
+    const dereferenced = this.input.schema(schemaObject)
+    return (
+      dereferenced.type === "record" &&
+      !isRef(dereferenced.value) &&
+      dereferenced.value.type === "never"
+    )
+  }
+
+  /**
+   * @deprecated
+   */
   isEmptyObject(schemaObject: MaybeIRModel): boolean {
     const dereferenced = this.input.schema(schemaObject)
 

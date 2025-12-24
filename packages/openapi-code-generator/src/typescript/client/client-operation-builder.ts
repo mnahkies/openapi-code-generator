@@ -117,9 +117,9 @@ export class ClientOperationBuilder {
     // todo: consider warning when serializer is URLSearchParams and the schema contains
     //       constructs that combined with encoding are undefined/implementation defined behavior
     if (schema) {
-      if (this.models.isEmptyObject(schema)) {
+      if (!result.parameter.required && this.models.isRecordNever(schema)) {
         logger.warn(
-          `[${this.route}]: skipping requestBody parameter that resolves to EmptyObject`,
+          `[${this.route}]: skipping optional requestBody parameter that resolves to Record<string, never>`,
         )
         return undefined
       }
