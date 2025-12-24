@@ -146,13 +146,13 @@ export class TypeBuilder implements ICompilable {
     switch (schemaObject.type) {
       case "intersection": {
         result.push(
-          intersect(schemaObject.schemas.map(this.schemaObjectToType)),
+          intersect(...schemaObject.schemas.flatMap(this.schemaObjectToTypes)),
         )
         break
       }
 
       case "union": {
-        result.push(...schemaObject.schemas.map(this.schemaObjectToType))
+        result.push(...schemaObject.schemas.flatMap(this.schemaObjectToTypes))
         break
       }
 
