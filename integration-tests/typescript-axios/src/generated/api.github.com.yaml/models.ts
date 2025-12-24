@@ -8421,7 +8421,9 @@ export type t_validation_error = {
         index?: number | undefined
         message?: string | undefined
         resource?: string | undefined
-        value?: (string | null | number | string[]) | undefined
+        value?:
+          | ((string | null) | (number | null) | (string[] | null))
+          | undefined
       }[]
     | undefined
   message: string
@@ -8695,10 +8697,6 @@ export type t_ActionsReRunWorkflowFailedJobsRequestBody = {
   enable_debug_logging?: boolean | undefined
 } | null
 
-export type t_ActionsReviewCustomGatesForRunRequestBody =
-  | t_review_custom_gates_comment_required
-  | t_review_custom_gates_state_required
-
 export type t_ActionsReviewPendingDeploymentsForRunRequestBody = {
   comment: string
   environment_ids: number[]
@@ -8866,7 +8864,76 @@ export type t_CampaignsUpdateCampaignRequestBody = {
   team_managers?: string[] | undefined
 }
 
-export type t_ChecksCreateRequestBody =
+export type t_ChecksCreateRequestBody = {
+  actions?:
+    | {
+        description: string
+        identifier: string
+        label: string
+      }[]
+    | undefined
+  completed_at?: string | undefined
+  conclusion?:
+    | (
+        | "action_required"
+        | "cancelled"
+        | "failure"
+        | "neutral"
+        | "success"
+        | "skipped"
+        | "stale"
+        | "timed_out"
+        | UnknownEnumStringValue
+      )
+    | undefined
+  details_url?: string | undefined
+  external_id?: string | undefined
+  head_sha: string
+  name: string
+  output?:
+    | {
+        annotations?:
+          | {
+              annotation_level:
+                | "notice"
+                | "warning"
+                | "failure"
+                | UnknownEnumStringValue
+              end_column?: number | undefined
+              end_line: number
+              message: string
+              path: string
+              raw_details?: string | undefined
+              start_column?: number | undefined
+              start_line: number
+              title?: string | undefined
+            }[]
+          | undefined
+        images?:
+          | {
+              alt: string
+              caption?: string | undefined
+              image_url: string
+            }[]
+          | undefined
+        summary: string
+        text?: string | undefined
+        title: string
+      }
+    | undefined
+  started_at?: string | undefined
+  status?:
+    | (
+        | "queued"
+        | "in_progress"
+        | "completed"
+        | "waiting"
+        | "requested"
+        | "pending"
+        | UnknownEnumStringValue
+      )
+    | undefined
+} & (
   | {
       status: "completed" | UnknownEnumStringValue
       [key: string]: unknown | undefined
@@ -8875,6 +8942,7 @@ export type t_ChecksCreateRequestBody =
       status?: ("queued" | "in_progress" | UnknownEnumStringValue) | undefined
       [key: string]: unknown | undefined
     }
+)
 
 export type t_ChecksCreateSuiteRequestBody = {
   head_sha: string
@@ -8959,7 +9027,13 @@ export type t_ChecksUpdateRequestBody = {
     | undefined
 }
 
-export type t_CodeScanningCreateVariantAnalysisRequestBody = unknown
+export type t_CodeScanningCreateVariantAnalysisRequestBody = {
+  language: t_code_scanning_variant_analysis_language
+  query_pack: string
+  repositories?: string[] | undefined
+  repository_lists?: string[] | undefined
+  repository_owners?: string[] | undefined
+} & unknown
 
 export type t_CodeScanningUpdateAlertRequestBody = {
   create_request?: t_code_scanning_alert_create_request | undefined
@@ -9532,7 +9606,7 @@ export type t_GistsCreateRequestBody = {
       content: string
     }
   >
-  public?: (boolean | "true" | "false" | UnknownEnumStringValue) | undefined
+  public?: (boolean | ("true" | "false" | UnknownEnumStringValue)) | undefined
 }
 
 export type t_GistsCreateCommentRequestBody = {
@@ -10830,10 +10904,7 @@ export type t_ReposUpdateInformationAboutPagesSiteRequestBody = {
   https_enforced?: boolean | undefined
   source?:
     | (
-        | "gh-pages"
-        | "master"
-        | "master /docs"
-        | UnknownEnumStringValue
+        | ("gh-pages" | "master" | "master /docs" | UnknownEnumStringValue)
         | {
             branch: string
             path: "/" | "/docs" | UnknownEnumStringValue

@@ -5039,11 +5039,10 @@ export class StripeApi extends AbstractAxiosClient {
                   tax_rate: string
                   taxable_amount: number
                 }[]
-              | ""
-              | UnknownEnumStringValue
+              | ("" | UnknownEnumStringValue)
             )
           | undefined
-        tax_rates?: (string[] | "" | UnknownEnumStringValue) | undefined
+        tax_rates?: (string[] | ("" | UnknownEnumStringValue)) | undefined
         type: "custom_line_item" | "invoice_line_item" | UnknownEnumStringValue
         unit_amount?: number | undefined
         unit_amount_decimal?: string | undefined
@@ -5143,11 +5142,10 @@ export class StripeApi extends AbstractAxiosClient {
                   tax_rate: string
                   taxable_amount: number
                 }[]
-              | ""
-              | UnknownEnumStringValue
+              | ("" | UnknownEnumStringValue)
             )
           | undefined
-        tax_rates?: (string[] | "" | UnknownEnumStringValue) | undefined
+        tax_rates?: (string[] | ("" | UnknownEnumStringValue)) | undefined
         type: "custom_line_item" | "invoice_line_item" | UnknownEnumStringValue
         unit_amount?: number | undefined
         unit_amount_decimal?: string | undefined
@@ -12399,7 +12397,7 @@ export class StripeApi extends AbstractAxiosClient {
 
   async getPaymentMethodConfigurations(
     p: {
-      application?: string | "" | UnknownEnumStringValue
+      application?: string | ("" | UnknownEnumStringValue)
       endingBefore?: string
       expand?: string[]
       limit?: number

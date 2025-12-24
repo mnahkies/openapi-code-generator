@@ -4240,9 +4240,8 @@ export class StripeApiService {
             tax_rate: string
             taxable_amount: number
           }[]
-        | ""
-        | UnknownEnumStringValue
-      tax_rates?: string[] | "" | UnknownEnumStringValue
+        | ("" | UnknownEnumStringValue)
+      tax_rates?: string[] | ("" | UnknownEnumStringValue)
       type: "custom_line_item" | "invoice_line_item" | UnknownEnumStringValue
       unit_amount?: number
       unit_amount_decimal?: string
@@ -4345,9 +4344,8 @@ export class StripeApiService {
             tax_rate: string
             taxable_amount: number
           }[]
-        | ""
-        | UnknownEnumStringValue
-      tax_rates?: string[] | "" | UnknownEnumStringValue
+        | ("" | UnknownEnumStringValue)
+      tax_rates?: string[] | ("" | UnknownEnumStringValue)
       type: "custom_line_item" | "invoice_line_item" | UnknownEnumStringValue
       unit_amount?: number
       unit_amount_decimal?: string
@@ -10622,7 +10620,7 @@ export class StripeApiService {
 
   getPaymentMethodConfigurations(
     p: {
-      application?: string | "" | UnknownEnumStringValue
+      application?: string | ("" | UnknownEnumStringValue)
       endingBefore?: string
       expand?: string[]
       limit?: number

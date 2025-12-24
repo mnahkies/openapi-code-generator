@@ -4233,13 +4233,6 @@ export const s_license_content = z.object({
   license: s_nullable_license_simple,
 })
 
-export const s_manifest = z.object({
-  name: z.string(),
-  file: z.object({source_location: z.string().optional()}).optional(),
-  metadata: s_metadata.optional(),
-  resolved: z.record(z.string(), s_dependency).optional(),
-})
-
 export const s_marketplace_purchase = z.object({
   url: z.string(),
   type: z.string(),
@@ -5588,21 +5581,6 @@ export const s_simple_repository = z.object({
   teams_url: z.string(),
   trees_url: z.string(),
   hooks_url: z.string(),
-})
-
-export const s_snapshot = z.object({
-  version: z.coerce.number(),
-  job: z.object({
-    id: z.string(),
-    correlator: z.string(),
-    html_url: z.string().optional(),
-  }),
-  sha: z.string().min(40).max(40),
-  ref: z.string().regex(new RegExp("^refs/")),
-  detector: z.object({name: z.string(), version: z.string(), url: z.string()}),
-  metadata: s_metadata.optional(),
-  manifests: z.record(z.string(), s_manifest).optional(),
-  scanned: z.iso.datetime({offset: true}),
 })
 
 export const s_stargazer = z.object({
@@ -7090,6 +7068,13 @@ export const s_locked_issue_event = z.object({
   lock_reason: z.string().nullable(),
 })
 
+export const s_manifest = z.object({
+  name: z.string(),
+  file: z.object({source_location: z.string().optional()}).optional(),
+  metadata: s_metadata.optional(),
+  resolved: z.record(z.string(), s_dependency).optional(),
+})
+
 export const s_migration = z.object({
   id: z.coerce.number(),
   owner: s_nullable_simple_user,
@@ -8283,6 +8268,21 @@ export const s_repository_ruleset = z.object({
   updated_at: z.iso.datetime({offset: true}).optional(),
 })
 
+export const s_snapshot = z.object({
+  version: z.coerce.number(),
+  job: z.object({
+    id: z.string(),
+    correlator: z.string(),
+    html_url: z.string().optional(),
+  }),
+  sha: z.string().min(40).max(40),
+  ref: z.string().regex(new RegExp("^refs/")),
+  detector: z.object({name: z.string(), version: z.string(), url: z.string()}),
+  metadata: s_metadata.optional(),
+  manifests: z.record(z.string(), s_manifest).optional(),
+  scanned: z.iso.datetime({offset: true}),
+})
+
 export const s_timeline_cross_referenced_event = z.object({
   event: z.string(),
   actor: s_simple_user.optional(),
@@ -9437,11 +9437,6 @@ export const s_ActionsAddCustomLabelsToSelfHostedRunnerForRepoRequestBody =
 export const s_ActionsSetCustomLabelsForSelfHostedRunnerForRepoRequestBody =
   z.object({labels: z.array(z.string()).min(0).max(100)})
 
-export const s_ActionsReviewCustomGatesForRunRequestBody = z.union([
-  s_review_custom_gates_comment_required,
-  s_review_custom_gates_state_required,
-])
-
 export const s_ActionsReviewPendingDeploymentsForRunRequestBody = z.object({
   environment_ids: z.array(z.coerce.number()),
   state: z.enum(["approved", "rejected"]),
@@ -9634,16 +9629,91 @@ export const s_ReposRemoveUserAccessRestrictionsRequestBody = z.object({
 
 export const s_ReposRenameBranchRequestBody = z.object({new_name: z.string()})
 
-export const s_ChecksCreateRequestBody = z.union([
-  z.intersection(
-    z.object({status: z.enum(["completed"])}),
-    z.record(z.string(), z.unknown()),
-  ),
-  z.intersection(
-    z.object({status: z.enum(["queued", "in_progress"]).optional()}),
-    z.record(z.string(), z.unknown()),
-  ),
-])
+export const s_ChecksCreateRequestBody = z.intersection(
+  z.object({
+    name: z.string(),
+    head_sha: z.string(),
+    details_url: z.string().optional(),
+    external_id: z.string().optional(),
+    status: z
+      .enum([
+        "queued",
+        "in_progress",
+        "completed",
+        "waiting",
+        "requested",
+        "pending",
+      ])
+      .optional()
+      .default("queued"),
+    started_at: z.iso.datetime({offset: true}).optional(),
+    conclusion: z
+      .enum([
+        "action_required",
+        "cancelled",
+        "failure",
+        "neutral",
+        "success",
+        "skipped",
+        "stale",
+        "timed_out",
+      ])
+      .optional(),
+    completed_at: z.iso.datetime({offset: true}).optional(),
+    output: z
+      .object({
+        title: z.string(),
+        summary: z.string().max(65535),
+        text: z.string().max(65535).optional(),
+        annotations: z
+          .array(
+            z.object({
+              path: z.string(),
+              start_line: z.coerce.number(),
+              end_line: z.coerce.number(),
+              start_column: z.coerce.number().optional(),
+              end_column: z.coerce.number().optional(),
+              annotation_level: z.enum(["notice", "warning", "failure"]),
+              message: z.string(),
+              title: z.string().optional(),
+              raw_details: z.string().optional(),
+            }),
+          )
+          .max(50)
+          .optional(),
+        images: z
+          .array(
+            z.object({
+              alt: z.string(),
+              image_url: z.string(),
+              caption: z.string().optional(),
+            }),
+          )
+          .optional(),
+      })
+      .optional(),
+    actions: z
+      .array(
+        z.object({
+          label: z.string().max(20),
+          description: z.string().max(40),
+          identifier: z.string().max(20),
+        }),
+      )
+      .max(3)
+      .optional(),
+  }),
+  z.union([
+    z.intersection(
+      z.object({status: z.enum(["completed"])}),
+      z.record(z.string(), z.unknown()),
+    ),
+    z.intersection(
+      z.object({status: z.enum(["queued", "in_progress"]).optional()}),
+      z.record(z.string(), z.unknown()),
+    ),
+  ]),
+)
 
 export const s_ChecksUpdateRequestBody = z.object({
   name: z.string().optional(),
@@ -9737,11 +9807,16 @@ export const s_CodeScanningUpdateAlertRequestBody = z.object({
   create_request: s_code_scanning_alert_create_request.optional(),
 })
 
-export const s_CodeScanningCreateVariantAnalysisRequestBody = z.union([
-  z.unknown(),
-  z.unknown(),
-  z.unknown(),
-])
+export const s_CodeScanningCreateVariantAnalysisRequestBody = z.intersection(
+  z.object({
+    language: s_code_scanning_variant_analysis_language,
+    query_pack: z.string(),
+    repositories: z.array(z.string()).optional(),
+    repository_lists: z.array(z.string()).max(1).optional(),
+    repository_owners: z.array(z.string()).max(1).optional(),
+  }),
+  z.union([z.unknown(), z.unknown(), z.unknown()]),
+)
 
 export const s_CodeScanningUploadSarifRequestBody = z.object({
   commit_sha: s_code_scanning_analysis_commit_sha,

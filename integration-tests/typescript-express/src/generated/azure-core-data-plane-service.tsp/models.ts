@@ -20,11 +20,7 @@ export type t_Azure_Core_Foundations_InnerError = {
 }
 
 export type t_Azure_Core_Foundations_OperationState =
-  | "NotStarted"
-  | "Running"
-  | "Succeeded"
-  | "Failed"
-  | "Canceled"
+  | ("NotStarted" | "Running" | "Succeeded" | "Failed" | "Canceled")
   | string
 
 export type t_Azure_Core_eTag = string
@@ -73,11 +69,7 @@ export type t_WidgetAnalyticsCreateOrUpdate = {
 
 export type t_WidgetColor =
   | string
-  | "Black"
-  | "White"
-  | "Red"
-  | "Green"
-  | "Blue"
+  | ("Black" | "White" | "Red" | "Green" | "Blue")
 
 export type t_WidgetCreateOrUpdate = {
   color?: t_WidgetColor | undefined
@@ -105,10 +97,7 @@ export type t_WidgetRepairRequest = {
 
 export type t_WidgetRepairState =
   | string
-  | "Succeeded"
-  | "Failed"
-  | "Canceled"
-  | "SentToManufacturer"
+  | ("Succeeded" | "Failed" | "Canceled" | "SentToManufacturer")
 
 export type t_GetServiceStatusQuerySchema = {
   "api-version": string

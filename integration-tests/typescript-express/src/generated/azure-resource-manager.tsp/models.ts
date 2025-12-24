@@ -4,6 +4,8 @@
 
 export type t_Azure_Core_armResourceType = string
 
+export type t_Azure_Core_azureLocation = string
+
 export type t_Azure_Core_uuid = string
 
 export type t_Azure_ResourceManager_CommonTypes_ActionType = "Internal" | string
@@ -43,9 +45,7 @@ export type t_Azure_ResourceManager_CommonTypes_OperationDisplay = {
 }
 
 export type t_Azure_ResourceManager_CommonTypes_Origin =
-  | "user"
-  | "system"
-  | "user,system"
+  | ("user" | "system" | "user,system")
   | string
 
 export type t_Azure_ResourceManager_CommonTypes_Resource = {
@@ -67,20 +67,29 @@ export type t_Azure_ResourceManager_CommonTypes_SystemData = {
 }
 
 export type t_Azure_ResourceManager_CommonTypes_TrackedResource =
-  t_Azure_ResourceManager_CommonTypes_Resource
+  t_Azure_ResourceManager_CommonTypes_Resource & {
+    location: t_Azure_Core_azureLocation
+    tags?: Record<string, string> | undefined
+  }
 
 export type t_Azure_ResourceManager_CommonTypes_createdByType =
-  | "User"
-  | "Application"
-  | "ManagedIdentity"
-  | "Key"
+  | ("User" | "Application" | "ManagedIdentity" | "Key")
   | string
 
-export type t_Employee = t_Azure_ResourceManager_CommonTypes_TrackedResource
+export type t_Employee = t_Azure_ResourceManager_CommonTypes_TrackedResource & {
+  properties?: t_EmployeeProperties | undefined
+}
 
 export type t_EmployeeListResult = {
   nextLink?: string | undefined
   value: t_Employee[]
+}
+
+export type t_EmployeeProperties = {
+  age?: number | undefined
+  city?: string | undefined
+  profile?: string | undefined
+  provisioningState?: t_ProvisioningState | undefined
 }
 
 export type t_EmployeeUpdate = {
@@ -107,6 +116,18 @@ export type t_OperationListResult = {
   nextLink?: string | undefined
   value: t_Azure_ResourceManager_CommonTypes_Operation[]
 }
+
+export type t_ProvisioningState =
+  | string
+  | (
+      | "Accepted"
+      | "Provisioning"
+      | "Updating"
+      | "Succeeded"
+      | "Failed"
+      | "Canceled"
+      | "Deleting"
+    )
 
 export type t_EmployeesCheckExistenceParamSchema = {
   employeeName: string
