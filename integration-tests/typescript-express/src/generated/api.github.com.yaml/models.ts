@@ -10150,13 +10150,16 @@ export type t_ChecksCreateRequestBody = {
         | "pending"
       )
     | undefined
-} & {
-  status: "completed"
-  [key: string]: unknown | undefined
-} & {
-  status?: ("queued" | "in_progress") | undefined
-  [key: string]: unknown | undefined
-}
+} & (
+  | {
+      status: "completed"
+      [key: string]: unknown | undefined
+    }
+  | {
+      status?: ("queued" | "in_progress") | undefined
+      [key: string]: unknown | undefined
+    }
+)
 
 export type t_ChecksCreateSuiteParamSchema = {
   owner: string

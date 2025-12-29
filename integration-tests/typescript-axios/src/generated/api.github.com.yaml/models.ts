@@ -8931,13 +8931,16 @@ export type t_ChecksCreateRequestBody = {
         | UnknownEnumStringValue
       )
     | undefined
-} & {
-  status: "completed" | UnknownEnumStringValue
-  [key: string]: unknown | undefined
-} & {
-  status?: ("queued" | "in_progress" | UnknownEnumStringValue) | undefined
-  [key: string]: unknown | undefined
-}
+} & (
+  | {
+      status: "completed" | UnknownEnumStringValue
+      [key: string]: unknown | undefined
+    }
+  | {
+      status?: ("queued" | "in_progress" | UnknownEnumStringValue) | undefined
+      [key: string]: unknown | undefined
+    }
+)
 
 export type t_ChecksCreateSuiteRequestBody = {
   head_sha: string

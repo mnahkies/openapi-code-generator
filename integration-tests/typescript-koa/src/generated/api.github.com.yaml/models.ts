@@ -9713,13 +9713,16 @@ export type t_ChecksCreateRequestBody = {
     | "waiting"
     | "requested"
     | "pending"
-} & {
-  status: "completed"
-  [key: string]: unknown | undefined
-} & {
-  status?: "queued" | "in_progress"
-  [key: string]: unknown | undefined
-}
+} & (
+  | {
+      status: "completed"
+      [key: string]: unknown | undefined
+    }
+  | {
+      status?: "queued" | "in_progress"
+      [key: string]: unknown | undefined
+    }
+)
 
 export type t_ChecksCreateSuiteParamSchema = {
   owner: string
