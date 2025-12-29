@@ -183,56 +183,6 @@ describe.each(
     expect(schemas).toMatchInlineSnapshot(`
         "import joi from "joi"
 
-        /**
-         * Recursively re-distribute the type union/intersection such that joi can support it
-         * Eg: from A & (B | C) to (A & B) | (A & C)
-         * https://github.com/hapijs/joi/issues/3057
-         */
-        export function joiIntersect(
-          left: joi.Schema,
-          right: joi.Schema,
-        ): joi.ObjectSchema | joi.AlternativesSchema {
-          if (isAlternativesSchema(left)) {
-            return joi
-              .alternatives()
-              .match(left.$_getFlag("match") ?? "any")
-              .try(...getAlternatives(left).map((it) => joiIntersect(it, right)))
-          }
-
-          if (isAlternativesSchema(right)) {
-            return joi
-              .alternatives()
-              .match(right.$_getFlag("match") ?? "any")
-              .try(...getAlternatives(right).map((it) => joiIntersect(left, it)))
-          }
-
-          if (!isObjectSchema(left) || !isObjectSchema(right)) {
-            throw new Error(
-              "only objects, or unions of objects can be intersected together.",
-            )
-          }
-
-          return (left as joi.ObjectSchema).concat(right)
-
-          function isAlternativesSchema(it: joi.Schema): it is joi.AlternativesSchema {
-            return it.type === "alternatives"
-          }
-
-          function isObjectSchema(it: joi.Schema): it is joi.ObjectSchema {
-            return it.type === "object"
-          }
-
-          function getAlternatives(it: joi.AlternativesSchema): joi.Schema[] {
-            const terms = it.$_terms
-            const matches = terms.matches
-
-            if (!Array.isArray(matches)) {
-              throw new Error("$_terms.matches is not an array of schemas")
-            }
-
-            return matches.map((it) => it.schema)
-          }
-        }
         export const s_Base = joi
           .object()
           .keys({ name: joi.string().required(), breed: joi.string() })
@@ -240,14 +190,15 @@ describe.each(
           .required()
           .id("s_Base")
 
-        export const s_AllOf = joiIntersect(
-          s_Base.required(),
-          joi
-            .object()
-            .keys({ id: joi.number().required() })
-            .options({ stripUnknown: true })
-            .required(),
-        )
+        export const s_AllOf = s_Base
+          .required()
+          .concat(
+            joi
+              .object()
+              .keys({ id: joi.number().required() })
+              .options({ stripUnknown: true })
+              .required(),
+          )
           .required()
           .id("s_AllOf")"
       `)
@@ -1326,72 +1277,23 @@ describe.each(
       )
 
       expect(code).toMatchInlineSnapshot(`
-          "/**
-           * Recursively re-distribute the type union/intersection such that joi can support it
-           * Eg: from A & (B | C) to (A & B) | (A & C)
-           * https://github.com/hapijs/joi/issues/3057
-           */
-          function joiIntersect(
-            left: joi.Schema,
-            right: joi.Schema,
-          ): joi.ObjectSchema | joi.AlternativesSchema {
-            if (isAlternativesSchema(left)) {
-              return joi
-                .alternatives()
-                .match(left.$_getFlag("match") ?? "any")
-                .try(...getAlternatives(left).map((it) => joiIntersect(it, right)))
-            }
-
-            if (isAlternativesSchema(right)) {
-              return joi
-                .alternatives()
-                .match(right.$_getFlag("match") ?? "any")
-                .try(...getAlternatives(right).map((it) => joiIntersect(left, it)))
-            }
-
-            if (!isObjectSchema(left) || !isObjectSchema(right)) {
-              throw new Error(
-                "only objects, or unions of objects can be intersected together.",
-              )
-            }
-
-            return (left as joi.ObjectSchema).concat(right)
-
-            function isAlternativesSchema(it: joi.Schema): it is joi.AlternativesSchema {
-              return it.type === "alternatives"
-            }
-
-            function isObjectSchema(it: joi.Schema): it is joi.ObjectSchema {
-              return it.type === "object"
-            }
-
-            function getAlternatives(it: joi.AlternativesSchema): joi.Schema[] {
-              const terms = it.$_terms
-              const matches = terms.matches
-
-              if (!Array.isArray(matches)) {
-                throw new Error("$_terms.matches is not an array of schemas")
-              }
-
-              return matches.map((it) => it.schema)
-            }
-          }
-          const x = joi
+          "const x = joi
             .alternatives()
             .try(
               joi.string().required(),
-              joiIntersect(
-                joi
-                  .object()
-                  .keys({ foo: joi.string().required() })
-                  .options({ stripUnknown: true })
-                  .required(),
-                joi
-                  .object()
-                  .keys({ bar: joi.string().required() })
-                  .options({ stripUnknown: true })
-                  .required(),
-              ).required(),
+              joi
+                .object()
+                .keys({ foo: joi.string().required() })
+                .options({ stripUnknown: true })
+                .required()
+                .concat(
+                  joi
+                    .object()
+                    .keys({ bar: joi.string().required() })
+                    .options({ stripUnknown: true })
+                    .required(),
+                )
+                .required(),
             )
             .required()"
         `)
@@ -1417,6 +1319,53 @@ describe.each(
             schemaObject({
               properties: {bar: schemaString()},
               required: ["bar"],
+            }),
+          ],
+        }),
+      )
+
+      expect(code).toMatchInlineSnapshot(`
+          "const x = joi
+            .object()
+            .keys({ foo: joi.string().required() })
+            .options({ stripUnknown: true })
+            .required()
+            .concat(
+              joi
+                .object()
+                .keys({ bar: joi.string().required() })
+                .options({ stripUnknown: true })
+                .required(),
+            )
+            .required()"
+        `)
+
+      await expect(execute({foo: "bla", bar: "foobar"})).resolves.toEqual({
+        foo: "bla",
+        bar: "foobar",
+      })
+      await expect(execute({foo: "bla"})).rejects.toThrow('"bar" is required')
+    })
+
+    it("can intersect unions", async () => {
+      const {code, execute} = await getActualFromModel(
+        schemaObject({
+          allOf: [
+            schemaObject({
+              oneOf: [
+                schemaObject({
+                  properties: {foo: schemaString()},
+                  required: ["foo"],
+                }),
+                schemaObject({
+                  properties: {bar: schemaString()},
+                  required: ["bar"],
+                }),
+              ],
+            }),
+            schemaObject({
+              properties: {id: schemaString()},
+              required: ["id"],
             }),
           ],
         }),
@@ -1475,74 +1424,26 @@ describe.each(
           }
           const x = joiIntersect(
             joi
-              .object()
-              .keys({ foo: joi.string().required() })
-              .options({ stripUnknown: true })
+              .alternatives()
+              .try(
+                joi
+                  .object()
+                  .keys({ foo: joi.string().required() })
+                  .options({ stripUnknown: true })
+                  .required(),
+                joi
+                  .object()
+                  .keys({ bar: joi.string().required() })
+                  .options({ stripUnknown: true })
+                  .required(),
+              )
               .required(),
             joi
               .object()
-              .keys({ bar: joi.string().required() })
+              .keys({ id: joi.string().required() })
               .options({ stripUnknown: true })
               .required(),
           ).required()"
-        `)
-
-      await expect(execute({foo: "bla", bar: "foobar"})).resolves.toEqual({
-        foo: "bla",
-        bar: "foobar",
-      })
-      await expect(execute({foo: "bla"})).rejects.toThrow('"bar" is required')
-    })
-
-    // TODO: https://github.com/hapijs/joi/issues/3057
-    it.skip("can intersect unions", async () => {
-      const {code, execute} = await getActualFromModel(
-        schemaObject({
-          allOf: [
-            schemaObject({
-              oneOf: [
-                schemaObject({
-                  properties: {foo: schemaString()},
-                  required: ["foo"],
-                }),
-                schemaObject({
-                  properties: {bar: schemaString()},
-                  required: ["bar"],
-                }),
-              ],
-            }),
-            schemaObject({
-              properties: {id: schemaString()},
-              required: ["id"],
-            }),
-          ],
-        }),
-      )
-
-      expect(code).toMatchInlineSnapshot(`
-          "const x = joi
-            .alternatives()
-            .try(
-              joi
-                .object()
-                .keys({ foo: joi.string().required() })
-                .options({ stripUnknown: true })
-                .required(),
-              joi
-                .object()
-                .keys({ bar: joi.string().required() })
-                .options({ stripUnknown: true })
-                .required(),
-            )
-            .required()
-            .concat(
-              joi
-                .object()
-                .keys({ id: joi.string().required() })
-                .options({ stripUnknown: true })
-                .required(),
-            )
-            .required()"
         `)
 
       await expect(execute({id: "1234", foo: "bla"})).resolves.toEqual({
@@ -1553,7 +1454,9 @@ describe.each(
         id: "1234",
         bar: "bla",
       })
-      await expect(execute({foo: "bla"})).rejects.toThrow("Required")
+      await expect(execute({foo: "bla"})).rejects.toThrow(
+        '"value" does not match any of the allowed types',
+      )
     })
   })
 

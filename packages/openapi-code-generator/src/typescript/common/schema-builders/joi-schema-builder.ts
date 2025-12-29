@@ -112,7 +112,9 @@ export class JoiBuilder extends AbstractSchemaBuilder<
       return definedSchemas[0]
     }
 
-    return this.intersect(definedSchemas)
+    return definedSchemas.reduce((acc, it) => {
+      return `${acc}\n.concat(${it})`
+    })
   }
 
   protected intersect(schemas: string[]): string {
@@ -121,7 +123,9 @@ export class JoiBuilder extends AbstractSchemaBuilder<
     if (hasSingleElement(definedSchemas)) {
       return definedSchemas[0]
     }
+
     this.includeIntersectHelper = true
+
     return definedSchemas.reduce((acc, it) => {
       return `joiIntersect(${acc}, ${it})`
     })
