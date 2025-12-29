@@ -5,10 +5,9 @@ class Reporter extends DefaultReporter {
     // silence console output from tests that passed
     if (result.numFailingTests === 0 && !result.testExecError) {
       result.console = []
-    } else {
-      // biome-ignore lint/complexity/noArguments: we want to pass through
-      super.printTestFileHeader(...arguments)
     }
+    // biome-ignore lint/complexity/noArguments: we want to pass through
+    super.printTestFileHeader(...arguments)
   }
 }
 
