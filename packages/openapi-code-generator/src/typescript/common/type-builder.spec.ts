@@ -3,7 +3,7 @@ import type {Input} from "../../core/input"
 import type {CompilerOptions} from "../../core/loaders/tsconfig.loader"
 import type {IRModel, MaybeIRModel} from "../../core/openapi-types-normalized"
 import {testVersions, unitTestInput} from "../../test/input.test-utils"
-import {irFixture} from "../../test/ir-model.fixtures.test-utils"
+import {irFixture as ir} from "../../test/ir-model.fixtures.test-utils"
 import typecheck from "../../test/typescript-compiler-worker.test-utils"
 import {CompilationUnit} from "./compilation-units"
 import {ImportBuilder} from "./import-builder"
@@ -409,8 +409,8 @@ describe.each(
   describe("intersections / unions", () => {
     it("can handle a basic A | B", async () => {
       const {code} = await getActualFromModel(
-        irFixture.union({
-          schemas: [irFixture.string(), irFixture.number()],
+        ir.union({
+          schemas: [ir.string(), ir.number()],
         }),
       )
 
@@ -419,15 +419,11 @@ describe.each(
 
     it("can handle a basic A | B | C | D", async () => {
       const {code} = await getActualFromModel(
-        irFixture.union({
+        ir.union({
           schemas: [
-            irFixture.string(),
-            irFixture.union({
-              schemas: [
-                irFixture.string(),
-                irFixture.number(),
-                irFixture.boolean(),
-              ],
+            ir.string(),
+            ir.union({
+              schemas: [ir.string(), ir.number(), ir.boolean()],
             }),
           ],
         }),
@@ -440,10 +436,10 @@ describe.each(
 
     it("can handle a basic A & B", async () => {
       const {code} = await getActualFromModel(
-        irFixture.intersection({
+        ir.intersection({
           schemas: [
-            irFixture.object({properties: {a: irFixture.string()}}),
-            irFixture.object({properties: {b: irFixture.string()}}),
+            ir.object({properties: {a: ir.string()}}),
+            ir.object({properties: {b: ir.string()}}),
           ],
         }),
       )
@@ -459,13 +455,13 @@ describe.each(
 
     it("can unnest a basic A & B & C", async () => {
       const {code} = await getActualFromModel(
-        irFixture.intersection({
+        ir.intersection({
           schemas: [
-            irFixture.object({properties: {a: irFixture.string()}}),
-            irFixture.intersection({
+            ir.object({properties: {a: ir.string()}}),
+            ir.intersection({
               schemas: [
-                irFixture.object({properties: {b: irFixture.string()}}),
-                irFixture.object({properties: {c: irFixture.string()}}),
+                ir.object({properties: {b: ir.string()}}),
+                ir.object({properties: {c: ir.string()}}),
               ],
             }),
           ],
@@ -485,20 +481,20 @@ describe.each(
 
     it("can handle intersecting an object with a union A & (B | C)", async () => {
       const {code} = await getActualFromModel(
-        irFixture.intersection({
+        ir.intersection({
           schemas: [
-            irFixture.object({
-              properties: {base: irFixture.string()},
+            ir.object({
+              properties: {base: ir.string()},
               required: ["base"],
             }),
-            irFixture.union({
+            ir.union({
               schemas: [
-                irFixture.object({
-                  properties: {a: irFixture.number()},
+                ir.object({
+                  properties: {a: ir.number()},
                   required: ["a"],
                 }),
-                irFixture.object({
-                  properties: {a: irFixture.string()},
+                ir.object({
+                  properties: {a: ir.string()},
                   required: ["a"],
                 }),
               ],
@@ -523,28 +519,28 @@ describe.each(
 
     it("can handle intersecting an union with a union (A | B) & (D | C)", async () => {
       const {code} = await getActualFromModel(
-        irFixture.intersection({
+        ir.intersection({
           schemas: [
-            irFixture.union({
+            ir.union({
               schemas: [
-                irFixture.object({
-                  properties: {a: irFixture.number()},
+                ir.object({
+                  properties: {a: ir.number()},
                   required: ["a"],
                 }),
-                irFixture.object({
-                  properties: {a: irFixture.string()},
+                ir.object({
+                  properties: {a: ir.string()},
                   required: ["a"],
                 }),
               ],
             }),
-            irFixture.union({
+            ir.union({
               schemas: [
-                irFixture.object({
-                  properties: {a: irFixture.number()},
+                ir.object({
+                  properties: {a: ir.number()},
                   required: ["b"],
                 }),
-                irFixture.object({
-                  properties: {a: irFixture.string()},
+                ir.object({
+                  properties: {a: ir.string()},
                   required: ["b"],
                 }),
               ],
