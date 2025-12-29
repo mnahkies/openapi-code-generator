@@ -1,6 +1,9 @@
 import {describe, expect, it} from "@jest/globals"
+import type {Input} from "../../core/input"
 import type {CompilerOptions} from "../../core/loaders/tsconfig.loader"
+import type {IRModel, MaybeIRModel} from "../../core/openapi-types-normalized"
 import {testVersions, unitTestInput} from "../../test/input.test-utils"
+import {irFixture} from "../../test/ir-model.fixtures.test-utils"
 import typecheck from "../../test/typescript-compiler-worker.test-utils"
 import {CompilationUnit} from "./compilation-units"
 import {ImportBuilder} from "./import-builder"
@@ -403,20 +406,209 @@ describe.each(
     })
   })
 
+  describe("intersections / unions", () => {
+    it("can handle a basic A | B", async () => {
+      const {code} = await getActualFromModel(
+        irFixture.union({
+          schemas: [irFixture.string(), irFixture.number()],
+        }),
+      )
+
+      expect(code).toMatchInlineSnapshot(`"declare const x: string | number"`)
+    })
+
+    it("can handle a basic A | B | C | D", async () => {
+      const {code} = await getActualFromModel(
+        irFixture.union({
+          schemas: [
+            irFixture.string(),
+            irFixture.union({
+              schemas: [
+                irFixture.string(),
+                irFixture.number(),
+                irFixture.boolean(),
+              ],
+            }),
+          ],
+        }),
+      )
+
+      expect(code).toMatchInlineSnapshot(
+        `"declare const x: string | number | boolean"`,
+      )
+    })
+
+    it("can handle a basic A & B", async () => {
+      const {code} = await getActualFromModel(
+        irFixture.intersection({
+          schemas: [
+            irFixture.object({properties: {a: irFixture.string()}}),
+            irFixture.object({properties: {b: irFixture.string()}}),
+          ],
+        }),
+      )
+
+      expect(code).toMatchInlineSnapshot(`
+          "declare const x: {
+            a?: string
+          } & {
+            b?: string
+          }"
+        `)
+    })
+
+    it("can unnest a basic A & B & C", async () => {
+      const {code} = await getActualFromModel(
+        irFixture.intersection({
+          schemas: [
+            irFixture.object({properties: {a: irFixture.string()}}),
+            irFixture.intersection({
+              schemas: [
+                irFixture.object({properties: {b: irFixture.string()}}),
+                irFixture.object({properties: {c: irFixture.string()}}),
+              ],
+            }),
+          ],
+        }),
+      )
+
+      expect(code).toMatchInlineSnapshot(`
+          "declare const x: {
+            a?: string
+          } & {
+            b?: string
+          } & {
+            c?: string
+          }"
+        `)
+    })
+
+    it("can handle intersecting an object with a union A & (B | C)", async () => {
+      const {code} = await getActualFromModel(
+        irFixture.intersection({
+          schemas: [
+            irFixture.object({
+              properties: {base: irFixture.string()},
+              required: ["base"],
+            }),
+            irFixture.union({
+              schemas: [
+                irFixture.object({
+                  properties: {a: irFixture.number()},
+                  required: ["a"],
+                }),
+                irFixture.object({
+                  properties: {a: irFixture.string()},
+                  required: ["a"],
+                }),
+              ],
+            }),
+          ],
+        }),
+      )
+
+      expect(code).toMatchInlineSnapshot(`
+          "declare const x: {
+            base: string
+          } & (
+            | {
+                a: number
+              }
+            | {
+                a: string
+              }
+          )"
+        `)
+    })
+
+    it("can handle intersecting an union with a union (A | B) & (D | C)", async () => {
+      const {code} = await getActualFromModel(
+        irFixture.intersection({
+          schemas: [
+            irFixture.union({
+              schemas: [
+                irFixture.object({
+                  properties: {a: irFixture.number()},
+                  required: ["a"],
+                }),
+                irFixture.object({
+                  properties: {a: irFixture.string()},
+                  required: ["a"],
+                }),
+              ],
+            }),
+            irFixture.union({
+              schemas: [
+                irFixture.object({
+                  properties: {a: irFixture.number()},
+                  required: ["b"],
+                }),
+                irFixture.object({
+                  properties: {a: irFixture.string()},
+                  required: ["b"],
+                }),
+              ],
+            }),
+          ],
+        }),
+      )
+
+      expect(code).toMatchInlineSnapshot(`
+          "declare const x: (
+            | {
+                a: number
+              }
+            | {
+                a: string
+              }
+          ) &
+            (
+              | {
+                  a?: number
+                }
+              | {
+                  a?: string
+                }
+            )"
+        `)
+    })
+  })
+
+  async function getActualFromModel(
+    schema: IRModel,
+    config: {
+      config?: TypeBuilderConfig
+      compilerOptions?: CompilerOptions
+    } = {},
+  ) {
+    const {input} = await unitTestInput(version)
+    return getResult(schema, input, config)
+  }
+
   async function getActual(
     path: string,
+    config: {
+      config?: TypeBuilderConfig
+      compilerOptions?: CompilerOptions
+    } = {},
+  ) {
+    const {input, file} = await unitTestInput(version)
+    const schema = {$ref: `${file}#/${path}`}
+    return getResult(schema, input, config)
+  }
+
+  async function getResult(
+    schema: MaybeIRModel,
+    input: Input,
     {
       config = {allowAny: false},
       compilerOptions = {exactOptionalPropertyTypes: false},
     }: {
       config?: TypeBuilderConfig
       compilerOptions?: CompilerOptions
-    } = {},
+    },
   ) {
     const formatter = await TypescriptFormatterBiome.createNodeFormatter()
-
-    const {input, file} = await unitTestInput(version)
-    const schema = {$ref: `${file}#/${path}`}
 
     const imports = new ImportBuilder({includeFileExtensions: false})
 

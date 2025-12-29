@@ -478,7 +478,7 @@ describe("core/input - SchemaNormalizer", () => {
       })
     })
 
-    it("handles concurrent use of allOf and oneOf", () => {
+    it("lifts the raw schema properties into an allOf when combined with oneOf", () => {
       const actual = schemaNormalizer.normalize({
         type: "object",
         properties: {
@@ -508,6 +508,51 @@ describe("core/input - SchemaNormalizer", () => {
               {...base.object, properties: {name: {...base.string}}},
             ],
           },
+          {
+            ...extension.union,
+            schemas: [
+              {
+                ...base.object,
+                properties: {
+                  type: {
+                    ...base.string,
+                    enum: ["foo"],
+                    "x-enum-extensibility": "open",
+                  },
+                },
+              },
+              {
+                ...base.object,
+                properties: {
+                  type: {
+                    ...base.string,
+                    enum: ["bar"],
+                    "x-enum-extensibility": "open",
+                  },
+                },
+              },
+            ],
+          },
+        ],
+      })
+    })
+
+    it("handles concurrent use of allOf and oneOf", () => {
+      const actual = schemaNormalizer.normalize({
+        type: "object",
+        properties: {
+          name: {type: "string"},
+        },
+        oneOf: [
+          {type: "object", properties: {type: {enum: ["foo"]}}},
+          {type: "object", properties: {type: {enum: ["bar"]}}},
+        ],
+      })
+
+      expect(actual).toStrictEqual({
+        ...extension.intersection,
+        schemas: [
+          {...base.object, properties: {name: {...base.string}}},
           {
             ...extension.union,
             schemas: [

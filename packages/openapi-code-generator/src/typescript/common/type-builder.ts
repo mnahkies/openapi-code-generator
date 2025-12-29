@@ -1,3 +1,4 @@
+import {isNonEmptyArray} from "@nahkies/typescript-common-runtime/types"
 import type {Input} from "../../core/input"
 import type {CompilerOptions} from "../../core/loaders/tsconfig.loader"
 import {logger} from "../../core/logger"
@@ -31,6 +32,87 @@ type StaticType = keyof typeof staticTypes
 
 export type TypeBuilderConfig = {
   allowAny: boolean
+}
+
+type IRTypeIntersection = {type: "type-intersection"; types: IRType[]}
+type IRTypeUnion = {type: "type-union"; types: IRType[]}
+type IRTypeOther = string
+
+type IRType = IRTypeIntersection | IRTypeUnion | IRTypeOther
+
+/**
+ * Recursively looks for opportunities to merge / flatten intersections and unions
+ */
+export function normalizeIRType(type: IRType): IRType {
+  if (typeof type === "string") {
+    return type
+  }
+
+  if (type.type === "type-intersection") {
+    const flattened: IRType[] = []
+
+    for (const t of type.types) {
+      const normalized = normalizeIRType(t)
+
+      if (
+        typeof normalized !== "string" &&
+        normalized.type === "type-intersection"
+      ) {
+        flattened.push(...normalized.types)
+      } else {
+        flattened.push(normalized)
+      }
+    }
+
+    if (isNonEmptyArray(flattened) && flattened.length === 1) {
+      return flattened[0]
+    }
+
+    return {
+      type: "type-intersection",
+      types: flattened,
+    }
+  }
+
+  if (type.type === "type-union") {
+    const flattened: IRType[] = []
+
+    for (const t of type.types) {
+      const normalized = normalizeIRType(t)
+
+      if (typeof normalized !== "string" && normalized.type === "type-union") {
+        flattened.push(...normalized.types)
+      } else {
+        flattened.push(normalized)
+      }
+    }
+
+    if (isNonEmptyArray(flattened) && flattened.length === 1) {
+      return flattened[0]
+    }
+
+    return {
+      type: "type-union",
+      types: flattened,
+    }
+  }
+
+  return type
+}
+
+/**
+ * Converts IRType to a typescript type
+ */
+export function toTs(type: IRType): string {
+  if (typeof type === "string") {
+    return type
+  } else if (type.type === "type-union") {
+    return union(...type.types.map(toTs))
+  } else if (type.type === "type-intersection") {
+    return intersect(...type.types.map(toTs))
+  }
+
+  throw new Error(`unknown type ${JSON.stringify(type)}`)
 }
 
 export class TypeBuilder implements ICompilable {
@@ -133,26 +215,34 @@ export class TypeBuilder implements ICompilable {
 
   readonly schemaObjectToType = (schemaObject: MaybeIRModel) => {
     const result = this.schemaObjectToTypes(schemaObject)
-    return union(result)
+    const normalized = normalizeIRType(result)
+
+    return toTs(normalized)
   }
 
-  readonly schemaObjectToTypes = (schemaObject: MaybeIRModel): string[] => {
+  private readonly schemaObjectToTypes = (
+    schemaObject: MaybeIRModel,
+  ): IRType => {
     if (isRef(schemaObject)) {
-      return [this.add(schemaObject)]
+      return this.add(schemaObject)
     }
 
-    const result: string[] = []
+    const result: IRType[] = []
 
     switch (schemaObject.type) {
       case "intersection": {
-        result.push(
-          intersect(...schemaObject.schemas.flatMap(this.schemaObjectToTypes)),
-        )
+        result.push({
+          type: "type-intersection",
+          types: schemaObject.schemas.flatMap(this.schemaObjectToTypes),
+        })
         break
       }
 
       case "union": {
-        result.push(...schemaObject.schemas.flatMap(this.schemaObjectToTypes))
+        result.push({
+          type: "type-union",
+          types: schemaObject.schemas.flatMap(this.schemaObjectToTypes),
+        })
         break
       }
 
@@ -276,7 +366,11 @@ export class TypeBuilder implements ICompilable {
       result.push("null")
     }
 
-    return result
+    if (!isNonEmptyArray(result)) {
+      throw new Error("expected at least 1 item")
+    }
+
+    return result.length > 1 ? {type: "type-union", types: result} : result[0]
   }
 
   toCompilationUnit(): CompilationUnit {

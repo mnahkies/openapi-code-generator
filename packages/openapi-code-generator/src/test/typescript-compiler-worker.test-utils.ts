@@ -31,11 +31,15 @@ export default async function typecheck(
   const readFile = (fileName: string): string => {
     const file = files[fileName]
 
-    if (!file && fileName.startsWith("/") && fs.existsSync(fileName)) {
+    if (
+      file === undefined &&
+      fileName.startsWith("/") &&
+      fs.existsSync(fileName)
+    ) {
       return fs.readFileSync(fileName, "utf-8").toString()
     }
 
-    if (!file) {
+    if (file === undefined) {
       throw new Error(`file '${fileName}' not found`)
     }
 
