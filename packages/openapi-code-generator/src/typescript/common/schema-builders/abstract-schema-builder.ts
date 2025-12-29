@@ -15,7 +15,6 @@ import type {
   MaybeIRModel,
 } from "../../../core/openapi-types-normalized"
 import {getNameFromRef, isRef} from "../../../core/openapi-utils"
-import {hasSingleElement} from "../../../core/utils"
 import {CompilationUnit, type ICompilable} from "../compilation-units"
 import type {ImportBuilder} from "../import-builder"
 import type {TypeBuilder} from "../type-builder"
@@ -143,10 +142,14 @@ export abstract class AbstractSchemaBuilder<
       return ""
     }
 
-    return `${next.join("\n\n")}`
+    return `${this.preamble()}${next.join("\n\n")}`
   }
 
   protected abstract importHelpers(importBuilder: ImportBuilder): void
+
+  public preamble(): string {
+    return ``
+  }
 
   public getSchemaNameFromRef(reference: Reference) {
     return getNameFromRef(reference, "s_")
@@ -167,6 +170,7 @@ export abstract class AbstractSchemaBuilder<
     // the schema library.
     if (isAnonymous && this.imports) {
       this.importHelpers(this.imports)
+      this.imports.from(this.filename).add("joiIntersect")
     }
 
     let result: string
@@ -223,82 +227,53 @@ export abstract class AbstractSchemaBuilder<
       case "array":
         result = this.array(model, [this.arrayItems(model.items)])
         break
+      case "intersection": {
+        // todo: do we need to special case a single schema?
+        const schemas = model.schemas.map((it) => this.fromModel(it, true))
+
+        // Note: for zod in particular it's desirable to use merge over intersection
+        //       where possible, as it returns a more malleable schema
+        const isMergable = model.schemas
+          .map((it) => this.input.schema(it))
+          .every((it) => it.type === "object" && !it.additionalProperties)
+
+        result = isMergable ? this.merge(schemas) : this.intersect(schemas)
+
+        break
+      }
+
+      case "union": {
+        result = this.union(model.schemas.map((it) => this.fromModel(it, true)))
+        break
+      }
+
       case "object": {
-        if (model.allOf.length) {
-          if (hasSingleElement(model.allOf)) {
-            return this.fromModel(
-              model.allOf[0],
-              required,
-              isAnonymous,
-              model.nullable,
-            )
-          }
+        const properties =
+          Object.keys(model.properties).length &&
+          this.object(
+            Object.fromEntries(
+              Object.entries(model.properties).map(([key, value]) => {
+                return [
+                  key,
+                  this.fromModel(value, model.required.includes(key)),
+                ]
+              }),
+            ),
+            required,
+          )
 
-          // Note: for zod in particular it's desirable to use merge over intersection
-          //       where possible, as it returns a more malleable schema
-          const isMergable = model.allOf
-            .map((it) => this.input.schema(it))
-            .every(
-              (it) =>
-                it.type === "object" &&
-                !it.additionalProperties &&
-                !it.anyOf.length &&
-                !it.oneOf.length,
-            )
+        const additionalProperties =
+          model.additionalProperties &&
+          this.fromModel(model.additionalProperties, true)
 
-          const schemas = model.allOf.map((it) => this.fromModel(it, true))
-
-          result = isMergable ? this.merge(schemas) : this.intersect(schemas)
-        } else if (model.oneOf.length) {
-          if (hasSingleElement(model.oneOf)) {
-            return this.fromModel(
-              model.oneOf[0],
-              required,
-              isAnonymous,
-              model.nullable,
-            )
-          }
-
-          result = this.union(model.oneOf.map((it) => this.fromModel(it, true)))
-        } else if (model.anyOf.length) {
-          if (hasSingleElement(model.anyOf)) {
-            return this.fromModel(
-              model.anyOf[0],
-              required,
-              isAnonymous,
-              model.nullable,
-            )
-          }
-
-          result = this.union(model.anyOf.map((it) => this.fromModel(it, true)))
+        if (properties && additionalProperties) {
+          result = this.intersect([properties, additionalProperties])
+        } else if (properties) {
+          result = properties
+        } else if (additionalProperties) {
+          result = additionalProperties
         } else {
-          const properties =
-            Object.keys(model.properties).length &&
-            this.object(
-              Object.fromEntries(
-                Object.entries(model.properties).map(([key, value]) => {
-                  return [
-                    key,
-                    this.fromModel(value, model.required.includes(key)),
-                  ]
-                }),
-              ),
-              required,
-            )
-
-          const additionalProperties =
-            model.additionalProperties &&
-            this.fromModel(model.additionalProperties, true)
-
-          if (properties && additionalProperties) {
-            result = this.intersect([properties, additionalProperties])
-          } else if (properties) {
-            result = properties
-          } else if (additionalProperties) {
-            result = additionalProperties
-          } else {
-            result = this.object({}, required)
-          }
+          result = this.object({}, required)
         }
         break
       }

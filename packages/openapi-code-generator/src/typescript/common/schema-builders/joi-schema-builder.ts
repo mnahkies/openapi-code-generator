@@ -19,6 +19,7 @@ import {
   AbstractSchemaBuilder,
   type SchemaBuilderConfig,
 } from "./abstract-schema-builder"
+import {joiIntersectRawSrc} from "./joi-runtime-snippets/joi-intersect"
 
 const joi = "joi"
 
@@ -30,6 +31,8 @@ export class JoiBuilder extends AbstractSchemaBuilder<
   StaticSchemas
 > {
   readonly type = "joi"
+
+  private includeIntersectHelper = false
 
   static async fromInput(
     filename: string,
@@ -67,6 +70,15 @@ export class JoiBuilder extends AbstractSchemaBuilder<
     imports.addModule(joi, "joi")
   }
 
+  public override preamble(): string {
+    const snippets: string[] = []
+    if (this.includeIntersectHelper) {
+      snippets.push(joiIntersectRawSrc)
+    }
+
+    return snippets.length ? snippets.join("\n") : ""
+  }
+
   public parse(schema: string, value: string): string {
     return `await ${schema}.validateAsync(${value})`
   }
@@ -100,7 +112,9 @@ export class JoiBuilder extends AbstractSchemaBuilder<
       return definedSchemas[0]
     }
 
-    return this.intersect(definedSchemas)
+    return definedSchemas.reduce((acc, it) => {
+      return `${acc}\n.concat(${it})`
+    })
   }
 
   protected intersect(schemas: string[]): string {
@@ -110,8 +124,10 @@ export class JoiBuilder extends AbstractSchemaBuilder<
       return definedSchemas[0]
     }
 
+    this.includeIntersectHelper = true
+
     return definedSchemas.reduce((acc, it) => {
-      return `${acc}\n.concat(${it})`
+      return `joiIntersect(${acc}, ${it})`
     })
   }
 

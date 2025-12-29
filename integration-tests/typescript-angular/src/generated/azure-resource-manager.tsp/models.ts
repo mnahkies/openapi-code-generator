@@ -8,6 +8,8 @@ export type UnknownEnumStringValue = string & {
 
 export type t_Azure_Core_armResourceType = string
 
+export type t_Azure_Core_azureLocation = string
+
 export type t_Azure_Core_uuid = string
 
 export type t_Azure_ResourceManager_CommonTypes_ActionType =
@@ -71,7 +73,10 @@ export type t_Azure_ResourceManager_CommonTypes_SystemData = {
 }
 
 export type t_Azure_ResourceManager_CommonTypes_TrackedResource =
-  t_Azure_ResourceManager_CommonTypes_Resource
+  t_Azure_ResourceManager_CommonTypes_Resource & {
+    location: t_Azure_Core_azureLocation
+    tags?: Record<string, string>
+  }
 
 export type t_Azure_ResourceManager_CommonTypes_createdByType =
   | "User"
@@ -81,11 +86,20 @@ export type t_Azure_ResourceManager_CommonTypes_createdByType =
   | UnknownEnumStringValue
   | string
 
-export type t_Employee = t_Azure_ResourceManager_CommonTypes_TrackedResource
+export type t_Employee = t_Azure_ResourceManager_CommonTypes_TrackedResource & {
+  properties?: t_EmployeeProperties
+}
 
 export type t_EmployeeListResult = {
   nextLink?: string
   value: t_Employee[]
+}
+
+export type t_EmployeeProperties = {
+  age?: number
+  city?: string
+  profile?: string
+  provisioningState?: t_ProvisioningState
 }
 
 export type t_EmployeeUpdate = {
@@ -112,3 +126,14 @@ export type t_OperationListResult = {
   nextLink?: string
   value: t_Azure_ResourceManager_CommonTypes_Operation[]
 }
+
+export type t_ProvisioningState =
+  | string
+  | "Accepted"
+  | "Provisioning"
+  | "Updating"
+  | "Succeeded"
+  | "Failed"
+  | "Canceled"
+  | "Deleting"
+  | UnknownEnumStringValue

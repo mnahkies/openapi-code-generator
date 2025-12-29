@@ -250,37 +250,27 @@ export class ServerOperationBuilder {
         }
       }
 
+      case "intersection": {
+        // todo: figure out if this can be done better
+        logger.error(
+          `server templates don't fully support intersection-typed query parameters`,
+        )
+        return this.queryParameterRuntimeSchema(
+          this.input.schema(schema.schemas[0]),
+        )
+      }
+
+      case "union": {
+        // todo: figure out if this can be done better
+        logger.error(
+          `server templates don't fully support union-typed query parameters`,
+        )
+        return this.queryParameterRuntimeSchema(
+          this.input.schema(schema.schemas[0]),
+        )
+      }
+
       case "object": {
-        const firstAnyOf = schema.anyOf[0]
-
-        if (firstAnyOf) {
-          logger.error(
-            `server templates only support parsing the **first** 'anyOf' in query parameters.`,
-            {anyOf: schema.anyOf},
-          )
-          return this.queryParameterRuntimeSchema(this.input.schema(firstAnyOf))
-        }
-
-        const firstOneOf = schema.oneOf[0]
-
-        if (firstOneOf) {
-          logger.error(
-            `server templates only support parsing the **first** 'oneOf' in query parameters.`,
-            {oneOf: schema.oneOf},
-          )
-          return this.queryParameterRuntimeSchema(this.input.schema(firstOneOf))
-        }
-
-        if (schema.allOf.length) {
-          logger.warn(
-            `server templates do not support allOf in query parameters. Consider keeping it simple.`,
-            {schema},
-          )
-          throw new Error(
-            "server templates do not support allOf in query parameters.",
-          )
-        }
-
         const properties: Record<string, SchemaStructure> = {}
 
         for (const key in schema.properties) {

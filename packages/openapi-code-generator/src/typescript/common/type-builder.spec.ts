@@ -1,6 +1,9 @@
 import {describe, expect, it} from "@jest/globals"
+import type {Input} from "../../core/input"
 import type {CompilerOptions} from "../../core/loaders/tsconfig.loader"
+import type {IRModel, MaybeIRModel} from "../../core/openapi-types-normalized"
 import {testVersions, unitTestInput} from "../../test/input.test-utils"
+import {irFixture as ir} from "../../test/ir-model.fixtures.test-utils"
 import typecheck from "../../test/typescript-compiler-worker.test-utils"
 import {CompilationUnit} from "./compilation-units"
 import {ImportBuilder} from "./import-builder"
@@ -403,20 +406,205 @@ describe.each(
     })
   })
 
+  describe("intersections / unions", () => {
+    it("can handle a basic A | B", async () => {
+      const {code} = await getActualFromModel(
+        ir.union({
+          schemas: [ir.string(), ir.number()],
+        }),
+      )
+
+      expect(code).toMatchInlineSnapshot(`"declare const x: string | number"`)
+    })
+
+    it("can handle a basic A | B | C | D", async () => {
+      const {code} = await getActualFromModel(
+        ir.union({
+          schemas: [
+            ir.string(),
+            ir.union({
+              schemas: [ir.string(), ir.number(), ir.boolean()],
+            }),
+          ],
+        }),
+      )
+
+      expect(code).toMatchInlineSnapshot(
+        `"declare const x: string | number | boolean"`,
+      )
+    })
+
+    it("can handle a basic A & B", async () => {
+      const {code} = await getActualFromModel(
+        ir.intersection({
+          schemas: [
+            ir.object({properties: {a: ir.string()}}),
+            ir.object({properties: {b: ir.string()}}),
+          ],
+        }),
+      )
+
+      expect(code).toMatchInlineSnapshot(`
+          "declare const x: {
+            a?: string
+          } & {
+            b?: string
+          }"
+        `)
+    })
+
+    it("can unnest a basic A & B & C", async () => {
+      const {code} = await getActualFromModel(
+        ir.intersection({
+          schemas: [
+            ir.object({properties: {a: ir.string()}}),
+            ir.intersection({
+              schemas: [
+                ir.object({properties: {b: ir.string()}}),
+                ir.object({properties: {c: ir.string()}}),
+              ],
+            }),
+          ],
+        }),
+      )
+
+      expect(code).toMatchInlineSnapshot(`
+          "declare const x: {
+            a?: string
+          } & {
+            b?: string
+          } & {
+            c?: string
+          }"
+        `)
+    })
+
+    it("can handle intersecting an object with a union A & (B | C)", async () => {
+      const {code} = await getActualFromModel(
+        ir.intersection({
+          schemas: [
+            ir.object({
+              properties: {base: ir.string()},
+              required: ["base"],
+            }),
+            ir.union({
+              schemas: [
+                ir.object({
+                  properties: {a: ir.number()},
+                  required: ["a"],
+                }),
+                ir.object({
+                  properties: {a: ir.string()},
+                  required: ["a"],
+                }),
+              ],
+            }),
+          ],
+        }),
+      )
+
+      expect(code).toMatchInlineSnapshot(`
+          "declare const x: {
+            base: string
+          } & (
+            | {
+                a: number
+              }
+            | {
+                a: string
+              }
+          )"
+        `)
+    })
+
+    it("can handle intersecting an union with a union (A | B) & (D | C)", async () => {
+      const {code} = await getActualFromModel(
+        ir.intersection({
+          schemas: [
+            ir.union({
+              schemas: [
+                ir.object({
+                  properties: {a: ir.number()},
+                  required: ["a"],
+                }),
+                ir.object({
+                  properties: {a: ir.string()},
+                  required: ["a"],
+                }),
+              ],
+            }),
+            ir.union({
+              schemas: [
+                ir.object({
+                  properties: {a: ir.number()},
+                  required: ["b"],
+                }),
+                ir.object({
+                  properties: {a: ir.string()},
+                  required: ["b"],
+                }),
+              ],
+            }),
+          ],
+        }),
+      )
+
+      expect(code).toMatchInlineSnapshot(`
+          "declare const x: (
+            | {
+                a: number
+              }
+            | {
+                a: string
+              }
+          ) &
+            (
+              | {
+                  a?: number
+                }
+              | {
+                  a?: string
+                }
+            )"
+        `)
+    })
+  })
+
+  async function getActualFromModel(
+    schema: IRModel,
+    config: {
+      config?: TypeBuilderConfig
+      compilerOptions?: CompilerOptions
+    } = {},
+  ) {
+    const {input} = await unitTestInput(version)
+    return getResult(schema, input, config)
+  }
+
   async function getActual(
     path: string,
+    config: {
+      config?: TypeBuilderConfig
+      compilerOptions?: CompilerOptions
+    } = {},
+  ) {
+    const {input, file} = await unitTestInput(version)
+    const schema = {$ref: `${file}#/${path}`}
+    return getResult(schema, input, config)
+  }
+
+  async function getResult(
+    schema: MaybeIRModel,
+    input: Input,
     {
       config = {allowAny: false},
       compilerOptions = {exactOptionalPropertyTypes: false},
     }: {
       config?: TypeBuilderConfig
       compilerOptions?: CompilerOptions
-    } = {},
+    },
   ) {
     const formatter = await TypescriptFormatterBiome.createNodeFormatter()
-
-    const {input, file} = await unitTestInput(version)
-    const schema = {$ref: `${file}#/${path}`}
 
     const imports = new ImportBuilder({includeFileExtensions: false})
 

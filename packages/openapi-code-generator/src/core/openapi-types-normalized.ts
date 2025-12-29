@@ -1,3 +1,4 @@
+import type {NonEmptyArray} from "@nahkies/typescript-common-runtime/types"
 import type {Reference, Style} from "./openapi-types"
 import type {HttpMethod} from "./utils"
 
@@ -68,11 +69,19 @@ export interface IRModelBoolean extends IRModelBase {
   enum?: string[] | undefined
 }
 
-export interface IRModelObject extends IRModelBase {
-  allOf: MaybeIRModel[]
-  oneOf: MaybeIRModel[]
-  anyOf: MaybeIRModel[]
+export interface IRModelIntersection extends IRModelBase {
+  type: "intersection"
+  schemas: NonEmptyArray<MaybeIRModel>
+}
 
+export interface IRModelUnion extends IRModelBase {
+  // todo: distinguish between anyOf and oneOf union (exclusive union) to allow runtime validation
+  //       of this.
+  type: "union"
+  schemas: NonEmptyArray<MaybeIRModel>
+}
+
+export interface IRModelObject extends IRModelBase {
   type: "object"
   required: string[]
   properties: {[propertyName: string]: MaybeIRModel}
@@ -116,6 +125,8 @@ export type IRModel =
   | IRModelNull
   | IRModelRecord
   | IRModelNever
+  | IRModelIntersection
+  | IRModelUnion
 
 export type MaybeIRModel = IRModel | IRRef
 

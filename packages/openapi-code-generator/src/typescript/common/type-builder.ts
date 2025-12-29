@@ -4,6 +4,7 @@ import {logger} from "../../core/logger"
 import type {Reference} from "../../core/openapi-types"
 import type {MaybeIRModel} from "../../core/openapi-types-normalized"
 import {getNameFromRef, isRef} from "../../core/openapi-utils"
+import {hasSingleElement} from "../../core/utils"
 import {CompilationUnit, type ICompilable} from "./compilation-units"
 import type {ImportBuilder} from "./import-builder"
 import {
@@ -31,6 +32,61 @@ type StaticType = keyof typeof staticTypes
 
 export type TypeBuilderConfig = {
   allowAny: boolean
+}
+
+type IRTypeIntersection = {type: "type-intersection"; types: IRType[]}
+type IRTypeUnion = {type: "type-union"; types: IRType[]}
+type IRTypeOther = string
+
+type IRType = IRTypeIntersection | IRTypeUnion | IRTypeOther
+
+/**
+ * Recursively looks for opportunities to merge / flatten intersections and unions
+ */
+export function normalizeIRType(type: IRType): IRType {
+  if (typeof type === "string") {
+    return type
+  }
+
+  if (type.type === "type-intersection" || type.type === "type-union") {
+    const flattened: IRType[] = []
+
+    for (const innerType of type.types) {
+      const normalized = normalizeIRType(innerType)
+
+      if (typeof normalized !== "string" && normalized.type === type.type) {
+        flattened.push(...normalized.types)
+      } else {
+        flattened.push(normalized)
+      }
+    }
+
+    if (hasSingleElement(flattened)) {
+      return flattened[0]
+    }
+
+    return {
+      type: type.type,
+      types: flattened,
+    }
+  }
+
+  return type
+}
+
+/**
+ * Converts IRType to a typescript type
+ */
+export function toTs(type: IRType): string {
+  if (typeof type === "string") {
+    return type
+  } else if (type.type === "type-union") {
+    return union(...type.types.map(toTs))
+  } else if (type.type === "type-intersection") {
+    return intersect(...type.types.map(toTs))
+  }
+
+  throw new Error(`toTs: unknown type '${JSON.stringify(type)}'`)
 }
 
 export class TypeBuilder implements ICompilable {
@@ -133,144 +189,150 @@ export class TypeBuilder implements ICompilable {
 
   readonly schemaObjectToType = (schemaObject: MaybeIRModel) => {
     const result = this.schemaObjectToTypes(schemaObject)
-    return union(result)
+    const normalized = normalizeIRType(result)
+
+    return toTs(normalized)
   }
 
-  readonly schemaObjectToTypes = (schemaObject: MaybeIRModel): string[] => {
+  private readonly schemaObjectToTypes = (
+    schemaObject: MaybeIRModel,
+  ): IRType => {
     if (isRef(schemaObject)) {
-      return [this.add(schemaObject)]
+      return this.add(schemaObject)
     }
 
-    const result: string[] = []
+    const result: IRType[] = []
 
-    if (schemaObject.type === "object" && schemaObject.allOf.length) {
-      result.push(intersect(schemaObject.allOf.map(this.schemaObjectToType)))
-    }
+    switch (schemaObject.type) {
+      case "intersection": {
+        result.push({
+          type: "type-intersection",
+          types: schemaObject.schemas.flatMap(this.schemaObjectToTypes),
+        })
+        break
+      }
 
-    if (schemaObject.type === "object" && schemaObject.oneOf.length) {
-      result.push(...schemaObject.oneOf.flatMap(this.schemaObjectToTypes))
-    }
+      case "union": {
+        result.push({
+          type: "type-union",
+          types: schemaObject.schemas.flatMap(this.schemaObjectToTypes),
+        })
+        break
+      }
 
-    if (schemaObject.type === "object" && schemaObject.anyOf.length) {
-      result.push(...schemaObject.anyOf.flatMap(this.schemaObjectToTypes))
-    }
+      case "array": {
+        result.push(array(this.schemaObjectToType(schemaObject.items)))
+        break
+      }
 
-    if (result.length === 0) {
-      switch (schemaObject.type) {
-        case "array": {
-          result.push(array(this.schemaObjectToType(schemaObject.items)))
-          break
+      case "boolean": {
+        if (schemaObject.enum) {
+          result.push(...schemaObject.enum)
+        } else {
+          result.push("boolean")
         }
+        break
+      }
 
-        case "boolean": {
-          if (schemaObject.enum) {
-            result.push(...schemaObject.enum)
-          } else {
-            result.push("boolean")
+      case "string": {
+        if (schemaObject.enum) {
+          result.push(...schemaObject.enum.map(quotedStringLiteral))
+
+          if (schemaObject["x-enum-extensibility"] === "open") {
+            result.push(this.addStaticType("UnknownEnumStringValue"))
           }
-          break
+        } else if (
+          schemaObject.format === "binary"
+          // todo: byte is base64 encoded string, https://spec.openapis.org/registry/format/byte.html
+          // || schemaObject.format === "byte"
+        ) {
+          result.push("Blob")
+        } else {
+          result.push("string")
         }
+        break
+      }
 
-        case "string": {
-          if (schemaObject.enum) {
-            result.push(...schemaObject.enum.map(quotedStringLiteral))
+      case "number": {
+        // todo: support bigint as string, https://github.com/mnahkies/openapi-code-generator/issues/51
 
-            if (schemaObject["x-enum-extensibility"] === "open") {
-              result.push(this.addStaticType("UnknownEnumStringValue"))
-            }
-          } else if (
-            schemaObject.format === "binary"
-            // todo: byte is base64 encoded string, https://spec.openapis.org/registry/format/byte.html
-            // || schemaObject.format === "byte"
-          ) {
-            result.push("Blob")
-          } else {
-            result.push("string")
+        if (schemaObject.enum) {
+          result.push(...schemaObject.enum.map(coerceToString))
+
+          if (schemaObject["x-enum-extensibility"] === "open") {
+            result.push(this.addStaticType("UnknownEnumNumberValue"))
           }
-          break
+        } else {
+          result.push("number")
         }
+        break
+      }
 
-        case "number": {
-          // todo: support bigint as string, https://github.com/mnahkies/openapi-code-generator/issues/51
+      case "object": {
+        const properties = Object.entries(schemaObject.properties)
+          .sort(([a], [b]) => (a < b ? -1 : 1))
+          .map(([name, definition]) => {
+            const isRequired = schemaObject.required.some((it) => it === name)
+            const type = this.schemaObjectToType(definition)
 
-          if (schemaObject.enum) {
-            result.push(...schemaObject.enum.map(coerceToString))
+            // ensure compatibility with `exactOptionalPropertyTypes` compiler option
+            // https://www.typescriptlang.org/tsconfig#exactOptionalPropertyTypes
+            const exactOptionalPropertyTypes =
+              !isRequired && this.compilerOptions.exactOptionalPropertyTypes
 
-            if (schemaObject["x-enum-extensibility"] === "open") {
-              result.push(this.addStaticType("UnknownEnumNumberValue"))
-            }
-          } else {
-            result.push("number")
-          }
-          break
-        }
-
-        case "object": {
-          const properties = Object.entries(schemaObject.properties)
-            .sort(([a], [b]) => (a < b ? -1 : 1))
-            .map(([name, definition]) => {
-              const isRequired = schemaObject.required.some((it) => it === name)
-              const type = this.schemaObjectToType(definition)
-
-              // ensure compatibility with `exactOptionalPropertyTypes` compiler option
-              // https://www.typescriptlang.org/tsconfig#exactOptionalPropertyTypes
-              const exactOptionalPropertyTypes =
-                !isRequired && this.compilerOptions.exactOptionalPropertyTypes
-
-              return objectProperty({
-                name,
-                type: exactOptionalPropertyTypes
-                  ? union(type, "undefined")
-                  : type,
-                isReadonly: false,
-                isRequired,
-              })
+            return objectProperty({
+              name,
+              type: exactOptionalPropertyTypes
+                ? union(type, "undefined")
+                : type,
+              isReadonly: false,
+              isRequired,
             })
+          })
 
-          if (schemaObject.additionalProperties) {
-            const key = this.schemaObjectToTypes(
-              schemaObject.additionalProperties.key,
-            )
-            const value = this.schemaObjectToType(
-              schemaObject.additionalProperties.value,
-            )
-            properties.push(`[key: ${key}]: ${union(value, "undefined")}`)
-          }
-
-          const emptyObject = this.isEmptyObject(schemaObject)
-            ? this.addStaticType("EmptyObject")
-            : ""
-
-          result.push(object(properties), emptyObject)
-          break
-        }
-
-        case "any": {
-          result.push(this.config.allowAny ? "any" : "unknown")
-          break
-        }
-
-        case "never": {
-          result.push("never")
-          break
-        }
-
-        case "null": {
-          throw new Error("unreachable - input should normalize this out")
-        }
-
-        case "record": {
-          result.push(
-            `Record<${this.schemaObjectToType(schemaObject.key)}, ${this.schemaObjectToType(schemaObject.value)}>`,
+        if (schemaObject.additionalProperties) {
+          const key = this.schemaObjectToTypes(
+            schemaObject.additionalProperties.key,
           )
-          break
+          const value = this.schemaObjectToType(
+            schemaObject.additionalProperties.value,
+          )
+          properties.push(`[key: ${key}]: ${union(value, "undefined")}`)
         }
 
-        default: {
-          throw new Error(
-            `unsupported type '${JSON.stringify(schemaObject satisfies never, undefined, 2)}'`,
-          )
-        }
+        const emptyObject = this.isEmptyObject(schemaObject)
+          ? this.addStaticType("EmptyObject")
+          : ""
+
+        result.push(object(properties), emptyObject)
+        break
+      }
+
+      case "any": {
+        result.push(this.config.allowAny ? "any" : "unknown")
+        break
+      }
+
+      case "never": {
+        result.push("never")
+        break
+      }
+
+      case "null": {
+        throw new Error("unreachable - input should normalize this out")
+      }
+
+      case "record": {
+        result.push(
+          `Record<${this.schemaObjectToType(schemaObject.key)}, ${this.schemaObjectToType(schemaObject.value)}>`,
+        )
+        break
+      }
+
+      default: {
+        throw new Error(
+          `unsupported type '${JSON.stringify(schemaObject satisfies never, undefined, 2)}'`,
+        )
       }
     }
 
@@ -278,7 +340,9 @@ export class TypeBuilder implements ICompilable {
       result.push("null")
     }
 
-    return result
+    return hasSingleElement(result)
+      ? result[0]
+      : {type: "type-union", types: result}
   }
 
   toCompilationUnit(): CompilationUnit {
@@ -293,9 +357,6 @@ export class TypeBuilder implements ICompilable {
 
     return (
       dereferenced.type === "object" &&
-      dereferenced.allOf.length === 0 &&
-      dereferenced.anyOf.length === 0 &&
-      dereferenced.oneOf.length === 0 &&
       dereferenced.additionalProperties === undefined &&
       Object.keys(dereferenced.properties).length === 0
     )

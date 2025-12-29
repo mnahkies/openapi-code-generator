@@ -8789,10 +8789,6 @@ export type t_ActionsReviewCustomGatesForRunParamSchema = {
   run_id: number
 }
 
-export type t_ActionsReviewCustomGatesForRunRequestBody =
-  | t_review_custom_gates_comment_required
-  | t_review_custom_gates_state_required
-
 export type t_ActionsReviewPendingDeploymentsForRunParamSchema = {
   owner: string
   repo: string
@@ -9668,8 +9664,66 @@ export type t_ChecksCreateParamSchema = {
   repo: string
 }
 
-export type t_ChecksCreateRequestBody =
+export type t_ChecksCreateRequestBody = {
+  actions?: {
+    description: string
+    identifier: string
+    label: string
+  }[]
+  completed_at?: string
+  conclusion?:
+    | "action_required"
+    | "cancelled"
+    | "failure"
+    | "neutral"
+    | "success"
+    | "skipped"
+    | "stale"
+    | "timed_out"
+  details_url?: string
+  external_id?: string
+  head_sha: string
+  name: string
+  output?: {
+    annotations?: {
+      annotation_level: "notice" | "warning" | "failure"
+      end_column?: number
+      end_line: number
+      message: string
+      path: string
+      raw_details?: string
+      start_column?: number
+      start_line: number
+      title?: string
+    }[]
+    images?: {
+      alt: string
+      caption?: string
+      image_url: string
+    }[]
+    summary: string
+    text?: string
+    title: string
+  }
+  started_at?: string
+  status?:
+    | "queued"
+    | "in_progress"
+    | "completed"
+    | "waiting"
+    | "requested"
+    | "pending"
+} & (
   | {
+      conclusion:
+        | "action_required"
+        | "cancelled"
+        | "failure"
+        | "neutral"
+        | "success"
+        | "skipped"
+        | "stale"
+        | "timed_out"
       status: "completed"
       [key: string]: unknown | undefined
     }
@@ -9677,6 +9731,7 @@ export type t_ChecksCreateRequestBody =
       status?: "queued" | "in_progress"
       [key: string]: unknown | undefined
     }
+)
 
 export type t_ChecksCreateSuiteParamSchema = {
   owner: string
@@ -9830,7 +9885,25 @@ export type t_ChecksUpdateRequestBody = {
     | "waiting"
     | "requested"
     | "pending"
-}
+} & (
+  | {
+      conclusion:
+        | "action_required"
+        | "cancelled"
+        | "failure"
+        | "neutral"
+        | "success"
+        | "skipped"
+        | "stale"
+        | "timed_out"
+      status?: "completed"
+      [key: string]: unknown | undefined
+    }
+  | {
+      status?: "queued" | "in_progress"
+      [key: string]: unknown | undefined
+    }
+)
 
 export type t_ClassroomGetAClassroomParamSchema = {
   classroom_id: number
@@ -9884,7 +9957,23 @@ export type t_CodeScanningCreateVariantAnalysisParamSchema = {
   repo: string
 }
 
-export type t_CodeScanningCreateVariantAnalysisRequestBody = unknown
+export type t_CodeScanningCreateVariantAnalysisRequestBody = {
+  language: t_code_scanning_variant_analysis_language
+  query_pack: string
+  repositories?: string[]
+  repository_lists?: string[]
+  repository_owners?: string[]
+} & (
+  | {
+      repositories: string[]
+    }
+  | {
+      repository_lists: string[]
+    }
+  | {
+      repository_owners: string[]
+    }
+)
 
 export type t_CodeScanningDeleteAnalysisParamSchema = {
   analysis_id: number
@@ -13478,7 +13567,14 @@ export type t_PullsRequestReviewersParamSchema = {
 export type t_PullsRequestReviewersRequestBody = {
   reviewers?: string[]
   team_reviewers?: string[]
-}
+} & (
+  | {
+      reviewers: string[]
+    }
+  | {
+      team_reviewers: string[]
+    }
+)
 
 export type t_PullsSubmitReviewParamSchema = {
   owner: string
@@ -14301,13 +14397,27 @@ export type t_ReposCreatePagesSiteParamSchema = {
   repo: string
 }
 
-export type t_ReposCreatePagesSiteRequestBody = {
-  build_type?: "legacy" | "workflow"
-  source?: {
-    branch: string
-    path?: "/" | "/docs"
-  }
-} | null
+export type t_ReposCreatePagesSiteRequestBody =
+  | (({
+      build_type?: "legacy" | "workflow"
+      source?: {
+        branch: string
+        path?: "/" | "/docs"
+      }
+    } | null) &
+      (
+        | {
+            source: {
+              branch: string
+              path?: "/" | "/docs"
+            }
+          }
+        | {
+            build_type: "legacy" | "workflow"
+          }
+        | null
+      ))
+  | null
 
 export type t_ReposCreateReleaseParamSchema = {
   owner: string
@@ -15680,7 +15790,28 @@ export type t_ReposUpdateInformationAboutPagesSiteRequestBody = {
         branch: string
         path: "/" | "/docs"
       }
-}
+} & (
+  | {
+      build_type: "legacy" | "workflow"
+    }
+  | {
+      source:
+        | "gh-pages"
+        | "master"
+        | "master /docs"
+        | {
+            branch: string
+            path: "/" | "/docs"
+          }
+    }
+  | {
+      cname: string | null
+    }
+  | unknown
+  | {
+      https_enforced: boolean
+    }
+)
 
 export type t_ReposUpdateInvitationParamSchema = {
   invitation_id: number

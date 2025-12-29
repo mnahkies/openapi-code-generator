@@ -8695,10 +8695,6 @@ export type t_ActionsReRunWorkflowFailedJobsRequestBody = {
   enable_debug_logging?: boolean | undefined
 } | null
 
-export type t_ActionsReviewCustomGatesForRunRequestBody =
-  | t_review_custom_gates_comment_required
-  | t_review_custom_gates_state_required
-
 export type t_ActionsReviewPendingDeploymentsForRunRequestBody = {
   comment: string
   environment_ids: number[]
@@ -8866,8 +8862,87 @@ export type t_CampaignsUpdateCampaignRequestBody = {
   team_managers?: string[] | undefined
 }
 
-export type t_ChecksCreateRequestBody =
+export type t_ChecksCreateRequestBody = {
+  actions?:
+    | {
+        description: string
+        identifier: string
+        label: string
+      }[]
+    | undefined
+  completed_at?: string | undefined
+  conclusion?:
+    | (
+        | "action_required"
+        | "cancelled"
+        | "failure"
+        | "neutral"
+        | "success"
+        | "skipped"
+        | "stale"
+        | "timed_out"
+        | UnknownEnumStringValue
+      )
+    | undefined
+  details_url?: string | undefined
+  external_id?: string | undefined
+  head_sha: string
+  name: string
+  output?:
+    | {
+        annotations?:
+          | {
+              annotation_level:
+                | "notice"
+                | "warning"
+                | "failure"
+                | UnknownEnumStringValue
+              end_column?: number | undefined
+              end_line: number
+              message: string
+              path: string
+              raw_details?: string | undefined
+              start_column?: number | undefined
+              start_line: number
+              title?: string | undefined
+            }[]
+          | undefined
+        images?:
+          | {
+              alt: string
+              caption?: string | undefined
+              image_url: string
+            }[]
+          | undefined
+        summary: string
+        text?: string | undefined
+        title: string
+      }
+    | undefined
+  started_at?: string | undefined
+  status?:
+    | (
+        | "queued"
+        | "in_progress"
+        | "completed"
+        | "waiting"
+        | "requested"
+        | "pending"
+        | UnknownEnumStringValue
+      )
+    | undefined
+} & (
   | {
+      conclusion:
+        | "action_required"
+        | "cancelled"
+        | "failure"
+        | "neutral"
+        | "success"
+        | "skipped"
+        | "stale"
+        | "timed_out"
+        | UnknownEnumStringValue
       status: "completed" | UnknownEnumStringValue
       [key: string]: unknown | undefined
     }
@@ -8875,6 +8950,7 @@ export type t_ChecksCreateRequestBody =
       status?: ("queued" | "in_progress" | UnknownEnumStringValue) | undefined
       [key: string]: unknown | undefined
     }
+)
 
 export type t_ChecksCreateSuiteRequestBody = {
   head_sha: string
@@ -8957,9 +9033,44 @@ export type t_ChecksUpdateRequestBody = {
         | UnknownEnumStringValue
       )
     | undefined
-}
+} & (
+  | {
+      conclusion:
+        | "action_required"
+        | "cancelled"
+        | "failure"
+        | "neutral"
+        | "success"
+        | "skipped"
+        | "stale"
+        | "timed_out"
+        | UnknownEnumStringValue
+      status?: ("completed" | UnknownEnumStringValue) | undefined
+      [key: string]: unknown | undefined
+    }
+  | {
+      status?: ("queued" | "in_progress" | UnknownEnumStringValue) | undefined
+      [key: string]: unknown | undefined
+    }
+)
 
-export type t_CodeScanningCreateVariantAnalysisRequestBody = unknown
+export type t_CodeScanningCreateVariantAnalysisRequestBody = {
+  language: t_code_scanning_variant_analysis_language
+  query_pack: string
+  repositories?: string[] | undefined
+  repository_lists?: string[] | undefined
+  repository_owners?: string[] | undefined
+} & (
+  | {
+      repositories: string[]
+    }
+  | {
+      repository_lists: string[]
+    }
+  | {
+      repository_owners: string[]
+    }
+)
 
 export type t_CodeScanningUpdateAlertRequestBody = {
   create_request?: t_code_scanning_alert_create_request | undefined
@@ -10183,7 +10294,14 @@ export type t_PullsRemoveRequestedReviewersRequestBody = {
 export type t_PullsRequestReviewersRequestBody = {
   reviewers?: string[] | undefined
   team_reviewers?: string[] | undefined
-}
+} & (
+  | {
+      reviewers: string[]
+    }
+  | {
+      team_reviewers: string[]
+    }
+)
 
 export type t_PullsSubmitReviewRequestBody = {
   body?: string | undefined
@@ -10557,15 +10675,29 @@ export type t_ReposCreatePagesDeploymentRequestBody = {
   pages_build_version: string
 }
 
-export type t_ReposCreatePagesSiteRequestBody = {
-  build_type?: ("legacy" | "workflow" | UnknownEnumStringValue) | undefined
-  source?:
-    | {
-        branch: string
-        path?: ("/" | "/docs" | UnknownEnumStringValue) | undefined
-      }
-    | undefined
-} | null
+export type t_ReposCreatePagesSiteRequestBody =
+  | (({
+      build_type?: ("legacy" | "workflow" | UnknownEnumStringValue) | undefined
+      source?:
+        | {
+            branch: string
+            path?: ("/" | "/docs" | UnknownEnumStringValue) | undefined
+          }
+        | undefined
+    } | null) &
+      (
+        | {
+            source: {
+              branch: string
+              path?: ("/" | "/docs" | UnknownEnumStringValue) | undefined
+            }
+          }
+        | {
+            build_type: "legacy" | "workflow" | UnknownEnumStringValue
+          }
+        | null
+      ))
+  | null
 
 export type t_ReposCreateReleaseRequestBody = {
   body?: string | undefined
@@ -10840,7 +10972,29 @@ export type t_ReposUpdateInformationAboutPagesSiteRequestBody = {
           }
       )
     | undefined
-}
+} & (
+  | {
+      build_type: "legacy" | "workflow" | UnknownEnumStringValue
+    }
+  | {
+      source:
+        | "gh-pages"
+        | "master"
+        | "master /docs"
+        | UnknownEnumStringValue
+        | {
+            branch: string
+            path: "/" | "/docs" | UnknownEnumStringValue
+          }
+    }
+  | {
+      cname: string | null
+    }
+  | unknown
+  | {
+      https_enforced: boolean
+    }
+)
 
 export type t_ReposUpdateInvitationRequestBody = {
   permissions?:

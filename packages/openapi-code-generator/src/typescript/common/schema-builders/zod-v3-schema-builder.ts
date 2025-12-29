@@ -118,7 +118,7 @@ export class ZodV3Builder extends AbstractSchemaBuilder<
   protected merge(schemas: string[]): string {
     const definedSchemas = schemas.filter(isDefined)
 
-    if (definedSchemas.length === 1 && definedSchemas[0]) {
+    if (hasSingleElement(definedSchemas)) {
       return definedSchemas[0]
     }
 
@@ -130,7 +130,7 @@ export class ZodV3Builder extends AbstractSchemaBuilder<
   protected intersect(schemas: string[]): string {
     const definedSchemas = schemas.filter(isDefined)
 
-    if (definedSchemas.length === 1 && definedSchemas[0]) {
+    if (hasSingleElement(definedSchemas)) {
       return definedSchemas[0]
     }
 
