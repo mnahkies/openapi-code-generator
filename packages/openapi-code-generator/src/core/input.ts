@@ -1098,14 +1098,18 @@ export class SchemaNormalizer {
            * TODO:
            * - doesn't follow allOf / $ref / recurse
            */
-          const properties = it.required.reduce((acc, name) => {
-            const fromParent = parent.properties?.[name]
+          const properties = it.required.reduce(
+            (acc, name) => {
+              const fromParent = parent.properties?.[name]
 
-            if (acc[name] || !fromParent) {
+              if (!acc[name] && fromParent) {
+                acc[name] = fromParent
+              }
+
               return acc
-            }
-            return {...acc, [name]: fromParent}
-          }, it.properties ?? {})
+            },
+            {...it.properties},
+          )
 
           if (Object.keys(properties).length) {
             return {
