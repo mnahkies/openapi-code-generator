@@ -2,7 +2,7 @@ import {titleCase} from "../../../core/utils"
 import type {OpenapiTypescriptGeneratorConfig} from "../../../templates.types"
 import {ImportBuilder} from "../../common/import-builder"
 import {schemaBuilderFactory} from "../../common/schema-builders/schema-builder"
-import {TypeBuilder} from "../../common/type-builder"
+import {TypeBuilder} from "../../common/type-builder/type-builder"
 import {AngularModuleBuilder} from "./angular-module-builder"
 import {AngularServiceBuilder} from "./angular-service-builder"
 
@@ -17,7 +17,7 @@ export async function generateTypescriptAngular(
   const moduleImports = new ImportBuilder(importBuilderConfig)
   const serviceImports = new ImportBuilder(importBuilderConfig)
 
-  const rootTypeBuilder = await TypeBuilder.fromInput(
+  const rootTypeBuilder = await TypeBuilder.fromSchemaProvider(
     "./models.ts",
     input,
     config.compilerOptions,

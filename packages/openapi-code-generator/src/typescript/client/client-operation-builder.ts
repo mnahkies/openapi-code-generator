@@ -8,7 +8,7 @@ import type {
 import {extractPlaceholders} from "../../core/openapi-utils"
 import {camelCase, isDefined} from "../../core/utils"
 import type {SchemaBuilder} from "../common/schema-builders/schema-builder"
-import type {TypeBuilder} from "../common/type-builder"
+import type {TypeBuilder} from "../common/type-builder/type-builder"
 import {object, quotedStringLiteral} from "../common/type-utils"
 import {
   combineParams,

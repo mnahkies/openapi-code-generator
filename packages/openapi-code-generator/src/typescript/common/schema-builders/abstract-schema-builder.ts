@@ -17,7 +17,7 @@ import type {
 import {getNameFromRef, isRef} from "../../../core/openapi-utils"
 import {CompilationUnit, type ICompilable} from "../compilation-units"
 import type {ImportBuilder} from "../import-builder"
-import type {TypeBuilder} from "../type-builder"
+import type {TypeBuilder} from "../type-builder/type-builder"
 import {buildExport, type ExportDefinition} from "../typescript-common"
 import type {SchemaBuilderType} from "./schema-builder"
 

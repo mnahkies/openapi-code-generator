@@ -12,7 +12,7 @@ import type {
 import {isRef} from "../../../core/openapi-utils"
 import {hasSingleElement, isDefined} from "../../../core/utils"
 import type {ImportBuilder} from "../import-builder"
-import type {TypeBuilder} from "../type-builder"
+import type {TypeBuilder} from "../type-builder/type-builder"
 import {quotedStringLiteral} from "../type-utils"
 import type {ExportDefinition} from "../typescript-common"
 import {

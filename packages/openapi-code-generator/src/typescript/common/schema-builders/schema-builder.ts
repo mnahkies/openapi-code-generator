@@ -1,6 +1,6 @@
 import type {Input} from "../../../core/input"
 import type {ImportBuilder} from "../import-builder"
-import type {TypeBuilder} from "../type-builder"
+import type {TypeBuilder} from "../type-builder/type-builder"
 import type {SchemaBuilderConfig} from "./abstract-schema-builder"
 import {JoiBuilder} from "./joi-schema-builder"
 import {ZodV3Builder} from "./zod-v3-schema-builder"
