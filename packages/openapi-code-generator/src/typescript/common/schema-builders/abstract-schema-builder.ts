@@ -142,10 +142,14 @@ export abstract class AbstractSchemaBuilder<
       return ""
     }
 
-    return `${next.join("\n\n")}`
+    return `${this.preamble()}${next.join("\n\n")}`
   }
 
   protected abstract importHelpers(importBuilder: ImportBuilder): void
+
+  public preamble(): string {
+    return ``
+  }
 
   public getSchemaNameFromRef(reference: Reference) {
     return getNameFromRef(reference, "s_")
@@ -166,6 +170,7 @@ export abstract class AbstractSchemaBuilder<
     // the schema library.
     if (isAnonymous && this.imports) {
       this.importHelpers(this.imports)
+      this.imports.from(this.filename).add("joiIntersect")
     }
 
     let result: string

@@ -63,23 +63,23 @@ export function schemaBuilderTestHarness(
       {allowAny: config.allowAny},
     )
 
-    const schemaBuilder = await schemaBuilderFactory(
-      "./unit-test.schemas.ts",
-      input,
-      schemaBuilderType,
-      config,
-      new ImportBuilder({includeFileExtensions: false}),
-      typeBuilder,
-    )
-
-    const schema = schemaBuilder
-      .withImports(imports)
-      .fromModel(
-        isRef(maybeSchema)
-          ? maybeSchema
-          : schemaNormalizer.normalize(maybeSchema),
-        required,
+    const schemaBuilder = (
+      await schemaBuilderFactory(
+        "./unit-test.schemas.ts",
+        input,
+        schemaBuilderType,
+        config,
+        new ImportBuilder({includeFileExtensions: false}),
+        typeBuilder,
       )
+    ).withImports(imports)
+
+    const schema = schemaBuilder.fromModel(
+      isRef(maybeSchema)
+        ? maybeSchema
+        : schemaNormalizer.normalize(maybeSchema),
+      required,
+    )
 
     const code = (
       await formatter.format(
@@ -87,7 +87,13 @@ export function schemaBuilderTestHarness(
         `
           ${imports.toString()}
 
-          const x = ${schema}
+          ${
+            // hack: joi currently shoves exported functions into schemas.ts for intersection support, and
+            //       executing the code during tests we don't have module.exports available.
+            schemaBuilder
+              .preamble()
+              .replaceAll("export function", "function")
+          }const x = ${schema}
         `,
       )
     ).result.trim()
